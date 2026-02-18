@@ -1,0 +1,16 @@
+export const media = {
+  xxl: { maxWidth: 1536 },
+  xl: { maxWidth: 1280 },
+  lg: { maxWidth: 1024 },
+  md: { maxWidth: 768 },
+  sm: { maxWidth: 640 },
+  xs: { maxWidth: 460 },
+  xxs: { maxWidth: 340 },
+  gtXxs: { minWidth: 341 },
+  gtXs: { minWidth: 461 },
+  gtSm: { minWidth: 641 },
+  gtMd: { minWidth: 769 },
+  gtLg: { minWidth: 1025 },
+  gtXl: { minWidth: 1281 },
+  pointerFine: { pointer: 'fine' },
+} as const
