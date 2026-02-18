@@ -1,5 +1,4 @@
 import { createThemeBuilder } from '@tamagui/theme-builder'
-import { defaultComponentThemes } from './componentThemes'
 import { accentPalettes, darkPalette, lightPalette } from './palettes'
 import { darkShadows, lightShadows } from './shadows'
 
@@ -178,27 +177,6 @@ export function buildThemes(
         ],
       },
     )
-    .addComponentThemes(defaultComponentThemes, {
-      avoidNestingWithin: [
-        'alt1',
-        'alt2',
-        'surface1',
-        'surface2',
-        'surface3',
-        'inverseSurface',
-        'Button',
-        'Input',
-        'Card',
-        'ListItem',
-        'SelectTrigger',
-        'TextArea',
-        'Checkbox',
-        'Switch',
-        'RadioGroup',
-        'Tooltip',
-        'Progress',
-      ],
-    })
 
   return themeBuilder.build()
 }
