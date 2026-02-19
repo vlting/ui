@@ -4,12 +4,17 @@ import { shorthands } from '@tamagui/shorthands'
 import { type CreateTamaguiProps, createFont } from 'tamagui'
 import { media } from '../../config/media'
 import { buildThemes } from '../themes/buildThemes'
+import { borderWidth as defaultBorderWidth } from '../tokens/borderWidth'
 import { color } from '../tokens/color'
 import { radius } from '../tokens/radius'
 import { size } from '../tokens/size'
 import { space } from '../tokens/space'
 import { zIndex } from '../tokens/zIndex'
 import type { BrandDefinition } from './types'
+
+// ---------------------------------------------------------------------------
+// Default fonts
+// ---------------------------------------------------------------------------
 
 const defaultHeadingFont = createFont({
   family: 'Inter',
@@ -139,15 +144,63 @@ const defaultMonoFont = createFont({
   },
 })
 
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/** Union of all per-role typography extras — the superset of heading and body shapes. */
+type FontTypographyExtras = {
+  transform?: 'none' | 'uppercase' | 'lowercase' | 'capitalize'
+  style?: 'normal' | 'italic'
+}
+
+/**
+ * Apply uniform transform/style from TypographyConfig to a font by generating
+ * a per-size-key map. Called before `fonts` overrides so `fonts` always wins.
+ */
+function applyTypographyToFont(
+  base: ReturnType<typeof createFont>,
+  typo: FontTypographyExtras | undefined,
+): ReturnType<typeof createFont> {
+  if (!typo?.transform && !typo?.style) return base
+  const keys = Object.keys(base.size)
+  const extras: Record<string, unknown> = {}
+  if (typo.transform) {
+    extras.transform = Object.fromEntries(keys.map((k) => [k, typo.transform]))
+  }
+  if (typo.style) {
+    extras.style = Object.fromEntries(keys.map((k) => [k, typo.style]))
+  }
+  return createFont({ ...base, ...extras })
+}
+
+// ---------------------------------------------------------------------------
+// Main factory
+// ---------------------------------------------------------------------------
+
 export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
+  // --- Tokens ---
   const mergedSize = brand.tokens?.size ? { ...size, ...brand.tokens.size } : size
   const mergedSpace = brand.tokens?.space ? { ...space, ...brand.tokens.space } : space
-  const mergedRadius = brand.tokens?.radius
-    ? { ...radius, ...brand.tokens.radius }
-    : radius
-  const mergedZIndex = brand.tokens?.zIndex
-    ? { ...zIndex, ...brand.tokens.zIndex }
-    : zIndex
+  const mergedRadius = brand.tokens?.radius ? { ...radius, ...brand.tokens.radius } : radius
+  const mergedZIndex = brand.tokens?.zIndex ? { ...zIndex, ...brand.tokens.zIndex } : zIndex
+
+  const mergedBorderWidth = brand.tokens?.borderWidth
+    ? { ...defaultBorderWidth, ...brand.tokens.borderWidth }
+    : brand.borders?.widths
+      ? {
+          none: brand.borders.widths.none ?? defaultBorderWidth.none,
+          thin: brand.borders.widths.thin ?? defaultBorderWidth.thin,
+          medium: brand.borders.widths.medium ?? defaultBorderWidth.medium,
+          thick: brand.borders.widths.thick ?? defaultBorderWidth.thick,
+        }
+      : defaultBorderWidth
+
+  // Outline ring dimensions — stored as a custom token group ($outline.width / $outline.offset)
+  const outlineTokens = {
+    width: brand.outline?.width ?? 2,
+    offset: brand.outline?.offset ?? 2,
+  }
 
   const mergedTokens = createTokens({
     size: mergedSize,
@@ -155,18 +208,29 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
     radius: mergedRadius,
     color,
     zIndex: mergedZIndex,
+    borderWidth: mergedBorderWidth,
+    outline: outlineTokens,
   })
 
-  const headingFont = brand.fonts?.heading
-    ? createFont({ ...defaultHeadingFont, ...brand.fonts.heading })
-    : defaultHeadingFont
-  const bodyFont = brand.fonts?.body
-    ? createFont({ ...defaultBodyFont, ...brand.fonts.body })
-    : defaultBodyFont
+  // --- Fonts ---
+  // 1. Start from defaults
+  // 2. Apply TypographyConfig extras (transform/style)
+  // 3. Apply raw FontOverrides (always wins)
+  let headingFont = applyTypographyToFont(defaultHeadingFont, brand.typography?.heading)
+  if (brand.fonts?.heading) {
+    headingFont = createFont({ ...headingFont, ...brand.fonts.heading })
+  }
+
+  let bodyFont = applyTypographyToFont(defaultBodyFont, brand.typography?.body)
+  if (brand.fonts?.body) {
+    bodyFont = createFont({ ...bodyFont, ...brand.fonts.body })
+  }
+
   const monoFont = brand.fonts?.mono
     ? createFont({ ...defaultMonoFont, ...brand.fonts.mono })
     : defaultMonoFont
 
+  // --- Themes ---
   const palettes: Record<string, string[]> = {
     light: brand.palettes.light,
     dark: brand.palettes.dark,
@@ -178,23 +242,31 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
     }
   }
 
-  const themes = buildThemes(
-    palettes,
-    brand.shadows
-      ? {
-          light: brand.shadows.light as Record<string, string>,
-          dark: brand.shadows.dark as Record<string, string>,
-        }
-      : undefined,
-  )
+  const themes = buildThemes(palettes, brand.shadows)
+
+  // --- Animations ---
+  const dur = brand.animations?.durations
+  const eas = brand.animations?.easings
+
+  const instant = dur?.instant ?? 100
+  const fast = dur?.fast ?? 150
+  const medium = dur?.medium ?? 250
+  const slow = dur?.slow ?? 400
+
+  const easeStandard = eas?.standard ?? 'ease-in-out'
+  const easeEnter = eas?.enter ?? 'ease-out'
+  const easeExit = eas?.exit ?? 'ease-in'
+  const easeSpring = eas?.spring ?? 'cubic-bezier(0.34, 1.56, 0.64, 1)'
 
   const animations = createCSSAnimations({
-    fast: 'ease-in-out 150ms',
-    medium: 'ease-in-out 250ms',
-    slow: 'ease-in-out 450ms',
-    bouncy: 'cubic-bezier(0.34, 1.56, 0.64, 1) 300ms',
-    lazy: 'ease-in-out 600ms',
-    tooltip: 'ease-in 100ms',
+    instant: `${easeStandard} ${instant}ms`,
+    fast: `${easeStandard} ${fast}ms`,
+    medium: `${easeStandard} ${medium}ms`,
+    slow: `${easeStandard} ${slow}ms`,
+    enter: `${easeEnter} ${medium}ms`,
+    exit: `${easeExit} ${medium}ms`,
+    bouncy: `${easeSpring} ${medium}ms`,
+    tooltip: `${easeEnter} ${instant}ms`,
   })
 
   return {

@@ -1,6 +1,11 @@
 import { createThemeBuilder } from '@tamagui/theme-builder'
 import { accentPalettes, darkPalette, lightPalette } from './palettes'
-import { darkShadows, lightShadows } from './shadows'
+import {
+  type ShadowScale,
+  darkShadows,
+  lightShadows,
+  shadowScaleToThemeValues,
+} from './shadows'
 
 const templates = {
   base: {
@@ -83,12 +88,12 @@ const templates = {
 export function buildThemes(
   overridePalettes?: Record<string, string[]>,
   overrideShadows?: {
-    light?: Record<string, string>
-    dark?: Record<string, string>
+    light?: ShadowScale
+    dark?: ShadowScale
   },
 ) {
-  const mergedLightShadows = overrideShadows?.light ?? lightShadows
-  const mergedDarkShadows = overrideShadows?.dark ?? darkShadows
+  const mergedLightShadows = shadowScaleToThemeValues(overrideShadows?.light ?? lightShadows)
+  const mergedDarkShadows = shadowScaleToThemeValues(overrideShadows?.dark ?? darkShadows)
 
   // Child color themes — using `any` assertion due to v2 RC type inference
   // limitation where addChildThemes doesn't infer palette keys from addPalettes

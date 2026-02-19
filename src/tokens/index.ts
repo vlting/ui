@@ -1,4 +1,5 @@
 import { createTokens } from '@tamagui/core'
+import { borderWidth } from './borderWidth'
 import { color } from './color'
 import { radius } from './radius'
 import { size } from './size'
@@ -11,4 +12,5 @@ export const tokens = createTokens({
   radius,
   color,
   zIndex,
+  borderWidth,
 })
