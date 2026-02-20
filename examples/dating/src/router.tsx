@@ -1,65 +1,83 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { Text, YStack } from 'tamagui'
 
-function Placeholder({ name }: { name: string }) {
-  return (
-    <YStack flex={1} alignItems="center" justifyContent="center" padding="$4">
-      <Text fontSize={20} fontWeight="600">{name}</Text>
-    </YStack>
-  )
-}
+import { AppShellLayout } from './layouts/AppShellLayout'
+import { HomePage } from './pages/HomePage'
+import { PodPage } from './pages/PodPage'
+import { IceBreakerPage } from './pages/IceBreakerPage'
+import { QuizPage } from './pages/QuizPage'
+import { PodMemberPage } from './pages/PodMemberPage'
+import { MessagesPage } from './pages/MessagesPage'
+import { DMThreadPage } from './pages/DMThreadPage'
+import { ConnectionsPage } from './pages/ConnectionsPage'
+import { ConnectionProfilePage } from './pages/ConnectionProfilePage'
+import { WeekReviewPage } from './pages/WeekReviewPage'
+import { ProfilePage } from './pages/ProfilePage'
+import { PreferencesPage } from './pages/PreferencesPage'
+import { SettingsPage } from './pages/SettingsPage'
+import { OnboardingPage } from './pages/OnboardingPage'
 
 export const router = createBrowserRouter([
+  // Onboarding lives outside the AppShell layout
   {
     path: '/onboarding',
-    element: <Placeholder name="Onboarding" />,
+    element: <OnboardingPage />,
   },
+  // All other routes are wrapped in the AppShell layout
   {
-    path: '/',
-    element: <Placeholder name="Home" />,
-  },
-  {
-    path: '/pod',
-    element: <Placeholder name="Pod Detail" />,
-  },
-  {
-    path: '/pod/icebreaker',
-    element: <Placeholder name="Ice-Breaker" />,
-  },
-  {
-    path: '/pod/quiz',
-    element: <Placeholder name="Quiz" />,
-  },
-  {
-    path: '/pod/member/:id',
-    element: <Placeholder name="Pod Member Profile" />,
-  },
-  {
-    path: '/messages',
-    element: <Placeholder name="Messages" />,
-  },
-  {
-    path: '/messages/:id',
-    element: <Placeholder name="DM Thread" />,
-  },
-  {
-    path: '/connections',
-    element: <Placeholder name="Connections" />,
-  },
-  {
-    path: '/connections/:id',
-    element: <Placeholder name="Connection Profile" />,
-  },
-  {
-    path: '/week-review',
-    element: <Placeholder name="Week Review" />,
-  },
-  {
-    path: '/profile',
-    element: <Placeholder name="Profile Editor" />,
-  },
-  {
-    path: '/preferences',
-    element: <Placeholder name="Preferences" />,
+    element: <AppShellLayout />,
+    children: [
+      {
+        path: '/',
+        element: <HomePage />,
+      },
+      {
+        path: '/pod',
+        element: <PodPage />,
+      },
+      {
+        path: '/pod/icebreaker',
+        element: <IceBreakerPage />,
+      },
+      {
+        path: '/pod/quiz',
+        element: <QuizPage />,
+      },
+      {
+        path: '/pod/member/:id',
+        element: <PodMemberPage />,
+      },
+      {
+        path: '/messages',
+        element: <MessagesPage />,
+      },
+      {
+        path: '/messages/:id',
+        element: <DMThreadPage />,
+      },
+      {
+        path: '/connections',
+        element: <ConnectionsPage />,
+      },
+      {
+        path: '/connections/:id',
+        element: <ConnectionProfilePage />,
+      },
+      {
+        path: '/week-review',
+        element: <WeekReviewPage />,
+      },
+      {
+        path: '/profile',
+        element: <ProfilePage />,
+      },
+      {
+        path: '/preferences',
+        element: <PreferencesPage />,
+      },
+      {
+        path: '/settings',
+        element: <SettingsPage />,
+      },
+    ],
   },
 ])

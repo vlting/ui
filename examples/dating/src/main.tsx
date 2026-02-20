@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import { TamaguiProvider } from 'tamagui'
 import { router } from './router'
-import { kinshipConfig } from './theme/datingBrand'
+import { crushdConfig } from './theme/crushdBrand'
 
 export const ThemeContext = React.createContext<{
   theme: 'light' | 'dark'
@@ -17,7 +17,7 @@ function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
 
   return (
-    <TamaguiProvider config={kinshipConfig} defaultTheme={theme}>
+    <TamaguiProvider config={crushdConfig} defaultTheme={theme}>
       <ThemeContext.Provider value={{ theme, setTheme }}>
         <RouterProvider router={router} />
       </ThemeContext.Provider>
