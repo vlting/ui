@@ -1,7 +1,10 @@
 import type { GetProps } from 'tamagui'
 import { YStack, styled, withStaticProperties } from 'tamagui'
 
-const FieldWrapperFrame = styled(YStack, {})
+// @ts-expect-error Tamagui v2 RC: styled() token defaults type inference bug
+const FieldWrapperFrame = styled(YStack, {
+  gap: '$2',
+})
 
 const FieldWrapperLabel = styled(YStack, {})
 

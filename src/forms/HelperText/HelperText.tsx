@@ -1,7 +1,12 @@
 import type { GetProps } from 'tamagui'
-import { YStack, styled } from 'tamagui'
+import { Text, styled } from 'tamagui'
 
-const HelperTextFrame = styled(YStack, {})
+// @ts-expect-error Tamagui v2 RC: styled() token defaults type inference bug
+const HelperTextFrame = styled(Text, {
+  fontSize: '$3',
+  color: '$color2',
+  lineHeight: '$3',
+})
 
 export type HelperTextProps = GetProps<typeof HelperTextFrame>
 

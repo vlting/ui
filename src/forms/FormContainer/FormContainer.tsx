@@ -1,13 +1,32 @@
 import type { GetProps } from 'tamagui'
-import { YStack, styled, withStaticProperties } from 'tamagui'
+import { Text, XStack, YStack, styled, withStaticProperties } from 'tamagui'
 
-const FormContainerFrame = styled(YStack, {})
+// @ts-expect-error Tamagui v2 RC: styled() token defaults type inference bug
+const FormContainerFrame = styled(YStack, {
+  padding: '$4',
+  gap: '$6',
+})
 
-const FormContainerTitle = styled(YStack, {})
+// @ts-expect-error Tamagui v2 RC: styled() token defaults type inference bug
+const FormContainerTitle = styled(Text, {
+  fontSize: '$6',
+  fontWeight: '700',
+  color: '$color',
+  lineHeight: '$6',
+})
 
-const FormContainerDescription = styled(YStack, {})
+// @ts-expect-error Tamagui v2 RC: styled() token defaults type inference bug
+const FormContainerDescription = styled(Text, {
+  fontSize: '$3',
+  color: '$color2',
+  lineHeight: '$3',
+})
 
-const FormContainerActions = styled(YStack, {})
+// @ts-expect-error Tamagui v2 RC: styled() token defaults type inference bug
+const FormContainerActions = styled(XStack, {
+  gap: '$3',
+  justifyContent: 'flex-end',
+})
 
 export const FormContainer = withStaticProperties(FormContainerFrame, {
   Title: FormContainerTitle,
