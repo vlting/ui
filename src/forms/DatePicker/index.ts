@@ -1,2 +1,2 @@
-export { DatePicker } from './DatePicker'
-export type { DatePickerProps } from './DatePicker'
+export { DatePicker, CalendarGrid } from './DatePicker'
+export type { DatePickerProps, CalendarGridProps } from './DatePicker'

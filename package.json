@@ -168,6 +168,8 @@
     "@tamagui/theme-builder": "2.0.0-rc.14",
     "@tamagui/themes": "2.0.0-rc.14",
     "@tamagui/toast": "2.0.0-rc.14",
+    "@tiptap/react": "^3.20.0",
+    "@tiptap/starter-kit": "^3.20.0",
     "tamagui": "2.0.0-rc.14"
   },
   "devDependencies": {
