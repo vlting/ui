@@ -86,7 +86,7 @@ export function PodMemberPage() {
           </PageHeader.Body>
         </PageHeader>
         <YStack padding="$4">
-          <Button variant="secondary" onPress={() => navigate('/pod')}>
+          <Button variant="secondary" onPress={() => navigate('/')}>
             <Button.Icon><ArrowLeft size={16} aria-hidden /></Button.Icon>
             <Button.Text variant="secondary">Back to Pod</Button.Text>
           </Button>
@@ -108,7 +108,7 @@ export function PodMemberPage() {
         <Button
           variant="tertiary"
           size="sm"
-          onPress={() => navigate('/pod')}
+          onPress={() => navigate('/')}
           alignSelf="flex-start"
           aria-label="Back to pod"
         >

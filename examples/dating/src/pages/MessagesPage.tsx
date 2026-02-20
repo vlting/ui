@@ -131,7 +131,7 @@ export function MessagesPage() {
                           width={12}
                           height={12}
                           borderRadius={6}
-                          backgroundColor="$blue9"
+                          backgroundColor="$purple9"
                           borderWidth={2}
                           borderColor="$background"
                           aria-label="Unread"
@@ -151,7 +151,7 @@ export function MessagesPage() {
                         </Text>
                         <Text
                           fontSize="$1"
-                          color={unread ? '$blue9' : '$gray8'}
+                          color={unread ? '$purple9' : '$gray8'}
                           fontWeight={unread ? '600' : '400'}
                         >
                           {formatTimestamp(last.timestamp)}

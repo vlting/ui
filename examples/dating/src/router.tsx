@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 
 import { AppShellLayout } from './layouts/AppShellLayout'
-import { HomePage } from './pages/HomePage'
 import { PodPage } from './pages/PodPage'
 import { IceBreakerPage } from './pages/IceBreakerPage'
 import { QuizPage } from './pages/QuizPage'
@@ -28,22 +27,18 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <HomePage />,
-      },
-      {
-        path: '/pod',
         element: <PodPage />,
       },
       {
-        path: '/pod/icebreaker',
+        path: '/icebreaker',
         element: <IceBreakerPage />,
       },
       {
-        path: '/pod/quiz',
+        path: '/quiz',
         element: <QuizPage />,
       },
       {
-        path: '/pod/member/:id',
+        path: '/member/:id',
         element: <PodMemberPage />,
       },
       {

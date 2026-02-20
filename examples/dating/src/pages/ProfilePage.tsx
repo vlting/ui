@@ -6,9 +6,12 @@ import { Text, XStack, YStack } from 'tamagui'
 
 import {
   Camera as _Camera,
+  ChevronRight as _ChevronRight,
   MapPin as _MapPin,
   Plus as _Plus,
   Save as _Save,
+  Settings as _Settings,
+  SlidersHorizontal as _SlidersHorizontal,
   User as _User,
 } from '@tamagui/lucide-icons'
 
@@ -20,11 +23,14 @@ import { PROMPT_OPTIONS } from '../data/mock'
 
 type IconFC = React.ComponentType<{ size?: number; color?: string; 'aria-hidden'?: boolean }>
 
-const Camera = _Camera as IconFC
-const MapPin = _MapPin as IconFC
-const Plus   = _Plus as IconFC
-const Save   = _Save as IconFC
-const User   = _User as IconFC
+const Camera             = _Camera as IconFC
+const ChevronRight       = _ChevronRight as IconFC
+const MapPin             = _MapPin as IconFC
+const Plus               = _Plus as IconFC
+const Save               = _Save as IconFC
+const Settings           = _Settings as IconFC
+const SlidersHorizontal  = _SlidersHorizontal as IconFC
+const User               = _User as IconFC
 
 // ---------------------------------------------------------------------------
 // Initial data (simulating "my" profile)
@@ -250,6 +256,47 @@ export function ProfilePage() {
             <Text fontSize="$3" color="$purple11" textAlign="center" fontWeight="500">
               12 likes received  ·  3 mutual matches  ·  Profile 85% complete
             </Text>
+          </Card.Content>
+        </Card>
+      </Section>
+
+      {/* ── Quick links ───────────────────────────────────── */}
+      <Section padding="$4" gap="$3">
+        <Card padding="$3" bordered gap="$1">
+          <Card.Content gap="$1">
+            <XStack
+              alignItems="center"
+              gap="$3"
+              paddingVertical="$2"
+              onPress={() => navigate('/preferences')}
+              pressStyle={{ opacity: 0.7 }}
+              cursor="pointer"
+              accessible
+              role="button"
+              aria-label="Matching preferences"
+            >
+              <SlidersHorizontal size={16} color="$purple9" aria-hidden />
+              <Text fontSize="$3" color="$gray12" flex={1}>Matching Preferences</Text>
+              <ChevronRight size={16} color="$gray8" aria-hidden />
+            </XStack>
+
+            <YStack height={1} backgroundColor="$gray4" />
+
+            <XStack
+              alignItems="center"
+              gap="$3"
+              paddingVertical="$2"
+              onPress={() => navigate('/settings')}
+              pressStyle={{ opacity: 0.7 }}
+              cursor="pointer"
+              accessible
+              role="button"
+              aria-label="App settings"
+            >
+              <Settings size={16} color="$purple9" aria-hidden />
+              <Text fontSize="$3" color="$gray12" flex={1}>Settings</Text>
+              <ChevronRight size={16} color="$gray8" aria-hidden />
+            </XStack>
           </Card.Content>
         </Card>
       </Section>

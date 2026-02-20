@@ -1,16 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useMedia } from 'tamagui'
+import { Text, XStack, YStack } from 'tamagui'
 import {
   AppShell,
   BottomTabs,
-  CommandPalette,
-  Drawer,
-  Sidebar,
   TopNav,
 } from '@vlting/ui/layout'
-import { Avatar, Button, Sheet, Switch, Tooltip } from '@vlting/ui/primitives'
-import { ThemeContext } from '../main'
+import { Avatar, Button, Sheet } from '@vlting/ui/primitives'
+import { CONVERSATIONS, CONNECTIONS } from '../data/mock'
 
 // ---------------------------------------------------------------------------
 // Icon shims — cast to avoid Tamagui v2 RC size-prop type bug
@@ -18,64 +16,58 @@ import { ThemeContext } from '../main'
 
 import {
   Heart as _Heart,
-  Home as _Home,
-  Menu as _Menu,
   MessageCircle as _MessageCircle,
-  Moon as _Moon,
-  Settings as _Settings,
-  SlidersHorizontal as _SlidersHorizontal,
-  Sun as _Sun,
   User as _User,
   Users as _Users,
-  X as _X,
 } from '@tamagui/lucide-icons'
 
 type IconFC = React.ComponentType<{ size?: number; color?: string; 'aria-hidden'?: boolean }>
 
-const Heart             = _Heart as IconFC
-const Home              = _Home as IconFC
-const Menu              = _Menu as IconFC
-const MessageCircle     = _MessageCircle as IconFC
-const Moon              = _Moon as IconFC
-const Settings          = _Settings as IconFC
-const SlidersHorizontal = _SlidersHorizontal as IconFC
-const Sun               = _Sun as IconFC
-const User              = _User as IconFC
-const Users             = _Users as IconFC
-const X                 = _X as IconFC
+const Heart         = _Heart as IconFC
+const MessageCircle = _MessageCircle as IconFC
+const User          = _User as IconFC
+const Users         = _Users as IconFC
 
 // ---------------------------------------------------------------------------
-// Nav items
+// Unread counts from mock data
+// ---------------------------------------------------------------------------
+
+const unreadMessages = CONVERSATIONS.filter(
+  (c) => c.messages[c.messages.length - 1].senderId !== 'me',
+).length
+
+const unreadConnections = CONNECTIONS.filter((c) => c.unread).length
+
+// ---------------------------------------------------------------------------
+// Nav items — 4 primary destinations
 // ---------------------------------------------------------------------------
 
 const NAV_ITEMS = [
-  { path: '/',            label: 'Home',        icon: <Home size={16} />,              tabIcon: <Home size={20} /> },
-  { path: '/pod',         label: 'My Pod',      icon: <Users size={16} />,             tabIcon: <Users size={20} /> },
-  { path: '/messages',    label: 'Messages',    icon: <MessageCircle size={16} />,     tabIcon: <MessageCircle size={20} /> },
-  { path: '/connections', label: 'Connections', icon: <Heart size={16} />,             tabIcon: <Heart size={20} /> },
-  { path: '/profile',     label: 'Profile',     icon: <User size={16} />,              tabIcon: <User size={20} /> },
-  { path: '/preferences', label: 'Preferences', icon: <SlidersHorizontal size={16} />, tabIcon: <SlidersHorizontal size={20} /> },
-  { path: '/settings',    label: 'Settings',    icon: <Settings size={16} />,          tabIcon: <Settings size={20} /> },
+  { path: '/',            label: 'Pod',         Icon: Users,         tabIcon: <Users size={20} />,         badge: 0 },
+  { path: '/messages',    label: 'Messages',    Icon: MessageCircle, tabIcon: <MessageCircle size={20} />, badge: unreadMessages },
+  { path: '/connections', label: 'Connections', Icon: Heart,         tabIcon: <Heart size={20} />,         badge: unreadConnections },
+  { path: '/profile',     label: 'Profile',     Icon: User,          tabIcon: <User size={20} />,          badge: 0 },
 ]
 
-const BOTTOM_TAB_ITEMS = NAV_ITEMS.filter((n) =>
-  ['/', '/pod', '/messages', '/connections', '/profile'].includes(n.path),
-)
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
 
-const CMD_ITEMS = [
-  { id: 'home',        label: 'Home',        description: 'Go to your feed',             shortcut: 'G H' },
-  { id: 'pod',         label: 'My Pod',      description: 'Browse your pod members',     shortcut: 'G P' },
-  { id: 'messages',    label: 'Messages',    description: 'View conversations',          shortcut: 'G M' },
-  { id: 'connections', label: 'Connections', description: 'See your connections',        shortcut: 'G C' },
-  { id: 'profile',     label: 'Profile',     description: 'View your profile',           shortcut: 'G R' },
-  { id: 'preferences', label: 'Preferences', description: 'Adjust matching preferences', shortcut: 'G E' },
-  { id: 'settings',    label: 'Settings',    description: 'App settings',                shortcut: 'G S' },
-]
+const BRAND_PURPLE = '#7c3aed'
 
-const CMD_PATHS: Record<string, string> = {
-  home: '/', pod: '/pod', messages: '/messages',
-  connections: '/connections', profile: '/profile',
-  preferences: '/preferences', settings: '/settings',
+// Pod sub-routes that should highlight the Pod tab
+const POD_ROUTES = ['/', '/icebreaker', '/quiz', '/member', '/week-review']
+
+function isActive(itemPath: string, currentPath: string): boolean {
+  if (itemPath === '/') {
+    return POD_ROUTES.some((r) =>
+      r === '/' ? currentPath === '/' : currentPath.startsWith(r),
+    )
+  }
+  if (itemPath === '/profile') {
+    return ['/profile', '/preferences', '/settings'].some((r) => currentPath.startsWith(r))
+  }
+  return currentPath.startsWith(itemPath)
 }
 
 // ---------------------------------------------------------------------------
@@ -85,137 +77,128 @@ const CMD_PATHS: Record<string, string> = {
 export function AppShellLayout() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { theme, setTheme } = useContext(ThemeContext)
   const media = useMedia()
 
-  const [drawerOpen, setDrawerOpen]       = useState(false)
-  const [cmdOpen, setCmdOpen]             = useState(false)
   const [userSheetOpen, setUserSheetOpen] = useState(false)
-
-  // Cmd+K shortcut
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault()
-        setCmdOpen((o) => !o)
-      }
-    }
-    document.addEventListener('keydown', handler)
-    return () => document.removeEventListener('keydown', handler)
-  }, [])
 
   const isMobile = media.sm
 
+  // Resolve the active tab value (pod sub-routes → '/', profile sub-routes → '/profile')
+  const PROFILE_ROUTES = ['/profile', '/preferences', '/settings']
+  const activeTabValue = POD_ROUTES.some((r) =>
+    r === '/' ? location.pathname === '/' : location.pathname.startsWith(r),
+  )
+    ? '/'
+    : PROFILE_ROUTES.some((r) => location.pathname.startsWith(r))
+      ? '/profile'
+      : NAV_ITEMS.find((n) => n.path !== '/' && location.pathname.startsWith(n.path))?.path ?? '/'
+
   return (
     <AppShell>
-      {/* -- Top Nav --------------------------------------------------- */}
-      <AppShell.Header>
-        <TopNav>
-          <TopNav.Leading>
-            {isMobile && (
+      {/* -- TopNav (desktop only) --------------------------------------- */}
+      {!isMobile && (
+        <AppShell.Header>
+          <TopNav>
+            <TopNav.Leading>
+              <XStack alignItems="center" gap="$2" cursor="pointer" onPress={() => navigate('/')}>
+                <Heart size={20} color={BRAND_PURPLE} aria-hidden />
+                <Text style={{ fontWeight: '700', fontSize: 16, color: BRAND_PURPLE }}>
+                  Crushd
+                </Text>
+              </XStack>
+            </TopNav.Leading>
+
+            <TopNav.Center>
+              <XStack gap="$1" alignItems="center">
+                {NAV_ITEMS.map((item) => {
+                  const active = isActive(item.path, location.pathname)
+                  return (
+                    <Button
+                      key={item.path}
+                      variant="tertiary"
+                      size="sm"
+                      onPress={() => navigate(item.path)}
+                      aria-current={active ? 'page' : undefined}
+                      backgroundColor={active ? '$purple1' : 'transparent'}
+                      borderRadius="$3"
+                      paddingHorizontal="$3"
+                    >
+                      <YStack position="relative">
+                        <Button.Icon>
+                          <item.Icon size={16} color={active ? BRAND_PURPLE : '$gray9'} />
+                        </Button.Icon>
+                        {item.badge > 0 && (
+                          <YStack
+                            position="absolute"
+                            top={-4}
+                            right={-6}
+                            minWidth={16}
+                            height={16}
+                            borderRadius={8}
+                            backgroundColor="$red9"
+                            alignItems="center"
+                            justifyContent="center"
+                            paddingHorizontal="$1"
+                          >
+                            <Text fontSize={10} fontWeight="700" color="white">
+                              {item.badge}
+                            </Text>
+                          </YStack>
+                        )}
+                      </YStack>
+                      <Button.Text
+                        variant="tertiary"
+                        style={{
+                          color: active ? BRAND_PURPLE : undefined,
+                          fontWeight: active ? '600' : '400',
+                        }}
+                      >
+                        {item.label}
+                      </Button.Text>
+                    </Button>
+                  )
+                })}
+              </XStack>
+            </TopNav.Center>
+
+            <TopNav.Trailing>
               <Button
                 variant="tertiary"
                 size="sm"
-                aria-label="Open navigation menu"
-                onPress={() => setDrawerOpen(true)}
+                aria-label="User menu"
+                onPress={() => setUserSheetOpen(true)}
               >
-                <Menu size={20} />
+                <Avatar name="Jamie Rivera" size="sm" />
               </Button>
-            )}
-            <Heart size={20} color="#7c3aed" aria-hidden />
-            <Button variant="tertiary" size="sm" onPress={() => navigate('/')}>
-              <Button.Text variant="tertiary" style={{ fontWeight: '700', fontSize: 16 }}>
-                Crushd
-              </Button.Text>
-            </Button>
-          </TopNav.Leading>
+            </TopNav.Trailing>
+          </TopNav>
+        </AppShell.Header>
+      )}
 
-          <TopNav.Trailing>
-            {/* Cmd+K trigger */}
-            <Button
-              variant="secondary"
-              size="sm"
-              aria-label="Open command palette (Cmd+K)"
-              onPress={() => setCmdOpen(true)}
-            >
-              <Button.Text variant="secondary" style={{ fontSize: 13 }}>Search Cmd+K</Button.Text>
-            </Button>
-
-            {/* User avatar -> opens Sheet */}
-            <Button variant="tertiary" size="sm" aria-label="User menu" onPress={() => setUserSheetOpen(true)}>
-              <Avatar name="Jamie Rivera" size="sm" />
-            </Button>
-          </TopNav.Trailing>
-        </TopNav>
-      </AppShell.Header>
-
-      {/* -- Body (sidebar + content) ---------------------------------- */}
+      {/* -- Body (content only — no sidebar) ---------------------------- */}
       <AppShell.Body>
-        {/* Sidebar — hidden on mobile */}
-        {!isMobile && (
-          <AppShell.Sidebar>
-            <SidebarNav
-              currentPath={location.pathname}
-              theme={theme}
-              onThemeToggle={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-              onNavigate={(path) => navigate(path)}
-            />
-          </AppShell.Sidebar>
-        )}
-
-        {/* Main content */}
         <AppShell.Content>
           <Outlet />
         </AppShell.Content>
       </AppShell.Body>
 
-      {/* -- Bottom tabs (mobile only) --------------------------------- */}
+      {/* -- Bottom tabs (mobile only) ----------------------------------- */}
       {isMobile && (
         <AppShell.Footer>
           <BottomTabs
-            value={location.pathname}
+            value={activeTabValue}
             onValueChange={(path) => navigate(path)}
-            items={BOTTOM_TAB_ITEMS.map((n) => ({
+            items={NAV_ITEMS.map((n) => ({
               value: n.path,
               label: n.label,
               icon: n.tabIcon,
+              badge: n.badge > 0 ? n.badge : undefined,
             }))}
           />
         </AppShell.Footer>
       )}
 
-      {/* -- Mobile Drawer --------------------------------------------- */}
-      <Drawer open={drawerOpen} onOpenChange={setDrawerOpen} placement="left">
-        <Button
-          variant="tertiary"
-          size="sm"
-          aria-label="Close menu"
-          onPress={() => setDrawerOpen(false)}
-          style={{ margin: 8 }}
-        >
-          <X size={20} />
-        </Button>
-        <SidebarNav
-          currentPath={location.pathname}
-          theme={theme}
-          onThemeToggle={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-          onNavigate={(path) => { navigate(path); setDrawerOpen(false) }}
-        />
-      </Drawer>
-
-      {/* -- Command Palette ------------------------------------------- */}
-      <CommandPalette
-        open={cmdOpen}
-        onOpenChange={setCmdOpen}
-        items={CMD_ITEMS}
-        placeholder="Search pages and actions..."
-        onSelect={(item) => {
-          const path = CMD_PATHS[item.id]
-          if (path) navigate(path)
-        }}
-      />
-
-      {/* -- User Sheet ------------------------------------------------ */}
+      {/* -- User Sheet -------------------------------------------------- */}
       <Sheet open={userSheetOpen} onOpenChange={setUserSheetOpen} snapPoints={[35]}>
         <Sheet.Overlay />
         <Sheet.Handle />
@@ -236,71 +219,5 @@ export function AppShellLayout() {
         </Sheet.Frame>
       </Sheet>
     </AppShell>
-  )
-}
-
-// ---------------------------------------------------------------------------
-// SidebarNav — shared between desktop Sidebar and mobile Drawer
-// ---------------------------------------------------------------------------
-
-interface SidebarNavProps {
-  currentPath: string
-  theme: 'light' | 'dark'
-  onThemeToggle: () => void
-  onNavigate: (path: string) => void
-}
-
-function SidebarNav({ currentPath, theme, onThemeToggle, onNavigate }: SidebarNavProps) {
-  return (
-    <Sidebar>
-      <Sidebar.Header>
-        <Heart size={16} color="#7c3aed" aria-hidden />
-      </Sidebar.Header>
-
-      <Sidebar.Body>
-        {NAV_ITEMS.map((item) => {
-          const isActive = item.path === '/'
-            ? currentPath === '/'
-            : currentPath.startsWith(item.path)
-          return (
-            <Sidebar.Item
-              key={item.path}
-              active={isActive}
-              onPress={() => onNavigate(item.path)}
-              accessible
-              role="link"
-              aria-current={isActive ? 'page' : undefined}
-              backgroundColor={isActive ? '$purple1' : undefined}
-              borderLeftWidth={isActive ? 3 : 0}
-              borderLeftColor={isActive ? '$purple7' : 'transparent'}
-            >
-              <Button.Icon>{item.icon}</Button.Icon>
-              <Button.Text
-                variant="tertiary"
-                style={{ color: isActive ? '#7c3aed' : undefined, fontWeight: isActive ? '600' : '400' }}
-              >
-                {item.label}
-              </Button.Text>
-            </Sidebar.Item>
-          )
-        })}
-      </Sidebar.Body>
-
-      <Sidebar.Footer>
-        <Switch.Row>
-          <Switch.LabelGroup>
-            <Switch.Label>{theme === 'light' ? 'Light' : 'Dark'} mode</Switch.Label>
-          </Switch.LabelGroup>
-          <Switch
-            checked={theme === 'dark'}
-            onCheckedChange={onThemeToggle}
-            aria-label="Toggle dark mode"
-          >
-            <Switch.Thumb />
-          </Switch>
-          {theme === 'light' ? <Sun size={14} aria-hidden /> : <Moon size={14} aria-hidden />}
-        </Switch.Row>
-      </Sidebar.Footer>
-    </Sidebar>
   )
 }

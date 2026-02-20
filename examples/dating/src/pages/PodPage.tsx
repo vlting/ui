@@ -146,7 +146,7 @@ export function PodPage() {
                 padding="$3"
                 gap="$3"
                 bordered
-                onPress={() => navigate(`/pod/member/${profile.id}`)}
+                onPress={() => navigate(`/member/${profile.id}`)}
                 pressStyle={{ scale: 0.98, opacity: 0.9 }}
                 accessible
                 role="button"
@@ -219,7 +219,7 @@ export function PodPage() {
               padding="$3"
               gap="$1"
               bordered
-              onPress={() => navigate('/pod/icebreaker')}
+              onPress={() => navigate('/icebreaker')}
               pressStyle={{ opacity: 0.9 }}
               accessible
               role="button"
@@ -252,7 +252,7 @@ export function PodPage() {
               padding="$3"
               gap="$1"
               bordered
-              onPress={() => navigate('/pod/quiz')}
+              onPress={() => navigate('/quiz')}
               pressStyle={{ opacity: 0.9 }}
               accessible
               role="button"
