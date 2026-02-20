@@ -1,12 +1,12 @@
-# Kinship — Product Requirements Document
+# Crushd — Product Requirements Document
 
-> *"Meet your people."*
+> *"Your next crush is closer than you think."*
 
 ---
 
 ## 1. Overview
 
-**Kinship** is a dating app that rejects the infinite-swipe paradigm. Instead of swiping through endless profiles, each week you are placed in a small group — a **"pod"** — of 8 people. For that week, the pod is your temporary micro-community.
+**Crushd** is a dating app that rejects the infinite-swipe paradigm. Instead of swiping through endless profiles, each week you are placed in a small group — a **"pod"** — of 8 people. For that week, the pod is your temporary micro-community.
 
 **Core thesis:** Meaningful connections form through shared experiences, not snap judgments on photos. By interacting in a small group setting with daily activities, you see how people think, joke, and express themselves — before deciding if you want to connect one-on-one.
 
@@ -212,7 +212,7 @@ The following features are noted for future consideration but are **out of scope
 
 ## 9. Design Principles
 
-Kinship's design should feel **warm, approachable, and low-pressure**. The UI should encourage genuine interaction over gamified engagement.
+Crushd's design should feel **warm, approachable, and low-pressure**. The UI should encourage genuine interaction over gamified engagement.
 
 - **No infinite scroll** — content is bounded by the pod (8 people, 2 daily activities)
 - **No urgency mechanics** — no "boost" or "super like" pay-to-win features
