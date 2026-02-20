@@ -27,7 +27,7 @@ const InputFrame = styled(TamaguiInput, {
 
   // Focus ring — accent border on focus
   focusStyle: {
-    borderColor: '$blue10',
+    borderColor: '$color10',
     outlineWidth: 0,
   },
 

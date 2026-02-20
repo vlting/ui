@@ -188,7 +188,7 @@ const ConnectionCardBase = React.memo(function ConnectionCardBase(
           width={10}
           height={10}
           borderRadius={5}
-          backgroundColor="$blue10"
+          backgroundColor="$color10"
           aria-label="Unread"
         />
       ) : null}

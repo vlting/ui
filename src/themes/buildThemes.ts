@@ -23,6 +23,7 @@ const templates = {
     borderColorHover: 5,
     borderColorPress: 3,
     borderColorFocus: 5,
+    colorSubtitle: 8,
     placeholderColor: 7,
     outlineColor: 5,
     shadowColor: 0,

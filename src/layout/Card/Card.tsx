@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { YStack, styled, withStaticProperties } from 'tamagui'
+import { Text, YStack, styled, withStaticProperties } from 'tamagui'
 
 // ─── Sub-component frames ─────────────────────────────────────────────────────
 
@@ -14,6 +14,17 @@ const CardContent = styled(YStack, {
   paddingHorizontal: '$4',
   paddingVertical: '$2',
   flex: 1,
+})
+
+const CardTitle = styled(Text, {
+  fontSize: '$5',
+  fontWeight: '600',
+  color: '$color',
+})
+
+const CardDescription = styled(Text, {
+  fontSize: '$3',
+  color: '$color11',
 })
 
 const CardFooter = styled(YStack, {
@@ -50,6 +61,12 @@ const CardFrame = styled(YStack, {
         },
       },
     },
+    bordered: {
+      true: {
+        borderWidth: 1,
+        borderColor: '$borderColor',
+      },
+    },
     disabled: {
       true: {
         opacity: 0.5,
@@ -69,6 +86,8 @@ const CardFrame = styled(YStack, {
 export type CardProps = {
   /** Makes the card pressable/interactive */
   interactive?: boolean
+  /** Shows a visible border */
+  bordered?: boolean
   /** Disables the card */
   disabled?: boolean
   /** Shows loading/skeleton state */
@@ -86,6 +105,7 @@ export type CardProps = {
 
 const CardRoot = memo(function Card({
   interactive = false,
+  bordered = false,
   disabled = false,
   loading = false,
   accessibilityLabel,
@@ -100,10 +120,10 @@ const CardRoot = memo(function Card({
   return (
     <CardFrame
       interactive={interactive}
+      bordered={bordered}
       disabled={disabled}
       loading={loading}
-      accessible
-      accessibilityRole={role}
+      role={role}
       aria-label={accessibilityLabel}
       aria-disabled={disabled || undefined}
       tabIndex={tabIndex}
@@ -120,6 +140,8 @@ const CardRoot = memo(function Card({
 
 export const Card = withStaticProperties(CardRoot, {
   Header: CardHeader,
+  Title: CardTitle,
+  Description: CardDescription,
   Content: CardContent,
   Footer: CardFooter,
 })

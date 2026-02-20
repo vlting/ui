@@ -10,14 +10,10 @@
   },
   "dependencies": {
     "@vlting/ui": "*",
-    "react-router-dom": "^7.0.0",
-    "tamagui": "2.0.0-rc.14"
+    "react-router-dom": "^7.0.0"
   },
   "devDependencies": {
-    "@types/react": "~19.1.0",
-    "@types/react-dom": "~19.1.0",
     "@vitejs/plugin-react": "^4.3.4",
-    "typescript": "~5.9.2",
     "vite": "^6.3.5"
   }
 }

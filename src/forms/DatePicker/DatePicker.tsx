@@ -150,7 +150,7 @@ export function CalendarGrid({
             const sel = selected ? isSameDay(cell.date, selected) : false
             const today = isToday(cell.date)
             const inRange = isInRange(cell.date)
-            const bg = sel ? '$blue10' : inRange ? '$backgroundHover' : undefined
+            const bg = sel ? '$color10' : inRange ? '$backgroundHover' : undefined
             return (
               <View
                 key={ci}

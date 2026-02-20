@@ -139,7 +139,7 @@ const PhotoSlotItem = React.memo(function PhotoSlotItem(props: SlotProps) {
         >
           <View
             height={4}
-            backgroundColor="$blue10"
+            backgroundColor="$color10"
             width={`${progress}%`}
           />
         </YStack>

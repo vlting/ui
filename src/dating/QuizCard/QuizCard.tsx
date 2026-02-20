@@ -79,7 +79,7 @@ const QuizOptionItem = React.memo(function QuizOptionItem(
         padding="$3"
         borderRadius="$3"
         borderWidth={1}
-        borderColor={isSelected ? '$blue10' : '$borderColor'}
+        borderColor={isSelected ? '$color10' : '$borderColor'}
         backgroundColor={isSelected ? '$blue3' : '$background'}
         alignItems="center"
         gap="$2"
@@ -91,7 +91,7 @@ const QuizOptionItem = React.memo(function QuizOptionItem(
           height={20}
           borderRadius={10}
           borderWidth={2}
-          borderColor={isSelected ? '$blue10' : '$gray8'}
+          borderColor={isSelected ? '$color10' : '$gray8'}
           alignItems="center"
           justifyContent="center"
         >
@@ -100,7 +100,7 @@ const QuizOptionItem = React.memo(function QuizOptionItem(
               width={10}
               height={10}
               borderRadius={5}
-              backgroundColor="$blue10"
+              backgroundColor="$color10"
             />
           ) : null}
         </View>
@@ -115,7 +115,7 @@ const QuizOptionItem = React.memo(function QuizOptionItem(
         </Text>
 
         {isSelected ? (
-          <Check size={16} color="$blue10" aria-hidden />
+          <Check size={16} color="$color10" aria-hidden />
         ) : null}
       </XStack>
     </Pressable>
@@ -163,7 +163,7 @@ const ResultBar = React.memo(function ResultBar(props: ResultBarProps) {
       <XStack alignItems="center" justifyContent="space-between">
         <XStack alignItems="center" gap="$2" flex={1}>
           {isSelected ? (
-            <Check size={14} color="$blue10" aria-hidden />
+            <Check size={14} color="$color10" aria-hidden />
           ) : null}
           <Text
             fontSize="$3"
@@ -193,7 +193,7 @@ const ResultBar = React.memo(function ResultBar(props: ResultBarProps) {
         <View
           height={8}
           borderRadius="$2"
-          backgroundColor={isSelected ? '$blue10' : '$gray8'}
+          backgroundColor={isSelected ? '$color10' : '$gray8'}
           width={`${result.percentage}%` as unknown as number}
         />
       </View>

@@ -140,7 +140,7 @@ const ErrorState = React.memo(function ErrorState(props: ErrorStateProps) {
             paddingVertical="$2"
             paddingHorizontal="$4"
             borderRadius="$3"
-            backgroundColor="$blue10"
+            backgroundColor="$color10"
           >
             <Text
               fontSize="$3"

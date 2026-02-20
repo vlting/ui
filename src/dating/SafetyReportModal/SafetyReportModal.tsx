@@ -76,7 +76,7 @@ const ReasonOption = React.memo(function ReasonOption(props: {
           height={20}
           borderRadius={10}
           borderWidth={2}
-          borderColor={selected ? '$blue10' : '$borderColor'}
+          borderColor={selected ? '$color10' : '$borderColor'}
           alignItems="center"
           justifyContent="center"
         >
@@ -85,7 +85,7 @@ const ReasonOption = React.memo(function ReasonOption(props: {
               width={10}
               height={10}
               borderRadius={5}
-              backgroundColor="$blue10"
+              backgroundColor="$color10"
             />
           ) : null}
         </View>

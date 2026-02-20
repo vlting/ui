@@ -42,7 +42,7 @@ const PodIntroWelcome = React.memo(function PodIntroWelcome(
         borderRadius={24}
         backgroundColor="$blue3"
       >
-        <Users size={24} color="$blue10" aria-hidden />
+        <Users size={24} color="$color10" aria-hidden />
       </XStack>
 
       <Text

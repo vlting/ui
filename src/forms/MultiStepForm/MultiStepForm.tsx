@@ -66,7 +66,7 @@ export function MultiStepForm({
         {steps.map((s, i) => {
           const status = i < step ? 'completed' : i === step ? 'active' : 'pending'
           const dotBg =
-            status === 'active' ? '$blue10' : status === 'completed' ? '$green10' : '$color4'
+            status === 'active' ? '$color10' : status === 'completed' ? '$green10' : '$color4'
           const connectorBg = i < step ? '$green10' : '$color4'
           return (
             <React.Fragment key={i}>
@@ -146,7 +146,7 @@ export function MultiStepForm({
           paddingHorizontal="$4"
           paddingVertical="$2"
           borderRadius="$3"
-          backgroundColor="$blue10"
+          backgroundColor="$color10"
           alignItems="center"
           justifyContent="center"
           minHeight="$4"

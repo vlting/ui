@@ -106,7 +106,7 @@ export const AgeRangeSelector = React.memo(function AgeRangeSelector(
           position="absolute"
           height={6}
           borderRadius="$6"
-          backgroundColor="$blue10"
+          backgroundColor="$color10"
           left={`${leftPercent}%` as any}
           width={`${widthPercent}%` as any}
         />

@@ -55,8 +55,8 @@ const DealBreakerItem = React.memo(function DealBreakerItem(props: {
         paddingHorizontal="$3"
         borderRadius="$3"
         borderWidth={1}
-        borderColor={selected ? '$blue10' : '$borderColor'}
-        backgroundColor={selected ? '$blue10' : 'transparent'}
+        borderColor={selected ? '$color10' : '$borderColor'}
+        backgroundColor={selected ? '$color10' : 'transparent'}
         minHeight={44}
         cursor="pointer"
       >
@@ -71,7 +71,7 @@ const DealBreakerItem = React.memo(function DealBreakerItem(props: {
           justifyContent="center"
         >
           {selected ? (
-            <Check size={14} color="$blue10" aria-hidden />
+            <Check size={14} color="$color10" aria-hidden />
           ) : null}
         </XStack>
         <Text

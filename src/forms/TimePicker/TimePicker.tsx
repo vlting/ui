@@ -130,7 +130,7 @@ export function TimePicker({
                       paddingHorizontal="$3"
                       paddingVertical="$2"
                       alignItems="center"
-                      backgroundColor={sel ? '$blue10' : undefined}
+                      backgroundColor={sel ? '$color10' : undefined}
                       borderRadius={sel ? '$2' : undefined}
                       onPress={() => setHour(h)}
                     >
@@ -157,7 +157,7 @@ export function TimePicker({
                       paddingHorizontal="$3"
                       paddingVertical="$2"
                       alignItems="center"
-                      backgroundColor={sel ? '$blue10' : undefined}
+                      backgroundColor={sel ? '$color10' : undefined}
                       borderRadius={sel ? '$2' : undefined}
                       onPress={() => setMinute(m)}
                     >
@@ -179,7 +179,7 @@ export function TimePicker({
                   alignItems="center"
                   justifyContent="center"
                   borderRadius="$2"
-                  backgroundColor={!isPM ? '$blue10' : '$color3'}
+                  backgroundColor={!isPM ? '$color10' : '$color3'}
                   onPress={() => toggleAmPm(false)}
                 >
                   <Text fontSize="$3" color={!isPM ? '$color1' : '$color'} fontWeight="600">
@@ -192,7 +192,7 @@ export function TimePicker({
                   alignItems="center"
                   justifyContent="center"
                   borderRadius="$2"
-                  backgroundColor={isPM ? '$blue10' : '$color3'}
+                  backgroundColor={isPM ? '$color10' : '$color3'}
                   onPress={() => toggleAmPm(true)}
                 >
                   <Text fontSize="$3" color={isPM ? '$color1' : '$color'} fontWeight="600">
@@ -204,7 +204,7 @@ export function TimePicker({
           </XStack>
 
           <View marginTop="$2" alignSelf="flex-end" onPress={() => setOpen(false)}>
-            <Text fontSize="$3" color="$blue10" fontWeight="600">
+            <Text fontSize="$3" color="$color10" fontWeight="600">
               Done
             </Text>
           </View>

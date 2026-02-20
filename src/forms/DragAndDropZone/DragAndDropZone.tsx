@@ -91,7 +91,7 @@ export function DragAndDropZone({
         borderRadius="$3"
         borderWidth={2}
         borderStyle="dashed"
-        borderColor={dragging ? '$blue10' : '$borderColor'}
+        borderColor={dragging ? '$color10' : '$borderColor'}
         backgroundColor={dragging ? '$backgroundHover' : '$background'}
         opacity={disabled ? 0.5 : 1}
         cursor={disabled ? 'not-allowed' : 'pointer'}

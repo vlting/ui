@@ -35,7 +35,7 @@ function getStatusConfig(status: MatchRequestButtonProps['status']): StatusConfi
         label: 'Send Match Request',
         ariaLabel: 'Send match request',
         icon: Heart,
-        backgroundColor: '$blue10',
+        backgroundColor: '$color10',
         textColor: 'white',
         isDisabled: false,
       }
@@ -53,7 +53,7 @@ function getStatusConfig(status: MatchRequestButtonProps['status']): StatusConfi
         label: 'Match Back!',
         ariaLabel: 'Accept match request',
         icon: Heart,
-        backgroundColor: '$blue10',
+        backgroundColor: '$color10',
         textColor: 'white',
         isDisabled: false,
       }

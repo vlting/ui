@@ -28,7 +28,7 @@ const TextAreaFrame = styled(TamaguiTextArea, {
 
   // Focus ring — accent border on focus
   focusStyle: {
-    borderColor: '$blue10',
+    borderColor: '$color10',
     outlineWidth: 0,
   },
 

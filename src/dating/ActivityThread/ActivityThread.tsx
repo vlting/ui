@@ -223,7 +223,7 @@ const ActivityThreadInput = React.memo(function ActivityThreadInput(
         <View
           padding="$2"
           borderRadius="$2"
-          backgroundColor={text.trim().length > 0 ? '$blue10' : '$gray4'}
+          backgroundColor={text.trim().length > 0 ? '$color10' : '$gray4'}
           alignItems="center"
           justifyContent="center"
         >

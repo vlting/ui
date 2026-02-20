@@ -168,7 +168,7 @@ export const LocationRadiusSelector = React.memo(function LocationRadiusSelector
           <View
             height={6}
             borderRadius="$6"
-            backgroundColor="$blue10"
+            backgroundColor="$color10"
             width={`${fillPercent}%` as any}
           />
         </View>

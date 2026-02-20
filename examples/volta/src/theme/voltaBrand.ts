@@ -1,5 +1,6 @@
 import { createBrandConfig } from '@vlting/ui/brands'
 import type { BrandDefinition } from '@vlting/ui/brands'
+import { createTamagui } from 'tamagui'
 
 // ---------------------------------------------------------------------------
 // Neutral palette — cool-toned slate (blue-gray undertone)
@@ -144,4 +145,4 @@ export const voltaBrand: BrandDefinition = {
   },
 }
 
-export const voltaConfig = createBrandConfig(voltaBrand)
+export const voltaConfig = createTamagui(createBrandConfig(voltaBrand))

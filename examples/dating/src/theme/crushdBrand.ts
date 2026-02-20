@@ -1,5 +1,6 @@
 import { createBrandConfig } from '@vlting/ui/brands'
 import type { BrandDefinition } from '@vlting/ui/brands'
+import { createTamagui } from 'tamagui'
 
 // Neutral palettes — warm mauve (pink-gray undertone, 12-step)
 const lightNeutral: string[] = [
@@ -82,4 +83,4 @@ export const crushdBrand: BrandDefinition = {
   },
 }
 
-export const crushdConfig = createBrandConfig(crushdBrand)
+export const crushdConfig = createTamagui(createBrandConfig(crushdBrand))

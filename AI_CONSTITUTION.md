@@ -219,7 +219,56 @@ Documentation must reflect real-world usage patterns.
 
 ---
 
-# 7. AI Operating Rules for vlt-ui
+# 7. Example App Standards
+
+## 7.1 Workspace Integration
+
+This repo uses **yarn workspaces** (`"workspaces": ["examples/*"]`). All example apps live in `examples/` and are workspace members.
+
+When creating a new example app:
+
+1. **Package name**: Use `@vlting/examples-<name>` (e.g., `@vlting/examples-crushd`)
+2. **Depend on `@vlting/ui` via `"*"`** — yarn workspaces resolve this to the local root package (the root is listed as `"."` in the workspaces array)
+3. **Do NOT duplicate shared dependencies** (`react`, `react-dom`, `tamagui`, `react-native-web`, `react-native-svg-web`, `prop-types`, `typescript`, `@types/react`, etc.) in the example's `package.json` — these are hoisted from the root
+4. **Only list deps unique to the example** (e.g., `react-router-dom`, `@vitejs/plugin-react`, `vite`)
+5. **Add a root-level dev script**: Add `"dev:<name>": "yarn workspace @vlting/examples-<name> dev"` to the root `package.json` scripts
+6. **Vite aliases**: The example's `vite.config.ts` must include these aliases:
+   ```ts
+   import path from 'path'
+   // ...
+   define: {
+     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+   },
+   resolve: {
+     alias: {
+       'react-native-svg': 'react-native-svg-web',
+       'react-native': 'react-native-web',
+       '@vlting/ui': path.resolve(__dirname, '../../src'),
+     },
+   },
+   ```
+   - The `define` is required because Tamagui references `process.env.NODE_ENV` which doesn't exist in the browser
+   - The `react-native-svg` alias is required because `@tamagui/lucide-icons` imports it, and the native version has codegen that doesn't work on web
+7. **TypeScript paths**: The example's `tsconfig.json` must map `@vlting/ui` and `@vlting/ui/*` to the source:
+   ```json
+   "paths": {
+     "@vlting/ui": ["../../src/index.ts"],
+     "@vlting/ui/*": ["../../src/*/index.ts"]
+   }
+   ```
+
+## 7.2 Running Example Apps
+
+From the repo root:
+- `yarn dev:crushd` — Run the Crushd dating example
+- `yarn dev:volta` — Run the Volta SaaS example
+- Or: `cd examples/<name> && yarn dev`
+
+Always run `yarn` (install) from the **repo root** before running any example.
+
+---
+
+# 8. AI Operating Rules for vlt-ui
 
 If:
 

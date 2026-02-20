@@ -35,7 +35,7 @@ const ButtonFrame = styled(XStack, {
   variants: {
     variant: {
       primary: {
-        backgroundColor: '$blue10',
+        backgroundColor: '$color10',
         borderWidth: 0,
       },
       secondary: {
@@ -114,7 +114,7 @@ const ButtonText = styled(Text, {
         color: '$color',
       },
       tertiary: {
-        color: '$blue10',
+        color: '$color10',
       },
       destructive: {
         color: 'white',

@@ -201,7 +201,7 @@ const DirectMessageThreadInput = React.memo(function DirectMessageThreadInput(
         <View
           padding="$2"
           borderRadius="$2"
-          backgroundColor={isEmpty ? '$gray4' : '$blue10'}
+          backgroundColor={isEmpty ? '$gray4' : '$color10'}
           alignItems="center"
           justifyContent="center"
           opacity={isEmpty ? 0.5 : 1}
