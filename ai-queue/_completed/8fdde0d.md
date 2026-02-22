@@ -1,4 +1,8 @@
 <!-- auto-queue -->
+# Commit History
+- `0564157` feat(brands): replace neon with three distinct brands — default, fun, posh
+- `8fdde0d` chore(queue): complete task 002 — three brand definitions (default, fun, posh)
+
 # Task 002: Create 3 Brand Definitions — default, fun, posh
 
 ## Objective
