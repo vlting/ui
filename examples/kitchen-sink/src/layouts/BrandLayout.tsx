@@ -101,12 +101,22 @@ export function BrandLayout() {
         </div>
       </nav>
 
-      {/* Content area — inside branded Provider */}
-      <div style={{ flex: 1, backgroundColor: theme === 'dark' ? '#111' : '#f5f5f5' }}>
-        <Provider config={brandEntry.config} key={`${brandKey}-${theme}`} defaultTheme={theme}>
-          <Outlet />
-        </Provider>
-      </div>
+      {/* Content area — render all brand Providers simultaneously, show/hide via display */}
+      {Object.entries(brands).map(([key, b]) => (
+        <div
+          key={key}
+          style={{
+            flex: 1,
+            display: brandKey === key ? 'flex' : 'none',
+            flexDirection: 'column',
+            backgroundColor: theme === 'dark' ? '#111' : '#f5f5f5',
+          }}
+        >
+          <Provider config={b.config} defaultTheme={theme}>
+            {brandKey === key ? <Outlet /> : null}
+          </Provider>
+        </div>
+      ))}
     </div>
   )
 }
