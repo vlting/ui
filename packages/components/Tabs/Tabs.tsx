@@ -92,7 +92,7 @@ interface StyledTabsTriggerProps extends Omit<TabsTriggerProps, 'className'> {
   size?: 'sm' | 'md' | 'lg'
 }
 
-function Trigger({ children, value, disabled, size = 'md' }: StyledTabsTriggerProps) {
+function Trigger({ children, value, disabled }: StyledTabsTriggerProps) {
   return (
     <HeadlessTabs.Trigger value={value} disabled={disabled}>
       {/* Access data-state from parent to style */}
