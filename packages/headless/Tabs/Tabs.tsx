@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from 'react'
-import { useControllableState } from '../../../hooks/src/useControllableState'
-import { useKeyboardNavigation } from '../../../hooks/src/useKeyboardNavigation'
+import { useControllableState } from '../../hooks/useControllableState'
+import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation'
 
 // ---------------------------------------------------------------------------
 // Context

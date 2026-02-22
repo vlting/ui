@@ -1,7 +1,7 @@
 import React from 'react'
 import { styled, Text, View, XStack } from 'tamagui'
-import { Tabs as HeadlessTabs } from '../../../headless/src/tabs'
-import type { TabsRootProps, TabsListProps, TabsTriggerProps, TabsContentProps } from '../../../headless/src/tabs'
+import { Tabs as HeadlessTabs } from '../../headless/Tabs'
+import type { TabsRootProps, TabsListProps, TabsTriggerProps, TabsContentProps } from '../../headless/Tabs'
 
 // @ts-expect-error Tamagui v2 RC
 const StyledList = styled(XStack, {

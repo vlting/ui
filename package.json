@@ -26,28 +26,28 @@
       "require": "./dist/cjs/config/tamagui.config.cjs"
     },
     "./design-tokens": {
-      "types": "./packages/design-tokens/src/index.ts",
-      "import": "./packages/design-tokens/src/index.ts"
+      "types": "./packages/design-tokens/index.ts",
+      "import": "./packages/design-tokens/index.ts"
     },
     "./primitives": {
-      "types": "./packages/primitives/src/index.ts",
-      "import": "./packages/primitives/src/index.ts"
+      "types": "./packages/primitives/index.ts",
+      "import": "./packages/primitives/index.ts"
     },
     "./headless": {
-      "types": "./packages/headless/src/index.ts",
-      "import": "./packages/headless/src/index.ts"
+      "types": "./packages/headless/index.ts",
+      "import": "./packages/headless/index.ts"
     },
     "./components": {
-      "types": "./packages/components/src/index.ts",
-      "import": "./packages/components/src/index.ts"
+      "types": "./packages/components/index.ts",
+      "import": "./packages/components/index.ts"
     },
     "./hooks": {
-      "types": "./packages/hooks/src/index.ts",
-      "import": "./packages/hooks/src/index.ts"
+      "types": "./packages/hooks/index.ts",
+      "import": "./packages/hooks/index.ts"
     },
     "./utils": {
-      "types": "./packages/utils/src/index.ts",
-      "import": "./packages/utils/src/index.ts"
+      "types": "./packages/utils/index.ts",
+      "import": "./packages/utils/index.ts"
     }
   },
   "workspaces": [

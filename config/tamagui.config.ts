@@ -1,5 +1,5 @@
 import { createTamagui } from 'tamagui'
-import { createBrandConfig, defaultBrand } from '../packages/design-tokens/src/brands'
+import { createBrandConfig, defaultBrand } from '../packages/design-tokens/brands'
 
 const config = createTamagui(createBrandConfig(defaultBrand))
 

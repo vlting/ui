@@ -23,12 +23,12 @@
     "paths": {
       "@vlting/ui": ["./src"],
       "@vlting/ui/*": ["./src/*"],
-      "@vlting/ui/design-tokens": ["./packages/design-tokens/src"],
-      "@vlting/ui/primitives": ["./packages/primitives/src"],
-      "@vlting/ui/headless": ["./packages/headless/src"],
-      "@vlting/ui/components": ["./packages/components/src"],
-      "@vlting/ui/hooks": ["./packages/hooks/src"],
-      "@vlting/ui/utils": ["./packages/utils/src"]
+      "@vlting/ui/design-tokens": ["./packages/design-tokens"],
+      "@vlting/ui/primitives": ["./packages/primitives"],
+      "@vlting/ui/headless": ["./packages/headless"],
+      "@vlting/ui/components": ["./packages/components"],
+      "@vlting/ui/hooks": ["./packages/hooks"],
+      "@vlting/ui/utils": ["./packages/utils"]
     },
     "types": ["node", "react", "jest"]
   },

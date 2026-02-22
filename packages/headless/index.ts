@@ -1,4 +1,4 @@
-export { Dialog } from './dialog'
+export { Dialog } from './Dialog'
 export type {
   DialogRootProps,
   DialogTriggerProps,
@@ -7,18 +7,18 @@ export type {
   DialogTitleProps,
   DialogDescriptionProps,
   DialogCloseProps,
-} from './dialog'
+} from './Dialog'
 
-export { Tabs } from './tabs'
+export { Tabs } from './Tabs'
 export type {
   TabsRootProps,
   TabsListProps,
   TabsTriggerProps,
   TabsContentProps,
-} from './tabs'
+} from './Tabs'
 
-export { Checkbox } from './checkbox'
+export { Checkbox } from './Checkbox'
 export type {
   CheckboxRootProps,
   CheckboxIndicatorProps,
-} from './checkbox'
+} from './Checkbox'
