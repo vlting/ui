@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { styled, Text, View, YStack } from 'tamagui'
+import { styled, Text, View } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const TooltipContent = styled(View, {
@@ -29,7 +29,7 @@ export interface TooltipProps {
 
 export function Tooltip({ children, content, side = 'top', delay = 200 }: TooltipProps) {
   const [open, setOpen] = useState(false)
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined)
 
   const handleEnter = () => {
     timeoutRef.current = setTimeout(() => setOpen(true), delay)

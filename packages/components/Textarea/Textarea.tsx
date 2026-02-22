@@ -113,7 +113,7 @@ export function Textarea({
         value={value}
         defaultValue={defaultValue}
         // @ts-expect-error RN vs web event types
-        onChange={(e: any) => onChangeText?.(e?.nativeEvent?.text ?? e?.target?.value ?? '')}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => onChangeText?.(e?.nativeEvent?.text ?? e?.target?.value ?? '')}
         placeholder={placeholder}
         error={error}
         disabled={disabled}

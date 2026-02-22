@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react'
-import { styled, Text, YStack, XStack } from 'tamagui'
+import { styled, Text, YStack } from 'tamagui'
 
 interface FormFieldContextValue {
   error?: boolean

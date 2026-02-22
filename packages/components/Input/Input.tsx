@@ -1,5 +1,4 @@
 import React from 'react'
-import type { GetProps } from 'tamagui'
 import { styled, XStack, YStack, Text, View } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback } from 'react'
-import { styled, View, Text, YStack, XStack } from 'tamagui'
+import { styled, Text, YStack, XStack } from 'tamagui'
 
 interface AccordionContextValue {
   value: string[]

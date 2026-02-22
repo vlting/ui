@@ -1,4 +1,3 @@
-import React from 'react'
 import { styled, Text, View } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
