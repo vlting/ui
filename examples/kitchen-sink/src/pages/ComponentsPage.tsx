@@ -1,6 +1,24 @@
 import React, { useState } from 'react'
-import { YStack, XStack, Text, Heading, Separator } from 'tamagui'
-import { Button, Input, Card, Dialog, Tabs } from '@vlting/ui'
+import { YStack, XStack, Text, Heading, Separator, View } from 'tamagui'
+import {
+  Button,
+  Input,
+  Card,
+  Dialog,
+  Tabs,
+  Textarea,
+  Alert,
+  Select,
+  Checkbox,
+  RadioGroup,
+  Switch,
+  Slider,
+  Progress,
+  Avatar,
+  Toggle,
+  ToggleGroup,
+  Tooltip,
+} from '@vlting/ui'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -37,6 +55,15 @@ function DemoCard({ label, children }: { label: string; children: React.ReactNod
 export function ComponentsPage() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [inputValue, setInputValue] = useState('')
+  const [textareaValue, setTextareaValue] = useState('')
+  const [selectValue, setSelectValue] = useState('')
+  const [checkboxChecked, setCheckboxChecked] = useState<boolean | 'indeterminate'>(false)
+  const [radioValue, setRadioValue] = useState('option1')
+  const [switchChecked, setSwitchChecked] = useState(false)
+  const [sliderValue, setSliderValue] = useState(50)
+  const [progressValue] = useState(65)
+  const [togglePressed, setTogglePressed] = useState(false)
+  const [toggleGroupValue, setToggleGroupValue] = useState<string | string[]>('center')
 
   return (
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
@@ -47,6 +74,7 @@ export function ComponentsPage() {
         Layer 3 — styled, ready-to-use components.
       </Text>
 
+      {/* ─── Button ─── */}
       <Section title="Button">
         <DemoCard label="Variants">
           <XStack gap="$3" flexWrap="wrap">
@@ -70,6 +98,7 @@ export function ComponentsPage() {
         </DemoCard>
       </Section>
 
+      {/* ─── Input ─── */}
       <Section title="Input">
         <XStack gap="$3" flexWrap="wrap">
           <DemoCard label="Default">
@@ -104,6 +133,356 @@ export function ComponentsPage() {
         </XStack>
       </Section>
 
+      {/* ─── Textarea ─── */}
+      <Section title="Textarea">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="Default">
+            <Textarea
+              placeholder="Write something..."
+              value={textareaValue}
+              onChangeText={setTextareaValue}
+            />
+          </DemoCard>
+          <DemoCard label="With label & helper">
+            <Textarea
+              label="Bio"
+              placeholder="Tell us about yourself..."
+              helperText="Max 200 characters"
+              maxLength={200}
+            />
+          </DemoCard>
+          <DemoCard label="Error state">
+            <Textarea
+              label="Description"
+              placeholder="Enter description"
+              error
+              errorMessage="Description is required"
+            />
+          </DemoCard>
+          <DemoCard label="Disabled">
+            <Textarea
+              placeholder="Cannot edit..."
+              disabled
+              defaultValue="This textarea is disabled."
+            />
+          </DemoCard>
+        </XStack>
+      </Section>
+
+      {/* ─── Select ─── */}
+      <Section title="Select">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="Default">
+            <Select value={selectValue} onValueChange={setSelectValue} placeholder="Choose a fruit...">
+              <Select.Item value="apple">Apple</Select.Item>
+              <Select.Item value="banana">Banana</Select.Item>
+              <Select.Item value="cherry">Cherry</Select.Item>
+              <Select.Item value="date">Date</Select.Item>
+            </Select>
+          </DemoCard>
+          <DemoCard label="Sizes">
+            <YStack gap="$3">
+              <Select size="sm" placeholder="Small">
+                <Select.Item value="a">Option A</Select.Item>
+                <Select.Item value="b">Option B</Select.Item>
+              </Select>
+              <Select size="md" placeholder="Medium">
+                <Select.Item value="a">Option A</Select.Item>
+                <Select.Item value="b">Option B</Select.Item>
+              </Select>
+              <Select size="lg" placeholder="Large">
+                <Select.Item value="a">Option A</Select.Item>
+                <Select.Item value="b">Option B</Select.Item>
+              </Select>
+            </YStack>
+          </DemoCard>
+          <DemoCard label="Disabled">
+            <Select disabled placeholder="Cannot select">
+              <Select.Item value="a">Option A</Select.Item>
+            </Select>
+          </DemoCard>
+        </XStack>
+      </Section>
+
+      {/* ─── Checkbox ─── */}
+      <Section title="Checkbox">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="Checked / Unchecked">
+            <YStack gap="$3">
+              <Checkbox.Root checked={checkboxChecked} onCheckedChange={setCheckboxChecked} size="md">
+                <Text fontFamily="$body" fontSize="$3">
+                  {checkboxChecked ? 'Checked' : 'Unchecked'}
+                </Text>
+              </Checkbox.Root>
+              <Checkbox.Root checked onCheckedChange={() => {}} size="md">
+                <Text fontFamily="$body" fontSize="$3">Always checked</Text>
+              </Checkbox.Root>
+            </YStack>
+          </DemoCard>
+          <DemoCard label="Sizes">
+            <YStack gap="$3">
+              <Checkbox.Root checked defaultChecked size="sm">
+                <Text fontFamily="$body" fontSize="$3">Small</Text>
+              </Checkbox.Root>
+              <Checkbox.Root checked defaultChecked size="md">
+                <Text fontFamily="$body" fontSize="$3">Medium</Text>
+              </Checkbox.Root>
+              <Checkbox.Root checked defaultChecked size="lg">
+                <Text fontFamily="$body" fontSize="$3">Large</Text>
+              </Checkbox.Root>
+            </YStack>
+          </DemoCard>
+          <DemoCard label="Disabled">
+            <XStack gap="$4" alignItems="center">
+              <Checkbox.Root checked={false} disabled size="md">
+                <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">Disabled unchecked</Text>
+              </Checkbox.Root>
+              <Checkbox.Root checked disabled size="md">
+                <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">Disabled checked</Text>
+              </Checkbox.Root>
+            </XStack>
+          </DemoCard>
+        </XStack>
+      </Section>
+
+      {/* ─── RadioGroup ─── */}
+      <Section title="RadioGroup">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="Vertical">
+            <RadioGroup.Root value={radioValue} onValueChange={setRadioValue} size="md" orientation="vertical">
+              <RadioGroup.Item value="option1">
+                <Text fontFamily="$body" fontSize="$3">Option 1</Text>
+              </RadioGroup.Item>
+              <RadioGroup.Item value="option2">
+                <Text fontFamily="$body" fontSize="$3">Option 2</Text>
+              </RadioGroup.Item>
+              <RadioGroup.Item value="option3">
+                <Text fontFamily="$body" fontSize="$3">Option 3</Text>
+              </RadioGroup.Item>
+            </RadioGroup.Root>
+            <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle" marginTop="$2">
+              Selected: {radioValue}
+            </Text>
+          </DemoCard>
+          <DemoCard label="Horizontal">
+            <RadioGroup.Root value={radioValue} onValueChange={setRadioValue} size="md" orientation="horizontal">
+              <RadioGroup.Item value="option1">
+                <Text fontFamily="$body" fontSize="$3">Option 1</Text>
+              </RadioGroup.Item>
+              <RadioGroup.Item value="option2">
+                <Text fontFamily="$body" fontSize="$3">Option 2</Text>
+              </RadioGroup.Item>
+              <RadioGroup.Item value="option3">
+                <Text fontFamily="$body" fontSize="$3">Option 3</Text>
+              </RadioGroup.Item>
+            </RadioGroup.Root>
+          </DemoCard>
+          <DemoCard label="Disabled">
+            <RadioGroup.Root defaultValue="option1" disabled size="md">
+              <RadioGroup.Item value="option1">
+                <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">Selected but disabled</Text>
+              </RadioGroup.Item>
+              <RadioGroup.Item value="option2">
+                <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">Also disabled</Text>
+              </RadioGroup.Item>
+            </RadioGroup.Root>
+          </DemoCard>
+        </XStack>
+      </Section>
+
+      {/* ─── Switch ─── */}
+      <Section title="Switch">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="Default">
+            <XStack gap="$3" alignItems="center">
+              <Switch checked={switchChecked} onCheckedChange={setSwitchChecked} />
+              <Text fontFamily="$body" fontSize="$3">
+                {switchChecked ? 'On' : 'Off'}
+              </Text>
+            </XStack>
+          </DemoCard>
+          <DemoCard label="Sizes">
+            <YStack gap="$3">
+              <XStack gap="$3" alignItems="center">
+                <Switch size="sm" defaultChecked />
+                <Text fontFamily="$body" fontSize="$3">Small</Text>
+              </XStack>
+              <XStack gap="$3" alignItems="center">
+                <Switch size="md" />
+                <Text fontFamily="$body" fontSize="$3">Medium</Text>
+              </XStack>
+              <XStack gap="$3" alignItems="center">
+                <Switch size="lg" defaultChecked />
+                <Text fontFamily="$body" fontSize="$3">Large</Text>
+              </XStack>
+            </YStack>
+          </DemoCard>
+          <DemoCard label="Disabled">
+            <XStack gap="$3" alignItems="center">
+              <Switch disabled defaultChecked />
+              <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">Disabled</Text>
+            </XStack>
+          </DemoCard>
+        </XStack>
+      </Section>
+
+      {/* ─── Slider ─── */}
+      <Section title="Slider">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="Default">
+            <YStack gap="$2">
+              <Slider value={sliderValue} onValueChange={setSliderValue} />
+              <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
+                Value: {sliderValue}
+              </Text>
+            </YStack>
+          </DemoCard>
+          <DemoCard label="Sizes">
+            <YStack gap="$4">
+              <Slider size="sm" defaultValue={30} />
+              <Slider size="md" defaultValue={50} />
+              <Slider size="lg" defaultValue={70} />
+            </YStack>
+          </DemoCard>
+          <DemoCard label="Custom range">
+            <Slider min={0} max={10} step={1} defaultValue={5} />
+          </DemoCard>
+          <DemoCard label="Disabled">
+            <Slider disabled defaultValue={40} />
+          </DemoCard>
+        </XStack>
+      </Section>
+
+      {/* ─── Progress ─── */}
+      <Section title="Progress">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="Default">
+            <YStack gap="$2">
+              <Progress value={progressValue} />
+              <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
+                {progressValue}% complete
+              </Text>
+            </YStack>
+          </DemoCard>
+          <DemoCard label="Sizes">
+            <YStack gap="$3">
+              <Progress size="sm" value={25} />
+              <Progress size="md" value={50} />
+              <Progress size="lg" value={75} />
+            </YStack>
+          </DemoCard>
+          <DemoCard label="States">
+            <YStack gap="$3">
+              <Progress value={0} />
+              <Progress value={100} />
+            </YStack>
+          </DemoCard>
+        </XStack>
+      </Section>
+
+      {/* ─── Avatar ─── */}
+      <Section title="Avatar">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="With fallback">
+            <XStack gap="$3" alignItems="center">
+              <Avatar size="sm" fallback="SM" />
+              <Avatar size="md" fallback="MD" />
+              <Avatar size="lg" fallback="LG" />
+              <Avatar size="xl" fallback="XL" />
+            </XStack>
+          </DemoCard>
+          <DemoCard label="Initials">
+            <XStack gap="$3" alignItems="center">
+              <Avatar fallback="JD" />
+              <Avatar fallback="AB" />
+              <Avatar fallback="ZK" />
+            </XStack>
+          </DemoCard>
+        </XStack>
+      </Section>
+
+      {/* ─── Alert ─── */}
+      <Section title="Alert">
+        <DemoCard label="Default variant">
+          <Alert.Root variant="default">
+            <Alert.Title>Heads up!</Alert.Title>
+            <Alert.Description>This is a default informational alert.</Alert.Description>
+          </Alert.Root>
+        </DemoCard>
+        <DemoCard label="Destructive variant">
+          <Alert.Root variant="destructive">
+            <Alert.Title>Error</Alert.Title>
+            <Alert.Description>Something went wrong. Please try again.</Alert.Description>
+          </Alert.Root>
+        </DemoCard>
+      </Section>
+
+      {/* ─── Toggle ─── */}
+      <Section title="Toggle">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="Single toggle">
+            <XStack gap="$3" alignItems="center">
+              <Toggle pressed={togglePressed} onPressedChange={setTogglePressed}>
+                <Text fontFamily="$body" fontSize="$3">
+                  {togglePressed ? 'Pressed' : 'Not pressed'}
+                </Text>
+              </Toggle>
+            </XStack>
+          </DemoCard>
+          <DemoCard label="Toggle Group (single)">
+            <ToggleGroup type="single" value={toggleGroupValue} onValueChange={setToggleGroupValue}>
+              <ToggleGroup.Item value="left">
+                <Text fontFamily="$body" fontSize="$3">Left</Text>
+              </ToggleGroup.Item>
+              <ToggleGroup.Item value="center">
+                <Text fontFamily="$body" fontSize="$3">Center</Text>
+              </ToggleGroup.Item>
+              <ToggleGroup.Item value="right">
+                <Text fontFamily="$body" fontSize="$3">Right</Text>
+              </ToggleGroup.Item>
+            </ToggleGroup>
+          </DemoCard>
+          <DemoCard label="Disabled">
+            <Toggle disabled>
+              <Text fontFamily="$body" fontSize="$3">Disabled</Text>
+            </Toggle>
+          </DemoCard>
+        </XStack>
+      </Section>
+
+      {/* ─── Tooltip ─── */}
+      <Section title="Tooltip">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="Hover to see">
+            <XStack gap="$4">
+              <Tooltip content="This is a tooltip on top" side="top">
+                <View
+                  backgroundColor="$color4"
+                  paddingHorizontal="$4"
+                  paddingVertical="$2"
+                  borderRadius="$3"
+                  cursor="pointer"
+                >
+                  <Text fontFamily="$body" fontSize="$3">Top</Text>
+                </View>
+              </Tooltip>
+              <Tooltip content="This is a tooltip on bottom" side="bottom">
+                <View
+                  backgroundColor="$color4"
+                  paddingHorizontal="$4"
+                  paddingVertical="$2"
+                  borderRadius="$3"
+                  cursor="pointer"
+                >
+                  <Text fontFamily="$body" fontSize="$3">Bottom</Text>
+                </View>
+              </Tooltip>
+            </XStack>
+          </DemoCard>
+        </XStack>
+      </Section>
+
+      {/* ─── Card ─── */}
       <Section title="Card">
         <XStack gap="$4" flexWrap="wrap">
           <Card flex={1} minWidth={260}>
@@ -143,6 +522,7 @@ export function ComponentsPage() {
         </XStack>
       </Section>
 
+      {/* ─── Dialog ─── */}
       <Section title="Dialog">
         <DemoCard label="Open/Close">
           <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -169,6 +549,7 @@ export function ComponentsPage() {
         </DemoCard>
       </Section>
 
+      {/* ─── Tabs ─── */}
       <Section title="Tabs">
         <DemoCard label="Multi-tab">
           <Tabs.Root defaultValue="tab1">

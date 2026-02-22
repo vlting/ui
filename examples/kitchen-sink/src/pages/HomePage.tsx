@@ -7,8 +7,9 @@ export function HomePage() {
   const { brand = 'default' } = useParams()
 
   const sections = [
-    { path: 'primitives', title: 'Primitives', description: 'Box, Stack, Text, Heading, Icon, Divider, Spacer, Portal' },
-    { path: 'components', title: 'Components', description: 'Button, Input, Card, Dialog, Tabs — styled & ready to use' },
+    { path: 'primitives', title: 'Primitives', description: 'Box, Stack, Text, Heading, Label, Badge, Skeleton, Separator, Divider, Spacer, AspectRatio' },
+    { path: 'components', title: 'Components', description: 'Button, Input, Textarea, Card, Dialog, Tabs, Select, Checkbox, Radio, Switch, Slider, Progress, Avatar, Alert, Toggle, Tooltip, and more' },
+    { path: 'composed', title: 'Composed', description: 'Accordion, AlertDialog, Collapsible, Table, Breadcrumb, Form' },
     { path: 'headless', title: 'Headless', description: 'Dialog, Tabs, Checkbox — unstyled behavioral primitives' },
     { path: 'hooks', title: 'Hooks', description: 'useControllableState, useFocusTrap, useKeyboardNavigation' },
   ]
