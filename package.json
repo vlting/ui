@@ -1,8 +1,8 @@
 {
   "name": "@vlting/ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Cross-platform design system built on Tamagui v2",
+  "description": "Cross-platform design system built on Tamagui v2 — layered, domain-free architecture",
   "license": "MIT",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
@@ -25,125 +25,29 @@
       "import": "./dist/esm/config/tamagui.config.mjs",
       "require": "./dist/cjs/config/tamagui.config.cjs"
     },
+    "./design-tokens": {
+      "types": "./packages/design-tokens/src/index.ts",
+      "import": "./packages/design-tokens/src/index.ts"
+    },
     "./primitives": {
-      "types": "./dist/types/primitives/index.d.ts",
-      "import": "./dist/esm/primitives/index.mjs",
-      "require": "./dist/cjs/primitives/index.cjs"
+      "types": "./packages/primitives/src/index.ts",
+      "import": "./packages/primitives/src/index.ts"
     },
-    "./layout": {
-      "types": "./dist/types/layout/index.d.ts",
-      "import": "./dist/esm/layout/index.mjs",
-      "require": "./dist/cjs/layout/index.cjs"
+    "./headless": {
+      "types": "./packages/headless/src/index.ts",
+      "import": "./packages/headless/src/index.ts"
     },
-    "./forms": {
-      "types": "./dist/types/forms/index.d.ts",
-      "import": "./dist/esm/forms/index.mjs",
-      "require": "./dist/cjs/forms/index.cjs"
+    "./components": {
+      "types": "./packages/components/src/index.ts",
+      "import": "./packages/components/src/index.ts"
     },
-    "./feedback": {
-      "types": "./dist/types/feedback/index.d.ts",
-      "import": "./dist/esm/feedback/index.mjs",
-      "require": "./dist/cjs/feedback/index.cjs"
+    "./hooks": {
+      "types": "./packages/hooks/src/index.ts",
+      "import": "./packages/hooks/src/index.ts"
     },
-    "./auth": {
-      "types": "./dist/types/auth/index.d.ts",
-      "import": "./dist/esm/auth/index.mjs",
-      "require": "./dist/cjs/auth/index.cjs"
-    },
-    "./organization": {
-      "types": "./dist/types/organization/index.d.ts",
-      "import": "./dist/esm/organization/index.mjs",
-      "require": "./dist/cjs/organization/index.cjs"
-    },
-    "./social": {
-      "types": "./dist/types/social/index.d.ts",
-      "import": "./dist/esm/social/index.mjs",
-      "require": "./dist/cjs/social/index.cjs"
-    },
-    "./community": {
-      "types": "./dist/types/community/index.d.ts",
-      "import": "./dist/esm/community/index.mjs",
-      "require": "./dist/cjs/community/index.cjs"
-    },
-    "./messaging": {
-      "types": "./dist/types/messaging/index.d.ts",
-      "import": "./dist/esm/messaging/index.mjs",
-      "require": "./dist/cjs/messaging/index.cjs"
-    },
-    "./dating": {
-      "types": "./dist/types/dating/index.d.ts",
-      "import": "./dist/esm/dating/index.mjs",
-      "require": "./dist/cjs/dating/index.cjs"
-    },
-    "./ecommerce": {
-      "types": "./dist/types/ecommerce/index.d.ts",
-      "import": "./dist/esm/ecommerce/index.mjs",
-      "require": "./dist/cjs/ecommerce/index.cjs"
-    },
-    "./payments": {
-      "types": "./dist/types/payments/index.d.ts",
-      "import": "./dist/esm/payments/index.mjs",
-      "require": "./dist/cjs/payments/index.cjs"
-    },
-    "./media": {
-      "types": "./dist/types/media/index.d.ts",
-      "import": "./dist/esm/media/index.mjs",
-      "require": "./dist/cjs/media/index.cjs"
-    },
-    "./maps": {
-      "types": "./dist/types/maps/index.d.ts",
-      "import": "./dist/esm/maps/index.mjs",
-      "require": "./dist/cjs/maps/index.cjs"
-    },
-    "./crm": {
-      "types": "./dist/types/crm/index.d.ts",
-      "import": "./dist/esm/crm/index.mjs",
-      "require": "./dist/cjs/crm/index.cjs"
-    },
-    "./erp": {
-      "types": "./dist/types/erp/index.d.ts",
-      "import": "./dist/esm/erp/index.mjs",
-      "require": "./dist/cjs/erp/index.cjs"
-    },
-    "./accounting": {
-      "types": "./dist/types/accounting/index.d.ts",
-      "import": "./dist/esm/accounting/index.mjs",
-      "require": "./dist/cjs/accounting/index.cjs"
-    },
-    "./project-management": {
-      "types": "./dist/types/project-management/index.d.ts",
-      "import": "./dist/esm/project-management/index.mjs",
-      "require": "./dist/cjs/project-management/index.cjs"
-    },
-    "./collaboration": {
-      "types": "./dist/types/collaboration/index.d.ts",
-      "import": "./dist/esm/collaboration/index.mjs",
-      "require": "./dist/cjs/collaboration/index.cjs"
-    },
-    "./automation": {
-      "types": "./dist/types/automation/index.d.ts",
-      "import": "./dist/esm/automation/index.mjs",
-      "require": "./dist/cjs/automation/index.cjs"
-    },
-    "./marketing": {
-      "types": "./dist/types/marketing/index.d.ts",
-      "import": "./dist/esm/marketing/index.mjs",
-      "require": "./dist/cjs/marketing/index.cjs"
-    },
-    "./analytics": {
-      "types": "./dist/types/analytics/index.d.ts",
-      "import": "./dist/esm/analytics/index.mjs",
-      "require": "./dist/cjs/analytics/index.cjs"
-    },
-    "./hr": {
-      "types": "./dist/types/hr/index.d.ts",
-      "import": "./dist/esm/hr/index.mjs",
-      "require": "./dist/cjs/hr/index.cjs"
-    },
-    "./productivity": {
-      "types": "./dist/types/productivity/index.d.ts",
-      "import": "./dist/esm/productivity/index.mjs",
-      "require": "./dist/cjs/productivity/index.cjs"
+    "./utils": {
+      "types": "./packages/utils/src/index.ts",
+      "import": "./packages/utils/src/index.ts"
     }
   },
   "workspaces": [
@@ -157,9 +61,9 @@
     "clean": "tamagui-build clean",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "lint": "biome check src/",
-    "lint:fix": "biome check --write src/",
-    "format": "biome format --write src/",
+    "lint": "biome check src/ packages/",
+    "lint:fix": "biome check --write src/ packages/",
+    "format": "biome format --write src/ packages/",
     "typecheck": "tsc --noEmit",
     "dev:crushd": "yarn workspace @vlting/examples-crushd dev",
     "dev:volta": "yarn workspace @vlting/examples-volta dev"
@@ -175,8 +79,6 @@
     "@tamagui/theme-builder": "2.0.0-rc.14",
     "@tamagui/themes": "2.0.0-rc.14",
     "@tamagui/toast": "2.0.0-rc.14",
-    "@tiptap/react": "^3.20.0",
-    "@tiptap/starter-kit": "^3.20.0",
     "tamagui": "2.0.0-rc.14"
   },
   "devDependencies": {
