@@ -42,3 +42,19 @@ export type { TooltipProps } from './Tooltip'
 
 export { Select } from './Select'
 export type { SelectProps, SelectItemProps } from './Select'
+
+export { Accordion } from './Accordion'
+export type { AccordionRootProps, AccordionItemProps, AccordionTriggerProps, AccordionContentProps } from './Accordion'
+
+export { Collapsible } from './Collapsible'
+export type { CollapsibleRootProps, CollapsibleTriggerProps, CollapsibleContentProps } from './Collapsible'
+
+export { AlertDialog } from './AlertDialog'
+
+export { Table } from './Table'
+
+export { Breadcrumb } from './Breadcrumb'
+export type { BreadcrumbProps } from './Breadcrumb'
+
+export { Form } from './Form'
+export type { FormRootProps, FormFieldProps } from './Form'
