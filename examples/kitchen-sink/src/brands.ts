@@ -1,5 +1,4 @@
-import { createBrandConfig, defaultBrand } from '@vlting/ui'
-import { neonBrand } from '../../../../packages/design-tokens/src/brands/neon'
+import { createBrandConfig, defaultBrand, neonBrand } from '@vlting/ui'
 import { createTamagui } from 'tamagui'
 
 const defaultConfig = createTamagui(createBrandConfig(defaultBrand))

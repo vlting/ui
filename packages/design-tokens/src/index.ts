@@ -13,6 +13,7 @@ export type { ShadowToken, ShadowScale } from './themes'
 export {
   createBrandConfig,
   defaultBrand,
+  neonBrand,
   media,
 } from './brands'
 export type {

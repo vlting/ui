@@ -236,3 +236,4 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
 }
 
 export { defaultBrand } from './default'
+export { neonBrand } from './neon'

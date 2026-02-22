@@ -20,6 +20,7 @@ export {
   darkShadows,
   createBrandConfig,
   defaultBrand,
+  neonBrand,
   media,
 } from '../packages/design-tokens/src'
 export type {

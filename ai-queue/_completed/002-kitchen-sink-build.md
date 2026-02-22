@@ -1,4 +1,8 @@
 <!-- auto-queue -->
+# Commit History
+- Exported `neonBrand` through the barrel chain (brands/index → design-tokens/index → src/index)
+- Fixed kitchen-sink brands.ts to import from `@vlting/ui` instead of relative path
+
 # Task: Verify kitchen-sink builds and runs properly
 
 ## Objective
