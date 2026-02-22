@@ -1,12 +1,14 @@
-import { createBrandConfig, defaultBrand, neonBrand } from '@vlting/ui'
+import { createBrandConfig, defaultBrand, funBrand, poshBrand } from '@vlting/ui'
 import { createTamagui } from 'tamagui'
 
 const defaultConfig = createTamagui(createBrandConfig(defaultBrand))
-const neonConfig = createTamagui(createBrandConfig(neonBrand))
+const funConfig = createTamagui(createBrandConfig(funBrand))
+const poshConfig = createTamagui(createBrandConfig(poshBrand))
 
 export const brands = {
   default: { label: 'Default', definition: defaultBrand, config: defaultConfig },
-  neon: { label: 'Neon', definition: neonBrand, config: neonConfig },
+  fun: { label: 'Fun', definition: funBrand, config: funConfig },
+  posh: { label: 'Posh', definition: poshBrand, config: poshConfig },
 } as const
 
 export type BrandKey = keyof typeof brands
