@@ -47,6 +47,12 @@ export {
   Divider,
   Spacer,
   Portal,
+  Label,
+  VisuallyHidden,
+  Badge,
+  Skeleton,
+  Separator,
+  AspectRatio,
 } from '../packages/primitives'
 export type {
   BoxProps,
@@ -60,6 +66,12 @@ export type {
   DividerProps,
   SpacerProps,
   PortalProps,
+  LabelProps,
+  VisuallyHiddenProps,
+  BadgeProps,
+  SkeletonProps,
+  SeparatorProps,
+  AspectRatioProps,
 } from '../packages/primitives'
 
 // Layer 2 — Headless Primitives

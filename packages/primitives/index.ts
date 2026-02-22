@@ -21,3 +21,21 @@ export type { SpacerProps } from './Spacer'
 
 export { Portal } from './Portal'
 export type { PortalProps } from './Portal'
+
+export { Label } from './Label'
+export type { LabelProps } from './Label'
+
+export { VisuallyHidden } from './VisuallyHidden'
+export type { VisuallyHiddenProps } from './VisuallyHidden'
+
+export { Badge } from './Badge'
+export type { BadgeProps } from './Badge'
+
+export { Skeleton } from './Skeleton'
+export type { SkeletonProps } from './Skeleton'
+
+export { Separator } from './Separator'
+export type { SeparatorProps } from './Separator'
+
+export { AspectRatio } from './AspectRatio'
+export type { AspectRatioProps } from './AspectRatio'
