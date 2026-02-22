@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect } from 'react'
-import { useControllableState } from '../../../hooks/src/useControllableState'
-import { useFocusTrap } from '../../../hooks/src/useFocusTrap'
+import { useControllableState } from '../../hooks/useControllableState'
+import { useFocusTrap } from '../../hooks/useFocusTrap'
 
 // ---------------------------------------------------------------------------
 // Context

@@ -22,7 +22,7 @@ export {
   defaultBrand,
   neonBrand,
   media,
-} from '../packages/design-tokens/src'
+} from '../packages/design-tokens'
 export type {
   BrandDefinition,
   BorderConfig,
@@ -33,7 +33,7 @@ export type {
   FontOverrides,
   ShadowToken,
   ShadowScale,
-} from '../packages/design-tokens/src'
+} from '../packages/design-tokens'
 
 // Layer 1 — Primitives
 export {
@@ -47,7 +47,7 @@ export {
   Divider,
   Spacer,
   Portal,
-} from '../packages/primitives/src'
+} from '../packages/primitives'
 export type {
   BoxProps,
   StackProps,
@@ -60,14 +60,14 @@ export type {
   DividerProps,
   SpacerProps,
   PortalProps,
-} from '../packages/primitives/src'
+} from '../packages/primitives'
 
 // Layer 2 — Headless Primitives
 export {
   Dialog as HeadlessDialog,
   Tabs as HeadlessTabs,
   Checkbox as HeadlessCheckbox,
-} from '../packages/headless/src'
+} from '../packages/headless'
 
 // Layer 3 — Styled Components
 export {
@@ -76,23 +76,23 @@ export {
   Card,
   Dialog,
   Tabs,
-} from '../packages/components/src'
+} from '../packages/components'
 export type {
   ButtonProps,
   InputProps,
   CardProps,
-} from '../packages/components/src'
+} from '../packages/components'
 
 // Hooks
 export {
   useControllableState,
   useFocusTrap,
   useKeyboardNavigation,
-} from '../packages/hooks/src'
+} from '../packages/hooks'
 
 // Utils
 export {
   mergeRefs,
   composeEventHandlers,
   cn,
-} from '../packages/utils/src'
+} from '../packages/utils'

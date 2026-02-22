@@ -1,11 +1,11 @@
 import React from 'react'
 import { styled, Text, View, YStack } from 'tamagui'
-import { Dialog as HeadlessDialog } from '../../../headless/src/dialog'
+import { Dialog as HeadlessDialog } from '../../headless/Dialog'
 import type {
   DialogRootProps,
   DialogTriggerProps,
   DialogCloseProps,
-} from '../../../headless/src/dialog'
+} from '../../headless/Dialog'
 
 // @ts-expect-error Tamagui v2 RC
 const StyledOverlay = styled(View, {
