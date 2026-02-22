@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Outlet, useParams, useNavigate, useLocation, Link } from 'react-router-dom'
+import { Outlet, useParams, useLocation, Link } from 'react-router-dom'
 import { Provider } from '@vlting/ui'
-import { brands, type BrandKey } from '../brands'
+import { brands, activeBrand, type BrandKey } from '../brands'
 
 const sections = [
   { path: '', label: 'Home' },
@@ -13,13 +13,10 @@ const sections = [
 
 export function BrandLayout() {
   const { brand = 'default' } = useParams<{ brand: string }>()
-  const navigate = useNavigate()
   const location = useLocation()
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
 
   const brandKey = (brand in brands ? brand : 'default') as BrandKey
-  const brandEntry = brands[brandKey]
-
   const currentSection = location.pathname.split('/').slice(2).join('/') || ''
 
   return (
@@ -62,11 +59,13 @@ export function BrandLayout() {
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          {/* Brand selector */}
+          {/* Brand selector — uses window.location.href to force page reload,
+              because Tamagui's config is a module-level singleton that can't
+              be swapped at runtime */}
           {Object.entries(brands).map(([key, b]) => (
             <button
               key={key}
-              onClick={() => navigate(`/${key}/${currentSection}`)}
+              onClick={() => { window.location.href = `/${key}/${currentSection}` }}
               style={{
                 padding: '6px 14px',
                 borderRadius: '6px',
@@ -101,22 +100,12 @@ export function BrandLayout() {
         </div>
       </nav>
 
-      {/* Content area — render all brand Providers simultaneously, show/hide via display */}
-      {Object.entries(brands).map(([key, b]) => (
-        <div
-          key={key}
-          style={{
-            flex: 1,
-            display: brandKey === key ? 'flex' : 'none',
-            flexDirection: 'column',
-            backgroundColor: theme === 'dark' ? '#111' : '#f5f5f5',
-          }}
-        >
-          <Provider config={b.config} defaultTheme={theme}>
-            {brandKey === key ? <Outlet /> : null}
-          </Provider>
-        </div>
-      ))}
+      {/* Content area — single Provider with the config created at page load */}
+      <div style={{ flex: 1, backgroundColor: theme === 'dark' ? '#111' : '#f5f5f5' }}>
+        <Provider config={activeBrand.config} defaultTheme={theme}>
+          <Outlet />
+        </Provider>
+      </div>
     </div>
   )
 }
