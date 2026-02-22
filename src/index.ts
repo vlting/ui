@@ -1,80 +1,97 @@
 // Infrastructure
 export { Provider } from './provider'
 export type { ProviderProps } from './provider'
-export { createBrandConfig } from './brands'
-export { defaultBrand } from './brands'
-export type { BrandDefinition, TokenOverrides, FontOverrides } from './brands'
-export { tokens } from './tokens'
-export { buildThemes } from './themes'
 
-// Module 1: Primitives
-export * from './primitives'
+// Layer 0 — Design Tokens
+export {
+  tokens,
+  size,
+  space,
+  radius,
+  color,
+  zIndex,
+  borderWidth,
+  semanticColorMap,
+  buildThemes,
+  lightPalette,
+  darkPalette,
+  accentPalettes,
+  lightShadows,
+  darkShadows,
+  createBrandConfig,
+  defaultBrand,
+  media,
+} from '../packages/design-tokens/src'
+export type {
+  BrandDefinition,
+  BorderConfig,
+  OutlineConfig,
+  AnimationConfig,
+  TypographyConfig,
+  TokenOverrides,
+  FontOverrides,
+  ShadowToken,
+  ShadowScale,
+} from '../packages/design-tokens/src'
 
-// Module 2: Layout
-export * from './layout'
+// Layer 1 — Primitives
+export {
+  Box,
+  Stack,
+  VStack,
+  HStack,
+  Text,
+  Heading,
+  Icon,
+  Divider,
+  Spacer,
+  Portal,
+} from '../packages/primitives/src'
+export type {
+  BoxProps,
+  StackProps,
+  VStackProps,
+  HStackProps,
+  TextProps,
+  HeadingProps,
+  IconProps,
+  IconFC,
+  DividerProps,
+  SpacerProps,
+  PortalProps,
+} from '../packages/primitives/src'
 
-// Module 3: Forms
-export * from './forms'
+// Layer 2 — Headless Primitives
+export {
+  Dialog as HeadlessDialog,
+  Tabs as HeadlessTabs,
+  Checkbox as HeadlessCheckbox,
+} from '../packages/headless/src'
 
-// Module 4: Feedback
-export * from './feedback'
+// Layer 3 — Styled Components
+export {
+  Button,
+  Input,
+  Card,
+  Dialog,
+  Tabs,
+} from '../packages/components/src'
+export type {
+  ButtonProps,
+  InputProps,
+  CardProps,
+} from '../packages/components/src'
 
-// Module 5: Auth
-export * from './auth'
+// Hooks
+export {
+  useControllableState,
+  useFocusTrap,
+  useKeyboardNavigation,
+} from '../packages/hooks/src'
 
-// Module 6: Organization
-export * from './organization'
-
-// Module 7: Social
-export * from './social'
-
-// Module 8: Community
-export * from './community'
-
-// Module 9: Messaging
-export * from './messaging'
-
-// Module 10: Dating
-export * from './dating'
-
-// Module 11: Ecommerce
-export * from './ecommerce'
-
-// Module 12: Payments
-export * from './payments'
-
-// Module 13: Media
-export * from './media'
-
-// Module 14: Maps
-export * from './maps'
-
-// Module 15: CRM
-export * from './crm'
-
-// Module 16: ERP
-export * from './erp'
-
-// Module 17: Accounting
-export * from './accounting'
-
-// Module 18: Project Management
-export * from './project-management'
-
-// Module 19: Collaboration
-export * from './collaboration'
-
-// Module 20: Automation
-export * from './automation'
-
-// Module 21: Marketing
-export * from './marketing'
-
-// Module 22: Analytics
-export * from './analytics'
-
-// Module 23: HR
-export * from './hr'
-
-// Module 24: Productivity
-export * from './productivity'
+// Utils
+export {
+  mergeRefs,
+  composeEventHandlers,
+  cn,
+} from '../packages/utils/src'

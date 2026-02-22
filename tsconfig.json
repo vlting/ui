@@ -22,20 +22,28 @@
     "baseUrl": ".",
     "paths": {
       "@vlting/ui": ["./src"],
-      "@vlting/ui/*": ["./src/*"]
+      "@vlting/ui/*": ["./src/*"],
+      "@vlting/ui/design-tokens": ["./packages/design-tokens/src"],
+      "@vlting/ui/primitives": ["./packages/primitives/src"],
+      "@vlting/ui/headless": ["./packages/headless/src"],
+      "@vlting/ui/components": ["./packages/components/src"],
+      "@vlting/ui/hooks": ["./packages/hooks/src"],
+      "@vlting/ui/utils": ["./packages/utils/src"]
     },
     "types": ["node", "react", "jest"]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "config/**/*.ts"
+    "config/**/*.ts",
+    "packages/**/*.ts",
+    "packages/**/*.tsx"
   ],
   "exclude": [
     "node_modules",
     "dist",
     "**/*.test.ts",
     "**/*.test.tsx",
-    "example"
+    "examples"
   ]
 }
