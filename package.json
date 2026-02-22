@@ -66,7 +66,8 @@
     "format": "biome format --write src/ packages/",
     "typecheck": "tsc --noEmit",
     "dev:crushd": "yarn workspace @vlting/examples-crushd dev",
-    "dev:volta": "yarn workspace @vlting/examples-volta dev"
+    "dev:volta": "yarn workspace @vlting/examples-volta dev",
+    "dev:kitchen-sink": "yarn workspace @vlting/examples-kitchen-sink dev"
   },
   "dependencies": {
     "@tamagui/animations-css": "2.0.0-rc.14",
