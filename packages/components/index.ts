@@ -44,10 +44,19 @@ export { Select } from './Select'
 export type { SelectProps, SelectItemProps } from './Select'
 
 export { Accordion } from './Accordion'
-export type { AccordionRootProps, AccordionItemProps, AccordionTriggerProps, AccordionContentProps } from './Accordion'
+export type {
+  AccordionRootProps,
+  AccordionItemProps,
+  AccordionTriggerProps,
+  AccordionContentProps,
+} from './Accordion'
 
 export { Collapsible } from './Collapsible'
-export type { CollapsibleRootProps, CollapsibleTriggerProps, CollapsibleContentProps } from './Collapsible'
+export type {
+  CollapsibleRootProps,
+  CollapsibleTriggerProps,
+  CollapsibleContentProps,
+} from './Collapsible'
 
 export { AlertDialog } from './AlertDialog'
 

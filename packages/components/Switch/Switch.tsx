@@ -1,5 +1,4 @@
-import React from 'react'
-import { styled, View, XStack } from 'tamagui'
+import { View, XStack, styled } from 'tamagui'
 import { useControllableState } from '../../hooks/useControllableState'
 
 // @ts-expect-error Tamagui v2 RC
@@ -114,7 +113,13 @@ export function Switch({
           name={name}
           checked={!!checked}
           onChange={() => {}}
-          style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: 0, height: 0 }}
+          style={{
+            position: 'absolute',
+            opacity: 0,
+            pointerEvents: 'none',
+            width: 0,
+            height: 0,
+          }}
         />
       )}
     </>

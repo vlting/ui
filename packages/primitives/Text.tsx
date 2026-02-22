@@ -1,5 +1,5 @@
 import type { GetProps } from 'tamagui'
-import { styled, Text as TText } from 'tamagui'
+import { Text as TText, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 export const Text = styled(TText, {

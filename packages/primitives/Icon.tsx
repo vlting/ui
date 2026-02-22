@@ -1,5 +1,4 @@
 import type { ComponentType } from 'react'
-import React from 'react'
 
 /** Normalized icon type compatible with @tamagui/lucide-icons */
 export type IconFC = ComponentType<{ size?: number; color?: string }>

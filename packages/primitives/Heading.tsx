@@ -1,5 +1,5 @@
 import type { GetProps } from 'tamagui'
-import { styled, Text } from 'tamagui'
+import { Text, styled } from 'tamagui'
 
 const HeadingBase = styled(Text, {
   fontFamily: '$heading',

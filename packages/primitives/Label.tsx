@@ -1,5 +1,5 @@
-import React from 'react'
-import { styled, Text } from 'tamagui'
+import type React from 'react'
+import { Text, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const StyledLabel = styled(Text, {
@@ -33,7 +33,13 @@ export interface LabelProps {
   required?: boolean
 }
 
-export function Label({ children, htmlFor, size = 'md', required, ...props }: LabelProps) {
+export function Label({
+  children,
+  htmlFor,
+  size = 'md',
+  required,
+  ...props
+}: LabelProps) {
   return (
     // @ts-expect-error Tamagui v2 RC
     <StyledLabel

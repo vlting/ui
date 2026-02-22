@@ -1,5 +1,5 @@
-import React from 'react'
-import { styled, Text, YStack, XStack, View } from 'tamagui'
+import type React from 'react'
+import { Text, XStack, YStack, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const AlertFrame = styled(XStack, {

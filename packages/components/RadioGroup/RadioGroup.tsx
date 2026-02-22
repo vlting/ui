@@ -1,5 +1,6 @@
-import React, { createContext, useContext } from 'react'
-import { styled, View, XStack, YStack } from 'tamagui'
+import type React from 'react'
+import { createContext, useContext } from 'react'
+import { View, XStack, YStack, styled } from 'tamagui'
 import { useControllableState } from '../../hooks/useControllableState'
 
 interface RadioGroupContextValue {
@@ -98,7 +99,9 @@ function Root({
   const Container = orientation === 'horizontal' ? XStack : YStack
 
   return (
-    <RadioGroupContext.Provider value={{ value, onValueChange: setValue, disabled, name, size }}>
+    <RadioGroupContext.Provider
+      value={{ value, onValueChange: setValue, disabled, name, size }}
+    >
       {/* @ts-expect-error Tamagui v2 RC */}
       <Container role="radiogroup" gap="$2">
         {children}
@@ -113,8 +116,18 @@ export interface RadioGroupItemProps {
   children?: React.ReactNode
 }
 
-function Item({ value: itemValue, disabled: itemDisabled, children }: RadioGroupItemProps) {
-  const { value, onValueChange, disabled: groupDisabled, name, size } = useRadioGroupContext()
+function Item({
+  value: itemValue,
+  disabled: itemDisabled,
+  children,
+}: RadioGroupItemProps) {
+  const {
+    value,
+    onValueChange,
+    disabled: groupDisabled,
+    name,
+    size,
+  } = useRadioGroupContext()
   const isChecked = value === itemValue
   const isDisabled = itemDisabled || groupDisabled
 
@@ -126,7 +139,11 @@ function Item({ value: itemValue, disabled: itemDisabled, children }: RadioGroup
         aria-checked={isChecked}
         disabled={isDisabled}
         onClick={() => !isDisabled && onValueChange(itemValue)}
-        style={{ all: 'unset', display: 'inline-flex', cursor: isDisabled ? 'not-allowed' : 'pointer' }}
+        style={{
+          all: 'unset',
+          display: 'inline-flex',
+          cursor: isDisabled ? 'not-allowed' : 'pointer',
+        }}
       >
         {/* @ts-expect-error Tamagui v2 RC */}
         <StyledCircle checked={isChecked} disabled={isDisabled} size={size}>
@@ -144,7 +161,13 @@ function Item({ value: itemValue, disabled: itemDisabled, children }: RadioGroup
           value={itemValue}
           checked={isChecked}
           onChange={() => {}}
-          style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: 0, height: 0 }}
+          style={{
+            position: 'absolute',
+            opacity: 0,
+            pointerEvents: 'none',
+            width: 0,
+            height: 0,
+          }}
         />
       )}
     </XStack>

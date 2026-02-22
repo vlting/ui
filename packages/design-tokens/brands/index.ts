@@ -1,14 +1,9 @@
 import { createAnimations as createCSSAnimations } from '@tamagui/animations-css'
 import { createTokens } from '@tamagui/core'
 import { shorthands } from '@tamagui/shorthands'
-import { type CreateTamaguiProps, createFont, type GenericFont } from 'tamagui'
-import {
-  size, space, radius, color, zIndex, borderWidth,
-} from '../base'
-import {
-  type ShadowScale,
-  buildThemes,
-} from '../themes'
+import { type CreateTamaguiProps, type GenericFont, createFont } from 'tamagui'
+import { borderWidth, color, radius, size, space, zIndex } from '../base'
+import { type ShadowScale, buildThemes } from '../themes'
 
 // ---------------------------------------------------------------------------
 // Brand types
@@ -30,7 +25,10 @@ export interface AnimationConfig {
 }
 
 export interface TypographyConfig {
-  heading?: { transform?: 'none' | 'uppercase' | 'lowercase' | 'capitalize'; style?: 'normal' | 'italic' }
+  heading?: {
+    transform?: 'none' | 'uppercase' | 'lowercase' | 'capitalize'
+    style?: 'normal' | 'italic'
+  }
   body?: { style?: 'normal' | 'italic' }
 }
 
@@ -89,17 +87,79 @@ export const media = {
 
 const defaultHeadingFont = createFont({
   family: 'Inter',
-  size: { 1: 12, 2: 14, 3: 16, 4: 18, 5: 20, 6: 24, 7: 28, 8: 32, 9: 40, 10: 48, 11: 56, 12: 64, true: 20 },
+  size: {
+    1: 12,
+    2: 14,
+    3: 16,
+    4: 18,
+    5: 20,
+    6: 24,
+    7: 28,
+    8: 32,
+    9: 40,
+    10: 48,
+    11: 56,
+    12: 64,
+    true: 20,
+  },
   weight: { 1: '300', 2: '400', 3: '500', 4: '600', 5: '700', 6: '800', true: '600' },
-  lineHeight: { 1: 18, 2: 20, 3: 24, 4: 26, 5: 28, 6: 32, 7: 36, 8: 40, 9: 52, 10: 60, 11: 68, 12: 76, true: 28 },
-  letterSpacing: { 1: 0, 2: 0, 3: -0.2, 4: -0.3, 5: -0.4, 6: -0.5, 7: -0.6, 8: -0.7, true: -0.4 },
+  lineHeight: {
+    1: 18,
+    2: 20,
+    3: 24,
+    4: 26,
+    5: 28,
+    6: 32,
+    7: 36,
+    8: 40,
+    9: 52,
+    10: 60,
+    11: 68,
+    12: 76,
+    true: 28,
+  },
+  letterSpacing: {
+    1: 0,
+    2: 0,
+    3: -0.2,
+    4: -0.3,
+    5: -0.4,
+    6: -0.5,
+    7: -0.6,
+    8: -0.7,
+    true: -0.4,
+  },
 })
 
 const defaultBodyFont = createFont({
   family: 'Inter',
-  size: { 1: 11, 2: 12, 3: 13, 4: 14, 5: 16, 6: 18, 7: 20, 8: 24, 9: 28, 10: 32, true: 14 },
+  size: {
+    1: 11,
+    2: 12,
+    3: 13,
+    4: 14,
+    5: 16,
+    6: 18,
+    7: 20,
+    8: 24,
+    9: 28,
+    10: 32,
+    true: 14,
+  },
   weight: { 1: '300', 2: '400', 3: '500', 4: '600', true: '400' },
-  lineHeight: { 1: 16, 2: 18, 3: 20, 4: 22, 5: 24, 6: 28, 7: 30, 8: 34, 9: 38, 10: 42, true: 22 },
+  lineHeight: {
+    1: 16,
+    2: 18,
+    3: 20,
+    4: 22,
+    5: 24,
+    6: 28,
+    7: 30,
+    8: 34,
+    9: 38,
+    10: 42,
+    true: 22,
+  },
   letterSpacing: { 1: 0, 2: 0, 3: 0, true: 0 },
 })
 
@@ -143,8 +203,12 @@ function applyTypographyToFont(
 export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
   const mergedSize = brand.tokens?.size ? { ...size, ...brand.tokens.size } : size
   const mergedSpace = brand.tokens?.space ? { ...space, ...brand.tokens.space } : space
-  const mergedRadius = brand.tokens?.radius ? { ...radius, ...brand.tokens.radius } : radius
-  const mergedZIndex = brand.tokens?.zIndex ? { ...zIndex, ...brand.tokens.zIndex } : zIndex
+  const mergedRadius = brand.tokens?.radius
+    ? { ...radius, ...brand.tokens.radius }
+    : radius
+  const mergedZIndex = brand.tokens?.zIndex
+    ? { ...zIndex, ...brand.tokens.zIndex }
+    : zIndex
 
   const mergedBorderWidth = brand.tokens?.borderWidth
     ? { ...borderWidth, ...brand.tokens.borderWidth }

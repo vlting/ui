@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { styled, Text, View, Image } from 'tamagui'
+import { useState } from 'react'
+import { Image, Text, View, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const AvatarFrame = styled(View, {
@@ -59,7 +59,11 @@ export function Avatar({ src, alt, fallback, size = 'md' }: AvatarProps) {
 
   return (
     // @ts-expect-error Tamagui v2 RC
-    <AvatarFrame size={size} accessibilityRole="image" aria-label={alt || fallback || 'avatar'}>
+    <AvatarFrame
+      size={size}
+      accessibilityRole="image"
+      aria-label={alt || fallback || 'avatar'}
+    >
       {showImage ? (
         <Image
           source={{ uri: src, width: px, height: px }}
@@ -68,9 +72,7 @@ export function Avatar({ src, alt, fallback, size = 'md' }: AvatarProps) {
         />
       ) : (
         // @ts-expect-error Tamagui v2 RC
-        <AvatarFallback size={size}>
-          {fallback || '?'}
-        </AvatarFallback>
+        <AvatarFallback size={size}>{fallback || '?'}</AvatarFallback>
       )}
     </AvatarFrame>
   )

@@ -34,7 +34,12 @@ export interface DialogRootProps {
   onOpenChange?: (open: boolean) => void
 }
 
-function Root({ children, open: openProp, defaultOpen = false, onOpenChange }: DialogRootProps) {
+function Root({
+  children,
+  open: openProp,
+  defaultOpen = false,
+  onOpenChange,
+}: DialogRootProps) {
   const [open, setOpen] = useControllableState({
     prop: openProp,
     defaultProp: defaultOpen,
@@ -119,7 +124,8 @@ export interface DialogContentProps {
 }
 
 function Content({ children, onEscapeKeyDown, ...props }: DialogContentProps) {
-  const { open, onOpenChange, contentId, titleId, descriptionId, triggerRef } = useDialogContext()
+  const { open, onOpenChange, contentId, titleId, descriptionId, triggerRef } =
+    useDialogContext()
   const focusTrapRef = useFocusTrap<HTMLDivElement>(!!open)
 
   const handleKeyDown = useCallback(
@@ -174,7 +180,11 @@ export interface DialogTitleProps {
 
 function Title({ children, ...props }: DialogTitleProps) {
   const { titleId } = useDialogContext()
-  return <h2 {...props} id={titleId}>{children}</h2>
+  return (
+    <h2 {...props} id={titleId}>
+      {children}
+    </h2>
+  )
 }
 
 export interface DialogDescriptionProps {
@@ -184,7 +194,11 @@ export interface DialogDescriptionProps {
 
 function Description({ children, ...props }: DialogDescriptionProps) {
   const { descriptionId } = useDialogContext()
-  return <p {...props} id={descriptionId}>{children}</p>
+  return (
+    <p {...props} id={descriptionId}>
+      {children}
+    </p>
+  )
 }
 
 export interface DialogCloseProps {

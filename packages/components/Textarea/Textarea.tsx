@@ -1,5 +1,4 @@
-import React from 'react'
-import { styled, Text, YStack } from 'tamagui'
+import { Text, YStack, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const TextareaFrame = styled(YStack, {
@@ -46,9 +45,24 @@ const TextareaField = styled(Text, {
       },
     },
     size: {
-      sm: { fontSize: '$2', paddingHorizontal: '$2', paddingVertical: '$1.5', minHeight: 60 },
-      md: { fontSize: '$3', paddingHorizontal: '$3', paddingVertical: '$2', minHeight: 80 },
-      lg: { fontSize: '$4', paddingHorizontal: '$3', paddingVertical: '$2.5', minHeight: 100 },
+      sm: {
+        fontSize: '$2',
+        paddingHorizontal: '$2',
+        paddingVertical: '$1.5',
+        minHeight: 60,
+      },
+      md: {
+        fontSize: '$3',
+        paddingHorizontal: '$3',
+        paddingVertical: '$2',
+        minHeight: 80,
+      },
+      lg: {
+        fontSize: '$4',
+        paddingHorizontal: '$3',
+        paddingVertical: '$2.5',
+        minHeight: 100,
+      },
     },
   } as const,
 
@@ -113,7 +127,9 @@ export function Textarea({
         value={value}
         defaultValue={defaultValue}
         // @ts-expect-error RN vs web event types
-        onChange={(e: any) => onChangeText?.(e?.nativeEvent?.text ?? e?.target?.value ?? '')}
+        onChange={(e: any) =>
+          onChangeText?.(e?.nativeEvent?.text ?? e?.target?.value ?? '')
+        }
         placeholder={placeholder}
         error={error}
         disabled={disabled}

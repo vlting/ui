@@ -1,7 +1,11 @@
-import React from 'react'
-import { styled, Text, View, XStack } from 'tamagui'
+import { Text, View, XStack, styled } from 'tamagui'
 import { Tabs as HeadlessTabs } from '../../headless/Tabs'
-import type { TabsRootProps, TabsListProps, TabsTriggerProps, TabsContentProps } from '../../headless/Tabs'
+import type {
+  TabsContentProps,
+  TabsListProps,
+  TabsRootProps,
+  TabsTriggerProps,
+} from '../../headless/Tabs'
 
 // @ts-expect-error Tamagui v2 RC
 const StyledList = styled(XStack, {
@@ -19,7 +23,7 @@ const StyledList = styled(XStack, {
 })
 
 // @ts-expect-error Tamagui v2 RC
-const StyledTrigger = styled(View, {
+const _StyledTrigger = styled(View, {
   paddingHorizontal: '$3',
   paddingVertical: '$2',
   cursor: 'pointer',
@@ -49,7 +53,7 @@ const StyledTrigger = styled(View, {
 })
 
 // @ts-expect-error Tamagui v2 RC
-const StyledTriggerText = styled(Text, {
+const _StyledTriggerText = styled(Text, {
   fontFamily: '$body',
   fontWeight: '$3',
 

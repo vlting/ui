@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
-import { styled, Text, View, XStack, YStack, withStaticProperties } from 'tamagui'
+import { Text, View, XStack, YStack, styled, withStaticProperties } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const SelectTrigger = styled(XStack, {
@@ -184,7 +184,18 @@ function SelectRoot({
   const displayLabel = value ? (items.get(value) ?? value) : undefined
 
   return (
-    <SelectContext.Provider value={{ value, onValueChange: handleValueChange, open, setOpen, size, disabled, items, registerItem }}>
+    <SelectContext.Provider
+      value={{
+        value,
+        onValueChange: handleValueChange,
+        open,
+        setOpen,
+        size,
+        disabled,
+        items,
+        registerItem,
+      }}
+    >
       {/* @ts-expect-error Tamagui v2 RC */}
       <View ref={containerRef} position="relative">
         {/* @ts-expect-error Tamagui v2 RC */}
@@ -200,15 +211,22 @@ function SelectRoot({
           <SelectValueText size={size} placeholder={!displayLabel}>
             {displayLabel || placeholder}
           </SelectValueText>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <polyline points="6 9 12 15 18 9" />
           </svg>
         </SelectTrigger>
         {open && (
           // @ts-expect-error Tamagui v2 RC
-          <SelectContent role="listbox">
-            {children}
-          </SelectContent>
+          <SelectContent role="listbox">{children}</SelectContent>
         )}
       </View>
     </SelectContext.Provider>

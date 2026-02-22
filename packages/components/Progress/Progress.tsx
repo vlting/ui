@@ -1,5 +1,4 @@
-import React from 'react'
-import { styled, View, XStack } from 'tamagui'
+import { View, XStack, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const ProgressTrack = styled(XStack, {

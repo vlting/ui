@@ -1,6 +1,6 @@
 import React from 'react'
 import type { GetProps } from 'tamagui'
-import { Spinner, styled, Text, withStaticProperties, XStack } from 'tamagui'
+import { Spinner, Text, XStack, styled, withStaticProperties } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const ButtonFrame = styled(XStack, {
@@ -120,26 +120,30 @@ export interface ButtonProps {
   onPress?: () => void
 }
 
-const ButtonBase = React.forwardRef<React.ElementRef<typeof ButtonFrame>, ButtonProps & Omit<ButtonFrameProps, keyof ButtonProps>>(
-  function ButtonBase({ loading, children, disabled, variant = 'solid', size = 'md', ...props }, ref) {
-    const isDisabled = disabled ?? loading ?? false
-    return (
-      // @ts-expect-error Tamagui v2 RC
-      <ButtonFrame
-        ref={ref}
-        {...props}
-        variant={variant}
-        size={size}
-        disabled={isDisabled}
-        accessibilityRole="button"
-        aria-disabled={isDisabled || undefined}
-        aria-busy={loading || undefined}
-      >
-        {loading ? <Spinner size="small" /> : children}
-      </ButtonFrame>
-    )
-  },
-)
+const ButtonBase = React.forwardRef<
+  React.ElementRef<typeof ButtonFrame>,
+  ButtonProps & Omit<ButtonFrameProps, keyof ButtonProps>
+>(function ButtonBase(
+  { loading, children, disabled, variant = 'solid', size = 'md', ...props },
+  ref,
+) {
+  const isDisabled = disabled ?? loading ?? false
+  return (
+    // @ts-expect-error Tamagui v2 RC
+    <ButtonFrame
+      ref={ref}
+      {...props}
+      variant={variant}
+      size={size}
+      disabled={isDisabled}
+      accessibilityRole="button"
+      aria-disabled={isDisabled || undefined}
+      aria-busy={loading || undefined}
+    >
+      {loading ? <Spinner size="small" /> : children}
+    </ButtonFrame>
+  )
+})
 
 export const Button = withStaticProperties(ButtonBase, {
   Text: ButtonText,

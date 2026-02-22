@@ -13,9 +13,11 @@ const Platform = {
 const View = (props) => React.createElement('div', props)
 const Text = (props) => React.createElement('span', props)
 const TextInput = (props) => React.createElement('input', props)
-const TouchableOpacity = (props) => React.createElement('button', { onClick: props.onPress, ...props })
+const TouchableOpacity = (props) =>
+  React.createElement('button', { onClick: props.onPress, ...props })
 const TouchableHighlight = TouchableOpacity
-const Pressable = (props) => React.createElement('div', { onClick: props.onPress, ...props })
+const Pressable = (props) =>
+  React.createElement('div', { onClick: props.onPress, ...props })
 const ScrollView = (props) => React.createElement('div', props)
 const FlatList = (props) => React.createElement('div', props)
 const Image = (props) => React.createElement('img', props)
@@ -29,16 +31,20 @@ const Dimensions = {
   addEventListener: () => ({ remove: () => {} }),
 }
 const Animated = {
-  Value: class { constructor(v) { this.value = v } },
+  Value: class {
+    constructor(v) {
+      this.value = v
+    }
+  },
   View: View,
   Text: Text,
   Image: Image,
-  timing: () => ({ start: (cb) => cb && cb() }),
-  spring: () => ({ start: (cb) => cb && cb() }),
+  timing: () => ({ start: (cb) => cb?.() }),
+  spring: () => ({ start: (cb) => cb?.() }),
   createAnimatedComponent: (Component) => Component,
 }
 const Alert = { alert: () => {} }
-const Modal = (props) => props.visible ? React.createElement('div', props) : null
+const Modal = (props) => (props.visible ? React.createElement('div', props) : null)
 const ActivityIndicator = (props) => React.createElement('div', props)
 const Keyboard = { dismiss: () => {}, addListener: () => ({ remove: () => {} }) }
 
@@ -67,7 +73,7 @@ module.exports = {
   DeviceEventEmitter: { addListener: () => ({ remove: () => {} }) },
   AppState: { addEventListener: () => ({ remove: () => {} }) },
   Linking: { openURL: () => {}, addEventListener: () => ({ remove: () => {} }) },
-  InteractionManager: { runAfterInteractions: (cb) => cb && cb() },
+  InteractionManager: { runAfterInteractions: (cb) => cb?.() },
   LayoutAnimation: { configureNext: () => {} },
   UIManager: {},
   I18nManager: { isRTL: false },

@@ -53,7 +53,9 @@ function Root({
   }, [])
 
   return (
-    <TabsContext.Provider value={{ value, onValueChange: setValue, orientation, tabIds, registerTab }}>
+    <TabsContext.Provider
+      value={{ value, onValueChange: setValue, orientation, tabIds, registerTab }}
+    >
       <div data-orientation={orientation}>{children}</div>
     </TabsContext.Provider>
   )
@@ -163,7 +165,6 @@ function TabContent({ children, value: tabValue, ...props }: TabsContentProps) {
       role="tabpanel"
       id={`tabpanel-${tabValue}`}
       aria-labelledby={`tab-${tabValue}`}
-      tabIndex={0}
       data-state="active"
     >
       {children}

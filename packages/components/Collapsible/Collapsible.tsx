@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react'
-import { styled, YStack } from 'tamagui'
+import { YStack, styled } from 'tamagui'
 import { useControllableState } from '../../hooks/useControllableState'
 
 interface CollapsibleContextValue {
@@ -27,7 +27,12 @@ export interface CollapsibleRootProps {
   onOpenChange?: (open: boolean) => void
 }
 
-function Root({ children, open: openProp, defaultOpen = false, onOpenChange }: CollapsibleRootProps) {
+function Root({
+  children,
+  open: openProp,
+  defaultOpen = false,
+  onOpenChange,
+}: CollapsibleRootProps) {
   const [open, setOpen] = useControllableState({
     prop: openProp,
     defaultProp: defaultOpen,
@@ -68,9 +73,7 @@ function Content({ children }: CollapsibleContentProps) {
 
   return (
     // @ts-expect-error Tamagui v2 RC
-    <YStack data-state="open">
-      {children}
-    </YStack>
+    <YStack data-state="open">{children}</YStack>
   )
 }
 

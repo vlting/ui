@@ -1,7 +1,7 @@
-import React from 'react'
-import { styled, Text, View, YStack, XStack } from 'tamagui'
+import type React from 'react'
+import { Text, View, XStack, YStack, styled } from 'tamagui'
 import { Dialog as HeadlessDialog } from '../../headless/Dialog'
-import type { DialogRootProps, DialogCloseProps } from '../../headless/Dialog'
+import type { DialogCloseProps, DialogRootProps } from '../../headless/Dialog'
 
 // @ts-expect-error Tamagui v2 RC
 const StyledOverlay = styled(View, {
@@ -60,16 +60,17 @@ function Trigger({ children }: { children: React.ReactElement }) {
 function Overlay({ children }: { children?: React.ReactNode }) {
   return (
     <HeadlessDialog.Overlay
-      style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 50,
+      }}
     >
       {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledOverlay
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-      />
+      <StyledOverlay position="absolute" top={0} left={0} right={0} bottom={0} />
       {children}
     </HeadlessDialog.Overlay>
   )
@@ -119,4 +120,14 @@ function Action({ children }: { children: React.ReactElement }) {
   return <HeadlessDialog.Close>{children}</HeadlessDialog.Close>
 }
 
-export const AlertDialog = { Root, Trigger, Overlay, Content, Title, Description, Footer, Cancel, Action }
+export const AlertDialog = {
+  Root,
+  Trigger,
+  Overlay,
+  Content,
+  Title,
+  Description,
+  Footer,
+  Cancel,
+  Action,
+}

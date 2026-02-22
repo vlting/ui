@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import { Portal as TPortal } from 'tamagui'
 
 export interface PortalProps {

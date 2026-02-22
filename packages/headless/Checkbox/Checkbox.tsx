@@ -1,4 +1,5 @@
-import React, { createContext, useContext } from 'react'
+import type React from 'react'
+import { createContext, useContext } from 'react'
 import { useControllableState } from '../../hooks/useControllableState'
 
 // ---------------------------------------------------------------------------
@@ -15,7 +16,8 @@ const CheckboxContext = createContext<CheckboxContextValue | null>(null)
 
 function useCheckboxContext() {
   const ctx = useContext(CheckboxContext)
-  if (!ctx) throw new Error('Checkbox compound components must be used within Checkbox.Root')
+  if (!ctx)
+    throw new Error('Checkbox compound components must be used within Checkbox.Root')
   return ctx
 }
 
@@ -54,7 +56,7 @@ function Root({
 
   const handleClick = () => {
     if (disabled) return
-    setChecked(checked === true ? false : true)
+    setChecked(checked !== true)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -73,7 +75,13 @@ function Root({
         aria-checked={checked === 'indeterminate' ? 'mixed' : checked}
         aria-required={required}
         disabled={disabled}
-        data-state={checked === true ? 'checked' : checked === 'indeterminate' ? 'indeterminate' : 'unchecked'}
+        data-state={
+          checked === true
+            ? 'checked'
+            : checked === 'indeterminate'
+              ? 'indeterminate'
+              : 'unchecked'
+        }
         data-disabled={disabled || undefined}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
@@ -89,7 +97,13 @@ function Root({
           value={value}
           checked={checked === true}
           onChange={() => {}}
-          style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: 0, height: 0 }}
+          style={{
+            position: 'absolute',
+            opacity: 0,
+            pointerEvents: 'none',
+            width: 0,
+            height: 0,
+          }}
         />
       )}
     </CheckboxContext.Provider>

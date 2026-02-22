@@ -1,5 +1,5 @@
 import type { GetProps } from 'tamagui'
-import { styled, Text, withStaticProperties, YStack } from 'tamagui'
+import { Text, YStack, styled, withStaticProperties } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const CardFrame = styled(YStack, {

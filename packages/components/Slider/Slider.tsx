@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react'
-import { styled, View, XStack } from 'tamagui'
+import { View, XStack, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const SliderTrack = styled(XStack, {
@@ -145,11 +145,7 @@ export function Slider({
       {/* @ts-expect-error Tamagui v2 RC */}
       <SliderRange width={`${percentage}%`} />
       {/* @ts-expect-error Tamagui v2 RC */}
-      <SliderThumb
-        size={size}
-        left={`${percentage}%`}
-        marginLeft={-(thumbSize / 2)}
-      />
+      <SliderThumb size={size} left={`${percentage}%`} marginLeft={-(thumbSize / 2)} />
     </SliderTrack>
   )
 }

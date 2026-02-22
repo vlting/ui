@@ -1,5 +1,4 @@
-import React from 'react'
-import { styled, Text, View } from 'tamagui'
+import { Text, View, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const StyledTable = styled(View, {

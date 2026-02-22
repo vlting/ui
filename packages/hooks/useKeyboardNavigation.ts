@@ -27,15 +27,15 @@ export function useKeyboardNavigation(
 
       switch (e.key) {
         case prev:
-        case (orientation === 'both' ? 'ArrowUp' : ''):
-        case (orientation === 'both' ? 'ArrowLeft' : ''):
+        case orientation === 'both' ? 'ArrowUp' : '':
+        case orientation === 'both' ? 'ArrowLeft' : '':
           e.preventDefault()
           nextIndex = activeIndex - 1
           if (nextIndex < 0) nextIndex = loop ? items - 1 : 0
           break
         case next:
-        case (orientation === 'both' ? 'ArrowDown' : ''):
-        case (orientation === 'both' ? 'ArrowRight' : ''):
+        case orientation === 'both' ? 'ArrowDown' : '':
+        case orientation === 'both' ? 'ArrowRight' : '':
           e.preventDefault()
           nextIndex = activeIndex + 1
           if (nextIndex >= items) nextIndex = loop ? 0 : items - 1

@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react'
-import { styled, Text, View, YStack } from 'tamagui'
+import type React from 'react'
+import { useRef, useState } from 'react'
+import { Text, View, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const TooltipContent = styled(View, {
@@ -40,9 +41,10 @@ export function Tooltip({ children, content, side = 'top', delay = 200 }: Toolti
     setOpen(false)
   }
 
-  const positionStyle = side === 'top'
-    ? { bottom: '100%', marginBottom: '$0.5' as const, left: '50%', translateX: '-50%' }
-    : { top: '100%', marginTop: '$0.5' as const, left: '50%', translateX: '-50%' }
+  const positionStyle =
+    side === 'top'
+      ? { bottom: '100%', marginBottom: '$0.5' as const, left: '50%', translateX: '-50%' }
+      : { top: '100%', marginTop: '$0.5' as const, left: '50%', translateX: '-50%' }
 
   return (
     // @ts-expect-error Tamagui v2 RC

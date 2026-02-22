@@ -24,15 +24,17 @@ export function useControllableState<T>({
   const setValue = useCallback(
     (nextValue: T | ((prev: T | undefined) => T)) => {
       if (isControlled) {
-        const resolved = typeof nextValue === 'function'
-          ? (nextValue as (prev: T | undefined) => T)(prop)
-          : nextValue
+        const resolved =
+          typeof nextValue === 'function'
+            ? (nextValue as (prev: T | undefined) => T)(prop)
+            : nextValue
         onChangeRef.current?.(resolved)
       } else {
         setInternalValue((prev) => {
-          const resolved = typeof nextValue === 'function'
-            ? (nextValue as (prev: T | undefined) => T)(prev)
-            : nextValue
+          const resolved =
+            typeof nextValue === 'function'
+              ? (nextValue as (prev: T | undefined) => T)(prev)
+              : nextValue
           onChangeRef.current?.(resolved)
           return resolved
         })

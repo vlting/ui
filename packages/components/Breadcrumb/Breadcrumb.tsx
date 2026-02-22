@@ -1,5 +1,5 @@
-import React from 'react'
-import { styled, Text, XStack } from 'tamagui'
+import type React from 'react'
+import { Text, XStack, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const BreadcrumbList = styled(XStack, {
@@ -48,9 +48,7 @@ export interface BreadcrumbProps {
 function Root({ children }: BreadcrumbProps) {
   return (
     // @ts-expect-error Tamagui v2 RC
-    <BreadcrumbList aria-label="breadcrumb">
-      {children}
-    </BreadcrumbList>
+    <BreadcrumbList aria-label="breadcrumb">{children}</BreadcrumbList>
   )
 }
 
@@ -59,14 +57,14 @@ function Item({ children }: { children: React.ReactNode }) {
   return <BreadcrumbItemFrame>{children}</BreadcrumbItemFrame>
 }
 
-function Link({ children, href, onPress }: { children: React.ReactNode; href?: string; onPress?: () => void }) {
+function Link({
+  children,
+  href,
+  onPress,
+}: { children: React.ReactNode; href?: string; onPress?: () => void }) {
   return (
     // @ts-expect-error Tamagui v2 RC
-    <BreadcrumbLink
-      tag="a"
-      {...(href ? { href } : {})}
-      onPress={onPress}
-    >
+    <BreadcrumbLink tag="a" {...(href ? { href } : {})} onPress={onPress}>
       {children}
     </BreadcrumbLink>
   )

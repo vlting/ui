@@ -1,5 +1,5 @@
 import type { GetProps } from 'tamagui'
-import { styled, XStack as TXStack, YStack as TYStack } from 'tamagui'
+import { XStack as TXStack, YStack as TYStack, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 export const VStack = styled(TYStack, {})

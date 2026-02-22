@@ -1,10 +1,10 @@
-import React from 'react'
-import { styled, Text, View, YStack } from 'tamagui'
+import type React from 'react'
+import { Text, View, YStack, styled } from 'tamagui'
 import { Dialog as HeadlessDialog } from '../../headless/Dialog'
 import type {
+  DialogCloseProps,
   DialogRootProps,
   DialogTriggerProps,
-  DialogCloseProps,
 } from '../../headless/Dialog'
 
 // @ts-expect-error Tamagui v2 RC
@@ -74,16 +74,17 @@ interface StyledDialogOverlayProps {
 function Overlay({ children }: StyledDialogOverlayProps) {
   return (
     <HeadlessDialog.Overlay
-      style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 50,
+      }}
     >
       {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledOverlay
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-      />
+      <StyledOverlay position="absolute" top={0} left={0} right={0} bottom={0} />
       {children}
     </HeadlessDialog.Overlay>
   )
@@ -97,7 +98,10 @@ interface StyledDialogContentProps {
 
 function Content({ children, size = 'md', onEscapeKeyDown }: StyledDialogContentProps) {
   return (
-    <HeadlessDialog.Content onEscapeKeyDown={onEscapeKeyDown} style={{ position: 'relative', zIndex: 51 }}>
+    <HeadlessDialog.Content
+      onEscapeKeyDown={onEscapeKeyDown}
+      style={{ position: 'relative', zIndex: 51 }}
+    >
       {/* @ts-expect-error Tamagui v2 RC */}
       <StyledContent size={size}>{children}</StyledContent>
     </HeadlessDialog.Content>

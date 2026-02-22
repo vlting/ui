@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react'
-import { styled, XStack, withStaticProperties } from 'tamagui'
+import { XStack, styled, withStaticProperties } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const ToggleFrame = styled(XStack, {
@@ -187,8 +187,11 @@ function ToggleGroupRoot({
     return Array.isArray(v) ? v : [v]
   }
 
-  const [internalValue, setInternalValue] = React.useState<string[]>(normalizeValue(defaultValue))
-  const value = controlledValue !== undefined ? normalizeValue(controlledValue) : internalValue
+  const [internalValue, setInternalValue] = React.useState<string[]>(
+    normalizeValue(defaultValue),
+  )
+  const value =
+    controlledValue !== undefined ? normalizeValue(controlledValue) : internalValue
 
   const onItemToggle = (itemValue: string) => {
     if (disabled) return
@@ -196,7 +199,9 @@ function ToggleGroupRoot({
     if (type === 'single') {
       next = value.includes(itemValue) ? [] : [itemValue]
     } else {
-      next = value.includes(itemValue) ? value.filter(v => v !== itemValue) : [...value, itemValue]
+      next = value.includes(itemValue)
+        ? value.filter((v) => v !== itemValue)
+        : [...value, itemValue]
     }
     setInternalValue(next)
     onValueChange?.(type === 'single' ? (next[0] ?? '') : next)
@@ -205,9 +210,7 @@ function ToggleGroupRoot({
   return (
     <ToggleGroupContext.Provider value={{ type, value, onItemToggle, size, disabled }}>
       {/* @ts-expect-error Tamagui v2 RC */}
-      <ToggleGroupFrame role="group">
-        {children}
-      </ToggleGroupFrame>
+      <ToggleGroupFrame role="group">{children}</ToggleGroupFrame>
     </ToggleGroupContext.Provider>
   )
 }
@@ -218,7 +221,11 @@ export interface ToggleGroupItemProps {
   disabled?: boolean
 }
 
-function ToggleGroupItem({ children, value: itemValue, disabled: itemDisabled }: ToggleGroupItemProps) {
+function ToggleGroupItem({
+  children,
+  value: itemValue,
+  disabled: itemDisabled,
+}: ToggleGroupItemProps) {
   const ctx = useContext(ToggleGroupContext)
   const isPressed = ctx.value.includes(itemValue)
   const isDisabled = ctx.disabled || itemDisabled

@@ -1,6 +1,5 @@
-import React from 'react'
-import type { GetProps } from 'tamagui'
-import { styled, XStack, YStack, Text, View } from 'tamagui'
+import type React from 'react'
+import { Text, View, XStack, YStack, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const InputFrame = styled(XStack, {
@@ -158,7 +157,11 @@ export function Input({
           placeholder={placeholder}
           value={value}
           defaultValue={defaultValue}
-          onChange={onChangeText ? (e: { nativeEvent: { text: string } }) => onChangeText(e.nativeEvent.text) : undefined}
+          onChange={
+            onChangeText
+              ? (e: { nativeEvent: { text: string } }) => onChangeText(e.nativeEvent.text)
+              : undefined
+          }
           disabled={disabled}
           aria-invalid={error || undefined}
           aria-label={label}
@@ -167,9 +170,7 @@ export function Input({
       </InputFrame>
       {displayHelper && (
         // @ts-expect-error Tamagui v2 RC
-        <InputHelper tone={error ? 'error' : 'neutral'}>
-          {displayHelper}
-        </InputHelper>
+        <InputHelper tone={error ? 'error' : 'neutral'}>{displayHelper}</InputHelper>
       )}
     </YStack>
   )

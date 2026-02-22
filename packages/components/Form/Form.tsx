@@ -1,5 +1,6 @@
-import React, { createContext, useContext } from 'react'
-import { styled, Text, YStack, XStack } from 'tamagui'
+import type React from 'react'
+import { createContext, useContext } from 'react'
+import { Text, YStack, styled } from 'tamagui'
 
 interface FormFieldContextValue {
   error?: boolean
@@ -59,9 +60,7 @@ function Root({ children, onSubmit }: FormRootProps) {
 
   return (
     // @ts-expect-error Tamagui v2 RC
-    <FormFrame onSubmit={handleSubmit}>
-      {children}
-    </FormFrame>
+    <FormFrame onSubmit={handleSubmit}>{children}</FormFrame>
   )
 }
 
@@ -75,9 +74,7 @@ function Field({ children, error, disabled }: FormFieldProps) {
   return (
     <FormFieldContext.Provider value={{ error, disabled }}>
       {/* @ts-expect-error Tamagui v2 RC */}
-      <FieldFrame>
-        {children}
-      </FieldFrame>
+      <FieldFrame>{children}</FieldFrame>
     </FormFieldContext.Provider>
   )
 }

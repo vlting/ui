@@ -1,5 +1,5 @@
-import React from 'react'
-import { styled, View, Text } from 'tamagui'
+import type React from 'react'
+import { Text, View, styled } from 'tamagui'
 import { Checkbox as HeadlessCheckbox } from '../../headless/Checkbox'
 import type { CheckboxRootProps } from '../../headless/Checkbox'
 
@@ -52,7 +52,15 @@ interface StyledCheckboxProps extends Omit<CheckboxRootProps, 'className'> {
   size?: 'sm' | 'md' | 'lg'
 }
 
-function Root({ children, checked, defaultChecked, onCheckedChange, disabled, size = 'md', ...props }: StyledCheckboxProps) {
+function Root({
+  children,
+  checked,
+  defaultChecked,
+  onCheckedChange,
+  disabled,
+  size = 'md',
+  ...props
+}: StyledCheckboxProps) {
   return (
     <HeadlessCheckbox.Root
       checked={checked}

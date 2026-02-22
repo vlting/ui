@@ -1,5 +1,5 @@
 import type { GetProps } from 'tamagui'
-import { styled, View } from 'tamagui'
+import { View, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 export const Box = styled(View, {

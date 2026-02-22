@@ -1,4 +1,4 @@
-import { styled, View } from 'tamagui'
+import { View, styled } from 'tamagui'
 import type { GetProps } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC

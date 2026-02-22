@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, useCallback } from 'react'
-import { styled, View, Text, YStack, XStack } from 'tamagui'
+import type React from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
+import { Text, XStack, YStack, styled } from 'tamagui'
 
 interface AccordionContextValue {
   value: string[]
@@ -59,26 +60,32 @@ export interface AccordionRootProps {
   collapsible?: boolean
 }
 
-function Root({ children, type = 'single', defaultValue = [], collapsible = true }: AccordionRootProps) {
+function Root({
+  children,
+  type = 'single',
+  defaultValue = [],
+  collapsible = true,
+}: AccordionRootProps) {
   const [value, setValue] = useState<string[]>(defaultValue)
 
-  const toggle = useCallback((itemValue: string) => {
-    setValue(prev => {
-      const isOpen = prev.includes(itemValue)
-      if (isOpen) {
-        return collapsible ? prev.filter(v => v !== itemValue) : prev
-      }
-      if (type === 'single') return [itemValue]
-      return [...prev, itemValue]
-    })
-  }, [type, collapsible])
+  const toggle = useCallback(
+    (itemValue: string) => {
+      setValue((prev) => {
+        const isOpen = prev.includes(itemValue)
+        if (isOpen) {
+          return collapsible ? prev.filter((v) => v !== itemValue) : prev
+        }
+        if (type === 'single') return [itemValue]
+        return [...prev, itemValue]
+      })
+    },
+    [type, collapsible],
+  )
 
   return (
     <AccordionContext.Provider value={{ value, toggle, type }}>
       {/* @ts-expect-error Tamagui v2 RC */}
-      <AccordionFrame>
-        {children}
-      </AccordionFrame>
+      <AccordionFrame>{children}</AccordionFrame>
     </AccordionContext.Provider>
   )
 }
@@ -92,7 +99,8 @@ const ItemContext = createContext<ItemContextValue | null>(null)
 
 function useItemContext() {
   const ctx = useContext(ItemContext)
-  if (!ctx) throw new Error('Accordion.Trigger/Content must be used within Accordion.Item')
+  if (!ctx)
+    throw new Error('Accordion.Trigger/Content must be used within Accordion.Item')
   return ctx
 }
 
@@ -108,9 +116,7 @@ function Item({ children, value: itemValue }: AccordionItemProps) {
   return (
     <ItemContext.Provider value={{ value: itemValue, isOpen }}>
       {/* @ts-expect-error Tamagui v2 RC */}
-      <ItemFrame>
-        {children}
-      </ItemFrame>
+      <ItemFrame>{children}</ItemFrame>
     </ItemContext.Provider>
   )
 }
@@ -152,9 +158,7 @@ function Content({ children }: AccordionContentProps) {
 
   return (
     // @ts-expect-error Tamagui v2 RC
-    <ContentFrame role="region">
-      {children}
-    </ContentFrame>
+    <ContentFrame role="region">{children}</ContentFrame>
   )
 }
 
