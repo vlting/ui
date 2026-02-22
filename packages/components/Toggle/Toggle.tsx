@@ -16,6 +16,10 @@ const ToggleFrame = styled(XStack, {
     backgroundColor: '$backgroundHover',
   },
 
+  pressStyle: {
+    backgroundColor: '$backgroundPress',
+  },
+
   focusStyle: {
     outlineWidth: 2,
     outlineOffset: 2,
@@ -32,7 +36,7 @@ const ToggleFrame = styled(XStack, {
     pressed: {
       true: {
         backgroundColor: '$color4',
-        borderColor: '$color6',
+        borderColor: '$borderColorHover',
       },
     },
     disabled: {

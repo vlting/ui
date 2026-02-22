@@ -16,6 +16,10 @@ const SelectTrigger = styled(XStack, {
     borderColor: '$borderColorHover',
   },
 
+  pressStyle: {
+    backgroundColor: '$backgroundPress',
+  },
+
   focusStyle: {
     outlineWidth: 2,
     outlineOffset: 2,

@@ -41,8 +41,8 @@ export function Tooltip({ children, content, side = 'top', delay = 200 }: Toolti
   }
 
   const positionStyle = side === 'top'
-    ? { bottom: '100%', marginBottom: 4, left: '50%', translateX: '-50%' }
-    : { top: '100%', marginTop: 4, left: '50%', translateX: '-50%' }
+    ? { bottom: '100%', marginBottom: '$0.5' as const, left: '50%', translateX: '-50%' }
+    : { top: '100%', marginTop: '$0.5' as const, left: '50%', translateX: '-50%' }
 
   return (
     // @ts-expect-error Tamagui v2 RC

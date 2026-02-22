@@ -21,8 +21,12 @@ const TextareaField = styled(Text, {
   minHeight: 80,
   outlineWidth: 0,
 
+  hoverStyle: {
+    borderColor: '$borderColorHover',
+  },
+
   focusStyle: {
-    borderColor: '$color8',
+    borderColor: '$borderColorFocus',
     outlineWidth: 2,
     outlineColor: '$outlineColor',
     outlineStyle: 'solid',
@@ -32,7 +36,7 @@ const TextareaField = styled(Text, {
   variants: {
     error: {
       true: {
-        borderColor: '$red8',
+        borderColor: '$red10',
       },
     },
     disabled: {

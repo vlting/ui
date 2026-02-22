@@ -10,7 +10,7 @@ import type {
 // @ts-expect-error Tamagui v2 RC
 const StyledOverlay = styled(View, {
   position: 'absolute' as const,
-  backgroundColor: 'rgba(0,0,0,0.5)',
+  backgroundColor: 'rgba(0,0,0,0.4)',
   animation: 'medium',
   opacity: 1,
   enterStyle: { opacity: 0 },

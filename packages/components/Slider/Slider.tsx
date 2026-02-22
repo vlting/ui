@@ -9,6 +9,10 @@ const SliderTrack = styled(XStack, {
   alignItems: 'center',
   cursor: 'pointer',
 
+  hoverStyle: {
+    backgroundColor: '$color5',
+  },
+
   variants: {
     size: {
       sm: { height: 4 },

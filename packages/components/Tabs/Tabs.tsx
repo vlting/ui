@@ -27,6 +27,13 @@ const StyledTrigger = styled(View, {
   borderBottomColor: 'transparent',
   hoverStyle: { backgroundColor: '$backgroundHover' },
 
+  focusStyle: {
+    outlineWidth: 2,
+    outlineOffset: -2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+
   variants: {
     active: {
       true: {
