@@ -1,3 +1,4 @@
+/** @deprecated Use the styled Dialog component which now uses @tamagui/dialog internally */
 import React, { createContext, useCallback, useContext, useEffect } from 'react'
 import { useControllableState } from '../../hooks/useControllableState'
 import { useFocusTrap } from '../../hooks/useFocusTrap'

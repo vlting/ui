@@ -1,3 +1,4 @@
+/** @deprecated Replaced by @tamagui/roving-focus in the styled component layer */
 import { useCallback } from 'react'
 
 interface UseKeyboardNavigationOptions {

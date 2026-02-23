@@ -1,3 +1,4 @@
+/** @deprecated Replaced by @tamagui/focus-scope in the styled component layer */
 import { useCallback, useEffect, useRef } from 'react'
 
 const FOCUSABLE_SELECTOR = [

@@ -1,3 +1,4 @@
+/** @deprecated Use the styled Tabs component which now uses @tamagui/tabs internally */
 import React, { createContext, useCallback, useContext, useState } from 'react'
 import { useControllableState } from '../../hooks/useControllableState'
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation'
