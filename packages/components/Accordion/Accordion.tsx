@@ -79,7 +79,7 @@ export interface AccordionTriggerProps {
 
 function Trigger({ children }: AccordionTriggerProps) {
   return (
-    <TamaguiAccordionHeaderJsx unstyled>
+    <TamaguiAccordionHeaderJsx unstyled backgroundColor="transparent">
       <TamaguiAccordionTriggerJsx
         unstyled
         width="100%"
@@ -89,7 +89,14 @@ function Trigger({ children }: AccordionTriggerProps) {
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between"
+        backgroundColor="transparent"
         hoverStyle={{ backgroundColor: '$backgroundHover' }}
+        focusVisibleStyle={{
+          outlineWidth: 2,
+          outlineOffset: 1,
+          outlineColor: '$outlineColor',
+          outlineStyle: 'solid',
+        }}
       >
         {({ open }: { open: boolean }) => (
           <>

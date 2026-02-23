@@ -1,13 +1,21 @@
-import type React from 'react'
+import React from 'react'
 import { Text, styled } from 'tamagui'
 
-// @ts-expect-error Tamagui v2 RC
+const BREADCRUMB_FOCUS_STYLE_ID = 'vlt-breadcrumb-focus'
+const BREADCRUMB_FOCUS_CSS = `.vlt-breadcrumb-link:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; border-radius: 2px; }`
+
 const BreadcrumbLinkText = styled(Text, {
   fontFamily: '$body',
   fontSize: '$3',
   color: '$colorSubtitle',
   cursor: 'pointer',
   textDecorationLine: 'none',
+
+  // @ts-expect-error Tamagui v2 RC PseudoStyleWithTransition type limitation
+  hoverStyle: {
+    color: '$color',
+    textDecorationLine: 'underline',
+  },
 })
 
 // @ts-expect-error Tamagui v2 RC
@@ -31,6 +39,15 @@ export interface BreadcrumbProps {
 }
 
 function Root({ children }: BreadcrumbProps) {
+  React.useEffect(() => {
+    if (typeof document === 'undefined') return
+    if (document.getElementById(BREADCRUMB_FOCUS_STYLE_ID)) return
+    const style = document.createElement('style')
+    style.id = BREADCRUMB_FOCUS_STYLE_ID
+    style.textContent = BREADCRUMB_FOCUS_CSS
+    document.head.appendChild(style)
+  }, [])
+
   return (
     <nav aria-label="Breadcrumb">
       <ol style={{ display: 'flex', alignItems: 'center', listStyle: 'none', padding: 0, margin: 0, gap: 4 }}>
@@ -57,11 +74,13 @@ function Link({
     <a
       href={href || '#'}
       onClick={onPress ? (e: React.MouseEvent) => { e.preventDefault(); onPress() } : undefined}
+      className="vlt-breadcrumb-link"
       style={{
         fontFamily: 'inherit',
         fontSize: 'inherit',
         color: 'inherit',
         textDecoration: 'none',
+        borderRadius: 2,
       }}
     >
       {/* @ts-expect-error Tamagui v2 RC */}

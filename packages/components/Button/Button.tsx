@@ -8,8 +8,15 @@ import { VisuallyHidden } from '../../primitives'
 // Extend Tamagui's Button.Frame with our custom variants.
 // Tamagui Button already renders <button type="button"> with correct semantics,
 // ARIA, focus styles, hover/press interactions, and token-based sizing.
-// @ts-expect-error Tamagui v2 RC
 const ButtonFrame = styled(TamaguiButton.Frame, {
+  // @ts-expect-error Tamagui v2 RC PseudoStyleWithTransition type limitation
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 1,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+
   variants: {
     variant: {
       // shadcn: "default" — solid primary background

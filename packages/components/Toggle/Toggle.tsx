@@ -37,7 +37,7 @@ const ToggleFrame = styledHtml('button', {
 
   focusWithinStyle: {
     outlineWidth: 2,
-    outlineOffset: 2,
+    outlineOffset: 1,
     outlineColor: '$outlineColor',
     outlineStyle: 'solid',
   },
@@ -154,6 +154,7 @@ export interface ToggleGroupProps {
   onValueChange?: (value: string | string[]) => void
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
+  orientation?: 'horizontal' | 'vertical'
 }
 
 function ToggleGroupRoot({
@@ -164,6 +165,7 @@ function ToggleGroupRoot({
   onValueChange,
   size = 'md',
   disabled,
+  orientation = 'horizontal',
 }: ToggleGroupProps) {
   const sizeToken = SIZE_TOKEN_MAP[size]
 
@@ -178,6 +180,7 @@ function ToggleGroupRoot({
     return (
       <TamaguiToggleGroupJsx
         type="multiple"
+        orientation={orientation}
         value={normalizedValue as string[] | undefined}
         defaultValue={normalizedDefault as string[] | undefined}
         onValueChange={onValueChange}
@@ -192,6 +195,7 @@ function ToggleGroupRoot({
   return (
     <TamaguiToggleGroupJsx
       type="single"
+      orientation={orientation}
       value={normalizedValue as string | undefined}
       defaultValue={normalizedDefault as string | undefined}
       onValueChange={onValueChange}
