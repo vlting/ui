@@ -1,7 +1,9 @@
 import type React from 'react'
-import { Text, XStack, YStack, styled } from 'tamagui'
+import type { ComponentType } from 'react'
+import { Text, View, XStack, styled } from 'tamagui'
 
-// @ts-expect-error Tamagui v2 RC
+type AnyFC = ComponentType<Record<string, unknown>>
+
 const AlertFrame = styled(XStack, {
   borderRadius: '$3',
   borderWidth: 1,
@@ -42,6 +44,18 @@ const AlertDescription = styled(Text, {
   color: '$colorSubtitle',
 })
 
+// @ts-expect-error Tamagui v2 RC
+const AlertIconFrame = styled(View, {
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: 0,
+  width: 16,
+  height: 16,
+  marginTop: 2,
+})
+
+const AlertIconJsx = AlertIconFrame as AnyFC
+
 export interface AlertProps {
   children: React.ReactNode
   variant?: 'default' | 'destructive'
@@ -51,10 +65,7 @@ function Root({ children, variant = 'default' }: AlertProps) {
   return (
     // @ts-expect-error Tamagui v2 RC
     <AlertFrame variant={variant} role={variant === 'destructive' ? 'alert' : 'status'}>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <YStack flex={1} gap="$1">
-        {children}
-      </YStack>
+      {children}
     </AlertFrame>
   )
 }
@@ -69,4 +80,8 @@ function Description({ children }: { children: React.ReactNode }) {
   return <AlertDescription>{children}</AlertDescription>
 }
 
-export const Alert = { Root, Title, Description }
+function Icon({ children }: { children: React.ReactNode }) {
+  return <AlertIconJsx>{children}</AlertIconJsx>
+}
+
+export const Alert = { Root, Title, Description, Icon }

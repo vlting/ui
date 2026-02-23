@@ -12,6 +12,21 @@ import { VisuallyHidden } from '../../primitives'
 const ButtonFrame = styled(TamaguiButton.Frame, {
   variants: {
     variant: {
+      // shadcn: "default" — solid primary background
+      default: {
+        backgroundColor: '$color10',
+        borderWidth: 0,
+        borderColor: 'transparent',
+        hoverStyle: {
+          backgroundColor: '$color11',
+          borderColor: 'transparent',
+        },
+        pressStyle: {
+          backgroundColor: '$color11',
+          borderColor: 'transparent',
+        },
+      },
+      // Backwards compat alias
       solid: {
         backgroundColor: '$color10',
         borderWidth: 0,
@@ -23,6 +38,24 @@ const ButtonFrame = styled(TamaguiButton.Frame, {
         pressStyle: {
           backgroundColor: '$color11',
           borderColor: 'transparent',
+        },
+      },
+      // shadcn: "secondary"
+      secondary: {
+        backgroundColor: '$color2',
+        borderWidth: 0,
+        borderColor: 'transparent',
+        hoverStyle: {
+          backgroundColor: '$color3',
+        },
+      },
+      // shadcn: "destructive"
+      destructive: {
+        backgroundColor: '$color10',
+        borderWidth: 0,
+        borderColor: 'transparent',
+        hoverStyle: {
+          backgroundColor: '$color11',
         },
       },
       outline: {
@@ -41,6 +74,14 @@ const ButtonFrame = styled(TamaguiButton.Frame, {
           backgroundColor: '$backgroundHover',
         },
       },
+      // shadcn: "link"
+      link: {
+        backgroundColor: 'transparent',
+        borderWidth: 0,
+        borderColor: 'transparent',
+        paddingLeft: 0,
+        paddingRight: 0,
+      },
     },
     disabled: {
       true: {
@@ -54,9 +95,11 @@ const ButtonFrame = styled(TamaguiButton.Frame, {
 
 // Map our named sizes to Tamagui size tokens
 const SIZE_TOKEN_MAP: Record<string, string> = {
+  xs: '$2',
   sm: '$3',
   md: '$4',
   lg: '$5',
+  icon: '$4',
 }
 
 type ButtonFrameProps = GetProps<typeof ButtonFrame>
@@ -64,7 +107,9 @@ type ButtonFrameProps = GetProps<typeof ButtonFrame>
 // Cast for JSX usage — Tamagui v2 RC GetFinalProps resolves all props as undefined
 const ButtonFrameJsx = ButtonFrame as React.ComponentType<Record<string, unknown>>
 
-const ButtonContext = createContext<{ variant: 'solid' | 'outline' | 'ghost' }>({ variant: 'solid' })
+type ButtonVariant = 'default' | 'solid' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link'
+
+const ButtonContext = createContext<{ variant: ButtonVariant }>({ variant: 'default' })
 
 // @ts-expect-error Tamagui v2 RC
 const ButtonTextBase = styled(Text, {
@@ -73,11 +118,16 @@ const ButtonTextBase = styled(Text, {
 
   variants: {
     textVariant: {
+      default: { color: '$color1' },
       solid: { color: '$color1' },
+      secondary: { color: '$color' },
+      destructive: { color: '$color1' },
       outline: { color: '$color' },
       ghost: { color: '$color' },
+      link: { color: '$color10', textDecorationLine: 'underline' as any },
     },
     size: {
+      xs: { fontSize: '$1' },
       sm: { fontSize: '$2' },
       md: { fontSize: '$4' },
       lg: { fontSize: '$5' },
@@ -85,7 +135,7 @@ const ButtonTextBase = styled(Text, {
   } as const,
 
   defaultVariants: {
-    textVariant: 'solid',
+    textVariant: 'default',
     size: 'md',
   },
 })
@@ -104,12 +154,13 @@ function ButtonText(props: React.ComponentProps<typeof ButtonTextBase>) {
 
 export interface ButtonProps {
   children?: React.ReactNode
-  variant?: 'solid' | 'outline' | 'ghost'
+  variant?: ButtonVariant
   tone?: 'neutral' | 'primary' | 'success' | 'warning' | 'danger'
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon'
   loading?: boolean
   disabled?: boolean
   onPress?: () => void
+  asChild?: boolean
 }
 
 const TONE_THEME_MAP: Record<string, string | undefined> = {
@@ -120,16 +171,22 @@ const TONE_THEME_MAP: Record<string, string | undefined> = {
   danger: 'red',
 }
 
+// For destructive variant, always use red theme
+const VARIANT_THEME_OVERRIDE: Record<string, string | undefined> = {
+  destructive: 'red',
+}
+
 const ButtonBase = React.forwardRef<
   HTMLButtonElement,
   ButtonProps & Omit<ButtonFrameProps, keyof ButtonProps>
 >(function ButtonBase(
-  { loading, children, disabled, variant = 'solid', tone = 'neutral', size = 'md', onPress, ...props },
+  { loading, children, disabled, variant = 'default', tone = 'neutral', size = 'md', onPress, asChild, ...props },
   ref,
 ) {
   const isDisabled = disabled ?? loading ?? false
-  const themeName = TONE_THEME_MAP[tone]
+  const themeName = VARIANT_THEME_OVERRIDE[variant] ?? TONE_THEME_MAP[tone]
   const sizeToken = SIZE_TOKEN_MAP[size]
+  const isIcon = size === 'icon'
 
   const frame = (
     <ButtonContext.Provider value={{ variant }}>
@@ -141,6 +198,7 @@ const ButtonBase = React.forwardRef<
         {...props}
         variant={variant}
         size={sizeToken}
+        {...(isIcon ? { width: sizeToken, padding: 0 } : {})}
       >
         {loading ? (
           <>

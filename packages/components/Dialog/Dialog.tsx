@@ -1,7 +1,11 @@
 import type React from 'react'
 import type { ComponentType } from 'react'
-import { Text, styled } from 'tamagui'
+import { Text, View, XStack, styled } from 'tamagui'
 import { Dialog as TamaguiDialog } from '@tamagui/dialog'
+
+type AnyFC = ComponentType<Record<string, unknown>>
+const ViewJsx = View as AnyFC
+const XStackJsx = XStack as AnyFC
 
 // @ts-expect-error Tamagui v2 RC
 const StyledTitle = styled(Text, {
@@ -121,4 +125,20 @@ function Close({ children }: { children?: React.ReactNode }) {
   return <DialogClose asChild>{children}</DialogClose>
 }
 
-export const Dialog = { Root, Trigger, Overlay, Content, Title, Description, Close }
+function Header({ children }: { children: React.ReactNode }) {
+  return (
+    <ViewJsx flexDirection="column" gap="$1">
+      {children}
+    </ViewJsx>
+  )
+}
+
+function Footer({ children }: { children: React.ReactNode }) {
+  return (
+    <XStackJsx justifyContent="flex-end" gap="$2" paddingTop="$3">
+      {children}
+    </XStackJsx>
+  )
+}
+
+export const Dialog = { Root, Trigger, Overlay, Content, Title, Description, Close, Header, Footer }

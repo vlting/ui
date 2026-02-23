@@ -1,7 +1,6 @@
 import { Text, styled } from 'tamagui'
 import type { GetProps } from 'tamagui'
 
-// @ts-expect-error Tamagui v2 RC
 export const Badge = styled(Text, {
   fontFamily: '$body',
   fontSize: '$1',
@@ -14,8 +13,24 @@ export const Badge = styled(Text, {
 
   variants: {
     variant: {
+      // shadcn: "default" — solid primary background
+      default: {
+        backgroundColor: '$color6',
+        color: '$color1',
+      },
+      // Backwards compat alias
       solid: {
         backgroundColor: '$color6',
+        color: '$color1',
+      },
+      // shadcn: "secondary" — muted background
+      secondary: {
+        backgroundColor: '$color3',
+        color: '$color',
+      },
+      // shadcn: "destructive" — red background
+      destructive: {
+        backgroundColor: '$red10',
         color: '$color1',
       },
       outline: {
@@ -44,7 +59,7 @@ export const Badge = styled(Text, {
   } as const,
 
   defaultVariants: {
-    variant: 'subtle',
+    variant: 'default',
     size: 'md',
   },
 })
