@@ -1,46 +1,14 @@
-import React, { createContext, useCallback, useContext, useId, useState } from 'react'
-import { Text, XStack, YStack, styled } from 'tamagui'
+import React from 'react'
+import type { ComponentType } from 'react'
+import { Text, styled } from 'tamagui'
+import { Accordion as TamaguiAccordion } from '@tamagui/accordion'
 
-interface AccordionContextValue {
-  value: string[]
-  toggle: (itemValue: string) => void
-  type: 'single' | 'multiple'
-}
-
-const AccordionContext = createContext<AccordionContextValue | null>(null)
-
-function useAccordionContext() {
-  const ctx = useContext(AccordionContext)
-  if (!ctx) throw new Error('Accordion components must be used within Accordion.Root')
-  return ctx
-}
-
-// @ts-expect-error Tamagui v2 RC
-const AccordionFrame = styled(YStack, {
-  width: '100%',
-})
-
-// @ts-expect-error Tamagui v2 RC
-const ItemFrame = styled(YStack, {
-  borderBottomWidth: 1,
-  borderBottomColor: '$borderColor',
-})
-
-// @ts-expect-error Tamagui v2 RC
-const TriggerFrame = styled(XStack, {
-  paddingVertical: '$3',
-  paddingHorizontal: '$1',
-  cursor: 'pointer',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  hoverStyle: { backgroundColor: '$backgroundHover' },
-  focusWithinStyle: {
-    outlineWidth: 2,
-    outlineOffset: -2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-})
+// Cast for JSX usage — Tamagui v2 RC GetFinalProps bug
+const TamaguiAccordionJsx = TamaguiAccordion as ComponentType<Record<string, unknown>>
+const TamaguiAccordionItemJsx = TamaguiAccordion.Item as ComponentType<Record<string, unknown>>
+const TamaguiAccordionHeaderJsx = TamaguiAccordion.Header as ComponentType<Record<string, unknown>>
+const TamaguiAccordionTriggerJsx = TamaguiAccordion.Trigger as ComponentType<Record<string, unknown>>
+const TamaguiAccordionContentJsx = TamaguiAccordion.Content as ComponentType<Record<string, unknown>>
 
 // @ts-expect-error Tamagui v2 RC
 const TriggerText = styled(Text, {
@@ -49,13 +17,6 @@ const TriggerText = styled(Text, {
   fontSize: '$4',
   color: '$color',
   flex: 1,
-})
-
-// @ts-expect-error Tamagui v2 RC
-const ContentFrame = styled(YStack, {
-  paddingBottom: '$3',
-  paddingHorizontal: '$1',
-  overflow: 'hidden',
 })
 
 export interface AccordionRootProps {
@@ -71,44 +32,28 @@ function Root({
   defaultValue = [],
   collapsible = true,
 }: AccordionRootProps) {
-  const [value, setValue] = useState<string[]>(defaultValue)
-
-  const toggle = useCallback(
-    (itemValue: string) => {
-      setValue((prev) => {
-        const isOpen = prev.includes(itemValue)
-        if (isOpen) {
-          return collapsible ? prev.filter((v) => v !== itemValue) : prev
-        }
-        if (type === 'single') return [itemValue]
-        return [...prev, itemValue]
-      })
-    },
-    [type, collapsible],
-  )
+  if (type === 'multiple') {
+    return (
+      <TamaguiAccordionJsx
+        type="multiple"
+        defaultValue={defaultValue}
+        width="100%"
+      >
+        {children}
+      </TamaguiAccordionJsx>
+    )
+  }
 
   return (
-    <AccordionContext.Provider value={{ value, toggle, type }}>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <AccordionFrame>{children}</AccordionFrame>
-    </AccordionContext.Provider>
+    <TamaguiAccordionJsx
+      type="single"
+      defaultValue={defaultValue[0] || ''}
+      collapsible={collapsible}
+      width="100%"
+    >
+      {children}
+    </TamaguiAccordionJsx>
   )
-}
-
-interface ItemContextValue {
-  value: string
-  isOpen: boolean
-  triggerId: string
-  contentId: string
-}
-
-const ItemContext = createContext<ItemContextValue | null>(null)
-
-function useItemContext() {
-  const ctx = useContext(ItemContext)
-  if (!ctx)
-    throw new Error('Accordion.Trigger/Content must be used within Accordion.Item')
-  return ctx
 }
 
 export interface AccordionItemProps {
@@ -116,18 +61,15 @@ export interface AccordionItemProps {
   value: string
 }
 
-function Item({ children, value: itemValue }: AccordionItemProps) {
-  const { value } = useAccordionContext()
-  const isOpen = value.includes(itemValue)
-  const id = useId()
-  const triggerId = `${id}-trigger`
-  const contentId = `${id}-content`
-
+function Item({ children, value }: AccordionItemProps) {
   return (
-    <ItemContext.Provider value={{ value: itemValue, isOpen, triggerId, contentId }}>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <ItemFrame>{children}</ItemFrame>
-    </ItemContext.Provider>
+    <TamaguiAccordionItemJsx
+      value={value}
+      borderBottomWidth={1}
+      borderBottomColor="$borderColor"
+    >
+      {children}
+    </TamaguiAccordionItemJsx>
   )
 }
 
@@ -136,37 +78,30 @@ export interface AccordionTriggerProps {
 }
 
 function Trigger({ children }: AccordionTriggerProps) {
-  const { toggle } = useAccordionContext()
-  const { value, isOpen, triggerId, contentId } = useItemContext()
-
   return (
-    <button
-      type="button"
-      id={triggerId}
-      aria-expanded={isOpen}
-      aria-controls={contentId}
-      onClick={() => toggle(value)}
-      style={{
-        background: 'none',
-        border: 'none',
-        padding: 0,
-        width: '100%',
-        display: 'block',
-        cursor: 'pointer',
-        textAlign: 'inherit',
-        font: 'inherit',
-        color: 'inherit',
-      }}
-    >
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <TriggerFrame>
-        {/* @ts-expect-error Tamagui v2 RC */}
-        <TriggerText>{children}</TriggerText>
-        <Text color="$colorSubtitle" fontSize="$3">
-          {isOpen ? '\u2212' : '+'}
-        </Text>
-      </TriggerFrame>
-    </button>
+    <TamaguiAccordionHeaderJsx unstyled>
+      <TamaguiAccordionTriggerJsx
+        unstyled
+        width="100%"
+        paddingVertical="$3"
+        paddingHorizontal="$1"
+        cursor="pointer"
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="space-between"
+        hoverStyle={{ backgroundColor: '$backgroundHover' }}
+      >
+        {({ open }: { open: boolean }) => (
+          <>
+            {/* @ts-expect-error Tamagui v2 RC */}
+            <TriggerText>{children}</TriggerText>
+            <Text color="$colorSubtitle" fontSize="$3">
+              {open ? '\u2212' : '+'}
+            </Text>
+          </>
+        )}
+      </TamaguiAccordionTriggerJsx>
+    </TamaguiAccordionHeaderJsx>
   )
 }
 
@@ -175,14 +110,14 @@ export interface AccordionContentProps {
 }
 
 function Content({ children }: AccordionContentProps) {
-  const { isOpen, triggerId, contentId } = useItemContext()
-  if (!isOpen) return null
-
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <ContentFrame id={contentId} role="region" aria-labelledby={triggerId}>
+    <TamaguiAccordionContentJsx
+      unstyled
+      paddingBottom="$3"
+      paddingHorizontal="$1"
+    >
       {children}
-    </ContentFrame>
+    </TamaguiAccordionContentJsx>
   )
 }
 
