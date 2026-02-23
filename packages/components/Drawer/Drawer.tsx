@@ -101,6 +101,7 @@ export interface DrawerRootProps {
 export interface DrawerContentProps {
   children: React.ReactNode
   direction?: 'bottom' | 'top' | 'left' | 'right'
+  showHandle?: boolean
 }
 
 const DrawerContext = React.createContext<{ direction: 'bottom' | 'top' | 'left' | 'right' }>({
@@ -121,15 +122,27 @@ function Trigger({ children }: { children: React.ReactNode }) {
   return <DialogTrigger asChild>{children}</DialogTrigger>
 }
 
-function Content({ children, direction: directionProp }: DrawerContentProps) {
+function useIsTouchDevice() {
+  const [isTouch, setIsTouch] = React.useState(false)
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      setIsTouch(window.matchMedia('(pointer: coarse)').matches)
+    }
+  }, [])
+  return isTouch
+}
+
+function Content({ children, direction: directionProp, showHandle }: DrawerContentProps) {
   const ctx = React.useContext(DrawerContext)
   const direction = directionProp ?? ctx.direction
   const isVertical = direction === 'bottom' || direction === 'top'
+  const isTouch = useIsTouchDevice()
+  const shouldShowHandle = showHandle ?? (isVertical && isTouch)
 
   return (
     <DialogPortal>
       <DialogOverlay
-        backgroundColor="rgba(0,0,0,0.4)"
+        backgroundColor="$overlayBackground"
         animation="medium"
         style={{
           position: 'fixed',
@@ -147,7 +160,7 @@ function Content({ children, direction: directionProp }: DrawerContentProps) {
         aria-describedby={undefined}
         style={DIRECTION_STYLES[direction]}
       >
-        {isVertical && <HandleBarJsx />}
+        {shouldShowHandle && <HandleBarJsx />}
         {children}
       </DialogContent>
     </DialogPortal>

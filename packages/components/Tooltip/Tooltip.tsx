@@ -38,7 +38,7 @@ export interface TooltipProps {
   delay?: number
 }
 
-export function Tooltip({ children, content, side = 'top', sideOffset = 4, align = 'center', delay = 200 }: TooltipProps) {
+export function Tooltip({ children, content, side = 'top', sideOffset = 2, align = 'center', delay = 200 }: TooltipProps) {
   return (
     <TooltipRoot delay={delay} placement={side}>
       <TooltipTrigger asChild>
@@ -56,7 +56,7 @@ export function Tooltip({ children, content, side = 'top', sideOffset = 4, align
         sideOffset={sideOffset}
         alignOffset={align === 'center' ? 0 : undefined}
       >
-        <TooltipArrow />
+        <TooltipArrow size={5} />
         <ContentText>{content}</ContentText>
       </TooltipContent>
     </TooltipRoot>
