@@ -223,7 +223,7 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
 
   const outlineTokens = {
     width: brand.outline?.width ?? 2,
-    offset: brand.outline?.offset ?? 2,
+    offset: brand.outline?.offset ?? 1,
   }
 
   const mergedTokens = createTokens({
@@ -261,7 +261,7 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
     }
   }
 
-  const themes = buildThemes(palettes, brand.shadows)
+  const themes = buildThemes(palettes, brand.shadows, outlineTokens)
 
   const dur = brand.animations?.durations
   const eas = brand.animations?.easings

@@ -3,42 +3,42 @@ import type { BrandDefinition } from './index'
 /**
  * Fun brand — Playful, expressive, dark-first.
  *
- * Pinkish-purple accent (#A855F7 range), warm neutrals,
+ * Pinkish-purple accent (#A855F7 range), purple-tinted neutrals,
  * generous rounding, no borders, flat/no shadows.
  */
 export const funBrand: BrandDefinition = {
   name: 'fun',
 
   palettes: {
-    // Warm (rose/amber-tinted) neutrals — 12 steps light
+    // Purple-tinted neutrals — 12 steps light (faint purple undertone, ~300° hue)
     light: [
-      '#fffcfa',
-      '#faf6f3',
-      '#f4eeea',
-      '#ede5e0',
-      '#e5dbd5',
-      '#d5c9c1',
-      '#b5a79d',
-      '#96877c',
-      '#786a5f',
-      '#5c4f45',
-      '#3d342d',
-      '#1f1a16',
+      '#fdfcfe',
+      '#f8f6fb',
+      '#f2eff7',
+      '#ebe7f2',
+      '#e3deed',
+      '#d3cce0',
+      '#b3aac6',
+      '#9489aa',
+      '#766a90',
+      '#5a4f74',
+      '#3c3456',
+      '#1f1a38',
     ],
-    // Warm neutrals — 12 steps dark
+    // Purple-tinted neutrals — 12 steps dark
     dark: [
-      '#1a1614',
-      '#231e1b',
-      '#2c2622',
-      '#352e29',
-      '#403832',
-      '#534a43',
-      '#6e645c',
-      '#8d827a',
-      '#aca19a',
-      '#cbc2bb',
-      '#e6e0dc',
-      '#f7f4f2',
+      '#1a1730',
+      '#22203a',
+      '#2b2844',
+      '#34304e',
+      '#3e3a5a',
+      '#524d6e',
+      '#6d6788',
+      '#8c86a2',
+      '#aba6bc',
+      '#cac6d6',
+      '#e5e2ed',
+      '#f6f5f9',
     ],
   },
 

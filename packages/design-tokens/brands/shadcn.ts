@@ -194,7 +194,7 @@ export const shadcnBrand: BrandDefinition = {
 
   outline: {
     width: 2,
-    offset: 2,
+    offset: 1,
   },
 
   shadows: {
