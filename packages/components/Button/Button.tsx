@@ -116,6 +116,16 @@ const ButtonFrameJsx = ButtonFrame as React.ComponentType<Record<string, unknown
 
 type ButtonVariant = 'default' | 'solid' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link'
 
+const SPINNER_COLOR_MAP: Record<ButtonVariant, string> = {
+  default: '$color1',
+  solid: '$color1',
+  destructive: '$color1',
+  secondary: '$color',
+  outline: '$color',
+  ghost: '$color',
+  link: '$color10',
+}
+
 const ButtonContext = createContext<{ variant: ButtonVariant }>({ variant: 'default' })
 
 // @ts-expect-error Tamagui v2 RC
@@ -209,7 +219,7 @@ const ButtonBase = React.forwardRef<
       >
         {loading ? (
           <>
-            <Spinner size="small" />
+            <Spinner size="small" color={SPINNER_COLOR_MAP[variant]} />
             <VisuallyHidden>Loading</VisuallyHidden>
           </>
         ) : children}
