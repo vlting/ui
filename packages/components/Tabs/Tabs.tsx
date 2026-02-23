@@ -97,16 +97,13 @@ function Trigger({ children, value: tabValue, disabled, size = 'md' }: StyledTab
       cursor={disabled ? 'not-allowed' : 'pointer'}
       alignItems="center"
       justifyContent="center"
-      backgroundColor="transparent"
-      hoverStyle={{ backgroundColor: '$backgroundHover' }}
+      backgroundColor={isSelected ? '$background' : 'transparent'}
+      hoverStyle={isSelected ? undefined : { backgroundColor: '$backgroundHover' }}
       focusVisibleStyle={{
         outlineWidth: 2,
-        outlineOffset: -2,
+        outlineOffset: 1,
         outlineColor: '$outlineColor',
         outlineStyle: 'solid',
-      }}
-      activeStyle={{
-        backgroundColor: '$background',
       }}
     >
       {/* @ts-expect-error Tamagui v2 RC */}

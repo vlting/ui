@@ -34,9 +34,16 @@ export function Switch({
       name={name}
       backgroundColor="$color5"
       borderRadius={999}
+      padding={2}
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       animation="fast"
+      focusVisibleStyle={{
+        outlineWidth: 2,
+        outlineOffset: 1,
+        outlineColor: '$outlineColor',
+        outlineStyle: 'solid',
+      }}
     >
       <SwitchThumb
         animation="fast"

@@ -43,6 +43,11 @@ const SelectLabelJsx = SelectLabelText as AnyFC
 const SelectSeparatorJsx = SelectSeparatorFrame as AnyFC
 
 const SIZE_MAP = { sm: '$3.5' as const, md: '$4' as const, lg: '$4.5' as const }
+const SIZE_PADDING_MAP = {
+  sm: { h: '$2', v: '$1', fontSize: '$2' },
+  md: { h: '$3', v: '$2', fontSize: '$3' },
+  lg: { h: '$4', v: '$2.5', fontSize: '$4' },
+} as const
 
 export interface SelectProps {
   children?: React.ReactNode
@@ -74,6 +79,8 @@ function SelectRootComponent({
     return child
   })
 
+  const sizePadding = SIZE_PADDING_MAP[size]
+
   return (
     <SelectRoot
       value={value}
@@ -84,6 +91,8 @@ function SelectRootComponent({
       <SelectTrigger
         disabled={disabled}
         size={SIZE_MAP[size]}
+        paddingHorizontal={sizePadding.h}
+        paddingVertical={sizePadding.v}
         borderWidth={1}
         borderColor="$borderColor"
         borderRadius="$4"
@@ -91,8 +100,14 @@ function SelectRootComponent({
         gap="$2"
         cursor={disabled ? 'not-allowed' : 'pointer'}
         opacity={disabled ? 0.5 : 1}
+        focusVisibleStyle={{
+          outlineWidth: 2,
+          outlineOffset: 1,
+          outlineColor: '$outlineColor',
+          outlineStyle: 'solid',
+        }}
       >
-        <SelectValueJsx placeholder={placeholder} />
+        <SelectValueJsx placeholder={placeholder} fontSize={sizePadding.fontSize} />
         <ChevronText>▾</ChevronText>
       </SelectTrigger>
 
