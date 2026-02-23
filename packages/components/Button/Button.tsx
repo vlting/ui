@@ -5,18 +5,13 @@ import { VisuallyHidden } from '../../primitives'
 
 // @ts-expect-error Tamagui v2 RC
 const ButtonFrame = styled(XStack, {
-  tag: 'button',
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '$4',
   cursor: 'pointer',
   gap: '$1.5',
 
-  // Reset native button defaults
-  // @ts-expect-error web-only CSS property
-  appearance: 'none',
-
-  focusStyle: {
+  focusWithinStyle: {
     outlineWidth: 2,
     outlineOffset: 2,
     outlineColor: '$outlineColor',
@@ -148,10 +143,10 @@ const TONE_THEME_MAP: Record<string, string | undefined> = {
 }
 
 const ButtonBase = React.forwardRef<
-  React.ElementRef<typeof ButtonFrame>,
+  HTMLButtonElement,
   ButtonProps & Omit<ButtonFrameProps, keyof ButtonProps>
 >(function ButtonBase(
-  { loading, children, disabled, variant = 'solid', tone = 'neutral', size = 'md', ...props },
+  { loading, children, disabled, variant = 'solid', tone = 'neutral', size = 'md', onPress, ...props },
   ref,
 ) {
   const isDisabled = disabled ?? loading ?? false
@@ -159,24 +154,35 @@ const ButtonBase = React.forwardRef<
 
   const frame = (
     <ButtonContext.Provider value={{ variant }}>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <ButtonFrame
+      <button
         ref={ref}
-        {...props}
-        variant={variant}
-        size={size}
+        type="button"
         disabled={isDisabled}
-        accessibilityRole="button"
-        aria-disabled={isDisabled || undefined}
         aria-busy={loading || undefined}
+        onClick={isDisabled ? undefined : onPress}
+        style={{
+          background: 'none',
+          border: 'none',
+          padding: 0,
+          display: 'inline-flex',
+          cursor: isDisabled ? 'not-allowed' : 'pointer',
+        }}
       >
-        {loading ? (
-          <>
-            <Spinner size="small" />
-            <VisuallyHidden>Loading</VisuallyHidden>
-          </>
-        ) : children}
-      </ButtonFrame>
+        {/* @ts-expect-error Tamagui v2 RC */}
+        <ButtonFrame
+          {...props}
+          variant={variant}
+          size={size}
+          disabled={isDisabled}
+        >
+          {loading ? (
+            <>
+              <Spinner size="small" />
+              <VisuallyHidden>Loading</VisuallyHidden>
+            </>
+          ) : children}
+        </ButtonFrame>
+      </button>
     </ButtonContext.Provider>
   )
 
