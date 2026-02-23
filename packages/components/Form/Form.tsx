@@ -14,8 +14,7 @@ function useFormFieldContext() {
 }
 
 // @ts-expect-error Tamagui v2 RC
-const FormFrame = styled(YStack, {
-  tag: 'form',
+const FormFrameVisual = styled(YStack, {
   gap: '$4',
   width: '100%',
 })
@@ -59,8 +58,10 @@ function Root({ children, onSubmit }: FormRootProps) {
   }
 
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <FormFrame onSubmit={handleSubmit}>{children}</FormFrame>
+    <form onSubmit={handleSubmit}>
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <FormFrameVisual>{children}</FormFrameVisual>
+    </form>
   )
 }
 
@@ -81,10 +82,10 @@ function Field({ children, error, disabled }: FormFieldProps) {
 
 function Label({ children, htmlFor }: { children: React.ReactNode; htmlFor?: string }) {
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <FieldLabel tag="label" {...(htmlFor ? { htmlFor } : {})}>
-      {children}
-    </FieldLabel>
+    <label htmlFor={htmlFor}>
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <FieldLabel>{children}</FieldLabel>
+    </label>
   )
 }
 

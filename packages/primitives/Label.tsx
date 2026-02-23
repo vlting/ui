@@ -2,7 +2,7 @@ import type React from 'react'
 import { Text, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
-const StyledLabel = styled(Text, {
+const StyledLabelText = styled(Text, {
   fontFamily: '$body',
   fontSize: '$3',
   fontWeight: '$3',
@@ -15,9 +15,6 @@ const StyledLabel = styled(Text, {
       sm: { fontSize: '$2' },
       md: { fontSize: '$3' },
       lg: { fontSize: '$4' },
-    },
-    required: {
-      true: {},
     },
   } as const,
 
@@ -38,19 +35,14 @@ export function Label({
   htmlFor,
   size = 'md',
   required,
-  ...props
 }: LabelProps) {
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <StyledLabel
-      tag="label"
-      {...(htmlFor ? { htmlFor } : {})}
-      size={size}
-      required={required}
-      {...props}
-    >
-      {children}
-      {required && <Text color="$red10"> *</Text>}
-    </StyledLabel>
+    <label htmlFor={htmlFor}>
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <StyledLabelText size={size}>
+        {children}
+        {required && <Text color="$red10"> *</Text>}
+      </StyledLabelText>
+    </label>
   )
 }
