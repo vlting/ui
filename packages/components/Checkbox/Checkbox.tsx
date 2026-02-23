@@ -1,55 +1,7 @@
-import type React from 'react'
-import { Text, View, styled } from 'tamagui'
-import { Checkbox as HeadlessCheckbox } from '../../headless/Checkbox'
-import type { CheckboxRootProps } from '../../headless/Checkbox'
-
-// @ts-expect-error Tamagui v2 RC
-const StyledRoot = styled(View, {
-  width: 20,
-  height: 20,
-  borderRadius: '$2',
-  borderWidth: 1,
-  borderColor: '$borderColor',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: 'transparent',
-  cursor: 'pointer',
-
-  hoverStyle: {
-    borderColor: '$borderColorHover',
-  },
-
-  focusWithinStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-
-  variants: {
-    checked: {
-      true: {
-        backgroundColor: '$color10',
-        borderColor: '$color10',
-      },
-    },
-    disabled: {
-      true: {
-        opacity: 0.5,
-        cursor: 'not-allowed',
-      },
-    },
-    size: {
-      sm: { width: 16, height: 16 },
-      md: { width: 20, height: 20 },
-      lg: { width: 24, height: 24 },
-    },
-  } as const,
-
-  defaultVariants: {
-    size: 'md',
-  },
-})
+import React, { useRef } from 'react'
+import type { ComponentType } from 'react'
+import { Text, XStack, styled } from 'tamagui'
+import { Checkbox as TamaguiCheckbox } from '@tamagui/checkbox'
 
 // @ts-expect-error Tamagui v2 RC
 const CheckIcon = styled(Text, {
@@ -59,8 +11,23 @@ const CheckIcon = styled(Text, {
   lineHeight: 14,
 })
 
-interface StyledCheckboxProps extends Omit<CheckboxRootProps, 'className'> {
+// Tamagui v2 RC GetProps bug — cast for JSX usage
+const CheckboxButton = TamaguiCheckbox as ComponentType<Record<string, unknown>>
+const CheckboxIndicator = TamaguiCheckbox.Indicator as ComponentType<Record<string, unknown>>
+const CheckIconText = CheckIcon as ComponentType<Record<string, unknown>>
+
+const SIZE_MAP = { sm: '$3' as const, md: '$4' as const, lg: '$5' as const }
+
+export interface CheckboxRootProps {
+  children?: React.ReactNode
+  checked?: boolean | 'indeterminate'
+  defaultChecked?: boolean
+  onCheckedChange?: (checked: boolean | 'indeterminate') => void
+  disabled?: boolean
   size?: 'sm' | 'md' | 'lg'
+  required?: boolean
+  name?: string
+  value?: string
 }
 
 function Root({
@@ -70,30 +37,52 @@ function Root({
   onCheckedChange,
   disabled,
   size = 'md',
-  ...props
-}: StyledCheckboxProps) {
+  required,
+  name,
+  value,
+}: CheckboxRootProps) {
+  const checkboxRef = useRef<HTMLButtonElement>(null)
+
   return (
-    <HeadlessCheckbox.Root
-      checked={checked}
-      defaultChecked={defaultChecked}
-      onCheckedChange={onCheckedChange}
-      disabled={disabled}
-      {...props}
+    // @ts-expect-error Tamagui v2 RC
+    <XStack
+      alignItems="center"
+      gap="$2"
+      opacity={disabled ? 0.5 : 1}
     >
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledRoot checked={!!checked} disabled={disabled} size={size}>
-        <HeadlessCheckbox.Indicator>
-          {/* @ts-expect-error Tamagui v2 RC */}
-          <CheckIcon>✓</CheckIcon>
-        </HeadlessCheckbox.Indicator>
-      </StyledRoot>
-      {children}
-    </HeadlessCheckbox.Root>
+      <CheckboxButton
+        ref={checkboxRef}
+        checked={checked}
+        defaultChecked={defaultChecked}
+        onCheckedChange={onCheckedChange}
+        disabled={disabled}
+        size={SIZE_MAP[size]}
+        required={required}
+        name={name}
+        value={value}
+        borderRadius="$2"
+        borderWidth={1}
+        borderColor="$borderColor"
+        backgroundColor="transparent"
+      >
+        <CheckboxIndicator>
+          <CheckIconText>✓</CheckIconText>
+        </CheckboxIndicator>
+      </CheckboxButton>
+      {children && (
+        <span
+          onClick={() => !disabled && checkboxRef.current?.click()}
+          style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}
+        >
+          {children}
+        </span>
+      )}
+    </XStack>
   )
 }
 
 function Indicator({ children }: { children?: React.ReactNode }) {
-  return <HeadlessCheckbox.Indicator>{children}</HeadlessCheckbox.Indicator>
+  return <CheckboxIndicator>{children}</CheckboxIndicator>
 }
 
 export const Checkbox = { Root, Indicator }
