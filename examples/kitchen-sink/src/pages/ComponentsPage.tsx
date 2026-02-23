@@ -352,7 +352,7 @@ export function ComponentsPage() {
       <Section title="Slider">
         <DemoCard label="Default">
           <YStack gap="$2">
-            <Slider value={sliderValue} onValueChange={setSliderValue} />
+            <Slider value={sliderValue} onValueChange={setSliderValue} aria-label="Volume" />
             <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
               Value: {sliderValue}
             </Text>
@@ -360,16 +360,16 @@ export function ComponentsPage() {
         </DemoCard>
         <DemoCard label="Sizes">
           <YStack gap="$4">
-            <Slider size="sm" defaultValue={30} />
-            <Slider size="md" defaultValue={50} />
-            <Slider size="lg" defaultValue={70} />
+            <Slider size="sm" defaultValue={30} aria-label="Small slider" />
+            <Slider size="md" defaultValue={50} aria-label="Medium slider" />
+            <Slider size="lg" defaultValue={70} aria-label="Large slider" />
           </YStack>
         </DemoCard>
         <DemoCard label="Custom range">
-          <Slider min={0} max={10} step={1} defaultValue={5} />
+          <Slider min={0} max={10} step={1} defaultValue={5} aria-label="Rating" />
         </DemoCard>
         <DemoCard label="Disabled">
-          <Slider disabled defaultValue={40} />
+          <Slider disabled defaultValue={40} aria-label="Disabled slider" />
         </DemoCard>
       </Section>
 
@@ -377,7 +377,7 @@ export function ComponentsPage() {
       <Section title="Progress">
         <DemoCard label="Default">
           <YStack gap="$2">
-            <Progress value={progressValue} />
+            <Progress value={progressValue} aria-label="Task completion" />
             <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
               {progressValue}% complete
             </Text>
@@ -385,15 +385,15 @@ export function ComponentsPage() {
         </DemoCard>
         <DemoCard label="Sizes">
           <YStack gap="$3">
-            <Progress size="sm" value={25} />
-            <Progress size="md" value={50} />
-            <Progress size="lg" value={75} />
+            <Progress size="sm" value={25} aria-label="Small progress" />
+            <Progress size="md" value={50} aria-label="Medium progress" />
+            <Progress size="lg" value={75} aria-label="Large progress" />
           </YStack>
         </DemoCard>
         <DemoCard label="States">
           <YStack gap="$3">
-            <Progress value={0} />
-            <Progress value={100} />
+            <Progress value={0} aria-label="Empty progress" />
+            <Progress value={100} aria-label="Full progress" />
           </YStack>
         </DemoCard>
       </Section>
@@ -653,15 +653,9 @@ export function ComponentsPage() {
         <DemoCard label="Multi-tab">
           <Tabs.Root defaultValue="tab1">
             <Tabs.List>
-              <Tabs.Trigger value="tab1">
-                <Text fontFamily="$body" fontSize="$3">Tab 1</Text>
-              </Tabs.Trigger>
-              <Tabs.Trigger value="tab2">
-                <Text fontFamily="$body" fontSize="$3">Tab 2</Text>
-              </Tabs.Trigger>
-              <Tabs.Trigger value="tab3">
-                <Text fontFamily="$body" fontSize="$3">Tab 3</Text>
-              </Tabs.Trigger>
+              <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
             </Tabs.List>
             <Tabs.Content value="tab1">
               <Text fontFamily="$body" fontSize="$3">
