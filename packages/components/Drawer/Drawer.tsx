@@ -56,8 +56,6 @@ const DIRECTION_STYLES = {
     bottom: 0,
     left: 0,
     right: 0,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
     maxHeight: '90vh',
   },
   top: {
@@ -65,8 +63,6 @@ const DIRECTION_STYLES = {
     top: 0,
     left: 0,
     right: 0,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
     maxHeight: '90vh',
   },
   left: {
@@ -74,8 +70,6 @@ const DIRECTION_STYLES = {
     top: 0,
     left: 0,
     bottom: 0,
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
     maxWidth: '90vw',
     width: 360,
   },
@@ -84,12 +78,17 @@ const DIRECTION_STYLES = {
     top: 0,
     right: 0,
     bottom: 0,
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
     maxWidth: '90vw',
     width: 360,
   },
 }
+
+const DIRECTION_RADII = {
+  bottom: { borderTopLeftRadius: '$5', borderTopRightRadius: '$5' },
+  top: { borderBottomLeftRadius: '$5', borderBottomRightRadius: '$5' },
+  left: { borderTopRightRadius: '$5', borderBottomRightRadius: '$5' },
+  right: { borderTopLeftRadius: '$5', borderBottomLeftRadius: '$5' },
+} as const
 
 export interface DrawerRootProps {
   children: React.ReactNode
@@ -156,8 +155,10 @@ function Content({ children, direction: directionProp, showHandle }: DrawerConte
         backgroundColor="$background"
         borderWidth={1}
         borderColor="$borderColor"
+        shadowColor="$shadowLgColor"
         animation="medium"
         aria-describedby={undefined}
+        {...DIRECTION_RADII[direction]}
         style={DIRECTION_STYLES[direction]}
       >
         {shouldShowHandle && <HandleBarJsx />}

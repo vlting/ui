@@ -10,7 +10,7 @@ const SelectFrame = styledHtml('select', {
   borderWidth: 1,
   borderStyle: 'solid',
   borderColor: '$borderColor',
-  borderRadius: 8,
+  borderRadius: '$4',
   color: '$color',
   fontFamily: '$body',
   cursor: 'pointer',

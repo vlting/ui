@@ -114,7 +114,7 @@ const InlineCodeFrame = styledHtml('code', {
   fontSize: 14,
   lineHeight: '20px',
   backgroundColor: '$color2',
-  borderRadius: 4,
+  borderRadius: '$2',
   paddingLeft: 4,
   paddingRight: 4,
   paddingTop: 2,

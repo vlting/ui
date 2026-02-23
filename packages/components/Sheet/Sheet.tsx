@@ -51,7 +51,7 @@ function Root({
 function Overlay() {
   return (
     <SheetOverlay
-      backgroundColor="rgba(0,0,0,0.4)"
+      backgroundColor="$overlayBackground"
       animation="medium"
       enterStyle={{ opacity: 0 }}
       exitStyle={{ opacity: 0 }}
