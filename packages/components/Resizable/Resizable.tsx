@@ -28,11 +28,13 @@ const ResizableContext = React.createContext<{
   registerPanel: (index: number, defaultSize: number) => void
   sizes: number[]
   onResize: (handleIndex: number, delta: number) => void
+  nextPanelIndex: () => number
 }>({
   direction: 'horizontal',
   registerPanel: () => {},
   sizes: [],
   onResize: () => {},
+  nextPanelIndex: () => 0,
 })
 
 function PanelGroup({
@@ -42,6 +44,14 @@ function PanelGroup({
 }: ResizablePanelGroupProps) {
   const [sizes, setSizes] = useState<number[]>([])
   const panelCount = React.Children.count(children)
+  const panelIndexRef = useRef(0)
+
+  // Reset counter on each render so indices are stable across re-mounts
+  panelIndexRef.current = 0
+
+  const nextPanelIndex = useCallback(() => {
+    return panelIndexRef.current++
+  }, [])
 
   const registerPanel = useCallback(
     (index: number, defaultSize: number) => {
@@ -82,7 +92,7 @@ function PanelGroup({
   const isH = direction === 'horizontal'
 
   return (
-    <ResizableContext.Provider value={{ direction, registerPanel, sizes, onResize }}>
+    <ResizableContext.Provider value={{ direction, registerPanel, sizes, onResize, nextPanelIndex }}>
       <ViewJsx
         flexDirection={isH ? 'row' : 'column'}
         width="100%"
@@ -95,8 +105,6 @@ function PanelGroup({
   )
 }
 
-let panelIndex = 0
-
 function Panel({
   children,
   defaultSize,
@@ -104,8 +112,8 @@ function Panel({
   maxSize: _maxSize = 100,
   collapsible: _collapsible,
 }: ResizablePanelProps) {
-  const [index] = useState(() => panelIndex++)
-  const { direction, sizes } = React.useContext(ResizableContext)
+  const { nextPanelIndex, direction, sizes } = React.useContext(ResizableContext)
+  const [index] = useState(() => nextPanelIndex())
   const size = sizes[index] ?? (defaultSize ?? 50)
   const isH = direction === 'horizontal'
 
@@ -124,8 +132,8 @@ function Panel({
 }
 
 function Handle({ withHandle = true }: ResizableHandleProps) {
-  const { direction, onResize } = React.useContext(ResizableContext)
-  const [handleIdx] = useState(() => panelIndex - 1)
+  const { direction, onResize, nextPanelIndex } = React.useContext(ResizableContext)
+  const [handleIdx] = useState(() => nextPanelIndex() - 1)
   const isH = direction === 'horizontal'
   const isDragging = useRef(false)
   const startPos = useRef(0)

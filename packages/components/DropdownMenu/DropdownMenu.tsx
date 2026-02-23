@@ -100,7 +100,7 @@ function Content({ children }: { children: React.ReactNode }) {
       borderRadius="$4"
       padding={4}
       minWidth={192}
-      style={{ boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
+      style={{ boxShadow: 'var(--shadowMd)' }}
       role="menu"
     >
       {children}

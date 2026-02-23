@@ -52,11 +52,9 @@ function Root({ children }: ScrollAreaRootProps) {
 function Viewport({ children, orientation = 'vertical' }: ScrollAreaViewportProps) {
   return (
     <ViewJsx
-      width="100%"
-      height="100%"
       borderRadius="inherit"
       className="vlting-scroll-viewport"
-      style={OVERFLOW_STYLES[orientation]}
+      style={{ width: '100%', height: '100%', ...OVERFLOW_STYLES[orientation] }}
     >
       {children}
     </ViewJsx>
