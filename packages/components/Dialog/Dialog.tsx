@@ -53,7 +53,7 @@ function Trigger({ children }: { children: React.ReactNode }) {
   return <DialogTrigger asChild>{children}</DialogTrigger>
 }
 
-function Overlay({ children }: { children?: React.ReactNode }) {
+function Overlay() {
   return (
     <DialogPortal>
       <DialogOverlayFrame
@@ -68,11 +68,7 @@ function Overlay({ children }: { children?: React.ReactNode }) {
         right={0}
         bottom={0}
         zIndex={50}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
       />
-      {children}
     </DialogPortal>
   )
 }
@@ -87,21 +83,23 @@ const SIZE_PADDING = { sm: '$4' as const, md: '$5' as const, lg: '$6' as const }
 
 function Content({ children, size = 'md' }: DialogContentProps) {
   return (
-    <DialogContent
-      backgroundColor="$background"
-      borderRadius="$6"
-      padding={SIZE_PADDING[size]}
-      width="90%"
-      maxWidth={SIZE_MAX_WIDTH[size]}
-      maxHeight="85%"
-      animation="medium"
-      gap="$3"
-      enterStyle={{ opacity: 0, scale: 0.95 }}
-      exitStyle={{ opacity: 0, scale: 0.95 }}
-      zIndex={51}
-    >
-      {children}
-    </DialogContent>
+    <DialogPortal>
+      <DialogContent
+        backgroundColor="$background"
+        borderRadius="$6"
+        padding={SIZE_PADDING[size]}
+        width="90%"
+        maxWidth={SIZE_MAX_WIDTH[size]}
+        maxHeight="85%"
+        animation="medium"
+        gap="$3"
+        enterStyle={{ opacity: 0, scale: 0.95 }}
+        exitStyle={{ opacity: 0, scale: 0.95 }}
+        zIndex={51}
+      >
+        {children}
+      </DialogContent>
+    </DialogPortal>
   )
 }
 

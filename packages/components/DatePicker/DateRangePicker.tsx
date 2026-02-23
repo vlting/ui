@@ -70,7 +70,7 @@ const TriggerFrame = styled(XStack, {
 
   focusStyle: {
     outlineWidth: 2,
-    outlineOffset: 2,
+    outlineOffset: 1,
     outlineColor: '$outlineColor',
     outlineStyle: 'solid',
   },
@@ -423,7 +423,6 @@ function DateRangePickerRoot({
         if (value === undefined) setInternalValue(range)
         onValueChange?.(range)
         setPickingStart(undefined)
-        setOpen(false)
       }
     },
     [pickingStart, value, onValueChange],

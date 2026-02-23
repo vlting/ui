@@ -49,7 +49,7 @@ function Root({
       defaultOpen={defaultOpen}
       onOpenChange={onOpenChange}
       placement={placement}
-      offset={offset}
+      offset={offset ?? 4}
       hoverable={hoverable}
     >
       {children}
@@ -69,11 +69,16 @@ interface PopoverContentProps {
   children: React.ReactNode
 }
 
+const PopoverContentJsx = TamaguiPopover.Content as ComponentType<Record<string, unknown>>
+
 function Content({ children }: PopoverContentProps) {
   return (
-    <ContentFrame>
-      {children}
-    </ContentFrame>
+    <PopoverContentJsx>
+      <PopoverArrow borderWidth={1} borderColor="$borderColor" backgroundColor="$background" size="$1" />
+      <ContentFrame>
+        {children}
+      </ContentFrame>
+    </PopoverContentJsx>
   )
 }
 
