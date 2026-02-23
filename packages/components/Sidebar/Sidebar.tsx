@@ -94,7 +94,7 @@ function Root({
                 margin: 8,
                 borderWidth: 1,
                 borderColor: 'var(--borderColor)',
-                boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                boxShadow: 'var(--shadowMd)',
               }
             : {}),
         }}
