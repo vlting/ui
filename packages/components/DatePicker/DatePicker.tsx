@@ -170,6 +170,9 @@ const DayCell = styled(XStack, {
     selected: {
       true: {
         backgroundColor: '$color10',
+        hoverStyle: {
+          backgroundColor: '$color11',
+        },
       },
     },
     isToday: {
@@ -188,6 +191,9 @@ const DayCell = styled(XStack, {
     inRange: {
       true: {
         backgroundColor: '$color4',
+        hoverStyle: {
+          backgroundColor: '$color5',
+        },
       },
     },
     rangeStart: {
@@ -195,6 +201,9 @@ const DayCell = styled(XStack, {
         backgroundColor: '$color10',
         borderTopLeftRadius: '$3',
         borderBottomLeftRadius: '$3',
+        hoverStyle: {
+          backgroundColor: '$color11',
+        },
       },
     },
     rangeEnd: {
@@ -202,6 +211,9 @@ const DayCell = styled(XStack, {
         backgroundColor: '$color10',
         borderTopRightRadius: '$3',
         borderBottomRightRadius: '$3',
+        hoverStyle: {
+          backgroundColor: '$color11',
+        },
       },
     },
   } as const,

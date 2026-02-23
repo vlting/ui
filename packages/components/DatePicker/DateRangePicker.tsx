@@ -170,6 +170,9 @@ const DayCell = styled(XStack, {
     selected: {
       true: {
         backgroundColor: '$color10',
+        hoverStyle: {
+          backgroundColor: '$color11',
+        },
       },
     },
     isToday: {
@@ -189,6 +192,9 @@ const DayCell = styled(XStack, {
       true: {
         backgroundColor: '$color4',
         borderRadius: 0,
+        hoverStyle: {
+          backgroundColor: '$color5',
+        },
       },
     },
   } as const,
