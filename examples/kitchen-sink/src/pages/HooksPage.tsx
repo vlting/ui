@@ -45,18 +45,22 @@ function ControllableStateDemo() {
     <YStack gap="$4">
       <DemoCard label="Controlled (value managed externally)">
         <YStack gap="$2">
-          <View
-            tag="input"
+          <input
+            type="text"
             value={controlled}
-            onChange={(e: any) => setControlled(e.nativeEvent?.text ?? e.target?.value ?? '')}
-            fontFamily="$body"
-            fontSize="$4"
-            padding="$2"
-            borderWidth={1}
-            borderColor="$borderColor"
-            borderRadius="$3"
-            color="$color"
-            backgroundColor="$background"
+            onChange={(e) => setControlled(e.target.value)}
+            style={{
+              fontFamily: 'inherit',
+              fontSize: 16,
+              padding: 8,
+              borderWidth: 1,
+              borderStyle: 'solid',
+              borderColor: 'var(--borderColor)',
+              borderRadius: 8,
+              color: 'inherit',
+              backgroundColor: 'transparent',
+              outline: 'none',
+            }}
           />
           <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
             Current value: "{controlled}"
@@ -65,18 +69,22 @@ function ControllableStateDemo() {
       </DemoCard>
       <DemoCard label="Uncontrolled (internal state with onChange callback)">
         <YStack gap="$2">
-          <View
-            tag="input"
+          <input
+            type="text"
             value={uncontrolledValue}
-            onChange={(e: any) => setUncontrolledValue(e.nativeEvent?.text ?? e.target?.value ?? '')}
-            fontFamily="$body"
-            fontSize="$4"
-            padding="$2"
-            borderWidth={1}
-            borderColor="$borderColor"
-            borderRadius="$3"
-            color="$color"
-            backgroundColor="$background"
+            onChange={(e) => setUncontrolledValue(e.target.value)}
+            style={{
+              fontFamily: 'inherit',
+              fontSize: 16,
+              padding: 8,
+              borderWidth: 1,
+              borderStyle: 'solid',
+              borderColor: 'var(--borderColor)',
+              borderRadius: 8,
+              color: 'inherit',
+              backgroundColor: 'transparent',
+              outline: 'none',
+            }}
           />
           <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
             Current value: "{uncontrolledValue}" (check console for onChange)
@@ -94,20 +102,22 @@ function FocusTrapDemo() {
   return (
     <DemoCard label="Focus trap — Tab key cycles within the box when active">
       <YStack gap="$3">
-        <View
-          tag="button"
-          onPress={() => setActive(!active)}
-          backgroundColor={active ? '$color10' : '$color4'}
-          paddingHorizontal="$4"
-          paddingVertical="$2"
-          borderRadius="$3"
-          cursor="pointer"
-          alignSelf="flex-start"
+        <button
+          type="button"
+          onClick={() => setActive(!active)}
+          style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', alignSelf: 'flex-start' }}
         >
-          <Text fontFamily="$body" fontSize="$3" color={active ? '$color1' : '$color'}>
-            {active ? 'Deactivate Trap' : 'Activate Trap'}
-          </Text>
-        </View>
+          <View
+            backgroundColor={active ? '$color10' : '$color4'}
+            paddingHorizontal="$4"
+            paddingVertical="$2"
+            borderRadius="$3"
+          >
+            <Text fontFamily="$body" fontSize="$3" color={active ? '$color1' : '$color'}>
+              {active ? 'Deactivate Trap' : 'Activate Trap'}
+            </Text>
+          </View>
+        </button>
         <View
           ref={trapRef}
           borderWidth={2}
@@ -117,33 +127,21 @@ function FocusTrapDemo() {
           gap="$3"
           borderStyle={active ? 'solid' : 'dashed'}
         >
-          <View
-            tag="button"
-            backgroundColor="$color3"
-            padding="$2"
-            borderRadius="$2"
-            cursor="pointer"
-          >
-            <Text fontFamily="$body" fontSize="$3">Focusable 1</Text>
-          </View>
-          <View
-            tag="button"
-            backgroundColor="$color3"
-            padding="$2"
-            borderRadius="$2"
-            cursor="pointer"
-          >
-            <Text fontFamily="$body" fontSize="$3">Focusable 2</Text>
-          </View>
-          <View
-            tag="button"
-            backgroundColor="$color3"
-            padding="$2"
-            borderRadius="$2"
-            cursor="pointer"
-          >
-            <Text fontFamily="$body" fontSize="$3">Focusable 3</Text>
-          </View>
+          <button type="button" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
+            <View backgroundColor="$color3" padding="$2" borderRadius="$2">
+              <Text fontFamily="$body" fontSize="$3">Focusable 1</Text>
+            </View>
+          </button>
+          <button type="button" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
+            <View backgroundColor="$color3" padding="$2" borderRadius="$2">
+              <Text fontFamily="$body" fontSize="$3">Focusable 2</Text>
+            </View>
+          </button>
+          <button type="button" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
+            <View backgroundColor="$color3" padding="$2" borderRadius="$2">
+              <Text fontFamily="$body" fontSize="$3">Focusable 3</Text>
+            </View>
+          </button>
         </View>
         <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
           {active ? 'Trap is active — Tab and Shift+Tab cycle within the box.' : 'Trap is inactive — focus moves normally.'}
@@ -169,13 +167,12 @@ function KeyboardNavDemo() {
 
   return (
     <DemoCard label="Arrow key navigation — use Up/Down arrows, Enter to select">
-      <View onKeyDown={handleKeyDown} tag="div" role="listbox" aria-label="Fruit list">
+      <View onKeyDown={handleKeyDown} role="listbox" aria-label="Fruit list">
         <YStack gap="$1">
           {items.map((item, i) => (
             <View
               key={item}
               ref={(el: HTMLElement | null) => { itemRefs.current[i] = el }}
-              tag="div"
               role="option"
               aria-selected={i === activeIndex}
               tabIndex={i === activeIndex ? 0 : -1}

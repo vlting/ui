@@ -41,16 +41,19 @@ function HeadlessDialogDemo() {
     <DemoCard label="Custom-styled dialog from headless primitive">
       <HeadlessDialog.Root open={open} onOpenChange={setOpen}>
         <HeadlessDialog.Trigger>
-          <View
-            backgroundColor="$color10"
-            paddingHorizontal="$4"
-            paddingVertical="$2"
-            borderRadius="$3"
-            cursor="pointer"
-            tag="button"
+          <button
+            type="button"
+            style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
           >
-            <Text fontFamily="$body" color="$color1" fontSize="$3">Open Headless Dialog</Text>
-          </View>
+            <View
+              backgroundColor="$color10"
+              paddingHorizontal="$4"
+              paddingVertical="$2"
+              borderRadius="$3"
+            >
+              <Text fontFamily="$body" color="$color1" fontSize="$3">Open Headless Dialog</Text>
+            </View>
+          </button>
         </HeadlessDialog.Trigger>
         <HeadlessDialog.Overlay>
           <View
@@ -81,17 +84,20 @@ function HeadlessDialogDemo() {
               </Text>
             </HeadlessDialog.Description>
             <HeadlessDialog.Close>
-              <View
-                backgroundColor="$color4"
-                paddingHorizontal="$4"
-                paddingVertical="$2"
-                borderRadius="$3"
-                cursor="pointer"
-                alignSelf="flex-start"
-                tag="button"
+              <button
+                type="button"
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
               >
-                <Text fontFamily="$body" fontSize="$3">Close</Text>
-              </View>
+                <View
+                  backgroundColor="$color4"
+                  paddingHorizontal="$4"
+                  paddingVertical="$2"
+                  borderRadius="$3"
+                  alignSelf="flex-start"
+                >
+                  <Text fontFamily="$body" fontSize="$3">Close</Text>
+                </View>
+              </button>
             </HeadlessDialog.Close>
           </YStack>
         </HeadlessDialog.Content>
