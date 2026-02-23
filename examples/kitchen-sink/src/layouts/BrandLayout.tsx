@@ -3,7 +3,7 @@ import { Outlet, useParams, useLocation, Link } from 'react-router-dom'
 import { Provider } from '@vlting/ui'
 import { brands, activeBrand, type BrandKey } from '../brands'
 
-const sections = [
+const navLinks = [
   { path: '', label: 'Home' },
   { path: 'primitives', label: 'Primitives' },
   { path: 'components', label: 'Components' },
@@ -12,31 +12,107 @@ const sections = [
   { path: 'hooks', label: 'Hooks' },
 ]
 
+const sidebarGroups = [
+  {
+    label: 'Getting Started',
+    items: [{ path: '', label: 'Overview' }],
+  },
+  {
+    label: 'Primitives',
+    items: [
+      { path: 'primitives', label: 'All Primitives' },
+    ],
+  },
+  {
+    label: 'Form',
+    items: [
+      { path: 'components', label: 'All Components' },
+      { path: 'components/inputs', label: 'Inputs' },
+    ],
+  },
+  {
+    label: 'Overlay',
+    items: [
+      { path: 'components/overlays', label: 'Overlays' },
+    ],
+  },
+  {
+    label: 'Navigation',
+    items: [
+      { path: 'components/menus', label: 'Menus' },
+    ],
+  },
+  {
+    label: 'Layout',
+    items: [
+      { path: 'components/layout', label: 'Layout' },
+      { path: 'components/typography', label: 'Typography' },
+    ],
+  },
+  {
+    label: 'Composed',
+    items: [
+      { path: 'composed', label: 'All Composed' },
+    ],
+  },
+]
+
 export function BrandLayout() {
   const { brand = 'default' } = useParams<{ brand: string }>()
   const location = useLocation()
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const brandKey = (brand in brands ? brand : 'default') as BrandKey
   const currentSection = location.pathname.split('/').slice(2).join('/') || ''
 
+  const isDark = theme === 'dark'
+  const bg = isDark ? '#09090b' : '#ffffff'
+  const fg = isDark ? '#fafafa' : '#09090b'
+  const muted = isDark ? '#a1a1aa' : '#71717a'
+  const border = isDark ? '#27272a' : '#e4e4e7'
+  const bgMuted = isDark ? '#18181b' : '#f4f4f5'
+  const bgHover = isDark ? '#27272a' : '#f4f4f5'
+  const accent = isDark ? '#fafafa' : '#18181b'
+
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Top nav — outside Provider, uses plain HTML/CSS */}
-      <nav style={{
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: bg, color: fg, fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+      {/* ─── Header ─── */}
+      <header style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 40,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '12px 24px',
-        borderBottom: '1px solid #e0e0e0',
-        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#fff',
-        color: theme === 'dark' ? '#f0f0f0' : '#111',
-        transition: 'background-color 0.2s, color 0.2s',
+        padding: '0 24px',
+        height: 56,
+        borderBottom: `1px solid ${border}`,
+        backgroundColor: bg,
+        backdropFilter: 'blur(8px)',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-          <span style={{ fontWeight: 700, fontSize: '16px' }}>@vlting/ui</span>
-          <div style={{ display: 'flex', gap: '4px' }}>
-            {sections.map((s) => {
+        <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            style={{
+              display: 'none',
+              background: 'none',
+              border: 'none',
+              color: fg,
+              fontSize: 20,
+              cursor: 'pointer',
+              padding: '4px 8px',
+            }}
+            className="mobile-hamburger"
+          >
+            ☰
+          </button>
+          <Link to={`/${brandKey}`} style={{ textDecoration: 'none', color: fg }}>
+            <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: -0.3 }}>@vlting/ui</span>
+          </Link>
+          <nav style={{ display: 'flex', gap: 2 }} className="desktop-nav">
+            {navLinks.map((s) => {
               const isActive = currentSection === s.path
               return (
                 <Link
@@ -44,39 +120,37 @@ export function BrandLayout() {
                   to={`/${brandKey}/${s.path}`}
                   style={{
                     padding: '6px 12px',
-                    borderRadius: '6px',
+                    borderRadius: 6,
                     textDecoration: 'none',
-                    fontSize: '14px',
-                    fontWeight: isActive ? 600 : 400,
-                    color: isActive ? '#fff' : (theme === 'dark' ? '#ccc' : '#555'),
-                    backgroundColor: isActive ? '#3b8fdb' : 'transparent',
-                    transition: 'all 0.15s',
+                    fontSize: 14,
+                    fontWeight: isActive ? 500 : 400,
+                    color: isActive ? fg : muted,
+                    transition: 'color 0.15s',
                   }}
                 >
                   {s.label}
                 </Link>
               )
             })}
-          </div>
+          </nav>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          {/* Brand selector — uses window.location.href to force page reload,
-              because Tamagui's config is a module-level singleton that can't
-              be swapped at runtime */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {/* Brand selector */}
           {Object.entries(brands).map(([key, b]) => (
             <button
               key={key}
               onClick={() => { window.location.href = `/${key}/${currentSection}` }}
               style={{
-                padding: '6px 14px',
-                borderRadius: '6px',
-                border: brandKey === key ? '2px solid #3b8fdb' : '1px solid #ccc',
-                backgroundColor: brandKey === key ? (theme === 'dark' ? '#2a2a2a' : '#f0f7ff') : 'transparent',
-                color: theme === 'dark' ? '#f0f0f0' : '#333',
+                padding: '5px 12px',
+                borderRadius: 6,
+                border: `1px solid ${brandKey === key ? accent : border}`,
+                backgroundColor: brandKey === key ? (isDark ? '#27272a' : '#f4f4f5') : 'transparent',
+                color: brandKey === key ? fg : muted,
                 cursor: 'pointer',
-                fontWeight: brandKey === key ? 600 : 400,
-                fontSize: '13px',
+                fontWeight: brandKey === key ? 500 : 400,
+                fontSize: 13,
                 transition: 'all 0.15s',
+                fontFamily: 'inherit',
               }}
             >
               {b.label}
@@ -86,27 +160,119 @@ export function BrandLayout() {
           <button
             onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
             style={{
-              padding: '6px 14px',
-              borderRadius: '6px',
-              border: '1px solid #ccc',
+              padding: '5px 12px',
+              borderRadius: 6,
+              border: `1px solid ${border}`,
               backgroundColor: 'transparent',
-              color: theme === 'dark' ? '#f0f0f0' : '#333',
+              color: muted,
               cursor: 'pointer',
-              fontSize: '13px',
+              fontSize: 13,
+              fontFamily: 'inherit',
               transition: 'all 0.15s',
             }}
           >
-            {theme === 'light' ? 'Dark' : 'Light'}
+            {theme === 'light' ? '🌙' : '☀️'}
           </button>
         </div>
-      </nav>
+      </header>
 
-      {/* Content area — single Provider with the config created at page load */}
-      <div style={{ flex: 1, backgroundColor: theme === 'dark' ? '#111' : '#f5f5f5' }}>
-        <Provider config={activeBrand.config} defaultTheme={theme}>
-          <Outlet />
-        </Provider>
+      {/* ─── Body: Sidebar + Content ─── */}
+      <div style={{ display: 'flex', flex: 1 }}>
+        {/* Sidebar */}
+        <aside
+          style={{
+            width: 240,
+            flexShrink: 0,
+            borderRight: `1px solid ${border}`,
+            padding: '16px 0',
+            overflowY: 'auto',
+            height: 'calc(100vh - 56px)',
+            position: 'sticky',
+            top: 56,
+            backgroundColor: bg,
+          }}
+          className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}
+        >
+          {sidebarGroups.map((group) => (
+            <div key={group.label} style={{ marginBottom: 16 }}>
+              <div style={{
+                padding: '4px 16px',
+                fontSize: 12,
+                fontWeight: 500,
+                color: muted,
+                textTransform: 'uppercase',
+                letterSpacing: 0.5,
+              }}>
+                {group.label}
+              </div>
+              {group.items.map((item) => {
+                const isActive = currentSection === item.path
+                return (
+                  <Link
+                    key={item.path}
+                    to={`/${brandKey}/${item.path}`}
+                    onClick={() => setSidebarOpen(false)}
+                    style={{
+                      display: 'block',
+                      padding: '6px 16px 6px 24px',
+                      fontSize: 14,
+                      textDecoration: 'none',
+                      color: isActive ? fg : muted,
+                      fontWeight: isActive ? 500 : 400,
+                      backgroundColor: isActive ? bgHover : 'transparent',
+                      borderRight: isActive ? `2px solid ${fg}` : '2px solid transparent',
+                      transition: 'all 0.1s',
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
+            </div>
+          ))}
+        </aside>
+
+        {/* Mobile sidebar overlay */}
+        {sidebarOpen && (
+          <div
+            onClick={() => setSidebarOpen(false)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              top: 56,
+              backgroundColor: 'rgba(0,0,0,0.4)',
+              zIndex: 30,
+            }}
+            className="sidebar-overlay"
+          />
+        )}
+
+        {/* Main content */}
+        <main style={{ flex: 1, minWidth: 0 }}>
+          <Provider config={activeBrand.config} defaultTheme={theme}>
+            <Outlet />
+          </Provider>
+        </main>
       </div>
+
+      {/* ─── Inline responsive styles ─── */}
+      <style>{`
+        @media (max-width: 768px) {
+          .mobile-hamburger { display: inline-flex !important; }
+          .desktop-nav { display: none !important; }
+          .sidebar {
+            position: fixed !important;
+            top: 56px !important;
+            left: -240px !important;
+            height: calc(100vh - 56px) !important;
+            z-index: 35 !important;
+            transition: left 0.2s ease !important;
+          }
+          .sidebar.sidebar-open {
+            left: 0 !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }

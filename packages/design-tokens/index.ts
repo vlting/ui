@@ -15,6 +15,7 @@ export {
   defaultBrand,
   funBrand,
   poshBrand,
+  shadcnBrand,
   media,
 } from './brands'
 export type {

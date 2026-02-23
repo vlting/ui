@@ -1,4 +1,4 @@
-import { createBrandConfig, defaultBrand, funBrand, poshBrand } from '@vlting/ui'
+import { createBrandConfig, defaultBrand, funBrand, poshBrand, shadcnBrand } from '@vlting/ui'
 import { createTamagui } from 'tamagui'
 import type { BrandDefinition } from '@vlting/ui'
 
@@ -6,6 +6,7 @@ const brandDefinitions = {
   default: { label: 'Default', definition: defaultBrand },
   fun: { label: 'Fun', definition: funBrand },
   posh: { label: 'Posh', definition: poshBrand },
+  shadcn: { label: 'shadcn', definition: shadcnBrand },
 } as const
 
 export type BrandKey = keyof typeof brandDefinitions

@@ -37,8 +37,8 @@ export type { SliderProps } from './Slider'
 export { Toggle, ToggleGroup } from './Toggle'
 export type { ToggleProps, ToggleGroupProps, ToggleGroupItemProps } from './Toggle'
 
-export { Tooltip } from './Tooltip'
-export type { TooltipProps } from './Tooltip'
+export { Tooltip, TooltipProvider } from './Tooltip'
+export type { TooltipProps, TooltipProviderProps } from './Tooltip'
 
 export { Select } from './Select'
 export type { SelectProps, SelectItemProps } from './Select'
