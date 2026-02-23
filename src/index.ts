@@ -107,6 +107,7 @@ export {
   Table,
   Breadcrumb,
   Form,
+  Pagination,
 } from '../packages/components'
 export type {
   ButtonProps,
@@ -136,6 +137,7 @@ export type {
   BreadcrumbProps,
   FormRootProps,
   FormFieldProps,
+  PaginationProps,
 } from '../packages/components'
 
 // Hooks

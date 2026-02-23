@@ -18,6 +18,7 @@ import {
   Toggle,
   ToggleGroup,
   Tooltip,
+  Pagination,
 } from '@vlting/ui'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -64,6 +65,8 @@ export function ComponentsPage() {
   const [progressValue] = useState(65)
   const [togglePressed, setTogglePressed] = useState(false)
   const [toggleGroupValue, setToggleGroupValue] = useState<string | string[]>('center')
+  const [paginationPage, setPaginationPage] = useState(1)
+  const [paginationPage2, setPaginationPage2] = useState(5)
 
   return (
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
@@ -557,6 +560,37 @@ export function ComponentsPage() {
               </YStack>
             </Dialog.Content>
           </Dialog.Root>
+        </DemoCard>
+      </Section>
+
+      {/* ─── Pagination ─── */}
+      <Section title="Pagination">
+        <DemoCard label="Basic (10 pages)">
+          <Pagination.Root
+            currentPage={paginationPage}
+            totalPages={10}
+            onPageChange={setPaginationPage}
+          />
+          <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle" marginTop="$2">
+            Page {paginationPage} of 10
+          </Text>
+        </DemoCard>
+        <DemoCard label="Many pages (showing ellipsis)">
+          <Pagination.Root
+            currentPage={paginationPage2}
+            totalPages={50}
+            onPageChange={setPaginationPage2}
+          />
+          <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle" marginTop="$2">
+            Page {paginationPage2} of 50
+          </Text>
+        </DemoCard>
+        <DemoCard label="Sizes">
+          <YStack gap="$3">
+            <Pagination.Root currentPage={3} totalPages={5} onPageChange={() => {}} size="sm" />
+            <Pagination.Root currentPage={3} totalPages={5} onPageChange={() => {}} size="md" />
+            <Pagination.Root currentPage={3} totalPages={5} onPageChange={() => {}} size="lg" />
+          </YStack>
         </DemoCard>
       </Section>
 

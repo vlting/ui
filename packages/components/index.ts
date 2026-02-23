@@ -67,3 +67,6 @@ export type { BreadcrumbProps } from './Breadcrumb'
 
 export { Form } from './Form'
 export type { FormRootProps, FormFieldProps } from './Form'
+
+export { Pagination } from './Pagination'
+export type { PaginationProps } from './Pagination'
