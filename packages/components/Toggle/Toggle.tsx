@@ -1,28 +1,76 @@
-import React from 'react'
+import React, { createContext, useContext } from 'react'
 import type { ComponentType } from 'react'
-import { Toggle as TamaguiToggle } from '@tamagui/toggle-group'
 import { ToggleGroup as TamaguiToggleGroup } from '@tamagui/toggle-group'
-import { styled, withStaticProperties } from 'tamagui'
+import { XStack, styled, withStaticProperties } from 'tamagui'
+import { styledHtml } from '@tamagui/web'
 
-// Extend Tamagui's Toggle with our custom styling.
-// Tamagui Toggle already renders <button> with aria-pressed, data-state, press handler.
-// @ts-expect-error Tamagui v2 RC
-const StyledToggle = styled(TamaguiToggle, {
+// --- Standalone Toggle ---
+// Tamagui does not export a standalone Toggle component, so we keep our own
+// using styledHtml('button') which renders a real <button> element.
+
+const ToggleFrame = styledHtml('button', {
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  alignItems: 'center',
+  justifyContent: 'center',
   borderWidth: 1,
   borderColor: '$borderColor',
   borderRadius: '$4',
+  cursor: 'pointer',
   animation: 'fast',
-})
+  backgroundColor: 'transparent',
+
+  hoverStyle: {
+    backgroundColor: '$backgroundHover',
+  },
+
+  pressStyle: {
+    backgroundColor: '$backgroundPress',
+  },
+
+  focusWithinStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+
+  variants: {
+    size: {
+      sm: { height: '$3.5', paddingHorizontal: '$2' },
+      md: { height: '$4', paddingHorizontal: '$3' },
+      lg: { height: '$4.5', paddingHorizontal: '$4' },
+    },
+    pressed: {
+      true: {
+        backgroundColor: '$color4',
+        borderColor: '$borderColorHover',
+      },
+    },
+    disabled: {
+      true: {
+        opacity: 0.5,
+        cursor: 'not-allowed',
+        pointerEvents: 'none',
+      },
+    },
+  } as const,
+
+  defaultVariants: {
+    size: 'md',
+    pressed: false,
+  },
+} as any)
 
 // Cast for JSX — Tamagui v2 RC GetFinalProps bug
-const StyledToggleJsx = StyledToggle as ComponentType<Record<string, unknown>>
-
-// Map our named sizes to Tamagui tokens
-const SIZE_TOKEN_MAP: Record<string, string> = {
-  sm: '$3',
-  md: '$4',
-  lg: '$5',
-}
+const ToggleButton = ToggleFrame as ComponentType<Record<string, unknown>>
 
 export interface ToggleProps {
   children?: React.ReactNode
@@ -35,30 +83,54 @@ export interface ToggleProps {
 
 export function Toggle({
   children,
-  pressed,
+  pressed: controlledPressed,
   defaultPressed = false,
   onPressedChange,
   size = 'md',
   disabled,
 }: ToggleProps) {
+  const [internalPressed, setInternalPressed] = React.useState(defaultPressed)
+  const isPressed = controlledPressed ?? internalPressed
+
+  const handlePress = () => {
+    if (disabled) return
+    const next = !isPressed
+    setInternalPressed(next)
+    onPressedChange?.(next)
+  }
+
   return (
-    <StyledToggleJsx
-      active={pressed}
-      defaultActive={defaultPressed}
-      onActiveChange={onPressedChange}
-      size={SIZE_TOKEN_MAP[size]}
+    <ToggleButton
+      type="button"
+      aria-pressed={isPressed}
+      aria-disabled={disabled || undefined}
       disabled={disabled}
+      onClick={handlePress}
+      size={size}
+      pressed={isPressed}
     >
       {children}
-    </StyledToggleJsx>
+    </ToggleButton>
   )
 }
 
 // --- ToggleGroup ---
+// Uses Tamagui's official ToggleGroup which provides:
+// - <div role="group"> container
+// - <button> items with aria-pressed
+// - Roving focus keyboard navigation (arrow keys)
+// - Single/multiple selection modes
 
 // Cast for JSX usage
 const TamaguiToggleGroupJsx = TamaguiToggleGroup as ComponentType<Record<string, unknown>>
 const TamaguiToggleGroupItemJsx = TamaguiToggleGroup.Item as ComponentType<Record<string, unknown>>
+
+// Map named sizes to Tamagui tokens
+const SIZE_TOKEN_MAP: Record<string, string> = {
+  sm: '$3',
+  md: '$4',
+  lg: '$5',
+}
 
 export interface ToggleGroupProps {
   children?: React.ReactNode
@@ -81,7 +153,6 @@ function ToggleGroupRoot({
 }: ToggleGroupProps) {
   const sizeToken = SIZE_TOKEN_MAP[size]
 
-  // Normalize value/defaultValue for Tamagui's API
   const normalizedValue = value !== undefined
     ? (Array.isArray(value) ? value : type === 'multiple' ? [value] : value)
     : undefined
