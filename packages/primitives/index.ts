@@ -39,3 +39,9 @@ export type { SeparatorProps } from './Separator'
 
 export { AspectRatio } from './AspectRatio'
 export type { AspectRatioProps } from './AspectRatio'
+
+export { Spinner } from './Spinner'
+export type { SpinnerProps } from './Spinner'
+
+export { Kbd } from './Kbd'
+export type { KbdProps } from './Kbd'
