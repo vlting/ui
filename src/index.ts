@@ -133,6 +133,7 @@ export {
   Carousel,
   Resizable,
   Sidebar,
+  Loader,
 } from '../packages/components'
 export type {
   ButtonProps,
@@ -205,6 +206,7 @@ export type {
   SidebarRootProps,
   SidebarGroupProps,
   SidebarMenuItemProps,
+  LoaderProps,
 } from '../packages/components'
 
 // Hooks

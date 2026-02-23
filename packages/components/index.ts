@@ -140,3 +140,6 @@ export type { ResizablePanelGroupProps, ResizablePanelProps, ResizableHandleProp
 
 export { Sidebar } from './Sidebar'
 export type { SidebarRootProps, SidebarGroupProps, SidebarMenuItemProps } from './Sidebar'
+
+export { Loader } from './Loader'
+export type { LoaderProps } from './Loader'
