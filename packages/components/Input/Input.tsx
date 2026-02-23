@@ -48,31 +48,7 @@ const InputFrame = styled(XStack, {
 })
 
 // @ts-expect-error Tamagui v2 RC
-const InputField = styled(View, {
-  flex: 1,
-  fontFamily: '$body',
-  color: '$color',
-  backgroundColor: 'transparent',
-  borderWidth: 0,
-  outlineWidth: 0,
-  tag: 'input',
-
-  variants: {
-    size: {
-      sm: { fontSize: '$2' },
-      md: { fontSize: '$4' },
-      lg: { fontSize: '$5' },
-    },
-  } as const,
-
-  defaultVariants: {
-    size: 'md',
-  },
-})
-
-// @ts-expect-error Tamagui v2 RC
-const InputLabel = styled(Text, {
-  tag: 'label',
+const StyledLabelText = styled(Text, {
   fontFamily: '$body',
   fontWeight: '$3',
   color: '$color',
@@ -115,6 +91,12 @@ const SlotFrame = styled(View, {
   justifyContent: 'center',
 })
 
+const INPUT_FONT_SIZE: Record<string, string> = {
+  sm: '12px',
+  md: '14px',
+  lg: '16px',
+}
+
 export interface InputProps {
   size?: 'sm' | 'md' | 'lg'
   placeholder?: string
@@ -152,27 +134,36 @@ export function Input({
     // @ts-expect-error Tamagui v2 RC
     <YStack>
       {label && (
-        // @ts-expect-error Tamagui v2 RC
-        <InputLabel size={size} htmlFor={inputId}>{label}</InputLabel>
+        <label htmlFor={inputId} style={{ display: 'block' }}>
+          {/* @ts-expect-error Tamagui v2 RC */}
+          <StyledLabelText size={size}>{label}</StyledLabelText>
+        </label>
       )}
       {/* @ts-expect-error Tamagui v2 RC */}
       <InputFrame size={size} error={error} disabled={disabled}>
         {leadingSlot && <SlotFrame>{leadingSlot}</SlotFrame>}
-        {/* @ts-expect-error Tamagui v2 RC */}
-        <InputField
+        <input
           id={inputId}
-          size={size}
+          type="text"
           placeholder={placeholder}
           value={value}
           defaultValue={defaultValue}
-          onChange={
-            onChangeText
-              ? (e: { nativeEvent: { text: string } }) => onChangeText(e.nativeEvent.text)
-              : undefined
-          }
+          onChange={onChangeText ? (e) => onChangeText(e.target.value) : undefined}
           disabled={disabled}
           aria-invalid={error || undefined}
           aria-describedby={displayHelper ? helperId : undefined}
+          aria-label={!label ? placeholder : undefined}
+          style={{
+            flex: 1,
+            border: 'none',
+            outline: 'none',
+            background: 'transparent',
+            fontFamily: 'inherit',
+            fontSize: INPUT_FONT_SIZE[size],
+            color: 'inherit',
+            padding: 0,
+            width: '100%',
+          }}
         />
         {trailingSlot && <SlotFrame>{trailingSlot}</SlotFrame>}
       </InputFrame>
@@ -185,6 +176,5 @@ export function Input({
 }
 
 Input.Frame = InputFrame
-Input.Field = InputField
-Input.Label = InputLabel
+Input.Label = StyledLabelText
 Input.Helper = InputHelper

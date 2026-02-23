@@ -1,5 +1,5 @@
 import { useId } from 'react'
-import { Text, YStack, styled } from 'tamagui'
+import { Text, View, YStack, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const TextareaFrame = styled(YStack, {
@@ -7,25 +7,17 @@ const TextareaFrame = styled(YStack, {
 })
 
 // @ts-expect-error Tamagui v2 RC
-const TextareaField = styled(Text, {
-  tag: 'textarea',
-  fontFamily: '$body',
-  fontSize: '$3',
-  color: '$color',
-  backgroundColor: 'transparent',
+const TextareaFieldFrame = styled(View, {
   borderWidth: 1,
   borderColor: '$borderColor',
   borderRadius: '$3',
-  paddingHorizontal: '$3',
-  paddingVertical: '$2',
-  minHeight: 80,
-  outlineWidth: 0,
+  overflow: 'hidden',
 
   hoverStyle: {
     borderColor: '$borderColorHover',
   },
 
-  focusStyle: {
+  focusWithinStyle: {
     borderColor: '$borderColorFocus',
     outlineWidth: 2,
     outlineColor: '$outlineColor',
@@ -45,36 +37,11 @@ const TextareaField = styled(Text, {
         cursor: 'not-allowed',
       },
     },
-    size: {
-      sm: {
-        fontSize: '$2',
-        paddingHorizontal: '$2',
-        paddingVertical: '$1.5',
-        minHeight: 60,
-      },
-      md: {
-        fontSize: '$3',
-        paddingHorizontal: '$3',
-        paddingVertical: '$2',
-        minHeight: 80,
-      },
-      lg: {
-        fontSize: '$4',
-        paddingHorizontal: '$3',
-        paddingVertical: '$2.5',
-        minHeight: 100,
-      },
-    },
   } as const,
-
-  defaultVariants: {
-    size: 'md',
-  },
 })
 
 // @ts-expect-error Tamagui v2 RC
-const TextareaLabel = styled(Text, {
-  tag: 'label',
+const StyledLabelText = styled(Text, {
   fontFamily: '$body',
   fontWeight: '$3',
   fontSize: '$3',
@@ -87,6 +54,12 @@ const TextareaHelper = styled(Text, {
   fontSize: '$2',
   color: '$colorSubtitle',
 })
+
+const TEXTAREA_STYLES: Record<string, { fontSize: string; padding: string; minHeight: number }> = {
+  sm: { fontSize: '12px', padding: '6px 8px', minHeight: 60 },
+  md: { fontSize: '14px', padding: '8px 12px', minHeight: 80 },
+  lg: { fontSize: '16px', padding: '10px 12px', minHeight: 100 },
+}
 
 export interface TextareaProps {
   value?: string
@@ -120,33 +93,46 @@ export function Textarea({
   const textareaId = useId()
   const helperId = useId()
   const displayHelper = error && errorMessage ? errorMessage : helperText
+  const sizeStyles = TEXTAREA_STYLES[size]
 
   return (
     // @ts-expect-error Tamagui v2 RC
     <TextareaFrame>
       {label && (
-        // @ts-expect-error Tamagui v2 RC
-        <TextareaLabel htmlFor={textareaId}>{label}</TextareaLabel>
+        <label htmlFor={textareaId}>
+          {/* @ts-expect-error Tamagui v2 RC */}
+          <StyledLabelText>{label}</StyledLabelText>
+        </label>
       )}
       {/* @ts-expect-error Tamagui v2 RC */}
-      <TextareaField
-        id={textareaId}
-        value={value}
-        defaultValue={defaultValue}
-        // @ts-expect-error RN vs web event types
-        onChange={(e: any) =>
-          onChangeText?.(e?.nativeEvent?.text ?? e?.target?.value ?? '')
-        }
-        placeholder={placeholder}
-        error={error}
-        disabled={disabled}
-        size={size}
-        aria-invalid={error || undefined}
-        aria-describedby={displayHelper ? helperId : undefined}
-        // @ts-expect-error Web textarea props
-        rows={rows}
-        maxLength={maxLength}
-      />
+      <TextareaFieldFrame error={error} disabled={disabled}>
+        <textarea
+          id={textareaId}
+          value={value}
+          defaultValue={defaultValue}
+          onChange={onChangeText ? (e) => onChangeText(e.target.value) : undefined}
+          placeholder={placeholder}
+          disabled={disabled}
+          rows={rows}
+          maxLength={maxLength}
+          aria-invalid={error || undefined}
+          aria-describedby={displayHelper ? helperId : undefined}
+          aria-label={!label ? placeholder : undefined}
+          style={{
+            fontFamily: 'inherit',
+            fontSize: sizeStyles.fontSize,
+            color: 'inherit',
+            backgroundColor: 'transparent',
+            border: 'none',
+            outline: 'none',
+            padding: sizeStyles.padding,
+            minHeight: sizeStyles.minHeight,
+            resize: 'vertical',
+            width: '100%',
+            boxSizing: 'border-box',
+          }}
+        />
+      </TextareaFieldFrame>
       {displayHelper && (
         // @ts-expect-error Tamagui v2 RC
         <TextareaHelper id={helperId} color={error ? '$red10' : '$colorSubtitle'}>
