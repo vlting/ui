@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { YStack, XStack, Text, Heading, Separator, View } from 'tamagui'
-import { Accordion, AlertDialog, Collapsible, Table, Breadcrumb, Form, Button, Input } from '@vlting/ui'
+import { Accordion, AlertDialog, Collapsible, Table, Breadcrumb, Form, Button, Input, Pagination } from '@vlting/ui'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -140,9 +140,31 @@ function CollapsibleDemo() {
   )
 }
 
+const ALL_TEAM_MEMBERS = [
+  { name: 'Alice Johnson', role: 'Engineering Lead', status: 'Active', hours: 42 },
+  { name: 'Bob Smith', role: 'Senior Developer', status: 'Active', hours: 38 },
+  { name: 'Carol Williams', role: 'Designer', status: 'On Leave', hours: 0 },
+  { name: 'David Lee', role: 'Backend Developer', status: 'Active', hours: 40 },
+  { name: 'Eva Chen', role: 'QA Engineer', status: 'Active', hours: 36 },
+  { name: 'Frank Garcia', role: 'DevOps Engineer', status: 'Active', hours: 44 },
+  { name: 'Grace Kim', role: 'Frontend Developer', status: 'Active', hours: 37 },
+  { name: 'Henry Patel', role: 'Product Manager', status: 'Active', hours: 40 },
+  { name: 'Iris Tanaka', role: 'Data Scientist', status: 'On Leave', hours: 0 },
+  { name: 'Jack Wilson', role: 'Security Engineer', status: 'Active', hours: 41 },
+  { name: 'Karen Lopez', role: 'UX Researcher', status: 'Active', hours: 35 },
+  { name: 'Liam O\'Brien', role: 'Mobile Developer', status: 'Active', hours: 39 },
+]
+
+const ROWS_PER_PAGE = 5
+
 function TableDemo() {
+  const [page, setPage] = useState(1)
+  const totalPages = Math.ceil(ALL_TEAM_MEMBERS.length / ROWS_PER_PAGE)
+  const rows = ALL_TEAM_MEMBERS.slice((page - 1) * ROWS_PER_PAGE, page * ROWS_PER_PAGE)
+  const totalHours = rows.reduce((sum, r) => sum + r.hours, 0)
+
   return (
-    <DemoCard label="Data table with header, body, footer, and caption">
+    <DemoCard label="Paginated data table">
       <Table.Root>
         <Table.Caption>Team members and their roles</Table.Caption>
         <Table.Header>
@@ -154,46 +176,32 @@ function TableDemo() {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          <Table.Row>
-            <Table.Cell>Alice Johnson</Table.Cell>
-            <Table.Cell>Engineering Lead</Table.Cell>
-            <Table.Cell>Active</Table.Cell>
-            <Table.Cell style={{ textAlign: 'right' }}>42</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Bob Smith</Table.Cell>
-            <Table.Cell>Senior Developer</Table.Cell>
-            <Table.Cell>Active</Table.Cell>
-            <Table.Cell style={{ textAlign: 'right' }}>38</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Carol Williams</Table.Cell>
-            <Table.Cell>Designer</Table.Cell>
-            <Table.Cell>On Leave</Table.Cell>
-            <Table.Cell style={{ textAlign: 'right' }}>0</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>David Lee</Table.Cell>
-            <Table.Cell>Backend Developer</Table.Cell>
-            <Table.Cell>Active</Table.Cell>
-            <Table.Cell style={{ textAlign: 'right' }}>40</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Eva Chen</Table.Cell>
-            <Table.Cell>QA Engineer</Table.Cell>
-            <Table.Cell>Active</Table.Cell>
-            <Table.Cell style={{ textAlign: 'right' }}>36</Table.Cell>
-          </Table.Row>
+          {rows.map((member) => (
+            <Table.Row key={member.name}>
+              <Table.Cell>{member.name}</Table.Cell>
+              <Table.Cell>{member.role}</Table.Cell>
+              <Table.Cell>{member.status}</Table.Cell>
+              <Table.Cell style={{ textAlign: 'right' }}>{member.hours}</Table.Cell>
+            </Table.Row>
+          ))}
         </Table.Body>
         <Table.Footer>
           <Table.Row>
-            <Table.Cell style={{ fontWeight: 600 }}>Total</Table.Cell>
+            <Table.Cell style={{ fontWeight: 600 }}>Page total</Table.Cell>
             <Table.Cell />
             <Table.Cell />
-            <Table.Cell style={{ textAlign: 'right', fontWeight: 600 }}>156</Table.Cell>
+            <Table.Cell style={{ textAlign: 'right', fontWeight: 600 }}>{totalHours}</Table.Cell>
           </Table.Row>
         </Table.Footer>
       </Table.Root>
+      <XStack justifyContent="center" paddingTop="$3">
+        <Pagination.Root
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+          size="sm"
+        />
+      </XStack>
     </DemoCard>
   )
 }

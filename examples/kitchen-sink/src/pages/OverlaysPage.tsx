@@ -77,7 +77,6 @@ export function OverlaysPage() {
                 <Button.Text>Open Drawer</Button.Text>
               </Button>
             </Drawer.Trigger>
-            <Drawer.Overlay />
             <Drawer.Content>
               <YStack padding="$4" gap="$3">
                 <Text fontFamily="$heading" fontSize="$5" fontWeight="$4">Drawer Title</Text>

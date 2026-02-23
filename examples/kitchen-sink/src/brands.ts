@@ -30,4 +30,5 @@ export const brands = Object.fromEntries(
 export const activeBrand = {
   key: activeBrandKey,
   config: activeConfig,
+  definition: activeDef,
 }

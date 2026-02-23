@@ -3,6 +3,13 @@ import { Outlet, useParams, useLocation, Link } from 'react-router-dom'
 import { Provider } from '@vlting/ui'
 import { brands, activeBrand, type BrandKey } from '../brands'
 
+function paletteColor(isDark: boolean, index: number): string {
+  const palette = isDark
+    ? activeBrand.definition.palettes.dark
+    : activeBrand.definition.palettes.light
+  return palette[index]
+}
+
 const navLinks = [
   { path: '', label: 'Home' },
   { path: 'primitives', label: 'Primitives' },
@@ -67,13 +74,13 @@ export function BrandLayout() {
   const currentSection = location.pathname.split('/').slice(2).join('/') || ''
 
   const isDark = theme === 'dark'
-  const bg = isDark ? '#09090b' : '#ffffff'
-  const fg = isDark ? '#fafafa' : '#09090b'
-  const muted = isDark ? '#a1a1aa' : '#71717a'
-  const border = isDark ? '#27272a' : '#e4e4e7'
-  const bgMuted = isDark ? '#18181b' : '#f4f4f5'
-  const bgHover = isDark ? '#27272a' : '#f4f4f5'
-  const accent = isDark ? '#fafafa' : '#18181b'
+  const bg = paletteColor(isDark, 0)
+  const fg = paletteColor(isDark, 11)
+  const muted = paletteColor(isDark, 7)
+  const border = paletteColor(isDark, 4)
+  const bgMuted = paletteColor(isDark, 1)
+  const bgHover = paletteColor(isDark, 2)
+  const accent = paletteColor(isDark, 10)
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: bg, color: fg, fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
