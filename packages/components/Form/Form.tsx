@@ -1,5 +1,7 @@
 import type React from 'react'
+import type { ComponentType } from 'react'
 import { createContext, useContext } from 'react'
+import { Form as TamaguiForm } from '@tamagui/form'
 import { Text, YStack, styled } from 'tamagui'
 
 interface FormFieldContextValue {
@@ -13,8 +15,11 @@ function useFormFieldContext() {
   return useContext(FormFieldContext)
 }
 
+// Cast for JSX — Tamagui v2 RC GetFinalProps bug
+const TamaguiFormJsx = TamaguiForm as ComponentType<Record<string, unknown>>
+
 // @ts-expect-error Tamagui v2 RC
-const FormFrameVisual = styled(YStack, {
+const FormVisualFrame = styled(YStack, {
   gap: '$4',
   width: '100%',
 })
@@ -52,16 +57,18 @@ export interface FormRootProps {
 }
 
 function Root({ children, onSubmit }: FormRootProps) {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSubmit?.(e)
+  // Tamagui Form's onSubmit is () => void (no event arg).
+  // We wrap to preserve our API that passes the event.
+  const handleSubmit = () => {
+    // Create a synthetic-like call — Tamagui already prevents default
+    onSubmit?.({} as React.FormEvent)
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <TamaguiFormJsx onSubmit={handleSubmit}>
       {/* @ts-expect-error Tamagui v2 RC */}
-      <FormFrameVisual>{children}</FormFrameVisual>
-    </form>
+      <FormVisualFrame>{children}</FormVisualFrame>
+    </TamaguiFormJsx>
   )
 }
 
