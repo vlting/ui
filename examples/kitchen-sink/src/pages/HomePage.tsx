@@ -15,7 +15,6 @@ export function HomePage() {
     { path: 'components/layout', title: 'Layout', description: 'ScrollArea, Resizable, Carousel, Calendar, Sidebar' },
     { path: 'components/typography', title: 'Typography', description: 'H1-H4, P, Lead, Blockquote, InlineCode, Lists, Kbd' },
     { path: 'composed', title: 'Composed', description: 'Accordion, AlertDialog, Collapsible, Table, Breadcrumb, Form' },
-    { path: 'headless', title: 'Headless', description: 'Dialog, Tabs, Checkbox — unstyled behavioral primitives' },
     { path: 'hooks', title: 'Hooks', description: 'useControllableState, useFocusTrap, useKeyboardNavigation' },
   ]
 

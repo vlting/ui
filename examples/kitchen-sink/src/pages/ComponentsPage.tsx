@@ -549,7 +549,7 @@ export function ComponentsPage() {
             <Dialog.Content>
               <Dialog.Title>Example Dialog</Dialog.Title>
               <Dialog.Description>
-                This is a styled dialog built on the headless Dialog primitive.
+                This is a styled dialog component with overlay, title, and close controls.
               </Dialog.Description>
               <YStack paddingTop="$4">
                 <Dialog.Close>

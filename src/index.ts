@@ -80,14 +80,7 @@ export type {
   KbdProps,
 } from '../packages/primitives'
 
-// Layer 2 — Headless Primitives
-export {
-  Dialog as HeadlessDialog,
-  Tabs as HeadlessTabs,
-  Checkbox as HeadlessCheckbox,
-} from '../packages/headless'
-
-// Layer 3 — Styled Components
+// Layer 2 — Styled Components
 export {
   Button,
   Input,
