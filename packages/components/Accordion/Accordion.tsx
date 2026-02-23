@@ -79,17 +79,24 @@ export interface AccordionTriggerProps {
 
 function Trigger({ children }: AccordionTriggerProps) {
   return (
-    <TamaguiAccordionHeaderJsx unstyled backgroundColor="transparent">
+    <TamaguiAccordionHeaderJsx
+      unstyled
+      backgroundColor="transparent"
+      borderWidth={0}
+      padding={0}
+      margin={0}
+    >
       <TamaguiAccordionTriggerJsx
         unstyled
         width="100%"
         paddingVertical="$3"
-        paddingHorizontal="$1"
+        paddingHorizontal={0}
         cursor="pointer"
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between"
         backgroundColor="transparent"
+        borderWidth={0}
         hoverStyle={{ backgroundColor: '$backgroundHover' }}
         focusVisibleStyle={{
           outlineWidth: 2,
@@ -102,8 +109,15 @@ function Trigger({ children }: AccordionTriggerProps) {
           <>
             {/* @ts-expect-error Tamagui v2 RC */}
             <TriggerText>{children}</TriggerText>
-            <Text color="$colorSubtitle" fontSize="$3">
-              {open ? '\u2212' : '+'}
+            <Text
+              color="$colorSubtitle"
+              fontSize="$2"
+              style={{
+                transition: 'transform 200ms ease',
+                transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+              }}
+            >
+              {'\u25BE'}
             </Text>
           </>
         )}
@@ -121,7 +135,7 @@ function Content({ children }: AccordionContentProps) {
     <TamaguiAccordionContentJsx
       unstyled
       paddingBottom="$3"
-      paddingHorizontal="$1"
+      paddingHorizontal={0}
     >
       {children}
     </TamaguiAccordionContentJsx>
