@@ -451,11 +451,17 @@ const templates = {
 export function buildThemes(
   overridePalettes?: Record<string, string[]>,
   overrideShadows?: { light?: ShadowScale; dark?: ShadowScale },
+  outlineValues?: { width: number; offset: number },
 ) {
   const mergedLightShadows = shadowScaleToThemeValues(
     overrideShadows?.light ?? lightShadows,
   )
   const mergedDarkShadows = shadowScaleToThemeValues(overrideShadows?.dark ?? darkShadows)
+
+  const outlineThemeValues: Record<string, string> = {
+    outlineWidth: String(outlineValues?.width ?? 2),
+    outlineOffset: String(outlineValues?.offset ?? 1),
+  }
 
   const colorChildThemes: Record<string, unknown> = {
     blue: [
@@ -512,9 +518,13 @@ export function buildThemes(
       light: {
         template: 'base',
         palette: 'light',
-        nonInheritedValues: mergedLightShadows,
+        nonInheritedValues: { ...mergedLightShadows, ...outlineThemeValues },
       },
-      dark: { template: 'base', palette: 'dark', nonInheritedValues: mergedDarkShadows },
+      dark: {
+        template: 'base',
+        palette: 'dark',
+        nonInheritedValues: { ...mergedDarkShadows, ...outlineThemeValues },
+      },
     })
     // @ts-expect-error v2 RC: addChildThemes palette type inference limitation
     .addChildThemes(colorChildThemes)
