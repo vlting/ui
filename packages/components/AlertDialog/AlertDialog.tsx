@@ -96,6 +96,8 @@ function Content({ children }: { children: React.ReactNode }) {
       enterStyle={{ opacity: 0, scale: 0.95 }}
       exitStyle={{ opacity: 0, scale: 0.95 }}
       zIndex={51}
+      elevation={0}
+      shadowColor="transparent"
     >
       {children}
     </AlertContent>

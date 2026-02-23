@@ -33,7 +33,13 @@ export interface CollapsibleTriggerProps {
 
 function Trigger({ children }: CollapsibleTriggerProps) {
   return (
-    <TamaguiCollapsibleTriggerJsx unstyled>
+    <TamaguiCollapsibleTriggerJsx
+      unstyled
+      borderWidth={0}
+      borderRadius={0}
+      padding={0}
+      backgroundColor="transparent"
+    >
       {children}
     </TamaguiCollapsibleTriggerJsx>
   )
