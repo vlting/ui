@@ -13,7 +13,7 @@ const ButtonFrame = styled(TamaguiButton.Frame, {
   focusVisibleStyle: {
     outlineWidth: 2,
     outlineOffset: 1,
-    outlineColor: '$outlineColor',
+    outlineColor: '$color10',
     outlineStyle: 'solid',
   },
 
