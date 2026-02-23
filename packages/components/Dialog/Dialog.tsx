@@ -1,47 +1,7 @@
 import type React from 'react'
-import { Text, View, YStack, styled } from 'tamagui'
-import { Dialog as HeadlessDialog } from '../../headless/Dialog'
-import type {
-  DialogCloseProps,
-  DialogRootProps,
-  DialogTriggerProps,
-} from '../../headless/Dialog'
-
-// @ts-expect-error Tamagui v2 RC
-const StyledOverlay = styled(View, {
-  position: 'absolute' as const,
-  backgroundColor: 'rgba(0,0,0,0.4)',
-  animation: 'medium',
-  opacity: 1,
-  enterStyle: { opacity: 0 },
-  exitStyle: { opacity: 0 },
-})
-
-// @ts-expect-error Tamagui v2 RC
-const StyledContent = styled(YStack, {
-  backgroundColor: '$background',
-  borderRadius: '$6',
-  padding: '$5',
-  width: '90%',
-  maxWidth: 500,
-  maxHeight: '85%',
-  animation: 'medium',
-  gap: '$3',
-  enterStyle: { opacity: 0, scale: 0.95 },
-  exitStyle: { opacity: 0, scale: 0.95 },
-
-  variants: {
-    size: {
-      sm: { maxWidth: 400, padding: '$4' },
-      md: { maxWidth: 500, padding: '$5' },
-      lg: { maxWidth: 640, padding: '$6' },
-    },
-  } as const,
-
-  defaultVariants: {
-    size: 'md',
-  },
-})
+import type { ComponentType } from 'react'
+import { Text, styled } from 'tamagui'
+import { Dialog as TamaguiDialog } from '@tamagui/dialog'
 
 // @ts-expect-error Tamagui v2 RC
 const StyledTitle = styled(Text, {
@@ -58,76 +18,107 @@ const StyledDescription = styled(Text, {
   color: '$colorSubtitle',
 })
 
-// Compose headless + styled
-function Root(props: DialogRootProps) {
-  return <HeadlessDialog.Root {...props} />
+// Tamagui v2 RC GetProps bug — cast for JSX usage
+const DialogRoot = TamaguiDialog as ComponentType<Record<string, unknown>>
+const DialogTrigger = TamaguiDialog.Trigger as ComponentType<Record<string, unknown>>
+const DialogPortal = TamaguiDialog.Portal as ComponentType<Record<string, unknown>>
+const DialogOverlayFrame = TamaguiDialog.Overlay as ComponentType<Record<string, unknown>>
+const DialogContent = TamaguiDialog.Content as ComponentType<Record<string, unknown>>
+const DialogTitleFrame = TamaguiDialog.Title as ComponentType<Record<string, unknown>>
+const DialogDescriptionFrame = TamaguiDialog.Description as ComponentType<Record<string, unknown>>
+const DialogClose = TamaguiDialog.Close as ComponentType<Record<string, unknown>>
+const TitleText = StyledTitle as ComponentType<Record<string, unknown>>
+const DescText = StyledDescription as ComponentType<Record<string, unknown>>
+
+export interface DialogRootProps {
+  children: React.ReactNode
+  open?: boolean
+  defaultOpen?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
-function Trigger(props: DialogTriggerProps) {
-  return <HeadlessDialog.Trigger {...props} />
-}
-
-interface StyledDialogOverlayProps {
-  children?: React.ReactNode
-}
-
-function Overlay({ children }: StyledDialogOverlayProps) {
+function Root({ children, open, defaultOpen, onOpenChange }: DialogRootProps) {
   return (
-    <HeadlessDialog.Overlay
-      style={{
-        position: 'fixed',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 50,
-      }}
-    >
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledOverlay position="absolute" top={0} left={0} right={0} bottom={0} />
+    <DialogRoot open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
       {children}
-    </HeadlessDialog.Overlay>
+    </DialogRoot>
   )
 }
 
-interface StyledDialogContentProps {
-  children: React.ReactNode
-  size?: 'sm' | 'md' | 'lg'
-  onEscapeKeyDown?: () => void
+function Trigger({ children }: { children: React.ReactNode }) {
+  return <DialogTrigger asChild>{children}</DialogTrigger>
 }
 
-function Content({ children, size = 'md', onEscapeKeyDown }: StyledDialogContentProps) {
+function Overlay({ children }: { children?: React.ReactNode }) {
   return (
-    <HeadlessDialog.Content
-      onEscapeKeyDown={onEscapeKeyDown}
-      style={{ position: 'relative', zIndex: 51 }}
+    <DialogPortal>
+      <DialogOverlayFrame
+        backgroundColor="rgba(0,0,0,0.4)"
+        animation="medium"
+        opacity={1}
+        enterStyle={{ opacity: 0 }}
+        exitStyle={{ opacity: 0 }}
+        position="fixed"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        zIndex={50}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      />
+      {children}
+    </DialogPortal>
+  )
+}
+
+interface DialogContentProps {
+  children: React.ReactNode
+  size?: 'sm' | 'md' | 'lg'
+}
+
+const SIZE_MAX_WIDTH = { sm: 400, md: 500, lg: 640 }
+const SIZE_PADDING = { sm: '$4' as const, md: '$5' as const, lg: '$6' as const }
+
+function Content({ children, size = 'md' }: DialogContentProps) {
+  return (
+    <DialogContent
+      backgroundColor="$background"
+      borderRadius="$6"
+      padding={SIZE_PADDING[size]}
+      width="90%"
+      maxWidth={SIZE_MAX_WIDTH[size]}
+      maxHeight="85%"
+      animation="medium"
+      gap="$3"
+      enterStyle={{ opacity: 0, scale: 0.95 }}
+      exitStyle={{ opacity: 0, scale: 0.95 }}
+      zIndex={51}
     >
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledContent size={size}>{children}</StyledContent>
-    </HeadlessDialog.Content>
+      {children}
+    </DialogContent>
   )
 }
 
 function Title({ children }: { children: React.ReactNode }) {
   return (
-    <HeadlessDialog.Title>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledTitle>{children}</StyledTitle>
-    </HeadlessDialog.Title>
+    <DialogTitleFrame>
+      <TitleText>{children}</TitleText>
+    </DialogTitleFrame>
   )
 }
 
 function Description({ children }: { children: React.ReactNode }) {
   return (
-    <HeadlessDialog.Description>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledDescription>{children}</StyledDescription>
-    </HeadlessDialog.Description>
+    <DialogDescriptionFrame>
+      <DescText>{children}</DescText>
+    </DialogDescriptionFrame>
   )
 }
 
-function Close(props: DialogCloseProps) {
-  return <HeadlessDialog.Close {...props} />
+function Close({ children }: { children?: React.ReactNode }) {
+  return <DialogClose asChild>{children}</DialogClose>
 }
 
 export const Dialog = { Root, Trigger, Overlay, Content, Title, Description, Close }

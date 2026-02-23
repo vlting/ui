@@ -1,31 +1,7 @@
 import type React from 'react'
-import { Text, View, XStack, YStack, styled } from 'tamagui'
-import { Dialog as HeadlessDialog } from '../../headless/Dialog'
-import type { DialogCloseProps, DialogRootProps } from '../../headless/Dialog'
-
-// @ts-expect-error Tamagui v2 RC
-const StyledOverlay = styled(View, {
-  position: 'absolute' as const,
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  animation: 'medium',
-  opacity: 1,
-  enterStyle: { opacity: 0 },
-  exitStyle: { opacity: 0 },
-})
-
-// @ts-expect-error Tamagui v2 RC
-const StyledContent = styled(YStack, {
-  backgroundColor: '$background',
-  borderRadius: '$6',
-  padding: '$5',
-  width: '90%',
-  maxWidth: 500,
-  maxHeight: '85%',
-  animation: 'medium',
-  gap: '$3',
-  enterStyle: { opacity: 0, scale: 0.95 },
-  exitStyle: { opacity: 0, scale: 0.95 },
-})
+import type { ComponentType } from 'react'
+import { Text, XStack, styled } from 'tamagui'
+import { AlertDialog as TamaguiAlertDialog } from '@tamagui/alert-dialog'
 
 // @ts-expect-error Tamagui v2 RC
 const StyledTitle = styled(Text, {
@@ -49,75 +25,109 @@ const StyledFooter = styled(XStack, {
   paddingTop: '$2',
 })
 
-function Root(props: DialogRootProps) {
-  return <HeadlessDialog.Root {...props} />
+// Tamagui v2 RC GetProps bug — cast for JSX usage
+const AlertRoot = TamaguiAlertDialog as ComponentType<Record<string, unknown>>
+const AlertTrigger = TamaguiAlertDialog.Trigger as ComponentType<Record<string, unknown>>
+const AlertPortal = TamaguiAlertDialog.Portal as ComponentType<Record<string, unknown>>
+const AlertOverlay = TamaguiAlertDialog.Overlay as ComponentType<Record<string, unknown>>
+const AlertContent = TamaguiAlertDialog.Content as ComponentType<Record<string, unknown>>
+const AlertTitle = TamaguiAlertDialog.Title as ComponentType<Record<string, unknown>>
+const AlertDescription = TamaguiAlertDialog.Description as ComponentType<Record<string, unknown>>
+const AlertCancel = TamaguiAlertDialog.Cancel as ComponentType<Record<string, unknown>>
+const AlertAction = TamaguiAlertDialog.Action as ComponentType<Record<string, unknown>>
+const TitleText = StyledTitle as ComponentType<Record<string, unknown>>
+const DescText = StyledDescription as ComponentType<Record<string, unknown>>
+const FooterFrame = StyledFooter as ComponentType<Record<string, unknown>>
+
+export interface AlertDialogRootProps {
+  children: React.ReactNode
+  open?: boolean
+  defaultOpen?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
-function Trigger({ children }: { children: React.ReactElement }) {
-  return <HeadlessDialog.Trigger>{children}</HeadlessDialog.Trigger>
+function Root({ children, open, defaultOpen, onOpenChange }: AlertDialogRootProps) {
+  return (
+    <AlertRoot open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
+      {children}
+    </AlertRoot>
+  )
+}
+
+function Trigger({ children }: { children: React.ReactNode }) {
+  return <AlertTrigger asChild>{children}</AlertTrigger>
 }
 
 function Overlay({ children }: { children?: React.ReactNode }) {
   return (
-    <HeadlessDialog.Overlay
-      style={{
-        position: 'fixed',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 50,
-      }}
-    >
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledOverlay position="absolute" top={0} left={0} right={0} bottom={0} />
+    <AlertPortal>
+      <AlertOverlay
+        backgroundColor="rgba(0,0,0,0.5)"
+        animation="medium"
+        opacity={1}
+        enterStyle={{ opacity: 0 }}
+        exitStyle={{ opacity: 0 }}
+        position="fixed"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        zIndex={50}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      />
       {children}
-    </HeadlessDialog.Overlay>
+    </AlertPortal>
   )
 }
 
-interface AlertDialogContentProps {
-  children: React.ReactNode
-}
-
-function Content({ children }: AlertDialogContentProps) {
+function Content({ children }: { children: React.ReactNode }) {
   return (
-    <HeadlessDialog.Content role="alertdialog" style={{ position: 'relative', zIndex: 51 }}>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledContent>{children}</StyledContent>
-    </HeadlessDialog.Content>
+    <AlertContent
+      backgroundColor="$background"
+      borderRadius="$6"
+      padding="$5"
+      width="90%"
+      maxWidth={500}
+      maxHeight="85%"
+      animation="medium"
+      gap="$3"
+      enterStyle={{ opacity: 0, scale: 0.95 }}
+      exitStyle={{ opacity: 0, scale: 0.95 }}
+      zIndex={51}
+    >
+      {children}
+    </AlertContent>
   )
 }
 
 function Title({ children }: { children: React.ReactNode }) {
   return (
-    <HeadlessDialog.Title>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledTitle>{children}</StyledTitle>
-    </HeadlessDialog.Title>
+    <AlertTitle>
+      <TitleText>{children}</TitleText>
+    </AlertTitle>
   )
 }
 
 function Description({ children }: { children: React.ReactNode }) {
   return (
-    <HeadlessDialog.Description>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledDescription>{children}</StyledDescription>
-    </HeadlessDialog.Description>
+    <AlertDescription>
+      <DescText>{children}</DescText>
+    </AlertDescription>
   )
 }
 
 function Footer({ children }: { children: React.ReactNode }) {
-  // @ts-expect-error Tamagui v2 RC
-  return <StyledFooter>{children}</StyledFooter>
+  return <FooterFrame>{children}</FooterFrame>
 }
 
-function Cancel(props: DialogCloseProps) {
-  return <HeadlessDialog.Close {...props} />
+function Cancel({ children }: { children?: React.ReactNode }) {
+  return <AlertCancel asChild>{children}</AlertCancel>
 }
 
-function Action({ children }: { children: React.ReactElement }) {
-  return <HeadlessDialog.Close>{children}</HeadlessDialog.Close>
+function Action({ children }: { children?: React.ReactNode }) {
+  return <AlertAction asChild>{children}</AlertAction>
 }
 
 export const AlertDialog = {

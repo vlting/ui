@@ -1,32 +1,11 @@
-import { View, XStack, styled } from 'tamagui'
+import type { ComponentType } from 'react'
+import { Progress as TamaguiProgress } from '@tamagui/progress'
 
-// @ts-expect-error Tamagui v2 RC
-const ProgressTrack = styled(XStack, {
-  backgroundColor: '$color4',
-  borderRadius: '$10',
-  overflow: 'hidden',
-  width: '100%',
+// Tamagui v2 RC GetProps bug — cast for JSX usage
+const ProgressRoot = TamaguiProgress as ComponentType<Record<string, unknown>>
+const ProgressIndicator = TamaguiProgress.Indicator as ComponentType<Record<string, unknown>>
 
-  variants: {
-    size: {
-      sm: { height: 4 },
-      md: { height: 8 },
-      lg: { height: 12 },
-    },
-  } as const,
-
-  defaultVariants: {
-    size: 'md',
-  },
-})
-
-// @ts-expect-error Tamagui v2 RC
-const ProgressIndicator = styled(View, {
-  backgroundColor: '$color10',
-  borderRadius: '$10',
-  height: '100%',
-  animation: 'fast',
-})
+const SIZE_HEIGHT = { sm: 4, md: 8, lg: 12 }
 
 export interface ProgressProps {
   value?: number
@@ -35,22 +14,28 @@ export interface ProgressProps {
   'aria-label'?: string
 }
 
-export function Progress({ value = 0, max = 100, size = 'md', 'aria-label': ariaLabel }: ProgressProps) {
-  const percentage = Math.min(Math.max((value / max) * 100, 0), 100)
-
+export function Progress({
+  value = 0,
+  max = 100,
+  size = 'md',
+  'aria-label': ariaLabel,
+}: ProgressProps) {
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <ProgressTrack
-      size={size}
-      role="progressbar"
-      aria-valuenow={value}
-      aria-valuemin={0}
-      aria-valuemax={max}
+    <ProgressRoot
+      value={value}
+      max={max}
+      height={SIZE_HEIGHT[size]}
+      backgroundColor="$color4"
+      borderRadius="$10"
+      overflow="hidden"
+      width="100%"
       aria-label={ariaLabel}
-      aria-valuetext={`${Math.round(percentage)}% complete`}
     >
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <ProgressIndicator width={`${percentage}%`} />
-    </ProgressTrack>
+      <ProgressIndicator
+        backgroundColor="$color10"
+        borderRadius="$10"
+        animation="fast"
+      />
+    </ProgressRoot>
   )
 }
