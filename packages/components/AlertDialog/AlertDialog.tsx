@@ -84,24 +84,26 @@ function Overlay({ children }: { children?: React.ReactNode }) {
 
 function Content({ children }: { children: React.ReactNode }) {
   return (
-    <AlertContent
-      backgroundColor="$background"
-      borderRadius="$6"
-      padding="$5"
-      width="90%"
-      maxWidth={500}
-      maxHeight="85%"
-      animation="medium"
-      gap="$3"
-      enterStyle={{ opacity: 0, scale: 0.95 }}
-      exitStyle={{ opacity: 0, scale: 0.95 }}
-      zIndex={51}
-      shadowColor="$shadowXlColor"
-      shadowRadius={32}
-      shadowOffset={{ width: 0, height: 16 }}
-    >
-      {children}
-    </AlertContent>
+    <AlertPortal>
+      <AlertContent
+        backgroundColor="$background"
+        borderRadius="$6"
+        padding="$5"
+        width="90%"
+        maxWidth={500}
+        maxHeight="85%"
+        animation="medium"
+        gap="$3"
+        enterStyle={{ opacity: 0, scale: 0.95 }}
+        exitStyle={{ opacity: 0, scale: 0.95 }}
+        zIndex={51}
+        shadowColor="$shadowXlColor"
+        shadowRadius={32}
+        shadowOffset={{ width: 0, height: 16 }}
+      >
+        {children}
+      </AlertContent>
+    </AlertPortal>
   )
 }
 

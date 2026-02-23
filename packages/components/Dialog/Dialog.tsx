@@ -54,6 +54,20 @@ function Trigger({ children }: { children: React.ReactNode }) {
 }
 
 function Overlay() {
+  // Overlay is rendered automatically inside Content's portal.
+  // This component is kept for API compatibility.
+  return null
+}
+
+interface DialogContentProps {
+  children: React.ReactNode
+  size?: 'sm' | 'md' | 'lg'
+}
+
+const SIZE_MAX_WIDTH = { sm: 400, md: 500, lg: 640 }
+const SIZE_PADDING = { sm: '$4' as const, md: '$5' as const, lg: '$6' as const }
+
+function Content({ children, size = 'md' }: DialogContentProps) {
   return (
     <DialogPortal>
       <DialogOverlayFrame
@@ -69,21 +83,6 @@ function Overlay() {
         bottom={0}
         zIndex={50}
       />
-    </DialogPortal>
-  )
-}
-
-interface DialogContentProps {
-  children: React.ReactNode
-  size?: 'sm' | 'md' | 'lg'
-}
-
-const SIZE_MAX_WIDTH = { sm: 400, md: 500, lg: 640 }
-const SIZE_PADDING = { sm: '$4' as const, md: '$5' as const, lg: '$6' as const }
-
-function Content({ children, size = 'md' }: DialogContentProps) {
-  return (
-    <DialogPortal>
       <DialogContent
         backgroundColor="$background"
         borderRadius="$6"

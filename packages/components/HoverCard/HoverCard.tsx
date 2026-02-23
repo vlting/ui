@@ -59,7 +59,7 @@ function Root({ children, openDelay = 700, closeDelay = 300 }: HoverCardRootProp
 
   return (
     <HoverCardContext.Provider value={{ open, onMouseEnter, onMouseLeave }}>
-      <ViewJsx position="relative" display="inline-flex">{children}</ViewJsx>
+      <ViewJsx display="inline-flex">{children}</ViewJsx>
     </HoverCardContext.Provider>
   )
 }
@@ -72,6 +72,7 @@ function Trigger({ children }: { children: React.ReactNode }) {
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       display="inline-flex"
+      position="relative"
     >
       {children}
     </ViewJsx>
@@ -100,10 +101,12 @@ function Content({ children, side = 'bottom', align = 'center' }: HoverCardConte
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       role="tooltip"
+      shadowColor="$shadowMdColor"
+      shadowRadius={8}
+      shadowOffset={{ width: 0, height: 4 }}
       style={{
         ...SIDE_STYLES[side],
         ...ALIGN_STYLES[align],
-        boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
       }}
     >
       {children}

@@ -48,13 +48,26 @@ function Root({ children, onOpenChange }: ContextMenuRootProps) {
     onOpenChange?.(false)
   }, [onOpenChange])
 
+  // Separate Trigger and Content children
+  let triggerContent: React.ReactNode = null
+  let menuContent: React.ReactNode = null
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child)) {
+      if (child.type === Trigger) {
+        triggerContent = child.props.children
+      } else if (child.type === Content) {
+        menuContent = child.props.children
+      }
+    }
+  })
+
   return (
     <ContextMenuContext.Provider value={{ close }}>
       <ViewJsx
         onContextMenu={handleContextMenu}
         display="contents"
       >
-        {children}
+        {triggerContent}
       </ViewJsx>
       {open && (
         <>
@@ -78,14 +91,16 @@ function Root({ children, onOpenChange }: ContextMenuRootProps) {
             borderRadius="$4"
             padding={4}
             minWidth={192}
+            shadowColor="$shadowMdColor"
+            shadowRadius={8}
+            shadowOffset={{ width: 0, height: 4 }}
             style={{
               left: position.x,
               top: position.y,
-              boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
             }}
             role="menu"
           >
-            {React.Children.map(children, () => null)}
+            {menuContent}
           </ViewJsx>
         </>
       )}
