@@ -37,7 +37,7 @@ export function ButtonsPage() {
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
       <Heading fontFamily="$heading" fontSize="$8" fontWeight="$5">Buttons & Actions</Heading>
       <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
-        Button, ButtonGroup, Toggle, and Pagination components.
+        Button, ButtonGroup, Pagination, and Toggle components.
       </Text>
 
       {/* Button */}
@@ -96,6 +96,29 @@ export function ButtonsPage() {
         </DemoCard>
       </Section>
 
+      {/* Pagination */}
+      <Section title="Pagination">
+        <DemoCard label="Basic (10 pages)">
+          <Pagination.Root currentPage={paginationPage} totalPages={10} onPageChange={setPaginationPage} />
+          <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle" marginTop="$2">
+            Page {paginationPage} of 10
+          </Text>
+        </DemoCard>
+        <DemoCard label="Many pages (ellipsis)">
+          <Pagination.Root currentPage={paginationPage2} totalPages={50} onPageChange={setPaginationPage2} />
+          <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle" marginTop="$2">
+            Page {paginationPage2} of 50
+          </Text>
+        </DemoCard>
+        <DemoCard label="Sizes">
+          <YStack gap="$3">
+            <Pagination.Root currentPage={3} totalPages={5} onPageChange={() => {}} size="sm" />
+            <Pagination.Root currentPage={3} totalPages={5} onPageChange={() => {}} size="md" />
+            <Pagination.Root currentPage={3} totalPages={5} onPageChange={() => {}} size="lg" />
+          </YStack>
+        </DemoCard>
+      </Section>
+
       {/* Toggle */}
       <Section title="Toggle">
         <XStack gap="$3" flexWrap="wrap">
@@ -125,29 +148,6 @@ export function ButtonsPage() {
             </Toggle>
           </DemoCard>
         </XStack>
-      </Section>
-
-      {/* Pagination */}
-      <Section title="Pagination">
-        <DemoCard label="Basic (10 pages)">
-          <Pagination.Root currentPage={paginationPage} totalPages={10} onPageChange={setPaginationPage} />
-          <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle" marginTop="$2">
-            Page {paginationPage} of 10
-          </Text>
-        </DemoCard>
-        <DemoCard label="Many pages (ellipsis)">
-          <Pagination.Root currentPage={paginationPage2} totalPages={50} onPageChange={setPaginationPage2} />
-          <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle" marginTop="$2">
-            Page {paginationPage2} of 50
-          </Text>
-        </DemoCard>
-        <DemoCard label="Sizes">
-          <YStack gap="$3">
-            <Pagination.Root currentPage={3} totalPages={5} onPageChange={() => {}} size="sm" />
-            <Pagination.Root currentPage={3} totalPages={5} onPageChange={() => {}} size="md" />
-            <Pagination.Root currentPage={3} totalPages={5} onPageChange={() => {}} size="lg" />
-          </YStack>
-        </DemoCard>
       </Section>
     </YStack>
   )
