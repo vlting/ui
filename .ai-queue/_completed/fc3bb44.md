@@ -1,3 +1,8 @@
+# Commit History
+
+- ab2c60f chore: deprecate headless primitives and hooks superseded by Tamagui packages
+- fc3bb44 chore(queue): complete task 008 — integration cleanup
+
 <!-- auto-queue -->
 <!-- depends-on: 003, 004, 005, 006, 007 -->
 # Integration: update barrel exports, clean up headless, update kitchen-sink
