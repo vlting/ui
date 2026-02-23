@@ -1,5 +1,9 @@
 <!-- auto-queue -->
 <!-- depends-on: 001, 002, 003, 004 -->
+# Commit History
+- `852075b` feat(kitchen-sink): overhaul IA and add missing component demos (#005)
+- `ccf14bd` feat(kitchen-sink): overhaul IA and add missing component demos (#005) [merge]
+
 # Kitchen-Sink Completeness and Information Architecture Overhaul
 
 ## Context
