@@ -79,8 +79,8 @@ function Trigger({ children }: { children: React.ReactNode }) {
 }
 
 const SIDE_STYLES = {
-  top: { bottom: '100%', marginBottom: 8 },
-  bottom: { top: '100%', marginTop: 8 },
+  top: { bottom: '100%', marginBottom: 4 },
+  bottom: { top: '100%', marginTop: 4 },
 } as const
 
 const ALIGN_STYLES = {
