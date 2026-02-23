@@ -10,18 +10,10 @@ function paletteColor(isDark: boolean, index: number): string {
   return palette[index]
 }
 
-const navLinks = [
-  { path: '', label: 'Home' },
-  { path: 'primitives', label: 'Primitives' },
-  { path: 'components', label: 'Components' },
-  { path: 'composed', label: 'Composed' },
-  { path: 'hooks', label: 'Hooks' },
-]
-
 const sidebarGroups = [
   {
-    label: 'Getting Started',
-    items: [{ path: '', label: 'Overview' }],
+    label: 'Overview',
+    items: [{ path: '', label: 'Home' }],
   },
   {
     label: 'Primitives',
@@ -30,35 +22,25 @@ const sidebarGroups = [
     ],
   },
   {
-    label: 'Form',
+    label: 'Components',
     items: [
-      { path: 'components', label: 'All Components' },
-      { path: 'components/inputs', label: 'Inputs' },
-    ],
-  },
-  {
-    label: 'Overlay',
-    items: [
+      { path: 'components/buttons', label: 'Buttons & Actions' },
+      { path: 'components/forms', label: 'Forms & Inputs' },
+      { path: 'components/data', label: 'Data Display' },
       { path: 'components/overlays', label: 'Overlays' },
-    ],
-  },
-  {
-    label: 'Navigation',
-    items: [
-      { path: 'components/menus', label: 'Menus' },
-    ],
-  },
-  {
-    label: 'Layout',
-    items: [
-      { path: 'components/layout', label: 'Layout' },
-      { path: 'components/typography', label: 'Typography' },
+      { path: 'components/menus', label: 'Menus & Navigation' },
     ],
   },
   {
     label: 'Composed',
     items: [
       { path: 'composed', label: 'All Composed' },
+    ],
+  },
+  {
+    label: 'Hooks',
+    items: [
+      { path: 'hooks', label: 'All Hooks' },
     ],
   },
 ]
@@ -117,28 +99,6 @@ export function BrandLayout() {
           <Link to={`/${brandKey}`} style={{ textDecoration: 'none', color: fg }}>
             <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: -0.3 }}>@vlting/ui</span>
           </Link>
-          <nav style={{ display: 'flex', gap: 2 }} className="desktop-nav">
-            {navLinks.map((s) => {
-              const isActive = currentSection === s.path
-              return (
-                <Link
-                  key={s.path}
-                  to={`/${brandKey}/${s.path}`}
-                  style={{
-                    padding: '6px 12px',
-                    borderRadius: 6,
-                    textDecoration: 'none',
-                    fontSize: 14,
-                    fontWeight: isActive ? 500 : 400,
-                    color: isActive ? fg : muted,
-                    transition: 'color 0.15s',
-                  }}
-                >
-                  {s.label}
-                </Link>
-              )
-            })}
-          </nav>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           {/* Brand selector */}
@@ -265,7 +225,6 @@ export function BrandLayout() {
       <style>{`
         @media (max-width: 768px) {
           .mobile-hamburger { display: inline-flex !important; }
-          .desktop-nav { display: none !important; }
           .sidebar {
             position: fixed !important;
             top: 56px !important;

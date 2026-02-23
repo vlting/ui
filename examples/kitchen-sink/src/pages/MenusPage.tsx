@@ -5,6 +5,11 @@ import {
   ContextMenu,
   Menubar,
   NavigationMenu,
+  Command,
+  Tabs,
+  ScrollArea,
+  Sidebar,
+  Resizable,
   Button,
 } from '@vlting/ui'
 
@@ -32,9 +37,9 @@ export function MenusPage() {
 
   return (
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
-      <Heading fontFamily="$heading" fontSize="$8" fontWeight="$5">Menus</Heading>
+      <Heading fontFamily="$heading" fontSize="$8" fontWeight="$5">Menus & Navigation</Heading>
       <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
-        DropdownMenu, ContextMenu, Menubar, and NavigationMenu components.
+        DropdownMenu, ContextMenu, Menubar, NavigationMenu, Command, Tabs, ScrollArea, Sidebar, and Resizable.
       </Text>
 
       {/* DropdownMenu */}
@@ -102,31 +107,17 @@ export function MenusPage() {
         <DemoCard label="Horizontal menu bar">
           <Menubar.Root>
             <Menubar.Menu label="File">
-              <Menubar.Item onSelect={() => {}}>
-                <Text fontFamily="$body" fontSize="$3">New File</Text>
-              </Menubar.Item>
-              <Menubar.Item onSelect={() => {}}>
-                <Text fontFamily="$body" fontSize="$3">Open</Text>
-              </Menubar.Item>
-              <Menubar.Item onSelect={() => {}}>
-                <Text fontFamily="$body" fontSize="$3">Save</Text>
-              </Menubar.Item>
+              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">New File</Text></Menubar.Item>
+              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Open</Text></Menubar.Item>
+              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Save</Text></Menubar.Item>
             </Menubar.Menu>
             <Menubar.Menu label="Edit">
-              <Menubar.Item onSelect={() => {}}>
-                <Text fontFamily="$body" fontSize="$3">Undo</Text>
-              </Menubar.Item>
-              <Menubar.Item onSelect={() => {}}>
-                <Text fontFamily="$body" fontSize="$3">Redo</Text>
-              </Menubar.Item>
+              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Undo</Text></Menubar.Item>
+              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Redo</Text></Menubar.Item>
             </Menubar.Menu>
             <Menubar.Menu label="View">
-              <Menubar.Item onSelect={() => {}}>
-                <Text fontFamily="$body" fontSize="$3">Zoom In</Text>
-              </Menubar.Item>
-              <Menubar.Item onSelect={() => {}}>
-                <Text fontFamily="$body" fontSize="$3">Zoom Out</Text>
-              </Menubar.Item>
+              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Zoom In</Text></Menubar.Item>
+              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Zoom Out</Text></Menubar.Item>
             </Menubar.Menu>
           </Menubar.Root>
         </DemoCard>
@@ -147,6 +138,115 @@ export function MenusPage() {
               <NavigationMenu.Link href="#">Community</NavigationMenu.Link>
             </NavigationMenu.Item>
           </NavigationMenu.Root>
+        </DemoCard>
+      </Section>
+
+      {/* Command */}
+      <Section title="Command">
+        <DemoCard label="Command palette">
+          <View borderRadius="$4" overflow="hidden" borderWidth={1} borderColor="$borderColor">
+            <Command.Root>
+              <Command.Input placeholder="Type a command or search..." />
+              <Command.List>
+                <Command.Group heading="Suggestions">
+                  <Command.Item onSelect={() => {}}>
+                    <Text fontFamily="$body" fontSize="$3">Calendar</Text>
+                  </Command.Item>
+                  <Command.Item onSelect={() => {}}>
+                    <Text fontFamily="$body" fontSize="$3">Search</Text>
+                  </Command.Item>
+                  <Command.Item onSelect={() => {}}>
+                    <Text fontFamily="$body" fontSize="$3">Settings</Text>
+                  </Command.Item>
+                </Command.Group>
+              </Command.List>
+            </Command.Root>
+          </View>
+        </DemoCard>
+      </Section>
+
+      {/* Tabs */}
+      <Section title="Tabs">
+        <DemoCard label="Multi-tab">
+          <Tabs.Root defaultValue="tab1">
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+            <Tabs.Content value="tab1">
+              <Text fontFamily="$body" fontSize="$3">Content for the first tab.</Text>
+            </Tabs.Content>
+            <Tabs.Content value="tab2">
+              <Text fontFamily="$body" fontSize="$3">Content for the second tab.</Text>
+            </Tabs.Content>
+            <Tabs.Content value="tab3">
+              <Text fontFamily="$body" fontSize="$3">Content for the third tab.</Text>
+            </Tabs.Content>
+          </Tabs.Root>
+        </DemoCard>
+      </Section>
+
+      {/* ScrollArea */}
+      <Section title="ScrollArea">
+        <DemoCard label="Scrollable area with custom scrollbar">
+          <ScrollArea.Root style={{ height: 200 }}>
+            <ScrollArea.Viewport>
+              <YStack gap="$2" padding="$2">
+                {Array.from({ length: 20 }, (_, i) => (
+                  <Text key={i} fontFamily="$body" fontSize="$3" padding="$2" backgroundColor="$color3" borderRadius="$2">
+                    Item {i + 1}
+                  </Text>
+                ))}
+              </YStack>
+            </ScrollArea.Viewport>
+          </ScrollArea.Root>
+        </DemoCard>
+      </Section>
+
+      {/* Sidebar */}
+      <Section title="Sidebar">
+        <DemoCard label="App sidebar with groups">
+          <View height={300} borderRadius="$4" overflow="hidden" borderWidth={1} borderColor="$borderColor">
+            <XStack flex={1}>
+              <Sidebar.Root>
+                <Sidebar.Group label="Dashboard">
+                  <Sidebar.MenuItem label="Overview" active />
+                  <Sidebar.MenuItem label="Analytics" />
+                  <Sidebar.MenuItem label="Reports" />
+                </Sidebar.Group>
+                <Sidebar.Group label="Settings">
+                  <Sidebar.MenuItem label="General" />
+                  <Sidebar.MenuItem label="Team" />
+                  <Sidebar.MenuItem label="Billing" />
+                </Sidebar.Group>
+              </Sidebar.Root>
+              <View flex={1} backgroundColor="$background" padding="$4" alignItems="center" justifyContent="center">
+                <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">Main content area</Text>
+              </View>
+            </XStack>
+          </View>
+        </DemoCard>
+      </Section>
+
+      {/* Resizable */}
+      <Section title="Resizable">
+        <DemoCard label="Resizable panels">
+          <View height={200} borderRadius="$4" overflow="hidden" borderWidth={1} borderColor="$borderColor">
+            <Resizable.PanelGroup direction="horizontal">
+              <Resizable.Panel defaultSize={50}>
+                <View flex={1} backgroundColor="$color3" alignItems="center" justifyContent="center" padding="$3">
+                  <Text fontFamily="$body" fontSize="$3">Panel A</Text>
+                </View>
+              </Resizable.Panel>
+              <Resizable.Handle />
+              <Resizable.Panel defaultSize={50}>
+                <View flex={1} backgroundColor="$color2" alignItems="center" justifyContent="center" padding="$3">
+                  <Text fontFamily="$body" fontSize="$3">Panel B</Text>
+                </View>
+              </Resizable.Panel>
+            </Resizable.PanelGroup>
+          </View>
         </DemoCard>
       </Section>
     </YStack>
