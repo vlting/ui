@@ -1,10 +1,13 @@
 import type React from 'react'
 import type { GetProps } from 'tamagui'
 import { Text, YStack, styled, withStaticProperties } from 'tamagui'
+import { CardFrame as TamaguiCardFrame } from '@tamagui/card'
 
+// Extend Tamagui's Card frame with our custom variants.
+// Tamagui's Card provides a YStack-based container with theme support
+// and size→borderRadius token mapping via createStyledContext.
 // @ts-expect-error Tamagui v2 RC
-const CardFrame = styled(YStack, {
-  backgroundColor: '$background',
+const CardFrame = styled(TamaguiCardFrame, {
   borderWidth: 1,
   borderColor: '$borderColor',
   borderRadius: '$4',

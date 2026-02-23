@@ -1,25 +1,11 @@
-import React, { createContext, useContext, useId } from 'react'
-import { YStack, styled } from 'tamagui'
-import { useControllableState } from '../../hooks/useControllableState'
+import React from 'react'
+import type { ComponentType } from 'react'
+import { Collapsible as TamaguiCollapsible } from '@tamagui/collapsible'
 
-interface CollapsibleContextValue {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  contentId: string
-}
-
-const CollapsibleContext = createContext<CollapsibleContextValue | null>(null)
-
-function useCollapsibleContext() {
-  const ctx = useContext(CollapsibleContext)
-  if (!ctx) throw new Error('Collapsible components must be used within Collapsible.Root')
-  return ctx
-}
-
-// @ts-expect-error Tamagui v2 RC
-const CollapsibleFrame = styled(YStack, {
-  width: '100%',
-})
+// Cast for JSX usage — Tamagui v2 RC GetFinalProps bug
+const TamaguiCollapsibleJsx = TamaguiCollapsible as ComponentType<Record<string, unknown>>
+const TamaguiCollapsibleTriggerJsx = TamaguiCollapsible.Trigger as ComponentType<Record<string, unknown>>
+const TamaguiCollapsibleContentJsx = TamaguiCollapsible.Content as ComponentType<Record<string, unknown>>
 
 export interface CollapsibleRootProps {
   children: React.ReactNode
@@ -28,50 +14,29 @@ export interface CollapsibleRootProps {
   onOpenChange?: (open: boolean) => void
 }
 
-function Root({
-  children,
-  open: openProp,
-  defaultOpen = false,
-  onOpenChange,
-}: CollapsibleRootProps) {
-  const [open, setOpen] = useControllableState({
-    prop: openProp,
-    defaultProp: defaultOpen,
-    onChange: onOpenChange,
-  })
-  const contentId = useId()
-
+function Root({ children, open, defaultOpen, onOpenChange }: CollapsibleRootProps) {
   return (
-    <CollapsibleContext.Provider value={{ open: !!open, onOpenChange: setOpen, contentId }}>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <CollapsibleFrame data-state={open ? 'open' : 'closed'}>
-        {children}
-      </CollapsibleFrame>
-    </CollapsibleContext.Provider>
+    <TamaguiCollapsibleJsx
+      open={open}
+      defaultOpen={defaultOpen}
+      onOpenChange={onOpenChange}
+      width="100%"
+    >
+      {children}
+    </TamaguiCollapsibleJsx>
   )
 }
 
 export interface CollapsibleTriggerProps {
-  children: React.ReactElement
-  asChild?: boolean
+  children: React.ReactNode
 }
 
 function Trigger({ children }: CollapsibleTriggerProps) {
-  const { open, onOpenChange, contentId } = useCollapsibleContext()
-  return React.cloneElement(children, {
-    onClick: () => onOpenChange(!open),
-    onKeyDown: (e: React.KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault()
-        onOpenChange(!open)
-      }
-    },
-    role: 'button',
-    tabIndex: 0,
-    'aria-expanded': open,
-    'aria-controls': contentId,
-    'data-state': open ? 'open' : 'closed',
-  } as Record<string, unknown>)
+  return (
+    <TamaguiCollapsibleTriggerJsx unstyled>
+      {children}
+    </TamaguiCollapsibleTriggerJsx>
+  )
 }
 
 export interface CollapsibleContentProps {
@@ -79,14 +44,10 @@ export interface CollapsibleContentProps {
 }
 
 function Content({ children }: CollapsibleContentProps) {
-  const { open, contentId } = useCollapsibleContext()
-  if (!open) return null
-
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <YStack id={contentId} role="region" data-state="open">
+    <TamaguiCollapsibleContentJsx role="region">
       {children}
-    </YStack>
+    </TamaguiCollapsibleContentJsx>
   )
 }
 
