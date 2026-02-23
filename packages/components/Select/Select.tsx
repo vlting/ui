@@ -42,12 +42,13 @@ const SelectSeparatorFrame = styled(View, {
 const SelectLabelJsx = SelectLabelText as AnyFC
 const SelectSeparatorJsx = SelectSeparatorFrame as AnyFC
 
-const SIZE_MAP = { sm: '$3.5' as const, md: '$4' as const, lg: '$4.5' as const }
+const SIZE_MAP = { sm: '$3' as const, md: '$4' as const, lg: '$5' as const }
 const SIZE_PADDING_MAP = {
-  sm: { h: '$2', v: '$1', fontSize: '$2' },
-  md: { h: '$3', v: '$2', fontSize: '$3' },
-  lg: { h: '$4', v: '$2.5', fontSize: '$4' },
+  sm: { h: '$1.5', v: '$1', fontSize: '$2' },
+  md: { h: '$2', v: '$1.5', fontSize: '$3' },
+  lg: { h: '$2.5', v: '$2', fontSize: '$4' },
 } as const
+const SIZE_RADIUS_MAP = { sm: '$3', md: '$4', lg: '$5' } as const
 
 export interface SelectProps {
   children?: React.ReactNode
@@ -95,7 +96,7 @@ function SelectRootComponent({
         paddingVertical={sizePadding.v}
         borderWidth={1}
         borderColor="$borderColor"
-        borderRadius="$4"
+        borderRadius={SIZE_RADIUS_MAP[size]}
         backgroundColor="$background"
         gap="$2"
         cursor={disabled ? 'not-allowed' : 'pointer'}
@@ -103,7 +104,7 @@ function SelectRootComponent({
         focusVisibleStyle={{
           outlineWidth: 2,
           outlineOffset: 1,
-          outlineColor: '$outlineColor',
+          outlineColor: '$color10',
           outlineStyle: 'solid',
         }}
       >

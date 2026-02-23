@@ -6,11 +6,24 @@ import { Text, View, XStack, YStack, styled } from 'tamagui'
 // Extend Tamagui Input with our error variant.
 // Tamagui Input already renders <input> with proper focus/hover/theme styles.
 const StyledInput = styled(TamaguiInput, {
+  // @ts-expect-error Tamagui v2 RC PseudoStyleWithTransition type limitation
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 1,
+    outlineColor: '$color10',
+    outlineStyle: 'solid',
+  },
+
   variants: {
     error: {
       true: {
         borderColor: '$red10',
       },
+    },
+    fieldSize: {
+      sm: { borderRadius: '$3', paddingHorizontal: '$1.5', paddingVertical: '$1' },
+      md: { borderRadius: '$4', paddingHorizontal: '$2', paddingVertical: '$1.5' },
+      lg: { borderRadius: '$5', paddingHorizontal: '$2.5', paddingVertical: '$2' },
     },
   } as const,
 })
@@ -128,6 +141,7 @@ export function Input({
             disabled={disabled}
             error={error}
             size={sizeToken}
+            fieldSize={size}
             aria-invalid={error || undefined}
             aria-describedby={displayHelper ? helperId : undefined}
             aria-label={!label ? placeholder : undefined}
@@ -145,6 +159,7 @@ export function Input({
           disabled={disabled}
           error={error}
           size={sizeToken}
+          fieldSize={size}
           aria-invalid={error || undefined}
           aria-describedby={displayHelper ? helperId : undefined}
           aria-label={!label ? placeholder : undefined}
