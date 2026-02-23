@@ -143,33 +143,57 @@ function CollapsibleDemo() {
 
 function TableDemo() {
   return (
-    <DemoCard label="Simple 3-column data table">
+    <DemoCard label="Data table with header, body, footer, and caption">
       <Table.Root>
-        <Table.Caption>Recent deployments</Table.Caption>
+        <Table.Caption>Team members and their roles</Table.Caption>
         <Table.Header>
           <Table.Row>
-            <Table.Head>Service</Table.Head>
+            <Table.Head>Name</Table.Head>
+            <Table.Head>Role</Table.Head>
             <Table.Head>Status</Table.Head>
-            <Table.Head>Version</Table.Head>
+            <Table.Head style={{ textAlign: 'right' }}>Hours</Table.Head>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           <Table.Row>
-            <Table.Cell>api-gateway</Table.Cell>
-            <Table.Cell>Running</Table.Cell>
-            <Table.Cell>v2.4.1</Table.Cell>
+            <Table.Cell>Alice Johnson</Table.Cell>
+            <Table.Cell>Engineering Lead</Table.Cell>
+            <Table.Cell>Active</Table.Cell>
+            <Table.Cell style={{ textAlign: 'right' }}>42</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell>auth-service</Table.Cell>
-            <Table.Cell>Running</Table.Cell>
-            <Table.Cell>v1.8.0</Table.Cell>
+            <Table.Cell>Bob Smith</Table.Cell>
+            <Table.Cell>Senior Developer</Table.Cell>
+            <Table.Cell>Active</Table.Cell>
+            <Table.Cell style={{ textAlign: 'right' }}>38</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell>worker-pool</Table.Cell>
-            <Table.Cell>Degraded</Table.Cell>
-            <Table.Cell>v3.1.2</Table.Cell>
+            <Table.Cell>Carol Williams</Table.Cell>
+            <Table.Cell>Designer</Table.Cell>
+            <Table.Cell>On Leave</Table.Cell>
+            <Table.Cell style={{ textAlign: 'right' }}>0</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>David Lee</Table.Cell>
+            <Table.Cell>Backend Developer</Table.Cell>
+            <Table.Cell>Active</Table.Cell>
+            <Table.Cell style={{ textAlign: 'right' }}>40</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Eva Chen</Table.Cell>
+            <Table.Cell>QA Engineer</Table.Cell>
+            <Table.Cell>Active</Table.Cell>
+            <Table.Cell style={{ textAlign: 'right' }}>36</Table.Cell>
           </Table.Row>
         </Table.Body>
+        <Table.Footer>
+          <Table.Row>
+            <Table.Cell style={{ fontWeight: 600 }}>Total</Table.Cell>
+            <Table.Cell />
+            <Table.Cell />
+            <Table.Cell style={{ textAlign: 'right', fontWeight: 600 }}>156</Table.Cell>
+          </Table.Row>
+        </Table.Footer>
       </Table.Root>
     </DemoCard>
   )
