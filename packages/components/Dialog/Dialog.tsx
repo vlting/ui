@@ -57,7 +57,7 @@ function Overlay() {
   return (
     <DialogPortal>
       <DialogOverlayFrame
-        backgroundColor="rgba(0,0,0,0.4)"
+        backgroundColor="$overlayBackground"
         animation="medium"
         opacity={1}
         enterStyle={{ opacity: 0 }}
@@ -96,6 +96,9 @@ function Content({ children, size = 'md' }: DialogContentProps) {
         enterStyle={{ opacity: 0, scale: 0.95 }}
         exitStyle={{ opacity: 0, scale: 0.95 }}
         zIndex={51}
+        shadowColor="$shadowXlColor"
+        shadowRadius={32}
+        shadowOffset={{ width: 0, height: 16 }}
       >
         {children}
       </DialogContent>

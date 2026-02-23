@@ -452,6 +452,7 @@ export function buildThemes(
   overridePalettes?: Record<string, string[]>,
   overrideShadows?: { light?: ShadowScale; dark?: ShadowScale },
   outlineValues?: { width: number; offset: number },
+  overlayValues?: { light?: string; dark?: string },
 ) {
   const mergedLightShadows = shadowScaleToThemeValues(
     overrideShadows?.light ?? lightShadows,
@@ -461,6 +462,11 @@ export function buildThemes(
   const outlineThemeValues: Record<string, string> = {
     outlineWidth: String(outlineValues?.width ?? 2),
     outlineOffset: String(outlineValues?.offset ?? 1),
+  }
+
+  const overlayThemeValues = {
+    light: { overlayBackground: overlayValues?.light ?? 'rgba(0,0,0,0.5)' },
+    dark: { overlayBackground: overlayValues?.dark ?? 'rgba(0,0,0,0.6)' },
   }
 
   const colorChildThemes: Record<string, unknown> = {
@@ -518,12 +524,12 @@ export function buildThemes(
       light: {
         template: 'base',
         palette: 'light',
-        nonInheritedValues: { ...mergedLightShadows, ...outlineThemeValues },
+        nonInheritedValues: { ...mergedLightShadows, ...outlineThemeValues, ...overlayThemeValues.light },
       },
       dark: {
         template: 'base',
         palette: 'dark',
-        nonInheritedValues: { ...mergedDarkShadows, ...outlineThemeValues },
+        nonInheritedValues: { ...mergedDarkShadows, ...outlineThemeValues, ...overlayThemeValues.dark },
       },
     })
     // @ts-expect-error v2 RC: addChildThemes palette type inference limitation

@@ -160,6 +160,12 @@ export const funBrand: BrandDefinition = {
     offset: 3,
   },
 
+  // Lighter overlay — playful, less dramatic
+  overlay: {
+    light: 'rgba(0,0,0,0.25)',
+    dark: 'rgba(0,0,0,0.35)',
+  },
+
   // Flat / no shadows
   shadows: {
     light: {
