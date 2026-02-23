@@ -1,43 +1,27 @@
 import { useId } from 'react'
-import { Text, View, YStack, styled } from 'tamagui'
+import type { ComponentType } from 'react'
+import { TextArea as TamaguiTextArea } from '@tamagui/input'
+import { Text, YStack, styled } from 'tamagui'
 
+// Extend Tamagui TextArea with our error variant.
+// Tamagui TextArea already renders <textarea> with proper styling and sizing.
 // @ts-expect-error Tamagui v2 RC
-const TextareaFrame = styled(YStack, {
-  gap: '$1.5',
-})
-
-// @ts-expect-error Tamagui v2 RC
-const TextareaFieldFrame = styled(View, {
-  borderWidth: 1,
-  borderColor: '$borderColor',
-  borderRadius: '$3',
-  overflow: 'hidden',
-
-  hoverStyle: {
-    borderColor: '$borderColorHover',
-  },
-
-  focusWithinStyle: {
-    borderColor: '$borderColorFocus',
-    outlineWidth: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-    outlineOffset: 0,
-  },
-
+const StyledTextArea = styled(TamaguiTextArea, {
   variants: {
     error: {
       true: {
         borderColor: '$red10',
       },
     },
-    disabled: {
-      true: {
-        opacity: 0.5,
-        cursor: 'not-allowed',
-      },
-    },
   } as const,
+})
+
+// Cast for JSX — Tamagui v2 RC GetFinalProps bug
+const StyledTextAreaJsx = StyledTextArea as ComponentType<Record<string, unknown>>
+
+// @ts-expect-error Tamagui v2 RC
+const TextareaFrame = styled(YStack, {
+  gap: '$1.5',
 })
 
 // @ts-expect-error Tamagui v2 RC
@@ -55,10 +39,11 @@ const TextareaHelper = styled(Text, {
   color: '$colorSubtitle',
 })
 
-const TEXTAREA_STYLES: Record<string, { fontSize: string; padding: string; minHeight: number }> = {
-  sm: { fontSize: '12px', padding: '6px 8px', minHeight: 60 },
-  md: { fontSize: '14px', padding: '8px 12px', minHeight: 80 },
-  lg: { fontSize: '16px', padding: '10px 12px', minHeight: 100 },
+// Map named sizes to Tamagui size tokens
+const SIZE_TOKEN_MAP: Record<string, string> = {
+  sm: '$3',
+  md: '$4',
+  lg: '$5',
 }
 
 export interface TextareaProps {
@@ -87,13 +72,13 @@ export function Textarea({
   errorMessage,
   disabled,
   size = 'md',
-  rows,
+  rows = 3,
   maxLength,
 }: TextareaProps) {
   const textareaId = useId()
   const helperId = useId()
   const displayHelper = error && errorMessage ? errorMessage : helperText
-  const sizeStyles = TEXTAREA_STYLES[size]
+  const sizeToken = SIZE_TOKEN_MAP[size]
 
   return (
     // @ts-expect-error Tamagui v2 RC
@@ -104,35 +89,21 @@ export function Textarea({
           <StyledLabelText>{label}</StyledLabelText>
         </label>
       )}
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <TextareaFieldFrame error={error} disabled={disabled}>
-        <textarea
-          id={textareaId}
-          value={value}
-          defaultValue={defaultValue}
-          onChange={onChangeText ? (e) => onChangeText(e.target.value) : undefined}
-          placeholder={placeholder}
-          disabled={disabled}
-          rows={rows}
-          maxLength={maxLength}
-          aria-invalid={error || undefined}
-          aria-describedby={displayHelper ? helperId : undefined}
-          aria-label={!label ? placeholder : undefined}
-          style={{
-            fontFamily: 'inherit',
-            fontSize: sizeStyles.fontSize,
-            color: 'inherit',
-            backgroundColor: 'transparent',
-            border: 'none',
-            outline: 'none',
-            padding: sizeStyles.padding,
-            minHeight: sizeStyles.minHeight,
-            resize: 'vertical',
-            width: '100%',
-            boxSizing: 'border-box',
-          }}
-        />
-      </TextareaFieldFrame>
+      <StyledTextAreaJsx
+        id={textareaId}
+        value={value}
+        defaultValue={defaultValue}
+        onChangeText={onChangeText}
+        placeholder={placeholder}
+        disabled={disabled}
+        rows={rows}
+        maxLength={maxLength}
+        error={error}
+        size={sizeToken}
+        aria-invalid={error || undefined}
+        aria-describedby={displayHelper ? helperId : undefined}
+        aria-label={!label ? placeholder : undefined}
+      />
       {displayHelper && (
         // @ts-expect-error Tamagui v2 RC
         <TextareaHelper id={helperId} color={error ? '$red10' : '$colorSubtitle'}>
