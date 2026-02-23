@@ -1,4 +1,8 @@
 <!-- auto-queue -->
+# Commit History
+- `b5d2f9a` fix(design-tokens): use explicit dark shadowColor instead of palette index 0
+- `ce91ce7` fix(design-tokens): use explicit dark shadowColor instead of palette index 0 (#003) [merge]
+
 # Fix Shadow System — Dark Defaults and Brand Configurability
 
 ## Problem
