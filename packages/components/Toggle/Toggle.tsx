@@ -3,7 +3,6 @@ import { XStack, styled, withStaticProperties } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const ToggleFrame = styled(XStack, {
-  tag: 'button',
   alignItems: 'center',
   justifyContent: 'center',
   borderWidth: 1,
@@ -12,8 +11,6 @@ const ToggleFrame = styled(XStack, {
   cursor: 'pointer',
   animation: 'fast',
   backgroundColor: 'transparent',
-  // @ts-expect-error web-only CSS property
-  appearance: 'none',
 
   hoverStyle: {
     backgroundColor: '$backgroundHover',
@@ -23,7 +20,7 @@ const ToggleFrame = styled(XStack, {
     backgroundColor: '$backgroundPress',
   },
 
-  focusStyle: {
+  focusWithinStyle: {
     outlineWidth: 2,
     outlineOffset: 2,
     outlineColor: '$outlineColor',
@@ -85,18 +82,29 @@ export function Toggle({
   }
 
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <ToggleFrame
-      size={size}
-      pressed={isPressed}
-      disabled={disabled}
-      onPress={handlePress}
-      role="button"
+    <button
+      type="button"
       aria-pressed={isPressed}
       aria-disabled={disabled || undefined}
+      disabled={disabled}
+      onClick={handlePress}
+      style={{
+        background: 'none',
+        border: 'none',
+        padding: 0,
+        display: 'inline-flex',
+        cursor: disabled ? 'not-allowed' : 'pointer',
+      }}
     >
-      {children}
-    </ToggleFrame>
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <ToggleFrame
+        size={size}
+        pressed={isPressed}
+        disabled={disabled}
+      >
+        {children}
+      </ToggleFrame>
+    </button>
   )
 }
 
@@ -127,7 +135,6 @@ const ToggleGroupFrame = styled(XStack, {
 
 // @ts-expect-error Tamagui v2 RC
 const ToggleGroupItemFrame = styled(XStack, {
-  tag: 'button',
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
@@ -136,10 +143,8 @@ const ToggleGroupItemFrame = styled(XStack, {
   borderWidth: 0,
   borderRightWidth: 1,
   borderColor: '$borderColor',
-  // @ts-expect-error web-only CSS property
-  appearance: 'none',
 
-  focusStyle: {
+  focusWithinStyle: {
     outlineWidth: 2,
     outlineOffset: -2,
     outlineColor: '$outlineColor',
@@ -244,18 +249,29 @@ function ToggleGroupItem({
   const isDisabled = ctx.disabled || itemDisabled
 
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <ToggleGroupItemFrame
-      size={ctx.size}
-      pressed={isPressed}
-      disabled={isDisabled}
-      onPress={() => ctx.onItemToggle(itemValue)}
-      role="button"
+    <button
+      type="button"
       aria-pressed={isPressed}
       aria-disabled={isDisabled || undefined}
+      disabled={isDisabled}
+      onClick={() => ctx.onItemToggle(itemValue)}
+      style={{
+        background: 'none',
+        border: 'none',
+        padding: 0,
+        display: 'inline-flex',
+        cursor: isDisabled ? 'not-allowed' : 'pointer',
+      }}
     >
-      {children}
-    </ToggleGroupItemFrame>
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <ToggleGroupItemFrame
+        size={ctx.size}
+        pressed={isPressed}
+        disabled={isDisabled}
+      >
+        {children}
+      </ToggleGroupItemFrame>
+    </button>
   )
 }
 
