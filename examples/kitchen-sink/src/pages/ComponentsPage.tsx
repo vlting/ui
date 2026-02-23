@@ -19,6 +19,8 @@ import {
   ToggleGroup,
   Tooltip,
   Pagination,
+  DatePicker,
+  DateRangePicker,
 } from '@vlting/ui'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -67,6 +69,8 @@ export function ComponentsPage() {
   const [toggleGroupValue, setToggleGroupValue] = useState<string | string[]>('center')
   const [paginationPage, setPaginationPage] = useState(1)
   const [paginationPage2, setPaginationPage2] = useState(5)
+  const [dateValue, setDateValue] = useState<Date | undefined>(undefined)
+  const [dateRange, setDateRange] = useState<{ start: Date; end: Date } | undefined>(undefined)
 
   return (
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
@@ -591,6 +595,56 @@ export function ComponentsPage() {
             <Pagination.Root currentPage={3} totalPages={5} onPageChange={() => {}} size="md" />
             <Pagination.Root currentPage={3} totalPages={5} onPageChange={() => {}} size="lg" />
           </YStack>
+        </DemoCard>
+      </Section>
+
+      {/* ─── DatePicker ─── */}
+      <Section title="DatePicker">
+        <DemoCard label="Default">
+          <DatePicker
+            placeholder="Pick a date..."
+            value={dateValue}
+            onValueChange={setDateValue}
+          />
+        </DemoCard>
+        <DemoCard label="With label and helper">
+          <DatePicker
+            label="Start date"
+            placeholder="Choose start date"
+            helperText="When should the project begin?"
+          />
+        </DemoCard>
+        <DemoCard label="Error state">
+          <DatePicker
+            label="Due date"
+            placeholder="Select due date"
+            error
+            errorMessage="A due date is required"
+          />
+        </DemoCard>
+        <DemoCard label="Disabled">
+          <DatePicker
+            placeholder="Cannot select"
+            disabled
+          />
+        </DemoCard>
+      </Section>
+
+      {/* ─── DateRangePicker ─── */}
+      <Section title="DateRangePicker">
+        <DemoCard label="Default">
+          <DateRangePicker
+            placeholder="Select date range..."
+            value={dateRange}
+            onValueChange={setDateRange}
+          />
+        </DemoCard>
+        <DemoCard label="With label">
+          <DateRangePicker
+            label="Trip dates"
+            placeholder="When are you traveling?"
+            helperText="Select check-in and check-out dates"
+          />
         </DemoCard>
       </Section>
 
