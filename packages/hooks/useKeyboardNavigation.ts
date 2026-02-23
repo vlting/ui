@@ -1,4 +1,3 @@
-/** @deprecated Replaced by @tamagui/roving-focus in the styled component layer */
 import { useCallback } from 'react'
 
 interface UseKeyboardNavigationOptions {
@@ -23,39 +22,34 @@ export function useKeyboardNavigation(
     (e: React.KeyboardEvent) => {
       let nextIndex = activeIndex
 
-      const prev = orientation === 'horizontal' ? 'ArrowLeft' : 'ArrowUp'
-      const next = orientation === 'horizontal' ? 'ArrowRight' : 'ArrowDown'
+      const isPrev =
+        ((orientation === 'vertical' || orientation === 'both') && e.key === 'ArrowUp') ||
+        ((orientation === 'horizontal' || orientation === 'both') && e.key === 'ArrowLeft')
 
-      switch (e.key) {
-        case prev:
-        case orientation === 'both' ? 'ArrowUp' : '':
-        case orientation === 'both' ? 'ArrowLeft' : '':
-          e.preventDefault()
-          nextIndex = activeIndex - 1
-          if (nextIndex < 0) nextIndex = loop ? items - 1 : 0
-          break
-        case next:
-        case orientation === 'both' ? 'ArrowDown' : '':
-        case orientation === 'both' ? 'ArrowRight' : '':
-          e.preventDefault()
-          nextIndex = activeIndex + 1
-          if (nextIndex >= items) nextIndex = loop ? 0 : items - 1
-          break
-        case 'Home':
-          e.preventDefault()
-          nextIndex = 0
-          break
-        case 'End':
-          e.preventDefault()
-          nextIndex = items - 1
-          break
-        case 'Enter':
-        case ' ':
-          e.preventDefault()
-          onSelect?.(activeIndex)
-          return
-        default:
-          return
+      const isNext =
+        ((orientation === 'vertical' || orientation === 'both') && e.key === 'ArrowDown') ||
+        ((orientation === 'horizontal' || orientation === 'both') && e.key === 'ArrowRight')
+
+      if (isPrev) {
+        e.preventDefault()
+        nextIndex = activeIndex - 1
+        if (nextIndex < 0) nextIndex = loop ? items - 1 : 0
+      } else if (isNext) {
+        e.preventDefault()
+        nextIndex = activeIndex + 1
+        if (nextIndex >= items) nextIndex = loop ? 0 : items - 1
+      } else if (e.key === 'Home') {
+        e.preventDefault()
+        nextIndex = 0
+      } else if (e.key === 'End') {
+        e.preventDefault()
+        nextIndex = items - 1
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        onSelect?.(activeIndex)
+        return
+      } else {
+        return
       }
 
       setActiveIndex(nextIndex)

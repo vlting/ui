@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { YStack, XStack, Text, Heading, Separator, View } from 'tamagui'
 import { useControllableState, useFocusTrap, useKeyboardNavigation } from '@vlting/ui'
 
@@ -156,14 +156,20 @@ function KeyboardNavDemo() {
   const [activeIndex, setActiveIndex] = useState(0)
   const itemRefs = useRef<(HTMLElement | null)[]>([])
 
-  const handleKeyDown = useKeyboardNavigation({
-    itemCount: items.length,
+  const handleKeyDown = useKeyboardNavigation(
+    items.length,
     activeIndex,
-    onActiveIndexChange: setActiveIndex,
-    orientation: 'vertical',
-    loop: true,
-    onSelect: (index) => alert(`Selected: ${items[index]}`),
-  })
+    setActiveIndex,
+    {
+      orientation: 'vertical',
+      loop: true,
+      onSelect: (index) => alert(`Selected: ${items[index]}`),
+    },
+  )
+
+  useEffect(() => {
+    itemRefs.current[activeIndex]?.focus()
+  }, [activeIndex])
 
   return (
     <DemoCard label="Arrow key navigation — use Up/Down arrows, Enter to select">
@@ -183,7 +189,9 @@ function KeyboardNavDemo() {
               cursor="pointer"
               hoverStyle={{ backgroundColor: '$color3' }}
               onPress={() => setActiveIndex(i)}
-              outlineWidth={0}
+              outlineStyle="solid"
+              outlineWidth={i === activeIndex ? 2 : 0}
+              outlineColor="$color10"
             >
               <Text fontFamily="$body" fontSize="$3" fontWeight={i === activeIndex ? '$3' : '$2'}>
                 {item}
