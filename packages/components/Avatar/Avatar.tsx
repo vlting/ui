@@ -1,7 +1,10 @@
-import { useState } from 'react'
-import { Image, Text, View, styled } from 'tamagui'
+import React, { createContext, useContext, useState } from 'react'
+import type { ComponentType } from 'react'
+import { Image as TamaguiImage, Text, View, styled } from 'tamagui'
 
-// @ts-expect-error Tamagui v2 RC
+type AnyFC = ComponentType<Record<string, unknown>>
+const ImageJsx = TamaguiImage as AnyFC
+
 const AvatarFrame = styled(View, {
   borderRadius: 1000,
   overflow: 'hidden',
@@ -23,8 +26,7 @@ const AvatarFrame = styled(View, {
   },
 })
 
-// @ts-expect-error Tamagui v2 RC
-const AvatarFallback = styled(Text, {
+const AvatarFallbackText = styled(Text, {
   fontFamily: '$body',
   fontWeight: '$3',
   color: '$color11',
@@ -43,38 +45,94 @@ const AvatarFallback = styled(Text, {
   },
 })
 
+const AvatarFrameJsx = AvatarFrame as AnyFC
+const AvatarFallbackTextJsx = AvatarFallbackText as AnyFC
+
+type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
+const SIZE_PX: Record<AvatarSize, number> = { sm: 32, md: 40, lg: 56, xl: 72 }
+
+const AvatarContext = createContext<{ size: AvatarSize; imgError: boolean; setImgError: (v: boolean) => void }>({
+  size: 'md',
+  imgError: false,
+  setImgError: () => {},
+})
+
 export interface AvatarProps {
+  children?: React.ReactNode
+  /** @deprecated Use compound pattern: <Avatar><Avatar.Image /><Avatar.Fallback /></Avatar> */
   src?: string
+  /** @deprecated Use compound pattern */
   alt?: string
+  /** @deprecated Use compound pattern */
   fallback?: string
-  size?: 'sm' | 'md' | 'lg' | 'xl'
+  size?: AvatarSize
 }
 
-export function Avatar({ src, alt, fallback, size = 'md' }: AvatarProps) {
+export function Avatar({ children, src, alt, fallback, size = 'md' }: AvatarProps) {
   const [imgError, setImgError] = useState(false)
-  const showImage = src && !imgError
 
-  const sizeMap = { sm: 32, md: 40, lg: 56, xl: 72 }
-  const px = sizeMap[size]
+  // Legacy single-component API: if no children, render image/fallback directly
+  if (!children) {
+    const showImage = src && !imgError
+    const px = SIZE_PX[size]
+    return (
+      <AvatarFrameJsx
+        size={size}
+        role="img"
+        aria-label={alt || fallback || 'avatar'}
+      >
+        {showImage ? (
+          <ImageJsx
+            source={{ uri: src!, width: px, height: px }}
+            style={{ width: px, height: px }}
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <AvatarFallbackTextJsx size={size}>{fallback || '?'}</AvatarFallbackTextJsx>
+        )}
+      </AvatarFrameJsx>
+    )
+  }
 
+  // Compound API: <Avatar><Avatar.Image /><Avatar.Fallback /></Avatar>
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <AvatarFrame
-      size={size}
-      accessibilityRole="image"
-      role="img"
-      aria-label={alt || fallback || 'avatar'}
-    >
-      {showImage ? (
-        <Image
-          source={{ uri: src, width: px, height: px }}
-          style={{ width: px, height: px }}
-          onError={() => setImgError(true)}
-        />
-      ) : (
-        // @ts-expect-error Tamagui v2 RC
-        <AvatarFallback size={size}>{fallback || '?'}</AvatarFallback>
-      )}
-    </AvatarFrame>
+    <AvatarContext.Provider value={{ size, imgError, setImgError }}>
+      <AvatarFrameJsx size={size} role="img">
+        {children}
+      </AvatarFrameJsx>
+    </AvatarContext.Provider>
   )
 }
+
+export interface AvatarImageProps {
+  src: string
+  alt?: string
+}
+
+function AvatarImage({ src, alt }: AvatarImageProps) {
+  const { size, imgError, setImgError } = useContext(AvatarContext)
+  const px = SIZE_PX[size]
+
+  if (imgError) return null
+
+  return (
+    <ImageJsx
+      source={{ uri: src, width: px, height: px }}
+      style={{ width: px, height: px }}
+      onError={() => setImgError(true)}
+      alt={alt}
+    />
+  )
+}
+
+function AvatarFallback({ children }: { children: React.ReactNode }) {
+  const { size, imgError } = useContext(AvatarContext)
+
+  // Only show fallback when image has errored or no image is present
+  if (!imgError) return null
+
+  return <AvatarFallbackTextJsx size={size}>{children}</AvatarFallbackTextJsx>
+}
+
+Avatar.Image = AvatarImage
+Avatar.Fallback = AvatarFallback

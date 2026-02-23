@@ -1,7 +1,9 @@
 import type React from 'react'
 import type { ComponentType } from 'react'
 import { Text, styled } from 'tamagui'
-import { Tooltip as TamaguiTooltip } from '@tamagui/tooltip'
+import { Tooltip as TamaguiTooltip, TooltipGroup } from '@tamagui/tooltip'
+
+type AnyFC = ComponentType<Record<string, unknown>>
 
 // @ts-expect-error Tamagui v2 RC
 const TooltipText = styled(Text, {
@@ -11,27 +13,34 @@ const TooltipText = styled(Text, {
 })
 
 // Tamagui v2 RC GetProps bug — cast for JSX usage
-const TooltipRoot = TamaguiTooltip as ComponentType<Record<string, unknown>>
-const TooltipTrigger = TamaguiTooltip.Trigger as ComponentType<Record<string, unknown>>
-const TooltipContent = TamaguiTooltip.Content as ComponentType<Record<string, unknown>>
-const TooltipArrow = TamaguiTooltip.Arrow as ComponentType<Record<string, unknown>>
-const ContentText = TooltipText as ComponentType<Record<string, unknown>>
+const TooltipRoot = TamaguiTooltip as AnyFC
+const TooltipTrigger = TamaguiTooltip.Trigger as AnyFC
+const TooltipContent = TamaguiTooltip.Content as AnyFC
+const TooltipArrow = TamaguiTooltip.Arrow as AnyFC
+const ContentText = TooltipText as AnyFC
+const TooltipGroupJsx = TooltipGroup as AnyFC
 
-const SIDE_MAP = {
-  top: 'top' as const,
-  bottom: 'bottom' as const,
+export interface TooltipProviderProps {
+  children: React.ReactNode
+  delay?: number
+}
+
+export function TooltipProvider({ children, delay = 200 }: TooltipProviderProps) {
+  return <TooltipGroupJsx delay={delay}>{children}</TooltipGroupJsx>
 }
 
 export interface TooltipProps {
   children: React.ReactNode
   content: string
-  side?: 'top' | 'bottom'
+  side?: 'top' | 'right' | 'bottom' | 'left'
+  sideOffset?: number
+  align?: 'start' | 'center' | 'end'
   delay?: number
 }
 
-export function Tooltip({ children, content, side = 'top', delay = 200 }: TooltipProps) {
+export function Tooltip({ children, content, side = 'top', sideOffset = 4, align = 'center', delay = 200 }: TooltipProps) {
   return (
-    <TooltipRoot delay={delay} placement={SIDE_MAP[side]}>
+    <TooltipRoot delay={delay} placement={side}>
       <TooltipTrigger asChild>
         {children}
       </TooltipTrigger>
@@ -44,6 +53,8 @@ export function Tooltip({ children, content, side = 'top', delay = 200 }: Toolti
         enterStyle={{ opacity: 0, scale: 0.95 }}
         exitStyle={{ opacity: 0, scale: 0.95 }}
         animation="instant"
+        sideOffset={sideOffset}
+        alignOffset={align === 'center' ? 0 : undefined}
       >
         <TooltipArrow />
         <ContentText>{content}</ContentText>

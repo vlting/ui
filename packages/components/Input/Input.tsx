@@ -5,7 +5,6 @@ import { Text, View, XStack, YStack, styled } from 'tamagui'
 
 // Extend Tamagui Input with our error variant.
 // Tamagui Input already renders <input> with proper focus/hover/theme styles.
-// @ts-expect-error Tamagui v2 RC
 const StyledInput = styled(TamaguiInput, {
   variants: {
     error: {
@@ -19,7 +18,6 @@ const StyledInput = styled(TamaguiInput, {
 // Cast for JSX — Tamagui v2 RC GetFinalProps bug
 const StyledInputJsx = StyledInput as ComponentType<Record<string, unknown>>
 
-// @ts-expect-error Tamagui v2 RC
 const StyledLabelText = styled(Text, {
   fontFamily: '$body',
   fontWeight: '$3',
@@ -39,7 +37,6 @@ const StyledLabelText = styled(Text, {
   },
 })
 
-// @ts-expect-error Tamagui v2 RC
 const InputHelper = styled(Text, {
   fontFamily: '$body',
   fontSize: '$2',
@@ -62,6 +59,7 @@ const SlotFrame = styled(View, {
   alignItems: 'center',
   justifyContent: 'center',
 })
+const SlotFrameJsx = SlotFrame as ComponentType<Record<string, unknown>>
 
 // Map named sizes to Tamagui size tokens
 const SIZE_TOKEN_MAP: Record<string, string> = {
@@ -72,6 +70,7 @@ const SIZE_TOKEN_MAP: Record<string, string> = {
 
 export interface InputProps {
   size?: 'sm' | 'md' | 'lg'
+  type?: 'text' | 'password' | 'email' | 'number' | 'search' | 'tel' | 'url' | 'date' | 'file'
   placeholder?: string
   value?: string
   defaultValue?: string
@@ -87,6 +86,7 @@ export interface InputProps {
 
 export function Input({
   size = 'md',
+  type = 'text',
   placeholder,
   value,
   defaultValue,
@@ -117,9 +117,10 @@ export function Input({
         // When slots are present, wrap input in an XStack for layout
         // @ts-expect-error Tamagui v2 RC
         <XStack alignItems="center" gap="$2">
-          {leadingSlot && <SlotFrame>{leadingSlot}</SlotFrame>}
+          {leadingSlot && <SlotFrameJsx>{leadingSlot}</SlotFrameJsx>}
           <StyledInputJsx
             id={inputId}
+            type={type}
             placeholder={placeholder}
             value={value}
             defaultValue={defaultValue}
@@ -132,7 +133,7 @@ export function Input({
             aria-label={!label ? placeholder : undefined}
             flex={1}
           />
-          {trailingSlot && <SlotFrame>{trailingSlot}</SlotFrame>}
+          {trailingSlot && <SlotFrameJsx>{trailingSlot}</SlotFrameJsx>}
         </XStack>
       ) : (
         <StyledInputJsx

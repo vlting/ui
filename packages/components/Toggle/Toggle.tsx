@@ -1,7 +1,7 @@
-import React, { createContext, useContext } from 'react'
+import React from 'react'
 import type { ComponentType } from 'react'
 import { ToggleGroup as TamaguiToggleGroup } from '@tamagui/toggle-group'
-import { XStack, styled, withStaticProperties } from 'tamagui'
+import { withStaticProperties } from 'tamagui'
 import { styledHtml } from '@tamagui/web'
 
 // --- Standalone Toggle ---
@@ -43,6 +43,16 @@ const ToggleFrame = styledHtml('button', {
   },
 
   variants: {
+    variant: {
+      default: {
+        borderWidth: 0,
+        borderColor: 'transparent',
+      },
+      outline: {
+        borderWidth: 1,
+        borderColor: '$borderColor',
+      },
+    },
     size: {
       sm: { height: '$3.5', paddingHorizontal: '$2' },
       md: { height: '$4', paddingHorizontal: '$3' },
@@ -64,6 +74,7 @@ const ToggleFrame = styledHtml('button', {
   } as const,
 
   defaultVariants: {
+    variant: 'default',
     size: 'md',
     pressed: false,
   },
@@ -77,6 +88,7 @@ export interface ToggleProps {
   pressed?: boolean
   defaultPressed?: boolean
   onPressedChange?: (pressed: boolean) => void
+  variant?: 'default' | 'outline'
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
 }
@@ -86,6 +98,7 @@ export function Toggle({
   pressed: controlledPressed,
   defaultPressed = false,
   onPressedChange,
+  variant = 'default',
   size = 'md',
   disabled,
 }: ToggleProps) {
@@ -106,6 +119,7 @@ export function Toggle({
       aria-disabled={disabled || undefined}
       disabled={disabled}
       onClick={handlePress}
+      variant={variant}
       size={size}
       pressed={isPressed}
     >
@@ -122,8 +136,8 @@ export function Toggle({
 // - Single/multiple selection modes
 
 // Cast for JSX usage
-const TamaguiToggleGroupJsx = TamaguiToggleGroup as ComponentType<Record<string, unknown>>
-const TamaguiToggleGroupItemJsx = TamaguiToggleGroup.Item as ComponentType<Record<string, unknown>>
+const TamaguiToggleGroupJsx = TamaguiToggleGroup as unknown as ComponentType<Record<string, unknown>>
+const TamaguiToggleGroupItemJsx = TamaguiToggleGroup.Item as unknown as ComponentType<Record<string, unknown>>
 
 // Map named sizes to Tamagui tokens
 const SIZE_TOKEN_MAP: Record<string, string> = {

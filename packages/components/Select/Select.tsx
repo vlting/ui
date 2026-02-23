@@ -1,8 +1,9 @@
 import React from 'react'
 import type { ComponentType } from 'react'
-import { styled, Text } from 'tamagui'
+import { Text, View, styled, withStaticProperties } from 'tamagui'
 import { Select as TamaguiSelect } from '@tamagui/select'
-import { withStaticProperties } from 'tamagui'
+
+type AnyFC = ComponentType<Record<string, unknown>>
 
 // @ts-expect-error Tamagui v2 RC
 const ChevronIcon = styled(Text, {
@@ -11,14 +12,35 @@ const ChevronIcon = styled(Text, {
 })
 
 // Tamagui v2 RC GetProps bug — cast for JSX usage
-const SelectRoot = TamaguiSelect as ComponentType<Record<string, unknown>>
-const SelectTrigger = TamaguiSelect.Trigger as ComponentType<Record<string, unknown>>
-const SelectValue = TamaguiSelect.Value as ComponentType<Record<string, unknown>>
-const SelectContent = TamaguiSelect.Content as ComponentType<Record<string, unknown>>
-const SelectViewport = TamaguiSelect.Viewport as ComponentType<Record<string, unknown>>
-const SelectTamaguiItem = TamaguiSelect.Item as unknown as ComponentType<Record<string, unknown>>
-const SelectItemText = TamaguiSelect.ItemText as ComponentType<Record<string, unknown>>
-const ChevronText = ChevronIcon as ComponentType<Record<string, unknown>>
+const SelectRoot = TamaguiSelect as AnyFC
+const SelectTrigger = TamaguiSelect.Trigger as AnyFC
+const SelectValueJsx = TamaguiSelect.Value as AnyFC
+const SelectContent = TamaguiSelect.Content as AnyFC
+const SelectViewport = TamaguiSelect.Viewport as AnyFC
+const SelectTamaguiItem = TamaguiSelect.Item as unknown as AnyFC
+const SelectItemText = TamaguiSelect.ItemText as AnyFC
+const ChevronText = ChevronIcon as AnyFC
+const SelectGroupJsx = TamaguiSelect.Group as AnyFC
+
+// @ts-expect-error Tamagui v2 RC
+const SelectLabelText = styled(Text, {
+  fontFamily: '$body',
+  fontSize: '$2',
+  fontWeight: '$3',
+  color: '$colorSubtitle',
+  paddingHorizontal: '$3',
+  paddingVertical: '$1',
+})
+
+// @ts-expect-error Tamagui v2 RC
+const SelectSeparatorFrame = styled(View, {
+  height: 1,
+  backgroundColor: '$borderColor',
+  marginVertical: '$1',
+})
+
+const SelectLabelJsx = SelectLabelText as AnyFC
+const SelectSeparatorJsx = SelectSeparatorFrame as AnyFC
 
 const SIZE_MAP = { sm: '$3.5' as const, md: '$4' as const, lg: '$4.5' as const }
 
@@ -70,7 +92,7 @@ function SelectRootComponent({
         cursor={disabled ? 'not-allowed' : 'pointer'}
         opacity={disabled ? 0.5 : 1}
       >
-        <SelectValue placeholder={placeholder} />
+        <SelectValueJsx placeholder={placeholder} />
         <ChevronText>▾</ChevronText>
       </SelectTrigger>
 
@@ -105,6 +127,26 @@ function SelectItem({ value: itemValue, children, _index = 0 }: SelectItemProps)
   )
 }
 
+function SelectValue({ placeholder }: { placeholder?: string }) {
+  return <SelectValueJsx placeholder={placeholder} />
+}
+
+function SelectGroupComponent({ children }: { children: React.ReactNode }) {
+  return <SelectGroupJsx>{children}</SelectGroupJsx>
+}
+
+function SelectLabel({ children }: { children: React.ReactNode }) {
+  return <SelectLabelJsx>{children}</SelectLabelJsx>
+}
+
+function SelectSeparator() {
+  return <SelectSeparatorJsx />
+}
+
 export const Select = withStaticProperties(SelectRootComponent, {
   Item: SelectItem,
+  Value: SelectValue,
+  Group: SelectGroupComponent,
+  Label: SelectLabel,
+  Separator: SelectSeparator,
 })
