@@ -75,8 +75,8 @@ function Row(props: HtmlProps<'tr'>) {
   return <tr {...props} style={{ ...rowStyles, ...props.style }} />
 }
 
-function Head(props: HtmlProps<'th'>) {
-  return <th {...props} style={{ ...headStyles, ...props.style }} />
+function Head({ scope = 'col', ...props }: HtmlProps<'th'>) {
+  return <th scope={scope} {...props} style={{ ...headStyles, ...props.style }} />
 }
 
 function Cell(props: HtmlProps<'td'>) {
