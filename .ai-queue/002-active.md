@@ -1,0 +1,101 @@
+<!-- auto-queue -->
+# Fix Menu, Navigation, and Interactive Components at UI Lib Level
+
+Fix bugs and replace hardcoded values in menu/nav/interactive components. These are UI lib-level fixes.
+
+## 1. Menubar — Replace Hardcoded Shadow
+
+**File:** `packages/components/Menubar/Menubar.tsx`
+
+Line 137: `style={{ boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}`
+
+Replace with Tamagui shadow props: `shadowColor="$shadowMdColor"` / `shadowRadius` / `shadowOffset`, or apply the `$shadowMd` theme value via a style prop.
+
+The component itself is structurally correct (compound pattern: Root > Menu > Trigger + Content). The kitchen-sink demo misuses it — that's a separate task.
+
+## 2. NavigationMenu — Replace Hardcoded Shadow
+
+**File:** `packages/components/NavigationMenu/NavigationMenu.tsx`
+
+Line 131: same hardcoded `boxShadow` pattern.
+
+Replace with theme shadow tokens. Same approach as Menubar.
+
+The component is structurally correct. Demo misuse is a separate task.
+
+## 3. DropdownMenu — Replace Hardcoded Shadow
+
+**File:** `packages/components/DropdownMenu/DropdownMenu.tsx`
+
+Line 103: same hardcoded `boxShadow` pattern.
+
+Replace with theme shadow tokens.
+
+## 4. Sidebar — Replace Hardcoded Shadow + Verify Text Visibility
+
+**File:** `packages/components/Sidebar/Sidebar.tsx`
+
+Line 97: `boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'` in the floating variant.
+
+Replace with theme shadow token.
+
+Also verify that:
+- `MenuButton` (line 207) uses `color="$color"` — this should work. The "blank text" issue is likely a demo misuse (passing `label` prop instead of children), but confirm that `$color` has sufficient contrast on `$color1` background (line 83) and `$color2` active background (line 192).
+- If `$color1` is very close to `$color` in any theme, there could be a contrast issue. But this is more likely a demo problem.
+
+## 5. ScrollArea — Fix Height Propagation
+
+**File:** `packages/components/ScrollArea/ScrollArea.tsx`
+
+The `Viewport` (line 52-63) sets `height="100%"` and overflow via inline styles. The `Root` (line 33-49) uses a `styled(View, { overflow: 'hidden' })` frame.
+
+**Potential issue:** When `Root` receives a fixed height via `style={{ height: 200 }}`, the `height="100%"` on Viewport should fill it. But Tamagui's `height="100%"` might not propagate through the styled component correctly.
+
+**Fix approach:**
+- Ensure Root passes its height constraint to Viewport properly
+- The Root's `position: 'relative'` + `overflow: 'hidden'` should clip, while Viewport scrolls
+- If `height="100%"` doesn't work, use `style={{ height: '100%' }}` on the Viewport
+- Verify the component works with a fixed-height parent in the kitchen-sink demo
+
+Also audit for any hardcoded colors in the scrollbar CSS (lines 40-44). The CSS uses `var(--color6, rgba(0,0,0,0.3))` — the fallback is fine since it's only used when the CSS variable isn't available, but verify the CSS variables resolve correctly from Tamagui theme.
+
+## 6. Resizable — Fix Panel Index Bug
+
+**File:** `packages/components/Resizable/Resizable.tsx`
+
+**Bug:** Line 98: `let panelIndex = 0` is a module-level counter that increments in `useState(() => panelIndex++)` (line 107). This is a React anti-pattern:
+- On first render, panels get indices 0, 1, 2...
+- On hot reload or re-mount, the counter keeps incrementing (3, 4, 5...) but `sizes` array resets
+- Panel indices no longer match sizes array indices
+
+**Fix:** Replace the module-level counter with a context-based approach:
+1. Track panel registration in the `PanelGroup` component (which already has `registerPanel`)
+2. Use a ref-based counter in PanelGroup that resets per instance
+3. Each Panel gets its index from the parent's counter via context
+
+Also verify:
+- `width="100%"` and `height="100%"` on PanelGroup (lines 88-89) should fill the parent container
+- Panel content with `flex={1}` inside percentage-width panels should fill correctly
+
+## General: Replace All Hardcoded Values with Theme Tokens
+
+For ALL files in this segment, audit every style value:
+- Replace hardcoded `boxShadow` CSS strings with theme shadow tokens
+- Replace hardcoded `rgb(...)`, `rgba(...)`, hex colors with theme tokens
+- Replace hardcoded pixel sizes with tokens where appropriate (padding values like `8`, `12`, `16` are acceptable as they're layout-specific, but colors and shadows must be themed)
+
+## Scope
+- `packages/components/Menubar/Menubar.tsx`
+- `packages/components/NavigationMenu/NavigationMenu.tsx`
+- `packages/components/DropdownMenu/DropdownMenu.tsx`
+- `packages/components/Sidebar/Sidebar.tsx`
+- `packages/components/ScrollArea/ScrollArea.tsx`
+- `packages/components/Resizable/Resizable.tsx`
+
+## Acceptance Criteria
+- No hardcoded shadow or color values remain in any of these files
+- All shadows use theme tokens (`$shadowMd`, `$shadowSm`, etc.)
+- ScrollArea scrolls correctly when given a fixed-height parent
+- Resizable panels register correctly across re-mounts (no stale index bug)
+- Sidebar text is visible with proper contrast (using theme tokens)
+- TypeScript compiles cleanly
