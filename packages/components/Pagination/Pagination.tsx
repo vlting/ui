@@ -41,6 +41,9 @@ const PageButton = styled(XStack, {
       true: {
         backgroundColor: '$color10',
         borderColor: '$color10',
+        hoverStyle: {
+          backgroundColor: '$color11',
+        },
       },
     },
 
@@ -194,6 +197,11 @@ const EllipsisText = styled(Text, {
   },
 })
 
+const buttonReset: React.CSSProperties = {
+  all: 'unset',
+  display: 'inline-flex',
+}
+
 /**
  * Compute which page numbers to display, inserting null for ellipsis gaps.
  */
@@ -259,18 +267,18 @@ function Root({
   return (
     // @ts-expect-error Tamagui v2 RC
     <PaginationFrame role="navigation" aria-label="Pagination">
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <NavButton
-        isDisabled={currentPage <= 1}
-        size={size}
-        onPress={() => onPageChange(currentPage - 1)}
-        accessibilityRole="button"
+      <button
+        style={buttonReset}
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage <= 1}
         aria-label="Go to previous page"
-        tag="button"
       >
         {/* @ts-expect-error Tamagui v2 RC */}
-        <NavButtonText size={size}>Previous</NavButtonText>
-      </NavButton>
+        <NavButton isDisabled={currentPage <= 1} size={size}>
+          {/* @ts-expect-error Tamagui v2 RC */}
+          <NavButtonText size={size}>Previous</NavButtonText>
+        </NavButton>
+      </button>
 
       {pages.map((page, index) => {
         if (page === null) {
@@ -281,37 +289,36 @@ function Root({
 
         const isActive = page === currentPage
         return (
-          // @ts-expect-error Tamagui v2 RC
-          <PageButton
+          <button
             key={page}
-            active={isActive}
-            size={size}
-            onPress={() => onPageChange(page)}
-            accessibilityRole="button"
+            style={buttonReset}
+            onClick={() => onPageChange(page)}
             aria-label={`Page ${page}`}
             aria-current={isActive ? 'page' : undefined}
-            tag="button"
           >
             {/* @ts-expect-error Tamagui v2 RC */}
-            <PageButtonText active={isActive} size={size}>
-              {page}
-            </PageButtonText>
-          </PageButton>
+            <PageButton active={isActive} size={size}>
+              {/* @ts-expect-error Tamagui v2 RC */}
+              <PageButtonText active={isActive} size={size}>
+                {page}
+              </PageButtonText>
+            </PageButton>
+          </button>
         )
       })}
 
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <NavButton
-        isDisabled={currentPage >= totalPages}
-        size={size}
-        onPress={() => onPageChange(currentPage + 1)}
-        accessibilityRole="button"
+      <button
+        style={buttonReset}
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage >= totalPages}
         aria-label="Go to next page"
-        tag="button"
       >
         {/* @ts-expect-error Tamagui v2 RC */}
-        <NavButtonText size={size}>Next</NavButtonText>
-      </NavButton>
+        <NavButton isDisabled={currentPage >= totalPages} size={size}>
+          {/* @ts-expect-error Tamagui v2 RC */}
+          <NavButtonText size={size}>Next</NavButtonText>
+        </NavButton>
+      </button>
     </PaginationFrame>
   )
 }
@@ -328,20 +335,20 @@ function Previous({
   children?: React.ReactNode
 }) {
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <NavButton
-      isDisabled={disabled}
-      size={size}
-      onPress={onPress}
-      accessibilityRole="button"
+    <button
+      style={buttonReset}
+      onClick={onPress}
+      disabled={disabled}
       aria-label="Go to previous page"
-      tag="button"
     >
-      {children ?? (
-        // @ts-expect-error Tamagui v2 RC
-        <NavButtonText size={size}>Previous</NavButtonText>
-      )}
-    </NavButton>
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <NavButton isDisabled={disabled} size={size}>
+        {children ?? (
+          // @ts-expect-error Tamagui v2 RC
+          <NavButtonText size={size}>Previous</NavButtonText>
+        )}
+      </NavButton>
+    </button>
   )
 }
 
@@ -357,20 +364,20 @@ function Next({
   children?: React.ReactNode
 }) {
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <NavButton
-      isDisabled={disabled}
-      size={size}
-      onPress={onPress}
-      accessibilityRole="button"
+    <button
+      style={buttonReset}
+      onClick={onPress}
+      disabled={disabled}
       aria-label="Go to next page"
-      tag="button"
     >
-      {children ?? (
-        // @ts-expect-error Tamagui v2 RC
-        <NavButtonText size={size}>Next</NavButtonText>
-      )}
-    </NavButton>
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <NavButton isDisabled={disabled} size={size}>
+        {children ?? (
+          // @ts-expect-error Tamagui v2 RC
+          <NavButtonText size={size}>Next</NavButtonText>
+        )}
+      </NavButton>
+    </button>
   )
 }
 
@@ -386,21 +393,20 @@ function Item({
   size?: 'sm' | 'md' | 'lg'
 }) {
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <PageButton
-      active={active}
-      size={size}
-      onPress={onPress}
-      accessibilityRole="button"
+    <button
+      style={buttonReset}
+      onClick={onPress}
       aria-label={`Page ${page}`}
       aria-current={active ? 'page' : undefined}
-      tag="button"
     >
       {/* @ts-expect-error Tamagui v2 RC */}
-      <PageButtonText active={active} size={size}>
-        {page}
-      </PageButtonText>
-    </PageButton>
+      <PageButton active={active} size={size}>
+        {/* @ts-expect-error Tamagui v2 RC */}
+        <PageButtonText active={active} size={size}>
+          {page}
+        </PageButtonText>
+      </PageButton>
+    </button>
   )
 }
 
