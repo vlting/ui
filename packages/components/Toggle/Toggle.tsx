@@ -1,8 +1,21 @@
 import React, { createContext, useContext } from 'react'
+import type { ComponentType } from 'react'
 import { XStack, styled, withStaticProperties } from 'tamagui'
+import { styledHtml } from '@tamagui/web'
 
-// @ts-expect-error Tamagui v2 RC
-const ToggleFrame = styled(XStack, {
+const ToggleFrame = styledHtml('button', {
+  // XStack defaults (styledHtml doesn't inherit these):
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  // Browser button resets:
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  // Original ToggleFrame styles:
   alignItems: 'center',
   justifyContent: 'center',
   borderWidth: 1,
@@ -52,7 +65,10 @@ const ToggleFrame = styled(XStack, {
     size: 'md',
     pressed: false,
   },
-})
+} as any)
+
+// Tamagui v2 RC GetProps bug — cast for JSX usage
+const ToggleButton = ToggleFrame as ComponentType<Record<string, unknown>>
 
 export interface ToggleProps {
   children?: React.ReactNode
@@ -82,29 +98,17 @@ export function Toggle({
   }
 
   return (
-    <button
+    <ToggleButton
       type="button"
       aria-pressed={isPressed}
       aria-disabled={disabled || undefined}
       disabled={disabled}
       onClick={handlePress}
-      style={{
-        background: 'none',
-        border: 'none',
-        padding: 0,
-        display: 'inline-flex',
-        cursor: disabled ? 'not-allowed' : 'pointer',
-      }}
+      size={size}
+      pressed={isPressed}
     >
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <ToggleFrame
-        size={size}
-        pressed={isPressed}
-        disabled={disabled}
-      >
-        {children}
-      </ToggleFrame>
-    </button>
+      {children}
+    </ToggleButton>
   )
 }
 
@@ -133,8 +137,19 @@ const ToggleGroupFrame = styled(XStack, {
   overflow: 'hidden',
 })
 
-// @ts-expect-error Tamagui v2 RC
-const ToggleGroupItemFrame = styled(XStack, {
+const ToggleGroupItemFrame = styledHtml('button', {
+  // XStack defaults:
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  // Browser button resets:
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  // Original ToggleGroupItemFrame styles:
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
@@ -179,7 +194,10 @@ const ToggleGroupItemFrame = styled(XStack, {
     size: 'md',
     pressed: false,
   },
-})
+} as any)
+
+// Tamagui v2 RC GetProps bug — cast for JSX usage
+const ToggleGroupItemButton = ToggleGroupItemFrame as ComponentType<Record<string, unknown>>
 
 export interface ToggleGroupProps {
   children?: React.ReactNode
@@ -249,29 +267,17 @@ function ToggleGroupItem({
   const isDisabled = ctx.disabled || itemDisabled
 
   return (
-    <button
+    <ToggleGroupItemButton
       type="button"
       aria-pressed={isPressed}
       aria-disabled={isDisabled || undefined}
       disabled={isDisabled}
       onClick={() => ctx.onItemToggle(itemValue)}
-      style={{
-        background: 'none',
-        border: 'none',
-        padding: 0,
-        display: 'inline-flex',
-        cursor: isDisabled ? 'not-allowed' : 'pointer',
-      }}
+      size={ctx.size}
+      pressed={isPressed}
     >
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <ToggleGroupItemFrame
-        size={ctx.size}
-        pressed={isPressed}
-        disabled={isDisabled}
-      >
-        {children}
-      </ToggleGroupItemFrame>
-    </button>
+      {children}
+    </ToggleGroupItemButton>
   )
 }
 
