@@ -5,17 +5,21 @@ import type { GetProps } from 'tamagui'
 export const Separator = styled(View, {
   backgroundColor: '$borderColor',
   flexShrink: 0,
-  accessibilityRole: 'separator',
+  role: 'separator',
 
   variants: {
     orientation: {
       horizontal: {
         height: 1,
         width: '100%',
+        // @ts-expect-error web-only ARIA attribute
+        'aria-orientation': 'horizontal',
       },
       vertical: {
         width: 1,
         height: '100%',
+        // @ts-expect-error web-only ARIA attribute
+        'aria-orientation': 'vertical',
       },
     },
     decorative: {

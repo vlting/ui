@@ -9,6 +9,8 @@ export const Skeleton = styled(View, {
   animation: 'lazy',
   opacity: 0.5,
   enterStyle: { opacity: 0.3 },
+  // @ts-expect-error web-only ARIA attribute
+  'aria-hidden': true,
 
   variants: {
     circle: {

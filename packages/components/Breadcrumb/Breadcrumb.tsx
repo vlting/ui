@@ -23,6 +23,12 @@ const BreadcrumbLink = styled(Text, {
   cursor: 'pointer',
   textDecorationLine: 'none',
   hoverStyle: { color: '$color', textDecorationLine: 'underline' },
+  focusStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
 })
 
 // @ts-expect-error Tamagui v2 RC

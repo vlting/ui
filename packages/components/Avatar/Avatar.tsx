@@ -62,6 +62,7 @@ export function Avatar({ src, alt, fallback, size = 'md' }: AvatarProps) {
     <AvatarFrame
       size={size}
       accessibilityRole="image"
+      role="img"
       aria-label={alt || fallback || 'avatar'}
     >
       {showImage ? (

@@ -50,7 +50,7 @@ export interface AlertProps {
 function Root({ children, variant = 'default' }: AlertProps) {
   return (
     // @ts-expect-error Tamagui v2 RC
-    <AlertFrame variant={variant} role="alert">
+    <AlertFrame variant={variant} role={variant === 'destructive' ? 'alert' : 'status'}>
       {/* @ts-expect-error Tamagui v2 RC */}
       <YStack flex={1} gap="$1">
         {children}

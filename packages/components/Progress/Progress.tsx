@@ -32,9 +32,10 @@ export interface ProgressProps {
   value?: number
   max?: number
   size?: 'sm' | 'md' | 'lg'
+  'aria-label'?: string
 }
 
-export function Progress({ value = 0, max = 100, size = 'md' }: ProgressProps) {
+export function Progress({ value = 0, max = 100, size = 'md', 'aria-label': ariaLabel }: ProgressProps) {
   const percentage = Math.min(Math.max((value / max) * 100, 0), 100)
 
   return (
@@ -45,6 +46,8 @@ export function Progress({ value = 0, max = 100, size = 'md' }: ProgressProps) {
       aria-valuenow={value}
       aria-valuemin={0}
       aria-valuemax={max}
+      aria-label={ariaLabel}
+      aria-valuetext={`${Math.round(percentage)}% complete`}
     >
       {/* @ts-expect-error Tamagui v2 RC */}
       <ProgressIndicator width={`${percentage}%`} />

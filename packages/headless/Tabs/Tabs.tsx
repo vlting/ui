@@ -176,6 +176,8 @@ function TabContent({ children, value: tabValue, ...props }: TabsContentProps) {
 // Export
 // ---------------------------------------------------------------------------
 
+export { useTabsContext }
+
 export const Tabs = {
   Root,
   List,

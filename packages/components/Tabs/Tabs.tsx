@@ -1,10 +1,10 @@
+import React from 'react'
 import { Text, View, XStack, styled } from 'tamagui'
-import { Tabs as HeadlessTabs } from '../../headless/Tabs'
+import { Tabs as HeadlessTabs, useTabsContext } from '../../headless/Tabs'
 import type {
   TabsContentProps,
   TabsListProps,
   TabsRootProps,
-  TabsTriggerProps,
 } from '../../headless/Tabs'
 
 // @ts-expect-error Tamagui v2 RC
@@ -23,12 +23,22 @@ const StyledList = styled(XStack, {
 })
 
 // @ts-expect-error Tamagui v2 RC
-const _StyledTrigger = styled(View, {
+const StyledTriggerFrame = styled(XStack, {
+  tag: 'button',
   paddingHorizontal: '$3',
   paddingVertical: '$2',
   cursor: 'pointer',
   borderBottomWidth: 2,
   borderBottomColor: 'transparent',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: 'transparent',
+  borderWidth: 0,
+  borderTopWidth: 0,
+  borderLeftWidth: 0,
+  borderRightWidth: 0,
+  // @ts-expect-error web-only CSS property
+  appearance: 'none',
   hoverStyle: { backgroundColor: '$backgroundHover' },
 
   focusStyle: {
@@ -88,16 +98,42 @@ function List({ children, ...props }: TabsListProps & { size?: 'sm' | 'md' | 'lg
   )
 }
 
-interface StyledTabsTriggerProps extends Omit<TabsTriggerProps, 'className'> {
+interface StyledTabsTriggerProps {
+  children: React.ReactNode
+  value: string
+  disabled?: boolean
   size?: 'sm' | 'md' | 'lg'
 }
 
-function Trigger({ children, value, disabled }: StyledTabsTriggerProps) {
+function Trigger({ children, value: tabValue, disabled, size = 'md' }: StyledTabsTriggerProps) {
+  const { value, onValueChange, registerTab } = useTabsContext()
+  const isSelected = value === tabValue
+
+  React.useEffect(() => {
+    registerTab(tabValue)
+  }, [tabValue, registerTab])
+
   return (
-    <HeadlessTabs.Trigger value={value} disabled={disabled}>
-      {/* Access data-state from parent to style */}
-      {children}
-    </HeadlessTabs.Trigger>
+    // @ts-expect-error Tamagui v2 RC
+    <StyledTriggerFrame
+      active={isSelected}
+      size={size}
+      disabled={disabled}
+      role="tab"
+      aria-selected={isSelected}
+      aria-controls={`tabpanel-${tabValue}`}
+      id={`tab-${tabValue}`}
+      tabIndex={isSelected ? 0 : -1}
+      data-state={isSelected ? 'active' : 'inactive'}
+      onPress={() => {
+        if (!disabled) onValueChange(tabValue)
+      }}
+    >
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <_StyledTriggerText active={isSelected} size={size}>
+        {children}
+      </_StyledTriggerText>
+    </StyledTriggerFrame>
   )
 }
 
