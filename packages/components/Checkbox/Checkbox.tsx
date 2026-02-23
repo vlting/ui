@@ -1,6 +1,6 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import type { ComponentType } from 'react'
-import { Text, XStack, styled } from 'tamagui'
+import { Text, styled } from 'tamagui'
 import { Checkbox as TamaguiCheckbox } from '@tamagui/checkbox'
 
 // @ts-expect-error Tamagui v2 RC
@@ -41,17 +41,18 @@ function Root({
   name,
   value,
 }: CheckboxRootProps) {
-  const checkboxRef = useRef<HTMLButtonElement>(null)
-
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <XStack
-      alignItems="center"
-      gap="$2"
-      opacity={disabled ? 0.5 : 1}
+    <label
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.5 : 1,
+        userSelect: 'none',
+      }}
     >
       <CheckboxButton
-        ref={checkboxRef}
         checked={checked}
         defaultChecked={defaultChecked}
         onCheckedChange={onCheckedChange}
@@ -64,20 +65,19 @@ function Root({
         borderWidth={1}
         borderColor="$borderColor"
         backgroundColor="transparent"
+        focusVisibleStyle={{
+          outlineWidth: 2,
+          outlineOffset: 1,
+          outlineColor: '$color10',
+          outlineStyle: 'solid',
+        }}
       >
         <CheckboxIndicator>
           <CheckIconText>✓</CheckIconText>
         </CheckboxIndicator>
       </CheckboxButton>
-      {children && (
-        <span
-          onClick={() => !disabled && checkboxRef.current?.click()}
-          style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}
-        >
-          {children}
-        </span>
-      )}
-    </XStack>
+      {children}
+    </label>
   )
 }
 

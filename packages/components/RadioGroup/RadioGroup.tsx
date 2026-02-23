@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import type { ComponentType } from 'react'
 import { XStack, YStack } from 'tamagui'
 import { RadioGroup as TamaguiRadioGroup } from '@tamagui/radio-group'
@@ -19,6 +19,7 @@ export interface RadioGroupRootProps {
   name?: string
   size?: 'sm' | 'md' | 'lg'
   orientation?: 'horizontal' | 'vertical'
+  'aria-label'?: string
 }
 
 const RadioGroupSizeContext = React.createContext<'sm' | 'md' | 'lg'>('md')
@@ -32,6 +33,7 @@ function Root({
   name,
   size = 'md',
   orientation = 'vertical',
+  'aria-label': ariaLabel,
 }: RadioGroupRootProps) {
   const Container = orientation === 'horizontal' ? XStack : YStack
 
@@ -44,6 +46,7 @@ function Root({
         disabled={disabled}
         name={name}
         orientation={orientation}
+        aria-label={ariaLabel}
       >
         {/* @ts-expect-error Tamagui v2 RC */}
         <Container gap="$2">
@@ -66,13 +69,18 @@ function Item({
   children,
 }: RadioGroupItemProps) {
   const size = React.useContext(RadioGroupSizeContext)
-  const itemRef = useRef<HTMLButtonElement>(null)
 
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <XStack alignItems="center" gap="$2">
+    <label
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        cursor: itemDisabled ? 'not-allowed' : 'pointer',
+        userSelect: 'none',
+      }}
+    >
       <RadioGroupItem
-        ref={itemRef}
         value={itemValue}
         disabled={itemDisabled}
         size={SIZE_MAP[size]}
@@ -80,21 +88,20 @@ function Item({
         borderColor="$borderColor"
         borderRadius={1000}
         backgroundColor="transparent"
+        focusVisibleStyle={{
+          outlineWidth: 2,
+          outlineOffset: 1,
+          outlineColor: '$color10',
+          outlineStyle: 'solid',
+        }}
       >
         <RadioGroupIndicator
           backgroundColor="$color10"
           borderRadius={1000}
         />
       </RadioGroupItem>
-      {children && (
-        <span
-          onClick={() => !itemDisabled && itemRef.current?.click()}
-          style={{ cursor: itemDisabled ? 'not-allowed' : 'pointer' }}
-        >
-          {children}
-        </span>
-      )}
-    </XStack>
+      {children}
+    </label>
   )
 }
 
