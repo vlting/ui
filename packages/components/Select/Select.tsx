@@ -3,7 +3,6 @@ import { Text, View, XStack, YStack, styled, withStaticProperties } from 'tamagu
 
 // @ts-expect-error Tamagui v2 RC
 const SelectTrigger = styled(XStack, {
-  tag: 'button',
   alignItems: 'center',
   justifyContent: 'space-between',
   borderWidth: 1,
@@ -13,10 +12,6 @@ const SelectTrigger = styled(XStack, {
   cursor: 'pointer',
   gap: '$2',
 
-  // Reset native button defaults
-  // @ts-expect-error web-only CSS property
-  appearance: 'none',
-
   hoverStyle: {
     borderColor: '$borderColorHover',
   },
@@ -25,9 +20,10 @@ const SelectTrigger = styled(XStack, {
     backgroundColor: '$backgroundPress',
   },
 
-  focusStyle: {
+  focusWithinStyle: {
+    borderColor: '$borderColorFocus',
     outlineWidth: 2,
-    outlineOffset: 2,
+    outlineOffset: 0,
     outlineColor: '$outlineColor',
     outlineStyle: 'solid',
   },
@@ -273,34 +269,47 @@ function SelectRoot({
     >
       {/* @ts-expect-error Tamagui v2 RC */}
       <View ref={containerRef} position="relative">
-        {/* @ts-expect-error Tamagui v2 RC */}
-        <SelectTrigger
-          size={size}
-          disabled={disabled}
-          onPress={() => !disabled && setOpen(!open)}
-          onKeyDown={handleKeyDown}
+        <button
+          type="button"
           role="combobox"
           aria-expanded={open}
-          aria-disabled={disabled || undefined}
           aria-haspopup="listbox"
+          aria-disabled={disabled || undefined}
+          disabled={disabled}
+          onClick={() => !disabled && setOpen(!open)}
+          onKeyDown={handleKeyDown}
+          style={{
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            display: 'flex',
+            width: '100%',
+            cursor: disabled ? 'not-allowed' : 'pointer',
+          }}
         >
           {/* @ts-expect-error Tamagui v2 RC */}
-          <SelectValueText size={size} placeholder={!displayLabel}>
-            {displayLabel || placeholder}
-          </SelectValueText>
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+          <SelectTrigger
+            size={size}
+            disabled={disabled}
           >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </SelectTrigger>
+            {/* @ts-expect-error Tamagui v2 RC */}
+            <SelectValueText size={size} placeholder={!displayLabel}>
+              {displayLabel || placeholder}
+            </SelectValueText>
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </SelectTrigger>
+        </button>
         {open && (
           // @ts-expect-error Tamagui v2 RC
           <SelectContent role="listbox">{children}</SelectContent>
