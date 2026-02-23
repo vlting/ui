@@ -54,6 +54,7 @@ export interface BrandDefinition {
   borders?: BorderConfig
   outline?: OutlineConfig
   shadows?: { light?: ShadowScale; dark?: ShadowScale }
+  overlay?: { light?: string; dark?: string }
   fonts?: FontOverrides
   typography?: TypographyConfig
   animations?: AnimationConfig
@@ -261,7 +262,7 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
     }
   }
 
-  const themes = buildThemes(palettes, brand.shadows, outlineTokens)
+  const themes = buildThemes(palettes, brand.shadows, outlineTokens, brand.overlay)
 
   const dur = brand.animations?.durations
   const eas = brand.animations?.easings

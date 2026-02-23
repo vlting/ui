@@ -160,6 +160,12 @@ export const poshBrand: BrandDefinition = {
     offset: 1,
   },
 
+  // Deeper overlay — dramatic, premium feel
+  overlay: {
+    light: 'rgba(0,0,0,0.6)',
+    dark: 'rgba(0,0,0,0.7)',
+  },
+
   // Soft, diffused shadows (large blur, low opacity)
   shadows: {
     light: {

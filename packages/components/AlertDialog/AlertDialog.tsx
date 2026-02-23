@@ -62,7 +62,7 @@ function Overlay({ children }: { children?: React.ReactNode }) {
   return (
     <AlertPortal>
       <AlertOverlay
-        backgroundColor="rgba(0,0,0,0.5)"
+        backgroundColor="$overlayBackground"
         animation="medium"
         opacity={1}
         enterStyle={{ opacity: 0 }}
@@ -96,8 +96,9 @@ function Content({ children }: { children: React.ReactNode }) {
       enterStyle={{ opacity: 0, scale: 0.95 }}
       exitStyle={{ opacity: 0, scale: 0.95 }}
       zIndex={51}
-      elevation={0}
-      shadowColor="transparent"
+      shadowColor="$shadowXlColor"
+      shadowRadius={32}
+      shadowOffset={{ width: 0, height: 16 }}
     >
       {children}
     </AlertContent>
