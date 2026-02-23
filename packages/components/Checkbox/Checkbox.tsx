@@ -15,6 +15,17 @@ const StyledRoot = styled(View, {
   backgroundColor: 'transparent',
   cursor: 'pointer',
 
+  hoverStyle: {
+    borderColor: '$borderColorHover',
+  },
+
+  focusWithinStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+
   variants: {
     checked: {
       true: {

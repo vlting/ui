@@ -11,6 +11,17 @@ const SwitchTrack = styled(XStack, {
   cursor: 'pointer',
   animation: 'fast',
 
+  hoverStyle: {
+    backgroundColor: '$color6',
+  },
+
+  focusWithinStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+
   variants: {
     checked: {
       true: {
@@ -97,7 +108,13 @@ export function Switch({
         aria-checked={!!checked}
         disabled={disabled}
         onClick={handlePress}
-        style={{ all: 'unset', display: 'inline-flex' }}
+        style={{
+          background: 'none',
+          border: 'none',
+          padding: 0,
+          display: 'inline-flex',
+          cursor: disabled ? 'not-allowed' : 'pointer',
+        }}
       >
         {/* @ts-expect-error Tamagui v2 RC */}
         <SwitchTrack checked={!!checked} disabled={disabled} size={size}>

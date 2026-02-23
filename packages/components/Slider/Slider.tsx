@@ -1,6 +1,8 @@
 import React, { useCallback, useRef } from 'react'
 import { View, XStack, styled } from 'tamagui'
 
+const BIG_STEP_FACTOR = 10
+
 // @ts-expect-error Tamagui v2 RC
 const SliderTrack = styled(XStack, {
   backgroundColor: '$color4',
@@ -82,6 +84,7 @@ export interface SliderProps {
   onValueChange?: (value: number) => void
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
+  'aria-label'?: string
 }
 
 export function Slider({
@@ -93,6 +96,7 @@ export function Slider({
   onValueChange,
   size = 'md',
   disabled,
+  'aria-label': ariaLabel,
 }: SliderProps) {
   const [internalValue, setInternalValue] = React.useState(defaultValue)
   const value = controlledValue ?? internalValue
@@ -117,6 +121,8 @@ export function Slider({
     [disabled, min, max, step, onValueChange],
   )
 
+  const clamp = (v: number) => Math.max(min, Math.min(max, v))
+
   const handlePointerDown = (e: React.PointerEvent) => {
     if (disabled) return
     updateValue(e.clientX)
@@ -129,6 +135,39 @@ export function Slider({
     document.addEventListener('pointerup', handleUp)
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (disabled) return
+    let next: number | null = null
+    const bigStep = step * BIG_STEP_FACTOR
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowUp':
+        next = clamp(value + step)
+        break
+      case 'ArrowLeft':
+      case 'ArrowDown':
+        next = clamp(value - step)
+        break
+      case 'PageUp':
+        next = clamp(value + bigStep)
+        break
+      case 'PageDown':
+        next = clamp(value - bigStep)
+        break
+      case 'Home':
+        next = min
+        break
+      case 'End':
+        next = max
+        break
+      default:
+        return
+    }
+    e.preventDefault()
+    setInternalValue(next)
+    onValueChange?.(next)
+  }
+
   return (
     // @ts-expect-error Tamagui v2 RC
     <SliderTrack
@@ -136,16 +175,23 @@ export function Slider({
       size={size}
       disabled={disabled}
       onPointerDown={handlePointerDown}
-      role="slider"
-      aria-valuenow={value}
-      aria-valuemin={min}
-      aria-valuemax={max}
-      aria-disabled={disabled || undefined}
     >
       {/* @ts-expect-error Tamagui v2 RC */}
       <SliderRange width={`${percentage}%`} />
       {/* @ts-expect-error Tamagui v2 RC */}
-      <SliderThumb size={size} left={`${percentage}%`} marginLeft={-(thumbSize / 2)} />
+      <SliderThumb
+        size={size}
+        left={`${percentage}%`}
+        marginLeft={-(thumbSize / 2)}
+        tabIndex={disabled ? -1 : 0}
+        role="slider"
+        aria-valuenow={value}
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-disabled={disabled || undefined}
+        aria-label={ariaLabel}
+        onKeyDown={handleKeyDown}
+      />
     </SliderTrack>
   )
 }

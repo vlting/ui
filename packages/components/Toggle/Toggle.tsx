@@ -3,6 +3,7 @@ import { XStack, styled, withStaticProperties } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const ToggleFrame = styled(XStack, {
+  tag: 'button',
   alignItems: 'center',
   justifyContent: 'center',
   borderWidth: 1,
@@ -11,6 +12,8 @@ const ToggleFrame = styled(XStack, {
   cursor: 'pointer',
   animation: 'fast',
   backgroundColor: 'transparent',
+  // @ts-expect-error web-only CSS property
+  appearance: 'none',
 
   hoverStyle: {
     backgroundColor: '$backgroundHover',
@@ -124,6 +127,7 @@ const ToggleGroupFrame = styled(XStack, {
 
 // @ts-expect-error Tamagui v2 RC
 const ToggleGroupItemFrame = styled(XStack, {
+  tag: 'button',
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
@@ -132,6 +136,15 @@ const ToggleGroupItemFrame = styled(XStack, {
   borderWidth: 0,
   borderRightWidth: 1,
   borderColor: '$borderColor',
+  // @ts-expect-error web-only CSS property
+  appearance: 'none',
+
+  focusStyle: {
+    outlineWidth: 2,
+    outlineOffset: -2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
 
   hoverStyle: {
     backgroundColor: '$backgroundHover',
