@@ -85,12 +85,12 @@ function Root({
         borderLeftWidth={side === 'right' && variant === 'sidebar' ? 1 : 0}
         borderColor="$borderColor"
         overflow="hidden"
+        borderRadius={variant === 'floating' ? '$5' : undefined}
         style={{
           width: collapsed ? collapsedWidth : open ? width : 0,
           transition: 'width 200ms ease-in-out',
           ...(variant === 'floating'
             ? {
-                borderRadius: 10,
                 margin: 8,
                 borderWidth: 1,
                 borderColor: 'var(--borderColor)',

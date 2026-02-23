@@ -22,7 +22,7 @@ const KbdFrame = styledHtml('kbd', {
         paddingRight: 4,
         paddingTop: 1,
         paddingBottom: 1,
-        borderRadius: 4,
+        borderRadius: '$2',
         minWidth: 20,
       },
       md: {
@@ -32,7 +32,7 @@ const KbdFrame = styledHtml('kbd', {
         paddingRight: 6,
         paddingTop: 2,
         paddingBottom: 2,
-        borderRadius: 5,
+        borderRadius: '$2',
         minWidth: 24,
       },
     },

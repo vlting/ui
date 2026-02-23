@@ -145,7 +145,7 @@ function Slot({ index }: InputOTPSlotProps) {
       onPress={focus}
       style={
         isActive
-          ? { boxShadow: '0 0 0 2px var(--ring, rgba(0,0,0,0.1))' }
+          ? { boxShadow: '0 0 0 2px var(--outlineColor)' }
           : undefined
       }
     >

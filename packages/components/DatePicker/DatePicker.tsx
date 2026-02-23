@@ -149,7 +149,7 @@ const CalendarDropdown = styled(YStack, {
   padding: '$3',
   // @ts-expect-error web shadow
   style: {
-    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    boxShadow: 'var(--shadowMd)',
   },
 })
 
