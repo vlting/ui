@@ -2,11 +2,11 @@
 
 ## 1. Public API
 
-Compound component exported as a plain object `{ Root, List, Trigger, Content }`. Each sub-component wraps its corresponding headless primitive from `packages/headless/Tabs` with Tamagui styled visuals.
+Compound component exported as a plain object `{ Root, List, Trigger, Content }`. Built on `@tamagui/tabs` which provides roving focus, keyboard navigation, and ARIA semantics. Visual styling is applied via our custom wrapper functions.
 
 ### Tabs.Root
 
-Delegates entirely to `HeadlessTabs.Root`.
+Wraps `@tamagui/tabs` `Tabs` component with `activationMode="manual"`.
 
 | Name | Type | Required | Default | Description |
 |------|------|----------|---------|-------------|
@@ -14,25 +14,24 @@ Delegates entirely to `HeadlessTabs.Root`.
 | value | `string` | No | -- | Controlled selected tab value. |
 | defaultValue | `string` | No | -- | Uncontrolled initial selected tab value. |
 | onValueChange | `(value: string) => void` | No | -- | Callback when the selected tab changes. |
-| orientation | `'horizontal' \| 'vertical'` | No | `'horizontal'` | Tab navigation orientation. Affects keyboard navigation direction in the headless layer. |
+| orientation | `'horizontal' \| 'vertical'` | No | `'horizontal'` | Tab navigation orientation. Affects keyboard navigation direction. |
 
-Supports both controlled (`value` + `onValueChange`) and uncontrolled (`defaultValue`) patterns via `useControllableState` in the headless layer.
+Supports both controlled (`value` + `onValueChange`) and uncontrolled (`defaultValue`) patterns via Tamagui's `useControllableState`.
 
 ### Tabs.List
 
-Styled wrapper around `HeadlessTabs.List`. Wraps children in a `StyledList` (`styled(XStack)`).
+Wraps `@tamagui/tabs` `Tabs.List` with `unstyled` mode and custom border styling.
 
 | Name | Type | Required | Default | Description |
 |------|------|----------|---------|-------------|
 | children | `React.ReactNode` | Yes | -- | Tab trigger elements. |
-| size | `'sm' \| 'md' \| 'lg'` | No | -- | Size variant on `StyledList` (currently empty style objects -- reserved for future sizing). |
-| className | `string` | No | -- | Passed through to the headless List `div`. |
+| size | `'sm' \| 'md' \| 'lg'` | No | -- | Size variant (reserved for future sizing). |
 
-Base styles on `StyledList`: `borderBottomWidth: 1`, `borderBottomColor: '$borderColor'`, `gap: '$0'`.
+Base styles: `borderBottomWidth: 1`, `borderBottomColor: '$borderColor'`, `gap: '$0'`.
 
 ### Tabs.Trigger
 
-Styled wrapper around `HeadlessTabs.Trigger`.
+Wraps `@tamagui/tabs` `Tabs.Tab` with `unstyled` mode and custom active indicator styling. Uses `useTabsContext` to determine active state for text coloring.
 
 | Name | Type | Required | Default | Description |
 |------|------|----------|---------|-------------|
@@ -41,31 +40,29 @@ Styled wrapper around `HeadlessTabs.Trigger`.
 | disabled | `boolean` | No | -- | When `true`, the tab trigger cannot be selected. |
 | size | `'sm' \| 'md' \| 'lg'` | No | `'md'` | Controls padding on the trigger. `sm` = `$2`/`$1`, `md` = `$3`/`$2`, `lg` = `$4`/`$3`. |
 
-Note: The `StyledTrigger` and `StyledTriggerText` styled components are defined but the current `Trigger` function only renders via `HeadlessTabs.Trigger`, passing `children` through directly. The styled trigger frame has an `active` variant (`true` sets `borderBottomColor: '$color10'`) and hover style (`backgroundColor: '$backgroundHover'`).
+Active indicator: 2px bottom border using `$color10` token (via `activeStyle` prop on Tamagui Tab).
 
 ### Tabs.Content
 
-Styled wrapper around `HeadlessTabs.Content`. Wraps children in a `StyledContent` (`styled(View)`).
+Wraps `@tamagui/tabs` `Tabs.Content`. Children rendered inside a `StyledContent` (`styled(View)`) with padding.
 
 | Name | Type | Required | Default | Description |
 |------|------|----------|---------|-------------|
 | children | `React.ReactNode` | Yes | -- | Panel content for this tab. |
 | value | `string` | Yes | -- | Must match the corresponding `Tabs.Trigger` value. |
-| className | `string` | No | -- | Passed through to the headless Content `div`. |
 
 Base styles on `StyledContent`: `paddingVertical: '$3'`.
 
-Only the content panel matching the active tab value is rendered; others return `null` (handled in headless layer).
+Only the content panel matching the active tab value is rendered; others return `null` (handled by `@tamagui/tabs`).
 
 ---
 
 ## 2. Behavioral Guarantees
 
-- All state management and interaction logic is delegated to the headless layer (`packages/headless/Tabs`).
-- The styled layer adds only visual presentation (Tamagui styled components) and never manages selection state itself.
+- All state management and interaction logic is delegated to `@tamagui/tabs`.
+- The styled layer adds only visual presentation and never manages selection state itself.
 - `Tabs.Root` supports both controlled and uncontrolled selection via `useControllableState`.
 - Only one `Tabs.Content` panel is rendered at a time -- the one matching the active `value`. All others return `null`.
-- Tab triggers register themselves with the headless context on mount, enabling keyboard navigation.
 - Clicking a non-disabled trigger selects that tab.
 - The component will never manage routing, lazy loading, or panel caching.
 
@@ -73,15 +70,15 @@ Only the content panel matching the active tab value is rendered; others return 
 
 ## 3. Accessibility Guarantees
 
-- The headless List renders with `role="tablist"` and `aria-orientation` matching the `orientation` prop.
-- Each headless Trigger renders as a `<button>` with `role="tab"`, `aria-selected`, `aria-controls` (linking to its panel), and `tabIndex` (0 for selected, -1 for unselected).
-- Each headless Content renders with `role="tabpanel"`, `aria-labelledby` (linking to its trigger), and `tabIndex={0}`.
-- Keyboard navigation is handled in the headless List via `useKeyboardNavigation`:
+- The List renders with `role="tablist"` and `aria-orientation` matching the `orientation` prop (provided by `@tamagui/tabs`).
+- Each Trigger renders with `role="tab"`, `aria-selected`, `aria-controls` (linking to its panel), and `data-state` (provided by `@tamagui/tabs`).
+- Each Content renders with `role="tabpanel"`, `aria-labelledby` (linking to its trigger) (provided by `@tamagui/tabs`).
+- Keyboard navigation is handled by `@tamagui/roving-focus` (integrated into `@tamagui/tabs`):
   - Arrow keys move between tabs (direction based on `orientation`).
   - Navigation loops when reaching the end.
-  - Enter/Space selects the focused tab (via `onSelect`).
+  - Home/End keys jump to first/last tab.
 - Disabled triggers cannot be selected via click.
-- Tab/panel IDs follow the pattern `tab-{value}` / `tabpanel-{value}`.
+- Tab/panel IDs are auto-generated by `@tamagui/tabs` using `React.useId()`.
 
 ---
 
@@ -89,7 +86,7 @@ Only the content panel matching the active tab value is rendered; others return 
 
 - All spacing and color values use Tamagui design tokens.
 - List has a bottom border using `$borderColor` token.
-- Active trigger is indicated by a 2px bottom border using `$color10` token (via `StyledTrigger` `active` variant).
+- Active trigger is indicated by a 2px bottom border using `$color10` token (via `activeStyle`).
 - Active trigger text uses `$color10`; inactive uses `$colorSubtitle` (via `StyledTriggerText` `active` variant).
 - Typography uses `$body` font family and `$3` font weight tokens.
 - Theme tokens resolve from the active Tamagui theme.
@@ -105,8 +102,7 @@ Only the content panel matching the active tab value is rendered; others return 
 - Removing the `orientation` prop from Root.
 - Removing the `value` prop from Trigger or Content.
 - Removing the `disabled` prop from Trigger.
-- Removing `role="tablist"`, `role="tab"`, or `role="tabpanel"` from the headless layer.
+- Removing `role="tablist"`, `role="tab"`, or `role="tabpanel"`.
 - Removing keyboard navigation support (arrow keys, looping).
 - Removing `aria-selected`, `aria-controls`, or `aria-labelledby` attributes.
 - Changing from single-panel rendering to all-panels-rendered (would change mount/unmount behavior).
-- Changing the headless layer delegation.

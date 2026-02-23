@@ -1,3 +1,5 @@
+/** @deprecated Headless primitives are superseded by Tamagui official components used in the styled layer */
+
 export { Dialog } from './Dialog'
 export type {
   DialogRootProps,

@@ -112,19 +112,15 @@ function CollapsibleDemo() {
     <DemoCard label="Toggle to reveal hidden content">
       <Collapsible.Root defaultOpen={false}>
         <Collapsible.Trigger>
-          <button
-            type="button"
-            style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+          <View
+            backgroundColor="$color4"
+            paddingHorizontal="$4"
+            paddingVertical="$2"
+            borderRadius="$3"
+            cursor="pointer"
           >
-            <View
-              backgroundColor="$color4"
-              paddingHorizontal="$4"
-              paddingVertical="$2"
-              borderRadius="$3"
-            >
-              <Text fontFamily="$body" fontSize="$3">Toggle Details</Text>
-            </View>
-          </button>
+            <Text fontFamily="$body" fontSize="$3">Toggle Details</Text>
+          </View>
         </Collapsible.Trigger>
         <Collapsible.Content>
           <YStack paddingTop="$3" gap="$2">

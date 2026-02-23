@@ -1,3 +1,4 @@
+/** @deprecated Use the styled Checkbox component which now uses @tamagui/checkbox internally */
 import type React from 'react'
 import { createContext, useContext } from 'react'
 import { useControllableState } from '../../hooks/useControllableState'
