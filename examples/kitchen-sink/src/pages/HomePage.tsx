@@ -7,8 +7,13 @@ export function HomePage() {
   const { brand = 'default' } = useParams()
 
   const sections = [
-    { path: 'primitives', title: 'Primitives', description: 'Box, Stack, Text, Heading, Label, Badge, Skeleton, Separator, Divider, Spacer, AspectRatio' },
-    { path: 'components', title: 'Components', description: 'Button, Input, Textarea, Card, Dialog, Tabs, Select, Checkbox, Radio, Switch, Slider, Progress, Avatar, Alert, Toggle, Tooltip, and more' },
+    { path: 'primitives', title: 'Primitives', description: 'Box, Stack, Text, Heading, Label, Badge, Skeleton, Separator, Spinner, Kbd' },
+    { path: 'components', title: 'Components', description: 'Button, Input, Card, Dialog, Tabs, Select, Checkbox, Switch, Slider, Avatar, Alert, Toggle, Tooltip, Progress' },
+    { path: 'components/inputs', title: 'Input Components', description: 'InputOTP, NativeSelect, Combobox, Command palette' },
+    { path: 'components/menus', title: 'Menus', description: 'DropdownMenu, ContextMenu, Menubar, NavigationMenu' },
+    { path: 'components/overlays', title: 'Overlays', description: 'HoverCard, Drawer, Tooltip (extended)' },
+    { path: 'components/layout', title: 'Layout', description: 'ScrollArea, Resizable, Carousel, Calendar, Sidebar' },
+    { path: 'components/typography', title: 'Typography', description: 'H1-H4, P, Lead, Blockquote, InlineCode, Lists, Kbd' },
     { path: 'composed', title: 'Composed', description: 'Accordion, AlertDialog, Collapsible, Table, Breadcrumb, Form' },
     { path: 'headless', title: 'Headless', description: 'Dialog, Tabs, Checkbox — unstyled behavioral primitives' },
     { path: 'hooks', title: 'Hooks', description: 'useControllableState, useFocusTrap, useKeyboardNavigation' },

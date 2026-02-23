@@ -83,20 +83,23 @@ export function ComponentsPage() {
 
       {/* ─── Button ─── */}
       <Section title="Button">
-        <DemoCard label="Variants">
+        <DemoCard label="Variants (shadcn)">
           <XStack gap="$3" flexWrap="wrap">
-            <Button variant="solid"><Button.Text>Solid</Button.Text></Button>
+            <Button variant="default"><Button.Text>Default</Button.Text></Button>
+            <Button variant="secondary"><Button.Text>Secondary</Button.Text></Button>
+            <Button variant="destructive"><Button.Text>Destructive</Button.Text></Button>
             <Button variant="outline"><Button.Text>Outline</Button.Text></Button>
             <Button variant="ghost"><Button.Text>Ghost</Button.Text></Button>
+            <Button variant="link"><Button.Text>Link</Button.Text></Button>
           </XStack>
         </DemoCard>
-        <DemoCard label="Tones — Solid">
+        <DemoCard label="Tones — Default variant">
           <XStack gap="$3" flexWrap="wrap">
-            <Button tone="neutral" variant="solid"><Button.Text>Neutral</Button.Text></Button>
-            <Button tone="primary" variant="solid"><Button.Text>Primary</Button.Text></Button>
-            <Button tone="success" variant="solid"><Button.Text>Success</Button.Text></Button>
-            <Button tone="warning" variant="solid"><Button.Text>Warning</Button.Text></Button>
-            <Button tone="danger" variant="solid"><Button.Text>Danger</Button.Text></Button>
+            <Button tone="neutral"><Button.Text>Neutral</Button.Text></Button>
+            <Button tone="primary"><Button.Text>Primary</Button.Text></Button>
+            <Button tone="success"><Button.Text>Success</Button.Text></Button>
+            <Button tone="warning"><Button.Text>Warning</Button.Text></Button>
+            <Button tone="danger"><Button.Text>Danger</Button.Text></Button>
           </XStack>
         </DemoCard>
         <DemoCard label="Tones — Outline">
@@ -108,20 +111,13 @@ export function ComponentsPage() {
             <Button tone="danger" variant="outline"><Button.Text>Danger</Button.Text></Button>
           </XStack>
         </DemoCard>
-        <DemoCard label="Tones — Ghost">
-          <XStack gap="$3" flexWrap="wrap">
-            <Button tone="neutral" variant="ghost"><Button.Text>Neutral</Button.Text></Button>
-            <Button tone="primary" variant="ghost"><Button.Text>Primary</Button.Text></Button>
-            <Button tone="success" variant="ghost"><Button.Text>Success</Button.Text></Button>
-            <Button tone="warning" variant="ghost"><Button.Text>Warning</Button.Text></Button>
-            <Button tone="danger" variant="ghost"><Button.Text>Danger</Button.Text></Button>
-          </XStack>
-        </DemoCard>
         <DemoCard label="Sizes">
           <XStack gap="$3" alignItems="center" flexWrap="wrap">
+            <Button size="xs"><Button.Text>Extra Small</Button.Text></Button>
             <Button size="sm"><Button.Text>Small</Button.Text></Button>
             <Button size="md"><Button.Text>Medium</Button.Text></Button>
             <Button size="lg"><Button.Text>Large</Button.Text></Button>
+            <Button size="icon"><Button.Text>⚙</Button.Text></Button>
           </XStack>
         </DemoCard>
         <DemoCard label="States">
