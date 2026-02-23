@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { YStack, XStack, Text, Heading, Separator, View } from 'tamagui'
 import {
-  Dialog,
   AlertDialog,
-  HoverCard,
+  Dialog,
   Drawer,
+  HoverCard,
   Tooltip,
   Button,
 } from '@vlting/ui'
@@ -39,35 +39,8 @@ export function OverlaysPage() {
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
       <Heading fontFamily="$heading" fontSize="$8" fontWeight="$5">Overlays</Heading>
       <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
-        Dialog, AlertDialog, Drawer, HoverCard, and Tooltip components.
+        AlertDialog, Dialog, Drawer, HoverCard, and Tooltip components.
       </Text>
-
-      {/* Dialog */}
-      <Section title="Dialog">
-        <DemoCard label="Open/Close">
-          <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
-            <Dialog.Trigger>
-              <Button onPress={() => setDialogOpen(true)}>
-                <Button.Text>Open Dialog</Button.Text>
-              </Button>
-            </Dialog.Trigger>
-            <Dialog.Overlay />
-            <Dialog.Content>
-              <Dialog.Title>Example Dialog</Dialog.Title>
-              <Dialog.Description>
-                This is a styled dialog component with overlay, title, and close controls.
-              </Dialog.Description>
-              <YStack paddingTop="$4">
-                <Dialog.Close>
-                  <Button variant="outline" onPress={() => setDialogOpen(false)}>
-                    <Button.Text>Close</Button.Text>
-                  </Button>
-                </Dialog.Close>
-              </YStack>
-            </Dialog.Content>
-          </Dialog.Root>
-        </DemoCard>
-      </Section>
 
       {/* AlertDialog */}
       <Section title="AlertDialog">
@@ -101,39 +74,35 @@ export function OverlaysPage() {
         </DemoCard>
       </Section>
 
-      {/* HoverCard */}
-      <Section title="HoverCard">
-        <DemoCard label="Hover over the trigger">
-          <HoverCard.Root>
-            <HoverCard.Trigger>
-              <View
-                backgroundColor="$color4"
-                paddingHorizontal="$4"
-                paddingVertical="$2"
-                borderRadius="$3"
-                cursor="pointer"
-                alignSelf="flex-start"
-              >
-                <Text fontFamily="$body" fontSize="$3" fontWeight="$3">@vlting</Text>
-              </View>
-            </HoverCard.Trigger>
-            <HoverCard.Content>
-              <YStack gap="$2" padding="$3" maxWidth={280}>
-                <Text fontFamily="$body" fontSize="$4" fontWeight="$3">@vlting/ui</Text>
-                <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
-                  A cross-platform, open-source design system built on Tamagui.
-                </Text>
-                <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
-                  238 components · MIT licensed
-                </Text>
+      {/* Dialog */}
+      <Section title="Dialog">
+        <DemoCard label="Open/Close">
+          <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
+            <Dialog.Trigger>
+              <Button onPress={() => setDialogOpen(true)}>
+                <Button.Text>Open Dialog</Button.Text>
+              </Button>
+            </Dialog.Trigger>
+            <Dialog.Overlay />
+            <Dialog.Content>
+              <Dialog.Title>Example Dialog</Dialog.Title>
+              <Dialog.Description>
+                This is a styled dialog component with overlay, title, and close controls.
+              </Dialog.Description>
+              <YStack paddingTop="$4">
+                <Dialog.Close>
+                  <Button variant="outline" onPress={() => setDialogOpen(false)}>
+                    <Button.Text>Close</Button.Text>
+                  </Button>
+                </Dialog.Close>
               </YStack>
-            </HoverCard.Content>
-          </HoverCard.Root>
+            </Dialog.Content>
+          </Dialog.Root>
         </DemoCard>
       </Section>
 
-      {/* Drawer */}
-      <Section title="Drawer">
+      {/* Drawers & Panels */}
+      <Section title="Drawers & Panels">
         <XStack gap="$3" flexWrap="wrap">
           <DemoCard label="Bottom drawer">
             <Drawer.Root open={drawerOpen} onOpenChange={setDrawerOpen}>
@@ -222,6 +191,37 @@ export function OverlaysPage() {
             </Drawer.Root>
           </DemoCard>
         </XStack>
+      </Section>
+
+      {/* HoverCard */}
+      <Section title="HoverCard">
+        <DemoCard label="Hover over the trigger">
+          <HoverCard.Root>
+            <HoverCard.Trigger>
+              <View
+                backgroundColor="$color4"
+                paddingHorizontal="$4"
+                paddingVertical="$2"
+                borderRadius="$3"
+                cursor="pointer"
+                alignSelf="flex-start"
+              >
+                <Text fontFamily="$body" fontSize="$3" fontWeight="$3">@vlting</Text>
+              </View>
+            </HoverCard.Trigger>
+            <HoverCard.Content>
+              <YStack gap="$2" padding="$3" maxWidth={280}>
+                <Text fontFamily="$body" fontSize="$4" fontWeight="$3">@vlting/ui</Text>
+                <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
+                  A cross-platform, open-source design system built on Tamagui.
+                </Text>
+                <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
+                  238 components · MIT licensed
+                </Text>
+              </YStack>
+            </HoverCard.Content>
+          </HoverCard.Root>
+        </DemoCard>
       </Section>
 
       {/* Tooltip */}

@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { YStack, XStack, Text, Heading, Separator, View } from 'tamagui'
 import {
-  DropdownMenu,
+  Command,
   ContextMenu,
+  DropdownMenu,
   Menubar,
   NavigationMenu,
-  Command,
-  Tabs,
+  Resizable,
   ScrollArea,
   Sidebar,
-  Resizable,
+  Tabs,
   Button,
 } from '@vlting/ui'
 
@@ -39,31 +39,30 @@ export function MenusPage() {
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
       <Heading fontFamily="$heading" fontSize="$8" fontWeight="$5">Menus & Navigation</Heading>
       <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
-        DropdownMenu, ContextMenu, Menubar, NavigationMenu, Command, Tabs, ScrollArea, Sidebar, and Resizable.
+        Command, ContextMenu, DropdownMenu, Menubar, NavigationMenu, Resizable, ScrollArea, Sidebar, and Tabs.
       </Text>
 
-      {/* DropdownMenu */}
-      <Section title="DropdownMenu">
-        <DemoCard label="Basic dropdown">
-          <DropdownMenu.Root open={dropdownOpen} onOpenChange={setDropdownOpen}>
-            <DropdownMenu.Trigger>
-              <Button onPress={() => setDropdownOpen(true)}>
-                <Button.Text>Open Menu</Button.Text>
-              </Button>
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content>
-              <DropdownMenu.Item onSelect={() => {}}>
-                <Text fontFamily="$body" fontSize="$3">Profile</Text>
-              </DropdownMenu.Item>
-              <DropdownMenu.Item onSelect={() => {}}>
-                <Text fontFamily="$body" fontSize="$3">Settings</Text>
-              </DropdownMenu.Item>
-              <DropdownMenu.Separator />
-              <DropdownMenu.Item onSelect={() => {}}>
-                <Text fontFamily="$body" fontSize="$3" color="$red10">Log out</Text>
-              </DropdownMenu.Item>
-            </DropdownMenu.Content>
-          </DropdownMenu.Root>
+      {/* Command */}
+      <Section title="Command">
+        <DemoCard label="Command palette">
+          <View borderRadius="$4" overflow="hidden" borderWidth={1} borderColor="$borderColor">
+            <Command.Root>
+              <Command.Input placeholder="Type a command or search..." />
+              <Command.List>
+                <Command.Group heading="Suggestions">
+                  <Command.Item value="calendar" onSelect={() => {}}>
+                    <Text fontFamily="$body" fontSize="$3">Calendar</Text>
+                  </Command.Item>
+                  <Command.Item value="search" onSelect={() => {}}>
+                    <Text fontFamily="$body" fontSize="$3">Search</Text>
+                  </Command.Item>
+                  <Command.Item value="settings" onSelect={() => {}}>
+                    <Text fontFamily="$body" fontSize="$3">Settings</Text>
+                  </Command.Item>
+                </Command.Group>
+              </Command.List>
+            </Command.Root>
+          </View>
         </DemoCard>
       </Section>
 
@@ -102,22 +101,56 @@ export function MenusPage() {
         </DemoCard>
       </Section>
 
+      {/* DropdownMenu */}
+      <Section title="DropdownMenu">
+        <DemoCard label="Basic dropdown">
+          <DropdownMenu.Root open={dropdownOpen} onOpenChange={setDropdownOpen}>
+            <DropdownMenu.Trigger>
+              <Button onPress={() => setDropdownOpen(true)}>
+                <Button.Text>Open Menu</Button.Text>
+              </Button>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content>
+              <DropdownMenu.Item onSelect={() => {}}>
+                <Text fontFamily="$body" fontSize="$3">Profile</Text>
+              </DropdownMenu.Item>
+              <DropdownMenu.Item onSelect={() => {}}>
+                <Text fontFamily="$body" fontSize="$3">Settings</Text>
+              </DropdownMenu.Item>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Item onSelect={() => {}}>
+                <Text fontFamily="$body" fontSize="$3" color="$red10">Log out</Text>
+              </DropdownMenu.Item>
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
+        </DemoCard>
+      </Section>
+
       {/* Menubar */}
       <Section title="Menubar">
         <DemoCard label="Horizontal menu bar">
           <Menubar.Root>
-            <Menubar.Menu label="File">
-              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">New File</Text></Menubar.Item>
-              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Open</Text></Menubar.Item>
-              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Save</Text></Menubar.Item>
+            <Menubar.Menu>
+              <Menubar.Trigger>File</Menubar.Trigger>
+              <Menubar.Content>
+                <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">New File</Text></Menubar.Item>
+                <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Open</Text></Menubar.Item>
+                <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Save</Text></Menubar.Item>
+              </Menubar.Content>
             </Menubar.Menu>
-            <Menubar.Menu label="Edit">
-              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Undo</Text></Menubar.Item>
-              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Redo</Text></Menubar.Item>
+            <Menubar.Menu>
+              <Menubar.Trigger>Edit</Menubar.Trigger>
+              <Menubar.Content>
+                <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Undo</Text></Menubar.Item>
+                <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Redo</Text></Menubar.Item>
+              </Menubar.Content>
             </Menubar.Menu>
-            <Menubar.Menu label="View">
-              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Zoom In</Text></Menubar.Item>
-              <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Zoom Out</Text></Menubar.Item>
+            <Menubar.Menu>
+              <Menubar.Trigger>View</Menubar.Trigger>
+              <Menubar.Content>
+                <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Zoom In</Text></Menubar.Item>
+                <Menubar.Item onSelect={() => {}}><Text fontFamily="$body" fontSize="$3">Zoom Out</Text></Menubar.Item>
+              </Menubar.Content>
             </Menubar.Menu>
           </Menubar.Root>
         </DemoCard>
@@ -127,63 +160,46 @@ export function MenusPage() {
       <Section title="NavigationMenu">
         <DemoCard label="Site navigation with panels">
           <NavigationMenu.Root>
-            <NavigationMenu.Item label="Products">
-              <NavigationMenu.Link href="#">Analytics</NavigationMenu.Link>
-              <NavigationMenu.Link href="#">Automation</NavigationMenu.Link>
-              <NavigationMenu.Link href="#">Reports</NavigationMenu.Link>
-            </NavigationMenu.Item>
-            <NavigationMenu.Item label="Resources">
-              <NavigationMenu.Link href="#">Documentation</NavigationMenu.Link>
-              <NavigationMenu.Link href="#">Blog</NavigationMenu.Link>
-              <NavigationMenu.Link href="#">Community</NavigationMenu.Link>
-            </NavigationMenu.Item>
+            <NavigationMenu.List>
+              <NavigationMenu.Item value="products">
+                <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
+                <NavigationMenu.Content>
+                  <NavigationMenu.Link href="#">Analytics</NavigationMenu.Link>
+                  <NavigationMenu.Link href="#">Automation</NavigationMenu.Link>
+                  <NavigationMenu.Link href="#">Reports</NavigationMenu.Link>
+                </NavigationMenu.Content>
+              </NavigationMenu.Item>
+              <NavigationMenu.Item value="resources">
+                <NavigationMenu.Trigger>Resources</NavigationMenu.Trigger>
+                <NavigationMenu.Content>
+                  <NavigationMenu.Link href="#">Documentation</NavigationMenu.Link>
+                  <NavigationMenu.Link href="#">Blog</NavigationMenu.Link>
+                  <NavigationMenu.Link href="#">Community</NavigationMenu.Link>
+                </NavigationMenu.Content>
+              </NavigationMenu.Item>
+            </NavigationMenu.List>
           </NavigationMenu.Root>
         </DemoCard>
       </Section>
 
-      {/* Command */}
-      <Section title="Command">
-        <DemoCard label="Command palette">
-          <View borderRadius="$4" overflow="hidden" borderWidth={1} borderColor="$borderColor">
-            <Command.Root>
-              <Command.Input placeholder="Type a command or search..." />
-              <Command.List>
-                <Command.Group heading="Suggestions">
-                  <Command.Item onSelect={() => {}}>
-                    <Text fontFamily="$body" fontSize="$3">Calendar</Text>
-                  </Command.Item>
-                  <Command.Item onSelect={() => {}}>
-                    <Text fontFamily="$body" fontSize="$3">Search</Text>
-                  </Command.Item>
-                  <Command.Item onSelect={() => {}}>
-                    <Text fontFamily="$body" fontSize="$3">Settings</Text>
-                  </Command.Item>
-                </Command.Group>
-              </Command.List>
-            </Command.Root>
+      {/* Resizable */}
+      <Section title="Resizable">
+        <DemoCard label="Resizable panels">
+          <View height={200} borderRadius="$4" overflow="hidden" borderWidth={1} borderColor="$borderColor">
+            <Resizable.PanelGroup direction="horizontal">
+              <Resizable.Panel defaultSize={50}>
+                <View flex={1} backgroundColor="$color3" alignItems="center" justifyContent="center" padding="$3">
+                  <Text fontFamily="$body" fontSize="$3">Panel A</Text>
+                </View>
+              </Resizable.Panel>
+              <Resizable.Handle />
+              <Resizable.Panel defaultSize={50}>
+                <View flex={1} backgroundColor="$color2" alignItems="center" justifyContent="center" padding="$3">
+                  <Text fontFamily="$body" fontSize="$3">Panel B</Text>
+                </View>
+              </Resizable.Panel>
+            </Resizable.PanelGroup>
           </View>
-        </DemoCard>
-      </Section>
-
-      {/* Tabs */}
-      <Section title="Tabs">
-        <DemoCard label="Multi-tab">
-          <Tabs.Root defaultValue="tab1">
-            <Tabs.List>
-              <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
-              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
-              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
-            </Tabs.List>
-            <Tabs.Content value="tab1">
-              <Text fontFamily="$body" fontSize="$3">Content for the first tab.</Text>
-            </Tabs.Content>
-            <Tabs.Content value="tab2">
-              <Text fontFamily="$body" fontSize="$3">Content for the second tab.</Text>
-            </Tabs.Content>
-            <Tabs.Content value="tab3">
-              <Text fontFamily="$body" fontSize="$3">Content for the third tab.</Text>
-            </Tabs.Content>
-          </Tabs.Root>
         </DemoCard>
       </Section>
 
@@ -210,16 +226,28 @@ export function MenusPage() {
           <View height={300} borderRadius="$4" overflow="hidden" borderWidth={1} borderColor="$borderColor">
             <XStack flex={1}>
               <Sidebar.Root>
-                <Sidebar.Group label="Dashboard">
-                  <Sidebar.MenuItem label="Overview" active />
-                  <Sidebar.MenuItem label="Analytics" />
-                  <Sidebar.MenuItem label="Reports" />
-                </Sidebar.Group>
-                <Sidebar.Group label="Settings">
-                  <Sidebar.MenuItem label="General" />
-                  <Sidebar.MenuItem label="Team" />
-                  <Sidebar.MenuItem label="Billing" />
-                </Sidebar.Group>
+                <Sidebar.Content>
+                  <Sidebar.Group>
+                    <Sidebar.GroupLabel>Dashboard</Sidebar.GroupLabel>
+                    <Sidebar.GroupContent>
+                      <Sidebar.Menu>
+                        <Sidebar.MenuButton active>Overview</Sidebar.MenuButton>
+                        <Sidebar.MenuButton>Analytics</Sidebar.MenuButton>
+                        <Sidebar.MenuButton>Reports</Sidebar.MenuButton>
+                      </Sidebar.Menu>
+                    </Sidebar.GroupContent>
+                  </Sidebar.Group>
+                  <Sidebar.Group>
+                    <Sidebar.GroupLabel>Settings</Sidebar.GroupLabel>
+                    <Sidebar.GroupContent>
+                      <Sidebar.Menu>
+                        <Sidebar.MenuButton>General</Sidebar.MenuButton>
+                        <Sidebar.MenuButton>Team</Sidebar.MenuButton>
+                        <Sidebar.MenuButton>Billing</Sidebar.MenuButton>
+                      </Sidebar.Menu>
+                    </Sidebar.GroupContent>
+                  </Sidebar.Group>
+                </Sidebar.Content>
               </Sidebar.Root>
               <View flex={1} backgroundColor="$background" padding="$4" alignItems="center" justifyContent="center">
                 <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">Main content area</Text>
@@ -229,24 +257,25 @@ export function MenusPage() {
         </DemoCard>
       </Section>
 
-      {/* Resizable */}
-      <Section title="Resizable">
-        <DemoCard label="Resizable panels">
-          <View height={200} borderRadius="$4" overflow="hidden" borderWidth={1} borderColor="$borderColor">
-            <Resizable.PanelGroup direction="horizontal">
-              <Resizable.Panel defaultSize={50}>
-                <View flex={1} backgroundColor="$color3" alignItems="center" justifyContent="center" padding="$3">
-                  <Text fontFamily="$body" fontSize="$3">Panel A</Text>
-                </View>
-              </Resizable.Panel>
-              <Resizable.Handle />
-              <Resizable.Panel defaultSize={50}>
-                <View flex={1} backgroundColor="$color2" alignItems="center" justifyContent="center" padding="$3">
-                  <Text fontFamily="$body" fontSize="$3">Panel B</Text>
-                </View>
-              </Resizable.Panel>
-            </Resizable.PanelGroup>
-          </View>
+      {/* Tabs */}
+      <Section title="Tabs">
+        <DemoCard label="Multi-tab">
+          <Tabs.Root defaultValue="tab1">
+            <Tabs.List>
+              <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
+              <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+              <Tabs.Trigger value="tab3">Tab 3</Tabs.Trigger>
+            </Tabs.List>
+            <Tabs.Content value="tab1">
+              <Text fontFamily="$body" fontSize="$3">Content for the first tab.</Text>
+            </Tabs.Content>
+            <Tabs.Content value="tab2">
+              <Text fontFamily="$body" fontSize="$3">Content for the second tab.</Text>
+            </Tabs.Content>
+            <Tabs.Content value="tab3">
+              <Text fontFamily="$body" fontSize="$3">Content for the third tab.</Text>
+            </Tabs.Content>
+          </Tabs.Root>
         </DemoCard>
       </Section>
     </YStack>

@@ -107,6 +107,26 @@ function AlertDialogDemo() {
   )
 }
 
+function BreadcrumbDemo() {
+  return (
+    <DemoCard label="3-level navigation breadcrumb">
+      <Breadcrumb.Root>
+        <Breadcrumb.Item>
+          <Breadcrumb.Link href="#" onPress={() => {}}>Home</Breadcrumb.Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Separator />
+        <Breadcrumb.Item>
+          <Breadcrumb.Link href="#" onPress={() => {}}>Projects</Breadcrumb.Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Separator />
+        <Breadcrumb.Item>
+          <Breadcrumb.Page>Settings</Breadcrumb.Page>
+        </Breadcrumb.Item>
+      </Breadcrumb.Root>
+    </DemoCard>
+  )
+}
+
 function CollapsibleDemo() {
   return (
     <DemoCard label="Toggle to reveal hidden content">
@@ -136,6 +156,37 @@ function CollapsibleDemo() {
           </YStack>
         </Collapsible.Content>
       </Collapsible.Root>
+    </DemoCard>
+  )
+}
+
+function FormDemo() {
+  const [submitted, setSubmitted] = useState(false)
+
+  return (
+    <DemoCard label="Form with validation and error state">
+      <Form.Root onSubmit={() => setSubmitted(true)}>
+        <Form.Field>
+          <Form.Label htmlFor="email">Email</Form.Label>
+          <Input placeholder="you@example.com" />
+          <Form.Description>We will never share your email.</Form.Description>
+        </Form.Field>
+        <Form.Field error>
+          <Form.Label htmlFor="username">Username</Form.Label>
+          <Input placeholder="Choose a username" error />
+          <Form.ErrorMessage>This username is already taken.</Form.ErrorMessage>
+        </Form.Field>
+        <XStack gap="$2" paddingTop="$2">
+          <Button onPress={() => setSubmitted(true)}>
+            <Button.Text>Submit</Button.Text>
+          </Button>
+          {submitted && (
+            <Text fontFamily="$body" fontSize="$3" color="$green10" alignSelf="center">
+              Form submitted!
+            </Text>
+          )}
+        </XStack>
+      </Form.Root>
     </DemoCard>
   )
 }
@@ -206,57 +257,6 @@ function TableDemo() {
   )
 }
 
-function BreadcrumbDemo() {
-  return (
-    <DemoCard label="3-level navigation breadcrumb">
-      <Breadcrumb.Root>
-        <Breadcrumb.Item>
-          <Breadcrumb.Link href="#" onPress={() => {}}>Home</Breadcrumb.Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Separator />
-        <Breadcrumb.Item>
-          <Breadcrumb.Link href="#" onPress={() => {}}>Projects</Breadcrumb.Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Separator />
-        <Breadcrumb.Item>
-          <Breadcrumb.Page>Settings</Breadcrumb.Page>
-        </Breadcrumb.Item>
-      </Breadcrumb.Root>
-    </DemoCard>
-  )
-}
-
-function FormDemo() {
-  const [submitted, setSubmitted] = useState(false)
-
-  return (
-    <DemoCard label="Form with validation and error state">
-      <Form.Root onSubmit={() => setSubmitted(true)}>
-        <Form.Field>
-          <Form.Label htmlFor="email">Email</Form.Label>
-          <Input placeholder="you@example.com" />
-          <Form.Description>We will never share your email.</Form.Description>
-        </Form.Field>
-        <Form.Field error>
-          <Form.Label htmlFor="username">Username</Form.Label>
-          <Input placeholder="Choose a username" error />
-          <Form.ErrorMessage>This username is already taken.</Form.ErrorMessage>
-        </Form.Field>
-        <XStack gap="$2" paddingTop="$2">
-          <Button onPress={() => setSubmitted(true)}>
-            <Button.Text>Submit</Button.Text>
-          </Button>
-          {submitted && (
-            <Text fontFamily="$body" fontSize="$3" color="$green10" alignSelf="center">
-              Form submitted!
-            </Text>
-          )}
-        </XStack>
-      </Form.Root>
-    </DemoCard>
-  )
-}
-
 export function ComposedPage() {
   return (
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
@@ -275,20 +275,20 @@ export function ComposedPage() {
         <AlertDialogDemo />
       </Section>
 
-      <Section title="Collapsible">
-        <CollapsibleDemo />
-      </Section>
-
-      <Section title="Table">
-        <TableDemo />
-      </Section>
-
       <Section title="Breadcrumb">
         <BreadcrumbDemo />
       </Section>
 
+      <Section title="Collapsible">
+        <CollapsibleDemo />
+      </Section>
+
       <Section title="Form">
         <FormDemo />
+      </Section>
+
+      <Section title="Table">
+        <TableDemo />
       </Section>
     </YStack>
   )

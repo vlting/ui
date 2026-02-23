@@ -1,19 +1,19 @@
 import React from 'react'
 import { YStack, XStack, Text, Heading, View, Separator } from 'tamagui'
 import {
-  Box,
-  VStack,
-  HStack,
-  Text as VText,
-  Heading as VHeading,
-  Divider,
-  Spacer,
-  Label,
-  Badge,
-  Skeleton,
-  Separator as VSeparator,
   AspectRatio,
+  Badge,
+  Box,
+  Divider,
+  Heading as VHeading,
+  HStack,
+  Label,
+  Separator as VSeparator,
+  Skeleton,
+  Spacer,
+  Text as VText,
   VisuallyHidden,
+  VStack,
 } from '@vlting/ui'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -58,6 +58,83 @@ export function PrimitivesPage() {
         Layer 1 — basic building blocks.
       </Text>
 
+      <Section title="AspectRatio">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="1:1 (Square)">
+            <AspectRatio ratio={1}>
+              <View
+                backgroundColor="$color4"
+                borderRadius="$3"
+                width="100%"
+                height="100%"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Text fontFamily="$body" fontSize="$3">1:1</Text>
+              </View>
+            </AspectRatio>
+          </DemoCard>
+          <DemoCard label="16:9 (Widescreen)">
+            <AspectRatio ratio={16 / 9}>
+              <View
+                backgroundColor="$color4"
+                borderRadius="$3"
+                width="100%"
+                height="100%"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Text fontFamily="$body" fontSize="$3">16:9</Text>
+              </View>
+            </AspectRatio>
+          </DemoCard>
+        </XStack>
+      </Section>
+
+      <Section title="Badge">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="Variants">
+            <XStack gap="$2" flexWrap="wrap" alignItems="center">
+              <Badge variant="solid">Solid</Badge>
+              <Badge variant="outline">Outline</Badge>
+              <Badge variant="subtle">Subtle</Badge>
+            </XStack>
+          </DemoCard>
+          <DemoCard label="All variants x tones">
+            <YStack gap="$3">
+              <XStack gap="$2" flexWrap="wrap" alignItems="center">
+                <Badge tone="neutral">Neutral</Badge>
+                <Badge tone="primary">Primary</Badge>
+                <Badge tone="success">Success</Badge>
+                <Badge tone="warning">Warning</Badge>
+                <Badge tone="danger">Danger</Badge>
+              </XStack>
+              <XStack gap="$2" flexWrap="wrap" alignItems="center">
+                <Badge variant="outline" tone="neutral">Neutral</Badge>
+                <Badge variant="outline" tone="primary">Primary</Badge>
+                <Badge variant="outline" tone="success">Success</Badge>
+                <Badge variant="outline" tone="warning">Warning</Badge>
+                <Badge variant="outline" tone="danger">Danger</Badge>
+              </XStack>
+              <XStack gap="$2" flexWrap="wrap" alignItems="center">
+                <Badge variant="subtle" tone="neutral">Neutral</Badge>
+                <Badge variant="subtle" tone="primary">Primary</Badge>
+                <Badge variant="subtle" tone="success">Success</Badge>
+                <Badge variant="subtle" tone="warning">Warning</Badge>
+                <Badge variant="subtle" tone="danger">Danger</Badge>
+              </XStack>
+            </YStack>
+          </DemoCard>
+          <DemoCard label="Sizes">
+            <XStack gap="$2" alignItems="center" flexWrap="wrap">
+              <Badge size="sm">Small</Badge>
+              <Badge size="md">Medium</Badge>
+              <Badge size="lg">Large</Badge>
+            </XStack>
+          </DemoCard>
+        </XStack>
+      </Section>
+
       <Section title="Box">
         <XStack gap="$3" flexWrap="wrap">
           <DemoCard label="Default">
@@ -71,6 +148,107 @@ export function PrimitivesPage() {
             </Box>
           </DemoCard>
         </XStack>
+      </Section>
+
+      <Section title="Divider">
+        <DemoCard label="Horizontal & Vertical">
+          <YStack gap="$3">
+            <Text fontFamily="$body" fontSize="$3">Above divider</Text>
+            <Divider />
+            <Text fontFamily="$body" fontSize="$3">Below divider</Text>
+            <XStack gap="$3" alignItems="center" height={60}>
+              <Text fontFamily="$body" fontSize="$3">Left</Text>
+              <Divider orientation="vertical" />
+              <Text fontFamily="$body" fontSize="$3">Right</Text>
+            </XStack>
+          </YStack>
+        </DemoCard>
+      </Section>
+
+      <Section title="Heading">
+        <DemoCard label="Levels 1-6">
+          <YStack gap="$2">
+            <VHeading level={1}>Heading Level 1</VHeading>
+            <VHeading level={2}>Heading Level 2</VHeading>
+            <VHeading level={3}>Heading Level 3</VHeading>
+            <VHeading level={4}>Heading Level 4</VHeading>
+            <VHeading level={5}>Heading Level 5</VHeading>
+            <VHeading level={6}>Heading Level 6</VHeading>
+          </YStack>
+        </DemoCard>
+      </Section>
+
+      <Section title="Label">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="Sizes">
+            <YStack gap="$3">
+              <Label size="sm">Small label</Label>
+              <Label size="md">Medium label</Label>
+              <Label size="lg">Large label</Label>
+            </YStack>
+          </DemoCard>
+          <DemoCard label="Required indicator">
+            <YStack gap="$3">
+              <Label required>Required field</Label>
+              <Label htmlFor="email-input" required size="md">
+                Email address
+              </Label>
+            </YStack>
+          </DemoCard>
+        </XStack>
+      </Section>
+
+      <Section title="Separator">
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="Horizontal">
+            <YStack gap="$3">
+              <Text fontFamily="$body" fontSize="$3">Content above</Text>
+              <VSeparator orientation="horizontal" />
+              <Text fontFamily="$body" fontSize="$3">Content below</Text>
+            </YStack>
+          </DemoCard>
+          <DemoCard label="Vertical">
+            <XStack gap="$3" alignItems="center" height={60}>
+              <Text fontFamily="$body" fontSize="$3">Left</Text>
+              <VSeparator orientation="vertical" />
+              <Text fontFamily="$body" fontSize="$3">Right</Text>
+            </XStack>
+          </DemoCard>
+          <DemoCard label="Decorative">
+            <YStack gap="$3">
+              <Text fontFamily="$body" fontSize="$3">
+                A decorative separator (no semantic meaning)
+              </Text>
+              <VSeparator decorative />
+            </YStack>
+          </DemoCard>
+        </XStack>
+      </Section>
+
+      <Section title="Skeleton">
+        <DemoCard label="Loading placeholders">
+          <YStack gap="$3">
+            <Skeleton width="100%" height={20} borderRadius="$2" />
+            <Skeleton width="75%" height={20} borderRadius="$2" />
+            <XStack gap="$3" alignItems="center">
+              <Skeleton circle width={40} height={40} />
+              <YStack gap="$2" flex={1}>
+                <Skeleton width="60%" height={14} borderRadius="$2" />
+                <Skeleton width="40%" height={14} borderRadius="$2" />
+              </YStack>
+            </XStack>
+          </YStack>
+        </DemoCard>
+      </Section>
+
+      <Section title="Spacer">
+        <DemoCard label="Between elements">
+          <HStack alignItems="center" backgroundColor="$color2" borderRadius="$3" padding="$2">
+            <Text fontFamily="$body" fontSize="$3">Start</Text>
+            <Spacer />
+            <Text fontFamily="$body" fontSize="$3">End</Text>
+          </HStack>
+        </DemoCard>
       </Section>
 
       <Section title="Stack / VStack / HStack">
@@ -121,174 +299,6 @@ export function PrimitivesPage() {
         </DemoCard>
       </Section>
 
-      <Section title="Heading">
-        <DemoCard label="Levels 1-6">
-          <YStack gap="$2">
-            <VHeading level={1}>Heading Level 1</VHeading>
-            <VHeading level={2}>Heading Level 2</VHeading>
-            <VHeading level={3}>Heading Level 3</VHeading>
-            <VHeading level={4}>Heading Level 4</VHeading>
-            <VHeading level={5}>Heading Level 5</VHeading>
-            <VHeading level={6}>Heading Level 6</VHeading>
-          </YStack>
-        </DemoCard>
-      </Section>
-
-      <Section title="Label">
-        <XStack gap="$3" flexWrap="wrap">
-          <DemoCard label="Sizes">
-            <YStack gap="$3">
-              <Label size="sm">Small label</Label>
-              <Label size="md">Medium label</Label>
-              <Label size="lg">Large label</Label>
-            </YStack>
-          </DemoCard>
-          <DemoCard label="Required indicator">
-            <YStack gap="$3">
-              <Label required>Required field</Label>
-              <Label htmlFor="email-input" required size="md">
-                Email address
-              </Label>
-            </YStack>
-          </DemoCard>
-        </XStack>
-      </Section>
-
-      <Section title="Badge">
-        <XStack gap="$3" flexWrap="wrap">
-          <DemoCard label="Variants">
-            <XStack gap="$2" flexWrap="wrap" alignItems="center">
-              <Badge variant="solid">Solid</Badge>
-              <Badge variant="outline">Outline</Badge>
-              <Badge variant="subtle">Subtle</Badge>
-            </XStack>
-          </DemoCard>
-          <DemoCard label="All variants x tones">
-            <YStack gap="$3">
-              <XStack gap="$2" flexWrap="wrap" alignItems="center">
-                <Badge tone="neutral">Neutral</Badge>
-                <Badge tone="primary">Primary</Badge>
-                <Badge tone="success">Success</Badge>
-                <Badge tone="warning">Warning</Badge>
-                <Badge tone="danger">Danger</Badge>
-              </XStack>
-              <XStack gap="$2" flexWrap="wrap" alignItems="center">
-                <Badge variant="outline" tone="neutral">Neutral</Badge>
-                <Badge variant="outline" tone="primary">Primary</Badge>
-                <Badge variant="outline" tone="success">Success</Badge>
-                <Badge variant="outline" tone="warning">Warning</Badge>
-                <Badge variant="outline" tone="danger">Danger</Badge>
-              </XStack>
-              <XStack gap="$2" flexWrap="wrap" alignItems="center">
-                <Badge variant="subtle" tone="neutral">Neutral</Badge>
-                <Badge variant="subtle" tone="primary">Primary</Badge>
-                <Badge variant="subtle" tone="success">Success</Badge>
-                <Badge variant="subtle" tone="warning">Warning</Badge>
-                <Badge variant="subtle" tone="danger">Danger</Badge>
-              </XStack>
-            </YStack>
-          </DemoCard>
-          <DemoCard label="Sizes">
-            <XStack gap="$2" alignItems="center" flexWrap="wrap">
-              <Badge size="sm">Small</Badge>
-              <Badge size="md">Medium</Badge>
-              <Badge size="lg">Large</Badge>
-            </XStack>
-          </DemoCard>
-        </XStack>
-      </Section>
-
-      <Section title="Skeleton">
-        <DemoCard label="Loading placeholders">
-          <YStack gap="$3">
-            <Skeleton width="100%" height={20} borderRadius="$2" />
-            <Skeleton width="75%" height={20} borderRadius="$2" />
-            <XStack gap="$3" alignItems="center">
-              <Skeleton circle width={40} height={40} />
-              <YStack gap="$2" flex={1}>
-                <Skeleton width="60%" height={14} borderRadius="$2" />
-                <Skeleton width="40%" height={14} borderRadius="$2" />
-              </YStack>
-            </XStack>
-          </YStack>
-        </DemoCard>
-      </Section>
-
-      <Section title="Separator">
-        <XStack gap="$3" flexWrap="wrap">
-          <DemoCard label="Horizontal">
-            <YStack gap="$3">
-              <Text fontFamily="$body" fontSize="$3">Content above</Text>
-              <VSeparator orientation="horizontal" />
-              <Text fontFamily="$body" fontSize="$3">Content below</Text>
-            </YStack>
-          </DemoCard>
-          <DemoCard label="Vertical">
-            <XStack gap="$3" alignItems="center" height={60}>
-              <Text fontFamily="$body" fontSize="$3">Left</Text>
-              <VSeparator orientation="vertical" />
-              <Text fontFamily="$body" fontSize="$3">Right</Text>
-            </XStack>
-          </DemoCard>
-          <DemoCard label="Decorative">
-            <YStack gap="$3">
-              <Text fontFamily="$body" fontSize="$3">
-                A decorative separator (no semantic meaning)
-              </Text>
-              <VSeparator decorative />
-            </YStack>
-          </DemoCard>
-        </XStack>
-      </Section>
-
-      <Section title="Divider">
-        <DemoCard label="Horizontal & Vertical">
-          <YStack gap="$3">
-            <Text fontFamily="$body" fontSize="$3">Above divider</Text>
-            <Divider />
-            <Text fontFamily="$body" fontSize="$3">Below divider</Text>
-            <XStack gap="$3" alignItems="center" height={60}>
-              <Text fontFamily="$body" fontSize="$3">Left</Text>
-              <Divider orientation="vertical" />
-              <Text fontFamily="$body" fontSize="$3">Right</Text>
-            </XStack>
-          </YStack>
-        </DemoCard>
-      </Section>
-
-      <Section title="AspectRatio">
-        <XStack gap="$3" flexWrap="wrap">
-          <DemoCard label="1:1 (Square)">
-            <AspectRatio ratio={1}>
-              <View
-                backgroundColor="$color4"
-                borderRadius="$3"
-                width="100%"
-                height="100%"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <Text fontFamily="$body" fontSize="$3">1:1</Text>
-              </View>
-            </AspectRatio>
-          </DemoCard>
-          <DemoCard label="16:9 (Widescreen)">
-            <AspectRatio ratio={16 / 9}>
-              <View
-                backgroundColor="$color4"
-                borderRadius="$3"
-                width="100%"
-                height="100%"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <Text fontFamily="$body" fontSize="$3">16:9</Text>
-              </View>
-            </AspectRatio>
-          </DemoCard>
-        </XStack>
-      </Section>
-
       <Section title="VisuallyHidden">
         <DemoCard label="Screen-reader-only content">
           <YStack gap="$3">
@@ -310,16 +320,6 @@ export function PrimitivesPage() {
               </Text>
             </View>
           </YStack>
-        </DemoCard>
-      </Section>
-
-      <Section title="Spacer">
-        <DemoCard label="Between elements">
-          <HStack alignItems="center" backgroundColor="$color2" borderRadius="$3" padding="$2">
-            <Text fontFamily="$body" fontSize="$3">Start</Text>
-            <Spacer />
-            <Text fontFamily="$body" fontSize="$3">End</Text>
-          </HStack>
         </DemoCard>
       </Section>
     </YStack>

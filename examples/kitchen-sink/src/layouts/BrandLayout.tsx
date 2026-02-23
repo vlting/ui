@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react'
 import { Outlet, useParams, useLocation, Link } from 'react-router-dom'
 import { Provider } from '@vlting/ui'
 import { brands, activeBrand, type BrandKey } from '../brands'
@@ -10,7 +10,12 @@ function paletteColor(isDark: boolean, index: number): string {
   return palette[index]
 }
 
-const sidebarGroups = [
+interface SidebarGroup {
+  label: string
+  items: { path: string; label: string }[]
+}
+
+const sidebarGroups: SidebarGroup[] = [
   {
     label: 'Overview',
     items: [{ path: '', label: 'Home' }],
@@ -25,10 +30,10 @@ const sidebarGroups = [
     label: 'Components',
     items: [
       { path: 'components/buttons', label: 'Buttons & Actions' },
-      { path: 'components/forms', label: 'Forms & Inputs' },
       { path: 'components/data', label: 'Data Display' },
-      { path: 'components/overlays', label: 'Overlays' },
+      { path: 'components/forms', label: 'Forms & Inputs' },
       { path: 'components/menus', label: 'Menus & Navigation' },
+      { path: 'components/overlays', label: 'Overlays' },
     ],
   },
   {
@@ -45,6 +50,108 @@ const sidebarGroups = [
   },
 ]
 
+function CollapsibleGroup({
+  group,
+  brandKey,
+  currentSection,
+  expanded,
+  onToggle,
+  onNavClick,
+  fg,
+  muted,
+  bgHover,
+}: {
+  group: SidebarGroup
+  brandKey: string
+  currentSection: string
+  expanded: boolean
+  onToggle: () => void
+  onNavClick: () => void
+  fg: string
+  muted: string
+  bgHover: string
+}) {
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [contentHeight, setContentHeight] = useState<number | undefined>(undefined)
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight)
+    }
+  }, [expanded, group.items.length])
+
+  const hasMultipleItems = group.items.length > 1
+
+  return (
+    <div style={{ marginBottom: 8 }}>
+      <button
+        onClick={hasMultipleItems ? onToggle : undefined}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '100%',
+          padding: '6px 16px',
+          fontSize: 12,
+          fontWeight: 500,
+          color: muted,
+          textTransform: 'uppercase',
+          letterSpacing: 0.5,
+          background: 'none',
+          border: 'none',
+          cursor: hasMultipleItems ? 'pointer' : 'default',
+          fontFamily: 'inherit',
+          textAlign: 'left',
+        }}
+      >
+        {group.label}
+        {hasMultipleItems && (
+          <span style={{
+            fontSize: 10,
+            transition: 'transform 0.2s ease',
+            transform: expanded ? 'rotate(90deg)' : 'rotate(0deg)',
+            display: 'inline-block',
+          }}>
+            ▶
+          </span>
+        )}
+      </button>
+      <div
+        ref={contentRef}
+        style={{
+          overflow: 'hidden',
+          maxHeight: expanded ? (contentHeight ?? 500) : 0,
+          transition: 'max-height 0.2s ease',
+        }}
+      >
+        {group.items.map((item) => {
+          const isActive = currentSection === item.path
+          return (
+            <Link
+              key={item.path}
+              to={`/${brandKey}/${item.path}`}
+              onClick={onNavClick}
+              style={{
+                display: 'block',
+                padding: '6px 16px 6px 24px',
+                fontSize: 14,
+                textDecoration: 'none',
+                color: isActive ? fg : muted,
+                fontWeight: isActive ? 500 : 400,
+                backgroundColor: isActive ? bgHover : 'transparent',
+                borderRight: isActive ? `2px solid ${fg}` : '2px solid transparent',
+                transition: 'all 0.1s',
+              }}
+            >
+              {item.label}
+            </Link>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 export function BrandLayout() {
   const { brand = 'default' } = useParams<{ brand: string }>()
   const location = useLocation()
@@ -59,9 +166,56 @@ export function BrandLayout() {
   const fg = paletteColor(isDark, 11)
   const muted = paletteColor(isDark, 7)
   const border = paletteColor(isDark, 4)
-  const bgMuted = paletteColor(isDark, 1)
   const bgHover = paletteColor(isDark, 2)
   const accent = paletteColor(isDark, 10)
+
+  // Determine which group contains the active route
+  const activeGroupLabel = useMemo(() => {
+    for (const group of sidebarGroups) {
+      if (group.items.some((item) => item.path === currentSection)) {
+        return group.label
+      }
+    }
+    return ''
+  }, [currentSection])
+
+  // Track expanded groups — auto-expand the active group and all single-item groups
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => {
+    const initial = new Set<string>()
+    for (const group of sidebarGroups) {
+      if (group.items.length <= 1) {
+        initial.add(group.label)
+      }
+    }
+    if (activeGroupLabel) {
+      initial.add(activeGroupLabel)
+    }
+    return initial
+  })
+
+  // Auto-expand when navigating to a new group
+  useEffect(() => {
+    if (activeGroupLabel) {
+      setExpandedGroups((prev) => {
+        if (prev.has(activeGroupLabel)) return prev
+        const next = new Set(prev)
+        next.add(activeGroupLabel)
+        return next
+      })
+    }
+  }, [activeGroupLabel])
+
+  const toggleGroup = useCallback((label: string) => {
+    setExpandedGroups((prev) => {
+      const next = new Set(prev)
+      if (next.has(label)) {
+        next.delete(label)
+      } else {
+        next.add(label)
+      }
+      return next
+    })
+  }, [])
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: bg, color: fg, fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
@@ -160,41 +314,18 @@ export function BrandLayout() {
           className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}
         >
           {sidebarGroups.map((group) => (
-            <div key={group.label} style={{ marginBottom: 16 }}>
-              <div style={{
-                padding: '4px 16px',
-                fontSize: 12,
-                fontWeight: 500,
-                color: muted,
-                textTransform: 'uppercase',
-                letterSpacing: 0.5,
-              }}>
-                {group.label}
-              </div>
-              {group.items.map((item) => {
-                const isActive = currentSection === item.path
-                return (
-                  <Link
-                    key={item.path}
-                    to={`/${brandKey}/${item.path}`}
-                    onClick={() => setSidebarOpen(false)}
-                    style={{
-                      display: 'block',
-                      padding: '6px 16px 6px 24px',
-                      fontSize: 14,
-                      textDecoration: 'none',
-                      color: isActive ? fg : muted,
-                      fontWeight: isActive ? 500 : 400,
-                      backgroundColor: isActive ? bgHover : 'transparent',
-                      borderRight: isActive ? `2px solid ${fg}` : '2px solid transparent',
-                      transition: 'all 0.1s',
-                    }}
-                  >
-                    {item.label}
-                  </Link>
-                )
-              })}
-            </div>
+            <CollapsibleGroup
+              key={group.label}
+              group={group}
+              brandKey={brandKey}
+              currentSection={currentSection}
+              expanded={expandedGroups.has(group.label)}
+              onToggle={() => toggleGroup(group.label)}
+              onNavClick={() => setSidebarOpen(false)}
+              fg={fg}
+              muted={muted}
+              bgHover={bgHover}
+            />
           ))}
         </aside>
 
