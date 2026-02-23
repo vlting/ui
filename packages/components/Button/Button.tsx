@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { createContext, useContext } from 'react'
 import type { GetProps } from 'tamagui'
-import { Spinner, Text, XStack, styled, withStaticProperties } from 'tamagui'
+import { Spinner, Text, Theme, XStack, styled, withStaticProperties } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const ButtonFrame = styled(XStack, {
@@ -41,14 +41,6 @@ const ButtonFrame = styled(XStack, {
       },
     },
 
-    tone: {
-      neutral: {},
-      primary: {},
-      success: {},
-      warning: {},
-      danger: {},
-    },
-
     size: {
       sm: {
         paddingVertical: '$1',
@@ -78,18 +70,21 @@ const ButtonFrame = styled(XStack, {
 
   defaultVariants: {
     variant: 'solid',
-    tone: 'neutral',
     size: 'md',
   },
 })
 
 // @ts-expect-error Tamagui v2 RC
-const ButtonText = styled(Text, {
+const ButtonTextBase = styled(Text, {
   fontFamily: '$body',
   fontWeight: '$3',
-  color: '$color',
 
   variants: {
+    textVariant: {
+      solid: { color: '$color1' },
+      outline: { color: '$color' },
+      ghost: { color: '$color' },
+    },
     size: {
       sm: { fontSize: '$2' },
       md: { fontSize: '$4' },
@@ -98,6 +93,7 @@ const ButtonText = styled(Text, {
   } as const,
 
   defaultVariants: {
+    textVariant: 'solid',
     size: 'md',
   },
 })
@@ -110,6 +106,14 @@ const ButtonIcon = styled(XStack, {
 
 type ButtonFrameProps = GetProps<typeof ButtonFrame>
 
+const ButtonContext = createContext<{ variant: 'solid' | 'outline' | 'ghost' }>({ variant: 'solid' })
+
+function ButtonText(props: React.ComponentProps<typeof ButtonTextBase>) {
+  const { variant } = useContext(ButtonContext)
+  // @ts-expect-error Tamagui v2 RC
+  return <ButtonTextBase {...props} textVariant={variant} />
+}
+
 export interface ButtonProps {
   children?: React.ReactNode
   variant?: 'solid' | 'outline' | 'ghost'
@@ -120,29 +124,47 @@ export interface ButtonProps {
   onPress?: () => void
 }
 
+const TONE_THEME_MAP: Record<string, string | undefined> = {
+  neutral: undefined,
+  primary: 'blue',
+  success: 'green',
+  warning: 'orange',
+  danger: 'red',
+}
+
 const ButtonBase = React.forwardRef<
   React.ElementRef<typeof ButtonFrame>,
   ButtonProps & Omit<ButtonFrameProps, keyof ButtonProps>
 >(function ButtonBase(
-  { loading, children, disabled, variant = 'solid', size = 'md', ...props },
+  { loading, children, disabled, variant = 'solid', tone = 'neutral', size = 'md', ...props },
   ref,
 ) {
   const isDisabled = disabled ?? loading ?? false
-  return (
-    // @ts-expect-error Tamagui v2 RC
-    <ButtonFrame
-      ref={ref}
-      {...props}
-      variant={variant}
-      size={size}
-      disabled={isDisabled}
-      accessibilityRole="button"
-      aria-disabled={isDisabled || undefined}
-      aria-busy={loading || undefined}
-    >
-      {loading ? <Spinner size="small" /> : children}
-    </ButtonFrame>
+  const themeName = TONE_THEME_MAP[tone]
+
+  const frame = (
+    <ButtonContext.Provider value={{ variant }}>
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <ButtonFrame
+        ref={ref}
+        {...props}
+        variant={variant}
+        size={size}
+        disabled={isDisabled}
+        accessibilityRole="button"
+        aria-disabled={isDisabled || undefined}
+        aria-busy={loading || undefined}
+      >
+        {loading ? <Spinner size="small" /> : children}
+      </ButtonFrame>
+    </ButtonContext.Provider>
   )
+
+  if (themeName) {
+    return <Theme name={themeName}>{frame}</Theme>
+  }
+
+  return frame
 })
 
 export const Button = withStaticProperties(ButtonBase, {
