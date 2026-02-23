@@ -45,8 +45,8 @@ const ToggleFrame = styledHtml('button', {
   variants: {
     variant: {
       default: {
-        borderWidth: 0,
-        borderColor: 'transparent',
+        borderWidth: 1,
+        borderColor: '$borderColor',
       },
       outline: {
         borderWidth: 1,
@@ -60,8 +60,12 @@ const ToggleFrame = styledHtml('button', {
     },
     pressed: {
       true: {
-        backgroundColor: '$color4',
-        borderColor: '$borderColorHover',
+        backgroundColor: '$color10',
+        borderColor: '$color10',
+        color: '$color1',
+        hoverStyle: {
+          backgroundColor: '$color11',
+        },
       },
     },
     disabled: {

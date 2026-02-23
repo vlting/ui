@@ -6,6 +6,7 @@ const SwitchFrame = TamaguiSwitch as ComponentType<Record<string, unknown>>
 const SwitchThumb = TamaguiSwitch.Thumb as ComponentType<Record<string, unknown>>
 
 const SIZE_MAP = { sm: '$3' as const, md: '$4' as const, lg: '$5' as const }
+const WIDTH_MAP = { sm: 48, md: 60, lg: 72 }
 const THUMB_SIZE_MAP = { sm: 16, md: 20, lg: 24 }
 
 export interface SwitchProps {
@@ -35,10 +36,12 @@ export function Switch({
       name={name}
       backgroundColor="$color5"
       borderRadius={999}
-      padding={2}
+      padding={3}
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       animation="fast"
+      alignItems="center"
+      width={WIDTH_MAP[size]}
       focusVisibleStyle={{
         outlineWidth: 2,
         outlineOffset: 1,
