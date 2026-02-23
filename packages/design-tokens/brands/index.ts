@@ -302,3 +302,4 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
 export { defaultBrand } from './default'
 export { funBrand } from './fun'
 export { poshBrand } from './posh'
+export { shadcnBrand } from './shadcn'
