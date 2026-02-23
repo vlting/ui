@@ -1,52 +1,27 @@
 import React, { createContext, useContext } from 'react'
+import { Button as TamaguiButton, type ButtonProps as TamaguiButtonProps } from '@tamagui/button'
 import type { GetProps } from 'tamagui'
 import { Spinner, Text, Theme, XStack, styled, withStaticProperties } from 'tamagui'
-import { styledHtml } from '@tamagui/web'
 import { VisuallyHidden } from '../../primitives'
 
-// styledHtml sets Component: 'button' in staticConfig, rendering a real <button>
-const ButtonFrame = styledHtml('button', {
-  // XStack defaults that styledHtml('button') does not inherit:
-  display: 'inline-flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-
-  // Reset browser button defaults:
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-
-  // Original ButtonFrame styles:
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: '$4',
-  cursor: 'pointer',
-  gap: '$1.5',
-
-  focusWithinStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-
-  pressStyle: {
-    opacity: 0.85,
-    scale: 0.98,
-  },
-
-  animation: 'fast',
-
+// Extend Tamagui's Button.Frame with our custom variants.
+// Tamagui Button already renders <button type="button"> with correct semantics,
+// ARIA, focus styles, hover/press interactions, and token-based sizing.
+// @ts-expect-error Tamagui v2 RC
+const ButtonFrame = styled(TamaguiButton.Frame, {
   variants: {
     variant: {
       solid: {
         backgroundColor: '$color10',
         borderWidth: 0,
+        borderColor: 'transparent',
         hoverStyle: {
           backgroundColor: '$color11',
+          borderColor: 'transparent',
+        },
+        pressStyle: {
+          backgroundColor: '$color11',
+          borderColor: 'transparent',
         },
       },
       outline: {
@@ -60,30 +35,12 @@ const ButtonFrame = styledHtml('button', {
       ghost: {
         backgroundColor: 'transparent',
         borderWidth: 0,
+        borderColor: 'transparent',
         hoverStyle: {
           backgroundColor: '$backgroundHover',
         },
       },
     },
-
-    size: {
-      sm: {
-        paddingVertical: '$1',
-        paddingHorizontal: '$3',
-        height: '$3.5',
-      },
-      md: {
-        paddingVertical: '$2',
-        paddingHorizontal: '$4',
-        height: '$4',
-      },
-      lg: {
-        paddingVertical: '$3',
-        paddingHorizontal: '$5',
-        height: '$4.5',
-      },
-    },
-
     disabled: {
       true: {
         opacity: 0.5,
@@ -92,13 +49,23 @@ const ButtonFrame = styledHtml('button', {
       },
     },
   } as const,
-
-  defaultVariants: {
-    variant: 'solid',
-    size: 'md',
-  },
 })
 
+// Map our named sizes to Tamagui size tokens
+const SIZE_TOKEN_MAP: Record<string, string> = {
+  sm: '$3',
+  md: '$4',
+  lg: '$5',
+}
+
+type ButtonFrameProps = GetProps<typeof ButtonFrame>
+
+// Cast for JSX usage — Tamagui v2 RC GetFinalProps resolves all props as undefined
+const ButtonFrameJsx = ButtonFrame as React.ComponentType<Record<string, unknown>>
+
+const ButtonContext = createContext<{ variant: 'solid' | 'outline' | 'ghost' }>({ variant: 'solid' })
+
+// @ts-expect-error Tamagui v2 RC
 const ButtonTextBase = styled(Text, {
   fontFamily: '$body',
   fontWeight: '$3',
@@ -127,13 +94,6 @@ const ButtonIcon = styled(XStack, {
   alignItems: 'center',
   justifyContent: 'center',
 })
-
-type ButtonFrameProps = GetProps<typeof ButtonFrame>
-
-// Cast for JSX usage — Tamagui v2 RC GetFinalProps resolves all props as undefined
-const ButtonFrameJsx = ButtonFrame as React.ComponentType<Record<string, unknown>>
-
-const ButtonContext = createContext<{ variant: 'solid' | 'outline' | 'ghost' }>({ variant: 'solid' })
 
 function ButtonText(props: React.ComponentProps<typeof ButtonTextBase>) {
   const { variant } = useContext(ButtonContext)
@@ -168,18 +128,18 @@ const ButtonBase = React.forwardRef<
 ) {
   const isDisabled = disabled ?? loading ?? false
   const themeName = TONE_THEME_MAP[tone]
+  const sizeToken = SIZE_TOKEN_MAP[size]
 
   const frame = (
     <ButtonContext.Provider value={{ variant }}>
       <ButtonFrameJsx
         ref={ref}
-        type="button"
         disabled={isDisabled}
         aria-busy={loading || undefined}
-        onClick={isDisabled ? undefined : onPress}
+        onPress={isDisabled ? undefined : onPress}
         {...props}
         variant={variant}
-        size={size}
+        size={sizeToken}
       >
         {loading ? (
           <>

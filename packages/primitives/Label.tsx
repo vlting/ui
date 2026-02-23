@@ -1,27 +1,17 @@
 import type React from 'react'
+import type { ComponentType } from 'react'
+import { Label as TamaguiLabel } from '@tamagui/label'
 import { Text, styled } from 'tamagui'
 
-// @ts-expect-error Tamagui v2 RC
-const StyledLabelText = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$3',
-  fontWeight: '$3',
-  color: '$color',
-  cursor: 'default',
-  userSelect: 'none',
+// Map named sizes to Tamagui size tokens
+const SIZE_TOKEN_MAP: Record<string, string> = {
+  sm: '$2',
+  md: '$3',
+  lg: '$4',
+}
 
-  variants: {
-    size: {
-      sm: { fontSize: '$2' },
-      md: { fontSize: '$3' },
-      lg: { fontSize: '$4' },
-    },
-  } as const,
-
-  defaultVariants: {
-    size: 'md',
-  },
-})
+// Cast for JSX — Tamagui v2 RC GetFinalProps bug
+const TamaguiLabelJsx = TamaguiLabel as ComponentType<Record<string, unknown>>
 
 export interface LabelProps {
   children: React.ReactNode
@@ -36,13 +26,12 @@ export function Label({
   size = 'md',
   required,
 }: LabelProps) {
+  const sizeToken = SIZE_TOKEN_MAP[size]
+
   return (
-    <label htmlFor={htmlFor}>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledLabelText size={size}>
-        {children}
-        {required && <Text color="$red10"> *</Text>}
-      </StyledLabelText>
-    </label>
+    <TamaguiLabelJsx htmlFor={htmlFor} size={sizeToken}>
+      {children}
+      {required && <Text color="$red10"> *</Text>}
+    </TamaguiLabelJsx>
   )
 }
