@@ -1,182 +1,18 @@
-import React from 'react'
+import React, { type ComponentType } from 'react'
 import { Text, XStack, styled } from 'tamagui'
+import { Button, type ButtonProps } from '../Button'
+
+type ButtonVariant = NonNullable<ButtonProps['variant']>
+type AnyFC = ComponentType<Record<string, unknown>>
+
+const ButtonJsx = Button as AnyFC
+const ButtonTextJsx = Button.Text as AnyFC
 
 // @ts-expect-error Tamagui v2 RC
 const PaginationFrame = styled(XStack, {
   alignItems: 'center',
   gap: '$1.5',
   flexWrap: 'wrap',
-})
-
-// @ts-expect-error Tamagui v2 RC
-const PageButton = styled(XStack, {
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: '$3',
-  cursor: 'pointer',
-  borderWidth: 1,
-  borderColor: '$borderColor',
-  backgroundColor: 'transparent',
-
-  hoverStyle: {
-    backgroundColor: '$backgroundHover',
-  },
-
-  focusStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-
-  pressStyle: {
-    opacity: 0.85,
-    scale: 0.98,
-  },
-
-  animation: 'fast',
-
-  variants: {
-    active: {
-      true: {
-        backgroundColor: '$color10',
-        borderColor: '$color10',
-        hoverStyle: {
-          backgroundColor: '$color11',
-        },
-      },
-    },
-
-    isDisabled: {
-      true: {
-        opacity: 0.5,
-        cursor: 'not-allowed',
-        pointerEvents: 'none',
-      },
-    },
-
-    size: {
-      sm: {
-        width: '$3',
-        height: '$3',
-      },
-      md: {
-        width: '$3.5',
-        height: '$3.5',
-      },
-      lg: {
-        width: '$4.5',
-        height: '$4.5',
-      },
-    },
-  } as const,
-
-  defaultVariants: {
-    size: 'md',
-  },
-})
-
-// @ts-expect-error Tamagui v2 RC
-const PageButtonText = styled(Text, {
-  fontFamily: '$body',
-  fontWeight: '$3',
-
-  variants: {
-    active: {
-      true: { color: '$color1' },
-      false: { color: '$color' },
-    },
-    size: {
-      sm: { fontSize: '$2' },
-      md: { fontSize: '$3' },
-      lg: { fontSize: '$4' },
-    },
-  } as const,
-
-  defaultVariants: {
-    active: false,
-    size: 'md',
-  },
-})
-
-// @ts-expect-error Tamagui v2 RC
-const NavButton = styled(XStack, {
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: '$3',
-  cursor: 'pointer',
-  backgroundColor: 'transparent',
-  borderWidth: 1,
-  borderColor: '$borderColor',
-
-  hoverStyle: {
-    backgroundColor: '$backgroundHover',
-  },
-
-  focusStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-
-  pressStyle: {
-    opacity: 0.85,
-    scale: 0.98,
-  },
-
-  animation: 'fast',
-
-  variants: {
-    isDisabled: {
-      true: {
-        opacity: 0.5,
-        cursor: 'not-allowed',
-        pointerEvents: 'none',
-      },
-    },
-
-    size: {
-      sm: {
-        paddingVertical: '$1',
-        paddingHorizontal: '$2',
-        height: '$3',
-      },
-      md: {
-        paddingVertical: '$1.5',
-        paddingHorizontal: '$3',
-        height: '$3.5',
-      },
-      lg: {
-        paddingVertical: '$2',
-        paddingHorizontal: '$4',
-        height: '$4.5',
-      },
-    },
-  } as const,
-
-  defaultVariants: {
-    size: 'md',
-  },
-})
-
-// @ts-expect-error Tamagui v2 RC
-const NavButtonText = styled(Text, {
-  fontFamily: '$body',
-  fontWeight: '$3',
-  color: '$color',
-
-  variants: {
-    size: {
-      sm: { fontSize: '$2' },
-      md: { fontSize: '$3' },
-      lg: { fontSize: '$4' },
-    },
-  } as const,
-
-  defaultVariants: {
-    size: 'md',
-  },
 })
 
 // @ts-expect-error Tamagui v2 RC
@@ -196,11 +32,6 @@ const EllipsisText = styled(Text, {
     size: 'md',
   },
 })
-
-const buttonReset: React.CSSProperties = {
-  all: 'unset',
-  display: 'inline-flex',
-}
 
 /**
  * Compute which page numbers to display, inserting null for ellipsis gaps.
@@ -253,6 +84,12 @@ export interface PaginationProps {
   onPageChange: (page: number) => void
   siblingCount?: number
   size?: 'sm' | 'md' | 'lg'
+  /** Button variant for Previous/Next buttons. Default: 'ghost' */
+  navVariant?: ButtonVariant
+  /** Button variant for numbered page buttons. Default: 'outline' */
+  pageVariant?: ButtonVariant
+  /** Button variant for the currently selected page button. Default: 'default' */
+  activePageVariant?: ButtonVariant
 }
 
 function Root({
@@ -261,64 +98,46 @@ function Root({
   onPageChange,
   siblingCount = 1,
   size = 'md',
+  navVariant = 'ghost',
+  pageVariant = 'outline',
+  activePageVariant = 'default',
 }: PaginationProps) {
   const pages = computePageRange(currentPage, totalPages, siblingCount)
 
   return (
     // @ts-expect-error Tamagui v2 RC
     <PaginationFrame role="navigation" aria-label="Pagination">
-      <button
-        style={buttonReset}
-        onClick={() => onPageChange(currentPage - 1)}
+      <Previous
         disabled={currentPage <= 1}
-        aria-label="Go to previous page"
-      >
-        {/* @ts-expect-error Tamagui v2 RC */}
-        <NavButton isDisabled={currentPage <= 1} size={size}>
-          {/* @ts-expect-error Tamagui v2 RC */}
-          <NavButtonText size={size}>Previous</NavButtonText>
-        </NavButton>
-      </button>
+        onPress={() => onPageChange(currentPage - 1)}
+        size={size}
+        variant={navVariant}
+      />
 
       {pages.map((page, index) => {
         if (page === null) {
-          return (
-            <Ellipsis key={`ellipsis-${index}`} size={size} />
-          )
+          return <Ellipsis key={`ellipsis-${index}`} size={size} />
         }
 
         const isActive = page === currentPage
         return (
-          <button
+          <Item
             key={page}
-            style={buttonReset}
-            onClick={() => onPageChange(page)}
-            aria-label={`Page ${page}`}
-            aria-current={isActive ? 'page' : undefined}
-          >
-            {/* @ts-expect-error Tamagui v2 RC */}
-            <PageButton active={isActive} size={size}>
-              {/* @ts-expect-error Tamagui v2 RC */}
-              <PageButtonText active={isActive} size={size}>
-                {page}
-              </PageButtonText>
-            </PageButton>
-          </button>
+            page={page}
+            active={isActive}
+            onPress={() => onPageChange(page)}
+            size={size}
+            variant={isActive ? activePageVariant : pageVariant}
+          />
         )
       })}
 
-      <button
-        style={buttonReset}
-        onClick={() => onPageChange(currentPage + 1)}
+      <Next
         disabled={currentPage >= totalPages}
-        aria-label="Go to next page"
-      >
-        {/* @ts-expect-error Tamagui v2 RC */}
-        <NavButton isDisabled={currentPage >= totalPages} size={size}>
-          {/* @ts-expect-error Tamagui v2 RC */}
-          <NavButtonText size={size}>Next</NavButtonText>
-        </NavButton>
-      </button>
+        onPress={() => onPageChange(currentPage + 1)}
+        size={size}
+        variant={navVariant}
+      />
     </PaginationFrame>
   )
 }
@@ -327,28 +146,25 @@ function Previous({
   disabled,
   onPress,
   size = 'md',
+  variant = 'ghost',
   children,
 }: {
   disabled?: boolean
   onPress?: () => void
   size?: 'sm' | 'md' | 'lg'
+  variant?: ButtonVariant
   children?: React.ReactNode
 }) {
   return (
-    <button
-      style={buttonReset}
-      onClick={onPress}
+    <ButtonJsx
+      variant={variant}
+      size={size}
       disabled={disabled}
+      onPress={onPress}
       aria-label="Go to previous page"
     >
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <NavButton isDisabled={disabled} size={size}>
-        {children ?? (
-          // @ts-expect-error Tamagui v2 RC
-          <NavButtonText size={size}>Previous</NavButtonText>
-        )}
-      </NavButton>
-    </button>
+      {children ?? <ButtonTextJsx>Previous</ButtonTextJsx>}
+    </ButtonJsx>
   )
 }
 
@@ -356,28 +172,25 @@ function Next({
   disabled,
   onPress,
   size = 'md',
+  variant = 'ghost',
   children,
 }: {
   disabled?: boolean
   onPress?: () => void
   size?: 'sm' | 'md' | 'lg'
+  variant?: ButtonVariant
   children?: React.ReactNode
 }) {
   return (
-    <button
-      style={buttonReset}
-      onClick={onPress}
+    <ButtonJsx
+      variant={variant}
+      size={size}
       disabled={disabled}
+      onPress={onPress}
       aria-label="Go to next page"
     >
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <NavButton isDisabled={disabled} size={size}>
-        {children ?? (
-          // @ts-expect-error Tamagui v2 RC
-          <NavButtonText size={size}>Next</NavButtonText>
-        )}
-      </NavButton>
-    </button>
+      {children ?? <ButtonTextJsx>Next</ButtonTextJsx>}
+    </ButtonJsx>
   )
 }
 
@@ -386,27 +199,25 @@ function Item({
   active,
   onPress,
   size = 'md',
+  variant,
 }: {
   page: number
   active?: boolean
   onPress?: () => void
   size?: 'sm' | 'md' | 'lg'
+  variant?: ButtonVariant
 }) {
+  const resolvedVariant = variant ?? (active ? 'default' : 'outline')
   return (
-    <button
-      style={buttonReset}
-      onClick={onPress}
+    <ButtonJsx
+      variant={resolvedVariant}
+      size={size}
+      onPress={onPress}
       aria-label={`Page ${page}`}
       aria-current={active ? 'page' : undefined}
     >
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <PageButton active={active} size={size}>
-        {/* @ts-expect-error Tamagui v2 RC */}
-        <PageButtonText active={active} size={size}>
-          {page}
-        </PageButtonText>
-      </PageButton>
-    </button>
+      <ButtonTextJsx>{page}</ButtonTextJsx>
+    </ButtonJsx>
   )
 }
 
