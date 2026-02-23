@@ -1,8 +1,9 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { Text, View, XStack, YStack, styled, withStaticProperties } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const SelectTrigger = styled(XStack, {
+  tag: 'button',
   alignItems: 'center',
   justifyContent: 'space-between',
   borderWidth: 1,
@@ -11,6 +12,10 @@ const SelectTrigger = styled(XStack, {
   backgroundColor: '$background',
   cursor: 'pointer',
   gap: '$2',
+
+  // Reset native button defaults
+  // @ts-expect-error web-only CSS property
+  appearance: 'none',
 
   hoverStyle: {
     borderColor: '$borderColorHover',
@@ -74,10 +79,20 @@ const SelectItemFrame = styled(XStack, {
     backgroundColor: '$backgroundHover',
   },
 
+  focusStyle: {
+    backgroundColor: '$backgroundHover',
+    outlineWidth: 0,
+  },
+
   variants: {
     selected: {
       true: {
         backgroundColor: '$color4',
+      },
+    },
+    focused: {
+      true: {
+        backgroundColor: '$backgroundHover',
       },
     },
   } as const,
@@ -123,6 +138,8 @@ interface SelectContextValue {
   disabled?: boolean
   items: Map<string, string>
   registerItem: (value: string, label: string) => void
+  focusedIndex: number
+  itemValues: string[]
 }
 
 const SelectContext = createContext<SelectContextValue>({
@@ -132,6 +149,8 @@ const SelectContext = createContext<SelectContextValue>({
   size: 'md',
   items: new Map(),
   registerItem: () => {},
+  focusedIndex: -1,
+  itemValues: [],
 })
 
 export interface SelectProps {
@@ -156,30 +175,84 @@ function SelectRoot({
   const [internalValue, setInternalValue] = useState(defaultValue)
   const [open, setOpen] = useState(false)
   const [items] = useState(() => new Map<string, string>())
+  const [itemValues, setItemValues] = useState<string[]>([])
+  const [focusedIndex, setFocusedIndex] = useState(-1)
   const containerRef = useRef<HTMLDivElement>(null)
   const value = controlledValue ?? internalValue
 
-  const handleValueChange = (val: string) => {
-    setInternalValue(val)
-    onValueChange?.(val)
-    setOpen(false)
-  }
+  const handleValueChange = useCallback(
+    (val: string) => {
+      setInternalValue(val)
+      onValueChange?.(val)
+      setOpen(false)
+      setFocusedIndex(-1)
+    },
+    [onValueChange],
+  )
 
-  const registerItem = (itemValue: string, label: string) => {
-    items.set(itemValue, label)
-  }
+  const registerItem = useCallback(
+    (itemValue: string, label: string) => {
+      items.set(itemValue, label)
+      setItemValues((prev) => {
+        if (prev.includes(itemValue)) return prev
+        return [...prev, itemValue]
+      })
+    },
+    [items],
+  )
 
+  // Close on click outside
   useEffect(() => {
+    if (!open) return
     const handleClickOutside = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setOpen(false)
+        setFocusedIndex(-1)
       }
     }
-    if (open) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
+    document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [open])
+
+  // Close on Escape
+  useEffect(() => {
+    if (!open) return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        setFocusedIndex(-1)
+      }
+    }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [open])
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      if (!open) {
+        setOpen(true)
+        setFocusedIndex(0)
+      } else if (focusedIndex >= 0 && focusedIndex < itemValues.length) {
+        handleValueChange(itemValues[focusedIndex])
+      }
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      if (!open) {
+        setOpen(true)
+        setFocusedIndex(0)
+      } else {
+        setFocusedIndex((prev) => Math.min(prev + 1, itemValues.length - 1))
+      }
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (open) {
+        setFocusedIndex((prev) => Math.max(prev - 1, 0))
+      }
+    }
+  }
 
   const displayLabel = value ? (items.get(value) ?? value) : undefined
 
@@ -194,6 +267,8 @@ function SelectRoot({
         disabled,
         items,
         registerItem,
+        focusedIndex,
+        itemValues,
       }}
     >
       {/* @ts-expect-error Tamagui v2 RC */}
@@ -203,9 +278,11 @@ function SelectRoot({
           size={size}
           disabled={disabled}
           onPress={() => !disabled && setOpen(!open)}
+          onKeyDown={handleKeyDown}
           role="combobox"
           aria-expanded={open}
           aria-disabled={disabled || undefined}
+          aria-haspopup="listbox"
         >
           {/* @ts-expect-error Tamagui v2 RC */}
           <SelectValueText size={size} placeholder={!displayLabel}>
@@ -242,6 +319,8 @@ function SelectItem({ value: itemValue, children }: SelectItemProps) {
   const ctx = useContext(SelectContext)
   const isSelected = ctx.value === itemValue
   const label = typeof children === 'string' ? children : itemValue
+  const itemIndex = ctx.itemValues.indexOf(itemValue)
+  const isFocused = ctx.focusedIndex === itemIndex
 
   React.useEffect(() => {
     ctx.registerItem(itemValue, label)
@@ -251,9 +330,11 @@ function SelectItem({ value: itemValue, children }: SelectItemProps) {
     // @ts-expect-error Tamagui v2 RC
     <SelectItemFrame
       selected={isSelected}
+      focused={isFocused && !isSelected}
       onPress={() => ctx.onValueChange(itemValue)}
       role="option"
       aria-selected={isSelected}
+      tabIndex={-1}
     >
       {typeof children === 'string' ? (
         // @ts-expect-error Tamagui v2 RC

@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import { Text, YStack, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
@@ -73,6 +74,7 @@ const TextareaField = styled(Text, {
 
 // @ts-expect-error Tamagui v2 RC
 const TextareaLabel = styled(Text, {
+  tag: 'label',
   fontFamily: '$body',
   fontWeight: '$3',
   fontSize: '$3',
@@ -115,15 +117,20 @@ export function Textarea({
   rows,
   maxLength,
 }: TextareaProps) {
+  const textareaId = useId()
+  const helperId = useId()
   const displayHelper = error && errorMessage ? errorMessage : helperText
 
   return (
     // @ts-expect-error Tamagui v2 RC
     <TextareaFrame>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      {label && <TextareaLabel>{label}</TextareaLabel>}
+      {label && (
+        // @ts-expect-error Tamagui v2 RC
+        <TextareaLabel htmlFor={textareaId}>{label}</TextareaLabel>
+      )}
       {/* @ts-expect-error Tamagui v2 RC */}
       <TextareaField
+        id={textareaId}
         value={value}
         defaultValue={defaultValue}
         // @ts-expect-error RN vs web event types
@@ -135,13 +142,14 @@ export function Textarea({
         disabled={disabled}
         size={size}
         aria-invalid={error || undefined}
+        aria-describedby={displayHelper ? helperId : undefined}
         // @ts-expect-error Web textarea props
         rows={rows}
         maxLength={maxLength}
       />
       {displayHelper && (
         // @ts-expect-error Tamagui v2 RC
-        <TextareaHelper color={error ? '$red10' : '$colorSubtitle'}>
+        <TextareaHelper id={helperId} color={error ? '$red10' : '$colorSubtitle'}>
           {displayHelper}
         </TextareaHelper>
       )}

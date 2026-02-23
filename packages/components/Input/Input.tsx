@@ -1,4 +1,4 @@
-import type React from 'react'
+import React, { useId } from 'react'
 import { Text, View, XStack, YStack, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
@@ -9,6 +9,10 @@ const InputFrame = styled(XStack, {
   borderRadius: '$4',
   backgroundColor: '$background',
   gap: '$2',
+
+  hoverStyle: {
+    borderColor: '$borderColorHover',
+  },
 
   focusWithinStyle: {
     borderColor: '$borderColorFocus',
@@ -68,6 +72,7 @@ const InputField = styled(View, {
 
 // @ts-expect-error Tamagui v2 RC
 const InputLabel = styled(Text, {
+  tag: 'label',
   fontFamily: '$body',
   fontWeight: '$3',
   color: '$color',
@@ -139,6 +144,8 @@ export function Input({
   leadingSlot,
   trailingSlot,
 }: InputProps) {
+  const inputId = useId()
+  const helperId = useId()
   const displayHelper = error && errorMessage ? errorMessage : helperText
 
   return (
@@ -146,13 +153,14 @@ export function Input({
     <YStack>
       {label && (
         // @ts-expect-error Tamagui v2 RC
-        <InputLabel size={size}>{label}</InputLabel>
+        <InputLabel size={size} htmlFor={inputId}>{label}</InputLabel>
       )}
       {/* @ts-expect-error Tamagui v2 RC */}
       <InputFrame size={size} error={error} disabled={disabled}>
         {leadingSlot && <SlotFrame>{leadingSlot}</SlotFrame>}
         {/* @ts-expect-error Tamagui v2 RC */}
         <InputField
+          id={inputId}
           size={size}
           placeholder={placeholder}
           value={value}
@@ -164,13 +172,13 @@ export function Input({
           }
           disabled={disabled}
           aria-invalid={error || undefined}
-          aria-label={label}
+          aria-describedby={displayHelper ? helperId : undefined}
         />
         {trailingSlot && <SlotFrame>{trailingSlot}</SlotFrame>}
       </InputFrame>
       {displayHelper && (
         // @ts-expect-error Tamagui v2 RC
-        <InputHelper tone={error ? 'error' : 'neutral'}>{displayHelper}</InputHelper>
+        <InputHelper id={helperId} tone={error ? 'error' : 'neutral'}>{displayHelper}</InputHelper>
       )}
     </YStack>
   )
