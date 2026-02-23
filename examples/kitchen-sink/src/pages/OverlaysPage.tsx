@@ -29,6 +29,8 @@ function DemoCard({ label, children }: { label: string; children: React.ReactNod
 
 export function OverlaysPage() {
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [rightPanelOpen, setRightPanelOpen] = useState(false)
+  const [leftPanelOpen, setLeftPanelOpen] = useState(false)
 
   return (
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
@@ -70,26 +72,94 @@ export function OverlaysPage() {
 
       {/* Drawer */}
       <Section title="Drawer">
-        <DemoCard label="Bottom drawer">
-          <Drawer.Root open={drawerOpen} onOpenChange={setDrawerOpen}>
-            <Drawer.Trigger>
-              <Button onPress={() => setDrawerOpen(true)}>
-                <Button.Text>Open Drawer</Button.Text>
-              </Button>
-            </Drawer.Trigger>
-            <Drawer.Content>
-              <YStack padding="$4" gap="$3">
-                <Text fontFamily="$heading" fontSize="$5" fontWeight="$4">Drawer Title</Text>
-                <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
-                  This is a drawer that slides up from the bottom. Great for mobile-friendly actions.
-                </Text>
-                <Button variant="outline" onPress={() => setDrawerOpen(false)}>
-                  <Button.Text>Close</Button.Text>
+        <XStack gap="$3" flexWrap="wrap">
+          <DemoCard label="Bottom drawer">
+            <Drawer.Root open={drawerOpen} onOpenChange={setDrawerOpen}>
+              <Drawer.Trigger>
+                <Button onPress={() => setDrawerOpen(true)}>
+                  <Button.Text>Open Bottom</Button.Text>
                 </Button>
-              </YStack>
-            </Drawer.Content>
-          </Drawer.Root>
-        </DemoCard>
+              </Drawer.Trigger>
+              <Drawer.Content>
+                <YStack padding="$4" gap="$3">
+                  <Text fontFamily="$heading" fontSize="$5" fontWeight="$4">Bottom Drawer</Text>
+                  <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
+                    Slides up from the bottom. Handle appears only on touch devices.
+                  </Text>
+                  <Button variant="outline" onPress={() => setDrawerOpen(false)}>
+                    <Button.Text>Close</Button.Text>
+                  </Button>
+                </YStack>
+              </Drawer.Content>
+            </Drawer.Root>
+          </DemoCard>
+
+          <DemoCard label="Right panel">
+            <Drawer.Root open={rightPanelOpen} onOpenChange={setRightPanelOpen} direction="right">
+              <Drawer.Trigger>
+                <Button onPress={() => setRightPanelOpen(true)}>
+                  <Button.Text>Open Right</Button.Text>
+                </Button>
+              </Drawer.Trigger>
+              <Drawer.Content>
+                <Drawer.Header>
+                  <Drawer.Title>Settings</Drawer.Title>
+                  <Drawer.Description>Adjust your preferences below.</Drawer.Description>
+                </Drawer.Header>
+                <YStack padding="$3.5" gap="$3" flex={1}>
+                  <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
+                    Right-side panel for detail views, settings, or inspectors.
+                  </Text>
+                </YStack>
+                <Drawer.Footer>
+                  <Button variant="outline" onPress={() => setRightPanelOpen(false)}>
+                    <Button.Text>Cancel</Button.Text>
+                  </Button>
+                  <Button onPress={() => setRightPanelOpen(false)}>
+                    <Button.Text>Save</Button.Text>
+                  </Button>
+                </Drawer.Footer>
+              </Drawer.Content>
+            </Drawer.Root>
+          </DemoCard>
+
+          <DemoCard label="Left panel">
+            <Drawer.Root open={leftPanelOpen} onOpenChange={setLeftPanelOpen} direction="left">
+              <Drawer.Trigger>
+                <Button onPress={() => setLeftPanelOpen(true)}>
+                  <Button.Text>Open Left</Button.Text>
+                </Button>
+              </Drawer.Trigger>
+              <Drawer.Content>
+                <Drawer.Header>
+                  <Drawer.Title>Navigation</Drawer.Title>
+                </Drawer.Header>
+                <YStack padding="$3.5" gap="$2" flex={1}>
+                  {['Dashboard', 'Projects', 'Teams', 'Settings'].map((item) => (
+                    <Text
+                      key={item}
+                      fontFamily="$body"
+                      fontSize="$3"
+                      color="$color"
+                      paddingVertical="$2"
+                      paddingHorizontal="$2"
+                      borderRadius="$2"
+                      hoverStyle={{ backgroundColor: '$backgroundHover' }}
+                      cursor="pointer"
+                    >
+                      {item}
+                    </Text>
+                  ))}
+                </YStack>
+                <Drawer.Footer>
+                  <Button variant="outline" onPress={() => setLeftPanelOpen(false)}>
+                    <Button.Text>Close</Button.Text>
+                  </Button>
+                </Drawer.Footer>
+              </Drawer.Content>
+            </Drawer.Root>
+          </DemoCard>
+        </XStack>
       </Section>
 
       {/* Tooltip (extended) */}
