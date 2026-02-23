@@ -1,10 +1,25 @@
 import React, { createContext, useContext } from 'react'
 import type { GetProps } from 'tamagui'
 import { Spinner, Text, Theme, XStack, styled, withStaticProperties } from 'tamagui'
+import { styledHtml } from '@tamagui/web'
 import { VisuallyHidden } from '../../primitives'
 
-// @ts-expect-error Tamagui v2 RC
-const ButtonFrame = styled(XStack, {
+// styledHtml sets Component: 'button' in staticConfig, rendering a real <button>
+const ButtonFrame = styledHtml('button', {
+  // XStack defaults that styledHtml('button') does not inherit:
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+
+  // Reset browser button defaults:
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+
+  // Original ButtonFrame styles:
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '$4',
@@ -84,7 +99,6 @@ const ButtonFrame = styled(XStack, {
   },
 })
 
-// @ts-expect-error Tamagui v2 RC
 const ButtonTextBase = styled(Text, {
   fontFamily: '$body',
   fontWeight: '$3',
@@ -115,6 +129,9 @@ const ButtonIcon = styled(XStack, {
 })
 
 type ButtonFrameProps = GetProps<typeof ButtonFrame>
+
+// Cast for JSX usage — Tamagui v2 RC GetFinalProps resolves all props as undefined
+const ButtonFrameJsx = ButtonFrame as React.ComponentType<Record<string, unknown>>
 
 const ButtonContext = createContext<{ variant: 'solid' | 'outline' | 'ghost' }>({ variant: 'solid' })
 
@@ -154,35 +171,23 @@ const ButtonBase = React.forwardRef<
 
   const frame = (
     <ButtonContext.Provider value={{ variant }}>
-      <button
+      <ButtonFrameJsx
         ref={ref}
         type="button"
         disabled={isDisabled}
         aria-busy={loading || undefined}
         onClick={isDisabled ? undefined : onPress}
-        style={{
-          background: 'none',
-          border: 'none',
-          padding: 0,
-          display: 'inline-flex',
-          cursor: isDisabled ? 'not-allowed' : 'pointer',
-        }}
+        {...props}
+        variant={variant}
+        size={size}
       >
-        {/* @ts-expect-error Tamagui v2 RC */}
-        <ButtonFrame
-          {...props}
-          variant={variant}
-          size={size}
-          disabled={isDisabled}
-        >
-          {loading ? (
-            <>
-              <Spinner size="small" />
-              <VisuallyHidden>Loading</VisuallyHidden>
-            </>
-          ) : children}
-        </ButtonFrame>
-      </button>
+        {loading ? (
+          <>
+            <Spinner size="small" />
+            <VisuallyHidden>Loading</VisuallyHidden>
+          </>
+        ) : children}
+      </ButtonFrameJsx>
     </ButtonContext.Provider>
   )
 
