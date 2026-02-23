@@ -1,0 +1,87 @@
+<!-- auto-queue -->
+# Rewrite Tabs + Accordion + Collapsible + Card using Tamagui official components
+
+## Context
+
+Part of the broader effort to leverage Tamagui's official component packages. These are container and navigation components that benefit from Tamagui's built-in keyboard navigation, ARIA management, and animation support.
+
+## Implementation
+
+### Tabs (`packages/components/Tabs/Tabs.tsx`)
+
+Replace with `@tamagui/tabs`.
+
+```tsx
+import { Tabs as TamaguiTabs, createTabs } from '@tamagui/tabs'
+```
+
+1. Tamagui's Tabs has: `role="tablist"/"tab"/"tabpanel"`, roving focus with `@tamagui/roving-focus`, keyboard navigation, orientation support, `activationMode` (automatic/manual).
+2. Compound: `Tabs.List`, `Tabs.Trigger` (Tab), `Tabs.Content`.
+3. **Two options:**
+   - `styled()` wrap `Tabs.Trigger` with our active indicator styles (bottom border).
+   - `createTabs({ TabsFrame, TabFrame, ContentFrame })` factory for deep customization.
+4. Tamagui's Tab trigger supports `activeStyle` and `activeTheme` for the active state styling.
+5. Preserve our compound API: `Tabs.Root`, `Tabs.List`, `Tabs.Trigger`, `Tabs.Content`.
+6. **Remove dependency on headless Tabs** — Tamagui provides all behavior.
+7. Remove our custom `useTabsContext`, `useKeyboardNavigation` — Tamagui handles it.
+8. Map sizes for our size variant.
+
+### Accordion (`packages/components/Accordion/Accordion.tsx`)
+
+Replace with `@tamagui/accordion`.
+
+```tsx
+import { Accordion as TamaguiAccordion } from '@tamagui/accordion'
+```
+
+1. Tamagui's Accordion has: `type` (single/multiple), `collapsible`, `aria-expanded`, `aria-controls`, `role="region"`, keyboard navigation, animation.
+2. Compound: `Accordion.Item`, `Accordion.Header`, `Accordion.Trigger`, `Accordion.Content`, `Accordion.HeightAnimator`.
+3. Trigger renders `<button>` (via Collapsible.Trigger).
+4. `styled()` wrap Trigger and Content for our visual styling.
+5. Preserve our compound API: `Accordion.Root`, `Accordion.Item`, `Accordion.Trigger`, `Accordion.Content`.
+6. Add `Accordion.Header` and `Accordion.HeightAnimator` to our exports for advanced usage.
+
+### Collapsible (`packages/components/Collapsible/Collapsible.tsx`)
+
+Replace with `@tamagui/collapsible`.
+
+```tsx
+import { Collapsible as TamaguiCollapsible } from '@tamagui/collapsible'
+```
+
+1. Tamagui's Collapsible has: `open`, `defaultOpen`, `onOpenChange`, `disabled`, `aria-expanded`, `aria-controls`, AnimatePresence for content.
+2. Trigger renders `<button>`.
+3. Content supports `forceMount` and children-as-function `({ open }) => ...`.
+4. `styled()` wrap if needed for visual customization.
+5. Preserve our compound API: `Collapsible.Root`, `Collapsible.Trigger`, `Collapsible.Content`.
+
+### Card (`packages/components/Card/Card.tsx`)
+
+Replace with `@tamagui/card`.
+
+```tsx
+import { Card as TamaguiCard, CardHeader, CardFooter, CardBackground } from '@tamagui/card'
+```
+
+1. Tamagui's Card has: `size` (controls border-radius and spacing), `$background` theming.
+2. Compound: `Card.Header`, `Card.Footer`, `Card.Background`.
+3. `styled()` wrap for our variants: `elevated`, `interactive` (hover/press/focus), `size` (sm/md/lg).
+4. Tamagui's Card doesn't have: `Card.Content`, `Card.Title`, `Card.Description`. We need to create these ourselves using `styled()` on primitives (YStack, Text/H3) or keep our existing implementations for these sub-components.
+5. For `Card.Title`: use `styled.h3({ ... })` or `styledHtml('h3', { ... })` from `@tamagui/web` to render proper `<h3>` with Tamagui styles. (Reference: `styledHtml` sets `staticConfig.Component` correctly.)
+6. Preserve our full compound API: `Card.Header`, `Card.Content`, `Card.Footer`, `Card.Title`, `Card.Description`.
+
+## Verification
+
+After changes:
+- Tabs: `role="tablist"/"tab"/"tabpanel"`, arrow-key navigation, roving focus works
+- Accordion: trigger renders `<button>`, `aria-expanded` toggles, content animates
+- Collapsible: trigger renders `<button>`, content toggles with animation
+- Card: renders with theme tokens, interactive variant has hover/press states
+- All respond to brand theme changes
+
+## Scope
+
+- `packages/components/Tabs/Tabs.tsx`
+- `packages/components/Accordion/Accordion.tsx`
+- `packages/components/Collapsible/Collapsible.tsx`
+- `packages/components/Card/Card.tsx`

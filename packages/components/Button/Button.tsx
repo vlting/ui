@@ -2,6 +2,7 @@ import React, { createContext, useContext } from 'react'
 import { Button as TamaguiButton, type ButtonProps as TamaguiButtonProps } from '@tamagui/button'
 import type { GetProps } from 'tamagui'
 import { Spinner, Text, Theme, XStack, styled, withStaticProperties } from 'tamagui'
+import { styledHtml } from '@tamagui/web'
 import { VisuallyHidden } from '../../primitives'
 
 // Extend Tamagui's Button.Frame with our custom variants.
