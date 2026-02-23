@@ -25,7 +25,6 @@
       "@vlting/ui/*": ["./src/*"],
       "@vlting/ui/design-tokens": ["./packages/design-tokens"],
       "@vlting/ui/primitives": ["./packages/primitives"],
-      "@vlting/ui/headless": ["./packages/headless"],
       "@vlting/ui/components": ["./packages/components"],
       "@vlting/ui/hooks": ["./packages/hooks"],
       "@vlting/ui/utils": ["./packages/utils"]

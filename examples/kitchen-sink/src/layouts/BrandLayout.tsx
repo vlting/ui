@@ -15,7 +15,6 @@ const navLinks = [
   { path: 'primitives', label: 'Primitives' },
   { path: 'components', label: 'Components' },
   { path: 'composed', label: 'Composed' },
-  { path: 'headless', label: 'Headless' },
   { path: 'hooks', label: 'Hooks' },
 ]
 

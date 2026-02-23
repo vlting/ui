@@ -43,7 +43,7 @@ function AccordionDemo() {
           <Accordion.Content>
             <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
               A cross-platform, open-source design system built on Tamagui v2. It provides
-              layered primitives, headless behaviors, styled components, and composed patterns.
+              layered primitives, styled components, and composed patterns.
             </Text>
           </Accordion.Content>
         </Accordion.Item>
