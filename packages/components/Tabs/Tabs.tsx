@@ -24,7 +24,6 @@ const StyledList = styled(XStack, {
 
 // @ts-expect-error Tamagui v2 RC
 const StyledTriggerFrame = styled(XStack, {
-  tag: 'button',
   paddingHorizontal: '$3',
   paddingVertical: '$2',
   cursor: 'pointer',
@@ -37,11 +36,9 @@ const StyledTriggerFrame = styled(XStack, {
   borderTopWidth: 0,
   borderLeftWidth: 0,
   borderRightWidth: 0,
-  // @ts-expect-error web-only CSS property
-  appearance: 'none',
   hoverStyle: { backgroundColor: '$backgroundHover' },
 
-  focusStyle: {
+  focusWithinStyle: {
     outlineWidth: 2,
     outlineOffset: -2,
     outlineColor: '$outlineColor',
@@ -114,26 +111,38 @@ function Trigger({ children, value: tabValue, disabled, size = 'md' }: StyledTab
   }, [tabValue, registerTab])
 
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <StyledTriggerFrame
-      active={isSelected}
-      size={size}
-      disabled={disabled}
+    <button
+      type="button"
       role="tab"
       aria-selected={isSelected}
       aria-controls={`tabpanel-${tabValue}`}
       id={`tab-${tabValue}`}
       tabIndex={isSelected ? 0 : -1}
+      disabled={disabled}
       data-state={isSelected ? 'active' : 'inactive'}
-      onPress={() => {
+      onClick={() => {
         if (!disabled) onValueChange(tabValue)
+      }}
+      style={{
+        background: 'none',
+        border: 'none',
+        padding: 0,
+        display: 'inline-flex',
+        cursor: disabled ? 'not-allowed' : 'pointer',
       }}
     >
       {/* @ts-expect-error Tamagui v2 RC */}
-      <_StyledTriggerText active={isSelected} size={size}>
-        {children}
-      </_StyledTriggerText>
-    </StyledTriggerFrame>
+      <StyledTriggerFrame
+        active={isSelected}
+        size={size}
+        disabled={disabled}
+      >
+        {/* @ts-expect-error Tamagui v2 RC */}
+        <_StyledTriggerText active={isSelected} size={size}>
+          {children}
+        </_StyledTriggerText>
+      </StyledTriggerFrame>
+    </button>
   )
 }
 
