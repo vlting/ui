@@ -1,14 +1,20 @@
 import React, { createContext, useContext } from 'react'
 import type { GetProps } from 'tamagui'
 import { Spinner, Text, Theme, XStack, styled, withStaticProperties } from 'tamagui'
+import { VisuallyHidden } from '../../primitives'
 
 // @ts-expect-error Tamagui v2 RC
 const ButtonFrame = styled(XStack, {
+  tag: 'button',
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '$4',
   cursor: 'pointer',
   gap: '$1.5',
+
+  // Reset native button defaults
+  // @ts-expect-error web-only CSS property
+  appearance: 'none',
 
   focusStyle: {
     outlineWidth: 2,
@@ -29,15 +35,24 @@ const ButtonFrame = styled(XStack, {
       solid: {
         backgroundColor: '$color10',
         borderWidth: 0,
+        hoverStyle: {
+          backgroundColor: '$color11',
+        },
       },
       outline: {
         backgroundColor: 'transparent',
         borderWidth: 1,
         borderColor: '$borderColor',
+        hoverStyle: {
+          backgroundColor: '$backgroundHover',
+        },
       },
       ghost: {
         backgroundColor: 'transparent',
         borderWidth: 0,
+        hoverStyle: {
+          backgroundColor: '$backgroundHover',
+        },
       },
     },
 
@@ -155,7 +170,12 @@ const ButtonBase = React.forwardRef<
         aria-disabled={isDisabled || undefined}
         aria-busy={loading || undefined}
       >
-        {loading ? <Spinner size="small" /> : children}
+        {loading ? (
+          <>
+            <Spinner size="small" />
+            <VisuallyHidden>Loading</VisuallyHidden>
+          </>
+        ) : children}
       </ButtonFrame>
     </ButtonContext.Provider>
   )
