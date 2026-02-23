@@ -154,6 +154,7 @@ function FocusTrapDemo() {
 function KeyboardNavDemo() {
   const items = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry']
   const [activeIndex, setActiveIndex] = useState(0)
+  const [hasFocus, setHasFocus] = useState(false)
   const itemRefs = useRef<(HTMLElement | null)[]>([])
 
   const handleKeyDown = useKeyboardNavigation(
@@ -168,12 +169,25 @@ function KeyboardNavDemo() {
   )
 
   useEffect(() => {
-    itemRefs.current[activeIndex]?.focus()
-  }, [activeIndex])
+    if (hasFocus) {
+      itemRefs.current[activeIndex]?.focus()
+    }
+  }, [activeIndex, hasFocus])
 
   return (
-    <DemoCard label="Arrow key navigation — use Up/Down arrows, Enter to select">
-      <View onKeyDown={handleKeyDown} role="listbox" aria-label="Fruit list">
+    <DemoCard label="Arrow key navigation — click an item then use Up/Down arrows, Enter to select">
+      <View
+        onKeyDown={handleKeyDown}
+        onFocus={() => setHasFocus(true)}
+        onBlur={(e: any) => {
+          // Only blur if focus leaves the entire container
+          if (!e.currentTarget.contains(e.relatedTarget)) {
+            setHasFocus(false)
+          }
+        }}
+        role="listbox"
+        aria-label="Fruit list"
+      >
         <YStack gap="$1">
           {items.map((item, i) => (
             <View
@@ -189,8 +203,8 @@ function KeyboardNavDemo() {
               cursor="pointer"
               hoverStyle={{ backgroundColor: '$color3' }}
               onPress={() => setActiveIndex(i)}
-              outlineStyle="solid"
-              outlineWidth={i === activeIndex ? 2 : 0}
+              outlineStyle={hasFocus && i === activeIndex ? 'solid' : 'none'}
+              outlineWidth={hasFocus && i === activeIndex ? 2 : 0}
               outlineColor="$color10"
             >
               <Text fontFamily="$body" fontSize="$3" fontWeight={i === activeIndex ? '$3' : '$2'}>

@@ -204,6 +204,9 @@ const ALL_TEAM_MEMBERS = [
   { name: 'Jack Wilson', role: 'Security Engineer', status: 'Active', hours: 41 },
   { name: 'Karen Lopez', role: 'UX Researcher', status: 'Active', hours: 35 },
   { name: 'Liam O\'Brien', role: 'Mobile Developer', status: 'Active', hours: 39 },
+  { name: 'Maya Rodriguez', role: 'Technical Writer', status: 'Active', hours: 32 },
+  { name: 'Nathan Park', role: 'Infrastructure Engineer', status: 'Active', hours: 43 },
+  { name: 'Olivia Turner', role: 'Accessibility Specialist', status: 'Active', hours: 36 },
 ]
 
 const ROWS_PER_PAGE = 5
