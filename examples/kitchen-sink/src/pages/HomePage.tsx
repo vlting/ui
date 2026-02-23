@@ -8,13 +8,12 @@ export function HomePage() {
 
   const sections = [
     { path: 'primitives', title: 'Primitives', description: 'Box, Stack, Text, Heading, Label, Badge, Skeleton, Separator, Spinner, Kbd' },
-    { path: 'components', title: 'Components', description: 'Button, Input, Card, Dialog, Tabs, Select, Checkbox, Switch, Slider, Avatar, Alert, Toggle, Tooltip, Progress' },
-    { path: 'components/inputs', title: 'Input Components', description: 'InputOTP, NativeSelect, Combobox, Command palette' },
-    { path: 'components/menus', title: 'Menus', description: 'DropdownMenu, ContextMenu, Menubar, NavigationMenu' },
-    { path: 'components/overlays', title: 'Overlays', description: 'HoverCard, Drawer, Tooltip (extended)' },
-    { path: 'components/layout', title: 'Layout', description: 'ScrollArea, Resizable, Carousel, Calendar, Sidebar' },
-    { path: 'components/typography', title: 'Typography', description: 'H1-H4, P, Lead, Blockquote, InlineCode, Lists, Kbd' },
-    { path: 'composed', title: 'Composed', description: 'Accordion, AlertDialog, Collapsible, Table, Breadcrumb, Form' },
+    { path: 'components/buttons', title: 'Buttons & Actions', description: 'Button, ButtonGroup, Toggle, Pagination' },
+    { path: 'components/forms', title: 'Forms & Inputs', description: 'Input, Textarea, Select, Checkbox, RadioGroup, Switch, Slider, DatePicker, Calendar, Combobox, Form' },
+    { path: 'components/data', title: 'Data Display', description: 'Card, Table, Avatar, Alert, Progress, Loader, Accordion, Collapsible, Carousel, Breadcrumb, Typography, Kbd' },
+    { path: 'components/overlays', title: 'Overlays', description: 'Dialog, AlertDialog, Drawer, HoverCard, Tooltip' },
+    { path: 'components/menus', title: 'Menus & Navigation', description: 'DropdownMenu, ContextMenu, Menubar, NavigationMenu, Command, Tabs, ScrollArea, Sidebar, Resizable' },
+    { path: 'composed', title: 'Composed', description: 'Higher-level composed examples and patterns' },
     { path: 'hooks', title: 'Hooks', description: 'useControllableState, useFocusTrap, useKeyboardNavigation' },
   ]
 

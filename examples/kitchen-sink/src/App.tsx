@@ -3,14 +3,13 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { BrandLayout } from './layouts/BrandLayout'
 import { HomePage } from './pages/HomePage'
 import { PrimitivesPage } from './pages/PrimitivesPage'
-import { ComponentsPage } from './pages/ComponentsPage'
-import { HooksPage } from './pages/HooksPage'
-import { ComposedPage } from './pages/ComposedPage'
-import { MenusPage } from './pages/MenusPage'
+import { ButtonsPage } from './pages/ButtonsPage'
+import { FormsPage } from './pages/FormsPage'
+import { DataDisplayPage } from './pages/DataDisplayPage'
 import { OverlaysPage } from './pages/OverlaysPage'
-import { InputsPage } from './pages/InputsPage'
-import { LayoutPage } from './pages/LayoutPage'
-import { TypographyPage } from './pages/TypographyPage'
+import { MenusPage } from './pages/MenusPage'
+import { ComposedPage } from './pages/ComposedPage'
+import { HooksPage } from './pages/HooksPage'
 
 export function App() {
   return (
@@ -19,12 +18,11 @@ export function App() {
       <Route path="/:brand" element={<BrandLayout />}>
         <Route index element={<HomePage />} />
         <Route path="primitives" element={<PrimitivesPage />} />
-        <Route path="components" element={<ComponentsPage />} />
-        <Route path="components/menus" element={<MenusPage />} />
+        <Route path="components/buttons" element={<ButtonsPage />} />
+        <Route path="components/forms" element={<FormsPage />} />
+        <Route path="components/data" element={<DataDisplayPage />} />
         <Route path="components/overlays" element={<OverlaysPage />} />
-        <Route path="components/inputs" element={<InputsPage />} />
-        <Route path="components/layout" element={<LayoutPage />} />
-        <Route path="components/typography" element={<TypographyPage />} />
+        <Route path="components/menus" element={<MenusPage />} />
         <Route path="composed" element={<ComposedPage />} />
         <Route path="hooks" element={<HooksPage />} />
       </Route>

@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { YStack, XStack, Text, Heading, Separator, View } from 'tamagui'
 import {
+  Dialog,
+  AlertDialog,
   HoverCard,
   Drawer,
-  Dialog,
   Tooltip,
   Button,
 } from '@vlting/ui'
@@ -28,6 +29,8 @@ function DemoCard({ label, children }: { label: string; children: React.ReactNod
 }
 
 export function OverlaysPage() {
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [alertDialogOpen, setAlertDialogOpen] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [rightPanelOpen, setRightPanelOpen] = useState(false)
   const [leftPanelOpen, setLeftPanelOpen] = useState(false)
@@ -36,8 +39,67 @@ export function OverlaysPage() {
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
       <Heading fontFamily="$heading" fontSize="$8" fontWeight="$5">Overlays</Heading>
       <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
-        HoverCard, Drawer, and other overlay components.
+        Dialog, AlertDialog, Drawer, HoverCard, and Tooltip components.
       </Text>
+
+      {/* Dialog */}
+      <Section title="Dialog">
+        <DemoCard label="Open/Close">
+          <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
+            <Dialog.Trigger>
+              <Button onPress={() => setDialogOpen(true)}>
+                <Button.Text>Open Dialog</Button.Text>
+              </Button>
+            </Dialog.Trigger>
+            <Dialog.Overlay />
+            <Dialog.Content>
+              <Dialog.Title>Example Dialog</Dialog.Title>
+              <Dialog.Description>
+                This is a styled dialog component with overlay, title, and close controls.
+              </Dialog.Description>
+              <YStack paddingTop="$4">
+                <Dialog.Close>
+                  <Button variant="outline" onPress={() => setDialogOpen(false)}>
+                    <Button.Text>Close</Button.Text>
+                  </Button>
+                </Dialog.Close>
+              </YStack>
+            </Dialog.Content>
+          </Dialog.Root>
+        </DemoCard>
+      </Section>
+
+      {/* AlertDialog */}
+      <Section title="AlertDialog">
+        <DemoCard label="Confirmation dialog">
+          <AlertDialog.Root open={alertDialogOpen} onOpenChange={setAlertDialogOpen}>
+            <AlertDialog.Trigger>
+              <Button variant="destructive" onPress={() => setAlertDialogOpen(true)}>
+                <Button.Text>Delete Account</Button.Text>
+              </Button>
+            </AlertDialog.Trigger>
+            <AlertDialog.Overlay />
+            <AlertDialog.Content>
+              <AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
+              <AlertDialog.Description>
+                This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+              </AlertDialog.Description>
+              <AlertDialog.Footer>
+                <AlertDialog.Cancel>
+                  <Button variant="outline" onPress={() => setAlertDialogOpen(false)}>
+                    <Button.Text>Cancel</Button.Text>
+                  </Button>
+                </AlertDialog.Cancel>
+                <AlertDialog.Action>
+                  <Button variant="destructive" onPress={() => setAlertDialogOpen(false)}>
+                    <Button.Text>Delete</Button.Text>
+                  </Button>
+                </AlertDialog.Action>
+              </AlertDialog.Footer>
+            </AlertDialog.Content>
+          </AlertDialog.Root>
+        </DemoCard>
+      </Section>
 
       {/* HoverCard */}
       <Section title="HoverCard">
@@ -84,7 +146,7 @@ export function OverlaysPage() {
                 <YStack padding="$4" gap="$3">
                   <Text fontFamily="$heading" fontSize="$5" fontWeight="$4">Bottom Drawer</Text>
                   <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
-                    Slides up from the bottom. Handle appears only on touch devices.
+                    Slides up from the bottom.
                   </Text>
                   <Button variant="outline" onPress={() => setDrawerOpen(false)}>
                     <Button.Text>Close</Button.Text>
@@ -162,7 +224,7 @@ export function OverlaysPage() {
         </XStack>
       </Section>
 
-      {/* Tooltip (extended) */}
+      {/* Tooltip */}
       <Section title="Tooltip">
         <DemoCard label="All sides">
           <XStack gap="$4" flexWrap="wrap" justifyContent="center">
