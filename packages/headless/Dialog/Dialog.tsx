@@ -121,9 +121,10 @@ export interface DialogContentProps {
   className?: string
   style?: React.CSSProperties
   onEscapeKeyDown?: () => void
+  role?: 'dialog' | 'alertdialog'
 }
 
-function Content({ children, onEscapeKeyDown, ...props }: DialogContentProps) {
+function Content({ children, onEscapeKeyDown, role: roleProp = 'dialog', ...props }: DialogContentProps) {
   const { open, onOpenChange, contentId, titleId, descriptionId, triggerRef } =
     useDialogContext()
   const focusTrapRef = useFocusTrap<HTMLDivElement>(!!open)
@@ -158,7 +159,7 @@ function Content({ children, onEscapeKeyDown, ...props }: DialogContentProps) {
       {...props}
       ref={focusTrapRef}
       id={contentId}
-      role="dialog"
+      role={roleProp}
       aria-modal
       aria-labelledby={titleId}
       aria-describedby={descriptionId}

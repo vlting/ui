@@ -1,5 +1,4 @@
-import type React from 'react'
-import { createContext, useCallback, useContext, useState } from 'react'
+import React, { createContext, useCallback, useContext, useId, useState } from 'react'
 import { Text, XStack, YStack, styled } from 'tamagui'
 
 interface AccordionContextValue {
@@ -35,6 +34,12 @@ const TriggerFrame = styled(XStack, {
   alignItems: 'center',
   justifyContent: 'space-between',
   hoverStyle: { backgroundColor: '$backgroundHover' },
+  focusWithinStyle: {
+    outlineWidth: 2,
+    outlineOffset: -2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
 })
 
 // @ts-expect-error Tamagui v2 RC
@@ -93,6 +98,8 @@ function Root({
 interface ItemContextValue {
   value: string
   isOpen: boolean
+  triggerId: string
+  contentId: string
 }
 
 const ItemContext = createContext<ItemContextValue | null>(null)
@@ -112,9 +119,12 @@ export interface AccordionItemProps {
 function Item({ children, value: itemValue }: AccordionItemProps) {
   const { value } = useAccordionContext()
   const isOpen = value.includes(itemValue)
+  const id = useId()
+  const triggerId = `${id}-trigger`
+  const contentId = `${id}-content`
 
   return (
-    <ItemContext.Provider value={{ value: itemValue, isOpen }}>
+    <ItemContext.Provider value={{ value: itemValue, isOpen, triggerId, contentId }}>
       {/* @ts-expect-error Tamagui v2 RC */}
       <ItemFrame>{children}</ItemFrame>
     </ItemContext.Provider>
@@ -127,14 +137,26 @@ export interface AccordionTriggerProps {
 
 function Trigger({ children }: AccordionTriggerProps) {
   const { toggle } = useAccordionContext()
-  const { value, isOpen } = useItemContext()
+  const { value, isOpen, triggerId, contentId } = useItemContext()
 
   return (
     <button
       type="button"
+      id={triggerId}
       aria-expanded={isOpen}
+      aria-controls={contentId}
       onClick={() => toggle(value)}
-      style={{ all: 'unset', width: '100%', display: 'block' }}
+      style={{
+        background: 'none',
+        border: 'none',
+        padding: 0,
+        width: '100%',
+        display: 'block',
+        cursor: 'pointer',
+        textAlign: 'inherit',
+        font: 'inherit',
+        color: 'inherit',
+      }}
     >
       {/* @ts-expect-error Tamagui v2 RC */}
       <TriggerFrame>
@@ -153,12 +175,14 @@ export interface AccordionContentProps {
 }
 
 function Content({ children }: AccordionContentProps) {
-  const { isOpen } = useItemContext()
+  const { isOpen, triggerId, contentId } = useItemContext()
   if (!isOpen) return null
 
   return (
     // @ts-expect-error Tamagui v2 RC
-    <ContentFrame role="region">{children}</ContentFrame>
+    <ContentFrame id={contentId} role="region" aria-labelledby={triggerId}>
+      {children}
+    </ContentFrame>
   )
 }
 

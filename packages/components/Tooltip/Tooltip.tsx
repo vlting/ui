@@ -1,5 +1,4 @@
-import type React from 'react'
-import { useRef, useState } from 'react'
+import React, { useCallback, useId, useRef, useState } from 'react'
 import { Text, View, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
@@ -31,15 +30,25 @@ export interface TooltipProps {
 export function Tooltip({ children, content, side = 'top', delay = 200 }: TooltipProps) {
   const [open, setOpen] = useState(false)
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined)
+  const tooltipId = useId()
 
-  const handleEnter = () => {
+  const handleEnter = useCallback(() => {
     timeoutRef.current = setTimeout(() => setOpen(true), delay)
-  }
+  }, [delay])
 
-  const handleLeave = () => {
+  const handleLeave = useCallback(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current)
     setOpen(false)
-  }
+  }, [])
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Escape' && open) {
+        setOpen(false)
+      }
+    },
+    [open],
+  )
 
   const positionStyle =
     side === 'top'
@@ -54,15 +63,20 @@ export function Tooltip({ children, content, side = 'top', delay = 200 }: Toolti
       onMouseLeave={handleLeave}
       onFocus={handleEnter}
       onBlur={handleLeave}
+      onKeyDown={handleKeyDown}
+      aria-describedby={tooltipId}
     >
       {children}
-      {open && (
-        // @ts-expect-error Tamagui v2 RC
-        <TooltipContent {...positionStyle} role="tooltip">
-          {/* @ts-expect-error Tamagui v2 RC */}
-          <TooltipText>{content}</TooltipText>
-        </TooltipContent>
-      )}
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <TooltipContent
+        {...positionStyle}
+        id={tooltipId}
+        role="tooltip"
+        display={open ? 'flex' : 'none'}
+      >
+        {/* @ts-expect-error Tamagui v2 RC */}
+        <TooltipText>{content}</TooltipText>
+      </TooltipContent>
     </View>
   )
 }

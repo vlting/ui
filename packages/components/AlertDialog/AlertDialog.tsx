@@ -82,7 +82,7 @@ interface AlertDialogContentProps {
 
 function Content({ children }: AlertDialogContentProps) {
   return (
-    <HeadlessDialog.Content style={{ position: 'relative', zIndex: 51 }}>
+    <HeadlessDialog.Content role="alertdialog" style={{ position: 'relative', zIndex: 51 }}>
       {/* @ts-expect-error Tamagui v2 RC */}
       <StyledContent>{children}</StyledContent>
     </HeadlessDialog.Content>

@@ -1,10 +1,11 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useId } from 'react'
 import { YStack, styled } from 'tamagui'
 import { useControllableState } from '../../hooks/useControllableState'
 
 interface CollapsibleContextValue {
   open: boolean
   onOpenChange: (open: boolean) => void
+  contentId: string
 }
 
 const CollapsibleContext = createContext<CollapsibleContextValue | null>(null)
@@ -38,9 +39,10 @@ function Root({
     defaultProp: defaultOpen,
     onChange: onOpenChange,
   })
+  const contentId = useId()
 
   return (
-    <CollapsibleContext.Provider value={{ open: !!open, onOpenChange: setOpen }}>
+    <CollapsibleContext.Provider value={{ open: !!open, onOpenChange: setOpen, contentId }}>
       {/* @ts-expect-error Tamagui v2 RC */}
       <CollapsibleFrame data-state={open ? 'open' : 'closed'}>
         {children}
@@ -55,10 +57,19 @@ export interface CollapsibleTriggerProps {
 }
 
 function Trigger({ children }: CollapsibleTriggerProps) {
-  const { open, onOpenChange } = useCollapsibleContext()
+  const { open, onOpenChange, contentId } = useCollapsibleContext()
   return React.cloneElement(children, {
     onClick: () => onOpenChange(!open),
+    onKeyDown: (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        onOpenChange(!open)
+      }
+    },
+    role: 'button',
+    tabIndex: 0,
     'aria-expanded': open,
+    'aria-controls': contentId,
     'data-state': open ? 'open' : 'closed',
   } as Record<string, unknown>)
 }
@@ -68,12 +79,14 @@ export interface CollapsibleContentProps {
 }
 
 function Content({ children }: CollapsibleContentProps) {
-  const { open } = useCollapsibleContext()
+  const { open, contentId } = useCollapsibleContext()
   if (!open) return null
 
   return (
     // @ts-expect-error Tamagui v2 RC
-    <YStack data-state="open">{children}</YStack>
+    <YStack id={contentId} role="region" data-state="open">
+      {children}
+    </YStack>
   )
 }
 

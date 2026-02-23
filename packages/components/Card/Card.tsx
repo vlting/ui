@@ -23,8 +23,16 @@ const CardFrame = styled(YStack, {
     interactive: {
       true: {
         cursor: 'pointer',
+        tabIndex: 0,
+        role: 'button',
         hoverStyle: { backgroundColor: '$backgroundHover' },
         pressStyle: { backgroundColor: '$backgroundPress', scale: 0.99 },
+        focusStyle: {
+          outlineWidth: 2,
+          outlineOffset: 2,
+          outlineColor: '$outlineColor',
+          outlineStyle: 'solid',
+        },
         animation: 'fast',
       },
     },
@@ -59,6 +67,7 @@ const CardFooter = styled(YStack, {
 
 // @ts-expect-error Tamagui v2 RC
 const CardTitle = styled(Text, {
+  tag: 'h3',
   fontFamily: '$heading',
   fontWeight: '$4',
 
