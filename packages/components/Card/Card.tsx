@@ -53,6 +53,7 @@ const CardHeader = styled(YStack, {
   paddingTop: '$4',
   paddingBottom: '$2',
   gap: '$1',
+  flexShrink: 0,
 })
 
 // @ts-expect-error Tamagui v2 RC
@@ -60,6 +61,7 @@ const CardContent = styled(YStack, {
   paddingHorizontal: '$4',
   paddingVertical: '$2',
   flex: 1,
+  overflow: 'hidden',
 })
 
 // @ts-expect-error Tamagui v2 RC
@@ -67,6 +69,7 @@ const CardFooter = styled(YStack, {
   paddingHorizontal: '$4',
   paddingTop: '$2',
   paddingBottom: '$4',
+  flexShrink: 0,
 })
 
 // @ts-expect-error Tamagui v2 RC
