@@ -1,38 +1,17 @@
 import type React from 'react'
-import { Text, XStack, styled } from 'tamagui'
+import { Text, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
-const BreadcrumbList = styled(XStack, {
-  tag: 'nav',
-  alignItems: 'center',
-  gap: '$1',
-  flexWrap: 'wrap',
-})
-
-// @ts-expect-error Tamagui v2 RC
-const BreadcrumbItemFrame = styled(XStack, {
-  alignItems: 'center',
-  gap: '$1',
-})
-
-// @ts-expect-error Tamagui v2 RC
-const BreadcrumbLink = styled(Text, {
+const BreadcrumbLinkText = styled(Text, {
   fontFamily: '$body',
   fontSize: '$3',
   color: '$colorSubtitle',
   cursor: 'pointer',
   textDecorationLine: 'none',
-  hoverStyle: { color: '$color', textDecorationLine: 'underline' },
-  focusStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
 })
 
 // @ts-expect-error Tamagui v2 RC
-const BreadcrumbPage = styled(Text, {
+const BreadcrumbPageText = styled(Text, {
   fontFamily: '$body',
   fontSize: '$3',
   fontWeight: '$3',
@@ -40,7 +19,7 @@ const BreadcrumbPage = styled(Text, {
 })
 
 // @ts-expect-error Tamagui v2 RC
-const BreadcrumbSeparator = styled(Text, {
+const BreadcrumbSeparatorText = styled(Text, {
   fontFamily: '$body',
   fontSize: '$3',
   color: '$colorSubtitle',
@@ -53,14 +32,20 @@ export interface BreadcrumbProps {
 
 function Root({ children }: BreadcrumbProps) {
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <BreadcrumbList aria-label="breadcrumb">{children}</BreadcrumbList>
+    <nav aria-label="Breadcrumb">
+      <ol style={{ display: 'flex', alignItems: 'center', listStyle: 'none', padding: 0, margin: 0, gap: 4 }}>
+        {children}
+      </ol>
+    </nav>
   )
 }
 
 function Item({ children }: { children: React.ReactNode }) {
-  // @ts-expect-error Tamagui v2 RC
-  return <BreadcrumbItemFrame>{children}</BreadcrumbItemFrame>
+  return (
+    <li style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+      {children}
+    </li>
+  )
 }
 
 function Link({
@@ -69,21 +54,38 @@ function Link({
   onPress,
 }: { children: React.ReactNode; href?: string; onPress?: () => void }) {
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <BreadcrumbLink tag="a" {...(href ? { href } : {})} onPress={onPress}>
-      {children}
-    </BreadcrumbLink>
+    <a
+      href={href || '#'}
+      onClick={onPress ? (e: React.MouseEvent) => { e.preventDefault(); onPress() } : undefined}
+      style={{
+        fontFamily: 'inherit',
+        fontSize: 'inherit',
+        color: 'inherit',
+        textDecoration: 'none',
+      }}
+    >
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <BreadcrumbLinkText>{children}</BreadcrumbLinkText>
+    </a>
   )
 }
 
 function Page({ children }: { children: React.ReactNode }) {
-  // @ts-expect-error Tamagui v2 RC
-  return <BreadcrumbPage aria-current="page">{children}</BreadcrumbPage>
+  return (
+    <span aria-current="page">
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <BreadcrumbPageText>{children}</BreadcrumbPageText>
+    </span>
+  )
 }
 
 function Separator({ children = '/' }: { children?: React.ReactNode }) {
-  // @ts-expect-error Tamagui v2 RC
-  return <BreadcrumbSeparator aria-hidden>{children}</BreadcrumbSeparator>
+  return (
+    <li role="presentation" aria-hidden="true" style={{ display: 'flex', alignItems: 'center' }}>
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <BreadcrumbSeparatorText>{children}</BreadcrumbSeparatorText>
+    </li>
+  )
 }
 
 export const Breadcrumb = { Root, Item, Link, Page, Separator }

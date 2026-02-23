@@ -1,3 +1,4 @@
+import type React from 'react'
 import type { GetProps } from 'tamagui'
 import { Text, YStack, styled, withStaticProperties } from 'tamagui'
 
@@ -66,8 +67,7 @@ const CardFooter = styled(YStack, {
 })
 
 // @ts-expect-error Tamagui v2 RC
-const CardTitle = styled(Text, {
-  tag: 'h3',
+const CardTitleText = styled(Text, {
   fontFamily: '$heading',
   fontWeight: '$4',
 
@@ -83,6 +83,15 @@ const CardTitle = styled(Text, {
     size: 'md',
   },
 })
+
+function CardTitle({ children, size, ...props }: { children?: React.ReactNode; size?: 'sm' | 'md' | 'lg' }) {
+  return (
+    <h3 style={{ margin: 0 }}>
+      {/* @ts-expect-error Tamagui v2 RC */}
+      <CardTitleText size={size} {...props}>{children}</CardTitleText>
+    </h3>
+  )
+}
 
 // @ts-expect-error Tamagui v2 RC
 const CardDescription = styled(Text, {
