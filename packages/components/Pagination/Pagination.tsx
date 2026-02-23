@@ -12,10 +12,11 @@ const ButtonTextJsx = Button.Text as AnyFC
 const PaginationFrame = styled(XStack, {
   alignItems: 'center',
   gap: '$1.5',
-  flexWrap: 'wrap',
+  flexWrap: 'nowrap',
 })
 
-// @ts-expect-error Tamagui v2 RC
+const PAGE_BUTTON_MIN_WIDTH = { sm: 28, md: 36, lg: 44 } as const
+
 const EllipsisText = styled(Text, {
   fontFamily: '$body',
   color: '$colorSubtitle',
@@ -215,6 +216,7 @@ function Item({
       onPress={onPress}
       aria-label={`Page ${page}`}
       aria-current={active ? 'page' : undefined}
+      style={{ minWidth: PAGE_BUTTON_MIN_WIDTH[size] }}
     >
       <ButtonTextJsx>{page}</ButtonTextJsx>
     </ButtonJsx>
@@ -226,8 +228,7 @@ function Ellipsis({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
     <XStack
       alignItems="center"
       justifyContent="center"
-      width={size === 'sm' ? '$2' : size === 'lg' ? '$4' : '$3'}
-      height={size === 'sm' ? '$3' : size === 'lg' ? '$4.5' : '$3.5'}
+      style={{ minWidth: PAGE_BUTTON_MIN_WIDTH[size] }}
     >
       {/* @ts-expect-error Tamagui v2 RC */}
       <EllipsisText size={size} aria-hidden>...</EllipsisText>
