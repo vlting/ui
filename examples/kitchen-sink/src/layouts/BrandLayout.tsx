@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Outlet, useParams, useLocation, Link } from 'react-router-dom'
 import { XStack, YStack, View, Text } from 'tamagui'
 import { Provider } from '@vlting/ui'
@@ -223,9 +223,9 @@ function NavGroup({
                 style={LINK_RESET}
               >
                 <XStack
-                  paddingVertical="$0.75"
-                  paddingLeft="$3.5"
-                  paddingRight="$2"
+                  paddingVertical={6}
+                  paddingLeft={16}
+                  paddingRight={8}
                   borderRightWidth={2}
                   borderRightColor={isActive ? '$color' : 'transparent'}
                   backgroundColor={isActive ? '$color3' : 'transparent'}
@@ -233,7 +233,7 @@ function NavGroup({
                   style={{ transition: 'all 0.1s' }}
                 >
                   <Text
-                    fontSize="$3"
+                    fontSize={14}
                     fontFamily="$body"
                     color={isActive ? '$color' : '$colorSubtitle'}
                     fontWeight={isActive ? '500' : '400'}
@@ -250,7 +250,15 @@ function NavGroup({
                       <li key={sub.anchor}>
                         <Link
                           to={`/${brandKey}/${item.path}#${sub.anchor}`}
-                          onClick={onNavClick}
+                          onClick={(e) => {
+                            onNavClick()
+                            const el = document.getElementById(sub.anchor)
+                            if (el) {
+                              e.preventDefault()
+                              el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                              window.history.replaceState(null, '', `/${brandKey}/${item.path}#${sub.anchor}`)
+                            }
+                          }}
                           style={LINK_RESET}
                         >
                           <XStack
@@ -292,6 +300,18 @@ export function BrandLayout() {
   const brandKey = (brand in brands ? brand : 'default') as BrandKey
   const currentSection = location.pathname.split('/').slice(2).join('/') || ''
   const currentHash = location.hash
+
+  // Sync body background with current theme so areas outside the React root match
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      const root = document.querySelector('.brand-layout') as HTMLElement | null
+      if (root) {
+        const bg = getComputedStyle(root).backgroundColor
+        document.documentElement.style.backgroundColor = bg
+        document.body.style.backgroundColor = bg
+      }
+    })
+  }, [theme])
 
   return (
     <Provider config={activeBrand.config} defaultTheme={theme}>
