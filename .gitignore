@@ -8,5 +8,6 @@ dist/
 coverage/
 .claude/*
 !.claude/settings.json
+!.claude/skills/
 .worktrees/
 .history/
