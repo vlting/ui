@@ -133,6 +133,36 @@ Components must:
 
 ---
 
+## 2.8 Semantic HTML & DOM Structure
+
+AI-generated code commonly substitutes generic `<div>` elements for semantic HTML and adds unnecessary wrapper elements. These rules prevent that.
+
+### Semantic Element Rules
+
+- **Interactive elements**: Use `<button>` for actions, `<a>` for navigation. NEVER use `<div>`, `<span>`, or Tamagui `View`/`XStack`/`YStack` with `onPress`/`onClick` as a substitute.
+- **Headings**: Use `<h1>`–`<h6>` in logical order. Never skip heading levels. In Tamagui, use the `Heading` component with the `level` prop (renders native heading elements via `styledHtml()`).
+- **Forms**: Every `<input>` must have an associated `<label>` via `htmlFor`/`id`. Use `<form>`, `<fieldset>`, and `<legend>` for form structure. Use `<select>` for native dropdowns.
+- **Lists**: Use `<ul>`/`<ol>` for lists of items, not a stack of `<div>`s.
+- **Tables**: Use `<table>`, `<thead>`, `<tbody>`, `<th>`, `<td>` for tabular data.
+- **Landmarks**: Use `<header>`, `<nav>`, `<main>`, `<aside>`, `<footer>` for page structure.
+
+### DOM Optimization Rules
+
+- **No styling-only wrappers**: Never add a `<div>` or `<View>` solely for padding, margin, or alignment when those styles can be applied directly to the parent or child element. This reduces DOM size, improves accessibility tree clarity, and avoids unnecessary layout recalculations.
+- **Minimal nesting**: Components must produce the minimum DOM nodes necessary. Audit rendered output (not just source) to verify.
+- **Compound component wrappers**: Sub-components (e.g., `Button.Text`, `Button.Icon`) should use `styled()` on existing elements, not wrap in additional containers.
+- **Tamagui-specific**: The `tag` prop in `styled()` does NOT change the rendered HTML element in Tamagui v2 RC. Use `styledHtml('button')` or native HTML elements with Tamagui styling wrappers inside.
+
+### Rendered Output Verification
+
+After creating or modifying a component, verify the rendered DOM to ensure:
+
+1. Correct semantic elements are used (not `<div>` with ARIA role as a substitute)
+2. No unnecessary wrapper elements exist
+3. ARIA attributes are present where needed and absent where native semantics suffice
+
+---
+
 # 3. Component Design Standards
 
 ## 3.1 Prop Contracts
