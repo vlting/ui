@@ -1,3 +1,5 @@
+> **Baseline**: This component must also satisfy all requirements in [`FRONTEND_QUALITY.contract.md`](../packages/FRONTEND_QUALITY.contract.md).
+
 # Component Contract — provider
 
 ## 1. Public API

@@ -1,3 +1,5 @@
+> **Note**: This is a non-visual utility. The [`FRONTEND_QUALITY.contract.md`](../FRONTEND_QUALITY.contract.md) baseline applies only to components that produce rendered output.
+
 # Component Contract -- useControllableState
 
 ## 1. Public API
