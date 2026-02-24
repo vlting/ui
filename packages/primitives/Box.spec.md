@@ -1,86 +1,82 @@
 # Component Spec — Box
 
+> **Baseline**: This component must satisfy all requirements in [`QUALITY_BASELINE.md`](../QUALITY_BASELINE.md).
+
 ## 1. Purpose
 
-- Provides a generic container primitive for grouping and positioning child elements.
-- Should be used as the foundational building block when no semantic layout component (Stack, HStack, VStack) is more appropriate.
-- Should NOT be used when a flex-direction-specific container (VStack/HStack) better communicates layout intent.
-- Should NOT be used to wrap text content directly; use Text or Heading instead.
+- Generic non-interactive container for grouping and positioning child elements.
+- Use as the foundational building block when no semantic layout component (Stack, HStack, VStack) is more appropriate.
+- Do NOT use when a flex-direction-specific container (VStack/HStack) better communicates layout intent.
+- Do NOT use to wrap text content directly — use Text or Heading instead.
 
 ---
 
 ## 2. UX Intent
 
-- Primary interaction goal: provide a transparent, zero-opinion container that inherits all Tamagui View capabilities without adding behavioral overhead.
-- Expected user mental model: a `div` (web) or `View` (native) that can optionally center its content in one declaration.
-- **Gestalt Principles (2.4):** Box enables proximity and grouping by allowing consumers to visually cluster related elements within a bounded container.
-- **Tesler's Law (2.6):** The `centered` shorthand absorbs the complexity of remembering to set both alignment axes, reducing consumer-side boilerplate.
+- **Gestalt Principles** — enables proximity and grouping by clustering related elements within a bounded container.
+- **Tesler's Law** — the `centered` shorthand absorbs the complexity of setting both alignment axes.
 
 ---
 
-## 3. Visual Behavior
+## 3. Anatomy
 
-- Layout rules: renders as a block-level flex container per Tamagui View defaults. Does not impose any flex direction, size, or alignment unless the consumer specifies it.
-- Spacing expectations: no default padding or margin. All spacing is consumer-controlled via Tamagui space tokens.
-- Typography rules: not applicable (Box does not render text).
-- Token usage: all style props must resolve through the Tamagui token system. No hardcoded values are present or permitted.
-- Responsive behavior: supports all Tamagui media-query and responsive props. Layout adapts to breakpoints only when the consumer configures them.
+Single element — `styled(View)` with no sub-components.
 
----
+- `centered` variant applies `alignItems: 'center'` and `justifyContent: 'center'` together.
 
-## 4. Interaction Behavior
-
-- States: Box is non-interactive by default. It has no idle, hover, focus, active, disabled, loading, or error states of its own. If the consumer adds `onPress` or similar handlers, Tamagui's built-in press/hover states apply.
-- Controlled vs uncontrolled: not applicable (stateless).
-- Keyboard behavior: not focusable by default. Focusability is inherited from underlying View when consumers add interactive props.
-- Screen reader behavior: invisible to assistive technology unless the consumer sets `accessibilityRole`.
-- Motion rules: no motion is applied. Any animation must be added by the consumer and must respect `prefers-reduced-motion`.
+> **TypeScript is the source of truth for props.** See `Box.tsx` for the full typed API. Do not duplicate prop tables here.
 
 ---
 
-## 5. Accessibility Requirements
+## 4. Behavior
 
-- ARIA requirements: no default role. Consumers must set `accessibilityRole` when the Box serves a semantic purpose (e.g., `region`, `group`, `banner`).
-- Focus rules: not part of the tab order unless the consumer explicitly makes it interactive.
-- Contrast expectations: not applicable for Box itself (no visual rendering by default). Children within the Box must meet WCAG contrast ratios.
-- Reduced motion behavior: not applicable (no inherent animation).
+### States
 
----
+Non-interactive. No hover, focus, active, or disabled states.
 
-## 6. Theming Rules
+### Keyboard Interaction
 
-- Required tokens: none by default. All consumer-applied styles must use Tamagui tokens (`$color`, `$space`, `$size`, `$radius`).
-- Prohibited hardcoded values: no raw hex colors, pixel spacing, or pixel font sizes may be applied to Box directly.
-- Dark mode expectations: fully compatible. Since Box applies no color by default, dark/light mode behavior is determined entirely by its children and any consumer-applied theme tokens.
+None — Box does not receive focus.
 
----
+### Motion
 
-## 7. Composition Rules
-
-- What can wrap it: any layout component (Stack, VStack, HStack, ScrollView, another Box).
-- What it may contain: any combination of primitives, composed components, or raw content. Box places no restriction on children.
-- Anti-patterns:
-  - Do not nest Box within Box purely for centering when a single `centered` Box would suffice.
-  - Do not use Box as a semantic replacement for components that have their own roles (e.g., do not use Box where a Card, Section, or Header is more appropriate).
+None.
 
 ---
 
-## 8. Performance Constraints
+## 5. Accessibility
 
-- Memoization rules: do not memoize by default. Box is a thin styled wrapper and memoization would add overhead without benefit in most cases. Consumers may memoize at the usage site if profiling shows unnecessary re-renders.
-- Virtualization: not applicable.
-- Render boundaries: Box does not establish a React error boundary or Suspense boundary. It renders inline within the parent tree.
+- **Semantic element:** Renders `<div>` (Tamagui View default). Appropriate for generic grouping.
+- **ARIA attributes:** None by default. Consumers must set `accessibilityRole` when the Box serves a semantic purpose (e.g., `region`, `group`).
+- **Focus management:** Not in the tab order unless the consumer explicitly makes it interactive.
+
+---
+
+## 6. Styling
+
+- **Design tokens used:** Inherits all Tamagui View style props. All consumer-applied styles must use tokens (`$color`, `$space`, `$size`, `$radius`).
+- **Responsive behavior:** Standard Tamagui responsive props via media queries.
+- **Dark mode:** Fully compatible — no default colors applied; dark/light behavior determined by children and consumer-applied tokens.
+
+---
+
+## 7. Composition
+
+- **What can contain this component:** Any layout component (Stack, VStack, HStack, ScrollView, another Box).
+- **What this component can contain:** Any combination of primitives, composed components, or raw content.
+- **Anti-patterns:** Do not nest Box within Box purely for centering when a single `centered` Box would suffice. Do not use Box as a semantic replacement for Card, Section, or Header.
+
+---
+
+## 8. Breaking Change Criteria
+
+- Removing the `centered` variant.
+- Changing the rendered element from `<div>`.
+- Removing inherited Tamagui View props.
 
 ---
 
 ## 9. Test Requirements
 
-- What must be tested:
-  - Renders children correctly.
-  - The `centered` variant applies both `alignItems: 'center'` and `justifyContent: 'center'`.
-  - Without `centered`, no alignment styles are imposed.
-  - Accepts and forwards all Tamagui View style props.
-- Interaction cases: not applicable (non-interactive by default).
-- Accessibility checks:
-  - Does not set any role by default (verify no unexpected ARIA attributes).
-  - Consumer-applied `accessibilityRole` and `accessibilityLabel` are forwarded.
+- **Behavioral tests:** Verify `centered` variant applies both `alignItems: 'center'` and `justifyContent: 'center'`. Verify without `centered`, no alignment styles are imposed. Verify children render correctly.
+- **Accessibility tests:** Verify no role is set by default. Verify consumer-applied `accessibilityRole` and `accessibilityLabel` are forwarded.
