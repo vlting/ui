@@ -1,5 +1,7 @@
 # Component Spec — Dialog
 
+> **Baseline**: This component must satisfy all requirements in [`QUALITY_BASELINE.md`](../../QUALITY_BASELINE.md).
+
 ## 1. Purpose
 
 - Provides a modal overlay that captures user attention for a focused task, confirmation, or information display.
@@ -21,87 +23,87 @@
 
 ---
 
-## 3. Visual Behavior
+## 3. Anatomy
 
-- **Layout:** Overlay is fixed to the viewport, centered via flexbox. Content panel is a vertical stack (`YStack`) with internal gap of `$3`.
-- **Spacing:** Content padding scales with `size` variant — `sm` uses `$4`, `md` uses `$5`, `lg` uses `$6`.
-- **Typography:** `Dialog.Title` uses `$heading` font family, `$4` weight, `$6` font size. `Dialog.Description` uses `$body` font family, `$4` font size, `$colorSubtitle` color.
-- **Token usage:** All colors, spacing, radii, and fonts resolve from Tamagui design tokens. Content border radius is `$6`. No hardcoded values except the overlay background (`rgba(0,0,0,0.5)`), which is intentional for cross-theme consistency.
-- **Responsive behavior:** Content width is `90%` of the viewport with `maxWidth` capped by the `size` variant (400/500/640). `maxHeight` is `85%`. The dialog remains centered and scrollable on all screen sizes.
+Dialog is a compound component exported as a plain object with sub-components. It is built on `@tamagui/dialog`, which provides portal rendering, focus management, and ARIA semantics. The styled layer adds visual presentation only.
 
-### Sub-component visual behavior
+- **Dialog.Root** — Wraps `@tamagui/dialog` `Dialog`. Accepts controlled (`open` + `onOpenChange`) and uncontrolled (`defaultOpen`) patterns.
+- **Dialog.Trigger** — Wraps `@tamagui/dialog` `Dialog.Trigger` with `asChild`. Clones its child element and injects open behavior.
+- **Dialog.Overlay** — Kept for API compatibility but currently renders `null` (the overlay is rendered inside the Content portal).
+- **Dialog.Content** — Portals content into the DOM. Renders both the overlay backdrop (`$overlayBackground` with opacity fade) and the centered content panel (`$background`, `$6` border radius, shadow). Size variant controls `maxWidth` (sm=400, md=500, lg=640) and padding (sm=`$4`, md=`$5`, lg=`$6`).
+- **Dialog.Header** — A vertical layout container (`View`) with `$1` gap for grouping Title and Description.
+- **Dialog.Footer** — A horizontal layout container (`XStack`) right-aligned with `$2` gap and `$3` top padding, for action buttons.
+- **Dialog.Title** — Wraps `@tamagui/dialog` `Dialog.Title` with styled text (`$heading` family, `$4` weight, `$6` font size, `$color`).
+- **Dialog.Description** — Wraps `@tamagui/dialog` `Dialog.Description` with styled text (`$body` family, `$4` font size, `$colorSubtitle`).
+- **Dialog.Close** — Wraps `@tamagui/dialog` `Dialog.Close` with `asChild`. Clones its child element and injects close behavior.
 
-- **Dialog.Overlay** — Fixed fullscreen backdrop with semi-transparent black. Fades in on open, fades out on close.
-- **Dialog.Content** — Centered panel that scales in from 0.95 and fades in. Scales out and fades out on close.
-- **Dialog.Title** — Heading text styled for prominence within the dialog.
-- **Dialog.Description** — Secondary text styled in a subdued color for explanatory content.
-
----
-
-## 4. Interaction Behavior
-
-- **States:**
-  - **Closed** — Overlay and Content render nothing (`null`). No DOM presence.
-  - **Open** — Overlay and Content are mounted. Entry animation plays. Focus is trapped inside Content.
-  - **Closing** — Exit animation plays. Focus is restored to the trigger element.
-- **Controlled vs uncontrolled:** `Dialog.Root` supports both patterns. Controlled via `open` + `onOpenChange`. Uncontrolled via `defaultOpen`. State management is handled entirely in the headless layer.
-- **Keyboard behavior:**
-  - **Escape** closes the dialog. The `onEscapeKeyDown` callback fires before close.
-  - **Tab/Shift+Tab** cycles focus within the dialog content (focus trap).
-  - Focus does not escape the dialog while it is open.
-- **Screen reader behavior:**
-  - Content announces as `role="dialog"` with `aria-modal`.
-  - Title is linked via `aria-labelledby`.
-  - Description is linked via `aria-describedby`.
-  - Trigger announces `aria-haspopup="dialog"`.
-  - Overlay is marked `aria-hidden`.
-- **Motion rules:** Open/close transitions use the `medium` animation token (opacity + scale on Content, opacity on Overlay). Must honor `prefers-reduced-motion` — when reduced motion is preferred, transitions should be instant.
-
-### Sub-component interaction behavior
-
-- **Dialog.Trigger** — Clones its child element and injects `onClick` (to open) and `aria-haspopup="dialog"`. Does not render its own DOM element.
-- **Dialog.Close** — Clones its child element and injects `onClick` (to close). Does not render its own DOM element.
-- **Dialog.Overlay** — Clicking the overlay closes the dialog (handled in headless layer).
-- **Dialog.Content** — Traps focus. Listens for Escape key. Renders only when open.
+> **TypeScript is the source of truth for props.** See `DialogRootProps` and `DialogContentProps` in `Dialog.tsx` for the full typed API. Do not duplicate prop tables here.
 
 ---
 
-## 5. Accessibility Requirements
+## 4. Behavior
 
-- **ARIA requirements:**
-  - Content must have `role="dialog"` and `aria-modal="true"`.
-  - Content must have `aria-labelledby` pointing to the Title element's ID.
-  - Content must have `aria-describedby` pointing to the Description element's ID.
-  - Trigger must set `aria-haspopup="dialog"` on its child.
-  - Overlay must be `aria-hidden`.
+### States
+
+- **Closed** — Overlay and Content are not rendered. No DOM presence.
+- **Open** — Overlay fades in (opacity 0 to 1). Content panel scales in from 0.95 and fades in. Focus is trapped inside Content.
+- **Closing** — Exit animation plays (reverse of open). Focus is restored to the trigger element.
+
+### Keyboard Interaction
+
+- **Escape** closes the dialog.
+- **Tab/Shift+Tab** cycles focus within the dialog content (focus trap provided by `@tamagui/focus-scope`).
+- Focus does not escape the dialog while it is open.
+- Follows the WAI-ARIA APG [Dialog (Modal) pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/).
+
+### Motion
+
+- Open/close transitions use the `medium` animation token:
+  - Overlay: opacity fade (0 to 1).
+  - Content: opacity fade + scale (0.95 to 1).
+- Must honor `prefers-reduced-motion` — when reduced motion is preferred, transitions should be instant.
+
+---
+
+## 5. Accessibility
+
+- **Semantic element:** Content renders with `role="dialog"` and `aria-modal="true"` (provided by `@tamagui/dialog`).
+- **ARIA attributes:**
+  - `aria-labelledby` links Content to the Title element's auto-generated ID.
+  - `aria-describedby` links Content to the Description element's auto-generated ID.
+  - Trigger sets `aria-haspopup="dialog"` on its child (via `@tamagui/dialog`).
   - IDs are auto-generated via `React.useId()`.
-- **Focus rules:**
-  - Focus must be trapped within the dialog content when open.
-  - Focus must be restored to the trigger element when the dialog closes.
-  - The first focusable element inside the dialog should receive focus on open.
-- **Contrast expectations:** Dialog content background must have sufficient contrast against both the overlay and the content text. Title and Description text must meet WCAG 2.1 AA ratios against the content background.
-- **Reduced motion behavior:** Entry/exit animations (opacity fade, scale transition) must be removed or made instant when `prefers-reduced-motion: reduce` is active.
+- **Focus management:**
+  - Focus is trapped within the dialog content when open.
+  - Focus is restored to the trigger element when the dialog closes.
+  - The first focusable element inside the dialog receives focus on open.
+- **Screen reader announcements:** Content announces as `role="dialog"`. Title provides the accessible label. Description provides the accessible description.
+- **Contrast:** Dialog content background must have sufficient contrast against both the overlay and the content text. Title and Description text must meet WCAG 2.1 AA ratios against the content background.
 
 ---
 
-## 6. Theming Rules
+## 6. Styling
 
-- **Required tokens:** `$background` (content background), `$color` (title text), `$colorSubtitle` (description text), `$heading` (font family), `$body` (font family).
-- **Prohibited hardcoded values:** No raw hex colors, pixel spacing, or font sizes except the overlay background, which uses a fixed `rgba(0,0,0,0.5)` for consistent scrim behavior across themes.
-- **Dark mode expectations:** Content background, text colors, and border radius must resolve correctly in both light and dark themes. The overlay scrim color is theme-independent by design.
+- **Design tokens used:**
+  - Colors: `$background` (content panel), `$overlayBackground` (scrim), `$color` (title text), `$colorSubtitle` (description text), `$shadowXlColor` (shadow).
+  - Font: `$heading` family for Title, `$body` family for Description.
+  - Spacing: `$3` gap inside content, `$4`/`$5`/`$6` padding per size variant.
+  - Radius: `$6` on the content panel.
+  - Animation: `medium` token for enter/exit transitions.
+- **Responsive behavior:** Content width is 90% of viewport with `maxWidth` capped by the `size` variant (400/500/640). `maxHeight` is 85%. The dialog remains centered and scrollable on all screen sizes.
+- **Reduced motion:** Entry/exit animations (opacity fade, scale transition) must be removed or made instant when `prefers-reduced-motion: reduce` is active.
+- **Dark mode:** Content background, text colors, and border radius must resolve correctly in both light and dark themes. The overlay background uses `$overlayBackground` token which resolves per theme.
 
 ---
 
-## 7. Composition Rules
+## 7. Composition
 
-- **What can wrap it:** `Dialog.Root` wraps all other Dialog sub-components. It can be placed anywhere in the component tree.
-- **What it may contain:**
+- **What can contain this component:** `Dialog.Root` wraps all other Dialog sub-components. It can be placed anywhere in the component tree.
+- **What this component can contain:**
   - `Dialog.Trigger` — exactly one child element (the trigger).
-  - `Dialog.Overlay` — wraps `Dialog.Content`.
-  - `Dialog.Content` — contains `Dialog.Title`, `Dialog.Description`, `Dialog.Close`, and any arbitrary content.
+  - `Dialog.Content` — contains `Dialog.Header`, `Dialog.Title`, `Dialog.Description`, `Dialog.Footer`, `Dialog.Close`, and any arbitrary content.
   - `Dialog.Close` — exactly one child element (the close control).
 - **Anti-patterns:**
-  - Do not render `Dialog.Content` outside of `Dialog.Overlay`.
   - Do not nest dialogs inside other dialogs.
   - Do not omit `Dialog.Title` — it provides the accessible label for the dialog.
   - Do not use Dialog for non-modal content that the user should interact with alongside other UI.
@@ -109,35 +111,34 @@
 
 ---
 
-## 8. Performance Constraints
+## 8. Breaking Change Criteria
 
-- **Memoization rules:** Dialog state is managed in the headless layer via context. The styled wrappers are thin and do not need memoization. Consumers should avoid placing expensive render trees inside `Dialog.Content` unless gated by the open state.
-- **Virtualization:** Not applicable.
-- **Render boundaries:** Overlay and Content render `null` when closed, preventing unnecessary DOM presence and style calculation. The headless layer uses context, so only Dialog sub-components re-render on state changes.
+- Removing any sub-component (`Root`, `Trigger`, `Overlay`, `Content`, `Title`, `Description`, `Close`, `Header`, `Footer`).
+- Removing the `open`/`defaultOpen`/`onOpenChange` controlled/uncontrolled API on Root.
+- Removing the `size` variant from Content.
+- Removing focus trapping, focus restoration, or Escape-to-close behavior.
+- Removing `role="dialog"`, `aria-modal`, `aria-labelledby`, or `aria-describedby` from the content element.
 
 ---
 
 ## 9. Test Requirements
 
-- **What must be tested:**
+- **Behavioral tests:**
   - Dialog renders nothing when closed.
   - Dialog renders Overlay and Content when open.
   - Controlled mode (`open` + `onOpenChange`) works correctly.
   - Uncontrolled mode (`defaultOpen`) opens the dialog on mount.
   - Each `size` variant (`sm`, `md`, `lg`) applies correct maxWidth and padding.
   - Title and Description render with correct typography styles.
-- **Interaction cases:**
-  - Clicking Trigger opens the dialog.
-  - Clicking Close closes the dialog.
-  - Clicking the Overlay closes the dialog.
-  - Pressing Escape closes the dialog.
-  - `onEscapeKeyDown` callback fires before close on Escape.
-  - Focus is trapped inside Content when open.
-  - Focus returns to Trigger when dialog closes.
-- **Accessibility checks:**
+  - Header groups Title and Description vertically.
+  - Footer right-aligns action buttons.
+- **Accessibility tests:**
   - Content has `role="dialog"` and `aria-modal`.
   - `aria-labelledby` links Content to Title.
   - `aria-describedby` links Content to Description.
-  - Trigger child receives `aria-haspopup="dialog"`.
-  - Overlay is `aria-hidden`.
   - Tab key cycles focus within the dialog (does not escape).
+  - Focus returns to trigger when dialog closes.
+- **Visual regression:**
+  - Open state with overlay and centered content panel.
+  - Each size variant.
+  - Entry and exit animation states.
