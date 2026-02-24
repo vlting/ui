@@ -1,5 +1,6 @@
 import React from 'react'
-import { YStack, Text, Heading, XStack } from 'tamagui'
+import { YStack, Text, XStack } from 'tamagui'
+import { Heading } from '@vlting/ui'
 import { useNavigate, useParams } from 'react-router-dom'
 
 export function HomePage() {
@@ -20,7 +21,7 @@ export function HomePage() {
   return (
     <YStack padding="$6" gap="$5" maxWidth={900} marginHorizontal="auto" width="100%">
       <YStack gap="$2">
-        <Heading fontFamily="$heading" fontSize="$9" fontWeight="$5">
+        <Heading level={1}>
           Kitchen Sink
         </Heading>
         <Text fontFamily="$body" fontSize="$5" color="$colorSubtitle">
