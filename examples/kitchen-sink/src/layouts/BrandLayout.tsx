@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Outlet, useParams, useLocation, Link } from 'react-router-dom'
 import { XStack, YStack, View, Text } from 'tamagui'
 import { Provider } from '@vlting/ui'
@@ -20,16 +20,27 @@ const BUTTON_RESET: React.CSSProperties = {
   textAlign: 'left',
 }
 
-/** CSS reset for react-router <Link> elements */
+/** CSS reset for react-router <Link> and <a> elements */
 const LINK_RESET: React.CSSProperties = {
   textDecoration: 'none',
   color: 'inherit',
   display: 'block',
 }
 
+interface SidebarSubItem {
+  label: string
+  anchor: string
+}
+
+interface SidebarItem {
+  path: string
+  label: string
+  subItems?: SidebarSubItem[]
+}
+
 interface SidebarGroup {
   label: string
-  items: { path: string; label: string }[]
+  items: SidebarItem[]
 }
 
 const sidebarGroups: SidebarGroup[] = [
@@ -40,139 +51,234 @@ const sidebarGroups: SidebarGroup[] = [
   {
     label: 'Primitives',
     items: [
-      { path: 'primitives', label: 'All Primitives' },
+      {
+        path: 'primitives',
+        label: 'All Primitives',
+        subItems: [
+          { label: 'AspectRatio', anchor: 'aspectratio' },
+          { label: 'Badge', anchor: 'badge' },
+          { label: 'Box', anchor: 'box' },
+          { label: 'Divider', anchor: 'divider' },
+          { label: 'Heading', anchor: 'heading' },
+          { label: 'Label', anchor: 'label' },
+          { label: 'Separator', anchor: 'separator' },
+          { label: 'Skeleton', anchor: 'skeleton' },
+          { label: 'Spacer', anchor: 'spacer' },
+          { label: 'Stack/VStack/HStack', anchor: 'stack-vstack-hstack' },
+          { label: 'Text', anchor: 'text' },
+          { label: 'VisuallyHidden', anchor: 'visuallyhidden' },
+        ],
+      },
     ],
   },
   {
     label: 'Components',
     items: [
-      { path: 'components/buttons', label: 'Buttons & Actions' },
-      { path: 'components/data', label: 'Data Display' },
-      { path: 'components/forms', label: 'Forms & Inputs' },
-      { path: 'components/menus', label: 'Menus & Navigation' },
-      { path: 'components/overlays', label: 'Overlays' },
+      {
+        path: 'components/buttons',
+        label: 'Buttons & Actions',
+        subItems: [
+          { label: 'Button', anchor: 'button' },
+          { label: 'ButtonGroup', anchor: 'buttongroup' },
+          { label: 'Pagination', anchor: 'pagination' },
+          { label: 'Toggle', anchor: 'toggle' },
+        ],
+      },
+      {
+        path: 'components/data',
+        label: 'Data Display',
+        subItems: [
+          { label: 'Accordion', anchor: 'accordion' },
+          { label: 'Alert', anchor: 'alert' },
+          { label: 'Avatar', anchor: 'avatar' },
+          { label: 'Breadcrumb', anchor: 'breadcrumb' },
+          { label: 'Card', anchor: 'card' },
+          { label: 'Carousel', anchor: 'carousel' },
+          { label: 'Collapsible', anchor: 'collapsible' },
+          { label: 'Kbd', anchor: 'kbd' },
+          { label: 'Loader', anchor: 'loader' },
+          { label: 'Progress', anchor: 'progress' },
+          { label: 'Table', anchor: 'table' },
+          { label: 'Typography', anchor: 'typography' },
+        ],
+      },
+      {
+        path: 'components/forms',
+        label: 'Forms & Inputs',
+        subItems: [
+          { label: 'Calendar', anchor: 'calendar' },
+          { label: 'Checkbox', anchor: 'checkbox' },
+          { label: 'Combobox', anchor: 'combobox' },
+          { label: 'DatePicker', anchor: 'datepicker' },
+          { label: 'DateRangePicker', anchor: 'daterangepicker' },
+          { label: 'Form', anchor: 'form' },
+          { label: 'Input', anchor: 'input' },
+          { label: 'InputOTP', anchor: 'inputotp' },
+          { label: 'NativeSelect', anchor: 'nativeselect' },
+          { label: 'RadioGroup', anchor: 'radiogroup' },
+          { label: 'Select', anchor: 'select' },
+          { label: 'Slider', anchor: 'slider' },
+          { label: 'Switch', anchor: 'switch' },
+          { label: 'Textarea', anchor: 'textarea' },
+        ],
+      },
+      {
+        path: 'components/menus',
+        label: 'Menus & Navigation',
+        subItems: [
+          { label: 'Command', anchor: 'command' },
+          { label: 'ContextMenu', anchor: 'contextmenu' },
+          { label: 'DropdownMenu', anchor: 'dropdownmenu' },
+          { label: 'Menubar', anchor: 'menubar' },
+          { label: 'NavigationMenu', anchor: 'navigationmenu' },
+          { label: 'Resizable', anchor: 'resizable' },
+          { label: 'ScrollArea', anchor: 'scrollarea' },
+          { label: 'Sidebar', anchor: 'sidebar' },
+          { label: 'Tabs', anchor: 'tabs' },
+        ],
+      },
+      {
+        path: 'components/overlays',
+        label: 'Overlays',
+        subItems: [
+          { label: 'AlertDialog', anchor: 'alertdialog' },
+          { label: 'Dialog', anchor: 'dialog' },
+          { label: 'Drawers & Panels', anchor: 'drawers-panels' },
+          { label: 'HoverCard', anchor: 'hovercard' },
+          { label: 'Tooltip', anchor: 'tooltip' },
+        ],
+      },
     ],
   },
   {
     label: 'Composed',
     items: [
-      { path: 'composed', label: 'All Composed' },
+      {
+        path: 'composed',
+        label: 'All Composed',
+        subItems: [
+          { label: 'Accordion', anchor: 'accordion' },
+          { label: 'AlertDialog', anchor: 'alertdialog' },
+          { label: 'Breadcrumb', anchor: 'breadcrumb' },
+          { label: 'Collapsible', anchor: 'collapsible' },
+          { label: 'Form', anchor: 'form' },
+          { label: 'Table', anchor: 'table' },
+        ],
+      },
     ],
   },
   {
     label: 'Hooks',
     items: [
-      { path: 'hooks', label: 'All Hooks' },
+      {
+        path: 'hooks',
+        label: 'All Hooks',
+        subItems: [
+          { label: 'useControllableState', anchor: 'usecontrollablestate' },
+          { label: 'useFocusTrap', anchor: 'usefocustrap' },
+          { label: 'useKeyboardNavigation', anchor: 'usekeyboardnavigation' },
+        ],
+      },
     ],
   },
 ]
 
-function CollapsibleGroup({
+function NavGroup({
   group,
   brandKey,
   currentSection,
-  expanded,
-  onToggle,
+  currentHash,
   onNavClick,
 }: {
   group: SidebarGroup
   brandKey: string
   currentSection: string
-  expanded: boolean
-  onToggle: () => void
+  currentHash: string
   onNavClick: () => void
 }) {
-  const contentRef = useRef<HTMLDivElement>(null)
-  const [contentHeight, setContentHeight] = useState<number | undefined>(undefined)
-
-  useEffect(() => {
-    if (contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight)
-    }
-  }, [expanded, group.items.length])
-
-  const hasMultipleItems = group.items.length > 1
-
   return (
     <YStack marginBottom="$0.75">
-      <button
-        type="button"
-        onClick={hasMultipleItems ? onToggle : undefined}
-        style={{ ...BUTTON_RESET, cursor: hasMultipleItems ? 'pointer' : 'default', width: '100%' }}
-      >
-        <XStack
-          alignItems="center"
-          justifyContent="space-between"
-          width="100%"
-          paddingVertical="$0.75"
-          paddingHorizontal="$2"
-        >
-          <Text
-            fontSize={12}
-            fontWeight="500"
-            color="$colorSubtitle"
-            textTransform="uppercase"
-            letterSpacing={0.5}
-            fontFamily="$body"
-          >
-            {group.label}
-          </Text>
-          {hasMultipleItems && (
-            <Text
-              fontSize={10}
-              /* transform is dynamically calculated from expanded state */
-              style={{
-                transition: 'transform 0.2s ease',
-                transform: expanded ? 'rotate(90deg)' : 'rotate(0deg)',
-                display: 'inline-block',
-              }}
-            >
-              ▶
-            </Text>
-          )}
-        </XStack>
-      </button>
-      <View
-        ref={contentRef}
-        overflow="hidden"
-        /* maxHeight is dynamically calculated from expanded state + measured content */
+      <h2
         style={{
-          maxHeight: expanded ? (contentHeight ?? 500) : 0,
-          transition: 'max-height 0.2s ease',
+          margin: 0,
+          padding: '8px 16px',
+          fontSize: 12,
+          fontWeight: 500,
+          textTransform: 'uppercase' as const,
+          letterSpacing: 0.5,
+          color: 'var(--colorSubtitle)',
+          fontFamily: 'var(--f-body)',
         }}
       >
+        {group.label}
+      </h2>
+      <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
         {group.items.map((item) => {
           const isActive = currentSection === item.path
           return (
-            <Link
-              key={item.path}
-              to={`/${brandKey}/${item.path}`}
-              onClick={onNavClick}
-              style={LINK_RESET}
-            >
-              <XStack
-                paddingVertical="$0.75"
-                paddingLeft="$3.5"
-                paddingRight="$2"
-                borderRightWidth={2}
-                borderRightColor={isActive ? '$color' : 'transparent'}
-                backgroundColor={isActive ? '$color3' : 'transparent'}
-                /* transition is a CSS animation property */
-                style={{ transition: 'all 0.1s' }}
+            <li key={item.path}>
+              <Link
+                to={`/${brandKey}/${item.path}`}
+                onClick={onNavClick}
+                style={LINK_RESET}
               >
-                <Text
-                  fontSize="$3"
-                  fontFamily="$body"
-                  color={isActive ? '$color' : '$colorSubtitle'}
-                  fontWeight={isActive ? '500' : '400'}
+                <XStack
+                  paddingVertical="$0.75"
+                  paddingLeft="$3.5"
+                  paddingRight="$2"
+                  borderRightWidth={2}
+                  borderRightColor={isActive ? '$color' : 'transparent'}
+                  backgroundColor={isActive ? '$color3' : 'transparent'}
+                  /* transition is CSS animation */
+                  style={{ transition: 'all 0.1s' }}
                 >
-                  {item.label}
-                </Text>
-              </XStack>
-            </Link>
+                  <Text
+                    fontSize="$3"
+                    fontFamily="$body"
+                    color={isActive ? '$color' : '$colorSubtitle'}
+                    fontWeight={isActive ? '500' : '400'}
+                  >
+                    {item.label}
+                  </Text>
+                </XStack>
+              </Link>
+              {item.subItems && isActive && (
+                <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                  {item.subItems.map((sub) => {
+                    const isSubActive = currentHash === `#${sub.anchor}`
+                    return (
+                      <li key={sub.anchor}>
+                        <Link
+                          to={`/${brandKey}/${item.path}#${sub.anchor}`}
+                          onClick={onNavClick}
+                          style={LINK_RESET}
+                        >
+                          <XStack
+                            paddingVertical="$0.25"
+                            paddingLeft={36}
+                            paddingRight="$2"
+                            /* transition is CSS animation */
+                            style={{ transition: 'all 0.1s' }}
+                          >
+                            <Text
+                              fontSize={12}
+                              fontFamily="$body"
+                              color={isSubActive ? '$color' : '$colorSubtitle'}
+                              fontWeight={isSubActive ? '500' : '400'}
+                            >
+                              {sub.label}
+                            </Text>
+                          </XStack>
+                        </Link>
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
+            </li>
           )
         })}
-      </View>
+      </ul>
     </YStack>
   )
 }
@@ -185,54 +291,7 @@ export function BrandLayout() {
 
   const brandKey = (brand in brands ? brand : 'default') as BrandKey
   const currentSection = location.pathname.split('/').slice(2).join('/') || ''
-
-  // Determine which group contains the active route
-  const activeGroupLabel = useMemo(() => {
-    for (const group of sidebarGroups) {
-      if (group.items.some((item) => item.path === currentSection)) {
-        return group.label
-      }
-    }
-    return ''
-  }, [currentSection])
-
-  // Track expanded groups — auto-expand the active group and all single-item groups
-  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => {
-    const initial = new Set<string>()
-    for (const group of sidebarGroups) {
-      if (group.items.length <= 1) {
-        initial.add(group.label)
-      }
-    }
-    if (activeGroupLabel) {
-      initial.add(activeGroupLabel)
-    }
-    return initial
-  })
-
-  // Auto-expand when navigating to a new group
-  useEffect(() => {
-    if (activeGroupLabel) {
-      setExpandedGroups((prev) => {
-        if (prev.has(activeGroupLabel)) return prev
-        const next = new Set(prev)
-        next.add(activeGroupLabel)
-        return next
-      })
-    }
-  }, [activeGroupLabel])
-
-  const toggleGroup = useCallback((label: string) => {
-    setExpandedGroups((prev) => {
-      const next = new Set(prev)
-      if (next.has(label)) {
-        next.delete(label)
-      } else {
-        next.add(label)
-      }
-      return next
-    })
-  }, [])
+  const currentHash = location.hash
 
   return (
     <Provider config={activeBrand.config} defaultTheme={theme}>
@@ -330,32 +389,33 @@ export function BrandLayout() {
         {/* ─── Body: Sidebar + Content ─── */}
         <XStack flex={1}>
           {/* Sidebar */}
-          <YStack
-            role="navigation"
-            width={240}
-            flexShrink={0}
-            borderRightWidth={1}
-            borderRightColor="$borderColor"
-            paddingVertical="$2"
-            backgroundColor="$background"
-            position="sticky"
-            top={56}
+          <nav
+            aria-label="Sidebar navigation"
             className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}
-            /* overflowY and calc() are CSS-specific */
-            style={{ overflowY: 'auto', height: 'calc(100vh - 56px)' }}
+            style={{
+              width: 240,
+              flexShrink: 0,
+              borderRight: '1px solid var(--borderColor)',
+              paddingTop: 16,
+              paddingBottom: 16,
+              backgroundColor: 'var(--background)',
+              position: 'sticky',
+              top: 56,
+              overflowY: 'auto',
+              height: 'calc(100vh - 56px)',
+            }}
           >
             {sidebarGroups.map((group) => (
-              <CollapsibleGroup
+              <NavGroup
                 key={group.label}
                 group={group}
                 brandKey={brandKey}
                 currentSection={currentSection}
-                expanded={expandedGroups.has(group.label)}
-                onToggle={() => toggleGroup(group.label)}
+                currentHash={currentHash}
                 onNavClick={() => setSidebarOpen(false)}
               />
             ))}
-          </YStack>
+          </nav>
 
           {/* Mobile sidebar overlay */}
           {sidebarOpen && (
