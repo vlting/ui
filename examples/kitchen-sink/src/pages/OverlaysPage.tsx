@@ -237,7 +237,7 @@ export function OverlaysPage() {
                   borderRadius="$3"
                   cursor="pointer"
                 >
-                  <Text fontFamily="$body" fontSize="$3" style={{ textTransform: 'capitalize' }}>{side}</Text>
+                  <Text fontFamily="$body" fontSize="$3" textTransform="capitalize">{side}</Text>
                 </View>
               </Tooltip>
             ))}

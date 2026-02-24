@@ -226,7 +226,7 @@ function TableDemo() {
             <Table.Head>Name</Table.Head>
             <Table.Head>Role</Table.Head>
             <Table.Head>Status</Table.Head>
-            <Table.Head style={{ textAlign: 'right' }}>Hours</Table.Head>
+            <Table.Head textAlign="right">Hours</Table.Head>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -235,16 +235,16 @@ function TableDemo() {
               <Table.Cell>{member.name}</Table.Cell>
               <Table.Cell>{member.role}</Table.Cell>
               <Table.Cell>{member.status}</Table.Cell>
-              <Table.Cell style={{ textAlign: 'right' }}>{member.hours}</Table.Cell>
+              <Table.Cell textAlign="right">{member.hours}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
         <Table.Footer>
           <Table.Row>
-            <Table.Cell style={{ fontWeight: 600 }}>Page total</Table.Cell>
+            <Table.Cell fontWeight="600">Page total</Table.Cell>
             <Table.Cell />
             <Table.Cell />
-            <Table.Cell style={{ textAlign: 'right', fontWeight: 600 }}>{totalHours}</Table.Cell>
+            <Table.Cell textAlign="right" fontWeight="600">{totalHours}</Table.Cell>
           </Table.Row>
         </Table.Footer>
       </Table.Root>

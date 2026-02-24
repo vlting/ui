@@ -206,7 +206,7 @@ export function MenusPage() {
       {/* ScrollArea */}
       <Section title="ScrollArea">
         <DemoCard label="Scrollable area with custom scrollbar">
-          <ScrollArea.Root style={{ height: 200 }}>
+          <ScrollArea.Root height={200}>
             <ScrollArea.Viewport>
               <YStack gap="$2" padding="$2">
                 {Array.from({ length: 20 }, (_, i) => (
