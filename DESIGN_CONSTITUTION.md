@@ -275,6 +275,32 @@ AI-assisted changes **must**:
 
 This constitution is a **hard rule** for UI design in the system.
 
+## 13.1 Accessibility & UI Quality Tooling
+
+The following MCP servers are available to AI agents for verifying accessibility and UI quality during the coding loop:
+
+### Static Analysis (Use During Development)
+- **AccessLint MCP** (`accesslint`) — Use `audit_html` after creating or modifying component markup. Use `diff_html` when fixing accessibility issues to verify no regressions. Use `calculate_contrast_ratio` and `analyze_color_pair` when choosing colors.
+- **WCAG MCP** (`wcag`) — Look up WCAG 2.2 requirements when unsure about a specific pattern or success criterion.
+- **ESLint MCP** (`eslint`) — Available for running ESLint rules if configured.
+- **Biome** — Already configured with `recommended` rules including the `a11y` category.
+
+### Live Testing (Use With Dev Server Running)
+- **Playwright MCP** (`playwright`) — Navigate and interact with pages via structured accessibility snapshots. Use for verifying layout, interactive behavior, and page structure.
+- **a11y-mcp** (`a11y`) — Run axe-core accessibility audits on live webpages with WCAG tag filtering.
+- **Lighthouse MCP** (`lighthouse`) — Full audits for accessibility, performance, best practices, and SEO.
+
+### When to Use Each Tool
+| Scenario | Tool |
+|----------|------|
+| Creating/modifying component markup | AccessLint `audit_html` |
+| Fixing a11y issues (regression check) | AccessLint `diff_html` |
+| Choosing colors | AccessLint `calculate_contrast_ratio`, `analyze_color_pair` |
+| Unsure about WCAG requirements | WCAG MCP `get-criterion`, `search-wcag` |
+| Full page-level audit | Lighthouse MCP |
+| Interactive behavior verification | Playwright MCP |
+| Targeted live a11y audit | a11y-mcp |
+
 ---
 
 # 14. Final Rule
