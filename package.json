@@ -61,8 +61,6 @@
     "lint:fix": "biome check --write src/ packages/",
     "format": "biome format --write src/ packages/",
     "typecheck": "tsc --noEmit",
-    "dev:crushd": "yarn workspace @vlting/examples-crushd dev",
-    "dev:volta": "yarn workspace @vlting/examples-volta dev",
     "dev:kitchen-sink": "yarn workspace @vlting/examples-kitchen-sink dev"
   },
   "dependencies": {
