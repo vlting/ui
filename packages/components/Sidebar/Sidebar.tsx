@@ -97,7 +97,8 @@ function Root({
         borderRadius={variant === 'floating' ? '$5' : undefined}
         style={{
           width: collapsed ? collapsedWidth : open ? width : 0,
-          transition: 'width 200ms ease-in-out',
+          // Matches animation token: medium (250ms ease-in-out)
+          transition: 'width 250ms ease-in-out',
           ...(variant === 'floating'
             ? {
                 margin: 8,

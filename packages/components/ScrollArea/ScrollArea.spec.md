@@ -24,11 +24,11 @@
 
 - **ScrollArea** (Root) — Outer container with `position: relative` and `overflow: hidden`.
 - **ScrollArea.Viewport** — Inner scrollable area with `overflow` set by `orientation` prop.
-- **ScrollArea.Scrollbar** — Placeholder sub-component (currently returns `null`).
-- **ScrollArea.Thumb** — Placeholder sub-component (currently returns `null`).
-- **ScrollArea.Corner** — Placeholder sub-component (currently returns `null`).
+- **ScrollArea.Scrollbar** — No-op component for API compatibility (returns `null`).
+- **ScrollArea.Thumb** — No-op component for API compatibility (returns `null`).
+- **ScrollArea.Corner** — No-op component for API compatibility (returns `null`).
 
-Scrollbar styling is currently achieved via injected `<style>` tag with `-webkit-scrollbar` CSS.
+Scrollbar, Thumb, and Corner are intentional no-ops provided for API compatibility with Radix ScrollArea patterns. ScrollArea uses CSS-based scrollbar styling (webkit-scrollbar + scrollbar-width) injected in Root rather than custom scrollbar track/thumb elements.
 
 > **TypeScript is the source of truth for props.** See the exported types in `ScrollArea.tsx` for the full typed API.
 

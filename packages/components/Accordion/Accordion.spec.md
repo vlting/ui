@@ -46,7 +46,7 @@ Compound component wrapping Tamagui Accordion primitives:
 
 ### Motion
 
-- Chevron rotates 180° on expand/collapse.
+- Chevron rotates 180° on expand/collapse via CSS transition (150ms ease-in-out, matching `fast` animation token).
 - Content panel expands/collapses with Tamagui animation.
 - Must respect `prefers-reduced-motion`.
 

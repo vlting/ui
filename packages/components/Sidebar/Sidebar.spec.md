@@ -59,7 +59,7 @@
 
 ### Motion
 
-- Width transition animation on collapse/expand.
+- Width transition animation on collapse/expand via CSS transition (250ms ease-in-out, matching `medium` animation token).
 - Should respect `prefers-reduced-motion`.
 
 ---
