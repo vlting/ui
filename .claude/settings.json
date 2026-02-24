@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(yarn.lock)",
+      "Read(package-lock.json)",
+      "Read(pnpm-lock.yaml)",
+      "Read(bun.lock)",
+      "Read(.ai-queue/_completed/**)"
+    ]
+  }
+}
