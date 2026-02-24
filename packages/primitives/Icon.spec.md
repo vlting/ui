@@ -1,90 +1,85 @@
 # Component Spec — Icon
 
+> **Baseline**: This component must satisfy all requirements in [`QUALITY_BASELINE.md`](../QUALITY_BASELINE.md).
+
 ## 1. Purpose
 
-- Provides a standardized wrapper for rendering icon components with consistent size and color props.
-- Should be used whenever an icon needs to be rendered alongside text, inside buttons, or in any context requiring a uniform icon interface.
-- Should NOT be used for large illustrative graphics or images (use Image or SVG components instead).
-- Should NOT be used as a standalone interactive element; wrap it in a pressable component (Button, Pressable) for interactivity.
+- Standardized wrapper for rendering icon components with consistent size and color props.
+- Use whenever an icon needs to be rendered alongside text, inside buttons, or in any context requiring a uniform icon interface.
+- Do NOT use for large illustrative graphics or images. Do NOT use as a standalone interactive element — wrap in Button or Pressable for interactivity.
 
 ---
 
 ## 2. UX Intent
 
-- Primary interaction goal: present a recognizable visual symbol that supports comprehension of adjacent text or actions.
-- Expected user mental model: a small graphic symbol (like a toolbar icon or inline glyph) whose size and color integrate seamlessly with surrounding UI.
-- **Fitts's Law (2.3):** Icon itself is not interactive, but when placed inside a button or pressable, the icon contributes to the touch target's visual affordance. The default 20px size provides a reasonable minimum for visual recognition.
-- **Clarity over Cleverness (3.1):** Icons must be universally recognizable. The wrapper does not modify icon behavior, ensuring the icon renders exactly as its source component intends.
+- **Fitts's Law** — when placed inside interactive elements, the icon contributes to the touch target's visual affordance.
+- Icons must be universally recognizable. The wrapper does not modify icon behavior — the icon renders exactly as its source component intends.
 
 ---
 
-## 3. Visual Behavior
+## 3. Anatomy
 
-- Layout rules: renders the icon component directly with no wrapping container element. The icon occupies space according to its `size` prop.
-- Spacing expectations: no default margin or padding. Spacing around the icon must be managed by the parent layout.
-- Typography rules: not applicable (Icon does not render text).
-- Token usage: `color` accepts a raw string or resolved Tamagui token color. `size` is a raw number (pixels), not a Tamagui token. This component does not participate in the Tamagui styled system.
-- Responsive behavior: does not support Tamagui media-query props directly. Consumers who need responsive icon sizing must manage it at the usage site.
+Plain React function component (NOT a Tamagui styled component). Renders the passed `icon` component directly with forwarded `size` and `color` props. No wrapping container element.
 
----
+- `icon`: component conforming to `IconFC` (`ComponentType<{ size?: number; color?: string }>`).
+- `size`: number (default: 20).
+- `color`: optional string.
 
-## 4. Interaction Behavior
-
-- States: Icon is non-interactive. It has no hover, focus, active, disabled, loading, or error states of its own.
-- Controlled vs uncontrolled: not applicable (stateless).
-- Keyboard behavior: not focusable. Must not appear in the tab order.
-- Screen reader behavior: decorative by default. The icon is invisible to assistive technology unless the consuming icon component provides its own accessibility attributes, or the consumer wraps Icon with `accessibilityLabel`.
-- Motion rules: no motion. Icons must not animate unless the consumer explicitly animates the parent.
+> **TypeScript is the source of truth for props.** See `Icon.tsx` and the `IconFC` type for the full typed API. Do not duplicate prop tables here.
 
 ---
 
-## 5. Accessibility Requirements
+## 4. Behavior
 
-- ARIA requirements: no role or label is set by default. Icons are treated as decorative.
-  - When the icon conveys meaning (e.g., a status indicator without adjacent text), the consumer must provide `accessibilityLabel` or `aria-label` on a wrapping element.
-  - When the icon is purely decorative (e.g., inside a labeled button), no additional accessibility attributes are needed.
-- Focus rules: must never receive focus.
-- Contrast expectations: the icon's `color` must meet WCAG 3:1 contrast ratio for non-text graphical elements against its background. This is a consumer and theme-level responsibility.
-- Reduced motion behavior: not applicable (no inherent animation).
+### States
 
----
+Non-interactive. No hover, focus, active, or disabled states.
 
-## 6. Theming Rules
+### Keyboard Interaction
 
-- Required tokens: none. Icon does not consume Tamagui tokens directly.
-- Prohibited hardcoded values: consumers should pass theme-resolved colors (e.g., via Tamagui's `useTheme()` hook) rather than hardcoded hex values, to maintain dark/light mode compatibility.
-- Dark mode expectations: since Icon passes `color` through to the underlying icon component, the consumer must ensure the color adapts to the active theme.
+None — Icon must never appear in the tab order.
+
+### Motion
+
+None.
 
 ---
 
-## 7. Composition Rules
+## 5. Accessibility
 
-- What can wrap it: Button, Pressable, HStack, VStack, Box, or any layout container. When Icon conveys meaning, it should be wrapped in an accessible container.
-- What it may contain: nothing. Icon renders a single icon component and does not accept children.
-- Anti-patterns:
-  - Do not use Icon as a clickable element on its own; wrap it in a Button or Pressable.
-  - Do not pass complex components as the `icon` prop; it must conform to the `IconFC` signature (`{ size?: number; color?: string }`).
-  - Do not rely on the icon alone to convey critical information without a text label or `accessibilityLabel`.
+- **Semantic element:** Renders whatever the icon component renders (typically `<svg>`).
+- **ARIA attributes:** Decorative by default. When the icon conveys meaning without accompanying text, the consumer must add `aria-label` to the parent interactive element.
+- **Contrast:** Icon `color` must meet WCAG 3:1 for non-text graphical elements. This is a consumer and theme-level responsibility.
 
 ---
 
-## 8. Performance Constraints
+## 6. Styling
 
-- Memoization rules: do not memoize Icon by default. It is a trivial render pass-through. If the parent re-renders frequently and the icon component is expensive, memoize at the usage site.
-- Virtualization: not applicable.
-- Render boundaries: Icon does not establish a React error boundary or Suspense boundary.
+- **Design tokens used:** None directly — Icon is a plain component. Color and size are passed through to the icon component.
+- **Default size:** 20 (unitless, interpreted as pixels by icon libraries).
+- **Responsive behavior:** Does not support Tamagui media-query props. Consumers manage responsive sizing at the usage site.
+- **Dark mode:** Consumer passes appropriate theme-resolved color.
+
+---
+
+## 7. Composition
+
+- **What can contain this component:** Button, Pressable, HStack, VStack, Box, or any layout container.
+- **What this component can contain:** Nothing — renders a single icon component as a leaf.
+- **Anti-patterns:** Do not use Icon as a clickable element on its own. Do not pass complex components as the `icon` prop — it must conform to `IconFC`. Do not rely on the icon alone to convey critical information.
+
+---
+
+## 8. Breaking Change Criteria
+
+- Changing the `IconFC` type signature.
+- Changing the default `size` from 20.
+- Wrapping the icon in additional DOM elements.
+- Switching to Tamagui `styled()` (would change type API and rendering behavior).
 
 ---
 
 ## 9. Test Requirements
 
-- What must be tested:
-  - Renders the provided `icon` component.
-  - Forwards `size` prop to the icon component (default: 20).
-  - Forwards `color` prop to the icon component (default: undefined).
-  - Does not render a wrapping container element.
-  - Accepts any component matching the `IconFC` type signature.
-- Interaction cases: not applicable (non-interactive).
-- Accessibility checks:
-  - No role or label is set by default.
-  - Verify the icon is treated as decorative when no accessibility attributes are provided.
+- **Behavioral tests:** Verify icon component receives `size` and `color` props. Verify default size is 20. Verify renders without error when `color` is omitted. Verify no wrapping container element.
+- **Accessibility tests:** Verify no implicit accessible name. Verify decorative treatment by default.

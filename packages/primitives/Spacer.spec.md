@@ -1,90 +1,87 @@
 # Component Spec — Spacer
 
+> **Baseline**: This component must satisfy all requirements in [`QUALITY_BASELINE.md`](../QUALITY_BASELINE.md).
+
 ## 1. Purpose
 
-- Provides controlled whitespace between elements within flex containers, either as a flexible expander or as a fixed-size gap.
-- Should be used to push elements apart in a flex layout (e.g., pushing a button to the far end of a toolbar) or to insert consistent, token-based spacing between siblings.
-- Should NOT be used as a general-purpose margin/padding mechanism; prefer spacing props on the container or `gap` when uniform spacing is needed.
-- Should NOT be used to create vertical spacing between block-level sections (prefer margin tokens on the sections themselves or a layout component with `gap`).
+- Controlled whitespace between elements — either flexible (fills available space) or fixed (explicit size).
+- Use to push elements apart in flex layouts or insert consistent, token-based spacing between siblings.
+- Do NOT use as a general-purpose margin/padding mechanism — prefer spacing props on the container or `gap`.
+- Do NOT use to create vertical spacing between block-level sections — prefer margin tokens on the sections themselves.
 
 ---
 
 ## 2. UX Intent
 
-- Primary interaction goal: create predictable, consistent whitespace that reinforces visual hierarchy and grouping.
-- Expected user mental model: an invisible element that "pushes" siblings apart. Without a `size` prop, it expands to fill available space. With a `size` prop, it creates a fixed gap.
-- **Gestalt Principles (2.4):** Spacer enforces the principle of proximity by controlling the distance between elements, helping users perceive which items are grouped and which are separate.
-- **Aesthetic-Usability Effect (2.8):** Consistent spacing contributes to a polished visual appearance, which users perceive as more usable and trustworthy.
+- **Gestalt Principles** — enforces the principle of proximity by controlling distance between elements, helping users perceive grouping.
 
 ---
 
-## 3. Visual Behavior
+## 3. Anatomy
 
-- Layout rules:
-  - Default (no `size`): `flex: 1` causes the spacer to expand and fill remaining space in the flex container. Direction depends on the parent's flex direction.
-  - With `size`: `flex: 0` with explicit `width` and `height` set to the same space token, creating a fixed square gap.
-- Spacing expectations: the spacer itself IS the spacing. No additional margin or padding.
-- Typography rules: not applicable (Spacer does not render text or visible content).
-- Token usage: size variants map to space tokens (`$0.5`, `$1`, `$2`, `$4`, `$6`). No hardcoded pixel values.
-- Responsive behavior: supports Tamagui responsive and media-query props. Consumers can change the `size` variant at different breakpoints.
+Single element — `styled(View)` with size variants. No sub-components. Leaf element — must not accept children.
 
----
+- Default (no size): `flex: 1` — expands to fill available space.
+- Size variants set `flex: 0` with explicit width and height from space tokens.
 
-## 4. Interaction Behavior
-
-- States: Spacer is non-interactive. It has no hover, focus, active, disabled, loading, or error states.
-- Controlled vs uncontrolled: not applicable (stateless).
-- Keyboard behavior: not focusable. Must never appear in the tab order.
-- Screen reader behavior: invisible to assistive technology. Spacer is purely presentational and must not be announced.
-- Motion rules: no motion. Spacers must not animate.
+> **TypeScript is the source of truth for props.** See `Spacer.tsx` for the full typed API. Do not duplicate prop tables here.
 
 ---
 
-## 5. Accessibility Requirements
+## 4. Behavior
 
-- ARIA requirements: no role is set. Spacer is a presentational element and must remain invisible to the accessibility tree.
-- Focus rules: must never receive focus.
-- Contrast expectations: not applicable (no visible rendering).
-- Reduced motion behavior: not applicable (no animation).
+### States
 
----
+Non-interactive. No hover, focus, active, or disabled states.
 
-## 6. Theming Rules
+### Keyboard Interaction
 
-- Required tokens: space tokens (`$0.5`, `$1`, `$2`, `$4`, `$6`) for the size variants.
-- Prohibited hardcoded values: no raw pixel dimensions for spacing.
-- Dark mode expectations: not applicable (Spacer has no color). No visual change between themes.
+None — must never appear in the tab order.
 
----
+### Motion
 
-## 7. Composition Rules
-
-- What can wrap it: any flex container (HStack, VStack, Stack, Box with flex layout).
-- What it may contain: nothing. Spacer is a leaf element and must not accept or render children.
-- Anti-patterns:
-  - Do not use Spacer outside a flex container; the flexible behavior and fixed dimensions only make sense within flexbox.
-  - Do not chain multiple Spacers when a single Spacer with the correct `size` or a container `gap` would suffice.
-  - Do not use Spacer for visual decoration (e.g., colored blocks); it must remain invisible.
+None.
 
 ---
 
-## 8. Performance Constraints
+## 5. Accessibility
 
-- Memoization rules: do not memoize. Spacer is a trivial styled view with no internal logic.
-- Virtualization: not applicable.
-- Render boundaries: Spacer does not establish a React error boundary or Suspense boundary.
+- **Semantic element:** Renders `<div>`. Purely presentational.
+- **ARIA attributes:** None. Invisible to the accessibility tree.
+- **Screen reader announcements:** None — Spacer should not be announced.
+
+---
+
+## 6. Styling
+
+- **Design tokens used:**
+  - `xs`: `$0.5` (width and height)
+  - `sm`: `$1`
+  - `md`: `$2`
+  - `lg`: `$4`
+  - `xl`: `$6`
+- **Responsive behavior:** Flex spacer adapts with container. Fixed sizes are constant. Supports Tamagui responsive props.
+- **Dark mode:** Not applicable — no visual appearance.
+
+---
+
+## 7. Composition
+
+- **What can contain this component:** Any flex container (HStack, VStack, Stack, Box with flex layout).
+- **What this component can contain:** Nothing — Spacer is a leaf element.
+- **Anti-patterns:** Do not use outside a flex container. Do not chain multiple Spacers when a single Spacer with the correct `size` or a container `gap` would suffice.
+
+---
+
+## 8. Breaking Change Criteria
+
+- Removing a size variant.
+- Changing default behavior from `flex: 1`.
+- Changing the token mapping for any size.
 
 ---
 
 ## 9. Test Requirements
 
-- What must be tested:
-  - Default behavior (no `size`): renders with `flex: 1`.
-  - Each size variant (`xs`, `sm`, `md`, `lg`, `xl`) renders with `flex: 0` and the correct width/height token values.
-  - Does not render any visible content or children.
-  - Inherits and forwards Tamagui View style props.
-- Interaction cases: not applicable (non-interactive).
-- Accessibility checks:
-  - No role is set.
-  - Not focusable.
-  - Invisible to screen readers.
+- **Behavioral tests:** Verify default renders with `flex: 1`. Verify each size variant (`xs`–`xl`) renders with `flex: 0` and correct width/height token values. Verify no children are rendered.
+- **Accessibility tests:** Verify no role is set. Verify not focusable. Verify invisible to screen readers.
