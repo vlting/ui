@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { YStack, XStack, Text, Heading, Separator, View } from 'tamagui'
+import { YStack, XStack, Text, View } from 'tamagui'
 import {
   Accordion,
   Alert,
@@ -13,34 +13,17 @@ import {
   Progress,
   Table,
   Button,
+  Heading,
   H1, H2, H3, H4, P, Lead, Large, Small, Muted, Blockquote, InlineCode, List, ListItem,
 } from '@vlting/ui'
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <YStack gap="$3" paddingVertical="$4">
-      <Heading fontFamily="$heading" fontSize="$6" fontWeight="$4">{title}</Heading>
-      <Separator />
-      <YStack gap="$3" paddingTop="$2">{children}</YStack>
-    </YStack>
-  )
-}
-
-function DemoCard({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <YStack backgroundColor="$background" borderRadius="$4" borderWidth={1} borderColor="$borderColor" padding="$4" gap="$3">
-      <Text fontFamily="$body" fontSize="$2" fontWeight="$3" color="$colorSubtitle">{label}</Text>
-      {children}
-    </YStack>
-  )
-}
+import { Section, DemoCard } from '../components/Section'
 
 export function DataDisplayPage() {
   const [collapsibleOpen, setCollapsibleOpen] = useState(false)
 
   return (
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
-      <Heading fontFamily="$heading" fontSize="$8" fontWeight="$5">Data Display</Heading>
+      <Heading level={1}>Data Display</Heading>
       <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
         Accordion, Alert, Avatar, Breadcrumb, Card, Carousel, Collapsible, Kbd, Loader, Progress, Table, and Typography.
       </Text>

@@ -1,11 +1,11 @@
 import React from 'react'
-import { YStack, XStack, Text, Heading, View, Separator } from 'tamagui'
+import { YStack, XStack, Text, View } from 'tamagui'
 import {
   AspectRatio,
   Badge,
   Box,
   Divider,
-  Heading as VHeading,
+  Heading,
   HStack,
   Label,
   Separator as VSeparator,
@@ -15,43 +15,12 @@ import {
   VisuallyHidden,
   VStack,
 } from '@vlting/ui'
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <YStack gap="$3" paddingVertical="$4">
-      <Heading fontFamily="$heading" fontSize="$6" fontWeight="$4">
-        {title}
-      </Heading>
-      <Separator />
-      <YStack gap="$3" paddingTop="$2">
-        {children}
-      </YStack>
-    </YStack>
-  )
-}
-
-function DemoCard({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <YStack
-      backgroundColor="$background"
-      borderRadius="$4"
-      borderWidth={1}
-      borderColor="$borderColor"
-      padding="$4"
-      gap="$3"
-    >
-      <Text fontFamily="$body" fontSize="$2" fontWeight="$3" color="$colorSubtitle">
-        {label}
-      </Text>
-      {children}
-    </YStack>
-  )
-}
+import { Section, DemoCard } from '../components/Section'
 
 export function PrimitivesPage() {
   return (
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
-      <Heading fontFamily="$heading" fontSize="$8" fontWeight="$5">
+      <Heading level={1}>
         Primitives
       </Heading>
       <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
@@ -168,12 +137,12 @@ export function PrimitivesPage() {
       <Section title="Heading">
         <DemoCard label="Levels 1-6">
           <YStack gap="$2">
-            <VHeading level={1}>Heading Level 1</VHeading>
-            <VHeading level={2}>Heading Level 2</VHeading>
-            <VHeading level={3}>Heading Level 3</VHeading>
-            <VHeading level={4}>Heading Level 4</VHeading>
-            <VHeading level={5}>Heading Level 5</VHeading>
-            <VHeading level={6}>Heading Level 6</VHeading>
+            <Heading level={1}>Heading Level 1</Heading>
+            <Heading level={2}>Heading Level 2</Heading>
+            <Heading level={3}>Heading Level 3</Heading>
+            <Heading level={4}>Heading Level 4</Heading>
+            <Heading level={5}>Heading Level 5</Heading>
+            <Heading level={6}>Heading Level 6</Heading>
           </YStack>
         </DemoCard>
       </Section>
