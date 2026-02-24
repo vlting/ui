@@ -202,6 +202,9 @@ Every component must:
 - Respect design tokens
 - Support accessibility by default
 - Include usage examples
+- Have a `*.spec.md` governance file following the unified template at `packages/_templates/component.spec.template.md`
+
+Specs must NOT duplicate TypeScript type definitions — reference the source code instead (e.g., "See `ButtonProps` in `Button.tsx`"). The spec file is the single source of behavioral truth for each component.
 
 Components must **never make assumptions** about business logic, data fetching, or app structure.
 

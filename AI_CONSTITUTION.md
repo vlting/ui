@@ -210,6 +210,16 @@ Not allowed:
 
 ---
 
+## 3.5 Component Governance
+
+- Every component, primitive, hook, and utility MUST have a `*.spec.md` file.
+- The spec file is the **single source of behavioral truth** — there is no separate contract file.
+- Specs must NOT duplicate TypeScript type information — reference the TypeScript source instead (e.g., "See `ButtonProps` in `Button.tsx`").
+- All component specs must reference `packages/QUALITY_BASELINE.md` as their baseline.
+- A spec template is available at `packages/_templates/component.spec.template.md`.
+
+---
+
 # 4. Testing Standards
 
 All components must:
@@ -219,6 +229,7 @@ All components must:
 - Test accessibility basics.
 - Test keyboard interaction.
 - Test controlled/uncontrolled modes.
+- Cover the requirements listed in the component's `*.spec.md` "Test Requirements" section.
 
 Avoid:
 
