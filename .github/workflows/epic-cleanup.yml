@@ -1,0 +1,80 @@
+# Post-merge cleanup for the epic workflow.
+# Archives the roadmap, commits the change, and deletes the feature branch.
+name: Epic Post-Merge Cleanup
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    if: >-
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'feat/')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Extract slug from branch name
+        id: slug
+        run: |
+          BRANCH="${{ github.event.pull_request.head.ref }}"
+          SLUG="${BRANCH#feat/}"
+          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Find roadmap file
+        id: roadmap
+        run: |
+          # Look for a roadmap file whose name contains the slug
+          MATCH=$(find .ai-queue/_roadmaps -maxdepth 1 -name "*${{ steps.slug.outputs.slug }}*" -type f 2>/dev/null | head -1)
+          if [ -z "$MATCH" ]; then
+            echo "No roadmap file found for slug '${{ steps.slug.outputs.slug }}' — skipping."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "file=$MATCH" >> "$GITHUB_OUTPUT"
+            echo "basename=$(basename "$MATCH")" >> "$GITHUB_OUTPUT"
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update roadmap status and move to _completed
+        if: steps.roadmap.outputs.found == 'true'
+        run: |
+          FILE="${{ steps.roadmap.outputs.file }}"
+
+          # Update status from in-review (or any status) to done
+          sed -i 's/^\(- \*\*Status:\*\*\) .*/\1 done/' "$FILE"
+
+          # Ensure _completed directory exists
+          mkdir -p .ai-queue/_completed
+
+          # Move to _completed
+          mv "$FILE" ".ai-queue/_completed/${{ steps.roadmap.outputs.basename }}"
+
+      - name: Commit changes
+        if: steps.roadmap.outputs.found == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .ai-queue/
+          git commit -m "chore(queue): archive roadmap for ${{ steps.slug.outputs.slug }}" || echo "Nothing to commit"
+          git push
+
+      - name: Delete feature branch
+        run: |
+          BRANCH="${{ steps.slug.outputs.branch }}"
+          if git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null 2>&1; then
+            git push origin --delete "$BRANCH"
+            echo "Deleted remote branch: $BRANCH"
+          else
+            echo "Branch $BRANCH already deleted — skipping."
+          fi
