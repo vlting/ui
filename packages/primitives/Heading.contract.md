@@ -6,7 +6,7 @@
 
 | Name | Type | Required | Default | Description |
 |------|------|----------|---------|-------------|
-| level | `1 \| 2 \| 3 \| 4 \| 5 \| 6` | No | `2` | Sets the heading's visual size. Maps to font size, line height, and font weight tokens. |
+| level | `1 \| 2 \| 3 \| 4 \| 5 \| 6` | No | `2` | Sets the heading level. Determines both the rendered HTML element (`<h1>`–`<h6>`) and the visual size (font size, line height, font weight tokens). |
 
 **Level-to-token mapping:**
 
@@ -22,18 +22,20 @@
 **Base styles (always applied):**
 - `fontFamily: '$heading'`
 - `color: '$color'`
-- `accessibilityRole: 'header'`
+- `margin: 0` (resets default browser heading margin)
 
-**Inherited:** `Heading` is built with `styled(Text)` from Tamagui. It accepts all Tamagui `Text` style props (e.g., `color`, `fontSize`, `fontWeight`, `textAlign`, `numberOfLines`, accessibility props, etc.).
+**Rendered element:** Each level renders its corresponding HTML heading element (`<h1>`–`<h6>`) via `styledHtml()`. The `level` prop selects which element is used.
 
-**Exported type:** `HeadingProps = GetProps<typeof HeadingBase>`
+**Inherited:** Style props are passed through to the underlying `styledHtml()` component.
+
+**Exported type:** `HeadingProps` (includes `level`, `children`, and passthrough props)
 
 ---
 
 ## 2. Behavioral Guarantees
 
-- Renders a Tamagui `Text` element with `accessibilityRole: 'header'`.
-- The `level` variant is purely visual; it controls font size, line height, and weight. It does not map to HTML heading elements (`h1`-`h6`) at the render level.
+- Renders a native HTML heading element (`<h1>`–`<h6>`) corresponding to the `level` prop.
+- The `level` prop controls both the rendered element and the visual styling (font size, line height, weight).
 - Does not manage any internal state.
 - Does not produce side effects.
 - Does not fetch data or contain business logic.
@@ -42,9 +44,9 @@
 
 ## 3. Accessibility Guarantees
 
-- Always sets `accessibilityRole: 'header'`, ensuring screen readers announce this element as a heading.
-- Note: The `level` variant does not set `accessibilityLevel` or `aria-level`. Consumers who need semantic heading levels for screen readers should set `aria-level` manually.
-- Inherits all accessibility props from Tamagui `Text`.
+- Renders native HTML heading elements (`<h1>`–`<h6>`), which inherently communicate heading semantics and level to screen readers.
+- No `accessibilityRole` or `aria-level` is needed — the element tag itself is the semantic signal.
+- Screen readers will automatically announce the heading level from the element tag.
 
 ---
 
@@ -66,8 +68,6 @@ The following constitute breaking changes:
 - Removing the `level` variant or any of its values (1-6).
 - Changing the default level from `2`.
 - Changing the token mappings for any level (fontSize, lineHeight, fontWeight).
-- Removing the `accessibilityRole: 'header'` default.
 - Changing the base font family from `$heading`.
 - Changing the base color from `$color`.
-- Changing the base element from Tamagui `Text` to a different element type.
-- Removing or narrowing inherited Tamagui `Text` props.
+- Changing the rendered element for a given level (e.g., level 1 must always render `<h1>`).
