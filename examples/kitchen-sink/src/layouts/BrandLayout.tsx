@@ -1,13 +1,30 @@
 import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react'
 import { Outlet, useParams, useLocation, Link } from 'react-router-dom'
+import { XStack, YStack, View, Text } from 'tamagui'
 import { Provider } from '@vlting/ui'
 import { brands, activeBrand, type BrandKey } from '../brands'
 
-function paletteColor(isDark: boolean, index: number): string {
-  const palette = isDark
-    ? activeBrand.definition.palettes.dark
-    : activeBrand.definition.palettes.light
-  return palette[index]
+/**
+ * CSS reset for native <button> elements.
+ * We keep native buttons for semantic HTML / keyboard accessibility.
+ * This reset removes browser chrome so visual styling is on Tamagui children.
+ */
+const BUTTON_RESET: React.CSSProperties = {
+  background: 'none',
+  border: 'none',
+  padding: 0,
+  margin: 0,
+  font: 'inherit',
+  color: 'inherit',
+  cursor: 'pointer',
+  textAlign: 'left',
+}
+
+/** CSS reset for react-router <Link> elements */
+const LINK_RESET: React.CSSProperties = {
+  textDecoration: 'none',
+  color: 'inherit',
+  display: 'block',
 }
 
 interface SidebarGroup {
@@ -57,9 +74,6 @@ function CollapsibleGroup({
   expanded,
   onToggle,
   onNavClick,
-  fg,
-  muted,
-  bgHover,
 }: {
   group: SidebarGroup
   brandKey: string
@@ -67,9 +81,6 @@ function CollapsibleGroup({
   expanded: boolean
   onToggle: () => void
   onNavClick: () => void
-  fg: string
-  muted: string
-  bgHover: string
 }) {
   const contentRef = useRef<HTMLDivElement>(null)
   const [contentHeight, setContentHeight] = useState<number | undefined>(undefined)
@@ -83,43 +94,49 @@ function CollapsibleGroup({
   const hasMultipleItems = group.items.length > 1
 
   return (
-    <div style={{ marginBottom: 8 }}>
+    <YStack marginBottom="$0.75">
       <button
+        type="button"
         onClick={hasMultipleItems ? onToggle : undefined}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          width: '100%',
-          padding: '6px 16px',
-          fontSize: 12,
-          fontWeight: 500,
-          color: muted,
-          textTransform: 'uppercase',
-          letterSpacing: 0.5,
-          background: 'none',
-          border: 'none',
-          cursor: hasMultipleItems ? 'pointer' : 'default',
-          fontFamily: 'inherit',
-          textAlign: 'left',
-        }}
+        style={{ ...BUTTON_RESET, cursor: hasMultipleItems ? 'pointer' : 'default', width: '100%' }}
       >
-        {group.label}
-        {hasMultipleItems && (
-          <span style={{
-            fontSize: 10,
-            transition: 'transform 0.2s ease',
-            transform: expanded ? 'rotate(90deg)' : 'rotate(0deg)',
-            display: 'inline-block',
-          }}>
-            ▶
-          </span>
-        )}
+        <XStack
+          alignItems="center"
+          justifyContent="space-between"
+          width="100%"
+          paddingVertical="$0.75"
+          paddingHorizontal="$2"
+        >
+          <Text
+            fontSize={12}
+            fontWeight="500"
+            color="$colorSubtitle"
+            textTransform="uppercase"
+            letterSpacing={0.5}
+            fontFamily="$body"
+          >
+            {group.label}
+          </Text>
+          {hasMultipleItems && (
+            <Text
+              fontSize={10}
+              /* transform is dynamically calculated from expanded state */
+              style={{
+                transition: 'transform 0.2s ease',
+                transform: expanded ? 'rotate(90deg)' : 'rotate(0deg)',
+                display: 'inline-block',
+              }}
+            >
+              ▶
+            </Text>
+          )}
+        </XStack>
       </button>
-      <div
+      <View
         ref={contentRef}
+        overflow="hidden"
+        /* maxHeight is dynamically calculated from expanded state + measured content */
         style={{
-          overflow: 'hidden',
           maxHeight: expanded ? (contentHeight ?? 500) : 0,
           transition: 'max-height 0.2s ease',
         }}
@@ -131,24 +148,32 @@ function CollapsibleGroup({
               key={item.path}
               to={`/${brandKey}/${item.path}`}
               onClick={onNavClick}
-              style={{
-                display: 'block',
-                padding: '6px 16px 6px 24px',
-                fontSize: 14,
-                textDecoration: 'none',
-                color: isActive ? fg : muted,
-                fontWeight: isActive ? 500 : 400,
-                backgroundColor: isActive ? bgHover : 'transparent',
-                borderRight: isActive ? `2px solid ${fg}` : '2px solid transparent',
-                transition: 'all 0.1s',
-              }}
+              style={LINK_RESET}
             >
-              {item.label}
+              <XStack
+                paddingVertical="$0.75"
+                paddingLeft="$3.5"
+                paddingRight="$2"
+                borderRightWidth={2}
+                borderRightColor={isActive ? '$color' : 'transparent'}
+                backgroundColor={isActive ? '$color3' : 'transparent'}
+                /* transition is a CSS animation property */
+                style={{ transition: 'all 0.1s' }}
+              >
+                <Text
+                  fontSize="$3"
+                  fontFamily="$body"
+                  color={isActive ? '$color' : '$colorSubtitle'}
+                  fontWeight={isActive ? '500' : '400'}
+                >
+                  {item.label}
+                </Text>
+              </XStack>
             </Link>
           )
         })}
-      </div>
-    </div>
+      </View>
+    </YStack>
   )
 }
 
@@ -160,14 +185,6 @@ export function BrandLayout() {
 
   const brandKey = (brand in brands ? brand : 'default') as BrandKey
   const currentSection = location.pathname.split('/').slice(2).join('/') || ''
-
-  const isDark = theme === 'dark'
-  const bg = paletteColor(isDark, 0)
-  const fg = paletteColor(isDark, 11)
-  const muted = paletteColor(isDark, 7)
-  const border = paletteColor(isDark, 4)
-  const bgHover = paletteColor(isDark, 2)
-  const accent = paletteColor(isDark, 10)
 
   // Determine which group contains the active route
   const activeGroupLabel = useMemo(() => {
@@ -218,157 +235,167 @@ export function BrandLayout() {
   }, [])
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: bg, color: fg, fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-      {/* ─── Header ─── */}
-      <header style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 40,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 24px',
-        height: 56,
-        borderBottom: `1px solid ${border}`,
-        backgroundColor: bg,
-        backdropFilter: 'blur(8px)',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            style={{
-              display: 'none',
-              background: 'none',
-              border: 'none',
-              color: fg,
-              fontSize: 20,
-              cursor: 'pointer',
-              padding: '4px 8px',
-            }}
-            className="mobile-hamburger"
-          >
-            ☰
-          </button>
-          <Link to={`/${brandKey}`} style={{ textDecoration: 'none', color: fg }}>
-            <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: -0.3 }}>@vlting/ui</span>
-          </Link>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          {/* Brand selector */}
-          {Object.entries(brands).map(([key, b]) => (
-            <button
-              key={key}
-              onClick={() => { window.location.href = `/${key}/${currentSection}` }}
-              style={{
-                padding: '5px 12px',
-                borderRadius: 6,
-                border: `1px solid ${brandKey === key ? accent : border}`,
-                backgroundColor: brandKey === key ? (isDark ? '#27272a' : '#f4f4f5') : 'transparent',
-                color: brandKey === key ? fg : muted,
-                cursor: 'pointer',
-                fontWeight: brandKey === key ? 500 : 400,
-                fontSize: 13,
-                transition: 'all 0.15s',
-                fontFamily: 'inherit',
-              }}
-            >
-              {b.label}
-            </button>
-          ))}
-          {/* Theme toggle */}
-          <button
-            onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
-            style={{
-              padding: '5px 12px',
-              borderRadius: 6,
-              border: `1px solid ${border}`,
-              backgroundColor: 'transparent',
-              color: muted,
-              cursor: 'pointer',
-              fontSize: 13,
-              fontFamily: 'inherit',
-              transition: 'all 0.15s',
-            }}
-          >
-            {theme === 'light' ? '🌙' : '☀️'}
-          </button>
-        </div>
-      </header>
-
-      {/* ─── Body: Sidebar + Content ─── */}
-      <div style={{ display: 'flex', flex: 1 }}>
-        {/* Sidebar */}
-        <aside
-          style={{
-            width: 240,
-            flexShrink: 0,
-            borderRight: `1px solid ${border}`,
-            padding: '16px 0',
-            overflowY: 'auto',
-            height: 'calc(100vh - 56px)',
-            position: 'sticky',
-            top: 56,
-            backgroundColor: bg,
-          }}
-          className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}
+    <Provider config={activeBrand.config} defaultTheme={theme}>
+      <YStack minHeight="100vh" backgroundColor="$background" color="$color" fontFamily="$body">
+        {/* ─── Header ─── */}
+        <XStack
+          role="banner"
+          position="sticky"
+          top={0}
+          zIndex={40}
+          alignItems="center"
+          justifyContent="space-between"
+          paddingHorizontal="$3.5"
+          height="$8"
+          borderBottomWidth={1}
+          borderBottomColor="$borderColor"
+          backgroundColor="$background"
+          /* backdropFilter is CSS-specific, not in Tamagui's prop system */
+          style={{ backdropFilter: 'blur(8px)' }}
         >
-          {sidebarGroups.map((group) => (
-            <CollapsibleGroup
-              key={group.label}
-              group={group}
-              brandKey={brandKey}
-              currentSection={currentSection}
-              expanded={expandedGroups.has(group.label)}
-              onToggle={() => toggleGroup(group.label)}
-              onNavClick={() => setSidebarOpen(false)}
-              fg={fg}
-              muted={muted}
-              bgHover={bgHover}
+          <XStack alignItems="center" gap="$3.5">
+            {/* Mobile hamburger */}
+            <button
+              type="button"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              style={BUTTON_RESET}
+              className="mobile-hamburger"
+              aria-label="Toggle sidebar navigation"
+            >
+              <View paddingVertical="$0.5" paddingHorizontal="$0.75" display="none">
+                <Text fontSize={20} color="$color">☰</Text>
+              </View>
+            </button>
+            <Link to={`/${brandKey}`} style={LINK_RESET}>
+              <Text fontWeight="700" fontSize={15} letterSpacing={-0.3}>@vlting/ui</Text>
+            </Link>
+          </XStack>
+          <XStack alignItems="center" gap="$0.75">
+            {/* Brand selector */}
+            {Object.entries(brands).map(([key, b]) => {
+              const isCurrent = brandKey === key
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => { window.location.href = `/${key}/${currentSection}` }}
+                  style={BUTTON_RESET}
+                >
+                  <XStack
+                    paddingVertical="$0.5"
+                    paddingHorizontal="$1.5"
+                    borderRadius="$2"
+                    borderWidth={1}
+                    borderColor={isCurrent ? '$color10' : '$borderColor'}
+                    backgroundColor={isCurrent ? '$color3' : 'transparent'}
+                    /* transition is CSS animation */
+                    style={{ transition: 'all 0.15s' }}
+                  >
+                    <Text
+                      fontWeight={isCurrent ? '500' : '400'}
+                      fontSize={13}
+                      fontFamily="$body"
+                      color={isCurrent ? '$color' : '$colorSubtitle'}
+                    >
+                      {b.label}
+                    </Text>
+                  </XStack>
+                </button>
+              )
+            })}
+            {/* Theme toggle */}
+            <button
+              type="button"
+              onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
+              style={BUTTON_RESET}
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+            >
+              <XStack
+                paddingVertical="$0.5"
+                paddingHorizontal="$1.5"
+                borderRadius="$2"
+                borderWidth={1}
+                borderColor="$borderColor"
+                /* transition is CSS animation */
+                style={{ transition: 'all 0.15s' }}
+              >
+                <Text fontSize={13} fontFamily="$body" color="$colorSubtitle">
+                  {theme === 'light' ? '🌙' : '☀️'}
+                </Text>
+              </XStack>
+            </button>
+          </XStack>
+        </XStack>
+
+        {/* ─── Body: Sidebar + Content ─── */}
+        <XStack flex={1}>
+          {/* Sidebar */}
+          <YStack
+            role="navigation"
+            width={240}
+            flexShrink={0}
+            borderRightWidth={1}
+            borderRightColor="$borderColor"
+            paddingVertical="$2"
+            backgroundColor="$background"
+            position="sticky"
+            top={56}
+            className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}
+            /* overflowY and calc() are CSS-specific */
+            style={{ overflowY: 'auto', height: 'calc(100vh - 56px)' }}
+          >
+            {sidebarGroups.map((group) => (
+              <CollapsibleGroup
+                key={group.label}
+                group={group}
+                brandKey={brandKey}
+                currentSection={currentSection}
+                expanded={expandedGroups.has(group.label)}
+                onToggle={() => toggleGroup(group.label)}
+                onNavClick={() => setSidebarOpen(false)}
+              />
+            ))}
+          </YStack>
+
+          {/* Mobile sidebar overlay */}
+          {sidebarOpen && (
+            <View
+              position="fixed"
+              top={56}
+              left={0}
+              right={0}
+              bottom={0}
+              backgroundColor="rgba(0,0,0,0.4)"
+              zIndex={30}
+              className="sidebar-overlay"
+              onPress={() => setSidebarOpen(false)}
             />
-          ))}
-        </aside>
+          )}
 
-        {/* Mobile sidebar overlay */}
-        {sidebarOpen && (
-          <div
-            onClick={() => setSidebarOpen(false)}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              top: 56,
-              backgroundColor: 'rgba(0,0,0,0.4)',
-              zIndex: 30,
-            }}
-            className="sidebar-overlay"
-          />
-        )}
-
-        {/* Main content */}
-        <main style={{ flex: 1, minWidth: 0 }}>
-          <Provider config={activeBrand.config} defaultTheme={theme}>
+          {/* Main content */}
+          <YStack role="main" flex={1} minWidth={0}>
             <Outlet />
-          </Provider>
-        </main>
-      </div>
+          </YStack>
+        </XStack>
 
-      {/* ─── Inline responsive styles ─── */}
-      <style>{`
-        @media (max-width: 768px) {
-          .mobile-hamburger { display: inline-flex !important; }
-          .sidebar {
-            position: fixed !important;
-            top: 56px !important;
-            left: -240px !important;
-            height: calc(100vh - 56px) !important;
-            z-index: 35 !important;
-            transition: left 0.2s ease !important;
+        {/* ─── Responsive styles (embedded CSS for class-based media queries) ─── */}
+        <style>{`
+          @media (max-width: 768px) {
+            .mobile-hamburger { display: inline-flex !important; }
+            .sidebar {
+              position: fixed !important;
+              top: 56px !important;
+              left: -240px !important;
+              height: calc(100vh - 56px) !important;
+              z-index: 35 !important;
+              transition: left 0.2s ease !important;
+            }
+            .sidebar.sidebar-open {
+              left: 0 !important;
+            }
           }
-          .sidebar.sidebar-open {
-            left: 0 !important;
-          }
-        }
-      `}</style>
-    </div>
+        `}</style>
+      </YStack>
+    </Provider>
   )
 }

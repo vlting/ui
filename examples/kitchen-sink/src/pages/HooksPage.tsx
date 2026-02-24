@@ -1,6 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { YStack, XStack, Text, Heading, Separator, View } from 'tamagui'
-import { useControllableState, useFocusTrap, useKeyboardNavigation } from '@vlting/ui'
+import { useControllableState, useFocusTrap, useKeyboardNavigation, Input } from '@vlting/ui'
+
+/** CSS reset for native <button> elements used for semantic HTML / keyboard accessibility. */
+const BUTTON_RESET: React.CSSProperties = {
+  background: 'none',
+  border: 'none',
+  padding: 0,
+  margin: 0,
+  font: 'inherit',
+  color: 'inherit',
+  cursor: 'pointer',
+}
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -45,22 +56,9 @@ function ControllableStateDemo() {
     <YStack gap="$4">
       <DemoCard label="Controlled (value managed externally)">
         <YStack gap="$2">
-          <input
-            type="text"
+          <Input
             value={controlled}
-            onChange={(e) => setControlled(e.target.value)}
-            style={{
-              fontFamily: 'inherit',
-              fontSize: 16,
-              padding: 8,
-              borderWidth: 1,
-              borderStyle: 'solid',
-              borderColor: 'var(--borderColor)',
-              borderRadius: 8,
-              color: 'inherit',
-              backgroundColor: 'transparent',
-              outline: 'none',
-            }}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setControlled(e.target.value)}
           />
           <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
             Current value: "{controlled}"
@@ -69,22 +67,9 @@ function ControllableStateDemo() {
       </DemoCard>
       <DemoCard label="Uncontrolled (internal state with onChange callback)">
         <YStack gap="$2">
-          <input
-            type="text"
+          <Input
             value={uncontrolledValue}
-            onChange={(e) => setUncontrolledValue(e.target.value)}
-            style={{
-              fontFamily: 'inherit',
-              fontSize: 16,
-              padding: 8,
-              borderWidth: 1,
-              borderStyle: 'solid',
-              borderColor: 'var(--borderColor)',
-              borderRadius: 8,
-              color: 'inherit',
-              backgroundColor: 'transparent',
-              outline: 'none',
-            }}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUncontrolledValue(e.target.value)}
           />
           <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
             Current value: "{uncontrolledValue}" (check console for onChange)
@@ -105,7 +90,7 @@ function FocusTrapDemo() {
         <button
           type="button"
           onClick={() => setActive(!active)}
-          style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', alignSelf: 'flex-start' }}
+          style={{ ...BUTTON_RESET, alignSelf: 'flex-start' }}
         >
           <View
             backgroundColor={active ? '$color10' : '$color4'}
@@ -127,17 +112,17 @@ function FocusTrapDemo() {
           gap="$3"
           borderStyle={active ? 'solid' : 'dashed'}
         >
-          <button type="button" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
+          <button type="button" style={BUTTON_RESET}>
             <View backgroundColor="$color3" padding="$2" borderRadius="$2">
               <Text fontFamily="$body" fontSize="$3">Focusable 1</Text>
             </View>
           </button>
-          <button type="button" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
+          <button type="button" style={BUTTON_RESET}>
             <View backgroundColor="$color3" padding="$2" borderRadius="$2">
               <Text fontFamily="$body" fontSize="$3">Focusable 2</Text>
             </View>
           </button>
-          <button type="button" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
+          <button type="button" style={BUTTON_RESET}>
             <View backgroundColor="$color3" padding="$2" borderRadius="$2">
               <Text fontFamily="$body" fontSize="$3">Focusable 3</Text>
             </View>
