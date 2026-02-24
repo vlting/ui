@@ -152,3 +152,6 @@ export type { SheetRootProps } from './Sheet'
 
 export { Field } from './Field'
 export type { FieldRootProps, FieldLabelProps, FieldControlProps, FieldDescriptionProps, FieldErrorProps } from './Field'
+
+export { Empty } from './Empty'
+export type { EmptyRootProps, EmptyTitleProps, EmptyDescriptionProps, EmptyMediaProps, EmptyActionProps } from './Empty'
