@@ -1,5 +1,7 @@
 # Component Spec — Input
 
+> **Baseline**: This component must satisfy all requirements in [`QUALITY_BASELINE.md`](../../QUALITY_BASELINE.md).
+
 ## 1. Purpose
 
 - Provides a styled text input field with optional label, helper text, error messaging, and leading/trailing slots for icons or actions.
@@ -21,63 +23,75 @@
 
 ---
 
-## 3. Visual Behavior
+## 3. Anatomy
 
-- **Layout:** Vertical stack (`YStack`) containing optional Label, then Frame (horizontal `XStack` with optional leading slot, field, optional trailing slot), then optional Helper text.
-- **Spacing:** Frame height scales with `size` variant (`$3.5`, `$4`, `$4.5`). Internal horizontal padding scales accordingly. Label has `$1` bottom margin. Helper has `$1` top margin. Frame has `$2` gap between slots and field.
-- **Typography:** Field uses `$body` font family. Label uses `$body` with `$3` weight. Helper uses `$body` at `$2` font size. Font sizes for field and label scale with `size` variant.
-- **Token usage:** All colors, spacing, radii, and fonts resolve from Tamagui design tokens. Border radius is `$4`. Error state uses `$red10` for both border and helper text. No hardcoded color or spacing values.
+Input is a function component that composes styled sub-components into a vertical layout (`YStack`). Sub-components are also exposed as static properties for custom composition.
+
+- **Input (root function)** — Composes Label, Frame (with optional leading/trailing slots and Field), and Helper into a vertical stack. Handles controlled/uncontrolled value, error/helper text logic, and ARIA wiring.
+- **Input.Frame** — A `styled(TamaguiInput)` that extends `@tamagui/input` with `error` and `fieldSize` variants. Provides `focusVisibleStyle` with a 2px outline ring (`$color10`). The `error` variant applies `$red10` border color. The `fieldSize` variant controls border radius and padding per size.
+- **Input.Label** — A `styled(Text)` rendered inside a native `<label>` element (with `htmlFor` linking to the input's `useId()`). Uses `$body` font family, `$3` weight, `$1` bottom margin, and size-responsive font sizes.
+- **Input.Helper** — A `styled(Text)` for helper or error text below the input. Has a `tone` variant: `neutral` uses `$colorSubtitle`, `error` uses `$red10`. Renders only when display content is available.
+
+When `leadingSlot` or `trailingSlot` is provided, the input field is wrapped in an `XStack` with `SlotFrame` wrappers for each slot.
+
+Helper text display logic: if `error` is `true` and `errorMessage` is provided, `errorMessage` is shown in error tone; otherwise `helperText` is shown in neutral tone. If neither applies, no helper is rendered.
+
+> **TypeScript is the source of truth for props.** See `InputProps` in `Input.tsx` for the full typed API. Do not duplicate prop tables here.
+
+---
+
+## 4. Behavior
+
+### States
+
+- **Idle** — Field shows theme-default border and background. Field is editable.
+- **Focus** — Field shows `focusVisibleStyle`: 2px solid outline with `$color10` color and 1px offset.
+- **Error** — Field border changes to `$red10` (via `error` variant). Helper text displays `errorMessage` in `$red10` color. `aria-invalid` is set on the field.
+- **Disabled** — Passed as `disabled` prop to the underlying `@tamagui/input`, which handles native disabled behavior. No interaction possible.
+- **Hover** — Handled by the underlying Tamagui Input component's built-in hover styles.
+- **Loading** — Not applicable. Input does not have a loading state.
+
+### Keyboard Interaction
+
+- Standard native input keyboard behavior. The field renders as an HTML `<input>` element (via `@tamagui/input`), inheriting all platform keyboard interactions (typing, selection, copy/paste).
+
+### Motion
+
+- No animations are defined on the input. Focus styling changes are instant via CSS pseudo-states.
+
+---
+
+## 5. Accessibility
+
+- **Semantic element:** Renders a native `<input>` HTML element via `@tamagui/input`. A native `<label>` element is rendered with `htmlFor` pointing to the input's auto-generated ID (`useId()`).
+- **ARIA attributes:**
+  - `aria-invalid` is set on the field when `error` is `true`; omitted otherwise.
+  - `aria-describedby` links the field to the helper text element when helper text is displayed (via auto-generated ID).
+  - `aria-label` is set on the field to the `placeholder` value as a fallback when no `label` prop is provided.
+- **Focus management:** The `focusVisibleStyle` on the field provides a visible focus indicator (outline ring) when the field is focused. The field itself is focusable via native `<input>` behavior.
+- **Screen reader announcements:** The label is associated via the native `<label htmlFor>` pattern. Error and helper text are associated via `aria-describedby`.
+- **Contrast:** Input text (`$color`) must meet WCAG 2.1 AA contrast against the input background. Error text (`$red10`) must meet AA contrast against the page background. Label and helper text must meet AA contrast ratios.
+
+---
+
+## 6. Styling
+
+- **Design tokens used:**
+  - Colors: `$borderColor`, `$color10` (focus outline), `$red10` (error), `$color`, `$colorSubtitle` (helper text), `$background`.
+  - Font: `$body` family throughout, `$3` weight for label.
+  - Sizes map to Tamagui size tokens: `sm`=`$3`, `md`=`$4`, `lg`=`$5`.
+  - Field size variant controls border radius (`$3`/`$4`/`$5`) and padding per size.
+  - Spacing: `$1` margin for label-to-field and field-to-helper gaps, `$2` gap between slots.
 - **Responsive behavior:** Accepts Tamagui media query props on sub-components. The input fills its parent width by default (field uses `flex: 1`). Consumers control responsive layout via parent containers.
+- **Reduced motion:** Not applicable -- no animations are used.
+- **Dark mode:** All visual tokens must resolve correctly in both light and dark themes. The input border, background, text, placeholder, error, and helper colors must remain legible in both modes. No hardcoded values are used.
 
 ---
 
-## 4. Interaction Behavior
+## 7. Composition
 
-- **States:**
-  - **Idle** — Frame shows `$borderColor` border, `$background` fill. Field is editable.
-  - **Focus** — Frame shows `$borderColorFocus` border with 2px solid outline (`$outlineColor`). Triggered by `focusWithinStyle`.
-  - **Error** — Frame border changes to `$red10`. Helper text displays `errorMessage` in `$red10` color. `aria-invalid` is set on the field.
-  - **Disabled** — Frame opacity 0.5, `cursor: not-allowed`, `pointerEvents: none`. Field receives native `disabled` attribute. No interaction possible.
-  - **Hover** — No explicit hover style defined at this layer.
-  - **Loading** — Not applicable. Input does not have a loading state.
-- **Controlled vs uncontrolled:** Supports both. Controlled via `value` + `onChangeText`. Uncontrolled via `defaultValue`. The component does not manage internal value state.
-- **Keyboard behavior:** Standard native input keyboard behavior. The field renders as an HTML `<input>` element via `tag: 'input'`, inheriting all platform keyboard interactions (typing, selection, copy/paste).
-- **Screen reader behavior:** The field has `aria-label` set to the `label` prop value. `aria-invalid` is set when `error` is `true`. The field renders as a native `<input>`, so screen readers announce it as a text input by default.
-- **Motion rules:** No animations are defined on the input. Focus border changes are applied via CSS pseudo-state styles (instant).
-
-### Sub-component behavior
-
-- **Input.Frame** — The outer container. Provides border, background, focus-within styling, and the error/disabled visual variants.
-- **Input.Field** — The actual `<input>` element. Renders with `tag: 'input'`, no border, transparent background. Fills available width via `flex: 1`.
-- **Input.Label** — Text displayed above the frame. Renders only when `label` prop is provided.
-- **Input.Helper** — Text displayed below the frame. Shows `errorMessage` (in error tone) when `error` is `true`, otherwise shows `helperText` (in neutral tone). Renders only when display content is available.
-
----
-
-## 5. Accessibility Requirements
-
-- **ARIA requirements:**
-  - `aria-invalid` must be set on the field when `error` is `true`; omitted otherwise.
-  - `aria-label` must be set on the field to the `label` string value, providing the accessible name.
-  - The field renders as a native `<input>` element, which provides implicit ARIA semantics.
-- **Focus rules:** The `focusWithinStyle` on the frame provides a visible focus indicator (border color change + outline ring) when the field is focused. The field itself is focusable via native `<input>` behavior.
-- **Contrast expectations:** Input text (`$color`) must meet WCAG 2.1 AA contrast against the input background (`$background`). Error text (`$red10`) must meet AA contrast against the page background. Label and helper text must meet AA contrast ratios.
-- **Reduced motion behavior:** Not applicable — no animations are used.
-
----
-
-## 6. Theming Rules
-
-- **Required tokens:** `$background`, `$borderColor`, `$borderColorFocus`, `$outlineColor`, `$color`, `$colorSubtitle`, `$red10`, `$body` (font family).
-- **Prohibited hardcoded values:** No raw hex colors, pixel spacing, or font sizes. All values must reference tokens.
-- **Dark mode expectations:** All visual tokens must resolve correctly in both light and dark themes. The input border, background, text, placeholder, error, and helper colors must remain legible in both modes.
-
----
-
-## 7. Composition Rules
-
-- **What can wrap it:** Any layout primitive (YStack, XStack). Form containers. Field group wrappers.
-- **What it may contain:** The composed `Input` function manages its own internal structure. `leadingSlot` and `trailingSlot` accept arbitrary `ReactNode` (typically icons or small action buttons). Sub-components (`Input.Frame`, `Input.Field`, `Input.Label`, `Input.Helper`) are also exposed for custom composition.
+- **What can contain this component:** Any layout primitive (YStack, XStack). Form containers. Field group wrappers.
+- **What this component can contain:** The composed `Input` function manages its own internal structure. `leadingSlot` and `trailingSlot` accept arbitrary `ReactNode` (typically icons or small action buttons). Sub-components (`Input.Frame`, `Input.Label`, `Input.Helper`) are also exposed for custom composition.
 - **Anti-patterns:**
   - Do not place interactive elements in slots that compete with the input's focus (e.g., a button that steals focus without `tabIndex` management).
   - Do not omit the `label` prop without providing an alternative accessible name.
@@ -86,32 +100,40 @@
 
 ---
 
-## 8. Performance Constraints
+## 8. Breaking Change Criteria
 
-- **Memoization rules:** The `Input` function component does not use `forwardRef` or memoization. For forms with many inputs, consumers should ensure `onChangeText` callbacks are stable (via `useCallback`). The styled sub-components are static Tamagui primitives.
-- **Virtualization:** Not applicable for individual inputs. When rendering long forms, consumers should consider form-level virtualization strategies.
-- **Render boundaries:** Slot rendering is conditional — `leadingSlot` and `trailingSlot` wrappers are only mounted when content is provided. Label and Helper are similarly conditional. This prevents unnecessary DOM nodes.
+- Removing any prop from `InputProps`.
+- Removing any static sub-component (`Input.Frame`, `Input.Label`, `Input.Helper`).
+- Changing the `onChangeText` callback signature (currently `(text: string) => void`).
+- Changing the helper text precedence logic (errorMessage over helperText when error is true).
+- Removing `aria-invalid` or `aria-describedby` from the field.
+- Changing the underlying element from `<input>` to a different element type.
+- Removing the `focusVisibleStyle` focus indicator.
+- Removing slot support (`leadingSlot`, `trailingSlot`).
+- Changing the variant value sets or default values.
 
 ---
 
 ## 9. Test Requirements
 
-- **What must be tested:**
+- **Behavioral tests:**
   - Renders the input field with correct base styles.
   - Label renders when `label` prop is provided; omitted otherwise.
+  - Native `<label>` element has correct `htmlFor` attribute.
   - Helper text renders `helperText` when no error.
   - Helper text renders `errorMessage` when `error` is `true` and `errorMessage` is provided.
   - Error state applies `$red10` border and error-toned helper text.
-  - Disabled state applies opacity, cursor, and pointer-events restrictions.
+  - Disabled state passes `disabled` to the native input.
   - Each size variant (`sm`, `md`, `lg`) renders correctly.
   - Leading and trailing slots render when provided; omitted otherwise.
-- **Interaction cases:**
-  - `onChangeText` fires with the text value when the user types.
-  - Controlled mode (`value` + `onChangeText`) reflects the controlled value.
-  - Uncontrolled mode (`defaultValue`) initializes correctly.
-  - Disabled input does not accept focus or input.
-- **Accessibility checks:**
+  - Supports multiple `type` values (`text`, `password`, `email`, `number`, `search`, `tel`, `url`, `date`, `file`).
+- **Accessibility tests:**
   - `aria-invalid` is set when `error` is `true`.
-  - `aria-label` is set to the `label` value.
-  - Focus-within outline is visible when the field is focused.
+  - `aria-describedby` links to helper text when displayed.
+  - `aria-label` falls back to `placeholder` when no `label` is provided.
+  - Focus outline is visible when the field is focused.
   - The field renders as a native `<input>` element.
+- **Visual regression:**
+  - Idle, focus, error, and disabled states.
+  - Each size variant.
+  - With and without leading/trailing slots.
