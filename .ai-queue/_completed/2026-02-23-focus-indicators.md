@@ -3,7 +3,7 @@
 - **Feature branch:** feat/focus-indicators
 - **GitHub Issue:** #1
 - **Created:** 2026-02-23
-- **Status:** in-review
+- **Status:** done
 
 ## Stage 1: Add focus ring to BrandLayout navigation elements
 **Objective:** Add focusVisibleStyle to interactive navigation elements in BrandLayout.tsx that currently lack visible focus indicators (sidebar links, header buttons, brand/theme toggles).
