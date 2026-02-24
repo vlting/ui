@@ -149,3 +149,6 @@ export type { PopoverRootProps } from './Popover'
 
 export { Sheet } from './Sheet'
 export type { SheetRootProps } from './Sheet'
+
+export { Field } from './Field'
+export type { FieldRootProps, FieldLabelProps, FieldControlProps, FieldDescriptionProps, FieldErrorProps } from './Field'
