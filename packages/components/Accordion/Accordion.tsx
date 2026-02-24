@@ -113,7 +113,8 @@ function Trigger({ children }: AccordionTriggerProps) {
               color="$colorSubtitle"
               fontSize="$2"
               style={{
-                transition: 'transform 200ms ease',
+                // Matches animation token: fast (150ms ease-in-out)
+                transition: 'transform 150ms ease-in-out',
                 transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
               }}
             >

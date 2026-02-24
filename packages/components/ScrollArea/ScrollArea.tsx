@@ -61,6 +61,12 @@ function Viewport({ children, orientation = 'vertical' }: ScrollAreaViewportProp
   )
 }
 
+/**
+ * Scrollbar, Thumb, and Corner are no-op components provided for API
+ * compatibility with libraries like Radix ScrollArea. ScrollArea uses
+ * CSS-based scrollbar styling (webkit-scrollbar + scrollbar-width) in
+ * Root instead of custom scrollbar track/thumb elements.
+ */
 function Scrollbar(_props: { orientation?: 'vertical' | 'horizontal' }) {
   return null
 }
