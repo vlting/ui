@@ -1,10 +1,19 @@
 import type { ComponentType } from 'react'
 import React, { useCallback, useState } from 'react'
 import { Text, View } from 'tamagui'
+import { styledHtml } from '@tamagui/web'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
+
+const GroupLabelH3 = styledHtml('h3', {
+  fontSize: 12,
+  fontWeight: '600',
+  color: '$colorSubtitle',
+  fontFamily: '$body',
+  margin: 0,
+} as any) as AnyFC
 
 export interface SidebarRootProps {
   children: React.ReactNode
@@ -159,9 +168,7 @@ function GroupLabel({ children }: { children: React.ReactNode }) {
 
   return (
     <ViewJsx paddingLeft={16} paddingRight={16} paddingTop={8} paddingBottom={4}>
-      <TextJsx fontSize={12} fontWeight="600" color="$colorSubtitle" fontFamily="$body">
-        {children}
-      </TextJsx>
+      <GroupLabelH3>{children}</GroupLabelH3>
     </ViewJsx>
   )
 }
