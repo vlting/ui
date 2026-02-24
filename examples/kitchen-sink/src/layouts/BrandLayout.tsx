@@ -295,7 +295,7 @@ export function BrandLayout() {
 
   return (
     <Provider config={activeBrand.config} defaultTheme={theme}>
-      <YStack minHeight="100vh" backgroundColor="$background" color="$color" fontFamily="$body">
+      <YStack className="brand-layout" minHeight="100vh" backgroundColor="$background" color="$color" fontFamily="$body">
         {/* ─── Header ─── */}
         <XStack
           role="banner"
@@ -440,6 +440,13 @@ export function BrandLayout() {
 
         {/* ─── Responsive styles (embedded CSS for class-based media queries) ─── */}
         <style>{`
+          /* Focus-visible ring for all interactive elements */
+          .brand-layout button:focus-visible,
+          .brand-layout a:focus-visible {
+            outline: 2px solid var(--color10);
+            outline-offset: 1px;
+            border-radius: 4px;
+          }
           @media (max-width: 768px) {
             .mobile-hamburger { display: inline-flex !important; }
             .sidebar {
