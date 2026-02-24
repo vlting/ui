@@ -313,6 +313,21 @@ export function BrandLayout() {
     })
   }, [theme])
 
+  // Scroll to anchor when hash changes (React Router doesn't do this natively)
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1)
+      // Delay slightly to allow the page to render after route change
+      const timer = setTimeout(() => {
+        const el = document.getElementById(id)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }, 100)
+      return () => clearTimeout(timer)
+    }
+  }, [location.hash, location.pathname])
+
   return (
     <Provider config={activeBrand.config} defaultTheme={theme}>
       <YStack className="brand-layout" minHeight="100vh" backgroundColor="$background" color="$color" fontFamily="$body">
@@ -407,7 +422,7 @@ export function BrandLayout() {
         </XStack>
 
         {/* ─── Body: Sidebar + Content ─── */}
-        <XStack flex={1}>
+        <XStack flex={1} alignItems="stretch">
           {/* Sidebar */}
           <nav
             aria-label="Sidebar navigation"
