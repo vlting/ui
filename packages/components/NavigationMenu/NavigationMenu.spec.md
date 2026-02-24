@@ -46,7 +46,11 @@ Compound component with custom implementation:
 
 - Click to open/close content panels.
 - Click-outside closes.
-- Future enhancement: Arrow key navigation between triggers.
+- **List**: ArrowLeft / ArrowRight moves focus between triggers (loops). Home / End jumps to first / last trigger.
+- **Trigger**: Enter / Space / ArrowDown opens dropdown.
+- **Content**: ArrowDown / ArrowUp moves focus between links (loops).
+- **Escape**: Closes open submenu and returns focus to trigger.
+- **Tab**: Closes content and returns focus to trigger.
 
 ### Motion
 
@@ -58,7 +62,7 @@ None.
 
 - **Semantic elements:** `role="navigation"` on root with `aria-label="Main"`.
 - **ARIA attributes:** `role="button"`, `aria-expanded` on triggers. `role="link"` on links.
-- **Focus management:** Click-outside closes via backdrop.
+- **Focus management:** Triggers are focusable via tabIndex. Arrow keys navigate between triggers and within content. Escape closes and returns focus to trigger. Click-outside closes via backdrop.
 
 ---
 

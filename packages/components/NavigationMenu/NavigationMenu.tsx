@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react'
-import React, { useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { Text, View } from 'tamagui'
 
 type AnyFC = ComponentType<Record<string, unknown>>
@@ -34,6 +34,16 @@ let navItemId = 0
 function Root({ children }: NavigationMenuRootProps) {
   const [activeItem, setActiveItem] = useState<string | null>(null)
 
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Escape' && activeItem !== null) {
+        e.preventDefault()
+        setActiveItem(null)
+      }
+    },
+    [activeItem],
+  )
+
   return (
     <NavMenuContext.Provider value={{ activeItem, setActiveItem }}>
       <ViewJsx
@@ -42,6 +52,7 @@ function Root({ children }: NavigationMenuRootProps) {
         alignItems="center"
         role="navigation"
         aria-label="Main"
+        onKeyDown={handleKeyDown}
       >
         {children}
       </ViewJsx>
@@ -61,8 +72,42 @@ function Root({ children }: NavigationMenuRootProps) {
 }
 
 function List({ children }: { children: React.ReactNode }) {
+  const listRef = useRef<HTMLDivElement>(null)
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const container = listRef.current
+      if (!container) return
+
+      const triggers = Array.from(
+        container.querySelectorAll('[role="button"][aria-expanded], [role="link"]'),
+      ) as HTMLElement[]
+      if (triggers.length === 0) return
+
+      const currentIndex = triggers.indexOf(e.target as HTMLElement)
+      if (currentIndex === -1) return
+
+      if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        const next = currentIndex + 1 >= triggers.length ? 0 : currentIndex + 1
+        triggers[next]?.focus()
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        const prev = currentIndex - 1 < 0 ? triggers.length - 1 : currentIndex - 1
+        triggers[prev]?.focus()
+      } else if (e.key === 'Home') {
+        e.preventDefault()
+        triggers[0]?.focus()
+      } else if (e.key === 'End') {
+        e.preventDefault()
+        triggers[triggers.length - 1]?.focus()
+      }
+    },
+    [],
+  )
+
   return (
-    <ViewJsx flexDirection="row" alignItems="center" gap={2}>
+    <ViewJsx ref={listRef} flexDirection="row" alignItems="center" gap={2} onKeyDown={handleKeyDown}>
       {children}
     </ViewJsx>
   )
@@ -84,6 +129,22 @@ function Trigger({ children }: { children: React.ReactNode }) {
   const { value } = React.useContext(NavItemContext)
   const isOpen = activeItem === value
 
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        setActiveItem(isOpen ? null : value)
+      } else if (e.key === 'ArrowDown' && !isOpen) {
+        e.preventDefault()
+        setActiveItem(value)
+      } else if (e.key === 'Escape' && isOpen) {
+        e.preventDefault()
+        setActiveItem(null)
+      }
+    },
+    [isOpen, value, setActiveItem],
+  )
+
   return (
     <ViewJsx
       flexDirection="row"
@@ -98,6 +159,14 @@ function Trigger({ children }: { children: React.ReactNode }) {
       onPress={() => setActiveItem(isOpen ? null : value)}
       role="button"
       aria-expanded={isOpen}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      focusVisibleStyle={{
+        outlineWidth: 2,
+        outlineOffset: 2,
+        outlineColor: '$outlineColor',
+        outlineStyle: 'solid',
+      }}
     >
       <TextJsx fontSize={14} fontFamily="$body" fontWeight="500" color="$color">
         {children}
@@ -110,13 +179,43 @@ function Trigger({ children }: { children: React.ReactNode }) {
 }
 
 function Content({ children }: { children: React.ReactNode }) {
-  const { activeItem } = React.useContext(NavMenuContext)
+  const { activeItem, setActiveItem } = React.useContext(NavMenuContext)
   const { value } = React.useContext(NavItemContext)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const container = contentRef.current
+      if (!container) return
+
+      const links = Array.from(
+        container.querySelectorAll('[role="link"]'),
+      ) as HTMLElement[]
+      if (links.length === 0) return
+
+      const currentIndex = links.indexOf(e.target as HTMLElement)
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        const next = currentIndex + 1 >= links.length ? 0 : currentIndex + 1
+        links[next]?.focus()
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        const prev = currentIndex - 1 < 0 ? links.length - 1 : currentIndex - 1
+        links[prev]?.focus()
+      } else if (e.key === 'Escape' || e.key === 'Tab') {
+        e.preventDefault()
+        setActiveItem(null)
+      }
+    },
+    [setActiveItem],
+  )
 
   if (activeItem !== value) return null
 
   return (
     <ViewJsx
+      ref={contentRef}
       position="absolute"
       top="100%"
       left={0}
@@ -129,6 +228,7 @@ function Content({ children }: { children: React.ReactNode }) {
       padding={16}
       minWidth={400}
       style={{ boxShadow: 'var(--shadowMd)' }}
+      onKeyDown={handleKeyDown}
     >
       {children}
     </ViewJsx>
@@ -136,6 +236,16 @@ function Content({ children }: { children: React.ReactNode }) {
 }
 
 function Link({ children, href, active, onSelect }: NavigationMenuLinkProps) {
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        onSelect?.()
+      }
+    },
+    [onSelect],
+  )
+
   return (
     <ViewJsx
       paddingLeft={12}
@@ -149,6 +259,14 @@ function Link({ children, href, active, onSelect }: NavigationMenuLinkProps) {
       onPress={onSelect}
       role="link"
       data-href={href}
+      tabIndex={-1}
+      onKeyDown={handleKeyDown}
+      focusVisibleStyle={{
+        outlineWidth: 2,
+        outlineOffset: -2,
+        outlineColor: '$outlineColor',
+        outlineStyle: 'solid',
+      }}
     >
       <TextJsx fontSize={14} fontFamily="$body" color="$color" fontWeight={active ? '500' : '400'}>
         {children}

@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Text, View } from 'tamagui'
 
 type AnyFC = ComponentType<Record<string, unknown>>
@@ -31,11 +31,13 @@ const DropdownMenuContext = React.createContext<{
   open: boolean
   setOpen: (v: boolean) => void
   close: () => void
-}>({ open: false, setOpen: () => {}, close: () => {} })
+  triggerRef: React.RefObject<HTMLElement | null>
+}>({ open: false, setOpen: () => {}, close: () => {}, triggerRef: { current: null } })
 
 function Root({ children, open: controlledOpen, onOpenChange, modal }: DropdownMenuRootProps) {
   const [internalOpen, setInternalOpen] = useState(false)
   const open = controlledOpen ?? internalOpen
+  const triggerRef = useRef<HTMLElement | null>(null)
 
   const setOpen = useCallback(
     (v: boolean) => {
@@ -45,10 +47,14 @@ function Root({ children, open: controlledOpen, onOpenChange, modal }: DropdownM
     [onOpenChange],
   )
 
-  const close = useCallback(() => setOpen(false), [setOpen])
+  const close = useCallback(() => {
+    setOpen(false)
+    // Return focus to trigger when closing
+    triggerRef.current?.focus()
+  }, [setOpen])
 
   return (
-    <DropdownMenuContext.Provider value={{ open, setOpen, close }}>
+    <DropdownMenuContext.Provider value={{ open, setOpen, close, triggerRef }}>
       <ViewJsx position="relative" display="inline-flex">
         {children}
       </ViewJsx>
@@ -68,14 +74,37 @@ function Root({ children, open: controlledOpen, onOpenChange, modal }: DropdownM
 }
 
 function Trigger({ children }: { children: React.ReactNode }) {
-  const { open, setOpen } = React.useContext(DropdownMenuContext)
+  const { open, setOpen, close, triggerRef } = React.useContext(DropdownMenuContext)
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        if (!open) setOpen(true)
+      } else if (e.key === 'Escape' && open) {
+        e.preventDefault()
+        close()
+      }
+    },
+    [open, setOpen, close],
+  )
+
   return (
     <ViewJsx
+      ref={triggerRef}
       onPress={() => setOpen(!open)}
       display="inline-flex"
       cursor="pointer"
       aria-haspopup="menu"
       aria-expanded={open}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      focusVisibleStyle={{
+        outlineWidth: 2,
+        outlineOffset: 2,
+        outlineColor: '$outlineColor',
+        outlineStyle: 'solid',
+      }}
     >
       {children}
     </ViewJsx>
@@ -83,12 +112,64 @@ function Trigger({ children }: { children: React.ReactNode }) {
 }
 
 function Content({ children }: { children: React.ReactNode }) {
-  const { open } = React.useContext(DropdownMenuContext)
+  const { open, close } = React.useContext(DropdownMenuContext)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [focusedIndex, setFocusedIndex] = useState(-1)
+
+  // Focus first item when menu opens
+  useEffect(() => {
+    if (open && contentRef.current) {
+      setFocusedIndex(0)
+      const items = contentRef.current.querySelectorAll('[role="menuitem"], [role="menuitemcheckbox"]')
+      if (items.length > 0) {
+        ;(items[0] as HTMLElement).focus()
+      }
+    }
+    if (!open) setFocusedIndex(-1)
+  }, [open])
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const container = contentRef.current
+      if (!container) return
+
+      const items = Array.from(
+        container.querySelectorAll('[role="menuitem"]:not([aria-disabled="true"]), [role="menuitemcheckbox"]:not([aria-disabled="true"])'),
+      ) as HTMLElement[]
+      if (items.length === 0) return
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        const next = focusedIndex + 1 >= items.length ? 0 : focusedIndex + 1
+        setFocusedIndex(next)
+        items[next]?.focus()
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        const prev = focusedIndex - 1 < 0 ? items.length - 1 : focusedIndex - 1
+        setFocusedIndex(prev)
+        items[prev]?.focus()
+      } else if (e.key === 'Home') {
+        e.preventDefault()
+        setFocusedIndex(0)
+        items[0]?.focus()
+      } else if (e.key === 'End') {
+        e.preventDefault()
+        setFocusedIndex(items.length - 1)
+        items[items.length - 1]?.focus()
+      } else if (e.key === 'Escape' || e.key === 'Tab') {
+        e.preventDefault()
+        close()
+      }
+      // Enter/Space handled on individual items via onPress
+    },
+    [close, focusedIndex],
+  )
 
   if (!open) return null
 
   return (
     <ViewJsx
+      ref={contentRef}
       position="absolute"
       top="100%"
       left={0}
@@ -102,6 +183,7 @@ function Content({ children }: { children: React.ReactNode }) {
       minWidth={192}
       style={{ boxShadow: 'var(--shadowMd)' }}
       role="menu"
+      onKeyDown={handleKeyDown}
     >
       {children}
     </ViewJsx>
@@ -110,6 +192,17 @@ function Content({ children }: { children: React.ReactNode }) {
 
 function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps) {
   const { close } = React.useContext(DropdownMenuContext)
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if ((e.key === 'Enter' || e.key === ' ') && !disabled) {
+        e.preventDefault()
+        onSelect?.()
+        close()
+      }
+    },
+    [disabled, onSelect, close],
+  )
 
   return (
     <ViewJsx
@@ -133,6 +226,15 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
       }
       role="menuitem"
       aria-disabled={disabled}
+      tabIndex={-1}
+      onKeyDown={handleKeyDown}
+      focusVisibleStyle={{
+        backgroundColor: '$color2',
+        outlineWidth: 2,
+        outlineOffset: -2,
+        outlineColor: '$outlineColor',
+        outlineStyle: 'solid',
+      }}
     >
       <TextJsx fontSize={14} fontFamily="$body" color="$color">
         {children}
@@ -148,6 +250,17 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
 
 function CheckboxItem({ children, checked, onCheckedChange, disabled }: DropdownMenuCheckboxItemProps) {
   const { close } = React.useContext(DropdownMenuContext)
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if ((e.key === 'Enter' || e.key === ' ') && !disabled) {
+        e.preventDefault()
+        onCheckedChange?.(!checked)
+        close()
+      }
+    },
+    [disabled, checked, onCheckedChange, close],
+  )
 
   return (
     <ViewJsx
@@ -170,6 +283,15 @@ function CheckboxItem({ children, checked, onCheckedChange, disabled }: Dropdown
       }
       role="menuitemcheckbox"
       aria-checked={checked}
+      tabIndex={-1}
+      onKeyDown={handleKeyDown}
+      focusVisibleStyle={{
+        backgroundColor: '$color2',
+        outlineWidth: 2,
+        outlineOffset: -2,
+        outlineColor: '$outlineColor',
+        outlineStyle: 'solid',
+      }}
     >
       <ViewJsx width={16} alignItems="center">
         {checked && <TextJsx fontSize={12} color="$color">{'\u2713'}</TextJsx>}

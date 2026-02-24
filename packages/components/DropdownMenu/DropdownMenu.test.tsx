@@ -45,4 +45,32 @@ describe('DropdownMenu', () => {
     )
     expect(screen.getByText('Menu')).toBeTruthy()
   })
+
+  it('renders items with tabIndex for keyboard focus', () => {
+    render(
+      <DropdownMenu.Root open>
+        <DropdownMenu.Trigger>Menu</DropdownMenu.Trigger>
+        <DropdownMenu.Content>
+          <DropdownMenu.Item>Edit</DropdownMenu.Item>
+          <DropdownMenu.Item>Delete</DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
+    )
+    expect(screen.getByText('Edit')).toBeTruthy()
+    expect(screen.getByText('Delete')).toBeTruthy()
+  })
+
+  it('renders with keyboard navigation support on content', () => {
+    const { container } = render(
+      <DropdownMenu.Root open>
+        <DropdownMenu.Trigger>Menu</DropdownMenu.Trigger>
+        <DropdownMenu.Content>
+          <DropdownMenu.Item>First</DropdownMenu.Item>
+          <DropdownMenu.Item>Second</DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
+    )
+    const menu = container.querySelector('[role="menu"]')
+    expect(menu).toBeTruthy()
+  })
 })

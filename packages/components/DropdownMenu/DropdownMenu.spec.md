@@ -42,7 +42,11 @@ Compound component with custom implementation:
 ### Keyboard Interaction
 
 - Click outside (via backdrop) closes menu.
-- Future enhancement: Arrow key navigation, Enter/Space selection per WAI-ARIA menu pattern.
+- **Trigger**: Enter / Space / ArrowDown opens menu.
+- **Content**: ArrowDown / ArrowUp moves focus between items (loops). Home / End jumps to first / last item.
+- **Items**: Enter / Space activates the focused item.
+- **Escape**: Closes menu and returns focus to trigger.
+- **Tab**: Closes menu and returns focus to trigger.
 
 ### Motion
 
@@ -53,7 +57,7 @@ None.
 ## 5. Accessibility
 
 - **ARIA attributes:** `aria-haspopup="menu"`, `aria-expanded` on trigger. `role="menu"` on content. `role="menuitem"` on items. `role="menuitemcheckbox"`, `aria-checked` on checkbox items. `aria-disabled` on disabled items.
-- **Focus management:** Click-outside closes. Modal mode renders backdrop.
+- **Focus management:** Focus moves to first item when menu opens. Escape / Tab closes menu and returns focus to trigger. Arrow keys navigate items. Click-outside closes. Modal mode renders backdrop.
 
 ---
 
