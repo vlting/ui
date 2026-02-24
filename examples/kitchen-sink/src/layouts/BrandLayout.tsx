@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Outlet, useParams, useLocation, Link } from 'react-router-dom'
 import { XStack, YStack, View, Text } from 'tamagui'
 import { Provider } from '@vlting/ui'
@@ -233,7 +233,7 @@ function NavGroup({
                   style={{ transition: 'all 0.1s' }}
                 >
                   <Text
-                    fontSize="$3"
+                    fontSize={14}
                     fontFamily="$body"
                     color={isActive ? '$color' : '$colorSubtitle'}
                     fontWeight={isActive ? '500' : '400'}
@@ -292,6 +292,21 @@ export function BrandLayout() {
   const brandKey = (brand in brands ? brand : 'default') as BrandKey
   const currentSection = location.pathname.split('/').slice(2).join('/') || ''
   const currentHash = location.hash
+
+  // Scroll to anchor when hash changes (React Router doesn't do this natively)
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1)
+      // Delay slightly to allow the page to render after route change
+      const timer = setTimeout(() => {
+        const el = document.getElementById(id)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }, 100)
+      return () => clearTimeout(timer)
+    }
+  }, [location.hash, location.pathname])
 
   return (
     <Provider config={activeBrand.config} defaultTheme={theme}>
@@ -387,7 +402,7 @@ export function BrandLayout() {
         </XStack>
 
         {/* ─── Body: Sidebar + Content ─── */}
-        <XStack flex={1}>
+        <XStack flex={1} alignItems="stretch">
           {/* Sidebar */}
           <nav
             aria-label="Sidebar navigation"
