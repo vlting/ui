@@ -143,3 +143,15 @@ export type { SidebarRootProps, SidebarGroupProps, SidebarMenuItemProps } from '
 
 export { Loader } from './Loader'
 export type { LoaderProps } from './Loader'
+
+export { Popover } from './Popover'
+export type { PopoverRootProps } from './Popover'
+
+export { Sheet } from './Sheet'
+export type { SheetRootProps } from './Sheet'
+
+export { Field } from './Field'
+export type { FieldRootProps, FieldLabelProps, FieldControlProps, FieldDescriptionProps, FieldErrorProps } from './Field'
+
+export { Empty } from './Empty'
+export type { EmptyRootProps, EmptyTitleProps, EmptyDescriptionProps, EmptyMediaProps, EmptyActionProps } from './Empty'
