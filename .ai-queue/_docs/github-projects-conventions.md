@@ -20,7 +20,7 @@ gh auth refresh -s read:project -s project
 gh project create --title "VLT-UI Roadmap" --owner vlting
 ```
 
-Note the project number returned (e.g., `1`). You'll use it in subsequent commands.
+**Project number: `1`** — URL: https://github.com/orgs/vlting/projects/1
 
 ### 3. Configure Board Columns
 
@@ -28,13 +28,15 @@ GitHub Projects v2 uses "Status" as a single-select field. The default statuses 
 
 ```bash
 # List the project's fields to find the Status field ID
-gh project field-list <PROJECT_NUMBER> --owner vlting --format json
+gh project field-list 1 --owner vlting --format json
 
 # Update status options (this may need to be done in the GitHub UI)
 # Target columns: Backlog, In Progress, In PR Review, Done
 ```
 
-If the CLI doesn't support editing field options, configure the columns in the GitHub Projects web UI at `https://github.com/orgs/vlting/projects/<NUMBER>/settings`.
+If the CLI doesn't support editing field options, configure the columns in the GitHub Projects web UI at https://github.com/orgs/vlting/projects/1/settings.
+
+> **Status:** The default columns (Todo, In Progress, Done) have been kept. "Backlog" and "In PR Review" can be added via the project settings UI if desired.
 
 ### 4. Create Labels
 
@@ -86,7 +88,7 @@ This supplements `gh` CLI with MCP tool calls. Not required — `gh` CLI is suff
 
 2. **Add to project board** (in "Backlog"):
    ```bash
-   gh project item-add <PROJECT_NUMBER> --owner vlting --url <ISSUE_URL>
+   gh project item-add 1 --owner vlting --url <ISSUE_URL>
    ```
 
 ### When Starting Work on a Stage
