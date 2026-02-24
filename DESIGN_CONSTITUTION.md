@@ -156,6 +156,26 @@ All UI must:
 - Communicate errors clearly
 - Group related fields
 
+### 4.6 Contrast Verification
+
+Specific contrast ratios are non-negotiable:
+
+- **Normal text**: minimum 4.5:1 contrast ratio (WCAG 1.4.3)
+- **Large text** (18px+ or 14px+ bold): minimum 3:1 contrast ratio
+- **UI components and graphical objects**: minimum 3:1 against adjacent colors (WCAG 1.4.11)
+- **Focus indicators**: minimum 3:1 contrast against adjacent colors (WCAG 2.4.11)
+
+Use AccessLint MCP's `analyze_color_pair` when selecting or modifying color token combinations.
+
+### 4.7 Touch Target Sizing
+
+Interactive elements must be large enough to operate reliably (Fitts's Law, §2.3):
+
+- **Minimum**: 24x24 CSS pixels for all interactive elements (WCAG 2.5.8)
+- **Recommended**: 44x44 CSS pixels for primary actions
+- **Spacing**: at least 8px between adjacent interactive targets to prevent mis-taps
+- **Exception**: inline links within text are exempt from minimum size requirements
+
 ---
 
 # 5. Design Tokens & Theming
@@ -214,6 +234,23 @@ Responsive design must:
 - Prioritize content flow
 
 Mobile first, scalable layouts are preferred.
+
+## 8.1 Spacing & Alignment Discipline
+
+- All spacing values (padding, margin, gap) must use design tokens from the space scale (`$0.5` through `$10`)
+- No hardcoded pixel values for spacing
+- Related elements must be grouped using consistent gap values (Gestalt proximity, §2.4)
+- Alignment must be intentional — elements that appear aligned must BE aligned (no "close enough" visual alignment)
+- Use `alignItems`, `justifyContent`, and `gap` for grid and flex alignment — not manual margin hacks
+
+## 8.2 DOM Structure Quality
+
+The rendered DOM must be as lean as the design requires — no more:
+
+- Never add a wrapper element solely for one CSS property that could be applied to an existing element
+- Components must produce the minimum DOM nodes necessary for their semantic and layout purpose
+- Audit component output in the browser to verify DOM structure matches intent
+- Cross-reference: `AI_CONSTITUTION.md` §2.8 for semantic HTML and DOM optimization rules
 
 ---
 
