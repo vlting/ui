@@ -1,89 +1,86 @@
 # Component Spec — Divider
 
+> **Baseline**: This component must satisfy all requirements in [`QUALITY_BASELINE.md`](../QUALITY_BASELINE.md).
+
 ## 1. Purpose
 
-- Provides a visual separator between content sections or sibling elements.
-- Should be used to create clear visual boundaries within lists, card sections, toolbars, or between content blocks.
-- Should NOT be used as a decorative border on a container (use border tokens on the container itself).
-- Should NOT be used to create significant whitespace (use Spacer instead).
+- Visual separator between content sections or sibling elements.
+- Use to create clear visual boundaries within lists, card sections, toolbars, or between content blocks.
+- Do NOT use as a decorative border on a container (use border tokens on the container itself).
+- Do NOT use to create significant whitespace (use Spacer instead).
 
 ---
 
 ## 2. UX Intent
 
-- Primary interaction goal: visually divide content into distinct groups without introducing interactive behavior.
-- Expected user mental model: a thin line (horizontal or vertical) that separates related sections, similar to `<hr>` in HTML.
-- **Gestalt Principles (2.4):** Divider reinforces visual grouping by establishing explicit boundaries between element clusters. It supports the principle of common region by delineating where one group ends and another begins.
-- **Jakob's Law (2.1):** Horizontal dividers between content sections follow universally understood web and native conventions.
+- **Gestalt Principles** — reinforces visual grouping by establishing explicit boundaries between element clusters; supports the principle of common region.
+- **Jakob's Law** — horizontal dividers between content sections follow universally understood web and native conventions.
 
 ---
 
-## 3. Visual Behavior
+## 3. Anatomy
 
-- Layout rules: renders as a 1px line along the chosen axis. `flexShrink: 0` prevents collapse in flex containers.
-- Spacing expectations: horizontal dividers apply `marginVertical: $2`; vertical dividers apply `marginHorizontal: $2`. These use space tokens and can be overridden by the consumer.
-- Typography rules: not applicable (Divider does not render text).
-- Token usage: `$borderColor` for background color; `$2` for margin spacing. No hardcoded values.
-- Responsive behavior: supports Tamagui responsive and media-query props. Consumers can change orientation or visibility at different breakpoints.
+Single element — `styled(View)` with orientation variants. No sub-components.
 
----
+- `orientation`: `'horizontal'` (default) or `'vertical'`.
+- Horizontal: 1px tall, full width, `marginVertical: '$2'`.
+- Vertical: 1px wide, full height, `marginHorizontal: '$2'`.
 
-## 4. Interaction Behavior
-
-- States: Divider is non-interactive. It has no hover, focus, active, disabled, loading, or error states.
-- Controlled vs uncontrolled: not applicable (stateless).
-- Keyboard behavior: not focusable. Must never appear in the tab order.
-- Screen reader behavior: invisible to assistive technology by default. When semantic separation is needed, consumers should add `accessibilityRole="separator"`.
-- Motion rules: no motion is applied. Dividers must not animate.
+> **TypeScript is the source of truth for props.** See `Divider.tsx` for the full typed API. Do not duplicate prop tables here.
 
 ---
 
-## 5. Accessibility Requirements
+## 4. Behavior
 
-- ARIA requirements: no default role. Consumers should set `role="separator"` (via `accessibilityRole="separator"`) when the divider conveys meaningful content separation to screen reader users.
-- Focus rules: must never receive focus.
-- Contrast expectations: the `$borderColor` token must meet a minimum 3:1 contrast ratio against its background in both light and dark themes (this is a theme-level responsibility).
-- Reduced motion behavior: not applicable (no animation).
+### States
 
----
+Non-interactive. No hover, focus, active, or disabled states.
 
-## 6. Theming Rules
+### Keyboard Interaction
 
-- Required tokens: `$borderColor` (background color), `$2` (margin spacing).
-- Prohibited hardcoded values: no raw hex colors or pixel dimensions for color or spacing.
-- Dark mode expectations: `$borderColor` must resolve to an appropriate value in dark themes. The divider must remain visible but not overpowering in both light and dark modes.
+None — Divider must never appear in the tab order.
 
----
+### Motion
 
-## 7. Composition Rules
-
-- What can wrap it: any layout container (VStack, HStack, Stack, Box, ScrollView).
-- What it may contain: nothing. Divider is a leaf element and must not accept children.
-- Anti-patterns:
-  - Do not stack multiple Dividers to create thicker lines (override `height` or `width` instead).
-  - Do not use a horizontal Divider inside an HStack or a vertical Divider inside a VStack without understanding that the divider may not fill the cross-axis as expected.
-  - Do not use Divider for decorative flourishes or complex visual patterns.
+None. Dividers must not animate.
 
 ---
 
-## 8. Performance Constraints
+## 5. Accessibility
 
-- Memoization rules: do not memoize. Divider is a simple styled view with no internal logic.
-- Virtualization: when used inside virtualized lists, Divider must render as a standard item or separator and must not break the virtualization boundary.
-- Render boundaries: Divider does not establish a React error boundary or Suspense boundary.
+- **Semantic element:** Renders `<div>`. Consumers should add `role="separator"` (via `accessibilityRole="separator"`) when the divider conveys meaningful content separation.
+- **ARIA attributes:** None by default. Decorative dividers need no ARIA.
+- **Contrast:** `$borderColor` token must meet 3:1 contrast ratio against its background (theme-level responsibility).
+
+---
+
+## 6. Styling
+
+- **Design tokens used:**
+  - `backgroundColor: '$borderColor'` — line color
+  - `marginVertical: '$2'` (horizontal) / `marginHorizontal: '$2'` (vertical) — spacing
+- **Responsive behavior:** Supports Tamagui responsive and media-query props. Consumers can change orientation or visibility at different breakpoints.
+- **Dark mode:** `$borderColor` resolves to appropriate dark theme value automatically.
+
+---
+
+## 7. Composition
+
+- **What can contain this component:** Any layout container (VStack, HStack, Stack, Box, ScrollView).
+- **What this component can contain:** Nothing — Divider is a leaf element.
+- **Anti-patterns:** Do not stack multiple Dividers to create thicker lines. Do not use horizontal Divider inside HStack without understanding cross-axis behavior.
+
+---
+
+## 8. Breaking Change Criteria
+
+- Removing or renaming the `orientation` variant.
+- Changing the default orientation from `horizontal`.
+- Changing the spacing tokens (`$2`) or color token (`$borderColor`).
 
 ---
 
 ## 9. Test Requirements
 
-- What must be tested:
-  - Horizontal orientation renders a 1px-tall, full-width element with vertical margin.
-  - Vertical orientation renders a 1px-wide, full-height element with horizontal margin.
-  - Default orientation is horizontal when no `orientation` prop is provided.
-  - Uses `$borderColor` as the background color.
-  - `flexShrink: 0` is applied in all cases.
-- Interaction cases: not applicable (non-interactive).
-- Accessibility checks:
-  - No role is set by default.
-  - Consumer-applied `accessibilityRole="separator"` is forwarded correctly.
-  - Divider is not focusable.
+- **Behavioral tests:** Verify horizontal renders as full-width 1px line with vertical margin. Verify vertical renders as full-height 1px line with horizontal margin. Verify default orientation is horizontal. Verify `flexShrink: 0` prevents collapse.
+- **Accessibility tests:** Verify no role is set by default. Verify consumer-applied `accessibilityRole="separator"` is forwarded. Verify not focusable.
