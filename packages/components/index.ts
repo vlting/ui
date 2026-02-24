@@ -143,3 +143,9 @@ export type { SidebarRootProps, SidebarGroupProps, SidebarMenuItemProps } from '
 
 export { Loader } from './Loader'
 export type { LoaderProps } from './Loader'
+
+export { Popover } from './Popover'
+export type { PopoverRootProps } from './Popover'
+
+export { Sheet } from './Sheet'
+export type { SheetRootProps } from './Sheet'

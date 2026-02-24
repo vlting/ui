@@ -127,6 +127,8 @@ export {
   Resizable,
   Sidebar,
   Loader,
+  Popover,
+  Sheet,
 } from '../packages/components'
 export type {
   ButtonProps,
@@ -200,6 +202,8 @@ export type {
   SidebarGroupProps,
   SidebarMenuItemProps,
   LoaderProps,
+  PopoverRootProps,
+  SheetRootProps,
 } from '../packages/components'
 
 // Hooks
