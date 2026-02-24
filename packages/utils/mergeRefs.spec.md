@@ -1,76 +1,54 @@
-# Component Spec -- mergeRefs
+# Spec — mergeRefs
+
+> This is a non-visual utility function. The rendering requirements in [`QUALITY_BASELINE.md`](../QUALITY_BASELINE.md) do not apply. The behavioral and test requirements below govern this utility.
 
 ## 1. Purpose
 
-- Merges multiple React refs (callback refs, ref objects, or `undefined`/`null`) into a single callback ref that forwards the value to all of them.
-- Should be used when a component needs to attach multiple refs to the same DOM element (e.g., an internal ref for measurement plus a forwarded ref from the consumer).
-- Should NOT be used when only a single ref is needed. Should NOT be used outside of React ref contexts.
+- Merges multiple React refs (callback refs, ref objects, or `null`/`undefined`) into a single callback ref that forwards the value to all of them.
+- Use when a component needs to attach multiple refs to the same DOM element (e.g., an internal ref for measurement plus a forwarded ref from the consumer).
+- Do NOT use when only a single ref is needed. Do NOT use outside of React ref contexts.
 
 ---
 
-## 2. UX Intent
+## 4. Behavior
 
-N/A -- utility function.
+- Accepts any number of React refs (`RefCallback<T>`, `RefObject<T>`, `null`, or `undefined`).
+- Returns a single `RefCallback<T>` that forwards the value to every provided ref.
+- **Callback refs:** Invoked with the value directly.
+- **Ref objects:** `.current` is set to the value.
+- **`null`/`undefined` entries:** Silently skipped.
+- Refs are assigned in left-to-right order.
+- On unmount, React calls the callback with `null`, which is forwarded to all refs.
+- Returns a new function on every call (not memoized).
 
----
-
-## 3. Visual Behavior
-
-N/A -- utility function with no visual output.
-
----
-
-## 4. Interaction Behavior
-
-- Accepts any number of React refs (`RefCallback<T>`, `RefObject<T>`, `null`, or `undefined`) as arguments.
-- Returns a single `RefCallback<T>` that, when called by React with a value (the DOM element or `null` on unmount), forwards that value to every provided ref.
-- **Callback refs**: Invoked with the value directly.
-- **Ref objects**: Their `.current` property is set to the value.
-- **`null` and `undefined` entries**: Silently skipped.
-- Refs are assigned in the order they are provided (left to right).
-- On unmount, React calls the returned callback ref with `null`, which is forwarded to all refs -- callback refs receive `null`, ref objects get `.current = null`.
-- Returns a new function on every call. The result is NOT memoized.
+> **TypeScript is the source of truth for the API.** See `mergeRefs.ts` for the full typed signature.
 
 ---
 
-## 5. Accessibility Requirements
+## 7. Composition
 
-N/A -- utility function with no direct accessibility impact.
-
----
-
-## 6. Theming Rules
-
-N/A -- utility function with no theming concerns.
+- Intended for components using `React.forwardRef` that also need an internal ref.
+- Dependencies: React types (`Ref`, `RefCallback`, `MutableRefObject`). No runtime dependencies beyond React.
+- **Anti-patterns:** Do not call the returned callback ref manually outside React's ref lifecycle. Do not pass the result as a ref prop without memoization if the consumer uses `React.memo`. Do not use for non-React ref patterns.
 
 ---
 
-## 7. Composition Rules
+## 8. Breaking Change Criteria
 
-- Intended for use in components that use `React.forwardRef` and also need an internal ref (e.g., `<Input ref={mergeRefs(internalRef, forwardedRef)} />`).
-- Dependencies: React types (`Ref`, `RefCallback`, `MutableRefObject`). No runtime dependencies beyond React itself.
-- Anti-patterns:
-  - Do not call the returned callback ref manually outside of React's ref assignment lifecycle. React manages when callback refs are called.
-  - Do not pass the result directly as a ref prop without memoization if the consuming component uses `React.memo` or `shouldComponentUpdate` -- the new function reference on every render will defeat memo comparisons. Wrap in `useMemo` or `useCallback` when referential stability matters.
-  - Do not use `mergeRefs` to merge non-React ref patterns (e.g., plain mutable variables).
-
----
-
-## 8. Performance Constraints
-
-- Returns a new function on every call. When used in render, this means a new callback ref identity each render, which causes React to call the old callback ref with `null` and the new one with the element. This is functionally correct but has a small cost.
-- For performance-critical paths, the consumer should memoize the result: `useMemo(() => mergeRefs(refA, refB), [refA, refB])`.
-- The internal loop over refs is trivially cheap (typically 2-3 refs).
+- Changing the return type from `RefCallback<T>`.
+- Changing ref assignment order from left-to-right.
+- No longer forwarding `null` on unmount.
+- No longer supporting both callback refs and ref objects.
 
 ---
 
 ## 9. Test Requirements
 
-- **Callback ref forwarding**: Verify that a callback ref receives the value when the merged ref is called.
-- **Ref object forwarding**: Verify that a ref object's `.current` is set to the value when the merged ref is called.
-- **Multiple refs**: Verify that all provided refs (mix of callback and object) receive the value.
-- **Null/undefined skipping**: Verify that `null` and `undefined` entries do not cause errors.
-- **Unmount cleanup**: Verify that calling the merged ref with `null` forwards `null` to all refs.
-- **Order preservation**: Verify refs are assigned in left-to-right order.
-- **Empty arguments**: Verify `mergeRefs()` returns a callback ref that does nothing when called.
-- **Single ref passthrough**: Verify `mergeRefs(singleRef)` correctly forwards to the single ref.
+- **Callback ref forwarding:** Verify callback ref receives the value.
+- **Ref object forwarding:** Verify ref object's `.current` is set.
+- **Multiple refs:** Verify all refs (mix of callback and object) receive the value.
+- **Null/undefined skipping:** Verify `null` and `undefined` entries cause no errors.
+- **Unmount cleanup:** Verify calling with `null` forwards `null` to all refs.
+- **Order preservation:** Verify refs are assigned left-to-right.
+- **Empty arguments:** Verify `mergeRefs()` returns a callback ref that does nothing.
+- **Single ref passthrough:** Verify `mergeRefs(singleRef)` forwards correctly.
