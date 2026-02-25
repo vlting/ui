@@ -330,7 +330,7 @@ export function BrandLayout() {
 
   return (
     <Provider config={activeBrand.config} defaultTheme={theme}>
-      <YStack className="brand-layout" minHeight="100vh" backgroundColor="$background" color="$color" fontFamily="$body">
+      <YStack className="brand-layout" minHeight="100vh" backgroundColor="$background" color="$color" fontFamily="$body" overflow="visible">
         {/* ─── Header ─── */}
         <XStack
           role="banner"
@@ -422,7 +422,7 @@ export function BrandLayout() {
         </XStack>
 
         {/* ─── Body: Sidebar + Content ─── */}
-        <XStack flex={1} alignItems="stretch">
+        <XStack flex={1} alignItems="stretch" overflow="visible">
           {/* Sidebar */}
           <nav
             aria-label="Sidebar navigation"
@@ -468,13 +468,18 @@ export function BrandLayout() {
           )}
 
           {/* Main content */}
-          <YStack role="main" flex={1} minWidth={0}>
+          <YStack role="main" flex={1} minWidth={0} overflow="visible">
             <Outlet />
           </YStack>
         </XStack>
 
         {/* ─── Responsive styles (embedded CSS for class-based media queries) ─── */}
         <style>{`
+          /* Ensure sticky sidebar works — Tamagui/RNW defaults overflow:hidden on Views */
+          .brand-layout,
+          .brand-layout > div {
+            overflow: visible !important;
+          }
           /* Focus-visible ring for all interactive elements */
           .brand-layout button:focus-visible,
           .brand-layout a:focus-visible {
