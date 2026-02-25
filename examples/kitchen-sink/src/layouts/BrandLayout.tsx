@@ -330,7 +330,7 @@ export function BrandLayout() {
 
   return (
     <Provider config={activeBrand.config} defaultTheme={theme}>
-      <YStack className="brand-layout" minHeight="100vh" backgroundColor="$background" color="$color" fontFamily="$body" overflow="visible">
+      <YStack className="brand-layout" minHeight="100vh" backgroundColor="$background" color="$color" fontFamily="$body" overflow="visible" style={{ overflow: 'visible' }}>
         {/* ─── Header ─── */}
         <XStack
           role="banner"
@@ -422,7 +422,9 @@ export function BrandLayout() {
         </XStack>
 
         {/* ─── Body: Sidebar + Content ─── */}
-        <XStack flex={1} alignItems="stretch" overflow="visible">
+        {/* Plain div avoids React Native Web's overflow:hidden default on Tamagui Views,
+            which breaks position:sticky on the sidebar nav. */}
+        <div style={{ display: 'flex', flex: 1, alignItems: 'stretch' }}>
           {/* Sidebar */}
           <nav
             aria-label="Sidebar navigation"
@@ -436,6 +438,7 @@ export function BrandLayout() {
               backgroundColor: 'var(--background)',
               position: 'sticky',
               top: 56,
+              alignSelf: 'flex-start',
               overflowY: 'auto',
               height: 'calc(100vh - 56px)',
             }}
@@ -454,32 +457,29 @@ export function BrandLayout() {
 
           {/* Mobile sidebar overlay */}
           {sidebarOpen && (
-            <View
-              position="fixed"
-              top={56}
-              left={0}
-              right={0}
-              bottom={0}
-              backgroundColor="rgba(0,0,0,0.4)"
-              zIndex={30}
+            <div
               className="sidebar-overlay"
-              onPress={() => setSidebarOpen(false)}
+              onClick={() => setSidebarOpen(false)}
+              style={{
+                position: 'fixed',
+                top: 56,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(0,0,0,0.4)',
+                zIndex: 30,
+              }}
             />
           )}
 
           {/* Main content */}
-          <YStack role="main" flex={1} minWidth={0} overflow="visible">
+          <div role="main" style={{ flex: 1, minWidth: 0 }}>
             <Outlet />
-          </YStack>
-        </XStack>
+          </div>
+        </div>
 
         {/* ─── Responsive styles (embedded CSS for class-based media queries) ─── */}
         <style>{`
-          /* Ensure sticky sidebar works — Tamagui/RNW defaults overflow:hidden on Views */
-          .brand-layout,
-          .brand-layout > div {
-            overflow: visible !important;
-          }
           /* Focus-visible ring for all interactive elements */
           .brand-layout button:focus-visible,
           .brand-layout a:focus-visible {
