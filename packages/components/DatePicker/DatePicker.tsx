@@ -1,3 +1,4 @@
+import { styledHtml } from '@tamagui/web'
 import type React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ComponentType } from 'react'
@@ -68,7 +69,13 @@ function getWeekdayNames(locale = 'en-US'): string[] {
 
 // ─── Styled primitives ─────────────────────────────────────────────
 
-const TriggerFrame = styled(XStack, {
+const TriggerFrame = styledHtml('button', {
+  display: 'flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  fontFamily: 'inherit',
+  margin: 0,
   alignItems: 'center',
   borderWidth: 1,
   borderColor: '$borderColor',
@@ -77,13 +84,11 @@ const TriggerFrame = styled(XStack, {
   backgroundColor: '$background',
   gap: '$2',
 
-  // @ts-expect-error Tamagui v2 RC
   hoverStyle: {
     borderColor: '$color8',
   },
 
-  // @ts-expect-error Tamagui v2 RC
-  focusStyle: {
+  focusVisibleStyle: {
     outlineWidth: 2,
     outlineOffset: 2,
     outlineColor: '$outlineColor',
@@ -92,13 +97,11 @@ const TriggerFrame = styled(XStack, {
 
   variants: {
     hasError: {
-      // @ts-expect-error Tamagui v2 RC
       true: {
         borderColor: '$red10',
       },
     },
     isDisabled: {
-      // @ts-expect-error Tamagui v2 RC
       true: {
         opacity: 0.5,
         cursor: 'not-allowed',
@@ -106,19 +109,16 @@ const TriggerFrame = styled(XStack, {
       },
     },
     size: {
-      // @ts-expect-error Tamagui v2 RC
       sm: {
         paddingVertical: '$1',
         paddingHorizontal: '$3',
         height: '$3.5',
       },
-      // @ts-expect-error Tamagui v2 RC
       md: {
         paddingVertical: '$2',
         paddingHorizontal: '$4',
         height: '$4',
       },
-      // @ts-expect-error Tamagui v2 RC
       lg: {
         paddingVertical: '$3',
         paddingHorizontal: '$5',
@@ -128,10 +128,10 @@ const TriggerFrame = styled(XStack, {
   } as const,
 
   defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
     size: 'md',
   },
-})
+} as any)
+const TriggerFrameJsx = TriggerFrame as AnyFC
 
 const TriggerText = styled(Text, {
   fontFamily: '$body',
@@ -179,7 +179,16 @@ const CalendarDropdown = styled(YStack, {
   },
 })
 
-const DayCell = styled(XStack, {
+const DayCell = styledHtml('button', {
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
   alignItems: 'center',
   justifyContent: 'center',
   width: 36,
@@ -187,30 +196,33 @@ const DayCell = styled(XStack, {
   borderRadius: '$3',
   cursor: 'pointer',
 
-  // @ts-expect-error Tamagui v2 RC
   hoverStyle: {
     backgroundColor: '$backgroundHover',
+  },
+
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
   },
 
   variants: {
     selected: {
       true: {
         backgroundColor: '$color10',
-        // @ts-expect-error Tamagui v2 RC
         hoverStyle: {
           backgroundColor: '$color11',
         },
       },
     },
     isToday: {
-      // @ts-expect-error Tamagui v2 RC
       true: {
         borderWidth: 1,
         borderColor: '$color8',
       },
     },
     isDisabled: {
-      // @ts-expect-error Tamagui v2 RC
       true: {
         opacity: 0.3,
         cursor: 'not-allowed',
@@ -220,7 +232,6 @@ const DayCell = styled(XStack, {
     inRange: {
       true: {
         backgroundColor: '$color4',
-        // @ts-expect-error Tamagui v2 RC
         hoverStyle: {
           backgroundColor: '$color5',
         },
@@ -231,7 +242,6 @@ const DayCell = styled(XStack, {
         backgroundColor: '$color10',
         borderTopLeftRadius: '$3',
         borderBottomLeftRadius: '$3',
-        // @ts-expect-error Tamagui v2 RC
         hoverStyle: {
           backgroundColor: '$color11',
         },
@@ -242,14 +252,14 @@ const DayCell = styled(XStack, {
         backgroundColor: '$color10',
         borderTopRightRadius: '$3',
         borderBottomRightRadius: '$3',
-        // @ts-expect-error Tamagui v2 RC
         hoverStyle: {
           backgroundColor: '$color11',
         },
       },
     },
   } as const,
-})
+} as any)
+const DayCellJsx = DayCell as AnyFC
 
 const DayText = styled(Text, {
   fontFamily: '$body',
@@ -271,7 +281,16 @@ const DayText = styled(Text, {
   },
 })
 
-const NavButton = styled(XStack, {
+const NavButton = styledHtml('button', {
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
   alignItems: 'center',
   justifyContent: 'center',
   width: 32,
@@ -279,16 +298,21 @@ const NavButton = styled(XStack, {
   borderRadius: '$3',
   cursor: 'pointer',
 
-  // @ts-expect-error Tamagui v2 RC
   hoverStyle: {
     backgroundColor: '$backgroundHover',
   },
 
-  // @ts-expect-error Tamagui v2 RC
   pressStyle: {
     opacity: 0.85,
   },
-})
+
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
 const NavButtonJsx = NavButton as AnyFC
 
 // ─── Calendar Component ─────────────────────────────────────────────
@@ -355,11 +379,7 @@ function Calendar({
         justifyContent="space-between"
         paddingHorizontal="$1"
       >
-        <NavButtonJsx
-          onPress={prevMonth}
-          accessibilityRole="button"
-          aria-label="Previous month"
-        >
+        <NavButtonJsx type="button" onClick={prevMonth} aria-label="Previous month">
           <TextJsx fontFamily="$body" fontSize="$4" color="$color">
             ‹
           </TextJsx>
@@ -367,11 +387,7 @@ function Calendar({
         <TextJsx fontFamily="$body" fontSize="$3" fontWeight="$3" color="$color">
           {getMonthName(viewYear, viewMonth, locale)}
         </TextJsx>
-        <NavButtonJsx
-          onPress={nextMonth}
-          accessibilityRole="button"
-          aria-label="Next month"
-        >
+        <NavButtonJsx type="button" onClick={nextMonth} aria-label="Next month">
           <TextJsx fontFamily="$body" fontSize="$4" color="$color">
             ›
           </TextJsx>
@@ -422,24 +438,20 @@ function Calendar({
             const showSelected = isSelected || isRangeStart || isRangeEnd
 
             return (
-              <DayCell
+              <DayCellJsx
                 key={di}
-                // @ts-expect-error Tamagui v2 RC
+                type="button"
                 selected={showSelected}
-                // @ts-expect-error Tamagui v2 RC
                 isToday={isTodayDate && !showSelected}
-                // @ts-expect-error Tamagui v2 RC
                 isDisabled={disabled}
-                // @ts-expect-error Tamagui v2 RC
                 inRange={!!isInRange && !showSelected}
-                onPress={() => onSelectDate(date)}
-                accessibilityRole="button"
+                onClick={() => onSelectDate(date)}
                 aria-label={`${day}`}
                 aria-selected={isSelected || undefined}
               >
                 {/* @ts-expect-error Tamagui v2 RC */}
                 <DayText selected={showSelected}>{day}</DayText>
-              </DayCell>
+              </DayCellJsx>
             )
           })}
         </XStackJsx>
@@ -535,28 +547,23 @@ function DatePickerRoot({
         </TextJsx>
       )}
       <ViewJsx position="relative" ref={containerRef as React.Ref<any>}>
-        <TriggerFrame
-          // @ts-expect-error Tamagui v2 RC
+        <TriggerFrameJsx
+          type="button"
           hasError={error}
-          // @ts-expect-error Tamagui v2 RC
           isDisabled={disabled}
-          // @ts-expect-error Tamagui v2 RC
           size={size}
-          onPress={() => setOpen((o) => !o)}
-          accessibilityRole="button"
+          onClick={() => setOpen((o) => !o)}
           aria-label={label ?? placeholder}
           aria-expanded={open}
-          // @ts-expect-error Tamagui v2 RC
-          tag="button"
         >
-          {/* @ts-expect-error Tamagui v2 RC */}
+          {/* @ts-expect-error Tamagui v2 RC — variant props */}
           <TriggerText isPlaceholder={!selectedDate} size={size}>
             {selectedDate ? formatDate(selectedDate, locale) : placeholder}
           </TriggerText>
           <TextJsx fontFamily="$body" fontSize="$3" color="$colorSubtitle">
             ▾
           </TextJsx>
-        </TriggerFrame>
+        </TriggerFrameJsx>
 
         {open && (
           // @ts-expect-error Tamagui v2 RC
