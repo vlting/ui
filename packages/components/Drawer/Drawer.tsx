@@ -1,4 +1,5 @@
 import { Dialog as TamaguiDialog } from '@tamagui/dialog'
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React from 'react'
 import { View, styled } from 'tamagui'
@@ -178,12 +179,18 @@ function Footer({ children }: { children: React.ReactNode }) {
   return <DrawerFooterJsx>{children}</DrawerFooterJsx>
 }
 
+const DrawerTitleH2 = styledHtml('h2', {
+  fontSize: '$7',
+  fontWeight: '600',
+  fontFamily: '$heading',
+  color: '$color',
+  margin: 0,
+} as any) as AnyFC
+
 function Title({ children }: { children: React.ReactNode }) {
   return (
     <DialogTitle>
-      <ViewJsx fontSize="$7" fontWeight="600" fontFamily="$heading" color="$color">
-        {children}
-      </ViewJsx>
+      <DrawerTitleH2>{children}</DrawerTitleH2>
     </DialogTitle>
   )
 }

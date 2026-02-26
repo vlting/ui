@@ -1,7 +1,9 @@
-import type { GetProps } from 'tamagui'
+import type { ComponentType } from 'react'
 import { View, styled } from 'tamagui'
 
-export const Divider = styled(View, {
+type AnyFC = ComponentType<Record<string, unknown>>
+
+const DividerFrame = styled(View, {
   backgroundColor: '$borderColor',
   flexShrink: 0,
 
@@ -25,4 +27,18 @@ export const Divider = styled(View, {
   },
 } as any)
 
-export type DividerProps = GetProps<typeof Divider>
+const DividerFrameJsx = DividerFrame as AnyFC
+
+export interface DividerProps {
+  orientation?: 'horizontal' | 'vertical'
+}
+
+export function Divider({ orientation = 'horizontal' }: DividerProps) {
+  return (
+    <DividerFrameJsx
+      orientation={orientation}
+      role="separator"
+      aria-orientation={orientation}
+    />
+  )
+}
