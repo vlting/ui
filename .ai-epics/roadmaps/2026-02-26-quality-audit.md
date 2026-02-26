@@ -11,10 +11,10 @@
 **Estimated scope:** ~24 TS files, ~10 lint files, ~400 lines
 **GitHub Sub-Issue:** #4
 **Acceptance criteria:**
-- [ ] `npx tsc --noEmit` exits with 0 errors
-- [ ] `yarn lint` exits with 0 errors
-- [ ] No functional behavior changes — only @ts-expect-error annotations, formatting, and unused import removal
-**Status:** executing
+- [x] `npx tsc --noEmit` exits with 0 errors
+- [x] `yarn lint` exits with 0 errors (remaining 47 warnings are pre-existing a11y/token issues addressed in later stages)
+- [x] No functional behavior changes — only @ts-expect-error annotations, formatting, and unused import removal
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 2: Critical Keyboard Accessibility — Native Buttons
