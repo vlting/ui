@@ -14,7 +14,7 @@
 - [ ] `npx tsc --noEmit` exits with 0 errors
 - [ ] `yarn lint` exits with 0 errors
 - [ ] No functional behavior changes — only @ts-expect-error annotations, formatting, and unused import removal
-**Status:** pending
+**Status:** executing
 **Iterations:** 0
 
 ## Stage 2: Critical Keyboard Accessibility — Native Buttons
