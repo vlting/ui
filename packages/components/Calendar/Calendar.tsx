@@ -46,8 +46,8 @@ const DayBtn = styledHtml('button', {
   fontFamily: 'inherit',
   alignItems: 'center',
   justifyContent: 'center',
-  width: 36,
-  height: 36,
+  width: '$3',
+  height: '$3',
   borderRadius: '$3',
   focusVisibleStyle: {
     outlineWidth: 2,
@@ -188,11 +188,11 @@ function Root({
           onClick={() => goToMonth(-1)}
           aria-label="Previous month"
         >
-          <TextJsx fontSize={14} color="$color">
+          <TextJsx fontSize="$4" color="$color">
             {'<'}
           </TextJsx>
         </NavBtnJsx>
-        <TextJsx fontSize={14} fontWeight="500" fontFamily="$body" color="$color">
+        <TextJsx fontSize="$4" fontWeight="500" fontFamily="$body" color="$color">
           {monthName} {year}
         </TextJsx>
         <NavBtnJsx
@@ -201,7 +201,7 @@ function Root({
           onClick={() => goToMonth(1)}
           aria-label="Next month"
         >
-          <TextJsx fontSize={14} color="$color">
+          <TextJsx fontSize="$4" color="$color">
             {'>'}
           </TextJsx>
         </NavBtnJsx>
@@ -212,12 +212,12 @@ function Root({
         {DAYS.map((d) => (
           <ViewJsx
             key={d}
-            width={36}
-            height={36}
+            width="$3"
+            height="$3"
             alignItems="center"
             justifyContent="center"
           >
-            <TextJsx fontSize={12} color="$colorSubtitle" fontFamily="$body">
+            <TextJsx fontSize="$2" color="$colorSubtitle" fontFamily="$body">
               {d}
             </TextJsx>
           </ViewJsx>
@@ -229,7 +229,7 @@ function Root({
         <ViewJsx key={wi} flexDirection="row">
           {week.map((date, di) => {
             if (!date) {
-              return <ViewJsx key={`empty-${di}`} width={36} height={36} />
+              return <ViewJsx key={`empty-${di}`} width="$3" height="$3" />
             }
             const selected = isDateSelected(date)
             const today = isToday(date)
@@ -257,7 +257,7 @@ function Root({
                 })}
               >
                 <TextJsx
-                  fontSize={14}
+                  fontSize="$4"
                   fontFamily="$body"
                   fontWeight={today ? '600' : '400'}
                   color={selected ? '$color1' : '$color'}

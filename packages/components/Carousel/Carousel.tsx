@@ -196,12 +196,12 @@ function Previous({ children }: { children?: React.ReactNode }) {
     <CarouselBtnJsx
       type="button"
       position="absolute"
-      left={8}
+      left="$0.75"
       top="50%"
       style={{ transform: 'translateY(-50%)' }}
       zIndex={10}
-      width={32}
-      height={32}
+      width="$2.5"
+      height="$2.5"
       borderRadius={9999}
       backgroundColor="$background"
       borderWidth={1}
@@ -212,7 +212,7 @@ function Previous({ children }: { children?: React.ReactNode }) {
       aria-label="Previous slide"
     >
       {children ?? (
-        <TextJsx fontSize={14} color="$color">
+        <TextJsx fontSize="$4" color="$color">
           {'<'}
         </TextJsx>
       )}
@@ -227,12 +227,12 @@ function Next({ children }: { children?: React.ReactNode }) {
     <CarouselBtnJsx
       type="button"
       position="absolute"
-      right={8}
+      right="$0.75"
       top="50%"
       style={{ transform: 'translateY(-50%)' }}
       zIndex={10}
-      width={32}
-      height={32}
+      width="$2.5"
+      height="$2.5"
       borderRadius={9999}
       backgroundColor="$background"
       borderWidth={1}
@@ -243,7 +243,7 @@ function Next({ children }: { children?: React.ReactNode }) {
       aria-label="Next slide"
     >
       {children ?? (
-        <TextJsx fontSize={14} color="$color">
+        <TextJsx fontSize="$4" color="$color">
           {'>'}
         </TextJsx>
       )}
@@ -260,14 +260,14 @@ function Dots() {
       alignItems="center"
       justifyContent="center"
       gap={6}
-      paddingTop={8}
+      paddingTop="$0.75"
     >
       {Array.from({ length: totalItems }, (_, i) => (
         <DotBtnJsx
           key={i}
           type="button"
-          width={8}
-          height={8}
+          width="$0.75"
+          height="$0.75"
           backgroundColor={i === activeIndex ? '$color10' : '$color4'}
           onClick={() => goTo(i)}
           aria-label={`Go to slide ${i + 1}`}

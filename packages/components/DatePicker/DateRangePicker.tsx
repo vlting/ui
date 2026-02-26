@@ -191,8 +191,8 @@ const DayCell = styledHtml('button', {
   fontFamily: 'inherit',
   alignItems: 'center',
   justifyContent: 'center',
-  width: 36,
-  height: 36,
+  width: '$3',
+  height: '$3',
   borderRadius: '$3',
   cursor: 'pointer',
 
@@ -274,8 +274,8 @@ const NavButton = styledHtml('button', {
   fontFamily: 'inherit',
   alignItems: 'center',
   justifyContent: 'center',
-  width: 32,
-  height: 32,
+  width: '$2.5',
+  height: '$2.5',
   borderRadius: '$3',
   cursor: 'pointer',
 
@@ -356,7 +356,7 @@ function MonthCalendar({
             </TextJsx>
           </NavButtonJsx>
         ) : (
-          <ViewJsx width={32} />
+          <ViewJsx width="$2.5" />
         )}
         <TextJsx fontFamily="$body" fontSize="$3" fontWeight="$3" color="$color">
           {getMonthName(viewYear, viewMonth, locale)}
@@ -368,7 +368,7 @@ function MonthCalendar({
             </TextJsx>
           </NavButtonJsx>
         ) : (
-          <ViewJsx width={32} />
+          <ViewJsx width="$2.5" />
         )}
       </XStackJsx>
 
@@ -376,8 +376,8 @@ function MonthCalendar({
         {weekdays.map((wd, i) => (
           <ViewJsx
             key={i}
-            width={36}
-            height={24}
+            width="$3"
+            height="$1.5"
             alignItems="center"
             justifyContent="center"
           >
@@ -397,7 +397,7 @@ function MonthCalendar({
         <XStackJsx key={wi}>
           {week.map((day, di) => {
             if (day === null) {
-              return <ViewJsx key={di} width={36} height={36} />
+              return <ViewJsx key={di} width="$3" height="$3" />
             }
 
             const date = new Date(viewYear, viewMonth, day)
