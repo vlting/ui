@@ -80,8 +80,13 @@ function Trigger({ children }: { children: React.ReactNode }) {
 }
 
 const SIDE_STYLES = {
-  top: { bottom: '100%', marginBottom: 4 },
-  bottom: { top: '100%', marginTop: 4 },
+  top: { bottom: '100%' },
+  bottom: { top: '100%' },
+} as const
+
+const SIDE_MARGIN = {
+  top: { marginBottom: '$0.5' },
+  bottom: { marginTop: '$0.5' },
 } as const
 
 const ALIGN_STYLES = {
@@ -104,6 +109,7 @@ function Content({ children, side = 'bottom', align = 'center' }: HoverCardConte
       shadowColor="$shadowMdColor"
       shadowRadius={8}
       shadowOffset={{ width: 0, height: 4 }}
+      {...SIDE_MARGIN[side]}
       style={{
         ...SIDE_STYLES[side],
         ...ALIGN_STYLES[align],
