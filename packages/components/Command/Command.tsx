@@ -11,7 +11,7 @@ const SearchInput = styledHtml('input', {
   display: 'flex',
   width: '100%',
   backgroundColor: 'transparent',
-  fontSize: 14,
+  fontSize: '$4',
   fontFamily: '$body',
   color: '$color',
   outline: 'none',
@@ -86,13 +86,13 @@ function Input({
     <ViewJsx
       flexDirection="row"
       alignItems="center"
-      paddingLeft={12}
-      paddingRight={12}
+      paddingLeft="$1.5"
+      paddingRight="$1.5"
       height={44}
       borderBottomWidth={1}
       borderBottomColor="$borderColor"
     >
-      <TextJsx fontSize={14} color="$colorSubtitle" marginRight={8}>
+      <TextJsx fontSize="$4" color="$colorSubtitle" marginRight="$0.75">
         {'\u{1F50D}'}
       </TextJsx>
       <SearchInputJsx
@@ -108,7 +108,7 @@ function Input({
 
 function CommandList({ children }: { children: React.ReactNode }) {
   return (
-    <ViewJsx maxHeight={300} style={{ overflowY: 'auto' }} padding={4}>
+    <ViewJsx maxHeight={300} style={{ overflowY: 'auto' }} padding="$0.5">
       {children}
     </ViewJsx>
   )
@@ -118,8 +118,8 @@ function Empty({ children = 'No results found.' }: { children?: React.ReactNode 
   const { search } = React.useContext(CommandContext)
   if (!search) return null
   return (
-    <ViewJsx padding={24} alignItems="center">
-      <TextJsx fontSize={14} color="$colorSubtitle" fontFamily="$body">
+    <ViewJsx padding="$3.5" alignItems="center">
+      <TextJsx fontSize="$4" color="$colorSubtitle" fontFamily="$body">
         {children}
       </TextJsx>
     </ViewJsx>
@@ -130,9 +130,14 @@ function Group({ children, heading }: CommandGroupProps) {
   return (
     <ViewJsx>
       {heading && (
-        <ViewJsx paddingLeft={8} paddingRight={8} paddingTop={8} paddingBottom={4}>
+        <ViewJsx
+          paddingLeft="$0.75"
+          paddingRight="$0.75"
+          paddingTop="$0.75"
+          paddingBottom="$0.5"
+        >
           <TextJsx
-            fontSize={12}
+            fontSize="$2"
             fontWeight="500"
             color="$colorSubtitle"
             fontFamily="$body"
@@ -159,8 +164,8 @@ function Item({ children, value, onSelect, disabled, keywords }: CommandItemProp
       flexDirection="row"
       alignItems="center"
       height={36}
-      paddingLeft={8}
-      paddingRight={8}
+      paddingLeft="$0.75"
+      paddingRight="$0.75"
       borderRadius="$3"
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
@@ -182,14 +187,19 @@ function Item({ children, value, onSelect, disabled, keywords }: CommandItemProp
 
 function Separator() {
   return (
-    <ViewJsx height={1} backgroundColor="$borderColor" marginTop={4} marginBottom={4} />
+    <ViewJsx
+      height={1}
+      backgroundColor="$borderColor"
+      marginTop="$0.5"
+      marginBottom="$0.5"
+    />
   )
 }
 
 function Loading({ children = 'Loading...' }: { children?: React.ReactNode }) {
   return (
-    <ViewJsx padding={12} alignItems="center">
-      <TextJsx fontSize={14} color="$colorSubtitle" fontFamily="$body">
+    <ViewJsx padding="$1.5" alignItems="center">
+      <TextJsx fontSize="$4" color="$colorSubtitle" fontFamily="$body">
         {children}
       </TextJsx>
     </ViewJsx>

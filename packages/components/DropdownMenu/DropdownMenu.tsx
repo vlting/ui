@@ -217,13 +217,13 @@ function Content({ children }: { children: React.ReactNode }) {
       position="absolute"
       top="100%"
       left={0}
-      marginTop={4}
+      marginTop="$0.5"
       zIndex={50}
       backgroundColor="$background"
       borderWidth={1}
       borderColor="$borderColor"
       borderRadius="$4"
-      padding={4}
+      padding="$0.5"
       minWidth={192}
       style={{ boxShadow: 'var(--shadowMd)' }}
       role="menu"
@@ -254,8 +254,8 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
       alignItems="center"
       justifyContent="space-between"
       height={32}
-      paddingLeft={8}
-      paddingRight={8}
+      paddingLeft="$0.75"
+      paddingRight="$0.75"
       borderRadius="$2"
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
@@ -274,11 +274,16 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
       tabIndex={-1}
       onKeyDown={handleKeyDown}
     >
-      <TextJsx fontSize={14} fontFamily="$body" color="$color">
+      <TextJsx fontSize="$4" fontFamily="$body" color="$color">
         {children}
       </TextJsx>
       {shortcut && (
-        <TextJsx fontSize={12} fontFamily="$mono" color="$colorSubtitle" marginLeft={24}>
+        <TextJsx
+          fontSize="$2"
+          fontFamily="$mono"
+          color="$colorSubtitle"
+          marginLeft="$3.5"
+        >
           {shortcut}
         </TextJsx>
       )}
@@ -310,8 +315,8 @@ function CheckboxItem({
       type="button"
       alignItems="center"
       height={32}
-      paddingLeft={8}
-      paddingRight={8}
+      paddingLeft="$0.75"
+      paddingRight="$0.75"
       borderRadius="$2"
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
@@ -332,12 +337,12 @@ function CheckboxItem({
     >
       <ViewJsx width={16} alignItems="center">
         {checked && (
-          <TextJsx fontSize={12} color="$color">
+          <TextJsx fontSize="$2" color="$color">
             {'\u2713'}
           </TextJsx>
         )}
       </ViewJsx>
-      <TextJsx fontSize={14} fontFamily="$body" color="$color">
+      <TextJsx fontSize="$4" fontFamily="$body" color="$color">
         {children}
       </TextJsx>
     </MenuItemBtnJsx>
@@ -349,8 +354,8 @@ function Separator() {
     <ViewJsx
       height={1}
       backgroundColor="$borderColor"
-      marginTop={4}
-      marginBottom={4}
+      marginTop="$0.5"
+      marginBottom="$0.5"
       marginLeft={-4}
       marginRight={-4}
     />
@@ -359,8 +364,13 @@ function Separator() {
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <ViewJsx paddingLeft={8} paddingRight={8} paddingTop={6} paddingBottom={2}>
-      <TextJsx fontSize={12} fontWeight="600" color="$colorSubtitle" fontFamily="$body">
+    <ViewJsx
+      paddingLeft="$0.75"
+      paddingRight="$0.75"
+      paddingTop={6}
+      paddingBottom="$0.25"
+    >
+      <TextJsx fontSize="$2" fontWeight="600" color="$colorSubtitle" fontFamily="$body">
         {children}
       </TextJsx>
     </ViewJsx>
