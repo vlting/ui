@@ -1,6 +1,3 @@
-import type React from 'react'
-import type { ComponentType } from 'react'
-import { styled, Text, YStack } from 'tamagui'
 import {
   Toast as TamaguiToast,
   ToastProvider as TamaguiToastProvider,
@@ -8,6 +5,9 @@ import {
   useToastController,
   useToastState,
 } from '@tamagui/toast'
+import type React from 'react'
+import type { ComponentType } from 'react'
+import { Text, styled } from 'tamagui'
 
 // @ts-expect-error Tamagui v2 RC
 const StyledTitle = styled(Text, {
@@ -27,7 +27,9 @@ const StyledDescription = styled(Text, {
 // Tamagui v2 RC GetProps bug — cast for JSX usage
 const ToastRoot = TamaguiToast as ComponentType<Record<string, unknown>>
 const ToastTitle = TamaguiToast.Title as ComponentType<Record<string, unknown>>
-const ToastDescription = TamaguiToast.Description as ComponentType<Record<string, unknown>>
+const ToastDescription = TamaguiToast.Description as ComponentType<
+  Record<string, unknown>
+>
 const ToastAction = TamaguiToast.Action as ComponentType<Record<string, unknown>>
 const ToastClose = TamaguiToast.Close as ComponentType<Record<string, unknown>>
 const ToastProvider = TamaguiToastProvider as ComponentType<Record<string, unknown>>
@@ -135,7 +137,11 @@ export interface ToastProviderProps {
   duration?: number
 }
 
-function Provider({ children, swipeDirection = 'right', duration = 5000 }: ToastProviderProps) {
+function Provider({
+  children,
+  swipeDirection = 'right',
+  duration = 5000,
+}: ToastProviderProps) {
   return (
     <ToastProvider swipeDirection={swipeDirection} duration={duration}>
       {children}

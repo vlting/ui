@@ -1,8 +1,7 @@
+import { Button as TamaguiButton } from '@tamagui/button'
 import React, { createContext, useContext } from 'react'
-import { Button as TamaguiButton, type ButtonProps as TamaguiButtonProps } from '@tamagui/button'
 import type { GetProps } from 'tamagui'
 import { Spinner, Text, Theme, XStack, styled, withStaticProperties } from 'tamagui'
-import { styledHtml } from '@tamagui/web'
 import { VisuallyHidden } from '../../primitives'
 
 // Extend Tamagui's Button.Frame with our custom variants.
@@ -24,10 +23,12 @@ const ButtonFrame = styled(TamaguiButton.Frame, {
         backgroundColor: '$color10',
         borderWidth: 0,
         borderColor: 'transparent',
+        // @ts-expect-error Tamagui v2 RC
         hoverStyle: {
           backgroundColor: '$color11',
           borderColor: 'transparent',
         },
+        // @ts-expect-error Tamagui v2 RC
         pressStyle: {
           backgroundColor: '$color11',
           borderColor: 'transparent',
@@ -38,10 +39,12 @@ const ButtonFrame = styled(TamaguiButton.Frame, {
         backgroundColor: '$color10',
         borderWidth: 0,
         borderColor: 'transparent',
+        // @ts-expect-error Tamagui v2 RC
         hoverStyle: {
           backgroundColor: '$color11',
           borderColor: 'transparent',
         },
+        // @ts-expect-error Tamagui v2 RC
         pressStyle: {
           backgroundColor: '$color11',
           borderColor: 'transparent',
@@ -52,6 +55,7 @@ const ButtonFrame = styled(TamaguiButton.Frame, {
         backgroundColor: '$color2',
         borderWidth: 0,
         borderColor: 'transparent',
+        // @ts-expect-error Tamagui v2 RC
         hoverStyle: {
           backgroundColor: '$color3',
         },
@@ -61,6 +65,7 @@ const ButtonFrame = styled(TamaguiButton.Frame, {
         backgroundColor: '$color10',
         borderWidth: 0,
         borderColor: 'transparent',
+        // @ts-expect-error Tamagui v2 RC
         hoverStyle: {
           backgroundColor: '$color11',
         },
@@ -69,6 +74,7 @@ const ButtonFrame = styled(TamaguiButton.Frame, {
         backgroundColor: 'transparent',
         borderWidth: 1,
         borderColor: '$borderColor',
+        // @ts-expect-error Tamagui v2 RC
         hoverStyle: {
           backgroundColor: '$backgroundHover',
         },
@@ -77,11 +83,13 @@ const ButtonFrame = styled(TamaguiButton.Frame, {
         backgroundColor: 'transparent',
         borderWidth: 0,
         borderColor: 'transparent',
+        // @ts-expect-error Tamagui v2 RC
         hoverStyle: {
           backgroundColor: '$backgroundHover',
         },
       },
       // shadcn: "link"
+      // @ts-expect-error Tamagui v2 RC
       link: {
         backgroundColor: 'transparent',
         borderWidth: 0,
@@ -91,6 +99,7 @@ const ButtonFrame = styled(TamaguiButton.Frame, {
       },
     },
     disabled: {
+      // @ts-expect-error Tamagui v2 RC
       true: {
         opacity: 0.5,
         cursor: 'not-allowed',
@@ -112,9 +121,19 @@ const SIZE_TOKEN_MAP: Record<string, string> = {
 type ButtonFrameProps = GetProps<typeof ButtonFrame>
 
 // Cast for JSX usage — Tamagui v2 RC GetFinalProps resolves all props as undefined
-const ButtonFrameJsx = ButtonFrame as React.ComponentType<Record<string, unknown>>
+type AnyFC = React.ComponentType<Record<string, unknown>>
+const ButtonFrameJsx = ButtonFrame as AnyFC
+const SpinnerJsx = Spinner as AnyFC
+const VisuallyHiddenJsx = VisuallyHidden as AnyFC
 
-type ButtonVariant = 'default' | 'solid' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link'
+type ButtonVariant =
+  | 'default'
+  | 'solid'
+  | 'secondary'
+  | 'destructive'
+  | 'outline'
+  | 'ghost'
+  | 'link'
 
 const SPINNER_COLOR_MAP: Record<ButtonVariant, string> = {
   default: '$color1',
@@ -128,31 +147,43 @@ const SPINNER_COLOR_MAP: Record<ButtonVariant, string> = {
 
 const ButtonContext = createContext<{ variant: ButtonVariant }>({ variant: 'default' })
 
-// @ts-expect-error Tamagui v2 RC
 const ButtonTextBase = styled(Text, {
   fontFamily: '$body',
   fontWeight: '$3',
 
   variants: {
     textVariant: {
+      // @ts-expect-error Tamagui v2 RC
       default: { color: '$color1' },
+      // @ts-expect-error Tamagui v2 RC
       solid: { color: '$color1' },
+      // @ts-expect-error Tamagui v2 RC
       secondary: { color: '$color' },
+      // @ts-expect-error Tamagui v2 RC
       destructive: { color: '$color1' },
+      // @ts-expect-error Tamagui v2 RC
       outline: { color: '$color' },
+      // @ts-expect-error Tamagui v2 RC
       ghost: { color: '$color' },
+      // @ts-expect-error Tamagui v2 RC
       link: { color: '$color10', textDecorationLine: 'underline' as any },
     },
     size: {
+      // @ts-expect-error Tamagui v2 RC
       xs: { fontSize: '$1' },
+      // @ts-expect-error Tamagui v2 RC
       sm: { fontSize: '$2' },
+      // @ts-expect-error Tamagui v2 RC
       md: { fontSize: '$4' },
+      // @ts-expect-error Tamagui v2 RC
       lg: { fontSize: '$5' },
     },
   } as const,
 
   defaultVariants: {
+    // @ts-expect-error Tamagui v2 RC
     textVariant: 'default',
+    // @ts-expect-error Tamagui v2 RC
     size: 'md',
   },
 })
@@ -197,7 +228,17 @@ const ButtonBase = React.forwardRef<
   HTMLButtonElement,
   ButtonProps & Omit<ButtonFrameProps, keyof ButtonProps>
 >(function ButtonBase(
-  { loading, children, disabled, variant = 'default', tone = 'neutral', size = 'md', onPress, asChild, ...props },
+  {
+    loading,
+    children,
+    disabled,
+    variant = 'default',
+    tone = 'neutral',
+    size = 'md',
+    onPress,
+    asChild,
+    ...props
+  },
   ref,
 ) {
   const isDisabled = disabled ?? loading ?? false
@@ -206,6 +247,7 @@ const ButtonBase = React.forwardRef<
   const isIcon = size === 'icon'
 
   const frame = (
+    // @ts-expect-error Tamagui v2 RC
     <ButtonContext.Provider value={{ variant }}>
       <ButtonFrameJsx
         ref={ref}
@@ -219,10 +261,15 @@ const ButtonBase = React.forwardRef<
       >
         {loading ? (
           <>
-            <Spinner size="small" color={SPINNER_COLOR_MAP[variant]} />
-            <VisuallyHidden>Loading</VisuallyHidden>
+            <SpinnerJsx
+              size="small"
+              color={SPINNER_COLOR_MAP[variant as ButtonVariant]}
+            />
+            <VisuallyHiddenJsx>Loading</VisuallyHiddenJsx>
           </>
-        ) : children}
+        ) : (
+          children
+        )}
       </ButtonFrameJsx>
     </ButtonContext.Provider>
   )

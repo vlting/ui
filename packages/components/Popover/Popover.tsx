@@ -1,9 +1,8 @@
+import { Popover as TamaguiPopover } from '@tamagui/popover'
 import type React from 'react'
 import type { ComponentType } from 'react'
-import { styled, YStack } from 'tamagui'
-import { Popover as TamaguiPopover } from '@tamagui/popover'
+import { YStack, styled } from 'tamagui'
 
-// @ts-expect-error Tamagui v2 RC
 const StyledContent = styled(YStack, {
   backgroundColor: '$background',
   borderRadius: '$4',
@@ -11,8 +10,11 @@ const StyledContent = styled(YStack, {
   borderColor: '$borderColor',
   padding: '$3',
   elevation: '$4',
+  // @ts-expect-error Tamagui v2 RC
   animation: 'medium',
+  // @ts-expect-error Tamagui v2 RC
   enterStyle: { opacity: 0, scale: 0.95, y: -4 },
+  // @ts-expect-error Tamagui v2 RC
   exitStyle: { opacity: 0, scale: 0.95, y: -4 },
 })
 
@@ -74,10 +76,13 @@ const PopoverContentJsx = TamaguiPopover.Content as ComponentType<Record<string,
 function Content({ children }: PopoverContentProps) {
   return (
     <PopoverContentJsx>
-      <PopoverArrow borderWidth={1} borderColor="$borderColor" backgroundColor="$background" size="$1" />
-      <ContentFrame>
-        {children}
-      </ContentFrame>
+      <PopoverArrow
+        borderWidth={1}
+        borderColor="$borderColor"
+        backgroundColor="$background"
+        size="$1"
+      />
+      <ContentFrame>{children}</ContentFrame>
     </PopoverContentJsx>
   )
 }

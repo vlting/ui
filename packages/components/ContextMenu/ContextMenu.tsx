@@ -53,20 +53,18 @@ function Root({ children, onOpenChange }: ContextMenuRootProps) {
   let menuContent: React.ReactNode = null
   React.Children.forEach(children, (child) => {
     if (React.isValidElement(child)) {
+      const props = child.props as { children?: React.ReactNode }
       if (child.type === Trigger) {
-        triggerContent = child.props.children
+        triggerContent = props.children
       } else if (child.type === Content) {
-        menuContent = child.props.children
+        menuContent = props.children
       }
     }
   })
 
   return (
     <ContextMenuContext.Provider value={{ close }}>
-      <ViewJsx
-        onContextMenu={handleContextMenu}
-        display="contents"
-      >
+      <ViewJsx onContextMenu={handleContextMenu} display="contents">
         {triggerContent}
       </ViewJsx>
       {open && (
@@ -154,7 +152,12 @@ function Item({ children, onSelect, disabled, shortcut }: ContextMenuItemProps) 
   )
 }
 
-function CheckboxItem({ children, checked, onCheckedChange, disabled }: ContextMenuCheckboxItemProps) {
+function CheckboxItem({
+  children,
+  checked,
+  onCheckedChange,
+  disabled,
+}: ContextMenuCheckboxItemProps) {
   const { close } = React.useContext(ContextMenuContext)
 
   return (
@@ -180,7 +183,11 @@ function CheckboxItem({ children, checked, onCheckedChange, disabled }: ContextM
       aria-checked={checked}
     >
       <ViewJsx width={16} alignItems="center">
-        {checked && <TextJsx fontSize={12} color="$color">{'\u2713'}</TextJsx>}
+        {checked && (
+          <TextJsx fontSize={12} color="$color">
+            {'\u2713'}
+          </TextJsx>
+        )}
       </ViewJsx>
       <TextJsx fontSize={14} fontFamily="$body" color="$color">
         {children}
@@ -190,7 +197,16 @@ function CheckboxItem({ children, checked, onCheckedChange, disabled }: ContextM
 }
 
 function Separator() {
-  return <ViewJsx height={1} backgroundColor="$borderColor" marginTop={4} marginBottom={4} marginLeft={-4} marginRight={-4} />
+  return (
+    <ViewJsx
+      height={1}
+      backgroundColor="$borderColor"
+      marginTop={4}
+      marginBottom={4}
+      marginLeft={-4}
+      marginRight={-4}
+    />
+  )
 }
 
 function Label({ children }: { children: React.ReactNode }) {
@@ -203,4 +219,12 @@ function Label({ children }: { children: React.ReactNode }) {
   )
 }
 
-export const ContextMenu = { Root, Trigger, Content, Item, CheckboxItem, Separator, Label }
+export const ContextMenu = {
+  Root,
+  Trigger,
+  Content,
+  Item,
+  CheckboxItem,
+  Separator,
+  Label,
+}

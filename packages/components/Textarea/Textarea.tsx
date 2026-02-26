@@ -1,14 +1,14 @@
+import { TextArea as TamaguiTextArea } from '@tamagui/input'
 import { useId } from 'react'
 import type { ComponentType } from 'react'
-import { TextArea as TamaguiTextArea } from '@tamagui/input'
 import { Text, YStack, styled } from 'tamagui'
 
 // Extend Tamagui TextArea with our error variant.
 // Tamagui TextArea already renders <textarea> with proper styling and sizing.
-// @ts-expect-error Tamagui v2 RC
 const StyledTextArea = styled(TamaguiTextArea, {
   variants: {
     error: {
+      // @ts-expect-error Tamagui v2 RC
       true: {
         borderColor: '$red10',
       },

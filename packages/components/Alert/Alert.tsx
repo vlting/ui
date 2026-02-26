@@ -14,9 +14,11 @@ const AlertFrame = styled(XStack, {
 
   variants: {
     variant: {
+      // @ts-expect-error Tamagui v2 RC
       default: {
         backgroundColor: '$background',
       },
+      // @ts-expect-error Tamagui v2 RC
       destructive: {
         borderColor: '$red8',
         backgroundColor: '$red2',
@@ -25,6 +27,7 @@ const AlertFrame = styled(XStack, {
   } as const,
 
   defaultVariants: {
+    // @ts-expect-error Tamagui v2 RC
     variant: 'default',
   },
 })
