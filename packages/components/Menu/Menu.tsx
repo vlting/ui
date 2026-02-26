@@ -109,7 +109,7 @@ function Item({ children, onSelect, disabled }: MenuItemProps) {
       borderRadius="$2"
       cursor="pointer"
       hoverStyle={{ backgroundColor: '$color4' }}
-      focusStyle={{ backgroundColor: '$color4' }}
+      focusVisibleStyle={{ backgroundColor: '$color4' }}
       opacity={disabled ? 0.5 : 1}
     >
       {children}
@@ -160,7 +160,7 @@ function CheckboxItem({
       borderRadius="$2"
       cursor="pointer"
       hoverStyle={{ backgroundColor: '$color4' }}
-      focusStyle={{ backgroundColor: '$color4' }}
+      focusVisibleStyle={{ backgroundColor: '$color4' }}
       opacity={disabled ? 0.5 : 1}
     >
       {children}
@@ -202,7 +202,7 @@ function RadioItem({
       borderRadius="$2"
       cursor="pointer"
       hoverStyle={{ backgroundColor: '$color4' }}
-      focusStyle={{ backgroundColor: '$color4' }}
+      focusVisibleStyle={{ backgroundColor: '$color4' }}
       opacity={disabled ? 0.5 : 1}
     >
       {children}
@@ -253,7 +253,7 @@ function SubTrigger({
       borderRadius="$2"
       cursor="pointer"
       hoverStyle={{ backgroundColor: '$color4' }}
-      focusStyle={{ backgroundColor: '$color4' }}
+      focusVisibleStyle={{ backgroundColor: '$color4' }}
       opacity={disabled ? 0.5 : 1}
     >
       {children}
