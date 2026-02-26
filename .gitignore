@@ -11,3 +11,4 @@ coverage/
 !.claude/skills/
 .worktrees/
 .history/
+.playwright-mcp/
