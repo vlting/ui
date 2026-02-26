@@ -1,3 +1,4 @@
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useState } from 'react'
 import { Text, View } from 'tamagui'
@@ -5,6 +6,28 @@ import { Text, View } from 'tamagui'
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
+
+const MenuItemBtn = styledHtml('button', {
+  display: 'flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  width: '100%',
+  textAlign: 'left',
+  focusVisibleStyle: {
+    backgroundColor: '$color2',
+    outlineWidth: 2,
+    outlineOffset: -2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const MenuItemBtnJsx = MenuItemBtn as AnyFC
 
 export interface ContextMenuRootProps {
   children: React.ReactNode
@@ -118,8 +141,8 @@ function Item({ children, onSelect, disabled, shortcut }: ContextMenuItemProps) 
   const { close } = React.useContext(ContextMenuContext)
 
   return (
-    <ViewJsx
-      flexDirection="row"
+    <MenuItemBtnJsx
+      type="button"
       alignItems="center"
       justifyContent="space-between"
       height={32}
@@ -129,7 +152,8 @@ function Item({ children, onSelect, disabled, shortcut }: ContextMenuItemProps) 
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
-      onPress={
+      disabled={disabled}
+      onClick={
         disabled
           ? undefined
           : () => {
@@ -148,7 +172,7 @@ function Item({ children, onSelect, disabled, shortcut }: ContextMenuItemProps) 
           {shortcut}
         </TextJsx>
       )}
-    </ViewJsx>
+    </MenuItemBtnJsx>
   )
 }
 
@@ -161,8 +185,8 @@ function CheckboxItem({
   const { close } = React.useContext(ContextMenuContext)
 
   return (
-    <ViewJsx
-      flexDirection="row"
+    <MenuItemBtnJsx
+      type="button"
       alignItems="center"
       height={32}
       paddingLeft={8}
@@ -171,7 +195,8 @@ function CheckboxItem({
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
-      onPress={
+      disabled={disabled}
+      onClick={
         disabled
           ? undefined
           : () => {
@@ -192,7 +217,7 @@ function CheckboxItem({
       <TextJsx fontSize={14} fontFamily="$body" color="$color">
         {children}
       </TextJsx>
-    </ViewJsx>
+    </MenuItemBtnJsx>
   )
 }
 
