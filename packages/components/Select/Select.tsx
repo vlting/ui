@@ -8,7 +8,7 @@ type AnyFC = ComponentType<Record<string, unknown>>
 // @ts-expect-error Tamagui v2 RC
 const ChevronIcon = styled(Text, {
   color: '$color',
-  fontSize: 12,
+  fontSize: '$2',
 })
 
 // Tamagui v2 RC GetProps bug — cast for JSX usage

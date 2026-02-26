@@ -6,7 +6,7 @@ import { Text, styled } from 'tamagui'
 // @ts-expect-error Tamagui v2 RC
 const CheckIcon = styled(Text, {
   color: '$color1',
-  fontSize: 14,
+  fontSize: '$4',
   fontWeight: '700',
   lineHeight: 14,
 })

@@ -134,8 +134,8 @@ function Slot({ index }: InputOTPSlotProps) {
 
   return (
     <ViewJsx
-      width={40}
-      height={44}
+      width="$3.5"
+      height="$4"
       borderWidth={1}
       borderColor={isActive ? '$color' : '$borderColor'}
       borderRadius="$4"
@@ -146,7 +146,7 @@ function Slot({ index }: InputOTPSlotProps) {
       style={isActive ? { boxShadow: '0 0 0 2px var(--outlineColor)' } : undefined}
     >
       <ViewJsx
-        fontSize={20}
+        fontSize="$7"
         fontFamily="$body"
         fontWeight="500"
         color="$color"
@@ -162,12 +162,12 @@ function Slot({ index }: InputOTPSlotProps) {
 function Separator() {
   return (
     <ViewJsx
-      width={8}
-      height={2}
+      width="$0.75"
+      height="$0.25"
       backgroundColor="$color6"
       borderRadius={9999}
-      marginLeft={2}
-      marginRight={2}
+      marginLeft="$0.25"
+      marginRight="$0.25"
     />
   )
 }
