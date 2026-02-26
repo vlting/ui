@@ -4,7 +4,7 @@
 - **Feature flag:** quality_audit
 - **GitHub Issue:** #3
 - **Created:** 2026-02-26
-- **Status:** in-progress
+- **Status:** pr-ready
 
 ## Stage 1: TypeScript & Lint Error Fixes
 **Objective:** Eliminate all 275 TypeScript errors and 285 Biome lint errors to establish a clean baseline before making functional changes.
@@ -57,12 +57,12 @@
 **Estimated scope:** ~15 files, ~400 lines
 **GitHub Sub-Issue:** #8
 **Acceptance criteria:**
-- [ ] Spinner, Carousel, Accordion, Sidebar respect `prefers-reduced-motion`
-- [ ] ButtonGroup has `role="group"` and `aria-label`
-- [ ] Icon has default `aria-hidden="true"` for decorative usage
-- [ ] Drawer Title uses a heading element
-- [ ] Divider has `role="separator"` and `aria-orientation`
-- [ ] Textarea has `focusVisibleStyle`
-- [ ] No regressions in existing tests
-**Status:** pending
+- [x] Spinner, Carousel, Accordion, Sidebar respect `prefers-reduced-motion`
+- [x] ButtonGroup has `role="group"` and `aria-label`
+- [x] Icon has default `aria-hidden="true"` for decorative usage
+- [x] Drawer Title uses a heading element
+- [x] Divider has `role="separator"` and `aria-orientation`
+- [x] Textarea has `focusVisibleStyle`
+- [x] No regressions in existing tests
+**Status:** complete
 **Iterations:** 0
