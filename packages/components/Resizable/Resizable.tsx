@@ -181,8 +181,8 @@ function Handle({ withHandle = true }: ResizableHandleProps) {
     >
       {withHandle && (
         <ViewJsx
-          width={isH ? 4 : 16}
-          height={isH ? 16 : 4}
+          width={isH ? '$0.5' : 16}
+          height={isH ? 16 : '$0.5'}
           borderRadius={9999}
           backgroundColor="$color6"
         />
