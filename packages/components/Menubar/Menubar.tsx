@@ -1,3 +1,4 @@
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useState } from 'react'
 import { Text, View } from 'tamagui'
@@ -5,6 +6,50 @@ import { Text, View } from 'tamagui'
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
+
+const MenuTriggerBtn = styledHtml('button', {
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  cursor: 'pointer',
+  alignItems: 'center',
+  justifyContent: 'center',
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const MenuTriggerBtnJsx = MenuTriggerBtn as AnyFC
+
+const MenuItemBtn = styledHtml('button', {
+  display: 'flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  width: '100%',
+  textAlign: 'left',
+  focusVisibleStyle: {
+    backgroundColor: '$color2',
+    outlineWidth: 2,
+    outlineOffset: -2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const MenuItemBtnJsx = MenuItemBtn as AnyFC
 
 export interface MenubarRootProps {
   children: React.ReactNode
@@ -92,17 +137,15 @@ function Trigger({ children }: { children: React.ReactNode }) {
   const isOpen = activeMenu === id
 
   return (
-    <ViewJsx
+    <MenuTriggerBtnJsx
+      type="button"
       paddingLeft={8}
       paddingRight={8}
       height={28}
       borderRadius="$2"
-      alignItems="center"
-      justifyContent="center"
-      cursor="pointer"
       backgroundColor={isOpen ? '$color2' : 'transparent'}
       hoverStyle={{ backgroundColor: '$color2' }}
-      onPress={() => setActiveMenu(isOpen ? null : id)}
+      onClick={() => setActiveMenu(isOpen ? null : id)}
       onMouseEnter={anyOpen && !isOpen ? () => setActiveMenu(id) : undefined}
       role="menuitem"
       aria-haspopup="menu"
@@ -111,7 +154,7 @@ function Trigger({ children }: { children: React.ReactNode }) {
       <TextJsx fontSize={14} fontFamily="$body" fontWeight="500" color="$color">
         {children}
       </TextJsx>
-    </ViewJsx>
+    </MenuTriggerBtnJsx>
   )
 }
 
@@ -146,8 +189,8 @@ function Item({ children, onSelect, disabled, shortcut }: MenubarItemProps) {
   const { close } = React.useContext(MenuContext)
 
   return (
-    <ViewJsx
-      flexDirection="row"
+    <MenuItemBtnJsx
+      type="button"
       alignItems="center"
       justifyContent="space-between"
       height={32}
@@ -157,7 +200,7 @@ function Item({ children, onSelect, disabled, shortcut }: MenubarItemProps) {
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
-      onPress={
+      onClick={
         disabled
           ? undefined
           : () => {
@@ -165,6 +208,7 @@ function Item({ children, onSelect, disabled, shortcut }: MenubarItemProps) {
               close()
             }
       }
+      disabled={disabled}
       role="menuitem"
       aria-disabled={disabled}
     >
@@ -176,7 +220,7 @@ function Item({ children, onSelect, disabled, shortcut }: MenubarItemProps) {
           {shortcut}
         </TextJsx>
       )}
-    </ViewJsx>
+    </MenuItemBtnJsx>
   )
 }
 
