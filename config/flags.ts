@@ -25,13 +25,24 @@ export type FlagName = keyof typeof flagRegistry;
 
 // -- Runtime helper ----------------------------------------------------------
 
-const ENV: Environment =
-  (process.env.APP_ENV as Environment) ??
-  (process.env.NODE_ENV === 'production' ? 'prod' : 'dev');
+function resolveEnv(): Environment {
+  const appEnv = process.env.APP_ENV;
+  if (appEnv === 'dev' || appEnv === 'staging' || appEnv === 'prod') {
+    return appEnv;
+  }
+  switch (process.env.NODE_ENV) {
+    case 'production': return 'prod';
+    case 'staging':    return 'staging';
+    default:           return 'dev';
+  }
+}
+
+const ENV: Environment = resolveEnv();
 
 export function getFlag(name: FlagName, env: Environment = ENV): boolean {
   const flag = flagRegistry[name];
-  return flag.overrides?.[env] ?? flag.default;
+  const overrides = flag.overrides as Partial<Record<Environment, boolean>> | undefined;
+  return overrides?.[env] ?? flag.default;
 }
 
 // -- Full registry export (for tooling / status commands) --------------------
