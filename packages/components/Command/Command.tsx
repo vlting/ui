@@ -165,6 +165,12 @@ function Item({ children, value, onSelect, disabled, keywords }: CommandItemProp
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
+      focusVisibleStyle={{
+        outlineWidth: 2,
+        outlineOffset: -2,
+        outlineColor: '$outlineColor',
+        outlineStyle: 'solid',
+      }}
       onPress={disabled ? undefined : () => onSelect?.(value)}
       role="option"
       aria-disabled={disabled}

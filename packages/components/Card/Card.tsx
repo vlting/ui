@@ -37,7 +37,7 @@ const CardFrame = styled(TamaguiCardFrame, {
         // @ts-expect-error Tamagui v2 RC
         pressStyle: { backgroundColor: '$backgroundPress', scale: 0.99 },
         // @ts-expect-error Tamagui v2 RC
-        focusStyle: {
+        focusVisibleStyle: {
           outlineWidth: 2,
           outlineOffset: 2,
           outlineColor: '$outlineColor',
