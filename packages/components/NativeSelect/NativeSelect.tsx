@@ -15,6 +15,12 @@ const SelectFrame = styledHtml('select', {
   fontFamily: '$body',
   cursor: 'pointer',
   outline: 'none',
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
 
   // Custom arrow via background image
   backgroundImage:
