@@ -8,7 +8,7 @@ const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
 
 const TitleH3 = styledHtml('h3', {
-  fontSize: 18,
+  fontSize: '$6',
   fontWeight: '600',
   color: '$color',
   fontFamily: '$body',
@@ -41,11 +41,11 @@ function Root({ children }: EmptyRootProps) {
     <ViewJsx
       alignItems="center"
       justifyContent="center"
-      paddingTop={32}
-      paddingBottom={32}
-      paddingLeft={24}
-      paddingRight={24}
-      gap={12}
+      paddingTop="$4.5"
+      paddingBottom="$4.5"
+      paddingLeft="$3.5"
+      paddingRight="$3.5"
+      gap="$1.5"
       role="status"
     >
       {children}
@@ -55,7 +55,7 @@ function Root({ children }: EmptyRootProps) {
 
 function Media({ children }: EmptyMediaProps) {
   return (
-    <ViewJsx alignItems="center" justifyContent="center" opacity={0.5} marginBottom={4}>
+    <ViewJsx alignItems="center" justifyContent="center" opacity={0.5} marginBottom="$0.5">
       {children}
     </ViewJsx>
   )
@@ -68,7 +68,7 @@ function Title({ children }: EmptyTitleProps) {
 function Description({ children }: EmptyDescriptionProps) {
   return (
     <TextJsx
-      fontSize={14}
+      fontSize="$4"
       fontFamily="$body"
       color="$colorSubtitle"
       textAlign="center"
@@ -81,7 +81,7 @@ function Description({ children }: EmptyDescriptionProps) {
 
 function Action({ children }: EmptyActionProps) {
   return (
-    <ViewJsx alignItems="center" justifyContent="center" marginTop={4}>
+    <ViewJsx alignItems="center" justifyContent="center" marginTop="$0.5">
       {children}
     </ViewJsx>
   )
