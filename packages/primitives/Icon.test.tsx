@@ -1,11 +1,8 @@
-import React from 'react'
 import { render } from '@testing-library/react'
+import type React from 'react'
 import { Icon } from './Icon'
 
-const MockIcon: React.FC<{ size?: number; color?: string }> = ({
-  size,
-  color,
-}) => (
+const MockIcon: React.FC<{ size?: number; color?: string }> = ({ size, color }) => (
   <svg data-testid="mock-icon" width={size} height={size} fill={color} />
 )
 

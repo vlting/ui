@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '@testing-library/react'
 import { AspectRatio } from './AspectRatio'
 
@@ -7,7 +6,7 @@ describe('AspectRatio', () => {
     const { getByText } = render(
       <AspectRatio>
         <div>Content</div>
-      </AspectRatio>
+      </AspectRatio>,
     )
     expect(getByText('Content')).toBeTruthy()
   })
@@ -16,7 +15,7 @@ describe('AspectRatio', () => {
     const { container } = render(
       <AspectRatio>
         <div>Content</div>
-      </AspectRatio>
+      </AspectRatio>,
     )
     const outer = container.firstChild as HTMLElement
     expect(outer.style.paddingBottom).toBe('100%')
@@ -26,7 +25,7 @@ describe('AspectRatio', () => {
     const { container } = render(
       <AspectRatio ratio={16 / 9}>
         <div>Content</div>
-      </AspectRatio>
+      </AspectRatio>,
     )
     const outer = container.firstChild as HTMLElement
     const expected = `${100 / (16 / 9)}%`
@@ -37,7 +36,7 @@ describe('AspectRatio', () => {
     const { container } = render(
       <AspectRatio ratio={4 / 3}>
         <div>Content</div>
-      </AspectRatio>
+      </AspectRatio>,
     )
     const outer = container.firstChild as HTMLElement
     expect(outer.style.paddingBottom).toBe(`${100 / (4 / 3)}%`)
@@ -47,7 +46,7 @@ describe('AspectRatio', () => {
     const { container } = render(
       <AspectRatio>
         <div>Content</div>
-      </AspectRatio>
+      </AspectRatio>,
     )
     const outer = container.firstChild as HTMLElement
     const inner = outer.firstChild as HTMLElement
@@ -59,7 +58,7 @@ describe('AspectRatio', () => {
     const { container } = render(
       <AspectRatio>
         <div>Content</div>
-      </AspectRatio>
+      </AspectRatio>,
     )
     const outer = container.firstChild as HTMLElement
     const inner = outer.firstChild as HTMLElement
@@ -70,7 +69,7 @@ describe('AspectRatio', () => {
     const { container } = render(
       <AspectRatio style={{ border: '1px solid red' }}>
         <div>Content</div>
-      </AspectRatio>
+      </AspectRatio>,
     )
     const outer = container.firstChild as HTMLElement
     expect(outer.style.border).toBe('1px solid red')

@@ -1,6 +1,6 @@
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React from 'react'
-import { styledHtml } from '@tamagui/web'
 
 // ---------------------------------------------------------------------------
 // Per-level styled HTML heading elements (semantic <h1>–<h6>)
@@ -81,7 +81,7 @@ export interface HeadingProps {
 
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   function Heading({ level = 2, ...rest }, ref) {
-    const Component = LEVEL_MAP[level] ?? LEVEL_MAP[2]
+    const Component = LEVEL_MAP[level as number] ?? LEVEL_MAP[2]
     return <Component ref={ref} {...rest} />
   },
 )

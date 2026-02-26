@@ -1,20 +1,15 @@
-import React from 'react'
 import { render } from '../../src/__test-utils__/render'
 import { VisuallyHidden } from './VisuallyHidden'
 
 describe('VisuallyHidden', () => {
   it('renders children', () => {
-    const { getByText } = render(
-      <VisuallyHidden>Screen reader only</VisuallyHidden>
-    )
+    const { getByText } = render(<VisuallyHidden>Screen reader only</VisuallyHidden>)
     expect(getByText('Screen reader only')).toBeTruthy()
   })
 
   it.skip('applies sr-only clip styles', () => {
     // TODO: requires browser environment — Tamagui inline styles not applied in JSDOM
-    const { container } = render(
-      <VisuallyHidden>Hidden text</VisuallyHidden>
-    )
+    const { container } = render(<VisuallyHidden>Hidden text</VisuallyHidden>)
     const el = container.firstChild as HTMLElement
     expect(el.style.clip).toMatch(/rect/)
     expect(el.style.overflow).toBe('hidden')
@@ -23,9 +18,7 @@ describe('VisuallyHidden', () => {
 
   it.skip('applies position absolute', () => {
     // TODO: requires browser environment — Tamagui inline styles not applied in JSDOM
-    const { container } = render(
-      <VisuallyHidden>Hidden text</VisuallyHidden>
-    )
+    const { container } = render(<VisuallyHidden>Hidden text</VisuallyHidden>)
     const el = container.firstChild as HTMLElement
     expect(el.style.position).toBe('absolute')
   })
@@ -34,7 +27,7 @@ describe('VisuallyHidden', () => {
     const { getByText } = render(
       <VisuallyHidden>
         <span>Accessible content</span>
-      </VisuallyHidden>
+      </VisuallyHidden>,
     )
     expect(getByText('Accessible content')).toBeInTheDocument()
   })

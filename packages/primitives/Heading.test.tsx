@@ -26,14 +26,20 @@ describe('Heading', () => {
 
   it('forwards ref to the heading element', () => {
     const ref = React.createRef<HTMLHeadingElement>()
-    render(<Heading ref={ref} level={3}>With Ref</Heading>)
+    render(
+      <Heading ref={ref} level={3}>
+        With Ref
+      </Heading>,
+    )
     expect(ref.current).toBeInstanceOf(HTMLHeadingElement)
     expect(ref.current!.tagName).toBe('H3')
   })
 
   it('passes through HTML attributes', () => {
     const { container } = render(
-      <Heading level={1} id="main-heading">Main</Heading>
+      <Heading level={1} id="main-heading">
+        Main
+      </Heading>,
     )
     const h1 = container.querySelector('h1')
     expect(h1!.id).toBe('main-heading')

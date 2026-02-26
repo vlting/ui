@@ -1,7 +1,6 @@
 import type { GetProps } from 'tamagui'
 import { Text as TText, styled } from 'tamagui'
 
-// @ts-expect-error Tamagui v2 RC
 export const Text = styled(TText, {
   fontFamily: '$body',
   color: '$color',
@@ -34,6 +33,6 @@ export const Text = styled(TText, {
   defaultVariants: {
     size: 'md',
   },
-})
+} as any)
 
 export type TextProps = GetProps<typeof Text>

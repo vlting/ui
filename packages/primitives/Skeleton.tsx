@@ -1,7 +1,6 @@
 import { View, styled } from 'tamagui'
 import type { GetProps } from 'tamagui'
 
-// @ts-expect-error Tamagui v2 RC
 export const Skeleton = styled(View, {
   backgroundColor: '$color4',
   borderRadius: '$2',
@@ -9,7 +8,7 @@ export const Skeleton = styled(View, {
   animation: 'lazy',
   opacity: 0.5,
   enterStyle: { opacity: 0.3 },
-  // @ts-expect-error web-only ARIA attribute
+  // web-only ARIA attribute
   'aria-hidden': true,
 
   variants: {
@@ -19,6 +18,6 @@ export const Skeleton = styled(View, {
       },
     },
   } as const,
-})
+} as any)
 
 export type SkeletonProps = GetProps<typeof Skeleton>

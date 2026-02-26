@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../src/__test-utils__/render'
 
 // @ts-expect-error Tamagui v2 RC GetProps bug
@@ -11,7 +10,14 @@ describe('Badge', () => {
   })
 
   it('renders each variant without errors', () => {
-    const variants = ['default', 'solid', 'secondary', 'destructive', 'outline', 'subtle'] as const
+    const variants = [
+      'default',
+      'solid',
+      'secondary',
+      'destructive',
+      'outline',
+      'subtle',
+    ] as const
     for (const variant of variants) {
       const { unmount } = render(<Badge variant={variant}>Badge</Badge>)
       expect(screen.getByText('Badge')).toBeTruthy()
