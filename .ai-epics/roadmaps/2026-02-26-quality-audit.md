@@ -37,7 +37,7 @@
 - [ ] All interactive components define `focusVisibleStyle` with the standard outline pattern
 - [ ] Verified against the audit list: DropdownMenu, ContextMenu, Combobox, Command, Menubar, NavigationMenu, Calendar, Carousel, DatePicker, DateRangePicker, Sidebar, Resizable, HoverCard, Collapsible, Textarea, and others
 - [ ] No regressions in existing tests
-**Status:** pending
+**Status:** executing
 **Iterations:** 0
 
 ## Stage 4: Token Discipline
