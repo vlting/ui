@@ -40,7 +40,7 @@ jobs:
         id: roadmap
         run: |
           # Look for a roadmap file whose name contains the slug
-          MATCH=$(find .ai-queue/_roadmaps -maxdepth 1 -name "*${{ steps.slug.outputs.slug }}*" -type f 2>/dev/null | head -1)
+          MATCH=$(find .ai-epics/roadmaps -maxdepth 1 -name "*${{ steps.slug.outputs.slug }}*" -type f 2>/dev/null | head -1)
           if [ -z "$MATCH" ]; then
             echo "No roadmap file found for slug '${{ steps.slug.outputs.slug }}' — skipping."
             echo "found=false" >> "$GITHUB_OUTPUT"
@@ -50,7 +50,7 @@ jobs:
             echo "found=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Update roadmap status and move to _completed
+      - name: Update roadmap status and move to archive
         if: steps.roadmap.outputs.found == 'true'
         run: |
           FILE="${{ steps.roadmap.outputs.file }}"
@@ -58,19 +58,19 @@ jobs:
           # Update status from in-review (or any status) to done
           sed -i 's/^\(- \*\*Status:\*\*\) .*/\1 done/' "$FILE"
 
-          # Ensure _completed directory exists
-          mkdir -p .ai-queue/_completed
+          # Ensure archive directory exists
+          mkdir -p .ai-epics/archive
 
-          # Move to _completed
-          mv "$FILE" ".ai-queue/_completed/${{ steps.roadmap.outputs.basename }}"
+          # Move to archive
+          mv "$FILE" ".ai-epics/archive/${{ steps.roadmap.outputs.basename }}"
 
       - name: Commit changes
         if: steps.roadmap.outputs.found == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .ai-queue/
-          git commit -m "chore(queue): archive roadmap for ${{ steps.slug.outputs.slug }}" || echo "Nothing to commit"
+          git add .ai-epics/
+          git commit -m "chore(epic): archive roadmap for ${{ steps.slug.outputs.slug }}" || echo "Nothing to commit"
           git push
 
       - name: Delete epic branch
