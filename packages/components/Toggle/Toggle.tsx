@@ -35,9 +35,9 @@ const ToggleFrame = styledHtml('button', {
     backgroundColor: '$backgroundPress',
   },
 
-  focusWithinStyle: {
+  focusVisibleStyle: {
     outlineWidth: 2,
-    outlineOffset: 1,
+    outlineOffset: 2,
     outlineColor: '$outlineColor',
     outlineStyle: 'solid',
   },
