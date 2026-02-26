@@ -88,7 +88,7 @@ function Input({
       alignItems="center"
       paddingLeft="$1.5"
       paddingRight="$1.5"
-      height={44}
+      height="$4"
       borderBottomWidth={1}
       borderBottomColor="$borderColor"
     >
@@ -163,7 +163,7 @@ function Item({ children, value, onSelect, disabled, keywords }: CommandItemProp
     <ViewJsx
       flexDirection="row"
       alignItems="center"
-      height={36}
+      height="$3"
       paddingLeft="$0.75"
       paddingRight="$0.75"
       borderRadius="$3"

@@ -253,7 +253,7 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
       type="button"
       alignItems="center"
       justifyContent="space-between"
-      height={32}
+      height="$2.5"
       paddingLeft="$0.75"
       paddingRight="$0.75"
       borderRadius="$2"
@@ -314,7 +314,7 @@ function CheckboxItem({
     <MenuItemBtnJsx
       type="button"
       alignItems="center"
-      height={32}
+      height="$2.5"
       paddingLeft="$0.75"
       paddingRight="$0.75"
       borderRadius="$2"

@@ -89,7 +89,7 @@ function Root({ children }: MenubarRootProps) {
       <ViewJsx
         flexDirection="row"
         alignItems="center"
-        height={40}
+        height="$3.5"
         borderWidth={1}
         borderColor="$borderColor"
         borderRadius="$4"
@@ -141,7 +141,7 @@ function Trigger({ children }: { children: React.ReactNode }) {
       type="button"
       paddingLeft="$0.75"
       paddingRight="$0.75"
-      height={28}
+      height="$2"
       borderRadius="$2"
       backgroundColor={isOpen ? '$color2' : 'transparent'}
       hoverStyle={{ backgroundColor: '$color2' }}
@@ -193,7 +193,7 @@ function Item({ children, onSelect, disabled, shortcut }: MenubarItemProps) {
       type="button"
       alignItems="center"
       justifyContent="space-between"
-      height={32}
+      height="$2.5"
       paddingLeft="$0.75"
       paddingRight="$0.75"
       borderRadius="$2"

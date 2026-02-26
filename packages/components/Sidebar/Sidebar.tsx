@@ -317,7 +317,7 @@ function Rail() {
       position="absolute"
       top={0}
       bottom={0}
-      width={4}
+      width="$0.5"
       style={{ [side === 'left' ? 'right' : 'left']: 0 }}
       cursor="col-resize"
       backgroundColor="transparent"

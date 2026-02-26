@@ -311,7 +311,7 @@ function Link({ children, href, active, onSelect }: NavigationMenuLinkProps) {
 function Indicator() {
   return (
     <ViewJsx
-      height={2}
+      height="$0.25"
       backgroundColor="$color10"
       borderRadius={9999}
       position="absolute"
