@@ -144,6 +144,12 @@ function Root({
         aria-label="Carousel"
         tabIndex={0}
         onKeyDown={handleKeyDown}
+        focusVisibleStyle={{
+          outlineWidth: 2,
+          outlineOffset: 2,
+          outlineColor: '$outlineColor',
+          outlineStyle: 'solid',
+        }}
       >
         {children}
       </ViewJsx>
