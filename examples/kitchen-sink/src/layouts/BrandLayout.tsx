@@ -1,30 +1,35 @@
-import React, { useState, useEffect } from 'react'
-import { Outlet, useParams, useLocation, Link } from 'react-router-dom'
-import { XStack, YStack, View, Text } from 'tamagui'
 import { Provider } from '@vlting/ui'
-import { brands, activeBrand, type BrandKey } from '../brands'
+import type React from 'react'
+import type { ComponentType } from 'react'
+import { useEffect, useState } from 'react'
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom'
+import { Text, View, XStack, YStack } from 'tamagui'
+import { type BrandKey, activeBrand, brands } from '../brands'
 
-/**
- * CSS reset for native <button> elements.
- * We keep native buttons for semantic HTML / keyboard accessibility.
- * This reset removes browser chrome so visual styling is on Tamagui children.
- */
-const BUTTON_RESET: React.CSSProperties = {
-  background: 'none',
-  border: 'none',
-  padding: 0,
-  margin: 0,
-  font: 'inherit',
-  color: 'inherit',
-  cursor: 'pointer',
-  textAlign: 'left',
-}
+// Tamagui v2 RC GetFinalProps bug: all token-string props resolve as `undefined`.
+// Cast layout/text primitives to a permissive type so JSX usage type-checks.
+type AnyFC = ComponentType<Record<string, unknown>>
+const TYStack = YStack as unknown as AnyFC
+const TXStack = XStack as unknown as AnyFC
+const TText = Text as unknown as AnyFC
+const TView = View as unknown as AnyFC
 
 /** CSS reset for react-router <Link> and <a> elements */
 const LINK_RESET: React.CSSProperties = {
   textDecoration: 'none',
   color: 'inherit',
   display: 'block',
+}
+
+/** CSS reset for native <button> elements */
+const BUTTON_RESET: React.CSSProperties = {
+  background: 'none',
+  border: 'none',
+  margin: 0,
+  padding: 0,
+  font: 'inherit',
+  color: 'inherit',
+  cursor: 'pointer',
 }
 
 interface SidebarSubItem {
@@ -197,7 +202,7 @@ function NavGroup({
   onNavClick: () => void
 }) {
   return (
-    <YStack marginBottom="$0.75">
+    <TYStack marginBottom="$0.75">
       <h2
         style={{
           margin: 0,
@@ -217,67 +222,71 @@ function NavGroup({
           const isActive = currentSection === item.path
           return (
             <li key={item.path}>
-              <Link
-                to={`/${brandKey}/${item.path}`}
-                onClick={onNavClick}
-                style={LINK_RESET}
+              <TXStack
+                asChild
+                paddingVertical={6}
+                paddingLeft={16}
+                paddingRight={8}
+                borderRightWidth={2}
+                borderRightColor={isActive ? '$color' : 'transparent'}
+                backgroundColor={isActive ? '$color3' : 'transparent'}
+                style={{ transition: 'all 0.1s' }}
               >
-                <XStack
-                  paddingVertical={6}
-                  paddingLeft={16}
-                  paddingRight={8}
-                  borderRightWidth={2}
-                  borderRightColor={isActive ? '$color' : 'transparent'}
-                  backgroundColor={isActive ? '$color3' : 'transparent'}
-                  /* transition is CSS animation */
-                  style={{ transition: 'all 0.1s' }}
+                <Link
+                  to={`/${brandKey}/${item.path}`}
+                  onClick={onNavClick}
+                  style={LINK_RESET}
                 >
-                  <Text
+                  <TText
                     fontSize={14}
                     fontFamily="$body"
                     color={isActive ? '$color' : '$colorSubtitle'}
                     fontWeight={isActive ? '500' : '400'}
                   >
                     {item.label}
-                  </Text>
-                </XStack>
-              </Link>
+                  </TText>
+                </Link>
+              </TXStack>
               {item.subItems && isActive && (
                 <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                   {item.subItems.map((sub) => {
                     const isSubActive = currentHash === `#${sub.anchor}`
                     return (
                       <li key={sub.anchor}>
-                        <Link
-                          to={`/${brandKey}/${item.path}#${sub.anchor}`}
-                          onClick={(e) => {
-                            onNavClick()
-                            const el = document.getElementById(sub.anchor)
-                            if (el) {
-                              e.preventDefault()
-                              el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                              window.history.replaceState(null, '', `/${brandKey}/${item.path}#${sub.anchor}`)
-                            }
-                          }}
-                          style={LINK_RESET}
+                        <TXStack
+                          asChild
+                          paddingVertical={2}
+                          paddingLeft={36}
+                          paddingRight={16}
+                          style={{ transition: 'all 0.1s' }}
                         >
-                          <XStack
-                            paddingVertical="$0.25"
-                            paddingLeft={36}
-                            paddingRight="$2"
-                            /* transition is CSS animation */
-                            style={{ transition: 'all 0.1s' }}
+                          <Link
+                            to={`/${brandKey}/${item.path}#${sub.anchor}`}
+                            onClick={(e) => {
+                              onNavClick()
+                              const el = document.getElementById(sub.anchor)
+                              if (el) {
+                                e.preventDefault()
+                                el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                                window.history.replaceState(
+                                  null,
+                                  '',
+                                  `/${brandKey}/${item.path}#${sub.anchor}`,
+                                )
+                              }
+                            }}
+                            style={LINK_RESET}
                           >
-                            <Text
+                            <TText
                               fontSize={12}
                               fontFamily="$body"
                               color={isSubActive ? '$color' : '$colorSubtitle'}
                               fontWeight={isSubActive ? '500' : '400'}
                             >
                               {sub.label}
-                            </Text>
-                          </XStack>
-                        </Link>
+                            </TText>
+                          </Link>
+                        </TXStack>
                       </li>
                     )
                   })}
@@ -287,7 +296,7 @@ function NavGroup({
           )
         })}
       </ul>
-    </YStack>
+    </TYStack>
   )
 }
 
@@ -330,9 +339,17 @@ export function BrandLayout() {
 
   return (
     <Provider config={activeBrand.config} defaultTheme={theme}>
-      <YStack className="brand-layout" minHeight="100vh" backgroundColor="$background" color="$color" fontFamily="$body" overflow="visible" style={{ overflow: 'visible' }}>
+      <TYStack
+        className="brand-layout"
+        minHeight="100vh"
+        backgroundColor="$background"
+        color="$color"
+        fontFamily="$body"
+        overflow="visible"
+        style={{ overflow: 'visible' }}
+      >
         {/* ─── Header ─── */}
-        <XStack
+        <TXStack
           role="banner"
           position="sticky"
           top={0}
@@ -347,79 +364,87 @@ export function BrandLayout() {
           /* backdropFilter is CSS-specific, not in Tamagui's prop system */
           style={{ backdropFilter: 'blur(8px)' }}
         >
-          <XStack alignItems="center" gap="$3.5">
+          <TXStack alignItems="center" gap="$3.5">
             {/* Mobile hamburger */}
-            <button
-              type="button"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              style={BUTTON_RESET}
-              className="mobile-hamburger"
-              aria-label="Toggle sidebar navigation"
-            >
-              <View paddingVertical="$0.5" paddingHorizontal="$0.75" display="none">
-                <Text fontSize={20} color="$color">☰</Text>
-              </View>
-            </button>
+            <TView asChild display="none">
+              <button
+                type="button"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className="mobile-hamburger"
+                aria-label="Toggle sidebar navigation"
+                style={BUTTON_RESET}
+              >
+                <TText fontSize={20} color="$color">
+                  ☰
+                </TText>
+              </button>
+            </TView>
             <Link to={`/${brandKey}`} style={LINK_RESET}>
-              <Text fontWeight="700" fontSize={15} letterSpacing={-0.3}>@vlting/ui</Text>
+              <TText fontWeight="700" fontSize={15} letterSpacing={-0.3}>
+                @vlting/ui
+              </TText>
             </Link>
-          </XStack>
-          <XStack alignItems="center" gap="$0.75">
+          </TXStack>
+          <TXStack alignItems="center" gap="$0.75">
             {/* Brand selector */}
             {Object.entries(brands).map(([key, b]) => {
               const isCurrent = brandKey === key
               return (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => { window.location.href = `/${key}/${currentSection}` }}
-                  style={BUTTON_RESET}
+                <TXStack
+                  asChild
+                  paddingVertical="$0.5"
+                  paddingHorizontal="$1.5"
+                  borderRadius="$2"
+                  borderWidth={1}
+                  borderColor={isCurrent ? '$color10' : '$borderColor'}
+                  backgroundColor={isCurrent ? '$color3' : 'transparent'}
+                  alignItems="center"
+                  style={{ transition: 'all 0.15s' }}
                 >
-                  <XStack
-                    paddingVertical="$0.5"
-                    paddingHorizontal="$1.5"
-                    borderRadius="$2"
-                    borderWidth={1}
-                    borderColor={isCurrent ? '$color10' : '$borderColor'}
-                    backgroundColor={isCurrent ? '$color3' : 'transparent'}
-                    /* transition is CSS animation */
-                    style={{ transition: 'all 0.15s' }}
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => {
+                      window.location.href = `/${key}/${currentSection}`
+                    }}
+                    style={BUTTON_RESET}
                   >
-                    <Text
+                    <TText
                       fontWeight={isCurrent ? '500' : '400'}
                       fontSize={13}
                       fontFamily="$body"
                       color={isCurrent ? '$color' : '$colorSubtitle'}
                     >
                       {b.label}
-                    </Text>
-                  </XStack>
-                </button>
+                    </TText>
+                  </button>
+                </TXStack>
               )
             })}
             {/* Theme toggle */}
-            <button
-              type="button"
-              onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
-              style={BUTTON_RESET}
-              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+            <TXStack
+              asChild
+              paddingVertical="$0.5"
+              paddingHorizontal="$1.5"
+              borderRadius="$2"
+              borderWidth={1}
+              borderColor="$borderColor"
+              alignItems="center"
+              style={{ transition: 'all 0.15s' }}
             >
-              <XStack
-                paddingVertical="$0.5"
-                paddingHorizontal="$1.5"
-                borderRadius="$2"
-                borderWidth={1}
-                borderColor="$borderColor"
-                /* transition is CSS animation */
-                style={{ transition: 'all 0.15s' }}
+              <button
+                type="button"
+                onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
+                aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+                style={BUTTON_RESET}
               >
-                <Text fontSize={13} fontFamily="$body" color="$colorSubtitle">
+                <TText fontSize={13} fontFamily="$body" color="$colorSubtitle">
                   {theme === 'light' ? '🌙' : '☀️'}
-                </Text>
-              </XStack>
-            </button>
-          </XStack>
-        </XStack>
+                </TText>
+              </button>
+            </TXStack>
+          </TXStack>
+        </TXStack>
 
         {/* ─── Body: Sidebar + Content ─── */}
         {/* Plain div avoids React Native Web's overflow:hidden default on Tamagui Views,
@@ -502,7 +527,7 @@ export function BrandLayout() {
             }
           }
         `}</style>
-      </YStack>
+      </TYStack>
     </Provider>
   )
 }

@@ -1,9 +1,11 @@
-import type { ComponentType } from 'react'
 import { Progress as TamaguiProgress } from '@tamagui/progress'
+import type { ComponentType } from 'react'
 
 // Tamagui v2 RC GetProps bug — cast for JSX usage
 const ProgressRoot = TamaguiProgress as ComponentType<Record<string, unknown>>
-const ProgressIndicator = TamaguiProgress.Indicator as ComponentType<Record<string, unknown>>
+const ProgressIndicator = TamaguiProgress.Indicator as ComponentType<
+  Record<string, unknown>
+>
 
 const SIZE_HEIGHT = { sm: 4, md: 8, lg: 12 }
 
@@ -31,11 +33,7 @@ export function Progress({
       width="100%"
       aria-label={ariaLabel}
     >
-      <ProgressIndicator
-        backgroundColor="$color10"
-        borderRadius="$10"
-        animation="fast"
-      />
+      <ProgressIndicator backgroundColor="$color10" borderRadius="$10" animation="fast" />
     </ProgressRoot>
   )
 }

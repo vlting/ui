@@ -1,7 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { YStack, XStack, Text, View } from 'tamagui'
-import { useControllableState, useFocusTrap, useKeyboardNavigation, Input, Heading } from '@vlting/ui'
-import { Section, DemoCard } from '../components/Section'
+import {
+  Heading,
+  Input,
+  useControllableState,
+  useFocusTrap,
+  useKeyboardNavigation,
+} from '@vlting/ui'
+import type React from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { Text, View, YStack } from 'tamagui'
+import { DemoCard, Section } from '../components/Section'
 
 /** CSS reset for native <button> elements used for semantic HTML / keyboard accessibility. */
 const BUTTON_RESET: React.CSSProperties = {
@@ -27,7 +34,9 @@ function ControllableStateDemo() {
         <YStack gap="$2">
           <Input
             value={controlled}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setControlled(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setControlled(e.target.value)
+            }
           />
           <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
             Current value: "{controlled}"
@@ -38,7 +47,9 @@ function ControllableStateDemo() {
         <YStack gap="$2">
           <Input
             value={uncontrolledValue}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUncontrolledValue(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setUncontrolledValue(e.target.value)
+            }
           />
           <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
             Current value: "{uncontrolledValue}" (check console for onChange)
@@ -83,22 +94,30 @@ function FocusTrapDemo() {
         >
           <button type="button" style={BUTTON_RESET}>
             <View backgroundColor="$color3" padding="$2" borderRadius="$2">
-              <Text fontFamily="$body" fontSize="$3">Focusable 1</Text>
+              <Text fontFamily="$body" fontSize="$3">
+                Focusable 1
+              </Text>
             </View>
           </button>
           <button type="button" style={BUTTON_RESET}>
             <View backgroundColor="$color3" padding="$2" borderRadius="$2">
-              <Text fontFamily="$body" fontSize="$3">Focusable 2</Text>
+              <Text fontFamily="$body" fontSize="$3">
+                Focusable 2
+              </Text>
             </View>
           </button>
           <button type="button" style={BUTTON_RESET}>
             <View backgroundColor="$color3" padding="$2" borderRadius="$2">
-              <Text fontFamily="$body" fontSize="$3">Focusable 3</Text>
+              <Text fontFamily="$body" fontSize="$3">
+                Focusable 3
+              </Text>
             </View>
           </button>
         </View>
         <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
-          {active ? 'Trap is active — Tab and Shift+Tab cycle within the box.' : 'Trap is inactive — focus moves normally.'}
+          {active
+            ? 'Trap is active — Tab and Shift+Tab cycle within the box.'
+            : 'Trap is inactive — focus moves normally.'}
         </Text>
       </YStack>
     </DemoCard>
@@ -111,16 +130,11 @@ function KeyboardNavDemo() {
   const [hasFocus, setHasFocus] = useState(false)
   const itemRefs = useRef<(HTMLElement | null)[]>([])
 
-  const handleKeyDown = useKeyboardNavigation(
-    items.length,
-    activeIndex,
-    setActiveIndex,
-    {
-      orientation: 'vertical',
-      loop: true,
-      onSelect: (index) => alert(`Selected: ${items[index]}`),
-    },
-  )
+  const handleKeyDown = useKeyboardNavigation(items.length, activeIndex, setActiveIndex, {
+    orientation: 'vertical',
+    loop: true,
+    onSelect: (index) => alert(`Selected: ${items[index]}`),
+  })
 
   useEffect(() => {
     if (hasFocus) {
@@ -146,7 +160,9 @@ function KeyboardNavDemo() {
           {items.map((item, i) => (
             <View
               key={item}
-              ref={(el: HTMLElement | null) => { itemRefs.current[i] = el }}
+              ref={(el: HTMLElement | null) => {
+                itemRefs.current[i] = el
+              }}
               role="option"
               aria-selected={i === activeIndex}
               tabIndex={i === activeIndex ? 0 : -1}
@@ -161,7 +177,11 @@ function KeyboardNavDemo() {
               outlineWidth={hasFocus && i === activeIndex ? 2 : 0}
               outlineColor="$color10"
             >
-              <Text fontFamily="$body" fontSize="$3" fontWeight={i === activeIndex ? '$3' : '$2'}>
+              <Text
+                fontFamily="$body"
+                fontSize="$3"
+                fontWeight={i === activeIndex ? '$3' : '$2'}
+              >
                 {item}
               </Text>
             </View>
@@ -178,9 +198,7 @@ function KeyboardNavDemo() {
 export function HooksPage() {
   return (
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
-      <Heading level={1}>
-        Hooks
-      </Heading>
+      <Heading level={1}>Hooks</Heading>
       <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
         Reusable behavioral hooks for building custom components.
       </Text>

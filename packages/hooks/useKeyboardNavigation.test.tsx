@@ -1,5 +1,5 @@
+import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
 import { useKeyboardNavigation } from './useKeyboardNavigation'
 
 function NavigationFixture({
@@ -149,9 +149,7 @@ describe('useKeyboardNavigation', () => {
 
   describe('horizontal orientation', () => {
     it('moves right with ArrowRight', () => {
-      const { getByTestId } = render(
-        <NavigationFixture orientation="horizontal" />
-      )
+      const { getByTestId } = render(<NavigationFixture orientation="horizontal" />)
       const container = getByTestId('container')
       container.focus()
 
@@ -161,9 +159,7 @@ describe('useKeyboardNavigation', () => {
     })
 
     it('moves left with ArrowLeft', () => {
-      const { getByTestId } = render(
-        <NavigationFixture orientation="horizontal" />
-      )
+      const { getByTestId } = render(<NavigationFixture orientation="horizontal" />)
       const container = getByTestId('container')
       container.focus()
 

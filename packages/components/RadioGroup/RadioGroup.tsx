@@ -1,12 +1,18 @@
+import { RadioGroup as TamaguiRadioGroup } from '@tamagui/radio-group'
 import React from 'react'
 import type { ComponentType } from 'react'
 import { XStack, YStack } from 'tamagui'
-import { RadioGroup as TamaguiRadioGroup } from '@tamagui/radio-group'
 
 // Tamagui v2 RC GetProps bug — cast for JSX usage
-const RadioGroupRoot = TamaguiRadioGroup as unknown as ComponentType<Record<string, unknown>>
-const RadioGroupItem = TamaguiRadioGroup.Item as unknown as ComponentType<Record<string, unknown>>
-const RadioGroupIndicator = TamaguiRadioGroup.Indicator as unknown as ComponentType<Record<string, unknown>>
+const RadioGroupRoot = TamaguiRadioGroup as unknown as ComponentType<
+  Record<string, unknown>
+>
+const RadioGroupItem = TamaguiRadioGroup.Item as unknown as ComponentType<
+  Record<string, unknown>
+>
+const RadioGroupIndicator = TamaguiRadioGroup.Indicator as unknown as ComponentType<
+  Record<string, unknown>
+>
 
 const SIZE_MAP = { sm: '$3' as const, md: '$4' as const, lg: '$5' as const }
 
@@ -49,9 +55,7 @@ function Root({
         aria-label={ariaLabel}
       >
         {/* @ts-expect-error Tamagui v2 RC */}
-        <Container gap="$2">
-          {children}
-        </Container>
+        <Container gap="$2">{children}</Container>
       </RadioGroupRoot>
     </RadioGroupSizeContext.Provider>
   )
@@ -95,10 +99,7 @@ function Item({
           outlineStyle: 'solid',
         }}
       >
-        <RadioGroupIndicator
-          backgroundColor="$color10"
-          borderRadius={1000}
-        />
+        <RadioGroupIndicator backgroundColor="$color10" borderRadius={1000} />
       </RadioGroupItem>
       {children}
     </label>

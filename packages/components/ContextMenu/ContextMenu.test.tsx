@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { ContextMenu } from './ContextMenu'
 
@@ -12,7 +11,7 @@ describe('ContextMenu', () => {
         <ContextMenu.Content>
           <ContextMenu.Item>Copy</ContextMenu.Item>
         </ContextMenu.Content>
-      </ContextMenu.Root>
+      </ContextMenu.Root>,
     )
     expect(screen.getByText('Right click here')).toBeTruthy()
   })
@@ -27,14 +26,16 @@ describe('ContextMenu', () => {
         <ContextMenu.Content>
           <ContextMenu.Item>Copy</ContextMenu.Item>
         </ContextMenu.Content>
-      </ContextMenu.Root>
+      </ContextMenu.Root>,
     )
   })
 
   it('renders without errors with all sub-components', () => {
     render(
       <ContextMenu.Root>
-        <ContextMenu.Trigger><div>Trigger</div></ContextMenu.Trigger>
+        <ContextMenu.Trigger>
+          <div>Trigger</div>
+        </ContextMenu.Trigger>
         <ContextMenu.Content>
           <ContextMenu.Label>Actions</ContextMenu.Label>
           <ContextMenu.Item>Cut</ContextMenu.Item>
@@ -43,7 +44,7 @@ describe('ContextMenu', () => {
             Bold
           </ContextMenu.CheckboxItem>
         </ContextMenu.Content>
-      </ContextMenu.Root>
+      </ContextMenu.Root>,
     )
     expect(screen.getByText('Trigger')).toBeTruthy()
   })

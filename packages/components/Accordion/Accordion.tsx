@@ -1,14 +1,27 @@
-import React from 'react'
+import { Accordion as TamaguiAccordion } from '@tamagui/accordion'
+import type React from 'react'
 import type { ComponentType } from 'react'
 import { Text, styled } from 'tamagui'
-import { Accordion as TamaguiAccordion } from '@tamagui/accordion'
+
+type AnyFC = ComponentType<Record<string, unknown>>
+const TextJsx = Text as AnyFC
 
 // Cast for JSX usage — Tamagui v2 RC GetFinalProps bug
-const TamaguiAccordionJsx = TamaguiAccordion as ComponentType<Record<string, unknown>>
-const TamaguiAccordionItemJsx = TamaguiAccordion.Item as ComponentType<Record<string, unknown>>
-const TamaguiAccordionHeaderJsx = TamaguiAccordion.Header as ComponentType<Record<string, unknown>>
-const TamaguiAccordionTriggerJsx = TamaguiAccordion.Trigger as ComponentType<Record<string, unknown>>
-const TamaguiAccordionContentJsx = TamaguiAccordion.Content as ComponentType<Record<string, unknown>>
+const TamaguiAccordionJsx = TamaguiAccordion as unknown as ComponentType<
+  Record<string, unknown>
+>
+const TamaguiAccordionItemJsx = TamaguiAccordion.Item as unknown as ComponentType<
+  Record<string, unknown>
+>
+const TamaguiAccordionHeaderJsx = TamaguiAccordion.Header as ComponentType<
+  Record<string, unknown>
+>
+const TamaguiAccordionTriggerJsx = TamaguiAccordion.Trigger as ComponentType<
+  Record<string, unknown>
+>
+const TamaguiAccordionContentJsx = TamaguiAccordion.Content as ComponentType<
+  Record<string, unknown>
+>
 
 // @ts-expect-error Tamagui v2 RC
 const TriggerText = styled(Text, {
@@ -34,11 +47,7 @@ function Root({
 }: AccordionRootProps) {
   if (type === 'multiple') {
     return (
-      <TamaguiAccordionJsx
-        type="multiple"
-        defaultValue={defaultValue}
-        width="100%"
-      >
+      <TamaguiAccordionJsx type="multiple" defaultValue={defaultValue} width="100%">
         {children}
       </TamaguiAccordionJsx>
     )
@@ -109,7 +118,7 @@ function Trigger({ children }: AccordionTriggerProps) {
           <>
             {/* @ts-expect-error Tamagui v2 RC */}
             <TriggerText>{children}</TriggerText>
-            <Text
+            <TextJsx
               color="$colorSubtitle"
               fontSize="$2"
               style={{
@@ -119,7 +128,7 @@ function Trigger({ children }: AccordionTriggerProps) {
               }}
             >
               {'\u25BE'}
-            </Text>
+            </TextJsx>
           </>
         )}
       </TamaguiAccordionTriggerJsx>
@@ -133,11 +142,7 @@ export interface AccordionContentProps {
 
 function Content({ children }: AccordionContentProps) {
   return (
-    <TamaguiAccordionContentJsx
-      unstyled
-      paddingBottom="$3"
-      paddingHorizontal={0}
-    >
+    <TamaguiAccordionContentJsx unstyled paddingBottom="$3" paddingHorizontal={0}>
       {children}
     </TamaguiAccordionContentJsx>
   )

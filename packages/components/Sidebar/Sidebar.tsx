@@ -1,7 +1,7 @@
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useState } from 'react'
 import { Text, View } from 'tamagui'
-import { styledHtml } from '@tamagui/web'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
@@ -14,6 +14,49 @@ const GroupLabelH3 = styledHtml('h3', {
   fontFamily: '$body',
   margin: 0,
 } as any) as AnyFC
+
+const SidebarBtn = styledHtml('button', {
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  cursor: 'pointer',
+  alignItems: 'center',
+  justifyContent: 'center',
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const SidebarBtnJsx = SidebarBtn as AnyFC
+
+const MenuItemBtn = styledHtml('button', {
+  display: 'flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  width: '100%',
+  textAlign: 'left',
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: -2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const MenuItemBtnJsx = MenuItemBtn as AnyFC
 
 export interface SidebarRootProps {
   children: React.ReactNode
@@ -84,7 +127,16 @@ function Root({
 
   return (
     <SidebarContext.Provider
-      value={{ open, setOpen, collapsed, collapsible, side, variant, width, collapsedWidth }}
+      value={{
+        open,
+        setOpen,
+        collapsed,
+        collapsible,
+        side,
+        variant,
+        width,
+        collapsedWidth,
+      }}
     >
       <ViewJsx
         flexDirection="column"
@@ -156,11 +208,7 @@ function Footer({ children }: { children: React.ReactNode }) {
 }
 
 function Group({ children }: SidebarGroupProps) {
-  return (
-    <ViewJsx paddingBottom={8}>
-      {children}
-    </ViewJsx>
-  )
+  return <ViewJsx paddingBottom={8}>{children}</ViewJsx>
 }
 
 function GroupLabel({ children }: { children: React.ReactNode }) {
@@ -188,8 +236,8 @@ function SidebarMenu({ children }: { children: React.ReactNode }) {
 
 function MenuItem({ children, active, disabled, onPress }: SidebarMenuItemProps) {
   return (
-    <ViewJsx
-      flexDirection="row"
+    <MenuItemBtnJsx
+      type="button"
       alignItems="center"
       height={36}
       paddingLeft={8}
@@ -199,20 +247,26 @@ function MenuItem({ children, active, disabled, onPress }: SidebarMenuItemProps)
       opacity={disabled ? 0.5 : 1}
       backgroundColor={active ? '$color2' : 'transparent'}
       hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
-      onPress={disabled ? undefined : onPress}
+      onClick={disabled ? undefined : onPress}
+      disabled={disabled}
       role="menuitem"
       aria-disabled={disabled}
       aria-current={active ? 'page' : undefined}
     >
       {children}
-    </ViewJsx>
+    </MenuItemBtnJsx>
   )
 }
 
 function MenuButton({ children, active, disabled, onPress }: SidebarMenuItemProps) {
   return (
     <MenuItem active={active} disabled={disabled} onPress={onPress}>
-      <TextJsx fontSize={14} fontFamily="$body" color="$color" fontWeight={active ? '500' : '400'}>
+      <TextJsx
+        fontSize={14}
+        fontFamily="$body"
+        color="$color"
+        fontWeight={active ? '500' : '400'}
+      >
         {children}
       </TextJsx>
     </MenuItem>
@@ -221,7 +275,14 @@ function MenuButton({ children, active, disabled, onPress }: SidebarMenuItemProp
 
 function SidebarSeparator() {
   return (
-    <ViewJsx height={1} backgroundColor="$borderColor" marginTop={8} marginBottom={8} marginLeft={16} marginRight={16} />
+    <ViewJsx
+      height={1}
+      backgroundColor="$borderColor"
+      marginTop={8}
+      marginBottom={8}
+      marginLeft={16}
+      marginRight={16}
+    />
   )
 }
 
@@ -229,16 +290,13 @@ function Trigger({ children }: { children?: React.ReactNode }) {
   const { open, setOpen } = React.useContext(SidebarContext)
 
   return (
-    <ViewJsx
+    <SidebarBtnJsx
+      type="button"
       width={28}
       height={28}
       borderRadius="$2"
-      alignItems="center"
-      justifyContent="center"
-      cursor="pointer"
       hoverStyle={{ backgroundColor: '$color2' }}
-      onPress={() => setOpen(!open)}
-      role="button"
+      onClick={() => setOpen(!open)}
       aria-label={open ? 'Close sidebar' : 'Open sidebar'}
       aria-expanded={open}
     >
@@ -247,7 +305,7 @@ function Trigger({ children }: { children?: React.ReactNode }) {
           {open ? '\u2630' : '\u2630'}
         </TextJsx>
       )}
-    </ViewJsx>
+    </SidebarBtnJsx>
   )
 }
 

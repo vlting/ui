@@ -1,8 +1,8 @@
+import { ToggleGroup as TamaguiToggleGroup } from '@tamagui/toggle-group'
+import { styledHtml } from '@tamagui/web'
 import React from 'react'
 import type { ComponentType } from 'react'
-import { ToggleGroup as TamaguiToggleGroup } from '@tamagui/toggle-group'
 import { withStaticProperties } from 'tamagui'
-import { styledHtml } from '@tamagui/web'
 
 // --- Standalone Toggle ---
 // Tamagui does not export a standalone Toggle component, so we keep our own
@@ -35,9 +35,9 @@ const ToggleFrame = styledHtml('button', {
     backgroundColor: '$backgroundPress',
   },
 
-  focusWithinStyle: {
+  focusVisibleStyle: {
     outlineWidth: 2,
-    outlineOffset: 1,
+    outlineOffset: 2,
     outlineColor: '$outlineColor',
     outlineStyle: 'solid',
   },
@@ -140,8 +140,12 @@ export function Toggle({
 // - Single/multiple selection modes
 
 // Cast for JSX usage
-const TamaguiToggleGroupJsx = TamaguiToggleGroup as unknown as ComponentType<Record<string, unknown>>
-const TamaguiToggleGroupItemJsx = TamaguiToggleGroup.Item as unknown as ComponentType<Record<string, unknown>>
+const TamaguiToggleGroupJsx = TamaguiToggleGroup as unknown as ComponentType<
+  Record<string, unknown>
+>
+const TamaguiToggleGroupItemJsx = TamaguiToggleGroup.Item as unknown as ComponentType<
+  Record<string, unknown>
+>
 
 // Map named sizes to Tamagui tokens
 const SIZE_TOKEN_MAP: Record<string, string> = {
@@ -173,12 +177,22 @@ function ToggleGroupRoot({
 }: ToggleGroupProps) {
   const sizeToken = SIZE_TOKEN_MAP[size]
 
-  const normalizedValue = value !== undefined
-    ? (Array.isArray(value) ? value : type === 'multiple' ? [value] : value)
-    : undefined
-  const normalizedDefault = defaultValue !== undefined
-    ? (Array.isArray(defaultValue) ? defaultValue : type === 'multiple' ? [defaultValue] : defaultValue)
-    : undefined
+  const normalizedValue =
+    value !== undefined
+      ? Array.isArray(value)
+        ? value
+        : type === 'multiple'
+          ? [value]
+          : value
+      : undefined
+  const normalizedDefault =
+    defaultValue !== undefined
+      ? Array.isArray(defaultValue)
+        ? defaultValue
+        : type === 'multiple'
+          ? [defaultValue]
+          : defaultValue
+      : undefined
 
   if (type === 'multiple') {
     return (

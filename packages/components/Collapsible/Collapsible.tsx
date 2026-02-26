@@ -1,11 +1,15 @@
-import React from 'react'
-import type { ComponentType } from 'react'
 import { Collapsible as TamaguiCollapsible } from '@tamagui/collapsible'
+import type React from 'react'
+import type { ComponentType } from 'react'
 
 // Cast for JSX usage — Tamagui v2 RC GetFinalProps bug
 const TamaguiCollapsibleJsx = TamaguiCollapsible as ComponentType<Record<string, unknown>>
-const TamaguiCollapsibleTriggerJsx = TamaguiCollapsible.Trigger as ComponentType<Record<string, unknown>>
-const TamaguiCollapsibleContentJsx = TamaguiCollapsible.Content as ComponentType<Record<string, unknown>>
+const TamaguiCollapsibleTriggerJsx = TamaguiCollapsible.Trigger as ComponentType<
+  Record<string, unknown>
+>
+const TamaguiCollapsibleContentJsx = TamaguiCollapsible.Content as ComponentType<
+  Record<string, unknown>
+>
 
 export interface CollapsibleRootProps {
   children: React.ReactNode
@@ -51,9 +55,7 @@ export interface CollapsibleContentProps {
 
 function Content({ children }: CollapsibleContentProps) {
   return (
-    <TamaguiCollapsibleContentJsx role="region">
-      {children}
-    </TamaguiCollapsibleContentJsx>
+    <TamaguiCollapsibleContentJsx role="region">{children}</TamaguiCollapsibleContentJsx>
   )
 }
 

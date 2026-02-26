@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '../../../src/__test-utils__/render'
 import { Popover } from './Popover'
 
@@ -13,8 +12,8 @@ describe('Popover', () => {
             Content here
             <Popover.Close>Close</Popover.Close>
           </Popover.Content>
-        </Popover.Root>
-      )
+        </Popover.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -25,7 +24,7 @@ describe('Popover', () => {
         <Popover.Root placement={placement}>
           <Popover.Trigger>Open</Popover.Trigger>
           <Popover.Content>Content</Popover.Content>
-        </Popover.Root>
+        </Popover.Root>,
       )
       unmount()
     }
@@ -37,8 +36,8 @@ describe('Popover', () => {
         <Popover.Root defaultOpen>
           <Popover.Trigger>Open</Popover.Trigger>
           <Popover.Content>Content</Popover.Content>
-        </Popover.Root>
-      )
+        </Popover.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -49,8 +48,8 @@ describe('Popover', () => {
           <Popover.Anchor>Anchor</Popover.Anchor>
           <Popover.Trigger>Open</Popover.Trigger>
           <Popover.Content>Content</Popover.Content>
-        </Popover.Root>
-      )
+        </Popover.Root>,
+      ),
     ).not.toThrow()
   })
 })

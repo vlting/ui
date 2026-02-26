@@ -1,3 +1,4 @@
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Text, View } from 'tamagui'
@@ -5,6 +6,48 @@ import { Text, View } from 'tamagui'
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
+
+const TriggerBtn = styledHtml('button', {
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  cursor: 'pointer',
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const TriggerBtnJsx = TriggerBtn as AnyFC
+
+const MenuItemBtn = styledHtml('button', {
+  display: 'flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  width: '100%',
+  textAlign: 'left',
+  focusVisibleStyle: {
+    backgroundColor: '$color2',
+    outlineWidth: 2,
+    outlineOffset: -2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const MenuItemBtnJsx = MenuItemBtn as AnyFC
 
 export interface DropdownMenuRootProps {
   children: React.ReactNode
@@ -34,7 +77,12 @@ const DropdownMenuContext = React.createContext<{
   triggerRef: React.RefObject<HTMLElement | null>
 }>({ open: false, setOpen: () => {}, close: () => {}, triggerRef: { current: null } })
 
-function Root({ children, open: controlledOpen, onOpenChange, modal }: DropdownMenuRootProps) {
+function Root({
+  children,
+  open: controlledOpen,
+  onOpenChange,
+  modal,
+}: DropdownMenuRootProps) {
   const [internalOpen, setInternalOpen] = useState(false)
   const open = controlledOpen ?? internalOpen
   const triggerRef = useRef<HTMLElement | null>(null)
@@ -90,24 +138,16 @@ function Trigger({ children }: { children: React.ReactNode }) {
   )
 
   return (
-    <ViewJsx
+    <TriggerBtnJsx
       ref={triggerRef}
-      onPress={() => setOpen(!open)}
-      display="inline-flex"
-      cursor="pointer"
+      type="button"
+      onClick={() => setOpen(!open)}
       aria-haspopup="menu"
       aria-expanded={open}
-      tabIndex={0}
       onKeyDown={handleKeyDown}
-      focusVisibleStyle={{
-        outlineWidth: 2,
-        outlineOffset: 2,
-        outlineColor: '$outlineColor',
-        outlineStyle: 'solid',
-      }}
     >
       {children}
-    </ViewJsx>
+    </TriggerBtnJsx>
   )
 }
 
@@ -120,7 +160,9 @@ function Content({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (open && contentRef.current) {
       setFocusedIndex(0)
-      const items = contentRef.current.querySelectorAll('[role="menuitem"], [role="menuitemcheckbox"]')
+      const items = contentRef.current.querySelectorAll(
+        '[role="menuitem"], [role="menuitemcheckbox"]',
+      )
       if (items.length > 0) {
         ;(items[0] as HTMLElement).focus()
       }
@@ -134,7 +176,9 @@ function Content({ children }: { children: React.ReactNode }) {
       if (!container) return
 
       const items = Array.from(
-        container.querySelectorAll('[role="menuitem"]:not([aria-disabled="true"]), [role="menuitemcheckbox"]:not([aria-disabled="true"])'),
+        container.querySelectorAll(
+          '[role="menuitem"]:not([aria-disabled="true"]), [role="menuitemcheckbox"]:not([aria-disabled="true"])',
+        ),
       ) as HTMLElement[]
       if (items.length === 0) return
 
@@ -205,8 +249,8 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
   )
 
   return (
-    <ViewJsx
-      flexDirection="row"
+    <MenuItemBtnJsx
+      type="button"
       alignItems="center"
       justifyContent="space-between"
       height={32}
@@ -216,7 +260,8 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
-      onPress={
+      disabled={disabled}
+      onClick={
         disabled
           ? undefined
           : () => {
@@ -228,13 +273,6 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
       aria-disabled={disabled}
       tabIndex={-1}
       onKeyDown={handleKeyDown}
-      focusVisibleStyle={{
-        backgroundColor: '$color2',
-        outlineWidth: 2,
-        outlineOffset: -2,
-        outlineColor: '$outlineColor',
-        outlineStyle: 'solid',
-      }}
     >
       <TextJsx fontSize={14} fontFamily="$body" color="$color">
         {children}
@@ -244,11 +282,16 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
           {shortcut}
         </TextJsx>
       )}
-    </ViewJsx>
+    </MenuItemBtnJsx>
   )
 }
 
-function CheckboxItem({ children, checked, onCheckedChange, disabled }: DropdownMenuCheckboxItemProps) {
+function CheckboxItem({
+  children,
+  checked,
+  onCheckedChange,
+  disabled,
+}: DropdownMenuCheckboxItemProps) {
   const { close } = React.useContext(DropdownMenuContext)
 
   const handleKeyDown = useCallback(
@@ -263,8 +306,8 @@ function CheckboxItem({ children, checked, onCheckedChange, disabled }: Dropdown
   )
 
   return (
-    <ViewJsx
-      flexDirection="row"
+    <MenuItemBtnJsx
+      type="button"
       alignItems="center"
       height={32}
       paddingLeft={8}
@@ -273,7 +316,8 @@ function CheckboxItem({ children, checked, onCheckedChange, disabled }: Dropdown
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
-      onPress={
+      disabled={disabled}
+      onClick={
         disabled
           ? undefined
           : () => {
@@ -285,26 +329,32 @@ function CheckboxItem({ children, checked, onCheckedChange, disabled }: Dropdown
       aria-checked={checked}
       tabIndex={-1}
       onKeyDown={handleKeyDown}
-      focusVisibleStyle={{
-        backgroundColor: '$color2',
-        outlineWidth: 2,
-        outlineOffset: -2,
-        outlineColor: '$outlineColor',
-        outlineStyle: 'solid',
-      }}
     >
       <ViewJsx width={16} alignItems="center">
-        {checked && <TextJsx fontSize={12} color="$color">{'\u2713'}</TextJsx>}
+        {checked && (
+          <TextJsx fontSize={12} color="$color">
+            {'\u2713'}
+          </TextJsx>
+        )}
       </ViewJsx>
       <TextJsx fontSize={14} fontFamily="$body" color="$color">
         {children}
       </TextJsx>
-    </ViewJsx>
+    </MenuItemBtnJsx>
   )
 }
 
 function Separator() {
-  return <ViewJsx height={1} backgroundColor="$borderColor" marginTop={4} marginBottom={4} marginLeft={-4} marginRight={-4} />
+  return (
+    <ViewJsx
+      height={1}
+      backgroundColor="$borderColor"
+      marginTop={4}
+      marginBottom={4}
+      marginLeft={-4}
+      marginRight={-4}
+    />
+  )
 }
 
 function Label({ children }: { children: React.ReactNode }) {
@@ -317,4 +367,12 @@ function Label({ children }: { children: React.ReactNode }) {
   )
 }
 
-export const DropdownMenu = { Root, Trigger, Content, Item, CheckboxItem, Separator, Label }
+export const DropdownMenu = {
+  Root,
+  Trigger,
+  Content,
+  Item,
+  CheckboxItem,
+  Separator,
+  Label,
+}

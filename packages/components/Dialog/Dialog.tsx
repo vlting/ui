@@ -1,7 +1,7 @@
+import { Dialog as TamaguiDialog } from '@tamagui/dialog'
 import type React from 'react'
 import type { ComponentType } from 'react'
 import { Text, View, XStack, styled } from 'tamagui'
-import { Dialog as TamaguiDialog } from '@tamagui/dialog'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
@@ -29,7 +29,9 @@ const DialogPortal = TamaguiDialog.Portal as ComponentType<Record<string, unknow
 const DialogOverlayFrame = TamaguiDialog.Overlay as ComponentType<Record<string, unknown>>
 const DialogContent = TamaguiDialog.Content as ComponentType<Record<string, unknown>>
 const DialogTitleFrame = TamaguiDialog.Title as ComponentType<Record<string, unknown>>
-const DialogDescriptionFrame = TamaguiDialog.Description as ComponentType<Record<string, unknown>>
+const DialogDescriptionFrame = TamaguiDialog.Description as ComponentType<
+  Record<string, unknown>
+>
 const DialogClose = TamaguiDialog.Close as ComponentType<Record<string, unknown>>
 const TitleText = StyledTitle as ComponentType<Record<string, unknown>>
 const DescText = StyledDescription as ComponentType<Record<string, unknown>>
@@ -141,4 +143,14 @@ function Footer({ children }: { children: React.ReactNode }) {
   )
 }
 
-export const Dialog = { Root, Trigger, Overlay, Content, Title, Description, Close, Header, Footer }
+export const Dialog = {
+  Root,
+  Trigger,
+  Overlay,
+  Content,
+  Title,
+  Description,
+  Close,
+  Header,
+  Footer,
+}

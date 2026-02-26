@@ -1,6 +1,6 @@
-import type { ComponentType } from 'react'
-import React from 'react'
 import { styledHtml } from '@tamagui/web'
+import type { ComponentType } from 'react'
+import type React from 'react'
 
 const SelectFrame = styledHtml('select', {
   display: 'flex',
@@ -15,6 +15,12 @@ const SelectFrame = styledHtml('select', {
   fontFamily: '$body',
   cursor: 'pointer',
   outline: 'none',
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
 
   // Custom arrow via background image
   backgroundImage:

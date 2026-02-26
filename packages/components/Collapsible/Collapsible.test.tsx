@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Collapsible } from './Collapsible'
 
@@ -8,7 +7,7 @@ describe('Collapsible', () => {
       <Collapsible.Root>
         <Collapsible.Trigger>Toggle</Collapsible.Trigger>
         <Collapsible.Content>Content</Collapsible.Content>
-      </Collapsible.Root>
+      </Collapsible.Root>,
     )
     expect(screen.getByText('Toggle')).toBeTruthy()
   })
@@ -19,7 +18,7 @@ describe('Collapsible', () => {
       <Collapsible.Root open>
         <Collapsible.Trigger>Toggle</Collapsible.Trigger>
         <Collapsible.Content>Visible Content</Collapsible.Content>
-      </Collapsible.Root>
+      </Collapsible.Root>,
     )
     expect(screen.getByText('Visible Content')).toBeTruthy()
   })
@@ -29,13 +28,13 @@ describe('Collapsible', () => {
       <Collapsible.Root open={false}>
         <Collapsible.Trigger>Toggle</Collapsible.Trigger>
         <Collapsible.Content>Content</Collapsible.Content>
-      </Collapsible.Root>
+      </Collapsible.Root>,
     )
     rerender(
       <Collapsible.Root open={true}>
         <Collapsible.Trigger>Toggle</Collapsible.Trigger>
         <Collapsible.Content>Content</Collapsible.Content>
-      </Collapsible.Root>
+      </Collapsible.Root>,
     )
     expect(screen.getByText('Toggle')).toBeTruthy()
   })

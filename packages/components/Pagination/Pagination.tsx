@@ -1,4 +1,5 @@
-import React, { type ComponentType } from 'react'
+import type React from 'react'
+import type { ComponentType } from 'react'
 import { Text, XStack, styled } from 'tamagui'
 import { Button, type ButtonProps } from '../Button'
 
@@ -23,13 +24,17 @@ const EllipsisText = styled(Text, {
 
   variants: {
     size: {
+      // @ts-expect-error Tamagui v2 RC
       sm: { fontSize: '$2' },
+      // @ts-expect-error Tamagui v2 RC
       md: { fontSize: '$3' },
+      // @ts-expect-error Tamagui v2 RC
       lg: { fontSize: '$4' },
     },
   } as const,
 
   defaultVariants: {
+    // @ts-expect-error Tamagui v2 RC
     size: 'md',
   },
 })
@@ -225,13 +230,16 @@ function Item({
 
 function Ellipsis({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
   return (
+    // @ts-expect-error Tamagui v2 RC
     <XStack
       alignItems="center"
       justifyContent="center"
       style={{ minWidth: PAGE_BUTTON_MIN_WIDTH[size] }}
     >
       {/* @ts-expect-error Tamagui v2 RC */}
-      <EllipsisText size={size} aria-hidden>...</EllipsisText>
+      <EllipsisText size={size} aria-hidden>
+        ...
+      </EllipsisText>
     </XStack>
   )
 }

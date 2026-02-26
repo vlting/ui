@@ -152,6 +152,41 @@ AI-generated code commonly substitutes generic `<div>` elements for semantic HTM
 - **Minimal nesting**: Components must produce the minimum DOM nodes necessary. Audit rendered output (not just source) to verify.
 - **Compound component wrappers**: Sub-components (e.g., `Button.Text`, `Button.Icon`) should use `styled()` on existing elements, not wrap in additional containers.
 - **Tamagui-specific**: The `tag` prop in `styled()` does NOT change the rendered HTML element in Tamagui v2 RC. Use `styledHtml('button')` or native HTML elements with Tamagui styling wrappers inside.
+- **No layout wrappers inside interactive elements**: `<a>` and `<button>` elements must own their own spacing and layout styles — never delegate padding, margin, gap, or alignment to a child `<div>`, `<View>`, `<XStack>`, `<YStack>`, or `<Stack>`. The extra node inflates the DOM, can interfere with focus behavior, and is semantically wrong (the interactive element should define its own box model).
+
+  **Bad:**
+  ```tsx
+  <a href="/page" style={{ display: 'block' }}>
+    <XStack padding="$2" gap="$1">
+      <Text>Label</Text>
+    </XStack>
+  </a>
+  ```
+  Renders: `<a><div style="padding…"><span>Label</span></div></a>` — unnecessary `<div>`.
+
+  **Good (`asChild` pattern — preferred):**
+  ```tsx
+  <XStack asChild padding="$2" gap="$1">
+    <Link to="/page" style={{ textDecoration: 'none', color: 'inherit' }}>
+      <Text>Label</Text>
+    </Link>
+  </XStack>
+  ```
+  Renders: `<a style="padding…"><span>Label</span></a>` — Tamagui clones the `<Link>`, merges resolved styles onto it, and discards the wrapper. Tokens resolve normally.
+
+  The same pattern works for native elements:
+  ```tsx
+  <XStack asChild padding="$2" gap="$1">
+    <button type="button" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+      <Text>Label</Text>
+    </button>
+  </XStack>
+  ```
+  Renders: `<button style="padding…"><span>Label</span></button>` — no wrapper.
+
+  Use `asChild` whenever a Tamagui layout component wraps a single interactive child (`<a>`, `<button>`, `<Link>`, or any element that must be the outermost DOM node for semantic/accessibility reasons). The Tamagui component provides token-resolved styles; `asChild` ensures they're applied to the child instead of creating a wrapper `<div>`.
+
+  Fallback: for cases where `asChild` isn't supported, use `styledHtml()` for native elements or inline `style` with CSS custom properties for third-party components.
 
 ### Rendered Output Verification
 

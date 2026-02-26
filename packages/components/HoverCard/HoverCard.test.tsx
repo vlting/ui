@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { HoverCard } from './HoverCard'
 
@@ -8,7 +7,7 @@ describe('HoverCard', () => {
       <HoverCard.Root>
         <HoverCard.Trigger>Hover me</HoverCard.Trigger>
         <HoverCard.Content>Card content</HoverCard.Content>
-      </HoverCard.Root>
+      </HoverCard.Root>,
     )
     expect(screen.getByText('Hover me')).toBeTruthy()
   })
@@ -19,7 +18,7 @@ describe('HoverCard', () => {
       <HoverCard.Root>
         <HoverCard.Trigger>Hover me</HoverCard.Trigger>
         <HoverCard.Content>Visible</HoverCard.Content>
-      </HoverCard.Root>
+      </HoverCard.Root>,
     )
   })
 
@@ -28,7 +27,7 @@ describe('HoverCard', () => {
       <HoverCard.Root openDelay={500} closeDelay={200}>
         <HoverCard.Trigger>Hover</HoverCard.Trigger>
         <HoverCard.Content>Content</HoverCard.Content>
-      </HoverCard.Root>
+      </HoverCard.Root>,
     )
     expect(screen.getByText('Hover')).toBeTruthy()
   })

@@ -53,16 +53,13 @@ function PanelGroup({
     return panelIndexRef.current++
   }, [])
 
-  const registerPanel = useCallback(
-    (index: number, defaultSize: number) => {
-      setSizes((prev) => {
-        const next = [...prev]
-        next[index] = defaultSize
-        return next
-      })
-    },
-    [],
-  )
+  const registerPanel = useCallback((index: number, defaultSize: number) => {
+    setSizes((prev) => {
+      const next = [...prev]
+      next[index] = defaultSize
+      return next
+    })
+  }, [])
 
   const onResize = useCallback(
     (handleIndex: number, delta: number) => {
@@ -92,7 +89,9 @@ function PanelGroup({
   const isH = direction === 'horizontal'
 
   return (
-    <ResizableContext.Provider value={{ direction, registerPanel, sizes, onResize, nextPanelIndex }}>
+    <ResizableContext.Provider
+      value={{ direction, registerPanel, sizes, onResize, nextPanelIndex }}
+    >
       <ViewJsx
         flexDirection={isH ? 'row' : 'column'}
         width="100%"
@@ -114,7 +113,7 @@ function Panel({
 }: ResizablePanelProps) {
   const { nextPanelIndex, direction, sizes } = React.useContext(ResizableContext)
   const [index] = useState(() => nextPanelIndex())
-  const size = sizes[index] ?? (defaultSize ?? 50)
+  const size = sizes[index] ?? defaultSize ?? 50
   const isH = direction === 'horizontal'
 
   return (

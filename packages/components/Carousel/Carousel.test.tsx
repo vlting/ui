@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Carousel } from './Carousel'
 
@@ -10,7 +9,7 @@ describe('Carousel', () => {
           <Carousel.Item>Slide 1</Carousel.Item>
           <Carousel.Item>Slide 2</Carousel.Item>
         </Carousel.Content>
-      </Carousel.Root>
+      </Carousel.Root>,
     )
     expect(screen.getByText('Slide 1')).toBeTruthy()
   })
@@ -23,7 +22,7 @@ describe('Carousel', () => {
         </Carousel.Content>
         <Carousel.Previous />
         <Carousel.Next />
-      </Carousel.Root>
+      </Carousel.Root>,
     )
     // Previous and Next buttons should exist
     const buttons = screen.getAllByRole('button')
@@ -38,7 +37,7 @@ describe('Carousel', () => {
           <Carousel.Item>Slide 2</Carousel.Item>
         </Carousel.Content>
         <Carousel.Dots />
-      </Carousel.Root>
+      </Carousel.Root>,
     )
     // Dots should be rendered
     expect(screen.getByText('Slide 1')).toBeTruthy()
@@ -51,7 +50,7 @@ describe('Carousel', () => {
         <Carousel.Content>
           <Carousel.Item>Slide</Carousel.Item>
         </Carousel.Content>
-      </Carousel.Root>
+      </Carousel.Root>,
     )
     expect(screen.getByRole('region')).toBeTruthy()
   })

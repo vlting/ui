@@ -1,7 +1,18 @@
-import React, { useState } from 'react'
-import { YStack, XStack, Text, View } from 'tamagui'
-import { Accordion, AlertDialog, Collapsible, Table, Breadcrumb, Form, Button, Input, Pagination, Heading } from '@vlting/ui'
-import { Section, DemoCard } from '../components/Section'
+import {
+  Accordion,
+  AlertDialog,
+  Breadcrumb,
+  Button,
+  Collapsible,
+  Form,
+  Heading,
+  Input,
+  Pagination,
+  Table,
+} from '@vlting/ui'
+import { useState } from 'react'
+import { Text, View, XStack, YStack } from 'tamagui'
+import { DemoCard, Section } from '../components/Section'
 
 function AccordionDemo() {
   return (
@@ -21,7 +32,8 @@ function AccordionDemo() {
           <Accordion.Content>
             <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
               Themes are built with a 12-step palette system using @tamagui/theme-builder.
-              Brand configs drive all visual tokens including color, typography, and spacing.
+              Brand configs drive all visual tokens including color, typography, and
+              spacing.
             </Text>
           </Accordion.Content>
         </Accordion.Item>
@@ -81,11 +93,15 @@ function BreadcrumbDemo() {
     <DemoCard label="3-level navigation breadcrumb">
       <Breadcrumb.Root>
         <Breadcrumb.Item>
-          <Breadcrumb.Link href="#" onPress={() => {}}>Home</Breadcrumb.Link>
+          <Breadcrumb.Link href="#" onPress={() => {}}>
+            Home
+          </Breadcrumb.Link>
         </Breadcrumb.Item>
         <Breadcrumb.Separator />
         <Breadcrumb.Item>
-          <Breadcrumb.Link href="#" onPress={() => {}}>Projects</Breadcrumb.Link>
+          <Breadcrumb.Link href="#" onPress={() => {}}>
+            Projects
+          </Breadcrumb.Link>
         </Breadcrumb.Item>
         <Breadcrumb.Separator />
         <Breadcrumb.Item>
@@ -108,7 +124,9 @@ function CollapsibleDemo() {
             borderRadius="$3"
             cursor="pointer"
           >
-            <Text fontFamily="$body" fontSize="$3">Toggle Details</Text>
+            <Text fontFamily="$body" fontSize="$3">
+              Toggle Details
+            </Text>
           </View>
         </Collapsible.Trigger>
         <Collapsible.Content>
@@ -119,8 +137,8 @@ function CollapsibleDemo() {
               open, defaultOpen, and onOpenChange props.
             </Text>
             <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
-              Use collapsible sections for progressive disclosure — showing users only
-              the information they need, when they need it.
+              Use collapsible sections for progressive disclosure — showing users only the
+              information they need, when they need it.
             </Text>
           </YStack>
         </Collapsible.Content>
@@ -172,10 +190,15 @@ const ALL_TEAM_MEMBERS = [
   { name: 'Iris Tanaka', role: 'Data Scientist', status: 'On Leave', hours: 0 },
   { name: 'Jack Wilson', role: 'Security Engineer', status: 'Active', hours: 41 },
   { name: 'Karen Lopez', role: 'UX Researcher', status: 'Active', hours: 35 },
-  { name: 'Liam O\'Brien', role: 'Mobile Developer', status: 'Active', hours: 39 },
+  { name: "Liam O'Brien", role: 'Mobile Developer', status: 'Active', hours: 39 },
   { name: 'Maya Rodriguez', role: 'Technical Writer', status: 'Active', hours: 32 },
   { name: 'Nathan Park', role: 'Infrastructure Engineer', status: 'Active', hours: 43 },
-  { name: 'Olivia Turner', role: 'Accessibility Specialist', status: 'Active', hours: 36 },
+  {
+    name: 'Olivia Turner',
+    role: 'Accessibility Specialist',
+    status: 'Active',
+    hours: 36,
+  },
 ]
 
 const ROWS_PER_PAGE = 5
@@ -213,7 +236,9 @@ function TableDemo() {
             <Table.Cell fontWeight="600">Page total</Table.Cell>
             <Table.Cell />
             <Table.Cell />
-            <Table.Cell textAlign="right" fontWeight="600">{totalHours}</Table.Cell>
+            <Table.Cell textAlign="right" fontWeight="600">
+              {totalHours}
+            </Table.Cell>
           </Table.Row>
         </Table.Footer>
       </Table.Root>
@@ -232,9 +257,7 @@ function TableDemo() {
 export function ComposedPage() {
   return (
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
-      <Heading level={1}>
-        Composed
-      </Heading>
+      <Heading level={1}>Composed</Heading>
       <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
         Complex multi-part components built from primitives.
       </Text>

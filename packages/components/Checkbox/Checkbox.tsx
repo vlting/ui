@@ -1,7 +1,7 @@
-import React from 'react'
+import { Checkbox as TamaguiCheckbox } from '@tamagui/checkbox'
+import type React from 'react'
 import type { ComponentType } from 'react'
 import { Text, styled } from 'tamagui'
-import { Checkbox as TamaguiCheckbox } from '@tamagui/checkbox'
 
 // @ts-expect-error Tamagui v2 RC
 const CheckIcon = styled(Text, {
@@ -13,7 +13,9 @@ const CheckIcon = styled(Text, {
 
 // Tamagui v2 RC GetProps bug — cast for JSX usage
 const CheckboxButton = TamaguiCheckbox as ComponentType<Record<string, unknown>>
-const CheckboxIndicator = TamaguiCheckbox.Indicator as ComponentType<Record<string, unknown>>
+const CheckboxIndicator = TamaguiCheckbox.Indicator as ComponentType<
+  Record<string, unknown>
+>
 const CheckIconText = CheckIcon as ComponentType<Record<string, unknown>>
 
 const SIZE_MAP = { sm: '$3' as const, md: '$4' as const, lg: '$5' as const }

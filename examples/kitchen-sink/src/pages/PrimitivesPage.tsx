@@ -1,28 +1,25 @@
-import React from 'react'
-import { YStack, XStack, Text, View } from 'tamagui'
 import {
   AspectRatio,
   Badge,
   Box,
   Divider,
-  Heading,
   HStack,
+  Heading,
   Label,
-  Separator as VSeparator,
   Skeleton,
   Spacer,
+  Separator as VSeparator,
+  VStack,
   Text as VText,
   VisuallyHidden,
-  VStack,
 } from '@vlting/ui'
-import { Section, DemoCard } from '../components/Section'
+import { Text, View, XStack, YStack } from 'tamagui'
+import { DemoCard, Section } from '../components/Section'
 
 export function PrimitivesPage() {
   return (
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
-      <Heading level={1}>
-        Primitives
-      </Heading>
+      <Heading level={1}>Primitives</Heading>
       <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
         Layer 1 — basic building blocks.
       </Text>
@@ -39,7 +36,9 @@ export function PrimitivesPage() {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Text fontFamily="$body" fontSize="$3">1:1</Text>
+                <Text fontFamily="$body" fontSize="$3">
+                  1:1
+                </Text>
               </View>
             </AspectRatio>
           </DemoCard>
@@ -53,7 +52,9 @@ export function PrimitivesPage() {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Text fontFamily="$body" fontSize="$3">16:9</Text>
+                <Text fontFamily="$body" fontSize="$3">
+                  16:9
+                </Text>
               </View>
             </AspectRatio>
           </DemoCard>
@@ -79,18 +80,38 @@ export function PrimitivesPage() {
                 <Badge tone="danger">Danger</Badge>
               </XStack>
               <XStack gap="$2" flexWrap="wrap" alignItems="center">
-                <Badge variant="outline" tone="neutral">Neutral</Badge>
-                <Badge variant="outline" tone="primary">Primary</Badge>
-                <Badge variant="outline" tone="success">Success</Badge>
-                <Badge variant="outline" tone="warning">Warning</Badge>
-                <Badge variant="outline" tone="danger">Danger</Badge>
+                <Badge variant="outline" tone="neutral">
+                  Neutral
+                </Badge>
+                <Badge variant="outline" tone="primary">
+                  Primary
+                </Badge>
+                <Badge variant="outline" tone="success">
+                  Success
+                </Badge>
+                <Badge variant="outline" tone="warning">
+                  Warning
+                </Badge>
+                <Badge variant="outline" tone="danger">
+                  Danger
+                </Badge>
               </XStack>
               <XStack gap="$2" flexWrap="wrap" alignItems="center">
-                <Badge variant="subtle" tone="neutral">Neutral</Badge>
-                <Badge variant="subtle" tone="primary">Primary</Badge>
-                <Badge variant="subtle" tone="success">Success</Badge>
-                <Badge variant="subtle" tone="warning">Warning</Badge>
-                <Badge variant="subtle" tone="danger">Danger</Badge>
+                <Badge variant="subtle" tone="neutral">
+                  Neutral
+                </Badge>
+                <Badge variant="subtle" tone="primary">
+                  Primary
+                </Badge>
+                <Badge variant="subtle" tone="success">
+                  Success
+                </Badge>
+                <Badge variant="subtle" tone="warning">
+                  Warning
+                </Badge>
+                <Badge variant="subtle" tone="danger">
+                  Danger
+                </Badge>
               </XStack>
             </YStack>
           </DemoCard>
@@ -112,7 +133,13 @@ export function PrimitivesPage() {
             </Box>
           </DemoCard>
           <DemoCard label="Centered">
-            <Box centered padding="$6" backgroundColor="$color2" borderRadius="$3" minHeight={100}>
+            <Box
+              centered
+              padding="$6"
+              backgroundColor="$color2"
+              borderRadius="$3"
+              minHeight={100}
+            >
               <Text fontFamily="$body">Centered content</Text>
             </Box>
           </DemoCard>
@@ -122,13 +149,21 @@ export function PrimitivesPage() {
       <Section title="Divider">
         <DemoCard label="Horizontal & Vertical">
           <YStack gap="$3">
-            <Text fontFamily="$body" fontSize="$3">Above divider</Text>
+            <Text fontFamily="$body" fontSize="$3">
+              Above divider
+            </Text>
             <Divider />
-            <Text fontFamily="$body" fontSize="$3">Below divider</Text>
+            <Text fontFamily="$body" fontSize="$3">
+              Below divider
+            </Text>
             <XStack gap="$3" alignItems="center" height={60}>
-              <Text fontFamily="$body" fontSize="$3">Left</Text>
+              <Text fontFamily="$body" fontSize="$3">
+                Left
+              </Text>
               <Divider orientation="vertical" />
-              <Text fontFamily="$body" fontSize="$3">Right</Text>
+              <Text fontFamily="$body" fontSize="$3">
+                Right
+              </Text>
             </XStack>
           </YStack>
         </DemoCard>
@@ -171,16 +206,24 @@ export function PrimitivesPage() {
         <XStack gap="$3" flexWrap="wrap">
           <DemoCard label="Horizontal">
             <YStack gap="$3">
-              <Text fontFamily="$body" fontSize="$3">Content above</Text>
+              <Text fontFamily="$body" fontSize="$3">
+                Content above
+              </Text>
               <VSeparator orientation="horizontal" />
-              <Text fontFamily="$body" fontSize="$3">Content below</Text>
+              <Text fontFamily="$body" fontSize="$3">
+                Content below
+              </Text>
             </YStack>
           </DemoCard>
           <DemoCard label="Vertical">
             <XStack gap="$3" alignItems="center" height={60}>
-              <Text fontFamily="$body" fontSize="$3">Left</Text>
+              <Text fontFamily="$body" fontSize="$3">
+                Left
+              </Text>
               <VSeparator orientation="vertical" />
-              <Text fontFamily="$body" fontSize="$3">Right</Text>
+              <Text fontFamily="$body" fontSize="$3">
+                Right
+              </Text>
             </XStack>
           </DemoCard>
           <DemoCard label="Decorative">
@@ -212,10 +255,19 @@ export function PrimitivesPage() {
 
       <Section title="Spacer">
         <DemoCard label="Between elements">
-          <HStack alignItems="center" backgroundColor="$color2" borderRadius="$3" padding="$2">
-            <Text fontFamily="$body" fontSize="$3">Start</Text>
+          <HStack
+            alignItems="center"
+            backgroundColor="$color2"
+            borderRadius="$3"
+            padding="$2"
+          >
+            <Text fontFamily="$body" fontSize="$3">
+              Start
+            </Text>
             <Spacer />
-            <Text fontFamily="$body" fontSize="$3">End</Text>
+            <Text fontFamily="$body" fontSize="$3">
+              End
+            </Text>
           </HStack>
         </DemoCard>
       </Section>
@@ -225,26 +277,38 @@ export function PrimitivesPage() {
           <DemoCard label="VStack (gap=$3)">
             <VStack gap="$3">
               <View backgroundColor="$color4" padding="$2" borderRadius="$2">
-                <Text fontFamily="$body" fontSize="$2">Item 1</Text>
+                <Text fontFamily="$body" fontSize="$2">
+                  Item 1
+                </Text>
               </View>
               <View backgroundColor="$color4" padding="$2" borderRadius="$2">
-                <Text fontFamily="$body" fontSize="$2">Item 2</Text>
+                <Text fontFamily="$body" fontSize="$2">
+                  Item 2
+                </Text>
               </View>
               <View backgroundColor="$color4" padding="$2" borderRadius="$2">
-                <Text fontFamily="$body" fontSize="$2">Item 3</Text>
+                <Text fontFamily="$body" fontSize="$2">
+                  Item 3
+                </Text>
               </View>
             </VStack>
           </DemoCard>
           <DemoCard label="HStack (gap=$3)">
             <HStack gap="$3">
               <View backgroundColor="$color4" padding="$2" borderRadius="$2">
-                <Text fontFamily="$body" fontSize="$2">A</Text>
+                <Text fontFamily="$body" fontSize="$2">
+                  A
+                </Text>
               </View>
               <View backgroundColor="$color4" padding="$2" borderRadius="$2">
-                <Text fontFamily="$body" fontSize="$2">B</Text>
+                <Text fontFamily="$body" fontSize="$2">
+                  B
+                </Text>
               </View>
               <View backgroundColor="$color4" padding="$2" borderRadius="$2">
-                <Text fontFamily="$body" fontSize="$2">C</Text>
+                <Text fontFamily="$body" fontSize="$2">
+                  C
+                </Text>
               </View>
             </HStack>
           </DemoCard>

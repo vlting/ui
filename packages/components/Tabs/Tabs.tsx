@@ -1,13 +1,17 @@
-import React from 'react'
+import { Tabs as TamaguiTabs, useTabsContext } from '@tamagui/tabs'
+import type React from 'react'
 import type { ComponentType } from 'react'
 import { Text, View, styled } from 'tamagui'
-import { Tabs as TamaguiTabs, useTabsContext } from '@tamagui/tabs'
 
 // Cast for JSX usage — Tamagui v2 RC GetFinalProps bug
 const TamaguiTabsJsx = TamaguiTabs as ComponentType<Record<string, unknown>>
 const TamaguiTabsListJsx = TamaguiTabs.List as ComponentType<Record<string, unknown>>
-const TamaguiTabsTabJsx = TamaguiTabs.Tab as unknown as ComponentType<Record<string, unknown>>
-const TamaguiTabsContentJsx = TamaguiTabs.Content as unknown as ComponentType<Record<string, unknown>>
+const TamaguiTabsTabJsx = TamaguiTabs.Tab as unknown as ComponentType<
+  Record<string, unknown>
+>
+const TamaguiTabsContentJsx = TamaguiTabs.Content as unknown as ComponentType<
+  Record<string, unknown>
+>
 
 // Map named sizes to padding values
 const SIZE_PADDING_MAP: Record<string, { h: string; v: string }> = {
@@ -22,12 +26,17 @@ const StyledTriggerText = styled(Text, {
 
   variants: {
     active: {
+      // @ts-expect-error Tamagui v2 RC
       true: { color: '$color10' },
+      // @ts-expect-error Tamagui v2 RC
       false: { color: '$colorSubtitle' },
     },
     size: {
+      // @ts-expect-error Tamagui v2 RC
       sm: { fontSize: '$2' },
+      // @ts-expect-error Tamagui v2 RC
       md: { fontSize: '$3' },
+      // @ts-expect-error Tamagui v2 RC
       lg: { fontSize: '$4' },
     },
   } as const,
@@ -81,7 +90,12 @@ interface StyledTabsTriggerProps {
   size?: 'sm' | 'md' | 'lg'
 }
 
-function Trigger({ children, value: tabValue, disabled, size = 'md' }: StyledTabsTriggerProps) {
+function Trigger({
+  children,
+  value: tabValue,
+  disabled,
+  size = 'md',
+}: StyledTabsTriggerProps) {
   const context = useTabsContext()
   const isSelected = tabValue === context.value
   const padding = SIZE_PADDING_MAP[size]

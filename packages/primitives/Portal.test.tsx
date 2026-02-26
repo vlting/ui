@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../src/__test-utils__/render'
 import { Portal } from './Portal'
 
@@ -7,7 +6,7 @@ describe('Portal', () => {
     render(
       <Portal>
         <div data-testid="portal-child">Portal Content</div>
-      </Portal>
+      </Portal>,
     )
     // Portal renders children — they may be in a portal container
     expect(screen.getByTestId('portal-child')).toBeTruthy()

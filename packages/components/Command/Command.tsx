@@ -1,7 +1,7 @@
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useRef, useState } from 'react'
 import { Text, View } from 'tamagui'
-import { styledHtml } from '@tamagui/web'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
@@ -76,7 +76,9 @@ function Root({ children, filter, loop: _loop }: CommandRootProps) {
   )
 }
 
-function Input({ placeholder = 'Type a command or search...' }: { placeholder?: string }) {
+function Input({
+  placeholder = 'Type a command or search...',
+}: { placeholder?: string }) {
   const { search, setSearch } = React.useContext(CommandContext)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -90,7 +92,9 @@ function Input({ placeholder = 'Type a command or search...' }: { placeholder?: 
       borderBottomWidth={1}
       borderBottomColor="$borderColor"
     >
-      <TextJsx fontSize={14} color="$colorSubtitle" marginRight={8}>{'\u{1F50D}'}</TextJsx>
+      <TextJsx fontSize={14} color="$colorSubtitle" marginRight={8}>
+        {'\u{1F50D}'}
+      </TextJsx>
       <SearchInputJsx
         ref={inputRef}
         value={search}
@@ -127,7 +131,12 @@ function Group({ children, heading }: CommandGroupProps) {
     <ViewJsx>
       {heading && (
         <ViewJsx paddingLeft={8} paddingRight={8} paddingTop={8} paddingBottom={4}>
-          <TextJsx fontSize={12} fontWeight="500" color="$colorSubtitle" fontFamily="$body">
+          <TextJsx
+            fontSize={12}
+            fontWeight="500"
+            color="$colorSubtitle"
+            fontFamily="$body"
+          >
             {heading}
           </TextJsx>
         </ViewJsx>
@@ -156,6 +165,12 @@ function Item({ children, value, onSelect, disabled, keywords }: CommandItemProp
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
+      focusVisibleStyle={{
+        outlineWidth: 2,
+        outlineOffset: -2,
+        outlineColor: '$outlineColor',
+        outlineStyle: 'solid',
+      }}
       onPress={disabled ? undefined : () => onSelect?.(value)}
       role="option"
       aria-disabled={disabled}

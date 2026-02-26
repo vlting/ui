@@ -1,11 +1,33 @@
-import type { ComponentType } from 'react'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
-import { Text, View } from 'tamagui'
 import { styledHtml } from '@tamagui/web'
+import type { ComponentType } from 'react'
+import type React from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
+import { Text, View } from 'tamagui'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
+
+const BtnFrame = styledHtml('button', {
+  display: 'flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  cursor: 'pointer',
+  textAlign: 'left',
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const BtnJsx = BtnFrame as AnyFC
 
 const InputFrame = styledHtml('input', {
   display: 'flex',
@@ -59,10 +81,7 @@ function Root({
   const inputRef = useRef<HTMLInputElement>(null)
 
   const filtered = useMemo(
-    () =>
-      options.filter((o) =>
-        o.label.toLowerCase().includes(search.toLowerCase()),
-      ),
+    () => options.filter((o) => o.label.toLowerCase().includes(search.toLowerCase())),
     [options, search],
   )
 
@@ -101,8 +120,8 @@ function Root({
   return (
     <ViewJsx position="relative" width="100%">
       {/* Trigger */}
-      <ViewJsx
-        flexDirection="row"
+      <BtnJsx
+        type="button"
         alignItems="center"
         justifyContent="space-between"
         height={36}
@@ -114,19 +133,30 @@ function Root({
         backgroundColor="$background"
         cursor={disabled ? 'not-allowed' : 'pointer'}
         opacity={disabled ? 0.5 : 1}
-        onPress={disabled ? undefined : () => {
-          setOpen(!open)
-          setTimeout(() => inputRef.current?.focus(), 0)
-        }}
+        disabled={disabled}
+        onClick={
+          disabled
+            ? undefined
+            : () => {
+                setOpen(!open)
+                setTimeout(() => inputRef.current?.focus(), 0)
+              }
+        }
         role="combobox"
         aria-expanded={open}
         aria-haspopup="listbox"
       >
-        <TextJsx fontSize={14} fontFamily="$body" color={value ? '$color' : '$placeholderColor'}>
+        <TextJsx
+          fontSize={14}
+          fontFamily="$body"
+          color={value ? '$color' : '$placeholderColor'}
+        >
           {selectedLabel ?? placeholder}
         </TextJsx>
-        <TextJsx fontSize={12} color="$colorSubtitle">{open ? '\u25B2' : '\u25BC'}</TextJsx>
-      </ViewJsx>
+        <TextJsx fontSize={12} color="$colorSubtitle">
+          {open ? '\u25B2' : '\u25BC'}
+        </TextJsx>
+      </BtnJsx>
 
       {/* Dropdown */}
       {open && (
@@ -180,22 +210,24 @@ function Root({
                 const isSelected = option.value === value
                 const isHighlighted = i === highlightIndex
                 return (
-                  <ViewJsx
+                  <BtnJsx
                     key={option.value}
-                    flexDirection="row"
+                    type="button"
                     alignItems="center"
+                    width="100%"
                     height={36}
                     paddingLeft={12}
                     paddingRight={12}
-                    cursor="pointer"
                     backgroundColor={isHighlighted ? '$color2' : 'transparent'}
-                    onPress={() => handleSelect(option.value)}
+                    onClick={() => handleSelect(option.value)}
                     role="option"
                     aria-selected={isSelected}
                   >
                     <ViewJsx width={16}>
                       {isSelected && (
-                        <TextJsx fontSize={12} color="$color">{'\u2713'}</TextJsx>
+                        <TextJsx fontSize={12} color="$color">
+                          {'\u2713'}
+                        </TextJsx>
                       )}
                     </ViewJsx>
                     <TextJsx
@@ -206,7 +238,7 @@ function Root({
                     >
                       {option.label}
                     </TextJsx>
-                  </ViewJsx>
+                  </BtnJsx>
                 )
               })
             )}

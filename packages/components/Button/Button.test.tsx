@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Button } from './Button'
 
@@ -22,7 +21,11 @@ describe('Button', () => {
 
   it('is disabled when disabled prop is true', () => {
     const onPress = jest.fn()
-    render(<Button disabled onPress={onPress}>Disabled</Button>)
+    render(
+      <Button disabled onPress={onPress}>
+        Disabled
+      </Button>,
+    )
     const btn = screen.getByRole('button')
     // Tamagui uses aria-disabled instead of native disabled attribute
     expect(btn).toHaveAttribute('aria-disabled', 'true')
@@ -35,7 +38,15 @@ describe('Button', () => {
   })
 
   it('renders each variant without errors', () => {
-    const variants = ['default', 'solid', 'secondary', 'destructive', 'outline', 'ghost', 'link'] as const
+    const variants = [
+      'default',
+      'solid',
+      'secondary',
+      'destructive',
+      'outline',
+      'ghost',
+      'link',
+    ] as const
     for (const variant of variants) {
       const { unmount } = render(<Button variant={variant}>Btn</Button>)
       expect(screen.getByText('Btn')).toBeTruthy()
@@ -53,7 +64,11 @@ describe('Button', () => {
   })
 
   it('renders Button.Text sub-component', () => {
-    render(<Button><Button.Text>Label</Button.Text></Button>)
+    render(
+      <Button>
+        <Button.Text>Label</Button.Text>
+      </Button>,
+    )
     expect(screen.getByText('Label')).toBeTruthy()
   })
 })

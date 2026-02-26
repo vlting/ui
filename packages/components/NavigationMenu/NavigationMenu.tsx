@@ -1,3 +1,4 @@
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useRef, useState } from 'react'
 import { Text, View } from 'tamagui'
@@ -5,6 +6,42 @@ import { Text, View } from 'tamagui'
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
+
+const NavTriggerBtn = styledHtml('button', {
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  cursor: 'pointer',
+  alignItems: 'center',
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const NavTriggerBtnJsx = NavTriggerBtn as AnyFC
+
+const NavLinkAnchor = styledHtml('a', {
+  display: 'flex',
+  flexDirection: 'column',
+  boxSizing: 'border-box',
+  textDecoration: 'none',
+  color: 'inherit',
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: -2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const NavLinkAnchorJsx = NavLinkAnchor as AnyFC
 
 export interface NavigationMenuRootProps {
   children: React.ReactNode
@@ -74,40 +111,43 @@ function Root({ children }: NavigationMenuRootProps) {
 function List({ children }: { children: React.ReactNode }) {
   const listRef = useRef<HTMLDivElement>(null)
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      const container = listRef.current
-      if (!container) return
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    const container = listRef.current
+    if (!container) return
 
-      const triggers = Array.from(
-        container.querySelectorAll('[role="button"][aria-expanded], [role="link"]'),
-      ) as HTMLElement[]
-      if (triggers.length === 0) return
+    const triggers = Array.from(
+      container.querySelectorAll('button[aria-expanded], a'),
+    ) as HTMLElement[]
+    if (triggers.length === 0) return
 
-      const currentIndex = triggers.indexOf(e.target as HTMLElement)
-      if (currentIndex === -1) return
+    const currentIndex = triggers.indexOf(e.target as HTMLElement)
+    if (currentIndex === -1) return
 
-      if (e.key === 'ArrowRight') {
-        e.preventDefault()
-        const next = currentIndex + 1 >= triggers.length ? 0 : currentIndex + 1
-        triggers[next]?.focus()
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault()
-        const prev = currentIndex - 1 < 0 ? triggers.length - 1 : currentIndex - 1
-        triggers[prev]?.focus()
-      } else if (e.key === 'Home') {
-        e.preventDefault()
-        triggers[0]?.focus()
-      } else if (e.key === 'End') {
-        e.preventDefault()
-        triggers[triggers.length - 1]?.focus()
-      }
-    },
-    [],
-  )
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      const next = currentIndex + 1 >= triggers.length ? 0 : currentIndex + 1
+      triggers[next]?.focus()
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      const prev = currentIndex - 1 < 0 ? triggers.length - 1 : currentIndex - 1
+      triggers[prev]?.focus()
+    } else if (e.key === 'Home') {
+      e.preventDefault()
+      triggers[0]?.focus()
+    } else if (e.key === 'End') {
+      e.preventDefault()
+      triggers[triggers.length - 1]?.focus()
+    }
+  }, [])
 
   return (
-    <ViewJsx ref={listRef} flexDirection="row" alignItems="center" gap={2} onKeyDown={handleKeyDown}>
+    <ViewJsx
+      ref={listRef}
+      flexDirection="row"
+      alignItems="center"
+      gap={2}
+      onKeyDown={handleKeyDown}
+    >
       {children}
     </ViewJsx>
   )
@@ -146,27 +186,17 @@ function Trigger({ children }: { children: React.ReactNode }) {
   )
 
   return (
-    <ViewJsx
-      flexDirection="row"
-      alignItems="center"
+    <NavTriggerBtnJsx
+      type="button"
       height={36}
       paddingLeft={12}
       paddingRight={12}
       borderRadius="$3"
-      cursor="pointer"
       backgroundColor={isOpen ? '$color2' : 'transparent'}
       hoverStyle={{ backgroundColor: '$color2' }}
-      onPress={() => setActiveItem(isOpen ? null : value)}
-      role="button"
+      onClick={() => setActiveItem(isOpen ? null : value)}
       aria-expanded={isOpen}
-      tabIndex={0}
       onKeyDown={handleKeyDown}
-      focusVisibleStyle={{
-        outlineWidth: 2,
-        outlineOffset: 2,
-        outlineColor: '$outlineColor',
-        outlineStyle: 'solid',
-      }}
     >
       <TextJsx fontSize={14} fontFamily="$body" fontWeight="500" color="$color">
         {children}
@@ -174,7 +204,7 @@ function Trigger({ children }: { children: React.ReactNode }) {
       <TextJsx fontSize={10} color="$colorSubtitle" marginLeft={4}>
         {isOpen ? '\u25B2' : '\u25BC'}
       </TextJsx>
-    </ViewJsx>
+    </NavTriggerBtnJsx>
   )
 }
 
@@ -188,9 +218,7 @@ function Content({ children }: { children: React.ReactNode }) {
       const container = contentRef.current
       if (!container) return
 
-      const links = Array.from(
-        container.querySelectorAll('[role="link"]'),
-      ) as HTMLElement[]
+      const links = Array.from(container.querySelectorAll('a')) as HTMLElement[]
       if (links.length === 0) return
 
       const currentIndex = links.indexOf(e.target as HTMLElement)
@@ -247,7 +275,8 @@ function Link({ children, href, active, onSelect }: NavigationMenuLinkProps) {
   )
 
   return (
-    <ViewJsx
+    <NavLinkAnchorJsx
+      href={href}
       paddingLeft={12}
       paddingRight={12}
       paddingTop={8}
@@ -256,22 +285,26 @@ function Link({ children, href, active, onSelect }: NavigationMenuLinkProps) {
       cursor="pointer"
       backgroundColor={active ? '$color2' : 'transparent'}
       hoverStyle={{ backgroundColor: '$color2' }}
-      onPress={onSelect}
-      role="link"
-      data-href={href}
+      onClick={
+        onSelect
+          ? (e: React.MouseEvent) => {
+              e.preventDefault()
+              onSelect()
+            }
+          : undefined
+      }
       tabIndex={-1}
       onKeyDown={handleKeyDown}
-      focusVisibleStyle={{
-        outlineWidth: 2,
-        outlineOffset: -2,
-        outlineColor: '$outlineColor',
-        outlineStyle: 'solid',
-      }}
     >
-      <TextJsx fontSize={14} fontFamily="$body" color="$color" fontWeight={active ? '500' : '400'}>
+      <TextJsx
+        fontSize={14}
+        fontFamily="$body"
+        color="$color"
+        fontWeight={active ? '500' : '400'}
+      >
         {children}
       </TextJsx>
-    </ViewJsx>
+    </NavLinkAnchorJsx>
   )
 }
 

@@ -1,3 +1,4 @@
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useState } from 'react'
 import { Text, View } from 'tamagui'
@@ -5,6 +6,28 @@ import { Text, View } from 'tamagui'
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
+
+const MenuItemBtn = styledHtml('button', {
+  display: 'flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  width: '100%',
+  textAlign: 'left',
+  focusVisibleStyle: {
+    backgroundColor: '$color2',
+    outlineWidth: 2,
+    outlineOffset: -2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const MenuItemBtnJsx = MenuItemBtn as AnyFC
 
 export interface ContextMenuRootProps {
   children: React.ReactNode
@@ -53,20 +76,18 @@ function Root({ children, onOpenChange }: ContextMenuRootProps) {
   let menuContent: React.ReactNode = null
   React.Children.forEach(children, (child) => {
     if (React.isValidElement(child)) {
+      const props = child.props as { children?: React.ReactNode }
       if (child.type === Trigger) {
-        triggerContent = child.props.children
+        triggerContent = props.children
       } else if (child.type === Content) {
-        menuContent = child.props.children
+        menuContent = props.children
       }
     }
   })
 
   return (
     <ContextMenuContext.Provider value={{ close }}>
-      <ViewJsx
-        onContextMenu={handleContextMenu}
-        display="contents"
-      >
+      <ViewJsx onContextMenu={handleContextMenu} display="contents">
         {triggerContent}
       </ViewJsx>
       {open && (
@@ -120,8 +141,8 @@ function Item({ children, onSelect, disabled, shortcut }: ContextMenuItemProps) 
   const { close } = React.useContext(ContextMenuContext)
 
   return (
-    <ViewJsx
-      flexDirection="row"
+    <MenuItemBtnJsx
+      type="button"
       alignItems="center"
       justifyContent="space-between"
       height={32}
@@ -131,7 +152,8 @@ function Item({ children, onSelect, disabled, shortcut }: ContextMenuItemProps) 
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
-      onPress={
+      disabled={disabled}
+      onClick={
         disabled
           ? undefined
           : () => {
@@ -150,16 +172,21 @@ function Item({ children, onSelect, disabled, shortcut }: ContextMenuItemProps) 
           {shortcut}
         </TextJsx>
       )}
-    </ViewJsx>
+    </MenuItemBtnJsx>
   )
 }
 
-function CheckboxItem({ children, checked, onCheckedChange, disabled }: ContextMenuCheckboxItemProps) {
+function CheckboxItem({
+  children,
+  checked,
+  onCheckedChange,
+  disabled,
+}: ContextMenuCheckboxItemProps) {
   const { close } = React.useContext(ContextMenuContext)
 
   return (
-    <ViewJsx
-      flexDirection="row"
+    <MenuItemBtnJsx
+      type="button"
       alignItems="center"
       height={32}
       paddingLeft={8}
@@ -168,7 +195,8 @@ function CheckboxItem({ children, checked, onCheckedChange, disabled }: ContextM
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
-      onPress={
+      disabled={disabled}
+      onClick={
         disabled
           ? undefined
           : () => {
@@ -180,17 +208,30 @@ function CheckboxItem({ children, checked, onCheckedChange, disabled }: ContextM
       aria-checked={checked}
     >
       <ViewJsx width={16} alignItems="center">
-        {checked && <TextJsx fontSize={12} color="$color">{'\u2713'}</TextJsx>}
+        {checked && (
+          <TextJsx fontSize={12} color="$color">
+            {'\u2713'}
+          </TextJsx>
+        )}
       </ViewJsx>
       <TextJsx fontSize={14} fontFamily="$body" color="$color">
         {children}
       </TextJsx>
-    </ViewJsx>
+    </MenuItemBtnJsx>
   )
 }
 
 function Separator() {
-  return <ViewJsx height={1} backgroundColor="$borderColor" marginTop={4} marginBottom={4} marginLeft={-4} marginRight={-4} />
+  return (
+    <ViewJsx
+      height={1}
+      backgroundColor="$borderColor"
+      marginTop={4}
+      marginBottom={4}
+      marginLeft={-4}
+      marginRight={-4}
+    />
+  )
 }
 
 function Label({ children }: { children: React.ReactNode }) {
@@ -203,4 +244,12 @@ function Label({ children }: { children: React.ReactNode }) {
   )
 }
 
-export const ContextMenu = { Root, Trigger, Content, Item, CheckboxItem, Separator, Label }
+export const ContextMenu = {
+  Root,
+  Trigger,
+  Content,
+  Item,
+  CheckboxItem,
+  Separator,
+  Label,
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 
 /**
  * Table component using native HTML elements for proper table display context.
@@ -53,7 +53,8 @@ const captionStyles: React.CSSProperties = {
   captionSide: 'bottom' as const,
 }
 
-type HtmlProps<T extends keyof React.JSX.IntrinsicElements> = React.JSX.IntrinsicElements[T]
+type HtmlProps<T extends keyof React.JSX.IntrinsicElements> =
+  React.JSX.IntrinsicElements[T]
 
 function Root(props: HtmlProps<'table'>) {
   return <table {...props} style={{ ...tableStyles, ...props.style }} />

@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '../../src/__test-utils__/render'
 import { Kbd } from './Kbd'
 

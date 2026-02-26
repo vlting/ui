@@ -1,6 +1,7 @@
-import React, { useId } from 'react'
-import type { ComponentType } from 'react'
 import { Input as TamaguiInput } from '@tamagui/input'
+import type React from 'react'
+import { useId } from 'react'
+import type { ComponentType } from 'react'
 import { Text, View, XStack, YStack, styled } from 'tamagui'
 
 // Extend Tamagui Input with our error variant.
@@ -16,13 +17,17 @@ const StyledInput = styled(TamaguiInput, {
 
   variants: {
     error: {
+      // @ts-expect-error Tamagui v2 RC
       true: {
         borderColor: '$red10',
       },
     },
     fieldSize: {
+      // @ts-expect-error Tamagui v2 RC
       sm: { borderRadius: '$3', paddingHorizontal: '$1.5', paddingVertical: '$1' },
+      // @ts-expect-error Tamagui v2 RC
       md: { borderRadius: '$4', paddingHorizontal: '$2', paddingVertical: '$1.5' },
+      // @ts-expect-error Tamagui v2 RC
       lg: { borderRadius: '$5', paddingHorizontal: '$2.5', paddingVertical: '$2' },
     },
   } as const,
@@ -39,13 +44,17 @@ const StyledLabelText = styled(Text, {
 
   variants: {
     size: {
+      // @ts-expect-error Tamagui v2 RC
       sm: { fontSize: '$2' },
+      // @ts-expect-error Tamagui v2 RC
       md: { fontSize: '$3' },
+      // @ts-expect-error Tamagui v2 RC
       lg: { fontSize: '$4' },
     },
   } as const,
 
   defaultVariants: {
+    // @ts-expect-error Tamagui v2 RC
     size: 'md',
   },
 })
@@ -57,12 +66,15 @@ const InputHelper = styled(Text, {
 
   variants: {
     tone: {
+      // @ts-expect-error Tamagui v2 RC
       neutral: { color: '$colorSubtitle' },
+      // @ts-expect-error Tamagui v2 RC
       error: { color: '$red10' },
     },
   } as const,
 
   defaultVariants: {
+    // @ts-expect-error Tamagui v2 RC
     tone: 'neutral',
   },
 })
@@ -83,7 +95,16 @@ const SIZE_TOKEN_MAP: Record<string, string> = {
 
 export interface InputProps {
   size?: 'sm' | 'md' | 'lg'
-  type?: 'text' | 'password' | 'email' | 'number' | 'search' | 'tel' | 'url' | 'date' | 'file'
+  type?:
+    | 'text'
+    | 'password'
+    | 'email'
+    | 'number'
+    | 'search'
+    | 'tel'
+    | 'url'
+    | 'date'
+    | 'file'
   placeholder?: string
   value?: string
   defaultValue?: string
@@ -167,7 +188,9 @@ export function Input({
       )}
       {displayHelper && (
         // @ts-expect-error Tamagui v2 RC
-        <InputHelper id={helperId} tone={error ? 'error' : 'neutral'}>{displayHelper}</InputHelper>
+        <InputHelper id={helperId} tone={error ? 'error' : 'neutral'}>
+          {displayHelper}
+        </InputHelper>
       )}
     </YStack>
   )

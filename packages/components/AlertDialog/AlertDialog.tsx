@@ -1,7 +1,7 @@
+import { AlertDialog as TamaguiAlertDialog } from '@tamagui/alert-dialog'
 import type React from 'react'
 import type { ComponentType } from 'react'
 import { Text, XStack, styled } from 'tamagui'
-import { AlertDialog as TamaguiAlertDialog } from '@tamagui/alert-dialog'
 
 // @ts-expect-error Tamagui v2 RC
 const StyledTitle = styled(Text, {
@@ -32,7 +32,9 @@ const AlertPortal = TamaguiAlertDialog.Portal as ComponentType<Record<string, un
 const AlertOverlay = TamaguiAlertDialog.Overlay as ComponentType<Record<string, unknown>>
 const AlertContent = TamaguiAlertDialog.Content as ComponentType<Record<string, unknown>>
 const AlertTitle = TamaguiAlertDialog.Title as ComponentType<Record<string, unknown>>
-const AlertDescription = TamaguiAlertDialog.Description as ComponentType<Record<string, unknown>>
+const AlertDescription = TamaguiAlertDialog.Description as ComponentType<
+  Record<string, unknown>
+>
 const AlertCancel = TamaguiAlertDialog.Cancel as ComponentType<Record<string, unknown>>
 const AlertAction = TamaguiAlertDialog.Action as ComponentType<Record<string, unknown>>
 const TitleText = StyledTitle as ComponentType<Record<string, unknown>>

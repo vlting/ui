@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Pagination } from './Pagination'
 
@@ -11,8 +10,8 @@ describe('Pagination', () => {
           <Pagination.Item page={1} />
           <Pagination.Item page={2} />
           <Pagination.Next />
-        </Pagination.Root>
-      )
+        </Pagination.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -22,7 +21,7 @@ describe('Pagination', () => {
         <Pagination.Item page={1}>1</Pagination.Item>
         <Pagination.Item page={2}>2</Pagination.Item>
         <Pagination.Item page={3}>3</Pagination.Item>
-      </Pagination.Root>
+      </Pagination.Root>,
     )
     expect(screen.getByText('1')).toBeTruthy()
     expect(screen.getByText('2')).toBeTruthy()
@@ -38,8 +37,8 @@ describe('Pagination', () => {
           <Pagination.Item page={5}>5</Pagination.Item>
           <Pagination.Ellipsis />
           <Pagination.Item page={10}>10</Pagination.Item>
-        </Pagination.Root>
-      )
+        </Pagination.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -51,8 +50,8 @@ describe('Pagination', () => {
           <Pagination.Item page={1}>1</Pagination.Item>
           <Pagination.Item page={2}>2</Pagination.Item>
           <Pagination.Next />
-        </Pagination.Root>
-      )
+        </Pagination.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -60,9 +59,14 @@ describe('Pagination', () => {
     const sizes = ['sm', 'md', 'lg'] as const
     for (const size of sizes) {
       const { unmount } = render(
-        <Pagination.Root currentPage={1} totalPages={3} onPageChange={() => {}} size={size}>
+        <Pagination.Root
+          currentPage={1}
+          totalPages={3}
+          onPageChange={() => {}}
+          size={size}
+        >
           <Pagination.Item page={1}>1</Pagination.Item>
-        </Pagination.Root>
+        </Pagination.Root>,
       )
       unmount()
     }

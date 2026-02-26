@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '../../../src/__test-utils__/render'
 import { Sheet } from './Sheet'
 
@@ -12,8 +11,8 @@ describe('Sheet', () => {
             <Sheet.Handle />
             Content
           </Sheet.Frame>
-        </Sheet.Root>
-      )
+        </Sheet.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -26,8 +25,8 @@ describe('Sheet', () => {
             <Sheet.Handle />
             Sheet content
           </Sheet.Frame>
-        </Sheet.Root>
-      )
+        </Sheet.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -40,8 +39,8 @@ describe('Sheet', () => {
             <Sheet.Handle />
             Snapping sheet
           </Sheet.Frame>
-        </Sheet.Root>
-      )
+        </Sheet.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -52,12 +51,10 @@ describe('Sheet', () => {
           <Sheet.Overlay />
           <Sheet.Frame>
             <Sheet.Handle />
-            <Sheet.ScrollView>
-              Long scrollable content
-            </Sheet.ScrollView>
+            <Sheet.ScrollView>Long scrollable content</Sheet.ScrollView>
           </Sheet.Frame>
-        </Sheet.Root>
-      )
+        </Sheet.Root>,
+      ),
     ).not.toThrow()
   })
 })

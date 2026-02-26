@@ -1,3 +1,4 @@
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Text, View } from 'tamagui'
@@ -5,6 +6,47 @@ import { Text, View } from 'tamagui'
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
+
+const CarouselBtn = styledHtml('button', {
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  alignItems: 'center',
+  justifyContent: 'center',
+  cursor: 'pointer',
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const CarouselBtnJsx = CarouselBtn as AnyFC
+
+const DotBtn = styledHtml('button', {
+  display: 'inline-flex',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  cursor: 'pointer',
+  borderRadius: 9999,
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const DotBtnJsx = DotBtn as AnyFC
 
 export interface CarouselRootProps {
   children: React.ReactNode
@@ -91,7 +133,9 @@ function Root({
   )
 
   return (
-    <CarouselContext.Provider value={{ activeIndex, totalItems, goTo, next, prev, orientation }}>
+    <CarouselContext.Provider
+      value={{ activeIndex, totalItems, goTo, next, prev, orientation }}
+    >
       <ViewJsx
         position="relative"
         overflow="hidden"
@@ -100,6 +144,12 @@ function Root({
         aria-label="Carousel"
         tabIndex={0}
         onKeyDown={handleKeyDown}
+        focusVisibleStyle={{
+          outlineWidth: 2,
+          outlineOffset: 2,
+          outlineColor: '$outlineColor',
+          outlineStyle: 'solid',
+        }}
       >
         {children}
       </ViewJsx>
@@ -143,7 +193,8 @@ function Previous({ children }: { children?: React.ReactNode }) {
   const { prev, activeIndex } = React.useContext(CarouselContext)
 
   return (
-    <ViewJsx
+    <CarouselBtnJsx
+      type="button"
       position="absolute"
       left={8}
       top="50%"
@@ -155,17 +206,17 @@ function Previous({ children }: { children?: React.ReactNode }) {
       backgroundColor="$background"
       borderWidth={1}
       borderColor="$borderColor"
-      alignItems="center"
-      justifyContent="center"
-      cursor="pointer"
       opacity={activeIndex === 0 ? 0.5 : 1}
       hoverStyle={{ backgroundColor: '$color2' }}
-      onPress={prev}
-      role="button"
+      onClick={prev}
       aria-label="Previous slide"
     >
-      {children ?? <TextJsx fontSize={14} color="$color">{'<'}</TextJsx>}
-    </ViewJsx>
+      {children ?? (
+        <TextJsx fontSize={14} color="$color">
+          {'<'}
+        </TextJsx>
+      )}
+    </CarouselBtnJsx>
   )
 }
 
@@ -173,7 +224,8 @@ function Next({ children }: { children?: React.ReactNode }) {
   const { next, activeIndex, totalItems } = React.useContext(CarouselContext)
 
   return (
-    <ViewJsx
+    <CarouselBtnJsx
+      type="button"
       position="absolute"
       right={8}
       top="50%"
@@ -185,17 +237,17 @@ function Next({ children }: { children?: React.ReactNode }) {
       backgroundColor="$background"
       borderWidth={1}
       borderColor="$borderColor"
-      alignItems="center"
-      justifyContent="center"
-      cursor="pointer"
       opacity={activeIndex === totalItems - 1 ? 0.5 : 1}
       hoverStyle={{ backgroundColor: '$color2' }}
-      onPress={next}
-      role="button"
+      onClick={next}
       aria-label="Next slide"
     >
-      {children ?? <TextJsx fontSize={14} color="$color">{'>'}</TextJsx>}
-    </ViewJsx>
+      {children ?? (
+        <TextJsx fontSize={14} color="$color">
+          {'>'}
+        </TextJsx>
+      )}
+    </CarouselBtnJsx>
   )
 }
 
@@ -211,16 +263,15 @@ function Dots() {
       paddingTop={8}
     >
       {Array.from({ length: totalItems }, (_, i) => (
-        <ViewJsx
+        <DotBtnJsx
           key={i}
+          type="button"
           width={8}
           height={8}
-          borderRadius={9999}
           backgroundColor={i === activeIndex ? '$color10' : '$color4'}
-          cursor="pointer"
-          onPress={() => goTo(i)}
-          role="button"
+          onClick={() => goTo(i)}
           aria-label={`Go to slide ${i + 1}`}
+          aria-current={i === activeIndex ? 'true' : undefined}
         />
       ))}
     </ViewJsx>

@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Resizable } from './Resizable'
 
@@ -10,8 +9,8 @@ describe('Resizable', () => {
           <Resizable.Panel>Panel 1</Resizable.Panel>
           <Resizable.Handle />
           <Resizable.Panel>Panel 2</Resizable.Panel>
-        </Resizable.PanelGroup>
-      )
+        </Resizable.PanelGroup>,
+      ),
     ).not.toThrow()
   })
 
@@ -21,7 +20,7 @@ describe('Resizable', () => {
         <Resizable.Panel>Left Panel</Resizable.Panel>
         <Resizable.Handle />
         <Resizable.Panel>Right Panel</Resizable.Panel>
-      </Resizable.PanelGroup>
+      </Resizable.PanelGroup>,
     )
     expect(screen.getByText('Left Panel')).toBeTruthy()
     expect(screen.getByText('Right Panel')).toBeTruthy()
@@ -34,8 +33,8 @@ describe('Resizable', () => {
           <Resizable.Panel>Top</Resizable.Panel>
           <Resizable.Handle />
           <Resizable.Panel>Bottom</Resizable.Panel>
-        </Resizable.PanelGroup>
-      )
+        </Resizable.PanelGroup>,
+      ),
     ).not.toThrow()
   })
 
@@ -46,8 +45,8 @@ describe('Resizable', () => {
           <Resizable.Panel>A</Resizable.Panel>
           <Resizable.Handle withHandle />
           <Resizable.Panel>B</Resizable.Panel>
-        </Resizable.PanelGroup>
-      )
+        </Resizable.PanelGroup>,
+      ),
     ).not.toThrow()
   })
 
@@ -60,8 +59,8 @@ describe('Resizable', () => {
           </Resizable.Panel>
           <Resizable.Handle />
           <Resizable.Panel>Main</Resizable.Panel>
-        </Resizable.PanelGroup>
-      )
+        </Resizable.PanelGroup>,
+      ),
     ).not.toThrow()
   })
 
@@ -73,7 +72,7 @@ describe('Resizable', () => {
         <Resizable.Panel>Two</Resizable.Panel>
         <Resizable.Handle />
         <Resizable.Panel>Three</Resizable.Panel>
-      </Resizable.PanelGroup>
+      </Resizable.PanelGroup>,
     )
     expect(screen.getByText('One')).toBeTruthy()
     expect(screen.getByText('Two')).toBeTruthy()

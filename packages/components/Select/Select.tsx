@@ -1,7 +1,7 @@
+import { Select as TamaguiSelect } from '@tamagui/select'
 import React from 'react'
 import type { ComponentType } from 'react'
 import { Text, View, styled, withStaticProperties } from 'tamagui'
-import { Select as TamaguiSelect } from '@tamagui/select'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 
@@ -113,9 +113,7 @@ function SelectRootComponent({
       </SelectTrigger>
 
       <SelectContent zIndex={1000}>
-        <SelectViewport>
-          {indexedChildren}
-        </SelectViewport>
+        <SelectViewport>{indexedChildren}</SelectViewport>
       </SelectContent>
     </SelectRoot>
   )
