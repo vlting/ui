@@ -145,7 +145,7 @@ function List({ children }: { children: React.ReactNode }) {
       ref={listRef}
       flexDirection="row"
       alignItems="center"
-      gap={2}
+      gap="$0.25"
       onKeyDown={handleKeyDown}
     >
       {children}
@@ -188,9 +188,9 @@ function Trigger({ children }: { children: React.ReactNode }) {
   return (
     <NavTriggerBtnJsx
       type="button"
-      height={36}
-      paddingLeft={12}
-      paddingRight={12}
+      height="$3"
+      paddingLeft="$1.5"
+      paddingRight="$1.5"
       borderRadius="$3"
       backgroundColor={isOpen ? '$color2' : 'transparent'}
       hoverStyle={{ backgroundColor: '$color2' }}
@@ -198,10 +198,10 @@ function Trigger({ children }: { children: React.ReactNode }) {
       aria-expanded={isOpen}
       onKeyDown={handleKeyDown}
     >
-      <TextJsx fontSize={14} fontFamily="$body" fontWeight="500" color="$color">
+      <TextJsx fontSize="$4" fontFamily="$body" fontWeight="500" color="$color">
         {children}
       </TextJsx>
-      <TextJsx fontSize={10} color="$colorSubtitle" marginLeft={4}>
+      <TextJsx fontSize={10} color="$colorSubtitle" marginLeft="$0.5">
         {isOpen ? '\u25B2' : '\u25BC'}
       </TextJsx>
     </NavTriggerBtnJsx>
@@ -247,13 +247,13 @@ function Content({ children }: { children: React.ReactNode }) {
       position="absolute"
       top="100%"
       left={0}
-      marginTop={4}
+      marginTop="$0.5"
       zIndex={50}
       backgroundColor="$background"
       borderWidth={1}
       borderColor="$borderColor"
       borderRadius="$5"
-      padding={16}
+      padding="$2"
       minWidth={400}
       style={{ boxShadow: 'var(--shadowMd)' }}
       onKeyDown={handleKeyDown}
@@ -277,10 +277,10 @@ function Link({ children, href, active, onSelect }: NavigationMenuLinkProps) {
   return (
     <NavLinkAnchorJsx
       href={href}
-      paddingLeft={12}
-      paddingRight={12}
-      paddingTop={8}
-      paddingBottom={8}
+      paddingLeft="$1.5"
+      paddingRight="$1.5"
+      paddingTop="$0.75"
+      paddingBottom="$0.75"
       borderRadius="$3"
       cursor="pointer"
       backgroundColor={active ? '$color2' : 'transparent'}
@@ -297,7 +297,7 @@ function Link({ children, href, active, onSelect }: NavigationMenuLinkProps) {
       onKeyDown={handleKeyDown}
     >
       <TextJsx
-        fontSize={14}
+        fontSize="$4"
         fontFamily="$body"
         color="$color"
         fontWeight={active ? '500' : '400'}

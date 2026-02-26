@@ -33,7 +33,7 @@ const InputFrame = styledHtml('input', {
   display: 'flex',
   width: '100%',
   backgroundColor: 'transparent',
-  fontSize: 14,
+  fontSize: '$4',
   fontFamily: '$body',
   color: '$color',
   outline: 'none',
@@ -124,9 +124,9 @@ function Root({
         type="button"
         alignItems="center"
         justifyContent="space-between"
-        height={36}
-        paddingLeft={12}
-        paddingRight={12}
+        height="$3"
+        paddingLeft="$1.5"
+        paddingRight="$1.5"
         borderWidth={1}
         borderColor="$borderColor"
         borderRadius="$4"
@@ -147,13 +147,13 @@ function Root({
         aria-haspopup="listbox"
       >
         <TextJsx
-          fontSize={14}
+          fontSize="$4"
           fontFamily="$body"
           color={value ? '$color' : '$placeholderColor'}
         >
           {selectedLabel ?? placeholder}
         </TextJsx>
-        <TextJsx fontSize={12} color="$colorSubtitle">
+        <TextJsx fontSize="$2" color="$colorSubtitle">
           {open ? '\u25B2' : '\u25BC'}
         </TextJsx>
       </BtnJsx>
@@ -165,7 +165,7 @@ function Root({
           top="100%"
           left={0}
           right={0}
-          marginTop={4}
+          marginTop="$0.5"
           backgroundColor="$background"
           borderWidth={1}
           borderColor="$borderColor"
@@ -178,9 +178,9 @@ function Root({
           <ViewJsx
             flexDirection="row"
             alignItems="center"
-            paddingLeft={12}
-            paddingRight={12}
-            height={36}
+            paddingLeft="$1.5"
+            paddingRight="$1.5"
+            height="$3"
             borderBottomWidth={1}
             borderBottomColor="$borderColor"
           >
@@ -200,8 +200,8 @@ function Root({
           {/* Options */}
           <ViewJsx maxHeight={200} style={{ overflowY: 'auto' }} role="listbox">
             {filtered.length === 0 ? (
-              <ViewJsx padding={12} alignItems="center">
-                <TextJsx fontSize={14} color="$colorSubtitle" fontFamily="$body">
+              <ViewJsx padding="$1.5" alignItems="center">
+                <TextJsx fontSize="$4" color="$colorSubtitle" fontFamily="$body">
                   {emptyMessage}
                 </TextJsx>
               </ViewJsx>
@@ -215,9 +215,9 @@ function Root({
                     type="button"
                     alignItems="center"
                     width="100%"
-                    height={36}
-                    paddingLeft={12}
-                    paddingRight={12}
+                    height="$3"
+                    paddingLeft="$1.5"
+                    paddingRight="$1.5"
                     backgroundColor={isHighlighted ? '$color2' : 'transparent'}
                     onClick={() => handleSelect(option.value)}
                     role="option"
@@ -225,13 +225,13 @@ function Root({
                   >
                     <ViewJsx width={16}>
                       {isSelected && (
-                        <TextJsx fontSize={12} color="$color">
+                        <TextJsx fontSize="$2" color="$color">
                           {'\u2713'}
                         </TextJsx>
                       )}
                     </ViewJsx>
                     <TextJsx
-                      fontSize={14}
+                      fontSize="$4"
                       fontFamily="$body"
                       color="$color"
                       fontWeight={isSelected ? '500' : '400'}
