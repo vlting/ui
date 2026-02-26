@@ -1,3 +1,4 @@
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import type React from 'react'
 import { useCallback, useMemo, useState } from 'react'
@@ -6,6 +7,56 @@ import { Text, View } from 'tamagui'
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
+
+const NavBtn = styledHtml('button', {
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  cursor: 'pointer',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '$3',
+  hoverStyle: {
+    backgroundColor: '$color2',
+  },
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const NavBtnJsx = NavBtn as AnyFC
+
+const DayBtn = styledHtml('button', {
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: 36,
+  height: 36,
+  borderRadius: '$3',
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const DayBtnJsx = DayBtn as AnyFC
 
 const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 
@@ -131,35 +182,29 @@ function Root({
         justifyContent="space-between"
         paddingBottom="$2"
       >
-        <ViewJsx
-          cursor="pointer"
+        <NavBtnJsx
+          type="button"
           padding="$1"
-          borderRadius="$3"
-          hoverStyle={{ backgroundColor: '$color2' }}
-          onPress={() => goToMonth(-1)}
-          role="button"
+          onClick={() => goToMonth(-1)}
           aria-label="Previous month"
         >
           <TextJsx fontSize={14} color="$color">
             {'<'}
           </TextJsx>
-        </ViewJsx>
+        </NavBtnJsx>
         <TextJsx fontSize={14} fontWeight="500" fontFamily="$body" color="$color">
           {monthName} {year}
         </TextJsx>
-        <ViewJsx
-          cursor="pointer"
+        <NavBtnJsx
+          type="button"
           padding="$1"
-          borderRadius="$3"
-          hoverStyle={{ backgroundColor: '$color2' }}
-          onPress={() => goToMonth(1)}
-          role="button"
+          onClick={() => goToMonth(1)}
           aria-label="Next month"
         >
           <TextJsx fontSize={14} color="$color">
             {'>'}
           </TextJsx>
-        </ViewJsx>
+        </NavBtnJsx>
       </ViewJsx>
 
       {/* Day headers */}
@@ -191,13 +236,9 @@ function Root({
             const dateDisabled = isDateDisabled(date)
 
             return (
-              <ViewJsx
+              <DayBtnJsx
                 key={date.getDate()}
-                width={36}
-                height={36}
-                alignItems="center"
-                justifyContent="center"
-                borderRadius="$3"
+                type="button"
                 cursor={dateDisabled ? 'default' : 'pointer'}
                 opacity={dateDisabled ? 0.3 : 1}
                 backgroundColor={selected ? '$color10' : 'transparent'}
@@ -206,10 +247,14 @@ function Root({
                     ? undefined
                     : { backgroundColor: selected ? '$color10' : '$color2' }
                 }
-                onPress={dateDisabled ? undefined : () => onSelect?.(date)}
-                role="gridcell"
+                onClick={dateDisabled ? undefined : () => onSelect?.(date)}
+                disabled={dateDisabled}
                 aria-selected={selected}
-                aria-disabled={dateDisabled}
+                aria-label={date.toLocaleDateString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                })}
               >
                 <TextJsx
                   fontSize={14}
@@ -219,7 +264,7 @@ function Root({
                 >
                   {date.getDate()}
                 </TextJsx>
-              </ViewJsx>
+              </DayBtnJsx>
             )
           })}
         </ViewJsx>
