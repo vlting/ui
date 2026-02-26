@@ -1,25 +1,53 @@
 import { Provider } from '@vlting/ui'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { type ComponentType, useEffect, useState } from 'react'
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom'
-import { Text, View, XStack, YStack } from 'tamagui'
+import { styledHtml } from '@tamagui/web'
+import { Text, XStack, YStack } from 'tamagui'
 import { type BrandKey, activeBrand, brands } from '../brands'
 
 /**
- * CSS reset for native <button> elements.
- * We keep native buttons for semantic HTML / keyboard accessibility.
- * This reset removes browser chrome so visual styling is on Tamagui children.
+ * Styled native <button> for the mobile hamburger toggle.
+ * Hidden by default; shown via `.mobile-hamburger` CSS media query.
  */
-const BUTTON_RESET: React.CSSProperties = {
+// Cast for JSX — Tamagui v2 RC GetFinalProps bug
+type AnyFC = ComponentType<Record<string, unknown>>
+
+const HamburgerButton = styledHtml('button', {
   background: 'none',
   border: 'none',
-  padding: 0,
   margin: 0,
   font: 'inherit',
   color: 'inherit',
   cursor: 'pointer',
-  textAlign: 'left',
-}
+  display: 'none',
+  paddingVertical: '$0.5',
+  paddingHorizontal: '$0.75',
+} as any) as AnyFC
+
+/**
+ * Styled native <button> for pill-shaped header controls
+ * (brand selector, theme toggle).
+ */
+const PillButton = styledHtml('button', {
+  background: 'none',
+  border: 'none',
+  margin: 0,
+  font: 'inherit',
+  color: 'inherit',
+  cursor: 'pointer',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingVertical: '$0.5',
+  paddingHorizontal: '$1.5',
+  borderRadius: '$2',
+  borderWidth: 1,
+  borderStyle: 'solid',
+  borderColor: '$borderColor',
+  backgroundColor: 'transparent',
+  transition: 'all 0.15s',
+} as any) as AnyFC
 
 /** CSS reset for react-router <Link> and <a> elements */
 const LINK_RESET: React.CSSProperties = {
@@ -221,18 +249,14 @@ function NavGroup({
               <Link
                 to={`/${brandKey}/${item.path}`}
                 onClick={onNavClick}
-                style={LINK_RESET}
+                style={{
+                  ...LINK_RESET,
+                  padding: '6px 8px 6px 16px',
+                  borderRight: `2px solid ${isActive ? 'var(--color)' : 'transparent'}`,
+                  backgroundColor: isActive ? 'var(--color3)' : 'transparent',
+                  transition: 'all 0.1s',
+                }}
               >
-                <XStack
-                  paddingVertical={6}
-                  paddingLeft={16}
-                  paddingRight={8}
-                  borderRightWidth={2}
-                  borderRightColor={isActive ? '$color' : 'transparent'}
-                  backgroundColor={isActive ? '$color3' : 'transparent'}
-                  /* transition is CSS animation */
-                  style={{ transition: 'all 0.1s' }}
-                >
                   <Text
                     fontSize={14}
                     fontFamily="$body"
@@ -241,7 +265,6 @@ function NavGroup({
                   >
                     {item.label}
                   </Text>
-                </XStack>
               </Link>
               {item.subItems && isActive && (
                 <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
@@ -264,15 +287,12 @@ function NavGroup({
                               )
                             }
                           }}
-                          style={LINK_RESET}
+                          style={{
+                            ...LINK_RESET,
+                            padding: '2px 16px 2px 36px',
+                            transition: 'all 0.1s',
+                          }}
                         >
-                          <XStack
-                            paddingVertical="$0.25"
-                            paddingLeft={36}
-                            paddingRight="$2"
-                            /* transition is CSS animation */
-                            style={{ transition: 'all 0.1s' }}
-                          >
                             <Text
                               fontSize={12}
                               fontFamily="$body"
@@ -281,7 +301,6 @@ function NavGroup({
                             >
                               {sub.label}
                             </Text>
-                          </XStack>
                         </Link>
                       </li>
                     )
@@ -362,19 +381,16 @@ export function BrandLayout() {
         >
           <XStack alignItems="center" gap="$3.5">
             {/* Mobile hamburger */}
-            <button
+            <HamburgerButton
               type="button"
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              style={BUTTON_RESET}
               className="mobile-hamburger"
               aria-label="Toggle sidebar navigation"
             >
-              <View paddingVertical="$0.5" paddingHorizontal="$0.75" display="none">
-                <Text fontSize={20} color="$color">
-                  ☰
-                </Text>
-              </View>
-            </button>
+              <Text fontSize={20} color="$color">
+                ☰
+              </Text>
+            </HamburgerButton>
             <Link to={`/${brandKey}`} style={LINK_RESET}>
               <Text fontWeight="700" fontSize={15} letterSpacing={-0.3}>
                 @vlting/ui
@@ -386,24 +402,15 @@ export function BrandLayout() {
             {Object.entries(brands).map(([key, b]) => {
               const isCurrent = brandKey === key
               return (
-                <button
+                <PillButton
                   key={key}
                   type="button"
                   onClick={() => {
                     window.location.href = `/${key}/${currentSection}`
                   }}
-                  style={BUTTON_RESET}
+                  borderColor={isCurrent ? '$color10' : '$borderColor'}
+                  backgroundColor={isCurrent ? '$color3' : 'transparent'}
                 >
-                  <XStack
-                    paddingVertical="$0.5"
-                    paddingHorizontal="$1.5"
-                    borderRadius="$2"
-                    borderWidth={1}
-                    borderColor={isCurrent ? '$color10' : '$borderColor'}
-                    backgroundColor={isCurrent ? '$color3' : 'transparent'}
-                    /* transition is CSS animation */
-                    style={{ transition: 'all 0.15s' }}
-                  >
                     <Text
                       fontWeight={isCurrent ? '500' : '400'}
                       fontSize={13}
@@ -412,31 +419,19 @@ export function BrandLayout() {
                     >
                       {b.label}
                     </Text>
-                  </XStack>
-                </button>
+                </PillButton>
               )
             })}
             {/* Theme toggle */}
-            <button
+            <PillButton
               type="button"
               onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
-              style={BUTTON_RESET}
               aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
             >
-              <XStack
-                paddingVertical="$0.5"
-                paddingHorizontal="$1.5"
-                borderRadius="$2"
-                borderWidth={1}
-                borderColor="$borderColor"
-                /* transition is CSS animation */
-                style={{ transition: 'all 0.15s' }}
-              >
                 <Text fontSize={13} fontFamily="$body" color="$colorSubtitle">
                   {theme === 'light' ? '🌙' : '☀️'}
                 </Text>
-              </XStack>
-            </button>
+            </PillButton>
           </XStack>
         </XStack>
 
