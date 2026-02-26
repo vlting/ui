@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react'
+import type React from 'react'
+import { createContext, useContext, useState } from 'react'
 import type { ComponentType } from 'react'
 import { Image as TamaguiImage, Text, View, styled } from 'tamagui'
 
@@ -14,14 +15,19 @@ const AvatarFrame = styled(View, {
 
   variants: {
     size: {
+      // @ts-expect-error Tamagui v2 RC
       sm: { width: 32, height: 32 },
+      // @ts-expect-error Tamagui v2 RC
       md: { width: 40, height: 40 },
+      // @ts-expect-error Tamagui v2 RC
       lg: { width: 56, height: 56 },
+      // @ts-expect-error Tamagui v2 RC
       xl: { width: 72, height: 72 },
     },
   } as const,
 
   defaultVariants: {
+    // @ts-expect-error Tamagui v2 RC
     size: 'md',
   },
 })
@@ -33,14 +39,19 @@ const AvatarFallbackText = styled(Text, {
 
   variants: {
     size: {
+      // @ts-expect-error Tamagui v2 RC
       sm: { fontSize: '$1' },
+      // @ts-expect-error Tamagui v2 RC
       md: { fontSize: '$3' },
+      // @ts-expect-error Tamagui v2 RC
       lg: { fontSize: '$5' },
+      // @ts-expect-error Tamagui v2 RC
       xl: { fontSize: '$7' },
     },
   } as const,
 
   defaultVariants: {
+    // @ts-expect-error Tamagui v2 RC
     size: 'md',
   },
 })
@@ -51,7 +62,11 @@ const AvatarFallbackTextJsx = AvatarFallbackText as AnyFC
 type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
 const SIZE_PX: Record<AvatarSize, number> = { sm: 32, md: 40, lg: 56, xl: 72 }
 
-const AvatarContext = createContext<{ size: AvatarSize; imgError: boolean; setImgError: (v: boolean) => void }>({
+const AvatarContext = createContext<{
+  size: AvatarSize
+  imgError: boolean
+  setImgError: (v: boolean) => void
+}>({
   size: 'md',
   imgError: false,
   setImgError: () => {},
@@ -76,11 +91,7 @@ export function Avatar({ children, src, alt, fallback, size = 'md' }: AvatarProp
     const showImage = src && !imgError
     const px = SIZE_PX[size]
     return (
-      <AvatarFrameJsx
-        size={size}
-        role="img"
-        aria-label={alt || fallback || 'avatar'}
-      >
+      <AvatarFrameJsx size={size} role="img" aria-label={alt || fallback || 'avatar'}>
         {showImage ? (
           <ImageJsx
             source={{ uri: src!, width: px, height: px }}
