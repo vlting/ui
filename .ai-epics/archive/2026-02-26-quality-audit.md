@@ -4,7 +4,7 @@
 - **Feature flag:** quality_audit
 - **GitHub Issue:** #3
 - **Created:** 2026-02-26
-- **Status:** done
+- **Status:** in-progress
 
 ## Stage 1: TypeScript & Lint Error Fixes
 **Objective:** Eliminate all 275 TypeScript errors and 285 Biome lint errors to establish a clean baseline before making functional changes.
@@ -45,12 +45,12 @@
 **Estimated scope:** ~20 files, ~500 lines
 **GitHub Sub-Issue:** #7
 **Acceptance criteria:**
-- [ ] No raw numeric fontSize, padding, margin, gap, width, height, or borderRadius values in component source (except where tokens genuinely don't apply)
-- [ ] Components use `$` token syntax for all sizing and spacing
-- [ ] Affected components: Kbd, AspectRatio, Spinner, Switch, Avatar, Alert, ButtonGroup, Typography, Checkbox, RadioGroup, Select, Dialog, AlertDialog, Breadcrumb, Carousel, Calendar, Combobox, Command, ContextMenu, DatePicker, DateRangePicker, Drawer, DropdownMenu, HoverCard, InputOTP, Menubar, NativeSelect, NavigationMenu, Resizable, Sidebar
-- [ ] No visual regressions (verified via kitchen-sink)
-**Status:** pending
-**Iterations:** 0
+- [x] No raw numeric fontSize, padding, margin, gap, width, height, or borderRadius values in component source (except where tokens genuinely don't apply)
+- [x] Components use `$` token syntax for all sizing and spacing
+- [x] Affected components: Kbd, AspectRatio, Spinner, Switch, Avatar, Alert, ButtonGroup, Typography, Checkbox, RadioGroup, Select, Dialog, AlertDialog, Breadcrumb, Carousel, Calendar, Combobox, Command, ContextMenu, DatePicker, DateRangePicker, Drawer, DropdownMenu, HoverCard, InputOTP, Menubar, NativeSelect, NavigationMenu, Resizable, Sidebar
+- [x] No visual regressions (verified via kitchen-sink)
+**Status:** complete
+**Iterations:** 2
 
 ## Stage 5: Reduced Motion, Cross-Platform & Misc Cleanup
 **Objective:** Add `prefers-reduced-motion` support to animated components, address cross-platform issues, and fix remaining minor audit findings.
