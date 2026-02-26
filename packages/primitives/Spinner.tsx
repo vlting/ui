@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import { View } from 'tamagui'
+import { useReducedMotion } from '../hooks/useReducedMotion'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
@@ -34,6 +35,7 @@ export interface SpinnerProps {
 }
 
 export function Spinner({ size = 'md', color }: SpinnerProps) {
+  const reducedMotion = useReducedMotion()
   const dimension = SIZE_MAP[size]
   const dotSize = DOT_SIZE_MAP[size]
   const r = dimension / 2
@@ -45,9 +47,9 @@ export function Spinner({ size = 'md', color }: SpinnerProps) {
       width={SIZE_TOKEN[size]}
       height={SIZE_TOKEN[size]}
       position="relative"
-      style={{
-        animation: 'vlting-spinner 1s linear infinite',
-      }}
+      style={
+        reducedMotion ? undefined : { animation: 'vlting-spinner 1s linear infinite' }
+      }
     >
       {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
         const angle = (i * 360) / 8

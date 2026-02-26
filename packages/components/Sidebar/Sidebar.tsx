@@ -2,6 +2,7 @@ import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useState } from 'react'
 import { Text, View } from 'tamagui'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
@@ -112,6 +113,7 @@ function Root({
   width = 256,
   collapsedWidth = 48,
 }: SidebarRootProps) {
+  const reducedMotion = useReducedMotion()
   const [internalOpen, setInternalOpen] = useState(defaultOpen)
   const open = controlledOpen ?? internalOpen
 
@@ -149,8 +151,7 @@ function Root({
         borderRadius={variant === 'floating' ? '$5' : undefined}
         style={{
           width: collapsed ? collapsedWidth : open ? width : 0,
-          // Matches animation token: medium (250ms ease-in-out)
-          transition: 'width 250ms ease-in-out',
+          transition: reducedMotion ? 'none' : 'width 250ms ease-in-out',
           ...(variant === 'floating'
             ? {
                 margin: 8,

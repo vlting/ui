@@ -2,6 +2,7 @@ import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Text, View } from 'tamagui'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
@@ -68,6 +69,7 @@ const CarouselContext = React.createContext<{
   next: () => void
   prev: () => void
   orientation: 'horizontal' | 'vertical'
+  reducedMotion: boolean
 }>({
   activeIndex: 0,
   totalItems: 0,
@@ -75,6 +77,7 @@ const CarouselContext = React.createContext<{
   next: () => {},
   prev: () => {},
   orientation: 'horizontal',
+  reducedMotion: false,
 })
 
 function Root({
@@ -84,6 +87,7 @@ function Root({
   autoplay = false,
   autoplayInterval = 5000,
 }: CarouselRootProps) {
+  const reducedMotion = useReducedMotion()
   const [activeIndex, setActiveIndex] = useState(0)
   const [totalItems, setTotalItems] = useState(0)
   const contentRef = useRef<HTMLDivElement>(null)
@@ -105,10 +109,10 @@ function Root({
   const prev = useCallback(() => goTo(activeIndex - 1), [activeIndex, goTo])
 
   useEffect(() => {
-    if (!autoplay || totalItems <= 1) return
+    if (!autoplay || reducedMotion || totalItems <= 1) return
     const timer = setInterval(next, autoplayInterval)
     return () => clearInterval(timer)
-  }, [autoplay, autoplayInterval, next, totalItems])
+  }, [autoplay, autoplayInterval, next, totalItems, reducedMotion])
 
   // Count children to know total
   useEffect(() => {
@@ -134,7 +138,7 @@ function Root({
 
   return (
     <CarouselContext.Provider
-      value={{ activeIndex, totalItems, goTo, next, prev, orientation }}
+      value={{ activeIndex, totalItems, goTo, next, prev, orientation, reducedMotion }}
     >
       <ViewJsx
         position="relative"
@@ -158,7 +162,7 @@ function Root({
 }
 
 function CarouselContent({ children }: { children: React.ReactNode }) {
-  const { activeIndex, orientation } = React.useContext(CarouselContext)
+  const { activeIndex, orientation, reducedMotion } = React.useContext(CarouselContext)
   const isH = orientation === 'horizontal'
   const offset = activeIndex * -100
 
@@ -167,7 +171,7 @@ function CarouselContent({ children }: { children: React.ReactNode }) {
       flexDirection={isH ? 'row' : 'column'}
       style={{
         transform: isH ? `translateX(${offset}%)` : `translateY(${offset}%)`,
-        transition: 'transform 300ms ease-in-out',
+        transition: reducedMotion ? 'none' : 'transform 300ms ease-in-out',
       }}
     >
       {children}
