@@ -22,11 +22,11 @@
 **Estimated scope:** ~12 files, ~600 lines
 **GitHub Sub-Issue:** #5
 **Acceptance criteria:**
-- [ ] Calendar, Carousel, Combobox, ContextMenu, DatePicker, DateRangePicker, DropdownMenu, Menubar, NavigationMenu, Sidebar all use native `<button>` for interactive triggers
-- [ ] DatePicker and DateRangePicker no longer use `tag: 'button'` in styled()
-- [ ] All replaced elements are keyboard-focusable (Tab) and activatable (Enter/Space)
-- [ ] No regressions in existing tests
-**Status:** executing
+- [x] Calendar, Carousel, Combobox, ContextMenu, DatePicker, DateRangePicker, DropdownMenu, Menubar, NavigationMenu, Sidebar all use native `<button>` for interactive triggers
+- [x] DatePicker and DateRangePicker no longer use `tag: 'button'` in styled()
+- [x] All replaced elements are keyboard-focusable (Tab) and activatable (Enter/Space)
+- [x] No regressions in existing tests
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 3: Focus Indicators
