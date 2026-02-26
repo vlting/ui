@@ -1,7 +1,6 @@
 import type { GetProps } from 'tamagui'
 import { View, styled } from 'tamagui'
 
-// @ts-expect-error Tamagui v2 RC
 export const Spacer = styled(View, {
   flex: 1,
   variants: {
@@ -13,6 +12,6 @@ export const Spacer = styled(View, {
       xl: { flex: 0, width: '$6', height: '$6' },
     },
   } as const,
-})
+} as any)
 
 export type SpacerProps = GetProps<typeof Spacer>

@@ -62,6 +62,6 @@ export const Badge = styled(Text, {
     variant: 'default',
     size: 'md',
   },
-})
+} as any)
 
 export type BadgeProps = GetProps<typeof Badge>

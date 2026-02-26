@@ -1,7 +1,6 @@
 import type { GetProps } from 'tamagui'
 import { View, styled } from 'tamagui'
 
-// @ts-expect-error Tamagui v2 RC
 export const Divider = styled(View, {
   backgroundColor: '$borderColor',
   flexShrink: 0,
@@ -24,6 +23,6 @@ export const Divider = styled(View, {
   defaultVariants: {
     orientation: 'horizontal',
   },
-})
+} as any)
 
 export type DividerProps = GetProps<typeof Divider>

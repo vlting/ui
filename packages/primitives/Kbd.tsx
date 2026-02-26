@@ -1,5 +1,5 @@
-import type { ComponentType } from 'react'
 import { styledHtml } from '@tamagui/web'
+import type { ComponentType } from 'react'
 
 const KbdFrame = styledHtml('kbd', {
   display: 'inline-flex',

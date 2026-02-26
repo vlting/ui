@@ -20,7 +20,10 @@ const VisuallyHiddenFrame = styled(View, {
   borderWidth: 0,
 })
 
-export function VisuallyHidden({ children, ...props }: GetProps<typeof VisuallyHiddenFrame> & { children?: React.ReactNode }) {
+export function VisuallyHidden({
+  children,
+  ...props
+}: GetProps<typeof VisuallyHiddenFrame> & { children?: React.ReactNode }) {
   return (
     // @ts-expect-error Tamagui v2 RC
     <VisuallyHiddenFrame {...props} style={srOnlyStyle}>

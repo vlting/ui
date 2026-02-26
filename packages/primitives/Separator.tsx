@@ -1,7 +1,6 @@
 import { View, styled } from 'tamagui'
 import type { GetProps } from 'tamagui'
 
-// @ts-expect-error Tamagui v2 RC
 export const Separator = styled(View, {
   backgroundColor: '$borderColor',
   flexShrink: 0,
@@ -12,13 +11,13 @@ export const Separator = styled(View, {
       horizontal: {
         height: 1,
         width: '100%',
-        // @ts-expect-error web-only ARIA attribute
+        // web-only ARIA attribute
         'aria-orientation': 'horizontal',
       },
       vertical: {
         width: 1,
         height: '100%',
-        // @ts-expect-error web-only ARIA attribute
+        // web-only ARIA attribute
         'aria-orientation': 'vertical',
       },
     },
@@ -32,6 +31,6 @@ export const Separator = styled(View, {
   defaultVariants: {
     orientation: 'horizontal',
   },
-})
+} as any)
 
 export type SeparatorProps = GetProps<typeof Separator>
