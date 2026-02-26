@@ -181,7 +181,16 @@ function Item({ children, onSelect, disabled, shortcut }: MenubarItemProps) {
 }
 
 function Separator() {
-  return <ViewJsx height={1} backgroundColor="$borderColor" marginTop={4} marginBottom={4} marginLeft={-4} marginRight={-4} />
+  return (
+    <ViewJsx
+      height={1}
+      backgroundColor="$borderColor"
+      marginTop={4}
+      marginBottom={4}
+      marginLeft={-4}
+      marginRight={-4}
+    />
+  )
 }
 
 function Label({ children }: { children: React.ReactNode }) {

@@ -7,9 +7,7 @@
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": ["*.css"],
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -46,10 +44,7 @@
       "import": "./packages/utils/index.ts"
     }
   },
-  "workspaces": [
-    ".",
-    "examples/*"
-  ],
+  "workspaces": [".", "examples/*"],
   "scripts": {
     "build": "tamagui-build",
     "build:types": "tsc --emitDeclarationOnly --outDir dist/types",

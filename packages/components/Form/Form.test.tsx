@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Form } from './Form'
 
@@ -9,7 +8,7 @@ describe('Form', () => {
         <Form.Field>
           <Form.Label>Name</Form.Label>
         </Form.Field>
-      </Form.Root>
+      </Form.Root>,
     )
     expect(screen.getByText('Name')).toBeTruthy()
   })
@@ -21,7 +20,7 @@ describe('Form', () => {
           <Form.Label>Email</Form.Label>
           <Form.Description>Enter your email</Form.Description>
         </Form.Field>
-      </Form.Root>
+      </Form.Root>,
     )
     expect(screen.getByText('Enter your email')).toBeTruthy()
   })
@@ -33,7 +32,7 @@ describe('Form', () => {
           <Form.Label>Name</Form.Label>
           <Form.ErrorMessage>Required</Form.ErrorMessage>
         </Form.Field>
-      </Form.Root>
+      </Form.Root>,
     )
     expect(screen.getByText('Required')).toBeTruthy()
   })
@@ -45,7 +44,7 @@ describe('Form', () => {
         <Form.Field error>
           <Form.ErrorMessage>Error</Form.ErrorMessage>
         </Form.Field>
-      </Form.Root>
+      </Form.Root>,
     )
     expect(screen.getByRole('alert')).toBeTruthy()
   })

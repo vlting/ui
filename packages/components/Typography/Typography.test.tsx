@@ -1,6 +1,19 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
-import { H1, H2, H3, H4, P, Lead, Large, Small, Muted, Blockquote, InlineCode, List, ListItem } from './Typography'
+import {
+  Blockquote,
+  H1,
+  H2,
+  H3,
+  H4,
+  InlineCode,
+  Large,
+  Lead,
+  List,
+  ListItem,
+  Muted,
+  P,
+  Small,
+} from './Typography'
 
 describe('Typography', () => {
   it('renders H1 as h1 element', () => {
@@ -65,7 +78,7 @@ describe('Typography', () => {
       <List>
         <ListItem>Item 1</ListItem>
         <ListItem>Item 2</ListItem>
-      </List>
+      </List>,
     )
     expect(container.querySelector('ul')).toBeTruthy()
     expect(container.querySelectorAll('li').length).toBe(2)
@@ -77,7 +90,7 @@ describe('Typography', () => {
         <H1>Title</H1>
         <P>Body</P>
         <Small>Fine print</Small>
-      </>
+      </>,
     )
     expect(screen.getByText('Title')).toBeTruthy()
     expect(screen.getByText('Body')).toBeTruthy()

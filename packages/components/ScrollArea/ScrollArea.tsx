@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react'
-import React from 'react'
+import type React from 'react'
 import { View, styled } from 'tamagui'
 
 type AnyFC = ComponentType<Record<string, unknown>>

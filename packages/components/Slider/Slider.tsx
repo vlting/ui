@@ -1,10 +1,12 @@
-import type { ComponentType } from 'react'
 import { Slider as TamaguiSlider } from '@tamagui/slider'
+import type { ComponentType } from 'react'
 
 // Tamagui v2 RC GetProps bug — cast for JSX usage
 const SliderRoot = TamaguiSlider as ComponentType<Record<string, unknown>>
 const SliderTrack = TamaguiSlider.Track as ComponentType<Record<string, unknown>>
-const SliderTrackActive = TamaguiSlider.TrackActive as ComponentType<Record<string, unknown>>
+const SliderTrackActive = TamaguiSlider.TrackActive as ComponentType<
+  Record<string, unknown>
+>
 const SliderThumb = TamaguiSlider.Thumb as ComponentType<Record<string, unknown>>
 
 const SIZE_MAP = { sm: '$2' as const, md: '$3' as const, lg: '$4' as const }
@@ -48,14 +50,8 @@ export function Slider({
       size={SIZE_MAP[size]}
       aria-label={ariaLabel}
     >
-      <SliderTrack
-        backgroundColor="$color4"
-        borderRadius="$6"
-      >
-        <SliderTrackActive
-          backgroundColor="$color10"
-          borderRadius="$6"
-        />
+      <SliderTrack backgroundColor="$color4" borderRadius="$6">
+        <SliderTrackActive backgroundColor="$color10" borderRadius="$6" />
       </SliderTrack>
       <SliderThumb
         index={0}

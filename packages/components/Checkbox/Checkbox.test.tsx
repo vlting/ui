@@ -1,5 +1,4 @@
-import React from 'react'
-import { render, screen } from '../../../src/__test-utils__/render'
+import { render } from '../../../src/__test-utils__/render'
 import { Checkbox } from './Checkbox'
 
 describe('Checkbox', () => {
@@ -7,7 +6,7 @@ describe('Checkbox', () => {
     render(
       <Checkbox.Root>
         <Checkbox.Indicator />
-      </Checkbox.Root>
+      </Checkbox.Root>,
     )
     // Should render without errors
     expect(true).toBe(true)
@@ -19,7 +18,7 @@ describe('Checkbox', () => {
       const { unmount } = render(
         <Checkbox.Root size={size}>
           <Checkbox.Indicator />
-        </Checkbox.Root>
+        </Checkbox.Root>,
       )
       unmount()
     }
@@ -31,7 +30,7 @@ describe('Checkbox', () => {
     render(
       <Checkbox.Root onCheckedChange={onChange}>
         <Checkbox.Indicator />
-      </Checkbox.Root>
+      </Checkbox.Root>,
     )
   })
 
@@ -40,7 +39,7 @@ describe('Checkbox', () => {
     render(
       <Checkbox.Root disabled>
         <Checkbox.Indicator />
-      </Checkbox.Root>
+      </Checkbox.Root>,
     )
   })
 })

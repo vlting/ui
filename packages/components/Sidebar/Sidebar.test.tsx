@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Sidebar } from './Sidebar'
 
@@ -12,8 +11,8 @@ describe('Sidebar', () => {
               <Sidebar.MenuItem>Item 1</Sidebar.MenuItem>
             </Sidebar.Menu>
           </Sidebar.Content>
-        </Sidebar.Root>
-      )
+        </Sidebar.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -26,7 +25,7 @@ describe('Sidebar', () => {
             <Sidebar.MenuItem>Settings</Sidebar.MenuItem>
           </Sidebar.Menu>
         </Sidebar.Content>
-      </Sidebar.Root>
+      </Sidebar.Root>,
     )
     expect(screen.getByText('Dashboard')).toBeTruthy()
     expect(screen.getByText('Settings')).toBeTruthy()
@@ -42,7 +41,7 @@ describe('Sidebar', () => {
           </Sidebar.Menu>
         </Sidebar.Content>
         <Sidebar.Footer>Footer</Sidebar.Footer>
-      </Sidebar.Root>
+      </Sidebar.Root>,
     )
     expect(screen.getByText('App Name')).toBeTruthy()
     expect(screen.getByText('Footer')).toBeTruthy()
@@ -61,7 +60,7 @@ describe('Sidebar', () => {
             </Sidebar.GroupContent>
           </Sidebar.Group>
         </Sidebar.Content>
-      </Sidebar.Root>
+      </Sidebar.Root>,
     )
     expect(screen.getByText('Section')).toBeTruthy()
   })
@@ -75,8 +74,8 @@ describe('Sidebar', () => {
               <Sidebar.MenuItem>Item</Sidebar.MenuItem>
             </Sidebar.Menu>
           </Sidebar.Content>
-        </Sidebar.Root>
-      )
+        </Sidebar.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -90,7 +89,7 @@ describe('Sidebar', () => {
               <Sidebar.MenuItem>Item</Sidebar.MenuItem>
             </Sidebar.Menu>
           </Sidebar.Content>
-        </Sidebar.Root>
+        </Sidebar.Root>,
       )
       unmount()
     }
@@ -109,8 +108,8 @@ describe('Sidebar', () => {
               <Sidebar.MenuItem>B</Sidebar.MenuItem>
             </Sidebar.Menu>
           </Sidebar.Content>
-        </Sidebar.Root>
-      )
+        </Sidebar.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -122,7 +121,7 @@ describe('Sidebar', () => {
             <Sidebar.MenuButton>Click me</Sidebar.MenuButton>
           </Sidebar.Menu>
         </Sidebar.Content>
-      </Sidebar.Root>
+      </Sidebar.Root>,
     )
     expect(screen.getByText('Click me')).toBeTruthy()
   })

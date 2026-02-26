@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '../../../src/__test-utils__/render'
 import { Select } from './Select'
 
@@ -9,8 +8,8 @@ describe('Select', () => {
         <Select placeholder="Choose">
           <Select.Item value="a">Option A</Select.Item>
           <Select.Item value="b">Option B</Select.Item>
-        </Select>
-      )
+        </Select>,
+      ),
     ).not.toThrow()
   })
 
@@ -20,8 +19,8 @@ describe('Select', () => {
         <Select defaultValue="a">
           <Select.Item value="a">A</Select.Item>
           <Select.Item value="b">B</Select.Item>
-        </Select>
-      )
+        </Select>,
+      ),
     ).not.toThrow()
   })
 
@@ -31,7 +30,7 @@ describe('Select', () => {
       const { unmount } = render(
         <Select size={size}>
           <Select.Item value="a">A</Select.Item>
-        </Select>
+        </Select>,
       )
       unmount()
     }
@@ -42,8 +41,8 @@ describe('Select', () => {
       render(
         <Select disabled>
           <Select.Item value="a">A</Select.Item>
-        </Select>
-      )
+        </Select>,
+      ),
     ).not.toThrow()
   })
 
@@ -60,8 +59,8 @@ describe('Select', () => {
             <Select.Label>Vegetables</Select.Label>
             <Select.Item value="carrot">Carrot</Select.Item>
           </Select.Group>
-        </Select>
-      )
+        </Select>,
+      ),
     ).not.toThrow()
   })
 })

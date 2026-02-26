@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { NavigationMenu } from './NavigationMenu'
 
@@ -11,7 +10,7 @@ describe('NavigationMenu', () => {
             <NavigationMenu.Link href="/about">About</NavigationMenu.Link>
           </NavigationMenu.Item>
         </NavigationMenu.List>
-      </NavigationMenu.Root>
+      </NavigationMenu.Root>,
     )
     expect(screen.getByText('About')).toBeTruthy()
   })
@@ -27,7 +26,7 @@ describe('NavigationMenu', () => {
             </NavigationMenu.Content>
           </NavigationMenu.Item>
         </NavigationMenu.List>
-      </NavigationMenu.Root>
+      </NavigationMenu.Root>,
     )
     expect(screen.getByText('Products')).toBeTruthy()
   })
@@ -41,7 +40,7 @@ describe('NavigationMenu', () => {
             <NavigationMenu.Link href="/">Home</NavigationMenu.Link>
           </NavigationMenu.Item>
         </NavigationMenu.List>
-      </NavigationMenu.Root>
+      </NavigationMenu.Root>,
     )
     expect(screen.getByRole('navigation')).toBeTruthy()
   })
@@ -63,7 +62,7 @@ describe('NavigationMenu', () => {
             </NavigationMenu.Content>
           </NavigationMenu.Item>
         </NavigationMenu.List>
-      </NavigationMenu.Root>
+      </NavigationMenu.Root>,
     )
     expect(screen.getByText('Products')).toBeTruthy()
     expect(screen.getByText('Services')).toBeTruthy()
@@ -80,7 +79,7 @@ describe('NavigationMenu', () => {
             <NavigationMenu.Link href="/about">About</NavigationMenu.Link>
           </NavigationMenu.Item>
         </NavigationMenu.List>
-      </NavigationMenu.Root>
+      </NavigationMenu.Root>,
     )
     expect(screen.getByText('Home')).toBeTruthy()
     expect(screen.getByText('About')).toBeTruthy()

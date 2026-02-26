@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '../../../src/__test-utils__/render'
 import { Switch } from './Switch'
 
@@ -29,8 +28,6 @@ describe('Switch', () => {
 
   it('calls onCheckedChange callback', () => {
     const onChange = jest.fn()
-    expect(() =>
-      render(<Switch onCheckedChange={onChange} />)
-    ).not.toThrow()
+    expect(() => render(<Switch onCheckedChange={onChange} />)).not.toThrow()
   })
 })

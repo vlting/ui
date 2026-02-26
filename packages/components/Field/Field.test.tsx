@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Field } from './Field'
 
@@ -10,7 +9,7 @@ describe('Field', () => {
         <Field.Control>
           <input />
         </Field.Control>
-      </Field.Root>
+      </Field.Root>,
     )
     expect(screen.getByText('Email')).toBeTruthy()
   })
@@ -23,7 +22,7 @@ describe('Field', () => {
           <input />
         </Field.Control>
         <Field.Description>Enter your full name</Field.Description>
-      </Field.Root>
+      </Field.Root>,
     )
     expect(screen.getByText('Enter your full name')).toBeTruthy()
   })
@@ -36,7 +35,7 @@ describe('Field', () => {
           <input />
         </Field.Control>
         <Field.Error>Invalid email</Field.Error>
-      </Field.Root>
+      </Field.Root>,
     )
     expect(screen.getByText('Invalid email')).toBeTruthy()
   })
@@ -49,7 +48,7 @@ describe('Field', () => {
           <input />
         </Field.Control>
         <Field.Error>Invalid email</Field.Error>
-      </Field.Root>
+      </Field.Root>,
     )
     expect(screen.queryByText('Invalid email')).toBeNull()
   })
@@ -63,7 +62,7 @@ describe('Field', () => {
         </Field.Control>
         <Field.Description>Helper text</Field.Description>
         <Field.Error>Error text</Field.Error>
-      </Field.Root>
+      </Field.Root>,
     )
     expect(screen.queryByText('Helper text')).toBeNull()
     expect(screen.getByText('Error text')).toBeTruthy()
@@ -77,7 +76,7 @@ describe('Field', () => {
           <input />
         </Field.Control>
         <Field.Error>Required</Field.Error>
-      </Field.Root>
+      </Field.Root>,
     )
     expect(screen.getByRole('alert')).toBeTruthy()
   })
@@ -89,7 +88,7 @@ describe('Field', () => {
         <Field.Control>
           <input />
         </Field.Control>
-      </Field.Root>
+      </Field.Root>,
     )
     const label = container.querySelector('label')
     const input = container.querySelector('input')
@@ -108,7 +107,7 @@ describe('Field', () => {
           <input />
         </Field.Control>
         <Field.Error>Bad</Field.Error>
-      </Field.Root>
+      </Field.Root>,
     )
     const input = container.querySelector('input')
     expect(input?.getAttribute('aria-invalid')).toBe('true')
@@ -124,8 +123,8 @@ describe('Field', () => {
           </Field.Control>
           <Field.Description>Help</Field.Description>
           <Field.Error>Error</Field.Error>
-        </Field.Root>
-      )
+        </Field.Root>,
+      ),
     ).not.toThrow()
   })
 })

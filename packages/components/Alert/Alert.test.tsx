@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Alert } from './Alert'
 
@@ -8,7 +7,7 @@ describe('Alert', () => {
       <Alert.Root>
         <Alert.Title>Warning</Alert.Title>
         <Alert.Description>Something happened</Alert.Description>
-      </Alert.Root>
+      </Alert.Root>,
     )
     expect(screen.getByText('Warning')).toBeTruthy()
     expect(screen.getByText('Something happened')).toBeTruthy()
@@ -19,7 +18,7 @@ describe('Alert', () => {
     render(
       <Alert.Root testID="alert">
         <Alert.Title>Info</Alert.Title>
-      </Alert.Root>
+      </Alert.Root>,
     )
     expect(screen.getByRole('status')).toBeTruthy()
   })
@@ -29,7 +28,7 @@ describe('Alert', () => {
     render(
       <Alert.Root variant="destructive">
         <Alert.Title>Error</Alert.Title>
-      </Alert.Root>
+      </Alert.Root>,
     )
     expect(screen.getByRole('alert')).toBeTruthy()
   })
@@ -38,7 +37,7 @@ describe('Alert', () => {
     render(
       <Alert.Root variant="destructive">
         <Alert.Title>Error</Alert.Title>
-      </Alert.Root>
+      </Alert.Root>,
     )
     expect(screen.getByText('Error')).toBeTruthy()
   })

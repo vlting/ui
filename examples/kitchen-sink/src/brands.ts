@@ -1,6 +1,11 @@
-import { createBrandConfig, defaultBrand, funBrand, poshBrand, shadcnBrand } from '@vlting/ui'
+import {
+  createBrandConfig,
+  defaultBrand,
+  funBrand,
+  poshBrand,
+  shadcnBrand,
+} from '@vlting/ui'
 import { createTamagui } from 'tamagui'
-import type { BrandDefinition } from '@vlting/ui'
 
 const brandDefinitions = {
   default: { label: 'Default', definition: defaultBrand },

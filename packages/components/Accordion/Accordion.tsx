@@ -1,6 +1,6 @@
+import { Accordion as TamaguiAccordion } from '@tamagui/accordion'
 import type React from 'react'
 import type { ComponentType } from 'react'
-import { Accordion as TamaguiAccordion } from '@tamagui/accordion'
 import { Text, styled } from 'tamagui'
 
 type AnyFC = ComponentType<Record<string, unknown>>

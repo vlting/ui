@@ -1,22 +1,34 @@
-import React, { useState } from 'react'
-import { YStack, XStack, Text, View } from 'tamagui'
 import {
   Accordion,
   Alert,
   Avatar,
+  Blockquote,
   Breadcrumb,
+  Button,
   Card,
   Carousel,
   Collapsible,
-  Kbd,
-  Loader,
-  Progress,
-  Table,
-  Button,
+  H1,
+  H2,
+  H3,
+  H4,
   Heading,
-  H1, H2, H3, H4, P, Lead, Large, Small, Muted, Blockquote, InlineCode, List, ListItem,
+  InlineCode,
+  Kbd,
+  Large,
+  Lead,
+  List,
+  ListItem,
+  Loader,
+  Muted,
+  P,
+  Progress,
+  Small,
+  Table,
 } from '@vlting/ui'
-import { Section, DemoCard } from '../components/Section'
+import { useState } from 'react'
+import { Text, View, XStack, YStack } from 'tamagui'
+import { DemoCard, Section } from '../components/Section'
 
 export function DataDisplayPage() {
   const [collapsibleOpen, setCollapsibleOpen] = useState(false)
@@ -25,7 +37,8 @@ export function DataDisplayPage() {
     <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
       <Heading level={1}>Data Display</Heading>
       <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
-        Accordion, Alert, Avatar, Breadcrumb, Card, Carousel, Collapsible, Kbd, Loader, Progress, Table, and Typography.
+        Accordion, Alert, Avatar, Breadcrumb, Card, Carousel, Collapsible, Kbd, Loader,
+        Progress, Table, and Typography.
       </Text>
 
       {/* Accordion */}
@@ -35,19 +48,26 @@ export function DataDisplayPage() {
             <Accordion.Item value="item1">
               <Accordion.Trigger>What is @vlting/ui?</Accordion.Trigger>
               <Accordion.Content>
-                <Text fontFamily="$body" fontSize="$3">A cross-platform, open-source design system built on Tamagui.</Text>
+                <Text fontFamily="$body" fontSize="$3">
+                  A cross-platform, open-source design system built on Tamagui.
+                </Text>
               </Accordion.Content>
             </Accordion.Item>
             <Accordion.Item value="item2">
               <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
               <Accordion.Content>
-                <Text fontFamily="$body" fontSize="$3">Yes — all components follow WAI-ARIA guidelines.</Text>
+                <Text fontFamily="$body" fontSize="$3">
+                  Yes — all components follow WAI-ARIA guidelines.
+                </Text>
               </Accordion.Content>
             </Accordion.Item>
             <Accordion.Item value="item3">
               <Accordion.Trigger>Can I customize the theme?</Accordion.Trigger>
               <Accordion.Content>
-                <Text fontFamily="$body" fontSize="$3">Absolutely. Use the brand config system to define palettes, shadows, fonts, and more.</Text>
+                <Text fontFamily="$body" fontSize="$3">
+                  Absolutely. Use the brand config system to define palettes, shadows,
+                  fonts, and more.
+                </Text>
               </Accordion.Content>
             </Accordion.Item>
           </Accordion.Root>
@@ -57,13 +77,17 @@ export function DataDisplayPage() {
             <Accordion.Item value="a">
               <Accordion.Trigger>Section A</Accordion.Trigger>
               <Accordion.Content>
-                <Text fontFamily="$body" fontSize="$3">Content for section A.</Text>
+                <Text fontFamily="$body" fontSize="$3">
+                  Content for section A.
+                </Text>
               </Accordion.Content>
             </Accordion.Item>
             <Accordion.Item value="b">
               <Accordion.Trigger>Section B</Accordion.Trigger>
               <Accordion.Content>
-                <Text fontFamily="$body" fontSize="$3">Content for section B.</Text>
+                <Text fontFamily="$body" fontSize="$3">
+                  Content for section B.
+                </Text>
               </Accordion.Content>
             </Accordion.Item>
           </Accordion.Root>
@@ -126,25 +150,40 @@ export function DataDisplayPage() {
               <Card.Description>A simple card with header and content.</Card.Description>
             </Card.Header>
             <Card.Content>
-              <Text fontFamily="$body" fontSize="$3">Card content goes here.</Text>
+              <Text fontFamily="$body" fontSize="$3">
+                Card content goes here.
+              </Text>
             </Card.Content>
             <Card.Footer>
               <XStack gap="$2">
-                <Button size="sm" variant="outline"><Button.Text>Cancel</Button.Text></Button>
-                <Button size="sm"><Button.Text>Save</Button.Text></Button>
+                <Button size="sm" variant="outline">
+                  <Button.Text>Cancel</Button.Text>
+                </Button>
+                <Button size="sm">
+                  <Button.Text>Save</Button.Text>
+                </Button>
               </XStack>
             </Card.Footer>
           </Card>
           <Card flex={1} minWidth={260} elevated>
             <Card.Header>
               <Card.Title>Elevated Card</Card.Title>
-              <Card.Description>This card uses elevation instead of border.</Card.Description>
+              <Card.Description>
+                This card uses elevation instead of border.
+              </Card.Description>
             </Card.Header>
             <Card.Content>
-              <Text fontFamily="$body" fontSize="$3">Use the elevated variant for floating cards.</Text>
+              <Text fontFamily="$body" fontSize="$3">
+                Use the elevated variant for floating cards.
+              </Text>
             </Card.Content>
           </Card>
-          <Card flex={1} minWidth={260} interactive onPress={() => alert('Card pressed!')}>
+          <Card
+            flex={1}
+            minWidth={260}
+            interactive
+            onPress={() => alert('Card pressed!')}
+          >
             <Card.Header>
               <Card.Title>Interactive Card</Card.Title>
               <Card.Description>Click me — hover and press states.</Card.Description>
@@ -159,8 +198,17 @@ export function DataDisplayPage() {
           <Carousel.Root>
             {[1, 2, 3, 4, 5].map((i) => (
               <Carousel.Item key={i}>
-                <View backgroundColor="$color4" borderRadius="$4" padding="$6" alignItems="center" justifyContent="center" minHeight={160}>
-                  <Text fontFamily="$heading" fontSize="$6" fontWeight="$4">Slide {i}</Text>
+                <View
+                  backgroundColor="$color4"
+                  borderRadius="$4"
+                  padding="$6"
+                  alignItems="center"
+                  justifyContent="center"
+                  minHeight={160}
+                >
+                  <Text fontFamily="$heading" fontSize="$6" fontWeight="$4">
+                    Slide {i}
+                  </Text>
                 </View>
               </Carousel.Item>
             ))}
@@ -178,7 +226,12 @@ export function DataDisplayPage() {
               </Button>
             </Collapsible.Trigger>
             <Collapsible.Content>
-              <YStack padding="$3" marginTop="$2" backgroundColor="$color3" borderRadius="$3">
+              <YStack
+                padding="$3"
+                marginTop="$2"
+                backgroundColor="$color3"
+                borderRadius="$3"
+              >
                 <Text fontFamily="$body" fontSize="$3">
                   This content is revealed when the collapsible is open.
                 </Text>
@@ -193,17 +246,27 @@ export function DataDisplayPage() {
         <DemoCard label="Keyboard shortcuts">
           <XStack gap="$3" alignItems="center" flexWrap="wrap">
             <Kbd>Ctrl</Kbd>
-            <Text fontFamily="$body" fontSize="$3">+</Text>
+            <Text fontFamily="$body" fontSize="$3">
+              +
+            </Text>
             <Kbd>C</Kbd>
-            <Text fontFamily="$body" fontSize="$3" marginLeft="$3">to copy</Text>
+            <Text fontFamily="$body" fontSize="$3" marginLeft="$3">
+              to copy
+            </Text>
           </XStack>
           <XStack gap="$3" alignItems="center" flexWrap="wrap" marginTop="$2">
             <Kbd>Cmd</Kbd>
-            <Text fontFamily="$body" fontSize="$3">+</Text>
+            <Text fontFamily="$body" fontSize="$3">
+              +
+            </Text>
             <Kbd>Shift</Kbd>
-            <Text fontFamily="$body" fontSize="$3">+</Text>
+            <Text fontFamily="$body" fontSize="$3">
+              +
+            </Text>
             <Kbd>P</Kbd>
-            <Text fontFamily="$body" fontSize="$3" marginLeft="$3">command palette</Text>
+            <Text fontFamily="$body" fontSize="$3" marginLeft="$3">
+              command palette
+            </Text>
           </XStack>
         </DemoCard>
       </Section>
@@ -231,7 +294,9 @@ export function DataDisplayPage() {
         <DemoCard label="Default">
           <YStack gap="$2">
             <Progress value={65} aria-label="Task completion" />
-            <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">65% complete</Text>
+            <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
+              65% complete
+            </Text>
           </YStack>
         </DemoCard>
         <DemoCard label="Sizes">
@@ -296,7 +361,9 @@ export function DataDisplayPage() {
             <Small>Small text for captions.</Small>
             <Muted>Muted text for de-emphasized content.</Muted>
             <Blockquote>A blockquote for highlighted passages.</Blockquote>
-            <P>Use <InlineCode>InlineCode</InlineCode> for code references.</P>
+            <P>
+              Use <InlineCode>InlineCode</InlineCode> for code references.
+            </P>
             <List>
               <ListItem>First list item</ListItem>
               <ListItem>Second list item</ListItem>

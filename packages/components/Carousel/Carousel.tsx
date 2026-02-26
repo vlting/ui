@@ -91,7 +91,9 @@ function Root({
   )
 
   return (
-    <CarouselContext.Provider value={{ activeIndex, totalItems, goTo, next, prev, orientation }}>
+    <CarouselContext.Provider
+      value={{ activeIndex, totalItems, goTo, next, prev, orientation }}
+    >
       <ViewJsx
         position="relative"
         overflow="hidden"
@@ -164,7 +166,11 @@ function Previous({ children }: { children?: React.ReactNode }) {
       role="button"
       aria-label="Previous slide"
     >
-      {children ?? <TextJsx fontSize={14} color="$color">{'<'}</TextJsx>}
+      {children ?? (
+        <TextJsx fontSize={14} color="$color">
+          {'<'}
+        </TextJsx>
+      )}
     </ViewJsx>
   )
 }
@@ -194,7 +200,11 @@ function Next({ children }: { children?: React.ReactNode }) {
       role="button"
       aria-label="Next slide"
     >
-      {children ?? <TextJsx fontSize={14} color="$color">{'>'}</TextJsx>}
+      {children ?? (
+        <TextJsx fontSize={14} color="$color">
+          {'>'}
+        </TextJsx>
+      )}
     </ViewJsx>
   )
 }

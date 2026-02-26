@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Calendar } from './Calendar'
 
@@ -7,7 +6,10 @@ describe('Calendar', () => {
     render(<Calendar.Root />)
     // Should render month name and day abbreviations
     const today = new Date()
-    const monthName = today.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+    const monthName = today.toLocaleDateString('en-US', {
+      month: 'long',
+      year: 'numeric',
+    })
     expect(screen.getByText(monthName)).toBeTruthy()
   })
 

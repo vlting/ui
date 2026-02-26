@@ -1,6 +1,6 @@
+import { Menu as TamaguiMenu } from '@tamagui/menu'
 import type React from 'react'
 import type { ComponentType } from 'react'
-import { Menu as TamaguiMenu } from '@tamagui/menu'
 
 // Tamagui v2 RC GetProps bug — cast for JSX usage
 const MenuRoot = TamaguiMenu as ComponentType<Record<string, unknown>>
@@ -11,12 +11,18 @@ const MenuGroup = TamaguiMenu.Group as ComponentType<Record<string, unknown>>
 const MenuLabel = TamaguiMenu.Label as ComponentType<Record<string, unknown>>
 const MenuItem = TamaguiMenu.Item as ComponentType<Record<string, unknown>>
 const MenuItemTitle = TamaguiMenu.ItemTitle as ComponentType<Record<string, unknown>>
-const MenuItemSubtitle = TamaguiMenu.ItemSubtitle as ComponentType<Record<string, unknown>>
+const MenuItemSubtitle = TamaguiMenu.ItemSubtitle as ComponentType<
+  Record<string, unknown>
+>
 const MenuItemIcon = TamaguiMenu.ItemIcon as ComponentType<Record<string, unknown>>
-const MenuCheckboxItem = TamaguiMenu.CheckboxItem as ComponentType<Record<string, unknown>>
+const MenuCheckboxItem = TamaguiMenu.CheckboxItem as ComponentType<
+  Record<string, unknown>
+>
 const MenuRadioGroup = TamaguiMenu.RadioGroup as ComponentType<Record<string, unknown>>
 const MenuRadioItem = TamaguiMenu.RadioItem as ComponentType<Record<string, unknown>>
-const MenuItemIndicator = TamaguiMenu.ItemIndicator as ComponentType<Record<string, unknown>>
+const MenuItemIndicator = TamaguiMenu.ItemIndicator as ComponentType<
+  Record<string, unknown>
+>
 const MenuSeparator = TamaguiMenu.Separator as ComponentType<Record<string, unknown>>
 const MenuArrow = TamaguiMenu.Arrow as ComponentType<Record<string, unknown>>
 const MenuSub = TamaguiMenu.Sub as ComponentType<Record<string, unknown>>
@@ -138,7 +144,12 @@ interface CheckboxItemProps {
   disabled?: boolean
 }
 
-function CheckboxItem({ children, checked, onCheckedChange, disabled }: CheckboxItemProps) {
+function CheckboxItem({
+  children,
+  checked,
+  onCheckedChange,
+  disabled,
+}: CheckboxItemProps) {
   return (
     <MenuCheckboxItem
       checked={checked}
@@ -157,7 +168,11 @@ function CheckboxItem({ children, checked, onCheckedChange, disabled }: Checkbox
   )
 }
 
-function RadioGroup({ children, value, onValueChange }: {
+function RadioGroup({
+  children,
+  value,
+  onValueChange,
+}: {
   children: React.ReactNode
   value?: string
   onValueChange?: (value: string) => void
@@ -169,7 +184,11 @@ function RadioGroup({ children, value, onValueChange }: {
   )
 }
 
-function RadioItem({ children, value, disabled }: {
+function RadioItem({
+  children,
+  value,
+  disabled,
+}: {
   children: React.ReactNode
   value: string
   disabled?: boolean
@@ -196,19 +215,18 @@ function ItemIndicator({ children }: { children?: React.ReactNode }) {
 }
 
 function Separator() {
-  return (
-    <MenuSeparator
-      borderColor="$borderColor"
-      marginVertical="$1"
-    />
-  )
+  return <MenuSeparator borderColor="$borderColor" marginVertical="$1" />
 }
 
 function Arrow() {
   return <MenuArrow borderWidth={1} borderColor="$borderColor" />
 }
 
-function Sub({ children, open, onOpenChange }: {
+function Sub({
+  children,
+  open,
+  onOpenChange,
+}: {
   children: React.ReactNode
   open?: boolean
   onOpenChange?: (open: boolean) => void
@@ -220,7 +238,10 @@ function Sub({ children, open, onOpenChange }: {
   )
 }
 
-function SubTrigger({ children, disabled }: {
+function SubTrigger({
+  children,
+  disabled,
+}: {
   children: React.ReactNode
   disabled?: boolean
 }) {

@@ -1,7 +1,7 @@
-import type { ComponentType } from 'react'
-import React from 'react'
-import { Text, View } from 'tamagui'
 import { styledHtml } from '@tamagui/web'
+import type { ComponentType } from 'react'
+import type React from 'react'
+import { Text, View } from 'tamagui'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC

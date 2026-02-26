@@ -24,11 +24,14 @@ export function useKeyboardNavigation(
 
       const isPrev =
         ((orientation === 'vertical' || orientation === 'both') && e.key === 'ArrowUp') ||
-        ((orientation === 'horizontal' || orientation === 'both') && e.key === 'ArrowLeft')
+        ((orientation === 'horizontal' || orientation === 'both') &&
+          e.key === 'ArrowLeft')
 
       const isNext =
-        ((orientation === 'vertical' || orientation === 'both') && e.key === 'ArrowDown') ||
-        ((orientation === 'horizontal' || orientation === 'both') && e.key === 'ArrowRight')
+        ((orientation === 'vertical' || orientation === 'both') &&
+          e.key === 'ArrowDown') ||
+        ((orientation === 'horizontal' || orientation === 'both') &&
+          e.key === 'ArrowRight')
 
       if (isPrev) {
         e.preventDefault()

@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Tooltip, TooltipProvider } from './Tooltip'
 
@@ -8,10 +7,10 @@ describe('Tooltip', () => {
       render(
         <TooltipProvider>
           <Tooltip content="Help text">
-            <button>Hover me</button>
+            <button type="button">Hover me</button>
           </Tooltip>
-        </TooltipProvider>
-      )
+        </TooltipProvider>,
+      ),
     ).not.toThrow()
   })
 
@@ -19,9 +18,9 @@ describe('Tooltip', () => {
     render(
       <TooltipProvider>
         <Tooltip content="Tooltip text">
-          <button>Trigger</button>
+          <button type="button">Trigger</button>
         </Tooltip>
-      </TooltipProvider>
+      </TooltipProvider>,
     )
     expect(screen.getByText('Trigger')).toBeTruthy()
   })
@@ -32,9 +31,9 @@ describe('Tooltip', () => {
       const { unmount } = render(
         <TooltipProvider>
           <Tooltip content="Tip" side={side}>
-            <button>Btn</button>
+            <button type="button">Btn</button>
           </Tooltip>
-        </TooltipProvider>
+        </TooltipProvider>,
       )
       unmount()
     }
@@ -45,10 +44,10 @@ describe('Tooltip', () => {
       render(
         <TooltipProvider delay={500}>
           <Tooltip content="Delayed" delay={300}>
-            <button>Wait</button>
+            <button type="button">Wait</button>
           </Tooltip>
-        </TooltipProvider>
-      )
+        </TooltipProvider>,
+      ),
     ).not.toThrow()
   })
 
@@ -58,9 +57,9 @@ describe('Tooltip', () => {
       const { unmount } = render(
         <TooltipProvider>
           <Tooltip content="Aligned" align={align}>
-            <button>Btn</button>
+            <button type="button">Btn</button>
           </Tooltip>
-        </TooltipProvider>
+        </TooltipProvider>,
       )
       unmount()
     }

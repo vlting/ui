@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { AlertDialog } from './AlertDialog'
 
@@ -16,8 +15,8 @@ describe('AlertDialog', () => {
               <AlertDialog.Action>Yes</AlertDialog.Action>
             </AlertDialog.Footer>
           </AlertDialog.Content>
-        </AlertDialog.Root>
-      )
+        </AlertDialog.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -28,7 +27,7 @@ describe('AlertDialog', () => {
         <AlertDialog.Content>
           <AlertDialog.Title>Confirm</AlertDialog.Title>
         </AlertDialog.Content>
-      </AlertDialog.Root>
+      </AlertDialog.Root>,
     )
     expect(screen.getByText('Confirm')).toBeTruthy()
   })

@@ -34,7 +34,12 @@ const DropdownMenuContext = React.createContext<{
   triggerRef: React.RefObject<HTMLElement | null>
 }>({ open: false, setOpen: () => {}, close: () => {}, triggerRef: { current: null } })
 
-function Root({ children, open: controlledOpen, onOpenChange, modal }: DropdownMenuRootProps) {
+function Root({
+  children,
+  open: controlledOpen,
+  onOpenChange,
+  modal,
+}: DropdownMenuRootProps) {
   const [internalOpen, setInternalOpen] = useState(false)
   const open = controlledOpen ?? internalOpen
   const triggerRef = useRef<HTMLElement | null>(null)
@@ -120,7 +125,9 @@ function Content({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (open && contentRef.current) {
       setFocusedIndex(0)
-      const items = contentRef.current.querySelectorAll('[role="menuitem"], [role="menuitemcheckbox"]')
+      const items = contentRef.current.querySelectorAll(
+        '[role="menuitem"], [role="menuitemcheckbox"]',
+      )
       if (items.length > 0) {
         ;(items[0] as HTMLElement).focus()
       }
@@ -134,7 +141,9 @@ function Content({ children }: { children: React.ReactNode }) {
       if (!container) return
 
       const items = Array.from(
-        container.querySelectorAll('[role="menuitem"]:not([aria-disabled="true"]), [role="menuitemcheckbox"]:not([aria-disabled="true"])'),
+        container.querySelectorAll(
+          '[role="menuitem"]:not([aria-disabled="true"]), [role="menuitemcheckbox"]:not([aria-disabled="true"])',
+        ),
       ) as HTMLElement[]
       if (items.length === 0) return
 
@@ -248,7 +257,12 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
   )
 }
 
-function CheckboxItem({ children, checked, onCheckedChange, disabled }: DropdownMenuCheckboxItemProps) {
+function CheckboxItem({
+  children,
+  checked,
+  onCheckedChange,
+  disabled,
+}: DropdownMenuCheckboxItemProps) {
   const { close } = React.useContext(DropdownMenuContext)
 
   const handleKeyDown = useCallback(
@@ -294,7 +308,11 @@ function CheckboxItem({ children, checked, onCheckedChange, disabled }: Dropdown
       }}
     >
       <ViewJsx width={16} alignItems="center">
-        {checked && <TextJsx fontSize={12} color="$color">{'\u2713'}</TextJsx>}
+        {checked && (
+          <TextJsx fontSize={12} color="$color">
+            {'\u2713'}
+          </TextJsx>
+        )}
       </ViewJsx>
       <TextJsx fontSize={14} fontFamily="$body" color="$color">
         {children}
@@ -304,7 +322,16 @@ function CheckboxItem({ children, checked, onCheckedChange, disabled }: Dropdown
 }
 
 function Separator() {
-  return <ViewJsx height={1} backgroundColor="$borderColor" marginTop={4} marginBottom={4} marginLeft={-4} marginRight={-4} />
+  return (
+    <ViewJsx
+      height={1}
+      backgroundColor="$borderColor"
+      marginTop={4}
+      marginBottom={4}
+      marginLeft={-4}
+      marginRight={-4}
+    />
+  )
 }
 
 function Label({ children }: { children: React.ReactNode }) {
@@ -317,4 +344,12 @@ function Label({ children }: { children: React.ReactNode }) {
   )
 }
 
-export const DropdownMenu = { Root, Trigger, Content, Item, CheckboxItem, Separator, Label }
+export const DropdownMenu = {
+  Root,
+  Trigger,
+  Content,
+  Item,
+  CheckboxItem,
+  Separator,
+  Label,
+}

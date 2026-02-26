@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Menubar } from './Menubar'
 
@@ -12,7 +11,7 @@ describe('Menubar', () => {
             <Menubar.Item>New</Menubar.Item>
           </Menubar.Content>
         </Menubar.Menu>
-      </Menubar.Root>
+      </Menubar.Root>,
     )
     expect(screen.getByText('File')).toBeTruthy()
   })
@@ -32,7 +31,7 @@ describe('Menubar', () => {
             <Menubar.Item>Undo</Menubar.Item>
           </Menubar.Content>
         </Menubar.Menu>
-      </Menubar.Root>
+      </Menubar.Root>,
     )
     expect(screen.getByText('File')).toBeTruthy()
     expect(screen.getByText('Edit')).toBeTruthy()
@@ -48,7 +47,7 @@ describe('Menubar', () => {
             <Menubar.Item>New</Menubar.Item>
           </Menubar.Content>
         </Menubar.Menu>
-      </Menubar.Root>
+      </Menubar.Root>,
     )
     expect(screen.getByRole('menubar')).toBeTruthy()
   })

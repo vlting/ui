@@ -19,10 +19,7 @@ module.exports = {
     '^react-native$': '<rootDir>/src/__test-utils__/mocks/react-native.js',
   },
   transform: {
-    '^.+\\.(js|jsx|ts|tsx|mjs|cjs)$': [
-      'babel-jest',
-      { configFile: './babel.config.js' },
-    ],
+    '^.+\\.(js|jsx|ts|tsx|mjs|cjs)$': ['babel-jest', { configFile: './babel.config.js' }],
   },
   setupFilesAfterEnv: ['./jest.setup.js'],
   transformIgnorePatterns: [

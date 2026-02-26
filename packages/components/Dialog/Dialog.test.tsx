@@ -1,5 +1,4 @@
-import React from 'react'
-import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
+import { render, screen } from '../../../src/__test-utils__/render'
 import { Dialog } from './Dialog'
 
 describe('Dialog', () => {
@@ -11,8 +10,8 @@ describe('Dialog', () => {
           <Dialog.Content>
             <Dialog.Title>Title</Dialog.Title>
           </Dialog.Content>
-        </Dialog.Root>
-      )
+        </Dialog.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -25,7 +24,7 @@ describe('Dialog', () => {
           <Dialog.Title>Dialog Title</Dialog.Title>
           <Dialog.Description>Description</Dialog.Description>
         </Dialog.Content>
-      </Dialog.Root>
+      </Dialog.Root>,
     )
     expect(screen.getByText('Dialog Title')).toBeTruthy()
   })
@@ -39,7 +38,7 @@ describe('Dialog', () => {
           <Dialog.Content size={size}>
             <Dialog.Title>Title</Dialog.Title>
           </Dialog.Content>
-        </Dialog.Root>
+        </Dialog.Root>,
       )
       unmount()
     }
