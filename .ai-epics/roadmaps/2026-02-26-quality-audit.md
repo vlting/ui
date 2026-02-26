@@ -26,7 +26,7 @@
 - [ ] DatePicker and DateRangePicker no longer use `tag: 'button'` in styled()
 - [ ] All replaced elements are keyboard-focusable (Tab) and activatable (Enter/Space)
 - [ ] No regressions in existing tests
-**Status:** pending
+**Status:** executing
 **Iterations:** 0
 
 ## Stage 3: Focus Indicators
