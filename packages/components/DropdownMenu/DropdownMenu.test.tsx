@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { DropdownMenu } from './DropdownMenu'
 
@@ -10,7 +9,7 @@ describe('DropdownMenu', () => {
         <DropdownMenu.Content>
           <DropdownMenu.Item>Option 1</DropdownMenu.Item>
         </DropdownMenu.Content>
-      </DropdownMenu.Root>
+      </DropdownMenu.Root>,
     )
     expect(screen.getByText('Menu')).toBeTruthy()
   })
@@ -23,7 +22,7 @@ describe('DropdownMenu', () => {
         <DropdownMenu.Content>
           <DropdownMenu.Item>Option</DropdownMenu.Item>
         </DropdownMenu.Content>
-      </DropdownMenu.Root>
+      </DropdownMenu.Root>,
     )
     const trigger = screen.getByText('Menu')
     expect(trigger.closest('[aria-haspopup="menu"]')).toBeTruthy()
@@ -41,7 +40,7 @@ describe('DropdownMenu', () => {
             Visible
           </DropdownMenu.CheckboxItem>
         </DropdownMenu.Content>
-      </DropdownMenu.Root>
+      </DropdownMenu.Root>,
     )
     expect(screen.getByText('Menu')).toBeTruthy()
   })
@@ -54,7 +53,7 @@ describe('DropdownMenu', () => {
           <DropdownMenu.Item>Edit</DropdownMenu.Item>
           <DropdownMenu.Item>Delete</DropdownMenu.Item>
         </DropdownMenu.Content>
-      </DropdownMenu.Root>
+      </DropdownMenu.Root>,
     )
     expect(screen.getByText('Edit')).toBeTruthy()
     expect(screen.getByText('Delete')).toBeTruthy()
@@ -68,7 +67,7 @@ describe('DropdownMenu', () => {
           <DropdownMenu.Item>First</DropdownMenu.Item>
           <DropdownMenu.Item>Second</DropdownMenu.Item>
         </DropdownMenu.Content>
-      </DropdownMenu.Root>
+      </DropdownMenu.Root>,
     )
     const menu = container.querySelector('[role="menu"]')
     expect(menu).toBeTruthy()

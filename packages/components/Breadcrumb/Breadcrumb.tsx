@@ -50,7 +50,16 @@ function Root({ children }: BreadcrumbProps) {
 
   return (
     <nav aria-label="Breadcrumb">
-      <ol style={{ display: 'flex', alignItems: 'center', listStyle: 'none', padding: 0, margin: 0, gap: 4 }}>
+      <ol
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          listStyle: 'none',
+          padding: 0,
+          margin: 0,
+          gap: 4,
+        }}
+      >
         {children}
       </ol>
     </nav>
@@ -58,11 +67,7 @@ function Root({ children }: BreadcrumbProps) {
 }
 
 function Item({ children }: { children: React.ReactNode }) {
-  return (
-    <li style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-      {children}
-    </li>
-  )
+  return <li style={{ display: 'flex', alignItems: 'center', gap: 4 }}>{children}</li>
 }
 
 function Link({
@@ -73,7 +78,14 @@ function Link({
   return (
     <a
       href={href || '#'}
-      onClick={onPress ? (e: React.MouseEvent) => { e.preventDefault(); onPress() } : undefined}
+      onClick={
+        onPress
+          ? (e: React.MouseEvent) => {
+              e.preventDefault()
+              onPress()
+            }
+          : undefined
+      }
       className="vlt-breadcrumb-link"
       style={{
         fontFamily: 'inherit',
@@ -100,7 +112,11 @@ function Page({ children }: { children: React.ReactNode }) {
 
 function Separator({ children = '/' }: { children?: React.ReactNode }) {
   return (
-    <li role="presentation" aria-hidden="true" style={{ display: 'flex', alignItems: 'center' }}>
+    <li
+      role="presentation"
+      aria-hidden="true"
+      style={{ display: 'flex', alignItems: 'center' }}
+    >
       {/* @ts-expect-error Tamagui v2 RC */}
       <BreadcrumbSeparatorText>{children}</BreadcrumbSeparatorText>
     </li>

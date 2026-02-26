@@ -1,7 +1,7 @@
+import { Tooltip as TamaguiTooltip, TooltipGroup } from '@tamagui/tooltip'
 import type React from 'react'
 import type { ComponentType } from 'react'
 import { Text, styled } from 'tamagui'
-import { Tooltip as TamaguiTooltip, TooltipGroup } from '@tamagui/tooltip'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 
@@ -38,12 +38,17 @@ export interface TooltipProps {
   delay?: number
 }
 
-export function Tooltip({ children, content, side = 'top', sideOffset = 2, align = 'center', delay = 200 }: TooltipProps) {
+export function Tooltip({
+  children,
+  content,
+  side = 'top',
+  sideOffset = 2,
+  align = 'center',
+  delay = 200,
+}: TooltipProps) {
   return (
     <TooltipRoot delay={delay} placement={side}>
-      <TooltipTrigger asChild>
-        {children}
-      </TooltipTrigger>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
       <TooltipContent
         backgroundColor="$color11"
         borderRadius="$3"

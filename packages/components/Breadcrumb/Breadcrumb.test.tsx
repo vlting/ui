@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '../../../src/__test-utils__/render'
 import { Breadcrumb } from './Breadcrumb'
 
@@ -9,7 +8,7 @@ describe('Breadcrumb', () => {
         <Breadcrumb.Item>
           <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
         </Breadcrumb.Item>
-      </Breadcrumb.Root>
+      </Breadcrumb.Root>,
     )
     const nav = container.querySelector('nav')
     expect(nav).toBeTruthy()
@@ -22,7 +21,7 @@ describe('Breadcrumb', () => {
         <Breadcrumb.Item>
           <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
         </Breadcrumb.Item>
-      </Breadcrumb.Root>
+      </Breadcrumb.Root>,
     )
     expect(container.querySelector('ol')).toBeTruthy()
     expect(container.querySelector('li')).toBeTruthy()
@@ -34,7 +33,7 @@ describe('Breadcrumb', () => {
         <Breadcrumb.Item>
           <Breadcrumb.Link href="/about">About</Breadcrumb.Link>
         </Breadcrumb.Item>
-      </Breadcrumb.Root>
+      </Breadcrumb.Root>,
     )
     const link = container.querySelector('a')
     expect(link).toBeTruthy()
@@ -47,7 +46,7 @@ describe('Breadcrumb', () => {
         <Breadcrumb.Item>
           <Breadcrumb.Page>Current</Breadcrumb.Page>
         </Breadcrumb.Item>
-      </Breadcrumb.Root>
+      </Breadcrumb.Root>,
     )
     const page = container.querySelector('[aria-current="page"]')
     expect(page).toBeTruthy()
@@ -64,7 +63,7 @@ describe('Breadcrumb', () => {
         <Breadcrumb.Item>
           <Breadcrumb.Page>About</Breadcrumb.Page>
         </Breadcrumb.Item>
-      </Breadcrumb.Root>
+      </Breadcrumb.Root>,
     )
     const separators = container.querySelectorAll('[role="presentation"]')
     expect(separators.length).toBeGreaterThan(0)

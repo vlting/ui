@@ -1,6 +1,6 @@
+import { Sheet as TamaguiSheet } from '@tamagui/sheet'
 import type React from 'react'
 import type { ComponentType } from 'react'
-import { Sheet as TamaguiSheet } from '@tamagui/sheet'
 
 // Tamagui v2 RC GetProps bug — cast for JSX usage
 const SheetRoot = TamaguiSheet as ComponentType<Record<string, unknown>>

@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '../../../src/__test-utils__/render'
 import { Toast } from './Toast'
 
@@ -8,8 +7,8 @@ describe('Toast', () => {
       render(
         <Toast.Provider>
           <Toast.Viewport />
-        </Toast.Provider>
-      )
+        </Toast.Provider>,
+      ),
     ).not.toThrow()
   })
 
@@ -24,8 +23,8 @@ describe('Toast', () => {
             <Toast.Close>×</Toast.Close>
           </Toast.Root>
           <Toast.Viewport />
-        </Toast.Provider>
-      )
+        </Toast.Provider>,
+      ),
     ).not.toThrow()
   })
 
@@ -38,7 +37,7 @@ describe('Toast', () => {
             <Toast.Title>Toast</Toast.Title>
           </Toast.Root>
           <Toast.Viewport />
-        </Toast.Provider>
+        </Toast.Provider>,
       )
       unmount()
     }
@@ -50,7 +49,7 @@ describe('Toast', () => {
       const { unmount } = render(
         <Toast.Provider swipeDirection={dir}>
           <Toast.Viewport />
-        </Toast.Provider>
+        </Toast.Provider>,
       )
       unmount()
     }

@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { ScrollArea } from './ScrollArea'
 
@@ -10,8 +9,8 @@ describe('ScrollArea', () => {
           <ScrollArea.Viewport>
             <div>Scrollable content</div>
           </ScrollArea.Viewport>
-        </ScrollArea.Root>
-      )
+        </ScrollArea.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -21,7 +20,7 @@ describe('ScrollArea', () => {
         <ScrollArea.Viewport>
           <p>Visible content</p>
         </ScrollArea.Viewport>
-      </ScrollArea.Root>
+      </ScrollArea.Root>,
     )
     expect(screen.getByText('Visible content')).toBeTruthy()
   })
@@ -33,8 +32,8 @@ describe('ScrollArea', () => {
           <ScrollArea.Viewport orientation="horizontal">
             <div>Wide content</div>
           </ScrollArea.Viewport>
-        </ScrollArea.Root>
-      )
+        </ScrollArea.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -46,7 +45,7 @@ describe('ScrollArea', () => {
           <ScrollArea.Viewport>
             <div>Content</div>
           </ScrollArea.Viewport>
-        </ScrollArea.Root>
+        </ScrollArea.Root>,
       )
       unmount()
     }
@@ -62,8 +61,8 @@ describe('ScrollArea', () => {
           <ScrollArea.Scrollbar />
           <ScrollArea.Thumb />
           <ScrollArea.Corner />
-        </ScrollArea.Root>
-      )
+        </ScrollArea.Root>,
+      ),
     ).not.toThrow()
   })
 })

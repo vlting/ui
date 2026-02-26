@@ -1,5 +1,4 @@
-import React from 'react'
-import { render, screen } from '../../../src/__test-utils__/render'
+import { render } from '../../../src/__test-utils__/render'
 import { Drawer } from './Drawer'
 
 describe('Drawer', () => {
@@ -11,8 +10,8 @@ describe('Drawer', () => {
           <Drawer.Content>
             <Drawer.Title>Title</Drawer.Title>
           </Drawer.Content>
-        </Drawer.Root>
-      )
+        </Drawer.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -23,9 +22,11 @@ describe('Drawer', () => {
         render(
           <Drawer.Root direction={direction}>
             <Drawer.Trigger>Open</Drawer.Trigger>
-            <Drawer.Content><Drawer.Title>T</Drawer.Title></Drawer.Content>
-          </Drawer.Root>
-        )
+            <Drawer.Content>
+              <Drawer.Title>T</Drawer.Title>
+            </Drawer.Content>
+          </Drawer.Root>,
+        ),
       ).not.toThrow()
     }
   })

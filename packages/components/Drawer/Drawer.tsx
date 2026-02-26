@@ -1,7 +1,7 @@
+import { Dialog as TamaguiDialog } from '@tamagui/dialog'
 import type { ComponentType } from 'react'
 import React from 'react'
 import { View, styled } from 'tamagui'
-import { Dialog as TamaguiDialog } from '@tamagui/dialog'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 
@@ -103,7 +103,9 @@ export interface DrawerContentProps {
   showHandle?: boolean
 }
 
-const DrawerContext = React.createContext<{ direction: 'bottom' | 'top' | 'left' | 'right' }>({
+const DrawerContext = React.createContext<{
+  direction: 'bottom' | 'top' | 'left' | 'right'
+}>({
   direction: 'bottom',
 })
 
@@ -200,4 +202,13 @@ function Close({ children }: { children: React.ReactNode }) {
   return <DialogClose asChild>{children}</DialogClose>
 }
 
-export const Drawer = { Root, Trigger, Content, Header, Footer, Title, Description, Close }
+export const Drawer = {
+  Root,
+  Trigger,
+  Content,
+  Header,
+  Footer,
+  Title,
+  Description,
+  Close,
+}

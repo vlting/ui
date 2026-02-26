@@ -1,19 +1,15 @@
-import { renderHook, act } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react'
 import { useControllableState } from './useControllableState'
 
 describe('useControllableState', () => {
   describe('uncontrolled mode', () => {
     it('returns defaultProp as initial value', () => {
-      const { result } = renderHook(() =>
-        useControllableState({ defaultProp: 'hello' })
-      )
+      const { result } = renderHook(() => useControllableState({ defaultProp: 'hello' }))
       expect(result.current[0]).toBe('hello')
     })
 
     it('updates value via setValue', () => {
-      const { result } = renderHook(() =>
-        useControllableState({ defaultProp: 'hello' })
-      )
+      const { result } = renderHook(() => useControllableState({ defaultProp: 'hello' }))
 
       act(() => {
         result.current[1]('world')
@@ -25,7 +21,7 @@ describe('useControllableState', () => {
     it('calls onChange when value changes', () => {
       const onChange = jest.fn()
       const { result } = renderHook(() =>
-        useControllableState({ defaultProp: 'hello', onChange })
+        useControllableState({ defaultProp: 'hello', onChange }),
       )
 
       act(() => {
@@ -43,15 +39,13 @@ describe('useControllableState', () => {
 
   describe('controlled mode', () => {
     it('returns the controlled prop value', () => {
-      const { result } = renderHook(() =>
-        useControllableState({ prop: 'controlled' })
-      )
+      const { result } = renderHook(() => useControllableState({ prop: 'controlled' }))
       expect(result.current[0]).toBe('controlled')
     })
 
     it('ignores defaultProp when prop is provided', () => {
       const { result } = renderHook(() =>
-        useControllableState({ prop: 'controlled', defaultProp: 'default' })
+        useControllableState({ prop: 'controlled', defaultProp: 'default' }),
       )
       expect(result.current[0]).toBe('controlled')
     })
@@ -59,7 +53,7 @@ describe('useControllableState', () => {
     it('calls onChange when setValue is called', () => {
       const onChange = jest.fn()
       const { result } = renderHook(() =>
-        useControllableState({ prop: 'controlled', onChange })
+        useControllableState({ prop: 'controlled', onChange }),
       )
 
       act(() => {
@@ -72,7 +66,7 @@ describe('useControllableState', () => {
     it('value follows prop changes', () => {
       const { result, rerender } = renderHook(
         ({ prop }) => useControllableState({ prop }),
-        { initialProps: { prop: 'a' as string | undefined } }
+        { initialProps: { prop: 'a' as string | undefined } },
       )
 
       expect(result.current[0]).toBe('a')
@@ -84,9 +78,7 @@ describe('useControllableState', () => {
 
   describe('edge cases', () => {
     it('handles numeric values', () => {
-      const { result } = renderHook(() =>
-        useControllableState({ defaultProp: 0 })
-      )
+      const { result } = renderHook(() => useControllableState({ defaultProp: 0 }))
       expect(result.current[0]).toBe(0)
 
       act(() => {
@@ -96,9 +88,7 @@ describe('useControllableState', () => {
     })
 
     it('handles boolean values', () => {
-      const { result } = renderHook(() =>
-        useControllableState({ defaultProp: false })
-      )
+      const { result } = renderHook(() => useControllableState({ defaultProp: false }))
       expect(result.current[0]).toBe(false)
 
       act(() => {

@@ -1,7 +1,6 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
-import { ButtonGroup } from './ButtonGroup'
 import { Button } from '../Button/Button'
+import { ButtonGroup } from './ButtonGroup'
 
 describe('ButtonGroup', () => {
   it('renders children buttons', () => {
@@ -9,7 +8,7 @@ describe('ButtonGroup', () => {
       <ButtonGroup.Root>
         <Button>A</Button>
         <Button>B</Button>
-      </ButtonGroup.Root>
+      </ButtonGroup.Root>,
     )
     expect(screen.getByText('A')).toBeTruthy()
     expect(screen.getByText('B')).toBeTruthy()
@@ -19,7 +18,7 @@ describe('ButtonGroup', () => {
     render(
       <ButtonGroup.Root orientation="horizontal">
         <Button>Horizontal</Button>
-      </ButtonGroup.Root>
+      </ButtonGroup.Root>,
     )
     expect(screen.getByText('Horizontal')).toBeTruthy()
   })
@@ -28,7 +27,7 @@ describe('ButtonGroup', () => {
     render(
       <ButtonGroup.Root orientation="vertical">
         <Button>Vertical</Button>
-      </ButtonGroup.Root>
+      </ButtonGroup.Root>,
     )
     expect(screen.getByText('Vertical')).toBeTruthy()
   })

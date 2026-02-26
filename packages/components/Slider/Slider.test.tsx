@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '../../../src/__test-utils__/render'
 import { Slider } from './Slider'
 
@@ -8,13 +7,13 @@ beforeAll(() => {
     observe() {}
     unobserve() {}
     disconnect() {}
-  } as any
+  } as unknown
 
   global.ResizeObserver = class {
     observe() {}
     unobserve() {}
     disconnect() {}
-  } as any
+  } as unknown
 })
 
 describe('Slider', () => {

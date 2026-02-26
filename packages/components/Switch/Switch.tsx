@@ -1,5 +1,5 @@
-import type { ComponentType } from 'react'
 import { Switch as TamaguiSwitch } from '@tamagui/switch'
+import type { ComponentType } from 'react'
 
 // Tamagui v2 RC GetProps bug — cast for JSX usage
 const SwitchFrame = TamaguiSwitch as ComponentType<Record<string, unknown>>

@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { YStack, XStack, Text, View } from 'tamagui'
 import {
   AlertDialog,
+  Button,
   Dialog,
   Drawer,
+  Heading,
   HoverCard,
   Tooltip,
-  Button,
-  Heading,
 } from '@vlting/ui'
-import { Section, DemoCard } from '../components/Section'
+import { useState } from 'react'
+import { Text, View, XStack, YStack } from 'tamagui'
+import { DemoCard, Section } from '../components/Section'
 
 export function OverlaysPage() {
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -38,7 +38,8 @@ export function OverlaysPage() {
             <AlertDialog.Content>
               <AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
               <AlertDialog.Description>
-                This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+                This action cannot be undone. This will permanently delete your account
+                and remove your data from our servers.
               </AlertDialog.Description>
               <AlertDialog.Footer>
                 <AlertDialog.Cancel>
@@ -96,7 +97,9 @@ export function OverlaysPage() {
               </Drawer.Trigger>
               <Drawer.Content>
                 <YStack padding="$4" gap="$3">
-                  <Text fontFamily="$heading" fontSize="$5" fontWeight="$4">Bottom Drawer</Text>
+                  <Text fontFamily="$heading" fontSize="$5" fontWeight="$4">
+                    Bottom Drawer
+                  </Text>
                   <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
                     Slides up from the bottom.
                   </Text>
@@ -109,7 +112,11 @@ export function OverlaysPage() {
           </DemoCard>
 
           <DemoCard label="Right panel">
-            <Drawer.Root open={rightPanelOpen} onOpenChange={setRightPanelOpen} direction="right">
+            <Drawer.Root
+              open={rightPanelOpen}
+              onOpenChange={setRightPanelOpen}
+              direction="right"
+            >
               <Drawer.Trigger>
                 <Button onPress={() => setRightPanelOpen(true)}>
                   <Button.Text>Open Right</Button.Text>
@@ -138,7 +145,11 @@ export function OverlaysPage() {
           </DemoCard>
 
           <DemoCard label="Left panel">
-            <Drawer.Root open={leftPanelOpen} onOpenChange={setLeftPanelOpen} direction="left">
+            <Drawer.Root
+              open={leftPanelOpen}
+              onOpenChange={setLeftPanelOpen}
+              direction="left"
+            >
               <Drawer.Trigger>
                 <Button onPress={() => setLeftPanelOpen(true)}>
                   <Button.Text>Open Left</Button.Text>
@@ -189,12 +200,16 @@ export function OverlaysPage() {
                 cursor="pointer"
                 alignSelf="flex-start"
               >
-                <Text fontFamily="$body" fontSize="$3" fontWeight="$3">@vlting</Text>
+                <Text fontFamily="$body" fontSize="$3" fontWeight="$3">
+                  @vlting
+                </Text>
               </View>
             </HoverCard.Trigger>
             <HoverCard.Content>
               <YStack gap="$2" padding="$3" maxWidth={280}>
-                <Text fontFamily="$body" fontSize="$4" fontWeight="$3">@vlting/ui</Text>
+                <Text fontFamily="$body" fontSize="$4" fontWeight="$3">
+                  @vlting/ui
+                </Text>
                 <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
                   A cross-platform, open-source design system built on Tamagui.
                 </Text>
@@ -220,7 +235,9 @@ export function OverlaysPage() {
                   borderRadius="$3"
                   cursor="pointer"
                 >
-                  <Text fontFamily="$body" fontSize="$3" textTransform="capitalize">{side}</Text>
+                  <Text fontFamily="$body" fontSize="$3" textTransform="capitalize">
+                    {side}
+                  </Text>
                 </View>
               </Tooltip>
             ))}

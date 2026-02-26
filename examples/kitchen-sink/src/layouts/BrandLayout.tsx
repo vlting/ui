@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { Outlet, useParams, useLocation, Link } from 'react-router-dom'
-import { XStack, YStack, View, Text } from 'tamagui'
 import { Provider } from '@vlting/ui'
-import { brands, activeBrand, type BrandKey } from '../brands'
+import type React from 'react'
+import { useEffect, useState } from 'react'
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom'
+import { Text, View, XStack, YStack } from 'tamagui'
+import { type BrandKey, activeBrand, brands } from '../brands'
 
 /**
  * CSS reset for native <button> elements.
@@ -256,7 +257,11 @@ function NavGroup({
                             if (el) {
                               e.preventDefault()
                               el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                              window.history.replaceState(null, '', `/${brandKey}/${item.path}#${sub.anchor}`)
+                              window.history.replaceState(
+                                null,
+                                '',
+                                `/${brandKey}/${item.path}#${sub.anchor}`,
+                              )
                             }
                           }}
                           style={LINK_RESET}
@@ -330,7 +335,15 @@ export function BrandLayout() {
 
   return (
     <Provider config={activeBrand.config} defaultTheme={theme}>
-      <YStack className="brand-layout" minHeight="100vh" backgroundColor="$background" color="$color" fontFamily="$body" overflow="visible" style={{ overflow: 'visible' }}>
+      <YStack
+        className="brand-layout"
+        minHeight="100vh"
+        backgroundColor="$background"
+        color="$color"
+        fontFamily="$body"
+        overflow="visible"
+        style={{ overflow: 'visible' }}
+      >
         {/* ─── Header ─── */}
         <XStack
           role="banner"
@@ -357,11 +370,15 @@ export function BrandLayout() {
               aria-label="Toggle sidebar navigation"
             >
               <View paddingVertical="$0.5" paddingHorizontal="$0.75" display="none">
-                <Text fontSize={20} color="$color">☰</Text>
+                <Text fontSize={20} color="$color">
+                  ☰
+                </Text>
               </View>
             </button>
             <Link to={`/${brandKey}`} style={LINK_RESET}>
-              <Text fontWeight="700" fontSize={15} letterSpacing={-0.3}>@vlting/ui</Text>
+              <Text fontWeight="700" fontSize={15} letterSpacing={-0.3}>
+                @vlting/ui
+              </Text>
             </Link>
           </XStack>
           <XStack alignItems="center" gap="$0.75">
@@ -372,7 +389,9 @@ export function BrandLayout() {
                 <button
                   key={key}
                   type="button"
-                  onClick={() => { window.location.href = `/${key}/${currentSection}` }}
+                  onClick={() => {
+                    window.location.href = `/${key}/${currentSection}`
+                  }}
                   style={BUTTON_RESET}
                 >
                   <XStack
@@ -400,7 +419,7 @@ export function BrandLayout() {
             {/* Theme toggle */}
             <button
               type="button"
-              onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
+              onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
               style={BUTTON_RESET}
               aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
             >

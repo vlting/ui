@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '../../../src/__test-utils__/render'
 import { Progress } from './Progress'
 
@@ -25,7 +24,7 @@ describe('Progress', () => {
 
   it('accepts aria-label', () => {
     expect(() =>
-      render(<Progress value={75} aria-label="Upload progress" />)
+      render(<Progress value={75} aria-label="Upload progress" />),
     ).not.toThrow()
   })
 

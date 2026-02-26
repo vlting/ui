@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Table } from './Table'
 
@@ -16,7 +15,7 @@ describe('Table', () => {
             <Table.Cell>Alice</Table.Cell>
           </Table.Row>
         </Table.Body>
-      </Table.Root>
+      </Table.Root>,
     )
     expect(container.querySelector('table')).toBeTruthy()
   })
@@ -36,7 +35,7 @@ describe('Table', () => {
             <Table.Cell>B</Table.Cell>
           </Table.Row>
         </Table.Body>
-      </Table.Root>
+      </Table.Root>,
     )
     expect(container.querySelector('thead')).toBeTruthy()
     expect(container.querySelector('tbody')).toBeTruthy()
@@ -54,7 +53,7 @@ describe('Table', () => {
             <Table.Cell>Data</Table.Cell>
           </Table.Row>
         </Table.Body>
-      </Table.Root>
+      </Table.Root>,
     )
     expect(screen.getByText('User list')).toBeTruthy()
   })
@@ -72,7 +71,7 @@ describe('Table', () => {
             <Table.Cell>Total</Table.Cell>
           </Table.Row>
         </Table.Footer>
-      </Table.Root>
+      </Table.Root>,
     )
     expect(container.querySelector('tfoot')).toBeTruthy()
   })
@@ -96,7 +95,7 @@ describe('Table', () => {
             <Table.Cell>25</Table.Cell>
           </Table.Row>
         </Table.Body>
-      </Table.Root>
+      </Table.Root>,
     )
     expect(screen.getByText('Alice')).toBeTruthy()
     expect(screen.getByText('Bob')).toBeTruthy()

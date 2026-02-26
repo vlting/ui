@@ -1,6 +1,6 @@
-import type { ComponentType } from 'react'
-import React from 'react'
 import { styledHtml } from '@tamagui/web'
+import type { ComponentType } from 'react'
+import type React from 'react'
 
 const SelectFrame = styledHtml('select', {
   display: 'flex',

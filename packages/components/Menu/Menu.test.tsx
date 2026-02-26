@@ -1,5 +1,4 @@
-import React from 'react'
-import { render, screen } from '../../../src/__test-utils__/render'
+import { render } from '../../../src/__test-utils__/render'
 import { Menu } from './Menu'
 
 describe('Menu', () => {
@@ -10,11 +9,13 @@ describe('Menu', () => {
           <Menu.Trigger>Open Menu</Menu.Trigger>
           <Menu.Portal>
             <Menu.Content>
-              <Menu.Item><Menu.ItemTitle>Item 1</Menu.ItemTitle></Menu.Item>
+              <Menu.Item>
+                <Menu.ItemTitle>Item 1</Menu.ItemTitle>
+              </Menu.Item>
             </Menu.Content>
           </Menu.Portal>
-        </Menu.Root>
-      )
+        </Menu.Root>,
+      ),
     ).not.toThrow()
   })
 
@@ -27,13 +28,15 @@ describe('Menu', () => {
             <Menu.Content>
               <Menu.Group>
                 <Menu.Label>Section</Menu.Label>
-                <Menu.Item><Menu.ItemTitle>A</Menu.ItemTitle></Menu.Item>
+                <Menu.Item>
+                  <Menu.ItemTitle>A</Menu.ItemTitle>
+                </Menu.Item>
               </Menu.Group>
               <Menu.Separator />
             </Menu.Content>
           </Menu.Portal>
-        </Menu.Root>
-      )
+        </Menu.Root>,
+      ),
     ).not.toThrow()
   })
 })

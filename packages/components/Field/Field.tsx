@@ -59,9 +59,7 @@ function Root({ children, error, disabled }: FieldRootProps) {
 
   return (
     <FieldContext.Provider value={{ id, descriptionId, errorId, error, disabled }}>
-      <ViewJsx gap={4}>
-        {children}
-      </ViewJsx>
+      <ViewJsx gap={4}>{children}</ViewJsx>
     </FieldContext.Provider>
   )
 }

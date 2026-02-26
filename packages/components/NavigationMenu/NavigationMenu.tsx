@@ -74,40 +74,43 @@ function Root({ children }: NavigationMenuRootProps) {
 function List({ children }: { children: React.ReactNode }) {
   const listRef = useRef<HTMLDivElement>(null)
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      const container = listRef.current
-      if (!container) return
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    const container = listRef.current
+    if (!container) return
 
-      const triggers = Array.from(
-        container.querySelectorAll('[role="button"][aria-expanded], [role="link"]'),
-      ) as HTMLElement[]
-      if (triggers.length === 0) return
+    const triggers = Array.from(
+      container.querySelectorAll('[role="button"][aria-expanded], [role="link"]'),
+    ) as HTMLElement[]
+    if (triggers.length === 0) return
 
-      const currentIndex = triggers.indexOf(e.target as HTMLElement)
-      if (currentIndex === -1) return
+    const currentIndex = triggers.indexOf(e.target as HTMLElement)
+    if (currentIndex === -1) return
 
-      if (e.key === 'ArrowRight') {
-        e.preventDefault()
-        const next = currentIndex + 1 >= triggers.length ? 0 : currentIndex + 1
-        triggers[next]?.focus()
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault()
-        const prev = currentIndex - 1 < 0 ? triggers.length - 1 : currentIndex - 1
-        triggers[prev]?.focus()
-      } else if (e.key === 'Home') {
-        e.preventDefault()
-        triggers[0]?.focus()
-      } else if (e.key === 'End') {
-        e.preventDefault()
-        triggers[triggers.length - 1]?.focus()
-      }
-    },
-    [],
-  )
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      const next = currentIndex + 1 >= triggers.length ? 0 : currentIndex + 1
+      triggers[next]?.focus()
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      const prev = currentIndex - 1 < 0 ? triggers.length - 1 : currentIndex - 1
+      triggers[prev]?.focus()
+    } else if (e.key === 'Home') {
+      e.preventDefault()
+      triggers[0]?.focus()
+    } else if (e.key === 'End') {
+      e.preventDefault()
+      triggers[triggers.length - 1]?.focus()
+    }
+  }, [])
 
   return (
-    <ViewJsx ref={listRef} flexDirection="row" alignItems="center" gap={2} onKeyDown={handleKeyDown}>
+    <ViewJsx
+      ref={listRef}
+      flexDirection="row"
+      alignItems="center"
+      gap={2}
+      onKeyDown={handleKeyDown}
+    >
       {children}
     </ViewJsx>
   )
@@ -268,7 +271,12 @@ function Link({ children, href, active, onSelect }: NavigationMenuLinkProps) {
         outlineStyle: 'solid',
       }}
     >
-      <TextJsx fontSize={14} fontFamily="$body" color="$color" fontWeight={active ? '500' : '400'}>
+      <TextJsx
+        fontSize={14}
+        fontFamily="$body"
+        color="$color"
+        fontWeight={active ? '500' : '400'}
+      >
         {children}
       </TextJsx>
     </ViewJsx>

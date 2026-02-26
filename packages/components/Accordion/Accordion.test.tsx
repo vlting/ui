@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Accordion } from './Accordion'
 
@@ -10,7 +9,7 @@ describe('Accordion', () => {
           <Accordion.Trigger>Section 1</Accordion.Trigger>
           <Accordion.Content>Content 1</Accordion.Content>
         </Accordion.Item>
-      </Accordion.Root>
+      </Accordion.Root>,
     )
     expect(screen.getByText('Section 1')).toBeTruthy()
   })
@@ -26,7 +25,7 @@ describe('Accordion', () => {
           <Accordion.Trigger>B</Accordion.Trigger>
           <Accordion.Content>Content B</Accordion.Content>
         </Accordion.Item>
-      </Accordion.Root>
+      </Accordion.Root>,
     )
     expect(screen.getByText('A')).toBeTruthy()
     expect(screen.getByText('B')).toBeTruthy()
@@ -39,7 +38,7 @@ describe('Accordion', () => {
           <Accordion.Trigger>A</Accordion.Trigger>
           <Accordion.Content>Content A</Accordion.Content>
         </Accordion.Item>
-      </Accordion.Root>
+      </Accordion.Root>,
     )
     expect(screen.getByText('A')).toBeTruthy()
   })

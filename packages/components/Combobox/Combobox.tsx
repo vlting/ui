@@ -1,7 +1,8 @@
-import type { ComponentType } from 'react'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
-import { Text, View } from 'tamagui'
 import { styledHtml } from '@tamagui/web'
+import type { ComponentType } from 'react'
+import type React from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
+import { Text, View } from 'tamagui'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
@@ -59,10 +60,7 @@ function Root({
   const inputRef = useRef<HTMLInputElement>(null)
 
   const filtered = useMemo(
-    () =>
-      options.filter((o) =>
-        o.label.toLowerCase().includes(search.toLowerCase()),
-      ),
+    () => options.filter((o) => o.label.toLowerCase().includes(search.toLowerCase())),
     [options, search],
   )
 
@@ -114,18 +112,28 @@ function Root({
         backgroundColor="$background"
         cursor={disabled ? 'not-allowed' : 'pointer'}
         opacity={disabled ? 0.5 : 1}
-        onPress={disabled ? undefined : () => {
-          setOpen(!open)
-          setTimeout(() => inputRef.current?.focus(), 0)
-        }}
+        onPress={
+          disabled
+            ? undefined
+            : () => {
+                setOpen(!open)
+                setTimeout(() => inputRef.current?.focus(), 0)
+              }
+        }
         role="combobox"
         aria-expanded={open}
         aria-haspopup="listbox"
       >
-        <TextJsx fontSize={14} fontFamily="$body" color={value ? '$color' : '$placeholderColor'}>
+        <TextJsx
+          fontSize={14}
+          fontFamily="$body"
+          color={value ? '$color' : '$placeholderColor'}
+        >
           {selectedLabel ?? placeholder}
         </TextJsx>
-        <TextJsx fontSize={12} color="$colorSubtitle">{open ? '\u25B2' : '\u25BC'}</TextJsx>
+        <TextJsx fontSize={12} color="$colorSubtitle">
+          {open ? '\u25B2' : '\u25BC'}
+        </TextJsx>
       </ViewJsx>
 
       {/* Dropdown */}
@@ -195,7 +203,9 @@ function Root({
                   >
                     <ViewJsx width={16}>
                       {isSelected && (
-                        <TextJsx fontSize={12} color="$color">{'\u2713'}</TextJsx>
+                        <TextJsx fontSize={12} color="$color">
+                          {'\u2713'}
+                        </TextJsx>
                       )}
                     </ViewJsx>
                     <TextJsx

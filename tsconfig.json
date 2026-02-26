@@ -38,11 +38,5 @@
     "packages/**/*.ts",
     "packages/**/*.tsx"
   ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.ts",
-    "**/*.test.tsx",
-    "examples"
-  ]
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx", "examples"]
 }

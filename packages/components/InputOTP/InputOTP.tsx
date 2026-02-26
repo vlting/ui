@@ -1,7 +1,7 @@
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useRef, useState } from 'react'
 import { View } from 'tamagui'
-import { styledHtml } from '@tamagui/web'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
@@ -91,7 +91,12 @@ function Root({
 
   return (
     <InputOTPContext.Provider value={{ value, activeIndex, maxLength, focus }}>
-      <ViewJsx position="relative" display="inline-flex" flexDirection="row" alignItems="center">
+      <ViewJsx
+        position="relative"
+        display="inline-flex"
+        flexDirection="row"
+        alignItems="center"
+      >
         <HiddenInputJsx
           ref={inputRef}
           type="text"
@@ -106,12 +111,7 @@ function Root({
           aria-label={`Enter ${maxLength}-digit code`}
           style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
         />
-        <ViewJsx
-          flexDirection="row"
-          alignItems="center"
-          onPress={focus}
-          cursor="text"
-        >
+        <ViewJsx flexDirection="row" alignItems="center" onPress={focus} cursor="text">
           {children}
         </ViewJsx>
       </ViewJsx>
@@ -143,11 +143,7 @@ function Slot({ index }: InputOTPSlotProps) {
       justifyContent="center"
       backgroundColor="$background"
       onPress={focus}
-      style={
-        isActive
-          ? { boxShadow: '0 0 0 2px var(--outlineColor)' }
-          : undefined
-      }
+      style={isActive ? { boxShadow: '0 0 0 2px var(--outlineColor)' } : undefined}
     >
       <ViewJsx
         fontSize={20}

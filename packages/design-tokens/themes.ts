@@ -523,12 +523,22 @@ export function buildThemes(
       light: {
         template: 'base',
         palette: 'light',
-        nonInheritedValues: { ...mergedLightShadows, shadowColor: 'rgba(0,0,0,0.15)', ...outlineThemeValues, ...overlayThemeValues.light },
+        nonInheritedValues: {
+          ...mergedLightShadows,
+          shadowColor: 'rgba(0,0,0,0.15)',
+          ...outlineThemeValues,
+          ...overlayThemeValues.light,
+        },
       },
       dark: {
         template: 'base',
         palette: 'dark',
-        nonInheritedValues: { ...mergedDarkShadows, shadowColor: 'rgba(0,0,0,0.40)', ...outlineThemeValues, ...overlayThemeValues.dark },
+        nonInheritedValues: {
+          ...mergedDarkShadows,
+          shadowColor: 'rgba(0,0,0,0.40)',
+          ...outlineThemeValues,
+          ...overlayThemeValues.dark,
+        },
       },
     })
     // @ts-expect-error v2 RC: addChildThemes palette type inference limitation

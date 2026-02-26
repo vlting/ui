@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Avatar } from './Avatar'
 
@@ -22,7 +21,7 @@ describe('Avatar', () => {
     render(
       <Avatar>
         <Avatar.Fallback>AB</Avatar.Fallback>
-      </Avatar>
+      </Avatar>,
     )
     expect(screen.getByText('AB')).toBeTruthy()
   })

@@ -1,7 +1,7 @@
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useState } from 'react'
 import { Text, View } from 'tamagui'
-import { styledHtml } from '@tamagui/web'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
@@ -84,7 +84,16 @@ function Root({
 
   return (
     <SidebarContext.Provider
-      value={{ open, setOpen, collapsed, collapsible, side, variant, width, collapsedWidth }}
+      value={{
+        open,
+        setOpen,
+        collapsed,
+        collapsible,
+        side,
+        variant,
+        width,
+        collapsedWidth,
+      }}
     >
       <ViewJsx
         flexDirection="column"
@@ -156,11 +165,7 @@ function Footer({ children }: { children: React.ReactNode }) {
 }
 
 function Group({ children }: SidebarGroupProps) {
-  return (
-    <ViewJsx paddingBottom={8}>
-      {children}
-    </ViewJsx>
-  )
+  return <ViewJsx paddingBottom={8}>{children}</ViewJsx>
 }
 
 function GroupLabel({ children }: { children: React.ReactNode }) {
@@ -212,7 +217,12 @@ function MenuItem({ children, active, disabled, onPress }: SidebarMenuItemProps)
 function MenuButton({ children, active, disabled, onPress }: SidebarMenuItemProps) {
   return (
     <MenuItem active={active} disabled={disabled} onPress={onPress}>
-      <TextJsx fontSize={14} fontFamily="$body" color="$color" fontWeight={active ? '500' : '400'}>
+      <TextJsx
+        fontSize={14}
+        fontFamily="$body"
+        color="$color"
+        fontWeight={active ? '500' : '400'}
+      >
         {children}
       </TextJsx>
     </MenuItem>
@@ -221,7 +231,14 @@ function MenuButton({ children, active, disabled, onPress }: SidebarMenuItemProp
 
 function SidebarSeparator() {
   return (
-    <ViewJsx height={1} backgroundColor="$borderColor" marginTop={8} marginBottom={8} marginLeft={16} marginRight={16} />
+    <ViewJsx
+      height={1}
+      backgroundColor="$borderColor"
+      marginTop={8}
+      marginBottom={8}
+      marginLeft={16}
+      marginRight={16}
+    />
   )
 }
 

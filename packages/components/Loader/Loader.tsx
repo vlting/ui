@@ -1,4 +1,3 @@
-import React from 'react'
 import { Spinner } from '../../primitives'
 
 const VARIANT_COLOR_MAP = {

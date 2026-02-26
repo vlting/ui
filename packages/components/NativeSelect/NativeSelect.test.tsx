@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '../../../src/__test-utils__/render'
 import { NativeSelect } from './NativeSelect'
 
@@ -8,7 +7,7 @@ describe('NativeSelect', () => {
       <NativeSelect.Root placeholder="Choose">
         <NativeSelect.Option value="a">Option A</NativeSelect.Option>
         <NativeSelect.Option value="b">Option B</NativeSelect.Option>
-      </NativeSelect.Root>
+      </NativeSelect.Root>,
     )
     const select = container.querySelector('select')
     expect(select).toBeTruthy()
@@ -19,7 +18,7 @@ describe('NativeSelect', () => {
       <NativeSelect.Root>
         <NativeSelect.Option value="a">A</NativeSelect.Option>
         <NativeSelect.Option value="b">B</NativeSelect.Option>
-      </NativeSelect.Root>
+      </NativeSelect.Root>,
     )
     const options = container.querySelectorAll('option')
     expect(options.length).toBeGreaterThanOrEqual(2)
@@ -29,10 +28,10 @@ describe('NativeSelect', () => {
     const { container } = render(
       <NativeSelect.Root placeholder="Select one">
         <NativeSelect.Option value="a">A</NativeSelect.Option>
-      </NativeSelect.Root>
+      </NativeSelect.Root>,
     )
     const options = container.querySelectorAll('option')
-    const placeholder = Array.from(options).find(o => o.textContent === 'Select one')
+    const placeholder = Array.from(options).find((o) => o.textContent === 'Select one')
     expect(placeholder).toBeTruthy()
   })
 
@@ -40,7 +39,7 @@ describe('NativeSelect', () => {
     const { container } = render(
       <NativeSelect.Root disabled>
         <NativeSelect.Option value="a">A</NativeSelect.Option>
-      </NativeSelect.Root>
+      </NativeSelect.Root>,
     )
     const select = container.querySelector('select')
     expect(select).toBeDisabled()
@@ -52,7 +51,7 @@ describe('NativeSelect', () => {
       <NativeSelect.Root onValueChange={onChange}>
         <NativeSelect.Option value="a">A</NativeSelect.Option>
         <NativeSelect.Option value="b">B</NativeSelect.Option>
-      </NativeSelect.Root>
+      </NativeSelect.Root>,
     )
     const select = container.querySelector('select')!
     select.value = 'b'
@@ -66,7 +65,7 @@ describe('NativeSelect', () => {
       const { container, unmount } = render(
         <NativeSelect.Root size={size}>
           <NativeSelect.Option value="a">A</NativeSelect.Option>
-        </NativeSelect.Root>
+        </NativeSelect.Root>,
       )
       expect(container.querySelector('select')).toBeTruthy()
       unmount()

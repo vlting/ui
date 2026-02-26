@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '@testing-library/react'
 import { Provider } from './Provider'
 
@@ -7,7 +6,7 @@ describe('Provider', () => {
     const { getByText } = render(
       <Provider>
         <div>App Content</div>
-      </Provider>
+      </Provider>,
     )
     expect(getByText('App Content')).toBeTruthy()
   })
@@ -17,8 +16,8 @@ describe('Provider', () => {
       render(
         <Provider>
           <div>Content</div>
-        </Provider>
-      )
+        </Provider>,
+      ),
     ).not.toThrow()
   })
 
@@ -27,8 +26,8 @@ describe('Provider', () => {
       render(
         <Provider defaultTheme="light">
           <div>Light</div>
-        </Provider>
-      )
+        </Provider>,
+      ),
     ).not.toThrow()
   })
 
@@ -37,8 +36,8 @@ describe('Provider', () => {
       render(
         <Provider defaultTheme="dark">
           <div>Dark</div>
-        </Provider>
-      )
+        </Provider>,
+      ),
     ).not.toThrow()
   })
 
@@ -47,7 +46,7 @@ describe('Provider', () => {
     const { getByText } = render(
       <Provider>
         <span>Themed Content</span>
-      </Provider>
+      </Provider>,
     )
     expect(getByText('Themed Content')).toBeInTheDocument()
   })

@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Toggle, ToggleGroup } from './Toggle'
 
@@ -46,8 +45,8 @@ describe('ToggleGroup', () => {
         <ToggleGroup type="single" defaultValue="a">
           <ToggleGroup.Item value="a">A</ToggleGroup.Item>
           <ToggleGroup.Item value="b">B</ToggleGroup.Item>
-        </ToggleGroup>
-      )
+        </ToggleGroup>,
+      ),
     ).not.toThrow()
   })
 
@@ -57,8 +56,8 @@ describe('ToggleGroup', () => {
         <ToggleGroup type="multiple" defaultValue={['a']}>
           <ToggleGroup.Item value="a">A</ToggleGroup.Item>
           <ToggleGroup.Item value="b">B</ToggleGroup.Item>
-        </ToggleGroup>
-      )
+        </ToggleGroup>,
+      ),
     ).not.toThrow()
   })
 })

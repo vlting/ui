@@ -1,5 +1,4 @@
-import React from 'react'
-import { render, screen } from '../../../src/__test-utils__/render'
+import { render } from '../../../src/__test-utils__/render'
 import { InputOTP } from './InputOTP'
 
 describe('InputOTP', () => {
@@ -12,7 +11,7 @@ describe('InputOTP', () => {
           <InputOTP.Slot index={2} />
           <InputOTP.Slot index={3} />
         </InputOTP.Group>
-      </InputOTP.Root>
+      </InputOTP.Root>,
     )
     // Should render 4 slot boxes
     expect(true).toBe(true) // Confirms no errors
@@ -32,7 +31,7 @@ describe('InputOTP', () => {
           <InputOTP.Slot index={4} />
           <InputOTP.Slot index={5} />
         </InputOTP.Group>
-      </InputOTP.Root>
+      </InputOTP.Root>,
     )
     expect(true).toBe(true)
   })
@@ -44,7 +43,7 @@ describe('InputOTP', () => {
         <InputOTP.Group>
           <InputOTP.Slot index={0} />
         </InputOTP.Group>
-      </InputOTP.Root>
+      </InputOTP.Root>,
     )
     expect(true).toBe(true)
   })
@@ -58,7 +57,7 @@ describe('InputOTP', () => {
           <InputOTP.Slot index={0} />
           <InputOTP.Slot index={1} />
         </InputOTP.Group>
-      </InputOTP.Root>
+      </InputOTP.Root>,
     )
   })
 })

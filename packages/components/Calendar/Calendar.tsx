@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
-import React, { useCallback, useMemo, useState } from 'react'
+import type React from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Text, View } from 'tamagui'
 
 type AnyFC = ComponentType<Record<string, unknown>>
@@ -59,8 +60,8 @@ function Root({
   maxDate,
   mode: _mode = 'single',
 }: CalendarRootProps) {
-  const [internalMonth, setInternalMonth] = useState(
-    () => controlledMonth ?? selected instanceof Date ? (selected as Date) : new Date(),
+  const [internalMonth, setInternalMonth] = useState(() =>
+    (controlledMonth ?? selected instanceof Date) ? (selected as Date) : new Date(),
   )
   const currentMonth = controlledMonth ?? internalMonth
 
@@ -117,7 +118,9 @@ function Root({
     return rows
   }, [year, monthIndex, daysInMonth, firstDay])
 
-  const monthName = new Date(year, monthIndex).toLocaleString('default', { month: 'long' })
+  const monthName = new Date(year, monthIndex).toLocaleString('default', {
+    month: 'long',
+  })
 
   return (
     <ViewJsx padding="$2" userSelect="none">
@@ -137,7 +140,9 @@ function Root({
           role="button"
           aria-label="Previous month"
         >
-          <TextJsx fontSize={14} color="$color">{'<'}</TextJsx>
+          <TextJsx fontSize={14} color="$color">
+            {'<'}
+          </TextJsx>
         </ViewJsx>
         <TextJsx fontSize={14} fontWeight="500" fontFamily="$body" color="$color">
           {monthName} {year}
@@ -151,14 +156,22 @@ function Root({
           role="button"
           aria-label="Next month"
         >
-          <TextJsx fontSize={14} color="$color">{'>'}</TextJsx>
+          <TextJsx fontSize={14} color="$color">
+            {'>'}
+          </TextJsx>
         </ViewJsx>
       </ViewJsx>
 
       {/* Day headers */}
       <ViewJsx flexDirection="row">
         {DAYS.map((d) => (
-          <ViewJsx key={d} width={36} height={36} alignItems="center" justifyContent="center">
+          <ViewJsx
+            key={d}
+            width={36}
+            height={36}
+            alignItems="center"
+            justifyContent="center"
+          >
             <TextJsx fontSize={12} color="$colorSubtitle" fontFamily="$body">
               {d}
             </TextJsx>
@@ -189,7 +202,9 @@ function Root({
                 opacity={dateDisabled ? 0.3 : 1}
                 backgroundColor={selected ? '$color10' : 'transparent'}
                 hoverStyle={
-                  dateDisabled ? undefined : { backgroundColor: selected ? '$color10' : '$color2' }
+                  dateDisabled
+                    ? undefined
+                    : { backgroundColor: selected ? '$color10' : '$color2' }
                 }
                 onPress={dateDisabled ? undefined : () => onSelect?.(date)}
                 role="gridcell"
