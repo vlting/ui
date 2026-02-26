@@ -1,9 +1,18 @@
 import { Provider } from '@vlting/ui'
 import type React from 'react'
+import type { ComponentType } from 'react'
 import { useEffect, useState } from 'react'
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom'
 import { Text, View, XStack, YStack } from 'tamagui'
 import { type BrandKey, activeBrand, brands } from '../brands'
+
+// Tamagui v2 RC GetFinalProps bug: all token-string props resolve as `undefined`.
+// Cast layout/text primitives to a permissive type so JSX usage type-checks.
+type AnyFC = ComponentType<Record<string, unknown>>
+const TYStack = YStack as unknown as AnyFC
+const TXStack = XStack as unknown as AnyFC
+const TText = Text as unknown as AnyFC
+const TView = View as unknown as AnyFC
 
 /** CSS reset for react-router <Link> and <a> elements */
 const LINK_RESET: React.CSSProperties = {
@@ -193,7 +202,7 @@ function NavGroup({
   onNavClick: () => void
 }) {
   return (
-    <YStack marginBottom="$0.75">
+    <TYStack marginBottom="$0.75">
       <h2
         style={{
           margin: 0,
@@ -213,7 +222,7 @@ function NavGroup({
           const isActive = currentSection === item.path
           return (
             <li key={item.path}>
-              <XStack
+              <TXStack
                 asChild
                 paddingVertical={6}
                 paddingLeft={16}
@@ -228,23 +237,23 @@ function NavGroup({
                   onClick={onNavClick}
                   style={LINK_RESET}
                 >
-                  <Text
+                  <TText
                     fontSize={14}
                     fontFamily="$body"
                     color={isActive ? '$color' : '$colorSubtitle'}
                     fontWeight={isActive ? '500' : '400'}
                   >
                     {item.label}
-                  </Text>
+                  </TText>
                 </Link>
-              </XStack>
+              </TXStack>
               {item.subItems && isActive && (
                 <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                   {item.subItems.map((sub) => {
                     const isSubActive = currentHash === `#${sub.anchor}`
                     return (
                       <li key={sub.anchor}>
-                        <XStack
+                        <TXStack
                           asChild
                           paddingVertical={2}
                           paddingLeft={36}
@@ -268,16 +277,16 @@ function NavGroup({
                             }}
                             style={LINK_RESET}
                           >
-                            <Text
+                            <TText
                               fontSize={12}
                               fontFamily="$body"
                               color={isSubActive ? '$color' : '$colorSubtitle'}
                               fontWeight={isSubActive ? '500' : '400'}
                             >
                               {sub.label}
-                            </Text>
+                            </TText>
                           </Link>
-                        </XStack>
+                        </TXStack>
                       </li>
                     )
                   })}
@@ -287,7 +296,7 @@ function NavGroup({
           )
         })}
       </ul>
-    </YStack>
+    </TYStack>
   )
 }
 
@@ -330,7 +339,7 @@ export function BrandLayout() {
 
   return (
     <Provider config={activeBrand.config} defaultTheme={theme}>
-      <YStack
+      <TYStack
         className="brand-layout"
         minHeight="100vh"
         backgroundColor="$background"
@@ -340,7 +349,7 @@ export function BrandLayout() {
         style={{ overflow: 'visible' }}
       >
         {/* ─── Header ─── */}
-        <XStack
+        <TXStack
           role="banner"
           position="sticky"
           top={0}
@@ -355,9 +364,9 @@ export function BrandLayout() {
           /* backdropFilter is CSS-specific, not in Tamagui's prop system */
           style={{ backdropFilter: 'blur(8px)' }}
         >
-          <XStack alignItems="center" gap="$3.5">
+          <TXStack alignItems="center" gap="$3.5">
             {/* Mobile hamburger */}
-            <View asChild display="none">
+            <TView asChild display="none">
               <button
                 type="button"
                 onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -365,23 +374,23 @@ export function BrandLayout() {
                 aria-label="Toggle sidebar navigation"
                 style={BUTTON_RESET}
               >
-                <Text fontSize={20} color="$color">
+                <TText fontSize={20} color="$color">
                   ☰
-                </Text>
+                </TText>
               </button>
-            </View>
+            </TView>
             <Link to={`/${brandKey}`} style={LINK_RESET}>
-              <Text fontWeight="700" fontSize={15} letterSpacing={-0.3}>
+              <TText fontWeight="700" fontSize={15} letterSpacing={-0.3}>
                 @vlting/ui
-              </Text>
+              </TText>
             </Link>
-          </XStack>
-          <XStack alignItems="center" gap="$0.75">
+          </TXStack>
+          <TXStack alignItems="center" gap="$0.75">
             {/* Brand selector */}
             {Object.entries(brands).map(([key, b]) => {
               const isCurrent = brandKey === key
               return (
-                <XStack
+                <TXStack
                   asChild
                   paddingVertical="$0.5"
                   paddingHorizontal="$1.5"
@@ -400,20 +409,20 @@ export function BrandLayout() {
                     }}
                     style={BUTTON_RESET}
                   >
-                    <Text
+                    <TText
                       fontWeight={isCurrent ? '500' : '400'}
                       fontSize={13}
                       fontFamily="$body"
                       color={isCurrent ? '$color' : '$colorSubtitle'}
                     >
                       {b.label}
-                    </Text>
+                    </TText>
                   </button>
-                </XStack>
+                </TXStack>
               )
             })}
             {/* Theme toggle */}
-            <XStack
+            <TXStack
               asChild
               paddingVertical="$0.5"
               paddingHorizontal="$1.5"
@@ -429,13 +438,13 @@ export function BrandLayout() {
                 aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
                 style={BUTTON_RESET}
               >
-                <Text fontSize={13} fontFamily="$body" color="$colorSubtitle">
+                <TText fontSize={13} fontFamily="$body" color="$colorSubtitle">
                   {theme === 'light' ? '🌙' : '☀️'}
-                </Text>
+                </TText>
               </button>
-            </XStack>
-          </XStack>
-        </XStack>
+            </TXStack>
+          </TXStack>
+        </TXStack>
 
         {/* ─── Body: Sidebar + Content ─── */}
         {/* Plain div avoids React Native Web's overflow:hidden default on Tamagui Views,
@@ -518,7 +527,7 @@ export function BrandLayout() {
             }
           }
         `}</style>
-      </YStack>
+      </TYStack>
     </Provider>
   )
 }
