@@ -1,3 +1,4 @@
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Text, View } from 'tamagui'
@@ -5,6 +6,48 @@ import { Text, View } from 'tamagui'
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
+
+const TriggerBtn = styledHtml('button', {
+  display: 'inline-flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  cursor: 'pointer',
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const TriggerBtnJsx = TriggerBtn as AnyFC
+
+const MenuItemBtn = styledHtml('button', {
+  display: 'flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: 0,
+  margin: 0,
+  fontFamily: 'inherit',
+  width: '100%',
+  textAlign: 'left',
+  focusVisibleStyle: {
+    backgroundColor: '$color2',
+    outlineWidth: 2,
+    outlineOffset: -2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+} as any)
+const MenuItemBtnJsx = MenuItemBtn as AnyFC
 
 export interface DropdownMenuRootProps {
   children: React.ReactNode
@@ -95,24 +138,16 @@ function Trigger({ children }: { children: React.ReactNode }) {
   )
 
   return (
-    <ViewJsx
+    <TriggerBtnJsx
       ref={triggerRef}
-      onPress={() => setOpen(!open)}
-      display="inline-flex"
-      cursor="pointer"
+      type="button"
+      onClick={() => setOpen(!open)}
       aria-haspopup="menu"
       aria-expanded={open}
-      tabIndex={0}
       onKeyDown={handleKeyDown}
-      focusVisibleStyle={{
-        outlineWidth: 2,
-        outlineOffset: 2,
-        outlineColor: '$outlineColor',
-        outlineStyle: 'solid',
-      }}
     >
       {children}
-    </ViewJsx>
+    </TriggerBtnJsx>
   )
 }
 
@@ -214,8 +249,8 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
   )
 
   return (
-    <ViewJsx
-      flexDirection="row"
+    <MenuItemBtnJsx
+      type="button"
       alignItems="center"
       justifyContent="space-between"
       height={32}
@@ -225,7 +260,8 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
-      onPress={
+      disabled={disabled}
+      onClick={
         disabled
           ? undefined
           : () => {
@@ -237,13 +273,6 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
       aria-disabled={disabled}
       tabIndex={-1}
       onKeyDown={handleKeyDown}
-      focusVisibleStyle={{
-        backgroundColor: '$color2',
-        outlineWidth: 2,
-        outlineOffset: -2,
-        outlineColor: '$outlineColor',
-        outlineStyle: 'solid',
-      }}
     >
       <TextJsx fontSize={14} fontFamily="$body" color="$color">
         {children}
@@ -253,7 +282,7 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
           {shortcut}
         </TextJsx>
       )}
-    </ViewJsx>
+    </MenuItemBtnJsx>
   )
 }
 
@@ -277,8 +306,8 @@ function CheckboxItem({
   )
 
   return (
-    <ViewJsx
-      flexDirection="row"
+    <MenuItemBtnJsx
+      type="button"
       alignItems="center"
       height={32}
       paddingLeft={8}
@@ -287,7 +316,8 @@ function CheckboxItem({
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
-      onPress={
+      disabled={disabled}
+      onClick={
         disabled
           ? undefined
           : () => {
@@ -299,13 +329,6 @@ function CheckboxItem({
       aria-checked={checked}
       tabIndex={-1}
       onKeyDown={handleKeyDown}
-      focusVisibleStyle={{
-        backgroundColor: '$color2',
-        outlineWidth: 2,
-        outlineOffset: -2,
-        outlineColor: '$outlineColor',
-        outlineStyle: 'solid',
-      }}
     >
       <ViewJsx width={16} alignItems="center">
         {checked && (
@@ -317,7 +340,7 @@ function CheckboxItem({
       <TextJsx fontSize={14} fontFamily="$body" color="$color">
         {children}
       </TextJsx>
-    </ViewJsx>
+    </MenuItemBtnJsx>
   )
 }
 
