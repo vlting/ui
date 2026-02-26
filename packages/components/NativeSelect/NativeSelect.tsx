@@ -32,22 +32,22 @@ const SelectFrame = styledHtml('select', {
   variants: {
     size: {
       sm: {
-        height: 32,
-        paddingLeft: 10,
-        paddingRight: 28,
-        fontSize: 13,
+        height: '$2.5',
+        paddingLeft: '$1',
+        paddingRight: '$4',
+        fontSize: '$3',
       },
       md: {
-        height: 36,
-        paddingLeft: 12,
-        paddingRight: 32,
-        fontSize: 14,
+        height: '$3',
+        paddingLeft: '$1.5',
+        paddingRight: '$4.5',
+        fontSize: '$4',
       },
       lg: {
-        height: 40,
+        height: '$3.5',
         paddingLeft: 14,
         paddingRight: 36,
-        fontSize: 14,
+        fontSize: '$4',
       },
     },
     disabled: {

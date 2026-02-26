@@ -28,7 +28,7 @@ const H2Frame = styledHtml('h2', {
 const H3Frame = styledHtml('h3', {
   fontFamily: '$heading',
   fontWeight: '600',
-  fontSize: 24,
+  fontSize: '$8',
   lineHeight: 32,
   letterSpacing: '-0.025em',
   color: '$color',
@@ -38,7 +38,7 @@ const H3Frame = styledHtml('h3', {
 const H4Frame = styledHtml('h4', {
   fontFamily: '$heading',
   fontWeight: '600',
-  fontSize: 20,
+  fontSize: '$7',
   lineHeight: 28,
   letterSpacing: '-0.025em',
   color: '$color',
@@ -52,7 +52,7 @@ const H4Frame = styledHtml('h4', {
 const PFrame = styledHtml('p', {
   fontFamily: '$body',
   fontWeight: '400',
-  fontSize: 16,
+  fontSize: '$5',
   lineHeight: 28,
   color: '$color',
   margin: 0,
@@ -61,7 +61,7 @@ const PFrame = styledHtml('p', {
 const LeadFrame = styledHtml('p', {
   fontFamily: '$body',
   fontWeight: '400',
-  fontSize: 20,
+  fontSize: '$7',
   lineHeight: 32,
   color: '$colorSubtitle',
   margin: 0,
@@ -70,7 +70,7 @@ const LeadFrame = styledHtml('p', {
 const LargeFrame = styledHtml('span', {
   fontFamily: '$body',
   fontWeight: '600',
-  fontSize: 18,
+  fontSize: '$6',
   lineHeight: 28,
   color: '$color',
 } as any)
@@ -78,7 +78,7 @@ const LargeFrame = styledHtml('span', {
 const SmallFrame = styledHtml('small', {
   fontFamily: '$body',
   fontWeight: '500',
-  fontSize: 14,
+  fontSize: '$4',
   lineHeight: 20,
   color: '$color',
 } as any)
@@ -86,7 +86,7 @@ const SmallFrame = styledHtml('small', {
 const MutedFrame = styledHtml('p', {
   fontFamily: '$body',
   fontWeight: '400',
-  fontSize: 14,
+  fontSize: '$4',
   lineHeight: 20,
   color: '$colorSubtitle',
   margin: 0,
@@ -99,11 +99,11 @@ const MutedFrame = styledHtml('p', {
 const BlockquoteFrame = styledHtml('blockquote', {
   fontFamily: '$body',
   fontStyle: 'italic',
-  fontSize: 16,
+  fontSize: '$5',
   lineHeight: 28,
   color: '$color',
   margin: 0,
-  paddingLeft: 16,
+  paddingLeft: '$2',
   borderLeftWidth: 2,
   borderLeftStyle: 'solid',
   borderLeftColor: '$borderColor',
@@ -111,14 +111,14 @@ const BlockquoteFrame = styledHtml('blockquote', {
 
 const InlineCodeFrame = styledHtml('code', {
   fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
-  fontSize: 14,
+  fontSize: '$4',
   lineHeight: '20px',
   backgroundColor: '$color2',
   borderRadius: '$2',
-  paddingLeft: 4,
-  paddingRight: 4,
-  paddingTop: 2,
-  paddingBottom: 2,
+  paddingLeft: '$0.5',
+  paddingRight: '$0.5',
+  paddingTop: '$0.25',
+  paddingBottom: '$0.25',
   color: '$color',
 } as any)
 
@@ -128,11 +128,11 @@ const InlineCodeFrame = styledHtml('code', {
 
 const UlFrame = styledHtml('ul', {
   fontFamily: '$body',
-  fontSize: 16,
+  fontSize: '$5',
   lineHeight: 28,
   color: '$color',
   margin: 0,
-  paddingLeft: 24,
+  paddingLeft: '$3.5',
 } as any)
 
 const LiFrame = styledHtml('li', {
