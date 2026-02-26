@@ -437,10 +437,10 @@ export function BrandLayout() {
               paddingBottom: 16,
               backgroundColor: 'var(--background)',
               position: 'sticky',
-              top: 56,
+              top: 76,
               alignSelf: 'flex-start',
               overflowY: 'auto',
-              height: 'calc(100vh - 56px)',
+              height: 'calc(100vh - 76px)',
             }}
           >
             {sidebarGroups.map((group) => (
