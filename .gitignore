@@ -1,6 +1,9 @@
 node_modules/
 dist/
 .tamagui/
+*.d.ts
+*.d.ts.map
+tsconfig.tsbuildinfo
 *.log
 .DS_Store
 .env
@@ -10,7 +13,7 @@ coverage/
 !.claude/settings.json
 !.claude/skills/
 .ai-queue/
-.ai-queue/
+.ai-relay/
 .worktrees/
 .history/
 .playwright-mcp/
