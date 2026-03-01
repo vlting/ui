@@ -11,6 +11,13 @@ interface FlagDefinition {
 }
 
 const flagRegistry = {
+  component_parity: {
+    description:
+      'Component parity: new components (InputGroup, Direction, Item, DataTable), Sonner-style toast API, API mapping docs',
+    added: '2026-03-01',
+    default: false,
+    overrides: { dev: true, staging: true },
+  },
   token_audit_fonts: {
     description:
       'Token audit and Google Fonts system: 4 font slots, h1-h6 weight alternation, zero hardcoded values',
