@@ -370,7 +370,7 @@ function Label({ children }: { children: React.ReactNode }) {
       paddingTop="$0.75"
       paddingBottom="$0.25"
     >
-      <TextJsx fontSize="$2" fontWeight="600" color="$colorSubtitle" fontFamily="$body">
+      <TextJsx fontSize="$2" fontWeight="$4" color="$colorSubtitle" fontFamily="$body">
         {children}
       </TextJsx>
     </ViewJsx>

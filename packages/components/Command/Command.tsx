@@ -138,7 +138,7 @@ function Group({ children, heading }: CommandGroupProps) {
         >
           <TextJsx
             fontSize="$2"
-            fontWeight="500"
+            fontWeight="$3"
             color="$colorSubtitle"
             fontFamily="$body"
           >

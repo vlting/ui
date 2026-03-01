@@ -158,11 +158,10 @@ function Content({ children, direction: directionProp, showHandle }: DrawerConte
         backgroundColor="$background"
         borderWidth={1}
         borderColor="$borderColor"
-        shadowColor="$shadowLgColor"
         animation="medium"
         aria-describedby={undefined}
         {...DIRECTION_RADII[direction]}
-        style={DIRECTION_STYLES[direction]}
+        style={{ boxShadow: 'var(--shadowLg)', ...DIRECTION_STYLES[direction] }}
       >
         {shouldShowHandle && <HandleBarJsx />}
         {children}
@@ -181,7 +180,7 @@ function Footer({ children }: { children: React.ReactNode }) {
 
 const DrawerTitleH2 = styledHtml('h2', {
   fontSize: '$7',
-  fontWeight: '600',
+  fontWeight: '$4',
   fontFamily: '$heading',
   color: '$color',
   margin: 0,

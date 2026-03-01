@@ -112,10 +112,8 @@ function Root({ children, onOpenChange }: ContextMenuRootProps) {
             borderRadius="$4"
             padding="$0.5"
             minWidth="$menuMin"
-            shadowColor="$shadowMdColor"
-            shadowRadius={8}
-            shadowOffset={{ width: 0, height: 4 }}
             style={{
+              boxShadow: 'var(--shadowMd)',
               left: position.x,
               top: position.y,
             }}
@@ -247,7 +245,7 @@ function Label({ children }: { children: React.ReactNode }) {
       paddingTop="$0.75"
       paddingBottom="$0.25"
     >
-      <TextJsx fontSize="$2" fontWeight="600" color="$colorSubtitle" fontFamily="$body">
+      <TextJsx fontSize="$2" fontWeight="$4" color="$colorSubtitle" fontFamily="$body">
         {children}
       </TextJsx>
     </ViewJsx>

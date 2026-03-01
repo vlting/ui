@@ -27,7 +27,7 @@ const rowStyles: React.CSSProperties = {
 
 const headStyles: React.CSSProperties = {
   fontFamily: 'var(--f-body, inherit)',
-  fontWeight: 600,
+  fontWeight: 'var(--f-weight-4, 600)' as React.CSSProperties['fontWeight'],
   fontSize: 'var(--f-size-3, 14px)',
   color: 'var(--colorSubtitle, #6a6a6a)',
   padding: '8px 12px',

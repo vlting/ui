@@ -234,7 +234,7 @@ function Root({
                       fontSize="$4"
                       fontFamily="$body"
                       color="$color"
-                      fontWeight={isSelected ? '500' : '400'}
+                      fontWeight={isSelected ? '$3' : '$2'}
                     >
                       {option.label}
                     </TextJsx>

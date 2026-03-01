@@ -10,7 +10,7 @@ const TextJsx = Text as AnyFC
 
 const GroupLabelH3 = styledHtml('h3', {
   fontSize: '$2',
-  fontWeight: '600',
+  fontWeight: '$4',
   color: '$colorSubtitle',
   fontFamily: '$body',
   margin: 0,
@@ -266,7 +266,7 @@ function MenuButton({ children, active, disabled, onPress }: SidebarMenuItemProp
         fontSize="$4"
         fontFamily="$body"
         color="$color"
-        fontWeight={active ? '500' : '400'}
+        fontWeight={active ? '$3' : '$2'}
       >
         {children}
       </TextJsx>
