@@ -90,7 +90,7 @@ function Item({
         size={SIZE_MAP[size]}
         borderWidth={1}
         borderColor="$borderColor"
-        borderRadius={1000}
+        borderRadius="$full"
         backgroundColor="transparent"
         focusVisibleStyle={{
           outlineWidth: 2,

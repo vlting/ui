@@ -7,7 +7,7 @@ const ProgressIndicator = TamaguiProgress.Indicator as ComponentType<
   Record<string, unknown>
 >
 
-const SIZE_HEIGHT: Record<string, string | number> = { sm: '$0.5', md: '$0.75', lg: 12 }
+const SIZE_HEIGHT: Record<string, string | number> = { sm: '$0.5', md: '$0.75', lg: '$1' }
 
 export interface ProgressProps {
   value?: number

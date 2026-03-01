@@ -192,7 +192,7 @@ function Root({
             {'<'}
           </TextJsx>
         </NavBtnJsx>
-        <TextJsx fontSize="$4" fontWeight="500" fontFamily="$body" color="$color">
+        <TextJsx fontSize="$4" fontWeight="$3" fontFamily="$body" color="$color">
           {monthName} {year}
         </TextJsx>
         <NavBtnJsx
@@ -259,7 +259,7 @@ function Root({
                 <TextJsx
                   fontSize="$4"
                   fontFamily="$body"
-                  fontWeight={today ? '600' : '400'}
+                  fontWeight={today ? '$4' : '$2'}
                   color={selected ? '$color1' : '$color'}
                 >
                   {date.getDate()}

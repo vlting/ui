@@ -167,7 +167,7 @@ const CalendarDropdown = styled(YStack, {
   position: 'absolute',
   top: '100%',
   left: 0,
-  zIndex: 100,
+  zIndex: '$1',
   marginTop: '$1',
   backgroundColor: '$background',
   borderWidth: 1,

@@ -108,7 +108,7 @@ function Input({
 
 function CommandList({ children }: { children: React.ReactNode }) {
   return (
-    <ViewJsx maxHeight={300} style={{ overflowY: 'auto' }} padding="$0.5">
+    <ViewJsx maxHeight="$16" style={{ overflowY: 'auto' }} padding="$0.5">
       {children}
     </ViewJsx>
   )
@@ -138,7 +138,7 @@ function Group({ children, heading }: CommandGroupProps) {
         >
           <TextJsx
             fontSize="$2"
-            fontWeight="500"
+            fontWeight="$3"
             color="$colorSubtitle"
             fontFamily="$body"
           >

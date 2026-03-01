@@ -5,7 +5,7 @@ const KbdFrame = styledHtml('kbd', {
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
+  fontFamily: '$mono',
   backgroundColor: '$color2',
   borderWidth: 1,
   borderStyle: 'solid',
@@ -16,8 +16,8 @@ const KbdFrame = styledHtml('kbd', {
   variants: {
     size: {
       sm: {
-        fontSize: 11,
-        lineHeight: '16px',
+        fontSize: '$1',
+        lineHeight: '$1',
         paddingLeft: 4,
         paddingRight: 4,
         paddingTop: 1,
@@ -26,8 +26,8 @@ const KbdFrame = styledHtml('kbd', {
         minWidth: 20,
       },
       md: {
-        fontSize: 12,
-        lineHeight: '18px',
+        fontSize: '$2',
+        lineHeight: '$1',
         paddingLeft: 6,
         paddingRight: 6,
         paddingTop: 2,

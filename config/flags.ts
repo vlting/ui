@@ -11,6 +11,13 @@ interface FlagDefinition {
 }
 
 const flagRegistry = {
+  token_audit_fonts: {
+    description:
+      'Token audit and Google Fonts system: 4 font slots, h1-h6 weight alternation, zero hardcoded values',
+    added: '2026-03-01',
+    default: false,
+    overrides: { dev: true, staging: true },
+  },
   quality_audit: {
     description:
       'Quality audit fixes: TS errors, lint, a11y, token discipline, reduced motion',

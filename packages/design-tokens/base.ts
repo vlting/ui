@@ -27,6 +27,13 @@ export const size = {
   15: 258,
   16: 310,
   true: 44,
+  sidebar: 256,
+  sidebarCollapsed: 48,
+  drawer: 360,
+  dialogSm: 400,
+  dialogMd: 500,
+  dialogLg: 640,
+  menuMin: 192,
 } as const
 
 export const space = {
@@ -86,6 +93,7 @@ export const radius = {
   11: 42,
   12: 50,
   true: 9,
+  full: 9999,
 } as const
 
 export const zIndex = {
@@ -95,6 +103,8 @@ export const zIndex = {
   3: 300,
   4: 400,
   5: 500,
+  6: 1000,
+  7: 10000,
 } as const
 
 export const borderWidth = {

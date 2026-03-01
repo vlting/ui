@@ -54,7 +54,7 @@ export function Tooltip({
         borderRadius="$3"
         paddingHorizontal="$2"
         paddingVertical="$1"
-        zIndex={1000}
+        zIndex="$6"
         enterStyle={{ opacity: 0, scale: 0.95 }}
         exitStyle={{ opacity: 0, scale: 0.95 }}
         animation="instant"

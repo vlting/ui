@@ -167,7 +167,7 @@ const CalendarDropdown = styled(YStack, {
   position: 'absolute',
   top: '100%',
   left: 0,
-  zIndex: 100,
+  zIndex: '$1',
   marginTop: '$1',
   backgroundColor: '$background',
   borderWidth: 1,
@@ -372,7 +372,7 @@ function Calendar({
   while (lastRow && lastRow.length < 7) lastRow.push(null)
 
   return (
-    <YStackJsx gap="$1.5" minWidth={260}>
+    <YStackJsx gap="$1.5" minWidth="$15">
       {/* Header */}
       <XStackJsx
         alignItems="center"

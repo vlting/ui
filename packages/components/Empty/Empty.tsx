@@ -9,7 +9,7 @@ const TextJsx = Text as AnyFC
 
 const TitleH3 = styledHtml('h3', {
   fontSize: '$6',
-  fontWeight: '600',
+  fontWeight: '$4',
   color: '$color',
   fontFamily: '$body',
   margin: 0,
@@ -72,7 +72,7 @@ function Description({ children }: EmptyDescriptionProps) {
       fontFamily="$body"
       color="$colorSubtitle"
       textAlign="center"
-      style={{ maxWidth: 400 }}
+      maxWidth="$dialogSm"
     >
       {children}
     </TextJsx>

@@ -22,7 +22,7 @@ const HandleBar = styled(View, {
   width: '$4.5',
   height: '$0.5',
   backgroundColor: '$color6',
-  borderRadius: 9999,
+  borderRadius: '$full',
   alignSelf: 'center',
   marginTop: '$0.75',
   marginBottom: '$0.75',
@@ -72,7 +72,7 @@ const DIRECTION_STYLES = {
     left: 0,
     bottom: 0,
     maxWidth: '90vw',
-    width: 360,
+    width: 360, // $drawer token value
   },
   right: {
     position: 'fixed' as const,
@@ -80,7 +80,7 @@ const DIRECTION_STYLES = {
     right: 0,
     bottom: 0,
     maxWidth: '90vw',
-    width: 360,
+    width: 360, // $drawer token value
   },
 }
 
@@ -158,11 +158,10 @@ function Content({ children, direction: directionProp, showHandle }: DrawerConte
         backgroundColor="$background"
         borderWidth={1}
         borderColor="$borderColor"
-        shadowColor="$shadowLgColor"
         animation="medium"
         aria-describedby={undefined}
         {...DIRECTION_RADII[direction]}
-        style={DIRECTION_STYLES[direction]}
+        style={{ boxShadow: 'var(--shadowLg)', ...DIRECTION_STYLES[direction] }}
       >
         {shouldShowHandle && <HandleBarJsx />}
         {children}
@@ -181,7 +180,7 @@ function Footer({ children }: { children: React.ReactNode }) {
 
 const DrawerTitleH2 = styledHtml('h2', {
   fontSize: '$7',
-  fontWeight: '600',
+  fontWeight: '$4',
   fontFamily: '$heading',
   color: '$color',
   margin: 0,

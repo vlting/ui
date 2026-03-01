@@ -22,11 +22,11 @@ export const Text = styled(TText, {
       danger: { color: '$red10' },
     },
     weight: {
-      light: { fontWeight: '300' },
-      normal: { fontWeight: '400' },
-      medium: { fontWeight: '500' },
-      semibold: { fontWeight: '600' },
-      bold: { fontWeight: '700' },
+      light: { fontWeight: '$1' },
+      normal: { fontWeight: '$2' },
+      medium: { fontWeight: '$3' },
+      semibold: { fontWeight: '$4' },
+      bold: { fontWeight: '$5' },
     },
   } as const,
 

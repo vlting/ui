@@ -126,7 +126,7 @@ function Viewport({ hotkey, multipleToasts }: ToastViewportProps) {
       flexDirection="column"
       gap="$2"
       padding="$4"
-      zIndex={100000}
+      zIndex="$7"
     />
   )
 }

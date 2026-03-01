@@ -39,7 +39,7 @@ const DotBtn = styledHtml('button', {
   padding: 0,
   margin: 0,
   cursor: 'pointer',
-  borderRadius: 9999,
+  borderRadius: '$full',
   focusVisibleStyle: {
     outlineWidth: 2,
     outlineOffset: 2,
@@ -203,10 +203,10 @@ function Previous({ children }: { children?: React.ReactNode }) {
       left="$0.75"
       top="50%"
       style={{ transform: 'translateY(-50%)' }}
-      zIndex={10}
+      zIndex="$1"
       width="$2.5"
       height="$2.5"
-      borderRadius={9999}
+      borderRadius="$full"
       backgroundColor="$background"
       borderWidth={1}
       borderColor="$borderColor"
@@ -234,10 +234,10 @@ function Next({ children }: { children?: React.ReactNode }) {
       right="$0.75"
       top="50%"
       style={{ transform: 'translateY(-50%)' }}
-      zIndex={10}
+      zIndex="$1"
       width="$2.5"
       height="$2.5"
-      borderRadius={9999}
+      borderRadius="$full"
       backgroundColor="$background"
       borderWidth={1}
       borderColor="$borderColor"
@@ -263,7 +263,7 @@ function Dots() {
       flexDirection="row"
       alignItems="center"
       justifyContent="center"
-      gap={6}
+      gap="$0.75"
       paddingTop="$0.75"
     >
       {Array.from({ length: totalItems }, (_, i) => (
