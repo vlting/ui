@@ -16,24 +16,24 @@
 **Objective:** Define the BrandFontConfig type with 4 font slots, implement heading weight alternation, create FontLoader component, and integrate into the Provider.
 **Estimated scope:** ~8 files, ~300 lines
 **GitHub Sub-Issue:** #13
-**Stage Branch:** (pending)
-**Stage PR:** (pending)
+**Stage Branch:** feat/token-audit-fonts/font-system-foundation
+**Stage PR:** #18 (merged)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmat4o
 **Acceptance criteria:**
-- [ ] BrandFontConfig type defined with heading, body, mono, quote slots
-- [ ] createBrandConfig() supports the new font structure
-- [ ] Heading weight alternation (h1 heavy, h2 light, h3 heavy, h4 light, h5 heavy, h6 light) implemented in font factory
-- [ ] FontLoader component created (web: Google Fonts link, RN: no-op)
-- [ ] Provider integrates FontLoader automatically
-- [ ] All 4 brand configs (default, shadcn, fun, posh) updated with new font structure
-**Status:** pending
+- [x] BrandFontConfig type defined with heading, body, mono, quote slots
+- [x] createBrandConfig() supports the new font structure
+- [x] Heading weight alternation (h1 heavy, h2 light, h3 heavy, h4 light, h5 heavy, h6 light) implemented in font factory
+- [x] FontLoader component created (web: Google Fonts link, RN: no-op)
+- [x] Provider integrates FontLoader automatically
+- [x] All 4 brand configs (default, shadcn, fun, posh) updated with new font structure
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 2: Typography Component Migration
 **Objective:** Rewrite Typography.tsx to use font tokens exclusively — zero hardcoded font families, sizes, or weights. Map heading levels to alternating weights.
 **Estimated scope:** ~4 files, ~200 lines
 **GitHub Sub-Issue:** #14
-**Stage Branch:** (pending)
+**Stage Branch:** feat/token-audit-fonts/typography-migration
 **Stage PR:** (pending)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmat5c
 **Acceptance criteria:**
@@ -43,7 +43,7 @@
 - [ ] P, Lead, Large, Small, Muted use body font
 - [ ] Zero hardcoded font families, sizes, or weights in Typography.tsx
 - [ ] All Typography variants render correctly with each brand
-**Status:** pending
+**Status:** executing
 **Iterations:** 0
 
 ## Stage 3: Component Token Audit — Dimensions & Spacing
