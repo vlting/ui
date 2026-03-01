@@ -245,5 +245,9 @@ export {
   cn,
   FontLoader,
   getGoogleFontsUrl,
+  useFontLoader,
+  isSystemFont,
+  extractFamiliesFromConfig,
+  buildFaceMapsFromConfig,
 } from '../packages/utils'
-export type { FontLoaderProps } from '../packages/utils'
+export type { FontLoaderProps, FontLoadState } from '../packages/utils'

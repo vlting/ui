@@ -2,6 +2,7 @@ import { createAnimations as createCSSAnimations } from '@tamagui/animations-css
 import { createTokens } from '@tamagui/core'
 import { shorthands } from '@tamagui/shorthands'
 import { type CreateTamaguiProps, type GenericFont, createFont } from 'tamagui'
+import { buildFaceMapsFromConfig } from '../../utils/nativeFontFace'
 import { borderWidth, color, radius, size, space, zIndex } from '../base'
 import { type ShadowScale, buildThemes } from '../themes'
 
@@ -297,6 +298,10 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
     const monoFamily = buildFontFamily(fc.mono.family, fc.mono.fallback)
     const quoteFamily = buildFontFamily(fc.quote.family, fc.quote.fallback)
 
+    // Build face maps for RN font weight resolution.
+    // On web this returns { heading: undefined, ... } — a no-op when spread.
+    const faceMaps = buildFaceMapsFromConfig(fc)
+
     // Heading weight alternation: h1(heavy) h2(light) h3(heavy) h4(light) h5(heavy) h6(light)
     // Tamagui font weight keys map to heading levels in reverse (key 6 = largest = h1):
     // key 1 = h6 (light), key 2 = h5 (heavy), key 3 = h4 (light),
@@ -317,6 +322,7 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
       ...defaultHeadingFont,
       family: headingFamily,
       weight: headingWeights,
+      ...(faceMaps.heading && { face: faceMaps.heading }),
     })
 
     const bodyWeight = String(fc.body.weight)
@@ -324,6 +330,7 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
       ...defaultBodyFont,
       family: bodyFamily,
       weight: { 1: bodyWeight, 2: bodyWeight, 3: bodyWeight, 4: bodyWeight, 5: bodyWeight, true: bodyWeight },
+      ...(faceMaps.body && { face: faceMaps.body }),
     })
 
     const monoWeight = String(fc.mono.weight)
@@ -331,6 +338,7 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
       ...defaultMonoFont,
       family: monoFamily,
       weight: { 1: monoWeight, 2: monoWeight, true: monoWeight },
+      ...(faceMaps.mono && { face: faceMaps.mono }),
     })
 
     const quoteWeight = String(fc.quote.weight)
@@ -343,6 +351,7 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
       family: quoteFamily,
       weight: { 1: quoteWeight, 2: quoteWeight, true: quoteWeight },
       style: quoteStyleScale,
+      ...(faceMaps.quote && { face: faceMaps.quote }),
     })
   } else {
     // Legacy path: no fontConfig, use defaults

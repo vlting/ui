@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { TamaguiProvider, type TamaguiProviderProps } from 'tamagui'
 import type { BrandFontConfig } from '../../packages/design-tokens/brands'
-import { FontLoader } from '../../packages/utils/FontLoader'
+import { useFontLoader } from '../../packages/utils/useFontLoader'
 import defaultConfig from '../../config/tamagui.config'
 
 export interface ProviderProps {
@@ -9,6 +9,8 @@ export interface ProviderProps {
   config?: TamaguiProviderProps['config']
   defaultTheme?: 'light' | 'dark'
   fontConfig?: BrandFontConfig
+  /** Shown while fonts are loading on React Native. Ignored on web. */
+  fontLoadingFallback?: ReactNode
 }
 
 export function Provider({
@@ -16,11 +18,13 @@ export function Provider({
   config = defaultConfig,
   defaultTheme = 'light',
   fontConfig,
+  fontLoadingFallback = null,
 }: ProviderProps) {
+  const { loaded } = useFontLoader(fontConfig)
+
   return (
     <TamaguiProvider config={config} defaultTheme={defaultTheme}>
-      <FontLoader fontConfig={fontConfig} />
-      {children}
+      {loaded ? children : fontLoadingFallback}
     </TamaguiProvider>
   )
 }
