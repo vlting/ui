@@ -40,10 +40,35 @@ export interface TokenOverrides {
   borderWidth?: Partial<{ none: number; thin: number; medium: number; thick: number }>
 }
 
+export interface BrandFontConfig {
+  heading: {
+    family: string
+    fallback?: string
+    weights: { heavy: number; light: number }
+  }
+  body: {
+    family: string
+    fallback?: string
+    weight: number
+  }
+  mono: {
+    family: string
+    fallback?: string
+    weight: number
+  }
+  quote: {
+    family: string
+    fallback?: string
+    weight: number
+    style?: 'normal' | 'italic'
+  }
+}
+
 export interface FontOverrides {
   heading?: Partial<GenericFont>
   body?: Partial<GenericFont>
   mono?: Partial<GenericFont>
+  quote?: Partial<GenericFont>
 }
 
 export interface BrandDefinition {
@@ -56,6 +81,7 @@ export interface BrandDefinition {
   shadows?: { light?: ShadowScale; dark?: ShadowScale }
   overlay?: { light?: string; dark?: string }
   fonts?: FontOverrides
+  fontConfig?: BrandFontConfig
   typography?: TypographyConfig
   animations?: AnimationConfig
   media?: CreateTamaguiProps['media']
@@ -172,6 +198,23 @@ const defaultMonoFont = createFont({
   letterSpacing: { 1: 0, true: 0 },
 })
 
+const defaultQuoteFont = createFont({
+  family: 'Georgia, "Times New Roman", serif',
+  size: { 1: 14, 2: 16, 3: 18, 4: 20, 5: 24, 6: 28, true: 18 },
+  weight: { 1: '300', 2: '400', true: '300' },
+  lineHeight: { 1: 22, 2: 26, 3: 30, 4: 34, 5: 38, 6: 44, true: 30 },
+  letterSpacing: { 1: 0, true: 0 },
+  style: {
+    1: 'italic',
+    2: 'italic',
+    3: 'italic',
+    4: 'italic',
+    5: 'italic',
+    6: 'italic',
+    true: 'italic',
+  },
+})
+
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -195,6 +238,10 @@ function applyTypographyToFont(
     extras.style = Object.fromEntries(keys.map((k) => [k, typo.style]))
   }
   return createFont({ ...base, ...extras })
+}
+
+function buildFontFamily(family: string, fallback?: string): string {
+  return fallback ? `${family}, ${fallback}` : family
 }
 
 // ---------------------------------------------------------------------------
@@ -237,19 +284,91 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
     outline: outlineTokens,
   })
 
-  let headingFont = applyTypographyToFont(defaultHeadingFont, brand.typography?.heading)
+  // --- Font processing ---
+  let headingFont: ReturnType<typeof createFont>
+  let bodyFont: ReturnType<typeof createFont>
+  let monoFont: ReturnType<typeof createFont>
+  let quoteFont: ReturnType<typeof createFont>
+
+  if (brand.fontConfig) {
+    const fc = brand.fontConfig
+    const headingFamily = buildFontFamily(fc.heading.family, fc.heading.fallback)
+    const bodyFamily = buildFontFamily(fc.body.family, fc.body.fallback)
+    const monoFamily = buildFontFamily(fc.mono.family, fc.mono.fallback)
+    const quoteFamily = buildFontFamily(fc.quote.family, fc.quote.fallback)
+
+    // Heading weight alternation: h1(heavy) h2(light) h3(heavy) h4(light) h5(heavy) h6(light)
+    // Tamagui font weight keys map to heading levels in reverse (key 6 = largest = h1):
+    // key 1 = h6 (light), key 2 = h5 (heavy), key 3 = h4 (light),
+    // key 4 = h3 (heavy), key 5 = h2 (light), key 6 = h1 (heavy)
+    const heavy = String(fc.heading.weights.heavy)
+    const light = String(fc.heading.weights.light)
+    const headingWeights = {
+      1: light, // h6
+      2: heavy, // h5
+      3: light, // h4
+      4: heavy, // h3
+      5: light, // h2
+      6: heavy, // h1
+      true: heavy,
+    }
+
+    headingFont = createFont({
+      ...defaultHeadingFont,
+      family: headingFamily,
+      weight: headingWeights,
+    })
+
+    const bodyWeight = String(fc.body.weight)
+    bodyFont = createFont({
+      ...defaultBodyFont,
+      family: bodyFamily,
+      weight: { 1: bodyWeight, 2: bodyWeight, 3: bodyWeight, 4: bodyWeight, true: bodyWeight },
+    })
+
+    const monoWeight = String(fc.mono.weight)
+    monoFont = createFont({
+      ...defaultMonoFont,
+      family: monoFamily,
+      weight: { 1: monoWeight, 2: monoWeight, true: monoWeight },
+    })
+
+    const quoteWeight = String(fc.quote.weight)
+    const quoteStyle = fc.quote.style ?? 'italic'
+    const quoteStyleScale = Object.fromEntries(
+      Object.keys(defaultQuoteFont.size).map((k) => [k, quoteStyle]),
+    )
+    quoteFont = createFont({
+      ...defaultQuoteFont,
+      family: quoteFamily,
+      weight: { 1: quoteWeight, 2: quoteWeight, true: quoteWeight },
+      style: quoteStyleScale,
+    })
+  } else {
+    // Legacy path: no fontConfig, use defaults
+    headingFont = defaultHeadingFont
+    bodyFont = defaultBodyFont
+    monoFont = defaultMonoFont
+    quoteFont = defaultQuoteFont
+  }
+
+  // Apply typography extras (transform, style overrides)
+  headingFont = applyTypographyToFont(headingFont, brand.typography?.heading)
+  bodyFont = applyTypographyToFont(bodyFont, brand.typography?.body)
+
+  // Apply low-level font overrides (existing `fonts` API)
   if (brand.fonts?.heading) {
     headingFont = createFont({ ...headingFont, ...brand.fonts.heading })
   }
-
-  let bodyFont = applyTypographyToFont(defaultBodyFont, brand.typography?.body)
   if (brand.fonts?.body) {
     bodyFont = createFont({ ...bodyFont, ...brand.fonts.body })
   }
-
-  const monoFont = brand.fonts?.mono
-    ? createFont({ ...defaultMonoFont, ...brand.fonts.mono })
-    : defaultMonoFont
+  if (brand.fonts?.mono) {
+    monoFont = createFont({ ...monoFont, ...brand.fonts.mono })
+  }
+  if (brand.fonts?.quote) {
+    quoteFont = createFont({ ...quoteFont, ...brand.fonts.quote })
+  }
 
   const palettes: Record<string, string[]> = {
     light: brand.palettes.light,
@@ -291,7 +410,7 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
     themes,
     media: brand.media ?? media,
     shorthands,
-    fonts: { heading: headingFont, body: bodyFont, mono: monoFont },
+    fonts: { heading: headingFont, body: bodyFont, mono: monoFont, quote: quoteFont },
     animations,
     settings: {
       allowedStyleValues: 'somewhat-strict-web',
