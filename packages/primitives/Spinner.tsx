@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import { View } from 'tamagui'
+import { useReducedMotion } from '../hooks/useReducedMotion'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
@@ -10,11 +11,23 @@ const SIZE_MAP = {
   lg: 28,
 } as const
 
+const SIZE_TOKEN: Record<string, number | string> = {
+  sm: 16,
+  md: '$1',
+  lg: '$2',
+}
+
 const DOT_SIZE_MAP = {
   sm: 4,
   md: 5,
   lg: 6,
 } as const
+
+const DOT_SIZE_TOKEN: Record<string, number | string> = {
+  sm: '$0.5',
+  md: 5,
+  lg: 6,
+}
 
 export interface SpinnerProps {
   size?: 'sm' | 'md' | 'lg'
@@ -22,6 +35,7 @@ export interface SpinnerProps {
 }
 
 export function Spinner({ size = 'md', color }: SpinnerProps) {
+  const reducedMotion = useReducedMotion()
   const dimension = SIZE_MAP[size]
   const dotSize = DOT_SIZE_MAP[size]
   const r = dimension / 2
@@ -30,12 +44,12 @@ export function Spinner({ size = 'md', color }: SpinnerProps) {
     <ViewJsx
       role="status"
       aria-label="Loading"
-      width={dimension}
-      height={dimension}
+      width={SIZE_TOKEN[size]}
+      height={SIZE_TOKEN[size]}
       position="relative"
-      style={{
-        animation: 'vlting-spinner 1s linear infinite',
-      }}
+      style={
+        reducedMotion ? undefined : { animation: 'vlting-spinner 1s linear infinite' }
+      }
     >
       {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
         const angle = (i * 360) / 8
@@ -50,8 +64,8 @@ export function Spinner({ size = 'md', color }: SpinnerProps) {
             borderRadius={9999}
             backgroundColor={color ?? '$color'}
             opacity={0.15 + (i / 8) * 0.85}
-            width={dotSize}
-            height={dotSize}
+            width={DOT_SIZE_TOKEN[size]}
+            height={DOT_SIZE_TOKEN[size]}
             style={{ left: x, top: y }}
           />
         )

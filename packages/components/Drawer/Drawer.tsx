@@ -1,4 +1,5 @@
 import { Dialog as TamaguiDialog } from '@tamagui/dialog'
+import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React from 'react'
 import { View, styled } from 'tamagui'
@@ -18,13 +19,13 @@ const ViewJsx = View as AnyFC
 
 // @ts-expect-error Tamagui v2 RC
 const HandleBar = styled(View, {
-  width: 48,
-  height: 4,
+  width: '$4.5',
+  height: '$0.5',
   backgroundColor: '$color6',
   borderRadius: 9999,
   alignSelf: 'center',
-  marginTop: 8,
-  marginBottom: 8,
+  marginTop: '$0.75',
+  marginBottom: '$0.75',
 })
 
 // @ts-expect-error Tamagui v2 RC
@@ -178,12 +179,18 @@ function Footer({ children }: { children: React.ReactNode }) {
   return <DrawerFooterJsx>{children}</DrawerFooterJsx>
 }
 
+const DrawerTitleH2 = styledHtml('h2', {
+  fontSize: '$7',
+  fontWeight: '600',
+  fontFamily: '$heading',
+  color: '$color',
+  margin: 0,
+} as any) as AnyFC
+
 function Title({ children }: { children: React.ReactNode }) {
   return (
     <DialogTitle>
-      <ViewJsx fontSize={20} fontWeight="600" fontFamily="$heading" color="$color">
-        {children}
-      </ViewJsx>
+      <DrawerTitleH2>{children}</DrawerTitleH2>
     </DialogTitle>
   )
 }
@@ -191,7 +198,7 @@ function Title({ children }: { children: React.ReactNode }) {
 function Description({ children }: { children: React.ReactNode }) {
   return (
     <DialogDescription>
-      <ViewJsx fontSize={13} color="$colorSubtitle" fontFamily="$body">
+      <ViewJsx fontSize="$3" color="$colorSubtitle" fontFamily="$body">
         {children}
       </ViewJsx>
     </DialogDescription>

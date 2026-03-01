@@ -8,9 +8,14 @@ const ViewJsx = View as AnyFC
 export interface ButtonGroupRootProps {
   children: React.ReactNode
   orientation?: 'horizontal' | 'vertical'
+  'aria-label'?: string
 }
 
-function Root({ children, orientation = 'horizontal' }: ButtonGroupRootProps) {
+function Root({
+  children,
+  orientation = 'horizontal',
+  'aria-label': ariaLabel,
+}: ButtonGroupRootProps) {
   const isHorizontal = orientation === 'horizontal'
 
   return (
@@ -33,6 +38,8 @@ function Root({ children, orientation = 'horizontal' }: ButtonGroupRootProps) {
         }}
       />
       <ViewJsx
+        role="group"
+        aria-label={ariaLabel}
         flexDirection={isHorizontal ? 'row' : 'column'}
         display="inline-flex"
         className={isHorizontal ? 'vlting-btn-group-h' : 'vlting-btn-group-v'}

@@ -2,6 +2,7 @@ import { Accordion as TamaguiAccordion } from '@tamagui/accordion'
 import type React from 'react'
 import type { ComponentType } from 'react'
 import { Text, styled } from 'tamagui'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const TextJsx = Text as AnyFC
@@ -87,6 +88,8 @@ export interface AccordionTriggerProps {
 }
 
 function Trigger({ children }: AccordionTriggerProps) {
+  const reducedMotion = useReducedMotion()
+
   return (
     <TamaguiAccordionHeaderJsx
       unstyled
@@ -122,8 +125,7 @@ function Trigger({ children }: AccordionTriggerProps) {
               color="$colorSubtitle"
               fontSize="$2"
               style={{
-                // Matches animation token: fast (150ms ease-in-out)
-                transition: 'transform 150ms ease-in-out',
+                transition: reducedMotion ? 'none' : 'transform 150ms ease-in-out',
                 transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
               }}
             >

@@ -6,15 +6,21 @@ import { Text, YStack, styled } from 'tamagui'
 // Extend Tamagui TextArea with our error variant.
 // Tamagui TextArea already renders <textarea> with proper styling and sizing.
 const StyledTextArea = styled(TamaguiTextArea, {
+  focusVisibleStyle: {
+    outlineWidth: 2,
+    outlineOffset: 2,
+    outlineColor: '$outlineColor',
+    outlineStyle: 'solid',
+  },
+
   variants: {
     error: {
-      // @ts-expect-error Tamagui v2 RC
       true: {
         borderColor: '$red10',
       },
     },
   } as const,
-})
+} as any)
 
 // Cast for JSX — Tamagui v2 RC GetFinalProps bug
 const StyledTextAreaJsx = StyledTextArea as ComponentType<Record<string, unknown>>

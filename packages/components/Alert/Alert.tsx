@@ -54,7 +54,7 @@ const AlertIconFrame = styled(View, {
   flexShrink: 0,
   width: 16,
   height: 16,
-  marginTop: 2,
+  marginTop: '$0.25',
 })
 
 const AlertIconJsx = AlertIconFrame as AnyFC

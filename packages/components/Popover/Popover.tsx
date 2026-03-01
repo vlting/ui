@@ -13,9 +13,9 @@ const StyledContent = styled(YStack, {
   // @ts-expect-error Tamagui v2 RC
   animation: 'medium',
   // @ts-expect-error Tamagui v2 RC
-  enterStyle: { opacity: 0, scale: 0.95, y: -4 },
+  enterStyle: { opacity: 0, scale: 0.95, y: '$-0.5' },
   // @ts-expect-error Tamagui v2 RC
-  exitStyle: { opacity: 0, scale: 0.95, y: -4 },
+  exitStyle: { opacity: 0, scale: 0.95, y: '$-0.5' },
 })
 
 // Tamagui v2 RC GetProps bug — cast for JSX usage

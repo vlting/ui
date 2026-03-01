@@ -16,9 +16,9 @@ const AvatarFrame = styled(View, {
   variants: {
     size: {
       // @ts-expect-error Tamagui v2 RC
-      sm: { width: 32, height: 32 },
+      sm: { width: '$2.5', height: '$2.5' },
       // @ts-expect-error Tamagui v2 RC
-      md: { width: 40, height: 40 },
+      md: { width: '$3.5', height: '$3.5' },
       // @ts-expect-error Tamagui v2 RC
       lg: { width: 56, height: 56 },
       // @ts-expect-error Tamagui v2 RC

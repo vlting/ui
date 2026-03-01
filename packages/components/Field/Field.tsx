@@ -59,7 +59,7 @@ function Root({ children, error, disabled }: FieldRootProps) {
 
   return (
     <FieldContext.Provider value={{ id, descriptionId, errorId, error, disabled }}>
-      <ViewJsx gap={4}>{children}</ViewJsx>
+      <ViewJsx gap="$0.5">{children}</ViewJsx>
     </FieldContext.Provider>
   )
 }
@@ -69,7 +69,7 @@ function Label({ children }: FieldLabelProps) {
 
   return (
     <label htmlFor={id} style={{ display: 'block' }}>
-      <TextJsx fontSize={14} fontWeight="500" fontFamily="$body" color="$color">
+      <TextJsx fontSize="$4" fontWeight="500" fontFamily="$body" color="$color">
         {children}
       </TextJsx>
     </label>
@@ -101,7 +101,7 @@ function Description({ children }: FieldDescriptionProps) {
   if (error) return null
 
   return (
-    <TextJsx id={descriptionId} fontSize={12} fontFamily="$body" color="$colorSubtitle">
+    <TextJsx id={descriptionId} fontSize="$2" fontFamily="$body" color="$colorSubtitle">
       {children}
     </TextJsx>
   )
@@ -113,7 +113,7 @@ function Error({ children }: FieldErrorProps) {
   if (!error) return null
 
   return (
-    <TextJsx id={errorId} fontSize={12} fontFamily="$body" color="$red10" role="alert">
+    <TextJsx id={errorId} fontSize="$2" fontFamily="$body" color="$red10" role="alert">
       {children}
     </TextJsx>
   )

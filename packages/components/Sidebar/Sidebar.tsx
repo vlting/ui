@@ -2,13 +2,14 @@ import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import React, { useCallback, useState } from 'react'
 import { Text, View } from 'tamagui'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
 
 const GroupLabelH3 = styledHtml('h3', {
-  fontSize: 12,
+  fontSize: '$2',
   fontWeight: '600',
   color: '$colorSubtitle',
   fontFamily: '$body',
@@ -112,6 +113,7 @@ function Root({
   width = 256,
   collapsedWidth = 48,
 }: SidebarRootProps) {
+  const reducedMotion = useReducedMotion()
   const [internalOpen, setInternalOpen] = useState(defaultOpen)
   const open = controlledOpen ?? internalOpen
 
@@ -149,8 +151,7 @@ function Root({
         borderRadius={variant === 'floating' ? '$5' : undefined}
         style={{
           width: collapsed ? collapsedWidth : open ? width : 0,
-          // Matches animation token: medium (250ms ease-in-out)
-          transition: 'width 250ms ease-in-out',
+          transition: reducedMotion ? 'none' : 'width 250ms ease-in-out',
           ...(variant === 'floating'
             ? {
                 margin: 8,
@@ -172,10 +173,10 @@ function Root({
 function Header({ children }: { children: React.ReactNode }) {
   return (
     <ViewJsx
-      paddingLeft={16}
-      paddingRight={16}
-      paddingTop={12}
-      paddingBottom={12}
+      paddingLeft="$2"
+      paddingRight="$2"
+      paddingTop="$1.5"
+      paddingBottom="$1.5"
       borderBottomWidth={1}
       borderBottomColor="$borderColor"
     >
@@ -186,7 +187,7 @@ function Header({ children }: { children: React.ReactNode }) {
 
 function SidebarContent({ children }: { children: React.ReactNode }) {
   return (
-    <ViewJsx flex={1} overflow="auto" paddingTop={8} paddingBottom={8}>
+    <ViewJsx flex={1} overflow="auto" paddingTop="$0.75" paddingBottom="$0.75">
       {children}
     </ViewJsx>
   )
@@ -195,10 +196,10 @@ function SidebarContent({ children }: { children: React.ReactNode }) {
 function Footer({ children }: { children: React.ReactNode }) {
   return (
     <ViewJsx
-      paddingLeft={16}
-      paddingRight={16}
-      paddingTop={12}
-      paddingBottom={12}
+      paddingLeft="$2"
+      paddingRight="$2"
+      paddingTop="$1.5"
+      paddingBottom="$1.5"
       borderTopWidth={1}
       borderTopColor="$borderColor"
     >
@@ -208,7 +209,7 @@ function Footer({ children }: { children: React.ReactNode }) {
 }
 
 function Group({ children }: SidebarGroupProps) {
-  return <ViewJsx paddingBottom={8}>{children}</ViewJsx>
+  return <ViewJsx paddingBottom="$0.75">{children}</ViewJsx>
 }
 
 function GroupLabel({ children }: { children: React.ReactNode }) {
@@ -216,7 +217,7 @@ function GroupLabel({ children }: { children: React.ReactNode }) {
   if (collapsed) return null
 
   return (
-    <ViewJsx paddingLeft={16} paddingRight={16} paddingTop={8} paddingBottom={4}>
+    <ViewJsx paddingLeft="$2" paddingRight="$2" paddingTop="$0.75" paddingBottom="$0.5">
       <GroupLabelH3>{children}</GroupLabelH3>
     </ViewJsx>
   )
@@ -228,7 +229,7 @@ function GroupContent({ children }: { children: React.ReactNode }) {
 
 function SidebarMenu({ children }: { children: React.ReactNode }) {
   return (
-    <ViewJsx role="menu" gap={1} paddingLeft={8} paddingRight={8}>
+    <ViewJsx role="menu" gap={1} paddingLeft="$0.75" paddingRight="$0.75">
       {children}
     </ViewJsx>
   )
@@ -239,9 +240,9 @@ function MenuItem({ children, active, disabled, onPress }: SidebarMenuItemProps)
     <MenuItemBtnJsx
       type="button"
       alignItems="center"
-      height={36}
-      paddingLeft={8}
-      paddingRight={8}
+      height="$3"
+      paddingLeft="$0.75"
+      paddingRight="$0.75"
       borderRadius="$3"
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
@@ -262,7 +263,7 @@ function MenuButton({ children, active, disabled, onPress }: SidebarMenuItemProp
   return (
     <MenuItem active={active} disabled={disabled} onPress={onPress}>
       <TextJsx
-        fontSize={14}
+        fontSize="$4"
         fontFamily="$body"
         color="$color"
         fontWeight={active ? '500' : '400'}
@@ -278,10 +279,10 @@ function SidebarSeparator() {
     <ViewJsx
       height={1}
       backgroundColor="$borderColor"
-      marginTop={8}
-      marginBottom={8}
-      marginLeft={16}
-      marginRight={16}
+      marginTop="$0.75"
+      marginBottom="$0.75"
+      marginLeft="$2"
+      marginRight="$2"
     />
   )
 }
@@ -292,8 +293,8 @@ function Trigger({ children }: { children?: React.ReactNode }) {
   return (
     <SidebarBtnJsx
       type="button"
-      width={28}
-      height={28}
+      width="$2"
+      height="$2"
       borderRadius="$2"
       hoverStyle={{ backgroundColor: '$color2' }}
       onClick={() => setOpen(!open)}
@@ -301,7 +302,7 @@ function Trigger({ children }: { children?: React.ReactNode }) {
       aria-expanded={open}
     >
       {children ?? (
-        <TextJsx fontSize={16} color="$color">
+        <TextJsx fontSize="$5" color="$color">
           {open ? '\u2630' : '\u2630'}
         </TextJsx>
       )}
@@ -317,7 +318,7 @@ function Rail() {
       position="absolute"
       top={0}
       bottom={0}
-      width={4}
+      width="$0.5"
       style={{ [side === 'left' ? 'right' : 'left']: 0 }}
       cursor="col-resize"
       backgroundColor="transparent"
