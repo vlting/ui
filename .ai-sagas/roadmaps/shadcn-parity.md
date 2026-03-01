@@ -20,7 +20,7 @@ created: 2026-03-01
 **Dependencies:** none
 **Estimated stages:** ~4
 **Epic slug:** token-audit-fonts
-**Epic Roadmap:** (filled during EXECUTE)
+**Epic Roadmap:** `.ai-epics/roadmaps/2026-03-01-token-audit-fonts.md`
 **Tech Spec:** `.ai-epics/docs/token-audit-fonts/tech-spec.md`
 **Status:** in-progress
 **Review notes:**
