@@ -22,7 +22,7 @@ const HandleBar = styled(View, {
   width: '$4.5',
   height: '$0.5',
   backgroundColor: '$color6',
-  borderRadius: 9999,
+  borderRadius: '$full',
   alignSelf: 'center',
   marginTop: '$0.75',
   marginBottom: '$0.75',
@@ -72,7 +72,7 @@ const DIRECTION_STYLES = {
     left: 0,
     bottom: 0,
     maxWidth: '90vw',
-    width: 360,
+    width: 360, // $drawer token value
   },
   right: {
     position: 'fixed' as const,
@@ -80,7 +80,7 @@ const DIRECTION_STYLES = {
     right: 0,
     bottom: 0,
     maxWidth: '90vw',
-    width: 360,
+    width: 360, // $drawer token value
   },
 }
 

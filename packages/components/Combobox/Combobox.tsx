@@ -170,7 +170,7 @@ function Root({
           borderWidth={1}
           borderColor="$borderColor"
           borderRadius="$4"
-          zIndex={50}
+          zIndex="$5"
           overflow="hidden"
           style={{ boxShadow: 'var(--shadowMd)' }}
         >
@@ -198,7 +198,7 @@ function Root({
           </ViewJsx>
 
           {/* Options */}
-          <ViewJsx maxHeight={200} style={{ overflowY: 'auto' }} role="listbox">
+          <ViewJsx maxHeight="$14" style={{ overflowY: 'auto' }} role="listbox">
             {filtered.length === 0 ? (
               <ViewJsx padding="$1.5" alignItems="center">
                 <TextJsx fontSize="$4" color="$colorSubtitle" fontFamily="$body">
@@ -223,7 +223,7 @@ function Root({
                     role="option"
                     aria-selected={isSelected}
                   >
-                    <ViewJsx width={16}>
+                    <ViewJsx width="$1">
                       {isSelected && (
                         <TextJsx fontSize="$2" color="$color">
                           {'\u2713'}

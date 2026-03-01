@@ -66,7 +66,7 @@ interface DialogContentProps {
   size?: 'sm' | 'md' | 'lg'
 }
 
-const SIZE_MAX_WIDTH = { sm: 400, md: 500, lg: 640 }
+const SIZE_MAX_WIDTH = { sm: '$dialogSm' as const, md: '$dialogMd' as const, lg: '$dialogLg' as const }
 const SIZE_PADDING = { sm: '$4' as const, md: '$5' as const, lg: '$6' as const }
 
 function Content({ children, size = 'md' }: DialogContentProps) {
@@ -83,7 +83,7 @@ function Content({ children, size = 'md' }: DialogContentProps) {
         left={0}
         right={0}
         bottom={0}
-        zIndex={50}
+        zIndex="$4"
       />
       <DialogContent
         backgroundColor="$background"
@@ -96,7 +96,7 @@ function Content({ children, size = 'md' }: DialogContentProps) {
         gap="$3"
         enterStyle={{ opacity: 0, scale: 0.95 }}
         exitStyle={{ opacity: 0, scale: 0.95 }}
-        zIndex={51}
+        zIndex="$5"
         shadowColor="$shadowXlColor"
         shadowRadius={32}
         shadowOffset={{ width: 0, height: 16 }}

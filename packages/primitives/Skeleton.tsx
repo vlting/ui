@@ -14,7 +14,7 @@ export const Skeleton = styled(View, {
   variants: {
     circle: {
       true: {
-        borderRadius: 1000,
+        borderRadius: '$full',
       },
     },
   } as const,

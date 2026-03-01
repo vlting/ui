@@ -6,27 +6,27 @@ type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 
 const SIZE_MAP = {
-  sm: 16,
+  sm: 20,
   md: 20,
   lg: 28,
 } as const
 
 const SIZE_TOKEN: Record<string, number | string> = {
-  sm: 16,
+  sm: '$1',
   md: '$1',
   lg: '$2',
 }
 
 const DOT_SIZE_MAP = {
   sm: 4,
-  md: 5,
-  lg: 6,
+  md: 4,
+  lg: 8,
 } as const
 
 const DOT_SIZE_TOKEN: Record<string, number | string> = {
   sm: '$0.5',
-  md: 5,
-  lg: 6,
+  md: '$0.5',
+  lg: '$0.75',
 }
 
 export interface SpinnerProps {
@@ -61,7 +61,7 @@ export function Spinner({ size = 'md', color }: SpinnerProps) {
           <ViewJsx
             key={i}
             position="absolute"
-            borderRadius={9999}
+            borderRadius="$full"
             backgroundColor={color ?? '$color'}
             opacity={0.15 + (i / 8) * 0.85}
             width={DOT_SIZE_TOKEN[size]}

@@ -7,7 +7,7 @@ type AnyFC = ComponentType<Record<string, unknown>>
 const ImageJsx = TamaguiImage as AnyFC
 
 const AvatarFrame = styled(View, {
-  borderRadius: 1000,
+  borderRadius: '$full',
   overflow: 'hidden',
   alignItems: 'center',
   justifyContent: 'center',
@@ -20,9 +20,9 @@ const AvatarFrame = styled(View, {
       // @ts-expect-error Tamagui v2 RC
       md: { width: '$3.5', height: '$3.5' },
       // @ts-expect-error Tamagui v2 RC
-      lg: { width: 56, height: 56 },
+      lg: { width: '$5', height: '$5' },
       // @ts-expect-error Tamagui v2 RC
-      xl: { width: 72, height: 72 },
+      xl: { width: '$7', height: '$7' },
     },
   } as const,
 
@@ -60,7 +60,7 @@ const AvatarFrameJsx = AvatarFrame as AnyFC
 const AvatarFallbackTextJsx = AvatarFallbackText as AnyFC
 
 type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
-const SIZE_PX: Record<AvatarSize, number> = { sm: 32, md: 40, lg: 56, xl: 72 }
+const SIZE_PX: Record<AvatarSize, number> = { sm: 32, md: 40, lg: 52, xl: 74 }
 
 const AvatarContext = createContext<{
   size: AvatarSize
