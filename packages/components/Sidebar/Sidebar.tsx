@@ -154,7 +154,7 @@ function Root({
           transition: reducedMotion ? 'none' : 'width 250ms ease-in-out',
           ...(variant === 'floating'
             ? {
-                margin: 8,
+                margin: 8, /* space $0.75 */
                 borderWidth: 1,
                 borderColor: 'var(--borderColor)',
                 boxShadow: 'var(--shadowMd)',

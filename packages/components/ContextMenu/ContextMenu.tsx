@@ -99,19 +99,19 @@ function Root({ children, onOpenChange }: ContextMenuRootProps) {
             left={0}
             right={0}
             bottom={0}
-            zIndex={49}
+            zIndex="$4"
             onPress={close}
           />
           {/* Menu */}
           <ViewJsx
             position="fixed"
-            zIndex={50}
+            zIndex="$5"
             backgroundColor="$background"
             borderWidth={1}
             borderColor="$borderColor"
             borderRadius="$4"
             padding="$0.5"
-            minWidth={192}
+            minWidth="$menuMin"
             shadowColor="$shadowMdColor"
             shadowRadius={8}
             shadowOffset={{ width: 0, height: 4 }}
@@ -212,7 +212,7 @@ function CheckboxItem({
       role="menuitemcheckbox"
       aria-checked={checked}
     >
-      <ViewJsx width={16} alignItems="center">
+      <ViewJsx width="$1" alignItems="center">
         {checked && (
           <TextJsx fontSize="$2" color="$color">
             {'\u2713'}
@@ -233,8 +233,8 @@ function Separator() {
       backgroundColor="$borderColor"
       marginTop="$0.5"
       marginBottom="$0.5"
-      marginLeft={-4}
-      marginRight={-4}
+      marginLeft="$-0.5"
+      marginRight="$-0.5"
     />
   )
 }
@@ -244,7 +244,7 @@ function Label({ children }: { children: React.ReactNode }) {
     <ViewJsx
       paddingLeft="$0.75"
       paddingRight="$0.75"
-      paddingTop={6}
+      paddingTop="$0.75"
       paddingBottom="$0.25"
     >
       <TextJsx fontSize="$2" fontWeight="600" color="$colorSubtitle" fontFamily="$body">

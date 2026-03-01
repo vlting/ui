@@ -72,7 +72,7 @@ function Description({ children }: EmptyDescriptionProps) {
       fontFamily="$body"
       color="$colorSubtitle"
       textAlign="center"
-      style={{ maxWidth: 400 }}
+      maxWidth="$dialogSm"
     >
       {children}
     </TextJsx>

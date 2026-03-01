@@ -11,8 +11,8 @@ const ContentFrame = styled(View, {
   borderColor: '$borderColor',
   borderRadius: '$5',
   padding: '$3.5',
-  zIndex: 50,
-  minWidth: 256,
+  zIndex: '$5',
+  minWidth: '$15',
 })
 
 const ContentFrameJsx = ContentFrame as AnyFC

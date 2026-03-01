@@ -34,23 +34,23 @@
 **Estimated scope:** ~4 files, ~200 lines
 **GitHub Sub-Issue:** #14
 **Stage Branch:** feat/token-audit-fonts/typography-migration
-**Stage PR:** (pending)
+**Stage PR:** #19 (merged)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmat5c
 **Acceptance criteria:**
-- [ ] H1–H6 use heading font with correct weight alternation
-- [ ] Blockquote uses quote font slot
-- [ ] InlineCode and Kbd use mono font slot
-- [ ] P, Lead, Large, Small, Muted use body font
-- [ ] Zero hardcoded font families, sizes, or weights in Typography.tsx
-- [ ] All Typography variants render correctly with each brand
-**Status:** executing
+- [x] H1–H6 use heading font with correct weight alternation
+- [x] Blockquote uses quote font slot
+- [x] InlineCode and Kbd use mono font slot
+- [x] P, Lead, Large, Small, Muted use body font
+- [x] Zero hardcoded font families, sizes, or weights in Typography.tsx
+- [x] All Typography variants render correctly with each brand
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 3: Component Token Audit — Dimensions & Spacing
 **Objective:** Replace all hardcoded width/height, gap/margin/padding, borderRadius, and zIndex values across components with design tokens.
 **Estimated scope:** ~20 files, ~150 lines changed
 **GitHub Sub-Issue:** #15
-**Stage Branch:** (pending)
+**Stage Branch:** feat/token-audit-fonts/dimensions-spacing
 **Stage PR:** (pending)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmat58
 **Acceptance criteria:**
@@ -60,7 +60,7 @@
 - [ ] All hardcoded zIndex values replaced with zIndex tokens
 - [ ] Semantic size tokens defined where needed (sidebar, drawer, dialog widths)
 - [ ] All existing tests pass after migration
-**Status:** pending
+**Status:** executing
 **Iterations:** 0
 
 ## Stage 4: Component Token Audit — Typography & Shadows
