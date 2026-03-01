@@ -2,45 +2,66 @@ import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 
 // ---------------------------------------------------------------------------
-// Headings
+// Headings — weight alternation: h1(heavy) h2(light) h3(heavy) h4(light) h5(heavy) h6(light)
+// Font weight keys map to heading levels in reverse: key 6=h1, key 5=h2, etc.
 // ---------------------------------------------------------------------------
 
 const H1Frame = styledHtml('h1', {
   fontFamily: '$heading',
-  fontWeight: '700',
-  fontSize: 36,
-  lineHeight: 44,
-  letterSpacing: '-0.025em',
+  fontSize: '$9',
+  lineHeight: '$9',
+  fontWeight: '$6',
+  letterSpacing: '$7',
   color: '$color',
   margin: 0,
 } as any)
 
 const H2Frame = styledHtml('h2', {
   fontFamily: '$heading',
-  fontWeight: '600',
-  fontSize: 30,
-  lineHeight: 38,
-  letterSpacing: '-0.025em',
+  fontSize: '$8',
+  lineHeight: '$8',
+  fontWeight: '$5',
+  letterSpacing: '$6',
   color: '$color',
   margin: 0,
 } as any)
 
 const H3Frame = styledHtml('h3', {
   fontFamily: '$heading',
-  fontWeight: '600',
-  fontSize: '$8',
-  lineHeight: 32,
-  letterSpacing: '-0.025em',
+  fontSize: '$7',
+  lineHeight: '$7',
+  fontWeight: '$4',
+  letterSpacing: '$5',
   color: '$color',
   margin: 0,
 } as any)
 
 const H4Frame = styledHtml('h4', {
   fontFamily: '$heading',
-  fontWeight: '600',
-  fontSize: '$7',
-  lineHeight: 28,
-  letterSpacing: '-0.025em',
+  fontSize: '$6',
+  lineHeight: '$6',
+  fontWeight: '$3',
+  letterSpacing: '$4',
+  color: '$color',
+  margin: 0,
+} as any)
+
+const H5Frame = styledHtml('h5', {
+  fontFamily: '$heading',
+  fontSize: '$5',
+  lineHeight: '$5',
+  fontWeight: '$2',
+  letterSpacing: '$3',
+  color: '$color',
+  margin: 0,
+} as any)
+
+const H6Frame = styledHtml('h6', {
+  fontFamily: '$heading',
+  fontSize: '$4',
+  lineHeight: '$4',
+  fontWeight: '$1',
+  letterSpacing: '$2',
   color: '$color',
   margin: 0,
 } as any)
@@ -51,43 +72,43 @@ const H4Frame = styledHtml('h4', {
 
 const PFrame = styledHtml('p', {
   fontFamily: '$body',
-  fontWeight: '400',
   fontSize: '$5',
-  lineHeight: 28,
+  lineHeight: '$5',
+  fontWeight: '$2',
   color: '$color',
   margin: 0,
 } as any)
 
 const LeadFrame = styledHtml('p', {
   fontFamily: '$body',
-  fontWeight: '400',
   fontSize: '$7',
-  lineHeight: 32,
+  lineHeight: '$7',
+  fontWeight: '$2',
   color: '$colorSubtitle',
   margin: 0,
 } as any)
 
 const LargeFrame = styledHtml('span', {
   fontFamily: '$body',
-  fontWeight: '600',
   fontSize: '$6',
-  lineHeight: 28,
+  lineHeight: '$6',
+  fontWeight: '$4',
   color: '$color',
 } as any)
 
 const SmallFrame = styledHtml('small', {
   fontFamily: '$body',
-  fontWeight: '500',
   fontSize: '$4',
-  lineHeight: 20,
+  lineHeight: '$4',
+  fontWeight: '$3',
   color: '$color',
 } as any)
 
 const MutedFrame = styledHtml('p', {
   fontFamily: '$body',
-  fontWeight: '400',
   fontSize: '$4',
-  lineHeight: 20,
+  lineHeight: '$4',
+  fontWeight: '$2',
   color: '$colorSubtitle',
   margin: 0,
 } as any)
@@ -97,10 +118,11 @@ const MutedFrame = styledHtml('p', {
 // ---------------------------------------------------------------------------
 
 const BlockquoteFrame = styledHtml('blockquote', {
-  fontFamily: '$body',
+  fontFamily: '$quote',
   fontStyle: 'italic',
-  fontSize: '$5',
-  lineHeight: 28,
+  fontSize: '$2',
+  lineHeight: '$2',
+  fontWeight: '$1',
   color: '$color',
   margin: 0,
   paddingLeft: '$2',
@@ -110,9 +132,10 @@ const BlockquoteFrame = styledHtml('blockquote', {
 } as any)
 
 const InlineCodeFrame = styledHtml('code', {
-  fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
+  fontFamily: '$mono',
   fontSize: '$4',
-  lineHeight: '20px',
+  lineHeight: '$4',
+  fontWeight: '$1',
   backgroundColor: '$color2',
   borderRadius: '$2',
   paddingLeft: '$0.5',
@@ -129,7 +152,7 @@ const InlineCodeFrame = styledHtml('code', {
 const UlFrame = styledHtml('ul', {
   fontFamily: '$body',
   fontSize: '$5',
-  lineHeight: 28,
+  lineHeight: '$5',
   color: '$color',
   margin: 0,
   paddingLeft: '$3.5',
@@ -152,6 +175,8 @@ export const H1 = H1Frame as AnyFC
 export const H2 = H2Frame as AnyFC
 export const H3 = H3Frame as AnyFC
 export const H4 = H4Frame as AnyFC
+export const H5 = H5Frame as AnyFC
+export const H6 = H6Frame as AnyFC
 export const P = PFrame as AnyFC
 export const Lead = LeadFrame as AnyFC
 export const Large = LargeFrame as AnyFC
