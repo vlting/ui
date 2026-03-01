@@ -27,6 +27,7 @@ export {
 } from '../packages/design-tokens'
 export type {
   BrandDefinition,
+  BrandFontConfig,
   BorderConfig,
   OutlineConfig,
   AnimationConfig,
@@ -242,4 +243,7 @@ export {
   mergeRefs,
   composeEventHandlers,
   cn,
+  FontLoader,
+  getGoogleFontsUrl,
 } from '../packages/utils'
+export type { FontLoaderProps } from '../packages/utils'
