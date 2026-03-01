@@ -1,6 +1,6 @@
 ---
 saga: shadcn-parity
-status: draft
+status: active
 created: 2026-03-01
 author: lucas + Claude
 ---
