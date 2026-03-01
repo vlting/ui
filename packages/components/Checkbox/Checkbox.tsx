@@ -7,8 +7,8 @@ import { Text, styled } from 'tamagui'
 const CheckIcon = styled(Text, {
   color: '$color1',
   fontSize: '$4',
-  fontWeight: '700',
-  lineHeight: 14,
+  fontWeight: '$5',
+  lineHeight: '$1',
 })
 
 // Tamagui v2 RC GetProps bug — cast for JSX usage

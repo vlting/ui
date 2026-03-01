@@ -148,10 +148,10 @@ function Slot({ index }: InputOTPSlotProps) {
       <ViewJsx
         fontSize="$7"
         fontFamily="$body"
-        fontWeight="500"
+        fontWeight="$3"
         color="$color"
         textAlign="center"
-        lineHeight={28}
+        lineHeight="$6"
       >
         {char}
       </ViewJsx>

@@ -9,7 +9,7 @@ const TextJsx = Text as AnyFC
 
 const TitleH3 = styledHtml('h3', {
   fontSize: '$6',
-  fontWeight: '600',
+  fontWeight: '$4',
   color: '$color',
   fontFamily: '$body',
   margin: 0,

@@ -106,11 +106,9 @@ function Content({ children, side = 'bottom', align = 'center' }: HoverCardConte
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       role="tooltip"
-      shadowColor="$shadowMdColor"
-      shadowRadius={8}
-      shadowOffset={{ width: 0, height: 4 }}
       {...SIDE_MARGIN[side]}
       style={{
+        boxShadow: 'var(--shadowMd)',
         ...SIDE_STYLES[side],
         ...ALIGN_STYLES[align],
       }}

@@ -173,7 +173,7 @@ const defaultBodyFont = createFont({
     10: 32,
     true: 14,
   },
-  weight: { 1: '300', 2: '400', 3: '500', 4: '600', true: '400' },
+  weight: { 1: '300', 2: '400', 3: '500', 4: '600', 5: '700', true: '400' },
   lineHeight: {
     1: 16,
     2: 18,
@@ -323,7 +323,7 @@ export function createBrandConfig(brand: BrandDefinition): CreateTamaguiProps {
     bodyFont = createFont({
       ...defaultBodyFont,
       family: bodyFamily,
-      weight: { 1: bodyWeight, 2: bodyWeight, 3: bodyWeight, 4: bodyWeight, true: bodyWeight },
+      weight: { 1: bodyWeight, 2: bodyWeight, 3: bodyWeight, 4: bodyWeight, 5: bodyWeight, true: bodyWeight },
     })
 
     const monoWeight = String(fc.mono.weight)

@@ -198,7 +198,7 @@ function Trigger({ children }: { children: React.ReactNode }) {
       aria-expanded={isOpen}
       onKeyDown={handleKeyDown}
     >
-      <TextJsx fontSize="$4" fontFamily="$body" fontWeight="500" color="$color">
+      <TextJsx fontSize="$4" fontFamily="$body" fontWeight="$3" color="$color">
         {children}
       </TextJsx>
       <TextJsx fontSize={10} color="$colorSubtitle" marginLeft="$0.5">
@@ -300,7 +300,7 @@ function Link({ children, href, active, onSelect }: NavigationMenuLinkProps) {
         fontSize="$4"
         fontFamily="$body"
         color="$color"
-        fontWeight={active ? '500' : '400'}
+        fontWeight={active ? '$3' : '$2'}
       >
         {children}
       </TextJsx>

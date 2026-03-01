@@ -97,9 +97,7 @@ function Content({ children, size = 'md' }: DialogContentProps) {
         enterStyle={{ opacity: 0, scale: 0.95 }}
         exitStyle={{ opacity: 0, scale: 0.95 }}
         zIndex="$5"
-        shadowColor="$shadowXlColor"
-        shadowRadius={32}
-        shadowOffset={{ width: 0, height: 16 }}
+        style={{ boxShadow: 'var(--shadowXl)' }}
       >
         {children}
       </DialogContent>

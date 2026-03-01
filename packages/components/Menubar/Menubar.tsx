@@ -151,7 +151,7 @@ function Trigger({ children }: { children: React.ReactNode }) {
       aria-haspopup="menu"
       aria-expanded={isOpen}
     >
-      <TextJsx fontSize="$4" fontFamily="$body" fontWeight="500" color="$color">
+      <TextJsx fontSize="$4" fontFamily="$body" fontWeight="$3" color="$color">
         {children}
       </TextJsx>
     </MenuTriggerBtnJsx>
@@ -250,7 +250,7 @@ function Label({ children }: { children: React.ReactNode }) {
       paddingTop={6}
       paddingBottom="$0.25"
     >
-      <TextJsx fontSize="$2" fontWeight="600" color="$colorSubtitle" fontFamily="$body">
+      <TextJsx fontSize="$2" fontWeight="$4" color="$colorSubtitle" fontFamily="$body">
         {children}
       </TextJsx>
     </ViewJsx>

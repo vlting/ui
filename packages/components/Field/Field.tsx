@@ -69,7 +69,7 @@ function Label({ children }: FieldLabelProps) {
 
   return (
     <label htmlFor={id} style={{ display: 'block' }}>
-      <TextJsx fontSize="$4" fontWeight="500" fontFamily="$body" color="$color">
+      <TextJsx fontSize="$4" fontWeight="$3" fontFamily="$body" color="$color">
         {children}
       </TextJsx>
     </label>
