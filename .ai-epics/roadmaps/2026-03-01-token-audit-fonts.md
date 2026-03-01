@@ -67,15 +67,15 @@
 **Objective:** Replace all remaining hardcoded fontSize, fontWeight, lineHeight, fontFamily, and shadow values with font and theme tokens. Final audit pass.
 **Estimated scope:** ~12 files, ~100 lines changed
 **GitHub Sub-Issue:** #16
-**Stage Branch:** (pending)
-**Stage PR:** (pending)
+**Stage Branch:** feat/token-audit-fonts/typography-shadows
+**Stage PR:** #21 (merged)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmat7A
 **Acceptance criteria:**
-- [ ] All hardcoded fontSize/fontWeight/lineHeight values replaced with font tokens
-- [ ] All hardcoded fontFamily references replaced with config font tokens
-- [ ] All hardcoded shadow offsets replaced with theme shadow tokens
-- [ ] Final grep audit finds zero remaining hardcoded visual values
-- [ ] Each brand (default, shadcn, fun, posh) renders correctly
-- [ ] All existing tests pass
-**Status:** pending
+- [x] All hardcoded fontSize/fontWeight/lineHeight values replaced with font tokens
+- [x] All hardcoded fontFamily references replaced with config font tokens
+- [x] All hardcoded shadow offsets replaced with theme shadow tokens
+- [x] Final grep audit finds zero remaining hardcoded visual values
+- [x] Each brand (default, shadcn, fun, posh) renders correctly
+- [x] All existing tests pass
+**Status:** complete
 **Iterations:** 0
