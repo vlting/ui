@@ -20,6 +20,7 @@ export {
 } from './brands'
 export type {
   BrandDefinition,
+  BrandFontConfig,
   BorderConfig,
   OutlineConfig,
   AnimationConfig,
