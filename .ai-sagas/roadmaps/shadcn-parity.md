@@ -1,6 +1,6 @@
 ---
 saga: shadcn-parity
-status: planning
+status: in-progress
 created: 2026-03-01
 ---
 
@@ -10,7 +10,7 @@ created: 2026-03-01
 - **PRD:** `.ai-sagas/docs/shadcn-parity/prd.md`
 - **GitHub Issue:** #11
 - **Created:** 2026-03-01
-- **Status:** planning
+- **Status:** in-progress
 
 ---
 
@@ -21,8 +21,8 @@ created: 2026-03-01
 **Estimated stages:** ~4
 **Epic slug:** token-audit-fonts
 **Epic Roadmap:** (filled during EXECUTE)
-**Tech Spec:** (filled during EXECUTE)
-**Status:** pending
+**Tech Spec:** `.ai-epics/docs/token-audit-fonts/tech-spec.md`
+**Status:** in-progress
 **Review notes:**
 
 ## Epic 2: Component Parity & API Mapping
