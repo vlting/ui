@@ -22,8 +22,8 @@ created: 2026-03-01
 **Epic slug:** token-audit-fonts
 **Epic Roadmap:** `.ai-epics/roadmaps/2026-03-01-token-audit-fonts.md`
 **Tech Spec:** `.ai-epics/docs/token-audit-fonts/tech-spec.md`
-**Status:** in-progress
-**Review notes:**
+**Status:** complete
+**Review notes:** All 4 stages delivered (PRs #18–#21). Epic PR #17 ready for review. Full token audit complete — zero hardcoded visual values remain. Font system with 4 slots and heading weight alternation operational.
 
 ## Epic 2: Component Parity & API Mapping
 **Objective:** Close the component gap with shadcn (add missing components, promote primitives), ensure API superset compatibility, and produce machine-readable API mapping documentation for every component.
