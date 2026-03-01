@@ -11,7 +11,7 @@
 - **Strong coverage:** 47 of ~57 shadcn/ui entries are present (82%). 9 components are missing or internal-only; most gaps are specialized (Chart, Direction, Sonner) rather than fundamental.
 - **Quality is high for core components:** 9 of the top 20 components earned Grade A (Button, Input, Textarea, Checkbox, Switch, RadioGroup, Card, Toast, Badge). Semantic HTML, focus indicators, and token discipline are consistently strong.
 - **Two critical a11y gaps:** DropdownMenu and NavigationMenu lack keyboard navigation (arrow keys, Escape) — violating WCAG 2.1.1. These are the highest-priority fixes.
-- **Theming pipeline is production-ready:** 4 brand presets (default, fun, posh, shadcn) demonstrate full BrandDefinition flexibility. All components use design tokens. Minor gaps: font families hardcoded per brand, no runtime brand switching, shadow/overlay colors have hardcoded fallbacks.
+- **Theming pipeline is production-ready:** 4 brand presets (default, fun, posh, shadcn) demonstrate full BrandDefinition flexibility. All components use design tokens. Minor gaps: shadow/overlay colors have hardcoded fallbacks.
 - **API design is solid:** Compound component pattern (dot notation) is consistent and ergonomic. Controlled/uncontrolled support via `useControllableState` hook. Variant system (size, variant props) is uniform. Some Tamagui v2 RC type workarounds degrade DX slightly.
 
 ---
@@ -180,8 +180,8 @@ Yes — presets are distinctly different across all visual dimensions. Fun is bo
 5. **Dark mode**: Every component inherits dark mode automatically through the theme system. Light and dark palettes are inverted. All brand presets define both light and dark palettes.
 
 6. **Gaps**:
-   - **Font families** are hardcoded per brand (e.g., Inter, DM Serif) — not tokenized
-   - **No runtime brand switching** — brands are compile-time only; switching requires page reload
+   - ~~**Font families** are hardcoded per brand~~ — Resolved: `BrandFontConfig` + `FontLoader` now tokenize fonts per brand with Google Fonts loading (web + RN)
+   - ~~**No runtime brand switching**~~ — Removed: Tamagui compiles tokens at init time; switching config at runtime would require a full remount equivalent to a page reload. This is an acceptable tradeoff for a cross-platform design system.
    - **Shadow colors** have hardcoded fallbacks in `buildThemes` (`rgba(0,0,0,0.15)` / `rgba(0,0,0,0.40)`)
    - **Overlay backgrounds** also have hardcoded fallbacks
    - **No per-component theme customization** (no `theme_Button`, `theme_Dialog` etc.)
@@ -264,6 +264,6 @@ Components compose well via the compound pattern. Children-based composition is 
 
 8. **React Native verification** — Run all components in RN environment; document web-only components; provide RN fallbacks for `styledHtml()` components. (P2)
 
-9. **Runtime brand switching** — Currently brands are compile-time only. Allow switching TamaguiProvider config at runtime without page reload. (P2)
+9. ~~**Runtime brand switching**~~ — Removed: Tamagui compiles tokens at init; runtime switching would require a full Provider remount (effectively a reload). Not worth the complexity — reload-to-switch is standard for white-label systems.
 
 10. **Chart component** — Data visualization wrapper (Recharts or Victory Native for cross-platform). Specialized; consider whether this belongs in the core design system or as an addon. (P2)

@@ -23,7 +23,7 @@ created: 2026-03-01
 **Epic Roadmap:** `.ai-epics/roadmaps/2026-03-01-token-audit-fonts.md`
 **Tech Spec:** `.ai-epics/docs/token-audit-fonts/tech-spec.md`
 **Status:** complete
-**Review notes:** All 4 stages delivered (PRs #18–#21). Epic PR #17 ready for review. Full token audit complete — zero hardcoded visual values remain. Font system with 4 slots and heading weight alternation operational.
+**Review notes:** All 4 stages delivered (PRs #18–#21). Epic PR #17 merged to main. Full token audit complete — zero hardcoded visual values remain. Font system with 4 slots, heading weight alternation, and cross-platform FontLoader (web + RN via expo-font) operational. PRD alignment: FR-6 and FR-11 fully addressed.
 
 ## Epic 2: Component Parity & API Mapping
 **Objective:** Close the component gap with shadcn (add missing components, promote primitives), ensure API superset compatibility, and produce machine-readable API mapping documentation for every component.
@@ -31,9 +31,9 @@ created: 2026-03-01
 **Dependencies:** Epic 1
 **Estimated stages:** ~5
 **Epic slug:** component-parity
-**Epic Roadmap:** (filled during EXECUTE)
-**Tech Spec:** (filled during EXECUTE)
-**Status:** pending
+**Epic Roadmap:** (filled during epic PLAN)
+**Tech Spec:** `.ai-epics/docs/component-parity/tech-spec.md`
+**Status:** in-progress
 **Review notes:**
 
 ## Epic 3: Icon System (Remix Icon)
