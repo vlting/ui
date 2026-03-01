@@ -3,7 +3,7 @@
 - **Branch:** epic/token-audit-fonts
 - **Feature flag:** token_audit_fonts
 - **GitHub Issue:** #12
-- **Epic PR:** (pending)
+- **Epic PR:** #17
 - **Created:** 2026-03-01
 - **Status:** in-progress
 
