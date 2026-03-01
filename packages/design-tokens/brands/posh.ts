@@ -244,6 +244,30 @@ export const poshBrand: BrandDefinition = {
     },
   },
 
+  fontConfig: {
+    heading: {
+      family: 'Cormorant Garamond',
+      fallback: 'EB Garamond, Georgia, serif',
+      weights: { heavy: 500, light: 300 },
+    },
+    body: {
+      family: 'Karla',
+      fallback: 'Source Sans 3, Inter, system-ui, sans-serif',
+      weight: 300,
+    },
+    mono: {
+      family: 'JetBrains Mono',
+      fallback: 'ui-monospace, monospace',
+      weight: 400,
+    },
+    quote: {
+      family: 'Cormorant Garamond',
+      fallback: 'Georgia, serif',
+      weight: 300,
+      style: 'italic',
+    },
+  },
+
   fonts: {
     heading: {
       family: "'Cormorant Garamond', 'Libre Baskerville', 'EB Garamond', Georgia, serif",

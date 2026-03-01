@@ -184,6 +184,30 @@ export const funBrand: BrandDefinition = {
     },
   },
 
+  fontConfig: {
+    heading: {
+      family: 'DM Serif Display',
+      fallback: 'Playfair Display, Georgia, serif',
+      weights: { heavy: 400, light: 400 },
+    },
+    body: {
+      family: 'DM Sans',
+      fallback: 'Nunito Sans, Inter, system-ui, sans-serif',
+      weight: 400,
+    },
+    mono: {
+      family: 'Fira Code',
+      fallback: 'ui-monospace, monospace',
+      weight: 400,
+    },
+    quote: {
+      family: 'DM Serif Display',
+      fallback: 'Georgia, serif',
+      weight: 400,
+      style: 'italic',
+    },
+  },
+
   fonts: {
     heading: {
       family: "'DM Serif Display', 'Playfair Display', 'Lora', Georgia, serif",
