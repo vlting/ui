@@ -1,3 +1,5 @@
 export { mergeRefs } from './mergeRefs'
 export { composeEventHandlers } from './composeEventHandlers'
 export { cn } from './cn'
+export { FontLoader, getGoogleFontsUrl } from './FontLoader'
+export type { FontLoaderProps } from './FontLoader'

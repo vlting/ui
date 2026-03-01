@@ -81,6 +81,17 @@ export const defaultBrand: BrandDefinition = {
     offset: 1,
   },
 
+  fontConfig: {
+    heading: { family: 'Inter', weights: { heavy: 600, light: 400 } },
+    body: { family: 'Inter', weight: 400 },
+    mono: {
+      family: 'JetBrains Mono',
+      fallback: 'ui-monospace, SFMono-Regular, monospace',
+      weight: 400,
+    },
+    quote: { family: 'Inter', weight: 300, style: 'italic' },
+  },
+
   fonts: {
     heading: {
       family: 'Inter, system-ui, -apple-system, sans-serif',

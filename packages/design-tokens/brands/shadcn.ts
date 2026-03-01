@@ -274,6 +274,17 @@ export const shadcnBrand: BrandDefinition = {
     },
   },
 
+  fontConfig: {
+    heading: { family: 'Inter', weights: { heavy: 700, light: 400 } },
+    body: { family: 'Inter', weight: 400 },
+    mono: {
+      family: 'JetBrains Mono',
+      fallback: 'ui-monospace, SFMono-Regular, monospace',
+      weight: 400,
+    },
+    quote: { family: 'Inter', weight: 300, style: 'italic' },
+  },
+
   fonts: {
     heading: {
       family: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
