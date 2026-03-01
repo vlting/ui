@@ -3,7 +3,7 @@
 - **Branch:** epic/component-parity
 - **Feature flag:** component_parity
 - **GitHub Issue:** #22
-- **Epic PR:** (pending)
+- **Epic PR:** #27
 - **Created:** 2026-03-01
 - **Status:** in-progress
 - **Project Node ID:** PVT_kwDODxaco84BP_ab

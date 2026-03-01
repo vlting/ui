@@ -31,7 +31,7 @@ created: 2026-03-01
 **Dependencies:** Epic 1
 **Estimated stages:** ~5
 **Epic slug:** component-parity
-**Epic Roadmap:** (filled during epic PLAN)
+**Epic Roadmap:** `.ai-epics/roadmaps/2026-03-01-component-parity.md`
 **Tech Spec:** `.ai-epics/docs/component-parity/tech-spec.md`
 **Status:** in-progress
 **Review notes:**
