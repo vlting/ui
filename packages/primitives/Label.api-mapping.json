@@ -1,0 +1,30 @@
+{
+  "component": "Label",
+  "shadcn": {
+    "import": "import { Label } from '@/components/ui/label'",
+    "props": {
+      "htmlFor": { "type": "string", "values": [] },
+      "className": { "type": "string", "values": [] },
+      "children": { "type": "ReactNode", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Label } from '@vlting/ui'",
+    "props": {
+      "children": { "type": "ReactNode", "values": [] },
+      "htmlFor": { "type": "string", "values": [] },
+      "size": { "type": "string", "values": ["sm", "md", "lg"] },
+      "required": { "type": "boolean", "values": ["true", "false"] }
+    }
+  },
+  "notes": [
+    "shadcn Label wraps Radix UI Label; vlting wraps @tamagui/label",
+    "vlting adds 'size' prop (sm, md, lg) mapped to Tamagui size tokens ($2, $3, $4)",
+    "vlting adds 'required' prop that renders a red asterisk (*) after the label text",
+    "Default size is 'md'"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "No built-in required indicator", "vlting": "Use required prop for asterisk", "reason": "Built-in accessibility pattern" }
+  ]
+}

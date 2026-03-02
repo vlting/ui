@@ -1,0 +1,41 @@
+{
+  "component": "Collapsible",
+  "shadcn": {
+    "import": "import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'",
+    "props": {
+      "open": { "type": "boolean", "values": [] },
+      "defaultOpen": { "type": "boolean", "values": [] },
+      "onOpenChange": { "type": "function", "values": ["(open: boolean) => void"] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Collapsible } from '@vlting/ui'",
+    "props": {
+      "Collapsible.Root": {
+        "open": { "type": "boolean", "values": [] },
+        "defaultOpen": { "type": "boolean", "values": [] },
+        "onOpenChange": { "type": "function", "values": ["(open: boolean) => void"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Collapsible.Trigger": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Collapsible.Content": {
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn uses flat exports; vlting uses compound pattern (Collapsible.Root, Collapsible.Trigger)",
+    "Built on @tamagui/collapsible",
+    "Collapsible.Content sets role='region' automatically",
+    "Trigger is unstyled by default (transparent background, no border)"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "<Collapsible>", "vlting": "<Collapsible.Root>", "reason": "Compound component pattern" },
+    { "shadcn": "<CollapsibleTrigger>", "vlting": "<Collapsible.Trigger>", "reason": "Compound component pattern" },
+    { "shadcn": "asChild on Trigger", "vlting": "Not supported; Trigger renders children directly", "reason": "Simplified API" }
+  ]
+}

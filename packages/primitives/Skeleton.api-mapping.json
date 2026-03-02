@@ -1,0 +1,28 @@
+{
+  "component": "Skeleton",
+  "shadcn": {
+    "import": "import { Skeleton } from '@/components/ui/skeleton'",
+    "props": {
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Skeleton } from '@vlting/ui'",
+    "props": {
+      "circle": { "type": "boolean", "values": ["true"] },
+      "width": { "type": "number | string", "values": [] },
+      "height": { "type": "number | string", "values": [] }
+    }
+  },
+  "notes": [
+    "shadcn Skeleton is a simple div with className for sizing; vlting is a Tamagui styled(View)",
+    "vlting has built-in 'lazy' animation with opacity pulse",
+    "vlting adds 'circle' variant for circular skeletons (sets borderRadius to $full)",
+    "vlting sets aria-hidden=true automatically",
+    "Size is controlled via Tamagui style props (width, height) instead of className"
+  ],
+  "breaking": [
+    { "shadcn": "className='h-4 w-[250px]'", "vlting": "Use width={250} height='$1' style props", "reason": "Cross-platform" },
+    { "shadcn": "className='rounded-full'", "vlting": "Use circle prop", "reason": "Built-in variant instead of utility class" }
+  ]
+}

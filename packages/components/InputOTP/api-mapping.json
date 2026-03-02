@@ -1,0 +1,48 @@
+{
+  "component": "InputOTP",
+  "shadcn": {
+    "import": "import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp'",
+    "props": {
+      "maxLength": { "type": "number", "values": ["6"] },
+      "pattern": { "type": "string", "values": ["REGEXP_ONLY_DIGITS"] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { InputOTP } from '@vlting/ui'",
+    "props": {
+      "InputOTP.Root": {
+        "maxLength": { "type": "number", "values": ["6"] },
+        "value": { "type": "string", "values": [] },
+        "onChange": { "type": "function", "values": ["(value: string) => void"] },
+        "onComplete": { "type": "function", "values": ["(value: string) => void"] },
+        "disabled": { "type": "boolean", "values": [] },
+        "pattern": { "type": "string", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "InputOTP.Group": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "InputOTP.Slot": {
+        "index": { "type": "number", "values": [] }
+      },
+      "InputOTP.Separator": {}
+    }
+  },
+  "notes": [
+    "shadcn wraps input-otp library; vlting is a custom implementation",
+    "vlting adds onComplete callback that fires when all digits are entered",
+    "Supports controlled and uncontrolled modes (value prop)",
+    "Pattern prop accepts a regex string to validate each character (e.g., '[0-9]' for digits only)",
+    "Hidden input has inputMode='numeric' and autoComplete='one-time-code' for mobile optimization",
+    "Default maxLength is 6",
+    "Active slot shows focus ring via boxShadow"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "<InputOTP>", "vlting": "<InputOTP.Root>", "reason": "Compound component pattern" },
+    { "shadcn": "<InputOTPGroup>", "vlting": "<InputOTP.Group>", "reason": "Compound component pattern" },
+    { "shadcn": "REGEXP_ONLY_DIGITS constant", "vlting": "Pass pattern string directly (e.g., '[0-9]')", "reason": "No constant exports; pass regex string" },
+    { "shadcn": "No onComplete callback", "vlting": "Use onComplete for auto-submit when all digits entered", "reason": "Built-in completion handler" }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "component": "Combobox",
+  "shadcn": {
+    "import": "import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'\nimport { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'",
+    "props": {
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Combobox } from '@vlting/ui'",
+    "props": {
+      "Combobox.Root": {
+        "options": { "type": "ComboboxOption[]", "values": [] },
+        "value": { "type": "string", "values": [] },
+        "onValueChange": { "type": "function", "values": ["(value: string) => void"] },
+        "placeholder": { "type": "string", "values": ["Select..."] },
+        "searchPlaceholder": { "type": "string", "values": ["Search..."] },
+        "emptyMessage": { "type": "string", "values": ["No results found."] },
+        "disabled": { "type": "boolean", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn Combobox is composed from Command + Popover; vlting is a single integrated component",
+    "vlting takes options as a data array (ComboboxOption[]: { value, label }); shadcn uses declarative children",
+    "Built-in search filtering, keyboard navigation (ArrowUp/Down, Enter, Escape)",
+    "Sets role='combobox', aria-expanded, and aria-haspopup='listbox' for accessibility",
+    "Dropdown options use role='option' and aria-selected"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "Compose Command + Popover manually", "vlting": "Single <Combobox.Root options={...} /> component", "reason": "Integrated API; no manual composition needed" },
+    { "shadcn": "Declarative <CommandItem> children", "vlting": "Data-driven options prop", "reason": "Simplified data API" }
+  ]
+}

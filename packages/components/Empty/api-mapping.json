@@ -1,0 +1,33 @@
+{
+  "component": "Empty",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Empty } from '@vlting/ui'",
+    "props": {
+      "Empty.Root": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Empty.Media": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Empty.Title": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Empty.Description": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Empty.Action": {
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; shadcn has no empty state component",
+    "Compound component for empty state displays (no data, no results, etc.)",
+    "Root sets role='status' for accessibility",
+    "Media sub-component renders media/icons at 50% opacity",
+    "Title renders a semantic <h3> element",
+    "Action sub-component wraps CTA buttons with top margin"
+  ],
+  "breaking": []
+}

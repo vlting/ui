@@ -1,0 +1,16 @@
+{
+  "component": "Portal",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Portal } from '@vlting/ui'",
+    "props": {
+      "children": { "type": "ReactNode", "values": [] }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; shadcn components use Radix portals internally",
+    "Wraps Tamagui's Portal component for rendering children outside the parent DOM tree",
+    "Useful for modals, tooltips, and overlays"
+  ],
+  "breaking": []
+}

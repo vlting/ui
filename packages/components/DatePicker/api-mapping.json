@@ -1,0 +1,41 @@
+{
+  "component": "DatePicker",
+  "shadcn": {
+    "import": "import { Calendar } from '@/components/ui/calendar'\nimport { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'",
+    "props": {
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { DatePicker } from '@vlting/ui'",
+    "props": {
+      "value": { "type": "Date", "values": [] },
+      "defaultValue": { "type": "Date", "values": [] },
+      "onValueChange": { "type": "function", "values": ["(date: Date | undefined) => void"] },
+      "placeholder": { "type": "string", "values": ["Select date..."] },
+      "label": { "type": "string", "values": [] },
+      "helperText": { "type": "string", "values": [] },
+      "error": { "type": "boolean", "values": [] },
+      "errorMessage": { "type": "string", "values": [] },
+      "disabled": { "type": "boolean", "values": [] },
+      "size": { "type": "string", "values": ["sm", "md", "lg"] },
+      "minDate": { "type": "Date", "values": [] },
+      "maxDate": { "type": "Date", "values": [] },
+      "locale": { "type": "string", "values": ["en-US"] }
+    }
+  },
+  "notes": [
+    "shadcn DatePicker is composed from Calendar + Popover + Button; vlting is a single integrated component",
+    "vlting includes built-in label, helperText, error state, and errorMessage support",
+    "vlting supports controlled and uncontrolled modes (value/defaultValue)",
+    "Also exports DateRangePicker for date range selection",
+    "Built-in locale support via Intl.DateTimeFormat",
+    "Default size is 'md'; supports sm, md, lg trigger sizes",
+    "Closes on Escape key or click outside"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props or size prop", "reason": "Cross-platform" },
+    { "shadcn": "Compose Calendar + Popover + Button manually", "vlting": "Single <DatePicker /> component", "reason": "Integrated API; no manual composition needed" },
+    { "shadcn": "No built-in label/error", "vlting": "Use label, error, errorMessage props", "reason": "Built-in form field features" }
+  ]
+}

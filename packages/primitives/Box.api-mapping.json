@@ -1,0 +1,17 @@
+{
+  "component": "Box",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Box } from '@vlting/ui'",
+    "props": {
+      "centered": { "type": "boolean", "values": ["true"] },
+      "children": { "type": "ReactNode", "values": [] }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; Box is a generic layout primitive based on Tamagui View",
+    "Accepts all Tamagui View style props (padding, margin, backgroundColor, etc.)",
+    "The 'centered' variant sets alignItems and justifyContent to 'center'"
+  ],
+  "breaking": []
+}
