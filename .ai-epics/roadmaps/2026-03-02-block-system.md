@@ -37,23 +37,23 @@
 **Estimated scope:** ~20 files, ~2500 lines
 **GitHub Sub-Issue:** #52
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmcTKI
-**Stage Branch:** (pending)
+**Stage Branch:** feat/block-system/sidebar-01-08
 **Stage PR:** (pending)
 **Acceptance criteria:**
-- [ ] Shared sidebar types (NavItem, NavGroup) in `sidebar/_shared.tsx`
-- [ ] Sidebar01 (simple navigation grouped by section)
-- [ ] Sidebar02 (collapsible sections)
-- [ ] Sidebar03 (submenus / nested navigation)
-- [ ] Sidebar04 (floating variant with submenus)
-- [ ] Sidebar05 (collapsible submenus)
-- [ ] Sidebar06 (submenus as dropdowns)
-- [ ] Sidebar07 (collapses to icons)
-- [ ] Sidebar08 (inset with secondary navigation)
-- [ ] Each sidebar block has a spec.md and test file
-- [ ] All sidebar blocks use design tokens exclusively
-- [ ] All sidebar blocks have `<nav>` or `<aside>` landmark structure
-- [ ] Keyboard navigation works within all sidebar variants
-**Status:** pending
+- [x] Shared sidebar types (NavItem, NavGroup) in `sidebar/_shared.tsx`
+- [x] Sidebar01 (simple navigation grouped by section)
+- [x] Sidebar02 (collapsible sections)
+- [x] Sidebar03 (submenus / nested navigation)
+- [x] Sidebar04 (floating variant with submenus)
+- [x] Sidebar05 (collapsible submenus)
+- [x] Sidebar06 (submenus as dropdowns)
+- [x] Sidebar07 (collapses to icons)
+- [x] Sidebar08 (inset with secondary navigation)
+- [x] Each sidebar block has a spec.md and test file
+- [x] All sidebar blocks use design tokens exclusively
+- [x] All sidebar blocks have `<nav>` or `<aside>` landmark structure
+- [x] Keyboard navigation works within all sidebar variants
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 3: Sidebar Blocks (09-16) + Dashboard
