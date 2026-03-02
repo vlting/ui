@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { DocsSidebar } from '@/components/docs-sidebar'
+import { TableOfContents } from '@/components/table-of-contents'
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -55,12 +56,20 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         </div>
       )}
 
-      {/* Desktop sidebar */}
-      <div className="hidden w-64 shrink-0 border-r border-gray-200 dark:border-gray-800 md:block">
+      {/* Desktop sidebar — sticky */}
+      <div className="hidden w-64 shrink-0 border-r border-gray-200 md:block sticky top-14 h-[calc(100vh-3.5rem)]">
         <DocsSidebar />
       </div>
 
-      <div className="flex-1 overflow-auto px-6 py-8 lg:px-8">{children}</div>
+      {/* Main content */}
+      <div className="flex-1 min-w-0 overflow-auto px-6 py-8 lg:px-8" data-content>
+        {children}
+      </div>
+
+      {/* Right-side table of contents — sticky, hidden below xl */}
+      <div className="hidden xl:block w-52 shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto border-l border-gray-200 dark:border-gray-800 py-8 px-4">
+        <TableOfContents />
+      </div>
     </div>
   )
 }
