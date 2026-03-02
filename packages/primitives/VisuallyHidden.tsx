@@ -1,5 +1,6 @@
 import type React from 'react'
-import { View, styled } from 'tamagui'
+import type { ComponentType } from 'react'
+import { View, Text, styled } from 'tamagui'
 import type { GetProps } from 'tamagui'
 
 // Standard sr-only technique using inline styles for properties Tamagui doesn't support
@@ -8,6 +9,9 @@ const srOnlyStyle: React.CSSProperties = {
   clipPath: 'inset(50%)',
   whiteSpace: 'nowrap',
 }
+
+type AnyFC = ComponentType<Record<string, unknown>>
+const TextJsx = Text as AnyFC
 
 // @ts-expect-error Tamagui v2 RC
 const VisuallyHiddenFrame = styled(View, {
@@ -27,7 +31,7 @@ export function VisuallyHidden({
   return (
     // @ts-expect-error Tamagui v2 RC
     <VisuallyHiddenFrame {...props} style={srOnlyStyle}>
-      {children}
+      <TextJsx>{children}</TextJsx>
     </VisuallyHiddenFrame>
   )
 }
