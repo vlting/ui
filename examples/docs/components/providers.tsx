@@ -1,25 +1,26 @@
 'use client'
 
 import {
-  createContext,
-  useContext,
-  useState,
-  useMemo,
-  useEffect,
-  type ReactNode,
-} from 'react'
-import { createTamagui } from 'tamagui'
-import {
   Provider,
   createBrandConfig,
   defaultBrand,
-  shadcnBrand,
   funBrand,
   poshBrand,
+  shadcnBrand,
 } from '@vlting/ui'
 import type { BrandDefinition } from '@vlting/ui'
 import { useTheme } from 'next-themes'
 import { ThemeProvider } from 'next-themes'
+import {
+  type ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
+import { createTamagui } from 'tamagui'
 
 type BrandKey = 'default' | 'shadcn' | 'fun' | 'posh'
 
@@ -120,12 +121,12 @@ function BrandProvider({ children }: { children: ReactNode }) {
     return 'default'
   })
 
-  const handleSetBrand = (newBrand: BrandKey) => {
+  const handleSetBrand = useCallback((newBrand: BrandKey) => {
     setBrand(newBrand)
     if (typeof window !== 'undefined') {
       localStorage.setItem('vlting-docs-brand', newBrand)
     }
-  }
+  }, [])
 
   const value = useMemo(
     () => ({
@@ -133,7 +134,7 @@ function BrandProvider({ children }: { children: ReactNode }) {
       setBrand: handleSetBrand,
       brandOptions: ['default', 'shadcn', 'fun', 'posh'] as BrandKey[],
     }),
-    [brand],
+    [brand, handleSetBrand],
   )
 
   return (
@@ -145,7 +146,12 @@ function BrandProvider({ children }: { children: ReactNode }) {
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
       <BrandProvider>{children}</BrandProvider>
     </ThemeProvider>
   )
