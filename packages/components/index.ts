@@ -73,6 +73,16 @@ export { AlertDialog } from './AlertDialog'
 
 export { Table } from './Table'
 
+export { DataTable } from './DataTable'
+export type { DataTableProps } from './DataTable'
+export type {
+  ColumnDef,
+  SortingState,
+  ColumnFiltersState,
+  VisibilityState,
+  PaginationState,
+} from './DataTable'
+
 export { Breadcrumb } from './Breadcrumb'
 export type { BreadcrumbProps } from './Breadcrumb'
 
