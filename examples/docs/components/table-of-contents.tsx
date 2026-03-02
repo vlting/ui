@@ -65,7 +65,7 @@ export function TableOfContents() {
 
   return (
     <nav aria-label="Table of contents" className="space-y-1 text-sm">
-      <p className="mb-2 font-medium text-gray-900 dark:text-gray-100">
+      <p className="mb-2 font-medium text-foreground">
         On this page
       </p>
       {headings.map((heading) => (
@@ -82,8 +82,8 @@ export function TableOfContents() {
             heading.level === 3 ? 'pl-4' : ''
           } ${
             activeId === heading.id
-              ? 'font-medium text-blue-600 dark:text-blue-400'
-              : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200'
+              ? 'font-medium text-primary'
+              : 'text-muted-foreground hover:text-foreground'
           }`}
         >
           {heading.text}

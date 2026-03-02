@@ -113,14 +113,14 @@ export function SearchDialog() {
     >
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" aria-hidden="true" />
       <div
-        className="relative w-full max-w-lg overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
+        className="relative w-full max-w-lg overflow-hidden rounded-xl border border-border bg-background shadow-2xl"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-label="Search documentation"
       >
-        <div className="flex items-center border-b border-gray-200 px-4 dark:border-gray-700">
+        <div className="flex items-center border-b border-border px-4">
           <svg
-            className="mr-2 h-4 w-4 shrink-0 text-gray-400"
+            className="mr-2 h-4 w-4 shrink-0 text-muted-foreground"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -136,7 +136,7 @@ export function SearchDialog() {
           <input
             ref={inputRef}
             type="text"
-            className="h-12 w-full bg-transparent text-sm text-gray-900 outline-none placeholder:text-gray-400 dark:text-gray-100"
+            className="h-12 w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
             placeholder="Search components, blocks, charts, icons..."
             value={query}
             onChange={(e) => handleSearch(e.target.value)}
@@ -150,7 +150,7 @@ export function SearchDialog() {
             aria-controls="search-results"
             aria-autocomplete="list"
           />
-          <kbd className="ml-2 hidden shrink-0 rounded border border-gray-300 bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 sm:inline-block">
+          <kbd className="ml-2 hidden shrink-0 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground sm:inline-block">
             ESC
           </kbd>
         </div>
@@ -162,7 +162,7 @@ export function SearchDialog() {
           className="max-h-80 overflow-y-auto overscroll-contain p-2"
         >
           {query.trim().length >= 2 && results.length === 0 && (
-            <p className="px-4 py-8 text-center text-sm text-gray-500">
+            <p className="px-4 py-8 text-center text-sm text-muted-foreground">
               No results for &quot;{query}&quot;
             </p>
           )}
@@ -170,7 +170,7 @@ export function SearchDialog() {
           {(Object.entries(grouped) as [SearchItemType, SearchItem[]][]).map(
             ([type, items]) => (
               <div key={type}>
-                <div className="px-2 pb-1 pt-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
+                <div className="px-2 pb-1 pt-2 text-xs font-semibold text-muted-foreground">
                   {typeLabels[type]}s
                 </div>
                 {items.map((item) => {
@@ -185,8 +185,8 @@ export function SearchDialog() {
                       data-active={isActive}
                       className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
                         isActive
-                          ? 'bg-gray-100 dark:bg-gray-800'
-                          : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'
+                          ? 'bg-accent'
+                          : 'hover:bg-accent'
                       }`}
                       onClick={() => navigate(item)}
                       onMouseEnter={() => setActiveIndex(idx)}
@@ -196,11 +196,11 @@ export function SearchDialog() {
                       >
                         {typeLabels[type]}
                       </span>
-                      <span className="flex-1 truncate font-medium text-gray-900 dark:text-gray-100">
+                      <span className="flex-1 truncate font-medium text-foreground">
                         {item.name}
                       </span>
                       {item.category && (
-                        <span className="shrink-0 text-xs text-gray-400">
+                        <span className="shrink-0 text-xs text-muted-foreground">
                           {item.category}
                         </span>
                       )}
@@ -213,14 +213,14 @@ export function SearchDialog() {
         </div>
 
         {results.length > 0 && (
-          <div className="flex items-center justify-between border-t border-gray-200 px-4 py-2 text-xs text-gray-400 dark:border-gray-700">
+          <div className="flex items-center justify-between border-t border-border px-4 py-2 text-xs text-muted-foreground">
             <span>{results.length} results</span>
             <div className="flex items-center gap-2">
-              <kbd className="rounded border border-gray-300 bg-gray-100 px-1 py-0.5 text-[10px] dark:border-gray-600 dark:bg-gray-800">
+              <kbd className="rounded border border-border bg-muted px-1 py-0.5 text-[10px]">
                 &uarr;&darr;
               </kbd>
               <span>navigate</span>
-              <kbd className="rounded border border-gray-300 bg-gray-100 px-1 py-0.5 text-[10px] dark:border-gray-600 dark:bg-gray-800">
+              <kbd className="rounded border border-border bg-muted px-1 py-0.5 text-[10px]">
                 &crarr;
               </kbd>
               <span>select</span>
@@ -240,7 +240,7 @@ export function SearchTrigger() {
           new KeyboardEvent('keydown', { key: 'k', metaKey: true }),
         )
       }
-      className="flex h-8 items-center gap-2 rounded-md border border-gray-300 px-2 text-sm text-gray-500 transition-colors hover:bg-gray-100 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-800"
+      className="flex h-8 items-center gap-2 rounded-md border border-border px-2 text-sm text-muted-foreground transition-colors hover:bg-accent"
       aria-label="Search documentation (Ctrl+K)"
     >
       <svg
@@ -258,7 +258,7 @@ export function SearchTrigger() {
         />
       </svg>
       <span className="hidden sm:inline">Search...</span>
-      <kbd className="hidden rounded border border-gray-300 bg-gray-100 px-1 py-0.5 text-[10px] font-medium dark:border-gray-600 dark:bg-gray-800 sm:inline-block">
+      <kbd className="hidden rounded border border-border bg-muted px-1 py-0.5 text-[10px] font-medium sm:inline-block">
         &thinsp;&#8984;K
       </kbd>
     </button>
