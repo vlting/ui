@@ -61,7 +61,7 @@
 **Estimated scope:** ~25 files, ~3000 lines
 **GitHub Sub-Issue:** #53
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmcTKk
-**Stage Branch:** (pending)
+**Stage Branch:** feat/block-system/sidebar-09-16
 **Stage PR:** (pending)
 **Acceptance criteria:**
 - [ ] Sidebar09 (collapsible nested sidebars)
@@ -78,7 +78,7 @@
 - [ ] Dashboard01 composes Chart and DataTable components correctly
 - [ ] All blocks use design tokens exclusively
 - [ ] All blocks have proper landmark structure
-**Status:** pending
+**Status:** executing
 **Iterations:** 0
 
 ## Stage 4: Cross-Platform Originals + Integration
