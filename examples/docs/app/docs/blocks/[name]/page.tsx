@@ -58,7 +58,7 @@ export default async function BlockPage({ params }: PageProps) {
             {categoryLabels[block.category] || block.category}
           </span>
         </div>
-        <p className="text-gray-600 dark:text-gray-400">{block.description}</p>
+        <p className="text-foreground-secondary">{block.description}</p>
       </div>
 
       {/* Preview */}
@@ -78,7 +78,7 @@ export default async function BlockPage({ params }: PageProps) {
         <h2 className="text-xl font-semibold mb-4">
           About {categoryLabels[block.category]} Blocks
         </h2>
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-foreground-secondary">
           {categoryDescriptions[block.category]}
         </p>
       </section>
