@@ -476,6 +476,7 @@ export interface DatePickerProps {
   minDate?: Date
   maxDate?: Date
   locale?: string
+  closeOnSelect?: boolean
 }
 
 function DatePickerRoot({
@@ -492,6 +493,7 @@ function DatePickerRoot({
   minDate,
   maxDate,
   locale = 'en-US',
+  closeOnSelect = false,
 }: DatePickerProps) {
   const [internalValue, setInternalValue] = useState<Date | undefined>(defaultValue)
   const selectedDate = value !== undefined ? value : internalValue
@@ -507,9 +509,9 @@ function DatePickerRoot({
     (date: Date) => {
       if (value === undefined) setInternalValue(date)
       onValueChange?.(date)
-      setOpen(false)
+      if (closeOnSelect) setOpen(false)
     },
-    [value, onValueChange],
+    [value, onValueChange, closeOnSelect],
   )
 
   const handleMonthChange = useCallback((year: number, month: number) => {
