@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { getChart, getAllCharts } from '@/lib/chart-registry'
 import { CodeBlock } from '@/components/code-block'
 import { ChartVariantList } from '@/components/chart-variant-list'
+import { ChartPreview } from '../chart-preview'
 
 interface PageProps {
   params: Promise<{ type: string }>
@@ -34,6 +35,12 @@ export default async function ChartPage({ params }: PageProps) {
         <h1 className="text-3xl font-bold mb-2">{chart.name}</h1>
         <p className="text-foreground-secondary">{chart.description}</p>
       </div>
+
+      {/* Live Preview */}
+      <section>
+        <h2 className="text-xl font-semibold mb-4">Preview</h2>
+        <ChartPreview type={chart.slug} />
+      </section>
 
       {/* Import */}
       <section>
@@ -85,13 +92,12 @@ export default async function ChartPage({ params }: PageProps) {
         <ChartVariantList variants={chart.variants} />
       </section>
 
-      {/* Note about live rendering */}
+      {/* Cross-platform note */}
       <section className="border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4">
         <p className="text-sm text-blue-800 dark:text-blue-300">
-          <strong>Note:</strong> Charts use Victory Native with react-native-svg
-          for cross-platform rendering (web + React Native). Live chart previews
-          require the react-native-svg-web bridge which is configured in the main
-          application.
+          <strong>Cross-platform:</strong> Charts use Victory with react-native-svg
+          for cross-platform rendering. The same component code works on both web
+          and React Native.
         </p>
       </section>
     </div>
