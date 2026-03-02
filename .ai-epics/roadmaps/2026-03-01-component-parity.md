@@ -16,7 +16,7 @@
 **Estimated scope:** ~10 files, ~400 lines
 **GitHub Sub-Issue:** #23
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmbAZI
-**Stage Branch:** (pending)
+**Stage Branch:** feat/component-parity/a11y-direction-item
 **Stage PR:** (pending)
 **Acceptance criteria:**
 - [ ] NavigationMenu Content supports Home/End keys (matches spec)
@@ -25,7 +25,7 @@
 - [ ] Item compound component (Root, Leading, Content, Title, Description, Trailing)
 - [ ] Item has spec.md and test file
 - [ ] Both new components render on web and React Native
-**Status:** pending
+**Status:** executing
 **Iterations:** 0
 
 ## Stage 2: InputGroup + Sonner-Style Toast API
