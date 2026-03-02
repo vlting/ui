@@ -37,19 +37,19 @@
 **Objective:** Implement AreaChart (10 variants), BarChart (10 variants), and LineChart (10 variants). Each chart type supports stacking, grouping, interactivity, and integrates with ChartContainer/ChartTooltip/ChartLegend.
 **Estimated scope:** ~9 files, ~900 lines
 **GitHub Sub-Issue:** #42
-**Stage Branch:** (pending)
+**Stage Branch:** feat/chart-system/core-charts
 **Stage PR:** (pending)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmb27A
 **Acceptance criteria:**
-- [ ] AreaChart with 10 variants (default, gradient, stacked, expanded, step, axes, interactive, legend, linear, icons)
-- [ ] BarChart with 10 variants (default, horizontal, stacked, grouped, negative, label, mixed, custom-label, active, interactive)
-- [ ] LineChart with 10 variants (default, dots, multiple, labels, stepped, custom-dots, interactive, linear, legend, icons)
-- [ ] All charts render inside ChartContainer with proper theming
-- [ ] Charts respond to brand switching (token colors update)
-- [ ] Spec.md written for each chart type
-- [ ] Tests pass for all chart types and key variants
-**Status:** pending
-**Iterations:** 0
+- [x] AreaChart with 10 variants (default, gradient, stacked, expanded, step, axes, interactive, legend, linear, icons)
+- [x] BarChart with 10 variants (default, horizontal, stacked, grouped, negative, label, mixed, custom-label, active, interactive)
+- [x] LineChart with 10 variants (default, dots, multiple, labels, stepped, custom-dots, interactive, linear, legend, icons)
+- [x] All charts render inside ChartContainer with proper theming
+- [x] Charts respond to brand switching (token colors update)
+- [x] Spec.md written for each chart type
+- [x] Tests pass for all chart types and key variants
+**Status:** complete
+**Iterations:** 1
 
 ## Stage 3: Specialized Charts (Pie, Radar, Radial)
 **Objective:** Implement PieChart (11 variants including donut), RadarChart (14 variants using polar coordinates), and RadialChart (6 variants using partial arc). These are the more complex chart types requiring Victory's polar/pie APIs.
