@@ -2,10 +2,12 @@
 
 import Link from 'next/link'
 import { BrandSwitcher } from './brand-switcher'
+import { SearchDialog, SearchTrigger } from './search-dialog'
 import { ThemeToggle } from './theme-toggle'
 
 export function SiteHeader() {
   return (
+    <>
     <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-gray-200 bg-white/80 px-4 backdrop-blur dark:border-gray-800 dark:bg-gray-950/80">
       <div className="flex items-center gap-4">
         <Link href="/" className="text-lg font-semibold">
@@ -27,6 +29,7 @@ export function SiteHeader() {
         </nav>
       </div>
       <div className="flex items-center gap-2">
+        <SearchTrigger />
         <BrandSwitcher />
         <ThemeToggle />
         <a
@@ -42,5 +45,7 @@ export function SiteHeader() {
         </a>
       </div>
     </header>
+    <SearchDialog />
+    </>
   )
 }
