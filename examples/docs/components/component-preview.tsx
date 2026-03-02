@@ -12,21 +12,21 @@ export function ComponentPreview({ children, code, title }: ComponentPreviewProp
   const [showCode, setShowCode] = useState(false)
 
   return (
-    <div className="my-6 border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden">
+    <div className="my-6 border border-border rounded-lg overflow-hidden">
       {title && (
-        <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+        <div className="px-4 py-2 border-b border-border bg-surface-muted">
           <span className="text-sm font-medium">{title}</span>
         </div>
       )}
-      <div className="p-8 flex items-center justify-center bg-white dark:bg-gray-950 bg-[image:radial-gradient(circle,_rgb(0_0_0_/_0.05)_1px,_transparent_1px)] dark:bg-[image:radial-gradient(circle,_rgb(255_255_255_/_0.05)_1px,_transparent_1px)] bg-[size:16px_16px]">
+      <div className="p-8 flex items-center justify-center bg-background bg-[image:radial-gradient(circle,_rgb(0_0_0_/_0.05)_1px,_transparent_1px)] dark:bg-[image:radial-gradient(circle,_rgb(255_255_255_/_0.05)_1px,_transparent_1px)] bg-[size:16px_16px]">
         <div className="w-full max-w-lg">{children}</div>
       </div>
       {code && (
         <>
-          <div className="border-t border-gray-200 dark:border-gray-800">
+          <div className="border-t border-border">
             <button
               onClick={() => setShowCode(!showCode)}
-              className="w-full px-4 py-2 text-left text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors flex items-center gap-2"
+              className="w-full px-4 py-2 text-left text-sm text-foreground-secondary hover:bg-surface-muted transition-colors flex items-center gap-2"
             >
               <svg
                 width="14"
@@ -45,7 +45,7 @@ export function ComponentPreview({ children, code, title }: ComponentPreviewProp
             </button>
           </div>
           {showCode && (
-            <div className="border-t border-gray-200 dark:border-gray-800 overflow-x-auto p-4 bg-gray-50 dark:bg-gray-950">
+            <div className="border-t border-border overflow-x-auto p-4 bg-surface-muted">
               <pre className="text-sm font-mono whitespace-pre-wrap">{code}</pre>
             </div>
           )}

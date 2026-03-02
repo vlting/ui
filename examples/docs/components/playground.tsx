@@ -222,7 +222,7 @@ function renderPlayground(
         </Tooltip>
       )
     default:
-      return <p className="text-gray-500">No playground available.</p>
+      return <p className="text-muted-foreground">No playground available.</p>
   }
 }
 
@@ -288,23 +288,23 @@ export function Playground({ slug }: PlaygroundProps) {
   }
 
   return (
-    <div className="border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden">
-      <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+    <div className="border border-border rounded-lg overflow-hidden">
+      <div className="px-4 py-2 border-b border-border bg-surface-muted">
         <span className="text-sm font-medium">Playground</span>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-[240px_1fr]">
         {/* Controls */}
-        <div className="p-4 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 space-y-4">
+        <div className="p-4 border-b md:border-b-0 md:border-r border-border bg-surface-muted/50 space-y-4">
           {config.controls.map((control) => (
             <div key={control.prop}>
-              <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
+              <label className="block text-xs font-medium text-foreground-secondary mb-1">
                 {control.label}
               </label>
               {control.type === 'select' && control.options && (
                 <select
                   value={props[control.prop] as string}
                   onChange={(e) => updateProp(control.prop, e.target.value)}
-                  className="w-full rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-2 py-1 text-sm"
+                  className="w-full rounded border border-border bg-background px-2 py-1 text-sm"
                 >
                   {control.options.map((opt) => (
                     <option key={opt} value={opt}>
@@ -333,7 +333,7 @@ export function Playground({ slug }: PlaygroundProps) {
                   type="text"
                   value={props[control.prop] as string}
                   onChange={(e) => updateProp(control.prop, e.target.value)}
-                  className="w-full rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-2 py-1 text-sm"
+                  className="w-full rounded border border-border bg-background px-2 py-1 text-sm"
                 />
               )}
               {control.type === 'number' && (
@@ -343,7 +343,7 @@ export function Playground({ slug }: PlaygroundProps) {
                   onChange={(e) =>
                     updateProp(control.prop, Number(e.target.value))
                   }
-                  className="w-full rounded border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-2 py-1 text-sm"
+                  className="w-full rounded border border-border bg-background px-2 py-1 text-sm"
                 />
               )}
             </div>
@@ -351,14 +351,14 @@ export function Playground({ slug }: PlaygroundProps) {
         </div>
 
         {/* Preview */}
-        <div className="p-8 flex items-center justify-center bg-white dark:bg-gray-950 bg-[image:radial-gradient(circle,_rgb(0_0_0_/_0.05)_1px,_transparent_1px)] dark:bg-[image:radial-gradient(circle,_rgb(255_255_255_/_0.05)_1px,_transparent_1px)] bg-[size:16px_16px] min-h-[200px]">
+        <div className="p-8 flex items-center justify-center bg-background bg-[image:radial-gradient(circle,_rgb(0_0_0_/_0.05)_1px,_transparent_1px)] dark:bg-[image:radial-gradient(circle,_rgb(255_255_255_/_0.05)_1px,_transparent_1px)] bg-[size:16px_16px] min-h-[200px]">
           {renderPlayground(slug, props)}
         </div>
       </div>
 
       {/* Generated Code */}
-      <div className="border-t border-gray-200 dark:border-gray-800 p-4 bg-gray-50 dark:bg-gray-950">
-        <pre className="text-sm font-mono whitespace-pre-wrap text-gray-700 dark:text-gray-300">
+      <div className="border-t border-border p-4 bg-surface-muted">
+        <pre className="text-sm font-mono whitespace-pre-wrap text-foreground-secondary">
           {code}
         </pre>
       </div>

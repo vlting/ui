@@ -25,10 +25,10 @@ export async function CodeBlock({
   })
 
   return (
-    <div className="relative rounded-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
+    <div className="relative rounded-lg border border-border overflow-hidden">
       {title && (
-        <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
-          <span className="text-sm text-gray-600 dark:text-gray-400 font-mono">
+        <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-surface-muted">
+          <span className="text-sm text-foreground-secondary font-mono">
             {title}
           </span>
         </div>
@@ -42,7 +42,7 @@ export async function CodeBlock({
           dangerouslySetInnerHTML={{ __html: lightHtml }}
         />
         <div
-          className="hidden dark:block overflow-x-auto p-4 text-sm bg-gray-950 [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
+          className="hidden dark:block overflow-x-auto p-4 text-sm bg-surface [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
           dangerouslySetInnerHTML={{ __html: darkHtml }}
         />
       </div>
