@@ -28,11 +28,11 @@ export function BrandSwitcher() {
       <select
         value={brand}
         onChange={handleChange}
-        className={`appearance-none rounded-md border bg-transparent pl-2 pr-7 py-1 text-sm font-medium cursor-pointer transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 ${
+        className={`appearance-none rounded-md border bg-transparent pl-2 pr-7 py-1 text-sm font-medium cursor-pointer transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 ${
           flash
-            ? 'border-blue-500 dark:border-blue-400'
-            : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
-        } text-gray-700 dark:text-gray-200`}
+            ? 'border-primary'
+            : 'border-border hover:border-muted-foreground'
+        } text-foreground-secondary`}
         aria-label="Select brand theme"
       >
         {brandOptions.map((key) => (
@@ -42,7 +42,7 @@ export function BrandSwitcher() {
         ))}
       </select>
       <svg
-        className="pointer-events-none absolute right-1.5 h-4 w-4 text-gray-500 dark:text-gray-400"
+        className="pointer-events-none absolute right-1.5 h-4 w-4 text-muted-foreground"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"

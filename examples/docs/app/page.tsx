@@ -14,20 +14,20 @@ export default function HomePage() {
         <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
           @vlting/ui
         </h1>
-        <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-600 dark:text-gray-400">
+        <p className="mx-auto mb-8 max-w-2xl text-lg text-foreground-secondary">
           Cross-platform design system built on Tamagui v2. Works on web and React Native.
           Brand theming, accessibility-first, and fully tree-shakeable.
         </p>
         <div className="flex items-center justify-center gap-4">
           <Link
             href="/docs"
-            className="rounded-lg bg-gray-900 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
+            className="rounded-lg bg-foreground px-6 py-2.5 text-sm font-medium text-background transition-colors hover:opacity-90"
           >
             Get Started
           </Link>
           <Link
             href="/docs/components/button"
-            className="rounded-lg border border-gray-300 px-6 py-2.5 text-sm font-medium transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
+            className="rounded-lg border border-border px-6 py-2.5 text-sm font-medium transition-colors hover:bg-accent"
           >
             Components
           </Link>
@@ -35,9 +35,9 @@ export default function HomePage() {
       </section>
 
       <section className="mb-16">
-        <div className="mb-8 rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-900">
+        <div className="mb-8 rounded-lg border border-border bg-surface-muted p-4">
           <code className="text-sm">
-            <span className="text-gray-500">$</span> yarn add @vlting/ui
+            <span className="text-muted-foreground">$</span> yarn add @vlting/ui
           </code>
         </div>
       </section>
@@ -47,12 +47,12 @@ export default function HomePage() {
           <Link
             key={feature.title}
             href={feature.href}
-            className="group rounded-lg border border-gray-200 p-6 transition-colors hover:border-gray-300 hover:bg-gray-50 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-900"
+            className="group rounded-lg border border-border p-6 transition-colors hover:border-foreground-secondary/30 hover:bg-surface-muted"
           >
             <h2 className="mb-2 text-lg font-semibold group-hover:underline">
               {feature.title}
             </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-foreground-secondary">
               {feature.description}
             </p>
           </Link>
