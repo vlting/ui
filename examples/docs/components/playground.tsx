@@ -22,7 +22,8 @@ const Card = _Card as AnyFC & {
   Title: AnyFC
   Description: AnyFC
 }
-const Tabs = _Tabs as unknown as AnyFC & {
+const Tabs = _Tabs as unknown as {
+  Root: AnyFC
   List: AnyFC
   Trigger: AnyFC
   Content: AnyFC
@@ -203,14 +204,14 @@ function renderPlayground(
       )
     case 'tabs':
       return (
-        <Tabs defaultValue="tab1" orientation={props.orientation as string}>
+        <Tabs.Root defaultValue="tab1" orientation={props.orientation as string}>
           <Tabs.List>
             <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
             <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
           </Tabs.List>
           <Tabs.Content value="tab1">Content for Tab 1</Tabs.Content>
           <Tabs.Content value="tab2">Content for Tab 2</Tabs.Content>
-        </Tabs>
+        </Tabs.Root>
       )
     case 'tooltip':
       return (
@@ -251,7 +252,7 @@ function generateCode(
     case 'card':
       return `<Card${propsDisplay}>\n  <Card.Header>\n    <Card.Title>Title</Card.Title>\n  </Card.Header>\n  <Card.Content>Content</Card.Content>\n</Card>`
     case 'tabs':
-      return `<Tabs defaultValue="tab1"${propsDisplay}>\n  <Tabs.List>\n    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>\n    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>\n  </Tabs.List>\n  <Tabs.Content value="tab1">...</Tabs.Content>\n  <Tabs.Content value="tab2">...</Tabs.Content>\n</Tabs>`
+      return `<Tabs.Root defaultValue="tab1"${propsDisplay}>\n  <Tabs.List>\n    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>\n    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>\n  </Tabs.List>\n  <Tabs.Content value="tab1">...</Tabs.Content>\n  <Tabs.Content value="tab2">...</Tabs.Content>\n</Tabs.Root>`
     case 'tooltip':
       return `<Tooltip${propsDisplay}>\n  <Button>\n    <Button.Text>Hover me</Button.Text>\n  </Button>\n</Tooltip>`
     default:
