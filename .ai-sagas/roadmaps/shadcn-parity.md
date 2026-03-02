@@ -75,9 +75,9 @@ created: 2026-03-01
 **Dependencies:** Epic 2, Epic 3, Epic 4, Epic 5
 **Estimated stages:** ~5
 **Epic slug:** docs-site
-**Epic Roadmap:** (filled during EXECUTE)
-**Tech Spec:** (filled during EXECUTE)
-**Status:** pending
+**Epic Roadmap:** `.ai-epics/roadmaps/2026-03-02-docs-site.md`
+**Tech Spec:** `.ai-epics/docs/docs-site/tech-spec.md`
+**Status:** in-progress
 **Review notes:**
 
 ## Epic 7: AI Skill + Portable Docs
