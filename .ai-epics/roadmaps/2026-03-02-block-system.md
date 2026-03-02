@@ -86,7 +86,7 @@
 **Estimated scope:** ~15 files, ~1500 lines
 **GitHub Sub-Issue:** #54
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmcTLg
-**Stage Branch:** (pending)
+**Stage Branch:** feat/block-system/cross-platform-originals
 **Stage PR:** (pending)
 **Acceptance criteria:**
 - [ ] MobileTabLayout block implemented (tab bar navigation, mobile-first)
@@ -99,5 +99,5 @@
 - [ ] All blocks verified with default brand + shadcn brand
 - [ ] All blocks keyboard navigable
 - [ ] All blocks have proper landmark structure
-**Status:** pending
+**Status:** executing
 **Iterations:** 0
