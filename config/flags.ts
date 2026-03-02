@@ -11,12 +11,6 @@ interface FlagDefinition {
 }
 
 const flagRegistry = {
-  docs_site: {
-    description: 'Next.js documentation site with component pages, brand switcher, icon browser, and interactive playground',
-    added: '2026-03-02',
-    default: false,
-    overrides: { dev: true, staging: true },
-  },
   token_audit_fonts: {
     description:
       'Token audit and Google Fonts system: 4 font slots, h1-h6 weight alternation, zero hardcoded values',
