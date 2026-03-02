@@ -3,6 +3,8 @@ import { useTheme } from 'tamagui'
 import type { ChartConfig } from './types'
 import { createChartTheme } from './theme'
 import { getSeriesColors } from './utils'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
+import { ChartDataTable } from './ChartDataTable'
 
 // -- Chart Context --
 
@@ -11,6 +13,8 @@ interface ChartContextValue {
   resolvedColors: Record<string, string>
   victoryTheme: ReturnType<typeof createChartTheme>
   dimensions: { width: number; height: number }
+  /** Whether the user prefers reduced motion */
+  reducedMotion: boolean
 }
 
 const ChartContext = createContext<ChartContextValue | null>(null)
@@ -36,6 +40,10 @@ export interface ChartContainerProps {
   width?: number
   /** Explicit height in pixels (overrides responsive sizing, default: 350) */
   height?: number
+  /** Raw chart data for hidden screen reader accessibility table */
+  data?: Record<string, unknown>[]
+  /** Key used for the x-axis / row label column in the data table (default: 'x') */
+  xAxisKey?: string
 }
 
 const DEFAULT_HEIGHT = 350
@@ -46,10 +54,13 @@ export function Chart({
   accessibilityLabel,
   width: explicitWidth,
   height: explicitHeight,
+  data,
+  xAxisKey,
 }: ChartContainerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [measuredWidth, setMeasuredWidth] = useState(0)
   const theme = useTheme()
+  const reducedMotion = useReducedMotion()
 
   // Responsive sizing — only measure if no explicit width
   useEffect(() => {
@@ -110,8 +121,9 @@ export function Chart({
       resolvedColors,
       victoryTheme,
       dimensions: { width: finalWidth, height: finalHeight },
+      reducedMotion,
     }),
-    [config, resolvedColors, victoryTheme, finalWidth, finalHeight]
+    [config, resolvedColors, victoryTheme, finalWidth, finalHeight, reducedMotion]
   )
 
   return (
@@ -128,6 +140,7 @@ export function Chart({
       <ChartContext.Provider value={contextValue}>
         {finalWidth > 0 ? children : null}
       </ChartContext.Provider>
+      {data && <ChartDataTable data={data} config={config} xAxisKey={xAxisKey} />}
     </div>
   )
 }
