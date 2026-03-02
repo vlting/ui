@@ -62,23 +62,23 @@
 **GitHub Sub-Issue:** #53
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmcTKk
 **Stage Branch:** feat/block-system/sidebar-09-16
-**Stage PR:** (pending)
+**Stage PR:** #58
 **Acceptance criteria:**
-- [ ] Sidebar09 (collapsible nested sidebars)
-- [ ] Sidebar10 (sidebar in a popover)
-- [ ] Sidebar11 (collapsible file tree)
-- [ ] Sidebar12 (sidebar with calendar)
-- [ ] Sidebar13 (sidebar in a dialog)
-- [ ] Sidebar14 (sidebar on the right)
-- [ ] Sidebar15 (left and right sidebars)
-- [ ] Sidebar16 (sidebar with sticky site header)
-- [ ] Dashboard01 (full dashboard with sidebar, charts, data table)
-- [ ] Each block has a spec.md and test file
-- [ ] File tree helper built in sidebar/_shared.tsx for Sidebar11
-- [ ] Dashboard01 composes Chart and DataTable components correctly
-- [ ] All blocks use design tokens exclusively
-- [ ] All blocks have proper landmark structure
-**Status:** executing
+- [x] Sidebar09 (collapsible nested sidebars)
+- [x] Sidebar10 (sidebar in a popover)
+- [x] Sidebar11 (collapsible file tree)
+- [x] Sidebar12 (sidebar with calendar)
+- [x] Sidebar13 (sidebar in a dialog)
+- [x] Sidebar14 (sidebar on the right)
+- [x] Sidebar15 (left and right sidebars)
+- [x] Sidebar16 (sidebar with sticky site header)
+- [x] Dashboard01 (full dashboard with sidebar, charts, data table)
+- [x] Each block has a spec.md and test file
+- [x] File tree helper built in sidebar/_shared.tsx for Sidebar11
+- [x] Dashboard01 composes Chart and DataTable components correctly
+- [x] All blocks use design tokens exclusively
+- [x] All blocks have proper landmark structure
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 4: Cross-Platform Originals + Integration
