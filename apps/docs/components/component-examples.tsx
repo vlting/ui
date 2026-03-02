@@ -1250,10 +1250,17 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
   },
   'toggle-group': {
     Basic: () => (
-      <ToggleGroup type="single">
+      <ToggleGroup type="single" defaultValue="center">
         <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
         <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
         <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
+      </ToggleGroup>
+    ),
+    Multiple: () => (
+      <ToggleGroup type="multiple" defaultValue={['bold']}>
+        <ToggleGroup.Item value="bold"><span style={{ fontWeight: 700 }}>B</span></ToggleGroup.Item>
+        <ToggleGroup.Item value="italic"><span style={{ fontStyle: 'italic' }}>I</span></ToggleGroup.Item>
+        <ToggleGroup.Item value="underline"><span style={{ textDecoration: 'underline' }}>U</span></ToggleGroup.Item>
       </ToggleGroup>
     ),
   },
