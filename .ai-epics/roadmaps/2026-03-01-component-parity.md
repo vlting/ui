@@ -34,7 +34,7 @@
 **GitHub Sub-Issue:** #24
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmbAZM
 **Stage Branch:** feat/component-parity/inputgroup-toast-api
-**Stage PR:** (pending)
+**Stage PR:** #29
 **Acceptance criteria:**
 - [x] InputGroup compound (Root, Addon, Element, Input) with border-radius collapsing
 - [x] InputGroup has spec.md and test file
