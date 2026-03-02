@@ -41,14 +41,14 @@
 **Stage PR:** (pending)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmb27A
 **Acceptance criteria:**
-- [ ] AreaChart with 10 variants (default, gradient, stacked, expanded, step, axes, interactive, legend, linear, icons)
-- [ ] BarChart with 10 variants (default, horizontal, stacked, grouped, negative, label, mixed, custom-label, active, interactive)
-- [ ] LineChart with 10 variants (default, dots, multiple, labels, stepped, custom-dots, interactive, linear, legend, icons)
-- [ ] All charts render inside ChartContainer with proper theming
-- [ ] Charts respond to brand switching (token colors update)
-- [ ] Spec.md written for each chart type
-- [ ] Tests pass for all chart types and key variants
-**Status:** iterating
+- [x] AreaChart with 10 variants (default, gradient, stacked, expanded, step, axes, interactive, legend, linear, icons)
+- [x] BarChart with 10 variants (default, horizontal, stacked, grouped, negative, label, mixed, custom-label, active, interactive)
+- [x] LineChart with 10 variants (default, dots, multiple, labels, stepped, custom-dots, interactive, linear, legend, icons)
+- [x] All charts render inside ChartContainer with proper theming
+- [x] Charts respond to brand switching (token colors update)
+- [x] Spec.md written for each chart type
+- [x] Tests pass for all chart types and key variants
+**Status:** complete
 **Iterations:** 1
 
 ## Stage 3: Specialized Charts (Pie, Radar, Radial)
