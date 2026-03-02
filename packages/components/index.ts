@@ -4,6 +4,14 @@ export type { ButtonProps } from './Button'
 export { Input } from './Input'
 export type { InputProps } from './Input'
 
+export { InputGroup } from './InputGroup'
+export type {
+  InputGroupProps,
+  InputGroupAddonProps,
+  InputGroupElementProps,
+  InputGroupInputProps,
+} from './InputGroup'
+
 export { Card } from './Card'
 export type { CardProps } from './Card'
 
@@ -198,3 +206,8 @@ export type {
   EmptyMediaProps,
   EmptyActionProps,
 } from './Empty'
+
+export { Toast, useToastController, useToastState } from './Toast'
+export type { ToastRootProps, ToastViewportProps, ToastProviderProps } from './Toast'
+export { toast, ImperativeToastViewport, useImperativeToasts } from './Toast'
+export type { ToastData, PromiseToastData } from './Toast'
