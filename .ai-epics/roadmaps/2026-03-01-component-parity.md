@@ -50,7 +50,7 @@
 **Estimated scope:** ~8 files, ~600 lines
 **GitHub Sub-Issue:** #25
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmbAZY
-**Stage Branch:** (pending)
+**Stage Branch:** feat/component-parity/data-table
 **Stage PR:** (pending)
 **Acceptance criteria:**
 - [ ] @tanstack/react-table added as optional peer dependency
@@ -59,7 +59,7 @@
 - [ ] DataTable has spec.md and test file
 - [ ] DataTable column type helpers exported
 - [ ] DataTable renders on web (React Native fallback documented)
-**Status:** pending
+**Status:** executing
 **Iterations:** 0
 
 ## Stage 4: API Mapping Documentation + Migration Guide
