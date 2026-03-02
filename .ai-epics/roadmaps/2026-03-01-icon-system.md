@@ -37,7 +37,7 @@
 **GitHub Sub-Issue:** #34
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmbsh8
 **Stage Branch:** feat/icon-system/dynamic-icon-exports
-**Stage PR:** (filled in ADVANCE)
+**Stage PR:** #38
 **Acceptance criteria:**
 - [x] `packages/icons/Icon.tsx` exports `DynamicIcon` component with lazy loading
 - [x] `./icons` export added to `package.json` exports map
