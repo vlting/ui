@@ -46,3 +46,12 @@ export type BarChartVariant = 'default' | 'horizontal' | 'stacked' | 'grouped' |
 
 /** Line chart display variants */
 export type LineChartVariant = 'default' | 'dots' | 'multiple' | 'labels' | 'stepped' | 'custom-dots' | 'interactive' | 'linear' | 'legend' | 'icons'
+
+/** Pie chart display variants */
+export type PieChartVariant = 'default' | 'donut' | 'donut-text' | 'donut-active' | 'label' | 'custom-label' | 'label-list' | 'legend' | 'separator' | 'interactive' | 'stacked'
+
+/** Radar chart display variants */
+export type RadarChartVariant = 'default' | 'dots' | 'lines' | 'custom' | 'multiple' | 'grid-circle' | 'grid-filled' | 'grid-none' | 'legend' | 'icons' | 'radius-axis' | 'label' | 'custom-shape' | 'interactive'
+
+/** Radial chart display variants */
+export type RadialChartVariant = 'default' | 'grid' | 'label' | 'stacked' | 'text' | 'shape'
