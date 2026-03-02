@@ -12,6 +12,16 @@ import {
   Card as _Card,
   Tabs as _Tabs,
   Tooltip as _Tooltip,
+  Badge as _Badge,
+  Switch as _Switch,
+  Progress as _Progress,
+  Checkbox as _Checkbox,
+  Slider as _Slider,
+  Alert as _Alert,
+  Avatar as _Avatar,
+  Toggle as _Toggle,
+  Spinner as _Spinner,
+  Textarea as _Textarea,
 } from '@vlting/ui'
 
 const Button = _Button as AnyFC & { Text: AnyFC }
@@ -29,6 +39,16 @@ const Tabs = _Tabs as unknown as {
   Content: AnyFC
 }
 const Tooltip = _Tooltip as AnyFC
+const Badge = _Badge as AnyFC
+const Switch = _Switch as AnyFC
+const Progress = _Progress as AnyFC
+const Checkbox = _Checkbox as unknown as { Root: AnyFC; Indicator: AnyFC }
+const Slider = _Slider as AnyFC
+const Alert = _Alert as unknown as { Root: AnyFC; Title: AnyFC; Description: AnyFC }
+const Avatar = _Avatar as unknown as AnyFC & { Image: AnyFC; Fallback: AnyFC }
+const Toggle = _Toggle as AnyFC
+const Spinner = _Spinner as AnyFC
+const Textarea = _Textarea as AnyFC
 
 export interface PlaygroundControl {
   prop: string
@@ -153,6 +173,218 @@ const playgroundConfigs: Record<string, PlaygroundConfig> = {
       },
     ],
   },
+  badge: {
+    component: 'Badge',
+    controls: [
+      {
+        prop: 'variant',
+        type: 'select',
+        label: 'Variant',
+        options: ['default', 'solid', 'secondary', 'destructive', 'outline', 'subtle'],
+        defaultValue: 'default',
+      },
+      {
+        prop: 'size',
+        type: 'select',
+        label: 'Size',
+        options: ['sm', 'md', 'lg'],
+        defaultValue: 'md',
+      },
+      {
+        prop: 'tone',
+        type: 'select',
+        label: 'Tone',
+        options: ['neutral', 'primary', 'success', 'warning', 'danger'],
+        defaultValue: 'neutral',
+      },
+    ],
+  },
+  switch: {
+    component: 'Switch',
+    controls: [
+      {
+        prop: 'checked',
+        type: 'boolean',
+        label: 'Checked',
+        defaultValue: false,
+      },
+      {
+        prop: 'size',
+        type: 'select',
+        label: 'Size',
+        options: ['sm', 'md', 'lg'],
+        defaultValue: 'md',
+      },
+      {
+        prop: 'disabled',
+        type: 'boolean',
+        label: 'Disabled',
+        defaultValue: false,
+      },
+    ],
+  },
+  progress: {
+    component: 'Progress',
+    controls: [
+      {
+        prop: 'value',
+        type: 'number',
+        label: 'Value',
+        defaultValue: 50,
+      },
+      {
+        prop: 'size',
+        type: 'select',
+        label: 'Size',
+        options: ['sm', 'md', 'lg'],
+        defaultValue: 'md',
+      },
+    ],
+  },
+  checkbox: {
+    component: 'Checkbox',
+    controls: [
+      {
+        prop: 'checked',
+        type: 'boolean',
+        label: 'Checked',
+        defaultValue: false,
+      },
+      {
+        prop: 'size',
+        type: 'select',
+        label: 'Size',
+        options: ['sm', 'md', 'lg'],
+        defaultValue: 'md',
+      },
+      {
+        prop: 'disabled',
+        type: 'boolean',
+        label: 'Disabled',
+        defaultValue: false,
+      },
+    ],
+  },
+  slider: {
+    component: 'Slider',
+    controls: [
+      {
+        prop: 'value',
+        type: 'number',
+        label: 'Value',
+        defaultValue: 50,
+      },
+      {
+        prop: 'min',
+        type: 'number',
+        label: 'Min',
+        defaultValue: 0,
+      },
+      {
+        prop: 'max',
+        type: 'number',
+        label: 'Max',
+        defaultValue: 100,
+      },
+      {
+        prop: 'step',
+        type: 'number',
+        label: 'Step',
+        defaultValue: 1,
+      },
+    ],
+  },
+  alert: {
+    component: 'Alert',
+    controls: [
+      {
+        prop: 'variant',
+        type: 'select',
+        label: 'Variant',
+        options: ['default', 'destructive'],
+        defaultValue: 'default',
+      },
+    ],
+  },
+  avatar: {
+    component: 'Avatar',
+    controls: [
+      {
+        prop: 'size',
+        type: 'select',
+        label: 'Size',
+        options: ['sm', 'md', 'lg', 'xl'],
+        defaultValue: 'md',
+      },
+    ],
+  },
+  toggle: {
+    component: 'Toggle',
+    controls: [
+      {
+        prop: 'pressed',
+        type: 'boolean',
+        label: 'Pressed',
+        defaultValue: false,
+      },
+      {
+        prop: 'variant',
+        type: 'select',
+        label: 'Variant',
+        options: ['default', 'outline'],
+        defaultValue: 'default',
+      },
+      {
+        prop: 'size',
+        type: 'select',
+        label: 'Size',
+        options: ['sm', 'md', 'lg'],
+        defaultValue: 'md',
+      },
+    ],
+  },
+  spinner: {
+    component: 'Spinner',
+    controls: [
+      {
+        prop: 'size',
+        type: 'select',
+        label: 'Size',
+        options: ['sm', 'md', 'lg'],
+        defaultValue: 'md',
+      },
+    ],
+  },
+  textarea: {
+    component: 'Textarea',
+    controls: [
+      {
+        prop: 'placeholder',
+        type: 'string',
+        label: 'Placeholder',
+        defaultValue: 'Enter text...',
+      },
+      {
+        prop: 'size',
+        type: 'select',
+        label: 'Size',
+        options: ['sm', 'md', 'lg'],
+        defaultValue: 'md',
+      },
+      {
+        prop: 'rows',
+        type: 'number',
+        label: 'Rows',
+        defaultValue: 3,
+      },
+      {
+        prop: 'disabled',
+        type: 'boolean',
+        label: 'Disabled',
+        defaultValue: false,
+      },
+    ],
+  },
 }
 
 export function getPlaygroundConfig(
@@ -221,6 +453,86 @@ function renderPlayground(
           </Button>
         </Tooltip>
       )
+    case 'badge':
+      return (
+        <Badge
+          variant={props.variant as string}
+          size={props.size as string}
+          tone={props.tone as string}
+        >
+          Badge
+        </Badge>
+      )
+    case 'switch':
+      return (
+        <Switch
+          checked={props.checked as boolean}
+          size={props.size as string}
+          disabled={props.disabled as boolean}
+        />
+      )
+    case 'progress':
+      return (
+        <Progress
+          value={props.value as number}
+          size={props.size as string}
+        />
+      )
+    case 'checkbox':
+      return (
+        <Checkbox.Root
+          checked={props.checked as boolean}
+          size={props.size as string}
+          disabled={props.disabled as boolean}
+        >
+          <Checkbox.Indicator />
+        </Checkbox.Root>
+      )
+    case 'slider':
+      return (
+        <Slider
+          value={props.value as number}
+          min={props.min as number}
+          max={props.max as number}
+          step={props.step as number}
+        />
+      )
+    case 'alert':
+      return (
+        <Alert.Root variant={props.variant as string}>
+          <Alert.Title>Alert Title</Alert.Title>
+          <Alert.Description>This is an alert description.</Alert.Description>
+        </Alert.Root>
+      )
+    case 'avatar':
+      return (
+        <Avatar size={props.size as string}>
+          <Avatar.Fallback>AB</Avatar.Fallback>
+        </Avatar>
+      )
+    case 'toggle':
+      return (
+        <Toggle
+          pressed={props.pressed as boolean}
+          variant={props.variant as string}
+          size={props.size as string}
+        >
+          Toggle
+        </Toggle>
+      )
+    case 'spinner':
+      return (
+        <Spinner size={props.size as string} />
+      )
+    case 'textarea':
+      return (
+        <Textarea
+          placeholder={props.placeholder as string}
+          size={props.size as string}
+          rows={props.rows as number}
+          disabled={props.disabled as boolean}
+        />
+      )
     default:
       return <p className="text-muted-foreground">No playground available.</p>
   }
@@ -255,6 +567,26 @@ function generateCode(
       return `<Tabs.Root defaultValue="tab1"${propsDisplay}>\n  <Tabs.List>\n    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>\n    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>\n  </Tabs.List>\n  <Tabs.Content value="tab1">...</Tabs.Content>\n  <Tabs.Content value="tab2">...</Tabs.Content>\n</Tabs.Root>`
     case 'tooltip':
       return `<Tooltip${propsDisplay}>\n  <Button>\n    <Button.Text>Hover me</Button.Text>\n  </Button>\n</Tooltip>`
+    case 'badge':
+      return `<Badge${propsDisplay}>Badge</Badge>`
+    case 'switch':
+      return `<Switch${propsDisplay} />`
+    case 'progress':
+      return `<Progress${propsDisplay} />`
+    case 'checkbox':
+      return `<Checkbox.Root${propsDisplay}>\n  <Checkbox.Indicator />\n</Checkbox.Root>`
+    case 'slider':
+      return `<Slider${propsDisplay} />`
+    case 'alert':
+      return `<Alert.Root${propsDisplay}>\n  <Alert.Title>Alert Title</Alert.Title>\n  <Alert.Description>Description</Alert.Description>\n</Alert.Root>`
+    case 'avatar':
+      return `<Avatar${propsDisplay}>\n  <Avatar.Fallback>AB</Avatar.Fallback>\n</Avatar>`
+    case 'toggle':
+      return `<Toggle${propsDisplay}>Toggle</Toggle>`
+    case 'spinner':
+      return `<Spinner${propsDisplay} />`
+    case 'textarea':
+      return `<Textarea${propsDisplay} />`
     default:
       return ''
   }
