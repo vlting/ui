@@ -15,7 +15,10 @@ export async function generateMetadata({ params }: PageProps) {
   const { name } = await params
   const block = getBlock(name)
   if (!block) return { title: 'Block Not Found' }
-  return { title: `${block.name} — @vlting/ui Blocks` }
+  return {
+    title: `${block.name} — @vlting/ui Blocks`,
+    description: block.description,
+  }
 }
 
 const categoryLabels: Record<string, string> = {

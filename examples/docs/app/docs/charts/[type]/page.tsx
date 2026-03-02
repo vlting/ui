@@ -15,7 +15,10 @@ export async function generateMetadata({ params }: PageProps) {
   const { type } = await params
   const chart = getChart(type)
   if (!chart) return { title: 'Chart Not Found' }
-  return { title: `${chart.name} — @vlting/ui Charts` }
+  return {
+    title: `${chart.name} — @vlting/ui Charts`,
+    description: chart.description,
+  }
 }
 
 export default async function ChartPage({ params }: PageProps) {
