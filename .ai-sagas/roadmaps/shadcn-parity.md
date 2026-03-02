@@ -42,10 +42,10 @@ created: 2026-03-01
 **Dependencies:** Epic 1
 **Estimated stages:** ~3
 **Epic slug:** icon-system
-**Epic Roadmap:** (filled during epic PLAN)
+**Epic Roadmap:** `.ai-epics/roadmaps/2026-03-01-icon-system.md`
 **Tech Spec:** `.ai-epics/docs/icon-system/tech-spec.md`
-**Status:** in-progress
-**Review notes:**
+**Status:** complete
+**Review notes:** All 3 stages delivered (PRs #37–#39). Epic PR #36 ready for review. 3229 Remix Icons generated via code generator, createIcon factory with react-native-svg, DynamicIcon with React.lazy, per-category barrels, tree-shakeable imports (235 bytes/icon), 23 tests passing. PRD alignment: FR-5 fully addressed (Icon browser deferred to Epic 6 as planned).
 
 ## Epic 4: Chart System (Victory Native)
 **Objective:** Build the full chart system using Victory Native — 6 chart types, 69 variants, themed via design tokens, rendering cross-platform.
