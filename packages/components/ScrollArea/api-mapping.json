@@ -1,0 +1,46 @@
+{
+  "component": "ScrollArea",
+  "shadcn": {
+    "import": "import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'",
+    "props": {
+      "ScrollArea": {
+        "className": { "type": "string" },
+        "type": { "type": "string", "values": ["auto", "always", "scroll", "hover"] }
+      },
+      "ScrollBar": {
+        "orientation": { "type": "string", "values": ["vertical", "horizontal"] }
+      }
+    }
+  },
+  "vlting": {
+    "import": "import { ScrollArea } from '@vlting/ui'",
+    "props": {
+      "ScrollArea.Root": {
+        "orientation": { "type": "string", "values": ["vertical", "horizontal", "both"] },
+        "type": { "type": "string", "values": ["auto", "always", "scroll", "hover"] },
+        "children": { "type": "ReactNode" }
+      },
+      "ScrollArea.Viewport": {
+        "orientation": { "type": "string", "values": ["vertical", "horizontal", "both"], "default": "vertical" },
+        "children": { "type": "ReactNode" }
+      },
+      "ScrollArea.Scrollbar": {
+        "orientation": { "type": "string", "values": ["vertical", "horizontal"] }
+      },
+      "ScrollArea.Thumb": {},
+      "ScrollArea.Corner": {}
+    }
+  },
+  "notes": [
+    "shadcn uses Radix ScrollArea with custom scrollbar tracks/thumbs; vlting uses CSS-based scrollbar styling.",
+    "vlting Scrollbar, Thumb, and Corner are no-op components provided for API shape compatibility only.",
+    "Actual scrollbar styling in vlting uses CSS ::-webkit-scrollbar and scrollbar-width/scrollbar-color.",
+    "Content should be placed inside ScrollArea.Viewport, not directly in ScrollArea.Root.",
+    "Viewport's 'orientation' prop controls overflow direction."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "<ScrollArea><content /><ScrollBar /></ScrollArea>", "vlting": "<ScrollArea.Root><ScrollArea.Viewport><content /></ScrollArea.Viewport></ScrollArea.Root>", "reason": "Content must be inside Viewport sub-component" },
+    { "shadcn": "Custom rendered scrollbar tracks", "vlting": "CSS-based scrollbar styling", "reason": "Uses native scrollbar styling for performance and simplicity" }
+  ]
+}

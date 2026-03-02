@@ -1,0 +1,36 @@
+{
+  "component": "NativeSelect",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { NativeSelect } from '@vlting/ui'",
+    "props": {
+      "NativeSelect.Root": {
+        "value": { "type": "string" },
+        "defaultValue": { "type": "string" },
+        "onValueChange": { "type": "function", "signature": "(value: string) => void" },
+        "placeholder": { "type": "string" },
+        "disabled": { "type": "boolean" },
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+        "name": { "type": "string" },
+        "aria-label": { "type": "string" },
+        "children": { "type": "ReactNode" }
+      },
+      "NativeSelect.Option": {
+        "value": { "type": "string", "required": true },
+        "disabled": { "type": "boolean" },
+        "children": { "type": "ReactNode" }
+      }
+    }
+  },
+  "notes": [
+    "No shadcn equivalent. NativeSelect renders a native HTML <select> element via styledHtml.",
+    "Uses compound API: <NativeSelect.Root><NativeSelect.Option value='a'>A</NativeSelect.Option></NativeSelect.Root>",
+    "Unlike Select (which uses Tamagui's custom dropdown), NativeSelect uses the browser's native select picker.",
+    "Placeholder is rendered as a disabled <option> at the top of the list.",
+    "Custom chevron arrow via CSS background-image SVG."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "onChange={(e) => ...}", "vlting": "onValueChange={(value) => ...}", "reason": "Simplified callback with value directly, not event object" }
+  ]
+}

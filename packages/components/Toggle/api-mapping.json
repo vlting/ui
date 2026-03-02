@@ -1,0 +1,58 @@
+{
+  "component": "Toggle",
+  "shadcn": {
+    "import": "import { Toggle } from '@/components/ui/toggle'",
+    "props": {
+      "pressed": { "type": "boolean" },
+      "defaultPressed": { "type": "boolean" },
+      "onPressedChange": { "type": "function", "signature": "(pressed: boolean) => void" },
+      "variant": { "type": "string", "values": ["default", "outline"] },
+      "size": { "type": "string", "values": ["default", "sm", "lg"] },
+      "disabled": { "type": "boolean" },
+      "className": { "type": "string" }
+    }
+  },
+  "vlting": {
+    "import": "import { Toggle, ToggleGroup } from '@vlting/ui'",
+    "props": {
+      "Toggle": {
+        "pressed": { "type": "boolean" },
+        "defaultPressed": { "type": "boolean", "default": false },
+        "onPressedChange": { "type": "function", "signature": "(pressed: boolean) => void" },
+        "variant": { "type": "string", "values": ["default", "outline"], "default": "default" },
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+        "disabled": { "type": "boolean" },
+        "children": { "type": "ReactNode" }
+      },
+      "ToggleGroup": {
+        "type": { "type": "string", "values": ["single", "multiple"], "default": "single" },
+        "value": { "type": "string | string[]" },
+        "defaultValue": { "type": "string | string[]" },
+        "onValueChange": { "type": "function", "signature": "(value: string | string[]) => void" },
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+        "disabled": { "type": "boolean" },
+        "orientation": { "type": "string", "values": ["horizontal", "vertical"], "default": "horizontal" },
+        "children": { "type": "ReactNode" }
+      },
+      "ToggleGroup.Item": {
+        "value": { "type": "string", "required": true },
+        "disabled": { "type": "boolean" },
+        "children": { "type": "ReactNode" }
+      }
+    }
+  },
+  "notes": [
+    "Very similar API between shadcn and vlting for standalone Toggle.",
+    "vlting also exports ToggleGroup (from @tamagui/toggle-group) with single/multiple selection modes.",
+    "vlting standalone Toggle uses styledHtml('button') for native <button> rendering.",
+    "Toggle sizes: shadcn uses 'default'/'sm'/'lg'; vlting uses 'sm'/'md'/'lg'.",
+    "ToggleGroup uses withStaticProperties for ToggleGroup.Item compound API.",
+    "ToggleGroup supports roving focus keyboard navigation via Tamagui."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "size='default'", "vlting": "size='md'", "reason": "Different default size naming" },
+    { "shadcn": "Separate ToggleGroup import", "vlting": "import { ToggleGroup } from '@vlting/ui'", "reason": "Bundled with Toggle module" },
+    { "shadcn": "<ToggleGroupItem>", "vlting": "<ToggleGroup.Item>", "reason": "Dot-notation compound component API" }
+  ]
+}

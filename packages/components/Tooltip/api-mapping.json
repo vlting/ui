@@ -1,0 +1,54 @@
+{
+  "component": "Tooltip",
+  "shadcn": {
+    "import": "import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip'",
+    "props": {
+      "Tooltip": {
+        "open": { "type": "boolean" },
+        "onOpenChange": { "type": "function" },
+        "delayDuration": { "type": "number" }
+      },
+      "TooltipContent": {
+        "side": { "type": "string", "values": ["top", "right", "bottom", "left"] },
+        "sideOffset": { "type": "number" },
+        "align": { "type": "string", "values": ["start", "center", "end"] },
+        "className": { "type": "string" }
+      },
+      "TooltipProvider": {
+        "delayDuration": { "type": "number" },
+        "skipDelayDuration": { "type": "number" }
+      }
+    }
+  },
+  "vlting": {
+    "import": "import { Tooltip, TooltipProvider } from '@vlting/ui'",
+    "props": {
+      "Tooltip": {
+        "children": { "type": "ReactNode", "required": true, "description": "The trigger element" },
+        "content": { "type": "string", "required": true, "description": "Tooltip text content" },
+        "side": { "type": "string", "values": ["top", "right", "bottom", "left"], "default": "top" },
+        "sideOffset": { "type": "number", "default": 2 },
+        "align": { "type": "string", "values": ["start", "center", "end"], "default": "center" },
+        "delay": { "type": "number", "default": 200 }
+      },
+      "TooltipProvider": {
+        "delay": { "type": "number", "default": 200 },
+        "children": { "type": "ReactNode" }
+      }
+    }
+  },
+  "notes": [
+    "vlting Tooltip is a simplified single-component API: <Tooltip content='text'><Button /></Tooltip>",
+    "shadcn requires composing Tooltip + TooltipTrigger + TooltipContent manually.",
+    "vlting uses 'content' prop for tooltip text; no need for a separate Content sub-component.",
+    "vlting uses 'delay' prop; shadcn uses 'delayDuration'.",
+    "vlting wraps @tamagui/tooltip with built-in arrow and animations.",
+    "TooltipProvider wraps @tamagui/tooltip's TooltipGroup for shared delay behavior."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "<Tooltip><TooltipTrigger>Hover</TooltipTrigger><TooltipContent>Text</TooltipContent></Tooltip>", "vlting": "<Tooltip content='Text'><Button>Hover</Button></Tooltip>", "reason": "Simplified single-component API with content prop" },
+    { "shadcn": "delayDuration={200}", "vlting": "delay={200}", "reason": "Shorter prop name" },
+    { "shadcn": "Side/offset on Content", "vlting": "side/sideOffset on Tooltip root", "reason": "All config on the single Tooltip component" }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "component": "Switch",
+  "shadcn": {
+    "import": "import { Switch } from '@/components/ui/switch'",
+    "props": {
+      "checked": { "type": "boolean" },
+      "defaultChecked": { "type": "boolean" },
+      "onCheckedChange": { "type": "function", "signature": "(checked: boolean) => void" },
+      "disabled": { "type": "boolean" },
+      "name": { "type": "string" },
+      "id": { "type": "string" },
+      "className": { "type": "string" }
+    }
+  },
+  "vlting": {
+    "import": "import { Switch } from '@vlting/ui'",
+    "props": {
+      "checked": { "type": "boolean" },
+      "defaultChecked": { "type": "boolean" },
+      "onCheckedChange": { "type": "function", "signature": "(checked: boolean) => void" },
+      "disabled": { "type": "boolean", "default": false },
+      "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+      "name": { "type": "string" }
+    }
+  },
+  "notes": [
+    "Very similar API between shadcn and vlting.",
+    "vlting adds a 'size' prop (sm/md/lg) controlling overall dimensions.",
+    "vlting wraps @tamagui/switch with built-in thumb.",
+    "Both use checked/onCheckedChange pattern.",
+    "Size maps to different widths and thumb sizes: sm=$4.5 wide, md=$6 wide, lg=$7 wide."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "No size prop", "vlting": "size='sm' | 'md' | 'lg'", "reason": "vlting includes built-in size variants" },
+    { "shadcn": "id prop for label association", "vlting": "Use name prop or wrap in <label>", "reason": "Different label association pattern" }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "component": "NavigationMenu",
+  "shadcn": {
+    "import": "import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink } from '@/components/ui/navigation-menu'",
+    "props": {
+      "NavigationMenu": {
+        "children": { "type": "ReactNode" },
+        "value": { "type": "string" },
+        "onValueChange": { "type": "function" }
+      },
+      "NavigationMenuLink": {
+        "href": { "type": "string" },
+        "className": { "type": "string" }
+      },
+      "NavigationMenuTrigger": {
+        "children": { "type": "ReactNode" }
+      },
+      "NavigationMenuContent": {
+        "children": { "type": "ReactNode" }
+      }
+    }
+  },
+  "vlting": {
+    "import": "import { NavigationMenu } from '@vlting/ui'",
+    "props": {
+      "NavigationMenu.Root": {
+        "children": { "type": "ReactNode" }
+      },
+      "NavigationMenu.List": {
+        "children": { "type": "ReactNode" }
+      },
+      "NavigationMenu.Item": {
+        "value": { "type": "string" },
+        "children": { "type": "ReactNode" }
+      },
+      "NavigationMenu.Trigger": {
+        "children": { "type": "ReactNode" }
+      },
+      "NavigationMenu.Content": {
+        "children": { "type": "ReactNode" }
+      },
+      "NavigationMenu.Link": {
+        "href": { "type": "string" },
+        "active": { "type": "boolean" },
+        "onSelect": { "type": "function", "signature": "() => void" },
+        "children": { "type": "ReactNode" }
+      },
+      "NavigationMenu.Indicator": {},
+      "NavigationMenu.Viewport": {
+        "children": { "type": "ReactNode" }
+      }
+    }
+  },
+  "notes": [
+    "shadcn uses Radix NavigationMenu; vlting uses a custom context-based implementation.",
+    "vlting NavigationMenu.Link has an 'active' boolean prop for highlighting the current page.",
+    "Full keyboard navigation: ArrowLeft/Right between triggers, ArrowUp/Down within content, Escape to close.",
+    "vlting uses dot-notation compound API while shadcn uses separate named imports.",
+    "Indicator is a visual-only bar at the bottom, rendered via NavigationMenu.Indicator."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "<NavigationMenuList>", "vlting": "<NavigationMenu.List>", "reason": "Dot-notation compound component API" },
+    { "shadcn": "navigationMenuTriggerStyle()", "vlting": "Styling is built-in to NavigationMenu.Trigger", "reason": "No separate style utility needed" },
+    { "shadcn": "asChild on Link", "vlting": "NavigationMenu.Link renders an <a> tag directly; use href and onSelect props", "reason": "Different composition model" }
+  ]
+}

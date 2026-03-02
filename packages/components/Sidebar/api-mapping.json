@@ -1,0 +1,71 @@
+{
+  "component": "Sidebar",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Sidebar } from '@vlting/ui'",
+    "props": {
+      "Sidebar.Root": {
+        "collapsible": { "type": "string", "values": ["offcanvas", "icon", "none"], "default": "offcanvas" },
+        "side": { "type": "string", "values": ["left", "right"], "default": "left" },
+        "variant": { "type": "string", "values": ["sidebar", "floating", "inset"], "default": "sidebar" },
+        "defaultOpen": { "type": "boolean", "default": true },
+        "open": { "type": "boolean" },
+        "onOpenChange": { "type": "function", "signature": "(open: boolean) => void" },
+        "width": { "type": "number", "default": 256 },
+        "collapsedWidth": { "type": "number", "default": 48 },
+        "children": { "type": "ReactNode" }
+      },
+      "Sidebar.Header": {
+        "children": { "type": "ReactNode" }
+      },
+      "Sidebar.Content": {
+        "children": { "type": "ReactNode" }
+      },
+      "Sidebar.Footer": {
+        "children": { "type": "ReactNode" }
+      },
+      "Sidebar.Group": {
+        "children": { "type": "ReactNode" }
+      },
+      "Sidebar.GroupLabel": {
+        "children": { "type": "ReactNode" }
+      },
+      "Sidebar.GroupContent": {
+        "children": { "type": "ReactNode" }
+      },
+      "Sidebar.Menu": {
+        "children": { "type": "ReactNode" }
+      },
+      "Sidebar.MenuItem": {
+        "active": { "type": "boolean" },
+        "disabled": { "type": "boolean" },
+        "onPress": { "type": "function", "signature": "() => void" },
+        "children": { "type": "ReactNode" }
+      },
+      "Sidebar.MenuButton": {
+        "active": { "type": "boolean" },
+        "disabled": { "type": "boolean" },
+        "onPress": { "type": "function", "signature": "() => void" },
+        "children": { "type": "ReactNode" }
+      },
+      "Sidebar.Separator": {},
+      "Sidebar.Trigger": {
+        "children": { "type": "ReactNode" }
+      },
+      "Sidebar.Rail": {}
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent (shadcn/ui sidebar is an application layout recipe, not a primitive component).",
+    "Rich compound API with 13 sub-components for building complete sidebar layouts.",
+    "Supports three collapse modes: 'offcanvas' (slides away), 'icon' (collapses to icon width), 'none' (always open).",
+    "Three visual variants: 'sidebar' (bordered), 'floating' (elevated with shadow), 'inset'.",
+    "GroupLabel auto-hides when collapsed in 'icon' mode.",
+    "Uses CSS transitions for smooth open/close animation; respects prefers-reduced-motion.",
+    "Trigger component auto-toggles open state and updates aria-expanded."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "onClick", "vlting": "onPress", "reason": "Cross-platform event naming" }
+  ]
+}
