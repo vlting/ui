@@ -13,7 +13,7 @@ function SidebarSection({ section }: { section: NavSection }) {
     <div className="mb-4">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between px-2 py-1 text-sm font-semibold text-gray-900 dark:text-gray-100"
+        className="flex w-full items-center justify-between px-2 py-1 text-sm font-semibold text-foreground"
         aria-expanded={isOpen}
       >
         {section.title}
@@ -39,8 +39,8 @@ function SidebarSection({ section }: { section: NavSection }) {
                   href={item.href}
                   className={`block rounded-md px-2 py-1 text-sm transition-colors ${
                     isActive
-                      ? 'bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-gray-100'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-gray-100'
+                      ? 'bg-accent font-medium text-foreground'
+                      : 'text-foreground-secondary hover:bg-accent hover:text-foreground'
                   }`}
                   aria-current={isActive ? 'page' : undefined}
                 >
