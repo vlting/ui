@@ -64,7 +64,7 @@ export default async function BlockPage({ params }: PageProps) {
       {/* Preview */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Preview</h2>
-        <BlockPreview name={block.name} description={block.description} />
+        <BlockPreview name={block.name} slug={block.slug} code={block.code} />
       </section>
 
       {/* Code Example */}
