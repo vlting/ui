@@ -48,8 +48,8 @@
 - [ ] Charts respond to brand switching (token colors update)
 - [ ] Spec.md written for each chart type
 - [ ] Tests pass for all chart types and key variants
-**Status:** executing
-**Iterations:** 0
+**Status:** iterating
+**Iterations:** 1
 
 ## Stage 3: Specialized Charts (Pie, Radar, Radial)
 **Objective:** Implement PieChart (11 variants including donut), RadarChart (14 variants using polar coordinates), and RadialChart (6 variants using partial arc). These are the more complex chart types requiring Victory's polar/pie APIs.
