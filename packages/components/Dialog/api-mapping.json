@@ -1,0 +1,60 @@
+{
+  "component": "Dialog",
+  "shadcn": {
+    "import": "import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/components/ui/dialog'",
+    "props": {
+      "open": { "type": "boolean", "values": [] },
+      "defaultOpen": { "type": "boolean", "values": [] },
+      "onOpenChange": { "type": "function", "values": ["(open: boolean) => void"] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Dialog } from '@vlting/ui'",
+    "props": {
+      "Dialog.Root": {
+        "open": { "type": "boolean", "values": [] },
+        "defaultOpen": { "type": "boolean", "values": [] },
+        "onOpenChange": { "type": "function", "values": ["(open: boolean) => void"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Dialog.Trigger": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Dialog.Content": {
+        "size": { "type": "string", "values": ["sm", "md", "lg"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Dialog.Title": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Dialog.Description": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Dialog.Header": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Dialog.Footer": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Dialog.Close": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Dialog.Overlay": {}
+    }
+  },
+  "notes": [
+    "shadcn uses flat exports; vlting uses compound pattern (Dialog.Root, Dialog.Content, etc.)",
+    "vlting Dialog.Content accepts size prop (sm, md, lg) controlling maxWidth and padding",
+    "Overlay is rendered automatically inside Content's portal; Dialog.Overlay is a no-op kept for API compatibility",
+    "Built on @tamagui/dialog with animated enter/exit styles",
+    "Trigger and Close use asChild internally",
+    "Default size is 'md'"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props or size prop", "reason": "Cross-platform" },
+    { "shadcn": "<Dialog>", "vlting": "<Dialog.Root>", "reason": "Compound component pattern" },
+    { "shadcn": "<DialogContent className='sm:max-w-[425px]'>", "vlting": "<Dialog.Content size='sm'>", "reason": "Token-based sizing via size prop" },
+    { "shadcn": "Separate overlay setup", "vlting": "Overlay is automatic inside Content", "reason": "Simplified structure" }
+  ]
+}

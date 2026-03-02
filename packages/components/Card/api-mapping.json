@@ -1,0 +1,50 @@
+{
+  "component": "Card",
+  "shadcn": {
+    "import": "import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'",
+    "props": {
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Card } from '@vlting/ui'",
+    "props": {
+      "Card": {
+        "size": { "type": "string", "values": ["sm", "md", "lg"] },
+        "elevated": { "type": "boolean", "values": ["true"] },
+        "interactive": { "type": "boolean", "values": ["true"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Card.Header": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Card.Content": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Card.Footer": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Card.Title": {
+        "size": { "type": "string", "values": ["sm", "md", "lg"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Card.Description": {
+        "size": { "type": "string", "values": ["sm", "md", "lg"] },
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn uses flat exports (CardHeader, CardTitle); vlting uses compound pattern (Card.Header, Card.Title)",
+    "vlting adds 'size' variant (sm, md, lg) affecting padding and text sizes",
+    "vlting adds 'elevated' variant (removes border, expects shadow via theme)",
+    "vlting adds 'interactive' variant with hover, press, focus styles and cursor pointer",
+    "Card.Title renders a semantic <h3> element; default size is 'md'",
+    "Built on @tamagui/card CardFrame with withStaticProperties"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props or variant props (size, elevated, interactive)", "reason": "Cross-platform" },
+    { "shadcn": "<CardHeader>", "vlting": "<Card.Header>", "reason": "Compound component pattern" },
+    { "shadcn": "No interactive variant", "vlting": "Use interactive prop for clickable cards", "reason": "Built-in interaction pattern" }
+  ]
+}

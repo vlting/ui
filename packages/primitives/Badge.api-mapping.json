@@ -1,0 +1,30 @@
+{
+  "component": "Badge",
+  "shadcn": {
+    "import": "import { Badge } from '@/components/ui/badge'",
+    "props": {
+      "variant": { "type": "string", "values": ["default", "secondary", "destructive", "outline"] },
+      "className": { "type": "string", "values": [] },
+      "children": { "type": "ReactNode", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Badge } from '@vlting/ui'",
+    "props": {
+      "variant": { "type": "string", "values": ["default", "solid", "secondary", "destructive", "outline", "subtle"] },
+      "tone": { "type": "string", "values": ["neutral", "primary", "success", "warning", "danger"] },
+      "size": { "type": "string", "values": ["sm", "md", "lg"] },
+      "children": { "type": "ReactNode", "values": [] }
+    }
+  },
+  "notes": [
+    "vlting Badge extends shadcn variants with 'solid' (alias for default) and 'subtle'",
+    "vlting adds 'tone' prop for semantic color (neutral, primary, success, warning, danger)",
+    "vlting adds 'size' prop (sm, md, lg); shadcn relies on className for sizing",
+    "vlting Badge is a Tamagui styled(Text) component; accepts Tamagui style props"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props (e.g. backgroundColor, padding)", "reason": "Cross-platform" },
+    { "shadcn": "variant='default'", "vlting": "variant='default' or variant='solid' (alias)", "reason": "API parity with extra alias" }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "component": "HoverCard",
+  "shadcn": {
+    "import": "import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'",
+    "props": {
+      "openDelay": { "type": "number", "values": ["700"] },
+      "closeDelay": { "type": "number", "values": ["300"] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { HoverCard } from '@vlting/ui'",
+    "props": {
+      "HoverCard.Root": {
+        "openDelay": { "type": "number", "values": ["700"] },
+        "closeDelay": { "type": "number", "values": ["300"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "HoverCard.Trigger": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "HoverCard.Content": {
+        "side": { "type": "string", "values": ["top", "bottom"] },
+        "align": { "type": "string", "values": ["start", "center", "end"] },
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn wraps Radix HoverCard; vlting is a custom implementation with mouse enter/leave events",
+    "Both support openDelay and closeDelay (defaults: 700ms open, 300ms close)",
+    "vlting Content supports side (top/bottom) and align (start/center/end) positioning",
+    "Content sets role='tooltip' for accessibility",
+    "Hovering over the content keeps it open (delay cleared on re-enter)"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "<HoverCard>", "vlting": "<HoverCard.Root>", "reason": "Compound component pattern" },
+    { "shadcn": "<HoverCardContent>", "vlting": "<HoverCard.Content>", "reason": "Compound component pattern" },
+    { "shadcn": "side='left' | 'right'", "vlting": "Only side='top' | 'bottom' supported", "reason": "Simplified positioning" }
+  ]
+}

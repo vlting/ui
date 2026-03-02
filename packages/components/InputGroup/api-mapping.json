@@ -1,0 +1,35 @@
+{
+  "component": "InputGroup",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { InputGroup } from '@vlting/ui'",
+    "props": {
+      "InputGroup (Root)": {
+        "orientation": { "type": "string", "values": ["horizontal", "vertical"] },
+        "size": { "type": "string", "values": ["sm", "md", "lg"] },
+        "aria-label": { "type": "string", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "InputGroup.Addon": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "InputGroup.Element": {
+        "placement": { "type": "string", "values": ["left", "right"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "InputGroup.Input": {
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; shadcn has no InputGroup component",
+    "Groups inputs with addons (text, icons) with connected borders (removes inner border-radius)",
+    "InputGroup.Addon renders a styled addon cell (e.g., currency symbol, prefix/suffix text)",
+    "InputGroup.Element renders an absolutely-positioned overlay (e.g., search icon inside input)",
+    "Size context is shared from root to Addon via React context",
+    "Default orientation is 'horizontal'; default size is 'md'",
+    "Uses withStaticProperties for compound component pattern"
+  ],
+  "breaking": []
+}

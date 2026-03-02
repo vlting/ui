@@ -1,0 +1,44 @@
+{
+  "component": "DataTable",
+  "shadcn": {
+    "import": "import { columns } from './columns'\nimport { DataTable } from './data-table'",
+    "props": {
+      "columns": { "type": "ColumnDef[]", "values": [] },
+      "data": { "type": "TData[]", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { DataTable } from '@vlting/ui'",
+    "props": {
+      "data": { "type": "TData[]", "values": [] },
+      "columns": { "type": "ColumnDef<TData, unknown>[]", "values": [] },
+      "caption": { "type": "string", "values": [] },
+      "sorting": { "type": "SortingState", "values": [] },
+      "onSortingChange": { "type": "function", "values": ["(sorting: SortingState) => void"] },
+      "columnFilters": { "type": "ColumnFiltersState", "values": [] },
+      "onColumnFiltersChange": { "type": "function", "values": ["(filters: ColumnFiltersState) => void"] },
+      "globalFilter": { "type": "string", "values": [] },
+      "onGlobalFilterChange": { "type": "function", "values": ["(filter: string) => void"] },
+      "pagination": { "type": "PaginationState", "values": [] },
+      "onPaginationChange": { "type": "function", "values": ["(pagination: PaginationState) => void"] },
+      "columnVisibility": { "type": "VisibilityState", "values": [] },
+      "onColumnVisibilityChange": { "type": "function", "values": ["(visibility: VisibilityState) => void"] },
+      "enablePagination": { "type": "boolean", "values": ["true", "false"] },
+      "pageSize": { "type": "number", "values": ["10"] }
+    }
+  },
+  "notes": [
+    "Both use @tanstack/react-table under the hood",
+    "shadcn DataTable is a pattern/recipe; vlting provides a ready-to-use component",
+    "vlting supports both controlled and uncontrolled sorting, filtering, pagination, and visibility",
+    "vlting re-exports ColumnDef, SortingState, ColumnFiltersState, VisibilityState, PaginationState types",
+    "Renders using vlting Table compound component internally",
+    "Sortable columns show arrow indicators and set aria-sort attribute",
+    "Default pageSize is 10; pagination is opt-in via enablePagination"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props on wrapper", "reason": "Cross-platform" },
+    { "shadcn": "Manual useReactTable setup", "vlting": "Single <DataTable /> component with props", "reason": "Simplified API; no manual table hook setup" },
+    { "shadcn": "Custom pagination UI", "vlting": "Built-in pagination via enablePagination prop", "reason": "Integrated pagination" }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "component": "AlertDialog",
+  "shadcn": {
+    "import": "import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'",
+    "props": {
+      "open": { "type": "boolean", "values": [] },
+      "defaultOpen": { "type": "boolean", "values": [] },
+      "onOpenChange": { "type": "function", "values": ["(open: boolean) => void"] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { AlertDialog } from '@vlting/ui'",
+    "props": {
+      "AlertDialog.Root": {
+        "open": { "type": "boolean", "values": [] },
+        "defaultOpen": { "type": "boolean", "values": [] },
+        "onOpenChange": { "type": "function", "values": ["(open: boolean) => void"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "AlertDialog.Trigger": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "AlertDialog.Overlay": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "AlertDialog.Content": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "AlertDialog.Title": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "AlertDialog.Description": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "AlertDialog.Footer": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "AlertDialog.Cancel": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "AlertDialog.Action": {
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn uses flat exports; vlting uses compound pattern (AlertDialog.Root, AlertDialog.Content, etc.)",
+    "vlting has Overlay as a separate sub-component; shadcn bakes overlay into AlertDialogContent",
+    "vlting replaces AlertDialogHeader with AlertDialog.Title and AlertDialog.Description directly",
+    "Built on @tamagui/alert-dialog with animated enter/exit styles",
+    "Trigger and Cancel/Action use asChild internally"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "<AlertDialog>", "vlting": "<AlertDialog.Root>", "reason": "Compound component pattern" },
+    { "shadcn": "<AlertDialogHeader>", "vlting": "No Header wrapper; use AlertDialog.Title and AlertDialog.Description directly", "reason": "Simplified structure" },
+    { "shadcn": "asChild on Trigger", "vlting": "asChild is used internally; pass children directly", "reason": "Simplified API" }
+  ]
+}

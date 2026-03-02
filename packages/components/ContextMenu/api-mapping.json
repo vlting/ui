@@ -1,0 +1,54 @@
+{
+  "component": "ContextMenu",
+  "shadcn": {
+    "import": "import { ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuTrigger } from '@/components/ui/context-menu'",
+    "props": {
+      "onOpenChange": { "type": "function", "values": ["(open: boolean) => void"] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { ContextMenu } from '@vlting/ui'",
+    "props": {
+      "ContextMenu.Root": {
+        "onOpenChange": { "type": "function", "values": ["(open: boolean) => void"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "ContextMenu.Trigger": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "ContextMenu.Content": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "ContextMenu.Item": {
+        "onSelect": { "type": "function", "values": ["() => void"] },
+        "disabled": { "type": "boolean", "values": [] },
+        "shortcut": { "type": "string", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "ContextMenu.CheckboxItem": {
+        "checked": { "type": "boolean", "values": [] },
+        "onCheckedChange": { "type": "function", "values": ["(checked: boolean) => void"] },
+        "disabled": { "type": "boolean", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "ContextMenu.Separator": {},
+      "ContextMenu.Label": {
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn wraps Radix ContextMenu; vlting is a custom implementation using native contextmenu event",
+    "vlting adds built-in 'shortcut' prop on Item for keyboard shortcut display",
+    "Menu auto-closes when an item is selected",
+    "Uses role='menu', role='menuitem', and role='menuitemcheckbox' for accessibility",
+    "Positioned at mouse cursor coordinates on right-click"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "<ContextMenu>", "vlting": "<ContextMenu.Root>", "reason": "Compound component pattern" },
+    { "shadcn": "<ContextMenuContent>", "vlting": "<ContextMenu.Content>", "reason": "Compound component pattern" },
+    { "shadcn": "Sub-menus (ContextMenuSub)", "vlting": "Not yet supported", "reason": "Simplified initial implementation" }
+  ]
+}

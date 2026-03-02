@@ -1,0 +1,21 @@
+{
+  "component": "Direction",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Direction, DirectionProvider, useDirection } from '@vlting/ui'",
+    "props": {
+      "Direction.Provider (DirectionProvider)": {
+        "dir": { "type": "string", "values": ["ltr", "rtl"] },
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; shadcn has no RTL/LTR direction context",
+    "DirectionProvider wraps children with a React context for text direction",
+    "Defaults to document.documentElement.dir on web, or 'ltr' as fallback",
+    "useDirection() hook returns the current direction ('ltr' or 'rtl')",
+    "Useful for bidirectional layout support in cross-platform apps"
+  ],
+  "breaking": []
+}

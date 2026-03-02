@@ -1,0 +1,58 @@
+{
+  "component": "DropdownMenu",
+  "shadcn": {
+    "import": "import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'",
+    "props": {
+      "open": { "type": "boolean", "values": [] },
+      "onOpenChange": { "type": "function", "values": ["(open: boolean) => void"] },
+      "modal": { "type": "boolean", "values": [] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { DropdownMenu } from '@vlting/ui'",
+    "props": {
+      "DropdownMenu.Root": {
+        "open": { "type": "boolean", "values": [] },
+        "onOpenChange": { "type": "function", "values": ["(open: boolean) => void"] },
+        "modal": { "type": "boolean", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "DropdownMenu.Trigger": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "DropdownMenu.Content": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "DropdownMenu.Item": {
+        "onSelect": { "type": "function", "values": ["() => void"] },
+        "disabled": { "type": "boolean", "values": [] },
+        "shortcut": { "type": "string", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "DropdownMenu.CheckboxItem": {
+        "checked": { "type": "boolean", "values": [] },
+        "onCheckedChange": { "type": "function", "values": ["(checked: boolean) => void"] },
+        "disabled": { "type": "boolean", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "DropdownMenu.Separator": {},
+      "DropdownMenu.Label": {
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn wraps Radix DropdownMenu; vlting is a custom implementation with keyboard navigation",
+    "vlting adds built-in 'shortcut' prop on Item for keyboard shortcut display in mono font",
+    "Full keyboard support: ArrowUp/Down navigation, Home/End, Enter/Space selection, Escape/Tab close",
+    "Focus returns to trigger on close",
+    "Sets aria-haspopup='menu', aria-expanded on trigger; role='menu' on content; role='menuitem'/role='menuitemcheckbox' on items"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "<DropdownMenu>", "vlting": "<DropdownMenu.Root>", "reason": "Compound component pattern" },
+    { "shadcn": "<DropdownMenuContent>", "vlting": "<DropdownMenu.Content>", "reason": "Compound component pattern" },
+    { "shadcn": "Sub-menus (DropdownMenuSub)", "vlting": "Not yet supported", "reason": "Simplified initial implementation" }
+  ]
+}
