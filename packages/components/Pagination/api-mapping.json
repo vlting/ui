@@ -1,0 +1,70 @@
+{
+  "component": "Pagination",
+  "shadcn": {
+    "import": "import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationEllipsis } from '@/components/ui/pagination'",
+    "props": {
+      "PaginationLink": {
+        "href": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "size": { "type": "string", "values": ["default", "sm", "lg", "icon"] }
+      },
+      "PaginationPrevious": {
+        "href": { "type": "string" }
+      },
+      "PaginationNext": {
+        "href": { "type": "string" }
+      }
+    }
+  },
+  "vlting": {
+    "import": "import { Pagination } from '@vlting/ui'",
+    "props": {
+      "Pagination.Root": {
+        "currentPage": { "type": "number", "required": true },
+        "totalPages": { "type": "number", "required": true },
+        "onPageChange": { "type": "function", "signature": "(page: number) => void", "required": true },
+        "siblingCount": { "type": "number", "default": 1 },
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+        "navVariant": { "type": "string", "values": ["default", "destructive", "outline", "secondary", "ghost", "link"], "default": "ghost" },
+        "pageVariant": { "type": "string", "values": ["default", "destructive", "outline", "secondary", "ghost", "link"], "default": "outline" },
+        "activePageVariant": { "type": "string", "values": ["default", "destructive", "outline", "secondary", "ghost", "link"], "default": "default" }
+      },
+      "Pagination.Previous": {
+        "disabled": { "type": "boolean" },
+        "onPress": { "type": "function", "signature": "() => void" },
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+        "variant": { "type": "string" },
+        "children": { "type": "ReactNode" }
+      },
+      "Pagination.Next": {
+        "disabled": { "type": "boolean" },
+        "onPress": { "type": "function", "signature": "() => void" },
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+        "variant": { "type": "string" },
+        "children": { "type": "ReactNode" }
+      },
+      "Pagination.Item": {
+        "page": { "type": "number", "required": true },
+        "active": { "type": "boolean" },
+        "onPress": { "type": "function", "signature": "() => void" },
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+        "variant": { "type": "string" }
+      },
+      "Pagination.Ellipsis": {
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" }
+      }
+    }
+  },
+  "notes": [
+    "vlting Pagination.Root is a fully managed component: pass currentPage, totalPages, and onPageChange, and it auto-renders page buttons with ellipsis.",
+    "shadcn Pagination is purely presentational (links with href); vlting is state-driven (onPageChange callback).",
+    "vlting supports Button variant customization for nav, page, and active page buttons via navVariant/pageVariant/activePageVariant props.",
+    "Built-in page range computation with configurable siblingCount."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "<PaginationLink href='/page/2'>", "vlting": "<Pagination.Root onPageChange={...} />", "reason": "vlting uses callback-based navigation, not href links" },
+    { "shadcn": "Manual page rendering", "vlting": "Automatic page rendering via Root", "reason": "vlting Root handles all page number rendering automatically" },
+    { "shadcn": "onClick", "vlting": "onPress / onPageChange", "reason": "Cross-platform event naming" }
+  ]
+}

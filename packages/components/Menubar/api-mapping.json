@@ -1,0 +1,56 @@
+{
+  "component": "Menubar",
+  "shadcn": {
+    "import": "import { Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator } from '@/components/ui/menubar'",
+    "props": {
+      "MenubarItem": {
+        "inset": { "type": "boolean" },
+        "disabled": { "type": "boolean" },
+        "onSelect": { "type": "function" }
+      },
+      "MenubarContent": {
+        "align": { "type": "string", "values": ["start", "center", "end"] },
+        "sideOffset": { "type": "number" }
+      }
+    }
+  },
+  "vlting": {
+    "import": "import { Menubar } from '@vlting/ui'",
+    "props": {
+      "Menubar.Root": {
+        "children": { "type": "ReactNode" }
+      },
+      "Menubar.Menu": {
+        "children": { "type": "ReactNode" }
+      },
+      "Menubar.Trigger": {
+        "children": { "type": "ReactNode" }
+      },
+      "Menubar.Content": {
+        "children": { "type": "ReactNode" }
+      },
+      "Menubar.Item": {
+        "onSelect": { "type": "function", "signature": "() => void" },
+        "disabled": { "type": "boolean" },
+        "shortcut": { "type": "string" },
+        "children": { "type": "ReactNode" }
+      },
+      "Menubar.Separator": {},
+      "Menubar.Label": {
+        "children": { "type": "ReactNode" }
+      }
+    }
+  },
+  "notes": [
+    "shadcn Menubar uses Radix UI primitives; @vlting/ui uses a custom context-based implementation with native HTML buttons.",
+    "The vlting Menubar.Item has a built-in 'shortcut' prop for displaying keyboard shortcuts, while shadcn requires a separate <MenubarShortcut> component.",
+    "vlting Menubar auto-manages open state via context, with hover-switch between menus when any is open.",
+    "shadcn has additional sub-components like MenubarCheckboxItem, MenubarRadioGroup, MenubarSub etc. that are not yet implemented in vlting."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "<MenubarShortcut>Ctrl+N</MenubarShortcut>", "vlting": "<Menubar.Item shortcut='Ctrl+N'>", "reason": "Shortcut is a prop on Item, not a separate component" },
+    { "shadcn": "<MenubarMenu>", "vlting": "<Menubar.Menu>", "reason": "Dot-notation compound component API" },
+    { "shadcn": "MenubarCheckboxItem / MenubarRadioGroup", "vlting": "Not yet implemented", "reason": "Feature parity in progress" }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "component": "Select",
+  "shadcn": {
+    "import": "import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel, SelectSeparator } from '@/components/ui/select'",
+    "props": {
+      "Select": {
+        "value": { "type": "string" },
+        "defaultValue": { "type": "string" },
+        "onValueChange": { "type": "function", "signature": "(value: string) => void" },
+        "disabled": { "type": "boolean" }
+      },
+      "SelectTrigger": {
+        "className": { "type": "string" }
+      },
+      "SelectValue": {
+        "placeholder": { "type": "string" }
+      },
+      "SelectItem": {
+        "value": { "type": "string", "required": true },
+        "disabled": { "type": "boolean" }
+      }
+    }
+  },
+  "vlting": {
+    "import": "import { Select } from '@vlting/ui'",
+    "props": {
+      "Select (Root)": {
+        "value": { "type": "string" },
+        "defaultValue": { "type": "string" },
+        "onValueChange": { "type": "function", "signature": "(value: string) => void" },
+        "placeholder": { "type": "string", "default": "Select..." },
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+        "disabled": { "type": "boolean" },
+        "children": { "type": "ReactNode" }
+      },
+      "Select.Item": {
+        "value": { "type": "string", "required": true },
+        "children": { "type": "ReactNode" }
+      },
+      "Select.Value": {
+        "placeholder": { "type": "string" }
+      },
+      "Select.Group": {
+        "children": { "type": "ReactNode" }
+      },
+      "Select.Label": {
+        "children": { "type": "ReactNode" }
+      },
+      "Select.Separator": {}
+    }
+  },
+  "notes": [
+    "vlting Select is a simplified API: Root component renders the trigger, value display, and content all-in-one.",
+    "shadcn requires manually composing SelectTrigger + SelectValue + SelectContent + SelectViewport; vlting handles this automatically.",
+    "vlting uses withStaticProperties for compound API: <Select><Select.Item value='a'>A</Select.Item></Select>",
+    "vlting wraps @tamagui/select.",
+    "Size prop affects trigger height, padding, and font size."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "<Select><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>...</SelectContent></Select>", "vlting": "<Select placeholder='...'><Select.Item>...</Select.Item></Select>", "reason": "Simplified API: trigger and content are handled by Root" },
+    { "shadcn": "No size prop", "vlting": "size='sm' | 'md' | 'lg'", "reason": "vlting includes built-in size variants" }
+  ]
+}
