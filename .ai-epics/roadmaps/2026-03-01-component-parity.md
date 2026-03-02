@@ -17,7 +17,7 @@
 **GitHub Sub-Issue:** #23
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmbAZI
 **Stage Branch:** feat/component-parity/a11y-direction-item
-**Stage PR:** (pending)
+**Stage PR:** #28
 **Acceptance criteria:**
 - [x] NavigationMenu Content supports Home/End keys (matches spec)
 - [x] Direction provider exports DirectionProvider + useDirection hook
