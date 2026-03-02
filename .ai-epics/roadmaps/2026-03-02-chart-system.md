@@ -77,13 +77,13 @@
 **Stage PR:** (pending)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmb274
 **Acceptance criteria:**
-- [ ] All chart components exported from packages/components/Chart/index.ts
-- [ ] Root index.ts exports all chart components
-- [ ] api-mapping.json complete (Recharts → Victory Native mapping for all 6 chart types)
-- [ ] Accessibility audit passes (AccessLint: ARIA, contrast, screen reader data table)
-- [ ] Hidden data table renders for screen readers with chart data
-- [ ] prefers-reduced-motion disables chart animations
-- [ ] Tree-shakeable imports verified (individual chart types importable)
-- [ ] Cross-platform rendering verified (web + React Native)
-**Status:** executing
+- [x] All chart components exported from packages/components/Chart/index.ts
+- [x] Root index.ts exports all chart components
+- [x] api-mapping.json complete (Recharts → Victory Native mapping for all 6 chart types)
+- [x] Accessibility audit passes (AccessLint: ARIA, contrast, screen reader data table)
+- [x] Hidden data table renders for screen readers with chart data
+- [x] prefers-reduced-motion disables chart animations
+- [x] Tree-shakeable imports verified (individual chart types importable)
+- [x] Cross-platform rendering verified (web + React Native)
+**Status:** complete
 **Iterations:** 0
