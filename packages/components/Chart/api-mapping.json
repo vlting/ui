@@ -1,0 +1,141 @@
+{
+  "component": "Chart",
+  "shadcn": {
+    "import": "import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from '@/components/ui/chart'",
+    "chartLibrary": "recharts",
+    "chartImport": "import { AreaChart, BarChart, LineChart, PieChart, RadarChart, RadialBarChart, Area, Bar, Line, Pie, Radar, RadialBar, XAxis, YAxis, CartesianGrid, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts'",
+    "props": {
+      "ChartContainer": {
+        "config": { "type": "ChartConfig", "description": "Record<string, { label: string; color: string; icon?: ComponentType }>" },
+        "children": { "type": "ReactNode" },
+        "className": { "type": "string" }
+      },
+      "ChartTooltip": {
+        "content": { "type": "ReactNode", "description": "Typically <ChartTooltipContent />" },
+        "cursor": { "type": "boolean" }
+      },
+      "ChartLegend": {
+        "content": { "type": "ReactNode", "description": "Typically <ChartLegendContent />" }
+      },
+      "AreaChart": {
+        "data": { "type": "array" },
+        "children": { "type": "ReactNode", "description": "Compose with <Area>, <XAxis>, <YAxis>, <CartesianGrid>, etc." }
+      },
+      "BarChart": {
+        "data": { "type": "array" },
+        "children": { "type": "ReactNode", "description": "Compose with <Bar>, <XAxis>, <YAxis>, etc." }
+      },
+      "LineChart": {
+        "data": { "type": "array" },
+        "children": { "type": "ReactNode", "description": "Compose with <Line>, <XAxis>, <YAxis>, etc." }
+      },
+      "PieChart": {
+        "children": { "type": "ReactNode", "description": "Compose with <Pie> elements" }
+      },
+      "RadarChart": {
+        "data": { "type": "array" },
+        "children": { "type": "ReactNode", "description": "Compose with <Radar>, <PolarGrid>, <PolarAngleAxis>, etc." }
+      },
+      "RadialBarChart": {
+        "data": { "type": "array" },
+        "children": { "type": "ReactNode", "description": "Compose with <RadialBar> elements" }
+      }
+    }
+  },
+  "vlting": {
+    "import": "import { Chart, ChartTooltip, ChartLegend, ChartDataTable, AreaChart, BarChart, LineChart, PieChart, RadarChart, RadialChart } from '@vlting/ui'",
+    "chartLibrary": "victory-native + react-native-svg",
+    "props": {
+      "Chart": {
+        "config": { "type": "ChartConfig", "description": "Record<string, { label: string; color: string; icon?: ComponentType }>" },
+        "children": { "type": "ReactNode" },
+        "accessibilityLabel": { "type": "string", "description": "Required ARIA label for the chart container" },
+        "data": { "type": "Record<string, unknown>[]", "description": "Optional data for hidden screen reader accessibility table" },
+        "xAxisKey": { "type": "string", "description": "Key for the x-axis column in the data table (default: 'x')" },
+        "width": { "type": "number", "description": "Explicit width (overrides responsive sizing)" },
+        "height": { "type": "number", "description": "Explicit height (default: 350)" }
+      },
+      "ChartTooltip": {
+        "variant": { "type": "TooltipVariant", "description": "9 variants: default, cursor, dot, line, label, custom, advanced, icons, formatter" },
+        "position": { "type": "{ x: number; y: number }" },
+        "activePoint": { "type": "string" },
+        "children": { "type": "ReactNode" }
+      },
+      "ChartLegend": {
+        "layout": { "type": "'horizontal' | 'vertical'", "description": "Default: horizontal" }
+      },
+      "ChartDataTable": {
+        "data": { "type": "Record<string, unknown>[]" },
+        "config": { "type": "ChartConfig" },
+        "xAxisKey": { "type": "string", "description": "Default: 'x'" }
+      },
+      "AreaChart": {
+        "data": { "type": "ChartDataPoint[]" },
+        "variant": { "type": "AreaChartVariant", "description": "10 variants: default, gradient, stacked, expanded, step, axes, interactive, legend, linear, icons" },
+        "config": { "type": "ChartConfig" },
+        "xAxisKey": { "type": "string" },
+        "stacked": { "type": "boolean" },
+        "gradientFill": { "type": "boolean" },
+        "curveType": { "type": "'natural' | 'linear' | 'step'" }
+      },
+      "BarChart": {
+        "data": { "type": "ChartDataPoint[]" },
+        "variant": { "type": "BarChartVariant", "description": "10 variants: default, horizontal, stacked, grouped, negative, label, mixed, custom-label, active, interactive" },
+        "config": { "type": "ChartConfig" },
+        "xAxisKey": { "type": "string" },
+        "horizontal": { "type": "boolean" },
+        "stacked": { "type": "boolean" },
+        "grouped": { "type": "boolean" }
+      },
+      "LineChart": {
+        "data": { "type": "ChartDataPoint[]" },
+        "variant": { "type": "LineChartVariant", "description": "10 variants: default, dots, multiple, labels, stepped, custom-dots, interactive, linear, legend, icons" },
+        "config": { "type": "ChartConfig" },
+        "xAxisKey": { "type": "string" },
+        "showDots": { "type": "boolean" },
+        "curveType": { "type": "'natural' | 'linear' | 'step'" }
+      },
+      "PieChart": {
+        "data": { "type": "ChartDataPoint[]" },
+        "variant": { "type": "PieChartVariant", "description": "11 variants: default, donut, donut-text, donut-active, label, custom-label, label-list, legend, separator, interactive, stacked" },
+        "config": { "type": "ChartConfig" },
+        "innerRadius": { "type": "number", "description": "Set > 0 for donut style" }
+      },
+      "RadarChart": {
+        "data": { "type": "ChartDataPoint[]" },
+        "variant": { "type": "RadarChartVariant", "description": "14 variants: default, dots, lines, custom, multiple, grid-circle, grid-filled, grid-none, legend, icons, radius-axis, label, custom-shape, interactive" },
+        "xAxisKey": { "type": "string" },
+        "gridType": { "type": "'polygon' | 'circle'" },
+        "gridFill": { "type": "boolean" }
+      },
+      "RadialChart": {
+        "data": { "type": "ChartDataPoint[]" },
+        "variant": { "type": "RadialChartVariant", "description": "6 variants: default, grid, label, stacked, text, shape" },
+        "startAngle": { "type": "number", "description": "Default: 0" },
+        "endAngle": { "type": "number", "description": "Default: 360" }
+      }
+    }
+  },
+  "notes": [
+    "shadcn uses Recharts (web DOM-based, browser only); vlting uses Victory Native + react-native-svg (cross-platform: web + React Native).",
+    "shadcn's ChartContainer wraps Recharts ResponsiveContainer; vlting's Chart uses ResizeObserver for responsive sizing on web.",
+    "shadcn uses CSS custom properties (--color-{key}) for chart colors; vlting resolves Tamagui design tokens (e.g., '$blue8') to hex colors via ChartContext.",
+    "vlting Chart provides useChartContext() hook giving child components access to config, resolvedColors, victoryTheme, dimensions, and reducedMotion.",
+    "vlting uses a variant prop pattern: instead of composing Recharts primitives (<Area>, <Bar>, <Line>), each chart type accepts a variant prop that configures the rendering mode.",
+    "shadcn composes Recharts primitives inside chart wrappers (<BarChart><Bar /><XAxis /></BarChart>); vlting provides pre-composed chart components with variant-driven configuration.",
+    "vlting PieChart, RadarChart, and RadialChart use custom SVG rendering via react-native-svg rather than Victory's built-in polar chart components, for full cross-platform control.",
+    "vlting Chart requires an accessibilityLabel prop and supports an optional data prop for a hidden screen reader data table — no equivalent in shadcn.",
+    "vlting includes prefers-reduced-motion support via useChartContext().reducedMotion — no equivalent in shadcn.",
+    "All 69 shadcn chart demo variants (10 area + 10 bar + 10 line + 11 pie + 14 radar + 6 radial) have vlting equivalents, plus 8 tooltip variants."
+  ],
+  "breaking": [
+    { "shadcn": "<ChartContainer config={...}>", "vlting": "<Chart config={...} accessibilityLabel='...'>", "reason": "Renamed component; accessibilityLabel is required for ARIA compliance" },
+    { "shadcn": "<BarChart data={data}><Bar dataKey='revenue' /><XAxis /><YAxis /></BarChart>", "vlting": "<BarChart data={data} config={config} showXAxis showYAxis />", "reason": "Pre-composed component with config object instead of child primitives" },
+    { "shadcn": "CSS variable colors: --color-revenue", "vlting": "Tamagui token colors: '$blue8' in ChartConfig", "reason": "Cross-platform design token system replaces CSS custom properties" },
+    { "shadcn": "<ChartTooltip content={<ChartTooltipContent />} />", "vlting": "<ChartTooltip variant='default' />", "reason": "Variant-based API instead of render prop composition" },
+    { "shadcn": "<ChartLegend content={<ChartLegendContent />} />", "vlting": "<ChartLegend />", "reason": "Self-contained component; config comes from ChartContext" },
+    { "shadcn": "import { RadialBarChart } from 'recharts'", "vlting": "import { RadialChart } from '@vlting/ui'", "reason": "Renamed from RadialBarChart to RadialChart" },
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility; no className support in React Native" },
+    { "shadcn": "<CartesianGrid />, <PolarGrid />", "vlting": "showGrid={true}", "reason": "Grid rendering is a boolean prop, not a separate composed component" }
+  ]
+}
