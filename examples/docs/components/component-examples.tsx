@@ -296,7 +296,7 @@ export function ComponentExamples({
         return (
           <div key={example.name}>
             {example.description && (
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+              <p className="text-sm text-foreground-secondary mb-2">
                 {example.description}
               </p>
             )}
@@ -306,7 +306,7 @@ export function ComponentExamples({
               </ComponentPreview>
             ) : (
               <ComponentPreview code={example.code} title={example.name}>
-                <p className="text-sm text-gray-500 italic">
+                <p className="text-sm text-muted-foreground italic">
                   Live preview not available for this example.
                 </p>
               </ComponentPreview>

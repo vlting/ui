@@ -14,10 +14,10 @@ export function PropTable({ props, title }: PropTableProps) {
       {title && (
         <h4 className="text-base font-semibold mb-3 font-mono">{title}</h4>
       )}
-      <div className="overflow-x-auto border border-gray-200 dark:border-gray-800 rounded-lg">
+      <div className="overflow-x-auto border border-border rounded-lg">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+            <tr className="border-b border-border bg-surface-muted">
               <th className="text-left py-2 px-4 font-medium">Prop</th>
               <th className="text-left py-2 px-4 font-medium">Type</th>
               <th className="text-left py-2 px-4 font-medium">Default</th>
@@ -28,13 +28,13 @@ export function PropTable({ props, title }: PropTableProps) {
             {entries.map(([name, def]) => (
               <tr
                 key={name}
-                className="border-b border-gray-100 dark:border-gray-800/50 last:border-0"
+                className="border-b border-border-muted last:border-0"
               >
                 <td className="py-2 px-4 font-mono text-sm">
                   {name}
                   {def.required && (
                     <span
-                      className="text-red-500 ml-0.5"
+                      className="text-destructive ml-0.5"
                       title="Required"
                       aria-label="required"
                     >
@@ -50,15 +50,15 @@ export function PropTable({ props, title }: PropTableProps) {
                         .join(' | ')}
                     </span>
                   ) : (
-                    <span className="font-mono text-xs text-gray-600 dark:text-gray-400">
+                    <span className="font-mono text-xs text-foreground-secondary">
                       {def.type}
                     </span>
                   )}
                 </td>
-                <td className="py-2 px-4 font-mono text-xs text-gray-500">
+                <td className="py-2 px-4 font-mono text-xs text-muted-foreground">
                   {def.default || '—'}
                 </td>
-                <td className="py-2 px-4 text-gray-600 dark:text-gray-400">
+                <td className="py-2 px-4 text-foreground-secondary">
                   {def.description || '—'}
                 </td>
               </tr>
