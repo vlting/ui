@@ -17,7 +17,7 @@
 **GitHub Sub-Issue:** #51
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmcTJg
 **Stage Branch:** feat/block-system/auth-blocks
-**Stage PR:** (pending)
+**Stage PR:** #56
 **Acceptance criteria:**
 - [x] `packages/blocks/` directory structure created with `_shared/types.ts`
 - [x] `packages/blocks/index.ts` barrel export exists
