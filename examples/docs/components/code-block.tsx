@@ -16,7 +16,7 @@ export async function CodeBlock({
 }: CodeBlockProps) {
   const lightHtml = await codeToHtml(code.trim(), {
     lang: language,
-    theme: 'github-light',
+    theme: 'github-light-default',
   })
 
   const darkHtml = await codeToHtml(code.trim(), {
