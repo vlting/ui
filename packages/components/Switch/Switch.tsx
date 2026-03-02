@@ -8,6 +8,7 @@ const SwitchThumb = TamaguiSwitch.Thumb as ComponentType<Record<string, unknown>
 const SIZE_MAP = { sm: '$3' as const, md: '$4' as const, lg: '$5' as const }
 const WIDTH_MAP: Record<string, string | number> = { sm: '$4.5', md: '$6', lg: '$7' }
 const THUMB_SIZE_MAP: Record<string, string | number> = { sm: '$0.75', md: '$1', lg: '$1.5' }
+const PADDING_MAP: Record<string, number> = { sm: 2, md: 3, lg: 4 }
 
 export interface SwitchProps {
   checked?: boolean
@@ -34,9 +35,9 @@ export function Switch({
       disabled={disabled}
       size={SIZE_MAP[size]}
       name={name}
-      backgroundColor="$color5"
+      backgroundColor="$color4"
       borderRadius="$full"
-      padding={3}
+      padding={PADDING_MAP[size]}
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
       animation="fast"
@@ -44,8 +45,8 @@ export function Switch({
       width={WIDTH_MAP[size]}
       focusVisibleStyle={{
         outlineWidth: 2,
-        outlineOffset: 1,
-        outlineColor: '$color10',
+        outlineOffset: 2,
+        outlineColor: '$color8',
         outlineStyle: 'solid',
       }}
     >
@@ -55,6 +56,11 @@ export function Switch({
         borderRadius="$full"
         width={THUMB_SIZE_MAP[size]}
         height={THUMB_SIZE_MAP[size]}
+        shadowColor="$shadowColor"
+        shadowRadius={2}
+        shadowOffset={{ width: 0, height: 1 }}
+        shadowOpacity={0.2}
+        elevation={2}
       />
     </SwitchFrame>
   )
