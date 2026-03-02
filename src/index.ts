@@ -354,6 +354,9 @@ export {
   Sidebar15,
   Sidebar16,
   Dashboard01,
+  MobileTabLayout,
+  MasterDetail,
+  AppShellResponsive,
 } from '../packages/blocks'
 export type {
   BlockProps,
@@ -392,4 +395,8 @@ export type {
   Sidebar16Props,
   FileTreeItem,
   Dashboard01Props,
+  MobileTabLayoutProps,
+  TabItem,
+  MasterDetailProps,
+  AppShellResponsiveProps,
 } from '../packages/blocks'
