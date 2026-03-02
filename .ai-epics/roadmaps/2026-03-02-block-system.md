@@ -89,15 +89,15 @@
 **Stage Branch:** feat/block-system/cross-platform-originals
 **Stage PR:** (pending)
 **Acceptance criteria:**
-- [ ] MobileTabLayout block implemented (tab bar navigation, mobile-first)
-- [ ] MasterDetail block implemented (split view responsive pattern)
-- [ ] AppShellResponsive block implemented (responsive sidebar with Sheet drawer on mobile)
-- [ ] Each original block has spec.md and test file
-- [ ] `@vlting/ui/blocks` export added to package.json
-- [ ] Block exports added to main `src/index.ts` barrel
-- [ ] Full test suite passes (all 30 block test files)
-- [ ] All blocks verified with default brand + shadcn brand
-- [ ] All blocks keyboard navigable
-- [ ] All blocks have proper landmark structure
-**Status:** executing
+- [x] MobileTabLayout block implemented (tab bar navigation, mobile-first)
+- [x] MasterDetail block implemented (split view responsive pattern)
+- [x] AppShellResponsive block implemented (responsive sidebar with Sheet drawer on mobile)
+- [x] Each original block has spec.md and test file
+- [x] `@vlting/ui/blocks` export added to package.json
+- [x] Block exports added to main `src/index.ts` barrel
+- [x] Full test suite passes (all 30 block test files)
+- [x] All blocks verified with default brand + shadcn brand
+- [x] All blocks keyboard navigable
+- [x] All blocks have proper landmark structure
+**Status:** complete
 **Iterations:** 0
