@@ -28,6 +28,15 @@ export interface NavGroup {
   defaultOpen?: boolean
 }
 
+export interface FileTreeItem {
+  name: string
+  icon?: ReactNode
+  type: 'file' | 'folder'
+  children?: FileTreeItem[]
+  onPress?: () => void
+  active?: boolean
+}
+
 export interface SidebarBlockProps {
   groups: NavGroup[]
   header?: ReactNode
