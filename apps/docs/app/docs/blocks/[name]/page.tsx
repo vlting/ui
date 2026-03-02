@@ -22,24 +22,29 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 const categoryLabels: Record<string, string> = {
-  login: 'Authentication',
-  signup: 'Registration',
+  auth: 'Authentication',
   sidebar: 'Navigation',
   dashboard: 'Dashboard',
-  originals: 'Cross-Platform',
+  'data-table': 'Data Display',
+  settings: 'Settings',
+  pricing: 'Marketing',
+  hero: 'Marketing',
+  feed: 'Content',
+  'app-shell': 'Layout',
+  'empty-state': 'Feedback',
 }
 
 const categoryDescriptions: Record<string, string> = {
-  login:
-    'Login blocks provide ready-made authentication forms with various UX patterns — from simple email/password to passwordless and social login.',
-  signup:
-    'Signup blocks provide registration forms with various flows — standard forms, multi-step wizards, invite-based, and social-first.',
-  sidebar:
-    'Sidebar blocks provide navigation patterns ranging from simple flat lists to complex nested trees, file browsers, and calendar views.',
-  dashboard:
-    'Dashboard blocks combine metrics, charts, and layout components into ready-made analytics views.',
-  originals:
-    'Original cross-platform blocks work on both web and React Native with adaptive layouts.',
+  auth: 'Authentication blocks provide login and signup forms with multiple UX patterns — standard, OTP, magic link, social-only, and combined flows.',
+  sidebar: 'Sidebar blocks provide navigation patterns from simple flat lists to complex nested trees, file browsers, and calendar views.',
+  dashboard: 'Dashboard blocks combine metrics, charts, and layout components into ready-made analytics views.',
+  'data-table': 'Data table blocks display structured data with search, sorting, pagination, and expandable row support.',
+  settings: 'Settings blocks provide profile editing, app preferences, and account management panels.',
+  pricing: 'Pricing blocks display subscription tiers, comparison tables, and billing options.',
+  hero: 'Hero blocks provide landing page sections with centered, split, and image background layouts.',
+  feed: 'Feed blocks display activity timelines, notification lists, and threaded comment systems.',
+  'app-shell': 'App shell blocks provide full application layouts with sidebar, tab, and split-pane navigation.',
+  'empty-state': 'Empty state blocks display placeholder content for empty data, errors, and coming-soon features.',
 }
 
 export default async function BlockPage({ params }: PageProps) {
@@ -59,12 +64,22 @@ export default async function BlockPage({ params }: PageProps) {
           </span>
         </div>
         <p className="text-foreground-secondary">{block.description}</p>
+        <p className="text-sm text-muted-foreground mt-2">
+          {block.variants.length} variant{block.variants.length !== 1 ? 's' : ''}:{' '}
+          {block.variants.join(', ')}
+        </p>
       </div>
 
       {/* Preview */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Preview</h2>
-        <BlockPreview name={block.name} slug={block.slug} code={block.code} />
+        <BlockPreview
+          name={block.name}
+          slug={block.slug}
+          code={block.code}
+          variants={block.variants}
+          defaultVariant={block.defaultVariant}
+        />
       </section>
 
       {/* Code Example */}

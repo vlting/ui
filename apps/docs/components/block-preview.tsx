@@ -28,36 +28,16 @@ function lazyBlock(
 
 // Slug-to-component mapping. Each block is lazily loaded and code-split.
 const blockComponents: Record<string, React.LazyExoticComponent<AnyFC>> = {
-  'login-01': lazyBlock(() => import('../../../packages/blocks/login/Login01'), 'Login01'),
-  'login-02': lazyBlock(() => import('../../../packages/blocks/login/Login02'), 'Login02'),
-  'login-03': lazyBlock(() => import('../../../packages/blocks/login/Login03'), 'Login03'),
-  'login-04': lazyBlock(() => import('../../../packages/blocks/login/Login04'), 'Login04'),
-  'login-05': lazyBlock(() => import('../../../packages/blocks/login/Login05'), 'Login05'),
-  'signup-01': lazyBlock(() => import('../../../packages/blocks/signup/Signup01'), 'Signup01'),
-  'signup-02': lazyBlock(() => import('../../../packages/blocks/signup/Signup02'), 'Signup02'),
-  'signup-03': lazyBlock(() => import('../../../packages/blocks/signup/Signup03'), 'Signup03'),
-  'signup-04': lazyBlock(() => import('../../../packages/blocks/signup/Signup04'), 'Signup04'),
-  'signup-05': lazyBlock(() => import('../../../packages/blocks/signup/Signup05'), 'Signup05'),
-  'sidebar-01': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar01'), 'Sidebar01'),
-  'sidebar-02': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar02'), 'Sidebar02'),
-  'sidebar-03': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar03'), 'Sidebar03'),
-  'sidebar-04': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar04'), 'Sidebar04'),
-  'sidebar-05': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar05'), 'Sidebar05'),
-  'sidebar-06': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar06'), 'Sidebar06'),
-  'sidebar-07': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar07'), 'Sidebar07'),
-  'sidebar-08': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar08'), 'Sidebar08'),
-  'sidebar-09': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar09'), 'Sidebar09'),
-  'sidebar-10': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar10'), 'Sidebar10'),
-  'sidebar-11': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar11'), 'Sidebar11'),
-  'sidebar-12': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar12'), 'Sidebar12'),
-  'sidebar-13': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar13'), 'Sidebar13'),
-  'sidebar-14': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar14'), 'Sidebar14'),
-  'sidebar-15': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar15'), 'Sidebar15'),
-  'sidebar-16': lazyBlock(() => import('../../../packages/blocks/sidebar/Sidebar16'), 'Sidebar16'),
-  'dashboard-01': lazyBlock(() => import('../../../packages/blocks/dashboard/Dashboard01'), 'Dashboard01'),
-  'mobile-tab-layout': lazyBlock(() => import('../../../packages/blocks/originals/MobileTabLayout'), 'MobileTabLayout'),
-  'master-detail': lazyBlock(() => import('../../../packages/blocks/originals/MasterDetail'), 'MasterDetail'),
-  'app-shell-responsive': lazyBlock(() => import('../../../packages/blocks/originals/AppShellResponsive'), 'AppShellResponsive'),
+  auth: lazyBlock(() => import('../../../packages/blocks/auth/AuthBlock'), 'AuthBlock'),
+  sidebar: lazyBlock(() => import('../../../packages/blocks/sidebar/SidebarBlock'), 'SidebarBlock'),
+  dashboard: lazyBlock(() => import('../../../packages/blocks/dashboard/DashboardBlock'), 'DashboardBlock'),
+  'data-table': lazyBlock(() => import('../../../packages/blocks/data-table/DataTableBlock'), 'DataTableBlock'),
+  settings: lazyBlock(() => import('../../../packages/blocks/settings/SettingsBlock'), 'SettingsBlock'),
+  pricing: lazyBlock(() => import('../../../packages/blocks/pricing/PricingBlock'), 'PricingBlock'),
+  hero: lazyBlock(() => import('../../../packages/blocks/hero/HeroBlock'), 'HeroBlock'),
+  feed: lazyBlock(() => import('../../../packages/blocks/feed/FeedBlock'), 'FeedBlock'),
+  'app-shell': lazyBlock(() => import('../../../packages/blocks/app-shell/AppShellBlock'), 'AppShellBlock'),
+  'empty-state': lazyBlock(() => import('../../../packages/blocks/empty-state/EmptyStateBlock'), 'EmptyStateBlock'),
 }
 
 interface ErrorBoundaryProps {
@@ -90,6 +70,8 @@ interface BlockPreviewProps {
   slug: string
   description?: string
   code?: string
+  variants?: string[]
+  defaultVariant?: string
 }
 
 function PreviewSkeleton() {
@@ -196,9 +178,130 @@ const defaultSidebarGroups: NavGroup[] = [
   },
 ]
 
-export function BlockPreview({ name, slug, code }: BlockPreviewProps) {
-  // Client-only rendering gate — avoids SSR hydration mismatches with Tamagui
+/** Get default props for a block+variant so the preview renders meaningful content */
+function getDefaultProps(slug: string, variant: string): Record<string, unknown> {
+  const base = { variant }
+
+  switch (slug) {
+    case 'auth':
+      return base
+    case 'sidebar':
+      return { ...base, groups: defaultSidebarGroups }
+    case 'dashboard':
+      return {
+        ...base,
+        title: 'Dashboard',
+        metrics: [
+          { title: 'Revenue', value: '$45,231', change: '+20.1%', trend: 'up' },
+          { title: 'Users', value: '2,350', change: '+180', trend: 'up' },
+          { title: 'Orders', value: '1,234', change: '-3.2%', trend: 'down' },
+        ],
+      }
+    case 'data-table':
+      return {
+        ...base,
+        title: 'Users',
+        columns: [
+          { key: 'name', header: 'Name' },
+          { key: 'email', header: 'Email' },
+          { key: 'role', header: 'Role' },
+        ],
+        data: [
+          { name: 'Alice Johnson', email: 'alice@example.com', role: 'Admin' },
+          { name: 'Bob Smith', email: 'bob@example.com', role: 'Editor' },
+          { name: 'Carol White', email: 'carol@example.com', role: 'Viewer' },
+        ],
+      }
+    case 'settings':
+      return {
+        ...base,
+        user: { name: 'Jane Doe', email: 'jane@example.com' },
+      }
+    case 'pricing':
+      return {
+        ...base,
+        plans: [
+          { name: 'Free', price: '$0', interval: 'month' as const, features: ['1 project', '100MB storage'], onSelect: () => {} },
+          { name: 'Pro', price: '$19', interval: 'month' as const, features: ['Unlimited projects', '10GB storage', 'Priority support'], highlighted: true, onSelect: () => {} },
+          { name: 'Enterprise', price: '$99', interval: 'month' as const, features: ['Everything in Pro', 'SSO', 'Dedicated support'], onSelect: () => {} },
+        ],
+      }
+    case 'hero':
+      return {
+        ...base,
+        title: 'Build faster with blocks',
+        description: 'Pre-composed UI patterns for your next project.',
+        primaryAction: { label: 'Get Started' },
+        secondaryAction: { label: 'Learn More' },
+      }
+    case 'feed':
+      if (variant === 'timeline') {
+        return {
+          ...base,
+          title: 'Activity',
+          events: [
+            { id: '1', title: 'Project created', date: 'Mar 1', status: 'completed' },
+            { id: '2', title: 'First deploy', date: 'Mar 2', status: 'current' },
+            { id: '3', title: 'Launch', date: 'Mar 5', status: 'upcoming' },
+          ],
+        }
+      }
+      if (variant === 'notifications') {
+        return {
+          ...base,
+          notifications: [
+            { id: '1', title: 'New comment on your post', timestamp: '2 min ago', read: false },
+            { id: '2', title: 'Build completed', description: 'Production deploy succeeded', timestamp: '1 hour ago', read: true },
+          ],
+        }
+      }
+      return {
+        ...base,
+        comments: [
+          { id: '1', author: { name: 'Alice' }, text: 'Great work on this!', timestamp: '2 hours ago', likes: 3 },
+          { id: '2', author: { name: 'Bob' }, text: 'Thanks for the update.', timestamp: '1 hour ago', likes: 1 },
+        ],
+      }
+    case 'app-shell':
+      return { ...base, sidebarGroups: defaultSidebarGroups }
+    case 'empty-state':
+      return base
+    default:
+      return base
+  }
+}
+
+function VariantSelector({
+  variants,
+  activeVariant,
+  onChange,
+}: {
+  variants: string[]
+  activeVariant: string
+  onChange: (v: string) => void
+}) {
+  return (
+    <div className="flex gap-1 p-1 bg-muted rounded-lg overflow-x-auto">
+      {variants.map((v) => (
+        <button
+          key={v}
+          onClick={() => onChange(v)}
+          className={`px-3 py-1.5 text-xs font-medium rounded-md whitespace-nowrap transition-colors ${
+            v === activeVariant
+              ? 'bg-background text-foreground shadow-sm'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
+          {v}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+export function BlockPreview({ name, slug, code, variants, defaultVariant }: BlockPreviewProps) {
   const [mounted, setMounted] = useState(false)
+  const [activeVariant, setActiveVariant] = useState(defaultVariant ?? variants?.[0] ?? '')
   useEffect(() => setMounted(true), [])
 
   const BlockComponent = blockComponents[slug]
@@ -215,8 +318,19 @@ export function BlockPreview({ name, slug, code }: BlockPreviewProps) {
     )
   }
 
+  const props = getDefaultProps(slug, activeVariant)
+
   return (
     <div className="border border-border rounded-lg overflow-hidden">
+      {variants && variants.length > 1 && (
+        <div className="border-b border-border px-4 py-3">
+          <VariantSelector
+            variants={variants}
+            activeVariant={activeVariant}
+            onChange={setActiveVariant}
+          />
+        </div>
+      )}
       <BlockErrorBoundary fallback={<CodeFallback code={code} name={name} />}>
         <Suspense fallback={<PreviewSkeleton />}>
           <div
@@ -232,11 +346,7 @@ export function BlockPreview({ name, slug, code }: BlockPreviewProps) {
                 pointerEvents: 'none',
               }}
             >
-              {slug.startsWith('sidebar-') ? (
-                <BlockComponent groups={defaultSidebarGroups} />
-              ) : (
-                <BlockComponent />
-              )}
+              <BlockComponent {...props} />
             </div>
           </div>
         </Suspense>
