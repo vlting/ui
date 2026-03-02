@@ -5,7 +5,7 @@
 - **GitHub Issue:** #12
 - **Epic PR:** #17
 - **Created:** 2026-03-01
-- **Status:** in-progress
+- **Status:** done
 
 - **Project Node ID:** PVT_kwDODxaco84BP_ab
 - **Project Item ID:** PVTI_lADODxaco84BP_abzgmat3k
@@ -51,16 +51,16 @@
 **Estimated scope:** ~20 files, ~150 lines changed
 **GitHub Sub-Issue:** #15
 **Stage Branch:** feat/token-audit-fonts/dimensions-spacing
-**Stage PR:** (pending)
+**Stage PR:** #20 (merged)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmat58
 **Acceptance criteria:**
-- [ ] All hardcoded width/height values replaced with size tokens
-- [ ] All hardcoded gap/margin/padding values replaced with space tokens
-- [ ] All hardcoded borderRadius values replaced with radius tokens
-- [ ] All hardcoded zIndex values replaced with zIndex tokens
-- [ ] Semantic size tokens defined where needed (sidebar, drawer, dialog widths)
-- [ ] All existing tests pass after migration
-**Status:** executing
+- [x] All hardcoded width/height values replaced with size tokens
+- [x] All hardcoded gap/margin/padding values replaced with space tokens
+- [x] All hardcoded borderRadius values replaced with radius tokens
+- [x] All hardcoded zIndex values replaced with zIndex tokens
+- [x] Semantic size tokens defined where needed (sidebar, drawer, dialog widths)
+- [x] All existing tests pass after migration
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 4: Component Token Audit — Typography & Shadows
