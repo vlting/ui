@@ -44,7 +44,7 @@ export default function DocsPage() {
   return (
     <div className="max-w-3xl">
       <h1 className="mb-4 text-3xl font-bold">Documentation</h1>
-      <p className="mb-8 text-gray-600 dark:text-gray-400">
+      <p className="mb-8 text-foreground-secondary">
         Welcome to the @vlting/ui documentation. Choose a section below to get started, or browse
         the sidebar for individual components.
       </p>
@@ -54,12 +54,12 @@ export default function DocsPage() {
           <Link
             key={section.title}
             href={section.href}
-            className="group rounded-lg border border-gray-200 p-4 transition-colors hover:border-gray-300 hover:bg-gray-50 dark:border-gray-800 dark:hover:border-gray-700 dark:hover:bg-gray-900"
+            className="group rounded-lg border border-border p-4 transition-colors hover:border-foreground-secondary/30 hover:bg-surface-muted"
           >
             <h2 className="mb-1 text-base font-semibold group-hover:underline">
               {section.title}
             </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{section.description}</p>
+            <p className="text-sm text-foreground-secondary">{section.description}</p>
           </Link>
         ))}
       </div>
