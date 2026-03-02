@@ -51,7 +51,7 @@
 **GitHub Sub-Issue:** #25
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmbAZY
 **Stage Branch:** feat/component-parity/data-table
-**Stage PR:** (pending)
+**Stage PR:** #30
 **Acceptance criteria:**
 - [x] @tanstack/react-table added as optional peer dependency
 - [x] DataTable component wraps Table with react-table integration
