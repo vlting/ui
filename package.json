@@ -44,6 +44,18 @@
     "./utils": {
       "types": "./packages/utils/index.ts",
       "import": "./packages/utils/index.ts"
+    },
+    "./icons": {
+      "types": "./packages/icons/index.ts",
+      "import": "./packages/icons/index.ts"
+    },
+    "./icons/categories": {
+      "types": "./packages/icons/categories/index.ts",
+      "import": "./packages/icons/categories/index.ts"
+    },
+    "./icons/dynamic": {
+      "types": "./packages/icons/Icon.tsx",
+      "import": "./packages/icons/Icon.tsx"
     }
   },
   "workspaces": [
@@ -61,7 +73,8 @@
     "lint:fix": "biome check --write src/ packages/",
     "format": "biome format --write src/ packages/",
     "typecheck": "tsc --noEmit",
-    "dev:kitchen-sink": "yarn workspace @vlting/examples-kitchen-sink dev"
+    "dev:kitchen-sink": "yarn workspace @vlting/examples-kitchen-sink dev",
+    "generate:icons": "node scripts/generate-icons.mjs"
   },
   "dependencies": {
     "@tamagui/animations-css": "2.0.0-rc.14",
@@ -100,9 +113,11 @@
     "react-native": "0.81.5",
     "react-native-gesture-handler": "~2.28.0",
     "react-native-reanimated": "~4.1.1",
+    "react-native-svg": "^15.15.3",
     "react-native-svg-web": "^1.0.9",
     "react-native-web": "^0.21.2",
     "react-test-renderer": "19.1.0",
+    "remixicon": "4.9.1",
     "typescript": "~5.9.2"
   },
   "peerDependencies": {

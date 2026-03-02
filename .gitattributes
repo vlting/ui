@@ -1,0 +1,5 @@
+packages/icons/generated/** linguist-generated=true
+packages/icons/categories/** linguist-generated=true
+packages/icons/manifest.json linguist-generated=true
+packages/icons/index.ts linguist-generated=true
+packages/icons/types.ts linguist-generated=true
