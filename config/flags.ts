@@ -11,12 +11,6 @@ interface FlagDefinition {
 }
 
 const flagRegistry = {
-  block_system: {
-    description: 'Block system: 27 shadcn blocks + 3 cross-platform originals composed from @vlting/ui components',
-    added: '2026-03-02',
-    default: false,
-    overrides: { dev: true, staging: true },
-  },
   token_audit_fonts: {
     description:
       'Token audit and Google Fonts system: 4 font slots, h1-h6 weight alternation, zero hardcoded values',
