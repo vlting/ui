@@ -55,7 +55,7 @@
 **GitHub Sub-Issue:** #35
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmbsiE
 **Stage Branch:** feat/icon-system/tests-a11y
-**Stage PR:** (filled in ADVANCE)
+**Stage PR:** #39
 **Acceptance criteria:**
 - [x] Unit tests for `createIcon`: renders SVG, forwards size/color, memoized
 - [x] Unit tests for `DynamicIcon`: lazy loads correct icon, handles unknown names
