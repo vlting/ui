@@ -16,16 +16,16 @@
 **Estimated scope:** ~10 files, ~400 lines
 **GitHub Sub-Issue:** #23
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmbAZI
-**Stage Branch:** (pending)
+**Stage Branch:** feat/component-parity/a11y-direction-item
 **Stage PR:** (pending)
 **Acceptance criteria:**
-- [ ] NavigationMenu Content supports Home/End keys (matches spec)
-- [ ] Direction provider exports DirectionProvider + useDirection hook
-- [ ] Direction has spec.md and test file
-- [ ] Item compound component (Root, Leading, Content, Title, Description, Trailing)
-- [ ] Item has spec.md and test file
-- [ ] Both new components render on web and React Native
-**Status:** pending
+- [x] NavigationMenu Content supports Home/End keys (matches spec)
+- [x] Direction provider exports DirectionProvider + useDirection hook
+- [x] Direction has spec.md and test file
+- [x] Item compound component (Root, Leading, Content, Title, Description, Trailing)
+- [x] Item has spec.md and test file
+- [x] Both new components render on web and React Native
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 2: InputGroup + Sonner-Style Toast API

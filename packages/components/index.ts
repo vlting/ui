@@ -9,6 +9,9 @@ export type { CardProps } from './Card'
 
 export { Dialog } from './Dialog'
 
+export { Direction, DirectionProvider, useDirection } from './Direction'
+export type { DirectionProviderProps } from './Direction'
+
 export { Tabs } from './Tabs'
 
 export { Checkbox } from './Checkbox'
@@ -88,6 +91,16 @@ export type { NativeSelectRootProps, NativeSelectOptionProps } from './NativeSel
 
 export { InputOTP } from './InputOTP'
 export type { InputOTPRootProps, InputOTPSlotProps } from './InputOTP'
+
+export { Item } from './Item'
+export type {
+  ItemProps,
+  ItemLeadingProps,
+  ItemContentProps,
+  ItemTitleProps,
+  ItemDescriptionProps,
+  ItemTrailingProps,
+} from './Item'
 
 export { ButtonGroup } from './ButtonGroup'
 export type { ButtonGroupRootProps } from './ButtonGroup'
