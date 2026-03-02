@@ -62,11 +62,11 @@ created: 2026-03-01
 **Objective:** Build all 27 shadcn blocks + cross-platform originals, composed entirely from `@vlting/ui` components. Blocks render on web and React Native, respect brand theming.
 **PRD coverage:** FR-4 (Block System)
 **Dependencies:** Epic 2, Epic 3, Epic 4
-**Estimated stages:** ~5
+**Estimated stages:** ~4
 **Epic slug:** block-system
 **Epic Roadmap:** (filled during EXECUTE)
-**Tech Spec:** (filled during EXECUTE)
-**Status:** pending
+**Tech Spec:** `.ai-epics/docs/block-system/tech-spec.md`
+**Status:** in-progress
 **Review notes:**
 
 ## Epic 6: Documentation Site (Next.js)
