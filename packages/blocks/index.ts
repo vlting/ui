@@ -35,7 +35,7 @@ export { Signup05 } from './signup'
 export type { Signup05Props } from './signup'
 
 // Sidebar shared types
-export type { NavItem, NavGroup, SidebarBlockProps } from './sidebar'
+export type { NavItem, NavGroup, SidebarBlockProps, FileTreeItem } from './sidebar'
 
 // Sidebar blocks
 export { Sidebar01 } from './sidebar'
@@ -54,3 +54,23 @@ export { Sidebar07 } from './sidebar'
 export type { Sidebar07Props } from './sidebar'
 export { Sidebar08 } from './sidebar'
 export type { Sidebar08Props } from './sidebar'
+export { Sidebar09 } from './sidebar'
+export type { Sidebar09Props } from './sidebar'
+export { Sidebar10 } from './sidebar'
+export type { Sidebar10Props } from './sidebar'
+export { Sidebar11 } from './sidebar'
+export type { Sidebar11Props } from './sidebar'
+export { Sidebar12 } from './sidebar'
+export type { Sidebar12Props } from './sidebar'
+export { Sidebar13 } from './sidebar'
+export type { Sidebar13Props } from './sidebar'
+export { Sidebar14 } from './sidebar'
+export type { Sidebar14Props } from './sidebar'
+export { Sidebar15 } from './sidebar'
+export type { Sidebar15Props } from './sidebar'
+export { Sidebar16 } from './sidebar'
+export type { Sidebar16Props } from './sidebar'
+
+// Dashboard blocks
+export { Dashboard01 } from './dashboard'
+export type { Dashboard01Props } from './dashboard'
