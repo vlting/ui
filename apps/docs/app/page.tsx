@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const features = [
   { title: '38+ Components', description: 'Full component library with shadcn API compatibility', href: '/docs/components/button' },
-  { title: '30 Blocks', description: 'Pre-composed layouts: login, signup, sidebar, dashboard, and more', href: '/docs/blocks/login-01' },
+  { title: '10 Blocks', description: 'Pre-composed layouts: auth, sidebar, dashboard, pricing, and more — each with multiple variants', href: '/docs/blocks/auth' },
   { title: '6 Chart Types', description: 'Area, Bar, Line, Pie, Radar, and Radial charts with 69 variants', href: '/docs/charts/bar' },
   { title: '3200+ Icons', description: 'Full Remix Icon set with tree-shakeable imports', href: '/docs/icons' },
 ]

@@ -15,8 +15,8 @@ const sections = [
   },
   {
     title: 'Blocks',
-    description: '30 pre-composed layouts: login, signup, sidebar, dashboard, and cross-platform originals.',
-    href: '/docs/blocks/login-01',
+    description: '10 variant-driven blocks: auth, sidebar, dashboard, pricing, hero, and more.',
+    href: '/docs/blocks/auth',
   },
   {
     title: 'Charts',

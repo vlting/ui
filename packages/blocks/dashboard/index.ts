@@ -1,2 +1,2 @@
-export { Dashboard01 } from './Dashboard01'
-export type { Dashboard01Props } from './Dashboard01'
+export { DashboardBlock } from './DashboardBlock'
+export type { DashboardBlockProps, DashboardBlockVariant, MetricCard } from './DashboardBlock'
