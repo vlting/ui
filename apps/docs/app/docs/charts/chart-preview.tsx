@@ -4,34 +4,34 @@ import { useEffect, useState, type ComponentType } from 'react'
 
 // Sample data for each chart type — matches the format expected by chart components
 const sampleBarData = [
-  { x: 'Jan', y: 186, desktop: 186, mobile: 80 },
-  { x: 'Feb', y: 305, desktop: 305, mobile: 200 },
-  { x: 'Mar', y: 237, desktop: 237, mobile: 120 },
-  { x: 'Apr', y: 73, desktop: 73, mobile: 190 },
-  { x: 'May', y: 209, desktop: 209, mobile: 130 },
-  { x: 'Jun', y: 214, desktop: 214, mobile: 140 },
+  { x: 'Jan', desktop: 186, mobile: 80 },
+  { x: 'Feb', desktop: 305, mobile: 200 },
+  { x: 'Mar', desktop: 237, mobile: 120 },
+  { x: 'Apr', desktop: 73, mobile: 190 },
+  { x: 'May', desktop: 209, mobile: 130 },
+  { x: 'Jun', desktop: 214, mobile: 140 },
 ]
 
 const sampleLineData = sampleBarData
 const sampleAreaData = sampleBarData
 
 const samplePieData = [
-  { x: 'Chrome', y: 275, fill: '#3b8fdb' },
-  { x: 'Safari', y: 200, fill: '#22c55e' },
-  { x: 'Firefox', y: 187, fill: '#f97316' },
-  { x: 'Edge', y: 173, fill: '#9333ea' },
-  { x: 'Other', y: 90, fill: '#888888' },
+  { x: 'Chrome', Chrome: 275 },
+  { x: 'Safari', Safari: 200 },
+  { x: 'Firefox', Firefox: 187 },
+  { x: 'Edge', Edge: 173 },
+  { x: 'Other', Other: 90 },
 ]
 
 const sampleRadarData = [
-  { x: 'Design', y: 80, desktop: 80, mobile: 65 },
-  { x: 'Frontend', y: 95, desktop: 95, mobile: 70 },
-  { x: 'Backend', y: 70, desktop: 70, mobile: 85 },
-  { x: 'DevOps', y: 60, desktop: 60, mobile: 75 },
-  { x: 'Testing', y: 85, desktop: 85, mobile: 60 },
+  { x: 'Design', desktop: 80, mobile: 65 },
+  { x: 'Frontend', desktop: 95, mobile: 70 },
+  { x: 'Backend', desktop: 70, mobile: 85 },
+  { x: 'DevOps', desktop: 60, mobile: 75 },
+  { x: 'Testing', desktop: 85, mobile: 60 },
 ]
 
-const sampleRadialData = [{ x: 'Progress', y: 75, fill: '#3b8fdb' }]
+const sampleRadialData = [{ visitors: 1260, bounced: 340 }]
 
 const chartDataMap: Record<string, Record<string, unknown>[]> = {
   area: sampleAreaData,
@@ -61,7 +61,7 @@ const chartConfigMap: Record<string, Record<string, { label: string; color: stri
   line: defaultConfig,
   pie: pieConfig,
   radar: defaultConfig,
-  radial: { Progress: { label: 'Progress', color: '$blue9' } },
+  radial: { visitors: { label: 'Visitors', color: '$blue9' }, bounced: { label: 'Bounced', color: '$red9' } },
 }
 
 interface ChartPreviewProps {
