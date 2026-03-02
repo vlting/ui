@@ -55,7 +55,7 @@
 **Objective:** Implement PieChart (11 variants including donut), RadarChart (14 variants using polar coordinates), and RadialChart (6 variants using partial arc). These are the more complex chart types requiring Victory's polar/pie APIs.
 **Estimated scope:** ~9 files, ~900 lines
 **GitHub Sub-Issue:** #43
-**Stage Branch:** (pending)
+**Stage Branch:** feat/chart-system/specialized-charts
 **Stage PR:** (pending)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmb27Q
 **Acceptance criteria:**
