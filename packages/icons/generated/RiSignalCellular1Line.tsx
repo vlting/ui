@@ -1,0 +1,2 @@
+import { createIcon } from '../createIcon'
+export const RiSignalCellular1Line = createIcon('M2 13H8V21H2V13ZM16 19H22V21H16V19ZM9 19H15V21H9V19ZM4 15V19H6V15H4Z', 'RiSignalCellular1Line')
