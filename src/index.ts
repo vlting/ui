@@ -85,6 +85,7 @@ export type {
 export {
   Button,
   Input,
+  InputGroup,
   Card,
   Dialog,
   Direction,
@@ -148,10 +149,20 @@ export {
   Sheet,
   Field,
   Empty,
+  Toast,
+  useToastController,
+  useToastState,
+  toast,
+  ImperativeToastViewport,
+  useImperativeToasts,
 } from '../packages/components'
 export type {
   ButtonProps,
   InputProps,
+  InputGroupProps,
+  InputGroupAddonProps,
+  InputGroupElementProps,
+  InputGroupInputProps,
   CardProps,
   SwitchProps,
   RadioGroupRootProps,
@@ -240,6 +251,11 @@ export type {
   EmptyDescriptionProps,
   EmptyMediaProps,
   EmptyActionProps,
+  ToastRootProps,
+  ToastViewportProps,
+  ToastProviderProps,
+  ToastData,
+  PromiseToastData,
 } from '../packages/components'
 
 // Hooks
