@@ -1,0 +1,19 @@
+{
+  "component": "Spinner",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Spinner } from '@vlting/ui'",
+    "props": {
+      "size": { "type": "string", "values": ["sm", "md", "lg"] },
+      "color": { "type": "string", "values": [] }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; shadcn has no built-in spinner/loading component",
+    "Renders 8 dots in a circular pattern with rotating animation",
+    "Respects prefers-reduced-motion via useReducedMotion hook",
+    "Sets role='status' and aria-label='Loading' automatically",
+    "Default size is 'md'; default color uses $color token"
+  ],
+  "breaking": []
+}

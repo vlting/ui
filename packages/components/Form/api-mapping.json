@@ -1,0 +1,47 @@
+{
+  "component": "Form",
+  "shadcn": {
+    "import": "import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'",
+    "props": {
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Form } from '@vlting/ui'",
+    "props": {
+      "Form.Root": {
+        "onSubmit": { "type": "function", "values": ["(e: React.FormEvent) => void"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Form.Field": {
+        "error": { "type": "boolean", "values": [] },
+        "disabled": { "type": "boolean", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Form.Label": {
+        "htmlFor": { "type": "string", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Form.Description": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Form.ErrorMessage": {
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn Form deeply integrates with react-hook-form; vlting Form is a standalone component",
+    "vlting Form.Root wraps @tamagui/form with onSubmit callback",
+    "Form.Field provides error/disabled context to child components",
+    "Form.ErrorMessage renders with role='alert' and only shows when field has error",
+    "No dependency on react-hook-form; can be used with any form library or state management",
+    "Form layout uses $4 gap between fields"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "useForm() + FormProvider required", "vlting": "No form library dependency; pass onSubmit directly", "reason": "Library-agnostic form handling" },
+    { "shadcn": "<FormField control={form.control} name='...' render={...} />", "vlting": "<Form.Field error={...}> children </Form.Field>", "reason": "Simplified API; no render prop pattern" },
+    { "shadcn": "<FormMessage>", "vlting": "<Form.ErrorMessage>", "reason": "Different naming" }
+  ]
+}

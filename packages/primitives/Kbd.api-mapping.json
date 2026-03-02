@@ -1,0 +1,18 @@
+{
+  "component": "Kbd",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Kbd } from '@vlting/ui'",
+    "props": {
+      "children": { "type": "string", "values": [] },
+      "size": { "type": "string", "values": ["sm", "md"] }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; shadcn has no keyboard shortcut display component",
+    "Renders a semantic <kbd> HTML element using styledHtml",
+    "Default size is 'md'",
+    "Uses monospace font family ($mono) and styled border for keyboard key appearance"
+  ],
+  "breaking": []
+}

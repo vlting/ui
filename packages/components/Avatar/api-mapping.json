@@ -1,0 +1,40 @@
+{
+  "component": "Avatar",
+  "shadcn": {
+    "import": "import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'",
+    "props": {
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Avatar } from '@vlting/ui'",
+    "props": {
+      "Avatar": {
+        "size": { "type": "string", "values": ["sm", "md", "lg", "xl"] },
+        "src": { "type": "string", "values": [], "deprecated": true },
+        "alt": { "type": "string", "values": [], "deprecated": true },
+        "fallback": { "type": "string", "values": [], "deprecated": true },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Avatar.Image": {
+        "src": { "type": "string", "values": [] },
+        "alt": { "type": "string", "values": [] }
+      },
+      "Avatar.Fallback": {
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "vlting supports both legacy single-prop API (src, alt, fallback) and compound pattern (Avatar.Image, Avatar.Fallback)",
+    "Legacy props (src, alt, fallback) are deprecated; prefer compound pattern",
+    "vlting adds built-in 'size' prop (sm=32px, md=40px, lg=52px, xl=74px); shadcn uses className for sizing",
+    "Default size is 'md'",
+    "Image error handling shows fallback automatically via React context"
+  ],
+  "breaking": [
+    { "shadcn": "className='h-10 w-10'", "vlting": "Use size='md' prop", "reason": "Cross-platform; token-based sizing" },
+    { "shadcn": "<AvatarImage>", "vlting": "<Avatar.Image>", "reason": "Compound component pattern" },
+    { "shadcn": "<AvatarFallback>", "vlting": "<Avatar.Fallback>", "reason": "Compound component pattern" }
+  ]
+}

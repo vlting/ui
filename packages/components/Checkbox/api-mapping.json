@@ -1,0 +1,48 @@
+{
+  "component": "Checkbox",
+  "shadcn": {
+    "import": "import { Checkbox } from '@/components/ui/checkbox'",
+    "props": {
+      "checked": { "type": "boolean | 'indeterminate'", "values": [] },
+      "defaultChecked": { "type": "boolean", "values": [] },
+      "onCheckedChange": { "type": "function", "values": ["(checked: boolean | 'indeterminate') => void"] },
+      "disabled": { "type": "boolean", "values": [] },
+      "required": { "type": "boolean", "values": [] },
+      "name": { "type": "string", "values": [] },
+      "value": { "type": "string", "values": [] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Checkbox } from '@vlting/ui'",
+    "props": {
+      "Checkbox.Root": {
+        "checked": { "type": "boolean | 'indeterminate'", "values": [] },
+        "defaultChecked": { "type": "boolean", "values": [] },
+        "onCheckedChange": { "type": "function", "values": ["(checked: boolean | 'indeterminate') => void"] },
+        "disabled": { "type": "boolean", "values": [] },
+        "size": { "type": "string", "values": ["sm", "md", "lg"] },
+        "required": { "type": "boolean", "values": [] },
+        "name": { "type": "string", "values": [] },
+        "value": { "type": "string", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Checkbox.Indicator": {
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn Checkbox wraps Radix Checkbox; vlting wraps @tamagui/checkbox",
+    "vlting Checkbox.Root wraps everything in a <label> with flex layout (checkbox + label text)",
+    "vlting adds 'size' prop (sm, md, lg) mapped to Tamagui size tokens ($3, $4, $5)",
+    "Default size is 'md'; default check icon is a checkmark character",
+    "Pass label text as children of Checkbox.Root",
+    "Both support indeterminate state"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props or size prop", "reason": "Cross-platform" },
+    { "shadcn": "<Checkbox /> + separate <label>", "vlting": "<Checkbox.Root>Label text</Checkbox.Root> (built-in label wrapper)", "reason": "Integrated label pattern" },
+    { "shadcn": "No size prop", "vlting": "Use size='sm' | 'md' | 'lg'", "reason": "Built-in sizing" }
+  ]
+}

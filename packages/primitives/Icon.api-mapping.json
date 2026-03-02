@@ -1,0 +1,21 @@
+{
+  "component": "Icon",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Icon } from '@vlting/ui'",
+    "props": {
+      "icon": { "type": "IconFC", "values": [] },
+      "size": { "type": "number | string", "values": ["$1", "16", "24"] },
+      "color": { "type": "string", "values": [] },
+      "aria-hidden": { "type": "boolean", "values": ["true", "false"] },
+      "aria-label": { "type": "string", "values": [] }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; shadcn uses lucide-react icons directly",
+    "Wraps any icon component that accepts size + color props (e.g. @tamagui/lucide-icons)",
+    "Icons are decorative (aria-hidden=true) by default; set aria-hidden=false and aria-label for semantic icons",
+    "IconFC type: ComponentType<{ size?: number | string; color?: string }>"
+  ],
+  "breaking": []
+}

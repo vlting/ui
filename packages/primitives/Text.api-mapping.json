@@ -1,0 +1,21 @@
+{
+  "component": "Text",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Text } from '@vlting/ui'",
+    "props": {
+      "size": { "type": "string", "values": ["xs", "sm", "md", "lg", "xl"] },
+      "tone": { "type": "string", "values": ["neutral", "muted", "primary", "success", "warning", "danger"] },
+      "weight": { "type": "string", "values": ["light", "normal", "medium", "semibold", "bold"] },
+      "children": { "type": "ReactNode", "values": [] }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; shadcn uses plain HTML elements with Tailwind typography",
+    "Built on Tamagui styled(Text) with $body font family",
+    "Default size is 'md'",
+    "Tone variants map to semantic color tokens ($color, $colorSubtitle, $color10, $green10, $orange10, $red10)",
+    "Accepts all Tamagui Text style props (color, fontSize, fontWeight, etc.)"
+  ],
+  "breaking": []
+}

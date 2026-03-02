@@ -1,0 +1,35 @@
+{
+  "component": "Field",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Field } from '@vlting/ui'",
+    "props": {
+      "Field.Root": {
+        "error": { "type": "boolean", "values": [] },
+        "disabled": { "type": "boolean", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Field.Label": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Field.Control": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Field.Description": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Field.Error": {
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; shadcn uses FormField from react-hook-form integration",
+    "Compound component for accessible form fields with auto-generated IDs",
+    "Field.Control clones children with id, aria-describedby, aria-invalid, and disabled props",
+    "Field.Error renders with role='alert' and only shows when error is true",
+    "Field.Description is hidden when error is shown (error takes precedence for aria-describedby)",
+    "Uses React context to share field state (id, error, disabled) across sub-components"
+  ],
+  "breaking": []
+}

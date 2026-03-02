@@ -1,0 +1,29 @@
+{
+  "component": "Separator",
+  "shadcn": {
+    "import": "import { Separator } from '@/components/ui/separator'",
+    "props": {
+      "orientation": { "type": "string", "values": ["horizontal", "vertical"] },
+      "decorative": { "type": "boolean", "values": ["true", "false"] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Separator } from '@vlting/ui'",
+    "props": {
+      "orientation": { "type": "string", "values": ["horizontal", "vertical"] },
+      "decorative": { "type": "boolean", "values": ["true"] }
+    }
+  },
+  "notes": [
+    "shadcn Separator wraps Radix UI Separator; vlting uses Tamagui styled(View) with role='separator'",
+    "Both support orientation (horizontal/vertical) and decorative props",
+    "Default orientation is 'horizontal' in both",
+    "vlting Separator sets aria-orientation automatically via variants",
+    "vlting also exports a Divider primitive with similar functionality"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props (e.g. backgroundColor, margin)", "reason": "Cross-platform" },
+    { "shadcn": "asChild", "vlting": "Not supported", "reason": "No Radix dependency" }
+  ]
+}

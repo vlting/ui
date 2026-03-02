@@ -1,0 +1,39 @@
+{
+  "component": "Alert",
+  "shadcn": {
+    "import": "import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'",
+    "props": {
+      "variant": { "type": "string", "values": ["default", "destructive"] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Alert } from '@vlting/ui'",
+    "props": {
+      "Alert.Root": {
+        "variant": { "type": "string", "values": ["default", "destructive"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Alert.Title": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Alert.Description": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Alert.Icon": {
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn uses flat exports; vlting uses compound pattern (Alert.Root, Alert.Title, etc.)",
+    "vlting adds Alert.Icon sub-component for icon placement",
+    "Destructive variant automatically sets role='alert'; default uses role='status'",
+    "Default variant is 'default'"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "<Alert>", "vlting": "<Alert.Root>", "reason": "Compound component pattern" },
+    { "shadcn": "<AlertTitle>", "vlting": "<Alert.Title>", "reason": "Compound component pattern" }
+  ]
+}

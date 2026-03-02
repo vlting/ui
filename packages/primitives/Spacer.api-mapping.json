@@ -1,0 +1,17 @@
+{
+  "component": "Spacer",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Spacer } from '@vlting/ui'",
+    "props": {
+      "size": { "type": "string", "values": ["xs", "sm", "md", "lg", "xl"] }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; shadcn uses margin/padding utilities or gap for spacing",
+    "Without a size prop, Spacer uses flex: 1 to fill available space",
+    "With a size prop (xs-xl), sets fixed width and height via Tamagui tokens",
+    "Useful for adding consistent spacing between elements in flex layouts"
+  ],
+  "breaking": []
+}

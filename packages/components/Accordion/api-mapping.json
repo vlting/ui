@@ -1,0 +1,46 @@
+{
+  "component": "Accordion",
+  "shadcn": {
+    "import": "import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'",
+    "props": {
+      "type": { "type": "string", "values": ["single", "multiple"] },
+      "defaultValue": { "type": "string | string[]", "values": [] },
+      "collapsible": { "type": "boolean", "values": ["true", "false"] },
+      "value": { "type": "string", "values": [] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Accordion } from '@vlting/ui'",
+    "props": {
+      "Accordion.Root": {
+        "type": { "type": "string", "values": ["single", "multiple"] },
+        "defaultValue": { "type": "string[]", "values": [] },
+        "collapsible": { "type": "boolean", "values": ["true", "false"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Accordion.Item": {
+        "value": { "type": "string", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Accordion.Trigger": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Accordion.Content": {
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn uses flat exports (AccordionItem, AccordionTrigger); vlting uses compound pattern (Accordion.Item, Accordion.Trigger)",
+    "vlting defaultValue is always string[] (array), even for type='single'",
+    "Default type is 'single', default collapsible is true",
+    "Built on @tamagui/accordion; includes animated chevron indicator",
+    "Respects prefers-reduced-motion for trigger animation"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "<AccordionItem>", "vlting": "<Accordion.Item>", "reason": "Compound component pattern" },
+    { "shadcn": "defaultValue='item-1' (string)", "vlting": "defaultValue={['item-1']} (string[])", "reason": "Consistent array API for both single and multiple types" }
+  ]
+}
