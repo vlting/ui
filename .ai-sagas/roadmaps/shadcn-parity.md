@@ -77,8 +77,8 @@ created: 2026-03-01
 **Epic slug:** docs-site
 **Epic Roadmap:** `.ai-epics/roadmaps/2026-03-02-docs-site.md`
 **Tech Spec:** `.ai-epics/docs/docs-site/tech-spec.md`
-**Status:** in-progress
-**Review notes:**
+**Status:** complete
+**Review notes:** All 5 stages delivered (PRs #67–#71). Epic PR #66 ready for review. Next.js 15 App Router docs site in examples/docs/ with 99+ pages: 57 component pages (live examples, prop tables, interactive playground), 30 block pages, 6 chart pages with variants, icon browser (3229 icons, search/filter, click-to-copy), theming docs, migration guide, client-side Flexsearch (Ctrl+K), mobile sidebar, meta tags on all routes. PRD alignment: FR-7 fully addressed.
 
 ## Epic 7: AI Skill + Portable Docs
 **Objective:** Create the Claude Code SKILL.md with component selection heuristics, composition rules, anti-patterns, and token enforcement. Create llms.txt and JSON component registry for multi-agent compatibility.
