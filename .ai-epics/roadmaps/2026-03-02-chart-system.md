@@ -17,7 +17,7 @@
 **Objective:** Install Victory Native, build ChartContainer (responsive sizing + accessibility), Victory theme factory (tokens → Victory theme), ChartConfig type system, ChartTooltip (9 variants), ChartLegend, and color resolution utilities. Write Chart.spec.md and tests.
 **Estimated scope:** ~12 files, ~800 lines
 **GitHub Sub-Issue:** #41
-**Stage Branch:** (pending)
+**Stage Branch:** feat/chart-system/chart-foundation
 **Stage PR:** (pending)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmb26g
 **Acceptance criteria:**
