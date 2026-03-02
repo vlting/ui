@@ -16,7 +16,7 @@
 **Estimated scope:** ~8 files (generator script, createIcon factory, generated output scaffold, manifest), ~300 lines of handwritten code + generated output
 **GitHub Sub-Issue:** #33
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmbshs
-**Stage Branch:** (filled in BREAKDOWN)
+**Stage Branch:** feat/icon-system/code-generator
 **Stage PR:** (filled in ADVANCE)
 **Acceptance criteria:**
 - [ ] `remixicon` installed as devDependency
@@ -28,7 +28,7 @@
 - [ ] `packages/icons/types.ts` with `IconName` union type and `IconCategory` union
 - [ ] `packages/icons/manifest.json` with icon names, categories, tags, variants
 - [ ] Generator is reproducible: `node scripts/generate-icons.mjs` produces identical output
-**Status:** pending
+**Status:** executing
 **Iterations:** 0
 
 ## Stage 2: Dynamic Icon, Exports & Integration
