@@ -17,18 +17,18 @@
 **GitHub Sub-Issue:** #33
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmbshs
 **Stage Branch:** feat/icon-system/code-generator
-**Stage PR:** (filled in ADVANCE)
+**Stage PR:** #37
 **Acceptance criteria:**
-- [ ] `remixicon` installed as devDependency
-- [ ] `scripts/generate-icons.mjs` reads all SVGs from `node_modules/remixicon/icons/`
-- [ ] Generator handles multi-path SVGs (combines paths)
-- [ ] `packages/icons/createIcon.tsx` factory produces `IconFC`-compatible components using `react-native-svg`
-- [ ] Generated `.tsx` files in `packages/icons/generated/` (one per icon, ~2800 files)
-- [ ] `packages/icons/index.ts` barrel export of all generated icons
-- [ ] `packages/icons/types.ts` with `IconName` union type and `IconCategory` union
-- [ ] `packages/icons/manifest.json` with icon names, categories, tags, variants
-- [ ] Generator is reproducible: `node scripts/generate-icons.mjs` produces identical output
-**Status:** executing
+- [x] `remixicon` installed as devDependency
+- [x] `scripts/generate-icons.mjs` reads all SVGs from `node_modules/remixicon/icons/`
+- [x] Generator handles multi-path SVGs (combines paths)
+- [x] `packages/icons/createIcon.tsx` factory produces `IconFC`-compatible components using `react-native-svg`
+- [x] Generated `.tsx` files in `packages/icons/generated/` (one per icon, ~2800 files)
+- [x] `packages/icons/index.ts` barrel export of all generated icons
+- [x] `packages/icons/types.ts` with `IconName` union type and `IconCategory` union
+- [x] `packages/icons/manifest.json` with icon names, categories, tags, variants
+- [x] Generator is reproducible: `node scripts/generate-icons.mjs` produces identical output
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 2: Dynamic Icon, Exports & Integration
