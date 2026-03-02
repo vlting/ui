@@ -57,12 +57,12 @@
 **Stage Branch:** feat/icon-system/tests-a11y
 **Stage PR:** (filled in ADVANCE)
 **Acceptance criteria:**
-- [ ] Unit tests for `createIcon`: renders SVG, forwards size/color, memoized
-- [ ] Unit tests for `DynamicIcon`: lazy loads correct icon, handles unknown names
-- [ ] Accessibility: icons render with no implicit accessible name (decorative)
-- [ ] Generated icons conform to `IconFC` type (TypeScript compiles without errors)
-- [ ] Existing `Icon` primitive works unchanged with Remix icons
-- [ ] Coexists with `@tamagui/lucide-icons` (no naming collisions verified in tests)
-- [ ] All tests pass, lint clean, no TypeScript errors
-**Status:** pending
+- [x] Unit tests for `createIcon`: renders SVG, forwards size/color, memoized
+- [x] Unit tests for `DynamicIcon`: lazy loads correct icon, handles unknown names
+- [x] Accessibility: icons render with no implicit accessible name (decorative)
+- [x] Generated icons conform to `IconFC` type (TypeScript compiles without errors)
+- [x] Existing `Icon` primitive works unchanged with Remix icons
+- [x] Coexists with `@tamagui/lucide-icons` (no naming collisions verified in tests)
+- [x] All tests pass, lint clean, no TypeScript errors
+**Status:** complete
 **Iterations:** 0
