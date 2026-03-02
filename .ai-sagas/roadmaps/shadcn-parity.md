@@ -33,8 +33,8 @@ created: 2026-03-01
 **Epic slug:** component-parity
 **Epic Roadmap:** (filled during epic PLAN)
 **Tech Spec:** `.ai-epics/docs/component-parity/tech-spec.md`
-**Status:** in-progress
-**Review notes:**
+**Status:** complete
+**Review notes:** All 4 stages delivered (PRs #28–#31). Epic PR #27 ready for review. NavigationMenu Home/End fix, Direction provider, Item compound component, InputGroup, Sonner-style toast API, DataTable, and comprehensive API mapping docs (68 JSON files + migration guide + primitive audit). PRD alignment: FR-1 and FR-2 fully addressed (Chart component correctly scoped to Epic 4).
 
 ## Epic 3: Icon System (Remix Icon)
 **Objective:** Integrate the full Remix Icon set (2800+ icons, filled + outline) with tree-shakeable imports, theme-aware sizing/color, and cross-platform rendering.
