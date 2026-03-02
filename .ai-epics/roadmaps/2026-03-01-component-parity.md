@@ -33,16 +33,16 @@
 **Estimated scope:** ~10 files, ~500 lines
 **GitHub Sub-Issue:** #24
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmbAZM
-**Stage Branch:** (pending)
+**Stage Branch:** feat/component-parity/inputgroup-toast-api
 **Stage PR:** (pending)
 **Acceptance criteria:**
-- [ ] InputGroup compound (Root, Addon, Element, Input) with border-radius collapsing
-- [ ] InputGroup has spec.md and test file
-- [ ] InputGroup renders on web and React Native
-- [ ] Toast imperative API: toast(), toast.success(), toast.error(), toast.warning(), toast.promise()
-- [ ] Toast imperative API test file
-- [ ] Imperative API works with existing Toast.Provider + Toast.Viewport
-**Status:** pending
+- [x] InputGroup compound (Root, Addon, Element, Input) with border-radius collapsing
+- [x] InputGroup has spec.md and test file
+- [x] InputGroup renders on web and React Native
+- [x] Toast imperative API: toast(), toast.success(), toast.error(), toast.warning(), toast.promise()
+- [x] Toast imperative API test file
+- [x] Imperative API works with existing Toast.Provider + Toast.Viewport
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 3: Data Table
