@@ -38,7 +38,7 @@
 **GitHub Sub-Issue:** #52
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmcTKI
 **Stage Branch:** feat/block-system/sidebar-01-08
-**Stage PR:** (pending)
+**Stage PR:** #57
 **Acceptance criteria:**
 - [x] Shared sidebar types (NavItem, NavGroup) in `sidebar/_shared.tsx`
 - [x] Sidebar01 (simple navigation grouped by section)
