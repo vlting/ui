@@ -67,7 +67,7 @@
 **Estimated scope:** ~55 files (mostly new JSON), ~2000 lines
 **GitHub Sub-Issue:** #26
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmbAZo
-**Stage Branch:** (pending)
+**Stage Branch:** docs/component-parity/api-mapping
 **Stage PR:** (pending)
 **Acceptance criteria:**
 - [ ] Every component has an api-mapping.json file
@@ -75,5 +75,5 @@
 - [ ] Migration guide document covers import paths, prop renames, behavior differences
 - [ ] Primitive API audit confirms shadcn-equivalent surface (Badge, Kbd, Label, Separator, Skeleton, Spinner, AspectRatio)
 - [ ] Breaking differences documented with code examples
-**Status:** pending
+**Status:** executing
 **Iterations:** 0
