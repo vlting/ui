@@ -1360,14 +1360,26 @@ const { toast } = useToast()
     category: 'components',
     description: 'A group of toggle buttons where one or multiple can be active.',
     importPath: "import { ToggleGroup } from '@vlting/ui'",
+    whenToUse: 'Use to let users switch between mutually exclusive options, like view modes (grid/list) or text formatting (bold/italic/underline).',
+    whenNotToUse: "Don't use for navigation or actions with side effects. Use Tabs for content switching or RadioGroup for form selections.",
+    a11yNotes: 'Uses role="group" with aria-label. Each toggle uses aria-pressed. Supports keyboard navigation with arrow keys.',
     examples: [
       {
         name: 'Basic',
-        description: 'A group of toggle buttons.',
+        description: 'A single-selection toggle group for alignment.',
         code: `<ToggleGroup type="single" defaultValue="center">
   <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
   <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
   <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
+</ToggleGroup>`,
+      },
+      {
+        name: 'Multiple',
+        description: 'A multi-selection toggle group for text formatting.',
+        code: `<ToggleGroup type="multiple" defaultValue={["bold"]}>
+  <ToggleGroup.Item value="bold">B</ToggleGroup.Item>
+  <ToggleGroup.Item value="italic">I</ToggleGroup.Item>
+  <ToggleGroup.Item value="underline">U</ToggleGroup.Item>
 </ToggleGroup>`,
       },
     ],
