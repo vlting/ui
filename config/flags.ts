@@ -11,13 +11,6 @@ interface FlagDefinition {
 }
 
 const flagRegistry = {
-  icon_system: {
-    description:
-      'Remix Icon integration: 2800+ tree-shakeable icons with cross-platform rendering',
-    added: '2026-03-01',
-    default: false,
-    overrides: { dev: true, staging: true },
-  },
   token_audit_fonts: {
     description:
       'Token audit and Google Fonts system: 4 font slots, h1-h6 weight alternation, zero hardcoded values',
