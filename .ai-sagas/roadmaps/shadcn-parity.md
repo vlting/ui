@@ -53,10 +53,10 @@ created: 2026-03-01
 **Dependencies:** Epic 1
 **Estimated stages:** ~4
 **Epic slug:** chart-system
-**Epic Roadmap:** (filled after PLAN)
+**Epic Roadmap:** `.ai-epics/roadmaps/2026-03-02-chart-system.md`
 **Tech Spec:** `.ai-epics/docs/chart-system/tech-spec.md`
-**Status:** in-progress
-**Review notes:**
+**Status:** complete
+**Review notes:** All 4 stages delivered (PRs #46–#49). Epic PR #45 ready for review. 6 chart types (Area, Bar, Line, Pie, Radar, Radial), 69 variants, ChartContainer with responsive sizing + ARIA, ChartTooltip (9 variants), ChartLegend, hidden ChartDataTable for screen reader accessibility, prefers-reduced-motion support, Victory Native + custom SVG rendering, api-mapping.json documentation, 54 tests passing, tree-shakeable imports. PRD alignment: FR-3 fully addressed.
 
 ## Epic 5: Block System
 **Objective:** Build all 27 shadcn blocks + cross-platform originals, composed entirely from `@vlting/ui` components. Blocks render on web and React Native, respect brand theming.
