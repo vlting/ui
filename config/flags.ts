@@ -11,13 +11,6 @@ interface FlagDefinition {
 }
 
 const flagRegistry = {
-  chart_system: {
-    description:
-      'Chart system: 6 chart types, 69 variants, Victory Native, cross-platform themed charts',
-    added: '2026-03-02',
-    default: false,
-    overrides: { dev: true, staging: true },
-  },
   token_audit_fonts: {
     description:
       'Token audit and Google Fonts system: 4 font slots, h1-h6 weight alternation, zero hardcoded values',
