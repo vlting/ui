@@ -8,6 +8,22 @@ type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
 
+function ChevronLeftSvg() {
+  return (
+    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+  )
+}
+
+function ChevronRightSvg() {
+  return (
+    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 18l6-6-6-6" />
+    </svg>
+  )
+}
+
 const NavBtn = styledHtml('button', {
   display: 'inline-flex',
   flexDirection: 'row',
@@ -152,18 +168,33 @@ function Root({
   const firstDay = getFirstDayOfMonth(year, monthIndex)
 
   const weeks = useMemo(() => {
-    const rows: Array<Array<Date | null>> = []
-    let currentWeek: Array<Date | null> = new Array(firstDay).fill(null)
+    const rows: Array<Array<{ date: Date; outsideMonth: boolean }>> = []
+    let currentWeek: Array<{ date: Date; outsideMonth: boolean }> = []
+
+    // Fill leading days from previous month
+    const prevMonthDays = getDaysInMonth(year, monthIndex - 1)
+    for (let i = firstDay - 1; i >= 0; i--) {
+      currentWeek.push({
+        date: new Date(year, monthIndex - 1, prevMonthDays - i),
+        outsideMonth: true,
+      })
+    }
 
     for (let day = 1; day <= daysInMonth; day++) {
-      currentWeek.push(new Date(year, monthIndex, day))
+      currentWeek.push({ date: new Date(year, monthIndex, day), outsideMonth: false })
       if (currentWeek.length === 7) {
         rows.push(currentWeek)
         currentWeek = []
       }
     }
     if (currentWeek.length > 0) {
-      while (currentWeek.length < 7) currentWeek.push(null)
+      let nextDay = 1
+      while (currentWeek.length < 7) {
+        currentWeek.push({
+          date: new Date(year, monthIndex + 1, nextDay++),
+          outsideMonth: true,
+        })
+      }
       rows.push(currentWeek)
     }
     return rows
@@ -181,6 +212,9 @@ function Root({
         alignItems="center"
         justifyContent="space-between"
         paddingBottom="$2"
+        borderBottomWidth={1}
+        borderColor="$borderColor"
+        marginBottom="$1"
       >
         <NavBtnJsx
           type="button"
@@ -188,9 +222,7 @@ function Root({
           onClick={() => goToMonth(-1)}
           aria-label="Previous month"
         >
-          <TextJsx fontSize="$4" color="$color">
-            {'<'}
-          </TextJsx>
+          <ChevronLeftSvg />
         </NavBtnJsx>
         <TextJsx fontSize="$4" fontWeight="$3" fontFamily="$body" color="$color">
           {monthName} {year}
@@ -201,9 +233,7 @@ function Root({
           onClick={() => goToMonth(1)}
           aria-label="Next month"
         >
-          <TextJsx fontSize="$4" color="$color">
-            {'>'}
-          </TextJsx>
+          <ChevronRightSvg />
         </NavBtnJsx>
       </ViewJsx>
 
@@ -225,50 +255,53 @@ function Root({
       </ViewJsx>
 
       {/* Grid */}
-      {weeks.map((week, wi) => (
-        <ViewJsx key={wi} flexDirection="row">
-          {week.map((date, di) => {
-            if (!date) {
-              return <ViewJsx key={`empty-${di}`} width="$3" height="$3" />
-            }
-            const selected = isDateSelected(date)
-            const today = isToday(date)
-            const dateDisabled = isDateDisabled(date)
+      <ViewJsx gap="$0.5">
+        {weeks.map((week, wi) => (
+          <ViewJsx key={wi} flexDirection="row" gap="$0.5">
+            {week.map((entry, di) => {
+              const { date, outsideMonth } = entry
+              const sel = isDateSelected(date)
+              const todayDate = isToday(date)
+              const dateDisabled = isDateDisabled(date) || outsideMonth
 
-            return (
-              <DayBtnJsx
-                key={date.getDate()}
-                type="button"
-                cursor={dateDisabled ? 'default' : 'pointer'}
-                opacity={dateDisabled ? 0.3 : 1}
-                backgroundColor={selected ? '$color10' : 'transparent'}
-                hoverStyle={
-                  dateDisabled
-                    ? undefined
-                    : { backgroundColor: selected ? '$color10' : '$color2' }
-                }
-                onClick={dateDisabled ? undefined : () => onSelect?.(date)}
-                disabled={dateDisabled}
-                aria-selected={selected}
-                aria-label={date.toLocaleDateString('en-US', {
-                  month: 'long',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
-              >
-                <TextJsx
-                  fontSize="$4"
-                  fontFamily="$body"
-                  fontWeight={today ? '$4' : '$2'}
-                  color={selected ? '$color1' : '$color'}
+              return (
+                <DayBtnJsx
+                  key={`${date.getMonth()}-${date.getDate()}`}
+                  type="button"
+                  cursor={dateDisabled ? 'default' : 'pointer'}
+                  opacity={outsideMonth ? 0.4 : dateDisabled ? 0.3 : 1}
+                  backgroundColor={sel ? '$color10' : 'transparent'}
+                  borderWidth={todayDate && !sel ? 1 : 0}
+                  borderColor={todayDate && !sel ? '$color8' : 'transparent'}
+                  borderStyle="solid"
+                  hoverStyle={
+                    dateDisabled
+                      ? undefined
+                      : { backgroundColor: sel ? '$color10' : '$color3' }
+                  }
+                  onClick={dateDisabled ? undefined : () => onSelect?.(date)}
+                  disabled={dateDisabled}
+                  aria-selected={sel}
+                  aria-label={date.toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
                 >
-                  {date.getDate()}
-                </TextJsx>
-              </DayBtnJsx>
-            )
-          })}
-        </ViewJsx>
-      ))}
+                  <TextJsx
+                    fontSize="$3"
+                    fontFamily="$body"
+                    fontWeight={todayDate ? '$4' : '$2'}
+                    color={sel ? '$color1' : outsideMonth ? '$color5' : '$color'}
+                  >
+                    {date.getDate()}
+                  </TextJsx>
+                </DayBtnJsx>
+              )
+            })}
+          </ViewJsx>
+        ))}
+      </ViewJsx>
     </ViewJsx>
   )
 }
