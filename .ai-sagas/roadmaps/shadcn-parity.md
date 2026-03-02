@@ -42,7 +42,7 @@ created: 2026-03-01
 **Dependencies:** Epic 1
 **Estimated stages:** ~3
 **Epic slug:** icon-system
-**Epic Roadmap:** (filled during epic PLAN)
+**Epic Roadmap:** `.ai-epics/roadmaps/2026-03-01-icon-system.md`
 **Tech Spec:** `.ai-epics/docs/icon-system/tech-spec.md`
 **Status:** in-progress
 **Review notes:**

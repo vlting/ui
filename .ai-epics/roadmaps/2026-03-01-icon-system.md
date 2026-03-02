@@ -3,7 +3,7 @@
 - **Branch:** epic/icon-system
 - **Feature flag:** icon_system
 - **GitHub Issue:** #32
-- **Epic PR:** (filled after creation)
+- **Epic PR:** #36
 - **Created:** 2026-03-01
 - **Status:** in-progress
 - **Project Node ID:** PVT_kwDODxaco84BP_ab
