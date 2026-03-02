@@ -1,0 +1,54 @@
+{
+  "component": "RadioGroup",
+  "shadcn": {
+    "import": "import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'",
+    "props": {
+      "RadioGroup": {
+        "value": { "type": "string" },
+        "defaultValue": { "type": "string" },
+        "onValueChange": { "type": "function", "signature": "(value: string) => void" },
+        "disabled": { "type": "boolean" },
+        "orientation": { "type": "string", "values": ["horizontal", "vertical"] }
+      },
+      "RadioGroupItem": {
+        "value": { "type": "string", "required": true },
+        "disabled": { "type": "boolean" },
+        "id": { "type": "string" }
+      }
+    }
+  },
+  "vlting": {
+    "import": "import { RadioGroup } from '@vlting/ui'",
+    "props": {
+      "RadioGroup.Root": {
+        "value": { "type": "string" },
+        "defaultValue": { "type": "string" },
+        "onValueChange": { "type": "function", "signature": "(value: string) => void" },
+        "disabled": { "type": "boolean" },
+        "name": { "type": "string" },
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+        "orientation": { "type": "string", "values": ["horizontal", "vertical"], "default": "vertical" },
+        "aria-label": { "type": "string" },
+        "children": { "type": "ReactNode" }
+      },
+      "RadioGroup.Item": {
+        "value": { "type": "string", "required": true },
+        "disabled": { "type": "boolean" },
+        "children": { "type": "ReactNode", "description": "Label content rendered next to the radio button" }
+      }
+    }
+  },
+  "notes": [
+    "Both use compound API with Root + Item pattern.",
+    "vlting adds a 'size' prop on Root (sm/md/lg) that propagates to all items via context.",
+    "vlting RadioGroup.Item renders a <label> wrapper with the radio indicator and children as label text.",
+    "shadcn requires a separate <Label> component next to RadioGroupItem; vlting Item includes the label.",
+    "vlting wraps @tamagui/radio-group with built-in indicator styling."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "<RadioGroupItem /><Label htmlFor='r1'>Option</Label>", "vlting": "<RadioGroup.Item value='r1'>Option</RadioGroup.Item>", "reason": "Label is built into the Item component as children" },
+    { "shadcn": "<RadioGroup>", "vlting": "<RadioGroup.Root>", "reason": "Dot-notation compound component API" },
+    { "shadcn": "No size prop", "vlting": "size='sm' | 'md' | 'lg' on Root", "reason": "vlting includes built-in size variants" }
+  ]
+}

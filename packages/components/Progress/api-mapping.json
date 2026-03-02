@@ -1,0 +1,31 @@
+{
+  "component": "Progress",
+  "shadcn": {
+    "import": "import { Progress } from '@/components/ui/progress'",
+    "props": {
+      "value": { "type": "number" },
+      "max": { "type": "number", "default": 100 },
+      "className": { "type": "string" }
+    }
+  },
+  "vlting": {
+    "import": "import { Progress } from '@vlting/ui'",
+    "props": {
+      "value": { "type": "number", "default": 0 },
+      "max": { "type": "number", "default": 100 },
+      "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+      "aria-label": { "type": "string" }
+    }
+  },
+  "notes": [
+    "Both are simple single-component APIs with value and max props.",
+    "vlting adds a 'size' variant (sm/md/lg) that controls track height.",
+    "vlting wraps @tamagui/progress with built-in indicator and animation.",
+    "shadcn uses Radix Progress; vlting uses Tamagui Progress.",
+    "Size maps: sm=$0.5, md=$0.75, lg=$1 height."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "No size prop", "vlting": "size='sm' | 'md' | 'lg'", "reason": "vlting includes built-in size variants" }
+  ]
+}

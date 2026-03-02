@@ -1,0 +1,19 @@
+{
+  "component": "Loader",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Loader } from '@vlting/ui'",
+    "props": {
+      "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+      "variant": { "type": "string", "values": ["primary", "light", "dark"], "default": "primary" }
+    }
+  },
+  "notes": [
+    "No shadcn equivalent. Loader is a custom @vlting/ui component wrapping Tamagui's Spinner.",
+    "Simple functional component, not compound. Usage: <Loader size='md' variant='primary' />",
+    "Maps variant to color tokens: primary=$color10, light=$color4, dark=$color11."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" }
+  ]
+}

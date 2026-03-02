@@ -1,0 +1,74 @@
+{
+  "component": "Table",
+  "shadcn": {
+    "import": "import { Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell, TableCaption } from '@/components/ui/table'",
+    "props": {
+      "Table": { "className": { "type": "string" } },
+      "TableHeader": { "className": { "type": "string" } },
+      "TableBody": { "className": { "type": "string" } },
+      "TableFooter": { "className": { "type": "string" } },
+      "TableRow": { "className": { "type": "string" } },
+      "TableHead": { "className": { "type": "string" } },
+      "TableCell": { "className": { "type": "string" } },
+      "TableCaption": { "className": { "type": "string" } }
+    }
+  },
+  "vlting": {
+    "import": "import { Table } from '@vlting/ui'",
+    "props": {
+      "Table.Root": {
+        "description": "Renders <table> with full HTML table props",
+        "style": { "type": "CSSProperties" },
+        "children": { "type": "ReactNode" }
+      },
+      "Table.Header": {
+        "description": "Renders <thead> with full HTML thead props",
+        "style": { "type": "CSSProperties" },
+        "children": { "type": "ReactNode" }
+      },
+      "Table.Body": {
+        "description": "Renders <tbody> with full HTML tbody props",
+        "style": { "type": "CSSProperties" },
+        "children": { "type": "ReactNode" }
+      },
+      "Table.Footer": {
+        "description": "Renders <tfoot> with full HTML tfoot props",
+        "style": { "type": "CSSProperties" },
+        "children": { "type": "ReactNode" }
+      },
+      "Table.Row": {
+        "description": "Renders <tr> with full HTML tr props",
+        "style": { "type": "CSSProperties" },
+        "children": { "type": "ReactNode" }
+      },
+      "Table.Head": {
+        "scope": { "type": "string", "default": "col" },
+        "description": "Renders <th> with full HTML th props",
+        "style": { "type": "CSSProperties" },
+        "children": { "type": "ReactNode" }
+      },
+      "Table.Cell": {
+        "description": "Renders <td> with full HTML td props",
+        "style": { "type": "CSSProperties" },
+        "children": { "type": "ReactNode" }
+      },
+      "Table.Caption": {
+        "description": "Renders <caption> with full HTML caption props",
+        "style": { "type": "CSSProperties" },
+        "children": { "type": "ReactNode" }
+      }
+    }
+  },
+  "notes": [
+    "Both use native HTML table elements (table, thead, tbody, tr, th, td, caption).",
+    "vlting Table uses native HTML elements directly (not Tamagui styled views) for proper table layout context.",
+    "Styling uses CSS custom properties mapping to Tamagui theme tokens via inline styles.",
+    "Both have nearly identical compound APIs with the same sub-component names.",
+    "Table.Head defaults scope='col' for accessibility.",
+    "All sub-components accept their respective HTML element props and a style override."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "style={{...}} with CSS custom properties", "reason": "Uses inline styles with Tamagui token CSS variables instead of className" },
+    { "shadcn": "<TableHeader>", "vlting": "<Table.Header>", "reason": "Dot-notation compound component API" }
+  ]
+}

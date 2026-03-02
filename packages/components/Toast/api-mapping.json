@@ -1,0 +1,104 @@
+{
+  "component": "Toast",
+  "shadcn": {
+    "import": "import { Toast, ToastAction, ToastClose, ToastDescription, ToastProvider, ToastTitle, ToastViewport } from '@/components/ui/toast'",
+    "props": {
+      "Toast": {
+        "variant": { "type": "string", "values": ["default", "destructive"] },
+        "className": { "type": "string" }
+      },
+      "ToastAction": {
+        "altText": { "type": "string", "required": true }
+      },
+      "ToastProvider": {
+        "swipeDirection": { "type": "string", "values": ["up", "down", "left", "right"] },
+        "duration": { "type": "number" }
+      }
+    }
+  },
+  "vlting": {
+    "import": "import { Toast, toast } from '@vlting/ui'",
+    "props": {
+      "declarative_api": {
+        "Toast.Root": {
+          "variant": { "type": "string", "values": ["default", "success", "error", "warning"], "default": "default" },
+          "duration": { "type": "number" },
+          "children": { "type": "ReactNode" }
+        },
+        "Toast.Title": {
+          "children": { "type": "ReactNode" }
+        },
+        "Toast.Description": {
+          "children": { "type": "ReactNode" }
+        },
+        "Toast.Action": {
+          "altText": { "type": "string", "required": true },
+          "children": { "type": "ReactNode" }
+        },
+        "Toast.Close": {
+          "children": { "type": "ReactNode" }
+        },
+        "Toast.Viewport": {
+          "hotkey": { "type": "string[]" },
+          "multipleToasts": { "type": "boolean" }
+        },
+        "Toast.Provider": {
+          "swipeDirection": { "type": "string", "values": ["up", "down", "left", "right"], "default": "right" },
+          "duration": { "type": "number", "default": 5000 },
+          "children": { "type": "ReactNode" }
+        },
+        "Toast.ImperativeViewport": {
+          "description": "Renders toasts created by the imperative toast() API"
+        }
+      },
+      "imperative_api": {
+        "toast(title, opts?)": {
+          "title": { "type": "string", "required": true },
+          "opts.description": { "type": "string" },
+          "opts.duration": { "type": "number" },
+          "opts.action": { "type": "object", "shape": "{ label: string, altText: string, onClick: () => void }" },
+          "returns": "string (toast ID)"
+        },
+        "toast.success(title, opts?)": {
+          "description": "Shows a success variant toast",
+          "returns": "string (toast ID)"
+        },
+        "toast.error(title, opts?)": {
+          "description": "Shows an error variant toast",
+          "returns": "string (toast ID)"
+        },
+        "toast.warning(title, opts?)": {
+          "description": "Shows a warning variant toast",
+          "returns": "string (toast ID)"
+        },
+        "toast.promise(promise, data)": {
+          "promise": { "type": "Promise<T>", "required": true },
+          "data.loading": { "type": "string", "required": true },
+          "data.success": { "type": "string | ((data: T) => string)", "required": true },
+          "data.error": { "type": "string | ((err: unknown) => string)", "required": true },
+          "returns": "Promise<T>"
+        },
+        "toast.dismiss(id)": {
+          "id": { "type": "string", "required": true },
+          "description": "Dismisses a specific toast by ID"
+        }
+      }
+    }
+  },
+  "notes": [
+    "vlting Toast has BOTH declarative and imperative APIs.",
+    "Declarative: <Toast.Root variant='success'><Toast.Title>...</Toast.Title></Toast.Root>",
+    "Imperative: toast('Hello'), toast.success('Done'), toast.error('Failed'), toast.warning('Watch out')",
+    "toast.promise() handles loading/success/error states automatically for async operations.",
+    "vlting has 4 variants (default, success, error, warning); shadcn has 2 (default, destructive).",
+    "Imperative toasts require <Toast.ImperativeViewport /> to be mounted in the component tree.",
+    "Uses useSyncExternalStore for the imperative toast store (works outside React components).",
+    "Also exports useToastController and useToastState hooks from @tamagui/toast."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "variant='destructive'", "vlting": "variant='error' (also 'success', 'warning')", "reason": "Different variant naming and more options" },
+    { "shadcn": "useToast() + toast() from custom hook", "vlting": "import { toast } from '@vlting/ui' (global function)", "reason": "Imperative API is a standalone function, not a hook" },
+    { "shadcn": "<Toaster /> component", "vlting": "<Toast.Provider><Toast.Viewport /><Toast.ImperativeViewport /></Toast.Provider>", "reason": "Explicit provider and viewport setup" }
+  ]
+}
