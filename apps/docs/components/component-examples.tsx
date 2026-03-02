@@ -859,9 +859,9 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
         <Command.List>
           <Command.Empty>No results found.</Command.Empty>
           <Command.Group heading="Suggestions">
-            <Command.Item>Calendar</Command.Item>
-            <Command.Item>Search</Command.Item>
-            <Command.Item>Settings</Command.Item>
+            <Command.Item value="calendar">Calendar</Command.Item>
+            <Command.Item value="search">Search</Command.Item>
+            <Command.Item value="settings">Settings</Command.Item>
           </Command.Group>
         </Command.List>
       </Command.Root>
