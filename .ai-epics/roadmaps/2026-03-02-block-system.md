@@ -3,7 +3,7 @@
 - **Branch:** epic/block-system
 - **Feature flag:** block_system
 - **GitHub Issue:** #50
-- **Epic PR:** (pending)
+- **Epic PR:** #55
 - **Created:** 2026-03-02
 - **Status:** in-progress
 - **Project Node ID:** PVT_kwDODxaco84BP_ab

@@ -64,7 +64,7 @@ created: 2026-03-01
 **Dependencies:** Epic 2, Epic 3, Epic 4
 **Estimated stages:** ~4
 **Epic slug:** block-system
-**Epic Roadmap:** (filled during EXECUTE)
+**Epic Roadmap:** `.ai-epics/roadmaps/2026-03-02-block-system.md`
 **Tech Spec:** `.ai-epics/docs/block-system/tech-spec.md`
 **Status:** in-progress
 **Review notes:**
