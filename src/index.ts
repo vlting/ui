@@ -109,6 +109,7 @@ export {
   Collapsible,
   AlertDialog,
   Table,
+  DataTable,
   Breadcrumb,
   Form,
   Pagination,
@@ -256,6 +257,12 @@ export type {
   ToastProviderProps,
   ToastData,
   PromiseToastData,
+  DataTableProps,
+  ColumnDef,
+  SortingState,
+  ColumnFiltersState,
+  VisibilityState,
+  PaginationState,
 } from '../packages/components'
 
 // Hooks
