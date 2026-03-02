@@ -73,7 +73,7 @@
 **Objective:** Complete barrel exports and tree-shaking verification, write comprehensive API mapping documentation (shadcn Recharts → vlting Victory Native), run accessibility audits, verify cross-platform rendering, and ensure bundle size targets are met.
 **Estimated scope:** ~8 files, ~500 lines
 **GitHub Sub-Issue:** #44
-**Stage Branch:** (pending)
+**Stage Branch:** feat/chart-system/integration-polish
 **Stage PR:** (pending)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmb274
 **Acceptance criteria:**
@@ -85,5 +85,5 @@
 - [ ] prefers-reduced-motion disables chart animations
 - [ ] Tree-shakeable imports verified (individual chart types importable)
 - [ ] Cross-platform rendering verified (web + React Native)
-**Status:** pending
+**Status:** executing
 **Iterations:** 0
