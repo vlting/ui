@@ -8,22 +8,22 @@ import { ThemeToggle } from './theme-toggle'
 export function SiteHeader() {
   return (
     <>
-    <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-gray-200 bg-white/80 px-4 backdrop-blur dark:border-gray-800 dark:bg-gray-950/80">
+    <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-border bg-background/80 px-4 backdrop-blur">
       <div className="flex items-center gap-4">
         <Link href="/" className="text-lg font-semibold">
           @vlting/ui
         </Link>
         <nav className="hidden items-center gap-4 text-sm md:flex">
-          <Link href="/docs" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
+          <Link href="/docs" className="text-foreground-secondary hover:text-foreground">
             Docs
           </Link>
-          <Link href="/docs/components/button" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
+          <Link href="/docs/components/button" className="text-foreground-secondary hover:text-foreground">
             Components
           </Link>
-          <Link href="/docs/blocks/login-01" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
+          <Link href="/docs/blocks/login-01" className="text-foreground-secondary hover:text-foreground">
             Blocks
           </Link>
-          <Link href="/docs/charts/bar" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
+          <Link href="/docs/charts/bar" className="text-foreground-secondary hover:text-foreground">
             Charts
           </Link>
         </nav>
@@ -36,7 +36,7 @@ export function SiteHeader() {
           href="https://github.com/vlting/ui"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-8 w-8 items-center justify-center rounded-md border border-gray-300 transition-colors hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-800"
+          className="flex h-8 w-8 items-center justify-center rounded-md border border-border transition-colors hover:bg-accent"
           aria-label="GitHub repository"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
