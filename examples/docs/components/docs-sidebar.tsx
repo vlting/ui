@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { navigation, type NavSection } from '@/lib/navigation'
@@ -56,8 +56,24 @@ function SidebarSection({ section }: { section: NavSection }) {
 }
 
 export function DocsSidebar() {
+  const scrollRef = useRef<HTMLElement>(null)
+  const savedScrollRef = useRef(0)
+  const pathname = usePathname()
+
+  // Save scroll position before pathname changes trigger re-render
+  useEffect(() => {
+    savedScrollRef.current = scrollRef.current?.scrollTop ?? 0
+  })
+
+  // Restore scroll position after navigation
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = savedScrollRef.current
+    }
+  }, [pathname])
+
   return (
-    <aside className="h-full overflow-y-auto px-2 py-4">
+    <aside ref={scrollRef} className="h-full overflow-y-auto px-2 py-4">
       <nav aria-label="Documentation">
         {navigation.map((section) => (
           <SidebarSection key={section.title} section={section} />
