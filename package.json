@@ -56,6 +56,10 @@
     "./icons/dynamic": {
       "types": "./packages/icons/Icon.tsx",
       "import": "./packages/icons/Icon.tsx"
+    },
+    "./blocks": {
+      "types": "./packages/blocks/index.ts",
+      "import": "./packages/blocks/index.ts"
     }
   },
   "workspaces": [

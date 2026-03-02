@@ -74,3 +74,11 @@ export type { Sidebar16Props } from './sidebar'
 // Dashboard blocks
 export { Dashboard01 } from './dashboard'
 export type { Dashboard01Props } from './dashboard'
+
+// Original cross-platform blocks
+export { MobileTabLayout } from './originals'
+export type { MobileTabLayoutProps, TabItem } from './originals'
+export { MasterDetail } from './originals'
+export type { MasterDetailProps } from './originals'
+export { AppShellResponsive } from './originals'
+export type { AppShellResponsiveProps } from './originals'
