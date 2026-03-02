@@ -324,3 +324,53 @@ export { DynamicIcon } from '../packages/icons/Icon'
 export type { DynamicIconProps } from '../packages/icons/Icon'
 export { createIcon } from '../packages/icons/createIcon'
 export type { IconFC as RemixIconFC } from '../packages/icons/createIcon'
+
+// Layer 3 — Blocks (Compositions)
+export {
+  Login01,
+  Login02,
+  Login03,
+  Login04,
+  Login05,
+  Signup01,
+  Signup02,
+  Signup03,
+  Signup04,
+  Signup05,
+  Sidebar01,
+  Sidebar02,
+  Sidebar03,
+  Sidebar04,
+  Sidebar05,
+  Sidebar06,
+  Sidebar07,
+  Sidebar08,
+} from '../packages/blocks'
+export type {
+  BlockProps,
+  AuthBlockProps,
+  LoginBlockProps,
+  SignupBlockProps,
+  SocialProvider,
+  Login01Props,
+  Login02Props,
+  Login03Props,
+  Login04Props,
+  Login05Props,
+  Signup01Props,
+  Signup02Props,
+  Signup03Props,
+  Signup04Props,
+  Signup05Props,
+  NavItem,
+  NavGroup,
+  SidebarBlockProps,
+  Sidebar01Props,
+  Sidebar02Props,
+  Sidebar03Props,
+  Sidebar04Props,
+  Sidebar05Props,
+  Sidebar06Props,
+  Sidebar07Props,
+  Sidebar08Props,
+} from '../packages/blocks'
