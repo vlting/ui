@@ -70,10 +70,10 @@
 **Stage Branch:** docs/component-parity/api-mapping
 **Stage PR:** (pending)
 **Acceptance criteria:**
-- [ ] Every component has an api-mapping.json file
-- [ ] Root api-mappings.json aggregates all mappings
-- [ ] Migration guide document covers import paths, prop renames, behavior differences
-- [ ] Primitive API audit confirms shadcn-equivalent surface (Badge, Kbd, Label, Separator, Skeleton, Spinner, AspectRatio)
-- [ ] Breaking differences documented with code examples
-**Status:** executing
+- [x] Every component has an api-mapping.json file
+- [x] Root api-mappings.json aggregates all mappings
+- [x] Migration guide document covers import paths, prop renames, behavior differences
+- [x] Primitive API audit confirms shadcn-equivalent surface (Badge, Kbd, Label, Separator, Skeleton, Spinner, AspectRatio)
+- [x] Breaking differences documented with code examples
+**Status:** complete
 **Iterations:** 0
