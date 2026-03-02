@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, type ReactNode, type ComponentType } from 'react'
+import { Text } from 'tamagui'
 import { ComponentPreview } from './component-preview'
 import type { ComponentExample } from '@/lib/registry'
 
@@ -8,6 +9,7 @@ import type { ComponentExample } from '@/lib/registry'
 // Cast re-exported components to a loose type for docs example rendering.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyFC = ComponentType<any>
+const TamaguiText = Text as AnyFC
 
 import {
   Button as _Button,
@@ -324,10 +326,7 @@ const Toast = _Toast as unknown as {
   Close: AnyFC
 }
 const Toggle = _Toggle as AnyFC
-const ToggleGroup = _ToggleGroup as unknown as {
-  Root: AnyFC
-  Item: AnyFC
-}
+const ToggleGroup = _ToggleGroup as AnyFC & { Item: AnyFC }
 
 // Small stateful wrapper components for overlay/modal examples
 function SheetDemo() {
@@ -568,19 +567,19 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
         <Accordion.Item value="item-1">
           <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
           <Accordion.Content>
-            Yes. It adheres to the WAI-ARIA design pattern.
+            <TamaguiText>Yes. It adheres to the WAI-ARIA design pattern.</TamaguiText>
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="item-2">
           <Accordion.Trigger>Is it styled?</Accordion.Trigger>
           <Accordion.Content>
-            Yes. It uses design tokens for consistent theming.
+            <TamaguiText>Yes. It uses design tokens for consistent theming.</TamaguiText>
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="item-3">
           <Accordion.Trigger>Is it animated?</Accordion.Trigger>
           <Accordion.Content>
-            Yes. Smooth expand/collapse with Tamagui animations.
+            <TamaguiText>Yes. Smooth expand/collapse with Tamagui animations.</TamaguiText>
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
@@ -1229,11 +1228,11 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
   },
   'toggle-group': {
     Basic: () => (
-      <ToggleGroup.Root type="single">
+      <ToggleGroup type="single">
         <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
         <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
         <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
-      </ToggleGroup.Root>
+      </ToggleGroup>
     ),
   },
 }
