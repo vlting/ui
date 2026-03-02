@@ -28,6 +28,68 @@ const chartConfig = {
   mobile: { label: "Mobile", color: "$green9" },
 }`
 
+const pieData = `const data = [
+  { browser: "Chrome", visitors: 275, fill: "$blue9" },
+  { browser: "Safari", visitors: 200, fill: "$green9" },
+  { browser: "Firefox", visitors: 187, fill: "$orange9" },
+  { browser: "Edge", visitors: 173, fill: "$purple9" },
+  { browser: "Other", visitors: 90, fill: "$gray9" },
+]
+
+const chartConfig = {
+  Chrome: { label: "Chrome", color: "$blue9" },
+  Safari: { label: "Safari", color: "$green9" },
+  Firefox: { label: "Firefox", color: "$orange9" },
+  Edge: { label: "Edge", color: "$purple9" },
+  Other: { label: "Other", color: "$gray9" },
+}`
+
+const radarData = `const data = [
+  { skill: "Design", desktop: 80, mobile: 65 },
+  { skill: "Frontend", desktop: 95, mobile: 70 },
+  { skill: "Backend", desktop: 70, mobile: 85 },
+  { skill: "DevOps", desktop: 60, mobile: 75 },
+  { skill: "Testing", desktop: 85, mobile: 60 },
+]
+
+const chartConfig = {
+  desktop: { label: "Desktop Team", color: "$blue9" },
+  mobile: { label: "Mobile Team", color: "$green9" },
+}`
+
+const radialData = `const data = [
+  { name: "Progress", value: 75, fill: "$blue9" },
+]
+
+const chartConfig = {
+  Progress: { label: "Progress", color: "$blue9" },
+}`
+
+const radialStackedData = `const data = [
+  { name: "Chrome", value: 275, fill: "$blue9" },
+  { name: "Safari", value: 200, fill: "$green9" },
+  { name: "Firefox", value: 187, fill: "$orange9" },
+]
+
+const chartConfig = {
+  Chrome: { label: "Chrome", color: "$blue9" },
+  Safari: { label: "Safari", color: "$green9" },
+  Firefox: { label: "Firefox", color: "$orange9" },
+}`
+
+const negativeData = `const data = [
+  { month: "Jan", value: 186 },
+  { month: "Feb", value: -120 },
+  { month: "Mar", value: 237 },
+  { month: "Apr", value: -73 },
+  { month: "May", value: 209 },
+  { month: "Jun", value: -45 },
+]
+
+const chartConfig = {
+  value: { label: "Revenue", color: "$blue9" },
+}`
+
 const registry: ChartEntry[] = [
   {
     name: 'Area Chart',
@@ -85,13 +147,101 @@ const registry: ChartEntry[] = [
   />
 </Chart>`,
       },
-      { name: 'Expanded', description: 'Normalized stacked area chart (100% stacked).', code: `<AreaChart data={data} variant="expanded" />` },
-      { name: 'Step', description: 'Step-line area chart with sharp transitions instead of smooth curves.', code: `<AreaChart data={data} variant="step" />` },
-      { name: 'Axes', description: 'Area chart with visible X and Y axes.', code: `<AreaChart data={data} variant="axes" />` },
-      { name: 'Interactive', description: 'Area chart with tooltip on hover/touch.', code: `<AreaChart data={data} variant="interactive" />` },
-      { name: 'Legend', description: 'Area chart with a chart legend.', code: `<AreaChart data={data} variant="legend" />` },
-      { name: 'Linear', description: 'Area chart with linear interpolation (straight lines between points).', code: `<AreaChart data={data} variant="linear" />` },
-      { name: 'Icons', description: 'Area chart with icon markers at data points.', code: `<AreaChart data={data} variant="icons" />` },
+      {
+        name: 'Expanded',
+        description: 'Normalized stacked area chart (100% stacked).',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <AreaChart
+    data={data}
+    variant="expanded"
+    accessibilityLabel="Expanded (100% stacked) area chart"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Step',
+        description: 'Step-line area chart with sharp transitions instead of smooth curves.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <AreaChart
+    data={data}
+    variant="step"
+    accessibilityLabel="Step area chart"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Axes',
+        description: 'Area chart with visible X and Y axes.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <AreaChart
+    data={data}
+    variant="axes"
+    accessibilityLabel="Area chart with axes"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Interactive',
+        description: 'Area chart with tooltip on hover/touch.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <AreaChart
+    data={data}
+    variant="interactive"
+    accessibilityLabel="Interactive area chart"
+  >
+    <ChartTooltip />
+  </AreaChart>
+</Chart>`,
+      },
+      {
+        name: 'Legend',
+        description: 'Area chart with a chart legend.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <AreaChart
+    data={data}
+    variant="legend"
+    accessibilityLabel="Area chart with legend"
+  >
+    <ChartLegend />
+  </AreaChart>
+</Chart>`,
+      },
+      {
+        name: 'Linear',
+        description: 'Area chart with linear interpolation (straight lines between points).',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <AreaChart
+    data={data}
+    variant="linear"
+    accessibilityLabel="Linear area chart"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Icons',
+        description: 'Area chart with icon markers at data points.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <AreaChart
+    data={data}
+    variant="icons"
+    accessibilityLabel="Area chart with icons"
+  />
+</Chart>`,
+      },
     ],
   },
   {
@@ -149,13 +299,99 @@ const registry: ChartEntry[] = [
   />
 </Chart>`,
       },
-      { name: 'Grouped', description: 'Grouped bars side-by-side for each category.', code: `<BarChart data={data} variant="grouped" />` },
-      { name: 'Negative', description: 'Bar chart supporting negative values with a baseline.', code: `<BarChart data={data} variant="negative" />` },
-      { name: 'Label', description: 'Bar chart with value labels on each bar.', code: `<BarChart data={data} variant="label" />` },
-      { name: 'Mixed', description: 'Mixed chart combining bars with a line overlay.', code: `<BarChart data={data} variant="mixed" />` },
-      { name: 'Custom Label', description: 'Bar chart with custom label formatting.', code: `<BarChart data={data} variant="custom-label" />` },
-      { name: 'Active', description: 'Bar chart with an active/highlighted bar on selection.', code: `<BarChart data={data} variant="active" />` },
-      { name: 'Interactive', description: 'Bar chart with tooltip on hover/touch.', code: `<BarChart data={data} variant="interactive" />` },
+      {
+        name: 'Grouped',
+        description: 'Grouped bars side-by-side for each category.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <BarChart
+    data={data}
+    variant="grouped"
+    accessibilityLabel="Grouped bar chart"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Negative',
+        description: 'Bar chart supporting negative values with a baseline.',
+        code: `${negativeData}
+
+<Chart config={chartConfig}>
+  <BarChart
+    data={data}
+    variant="negative"
+    accessibilityLabel="Bar chart with negative values"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Label',
+        description: 'Bar chart with value labels on each bar.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <BarChart
+    data={data}
+    variant="label"
+    accessibilityLabel="Bar chart with labels"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Mixed',
+        description: 'Mixed chart combining bars with a line overlay.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <BarChart
+    data={data}
+    variant="mixed"
+    accessibilityLabel="Mixed bar and line chart"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Custom Label',
+        description: 'Bar chart with custom label formatting.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <BarChart
+    data={data}
+    variant="custom-label"
+    accessibilityLabel="Bar chart with custom labels"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Active',
+        description: 'Bar chart with an active/highlighted bar on selection.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <BarChart
+    data={data}
+    variant="active"
+    accessibilityLabel="Bar chart with active state"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Interactive',
+        description: 'Bar chart with tooltip on hover/touch.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <BarChart
+    data={data}
+    variant="interactive"
+    accessibilityLabel="Interactive bar chart"
+  >
+    <ChartTooltip />
+  </BarChart>
+</Chart>`,
+      },
     ],
   },
   {
@@ -213,13 +449,101 @@ const registry: ChartEntry[] = [
   />
 </Chart>`,
       },
-      { name: 'Labels', description: 'Line chart with value labels at data points.', code: `<LineChart data={data} variant="labels" />` },
-      { name: 'Stepped', description: 'Step-line chart with sharp transitions.', code: `<LineChart data={data} variant="stepped" />` },
-      { name: 'Custom Dots', description: 'Line chart with custom-styled dot markers.', code: `<LineChart data={data} variant="custom-dots" />` },
-      { name: 'Interactive', description: 'Line chart with tooltip on hover/touch.', code: `<LineChart data={data} variant="interactive" />` },
-      { name: 'Linear', description: 'Line chart with linear interpolation.', code: `<LineChart data={data} variant="linear" />` },
-      { name: 'Legend', description: 'Line chart with a legend.', code: `<LineChart data={data} variant="legend" />` },
-      { name: 'Icons', description: 'Line chart with icon markers at data points.', code: `<LineChart data={data} variant="icons" />` },
+      {
+        name: 'Labels',
+        description: 'Line chart with value labels at data points.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <LineChart
+    data={data}
+    variant="labels"
+    accessibilityLabel="Line chart with labels"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Stepped',
+        description: 'Step-line chart with sharp transitions.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <LineChart
+    data={data}
+    variant="stepped"
+    accessibilityLabel="Stepped line chart"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Custom Dots',
+        description: 'Line chart with custom-styled dot markers.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <LineChart
+    data={data}
+    variant="custom-dots"
+    accessibilityLabel="Line chart with custom dots"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Interactive',
+        description: 'Line chart with tooltip on hover/touch.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <LineChart
+    data={data}
+    variant="interactive"
+    accessibilityLabel="Interactive line chart"
+  >
+    <ChartTooltip />
+  </LineChart>
+</Chart>`,
+      },
+      {
+        name: 'Linear',
+        description: 'Line chart with linear interpolation.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <LineChart
+    data={data}
+    variant="linear"
+    accessibilityLabel="Linear line chart"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Legend',
+        description: 'Line chart with a legend.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <LineChart
+    data={data}
+    variant="legend"
+    accessibilityLabel="Line chart with legend"
+  >
+    <ChartLegend />
+  </LineChart>
+</Chart>`,
+      },
+      {
+        name: 'Icons',
+        description: 'Line chart with icon markers at data points.',
+        code: `${sampleData}
+
+<Chart config={chartConfig}>
+  <LineChart
+    data={data}
+    variant="icons"
+    accessibilityLabel="Line chart with icons"
+  />
+</Chart>`,
+      },
     ],
   },
   {
@@ -241,13 +565,7 @@ const registry: ChartEntry[] = [
       {
         name: 'Default',
         description: 'Standard pie chart with colored segments.',
-        code: `const data = [
-  { browser: "Chrome", visitors: 275, fill: "$blue9" },
-  { browser: "Safari", visitors: 200, fill: "$green9" },
-  { browser: "Firefox", visitors: 187, fill: "$orange9" },
-  { browser: "Edge", visitors: 173, fill: "$purple9" },
-  { browser: "Other", visitors: 90, fill: "$gray9" },
-]
+        code: `${pieData}
 
 <Chart config={chartConfig}>
   <PieChart
@@ -260,21 +578,137 @@ const registry: ChartEntry[] = [
       {
         name: 'Donut',
         description: 'Donut chart with a hollow center.',
-        code: `<PieChart data={data} variant="donut" accessibilityLabel="Donut chart" />`,
+        code: `${pieData}
+
+<Chart config={chartConfig}>
+  <PieChart
+    data={data}
+    variant="donut"
+    accessibilityLabel="Browser share donut chart"
+  />
+</Chart>`,
       },
       {
         name: 'Donut with Text',
         description: 'Donut chart with a total or label displayed in the center.',
-        code: `<PieChart data={data} variant="donut-text" accessibilityLabel="Donut chart with total" />`,
+        code: `${pieData}
+
+<Chart config={chartConfig}>
+  <PieChart
+    data={data}
+    variant="donut-text"
+    accessibilityLabel="Donut chart with center total"
+  />
+</Chart>`,
       },
-      { name: 'Donut Active', description: 'Donut chart with an active/expanded segment on selection.', code: `<PieChart data={data} variant="donut-active" />` },
-      { name: 'Label', description: 'Pie chart with labels on each segment.', code: `<PieChart data={data} variant="label" />` },
-      { name: 'Custom Label', description: 'Pie chart with custom label formatting.', code: `<PieChart data={data} variant="custom-label" />` },
-      { name: 'Label List', description: 'Pie chart with an external label list.', code: `<PieChart data={data} variant="label-list" />` },
-      { name: 'Legend', description: 'Pie chart with a legend.', code: `<PieChart data={data} variant="legend" />` },
-      { name: 'Separator', description: 'Pie chart with visible separators between segments.', code: `<PieChart data={data} variant="separator" />` },
-      { name: 'Interactive', description: 'Pie chart with tooltip on hover/touch.', code: `<PieChart data={data} variant="interactive" />` },
-      { name: 'Stacked', description: 'Concentric rings showing nested proportions.', code: `<PieChart data={data} variant="stacked" />` },
+      {
+        name: 'Donut Active',
+        description: 'Donut chart with an active/expanded segment on selection.',
+        code: `${pieData}
+
+<Chart config={chartConfig}>
+  <PieChart
+    data={data}
+    variant="donut-active"
+    accessibilityLabel="Interactive donut chart"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Label',
+        description: 'Pie chart with labels on each segment.',
+        code: `${pieData}
+
+<Chart config={chartConfig}>
+  <PieChart
+    data={data}
+    variant="label"
+    accessibilityLabel="Pie chart with labels"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Custom Label',
+        description: 'Pie chart with custom label formatting.',
+        code: `${pieData}
+
+<Chart config={chartConfig}>
+  <PieChart
+    data={data}
+    variant="custom-label"
+    accessibilityLabel="Pie chart with custom labels"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Label List',
+        description: 'Pie chart with an external label list.',
+        code: `${pieData}
+
+<Chart config={chartConfig}>
+  <PieChart
+    data={data}
+    variant="label-list"
+    accessibilityLabel="Pie chart with label list"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Legend',
+        description: 'Pie chart with a legend.',
+        code: `${pieData}
+
+<Chart config={chartConfig}>
+  <PieChart
+    data={data}
+    variant="legend"
+    accessibilityLabel="Pie chart with legend"
+  >
+    <ChartLegend />
+  </PieChart>
+</Chart>`,
+      },
+      {
+        name: 'Separator',
+        description: 'Pie chart with visible separators between segments.',
+        code: `${pieData}
+
+<Chart config={chartConfig}>
+  <PieChart
+    data={data}
+    variant="separator"
+    accessibilityLabel="Pie chart with separators"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Interactive',
+        description: 'Pie chart with tooltip on hover/touch.',
+        code: `${pieData}
+
+<Chart config={chartConfig}>
+  <PieChart
+    data={data}
+    variant="interactive"
+    accessibilityLabel="Interactive pie chart"
+  >
+    <ChartTooltip />
+  </PieChart>
+</Chart>`,
+      },
+      {
+        name: 'Stacked',
+        description: 'Concentric rings showing nested proportions.',
+        code: `${pieData}
+
+<Chart config={chartConfig}>
+  <PieChart
+    data={data}
+    variant="stacked"
+    accessibilityLabel="Stacked pie chart"
+  />
+</Chart>`,
+      },
     ],
   },
   {
@@ -296,13 +730,7 @@ const registry: ChartEntry[] = [
       {
         name: 'Default',
         description: 'Basic radar chart with a filled polygon.',
-        code: `const data = [
-  { skill: "Design", value: 80 },
-  { skill: "Frontend", value: 95 },
-  { skill: "Backend", value: 70 },
-  { skill: "DevOps", value: 60 },
-  { skill: "Testing", value: 85 },
-]
+        code: `${radarData}
 
 <Chart config={chartConfig}>
   <RadarChart
@@ -315,24 +743,176 @@ const registry: ChartEntry[] = [
       {
         name: 'Dots',
         description: 'Radar chart with dot markers at each vertex.',
-        code: `<RadarChart data={data} variant="dots" accessibilityLabel="Radar chart with dots" />`,
+        code: `${radarData}
+
+<Chart config={chartConfig}>
+  <RadarChart
+    data={data}
+    variant="dots"
+    accessibilityLabel="Radar chart with dots"
+  />
+</Chart>`,
       },
       {
         name: 'Multiple',
         description: 'Multiple overlapping radar polygons for comparison.',
-        code: `<RadarChart data={data} variant="multiple" accessibilityLabel="Multi-series radar" />`,
+        code: `${radarData}
+
+<Chart config={chartConfig}>
+  <RadarChart
+    data={data}
+    variant="multiple"
+    accessibilityLabel="Multi-series radar chart"
+  />
+</Chart>`,
       },
-      { name: 'Lines', description: 'Radar chart with lines only (no fill).', code: `<RadarChart data={data} variant="lines" />` },
-      { name: 'Custom', description: 'Radar chart with custom styling.', code: `<RadarChart data={data} variant="custom" />` },
-      { name: 'Grid Circle', description: 'Radar chart with circular grid lines.', code: `<RadarChart data={data} variant="grid-circle" />` },
-      { name: 'Grid Filled', description: 'Radar chart with filled grid bands.', code: `<RadarChart data={data} variant="grid-filled" />` },
-      { name: 'Grid None', description: 'Radar chart with no grid lines.', code: `<RadarChart data={data} variant="grid-none" />` },
-      { name: 'Legend', description: 'Radar chart with a legend.', code: `<RadarChart data={data} variant="legend" />` },
-      { name: 'Icons', description: 'Radar chart with icon markers at vertices.', code: `<RadarChart data={data} variant="icons" />` },
-      { name: 'Radius Axis', description: 'Radar chart with a visible radius axis.', code: `<RadarChart data={data} variant="radius-axis" />` },
-      { name: 'Label', description: 'Radar chart with labels at each vertex.', code: `<RadarChart data={data} variant="label" />` },
-      { name: 'Custom Shape', description: 'Radar chart with a custom polygon shape.', code: `<RadarChart data={data} variant="custom-shape" />` },
-      { name: 'Interactive', description: 'Radar chart with tooltip on hover/touch.', code: `<RadarChart data={data} variant="interactive" />` },
+      {
+        name: 'Lines',
+        description: 'Radar chart with lines only (no fill).',
+        code: `${radarData}
+
+<Chart config={chartConfig}>
+  <RadarChart
+    data={data}
+    variant="lines"
+    accessibilityLabel="Radar chart with lines only"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Custom',
+        description: 'Radar chart with custom styling.',
+        code: `${radarData}
+
+<Chart config={chartConfig}>
+  <RadarChart
+    data={data}
+    variant="custom"
+    accessibilityLabel="Custom styled radar chart"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Grid Circle',
+        description: 'Radar chart with circular grid lines.',
+        code: `${radarData}
+
+<Chart config={chartConfig}>
+  <RadarChart
+    data={data}
+    variant="grid-circle"
+    accessibilityLabel="Radar chart with circular grid"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Grid Filled',
+        description: 'Radar chart with filled grid bands.',
+        code: `${radarData}
+
+<Chart config={chartConfig}>
+  <RadarChart
+    data={data}
+    variant="grid-filled"
+    accessibilityLabel="Radar chart with filled grid"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Grid None',
+        description: 'Radar chart with no grid lines.',
+        code: `${radarData}
+
+<Chart config={chartConfig}>
+  <RadarChart
+    data={data}
+    variant="grid-none"
+    accessibilityLabel="Radar chart without grid"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Legend',
+        description: 'Radar chart with a legend.',
+        code: `${radarData}
+
+<Chart config={chartConfig}>
+  <RadarChart
+    data={data}
+    variant="legend"
+    accessibilityLabel="Radar chart with legend"
+  >
+    <ChartLegend />
+  </RadarChart>
+</Chart>`,
+      },
+      {
+        name: 'Icons',
+        description: 'Radar chart with icon markers at vertices.',
+        code: `${radarData}
+
+<Chart config={chartConfig}>
+  <RadarChart
+    data={data}
+    variant="icons"
+    accessibilityLabel="Radar chart with icons"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Radius Axis',
+        description: 'Radar chart with a visible radius axis.',
+        code: `${radarData}
+
+<Chart config={chartConfig}>
+  <RadarChart
+    data={data}
+    variant="radius-axis"
+    accessibilityLabel="Radar chart with radius axis"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Label',
+        description: 'Radar chart with labels at each vertex.',
+        code: `${radarData}
+
+<Chart config={chartConfig}>
+  <RadarChart
+    data={data}
+    variant="label"
+    accessibilityLabel="Radar chart with labels"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Custom Shape',
+        description: 'Radar chart with a custom polygon shape.',
+        code: `${radarData}
+
+<Chart config={chartConfig}>
+  <RadarChart
+    data={data}
+    variant="custom-shape"
+    accessibilityLabel="Radar chart with custom shape"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Interactive',
+        description: 'Radar chart with tooltip on hover/touch.',
+        code: `${radarData}
+
+<Chart config={chartConfig}>
+  <RadarChart
+    data={data}
+    variant="interactive"
+    accessibilityLabel="Interactive radar chart"
+  >
+    <ChartTooltip />
+  </RadarChart>
+</Chart>`,
+      },
     ],
   },
   {
@@ -354,9 +934,7 @@ const registry: ChartEntry[] = [
       {
         name: 'Default',
         description: 'Basic radial chart with concentric arcs.',
-        code: `const data = [
-  { name: "Progress", value: 75, fill: "$blue9" },
-]
+        code: `${radialData}
 
 <Chart config={chartConfig}>
   <RadialChart
@@ -369,16 +947,68 @@ const registry: ChartEntry[] = [
       {
         name: 'Grid',
         description: 'Radial chart with background grid circles.',
-        code: `<RadialChart data={data} variant="grid" accessibilityLabel="Radial chart with grid" />`,
+        code: `${radialData}
+
+<Chart config={chartConfig}>
+  <RadialChart
+    data={data}
+    variant="grid"
+    accessibilityLabel="Radial chart with grid"
+  />
+</Chart>`,
       },
       {
         name: 'Label',
         description: 'Radial chart with value labels.',
-        code: `<RadialChart data={data} variant="label" accessibilityLabel="Radial chart with labels" />`,
+        code: `${radialData}
+
+<Chart config={chartConfig}>
+  <RadialChart
+    data={data}
+    variant="label"
+    accessibilityLabel="Radial chart with labels"
+  />
+</Chart>`,
       },
-      { name: 'Stacked', description: 'Multiple concentric arcs stacked together.', code: `<RadialChart data={data} variant="stacked" />` },
-      { name: 'Text', description: 'Radial chart with a central text label.', code: `<RadialChart data={data} variant="text" />` },
-      { name: 'Shape', description: 'Radial chart with custom arc shapes.', code: `<RadialChart data={data} variant="shape" />` },
+      {
+        name: 'Stacked',
+        description: 'Multiple concentric arcs stacked together.',
+        code: `${radialStackedData}
+
+<Chart config={chartConfig}>
+  <RadialChart
+    data={data}
+    variant="stacked"
+    accessibilityLabel="Stacked radial chart"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Text',
+        description: 'Radial chart with a central text label.',
+        code: `${radialData}
+
+<Chart config={chartConfig}>
+  <RadialChart
+    data={data}
+    variant="text"
+    accessibilityLabel="Radial chart with center text"
+  />
+</Chart>`,
+      },
+      {
+        name: 'Shape',
+        description: 'Radial chart with custom arc shapes.',
+        code: `${radialData}
+
+<Chart config={chartConfig}>
+  <RadialChart
+    data={data}
+    variant="shape"
+    accessibilityLabel="Radial chart with custom shape"
+  />
+</Chart>`,
+      },
     ],
   },
 ]
