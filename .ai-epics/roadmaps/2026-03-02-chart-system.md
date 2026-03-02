@@ -18,7 +18,7 @@
 **Estimated scope:** ~12 files, ~800 lines
 **GitHub Sub-Issue:** #41
 **Stage Branch:** feat/chart-system/chart-foundation
-**Stage PR:** (pending)
+**Stage PR:** #46
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmb26g
 **Acceptance criteria:**
 - [x] victory-native installed as dependency
