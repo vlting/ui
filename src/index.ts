@@ -285,3 +285,9 @@ export {
   buildFaceMapsFromConfig,
 } from '../packages/utils'
 export type { FontLoaderProps, FontLoadState } from '../packages/utils'
+
+// Icons (Remix Icon)
+export { DynamicIcon } from '../packages/icons/Icon'
+export type { DynamicIconProps } from '../packages/icons/Icon'
+export { createIcon } from '../packages/icons/createIcon'
+export type { IconFC as RemixIconFC } from '../packages/icons/createIcon'
