@@ -74,6 +74,7 @@
     "format": "biome format --write src/ packages/",
     "typecheck": "tsc --noEmit",
     "dev:kitchen-sink": "yarn workspace @vlting/examples-kitchen-sink dev",
+    "dev:docs": "yarn workspace @vlting/examples-docs dev",
     "generate:icons": "node scripts/generate-icons.mjs"
   },
   "dependencies": {
