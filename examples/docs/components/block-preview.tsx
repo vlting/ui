@@ -5,11 +5,11 @@ interface BlockPreviewProps {
 
 export function BlockPreview({ name, description }: BlockPreviewProps) {
   return (
-    <div className="border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden">
-      <div className="bg-gray-50 dark:bg-gray-900 p-8 flex flex-col items-center justify-center min-h-[300px] gap-4">
-        <div className="w-16 h-16 rounded-lg bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+    <div className="border border-border rounded-lg overflow-hidden">
+      <div className="bg-surface-muted p-8 flex flex-col items-center justify-center min-h-[300px] gap-4">
+        <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center">
           <svg
-            className="w-8 h-8 text-gray-400 dark:text-gray-600"
+            className="w-8 h-8 text-muted-foreground"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -23,15 +23,15 @@ export function BlockPreview({ name, description }: BlockPreviewProps) {
           </svg>
         </div>
         <div className="text-center">
-          <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <p className="text-sm font-medium text-foreground-secondary">
             {name}
           </p>
-          <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             Live preview available when block components are shipped
           </p>
         </div>
         {description && (
-          <p className="text-xs text-gray-400 dark:text-gray-600 max-w-sm text-center">
+          <p className="text-xs text-muted-foreground max-w-sm text-center">
             {description}
           </p>
         )}
