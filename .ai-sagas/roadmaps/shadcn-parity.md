@@ -51,11 +51,11 @@ created: 2026-03-01
 **Objective:** Build the full chart system using Victory Native — 6 chart types, 69 variants, themed via design tokens, rendering cross-platform.
 **PRD coverage:** FR-3 (Chart System)
 **Dependencies:** Epic 1
-**Estimated stages:** ~5
+**Estimated stages:** ~4
 **Epic slug:** chart-system
-**Epic Roadmap:** (filled during EXECUTE)
-**Tech Spec:** (filled during EXECUTE)
-**Status:** pending
+**Epic Roadmap:** (filled after PLAN)
+**Tech Spec:** `.ai-epics/docs/chart-system/tech-spec.md`
+**Status:** in-progress
 **Review notes:**
 
 ## Epic 5: Block System
