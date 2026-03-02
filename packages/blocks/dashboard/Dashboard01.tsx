@@ -3,9 +3,9 @@ import type { ComponentType, ReactNode } from 'react'
 import React from 'react'
 import { Text, View } from 'tamagui'
 import { Card } from '../../components/Card'
-import { Chart, type ChartConfig } from '../../components/Chart'
-import { BarChart } from '../../components/Chart'
-import { DataTable } from '../../components/DataTable'
+import { Chart as _Chart, type ChartConfig } from '../../components/Chart'
+import { BarChart as _BarChart } from '../../components/Chart'
+import { DataTable as _DataTable } from '../../components/DataTable'
 import { Sidebar } from '../../components/Sidebar'
 import type { NavGroup } from '../sidebar/_shared'
 import { SidebarNavGroup } from '../sidebar/_shared'
@@ -13,6 +13,13 @@ import { SidebarNavGroup } from '../sidebar/_shared'
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
+const CardJsx = Card as AnyFC
+const CardHeader = Card.Header as AnyFC
+const CardTitle = Card.Title as AnyFC
+const CardContent = Card.Content as AnyFC
+const Chart = _Chart as unknown as AnyFC
+const BarChart = _BarChart as unknown as AnyFC
+const DataTable = _DataTable as unknown as AnyFC
 
 export interface Dashboard01Props {
   sidebarGroups: NavGroup[]
@@ -69,11 +76,11 @@ export function Dashboard01({
         </ViewJsx>
 
         {chartConfig && chartData && (
-          <Card>
-            <Card.Header>
-              <Card.Title>Overview</Card.Title>
-            </Card.Header>
-            <Card.Content>
+          <CardJsx>
+            <CardHeader>
+              <CardTitle>Overview</CardTitle>
+            </CardHeader>
+            <CardContent>
               <Chart
                 config={chartConfig}
                 data={chartData}
@@ -89,19 +96,19 @@ export function Dashboard01({
                   showYAxis
                 />
               </Chart>
-            </Card.Content>
-          </Card>
+            </CardContent>
+          </CardJsx>
         )}
 
         {tableData && tableColumns && (
-          <Card>
-            <Card.Header>
-              <Card.Title>Recent Data</Card.Title>
-            </Card.Header>
-            <Card.Content>
+          <CardJsx>
+            <CardHeader>
+              <CardTitle>Recent Data</CardTitle>
+            </CardHeader>
+            <CardContent>
               <DataTable data={tableData} columns={tableColumns} enablePagination />
-            </Card.Content>
-          </Card>
+            </CardContent>
+          </CardJsx>
         )}
 
         {children}
