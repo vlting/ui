@@ -74,7 +74,7 @@
 **Estimated scope:** ~8 files, ~500 lines
 **GitHub Sub-Issue:** #44
 **Stage Branch:** feat/chart-system/integration-polish
-**Stage PR:** (pending)
+**Stage PR:** #49
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmb274
 **Acceptance criteria:**
 - [x] All chart components exported from packages/components/Chart/index.ts
