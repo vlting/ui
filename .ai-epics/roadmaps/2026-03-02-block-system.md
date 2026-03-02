@@ -19,17 +19,17 @@
 **Stage Branch:** feat/block-system/auth-blocks
 **Stage PR:** (pending)
 **Acceptance criteria:**
-- [ ] `packages/blocks/` directory structure created with `_shared/types.ts`
-- [ ] `packages/blocks/index.ts` barrel export exists
-- [ ] Login01-05 implemented with typed props (onSubmit, socialProviders, forgotPasswordHref, etc.)
-- [ ] Signup01-05 implemented with typed props
-- [ ] Shared auth form utilities in `login/_shared.tsx`
-- [ ] Each auth block has a spec.md and test file
-- [ ] All auth blocks compose only from @vlting/ui components (no raw HTML beyond styledHtml)
-- [ ] All auth blocks use design tokens exclusively (no hardcoded colors/spacing)
-- [ ] All auth blocks are keyboard navigable with proper focus management
-- [ ] All auth blocks have `<form>` landmark and associated `<label>` elements
-**Status:** executing
+- [x] `packages/blocks/` directory structure created with `_shared/types.ts`
+- [x] `packages/blocks/index.ts` barrel export exists
+- [x] Login01-05 implemented with typed props (onSubmit, socialProviders, forgotPasswordHref, etc.)
+- [x] Signup01-05 implemented with typed props
+- [x] Shared auth form utilities in `login/_shared.tsx`
+- [x] Each auth block has a spec.md and test file
+- [x] All auth blocks compose only from @vlting/ui components (no raw HTML beyond styledHtml)
+- [x] All auth blocks use design tokens exclusively (no hardcoded colors/spacing)
+- [x] All auth blocks are keyboard navigable with proper focus management
+- [x] All auth blocks have `<form>` landmark and associated `<label>` elements
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 2: Sidebar Blocks (01-08)
