@@ -1,0 +1,37 @@
+{
+  "component": "Item",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Item } from '@vlting/ui'",
+    "props": {
+      "Item.Root": {
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+        "interactive": { "type": "boolean", "values": [true, false] }
+      },
+      "Item.Leading": {
+        "description": "Container for leading content (icon, avatar, etc.)"
+      },
+      "Item.Content": {
+        "description": "Flex container for title and description"
+      },
+      "Item.Title": {
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" }
+      },
+      "Item.Description": {
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" }
+      },
+      "Item.Trailing": {
+        "description": "Container for trailing content (badge, action, etc.)"
+      }
+    }
+  },
+  "notes": [
+    "No shadcn equivalent. Item is a custom @vlting/ui compound component for list items.",
+    "Compound component with Root, Leading, Content, Title, Description, and Trailing sub-components.",
+    "Uses withStaticProperties for compound API: <Item><Item.Leading /><Item.Content><Item.Title /><Item.Description /></Item.Content><Item.Trailing /></Item>",
+    "The 'interactive' variant adds hover/press/focus styles with cursor: pointer."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" }
+  ]
+}

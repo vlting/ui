@@ -1,0 +1,55 @@
+{
+  "component": "Resizable",
+  "shadcn": {
+    "import": "import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable'",
+    "props": {
+      "ResizablePanelGroup": {
+        "direction": { "type": "string", "values": ["horizontal", "vertical"] },
+        "onLayout": { "type": "function" },
+        "className": { "type": "string" }
+      },
+      "ResizablePanel": {
+        "defaultSize": { "type": "number" },
+        "minSize": { "type": "number" },
+        "maxSize": { "type": "number" },
+        "collapsible": { "type": "boolean" }
+      },
+      "ResizableHandle": {
+        "withHandle": { "type": "boolean" },
+        "className": { "type": "string" }
+      }
+    }
+  },
+  "vlting": {
+    "import": "import { Resizable } from '@vlting/ui'",
+    "props": {
+      "Resizable.PanelGroup": {
+        "direction": { "type": "string", "values": ["horizontal", "vertical"], "default": "horizontal" },
+        "onLayout": { "type": "function", "signature": "(sizes: number[]) => void" },
+        "children": { "type": "ReactNode" }
+      },
+      "Resizable.Panel": {
+        "defaultSize": { "type": "number" },
+        "minSize": { "type": "number", "default": 0 },
+        "maxSize": { "type": "number", "default": 100 },
+        "collapsible": { "type": "boolean" },
+        "children": { "type": "ReactNode" }
+      },
+      "Resizable.Handle": {
+        "withHandle": { "type": "boolean", "default": true }
+      }
+    }
+  },
+  "notes": [
+    "shadcn wraps react-resizable-panels; vlting uses a custom context-based implementation.",
+    "API is very similar: PanelGroup, Panel, Handle with the same prop names.",
+    "vlting handles panel sizing with percentage-based widths/heights via internal state.",
+    "Handle renders a drag grip indicator when withHandle is true (default).",
+    "Mouse-based drag resizing with proper cursor styles (col-resize/row-resize)."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "<ResizablePanelGroup>", "vlting": "<Resizable.PanelGroup>", "reason": "Dot-notation compound component API" },
+    { "shadcn": "react-resizable-panels library", "vlting": "Custom implementation", "reason": "No external dependency for resize logic" }
+  ]
+}

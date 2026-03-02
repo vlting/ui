@@ -1,0 +1,53 @@
+{
+  "component": "Sheet",
+  "shadcn": {
+    "import": "import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter, SheetClose } from '@/components/ui/sheet'",
+    "props": {
+      "Sheet": {
+        "open": { "type": "boolean" },
+        "onOpenChange": { "type": "function" }
+      },
+      "SheetContent": {
+        "side": { "type": "string", "values": ["top", "right", "bottom", "left"] },
+        "className": { "type": "string" }
+      }
+    }
+  },
+  "vlting": {
+    "import": "import { Sheet } from '@vlting/ui'",
+    "props": {
+      "Sheet.Root": {
+        "open": { "type": "boolean" },
+        "onOpenChange": { "type": "function", "signature": "(open: boolean) => void" },
+        "snapPoints": { "type": "number[]" },
+        "position": { "type": "number" },
+        "defaultPosition": { "type": "number" },
+        "modal": { "type": "boolean", "default": true },
+        "dismissOnOverlayPress": { "type": "boolean", "default": true },
+        "dismissOnSnapToBottom": { "type": "boolean", "default": true },
+        "children": { "type": "ReactNode" }
+      },
+      "Sheet.Overlay": {},
+      "Sheet.Handle": {},
+      "Sheet.Frame": {
+        "children": { "type": "ReactNode" }
+      },
+      "Sheet.ScrollView": {
+        "children": { "type": "ReactNode" }
+      }
+    }
+  },
+  "notes": [
+    "shadcn Sheet is a side drawer (top/right/bottom/left); vlting Sheet is a bottom sheet with snap points.",
+    "vlting wraps @tamagui/sheet which is mobile-oriented with drag-to-dismiss and snap points.",
+    "vlting Sheet always opens from the bottom; for side drawers, use the Drawer component instead.",
+    "Includes Handle component for the drag indicator and Overlay for the backdrop.",
+    "ScrollView sub-component enables scrollable content within the sheet frame."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "<SheetContent side='right'>", "vlting": "<Sheet.Root><Sheet.Frame>", "reason": "vlting Sheet is always bottom-up; use Drawer for side panels" },
+    { "shadcn": "SheetHeader, SheetTitle, SheetDescription", "vlting": "Compose content freely inside Sheet.Frame", "reason": "No built-in header/title sub-components; use Typography or custom layout" },
+    { "shadcn": "No snap points", "vlting": "snapPoints={[50, 90]}", "reason": "vlting supports snap-to-position for mobile-like sheet behavior" }
+  ]
+}

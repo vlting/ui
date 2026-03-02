@@ -1,0 +1,17 @@
+{
+  "component": "VisuallyHidden",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { VisuallyHidden } from '@vlting/ui'",
+    "props": {
+      "children": { "type": "ReactNode", "values": [] }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; shadcn uses Radix VisuallyHidden or sr-only utility class",
+    "Uses standard screen-reader-only technique (clip, clipPath, overflow hidden, 1px size)",
+    "Built on Tamagui styled(View) with inline sr-only CSS properties",
+    "Useful for accessible labels and descriptions hidden from visual display"
+  ],
+  "breaking": []
+}

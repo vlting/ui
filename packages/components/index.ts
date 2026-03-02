@@ -4,10 +4,21 @@ export type { ButtonProps } from './Button'
 export { Input } from './Input'
 export type { InputProps } from './Input'
 
+export { InputGroup } from './InputGroup'
+export type {
+  InputGroupProps,
+  InputGroupAddonProps,
+  InputGroupElementProps,
+  InputGroupInputProps,
+} from './InputGroup'
+
 export { Card } from './Card'
 export type { CardProps } from './Card'
 
 export { Dialog } from './Dialog'
+
+export { Direction, DirectionProvider, useDirection } from './Direction'
+export type { DirectionProviderProps } from './Direction'
 
 export { Tabs } from './Tabs'
 
@@ -62,6 +73,16 @@ export { AlertDialog } from './AlertDialog'
 
 export { Table } from './Table'
 
+export { DataTable } from './DataTable'
+export type { DataTableProps } from './DataTable'
+export type {
+  ColumnDef,
+  SortingState,
+  ColumnFiltersState,
+  VisibilityState,
+  PaginationState,
+} from './DataTable'
+
 export { Breadcrumb } from './Breadcrumb'
 export type { BreadcrumbProps } from './Breadcrumb'
 
@@ -88,6 +109,16 @@ export type { NativeSelectRootProps, NativeSelectOptionProps } from './NativeSel
 
 export { InputOTP } from './InputOTP'
 export type { InputOTPRootProps, InputOTPSlotProps } from './InputOTP'
+
+export { Item } from './Item'
+export type {
+  ItemProps,
+  ItemLeadingProps,
+  ItemContentProps,
+  ItemTitleProps,
+  ItemDescriptionProps,
+  ItemTrailingProps,
+} from './Item'
 
 export { ButtonGroup } from './ButtonGroup'
 export type { ButtonGroupRootProps } from './ButtonGroup'
@@ -185,3 +216,8 @@ export type {
   EmptyMediaProps,
   EmptyActionProps,
 } from './Empty'
+
+export { Toast, useToastController, useToastState } from './Toast'
+export type { ToastRootProps, ToastViewportProps, ToastProviderProps } from './Toast'
+export { toast, ImperativeToastViewport, useImperativeToasts } from './Toast'
+export type { ToastData, PromiseToastData } from './Toast'

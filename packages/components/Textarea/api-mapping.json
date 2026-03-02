@@ -1,0 +1,44 @@
+{
+  "component": "Textarea",
+  "shadcn": {
+    "import": "import { Textarea } from '@/components/ui/textarea'",
+    "props": {
+      "placeholder": { "type": "string" },
+      "disabled": { "type": "boolean" },
+      "rows": { "type": "number" },
+      "className": { "type": "string" },
+      "value": { "type": "string" },
+      "onChange": { "type": "function" }
+    }
+  },
+  "vlting": {
+    "import": "import { Textarea } from '@vlting/ui'",
+    "props": {
+      "value": { "type": "string" },
+      "defaultValue": { "type": "string" },
+      "onChangeText": { "type": "function", "signature": "(text: string) => void" },
+      "placeholder": { "type": "string" },
+      "label": { "type": "string" },
+      "helperText": { "type": "string" },
+      "error": { "type": "boolean" },
+      "errorMessage": { "type": "string" },
+      "disabled": { "type": "boolean" },
+      "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+      "rows": { "type": "number", "default": 3 },
+      "maxLength": { "type": "number" }
+    }
+  },
+  "notes": [
+    "vlting Textarea is a higher-level component that includes optional label, helper text, and error state.",
+    "shadcn Textarea is a bare styled textarea; vlting wraps @tamagui/input TextArea with a form field layout.",
+    "vlting uses onChangeText (string callback) instead of onChange (event callback).",
+    "When error is true and errorMessage is provided, it displays instead of helperText.",
+    "Auto-generates unique IDs for label-textarea association and aria-describedby linking."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "onChange={(e) => e.target.value}", "vlting": "onChangeText={(text) => text}", "reason": "Direct string callback for cross-platform compatibility" },
+    { "shadcn": "Separate <Label> component", "vlting": "label='...' prop on Textarea", "reason": "Label is built into the component" },
+    { "shadcn": "No built-in error state", "vlting": "error + errorMessage props", "reason": "vlting includes form field error handling" }
+  ]
+}

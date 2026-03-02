@@ -1,0 +1,86 @@
+{
+  "component": "Menu",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Menu } from '@vlting/ui'",
+    "props": {
+      "Menu.Root": {
+        "open": { "type": "boolean" },
+        "defaultOpen": { "type": "boolean" },
+        "onOpenChange": { "type": "function", "signature": "(open: boolean) => void" },
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.Trigger": {
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.Portal": {
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.Content": {
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.Group": {
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.Label": {
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.Item": {
+        "onSelect": { "type": "function", "signature": "() => void" },
+        "disabled": { "type": "boolean" },
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.ItemTitle": {
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.ItemSubtitle": {
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.ItemIcon": {
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.CheckboxItem": {
+        "checked": { "type": "boolean" },
+        "onCheckedChange": { "type": "function", "signature": "(checked: boolean) => void" },
+        "disabled": { "type": "boolean" },
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.RadioGroup": {
+        "value": { "type": "string" },
+        "onValueChange": { "type": "function", "signature": "(value: string) => void" },
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.RadioItem": {
+        "value": { "type": "string", "required": true },
+        "disabled": { "type": "boolean" },
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.ItemIndicator": {
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.Separator": {},
+      "Menu.Arrow": {},
+      "Menu.Sub": {
+        "open": { "type": "boolean" },
+        "onOpenChange": { "type": "function", "signature": "(open: boolean) => void" },
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.SubTrigger": {
+        "disabled": { "type": "boolean" },
+        "children": { "type": "ReactNode" }
+      },
+      "Menu.SubContent": {
+        "children": { "type": "ReactNode" }
+      }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent. Menu wraps @tamagui/menu and provides a Radix-like compound API.",
+    "Includes CheckboxItem, RadioGroup, RadioItem, Sub-menus, and ItemIndicator.",
+    "Uses Portal for rendering content outside the DOM tree.",
+    "Supports nested sub-menus via Menu.Sub, Menu.SubTrigger, and Menu.SubContent."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" }
+  ]
+}

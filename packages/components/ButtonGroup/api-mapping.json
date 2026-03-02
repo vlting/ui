@@ -1,0 +1,22 @@
+{
+  "component": "ButtonGroup",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { ButtonGroup } from '@vlting/ui'",
+    "props": {
+      "ButtonGroup.Root": {
+        "orientation": { "type": "string", "values": ["horizontal", "vertical"] },
+        "aria-label": { "type": "string", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; shadcn has no ButtonGroup component",
+    "Groups buttons with connected borders (removes inner border-radius, overlaps borders)",
+    "Default orientation is 'horizontal'",
+    "Sets role='group' with optional aria-label",
+    "Uses CSS class injection for border-radius and margin adjustments on children"
+  ],
+  "breaking": []
+}

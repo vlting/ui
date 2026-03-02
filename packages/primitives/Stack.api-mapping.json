@@ -1,0 +1,22 @@
+{
+  "component": "Stack",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Stack, VStack, HStack } from '@vlting/ui'",
+    "props": {
+      "children": { "type": "ReactNode", "values": [] },
+      "gap": { "type": "number | string", "values": ["$1", "$2", "$4"] },
+      "padding": { "type": "number | string", "values": [] },
+      "alignItems": { "type": "string", "values": ["center", "flex-start", "flex-end", "stretch"] },
+      "justifyContent": { "type": "string", "values": ["center", "flex-start", "flex-end", "space-between"] }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; shadcn uses div with flex utilities",
+    "Stack and VStack are vertical (YStack); HStack is horizontal (XStack)",
+    "Stack is an alias for VStack (vertical by default)",
+    "Accepts all Tamagui layout style props (gap, padding, margin, flex, etc.)",
+    "Exports: Stack (VStack alias), VStack, HStack with corresponding Props types"
+  ],
+  "breaking": []
+}

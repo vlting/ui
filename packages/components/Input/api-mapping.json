@@ -1,0 +1,45 @@
+{
+  "component": "Input",
+  "shadcn": {
+    "import": "import { Input } from '@/components/ui/input'",
+    "props": {
+      "type": { "type": "string", "values": ["text", "password", "email", "number", "search", "tel", "url"] },
+      "placeholder": { "type": "string", "values": [] },
+      "disabled": { "type": "boolean", "values": [] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Input } from '@vlting/ui'",
+    "props": {
+      "size": { "type": "string", "values": ["sm", "md", "lg"] },
+      "type": { "type": "string", "values": ["text", "password", "email", "number", "search", "tel", "url", "date", "file"] },
+      "placeholder": { "type": "string", "values": [] },
+      "value": { "type": "string", "values": [] },
+      "defaultValue": { "type": "string", "values": [] },
+      "onChangeText": { "type": "function", "values": ["(text: string) => void"] },
+      "label": { "type": "string", "values": [] },
+      "helperText": { "type": "string", "values": [] },
+      "error": { "type": "boolean", "values": [] },
+      "errorMessage": { "type": "string", "values": [] },
+      "disabled": { "type": "boolean", "values": [] },
+      "leadingSlot": { "type": "ReactNode", "values": [] },
+      "trailingSlot": { "type": "ReactNode", "values": [] }
+    }
+  },
+  "notes": [
+    "shadcn Input is a minimal styled input; vlting Input includes label, helper text, and error states",
+    "vlting uses onChangeText (Tamagui/React Native pattern) instead of onChange; receives text string directly",
+    "vlting adds size prop (sm, md, lg) controlling height, padding, border-radius, and label font size",
+    "vlting adds leadingSlot and trailingSlot for icons or buttons inside the input row",
+    "Built on @tamagui/input; supports focus-visible outline styling",
+    "Auto-generates IDs for label-input association and aria-describedby for helper/error text",
+    "Also exposes Input.Frame, Input.Label, Input.Helper as lower-level styled components"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props or size/error props", "reason": "Cross-platform" },
+    { "shadcn": "onChange={(e) => ...}", "vlting": "onChangeText={(text) => ...}", "reason": "Cross-platform; receives text string, not event object" },
+    { "shadcn": "No built-in label/error", "vlting": "Use label, error, errorMessage, helperText props", "reason": "Built-in form field features" },
+    { "shadcn": "No slot support", "vlting": "Use leadingSlot/trailingSlot for addons", "reason": "Built-in icon/addon support" }
+  ]
+}

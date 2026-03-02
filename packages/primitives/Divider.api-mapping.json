@@ -1,0 +1,17 @@
+{
+  "component": "Divider",
+  "shadcn": null,
+  "vlting": {
+    "import": "import { Divider } from '@vlting/ui'",
+    "props": {
+      "orientation": { "type": "string", "values": ["horizontal", "vertical"] }
+    }
+  },
+  "notes": [
+    "No direct shadcn equivalent; similar to shadcn Separator but named 'Divider'",
+    "Sets role='separator' and aria-orientation automatically",
+    "Default orientation is 'horizontal'",
+    "See also the Separator primitive which is a styled Tamagui component with a similar API"
+  ],
+  "breaking": []
+}

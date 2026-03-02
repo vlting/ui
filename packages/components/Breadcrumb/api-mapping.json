@@ -1,0 +1,45 @@
+{
+  "component": "Breadcrumb",
+  "shadcn": {
+    "import": "import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb'",
+    "props": {
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Breadcrumb } from '@vlting/ui'",
+    "props": {
+      "Breadcrumb.Root": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Breadcrumb.Item": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Breadcrumb.Link": {
+        "href": { "type": "string", "values": [] },
+        "onPress": { "type": "function", "values": ["() => void"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Breadcrumb.Page": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Breadcrumb.Separator": {
+        "children": { "type": "ReactNode", "values": ["/"] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn uses flat exports (BreadcrumbItem, BreadcrumbLink); vlting uses compound pattern",
+    "vlting Breadcrumb.Root renders semantic <nav aria-label='Breadcrumb'> with <ol>",
+    "Breadcrumb.Link supports both href (anchor) and onPress (callback) navigation",
+    "Breadcrumb.Page sets aria-current='page' automatically",
+    "Separator defaults to '/' character; pass children to customize",
+    "shadcn has BreadcrumbList wrapper; vlting bakes list into Root"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "<BreadcrumbItem>", "vlting": "<Breadcrumb.Item>", "reason": "Compound component pattern" },
+    { "shadcn": "<BreadcrumbList>", "vlting": "Not needed; list is built into Breadcrumb.Root", "reason": "Simplified structure" },
+    { "shadcn": "onClick handler", "vlting": "Use onPress prop on Breadcrumb.Link", "reason": "Cross-platform event naming" }
+  ]
+}

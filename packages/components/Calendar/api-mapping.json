@@ -1,0 +1,41 @@
+{
+  "component": "Calendar",
+  "shadcn": {
+    "import": "import { Calendar } from '@/components/ui/calendar'",
+    "props": {
+      "mode": { "type": "string", "values": ["single", "range", "multiple"] },
+      "selected": { "type": "Date | DateRange", "values": [] },
+      "onSelect": { "type": "function", "values": ["(date: Date) => void"] },
+      "disabled": { "type": "boolean | Matcher[]", "values": [] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Calendar } from '@vlting/ui'",
+    "props": {
+      "Calendar.Root": {
+        "selected": { "type": "Date | Date[] | null", "values": [] },
+        "onSelect": { "type": "function", "values": ["(date: Date) => void"] },
+        "month": { "type": "Date", "values": [] },
+        "onMonthChange": { "type": "function", "values": ["(date: Date) => void"] },
+        "disabled": { "type": "boolean", "values": [] },
+        "minDate": { "type": "Date", "values": [] },
+        "maxDate": { "type": "Date", "values": [] },
+        "mode": { "type": "string", "values": ["single", "range", "multiple"] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn Calendar wraps react-day-picker; vlting is a custom implementation with Tamagui styling",
+    "vlting uses minDate/maxDate for date range constraints; shadcn uses disabled matchers",
+    "vlting supports controlled month navigation via month and onMonthChange props",
+    "Default mode is 'single'",
+    "Built with semantic HTML buttons and ARIA labels for accessibility",
+    "Keyboard navigation via arrow keys for month switching"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "disabled={[matcher]} (complex matchers)", "vlting": "Use disabled boolean + minDate/maxDate", "reason": "Simplified constraint API" },
+    { "shadcn": "react-day-picker props", "vlting": "Custom API; not all react-day-picker props are available", "reason": "Different underlying implementation" }
+  ]
+}

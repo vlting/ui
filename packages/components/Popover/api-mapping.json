@@ -1,0 +1,58 @@
+{
+  "component": "Popover",
+  "shadcn": {
+    "import": "import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover'",
+    "props": {
+      "Popover": {
+        "open": { "type": "boolean" },
+        "onOpenChange": { "type": "function" }
+      },
+      "PopoverContent": {
+        "side": { "type": "string", "values": ["top", "right", "bottom", "left"] },
+        "sideOffset": { "type": "number" },
+        "align": { "type": "string", "values": ["start", "center", "end"] },
+        "className": { "type": "string" }
+      }
+    }
+  },
+  "vlting": {
+    "import": "import { Popover } from '@vlting/ui'",
+    "props": {
+      "Popover.Root": {
+        "open": { "type": "boolean" },
+        "defaultOpen": { "type": "boolean" },
+        "onOpenChange": { "type": "function", "signature": "(open: boolean) => void" },
+        "placement": { "type": "string", "values": ["top", "bottom", "left", "right"], "default": "bottom" },
+        "offset": { "type": "number", "default": 4 },
+        "hoverable": { "type": "boolean" },
+        "children": { "type": "ReactNode" }
+      },
+      "Popover.Trigger": {
+        "children": { "type": "ReactNode", "description": "Uses asChild pattern" }
+      },
+      "Popover.Anchor": {
+        "children": { "type": "ReactNode", "description": "Uses asChild pattern" }
+      },
+      "Popover.Content": {
+        "children": { "type": "ReactNode" }
+      },
+      "Popover.Arrow": {},
+      "Popover.Close": {
+        "children": { "type": "ReactNode", "description": "Uses asChild pattern" }
+      }
+    }
+  },
+  "notes": [
+    "shadcn uses Radix Popover; vlting wraps @tamagui/popover.",
+    "vlting uses 'placement' prop on Root instead of 'side' on Content.",
+    "vlting supports 'hoverable' prop for tooltip-like hover behavior.",
+    "Content includes built-in Arrow by default (can also use Popover.Arrow separately).",
+    "Animations use Tamagui's animation system (medium animation with scale/opacity enter/exit)."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "<PopoverContent side='top'>", "vlting": "<Popover.Root placement='top'>", "reason": "Placement is on Root, not Content" },
+    { "shadcn": "sideOffset on Content", "vlting": "offset on Root", "reason": "Offset configured at Root level" },
+    { "shadcn": "<PopoverContent>", "vlting": "<Popover.Content>", "reason": "Dot-notation compound component API" }
+  ]
+}

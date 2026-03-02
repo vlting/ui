@@ -31,7 +31,7 @@ created: 2026-03-01
 **Dependencies:** Epic 1
 **Estimated stages:** ~5
 **Epic slug:** component-parity
-**Epic Roadmap:** (filled during epic PLAN)
+**Epic Roadmap:** `.ai-epics/roadmaps/2026-03-01-component-parity.md`
 **Tech Spec:** `.ai-epics/docs/component-parity/tech-spec.md`
 **Status:** complete
 **Review notes:** All 4 stages delivered (PRs #28–#31). Epic PR #27 ready for review. NavigationMenu Home/End fix, Direction provider, Item compound component, InputGroup, Sonner-style toast API, DataTable, and comprehensive API mapping docs (68 JSON files + migration guide + primitive audit). PRD alignment: FR-1 and FR-2 fully addressed (Chart component correctly scoped to Epic 4).

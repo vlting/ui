@@ -1,0 +1,28 @@
+{
+  "component": "AspectRatio",
+  "shadcn": {
+    "import": "import { AspectRatio } from '@/components/ui/aspect-ratio'",
+    "props": {
+      "ratio": { "type": "number", "values": ["16/9", "4/3", "1"] },
+      "children": { "type": "ReactNode", "values": [] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { AspectRatio } from '@vlting/ui'",
+    "props": {
+      "ratio": { "type": "number", "values": ["16/9", "4/3", "1"] },
+      "children": { "type": "ReactNode", "values": [] },
+      "style": { "type": "CSSProperties", "values": [] }
+    }
+  },
+  "notes": [
+    "shadcn AspectRatio wraps Radix UI AspectRatio; vlting uses a pure CSS padding-bottom technique",
+    "Default ratio is 1 in vlting (square)",
+    "vlting accepts a style prop instead of className for custom styling"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use style prop or wrap in a styled container", "reason": "Cross-platform compatibility" },
+    { "shadcn": "asChild", "vlting": "Not supported; wrap children directly", "reason": "No Radix dependency" }
+  ]
+}

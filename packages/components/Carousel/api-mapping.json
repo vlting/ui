@@ -1,0 +1,51 @@
+{
+  "component": "Carousel",
+  "shadcn": {
+    "import": "import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'",
+    "props": {
+      "orientation": { "type": "string", "values": ["horizontal", "vertical"] },
+      "opts": { "type": "EmblaCarouselOptions", "values": [] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Carousel } from '@vlting/ui'",
+    "props": {
+      "Carousel.Root": {
+        "orientation": { "type": "string", "values": ["horizontal", "vertical"] },
+        "loop": { "type": "boolean", "values": ["true", "false"] },
+        "autoplay": { "type": "boolean", "values": ["true", "false"] },
+        "autoplayInterval": { "type": "number", "values": ["5000"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Carousel.Content": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Carousel.Item": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Carousel.Previous": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Carousel.Next": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Carousel.Dots": {}
+    }
+  },
+  "notes": [
+    "shadcn Carousel wraps Embla Carousel; vlting is a custom implementation",
+    "vlting adds built-in autoplay with autoplayInterval prop (default 5000ms)",
+    "vlting adds Carousel.Dots sub-component for dot indicator navigation",
+    "vlting respects prefers-reduced-motion (disables autoplay and transitions)",
+    "Keyboard navigation: ArrowLeft/Right for horizontal, ArrowUp/Down for vertical",
+    "Default orientation is 'horizontal'; loop defaults to false",
+    "Sets role='region', aria-roledescription='carousel' on root; aria-roledescription='slide' on items"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "<CarouselContent>", "vlting": "<Carousel.Content>", "reason": "Compound component pattern" },
+    { "shadcn": "opts={{ loop: true }}", "vlting": "loop={true} (direct prop)", "reason": "Simplified API; no opts wrapper" },
+    { "shadcn": "Embla Carousel API", "vlting": "Custom API; not all Embla options available", "reason": "Different underlying implementation" }
+  ]
+}

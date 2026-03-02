@@ -48,7 +48,7 @@ Compound component with custom implementation:
 - Click-outside closes.
 - **List**: ArrowLeft / ArrowRight moves focus between triggers (loops). Home / End jumps to first / last trigger.
 - **Trigger**: Enter / Space / ArrowDown opens dropdown.
-- **Content**: ArrowDown / ArrowUp moves focus between links (loops).
+- **Content**: ArrowDown / ArrowUp moves focus between links (loops). Home / End jumps to first / last link.
 - **Escape**: Closes open submenu and returns focus to trigger.
 - **Tab**: Closes content and returns focus to trigger.
 

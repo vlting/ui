@@ -1,0 +1,43 @@
+{
+  "component": "Typography",
+  "shadcn": {
+    "import": "No single import; shadcn uses Tailwind utility classes on native HTML elements",
+    "props": {
+      "description": "shadcn typography is applied via className utilities, not components. Example: <h1 className='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl'>Title</h1>"
+    }
+  },
+  "vlting": {
+    "import": "import { H1, H2, H3, H4, H5, H6, P, Lead, Large, Small, Muted, Blockquote, InlineCode, List, ListItem } from '@vlting/ui'",
+    "props": {
+      "H1": { "description": "Renders <h1>, fontFamily=$heading, fontSize=$9, fontWeight=$6" },
+      "H2": { "description": "Renders <h2>, fontFamily=$heading, fontSize=$8, fontWeight=$5" },
+      "H3": { "description": "Renders <h3>, fontFamily=$heading, fontSize=$7, fontWeight=$4" },
+      "H4": { "description": "Renders <h4>, fontFamily=$heading, fontSize=$6, fontWeight=$3" },
+      "H5": { "description": "Renders <h5>, fontFamily=$heading, fontSize=$5, fontWeight=$2" },
+      "H6": { "description": "Renders <h6>, fontFamily=$heading, fontSize=$4, fontWeight=$1" },
+      "P": { "description": "Renders <p>, fontFamily=$body, fontSize=$5, fontWeight=$2" },
+      "Lead": { "description": "Renders <p>, fontFamily=$body, fontSize=$7, color=$colorSubtitle" },
+      "Large": { "description": "Renders <span>, fontFamily=$body, fontSize=$6, fontWeight=$4" },
+      "Small": { "description": "Renders <small>, fontFamily=$body, fontSize=$4, fontWeight=$3" },
+      "Muted": { "description": "Renders <p>, fontFamily=$body, fontSize=$4, color=$colorSubtitle" },
+      "Blockquote": { "description": "Renders <blockquote>, fontFamily=$quote, italic, with left border" },
+      "InlineCode": { "description": "Renders <code>, fontFamily=$mono, with background color" },
+      "List": { "description": "Renders <ul>, fontFamily=$body, with left padding" },
+      "ListItem": { "description": "Renders <li>, inherits font styles" }
+    }
+  },
+  "notes": [
+    "shadcn uses Tailwind CSS classes on raw HTML elements; vlting provides pre-styled components.",
+    "All vlting Typography components use styledHtml() which renders actual semantic HTML elements.",
+    "Heading weight alternation pattern: h1(heavy/$6) -> h2(light/$5) -> h3(heavy/$4) -> h4(light/$3) -> h5(heavy/$2) -> h6(light/$1).",
+    "All components accept standard HTML element props and Tamagui style props.",
+    "Components are individually exported (not a compound component).",
+    "Uses Tamagui font tokens ($heading, $body, $mono, $quote) for consistent typography across brands."
+  ],
+  "breaking": [
+    { "shadcn": "className='scroll-m-20 text-4xl font-extrabold'", "vlting": "<H1>Title</H1>", "reason": "Pre-styled components instead of utility classes" },
+    { "shadcn": "<p className='text-sm text-muted-foreground'>", "vlting": "<Muted>Text</Muted>", "reason": "Semantic component instead of utility classes" },
+    { "shadcn": "<code className='bg-muted px-1 rounded'>", "vlting": "<InlineCode>code</InlineCode>", "reason": "Pre-styled component" },
+    { "shadcn": "Raw HTML elements + Tailwind", "vlting": "styledHtml components with Tamagui tokens", "reason": "Token-based styling for cross-platform and theming support" }
+  ]
+}

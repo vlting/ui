@@ -1,0 +1,59 @@
+{
+  "component": "Drawer",
+  "shadcn": {
+    "import": "import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer'",
+    "props": {
+      "open": { "type": "boolean", "values": [] },
+      "onOpenChange": { "type": "function", "values": ["(open: boolean) => void"] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Drawer } from '@vlting/ui'",
+    "props": {
+      "Drawer.Root": {
+        "open": { "type": "boolean", "values": [] },
+        "onOpenChange": { "type": "function", "values": ["(open: boolean) => void"] },
+        "direction": { "type": "string", "values": ["bottom", "top", "left", "right"] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Drawer.Trigger": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Drawer.Content": {
+        "direction": { "type": "string", "values": ["bottom", "top", "left", "right"] },
+        "showHandle": { "type": "boolean", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Drawer.Header": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Drawer.Footer": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Drawer.Title": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Drawer.Description": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Drawer.Close": {
+        "children": { "type": "ReactNode", "values": [] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn Drawer wraps Vaul (vaul-drawer); vlting builds on @tamagui/dialog with fixed positioning",
+    "vlting adds 'direction' prop (bottom, top, left, right); shadcn Vaul is bottom-only by default",
+    "vlting auto-shows handle bar on touch devices for vertical drawers; override with showHandle prop",
+    "Default direction is 'bottom'",
+    "Side drawers (left, right) have a fixed width of 360px with 90vw max",
+    "Built on @tamagui/dialog with Portal, Overlay, and animated enter/exit"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "<Drawer>", "vlting": "<Drawer.Root>", "reason": "Compound component pattern" },
+    { "shadcn": "<DrawerContent>", "vlting": "<Drawer.Content>", "reason": "Compound component pattern" },
+    { "shadcn": "Bottom-only (Vaul)", "vlting": "direction prop supports top, bottom, left, right", "reason": "Multi-directional drawer support" }
+  ]
+}

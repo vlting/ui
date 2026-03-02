@@ -1,0 +1,59 @@
+{
+  "component": "Command",
+  "shadcn": {
+    "import": "import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from '@/components/ui/command'",
+    "props": {
+      "filter": { "type": "function", "values": ["(value: string, search: string) => number"] },
+      "loop": { "type": "boolean", "values": [] },
+      "className": { "type": "string", "values": [] }
+    }
+  },
+  "vlting": {
+    "import": "import { Command } from '@vlting/ui'",
+    "props": {
+      "Command.Root": {
+        "filter": { "type": "function", "values": ["(value: string, search: string) => boolean"] },
+        "loop": { "type": "boolean", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Command.Input": {
+        "placeholder": { "type": "string", "values": ["Type a command or search..."] }
+      },
+      "Command.List": {
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Command.Empty": {
+        "children": { "type": "ReactNode", "values": ["No results found."] }
+      },
+      "Command.Group": {
+        "heading": { "type": "string", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Command.Item": {
+        "value": { "type": "string", "values": [] },
+        "onSelect": { "type": "function", "values": ["(value: string) => void"] },
+        "disabled": { "type": "boolean", "values": [] },
+        "keywords": { "type": "string[]", "values": [] },
+        "children": { "type": "ReactNode", "values": [] }
+      },
+      "Command.Separator": {},
+      "Command.Loading": {
+        "children": { "type": "ReactNode", "values": ["Loading..."] }
+      }
+    }
+  },
+  "notes": [
+    "shadcn wraps cmdk library; vlting is a custom implementation with Tamagui styling",
+    "vlting filter returns boolean (match/no match); shadcn cmdk filter returns number (score)",
+    "vlting adds Command.Loading sub-component; shadcn uses CommandLoading from cmdk",
+    "Items support keywords prop for additional search terms beyond value",
+    "Uses React context for search state sharing between Input and Items",
+    "Sets role='listbox' on root and role='option' on items"
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    { "shadcn": "<Command>", "vlting": "<Command.Root>", "reason": "Compound component pattern" },
+    { "shadcn": "filter returns number (ranking score)", "vlting": "filter returns boolean (visible/hidden)", "reason": "Simplified filtering; no ranking" },
+    { "shadcn": "CommandDialog (dialog wrapper)", "vlting": "Not available; compose Command.Root inside Dialog manually", "reason": "Composable approach" }
+  ]
+}
