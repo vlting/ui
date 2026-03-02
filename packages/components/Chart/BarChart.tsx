@@ -1,14 +1,16 @@
 import React from 'react'
 import {
-  CartesianChart,
-  Bar,
-  StackedBar,
-  BarGroup,
-  useChartPressState,
-} from 'victory-native'
-import type { ChartConfig, ChartDataPoint, TooltipVariant } from './types'
+  VictoryAxis,
+  VictoryBar,
+  VictoryChart,
+  VictoryGroup,
+  VictoryLabel,
+  VictoryStack,
+  VictoryVoronoiContainer,
+} from 'victory'
 import { useChartContext } from './Chart'
 import { ChartLegend } from './ChartLegend'
+import type { ChartDataPoint, TooltipVariant } from './types'
 
 export type BarChartVariant =
   | 'default'
@@ -25,7 +27,6 @@ export type BarChartVariant =
 export interface BarChartProps {
   data: ChartDataPoint[]
   variant?: BarChartVariant
-  config: ChartConfig
   xAxisKey?: string
   showXAxis?: boolean
   showYAxis?: boolean
@@ -47,156 +48,129 @@ export interface BarChartProps {
 export function BarChart({
   data,
   variant = 'default',
-  config,
   xAxisKey = 'x',
-  showXAxis,
-  showYAxis,
-  showGrid: _showGrid = false,
-  horizontal: _horizontal,
+  showXAxis = true,
+  showYAxis = false,
+  showGrid = false,
+  horizontal,
   stacked,
   grouped,
-  showLabels: _showLabels,
-  showTooltip: _showTooltip,
+  showLabels,
   interactive,
   showLegend,
-  tooltipVariant: _tooltipVariant,
   barWidth,
   cornerRadius,
   activeBarIndex,
-  customLabel: _customLabel,
+  customLabel,
 }: BarChartProps) {
-  const { resolvedColors, victoryTheme } = useChartContext()
+  const { config, resolvedColors, victoryTheme, dimensions } = useChartContext()
   const seriesKeys = Object.keys(config)
 
   // Resolve variant-driven flags
-  const isStacked = stacked ?? (variant === 'stacked' || variant === 'negative' || variant === 'mixed')
+  const isHorizontal = horizontal ?? variant === 'horizontal'
+  const isStacked =
+    stacked ?? (variant === 'stacked' || variant === 'negative' || variant === 'mixed')
   const isGrouped = grouped ?? variant === 'grouped'
   const isInteractive = interactive ?? variant === 'interactive'
+  const hasLabels = showLabels ?? (variant === 'label' || variant === 'custom-label')
   const hasLegend = showLegend ?? false
   const isActiveVariant = variant === 'active'
 
-  // Resolve axis visibility
-  const xAxisVisible = showXAxis ?? true
-  const yAxisVisible = showYAxis ?? false
+  // Corner radius for Victory SVG bars
+  const corners = cornerRadius ? { top: cornerRadius } : undefined
 
-  // Axis label color from theme
-  const axisLabelColor = victoryTheme.axis?.style?.tickLabels?.fill ?? '#888'
-
-  // Build rounded corners config for victory-native v41
-  const roundedCorners = cornerRadius != null
-    ? { topLeft: cornerRadius, topRight: cornerRadius, bottomLeft: 0, bottomRight: 0 }
-    : undefined
-
-  // Interactive press state
-  const { state: pressState } = useChartPressState({
-    x: '' as string | number,
-    y: seriesKeys.reduce(
-      (acc, key) => ({ ...acc, [key]: 0 }),
-      {} as Record<string, number>
-    ),
-  })
-
-  // Series color array for StackedBar
-  const colorArray = seriesKeys.map((key) => resolvedColors[key])
-
-  // CartesianChart has strict generics — cast through any for dynamic key usage
-  const ChartComponent = CartesianChart as React.ComponentType<any>
+  // Label component
+  const labelComponent =
+    variant === 'custom-label' && customLabel ? (
+      React.createElement(customLabel)
+    ) : hasLabels ? (
+      <VictoryLabel dy={-5} />
+    ) : undefined
 
   return (
     <>
-      <ChartComponent
-        data={data}
-        xKey={xAxisKey}
-        yKeys={seriesKeys}
-        padding={victoryTheme.chart?.padding}
-        domainPadding={{ left: 16, right: 16 }}
-        chartPressState={isInteractive ? pressState : undefined}
-        xAxis={
-          xAxisVisible
-            ? {
-                labelColor: axisLabelColor,
-                lineColor: victoryTheme.axis?.style?.axis?.stroke,
-              }
-            : undefined
-        }
-        yAxis={
-          yAxisVisible
-            ? [
-                {
-                  labelColor: axisLabelColor,
-                  lineColor: victoryTheme.axis?.style?.axis?.stroke,
-                },
-              ]
-            : undefined
-        }
+      <VictoryChart
+        width={dimensions.width}
+        height={dimensions.height}
+        horizontal={isHorizontal}
+        theme={victoryTheme as any}
+        containerComponent={isInteractive ? <VictoryVoronoiContainer /> : undefined}
+        padding={victoryTheme.chart.padding}
+        domainPadding={{ x: 20 }}
       >
-        {(args: any) => {
-          const { points, chartBounds } = args
+        {/* Axes */}
+        {showXAxis && <VictoryAxis />}
+        {showYAxis && <VictoryAxis dependentAxis />}
 
-          // Stacked bars
-          if (isStacked) {
-            const allPoints = seriesKeys.map((key) => points[key])
-            return (
-              <StackedBar
-                points={allPoints}
-                chartBounds={chartBounds}
-                colors={colorArray}
+        {/* Grid lines */}
+        {showGrid && (
+          <VictoryAxis
+            dependentAxis
+            style={{
+              axis: { stroke: 'transparent' },
+              grid: {
+                stroke: victoryTheme.axis.style.grid.stroke,
+                strokeOpacity: victoryTheme.axis.style.grid.strokeOpacity,
+              },
+              tickLabels: { fill: 'transparent' },
+            }}
+          />
+        )}
+
+        {/* Bars */}
+        {isStacked ? (
+          <VictoryStack>
+            {seriesKeys.map((key) => (
+              <VictoryBar
+                key={key}
+                data={data}
+                x={xAxisKey}
+                y={key}
+                style={{ data: { fill: resolvedColors[key] } }}
                 barWidth={barWidth}
-                barOptions={
-                  isActiveVariant
-                    ? ({ columnIndex }: any) => ({
-                        opacity: columnIndex === activeBarIndex ? 1 : 0.25,
-                        roundedCorners,
-                      })
-                    : roundedCorners
-                      ? () => ({ roundedCorners })
-                      : undefined
-                }
+                cornerRadius={corners}
+                labels={hasLabels ? ({ datum }: any) => datum[key] : undefined}
+                labelComponent={labelComponent}
               />
-            )
-          }
-
-          // Grouped bars
-          if (isGrouped) {
-            return (
-              <BarGroup
-                chartBounds={chartBounds}
+            ))}
+          </VictoryStack>
+        ) : isGrouped ? (
+          <VictoryGroup offset={barWidth ? barWidth + 4 : 20}>
+            {seriesKeys.map((key) => (
+              <VictoryBar
+                key={key}
+                data={data}
+                x={xAxisKey}
+                y={key}
+                style={{ data: { fill: resolvedColors[key] } }}
                 barWidth={barWidth}
-                roundedCorners={roundedCorners}
-              >
-                {seriesKeys.map((key) => (
-                  <BarGroup.Bar
-                    key={key}
-                    points={points[key]}
-                    color={resolvedColors[key]}
-                  />
-                ))}
-              </BarGroup>
-            )
-          }
-
-          // Default: render one Bar per series
-          return (
-            <>
-              {seriesKeys.map((key) => (
-                <Bar
-                  key={key}
-                  points={points[key]}
-                  chartBounds={chartBounds}
-                  color={resolvedColors[key]}
-                  barWidth={barWidth}
-                  roundedCorners={roundedCorners}
-                  opacity={
-                    isActiveVariant
-                      ? 0.6
-                      : undefined
-                  }
-                />
-              ))}
-            </>
-          )
-        }}
-      </ChartComponent>
+                cornerRadius={corners}
+              />
+            ))}
+          </VictoryGroup>
+        ) : (
+          seriesKeys.map((key) => (
+            <VictoryBar
+              key={key}
+              data={data}
+              x={xAxisKey}
+              y={key}
+              style={{
+                data: {
+                  fill: resolvedColors[key],
+                  opacity: isActiveVariant
+                    ? ({ index }: any) => (index === activeBarIndex ? 1 : 0.3)
+                    : undefined,
+                },
+              }}
+              barWidth={barWidth}
+              cornerRadius={corners}
+              labels={hasLabels ? ({ datum }: any) => datum[key] : undefined}
+              labelComponent={labelComponent}
+            />
+          ))
+        )}
+      </VictoryChart>
 
       {hasLegend && <ChartLegend config={config} />}
     </>
