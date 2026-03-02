@@ -231,6 +231,12 @@ function Content({ children }: { children: React.ReactNode }) {
         e.preventDefault()
         const prev = currentIndex - 1 < 0 ? links.length - 1 : currentIndex - 1
         links[prev]?.focus()
+      } else if (e.key === 'Home') {
+        e.preventDefault()
+        links[0]?.focus()
+      } else if (e.key === 'End') {
+        e.preventDefault()
+        links[links.length - 1]?.focus()
       } else if (e.key === 'Escape' || e.key === 'Tab') {
         e.preventDefault()
         setActiveItem(null)
