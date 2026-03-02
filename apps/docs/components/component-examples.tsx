@@ -39,6 +39,7 @@ import {
   ContextMenu as _ContextMenu,
   DataTable as _DataTable,
   DatePicker as _DatePicker,
+  DateRangePicker as _DateRangePicker,
   Dialog as _Dialog,
   Drawer as _Drawer,
   DropdownMenu as _DropdownMenu,
@@ -196,6 +197,7 @@ const ContextMenu = _ContextMenu as unknown as {
 }
 const DataTable = _DataTable as AnyFC
 const DatePicker = _DatePicker as AnyFC
+const DateRangePicker = _DateRangePicker as AnyFC
 const Dialog = _Dialog as unknown as {
   Root: AnyFC
   Trigger: AnyFC
@@ -859,9 +861,9 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
         <Command.List>
           <Command.Empty>No results found.</Command.Empty>
           <Command.Group heading="Suggestions">
-            <Command.Item>Calendar</Command.Item>
-            <Command.Item>Search</Command.Item>
-            <Command.Item>Settings</Command.Item>
+            <Command.Item value="calendar">Calendar</Command.Item>
+            <Command.Item value="search">Search</Command.Item>
+            <Command.Item value="settings">Settings</Command.Item>
           </Command.Group>
         </Command.List>
       </Command.Root>
@@ -909,6 +911,7 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
   },
   'date-picker': {
     Basic: () => <DatePicker placeholder="Pick a date" />,
+    'Date Range': () => <DateRangePicker placeholder="Select date range" />,
   },
   dialog: {
     Basic: () => <DialogDemo />,
