@@ -105,6 +105,7 @@
     "react-native-svg-web": "^1.0.9",
     "react-native-web": "^0.21.2",
     "react-test-renderer": "19.1.0",
+    "remixicon": "4.9.1",
     "typescript": "~5.9.2"
   },
   "peerDependencies": {
