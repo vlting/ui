@@ -15,6 +15,19 @@ export type {
 export { Card } from './Card'
 export type { CardProps } from './Card'
 
+export { Chart, useChartContext, ChartTooltip, ChartLegend } from './Chart'
+export type {
+  ChartContainerProps,
+  ChartTooltipProps,
+  ChartLegendProps,
+  ChartConfig,
+  ChartConfigEntry,
+  ChartDataPoint,
+  TooltipVariant,
+  TooltipIndicator,
+  LegendLayout,
+} from './Chart'
+
 export { Dialog } from './Dialog'
 
 export { Direction, DirectionProvider, useDirection } from './Direction'

@@ -11,26 +11,26 @@
 - **Project Node ID:** PVT_kwDODxaco84BP_ab
 - **Project Item ID:** PVTI_lADODxaco84BP_abzgmb24M
 - **Status Field ID:** PVTSSF_lADODxaco84BP_abzg-PVjU
-- **Status Options:** Planning=dfac620c, Todo=8001c035, In Progress=1078ddc4, Done=1949184c
+- **Status Options:** Planning=1ab91906, Todo=7dbd5883, In Progress=bf105a86, In Review=7e73f574, Done=e0bcb0e8
 
 ## Stage 1: Chart Foundation
 **Objective:** Install Victory Native, build ChartContainer (responsive sizing + accessibility), Victory theme factory (tokens → Victory theme), ChartConfig type system, ChartTooltip (9 variants), ChartLegend, and color resolution utilities. Write Chart.spec.md and tests.
 **Estimated scope:** ~12 files, ~800 lines
 **GitHub Sub-Issue:** #41
-**Stage Branch:** (pending)
+**Stage Branch:** feat/chart-system/chart-foundation
 **Stage PR:** (pending)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmb26g
 **Acceptance criteria:**
-- [ ] victory-native installed as dependency
-- [ ] ChartContainer renders with responsive sizing (ResizeObserver web / onLayout RN)
-- [ ] ChartContainer provides ARIA role="img" and aria-label
-- [ ] Victory theme factory resolves Tamagui tokens to Victory theme object
-- [ ] ChartConfig type defined with label, color (token ref), optional icon
-- [ ] ChartTooltip implements 9 variants (default, cursor, dot, line, label, custom, advanced, icons, formatter)
-- [ ] ChartLegend renders horizontal/vertical with token colors
-- [ ] Chart.spec.md written following component spec template
-- [ ] Tests pass for ChartContainer, ChartTooltip, ChartLegend
-**Status:** pending
+- [x] victory-native installed as dependency
+- [x] ChartContainer renders with responsive sizing (ResizeObserver web / onLayout RN)
+- [x] ChartContainer provides ARIA role="img" and aria-label
+- [x] Victory theme factory resolves Tamagui tokens to Victory theme object
+- [x] ChartConfig type defined with label, color (token ref), optional icon
+- [x] ChartTooltip implements 9 variants (default, cursor, dot, line, label, custom, advanced, icons, formatter)
+- [x] ChartLegend renders horizontal/vertical with token colors
+- [x] Chart.spec.md written following component spec template
+- [x] Tests pass for ChartContainer, ChartTooltip, ChartLegend
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 2: Core Charts (Area, Bar, Line)
