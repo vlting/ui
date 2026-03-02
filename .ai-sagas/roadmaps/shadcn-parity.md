@@ -42,9 +42,9 @@ created: 2026-03-01
 **Dependencies:** Epic 1
 **Estimated stages:** ~3
 **Epic slug:** icon-system
-**Epic Roadmap:** (filled during EXECUTE)
-**Tech Spec:** (filled during EXECUTE)
-**Status:** pending
+**Epic Roadmap:** (filled during epic PLAN)
+**Tech Spec:** `.ai-epics/docs/icon-system/tech-spec.md`
+**Status:** in-progress
 **Review notes:**
 
 ## Epic 4: Chart System (Victory Native)
