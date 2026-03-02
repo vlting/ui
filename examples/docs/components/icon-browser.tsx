@@ -1,7 +1,38 @@
 'use client'
 
-import { useState, useMemo, useCallback } from 'react'
+import {
+  useState,
+  useMemo,
+  useCallback,
+  lazy,
+  Suspense,
+  type LazyExoticComponent,
+  type ComponentType,
+} from 'react'
 import { searchIcons, categories, iconCount, type IconEntry } from '../lib/icon-data'
+
+type IconComponent = ComponentType<{ size?: number | string; color?: string }>
+
+const iconCache = new Map<string, LazyExoticComponent<IconComponent>>()
+
+function getLazyIcon(componentName: string) {
+  let Icon = iconCache.get(componentName)
+  if (!Icon) {
+    Icon = lazy(() =>
+      import(`../../../packages/icons/generated/${componentName}`).then(
+        (m) => ({
+          default: ((m as Record<string, IconComponent>)[componentName] ||
+            Object.values(m)[0]) as IconComponent,
+        }),
+        () => ({
+          default: (() => null) as unknown as IconComponent,
+        }),
+      ),
+    )
+    iconCache.set(componentName, Icon)
+  }
+  return Icon
+}
 
 function CategoryButton({
   label,
@@ -44,9 +75,12 @@ function IconCell({
   onCopy: (text: string, name: string) => void
   copied: string | null
 }) {
-  const componentName = icon.components[variant] || icon.components.line
+  const componentName =
+    icon.components[variant] || icon.components.line || icon.components.default || icon.components.fill
   const importText = `import { ${componentName} } from '@vlting/ui'`
   const isCopied = copied === componentName
+
+  const LazyIcon = componentName ? getLazyIcon(componentName) : null
 
   return (
     <button
@@ -74,13 +108,33 @@ function IconCell({
     >
       <span
         style={{
-          fontSize: 24,
-          lineHeight: 1,
+          width: 24,
+          height: 24,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           color: 'var(--color-foreground)',
-          fontFamily: 'monospace',
         }}
       >
-        {variant === 'fill' ? '\u25A0' : '\u25A1'}
+        {LazyIcon ? (
+          <Suspense
+            fallback={
+              <span
+                style={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: 4,
+                  backgroundColor: 'var(--color-muted)',
+                  display: 'block',
+                }}
+              />
+            }
+          >
+            <LazyIcon size={24} color="currentColor" />
+          </Suspense>
+        ) : (
+          <span style={{ color: 'var(--color-muted-foreground)', fontSize: 10 }}>N/A</span>
+        )}
       </span>
       <span
         style={{
