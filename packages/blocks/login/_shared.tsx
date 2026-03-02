@@ -1,11 +1,10 @@
-import type { ComponentType, ReactNode } from 'react'
-import React from 'react'
-import { XStack, YStack } from 'tamagui'
 import { styledHtml } from '@tamagui/web'
-import { Card } from '../../components/Card'
+import type { ComponentType, ReactNode } from 'react'
+import { XStack, YStack } from 'tamagui'
 import { Button } from '../../components/Button'
-import { Text } from '../../primitives/Text'
+import { Card } from '../../components/Card'
 import { Separator } from '../../primitives/Separator'
+import { Text } from '../../primitives/Text'
 import type { SocialProvider } from '../_shared/types'
 
 type AnyFC = ComponentType<Record<string, unknown>>
@@ -49,12 +48,7 @@ export function AuthFormHeader({ logo, title, description }: AuthFormHeaderProps
   return (
     <YStackJsx alignItems="center" gap="$2">
       {logo}
-      <TextJsx
-        fontSize="$6"
-        fontWeight="$4"
-        fontFamily="$heading"
-        textAlign="center"
-      >
+      <TextJsx fontSize="$6" fontWeight="$4" fontFamily="$heading" textAlign="center">
         {title}
       </TextJsx>
       {description ? (

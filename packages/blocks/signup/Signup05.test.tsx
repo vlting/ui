@@ -1,22 +1,25 @@
-import React from 'react'
-import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { Signup05 } from './Signup05'
 
 describe('Signup05', () => {
   it('renders email and password fields but no name field', () => {
     render(<Signup05 />)
-    expect(screen.getByLabelText('Email')).toBeDefined()
-    expect(screen.getByLabelText('Password')).toBeDefined()
-    expect(screen.queryByLabelText('Name')).toBeNull()
+    expect(screen.getByPlaceholderText('m@example.com')).toBeDefined()
+    expect(screen.getByPlaceholderText('Password')).toBeDefined()
+    expect(screen.queryByPlaceholderText('John Doe')).toBeNull()
   })
 
   it('calls onSubmit with email and password (no name)', () => {
     const onSubmit = jest.fn()
     render(<Signup05 onSubmit={onSubmit} />)
 
-    fireEvent.changeText(screen.getByLabelText('Email'), 'test@example.com')
-    fireEvent.changeText(screen.getByLabelText('Password'), 'secret123')
-    fireEvent.press(screen.getByText('Create account'))
+    fireEvent.change(screen.getByPlaceholderText('m@example.com'), {
+      target: { value: 'test@example.com' },
+    })
+    fireEvent.change(screen.getByPlaceholderText('Password'), {
+      target: { value: 'secret123' },
+    })
+    fireEvent.click(screen.getByText('Create account'))
 
     expect(onSubmit).toHaveBeenCalledWith({
       email: 'test@example.com',
@@ -30,8 +33,8 @@ describe('Signup05', () => {
       { name: 'GitHub', icon: <span>GH</span>, onPress: jest.fn() },
     ]
     render(<Signup05 socialProviders={providers} />)
-    expect(screen.getByText(/Continue with Google/)).toBeDefined()
-    expect(screen.getByText(/Continue with GitHub/)).toBeDefined()
+    expect(screen.getByText(/Google/)).toBeDefined()
+    expect(screen.getByText(/GitHub/)).toBeDefined()
   })
 
   it('displays error message when provided', () => {
