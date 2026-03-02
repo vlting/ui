@@ -87,7 +87,8 @@
     "@tamagui/theme-builder": "2.0.0-rc.14",
     "@tamagui/themes": "2.0.0-rc.14",
     "@tamagui/toast": "2.0.0-rc.14",
-    "tamagui": "2.0.0-rc.14"
+    "tamagui": "2.0.0-rc.14",
+    "victory-native": "^41.20.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
