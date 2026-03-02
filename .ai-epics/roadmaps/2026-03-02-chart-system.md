@@ -37,7 +37,7 @@
 **Objective:** Implement AreaChart (10 variants), BarChart (10 variants), and LineChart (10 variants). Each chart type supports stacking, grouping, interactivity, and integrates with ChartContainer/ChartTooltip/ChartLegend.
 **Estimated scope:** ~9 files, ~900 lines
 **GitHub Sub-Issue:** #42
-**Stage Branch:** (pending)
+**Stage Branch:** feat/chart-system/core-charts
 **Stage PR:** (pending)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmb27A
 **Acceptance criteria:**
