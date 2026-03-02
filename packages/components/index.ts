@@ -15,7 +15,7 @@ export type {
 export { Card } from './Card'
 export type { CardProps } from './Card'
 
-export { Chart, useChartContext, ChartTooltip, ChartLegend } from './Chart'
+export { Chart, useChartContext, ChartTooltip, ChartLegend, AreaChart, BarChart, LineChart } from './Chart'
 export type {
   ChartContainerProps,
   ChartTooltipProps,
@@ -26,6 +26,12 @@ export type {
   TooltipVariant,
   TooltipIndicator,
   LegendLayout,
+  AreaChartProps,
+  AreaChartVariant,
+  BarChartProps,
+  BarChartVariant,
+  LineChartProps,
+  LineChartVariant,
 } from './Chart'
 
 export { Dialog } from './Dialog'
