@@ -8,6 +8,23 @@ type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
 const TextJsx = Text as AnyFC
 
+function ChevronsUpDownSvg() {
+  return (
+    <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
+      <path d="M7 15l5 5 5-5" />
+      <path d="M7 9l5-5 5 5" />
+    </svg>
+  )
+}
+
+function CheckSvg() {
+  return (
+    <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 6L9 17l-5-5" />
+    </svg>
+  )
+}
+
 const BtnFrame = styledHtml('button', {
   display: 'flex',
   flexDirection: 'row',
@@ -124,9 +141,9 @@ function Root({
         type="button"
         alignItems="center"
         justifyContent="space-between"
-        height="$3"
-        paddingLeft="$1.5"
-        paddingRight="$1.5"
+        height="$4"
+        paddingLeft="$2"
+        paddingRight="$2"
         borderWidth={1}
         borderColor="$borderColor"
         borderRadius="$4"
@@ -134,6 +151,7 @@ function Root({
         cursor={disabled ? 'not-allowed' : 'pointer'}
         opacity={disabled ? 0.5 : 1}
         disabled={disabled}
+        hoverStyle={disabled ? undefined : { borderColor: '$color8' }}
         onClick={
           disabled
             ? undefined
@@ -147,15 +165,13 @@ function Root({
         aria-haspopup="listbox"
       >
         <TextJsx
-          fontSize="$4"
+          fontSize="$3"
           fontFamily="$body"
           color={value ? '$color' : '$placeholderColor'}
         >
           {selectedLabel ?? placeholder}
         </TextJsx>
-        <TextJsx fontSize="$2" color="$colorSubtitle">
-          {open ? '\u25B2' : '\u25BC'}
-        </TextJsx>
+        <ChevronsUpDownSvg />
       </BtnJsx>
 
       {/* Dropdown */}
@@ -178,11 +194,11 @@ function Root({
           <ViewJsx
             flexDirection="row"
             alignItems="center"
-            paddingLeft="$1.5"
-            paddingRight="$1.5"
-            height="$3"
+            paddingLeft="$2"
+            paddingRight="$2"
+            height="$4"
             borderBottomWidth={1}
-            borderBottomColor="$borderColor"
+            borderColor="$borderColor"
           >
             <InputJsx
               ref={inputRef}
@@ -198,10 +214,10 @@ function Root({
           </ViewJsx>
 
           {/* Options */}
-          <ViewJsx maxHeight="$14" style={{ overflowY: 'auto' }} role="listbox">
+          <ViewJsx maxHeight="$14" padding="$1" style={{ overflowY: 'auto' }} role="listbox">
             {filtered.length === 0 ? (
-              <ViewJsx padding="$1.5" alignItems="center">
-                <TextJsx fontSize="$4" color="$colorSubtitle" fontFamily="$body">
+              <ViewJsx padding="$2" alignItems="center">
+                <TextJsx fontSize="$3" color="$colorSubtitle" fontFamily="$body">
                   {emptyMessage}
                 </TextJsx>
               </ViewJsx>
@@ -215,23 +231,22 @@ function Root({
                     type="button"
                     alignItems="center"
                     width="100%"
-                    height="$3"
-                    paddingLeft="$1.5"
-                    paddingRight="$1.5"
-                    backgroundColor={isHighlighted ? '$color2' : 'transparent'}
+                    height="$4"
+                    paddingLeft="$2"
+                    paddingRight="$2"
+                    paddingVertical="$1"
+                    borderRadius="$2"
+                    backgroundColor={isHighlighted ? '$color3' : 'transparent'}
+                    hoverStyle={{ backgroundColor: '$color3' }}
                     onClick={() => handleSelect(option.value)}
                     role="option"
                     aria-selected={isSelected}
                   >
-                    <ViewJsx width="$1">
-                      {isSelected && (
-                        <TextJsx fontSize="$2" color="$color">
-                          {'\u2713'}
-                        </TextJsx>
-                      )}
+                    <ViewJsx width="$2" alignItems="center">
+                      {isSelected && <CheckSvg />}
                     </ViewJsx>
                     <TextJsx
-                      fontSize="$4"
+                      fontSize="$3"
                       fontFamily="$body"
                       color="$color"
                       fontWeight={isSelected ? '$3' : '$2'}
