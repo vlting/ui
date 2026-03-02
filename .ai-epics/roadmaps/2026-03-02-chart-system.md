@@ -56,7 +56,7 @@
 **Estimated scope:** ~9 files, ~900 lines
 **GitHub Sub-Issue:** #43
 **Stage Branch:** feat/chart-system/specialized-charts
-**Stage PR:** (pending)
+**Stage PR:** #48
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmb27Q
 **Acceptance criteria:**
 - [x] PieChart with 11 variants (default, donut, donut-text, donut-active, label, custom-label, label-list, legend, separator, interactive, stacked)
