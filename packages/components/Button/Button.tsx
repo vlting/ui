@@ -60,14 +60,14 @@ const ButtonFrame = styled(TamaguiButton.Frame, {
           backgroundColor: '$color3',
         },
       },
-      // shadcn: "destructive"
+      // shadcn: "destructive" — light accent bg, dark accent text
       destructive: {
-        backgroundColor: '$color10',
+        backgroundColor: '$color4',
         borderWidth: 0,
         borderColor: 'transparent',
         // @ts-expect-error Tamagui v2 RC
         hoverStyle: {
-          backgroundColor: '$color11',
+          backgroundColor: '$color5',
         },
       },
       outline: {
@@ -138,7 +138,7 @@ type ButtonVariant =
 const SPINNER_COLOR_MAP: Record<ButtonVariant, string> = {
   default: '$color1',
   solid: '$color1',
-  destructive: '$color1',
+  destructive: '$color11',
   secondary: '$color',
   outline: '$color',
   ghost: '$color',
@@ -160,7 +160,7 @@ const ButtonTextBase = styled(Text, {
       // @ts-expect-error Tamagui v2 RC
       secondary: { color: '$color' },
       // @ts-expect-error Tamagui v2 RC
-      destructive: { color: '$color1' },
+      destructive: { color: '$color11' },
       // @ts-expect-error Tamagui v2 RC
       outline: { color: '$color' },
       // @ts-expect-error Tamagui v2 RC
