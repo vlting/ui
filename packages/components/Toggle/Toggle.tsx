@@ -18,27 +18,32 @@ const ToggleFrame = styledHtml('button', {
   padding: 0,
   margin: 0,
   fontFamily: 'inherit',
+  fontSize: '$3',
+  fontWeight: '$3',
   alignItems: 'center',
   justifyContent: 'center',
   borderWidth: 1,
+  borderStyle: 'solid',
   borderColor: '$borderColor',
   borderRadius: '$4',
   cursor: 'pointer',
   animation: 'fast',
   backgroundColor: 'transparent',
+  color: '$color',
 
   hoverStyle: {
-    backgroundColor: '$backgroundHover',
+    backgroundColor: '$color3',
+    borderColor: '$color8',
   },
 
   pressStyle: {
-    backgroundColor: '$backgroundPress',
+    backgroundColor: '$color4',
   },
 
   focusVisibleStyle: {
     outlineWidth: 2,
     outlineOffset: 2,
-    outlineColor: '$outlineColor',
+    outlineColor: '$color8',
     outlineStyle: 'solid',
   },
 
@@ -54,17 +59,17 @@ const ToggleFrame = styledHtml('button', {
       },
     },
     size: {
-      sm: { height: '$3.5', paddingHorizontal: '$2' },
-      md: { height: '$4', paddingHorizontal: '$3' },
-      lg: { height: '$4.5', paddingHorizontal: '$4' },
+      sm: { height: '$3.5', paddingHorizontal: '$2', fontSize: '$2' },
+      md: { height: '$4', paddingHorizontal: '$3', fontSize: '$3' },
+      lg: { height: '$4.5', paddingHorizontal: '$4', fontSize: '$4' },
     },
     pressed: {
       true: {
-        backgroundColor: '$color10',
-        borderColor: '$color10',
-        color: '$color1',
+        backgroundColor: '$color4',
+        borderColor: '$color8',
+        color: '$color12',
         hoverStyle: {
-          backgroundColor: '$color11',
+          backgroundColor: '$color5',
         },
       },
     },
