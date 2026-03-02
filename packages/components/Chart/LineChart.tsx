@@ -1,15 +1,15 @@
 import React from 'react'
 import {
+  VictoryAxis,
   VictoryChart,
+  VictoryLabel,
   VictoryLine,
   VictoryScatter,
-  VictoryAxis,
   VictoryVoronoiContainer,
-  VictoryLabel,
 } from 'victory'
-import type { ChartDataPoint, TooltipVariant } from './types'
 import { useChartContext } from './Chart'
 import { ChartLegend } from './ChartLegend'
+import type { ChartDataPoint, TooltipVariant } from './types'
 
 export type LineChartVariant =
   | 'default'
@@ -72,13 +72,11 @@ export function LineChart({
   dotSize = 4,
   customDot,
 }: LineChartProps) {
-  const { config, resolvedColors, victoryTheme, dimensions } =
-    useChartContext()
+  const { config, resolvedColors, victoryTheme, dimensions } = useChartContext()
   const seriesKeys = Object.keys(config)
 
   // Resolve variant-specific overrides
-  const shouldShowDots =
-    showDots || variant === 'dots' || variant === 'custom-dots'
+  const shouldShowDots = showDots || variant === 'dots' || variant === 'custom-dots'
   const shouldShowLabels = showLabels || variant === 'labels'
   const shouldShowLegend = showLegend || variant === 'legend'
   const isInteractive = interactive || variant === 'interactive'
@@ -87,7 +85,9 @@ export function LineChart({
 
   // Resolve interpolation
   type Interpolation = 'natural' | 'linear' | 'stepAfter'
-  let interpolation: Interpolation = (curveType === 'step' ? 'stepAfter' : curveType ?? 'natural') as Interpolation
+  let interpolation: Interpolation = (
+    curveType === 'step' ? 'stepAfter' : (curveType ?? 'natural')
+  ) as Interpolation
   if (variant === 'stepped') interpolation = 'stepAfter'
   if (variant === 'linear') interpolation = 'linear'
 
@@ -97,9 +97,7 @@ export function LineChart({
         width={dimensions.width}
         height={dimensions.height}
         theme={victoryTheme as any}
-        containerComponent={
-          isInteractive ? <VictoryVoronoiContainer /> : undefined
-        }
+        containerComponent={isInteractive ? <VictoryVoronoiContainer /> : undefined}
         padding={victoryTheme.chart.padding}
       >
         {/* Axes */}
@@ -135,14 +133,8 @@ export function LineChart({
                 strokeWidth,
               },
             }}
-            labels={
-              shouldShowLabels
-                ? ({ datum }: any) => datum[key]
-                : undefined
-            }
-            labelComponent={
-              shouldShowLabels ? <VictoryLabel dy={-10} /> : undefined
-            }
+            labels={shouldShowLabels ? ({ datum }: any) => datum[key] : undefined}
+            labelComponent={shouldShowLabels ? <VictoryLabel dy={-10} /> : undefined}
           />
         ))}
 
