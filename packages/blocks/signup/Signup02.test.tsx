@@ -1,13 +1,12 @@
-import React from 'react'
-import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { Signup02 } from './Signup02'
 
 describe('Signup02', () => {
   it('renders name, email, and password fields', () => {
     render(<Signup02 />)
-    expect(screen.getByLabelText('Name')).toBeDefined()
-    expect(screen.getByLabelText('Email')).toBeDefined()
-    expect(screen.getByLabelText('Password')).toBeDefined()
+    expect(screen.getByPlaceholderText('John Doe')).toBeDefined()
+    expect(screen.getByPlaceholderText('m@example.com')).toBeDefined()
+    expect(screen.getByPlaceholderText('Password')).toBeDefined()
   })
 
   it('renders image when provided', () => {
@@ -19,10 +18,16 @@ describe('Signup02', () => {
     const onSubmit = jest.fn()
     render(<Signup02 onSubmit={onSubmit} />)
 
-    fireEvent.changeText(screen.getByLabelText('Name'), 'Jane Smith')
-    fireEvent.changeText(screen.getByLabelText('Email'), 'jane@example.com')
-    fireEvent.changeText(screen.getByLabelText('Password'), 'password123')
-    fireEvent.press(screen.getByText('Create account'))
+    fireEvent.change(screen.getByPlaceholderText('John Doe'), {
+      target: { value: 'Jane Smith' },
+    })
+    fireEvent.change(screen.getByPlaceholderText('m@example.com'), {
+      target: { value: 'jane@example.com' },
+    })
+    fireEvent.change(screen.getByPlaceholderText('Password'), {
+      target: { value: 'password123' },
+    })
+    fireEvent.click(screen.getByText('Create account'))
 
     expect(onSubmit).toHaveBeenCalledWith({
       name: 'Jane Smith',

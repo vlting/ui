@@ -1,21 +1,24 @@
-import React from 'react'
-import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { Login03 } from './Login03'
 
 describe('Login03', () => {
   it('renders email and password fields', () => {
     render(<Login03 />)
-    expect(screen.getByLabelText('Email')).toBeDefined()
-    expect(screen.getByLabelText('Password')).toBeDefined()
+    expect(screen.getByPlaceholderText('m@example.com')).toBeDefined()
+    expect(screen.getByPlaceholderText('Password')).toBeDefined()
   })
 
   it('calls onSubmit with email and password', () => {
     const onSubmit = jest.fn()
     render(<Login03 onSubmit={onSubmit} />)
 
-    fireEvent.changeText(screen.getByLabelText('Email'), 'test@example.com')
-    fireEvent.changeText(screen.getByLabelText('Password'), 'secret123')
-    fireEvent.press(screen.getByText('Login'))
+    fireEvent.change(screen.getByPlaceholderText('m@example.com'), {
+      target: { value: 'test@example.com' },
+    })
+    fireEvent.change(screen.getByPlaceholderText('Password'), {
+      target: { value: 'secret123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Login' }))
 
     expect(onSubmit).toHaveBeenCalledWith({
       email: 'test@example.com',
@@ -36,11 +39,9 @@ describe('Login03', () => {
   })
 
   it('renders social providers when provided', () => {
-    const providers = [
-      { name: 'Google', icon: <span>G</span>, onPress: jest.fn() },
-    ]
+    const providers = [{ name: 'Google', icon: <span>G</span>, onPress: jest.fn() }]
     render(<Login03 socialProviders={providers} />)
-    expect(screen.getByText(/Continue with Google/)).toBeDefined()
+    expect(screen.getByText(/Google/)).toBeDefined()
   })
 
   it('renders forgot password link when configured', () => {

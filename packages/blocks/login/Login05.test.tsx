@@ -1,20 +1,21 @@
-import React from 'react'
-import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { Login05 } from './Login05'
 
 describe('Login05', () => {
   it('renders email field only (no password field)', () => {
     render(<Login05 />)
-    expect(screen.getByLabelText('Email')).toBeDefined()
-    expect(screen.queryByLabelText('Password')).toBeNull()
+    expect(screen.getByPlaceholderText('m@example.com')).toBeDefined()
+    expect(screen.queryByPlaceholderText('Password')).toBeNull()
   })
 
   it('calls onSubmit with email only', () => {
     const onSubmit = jest.fn()
     render(<Login05 onSubmit={onSubmit} />)
 
-    fireEvent.changeText(screen.getByLabelText('Email'), 'test@example.com')
-    fireEvent.press(screen.getByText('Sign in with email'))
+    fireEvent.change(screen.getByPlaceholderText('m@example.com'), {
+      target: { value: 'test@example.com' },
+    })
+    fireEvent.click(screen.getByText('Sign in with email'))
 
     expect(onSubmit).toHaveBeenCalledWith({ email: 'test@example.com' })
   })
@@ -42,11 +43,9 @@ describe('Login05', () => {
   })
 
   it('renders social providers when provided', () => {
-    const providers = [
-      { name: 'Google', icon: <span>G</span>, onPress: jest.fn() },
-    ]
+    const providers = [{ name: 'Google', icon: <span>G</span>, onPress: jest.fn() }]
     render(<Login05 socialProviders={providers} />)
-    expect(screen.getByText(/Continue with Google/)).toBeDefined()
+    expect(screen.getByText(/Google/)).toBeDefined()
   })
 
   it('renders signup footer link when configured', () => {

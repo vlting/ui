@@ -1,5 +1,4 @@
-import React from 'react'
-import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { Login01 } from './Login01'
 
 describe('Login01', () => {

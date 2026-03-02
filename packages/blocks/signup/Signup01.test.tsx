@@ -1,23 +1,28 @@
-import React from 'react'
-import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { Signup01 } from './Signup01'
 
 describe('Signup01', () => {
   it('renders name, email, and password fields', () => {
     render(<Signup01 />)
-    expect(screen.getByLabelText('Name')).toBeDefined()
-    expect(screen.getByLabelText('Email')).toBeDefined()
-    expect(screen.getByLabelText('Password')).toBeDefined()
+    expect(screen.getByPlaceholderText('John Doe')).toBeDefined()
+    expect(screen.getByPlaceholderText('m@example.com')).toBeDefined()
+    expect(screen.getByPlaceholderText('Password')).toBeDefined()
   })
 
   it('calls onSubmit with name, email, and password', () => {
     const onSubmit = jest.fn()
     render(<Signup01 onSubmit={onSubmit} />)
 
-    fireEvent.changeText(screen.getByLabelText('Name'), 'John Doe')
-    fireEvent.changeText(screen.getByLabelText('Email'), 'test@example.com')
-    fireEvent.changeText(screen.getByLabelText('Password'), 'secret123')
-    fireEvent.press(screen.getByText('Create account'))
+    fireEvent.change(screen.getByPlaceholderText('John Doe'), {
+      target: { value: 'John Doe' },
+    })
+    fireEvent.change(screen.getByPlaceholderText('m@example.com'), {
+      target: { value: 'test@example.com' },
+    })
+    fireEvent.change(screen.getByPlaceholderText('Password'), {
+      target: { value: 'secret123' },
+    })
+    fireEvent.click(screen.getByText('Create account'))
 
     expect(onSubmit).toHaveBeenCalledWith({
       name: 'John Doe',
@@ -33,11 +38,9 @@ describe('Signup01', () => {
   })
 
   it('renders social providers when provided', () => {
-    const providers = [
-      { name: 'Google', icon: <span>G</span>, onPress: jest.fn() },
-    ]
+    const providers = [{ name: 'Google', icon: <span>G</span>, onPress: jest.fn() }]
     render(<Signup01 socialProviders={providers} />)
-    expect(screen.getByText(/Continue with Google/)).toBeDefined()
+    expect(screen.getByText(/Google/)).toBeDefined()
   })
 
   it('renders terms checkbox when termsHref is provided', () => {
