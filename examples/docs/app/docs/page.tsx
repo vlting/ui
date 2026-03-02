@@ -1,4 +1,11 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Documentation — @vlting/ui',
+  description:
+    'Browse components, blocks, charts, icons, theming, and migration guides for @vlting/ui.',
+}
 
 const sections = [
   {
