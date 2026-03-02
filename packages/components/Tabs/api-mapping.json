@@ -1,0 +1,63 @@
+{
+  "component": "Tabs",
+  "shadcn": {
+    "import": "import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'",
+    "props": {
+      "Tabs": {
+        "value": { "type": "string" },
+        "defaultValue": { "type": "string" },
+        "onValueChange": { "type": "function", "signature": "(value: string) => void" },
+        "orientation": { "type": "string", "values": ["horizontal", "vertical"] }
+      },
+      "TabsTrigger": {
+        "value": { "type": "string", "required": true },
+        "disabled": { "type": "boolean" },
+        "className": { "type": "string" }
+      },
+      "TabsContent": {
+        "value": { "type": "string", "required": true },
+        "className": { "type": "string" }
+      }
+    }
+  },
+  "vlting": {
+    "import": "import { Tabs } from '@vlting/ui'",
+    "props": {
+      "Tabs.Root": {
+        "value": { "type": "string" },
+        "defaultValue": { "type": "string" },
+        "onValueChange": { "type": "function", "signature": "(value: string) => void" },
+        "orientation": { "type": "string", "values": ["horizontal", "vertical"] },
+        "children": { "type": "ReactNode" }
+      },
+      "Tabs.List": {
+        "size": { "type": "string", "values": ["sm", "md", "lg"] },
+        "children": { "type": "ReactNode" }
+      },
+      "Tabs.Trigger": {
+        "value": { "type": "string", "required": true },
+        "disabled": { "type": "boolean" },
+        "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+        "children": { "type": "ReactNode" }
+      },
+      "Tabs.Content": {
+        "value": { "type": "string", "required": true },
+        "children": { "type": "ReactNode" }
+      }
+    }
+  },
+  "notes": [
+    "Both use compound API with Root/List/Trigger/Content.",
+    "vlting wraps @tamagui/tabs with manual activation mode.",
+    "vlting adds 'size' prop on Trigger (sm/md/lg) affecting padding and font size.",
+    "vlting uses useTabsContext internally to determine active state for styling.",
+    "List renders with background color and rounded container for a segmented control appearance."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "<Tabs>", "vlting": "<Tabs.Root>", "reason": "Dot-notation compound component API" },
+    { "shadcn": "<TabsList>", "vlting": "<Tabs.List>", "reason": "Dot-notation compound component API" },
+    { "shadcn": "<TabsTrigger>", "vlting": "<Tabs.Trigger>", "reason": "Dot-notation compound component API" },
+    { "shadcn": "No size prop", "vlting": "size='sm' | 'md' | 'lg' on Trigger", "reason": "vlting includes built-in size variants" }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "component": "Slider",
+  "shadcn": {
+    "import": "import { Slider } from '@/components/ui/slider'",
+    "props": {
+      "value": { "type": "number[]" },
+      "defaultValue": { "type": "number[]" },
+      "min": { "type": "number" },
+      "max": { "type": "number" },
+      "step": { "type": "number" },
+      "onValueChange": { "type": "function", "signature": "(value: number[]) => void" },
+      "disabled": { "type": "boolean" },
+      "orientation": { "type": "string", "values": ["horizontal", "vertical"] },
+      "className": { "type": "string" }
+    }
+  },
+  "vlting": {
+    "import": "import { Slider } from '@vlting/ui'",
+    "props": {
+      "value": { "type": "number", "description": "Single value (not array)" },
+      "defaultValue": { "type": "number", "default": 0 },
+      "min": { "type": "number", "default": 0 },
+      "max": { "type": "number", "default": 100 },
+      "step": { "type": "number", "default": 1 },
+      "onValueChange": { "type": "function", "signature": "(value: number) => void" },
+      "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
+      "disabled": { "type": "boolean" },
+      "aria-label": { "type": "string" }
+    }
+  },
+  "notes": [
+    "shadcn uses Radix Slider with value as number[]; vlting uses a single number value.",
+    "vlting wraps @tamagui/slider; the array-to-single conversion is handled internally.",
+    "vlting adds a 'size' prop (sm/md/lg) controlling the slider track and thumb size.",
+    "vlting is single-thumb only; shadcn supports multi-thumb range sliders.",
+    "Track, TrackActive, and Thumb are rendered automatically; no sub-components needed."
+  ],
+  "breaking": [
+    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    { "shadcn": "value={[50]} / onValueChange={(val) => val[0]}", "vlting": "value={50} / onValueChange={(val) => val}", "reason": "Single number value, not array" },
+    { "shadcn": "defaultValue={[50]}", "vlting": "defaultValue={50}", "reason": "Single number, not array" },
+    { "shadcn": "Multi-thumb support", "vlting": "Single thumb only", "reason": "Simplified API for single-value sliders" }
+  ]
+}
