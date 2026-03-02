@@ -34,24 +34,27 @@ const Card = _Card as AnyFC & {
   Title: AnyFC
   Description: AnyFC
 }
-const Tabs = _Tabs as unknown as AnyFC & {
+const Tabs = _Tabs as unknown as {
+  Root: AnyFC
   List: AnyFC
   Trigger: AnyFC
   Content: AnyFC
 }
-const Select = _Select as unknown as AnyFC & {
+const Select = _Select as AnyFC & {
   Item: AnyFC
   Value: AnyFC
   Group: AnyFC
   Label: AnyFC
   Separator: AnyFC
 }
-const Accordion = _Accordion as unknown as AnyFC & {
+const Accordion = _Accordion as unknown as {
+  Root: AnyFC
   Item: AnyFC
   Trigger: AnyFC
   Content: AnyFC
 }
-const Table = _Table as unknown as AnyFC & {
+const Table = _Table as unknown as {
+  Root: AnyFC
   Header: AnyFC
   Body: AnyFC
   Footer: AnyFC
@@ -61,7 +64,8 @@ const Table = _Table as unknown as AnyFC & {
   Caption: AnyFC
 }
 const Tooltip = _Tooltip as AnyFC
-const Field = _Field as unknown as AnyFC & {
+const Field = _Field as unknown as {
+  Root: AnyFC
   Label: AnyFC
   Control: AnyFC
   Description: AnyFC
@@ -124,13 +128,13 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
   input: {
     Basic: () => <Input placeholder="Type something..." />,
     'With Field': () => (
-      <Field>
+      <Field.Root>
         <Field.Label>Email</Field.Label>
         <Field.Control>
           <Input placeholder="you@example.com" />
         </Field.Control>
         <Field.Description>We will never share your email.</Field.Description>
-      </Field>
+      </Field.Root>
     ),
     Disabled: () => <Input placeholder="Disabled" disabled />,
   },
@@ -157,7 +161,7 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
   },
   tabs: {
     Basic: () => (
-      <Tabs defaultValue="tab1">
+      <Tabs.Root defaultValue="tab1">
         <Tabs.List>
           <Tabs.Trigger value="tab1">Account</Tabs.Trigger>
           <Tabs.Trigger value="tab2">Password</Tabs.Trigger>
@@ -172,7 +176,7 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
         <Tabs.Content value="tab3">
           <p>Configure your preferences.</p>
         </Tabs.Content>
-      </Tabs>
+      </Tabs.Root>
     ),
   },
   select: {
@@ -187,7 +191,7 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
   },
   accordion: {
     Basic: () => (
-      <Accordion type="single" collapsible>
+      <Accordion.Root type="single" collapsible>
         <Accordion.Item value="item-1">
           <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
           <Accordion.Content>
@@ -206,12 +210,12 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
             Yes. Smooth expand/collapse with Tamagui animations.
           </Accordion.Content>
         </Accordion.Item>
-      </Accordion>
+      </Accordion.Root>
     ),
   },
   table: {
     Basic: () => (
-      <Table>
+      <Table.Root>
         <Table.Header>
           <Table.Row>
             <Table.Head>Name</Table.Head>
@@ -236,7 +240,7 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
             <Table.Cell>Viewer</Table.Cell>
           </Table.Row>
         </Table.Body>
-      </Table>
+      </Table.Root>
     ),
   },
   tooltip: {

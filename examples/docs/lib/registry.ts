@@ -30,7 +30,7 @@ const registry: ComponentEntry[] = [
       {
         name: 'Basic',
         description: 'A single-item collapsible accordion.',
-        code: `<Accordion type="single" collapsible>
+        code: `<Accordion.Root type="single" collapsible>
   <Accordion.Item value="item-1">
     <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
     <Accordion.Content>
@@ -49,7 +49,7 @@ const registry: ComponentEntry[] = [
       Yes. Smooth expand/collapse with Tamagui animations.
     </Accordion.Content>
   </Accordion.Item>
-</Accordion>`,
+</Accordion.Root>`,
       },
     ],
   },
@@ -365,7 +365,7 @@ const registry: ComponentEntry[] = [
       {
         name: 'Basic',
         description: 'A simple form with fields and submit button.',
-        code: `<Form onSubmit={() => alert('Submitted!')}>
+        code: `<Form.Root onSubmit={() => alert('Submitted!')}>
   <Form.Field name="email">
     <Form.Label>Email</Form.Label>
     <Input placeholder="you@example.com" />
@@ -375,7 +375,7 @@ const registry: ComponentEntry[] = [
   <Button type="submit">
     <Button.Text>Submit</Button.Text>
   </Button>
-</Form>`,
+</Form.Root>`,
       },
     ],
   },
@@ -404,13 +404,13 @@ const registry: ComponentEntry[] = [
       {
         name: 'With Field',
         description: 'Input wrapped in a Field with label and description.',
-        code: `<Field>
+        code: `<Field.Root>
   <Field.Label>Email</Field.Label>
   <Field.Control>
     <Input placeholder="you@example.com" />
   </Field.Control>
   <Field.Description>We will never share your email.</Field.Description>
-</Field>`,
+</Field.Root>`,
       },
       {
         name: 'Disabled',
@@ -652,7 +652,7 @@ const registry: ComponentEntry[] = [
       {
         name: 'Basic',
         description: 'A simple table with header and body.',
-        code: `<Table>
+        code: `<Table.Root>
   <Table.Header>
     <Table.Row>
       <Table.Head>Name</Table.Head>
@@ -677,7 +677,7 @@ const registry: ComponentEntry[] = [
       <Table.Cell>Viewer</Table.Cell>
     </Table.Row>
   </Table.Body>
-</Table>`,
+</Table.Root>`,
       },
     ],
   },
@@ -693,7 +693,7 @@ const registry: ComponentEntry[] = [
       {
         name: 'Basic',
         description: 'Tabs with three panels.',
-        code: `<Tabs defaultValue="tab1">
+        code: `<Tabs.Root defaultValue="tab1">
   <Tabs.List>
     <Tabs.Trigger value="tab1">Account</Tabs.Trigger>
     <Tabs.Trigger value="tab2">Password</Tabs.Trigger>
@@ -708,7 +708,7 @@ const registry: ComponentEntry[] = [
   <Tabs.Content value="tab3">
     <p>Configure your preferences.</p>
   </Tabs.Content>
-</Tabs>`,
+</Tabs.Root>`,
       },
     ],
   },
