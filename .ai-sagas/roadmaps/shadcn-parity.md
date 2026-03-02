@@ -64,10 +64,10 @@ created: 2026-03-01
 **Dependencies:** Epic 2, Epic 3, Epic 4
 **Estimated stages:** ~4
 **Epic slug:** block-system
-**Epic Roadmap:** (filled during EXECUTE)
+**Epic Roadmap:** `.ai-epics/roadmaps/2026-03-02-block-system.md`
 **Tech Spec:** `.ai-epics/docs/block-system/tech-spec.md`
-**Status:** in-progress
-**Review notes:**
+**Status:** complete
+**Review notes:** All 4 stages delivered (PRs #56–#59). Epic PR #55 ready for review. 30 blocks total: 5 Login, 5 Signup, 16 Sidebar, 1 Dashboard, 3 cross-platform originals (MobileTabLayout, MasterDetail, AppShellResponsive). Shared auth form utilities, sidebar compound patterns, file tree, responsive media queries. `@vlting/ui/blocks` sub-path export added. 255 tests passing across 30 test suites. PRD alignment: FR-4 fully addressed.
 
 ## Epic 6: Documentation Site (Next.js)
 **Objective:** Build a Next.js documentation site with pages for every component, block, chart, and icon. Includes site-level brand switcher, platform toggle, interactive playground, code examples, and API reference.
