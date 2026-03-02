@@ -68,7 +68,6 @@ import {
   Spinner as _Spinner,
   Switch as _Switch,
   Textarea as _Textarea,
-  Toast as _Toast,
   Toggle as _Toggle,
   ToggleGroup as _ToggleGroup,
   DirectionProvider as _DirectionProvider,
@@ -239,8 +238,7 @@ const HoverCard = _HoverCard as unknown as {
   Trigger: AnyFC
   Content: AnyFC
 }
-const InputGroup = _InputGroup as unknown as {
-  Root: AnyFC
+const InputGroup = _InputGroup as unknown as AnyFC & {
   Addon: AnyFC
   Element: AnyFC
   Input: AnyFC
@@ -249,8 +247,7 @@ const InputOTP = _InputOTP as unknown as {
   Root: AnyFC
   Slot: AnyFC
 }
-const Item = _Item as unknown as {
-  Root: AnyFC
+const Item = _Item as unknown as AnyFC & {
   Leading: AnyFC
   Content: AnyFC
   Title: AnyFC
@@ -326,13 +323,6 @@ const Slider = _Slider as AnyFC
 const Spinner = _Spinner as AnyFC
 const Switch = _Switch as AnyFC
 const Textarea = _Textarea as AnyFC
-const Toast = _Toast as unknown as {
-  Root: AnyFC
-  Title: AnyFC
-  Description: AnyFC
-  Action: AnyFC
-  Close: AnyFC
-}
 const Toggle = _Toggle as AnyFC
 const ToggleGroup = _ToggleGroup as AnyFC & { Item: AnyFC }
 const DirectionProvider = _DirectionProvider as AnyFC
@@ -1011,10 +1001,10 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
   },
   'input-group': {
     Basic: () => (
-      <InputGroup.Root>
+      <InputGroup>
         <InputGroup.Addon>https://</InputGroup.Addon>
-        <InputGroup.Input placeholder="example.com" />
-      </InputGroup.Root>
+        <InputGroup.Input><input placeholder="example.com" style={{ border: '1px solid var(--color-borderColor)', borderRadius: 8, padding: '6px 12px', flex: 1, background: 'transparent', color: 'inherit' }} /></InputGroup.Input>
+      </InputGroup>
     ),
   },
   'input-otp': {
@@ -1031,7 +1021,7 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
   },
   item: {
     Basic: () => (
-      <Item.Root>
+      <Item>
         <Item.Content>
           <Item.Title>List Item</Item.Title>
           <Item.Description>A description for this item.</Item.Description>
@@ -1039,7 +1029,7 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
         <Item.Trailing>
           <Badge variant="secondary">New</Badge>
         </Item.Trailing>
-      </Item.Root>
+      </Item>
     ),
   },
   kbd: {
@@ -1239,10 +1229,10 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
   },
   toast: {
     Basic: () => (
-      <Toast.Root>
-        <Toast.Title>Scheduled: Catch up</Toast.Title>
-        <Toast.Description>Friday, February 10, 2025 at 5:57 PM</Toast.Description>
-      </Toast.Root>
+      <div style={{ border: '1px solid var(--color-borderColor, #333)', borderRadius: 8, padding: 12, display: 'flex', flexDirection: 'column', gap: 4, maxWidth: 320 }}>
+        <div style={{ fontWeight: 600, fontSize: 14 }}>Scheduled: Catch up</div>
+        <div style={{ fontSize: 13, opacity: 0.7 }}>Friday, February 10, 2025 at 5:57 PM</div>
+      </div>
     ),
   },
   toggle: {
