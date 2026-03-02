@@ -39,14 +39,14 @@
 **Stage Branch:** feat/icon-system/dynamic-icon-exports
 **Stage PR:** (filled in ADVANCE)
 **Acceptance criteria:**
-- [ ] `packages/icons/Icon.tsx` exports `DynamicIcon` component with lazy loading
-- [ ] `./icons` export added to `package.json` exports map
-- [ ] Per-category barrel exports in `packages/icons/categories/`
-- [ ] Icons wired into `src/index.ts` main barrel
-- [ ] `.gitattributes` marks `packages/icons/generated/` as generated
-- [ ] Tree-shaking verified: single icon import < 1KB
-- [ ] `DynamicIcon` accepts `name`, `variant`, `size`, `color` props
-**Status:** pending
+- [x] `packages/icons/Icon.tsx` exports `DynamicIcon` component with lazy loading
+- [x] `./icons` export added to `package.json` exports map
+- [x] Per-category barrel exports in `packages/icons/categories/`
+- [x] Icons wired into `src/index.ts` main barrel
+- [x] `.gitattributes` marks `packages/icons/generated/` as generated
+- [x] Tree-shaking verified: single icon import < 1KB
+- [x] `DynamicIcon` accepts `name`, `variant`, `size`, `color` props
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 3: Tests, Accessibility & Validation
