@@ -5,7 +5,7 @@
 - **GitHub Issue:** #40
 - **Epic PR:** #45
 - **Created:** 2026-03-02
-- **Status:** in-review
+- **Status:** done
 - **Saga:** `.ai-sagas/roadmaps/shadcn-parity.md`
 - **Tech Spec:** `.ai-epics/docs/chart-system/tech-spec.md`
 - **Project Node ID:** PVT_kwDODxaco84BP_ab
