@@ -43,7 +43,7 @@ export default async function ComponentPage({ params }: PageProps) {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">{component.name}</h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
+        <p className="text-lg text-foreground-secondary mb-4">
           {component.description}
         </p>
         <div className="inline-block">
@@ -77,7 +77,7 @@ export default async function ComponentPage({ params }: PageProps) {
       {apiMapping && apiMapping.notes.length > 0 && (
         <section className="mb-12">
           <h2 className="text-xl font-semibold mb-4">Notes</h2>
-          <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+          <ul className="list-disc list-inside space-y-1 text-foreground-secondary">
             {apiMapping.notes.map((note, i) => (
               <li key={i}>{note}</li>
             ))}
@@ -91,10 +91,10 @@ export default async function ComponentPage({ params }: PageProps) {
           <h2 className="text-xl font-semibold mb-4">
             Migration from shadcn
           </h2>
-          <div className="overflow-x-auto border border-gray-200 dark:border-gray-800 rounded-lg">
+          <div className="overflow-x-auto border border-border rounded-lg">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+                <tr className="border-b border-border bg-surface-muted">
                   <th className="text-left py-2 px-4 font-medium">shadcn</th>
                   <th className="text-left py-2 px-4 font-medium">
                     @vlting/ui
@@ -106,7 +106,7 @@ export default async function ComponentPage({ params }: PageProps) {
                 {apiMapping.breaking.map((b, i) => (
                   <tr
                     key={i}
-                    className="border-b border-gray-100 dark:border-gray-800/50 last:border-0"
+                    className="border-b border-border-muted last:border-0"
                   >
                     <td className="py-2 px-4 font-mono text-xs">
                       {b.shadcn}
@@ -114,7 +114,7 @@ export default async function ComponentPage({ params }: PageProps) {
                     <td className="py-2 px-4 font-mono text-xs">
                       {b.vlting}
                     </td>
-                    <td className="py-2 px-4 text-gray-600 dark:text-gray-400">
+                    <td className="py-2 px-4 text-foreground-secondary">
                       {b.reason}
                     </td>
                   </tr>
@@ -132,10 +132,10 @@ export default async function ComponentPage({ params }: PageProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {component.whenToUse && (
               <div>
-                <h3 className="text-sm font-semibold text-green-700 dark:text-green-400 mb-2">
+                <h3 className="text-sm font-semibold text-success mb-2">
                   When to use
                 </h3>
-                <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                <ul className="list-disc list-inside space-y-1 text-sm text-foreground-secondary">
                   {component.whenToUse.map((item, i) => (
                     <li key={i}>{item}</li>
                   ))}
@@ -144,10 +144,10 @@ export default async function ComponentPage({ params }: PageProps) {
             )}
             {component.whenNotToUse && (
               <div>
-                <h3 className="text-sm font-semibold text-red-700 dark:text-red-400 mb-2">
+                <h3 className="text-sm font-semibold text-destructive mb-2">
                   When NOT to use
                 </h3>
-                <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                <ul className="list-disc list-inside space-y-1 text-sm text-foreground-secondary">
                   {component.whenNotToUse.map((item, i) => (
                     <li key={i}>{item}</li>
                   ))}
@@ -162,7 +162,7 @@ export default async function ComponentPage({ params }: PageProps) {
       {component.a11yNotes && component.a11yNotes.length > 0 && (
         <section className="mb-12">
           <h2 className="text-xl font-semibold mb-4">Accessibility</h2>
-          <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+          <ul className="list-disc list-inside space-y-1 text-foreground-secondary">
             {component.a11yNotes.map((note, i) => (
               <li key={i}>{note}</li>
             ))}

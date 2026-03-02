@@ -19,7 +19,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
       {/* Mobile sidebar toggle */}
       <button
         onClick={() => setSidebarOpen(true)}
-        className="fixed bottom-4 right-4 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-900 text-white shadow-lg md:hidden dark:bg-white dark:text-gray-900"
+        className="fixed bottom-4 right-4 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background shadow-lg md:hidden"
         aria-label="Open navigation"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
@@ -36,14 +36,14 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         >
           <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
           <div
-            className="fixed inset-y-0 left-0 w-72 bg-white shadow-xl dark:bg-gray-950"
+            className="fixed inset-y-0 left-0 w-72 bg-background shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex h-14 items-center justify-between border-b border-gray-200 px-4 dark:border-gray-800">
+            <div className="flex h-14 items-center justify-between border-b border-border px-4">
               <span className="text-sm font-semibold">Navigation</span>
               <button
                 onClick={() => setSidebarOpen(false)}
-                className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-accent"
                 aria-label="Close navigation"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
@@ -57,7 +57,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
       )}
 
       {/* Desktop sidebar — sticky */}
-      <div className="hidden w-64 shrink-0 border-r border-gray-200 md:block sticky top-14 h-[calc(100vh-3.5rem)]">
+      <div className="hidden w-64 shrink-0 border-r border-border md:block sticky top-14 h-[calc(100vh-3.5rem)]">
         <DocsSidebar />
       </div>
 
@@ -67,7 +67,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
       </div>
 
       {/* Right-side table of contents — sticky, hidden below xl */}
-      <div className="hidden xl:block w-52 shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto border-l border-gray-200 dark:border-gray-800 py-8 px-4">
+      <div className="hidden xl:block w-52 shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto border-l border-border py-8 px-4">
         <TableOfContents />
       </div>
     </div>
