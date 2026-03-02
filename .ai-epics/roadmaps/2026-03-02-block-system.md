@@ -16,7 +16,7 @@
 **Estimated scope:** ~25 files, ~2000 lines
 **GitHub Sub-Issue:** #51
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmcTJg
-**Stage Branch:** (pending)
+**Stage Branch:** feat/block-system/auth-blocks
 **Stage PR:** (pending)
 **Acceptance criteria:**
 - [ ] `packages/blocks/` directory structure created with `_shared/types.ts`
@@ -29,7 +29,7 @@
 - [ ] All auth blocks use design tokens exclusively (no hardcoded colors/spacing)
 - [ ] All auth blocks are keyboard navigable with proper focus management
 - [ ] All auth blocks have `<form>` landmark and associated `<label>` elements
-**Status:** pending
+**Status:** executing
 **Iterations:** 0
 
 ## Stage 2: Sidebar Blocks (01-08)
