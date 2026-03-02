@@ -37,3 +37,12 @@ export type LegendLayout = 'horizontal' | 'vertical'
 
 /** Tooltip indicator style */
 export type TooltipIndicator = 'line' | 'dot' | 'dashed'
+
+/** Area chart display variants */
+export type AreaChartVariant = 'default' | 'gradient' | 'stacked' | 'expanded' | 'step' | 'axes' | 'interactive' | 'legend' | 'linear' | 'icons'
+
+/** Bar chart display variants */
+export type BarChartVariant = 'default' | 'horizontal' | 'stacked' | 'grouped' | 'negative' | 'label' | 'mixed' | 'custom-label' | 'active' | 'interactive'
+
+/** Line chart display variants */
+export type LineChartVariant = 'default' | 'dots' | 'multiple' | 'labels' | 'stepped' | 'custom-dots' | 'interactive' | 'linear' | 'legend' | 'icons'
