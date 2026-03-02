@@ -160,3 +160,87 @@ describe('ChartLegend', () => {
     expect(list.style.flexDirection).toBe('column')
   })
 })
+
+// -- ChartDataTable (accessibility) --
+
+describe('ChartDataTable', () => {
+  const mockData = [
+    { month: 'Jan', revenue: 100, expenses: 80 },
+    { month: 'Feb', revenue: 200, expenses: 120 },
+  ]
+
+  it('renders hidden data table when data prop is provided', () => {
+    render(
+      <Chart config={mockConfig} accessibilityLabel="Revenue chart" data={mockData} xAxisKey="month" width={400}>
+        <div>chart content</div>
+      </Chart>
+    )
+    expect(screen.getByRole('table')).toBeInTheDocument()
+  })
+
+  it('does not render data table when data prop is omitted', () => {
+    render(
+      <Chart config={mockConfig} accessibilityLabel="Revenue chart" width={400}>
+        <div>chart content</div>
+      </Chart>
+    )
+    expect(screen.queryByRole('table')).toBeNull()
+  })
+
+  it('renders correct column headers from config labels', () => {
+    render(
+      <Chart config={mockConfig} accessibilityLabel="Revenue chart" data={mockData} xAxisKey="month" width={400}>
+        <div>chart content</div>
+      </Chart>
+    )
+    const headers = screen.getAllByRole('columnheader')
+    expect(headers).toHaveLength(3) // month + revenue + expenses
+    expect(headers[0].textContent).toBe('month')
+    expect(headers[1].textContent).toBe('Revenue')
+    expect(headers[2].textContent).toBe('Expenses')
+  })
+
+  it('renders correct data rows', () => {
+    render(
+      <Chart config={mockConfig} accessibilityLabel="Revenue chart" data={mockData} xAxisKey="month" width={400}>
+        <div>chart content</div>
+      </Chart>
+    )
+    const rows = screen.getAllByRole('row')
+    // 1 header row + 2 data rows
+    expect(rows).toHaveLength(3)
+  })
+
+  it('data table is visually hidden', () => {
+    render(
+      <Chart config={mockConfig} accessibilityLabel="Revenue chart" data={mockData} xAxisKey="month" width={400}>
+        <div>chart content</div>
+      </Chart>
+    )
+    const table = screen.getByRole('table')
+    const wrapper = table.parentElement!
+    expect(wrapper.style.overflow).toBe('hidden')
+    expect(wrapper.style.position).toBe('absolute')
+    expect(wrapper.style.width).toBe('1px')
+    expect(wrapper.style.height).toBe('1px')
+  })
+})
+
+// -- reducedMotion context --
+
+describe('reducedMotion context', () => {
+  it('provides reducedMotion via context', () => {
+    let contextValue: ReturnType<typeof useChartContext> | null = null
+    function ContextReader() {
+      contextValue = useChartContext()
+      return null
+    }
+    render(
+      <Chart config={mockConfig} accessibilityLabel="test" width={400}>
+        <ContextReader />
+      </Chart>
+    )
+    expect(contextValue).not.toBeNull()
+    expect(typeof contextValue!.reducedMotion).toBe('boolean')
+  })
+})
