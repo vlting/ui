@@ -160,7 +160,7 @@ function Content({ children, direction: directionProp, showHandle }: DrawerConte
         borderColor="$borderColor"
         animation="medium"
         aria-describedby={undefined}
-        {...DIRECTION_RADII[direction]}
+        {...(isTouch ? DIRECTION_RADII[direction] : {})}
         style={{ boxShadow: 'var(--shadowLg)', ...DIRECTION_STYLES[direction] }}
       >
         {shouldShowHandle && <HandleBarJsx />}
