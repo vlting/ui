@@ -149,5 +149,7 @@ function Provider({
   )
 }
 
-export const Toast = { Root, Title, Description, Action, Close, Viewport, Provider }
+import { ImperativeToastViewport } from './toast-imperative'
+
+export const Toast = { Root, Title, Description, Action, Close, Viewport, Provider, ImperativeViewport: ImperativeToastViewport }
 export { useToastController, useToastState }
