@@ -59,14 +59,14 @@
 **Stage PR:** (pending)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmb27Q
 **Acceptance criteria:**
-- [ ] PieChart with 11 variants (default, donut, donut-text, donut-active, label, custom-label, label-list, legend, separator, interactive, stacked)
-- [ ] RadarChart with 14 variants (default, dots, lines, custom, multiple, grid-circle, grid-filled, grid-none, legend, icons, radius-axis, label, custom-shape, interactive)
-- [ ] RadialChart with 6 variants (default, grid, label, stacked, text, shape)
-- [ ] Polar coordinate system works correctly for radar charts
-- [ ] Partial arc rendering works for radial charts
-- [ ] Spec.md written for each chart type
-- [ ] Tests pass for all chart types and key variants
-**Status:** pending
+- [x] PieChart with 11 variants (default, donut, donut-text, donut-active, label, custom-label, label-list, legend, separator, interactive, stacked)
+- [x] RadarChart with 14 variants (default, dots, lines, custom, multiple, grid-circle, grid-filled, grid-none, legend, icons, radius-axis, label, custom-shape, interactive)
+- [x] RadialChart with 6 variants (default, grid, label, stacked, text, shape)
+- [x] Polar coordinate system works correctly for radar charts
+- [x] Partial arc rendering works for radial charts
+- [x] Spec.md written for each chart type
+- [x] Tests pass for all chart types and key variants
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 4: Integration, Polish & API Mapping
