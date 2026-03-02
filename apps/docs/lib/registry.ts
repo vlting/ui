@@ -762,10 +762,10 @@ const registry: ComponentEntry[] = [
       {
         name: 'Basic',
         description: 'An input with prefix and suffix addons.',
-        code: `<InputGroup.Root>
+        code: `<InputGroup>
   <InputGroup.Addon>https://</InputGroup.Addon>
-  <Input placeholder="example.com" />
-</InputGroup.Root>`,
+  <InputGroup.Input><Input placeholder="example.com" /></InputGroup.Input>
+</InputGroup>`,
       },
     ],
   },
@@ -808,8 +808,10 @@ const registry: ComponentEntry[] = [
         name: 'Basic',
         description: 'A list item with text.',
         code: `<Item>
-  <Item.Text>Settings</Item.Text>
-  <Item.Description>Manage your preferences</Item.Description>
+  <Item.Content>
+    <Item.Title>Settings</Item.Title>
+    <Item.Description>Manage your preferences</Item.Description>
+  </Item.Content>
 </Item>`,
       },
     ],
@@ -1360,9 +1362,9 @@ const { toast } = useToast()
     category: 'components',
     description: 'A group of toggle buttons where one or multiple can be active.',
     importPath: "import { ToggleGroup } from '@vlting/ui'",
-    whenToUse: 'Use to let users switch between mutually exclusive options, like view modes (grid/list) or text formatting (bold/italic/underline).',
-    whenNotToUse: "Don't use for navigation or actions with side effects. Use Tabs for content switching or RadioGroup for form selections.",
-    a11yNotes: 'Uses role="group" with aria-label. Each toggle uses aria-pressed. Supports keyboard navigation with arrow keys.',
+    whenToUse: ['Switch between mutually exclusive options like view modes (grid/list)', 'Text formatting toggles (bold/italic/underline)', 'Filter or display mode selectors'],
+    whenNotToUse: ['Navigation or actions with side effects — use Tabs instead', 'Form selections where only one option applies — use RadioGroup instead'],
+    a11yNotes: ['Uses role="group" with aria-label', 'Each toggle uses aria-pressed', 'Supports keyboard navigation with arrow keys'],
     examples: [
       {
         name: 'Basic',
