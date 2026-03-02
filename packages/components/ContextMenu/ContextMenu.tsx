@@ -110,7 +110,7 @@ function Root({ children, onOpenChange }: ContextMenuRootProps) {
             borderWidth={1}
             borderColor="$borderColor"
             borderRadius="$4"
-            padding="$0.5"
+            padding="$1"
             minWidth="$menuMin"
             style={{
               boxShadow: 'var(--shadowMd)',
@@ -143,13 +143,13 @@ function Item({ children, onSelect, disabled, shortcut }: ContextMenuItemProps) 
       type="button"
       alignItems="center"
       justifyContent="space-between"
-      height="$2.5"
-      paddingLeft="$0.75"
-      paddingRight="$0.75"
+      height="$4"
+      paddingLeft="$2"
+      paddingRight="$2"
       borderRadius="$2"
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
-      hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
+      hoverStyle={disabled ? undefined : { backgroundColor: '$color3' }}
       disabled={disabled}
       onClick={
         disabled
@@ -162,7 +162,7 @@ function Item({ children, onSelect, disabled, shortcut }: ContextMenuItemProps) 
       role="menuitem"
       aria-disabled={disabled}
     >
-      <TextJsx fontSize="$4" fontFamily="$body" color="$color">
+      <TextJsx fontSize="$3" fontFamily="$body" color="$color">
         {children}
       </TextJsx>
       {shortcut && (
@@ -179,6 +179,14 @@ function Item({ children, onSelect, disabled, shortcut }: ContextMenuItemProps) 
   )
 }
 
+function CheckSvg() {
+  return (
+    <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 6L9 17l-5-5" />
+    </svg>
+  )
+}
+
 function CheckboxItem({
   children,
   checked,
@@ -191,13 +199,13 @@ function CheckboxItem({
     <MenuItemBtnJsx
       type="button"
       alignItems="center"
-      height="$2.5"
-      paddingLeft="$0.75"
-      paddingRight="$0.75"
+      height="$4"
+      paddingLeft="$2"
+      paddingRight="$2"
       borderRadius="$2"
       cursor={disabled ? 'not-allowed' : 'pointer'}
       opacity={disabled ? 0.5 : 1}
-      hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
+      hoverStyle={disabled ? undefined : { backgroundColor: '$color3' }}
       disabled={disabled}
       onClick={
         disabled
@@ -210,14 +218,10 @@ function CheckboxItem({
       role="menuitemcheckbox"
       aria-checked={checked}
     >
-      <ViewJsx width="$1" alignItems="center">
-        {checked && (
-          <TextJsx fontSize="$2" color="$color">
-            {'\u2713'}
-          </TextJsx>
-        )}
+      <ViewJsx width="$2" alignItems="center">
+        {checked && <CheckSvg />}
       </ViewJsx>
-      <TextJsx fontSize="$4" fontFamily="$body" color="$color">
+      <TextJsx fontSize="$3" fontFamily="$body" color="$color">
         {children}
       </TextJsx>
     </MenuItemBtnJsx>
@@ -229,10 +233,7 @@ function Separator() {
     <ViewJsx
       height={1}
       backgroundColor="$borderColor"
-      marginTop="$0.5"
-      marginBottom="$0.5"
-      marginLeft="$-0.5"
-      marginRight="$-0.5"
+      marginVertical="$0.5"
     />
   )
 }
@@ -240,10 +241,10 @@ function Separator() {
 function Label({ children }: { children: React.ReactNode }) {
   return (
     <ViewJsx
-      paddingLeft="$0.75"
-      paddingRight="$0.75"
-      paddingTop="$0.75"
-      paddingBottom="$0.25"
+      paddingLeft="$2"
+      paddingRight="$2"
+      paddingTop="$1"
+      paddingBottom="$0.5"
     >
       <TextJsx fontSize="$2" fontWeight="$4" color="$colorSubtitle" fontFamily="$body">
         {children}
