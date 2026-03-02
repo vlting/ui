@@ -32,7 +32,7 @@ export default async function ChartPage({ params }: PageProps) {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold mb-2">{chart.name}</h1>
-        <p className="text-gray-600 dark:text-gray-400">{chart.description}</p>
+        <p className="text-foreground-secondary">{chart.description}</p>
       </div>
 
       {/* Import */}
@@ -50,9 +50,9 @@ export default async function ChartPage({ params }: PageProps) {
               {chart.whenToUse.map((item) => (
                 <li
                   key={item}
-                  className="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2"
+                  className="text-sm text-foreground-secondary flex items-start gap-2"
                 >
-                  <span className="text-green-500 mt-0.5">+</span>
+                  <span className="text-success mt-0.5">+</span>
                   {item}
                 </li>
               ))}
@@ -65,9 +65,9 @@ export default async function ChartPage({ params }: PageProps) {
                 {chart.whenNotToUse.map((item) => (
                   <li
                     key={item}
-                    className="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2"
+                    className="text-sm text-foreground-secondary flex items-start gap-2"
                   >
-                    <span className="text-red-500 mt-0.5">-</span>
+                    <span className="text-destructive mt-0.5">-</span>
                     {item}
                   </li>
                 ))}
