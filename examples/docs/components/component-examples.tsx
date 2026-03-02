@@ -11,6 +11,8 @@ import type { ComponentExample } from '@/lib/registry'
 type AnyFC = ComponentType<any>
 const TamaguiText = Text as AnyFC
 
+import { Menu as _Menu } from '@vlting/ui/components/Menu'
+
 import {
   Button as _Button,
   Input as _Input,
@@ -68,6 +70,10 @@ import {
   Toast as _Toast,
   Toggle as _Toggle,
   ToggleGroup as _ToggleGroup,
+  DirectionProvider as _DirectionProvider,
+  H4 as _H4,
+  P as _P,
+  Small as _Small,
 } from '@vlting/ui'
 
 // Cast all components and sub-components to AnyFC
@@ -327,6 +333,19 @@ const Toast = _Toast as unknown as {
 }
 const Toggle = _Toggle as AnyFC
 const ToggleGroup = _ToggleGroup as AnyFC & { Item: AnyFC }
+const DirectionProvider = _DirectionProvider as AnyFC
+const H4 = _H4 as AnyFC
+const P = _P as AnyFC
+const Small = _Small as AnyFC
+const Menu = _Menu as unknown as {
+  Root: AnyFC
+  Trigger: AnyFC
+  Content: AnyFC
+  Item: AnyFC
+  ItemTitle: AnyFC
+  Separator: AnyFC
+  Label: AnyFC
+}
 
 // Small stateful wrapper components for overlay/modal examples
 function SheetDemo() {
@@ -1233,6 +1252,77 @@ const liveExamples: Record<string, Record<string, ExampleRenderer>> = {
         <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
         <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
       </ToggleGroup>
+    ),
+  },
+  chart: {
+    Basic: () => (
+      <div
+        style={{
+          padding: 16,
+          backgroundColor: 'var(--color3, #f1f5f9)',
+          borderRadius: 8,
+          width: '100%',
+          textAlign: 'center',
+        }}
+      >
+        <TamaguiText>
+          Chart components use Victory Native with react-native-svg for
+          cross-platform rendering. See the Charts section for code examples and
+          variants.
+        </TamaguiText>
+      </div>
+    ),
+  },
+  direction: {
+    Basic: () => (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <DirectionProvider dir="ltr">
+          <div style={{ direction: 'ltr' }}>
+            <TamaguiText>LTR: Hello World</TamaguiText>
+          </div>
+        </DirectionProvider>
+        <DirectionProvider dir="rtl">
+          <div style={{ direction: 'rtl' }}>
+            <TamaguiText>RTL: مرحبا بالعالم</TamaguiText>
+          </div>
+        </DirectionProvider>
+      </div>
+    ),
+  },
+  menu: {
+    Basic: () => (
+      <Menu.Root>
+        <Menu.Trigger>
+          <Button variant="outline">
+            <Button.Text>Open Menu</Button.Text>
+          </Button>
+        </Menu.Trigger>
+        <Menu.Content>
+          <Menu.Label>Actions</Menu.Label>
+          <Menu.Item>
+            <Menu.ItemTitle>Profile</Menu.ItemTitle>
+          </Menu.Item>
+          <Menu.Item>
+            <Menu.ItemTitle>Settings</Menu.ItemTitle>
+          </Menu.Item>
+          <Menu.Separator />
+          <Menu.Item>
+            <Menu.ItemTitle>Logout</Menu.ItemTitle>
+          </Menu.Item>
+        </Menu.Content>
+      </Menu.Root>
+    ),
+  },
+  typography: {
+    Basic: () => (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <H4>Heading Four</H4>
+        <P>
+          This is a paragraph of body text demonstrating the typography
+          component.
+        </P>
+        <Small>Small helper text</Small>
+      </div>
     ),
   },
 }
