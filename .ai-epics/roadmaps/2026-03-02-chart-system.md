@@ -55,18 +55,18 @@
 **Objective:** Implement PieChart (11 variants including donut), RadarChart (14 variants using polar coordinates), and RadialChart (6 variants using partial arc). These are the more complex chart types requiring Victory's polar/pie APIs.
 **Estimated scope:** ~9 files, ~900 lines
 **GitHub Sub-Issue:** #43
-**Stage Branch:** (pending)
+**Stage Branch:** feat/chart-system/specialized-charts
 **Stage PR:** (pending)
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmb27Q
 **Acceptance criteria:**
-- [ ] PieChart with 11 variants (default, donut, donut-text, donut-active, label, custom-label, label-list, legend, separator, interactive, stacked)
-- [ ] RadarChart with 14 variants (default, dots, lines, custom, multiple, grid-circle, grid-filled, grid-none, legend, icons, radius-axis, label, custom-shape, interactive)
-- [ ] RadialChart with 6 variants (default, grid, label, stacked, text, shape)
-- [ ] Polar coordinate system works correctly for radar charts
-- [ ] Partial arc rendering works for radial charts
-- [ ] Spec.md written for each chart type
-- [ ] Tests pass for all chart types and key variants
-**Status:** pending
+- [x] PieChart with 11 variants (default, donut, donut-text, donut-active, label, custom-label, label-list, legend, separator, interactive, stacked)
+- [x] RadarChart with 14 variants (default, dots, lines, custom, multiple, grid-circle, grid-filled, grid-none, legend, icons, radius-axis, label, custom-shape, interactive)
+- [x] RadialChart with 6 variants (default, grid, label, stacked, text, shape)
+- [x] Polar coordinate system works correctly for radar charts
+- [x] Partial arc rendering works for radial charts
+- [x] Spec.md written for each chart type
+- [x] Tests pass for all chart types and key variants
+**Status:** complete
 **Iterations:** 0
 
 ## Stage 4: Integration, Polish & API Mapping

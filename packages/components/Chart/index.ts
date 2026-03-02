@@ -10,6 +10,12 @@ export { BarChart } from './BarChart'
 export type { BarChartProps } from './BarChart'
 export { LineChart } from './LineChart'
 export type { LineChartProps } from './LineChart'
+export { PieChart } from './PieChart'
+export type { PieChartProps } from './PieChart'
+export { RadarChart } from './RadarChart'
+export type { RadarChartProps } from './RadarChart'
+export { RadialChart } from './RadialChart'
+export type { RadialChartProps } from './RadialChart'
 export type {
   ChartConfig,
   ChartConfigEntry,
@@ -20,4 +26,7 @@ export type {
   AreaChartVariant,
   BarChartVariant,
   LineChartVariant,
+  PieChartVariant,
+  RadarChartVariant,
+  RadialChartVariant,
 } from './types'
