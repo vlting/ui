@@ -46,9 +46,9 @@ export interface AuthFormHeaderProps {
 
 export function AuthFormHeader({ logo, title, description }: AuthFormHeaderProps) {
   return (
-    <YStackJsx alignItems="center" gap="$2">
+    <YStackJsx alignItems="center" gap="$1.5">
       {logo}
-      <TextJsx fontSize="$6" fontWeight="$4" fontFamily="$heading" textAlign="center">
+      <TextJsx fontSize="$5" fontWeight="$4" fontFamily="$heading" textAlign="center">
         {title}
       </TextJsx>
       {description ? (
@@ -61,6 +61,16 @@ export function AuthFormHeader({ logo, title, description }: AuthFormHeaderProps
           {description}
         </TextJsx>
       ) : null}
+    </YStackJsx>
+  )
+}
+
+// -- AuthFormActions --
+
+export function AuthFormActions({ children }: { children: ReactNode }) {
+  return (
+    <YStackJsx gap="$3" width="100%" paddingTop="$2">
+      {children}
     </YStackJsx>
   )
 }
