@@ -53,7 +53,7 @@ created: 2026-03-01
 **Dependencies:** Epic 1
 **Estimated stages:** ~4
 **Epic slug:** chart-system
-**Epic Roadmap:** (filled after PLAN)
+**Epic Roadmap:** `.ai-epics/roadmaps/2026-03-02-chart-system.md`
 **Tech Spec:** `.ai-epics/docs/chart-system/tech-spec.md`
 **Status:** in-progress
 **Review notes:**

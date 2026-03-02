@@ -3,7 +3,7 @@
 - **Branch:** epic/chart-system
 - **Feature flag:** chart_system
 - **GitHub Issue:** #40
-- **Epic PR:** (pending)
+- **Epic PR:** #45
 - **Created:** 2026-03-02
 - **Status:** in-progress
 - **Saga:** `.ai-sagas/roadmaps/shadcn-parity.md`
