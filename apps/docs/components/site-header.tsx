@@ -20,7 +20,7 @@ export function SiteHeader() {
           <Link href="/docs/components/button" className="text-foreground-secondary hover:text-foreground">
             Components
           </Link>
-          <Link href="/docs/blocks/login-01" className="text-foreground-secondary hover:text-foreground">
+          <Link href="/docs/blocks/auth" className="text-foreground-secondary hover:text-foreground">
             Blocks
           </Link>
           <Link href="/docs/charts/bar" className="text-foreground-secondary hover:text-foreground">
