@@ -1,7 +1,8 @@
-import type { ComponentType } from 'react'
-import React, { useState } from 'react'
-import { YStack } from 'tamagui'
 import { styledHtml } from '@tamagui/web'
+import type { ComponentType } from 'react'
+import type React from 'react'
+import { useState } from 'react'
+import { YStack } from 'tamagui'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import { Text } from '../../primitives/Text'
@@ -91,7 +92,9 @@ export function Signup05({
           <ButtonJsx
             variant="default"
             width="100%"
-            onPress={() => handleSubmit(new Event('submit') as unknown as React.FormEvent)}
+            onPress={() =>
+              handleSubmit(new Event('submit') as unknown as React.FormEvent)
+            }
             disabled={loading}
             loading={loading}
           >

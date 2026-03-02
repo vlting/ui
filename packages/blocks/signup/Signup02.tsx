@@ -1,7 +1,8 @@
-import type { ComponentType, ReactNode } from 'react'
-import React, { useState } from 'react'
-import { View, XStack, YStack } from 'tamagui'
 import { styledHtml } from '@tamagui/web'
+import type { ComponentType, ReactNode } from 'react'
+import type React from 'react'
+import { useState } from 'react'
+import { View, XStack, YStack } from 'tamagui'
 import { Button } from '../../components/Button'
 import { Checkbox } from '../../components/Checkbox'
 import { Input } from '../../components/Input'
@@ -113,9 +114,21 @@ export function Signup02({
                 >
                   <TextJsx fontSize="$2" color="$colorSubtitle">
                     I agree to the{' '}
-                    {termsHref ? <a href={termsHref} style={{ color: 'inherit' }}>Terms of Service</a> : 'Terms of Service'}
-                    {' '}and{' '}
-                    {privacyHref ? <a href={privacyHref} style={{ color: 'inherit' }}>Privacy Policy</a> : 'Privacy Policy'}
+                    {termsHref ? (
+                      <a href={termsHref} style={{ color: 'inherit' }}>
+                        Terms of Service
+                      </a>
+                    ) : (
+                      'Terms of Service'
+                    )}{' '}
+                    and{' '}
+                    {privacyHref ? (
+                      <a href={privacyHref} style={{ color: 'inherit' }}>
+                        Privacy Policy
+                      </a>
+                    ) : (
+                      'Privacy Policy'
+                    )}
                   </TextJsx>
                 </Checkbox.Root>
               ) : null}
@@ -123,7 +136,9 @@ export function Signup02({
               <ButtonJsx
                 variant="default"
                 width="100%"
-                onPress={() => handleSubmit(new Event('submit') as unknown as React.FormEvent)}
+                onPress={() =>
+                  handleSubmit(new Event('submit') as unknown as React.FormEvent)
+                }
                 disabled={loading}
                 loading={loading}
               >
@@ -144,11 +159,7 @@ export function Signup02({
       </YStackJsx>
 
       {image ? (
-        <ViewJsx
-          flex={1}
-          overflow="hidden"
-          $sm={{ display: 'none' }}
-        >
+        <ViewJsx flex={1} overflow="hidden" $sm={{ display: 'none' }}>
           {image}
         </ViewJsx>
       ) : null}

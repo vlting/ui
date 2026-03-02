@@ -1,7 +1,8 @@
-import type { ComponentType } from 'react'
-import React, { useState } from 'react'
-import { Text, View } from 'tamagui'
 import { styledHtml } from '@tamagui/web'
+import type { ComponentType } from 'react'
+import type React from 'react'
+import { useState } from 'react'
+import { Text, View } from 'tamagui'
 import { Button } from '../../components/Button'
 import { Field } from '../../components/Field'
 import { Input } from '../../components/Input'
@@ -121,7 +122,10 @@ export function Login01({
           {(forgotPasswordHref || onForgotPassword) && (
             <ViewJsx alignItems="flex-end">
               {forgotPasswordHref ? (
-                <a href={forgotPasswordHref} style={{ fontSize: 14, fontFamily: 'inherit' }}>
+                <a
+                  href={forgotPasswordHref}
+                  style={{ fontSize: 14, fontFamily: 'inherit' }}
+                >
                   Forgot password?
                 </a>
               ) : (

@@ -1,5 +1,4 @@
-import React from 'react'
-import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { Login02 } from './Login02'
 
 describe('Login02', () => {
@@ -85,7 +84,9 @@ describe('Login02', () => {
   })
 
   it('renders image when provided', () => {
-    render(<Login02 image={<img src="/hero.jpg" alt="Hero" data-testid="cover-image" />} />)
+    render(
+      <Login02 image={<img src="/hero.jpg" alt="Hero" data-testid="cover-image" />} />,
+    )
     expect(screen.getByTestId('cover-image')).toBeTruthy()
   })
 

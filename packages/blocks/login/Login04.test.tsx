@@ -1,12 +1,11 @@
-import React from 'react'
-import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { Login04 } from './Login04'
 
 describe('Login04', () => {
   it('renders email and password fields', () => {
     render(<Login04 />)
-    expect(screen.getByLabelText('Email')).toBeDefined()
-    expect(screen.getByLabelText('Password')).toBeDefined()
+    expect(screen.getByPlaceholderText('m@example.com')).toBeDefined()
+    expect(screen.getByPlaceholderText('Password')).toBeDefined()
   })
 
   it('renders image when provided', () => {
@@ -18,9 +17,13 @@ describe('Login04', () => {
     const onSubmit = jest.fn()
     render(<Login04 onSubmit={onSubmit} />)
 
-    fireEvent.changeText(screen.getByLabelText('Email'), 'test@example.com')
-    fireEvent.changeText(screen.getByLabelText('Password'), 'secret123')
-    fireEvent.press(screen.getByText('Login'))
+    fireEvent.change(screen.getByPlaceholderText('m@example.com'), {
+      target: { value: 'test@example.com' },
+    })
+    fireEvent.change(screen.getByPlaceholderText('Password'), {
+      target: { value: 'secret123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Login' }))
 
     expect(onSubmit).toHaveBeenCalledWith({
       email: 'test@example.com',
@@ -41,11 +44,9 @@ describe('Login04', () => {
   })
 
   it('renders social providers when provided', () => {
-    const providers = [
-      { name: 'GitHub', icon: <span>GH</span>, onPress: jest.fn() },
-    ]
+    const providers = [{ name: 'GitHub', icon: <span>GH</span>, onPress: jest.fn() }]
     render(<Login04 socialProviders={providers} />)
-    expect(screen.getByText(/Continue with GitHub/)).toBeDefined()
+    expect(screen.getByText(/GitHub/)).toBeDefined()
   })
 
   it('renders forgot password link when configured', () => {

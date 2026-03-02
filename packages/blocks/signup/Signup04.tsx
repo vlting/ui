@@ -1,9 +1,10 @@
-import type { ComponentType, ReactNode } from 'react'
-import React, { useState } from 'react'
-import { View, XStack, YStack } from 'tamagui'
 import { styledHtml } from '@tamagui/web'
-import { Card } from '../../components/Card'
+import type { ComponentType, ReactNode } from 'react'
+import type React from 'react'
+import { useState } from 'react'
+import { View, XStack, YStack } from 'tamagui'
 import { Button } from '../../components/Button'
+import { Card } from '../../components/Card'
 import { Checkbox } from '../../components/Checkbox'
 import { Input } from '../../components/Input'
 import { Text } from '../../primitives/Text'
@@ -65,11 +66,7 @@ export function Signup04({
   }
 
   return (
-    <CardJsx
-      width="100%"
-      style={{ maxWidth: 800 }}
-      overflow="hidden"
-    >
+    <CardJsx width="100%" style={{ maxWidth: 800 }} overflow="hidden">
       <XStackJsx width="100%" $sm={{ flexDirection: 'column' }}>
         <YStackJsx flex={1} padding="$6" gap="$4" justifyContent="center">
           <AuthFormHeader logo={logo} title={title} description={description} />
@@ -117,9 +114,21 @@ export function Signup04({
               >
                 <TextJsx fontSize="$2" color="$colorSubtitle">
                   I agree to the{' '}
-                  {termsHref ? <a href={termsHref} style={{ color: 'inherit' }}>Terms of Service</a> : 'Terms of Service'}
-                  {' '}and{' '}
-                  {privacyHref ? <a href={privacyHref} style={{ color: 'inherit' }}>Privacy Policy</a> : 'Privacy Policy'}
+                  {termsHref ? (
+                    <a href={termsHref} style={{ color: 'inherit' }}>
+                      Terms of Service
+                    </a>
+                  ) : (
+                    'Terms of Service'
+                  )}{' '}
+                  and{' '}
+                  {privacyHref ? (
+                    <a href={privacyHref} style={{ color: 'inherit' }}>
+                      Privacy Policy
+                    </a>
+                  ) : (
+                    'Privacy Policy'
+                  )}
                 </TextJsx>
               </Checkbox.Root>
             ) : null}
@@ -127,7 +136,9 @@ export function Signup04({
             <ButtonJsx
               variant="default"
               width="100%"
-              onPress={() => handleSubmit(new Event('submit') as unknown as React.FormEvent)}
+              onPress={() =>
+                handleSubmit(new Event('submit') as unknown as React.FormEvent)
+              }
               disabled={loading}
               loading={loading}
             >
@@ -146,11 +157,7 @@ export function Signup04({
         </YStackJsx>
 
         {image ? (
-          <ViewJsx
-            flex={1}
-            overflow="hidden"
-            $sm={{ display: 'none' }}
-          >
+          <ViewJsx flex={1} overflow="hidden" $sm={{ display: 'none' }}>
             {image}
           </ViewJsx>
         ) : null}

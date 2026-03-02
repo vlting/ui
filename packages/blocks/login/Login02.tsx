@@ -1,17 +1,13 @@
-import type { ComponentType, ReactNode } from 'react'
-import React, { useState } from 'react'
-import { Text, View, XStack, YStack } from 'tamagui'
 import { styledHtml } from '@tamagui/web'
+import type { ComponentType, ReactNode } from 'react'
+import type React from 'react'
+import { useState } from 'react'
+import { Text, View, XStack, YStack } from 'tamagui'
 import { Button } from '../../components/Button'
 import { Field } from '../../components/Field'
 import { Input } from '../../components/Input'
 import type { LoginBlockProps } from '../_shared/types'
-import {
-  AuthDivider,
-  AuthFooterLink,
-  AuthFormHeader,
-  AuthSocialButtons,
-} from './_shared'
+import { AuthDivider, AuthFooterLink, AuthFormHeader, AuthSocialButtons } from './_shared'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ViewJsx = View as AnyFC
@@ -76,12 +72,7 @@ export function Login02({
   return (
     <XStackJsx flex={1} minHeight="100vh">
       {/* Left column — login form */}
-      <YStackJsx
-        flex={1}
-        alignItems="center"
-        justifyContent="center"
-        padding="$6"
-      >
+      <YStackJsx flex={1} alignItems="center" justifyContent="center" padding="$6">
         <YStackJsx width="100%" style={{ maxWidth: 400 }}>
           <AuthFormHeader logo={logo} title={title} description={description} />
 
@@ -126,7 +117,10 @@ export function Login02({
             {(forgotPasswordHref || onForgotPassword) && (
               <ViewJsx alignItems="flex-end">
                 {forgotPasswordHref ? (
-                  <a href={forgotPasswordHref} style={{ fontSize: 14, fontFamily: 'inherit' }}>
+                  <a
+                    href={forgotPasswordHref}
+                    style={{ fontSize: 14, fontFamily: 'inherit' }}
+                  >
                     Forgot password?
                   </a>
                 ) : (
@@ -166,11 +160,7 @@ export function Login02({
 
       {/* Right column — cover image (hidden on mobile) */}
       {image && (
-        <ViewJsx
-          flex={1}
-          overflow="hidden"
-          $sm={{ display: 'none' }}
-        >
+        <ViewJsx flex={1} overflow="hidden" $sm={{ display: 'none' }}>
           {image}
         </ViewJsx>
       )}
