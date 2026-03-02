@@ -54,7 +54,7 @@
 **Estimated scope:** ~4 files, ~200 lines
 **GitHub Sub-Issue:** #35
 **Board Item ID:** PVTI_lADODxaco84BP_abzgmbsiE
-**Stage Branch:** (filled in BREAKDOWN)
+**Stage Branch:** feat/icon-system/tests-a11y
 **Stage PR:** (filled in ADVANCE)
 **Acceptance criteria:**
 - [ ] Unit tests for `createIcon`: renders SVG, forwards size/color, memoized
