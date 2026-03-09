@@ -1,10 +1,12 @@
 import type React from 'react'
-import { Portal as TPortal } from 'tamagui'
+import { createPortal } from 'react-dom'
 
 export interface PortalProps {
   children: React.ReactNode
+  container?: Element | null
 }
 
-export function Portal({ children }: PortalProps) {
-  return <TPortal>{children}</TPortal>
+export function Portal({ children, container }: PortalProps) {
+  if (typeof document === 'undefined') return null
+  return createPortal(children, container ?? document.body)
 }
