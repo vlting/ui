@@ -1,10 +1,33 @@
-import type { ComponentType, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import React, { createContext, useContext, useId } from 'react'
-import { Text, View } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
+// --- Styled Frames ---
+
+const FieldRoot = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "4px",
+}, "FieldRoot")
+
+const LabelText = styled("span", {
+  fontFamily: "$body",
+  fontWeight: "$500",
+  fontSize: "$p",
+  color: "$defaultBody",
+}, "FieldLabelText")
+
+const DescriptionText = styled("span", {
+  fontFamily: "$body",
+  fontSize: "$14",
+  color: "$tertiary7",
+}, "FieldDescription")
+
+const ErrorText = styled("span", {
+  fontFamily: "$body",
+  fontSize: "$14",
+  color: "red",
+}, "FieldError")
 
 // --- Context ---
 
@@ -59,7 +82,7 @@ function Root({ children, error, disabled }: FieldRootProps) {
 
   return (
     <FieldContext.Provider value={{ id, descriptionId, errorId, error, disabled }}>
-      <ViewJsx gap="$0.5">{children}</ViewJsx>
+      <FieldRoot>{children}</FieldRoot>
     </FieldContext.Provider>
   )
 }
@@ -69,9 +92,7 @@ function Label({ children }: FieldLabelProps) {
 
   return (
     <label htmlFor={id} style={{ display: 'block' }}>
-      <TextJsx fontSize="$4" fontWeight="$3" fontFamily="$body" color="$color">
-        {children}
-      </TextJsx>
+      <LabelText>{children}</LabelText>
     </label>
   )
 }
@@ -97,13 +118,12 @@ function Control({ children }: FieldControlProps) {
 function Description({ children }: FieldDescriptionProps) {
   const { descriptionId, error } = useFieldContext()
 
-  // Hide description when error is shown (error takes precedence for aria-describedby)
   if (error) return null
 
   return (
-    <TextJsx id={descriptionId} fontSize="$2" fontFamily="$body" color="$colorSubtitle">
+    <DescriptionText id={descriptionId}>
       {children}
-    </TextJsx>
+    </DescriptionText>
   )
 }
 
@@ -113,9 +133,9 @@ function Error({ children }: FieldErrorProps) {
   if (!error) return null
 
   return (
-    <TextJsx id={errorId} fontSize="$2" fontFamily="$body" color="$red10" role="alert">
+    <ErrorText id={errorId} role="alert">
       {children}
-    </TextJsx>
+    </ErrorText>
   )
 }
 
