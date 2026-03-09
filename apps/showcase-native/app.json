@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "STL Showcase",
+    "slug": "stl-showcase-native",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "stl-showcase",
+    "platforms": ["ios", "android"],
+    "ios": {
+      "bundleIdentifier": "com.vlting.stl.showcase"
+    },
+    "android": {
+      "package": "com.vlting.stl.showcase"
+    }
+  }
+}
