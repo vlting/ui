@@ -1,53 +1,35 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Text, View } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
+const NavButton = styled("button", {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  position: "absolute",
+  top: "50%",
+  zIndex: "1",
+  width: "32px",
+  height: "32px",
+  borderRadius: "9999px",
+  backgroundColor: "$background",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "$borderColor",
+  cursor: "pointer",
+  outline: "none",
+}, "CarouselNavButton")
 
-const CarouselBtn = styledHtml('button', {
-  display: 'inline-flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  alignItems: 'center',
-  justifyContent: 'center',
-  cursor: 'pointer',
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-} as any)
-const CarouselBtnJsx = CarouselBtn as AnyFC
-
-const DotBtn = styledHtml('button', {
-  display: 'inline-flex',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  cursor: 'pointer',
-  borderRadius: '$full',
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-} as any)
-const DotBtnJsx = DotBtn as AnyFC
+const DotButton = styled("button", {
+  display: "inline-flex",
+  width: "8px",
+  height: "8px",
+  borderRadius: "9999px",
+  border: "none",
+  cursor: "pointer",
+  padding: "0",
+  outline: "none",
+}, "CarouselDot")
 
 export interface CarouselRootProps {
   children: React.ReactNode
@@ -114,12 +96,9 @@ function Root({
     return () => clearInterval(timer)
   }, [autoplay, autoplayInterval, next, totalItems, reducedMotion])
 
-  // Count children to know total
   useEffect(() => {
     const el = contentRef.current
-    if (el) {
-      setTotalItems(el.children.length)
-    }
+    if (el) setTotalItems(el.children.length)
   })
 
   const handleKeyDown = useCallback(
@@ -140,56 +119,56 @@ function Root({
     <CarouselContext.Provider
       value={{ activeIndex, totalItems, goTo, next, prev, orientation, reducedMotion }}
     >
-      <ViewJsx
-        position="relative"
-        overflow="hidden"
+      <div
+        style={{ position: 'relative', overflow: 'hidden', outline: 'none' }}
         role="region"
         aria-roledescription="carousel"
         aria-label="Carousel"
         tabIndex={0}
         onKeyDown={handleKeyDown}
-        focusVisibleStyle={{
-          outlineWidth: 2,
-          outlineOffset: 2,
-          outlineColor: '$outlineColor',
-          outlineStyle: 'solid',
-        }}
       >
-        {children}
-      </ViewJsx>
+        {React.Children.map(children, (child) => {
+          if (React.isValidElement(child) && (child.type as any) === CarouselContent) {
+            return React.cloneElement(child as React.ReactElement<{ ref?: React.Ref<HTMLDivElement> }>, { ref: contentRef })
+          }
+          return child
+        })}
+      </div>
     </CarouselContext.Provider>
   )
 }
 
-function CarouselContent({ children }: { children: React.ReactNode }) {
-  const { activeIndex, orientation, reducedMotion } = React.useContext(CarouselContext)
-  const isH = orientation === 'horizontal'
-  const offset = activeIndex * -100
+const CarouselContent = React.forwardRef<HTMLDivElement, { children: React.ReactNode }>(
+  function CarouselContent({ children }, ref) {
+    const { activeIndex, orientation, reducedMotion } = React.useContext(CarouselContext)
+    const isH = orientation === 'horizontal'
+    const offset = activeIndex * -100
 
-  return (
-    <ViewJsx
-      flexDirection={isH ? 'row' : 'column'}
-      style={{
-        transform: isH ? `translateX(${offset}%)` : `translateY(${offset}%)`,
-        transition: reducedMotion ? 'none' : 'transform 300ms ease-in-out',
-      }}
-    >
-      {children}
-    </ViewJsx>
-  )
-}
+    return (
+      <div
+        ref={ref}
+        style={{
+          display: 'flex',
+          flexDirection: isH ? 'row' : 'column',
+          transform: isH ? `translateX(${offset}%)` : `translateY(${offset}%)`,
+          transition: reducedMotion ? 'none' : 'transform 300ms ease-in-out',
+        }}
+      >
+        {children}
+      </div>
+    )
+  }
+)
 
 function CarouselItem({ children }: CarouselItemProps) {
   return (
-    <ViewJsx
-      flexShrink={0}
-      width="100%"
-      height="100%"
+    <div
+      style={{ flexShrink: 0, width: '100%', height: '100%' }}
       role="group"
       aria-roledescription="slide"
     >
       {children}
-    </ViewJsx>
+    </div>
   )
 }
 
@@ -197,30 +176,18 @@ function Previous({ children }: { children?: React.ReactNode }) {
   const { prev, activeIndex } = React.useContext(CarouselContext)
 
   return (
-    <CarouselBtnJsx
+    <NavButton
       type="button"
-      position="absolute"
-      left="$0.75"
-      top="50%"
-      style={{ transform: 'translateY(-50%)' }}
-      zIndex="$1"
-      width="$2.5"
-      height="$2.5"
-      borderRadius="$full"
-      backgroundColor="$background"
-      borderWidth={1}
-      borderColor="$borderColor"
-      opacity={activeIndex === 0 ? 0.5 : 1}
-      hoverStyle={{ backgroundColor: '$color2' }}
       onClick={prev}
       aria-label="Previous slide"
+      style={{
+        left: '8px',
+        transform: 'translateY(-50%)',
+        opacity: activeIndex === 0 ? 0.5 : 1,
+      }}
     >
-      {children ?? (
-        <TextJsx fontSize="$4" color="$color">
-          {'<'}
-        </TextJsx>
-      )}
-    </CarouselBtnJsx>
+      {children ?? '<'}
+    </NavButton>
   )
 }
 
@@ -228,30 +195,18 @@ function Next({ children }: { children?: React.ReactNode }) {
   const { next, activeIndex, totalItems } = React.useContext(CarouselContext)
 
   return (
-    <CarouselBtnJsx
+    <NavButton
       type="button"
-      position="absolute"
-      right="$0.75"
-      top="50%"
-      style={{ transform: 'translateY(-50%)' }}
-      zIndex="$1"
-      width="$2.5"
-      height="$2.5"
-      borderRadius="$full"
-      backgroundColor="$background"
-      borderWidth={1}
-      borderColor="$borderColor"
-      opacity={activeIndex === totalItems - 1 ? 0.5 : 1}
-      hoverStyle={{ backgroundColor: '$color2' }}
       onClick={next}
       aria-label="Next slide"
+      style={{
+        right: '8px',
+        transform: 'translateY(-50%)',
+        opacity: activeIndex === totalItems - 1 ? 0.5 : 1,
+      }}
     >
-      {children ?? (
-        <TextJsx fontSize="$4" color="$color">
-          {'>'}
-        </TextJsx>
-      )}
-    </CarouselBtnJsx>
+      {children ?? '>'}
+    </NavButton>
   )
 }
 
@@ -259,26 +214,18 @@ function Dots() {
   const { activeIndex, totalItems, goTo } = React.useContext(CarouselContext)
 
   return (
-    <ViewJsx
-      flexDirection="row"
-      alignItems="center"
-      justifyContent="center"
-      gap="$0.75"
-      paddingTop="$0.75"
-    >
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', paddingTop: '8px' }}>
       {Array.from({ length: totalItems }, (_, i) => (
-        <DotBtnJsx
+        <DotButton
           key={i}
           type="button"
-          width="$0.75"
-          height="$0.75"
-          backgroundColor={i === activeIndex ? '$color10' : '$color4'}
           onClick={() => goTo(i)}
           aria-label={`Go to slide ${i + 1}`}
           aria-current={i === activeIndex ? 'true' : undefined}
+          style={{ backgroundColor: i === activeIndex ? 'var(--color10, #0066ff)' : 'var(--surface3, #d1d5db)' }}
         />
       ))}
-    </ViewJsx>
+    </div>
   )
 }
 
