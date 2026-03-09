@@ -23,12 +23,25 @@ export function getShadow<T extends ColorVars>(hash: CharHash, color: T) {
     value: getHighHeavyShadow(color.shadowBase.ref),
   } as const
 
+  // vlt-ui aliases
+  const sm = low
+  const md = medium
+  const lg = high
+  const xl = highSoft
+  const xxl = highHeavy
+
   const vars = {
     low,
     medium,
     high,
     highSoft,
     highHeavy,
+    // vlt-ui shadow key aliases
+    sm,
+    md,
+    lg,
+    xl,
+    "2xl": xxl,
   } as const
   const darkVars = {
     low: { ...low, value: `0px 1.5px 2.3px hsl(${color.shadowBase.ref} / .38)` },
@@ -50,6 +63,31 @@ export function getShadow<T extends ColorVars>(hash: CharHash, color: T) {
     0px 40.8px 61.2px hsl(${color.shadowBase.ref} / .44)`,
     },
     highHeavy: {
+      ...highHeavy,
+      value: `0px 8.6px 20px hsl(${color.shadowBase.ref} / .2),
+    0px 19.1px 50px hsl(${color.shadowBase.ref} / .35),
+    0px 40.8px 100px hsl(${color.shadowBase.ref} / .5)`,
+    },
+    // vlt-ui shadow key aliases (reference dark variants)
+    sm: { ...low, value: `0px 1.5px 2.3px hsl(${color.shadowBase.ref} / .38)` },
+    md: {
+      ...medium,
+      value: `0px 2.6px 3.9px hsl(${color.shadowBase.ref} / .25),
+0px 7.5px 11.3px hsl(${color.shadowBase.ref} / .40)`,
+    },
+    lg: {
+      ...high,
+      value: `0px 8.6px 12.9px hsl(${color.shadowBase.ref} / .22),
+    0px 19.1px 28.7px hsl(${color.shadowBase.ref} / .35),
+    0px 40.8px 61.2px hsl(${color.shadowBase.ref} / .55)`,
+    },
+    xl: {
+      ...highSoft,
+      value: `0px 8.6px 12.9px hsl(${color.shadowBase.ref} / .18),
+    0px 19.1px 28.7px hsl(${color.shadowBase.ref} / .30),
+    0px 40.8px 61.2px hsl(${color.shadowBase.ref} / .44)`,
+    },
+    "2xl": {
       ...highHeavy,
       value: `0px 8.6px 20px hsl(${color.shadowBase.ref} / .2),
     0px 19.1px 50px hsl(${color.shadowBase.ref} / .35),
