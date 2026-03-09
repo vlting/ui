@@ -1,14 +1,13 @@
 'use client'
 
 import {
-  Provider,
-  createBrandConfig,
   defaultBrand,
   funBrand,
   poshBrand,
   shadcnBrand,
 } from '@vlting/ui'
-import type { BrandDefinition } from '@vlting/ui'
+import type { Brand } from '@vlting/ui'
+import { StlProvider } from '../../../../packages/stl-react/src/providers/StlProvider'
 import { useTheme } from 'next-themes'
 import { ThemeProvider } from 'next-themes'
 import {
@@ -20,11 +19,10 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { createTamagui } from 'tamagui'
 
 type BrandKey = 'default' | 'shadcn' | 'fun' | 'posh'
 
-const brandMap: Record<BrandKey, BrandDefinition> = {
+const brandMap: Record<BrandKey, Brand> = {
   default: defaultBrand,
   shadcn: shadcnBrand,
   fun: funBrand,
@@ -93,23 +91,18 @@ function useBrandCSSProperties(brand: BrandKey, resolvedTheme: string | undefine
   }, [brand, resolvedTheme])
 }
 
-function TamaguiWrapper({ brand, children }: { brand: BrandKey; children: ReactNode }) {
+function StlWrapper({ brand, children }: { brand: BrandKey; children: ReactNode }) {
   const { resolvedTheme } = useTheme()
 
   useBrandCSSProperties(brand, resolvedTheme)
 
-  const config = useMemo(() => {
-    return createTamagui(createBrandConfig(brandMap[brand]))
-  }, [brand])
-
   return (
-    <Provider
-      config={config}
-      defaultTheme={resolvedTheme === 'dark' ? 'dark' : 'light'}
+    <StlProvider
+      defaultColorMode={resolvedTheme === 'dark' ? 'dark' : 'light'}
       key={brand}
     >
       {children}
-    </Provider>
+    </StlProvider>
   )
 }
 
@@ -139,7 +132,7 @@ function BrandProvider({ children }: { children: ReactNode }) {
 
   return (
     <BrandContext.Provider value={value}>
-      <TamaguiWrapper brand={brand}>{children}</TamaguiWrapper>
+      <StlWrapper brand={brand}>{children}</StlWrapper>
     </BrandContext.Provider>
   )
 }
