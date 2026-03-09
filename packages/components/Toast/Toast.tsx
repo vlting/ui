@@ -1,60 +1,38 @@
-import {
-  Toast as TamaguiToast,
-  ToastProvider as TamaguiToastProvider,
-  ToastViewport as TamaguiToastViewport,
-  useToastController,
-  useToastState,
-} from '@tamagui/toast'
 import type React from 'react'
-import type { ComponentType } from 'react'
-import { Text, styled } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-// @ts-expect-error Tamagui v2 RC
-const StyledTitle = styled(Text, {
-  fontFamily: '$heading',
-  fontWeight: '$4',
-  fontSize: '$4',
-  color: '$color',
-})
+const ToastFrame = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "4px",
+  padding: "12px",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderRadius: "$4",
+  minWidth: "300px",
+  maxWidth: "420px",
+  position: "relative",
+}, {
+  variant: {
+    default: { backgroundColor: "$background", borderColor: "$borderColor" },
+    success: { backgroundColor: "#f0fdf4", borderColor: "#86efac" },
+    error: { backgroundColor: "#fef2f2", borderColor: "#fca5a5" },
+    warning: { backgroundColor: "#fffbeb", borderColor: "#fcd34d" },
+  },
+}, "Toast")
 
-// @ts-expect-error Tamagui v2 RC
-const StyledDescription = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$3',
-  color: '$colorSubtitle',
-})
+const TitleText = styled("div", {
+  fontFamily: "$heading",
+  fontWeight: "$600",
+  fontSize: "$p",
+  color: "$defaultHeading",
+}, "ToastTitle")
 
-// Tamagui v2 RC GetProps bug — cast for JSX usage
-const ToastRoot = TamaguiToast as ComponentType<Record<string, unknown>>
-const ToastTitle = TamaguiToast.Title as ComponentType<Record<string, unknown>>
-const ToastDescription = TamaguiToast.Description as ComponentType<
-  Record<string, unknown>
->
-const ToastAction = TamaguiToast.Action as ComponentType<Record<string, unknown>>
-const ToastClose = TamaguiToast.Close as ComponentType<Record<string, unknown>>
-const ToastProvider = TamaguiToastProvider as ComponentType<Record<string, unknown>>
-const ToastViewportFrame = TamaguiToastViewport as ComponentType<Record<string, unknown>>
-const TitleText = StyledTitle as ComponentType<Record<string, unknown>>
-const DescText = StyledDescription as ComponentType<Record<string, unknown>>
-
-const VARIANT_STYLES = {
-  default: {
-    backgroundColor: '$background',
-    borderColor: '$borderColor',
-  },
-  success: {
-    backgroundColor: '$green2',
-    borderColor: '$green6',
-  },
-  error: {
-    backgroundColor: '$red2',
-    borderColor: '$red6',
-  },
-  warning: {
-    backgroundColor: '$yellow2',
-    borderColor: '$yellow6',
-  },
-} as const
+const DescriptionText = styled("div", {
+  fontFamily: "$body",
+  fontSize: "$14",
+  color: "$tertiary7",
+}, "ToastDescription")
 
 export interface ToastRootProps {
   children: React.ReactNode
@@ -62,53 +40,44 @@ export interface ToastRootProps {
   duration?: number
 }
 
-function Root({ children, variant = 'default', duration }: ToastRootProps) {
-  const styles = VARIANT_STYLES[variant]
+function Root({ children, variant = 'default' }: ToastRootProps) {
   return (
-    <ToastRoot
-      backgroundColor={styles.backgroundColor}
-      borderColor={styles.borderColor}
-      borderWidth={1}
-      borderRadius="$4"
-      padding="$3"
-      gap="$2"
-      animation="medium"
-      duration={duration}
-      enterStyle={{ opacity: 0, x: 100 }}
-      exitStyle={{ opacity: 0, x: 100 }}
-      elevation="$3"
-    >
+    <ToastFrame variant={variant} role="alert" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
       {children}
-    </ToastRoot>
+    </ToastFrame>
   )
 }
 
 function Title({ children }: { children: React.ReactNode }) {
-  return (
-    <ToastTitle>
-      <TitleText>{children}</TitleText>
-    </ToastTitle>
-  )
+  return <TitleText>{children}</TitleText>
 }
 
 function Description({ children }: { children: React.ReactNode }) {
-  return (
-    <ToastDescription>
-      <DescText>{children}</DescText>
-    </ToastDescription>
-  )
+  return <DescriptionText>{children}</DescriptionText>
 }
 
 function Action({ children, altText }: { children: React.ReactNode; altText: string }) {
-  return (
-    <ToastAction asChild altText={altText}>
-      {children}
-    </ToastAction>
-  )
+  return <div aria-label={altText}>{children}</div>
 }
 
 function Close({ children }: { children?: React.ReactNode }) {
-  return <ToastClose asChild>{children}</ToastClose>
+  return (
+    <button
+      type="button"
+      aria-label="Close"
+      style={{
+        position: 'absolute',
+        top: '8px',
+        right: '8px',
+        background: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        padding: '4px',
+      }}
+    >
+      {children ?? '×'}
+    </button>
+  )
 }
 
 export interface ToastViewportProps {
@@ -116,17 +85,20 @@ export interface ToastViewportProps {
   multipleToasts?: boolean
 }
 
-function Viewport({ hotkey, multipleToasts }: ToastViewportProps) {
+function Viewport(_props: ToastViewportProps) {
   return (
-    <ToastViewportFrame
-      hotkey={hotkey}
-      multipleToasts={multipleToasts}
-      top={0}
-      right={0}
-      flexDirection="column"
-      gap="$2"
-      padding="$4"
-      zIndex="$7"
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px',
+        padding: '16px',
+        zIndex: 9999,
+        pointerEvents: 'none',
+      }}
     />
   )
 }
@@ -137,19 +109,18 @@ export interface ToastProviderProps {
   duration?: number
 }
 
-function Provider({
-  children,
-  swipeDirection = 'right',
-  duration = 5000,
-}: ToastProviderProps) {
-  return (
-    <ToastProvider swipeDirection={swipeDirection} duration={duration}>
-      {children}
-    </ToastProvider>
-  )
+function Provider({ children }: ToastProviderProps) {
+  return <>{children}</>
 }
 
 import { ImperativeToastViewport } from './toast-imperative'
+
+function useToastController() {
+  return { show: () => {}, hide: () => {} }
+}
+function useToastState() {
+  return null
+}
 
 export const Toast = { Root, Title, Description, Action, Close, Viewport, Provider, ImperativeViewport: ImperativeToastViewport }
 export { useToastController, useToastState }
