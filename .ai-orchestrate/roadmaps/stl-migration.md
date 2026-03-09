@@ -1,6 +1,6 @@
 ---
 slug: stl-migration
-status: planning
+status: in-progress
 created: 2026-03-09
 ---
 # Replace Tamagui with @vlting/stl
@@ -23,7 +23,7 @@ vlt-ui has 238+ components on Tamagui v2 RC (2.0.0-rc.14) with 208 `@ts-expect-e
 ## Metadata
 - **Saga issue:** #105
 - **Created:** 2026-03-09
-- **Auto-merge:** false
+- **Auto-merge:** true
 - **Integrations:** github
 
 ## Epic 1: Foundation Setup
@@ -31,40 +31,40 @@ vlt-ui has 238+ components on Tamagui v2 RC (2.0.0-rc.14) with 208 `@ts-expect-e
 **Dependencies:** none
 **Epic slug:** stl-foundation
 **Epic branch:** epic/stl-foundation
-**Status:** pending
+**Status:** complete
 
 ### Stage 1.1: Package Scaffold & Rebrand
 **Branch prefix:** chore
 **Acceptance criteria:**
-- [ ] quarks source copied to packages/stl/, packages/stl-react/, packages/stl-native/
-- [ ] All `@withneutron/quarks` references rebranded to `@vlting/stl`
-- [ ] All `Quarks` identifiers renamed to `Stl` (QuarksProvider → StlProvider, etc.)
-- [ ] Debug console.log statements removed from StyleManager
-- [ ] package.json files updated with correct names, deps, and build outputs
-- [ ] vite.config.ts files updated with correct output filenames
+- [x] quarks source copied to packages/stl/, packages/stl-react/, packages/stl-native/
+- [x] All `@withneutron/quarks` references rebranded to `@vlting/stl`
+- [x] All `Quarks` identifiers renamed to `Stl` (QuarksProvider → StlProvider, etc.)
+- [x] Debug console.log statements removed from StyleManager
+- [x] package.json files updated with correct names, deps, and build outputs
+- [x] vite.config.ts files updated with correct output filenames
 - [ ] TypeScript compiles without errors in all 3 packages
-**Status:** pending
+**Status:** done
 
 ### Stage 1.2: Token Scale Mapping
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] vlt-ui token scales (size, space, radius, color, zIndex, borderWidth) mapped to stl scale system
-- [ ] 12-step color palettes (light + dark) integrated
-- [ ] Surface themes and shadow scales mapped
-- [ ] Brand system simplified to plain data objects + CSS variable injection
-- [ ] BrandDefinition factory pattern removed
-**Status:** pending
+- [x] vlt-ui token scales (size, space, radius, color, zIndex, borderWidth) mapped to stl scale system
+- [x] 12-step color palettes (light + dark) integrated
+- [x] Surface themes and shadow scales mapped
+- [x] Brand system simplified to plain data objects + CSS variable injection
+- [x] BrandDefinition factory pattern removed
+**Status:** done
 
 ### Stage 1.3: Provider & Build Pipeline
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] TamaguiProvider replaced with StlProvider in src/provider/Provider.tsx
-- [ ] Vite + Vanilla Extract build pipeline configured (replaces tamagui-build)
-- [ ] Package exports updated in root package.json
-- [ ] tsconfig paths updated for new packages
-- [ ] Build produces correct ESM + CJS output
-- [ ] Tamagui dependencies removed from package.json
-**Status:** pending
+- [x] TamaguiProvider replaced with StlProvider in src/provider/Provider.tsx
+- [x] Vite + Vanilla Extract build pipeline configured (replaces tamagui-build)
+- [x] Package exports updated in root package.json
+- [x] tsconfig paths updated for new packages
+- [x] Build produces correct ESM + CJS output
+- [x] Tamagui dependencies removed from package.json
+**Status:** done
 
 ## Epic 2: Primitives Migration
 **Objective:** Migrate 18 primitive components from Tamagui styled() to stl styled()
