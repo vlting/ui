@@ -1,22 +1,30 @@
-export { tokens, size, space, radius, color, zIndex, borderWidth } from './base'
+export { size, space, radius, color, zIndex, borderWidth } from './base'
 export { semanticColorMap } from './colors'
 export {
-  buildThemes,
   lightPalette,
   darkPalette,
   accentPalettes,
   lightShadows,
   darkShadows,
   shadowScaleToThemeValues,
+  surfaceTemplates,
+  resolveTemplate,
 } from './themes'
 export type { ShadowToken, ShadowScale } from './themes'
 export {
-  createBrandConfig,
   defaultBrand,
   funBrand,
   poshBrand,
   shadcnBrand,
   media,
+  injectBrandVars,
+  getBrandStyleTag,
+} from './brands'
+export type { Brand } from './brands'
+
+// Deprecated re-exports (backward compatibility)
+export {
+  createBrandConfig,
 } from './brands'
 export type {
   BrandDefinition,

@@ -1,4 +1,4 @@
-import type { BrandDefinition } from './index'
+import type { Brand } from './types'
 
 /**
  * Posh brand — Sophisticated, editorial, premium.
@@ -6,7 +6,7 @@ import type { BrandDefinition } from './index'
  * Pure black accent (#000000), balanced true-gray neutrals,
  * square corners (radius 0), very thin borders, soft diffused shadows.
  */
-export const poshBrand: BrandDefinition = {
+export const poshBrand: Brand = {
   name: 'posh',
 
   palettes: {
@@ -155,17 +155,6 @@ export const poshBrand: BrandDefinition = {
     },
   },
 
-  outline: {
-    width: 1,
-    offset: 1,
-  },
-
-  // Deeper overlay — dramatic, premium feel
-  overlay: {
-    light: 'rgba(0,0,0,0.6)',
-    dark: 'rgba(0,0,0,0.7)',
-  },
-
   // Soft, diffused shadows (large blur, low opacity)
   shadows: {
     light: {
@@ -244,49 +233,9 @@ export const poshBrand: BrandDefinition = {
     },
   },
 
-  fontConfig: {
-    heading: {
-      family: 'Cormorant Garamond',
-      fallback: 'EB Garamond, Georgia, serif',
-      weights: { heavy: 500, light: 300 },
-    },
-    body: {
-      family: 'Karla',
-      fallback: 'Source Sans 3, Inter, system-ui, sans-serif',
-      weight: 300,
-    },
-    mono: {
-      family: 'JetBrains Mono',
-      fallback: 'ui-monospace, monospace',
-      weight: 400,
-    },
-    quote: {
-      family: 'Cormorant Garamond',
-      fallback: 'Georgia, serif',
-      weight: 300,
-      style: 'italic',
-    },
-  },
-
   fonts: {
-    heading: {
-      family: "'Cormorant Garamond', 'Libre Baskerville', 'EB Garamond', Georgia, serif",
-      weight: { 1: '300', 2: '400', 3: '400', 4: '500', 5: '500', 6: '500', true: '500' },
-      letterSpacing: {
-        1: 0.5,
-        2: 0.3,
-        3: 0.2,
-        4: 0.1,
-        5: 0,
-        6: -0.1,
-        7: -0.2,
-        8: -0.3,
-        true: 0,
-      },
-    },
-    body: {
-      family: "'Karla', 'Source Sans 3', Inter, system-ui, sans-serif",
-      weight: { 1: '300', 2: '300', 3: '400', 4: '400', true: '300' },
-    },
+    heading: "'Cormorant Garamond', 'Libre Baskerville', 'EB Garamond', Georgia, serif",
+    body: "'Karla', 'Source Sans 3', Inter, system-ui, sans-serif",
+    mono: 'JetBrains Mono, ui-monospace, monospace',
   },
 }

@@ -1,4 +1,4 @@
-import type { BrandDefinition } from './index'
+import type { Brand } from './types'
 
 /**
  * Default brand — Clean, trustworthy, minimalist.
@@ -6,7 +6,7 @@ import type { BrandDefinition } from './index'
  * YInMn Blue accent (#2B5B9C range), cool-tinted neutrals,
  * subtle rounding, standard borders and shadows.
  */
-export const defaultBrand: BrandDefinition = {
+export const defaultBrand: Brand = {
   name: 'default',
 
   palettes: {
@@ -76,40 +76,9 @@ export const defaultBrand: BrandDefinition = {
     },
   },
 
-  outline: {
-    width: 2,
-    offset: 1,
-  },
-
-  fontConfig: {
-    heading: { family: 'Inter', weights: { heavy: 600, light: 400 } },
-    body: { family: 'Inter', weight: 400 },
-    mono: {
-      family: 'JetBrains Mono',
-      fallback: 'ui-monospace, SFMono-Regular, monospace',
-      weight: 400,
-    },
-    quote: { family: 'Inter', weight: 300, style: 'italic' },
-  },
-
   fonts: {
-    heading: {
-      family: 'Inter, system-ui, -apple-system, sans-serif',
-      weight: { 1: '400', 2: '500', 3: '600', 4: '600', 5: '600', 6: '600', true: '600' },
-      letterSpacing: {
-        1: 0,
-        2: 0,
-        3: -0.2,
-        4: -0.3,
-        5: -0.4,
-        6: -0.5,
-        7: -0.6,
-        8: -0.7,
-        true: -0.4,
-      },
-    },
-    body: {
-      family: 'Inter, system-ui, -apple-system, sans-serif',
-    },
+    heading: 'Inter, system-ui, -apple-system, sans-serif',
+    body: 'Inter, system-ui, -apple-system, sans-serif',
+    mono: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace',
   },
 }
