@@ -134,6 +134,14 @@ export const DEFAULT_SOURCE_COLORS: ColorGenOptions = {
   indigo: { hue: 222, saturation: 90 },
   plum: { hue: 267, saturation: 90 },
   magenta: { hue: 313, saturation: 80 },
+  // Accent colors (vlt-ui palette equivalents)
+  blue: { hue: 210, saturation: 85 },
+  red: { hue: 0, saturation: 80 },
+  green: { hue: 142, saturation: 70 },
+  orange: { hue: 25, saturation: 95 },
+  purple: { hue: 271, saturation: 80 },
+  pink: { hue: 330, saturation: 80 },
+  yellow: { hue: 48, saturation: 95 },
 }
 
 // TYPES //////////////////////////////////////////////////////////////////////////////////////////
@@ -171,6 +179,17 @@ export enum FlavorColorName {
   magenta = "magenta",
 }
 
+// Accent colors matching vlt-ui palette structure
+export enum AccentColorName {
+  blue = "blue",
+  red = "red",
+  green = "green",
+  orange = "orange",
+  purple = "purple",
+  pink = "pink",
+  yellow = "yellow",
+}
+
 // Translucent colors
 export enum AlphaColorName {
   primaryAlpha = "primaryAlpha",
@@ -206,10 +225,10 @@ export type StaticSourceColor = {
 export type SemanticColors = { [k in CoreColorName]: ColorObject }
 
 export type ColorGenOptions = { [k in CoreColorName]: SourceColor } & { [k in StaticColorName]?: StaticSourceColor } & {
-  [k in StatusColorName | FlavorColorName]?: SourceColor
+  [k in StatusColorName | FlavorColorName | AccentColorName]?: SourceColor
 }
 
-export type ScaleColorName = CoreColorName | StatusColorName | FlavorColorName | AlphaColorName
+export type ScaleColorName = CoreColorName | StatusColorName | FlavorColorName | AccentColorName | AlphaColorName
 export type TextColorName = TextColor<ScaleColorName>
 
 export type ScaleTextColor = ScaleColor<TextColorName>
