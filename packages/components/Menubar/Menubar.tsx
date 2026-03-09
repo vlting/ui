@@ -1,55 +1,112 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
 import React, { useCallback, useState } from 'react'
-import { Text, View } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
-
-const MenuTriggerBtn = styledHtml('button', {
-  display: 'inline-flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  cursor: 'pointer',
-  alignItems: 'center',
-  justifyContent: 'center',
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
+const MenubarFrame = styled(
+  "div",
+  {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    height: "36px",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "$borderColor",
+    borderRadius: "$4",
+    backgroundColor: "$surface1",
+    paddingLeft: "2px",
+    paddingRight: "2px",
+    gap: "1px",
   },
-} as any)
-const MenuTriggerBtnJsx = MenuTriggerBtn as AnyFC
+  "Menubar"
+)
 
-const MenuItemBtn = styledHtml('button', {
-  display: 'flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  width: '100%',
-  textAlign: 'left',
-  focusVisibleStyle: {
-    backgroundColor: '$color2',
-    outlineWidth: 2,
-    outlineOffset: -2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
+const MenuContentFrame = styled(
+  "div",
+  {
+    backgroundColor: "$surface1",
+    borderRadius: "$4",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "$borderColor",
+    padding: "2px",
+    minWidth: "192px",
+    boxShadow: "var(--shadowMd)",
   },
-} as any)
-const MenuItemBtnJsx = MenuItemBtn as AnyFC
+  "MenubarContent"
+)
+
+const MenuItemBtn = styled(
+  "button",
+  {
+    display: "flex",
+    flexDirection: "row",
+    boxSizing: "border-box",
+    appearance: "none",
+    border: "none",
+    background: "none",
+    padding: "0px",
+    margin: "0px",
+    fontFamily: "inherit",
+    width: "100%",
+    textAlign: "left",
+  },
+  "MenubarItem"
+)
+
+const TriggerBtn = styled(
+  "button",
+  {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    appearance: "none",
+    border: "none",
+    background: "none",
+    padding: "0px",
+    margin: "0px",
+    fontFamily: "$body",
+    cursor: "pointer",
+    paddingLeft: "6px",
+    paddingRight: "6px",
+    height: "24px",
+    borderRadius: "$2",
+    fontSize: "$16",
+    fontWeight: "$500",
+    color: "$color",
+  },
+  "MenubarTrigger"
+)
+
+const MenuItemText = styled(
+  "span",
+  { fontSize: "$16", fontFamily: "$body", color: "$color" },
+  "MenubarItemText"
+)
+
+const ShortcutText = styled(
+  "span",
+  { fontSize: "$12", fontFamily: "$code", color: "$secondaryText12", marginLeft: "14px" },
+  "MenubarShortcut"
+)
+
+const LabelText = styled(
+  "span",
+  { fontSize: "$12", fontWeight: "$600", color: "$secondaryText12", fontFamily: "$body" },
+  "MenubarLabel"
+)
+
+const SeparatorLine = styled(
+  "div",
+  {
+    height: "1px",
+    backgroundColor: "$borderColor",
+    marginTop: "2px",
+    marginBottom: "2px",
+    marginLeft: "-4px",
+    marginRight: "-4px",
+  },
+  "MenubarSeparator"
+)
 
 export interface MenubarRootProps {
   children: React.ReactNode
@@ -86,30 +143,13 @@ function Root({ children }: MenubarRootProps) {
     <MenubarContext.Provider
       value={{ activeMenu, setActiveMenu, anyOpen: activeMenu !== null }}
     >
-      <ViewJsx
-        flexDirection="row"
-        alignItems="center"
-        height="$3.5"
-        borderWidth={1}
-        borderColor="$borderColor"
-        borderRadius="$4"
-        backgroundColor="$background"
-        paddingLeft="$0.5"
-        paddingRight="$0.5"
-        gap="$0.25"
-        role="menubar"
-      >
+      <MenubarFrame role="menubar">
         {children}
-      </ViewJsx>
+      </MenubarFrame>
       {activeMenu !== null && (
-        <ViewJsx
-          position="fixed"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          zIndex={49}
-          onPress={() => setActiveMenu(null)}
+        <div
+          style={{ position: 'fixed', inset: 0, zIndex: 49 }}
+          onClick={() => setActiveMenu(null)}
         />
       )}
     </MenubarContext.Provider>
@@ -124,9 +164,9 @@ function Menu({ children }: MenubarMenuProps) {
 
   return (
     <MenuContext.Provider value={{ id, close }}>
-      <ViewJsx position="relative" display="inline-flex">
+      <div style={{ position: 'relative', display: 'inline-flex' }}>
         {children}
-      </ViewJsx>
+      </div>
     </MenuContext.Provider>
   )
 }
@@ -137,24 +177,17 @@ function Trigger({ children }: { children: React.ReactNode }) {
   const isOpen = activeMenu === id
 
   return (
-    <MenuTriggerBtnJsx
+    <TriggerBtn
       type="button"
-      paddingLeft="$0.75"
-      paddingRight="$0.75"
-      height="$2"
-      borderRadius="$2"
-      backgroundColor={isOpen ? '$color2' : 'transparent'}
-      hoverStyle={{ backgroundColor: '$color2' }}
       onClick={() => setActiveMenu(isOpen ? null : id)}
       onMouseEnter={anyOpen && !isOpen ? () => setActiveMenu(id) : undefined}
       role="menuitem"
       aria-haspopup="menu"
       aria-expanded={isOpen}
+      style={{ backgroundColor: isOpen ? 'var(--surface2)' : 'transparent' }}
     >
-      <TextJsx fontSize="$4" fontFamily="$body" fontWeight="$3" color="$color">
-        {children}
-      </TextJsx>
-    </MenuTriggerBtnJsx>
+      {children}
+    </TriggerBtn>
   )
 }
 
@@ -165,23 +198,12 @@ function Content({ children }: { children: React.ReactNode }) {
   if (activeMenu !== id) return null
 
   return (
-    <ViewJsx
-      position="absolute"
-      top="100%"
-      left={0}
-      marginTop="$0.5"
-      zIndex={50}
-      backgroundColor="$background"
-      borderWidth={1}
-      borderColor="$borderColor"
-      borderRadius="$4"
-      padding="$0.5"
-      minWidth={192}
-      style={{ boxShadow: 'var(--shadowMd)' }}
+    <MenuContentFrame
       role="menu"
+      style={{ position: 'absolute', top: '100%', left: 0, marginTop: 2, zIndex: 50 }}
     >
       {children}
-    </ViewJsx>
+    </MenuContentFrame>
   )
 }
 
@@ -189,17 +211,9 @@ function Item({ children, onSelect, disabled, shortcut }: MenubarItemProps) {
   const { close } = React.useContext(MenuContext)
 
   return (
-    <MenuItemBtnJsx
+    <MenuItemBtn
       type="button"
-      alignItems="center"
-      justifyContent="space-between"
-      height="$2.5"
-      paddingLeft="$0.75"
-      paddingRight="$0.75"
-      borderRadius="$2"
-      cursor={disabled ? 'not-allowed' : 'pointer'}
-      opacity={disabled ? 0.5 : 1}
-      hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
+      disabled={disabled}
       onClick={
         disabled
           ? undefined
@@ -208,52 +222,34 @@ function Item({ children, onSelect, disabled, shortcut }: MenubarItemProps) {
               close()
             }
       }
-      disabled={disabled}
       role="menuitem"
-      aria-disabled={disabled}
+      aria-disabled={disabled || undefined}
+      style={{
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: 28,
+        paddingLeft: 6,
+        paddingRight: 6,
+        borderRadius: 4,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.5 : 1,
+      }}
     >
-      <TextJsx fontSize="$4" fontFamily="$body" color="$color">
-        {children}
-      </TextJsx>
-      {shortcut && (
-        <TextJsx
-          fontSize="$2"
-          fontFamily="$mono"
-          color="$colorSubtitle"
-          marginLeft="$3.5"
-        >
-          {shortcut}
-        </TextJsx>
-      )}
-    </MenuItemBtnJsx>
+      <MenuItemText>{children}</MenuItemText>
+      {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
+    </MenuItemBtn>
   )
 }
 
 function Separator() {
-  return (
-    <ViewJsx
-      height={1}
-      backgroundColor="$borderColor"
-      marginTop="$0.5"
-      marginBottom="$0.5"
-      marginLeft={-4}
-      marginRight={-4}
-    />
-  )
+  return <SeparatorLine />
 }
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <ViewJsx
-      paddingLeft="$0.75"
-      paddingRight="$0.75"
-      paddingTop={6}
-      paddingBottom="$0.25"
-    >
-      <TextJsx fontSize="$2" fontWeight="$4" color="$colorSubtitle" fontFamily="$body">
-        {children}
-      </TextJsx>
-    </ViewJsx>
+    <div style={{ paddingLeft: 6, paddingRight: 6, paddingTop: 6, paddingBottom: 2 }}>
+      <LabelText>{children}</LabelText>
+    </div>
   )
 }
 
