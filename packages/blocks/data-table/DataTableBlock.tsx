@@ -1,20 +1,10 @@
 import type { ColumnDef } from '@tanstack/react-table'
-import type { ComponentType, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { useState } from 'react'
-import { Text, View, XStack, YStack } from 'tamagui'
 import { Card } from '../../components/Card'
 import { DataTable } from '../../components/DataTable'
 import { Input } from '../../components/Input'
 import type { BlockProps } from '../_shared/types'
-
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
-const XStackJsx = XStack as AnyFC
-const YStackJsx = YStack as AnyFC
-const CardJsx = Card as AnyFC
-const InputJsx = Input as AnyFC
-const DataTableJsx = DataTable as unknown as AnyFC
 
 // -- Types --
 
@@ -34,6 +24,9 @@ export interface DataTableBlockProps extends BlockProps {
   actions?: ReactNode
 }
 
+const col = { display: 'flex', flexDirection: 'column' as const }
+const row = { display: 'flex', flexDirection: 'row' as const }
+
 // -- Main component --
 
 export function DataTableBlock({
@@ -52,41 +45,23 @@ export function DataTableBlock({
   const [globalFilter, setGlobalFilter] = useState('')
 
   return (
-    <CardJsx width="100%" padding="$4">
-      <YStackJsx gap="$4" width="100%">
+    <Card style={{ width: '100%', padding: '16px' }}>
+      <div style={{ ...col, gap: '16px', width: '100%' }}>
         {(title || description || actions) && (
-          <XStackJsx
-            justifyContent="space-between"
-            alignItems="flex-start"
-            width="100%"
-          >
-            <ViewJsx gap="$1" flex={1}>
-              {title && (
-                <TextJsx fontSize="$5" fontWeight="$4" fontFamily="$heading" color="$color">
-                  {title}
-                </TextJsx>
-              )}
-              {description && (
-                <TextJsx fontSize="$3" fontFamily="$body" color="$colorSubtle">
-                  {description}
-                </TextJsx>
-              )}
-            </ViewJsx>
+          <div style={{ ...row, justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
+            <div style={{ ...col, gap: '4px', flex: 1 }}>
+              {title && <span style={{ fontSize: '18px', fontWeight: 600 }}>{title}</span>}
+              {description && <span style={{ fontSize: '14px', opacity: 0.6 }}>{description}</span>}
+            </div>
             {actions}
-          </XStackJsx>
+          </div>
         )}
-
         {searchable && (
-          <ViewJsx style={{ maxWidth: 300 }}>
-            <InputJsx
-              placeholder={searchPlaceholder}
-              value={globalFilter}
-              onChangeText={setGlobalFilter}
-            />
-          </ViewJsx>
+          <div style={{ maxWidth: 300 }}>
+            <Input placeholder={searchPlaceholder} value={globalFilter} onChangeText={setGlobalFilter} />
+          </div>
         )}
-
-        <DataTableJsx
+        <DataTable
           data={data}
           columns={columns}
           globalFilter={globalFilter}
@@ -97,7 +72,7 @@ export function DataTableBlock({
           expandable={variant === 'expandable'}
           renderExpandedRow={renderExpandedRow}
         />
-      </YStackJsx>
-    </CardJsx>
+      </div>
+    </Card>
   )
 }
