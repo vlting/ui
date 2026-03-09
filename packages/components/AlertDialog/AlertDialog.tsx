@@ -1,45 +1,96 @@
-import { AlertDialog as TamaguiAlertDialog } from '@tamagui/alert-dialog'
-import type React from 'react'
-import type { ComponentType } from 'react'
-import { Text, XStack, styled } from 'tamagui'
+import React, { createContext, useCallback, useContext, useEffect, useId, useRef } from 'react'
+import { createPortal } from 'react-dom'
+import { styled } from '../../stl-react/src/config'
+import { useDisclosure } from '../../stl-headless/src'
 
-// @ts-expect-error Tamagui v2 RC
-const StyledTitle = styled(Text, {
-  fontFamily: '$heading',
-  fontWeight: '$4',
-  fontSize: '$6',
-  color: '$color',
+const StyledOverlay = styled(
+  "div",
+  {
+    position: "fixed",
+    top: "0",
+    left: "0",
+    right: "0",
+    bottom: "0",
+    backgroundColor: "var(--overlayBackground, rgba(0,0,0,0.5))",
+    zIndex: "40",
+    transition: "opacity 200ms ease",
+  },
+  "AlertDialogOverlay"
+)
+
+const StyledContent = styled(
+  "div",
+  {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "var(--background, #fff)",
+    borderRadius: "12px",
+    padding: "20px",
+    width: "90%",
+    maxWidth: "500px",
+    maxHeight: "85%",
+    overflowY: "auto",
+    zIndex: "50",
+    display: "flex",
+    flexDirection: "column",
+    gap: "12px",
+    boxShadow: "var(--shadowXl, 0 25px 50px -12px rgba(0,0,0,0.25))",
+    transition: "opacity 200ms ease, transform 200ms ease",
+  },
+  "AlertDialogContent"
+)
+
+const StyledTitle = styled(
+  "h2",
+  {
+    fontFamily: "var(--font-heading)",
+    fontWeight: "600",
+    fontSize: "var(--fontSize-6, 20px)",
+    color: "var(--color)",
+    margin: "0",
+  },
+  "AlertDialogTitle"
+)
+
+const StyledDescription = styled(
+  "p",
+  {
+    fontFamily: "var(--font-body)",
+    fontSize: "var(--fontSize-4, 16px)",
+    color: "var(--colorSubtitle)",
+    margin: "0",
+  },
+  "AlertDialogDescription"
+)
+
+const StyledFooter = styled(
+  "div",
+  {
+    display: "flex",
+    justifyContent: "flex-end",
+    gap: "8px",
+    paddingTop: "8px",
+  },
+  "AlertDialogFooter"
+)
+
+interface AlertDialogContextValue {
+  isOpen: boolean
+  onOpen: () => void
+  onClose: () => void
+  titleId: string
+  descriptionId: string
+}
+
+const AlertDialogContext = createContext<AlertDialogContextValue>({
+  isOpen: false,
+  onOpen: () => {},
+  onClose: () => {},
+  titleId: '',
+  descriptionId: '',
 })
-
-// @ts-expect-error Tamagui v2 RC
-const StyledDescription = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$4',
-  color: '$colorSubtitle',
-})
-
-// @ts-expect-error Tamagui v2 RC
-const StyledFooter = styled(XStack, {
-  justifyContent: 'flex-end',
-  gap: '$2',
-  paddingTop: '$2',
-})
-
-// Tamagui v2 RC GetProps bug — cast for JSX usage
-const AlertRoot = TamaguiAlertDialog as ComponentType<Record<string, unknown>>
-const AlertTrigger = TamaguiAlertDialog.Trigger as ComponentType<Record<string, unknown>>
-const AlertPortal = TamaguiAlertDialog.Portal as ComponentType<Record<string, unknown>>
-const AlertOverlay = TamaguiAlertDialog.Overlay as ComponentType<Record<string, unknown>>
-const AlertContent = TamaguiAlertDialog.Content as ComponentType<Record<string, unknown>>
-const AlertTitle = TamaguiAlertDialog.Title as ComponentType<Record<string, unknown>>
-const AlertDescription = TamaguiAlertDialog.Description as ComponentType<
-  Record<string, unknown>
->
-const AlertCancel = TamaguiAlertDialog.Cancel as ComponentType<Record<string, unknown>>
-const AlertAction = TamaguiAlertDialog.Action as ComponentType<Record<string, unknown>>
-const TitleText = StyledTitle as ComponentType<Record<string, unknown>>
-const DescText = StyledDescription as ComponentType<Record<string, unknown>>
-const FooterFrame = StyledFooter as ComponentType<Record<string, unknown>>
 
 export interface AlertDialogRootProps {
   children: React.ReactNode
@@ -49,90 +100,131 @@ export interface AlertDialogRootProps {
 }
 
 function Root({ children, open, defaultOpen, onOpenChange }: AlertDialogRootProps) {
+  const disclosure = useDisclosure({ open, defaultOpen, onOpenChange })
+  const id = useId()
+
   return (
-    <AlertRoot open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
+    <AlertDialogContext.Provider
+      value={{
+        isOpen: disclosure.isOpen,
+        onOpen: disclosure.onOpen,
+        onClose: disclosure.onClose,
+        titleId: `alertdialog-title-${id}`,
+        descriptionId: `alertdialog-desc-${id}`,
+      }}
+    >
       {children}
-    </AlertRoot>
+    </AlertDialogContext.Provider>
   )
 }
 
 function Trigger({ children }: { children: React.ReactNode }) {
-  return <AlertTrigger asChild>{children}</AlertTrigger>
-}
-
-function Overlay({ children }: { children?: React.ReactNode }) {
+  const { onOpen } = useContext(AlertDialogContext)
   return (
-    <AlertPortal>
-      <AlertOverlay
-        backgroundColor="$overlayBackground"
-        animation="medium"
-        opacity={1}
-        enterStyle={{ opacity: 0 }}
-        exitStyle={{ opacity: 0 }}
-        position="fixed"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        zIndex="$4"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      />
+    <span onClick={onOpen} style={{ display: 'inline-flex', cursor: 'pointer' }}>
       {children}
-    </AlertPortal>
+    </span>
   )
 }
 
+function Overlay({ children }: { children?: React.ReactNode }) {
+  return null
+}
+
 function Content({ children }: { children: React.ReactNode }) {
-  return (
-    <AlertPortal>
-      <AlertContent
-        backgroundColor="$background"
-        borderRadius="$6"
-        padding="$5"
-        width="90%"
-        maxWidth="$dialogMd"
-        maxHeight="85%"
-        animation="medium"
-        gap="$3"
-        enterStyle={{ opacity: 0, scale: 0.95 }}
-        exitStyle={{ opacity: 0, scale: 0.95 }}
-        zIndex="$5"
-        style={{ boxShadow: 'var(--shadowXl)' }}
+  const { isOpen, onClose, titleId, descriptionId } = useContext(AlertDialogContext)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose()
+        return
+      }
+
+      if (e.key === 'Tab') {
+        const focusable = contentRef.current?.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+        if (!focusable || focusable.length === 0) return
+
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault()
+            last.focus()
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault()
+            first.focus()
+          }
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    const firstFocusable = contentRef.current?.querySelector<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )
+    firstFocusable?.focus()
+
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen, onClose])
+
+  if (!isOpen) return null
+
+  return createPortal(
+    <>
+      <StyledOverlay />
+      <StyledContent
+        ref={contentRef}
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
       >
         {children}
-      </AlertContent>
-    </AlertPortal>
+      </StyledContent>
+    </>,
+    document.body,
   )
 }
 
 function Title({ children }: { children: React.ReactNode }) {
-  return (
-    <AlertTitle>
-      <TitleText>{children}</TitleText>
-    </AlertTitle>
-  )
+  const { titleId } = useContext(AlertDialogContext)
+  return <StyledTitle id={titleId}>{children}</StyledTitle>
 }
 
 function Description({ children }: { children: React.ReactNode }) {
-  return (
-    <AlertDescription>
-      <DescText>{children}</DescText>
-    </AlertDescription>
-  )
+  const { descriptionId } = useContext(AlertDialogContext)
+  return <StyledDescription id={descriptionId}>{children}</StyledDescription>
 }
 
 function Footer({ children }: { children: React.ReactNode }) {
-  return <FooterFrame>{children}</FooterFrame>
+  return <StyledFooter>{children}</StyledFooter>
 }
 
 function Cancel({ children }: { children?: React.ReactNode }) {
-  return <AlertCancel asChild>{children}</AlertCancel>
+  const { onClose } = useContext(AlertDialogContext)
+  return (
+    <span onClick={onClose} style={{ display: 'inline-flex', cursor: 'pointer' }}>
+      {children}
+    </span>
+  )
 }
 
 function Action({ children }: { children?: React.ReactNode }) {
-  return <AlertAction asChild>{children}</AlertAction>
+  const { onClose } = useContext(AlertDialogContext)
+  return (
+    <span onClick={onClose} style={{ display: 'inline-flex', cursor: 'pointer' }}>
+      {children}
+    </span>
+  )
 }
 
 export const AlertDialog = {
