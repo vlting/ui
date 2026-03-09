@@ -1,9 +1,17 @@
-import type { ComponentType } from 'react'
 import type React from 'react'
-import { View } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
+const ButtonGroupOuter = styled(
+  "div",
+  { display: "inline-flex" },
+  "ButtonGroup"
+)
+
+const ButtonGroupInner = styled(
+  "div",
+  { display: "inline-flex" },
+  "ButtonGroupInner"
+)
 
 export interface ButtonGroupRootProps {
   children: React.ReactNode
@@ -19,7 +27,7 @@ function Root({
   const isHorizontal = orientation === 'horizontal'
 
   return (
-    <ViewJsx display="inline-flex">
+    <ButtonGroupOuter>
       <style
         dangerouslySetInnerHTML={{
           __html: isHorizontal
@@ -37,16 +45,15 @@ function Root({
             `,
         }}
       />
-      <ViewJsx
+      <ButtonGroupInner
         role="group"
         aria-label={ariaLabel}
-        flexDirection={isHorizontal ? 'row' : 'column'}
-        display="inline-flex"
+        style={{ flexDirection: isHorizontal ? 'row' : 'column' }}
         className={isHorizontal ? 'vlting-btn-group-h' : 'vlting-btn-group-v'}
       >
         {children}
-      </ViewJsx>
-    </ViewJsx>
+      </ButtonGroupInner>
+    </ButtonGroupOuter>
   )
 }
 
