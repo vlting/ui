@@ -1,77 +1,23 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
+import { styled } from '../stl-react/src/config'
 import React from 'react'
 
-// ---------------------------------------------------------------------------
-// Per-level styled HTML heading elements (semantic <h1>–<h6>)
-// ---------------------------------------------------------------------------
-
 const baseStyles = {
-  fontFamily: '$heading',
-  color: '$color',
-  margin: 0,
-} as any
-
-const H1Frame = styledHtml('h1', {
-  ...baseStyles,
-  fontSize: '$10',
-  lineHeight: '$10',
-  fontWeight: '$5',
-} as any)
-
-const H2Frame = styledHtml('h2', {
-  ...baseStyles,
-  fontSize: '$8',
-  lineHeight: '$8',
-  fontWeight: '$5',
-} as any)
-
-const H3Frame = styledHtml('h3', {
-  ...baseStyles,
-  fontSize: '$6',
-  lineHeight: '$6',
-  fontWeight: '$4',
-} as any)
-
-const H4Frame = styledHtml('h4', {
-  ...baseStyles,
-  fontSize: '$5',
-  lineHeight: '$5',
-  fontWeight: '$4',
-} as any)
-
-const H5Frame = styledHtml('h5', {
-  ...baseStyles,
-  fontSize: '$4',
-  lineHeight: '$4',
-  fontWeight: '$4',
-} as any)
-
-const H6Frame = styledHtml('h6', {
-  ...baseStyles,
-  fontSize: '$3',
-  lineHeight: '$3',
-  fontWeight: '$4',
-} as any)
-
-// ---------------------------------------------------------------------------
-// Cast for JSX usage — v2 RC GetFinalProps bug
-// ---------------------------------------------------------------------------
-
-type AnyFC = ComponentType<Record<string, unknown>>
-
-const LEVEL_MAP: Record<number, AnyFC> = {
-  1: H1Frame as AnyFC,
-  2: H2Frame as AnyFC,
-  3: H3Frame as AnyFC,
-  4: H4Frame as AnyFC,
-  5: H5Frame as AnyFC,
-  6: H6Frame as AnyFC,
+  fontFamily: "$heading",
+  color: "$defaultHeading",
+  margin: "0",
 }
 
-// ---------------------------------------------------------------------------
-// Public API — preserves the existing `level` prop interface
-// ---------------------------------------------------------------------------
+const H1Frame = styled("h1", { ...baseStyles, fontSize: "$h1", lineHeight: "$heading", fontWeight: "$700" }, "H1")
+const H2Frame = styled("h2", { ...baseStyles, fontSize: "$h2", lineHeight: "$heading", fontWeight: "$700" }, "H2")
+const H3Frame = styled("h3", { ...baseStyles, fontSize: "$h3", lineHeight: "$heading", fontWeight: "$600" }, "H3")
+const H4Frame = styled("h4", { ...baseStyles, fontSize: "$h4", lineHeight: "$heading", fontWeight: "$600" }, "H4")
+const H5Frame = styled("h5", { ...baseStyles, fontSize: "$h5", lineHeight: "$heading", fontWeight: "$600" }, "H5")
+const H6Frame = styled("h6", { ...baseStyles, fontSize: "$h6", lineHeight: "$heading", fontWeight: "$600" }, "H6")
+
+type HeadingFrame = typeof H1Frame
+const LEVEL_MAP: Record<number, HeadingFrame> = {
+  1: H1Frame, 2: H2Frame, 3: H3Frame, 4: H4Frame, 5: H5Frame, 6: H6Frame,
+}
 
 export interface HeadingProps {
   level?: 1 | 2 | 3 | 4 | 5 | 6
@@ -81,7 +27,7 @@ export interface HeadingProps {
 
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   function Heading({ level = 2, ...rest }, ref) {
-    const Component = LEVEL_MAP[level as number] ?? LEVEL_MAP[2]
+    const Component = LEVEL_MAP[level] ?? LEVEL_MAP[2]
     return <Component ref={ref} {...rest} />
   },
 )
