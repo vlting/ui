@@ -1,0 +1,1337 @@
+# @vlting/ui — Full Reference
+
+> Cross-platform design system built on Tamagui v2. Multi-brand theming, tree-shakeable imports. Web + React Native.
+
+## Install
+
+```
+npm install @vlting/ui
+```
+
+## Provider Setup
+
+Every app must wrap content in `<Provider>` with a brand config:
+
+```tsx
+import { Provider, createBrandConfig, defaultBrand } from '@vlting/ui'
+
+const config = createBrandConfig(defaultBrand)
+
+function App() {
+  return <Provider config={config}>{children}</Provider>
+}
+```
+
+Built-in brands: `defaultBrand` (YInMn Blue), `shadcnBrand` (neutral), `funBrand` (vibrant), `poshBrand` (luxe)
+
+---
+
+## PRIMITIVES (Layer 1)
+
+### Box
+Generic container. Like `div` but cross-platform.
+```tsx
+import { Box } from '@vlting/ui'
+<Box padding="$4" backgroundColor="$background" borderRadius="$4">
+  {children}
+</Box>
+<Box centered>{children}</Box>  // centers content
+```
+
+### Stack / VStack / HStack
+Layout containers with direction and gap.
+```tsx
+import { VStack, HStack } from '@vlting/ui'
+<VStack gap="$4">{children}</VStack>       // vertical
+<HStack gap="$2" alignItems="center">{children}</HStack>  // horizontal
+```
+
+### Text
+Body text element.
+```tsx
+import { Text } from '@vlting/ui'
+<Text color="$color" fontSize="$3">Hello</Text>
+<Text color="$colorSubtitle">Secondary text</Text>
+```
+
+### Heading
+Section headings. Uses font weight alternation (H1 heavy, H2 light, H3 heavy...).
+```tsx
+import { Heading } from '@vlting/ui'
+<Heading level={1}>Page Title</Heading>
+<Heading level={3}>Section</Heading>
+```
+
+### Icon
+Icon wrapper. Use with Remix Icons.
+```tsx
+import { Icon } from '@vlting/ui'
+import { RiHomeLine } from '@vlting/ui/icons'
+<Icon icon={RiHomeLine} size={20} color="$color" />
+```
+
+### Badge
+Status indicators, counts, labels.
+```tsx
+import { Badge } from '@vlting/ui'
+<Badge variant="default">New</Badge>
+<Badge variant="destructive" tone="danger">Error</Badge>
+<Badge variant="outline" size="sm">v1.2</Badge>
+```
+Variants: `default` | `solid` | `secondary` | `destructive` | `outline` | `subtle`
+Tones: `neutral` | `primary` | `success` | `warning` | `danger`
+Sizes: `sm` | `md` | `lg`
+
+### Label
+Form label element.
+```tsx
+import { Label } from '@vlting/ui'
+<Label htmlFor="email">Email</Label>
+```
+
+### Divider / Separator
+Visual divider line.
+```tsx
+import { Divider } from '@vlting/ui'
+<Divider />                         // horizontal
+<Divider orientation="vertical" />  // vertical
+```
+
+### Spacer
+Flexible space between items.
+```tsx
+<HStack>
+  <Text>Left</Text>
+  <Spacer />
+  <Text>Right</Text>
+</HStack>
+```
+
+### Skeleton
+Content placeholder during loading.
+```tsx
+import { Skeleton } from '@vlting/ui'
+<Skeleton width={200} height={20} />
+<Skeleton width="100%" height={40} borderRadius="$4" />
+```
+
+### Spinner
+Inline loading indicator.
+```tsx
+import { Spinner } from '@vlting/ui'
+<Spinner size="sm" />
+<Spinner size="lg" color="$color" />
+```
+
+### AspectRatio
+Maintain aspect ratio for children.
+```tsx
+import { AspectRatio } from '@vlting/ui'
+<AspectRatio ratio={16/9}><img src="..." /></AspectRatio>
+```
+
+### Kbd
+Keyboard shortcut display.
+```tsx
+import { Kbd } from '@vlting/ui'
+<Kbd>⌘K</Kbd>
+```
+
+### VisuallyHidden
+Screen-reader-only content.
+```tsx
+import { VisuallyHidden } from '@vlting/ui'
+<VisuallyHidden>Close dialog</VisuallyHidden>
+```
+
+### Portal
+Render children in a portal (outside DOM tree).
+```tsx
+import { Portal } from '@vlting/ui'
+<Portal>{overlay}</Portal>
+```
+
+---
+
+## COMPONENTS (Layer 2)
+
+### Button
+```tsx
+import { Button } from '@vlting/ui'
+
+<Button variant="default" size="md">Click</Button>
+<Button variant="destructive" size="sm">Delete</Button>
+<Button variant="outline" loading>Saving...</Button>
+<Button variant="ghost" size="icon">
+  <Button.Icon><RiCloseLine /></Button.Icon>
+</Button>
+<Button tone="primary">
+  <Button.Icon><RiAddLine /></Button.Icon>
+  <Button.Text>Add Item</Button.Text>
+</Button>
+```
+Variants: `default` | `solid` | `secondary` | `destructive` | `outline` | `ghost` | `link`
+Sizes: `xs` | `sm` | `md` | `lg` | `icon`
+Tones: `neutral` | `primary` | `success` | `warning` | `danger`
+
+### Input
+```tsx
+import { Input } from '@vlting/ui'
+<Input placeholder="Email" value={value} onChangeText={setValue} />
+<Input type="password" />
+<Input disabled />
+```
+
+### InputGroup
+Input with prefix/suffix elements.
+```tsx
+import { InputGroup } from '@vlting/ui'
+<InputGroup.Root>
+  <InputGroup.Addon>https://</InputGroup.Addon>
+  <InputGroup.Input placeholder="example.com" />
+</InputGroup.Root>
+
+<InputGroup.Root>
+  <InputGroup.Element><RiSearchLine /></InputGroup.Element>
+  <InputGroup.Input placeholder="Search..." />
+</InputGroup.Root>
+```
+
+### Textarea
+```tsx
+import { Textarea } from '@vlting/ui'
+<Textarea placeholder="Message" rows={4} value={text} onChangeText={setText} />
+```
+
+### Card
+```tsx
+import { Card } from '@vlting/ui'
+<Card>
+  <Card.Header>
+    <Card.Title>Title</Card.Title>
+    <Card.Description>Description</Card.Description>
+  </Card.Header>
+  <Card.Content>{body}</Card.Content>
+  <Card.Footer>{actions}</Card.Footer>
+</Card>
+```
+
+### Dialog
+```tsx
+import { Dialog, Button } from '@vlting/ui'
+<Dialog.Root>
+  <Dialog.Trigger><Button>Open</Button></Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Title>Edit Profile</Dialog.Title>
+    <Dialog.Description>Make changes here.</Dialog.Description>
+    {form}
+    <Dialog.Close><Button variant="ghost">Cancel</Button></Dialog.Close>
+  </Dialog.Content>
+</Dialog.Root>
+```
+
+### AlertDialog
+For confirmation dialogs (destructive actions).
+```tsx
+import { AlertDialog, Button } from '@vlting/ui'
+<AlertDialog.Root>
+  <AlertDialog.Trigger><Button variant="destructive">Delete</Button></AlertDialog.Trigger>
+  <AlertDialog.Content>
+    <AlertDialog.Title>Are you sure?</AlertDialog.Title>
+    <AlertDialog.Description>This cannot be undone.</AlertDialog.Description>
+    <AlertDialog.Cancel><Button variant="outline">Cancel</Button></AlertDialog.Cancel>
+    <AlertDialog.Action><Button variant="destructive">Delete</Button></AlertDialog.Action>
+  </AlertDialog.Content>
+</AlertDialog.Root>
+```
+
+### Sheet
+Side panel overlay.
+```tsx
+import { Sheet, Button } from '@vlting/ui'
+<Sheet.Root>
+  <Sheet.Trigger><Button>Open</Button></Sheet.Trigger>
+  <Sheet.Content side="right">
+    <Sheet.Header>
+      <Sheet.Title>Settings</Sheet.Title>
+    </Sheet.Header>
+    {content}
+  </Sheet.Content>
+</Sheet.Root>
+```
+
+### Drawer
+Bottom panel (mobile-friendly, swipe-to-dismiss).
+```tsx
+import { Drawer, Button } from '@vlting/ui'
+<Drawer.Root>
+  <Drawer.Trigger><Button>Open</Button></Drawer.Trigger>
+  <Drawer.Content>
+    <Drawer.Header>
+      <Drawer.Title>Options</Drawer.Title>
+    </Drawer.Header>
+    {content}
+  </Drawer.Content>
+</Drawer.Root>
+```
+
+### Select
+```tsx
+import { Select } from '@vlting/ui'
+<Select.Root value={value} onValueChange={setValue}>
+  <Select.Trigger>
+    <Select.Value placeholder="Choose..." />
+  </Select.Trigger>
+  <Select.Content>
+    <Select.Group>
+      <Select.Label>Fruits</Select.Label>
+      <Select.Item value="apple">Apple</Select.Item>
+      <Select.Item value="banana">Banana</Select.Item>
+    </Select.Group>
+  </Select.Content>
+</Select.Root>
+```
+
+### Combobox
+Searchable select.
+```tsx
+import { Combobox } from '@vlting/ui'
+<Combobox.Root value={value} onValueChange={setValue}>
+  <Combobox.Input placeholder="Search frameworks..." />
+  <Combobox.Content>
+    <Combobox.Item value="react">React</Combobox.Item>
+    <Combobox.Item value="vue">Vue</Combobox.Item>
+    <Combobox.Item value="svelte">Svelte</Combobox.Item>
+  </Combobox.Content>
+</Combobox.Root>
+```
+
+### Checkbox
+```tsx
+import { Checkbox, Label, HStack } from '@vlting/ui'
+<HStack gap="$2" alignItems="center">
+  <Checkbox.Root id="terms" checked={checked} onCheckedChange={setChecked}>
+    <Checkbox.Indicator />
+  </Checkbox.Root>
+  <Label htmlFor="terms">Accept terms</Label>
+</HStack>
+```
+
+### Switch
+```tsx
+import { Switch, Label, HStack } from '@vlting/ui'
+<HStack gap="$2" alignItems="center">
+  <Label htmlFor="notifications">Notifications</Label>
+  <Switch id="notifications" checked={on} onCheckedChange={setOn} />
+</HStack>
+```
+
+### RadioGroup
+```tsx
+import { RadioGroup, Label } from '@vlting/ui'
+<RadioGroup.Root value={value} onValueChange={setValue}>
+  <HStack gap="$2" alignItems="center">
+    <RadioGroup.Item value="a" id="a" />
+    <Label htmlFor="a">Option A</Label>
+  </HStack>
+  <HStack gap="$2" alignItems="center">
+    <RadioGroup.Item value="b" id="b" />
+    <Label htmlFor="b">Option B</Label>
+  </HStack>
+</RadioGroup.Root>
+```
+
+### Slider
+```tsx
+import { Slider } from '@vlting/ui'
+<Slider value={[50]} onValueChange={setValue} min={0} max={100} step={1} />
+```
+
+### Toggle / ToggleGroup
+```tsx
+import { Toggle, ToggleGroup } from '@vlting/ui'
+
+// Single toggle
+<Toggle pressed={bold} onPressedChange={setBold}>B</Toggle>
+
+// Group (single selection)
+<ToggleGroup type="single" value={view} onValueChange={setView}>
+  <ToggleGroup.Item value="grid">Grid</ToggleGroup.Item>
+  <ToggleGroup.Item value="list">List</ToggleGroup.Item>
+</ToggleGroup>
+```
+
+### Tabs
+```tsx
+import { Tabs } from '@vlting/ui'
+<Tabs.Root defaultValue="account">
+  <Tabs.List>
+    <Tabs.Trigger value="account">Account</Tabs.Trigger>
+    <Tabs.Trigger value="password">Password</Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Content value="account">{accountContent}</Tabs.Content>
+  <Tabs.Content value="password">{passwordContent}</Tabs.Content>
+</Tabs.Root>
+```
+
+### Accordion
+```tsx
+import { Accordion } from '@vlting/ui'
+<Accordion.Root type="single" collapsible>
+  <Accordion.Item value="faq-1">
+    <Accordion.Trigger>What is @vlting/ui?</Accordion.Trigger>
+    <Accordion.Content>A cross-platform design system.</Accordion.Content>
+  </Accordion.Item>
+</Accordion.Root>
+```
+
+### Collapsible
+```tsx
+import { Collapsible, Button } from '@vlting/ui'
+<Collapsible.Root>
+  <Collapsible.Trigger><Button variant="ghost">Toggle</Button></Collapsible.Trigger>
+  <Collapsible.Content>{content}</Collapsible.Content>
+</Collapsible.Root>
+```
+
+### Table
+```tsx
+import { Table } from '@vlting/ui'
+<Table.Root>
+  <Table.Header>
+    <Table.Row>
+      <Table.Head>Name</Table.Head>
+      <Table.Head>Email</Table.Head>
+    </Table.Row>
+  </Table.Header>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Alice</Table.Cell>
+      <Table.Cell>alice@example.com</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table.Root>
+```
+
+### DataTable
+Interactive table with sorting, filtering, pagination.
+```tsx
+import { DataTable } from '@vlting/ui'
+import type { ColumnDef } from '@vlting/ui'
+
+const columns: ColumnDef<User>[] = [
+  { accessorKey: 'name', header: 'Name' },
+  { accessorKey: 'email', header: 'Email' },
+  { accessorKey: 'role', header: 'Role' },
+]
+
+<DataTable columns={columns} data={users} />
+```
+
+### Form + Field
+```tsx
+import { Form, Field, Input, Button } from '@vlting/ui'
+
+<Form.Root onSubmit={handleSubmit}>
+  <Form.Field error={errors.email}>
+    <Form.Label htmlFor="email">Email</Form.Label>
+    <Input id="email" value={email} onChangeText={setEmail} />
+    <Form.Description>Your work email</Form.Description>
+    <Form.ErrorMessage>{errors.email}</Form.ErrorMessage>
+  </Form.Field>
+  <Button type="submit">Submit</Button>
+</Form.Root>
+
+// Standalone Field (without Form)
+<Field.Root>
+  <Field.Label>Name</Field.Label>
+  <Field.Control><Input /></Field.Control>
+  <Field.Description>Your display name</Field.Description>
+  <Field.Error>Required</Field.Error>
+</Field.Root>
+```
+
+### Alert
+```tsx
+import { Alert } from '@vlting/ui'
+<Alert variant="default">
+  <Alert.Title>Heads up!</Alert.Title>
+  <Alert.Description>Something to note.</Alert.Description>
+</Alert>
+<Alert variant="destructive">
+  <Alert.Title>Error</Alert.Title>
+  <Alert.Description>Something went wrong.</Alert.Description>
+</Alert>
+```
+
+### Toast
+```tsx
+// Imperative API (recommended)
+import { toast, ImperativeToastViewport } from '@vlting/ui'
+
+// In layout:
+<ImperativeToastViewport />
+
+// In handlers:
+toast('Saved!')
+toast.success('Profile updated')
+toast.error('Failed to save')
+toast.promise(saveFn(), {
+  loading: 'Saving...',
+  success: 'Done!',
+  error: 'Error',
+})
+```
+
+### Tooltip
+```tsx
+import { Tooltip, TooltipProvider, Button } from '@vlting/ui'
+
+// Wrap app in TooltipProvider
+<TooltipProvider>
+  <Tooltip content="Save changes">
+    <Button variant="icon"><RiSaveLine /></Button>
+  </Tooltip>
+</TooltipProvider>
+```
+
+### Popover
+```tsx
+import { Popover, Button } from '@vlting/ui'
+<Popover.Root>
+  <Popover.Trigger><Button>Settings</Button></Popover.Trigger>
+  <Popover.Content>
+    {settingsForm}
+  </Popover.Content>
+</Popover.Root>
+```
+
+### HoverCard
+```tsx
+import { HoverCard } from '@vlting/ui'
+<HoverCard.Root>
+  <HoverCard.Trigger><a href="/user">@username</a></HoverCard.Trigger>
+  <HoverCard.Content>
+    {userProfile}
+  </HoverCard.Content>
+</HoverCard.Root>
+```
+
+### DropdownMenu
+```tsx
+import { DropdownMenu, Button } from '@vlting/ui'
+<DropdownMenu.Root>
+  <DropdownMenu.Trigger><Button variant="ghost">⋯</Button></DropdownMenu.Trigger>
+  <DropdownMenu.Content>
+    <DropdownMenu.Item onSelect={handleEdit}>Edit</DropdownMenu.Item>
+    <DropdownMenu.Item onSelect={handleDuplicate}>Duplicate</DropdownMenu.Item>
+    <DropdownMenu.Separator />
+    <DropdownMenu.Item onSelect={handleDelete}>Delete</DropdownMenu.Item>
+  </DropdownMenu.Content>
+</DropdownMenu.Root>
+```
+
+### ContextMenu
+Right-click menu (web only).
+```tsx
+import { ContextMenu } from '@vlting/ui'
+<ContextMenu.Root>
+  <ContextMenu.Trigger>{content}</ContextMenu.Trigger>
+  <ContextMenu.Content>
+    <ContextMenu.Item>Copy</ContextMenu.Item>
+    <ContextMenu.Item>Paste</ContextMenu.Item>
+  </ContextMenu.Content>
+</ContextMenu.Root>
+```
+
+### Command
+Command palette / searchable list.
+```tsx
+import { Command } from '@vlting/ui'
+<Command.Root>
+  <Command.Input placeholder="Type a command..." />
+  <Command.List>
+    <Command.Group heading="Suggestions">
+      <Command.Item onSelect={handleCalendar}>Calendar</Command.Item>
+      <Command.Item onSelect={handleSearch}>Search</Command.Item>
+    </Command.Group>
+    <Command.Separator />
+    <Command.Empty>No results found.</Command.Empty>
+  </Command.List>
+</Command.Root>
+```
+
+### Calendar
+Inline date picker.
+```tsx
+import { Calendar } from '@vlting/ui'
+<Calendar.Root selected={date} onSelect={setDate} />
+```
+
+### DatePicker
+Date selection in a popup.
+```tsx
+import { DatePicker } from '@vlting/ui'
+<DatePicker value={date} onChange={setDate} placeholder="Pick a date" />
+```
+
+### DateRangePicker
+```tsx
+import { DateRangePicker } from '@vlting/ui'
+<DateRangePicker
+  value={{ from: startDate, to: endDate }}
+  onChange={setRange}
+  placeholder="Select range"
+/>
+```
+
+### Avatar
+```tsx
+import { Avatar } from '@vlting/ui'
+<Avatar src="/photo.jpg" alt="User" fallback="JD" size="md" />
+```
+
+### Progress
+```tsx
+import { Progress } from '@vlting/ui'
+<Progress value={75} max={100} />
+```
+
+### Breadcrumb
+```tsx
+import { Breadcrumb } from '@vlting/ui'
+<Breadcrumb items={[
+  { label: 'Home', href: '/' },
+  { label: 'Products', href: '/products' },
+  { label: 'Widget', active: true },
+]} />
+```
+
+### Pagination
+```tsx
+import { Pagination } from '@vlting/ui'
+<Pagination page={currentPage} totalPages={10} onPageChange={setPage} />
+```
+
+### NavigationMenu
+Top-level horizontal navigation (web only).
+```tsx
+import { NavigationMenu } from '@vlting/ui'
+<NavigationMenu.Root>
+  <NavigationMenu.Item>
+    <NavigationMenu.Link href="/">Home</NavigationMenu.Link>
+  </NavigationMenu.Item>
+  <NavigationMenu.Item>
+    <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
+    <NavigationMenu.Content>{productLinks}</NavigationMenu.Content>
+  </NavigationMenu.Item>
+</NavigationMenu.Root>
+```
+
+### Menubar
+Desktop menu bar (web only).
+```tsx
+import { Menubar } from '@vlting/ui'
+<Menubar.Root>
+  <Menubar.Menu>
+    <Menubar.Trigger>File</Menubar.Trigger>
+    <Menubar.Content>
+      <Menubar.Item>New</Menubar.Item>
+      <Menubar.Item>Open</Menubar.Item>
+      <Menubar.Separator />
+      <Menubar.Item>Save</Menubar.Item>
+    </Menubar.Content>
+  </Menubar.Menu>
+</Menubar.Root>
+```
+
+### Sidebar
+App navigation sidebar.
+```tsx
+import { Sidebar } from '@vlting/ui'
+<Sidebar.Root>
+  <Sidebar.Group>
+    <Sidebar.GroupLabel>Main</Sidebar.GroupLabel>
+    <Sidebar.Menu>
+      <Sidebar.MenuItem href="/" icon={RiHomeLine}>Home</Sidebar.MenuItem>
+      <Sidebar.MenuItem href="/settings" icon={RiSettingsLine}>Settings</Sidebar.MenuItem>
+    </Sidebar.Menu>
+  </Sidebar.Group>
+</Sidebar.Root>
+```
+
+### Carousel
+Sliding content (web only).
+```tsx
+import { Carousel } from '@vlting/ui'
+<Carousel.Root>
+  <Carousel.Content>
+    <Carousel.Item>Slide 1</Carousel.Item>
+    <Carousel.Item>Slide 2</Carousel.Item>
+  </Carousel.Content>
+  <Carousel.Previous />
+  <Carousel.Next />
+</Carousel.Root>
+```
+
+### Resizable
+Resizable panel layout (web only).
+```tsx
+import { Resizable } from '@vlting/ui'
+<Resizable.PanelGroup direction="horizontal">
+  <Resizable.Panel defaultSize={50}>Left</Resizable.Panel>
+  <Resizable.Handle />
+  <Resizable.Panel defaultSize={50}>Right</Resizable.Panel>
+</Resizable.PanelGroup>
+```
+
+### ScrollArea
+Custom scrollbar.
+```tsx
+import { ScrollArea } from '@vlting/ui'
+<ScrollArea.Root style={{ height: 300 }}>
+  <ScrollArea.Viewport>{longContent}</ScrollArea.Viewport>
+</ScrollArea.Root>
+```
+
+### InputOTP
+```tsx
+import { InputOTP } from '@vlting/ui'
+<InputOTP.Root maxLength={6} value={otp} onChange={setOtp}>
+  <InputOTP.Group>
+    <InputOTP.Slot index={0} />
+    <InputOTP.Slot index={1} />
+    <InputOTP.Slot index={2} />
+  </InputOTP.Group>
+  <InputOTP.Separator />
+  <InputOTP.Group>
+    <InputOTP.Slot index={3} />
+    <InputOTP.Slot index={4} />
+    <InputOTP.Slot index={5} />
+  </InputOTP.Group>
+</InputOTP.Root>
+```
+
+### Item
+Generic list item with leading/trailing.
+```tsx
+import { Item } from '@vlting/ui'
+<Item>
+  <Item.Leading><Avatar src="..." /></Item.Leading>
+  <Item.Content>
+    <Item.Title>John Doe</Item.Title>
+    <Item.Description>john@example.com</Item.Description>
+  </Item.Content>
+  <Item.Trailing><Badge>Admin</Badge></Item.Trailing>
+</Item>
+```
+
+### ButtonGroup
+```tsx
+import { ButtonGroup, Button } from '@vlting/ui'
+<ButtonGroup.Root>
+  <Button>Left</Button>
+  <Button>Center</Button>
+  <Button>Right</Button>
+</ButtonGroup.Root>
+```
+
+### Empty
+No-content state.
+```tsx
+import { Empty } from '@vlting/ui'
+<Empty.Root>
+  <Empty.Media><RiInboxLine size={48} /></Empty.Media>
+  <Empty.Title>No messages</Empty.Title>
+  <Empty.Description>Start a conversation.</Empty.Description>
+  <Empty.Action><Button>New Message</Button></Empty.Action>
+</Empty.Root>
+```
+
+### Loader
+Full-area loading state.
+```tsx
+import { Loader } from '@vlting/ui'
+<Loader />
+<Loader size="lg" label="Loading data..." />
+```
+
+### Direction / DirectionProvider
+RTL/LTR support.
+```tsx
+import { DirectionProvider } from '@vlting/ui'
+<DirectionProvider dir="rtl">{children}</DirectionProvider>
+```
+
+### Typography
+```tsx
+import { H1, H2, H3, P, Lead, Muted, InlineCode, List, ListItem } from '@vlting/ui'
+
+<H1>Page Title</H1>
+<H2>Section</H2>
+<Lead>An introductory paragraph.</Lead>
+<P>Regular paragraph text.</P>
+<Muted>Secondary information.</Muted>
+<InlineCode>npm install</InlineCode>
+<List>
+  <ListItem>First item</ListItem>
+  <ListItem>Second item</ListItem>
+</List>
+```
+
+---
+
+## CHARTS
+
+Built on Victory Native. Cross-platform (web + React Native).
+
+### Setup
+```tsx
+import { Chart, BarChart, ChartTooltip, ChartLegend } from '@vlting/ui'
+import type { ChartConfig } from '@vlting/ui'
+
+const config: ChartConfig = {
+  revenue: { label: 'Revenue', color: '$blue9' },
+  expenses: { label: 'Expenses', color: '$red9' },
+}
+
+const data = [
+  { month: 'Jan', revenue: 186, expenses: 80 },
+  { month: 'Feb', revenue: 305, expenses: 200 },
+  { month: 'Mar', revenue: 237, expenses: 120 },
+]
+```
+
+### AreaChart
+```tsx
+<Chart config={config} aria-label="Revenue trend">
+  <AreaChart data={data} variant="default" xKey="month" dataKeys={['revenue']} />
+  <ChartTooltip />
+</Chart>
+```
+Variants: `default` | `stacked` | `percent` | `step` | `gradient` | `sparkline` | `interactive` | `multiple` | `legend` | `axes`
+
+### BarChart
+```tsx
+<Chart config={config} aria-label="Revenue comparison">
+  <BarChart data={data} variant="grouped" xKey="month" dataKeys={['revenue', 'expenses']} />
+  <ChartTooltip />
+  <ChartLegend />
+</Chart>
+```
+Variants: `default` | `horizontal` | `stacked` | `percent` | `grouped` | `mixed` | `negative` | `interactive` | `label` | `custom`
+
+### LineChart
+```tsx
+<Chart config={config} aria-label="Trend lines">
+  <LineChart data={data} variant="multiple" xKey="month" dataKeys={['revenue', 'expenses']} />
+  <ChartTooltip />
+</Chart>
+```
+Variants: `default` | `multiple` | `dots` | `step` | `custom` | `label` | `linear` | `interactive` | `legend` | `sparkline`
+
+### PieChart
+```tsx
+const pieData = [
+  { name: 'Chrome', value: 275 },
+  { name: 'Safari', value: 200 },
+  { name: 'Firefox', value: 187 },
+]
+
+const pieConfig: ChartConfig = {
+  Chrome: { label: 'Chrome', color: '$blue9' },
+  Safari: { label: 'Safari', color: '$green9' },
+  Firefox: { label: 'Firefox', color: '$orange9' },
+}
+
+<Chart config={pieConfig} aria-label="Browser share">
+  <PieChart data={pieData} variant="donut" dataKey="value" nameKey="name" />
+  <ChartLegend />
+</Chart>
+```
+Variants: `default` | `donut` | `interactive` | `label` | `custom` | `stacked` | `legend` | `separator` | `half` | `nested` | `active`
+
+### RadarChart
+```tsx
+<Chart config={config} aria-label="Skill comparison">
+  <RadarChart data={radarData} variant="filled" dataKeys={['player1', 'player2']} />
+  <ChartLegend />
+</Chart>
+```
+Variants: `default` | `dots` | `multiple` | `lines` | `label` | `custom` | `radius` | `grid` | `circle` | `filled` | `icons` | `legend` | `stacked` | `interactive`
+
+### RadialChart
+```tsx
+<Chart config={config} aria-label="Goal progress">
+  <RadialChart data={radialData} variant="label" dataKey="value" />
+</Chart>
+```
+Variants: `default` | `label` | `grid` | `text` | `shape` | `stacked`
+
+### ChartTooltip
+```tsx
+<ChartTooltip variant="default" />
+```
+Variants: `default` | `label` | `custom` | `grid` | `minimal` | `dashed` | `indicator-dot` | `indicator-line` | `no-indicator`
+
+### ChartLegend
+```tsx
+<ChartLegend layout="horizontal" />  // or "vertical"
+```
+
+### ChartDataTable
+Hidden table for screen readers.
+```tsx
+<Chart config={config} aria-label="Data">
+  <BarChart data={data} xKey="month" dataKeys={['revenue']} />
+  <ChartDataTable />
+</Chart>
+```
+
+---
+
+## BLOCKS (Layer 3)
+
+Pre-composed layouts. Each accepts a `variant` prop.
+
+### AuthBlock
+```tsx
+import { AuthBlock } from '@vlting/ui'
+
+<AuthBlock
+  variant="login-card"
+  onSubmit={(data) => handleLogin(data)}
+  socialProviders={['google', 'github']}
+/>
+
+<AuthBlock variant="signup-split" onSubmit={handleSignup} />
+```
+Variants: `login-card` | `login-split` | `signup-card` | `signup-split` | `signup-social`
+
+### SidebarBlock
+```tsx
+import { SidebarBlock } from '@vlting/ui'
+
+<SidebarBlock
+  variant="with-groups"
+  items={[
+    { label: 'Dashboard', href: '/', icon: RiDashboardLine },
+    { label: 'Settings', href: '/settings', icon: RiSettingsLine },
+  ]}
+  groups={[{ label: 'Main', items: [...] }]}
+/>
+```
+Variants: `simple` | `with-groups` | `with-icons` | `collapsible` | `with-footer` | `with-search` | `with-file-tree` | `with-nested`
+
+### DashboardBlock
+```tsx
+import { DashboardBlock } from '@vlting/ui'
+
+<DashboardBlock
+  variant="metrics-grid"
+  metrics={[
+    { title: 'Total Revenue', value: '$45,231', change: 20.1 },
+    { title: 'Subscriptions', value: '2,350', change: -2.5 },
+  ]}
+/>
+```
+Variants: `metrics-grid` | `metrics-chart`
+
+### DataTableBlock
+```tsx
+import { DataTableBlock } from '@vlting/ui'
+
+<DataTableBlock variant="with-toolbar" columns={columns} data={data} />
+```
+Variants: `default` | `with-filters` | `with-toolbar`
+
+### SettingsBlock
+```tsx
+import { SettingsBlock } from '@vlting/ui'
+
+<SettingsBlock variant="profile" onSave={handleSave} />
+```
+Variants: `profile` | `notifications` | `appearance`
+
+### PricingBlock
+```tsx
+import { PricingBlock } from '@vlting/ui'
+
+<PricingBlock
+  variant="cards"
+  plans={[
+    { name: 'Free', price: 0, features: ['5 projects', '1GB storage'] },
+    { name: 'Pro', price: 29, features: ['Unlimited', '100GB'], highlighted: true },
+  ]}
+/>
+```
+Variants: `cards` | `table` | `comparison`
+
+### HeroBlock
+```tsx
+import { HeroBlock } from '@vlting/ui'
+
+<HeroBlock
+  variant="centered"
+  title="Build faster with @vlting/ui"
+  subtitle="Cross-platform design system"
+  actions={[
+    { label: 'Get Started', href: '/docs', variant: 'default' },
+    { label: 'GitHub', href: 'https://github.com/vlting/ui', variant: 'outline' },
+  ]}
+/>
+```
+Variants: `centered` | `split` | `gradient` | `minimal`
+
+### FeedBlock
+```tsx
+import { FeedBlock } from '@vlting/ui'
+
+<FeedBlock
+  variant="timeline"
+  events={[
+    { title: 'Deployed v1.2', timestamp: '2h ago', icon: RiRocketLine },
+    { title: 'Merged PR #42', timestamp: '5h ago', icon: RiGitMergeLine },
+  ]}
+/>
+```
+Variants: `timeline` | `notifications` | `comments`
+
+### AppShellBlock
+```tsx
+import { AppShellBlock } from '@vlting/ui'
+
+<AppShellBlock
+  variant="sidebar-header"
+  sidebar={<SidebarBlock variant="with-groups" items={navItems} />}
+  header={<Header />}
+>
+  {pageContent}
+</AppShellBlock>
+```
+Variants: `sidebar-header` | `sidebar-only` | `header-only` | `dashboard`
+
+### EmptyStateBlock
+```tsx
+import { EmptyStateBlock } from '@vlting/ui'
+
+<EmptyStateBlock
+  variant="with-action"
+  title="No projects yet"
+  description="Create your first project to get started."
+  action={{ label: 'Create Project', onPress: handleCreate }}
+/>
+```
+Variants: `simple` | `with-action` | `illustration` | `search` | `error`
+
+---
+
+## ICONS
+
+3229 Remix Icons. Tree-shakeable imports.
+
+### Direct import (recommended)
+```tsx
+import { RiHomeLine } from '@vlting/ui/icons'
+import { RiHomeFill } from '@vlting/ui/icons'
+```
+
+### Dynamic import
+```tsx
+import { DynamicIcon } from '@vlting/ui'
+<DynamicIcon name="ri-home-line" size={20} color="$color" />
+```
+
+### Naming convention
+`Ri` + PascalCase name + `Line` (outline) or `Fill` (filled)
+
+### Common icons
+- Navigation: `RiHomeLine`, `RiSearchLine`, `RiMenuLine`, `RiCloseLine`, `RiArrowLeftLine`
+- Actions: `RiAddLine`, `RiDeleteBinLine`, `RiEditLine`, `RiSaveLine`, `RiShareLine`
+- Status: `RiCheckLine`, `RiErrorWarningLine`, `RiInformationLine`, `RiAlertLine`
+- Media: `RiImageLine`, `RiVideoLine`, `RiMusicLine`, `RiFileTextLine`
+- Social: `RiGithubFill`, `RiTwitterXLine`, `RiLinkedinFill`, `RiGoogleFill`
+- Communication: `RiMailLine`, `RiChat1Line`, `RiNotification3Line`, `RiPhoneLine`
+- User: `RiUserLine`, `RiGroupLine`, `RiSettingsLine`, `RiLogoutBoxLine`
+
+---
+
+## DESIGN TOKENS
+
+### Spacing / Size Scale
+| Token | px | Common use |
+|-------|----|------------|
+| `$0` | 0 | None |
+| `$0.25` | 1 | Hairline |
+| `$0.5` | 2 | Thin border |
+| `$1` | 4 | Tiny gap |
+| `$1.5` | 6 | Small padding |
+| `$2` | 8 | Standard small gap |
+| `$2.5` | 10 | Medium-small |
+| `$3` | 12 | Component padding |
+| `$3.5` | 14 | Medium |
+| `$4` | 16 | Standard gap |
+| `$5` | 20 | Medium gap |
+| `$6` | 24 | Section gap |
+| `$7` | 28 | Large padding |
+| `$8` | 32 | Large gap |
+| `$10` | 40 | XL gap |
+| `$12` | 48 | XXL gap |
+| `$16` | 64 | Max gap |
+
+### Radius Scale
+| Token | px |
+|-------|----|
+| `$0` | 0 |
+| `$1` | 2 |
+| `$2` | 4 |
+| `$3` | 6 |
+| `$4` | 8 |
+| `$5` | 10 |
+| `$6` | 12 |
+| `$8` | 16 |
+| `$10` | 20 |
+| `$12` | 24 |
+| `$full` | 9999 |
+
+### Semantic Colors
+| Token | Use |
+|-------|-----|
+| `$background` | Page/card background |
+| `$backgroundHover` | Hover state background |
+| `$backgroundPress` | Pressed state background |
+| `$backgroundFocus` | Focus state background |
+| `$color` | Primary text |
+| `$colorHover` | Text on hover |
+| `$colorPress` | Text on press |
+| `$colorSubtitle` | Secondary text |
+| `$placeholderColor` | Input placeholder |
+| `$borderColor` | Default borders |
+| `$borderColorHover` | Border on hover |
+| `$borderColorFocus` | Border on focus |
+| `$outlineColor` | Focus outline |
+| `$shadowColor` | Box shadows |
+| `$color1` – `$color12` | Direct palette access |
+
+### Z-Index Scale
+| Token | Value | Use |
+|-------|-------|-----|
+| `$0` | 0 | Base |
+| `$1` | 100 | Sticky |
+| `$2` | 200 | Header |
+| `$3` | 300 | Dropdown |
+| `$4` | 400 | Overlay |
+| `$5` | 500 | Modal |
+| `$6` | 600 | Popover |
+| `$7` | 700 | Tooltip |
+| `$8` | 10000 | Max |
+
+### Media Queries / Breakpoints
+| Key | px | Use |
+|-----|-----|-----|
+| `$xxs` | 0 | Mobile portrait |
+| `$xs` | 400 | Mobile landscape |
+| `$sm` | 640 | Small tablet |
+| `$md` | 768 | Tablet |
+| `$lg` | 1024 | Desktop |
+| `$xl` | 1280 | Large desktop |
+| `$xxl` | 1536 | Extra large |
+
+Greater-than variants: `$gtXxs`, `$gtXs`, `$gtSm`, `$gtMd`, `$gtLg`, `$gtXl`
+
+---
+
+## ANTI-PATTERNS
+
+### 1. Hardcoded visual values
+```tsx
+// BAD
+<Box backgroundColor="#f5f5f5" padding={16} borderRadius={8}>
+<Text color="gray" fontSize={14}>
+
+// GOOD
+<Box backgroundColor="$background" padding="$4" borderRadius="$4">
+<Text color="$colorSubtitle" fontSize="$3">
+```
+
+### 2. Wrong component for the job
+```tsx
+// BAD: Button for navigation
+<Button onPress={() => router.push('/about')}>About</Button>
+// GOOD: Link element
+<a href="/about">About</a>
+
+// BAD: Dialog for yes/no
+<Dialog.Root>...confirm...</Dialog.Root>
+// GOOD: AlertDialog
+<AlertDialog.Root>...confirm...</AlertDialog.Root>
+
+// BAD: Select for 2 options
+<Select.Root>...yes/no...</Select.Root>
+// GOOD: RadioGroup or Switch
+<RadioGroup.Root>...</RadioGroup.Root>
+```
+
+### 3. Missing labels
+```tsx
+// BAD
+<Input />
+<Switch />
+
+// GOOD
+<Field.Root>
+  <Field.Label>Email</Field.Label>
+  <Field.Control><Input /></Field.Control>
+</Field.Root>
+
+<HStack gap="$2" alignItems="center">
+  <Label htmlFor="dark-mode">Dark mode</Label>
+  <Switch id="dark-mode" />
+</HStack>
+```
+
+### 4. Web-only APIs in cross-platform code
+```tsx
+// BAD
+<Box onClick={handler}>
+<Input onChange={handler}>
+
+// GOOD
+<Box onPress={handler}>
+<Input onChangeText={handler}>
+```
+
+### 5. Reinventing existing components
+```tsx
+// BAD: Custom card wrapper
+const MyCard = styled(YStack, { padding: '$4', borderRadius: '$4', borderWidth: 1 })
+
+// GOOD: Use Card
+<Card><Card.Content>{children}</Card.Content></Card>
+```
+
+### 6. Bare children in compound components
+```tsx
+// BAD
+<Dialog.Root>
+  <button>Open</button>
+  <div>Content</div>
+</Dialog.Root>
+
+// GOOD
+<Dialog.Root>
+  <Dialog.Trigger><Button>Open</Button></Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Title>Title</Dialog.Title>
+    {content}
+  </Dialog.Content>
+</Dialog.Root>
+```
+
+### 7. Brand-specific colors
+```tsx
+// BAD: Only works with one brand
+<Badge backgroundColor="$blue9">New</Badge>
+
+// GOOD: Semantic — works with all brands
+<Badge variant="default" tone="primary">New</Badge>
+```
+
+---
+
+## DECISION TREES
+
+### "How should I structure this page?"
+1. Full app with sidebar? → `AppShellBlock`
+2. Landing page? → `HeroBlock` + content sections
+3. Settings page? → `SettingsBlock`
+4. Dashboard? → `DashboardBlock`
+5. Auth flow? → `AuthBlock`
+6. Custom? → `VStack` + components
+
+### "How should I show this list?"
+1. Tabular data with sorting? → `DataTable`
+2. Static table? → `Table`
+3. Rich items with icons/avatars? → `Item` in a `VStack`
+4. Simple text list? → `List` + `ListItem`
+5. Activity feed? → `FeedBlock`
+
+### "How should I handle this form?"
+1. Full form with validation? → `Form.Root` + `Form.Field` + submit
+2. Individual labeled inputs? → `Field.Root` + `Field.Label` + `Field.Control`
+3. Date selection? → `DatePicker` / `DateRangePicker`
+4. Multi-select? → `Checkbox` group
+5. Single select (few)? → `RadioGroup`
+6. Single select (many)? → `Select` or `Combobox`
+
+### "How should I show this notification?"
+1. Temporary, auto-dismiss? → `toast()`
+2. Permanent inline? → `Alert`
+3. Status badge? → `Badge`
+4. Loading? → `Loader` or `Spinner`
+5. No content? → `Empty`
+
+---
+
+## UTILITIES
+
+```tsx
+import { cn, mergeRefs, composeEventHandlers, FontLoader } from '@vlting/ui'
+
+// cn — conditional class names
+cn('base', active && 'active', error && 'error')
+
+// mergeRefs — combine refs
+<Input ref={mergeRefs(localRef, forwardedRef)} />
+
+// composeEventHandlers — chain handlers
+<Button onPress={composeEventHandlers(props.onPress, handler)} />
+
+// FontLoader — load Google Fonts on web
+<FontLoader config={config} />
+```
+
+## HOOKS
+
+```tsx
+import {
+  useControllableState,   // Controlled/uncontrolled pattern
+  useFocusTrap,            // Trap focus in container
+  useKeyboardNavigation,   // Arrow/tab navigation
+} from '@vlting/ui'
+
+// useControllableState
+const [value, setValue] = useControllableState({
+  prop: controlledValue,
+  defaultProp: 'default',
+  onChange: onValueChange,
+})
+```
+
+---
+
+## MIGRATION FROM SHADCN
+
+### Key differences
+1. **No className** — use Tamagui style props or component variants
+2. **No asChild** — wrap children directly
+3. **onPress not onClick** — cross-platform event names
+4. **onChangeText not onChange** — Input event handler
+5. **Token values** — `padding="$4"` not `className="p-4"`
+6. **Compound components** — `Card.Header` not `CardHeader`
+
+### Quick mapping
+| shadcn | @vlting/ui |
+|--------|-----------|
+| `className="p-4"` | `padding="$4"` |
+| `className="text-sm"` | `fontSize="$2"` |
+| `className="rounded-lg"` | `borderRadius="$6"` |
+| `className="bg-muted"` | `backgroundColor="$background"` |
+| `className="text-muted-foreground"` | `color="$colorSubtitle"` |
+| `onClick` | `onPress` |
+| `onChange` | `onChangeText` (Input) |
+| `asChild` | Wrap children directly |
+| `<CardHeader>` | `<Card.Header>` |
+| `<DialogTrigger>` | `<Dialog.Trigger>` |
+
+Full API mappings: `api-mappings.json` in the repo root.

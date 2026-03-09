@@ -1,0 +1,67 @@
+# @vlting/ui
+
+> Cross-platform design system built on Tamagui v2. Multi-brand theming, tree-shakeable imports. Web + React Native.
+
+## Install
+
+```
+npm install @vlting/ui
+```
+
+## Quick Start
+
+```tsx
+import { Provider, Button, Card, Input } from '@vlting/ui'
+import { createBrandConfig, defaultBrand } from '@vlting/ui'
+
+const config = createBrandConfig(defaultBrand)
+
+<Provider config={config}>
+  <Card>
+    <Card.Content>
+      <Input placeholder="Name" />
+      <Button>Submit</Button>
+    </Card.Content>
+  </Card>
+</Provider>
+```
+
+## Architecture
+
+- **Layer 0 — Design Tokens**: size, space, radius, color, zIndex, borderWidth
+- **Layer 1 — Primitives** (16): Box, Stack, VStack, HStack, Text, Heading, Icon, Divider, Spacer, Portal, Label, VisuallyHidden, Badge, Skeleton, Separator, AspectRatio, Spinner, Kbd
+- **Layer 2 — Components** (52): Button, Input, Card, Dialog, Form, DataTable, Chart, Select, Tabs, Accordion, and more
+- **Layer 3 — Blocks** (10): AuthBlock, SidebarBlock, DashboardBlock, DataTableBlock, SettingsBlock, PricingBlock, HeroBlock, FeedBlock, AppShellBlock, EmptyStateBlock
+- **Charts** (8): AreaChart, BarChart, LineChart, PieChart, RadarChart, RadialChart + ChartTooltip, ChartLegend
+- **Icons**: 3229 Remix Icons, tree-shakeable
+
+## Import Paths
+
+- `@vlting/ui` — everything
+- `@vlting/ui/primitives` — Layer 1
+- `@vlting/ui/components` — Layer 2
+- `@vlting/ui/blocks` — Layer 3
+- `@vlting/ui/icons` — Remix Icons
+
+## Brands
+
+4 built-in: `defaultBrand`, `shadcnBrand`, `funBrand`, `poshBrand`
+
+```tsx
+import { createBrandConfig, shadcnBrand } from '@vlting/ui'
+const config = createBrandConfig(shadcnBrand)
+```
+
+## Key Concepts
+
+- **Tokens**: Always use token values (`$4`, `$background`), never hardcode pixels or colors
+- **Compound components**: Most components use `Component.Sub` pattern (e.g., `Card.Header`, `Dialog.Content`)
+- **Cross-platform**: Most components work on web + React Native; some (NavigationMenu, DataTable, ContextMenu) are web-only
+- **Theming**: Semantic color tokens (`$background`, `$color`, `$borderColor`) adapt to brand and light/dark mode
+
+## Resources
+
+- Full AI Skill: docs/ai/SKILL.md
+- Component Registry (JSON): docs/ai/registry.json
+- Comprehensive Reference: docs/ai/llms-full.txt
+- API Mappings (shadcn migration): api-mappings.json
