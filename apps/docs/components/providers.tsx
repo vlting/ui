@@ -5,9 +5,8 @@ import {
   funBrand,
   poshBrand,
   shadcnBrand,
-} from '@vlting/ui'
-import type { Brand } from '@vlting/ui'
-import { StlProvider } from '../../../../packages/stl-react/src/providers/StlProvider'
+} from '../../../packages/design-tokens'
+import type { Brand } from '../../../packages/design-tokens'
 import { useTheme } from 'next-themes'
 import { ThemeProvider } from 'next-themes'
 import {
@@ -91,19 +90,10 @@ function useBrandCSSProperties(brand: BrandKey, resolvedTheme: string | undefine
   }, [brand, resolvedTheme])
 }
 
-function StlWrapper({ brand, children }: { brand: BrandKey; children: ReactNode }) {
+function BrandWrapper({ brand, children }: { brand: BrandKey; children: ReactNode }) {
   const { resolvedTheme } = useTheme()
-
   useBrandCSSProperties(brand, resolvedTheme)
-
-  return (
-    <StlProvider
-      defaultColorMode={resolvedTheme === 'dark' ? 'dark' : 'light'}
-      key={brand}
-    >
-      {children}
-    </StlProvider>
-  )
+  return <>{children}</>
 }
 
 function BrandProvider({ children }: { children: ReactNode }) {
@@ -132,7 +122,7 @@ function BrandProvider({ children }: { children: ReactNode }) {
 
   return (
     <BrandContext.Provider value={value}>
-      <StlWrapper brand={brand}>{children}</StlWrapper>
+      <BrandWrapper brand={brand}>{children}</BrandWrapper>
     </BrandContext.Provider>
   )
 }

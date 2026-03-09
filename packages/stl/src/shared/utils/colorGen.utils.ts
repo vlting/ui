@@ -119,24 +119,26 @@ export function generateThemeColors<T = string>(
     let hue = isInputObject ? inputValue.hue : (inputValue as number)
     let saturation = isInputObject ? inputValue.saturation ?? 100 : 100
 
-    // Validate hue and saturation
-    if ((!isMapped && typeof hue !== "number") || isNaN(hue) || hue > 360 || hue < 0) {
-      throw new Error(`Invalid value for hue on color "${colorKey}": ${hue}. Must be a number between 0 and 360.`)
-    }
-    if (typeof saturation !== "number" || isNaN(saturation) || saturation > 100 || saturation < 0) {
-      throw new Error(
-        `Invalid value for saturation on color "${colorKey}": ${saturation}. Must be a number between 0 and 100.`,
-      )
+    // Validate hue and saturation (skip for mapped/aliased colors)
+    if (!isMapped) {
+      if (typeof hue !== "number" || isNaN(hue) || hue > 360 || hue < 0) {
+        throw new Error(`Invalid value for hue on color "${colorKey}": ${hue}. Must be a number between 0 and 360.`)
+      }
+      if (typeof saturation !== "number" || isNaN(saturation) || saturation > 100 || saturation < 0) {
+        throw new Error(
+          `Invalid value for saturation on color "${colorKey}": ${saturation}. Must be a number between 0 and 100.`,
+        )
+      }
     }
 
     if (!isMapped) {
       // Make sure we normalize hue, and map 360 to 0
       hue = Math.round(hue)
       hue = hue > 359 ? 0 : hue
+      // Make sure we normalize saturation, including for neutrals
+      saturation = Math.round(saturation)
+      saturation = isNeutral && saturation > 40 ? Math.round((saturation / 100) * 40) : saturation
     }
-    // Make sure we normalize saturation, including for neutrals
-    saturation = Math.round(saturation)
-    saturation = isNeutral && saturation > 40 ? Math.round((saturation / 100) * 40) : saturation
 
     if (isMapped) {
       /** These colors just reference another color */

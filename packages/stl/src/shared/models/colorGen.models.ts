@@ -134,14 +134,14 @@ export const DEFAULT_SOURCE_COLORS: ColorGenOptions = {
   indigo: { hue: 222, saturation: 90 },
   plum: { hue: 267, saturation: 90 },
   magenta: { hue: 313, saturation: 80 },
-  // Accent colors (vlt-ui palette equivalents)
-  blue: { hue: 210, saturation: 85 },
-  red: { hue: 0, saturation: 80 },
-  green: { hue: 142, saturation: 70 },
-  orange: { hue: 25, saturation: 95 },
-  purple: { hue: 271, saturation: 80 },
-  pink: { hue: 330, saturation: 80 },
-  yellow: { hue: 48, saturation: 95 },
+  // Accent colors — mapped to closest flavor colors (COLOR_MATRIX is sparse)
+  blue: "aqua",
+  red: "tomato",
+  green: "forest",
+  orange: "amber",
+  purple: "plum",
+  pink: "magenta",
+  yellow: "amber",
 }
 
 // TYPES //////////////////////////////////////////////////////////////////////////////////////////

@@ -21,6 +21,8 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.7",
     "@types/react": "~19.1.0",
+    "@vanilla-extract/css": "^1.18.0",
+    "@vanilla-extract/next-plugin": "^2.4.17",
     "tailwindcss": "^4.1.7",
     "typescript": "~5.9.2"
   }

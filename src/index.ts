@@ -4,7 +4,6 @@ export type { ProviderProps } from './provider'
 
 // Layer 0 — Design Tokens
 export {
-  tokens,
   size,
   space,
   radius,
@@ -12,7 +11,6 @@ export {
   zIndex,
   borderWidth,
   semanticColorMap,
-  buildThemes,
   lightPalette,
   darkPalette,
   accentPalettes,
@@ -26,6 +24,7 @@ export {
   media,
 } from '../packages/design-tokens'
 export type {
+  Brand,
   BrandDefinition,
   BrandFontConfig,
   BorderConfig,

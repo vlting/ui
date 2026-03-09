@@ -1,7 +1,12 @@
+import { resolve } from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: { ignoreBuildErrors: true },
-  transpilePackages: ['@vlting/ui', 'react-native-web', 'react-native-svg-web'],
+  transpilePackages: ['react-native-web', 'react-native-svg-web'],
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
