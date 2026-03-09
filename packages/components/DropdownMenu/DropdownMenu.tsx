@@ -1,53 +1,69 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Text, View } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
-
-const TriggerBtn = styledHtml('button', {
-  display: 'inline-flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  cursor: 'pointer',
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
+const MenuContentFrame = styled(
+  "div",
+  {
+    backgroundColor: "$surface1",
+    borderRadius: "$4",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "$borderColor",
+    padding: "2px",
+    minWidth: "180px",
+    boxShadow: "var(--shadowMd)",
   },
-} as any)
-const TriggerBtnJsx = TriggerBtn as AnyFC
+  "DropdownMenuContent"
+)
 
-const MenuItemBtn = styledHtml('button', {
-  display: 'flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  width: '100%',
-  textAlign: 'left',
-  focusVisibleStyle: {
-    backgroundColor: '$color2',
-    outlineWidth: 2,
-    outlineOffset: -2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
+const MenuItemBtn = styled(
+  "button",
+  {
+    display: "flex",
+    flexDirection: "row",
+    boxSizing: "border-box",
+    appearance: "none",
+    border: "none",
+    background: "none",
+    padding: "0px",
+    margin: "0px",
+    fontFamily: "inherit",
+    width: "100%",
+    textAlign: "left",
   },
-} as any)
-const MenuItemBtnJsx = MenuItemBtn as AnyFC
+  "DropdownMenuItem"
+)
+
+const MenuItemText = styled(
+  "span",
+  { fontSize: "$16", fontFamily: "$body", color: "$color" },
+  "DropdownMenuItemText"
+)
+
+const ShortcutText = styled(
+  "span",
+  { fontSize: "$12", fontFamily: "$code", color: "$secondaryText12", marginLeft: "14px" },
+  "DropdownMenuShortcut"
+)
+
+const LabelText = styled(
+  "span",
+  { fontSize: "$12", fontWeight: "$600", color: "$secondaryText12", fontFamily: "$body" },
+  "DropdownMenuLabel"
+)
+
+const SeparatorLine = styled(
+  "div",
+  {
+    height: "1px",
+    backgroundColor: "$borderColor",
+    marginTop: "2px",
+    marginBottom: "2px",
+    marginLeft: "-2px",
+    marginRight: "-2px",
+  },
+  "DropdownMenuSeparator"
+)
 
 export interface DropdownMenuRootProps {
   children: React.ReactNode
@@ -97,24 +113,18 @@ function Root({
 
   const close = useCallback(() => {
     setOpen(false)
-    // Return focus to trigger when closing
     triggerRef.current?.focus()
   }, [setOpen])
 
   return (
     <DropdownMenuContext.Provider value={{ open, setOpen, close, triggerRef }}>
-      <ViewJsx position="relative" display="inline-flex">
+      <div style={{ position: 'relative', display: 'inline-flex' }}>
         {children}
-      </ViewJsx>
+      </div>
       {open && modal !== false && (
-        <ViewJsx
-          position="fixed"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          zIndex="$4"
-          onPress={close}
+        <div
+          style={{ position: 'fixed', inset: 0, zIndex: 40 }}
+          onClick={close}
         />
       )}
     </DropdownMenuContext.Provider>
@@ -138,16 +148,26 @@ function Trigger({ children }: { children: React.ReactNode }) {
   )
 
   return (
-    <TriggerBtnJsx
-      ref={triggerRef}
+    <button
+      ref={triggerRef as React.RefObject<HTMLButtonElement>}
       type="button"
       onClick={() => setOpen(!open)}
       aria-haspopup="menu"
       aria-expanded={open}
       onKeyDown={handleKeyDown}
+      style={{
+        display: 'inline-flex',
+        appearance: 'none',
+        border: 'none',
+        background: 'none',
+        padding: 0,
+        margin: 0,
+        fontFamily: 'inherit',
+        cursor: 'pointer',
+      }}
     >
       {children}
-    </TriggerBtnJsx>
+    </button>
   )
 }
 
@@ -156,7 +176,6 @@ function Content({ children }: { children: React.ReactNode }) {
   const contentRef = useRef<HTMLDivElement>(null)
   const [focusedIndex, setFocusedIndex] = useState(-1)
 
-  // Focus first item when menu opens
   useEffect(() => {
     if (open && contentRef.current) {
       setFocusedIndex(0)
@@ -204,7 +223,6 @@ function Content({ children }: { children: React.ReactNode }) {
         e.preventDefault()
         close()
       }
-      // Enter/Space handled on individual items via onPress
     },
     [close, focusedIndex],
   )
@@ -212,25 +230,14 @@ function Content({ children }: { children: React.ReactNode }) {
   if (!open) return null
 
   return (
-    <ViewJsx
+    <MenuContentFrame
       ref={contentRef}
-      position="absolute"
-      top="100%"
-      left={0}
-      marginTop="$0.5"
-      zIndex="$5"
-      backgroundColor="$background"
-      borderWidth={1}
-      borderColor="$borderColor"
-      borderRadius="$4"
-      padding="$0.5"
-      minWidth="$menuMin"
-      style={{ boxShadow: 'var(--shadowMd)' }}
       role="menu"
       onKeyDown={handleKeyDown}
+      style={{ position: 'absolute', top: '100%', left: 0, marginTop: 2, zIndex: 50 }}
     >
       {children}
-    </ViewJsx>
+    </MenuContentFrame>
   )
 }
 
@@ -249,17 +256,8 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
   )
 
   return (
-    <MenuItemBtnJsx
+    <MenuItemBtn
       type="button"
-      alignItems="center"
-      justifyContent="space-between"
-      height="$2.5"
-      paddingLeft="$0.75"
-      paddingRight="$0.75"
-      borderRadius="$2"
-      cursor={disabled ? 'not-allowed' : 'pointer'}
-      opacity={disabled ? 0.5 : 1}
-      hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
       disabled={disabled}
       onClick={
         disabled
@@ -270,24 +268,23 @@ function Item({ children, onSelect, disabled, shortcut }: DropdownMenuItemProps)
             }
       }
       role="menuitem"
-      aria-disabled={disabled}
+      aria-disabled={disabled || undefined}
       tabIndex={-1}
       onKeyDown={handleKeyDown}
+      style={{
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: 28,
+        paddingLeft: 6,
+        paddingRight: 6,
+        borderRadius: 4,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.5 : 1,
+      }}
     >
-      <TextJsx fontSize="$4" fontFamily="$body" color="$color">
-        {children}
-      </TextJsx>
-      {shortcut && (
-        <TextJsx
-          fontSize="$2"
-          fontFamily="$mono"
-          color="$colorSubtitle"
-          marginLeft="$3.5"
-        >
-          {shortcut}
-        </TextJsx>
-      )}
-    </MenuItemBtnJsx>
+      <MenuItemText>{children}</MenuItemText>
+      {shortcut && <ShortcutText>{shortcut}</ShortcutText>}
+    </MenuItemBtn>
   )
 }
 
@@ -311,16 +308,8 @@ function CheckboxItem({
   )
 
   return (
-    <MenuItemBtnJsx
+    <MenuItemBtn
       type="button"
-      alignItems="center"
-      height="$2.5"
-      paddingLeft="$0.75"
-      paddingRight="$0.75"
-      borderRadius="$2"
-      cursor={disabled ? 'not-allowed' : 'pointer'}
-      opacity={disabled ? 0.5 : 1}
-      hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
       disabled={disabled}
       onClick={
         disabled
@@ -334,46 +323,35 @@ function CheckboxItem({
       aria-checked={checked}
       tabIndex={-1}
       onKeyDown={handleKeyDown}
+      style={{
+        alignItems: 'center',
+        height: 28,
+        paddingLeft: 6,
+        paddingRight: 6,
+        borderRadius: 4,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.5 : 1,
+      }}
     >
-      <ViewJsx width="$1" alignItems="center">
+      <span style={{ width: 16, display: 'flex', alignItems: 'center' }}>
         {checked && (
-          <TextJsx fontSize="$2" color="$color">
-            {'\u2713'}
-          </TextJsx>
+          <MenuItemText>{'\u2713'}</MenuItemText>
         )}
-      </ViewJsx>
-      <TextJsx fontSize="$4" fontFamily="$body" color="$color">
-        {children}
-      </TextJsx>
-    </MenuItemBtnJsx>
+      </span>
+      <MenuItemText>{children}</MenuItemText>
+    </MenuItemBtn>
   )
 }
 
 function Separator() {
-  return (
-    <ViewJsx
-      height={1}
-      backgroundColor="$borderColor"
-      marginTop="$0.5"
-      marginBottom="$0.5"
-      marginLeft="$-0.5"
-      marginRight="$-0.5"
-    />
-  )
+  return <SeparatorLine />
 }
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <ViewJsx
-      paddingLeft="$0.75"
-      paddingRight="$0.75"
-      paddingTop="$0.75"
-      paddingBottom="$0.25"
-    >
-      <TextJsx fontSize="$2" fontWeight="$4" color="$colorSubtitle" fontFamily="$body">
-        {children}
-      </TextJsx>
-    </ViewJsx>
+    <div style={{ paddingLeft: 6, paddingRight: 6, paddingTop: 6, paddingBottom: 2 }}>
+      <LabelText>{children}</LabelText>
+    </div>
   )
 }
 
