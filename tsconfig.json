@@ -27,7 +27,13 @@
       "@vlting/ui/primitives": ["./packages/primitives"],
       "@vlting/ui/components": ["./packages/components"],
       "@vlting/ui/hooks": ["./packages/hooks"],
-      "@vlting/ui/utils": ["./packages/utils"]
+      "@vlting/ui/utils": ["./packages/utils"],
+      "@vlting/stl": ["./packages/stl/src"],
+      "@vlting/stl/*": ["./packages/stl/src/*"],
+      "@vlting/stl-react": ["./packages/stl-react/src"],
+      "@vlting/stl-react/*": ["./packages/stl-react/src/*"],
+      "@vlting/stl-native": ["./packages/stl-native/src"],
+      "@vlting/stl-native/*": ["./packages/stl-native/src/*"]
     },
     "types": ["node", "react", "jest"]
   },
