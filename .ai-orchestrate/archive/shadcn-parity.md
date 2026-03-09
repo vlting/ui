@@ -1,6 +1,6 @@
 ---
 slug: shadcn-parity
-status: in-progress
+status: done
 created: 2026-03-01
 ---
 # shadcn Parity, Docs Site & AI-Native Design System
@@ -161,10 +161,11 @@ Transform `@vlting/ui` from a component library into a complete, AI-native desig
 **Dependencies:** Epic 7
 **Epic slug:** mcp-server
 **Epic branch:** epic/mcp-server
-**Epic PR:** #TBD
-**GitHub Sub-Issue:** #TBD
+**Epic PR:** #101
+**GitHub Sub-Issue:** #100
 **Tech spec:** .ai-orchestrate/docs/mcp-server/tech-spec.md
-**Status:** in-progress
+**Status:** complete
+**Review notes:** All 3 stages delivered (PRs #102-#104). Epic PR #101 merged. 7 MCP tools: list_components, get_component, suggest_component, generate_code, validate_code, get_migration_mapping, search_icons.
 
 ### Stage 1: Foundation + Read Tools
 **Branch prefix:** feat
