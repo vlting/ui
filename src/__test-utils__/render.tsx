@@ -1,13 +1,12 @@
 import { type RenderOptions, render as rtlRender } from '@testing-library/react'
 import type { ReactElement } from 'react'
-import { TamaguiProvider } from 'tamagui'
-import config from '../../config/tamagui.config'
+import { Provider } from '../provider/Provider'
 
 function AllProviders({ children }: { children: React.ReactNode }) {
   return (
-    <TamaguiProvider config={config} defaultTheme="light">
+    <Provider defaultColorMode="light">
       {children}
-    </TamaguiProvider>
+    </Provider>
   )
 }
 
