@@ -522,3 +522,35 @@ export interface InitialProps {
   isMobile?: boolean
   locale?: string
 }
+
+// vlt-ui palette bridging types ////////////////////////////////////////////////////
+
+/** A 12-step accent color palette with light and dark variants */
+export interface AccentPalette {
+  light: string[]
+  dark: string[]
+}
+
+/** Maps semantic token names to palette step indices (0-11) */
+export interface SemanticColorMap {
+  background: number
+  backgroundHover: number
+  backgroundPress: number
+  color: number
+  colorHover: number
+  colorPress: number
+  borderColor: number
+  borderColorHover: number
+  borderColorPress: number
+  shadowColor?: number
+}
+
+/** Surface level theme template with shifted palette indices */
+export interface SurfaceTheme {
+  background: number
+  backgroundHover: number
+  backgroundPress: number
+  borderColor: number
+  borderColorHover: number
+  borderColorPress: number
+}
