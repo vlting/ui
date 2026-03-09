@@ -22,13 +22,13 @@ export default function ThemingPage() {
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>How It Works</h2>
         <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          The brand system uses a pipeline: you define a <code>BrandDefinition</code> object, pass it
-          through <code>createBrandConfig()</code> to generate a Tamagui config, then wrap your app in
-          a <code>Provider</code>. Every component automatically picks up your brand&apos;s colors,
+          The brand system uses plain data objects: you define a <code>Brand</code> object,
+          call <code>injectBrandCSS()</code> to set CSS variables, then wrap your app in
+          <code>StlProvider</code>. Every component automatically picks up your brand&apos;s colors,
           spacing, fonts, and more.
         </p>
         <CodeBlock
-          code={`BrandDefinition → createBrandConfig() → createTamagui() → Provider`}
+          code={`Brand → injectBrandCSS() → StlProvider`}
           language="text"
         />
       </section>
@@ -37,16 +37,17 @@ export default function ThemingPage() {
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Quick Start</h2>
         <CodeBlock
-          code={`import { Provider, createBrandConfig, defaultBrand } from '@vlting/ui'
-import { createTamagui } from 'tamagui'
+          code={`import { StlProvider } from '@vlting/stl-react'
+import { defaultBrand, injectBrandCSS } from '@vlting/ui'
 
-const config = createTamagui(createBrandConfig(defaultBrand))
+// Inject brand CSS variables
+injectBrandCSS(defaultBrand)
 
 export function App({ children }) {
   return (
-    <Provider config={config} defaultTheme="light">
+    <StlProvider defaultColorMode="light">
       {children}
-    </Provider>
+    </StlProvider>
   )
 }`}
           language="tsx"
@@ -119,9 +120,10 @@ export function App({ children }) {
         </div>
         <CodeBlock
           code={`import { defaultBrand, shadcnBrand, funBrand, poshBrand } from '@vlting/ui'
+import { injectBrandCSS } from '@vlting/ui'
 
-// Switch brands by passing a different definition
-const config = createTamagui(createBrandConfig(shadcnBrand))`}
+// Switch brands by injecting different CSS variables
+injectBrandCSS(shadcnBrand)`}
           language="tsx"
         />
       </section>
@@ -130,12 +132,12 @@ const config = createTamagui(createBrandConfig(shadcnBrand))`}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Brand Definition</h2>
         <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          A brand is a plain object conforming to the <code>BrandDefinition</code> interface. Every
+          A brand is a plain data object conforming to the <code>Brand</code> interface. Every
           field except <code>name</code> and <code>palettes</code> is optional — sensible defaults
           are applied for anything you omit.
         </p>
         <CodeBlock
-          code={`interface BrandDefinition {
+          code={`interface Brand {
   name: string
   palettes: { light: string[]; dark: string[] }       // 12-step color scales
   accentPalettes?: Record<string, {                    // Named accent palettes
@@ -152,11 +154,11 @@ const config = createTamagui(createBrandConfig(shadcnBrand))`}
   outline?: { width?: number; offset?: number }
   shadows?: { light?: ShadowScale; dark?: ShadowScale }
   overlay?: { light?: string; dark?: string }
-  fonts?: FontOverrides                                // Low-level Tamagui font overrides
+  fonts?: FontOverrides                                // Low-level font overrides
   fontConfig?: BrandFontConfig                         // High-level font configuration
   typography?: TypographyConfig                        // Text transform, style overrides
   animations?: AnimationConfig                         // Duration and easing settings
-  media?: CreateTamaguiProps['media']                  // Custom breakpoints
+  media?: Record<string, { maxWidth?: number; minWidth?: number }>  // Custom breakpoints
 }`}
           language="tsx"
         />
@@ -209,7 +211,7 @@ const config = createTamagui(createBrandConfig(shadcnBrand))`}
           destructive (red), success (green), or brand accent (blue).
         </p>
         <CodeBlock
-          code={`const myBrand: BrandDefinition = {
+          code={`const myBrand: Brand = {
   name: 'my-brand',
   palettes: {
     light: [
@@ -241,8 +243,8 @@ const config = createTamagui(createBrandConfig(shadcnBrand))`}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Token Reference</h2>
         <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          Tokens are the atomic design values used across all components. Use them via Tamagui style
-          props with the <code>$</code> prefix.
+          Tokens are the atomic design values used across all components. Use them via the
+          <code>$</code> prefix in styled() CSS or the css prop.
         </p>
 
         <h3 style={{ fontSize: 18, fontWeight: 600, marginTop: 8 }}>Size Tokens</h3>
@@ -305,7 +307,7 @@ const config = createTamagui(createBrandConfig(shadcnBrand))`}
           levels (h1, h3, h5) use the heavy weight and even levels (h2, h4, h6) use the light weight.
         </p>
         <CodeBlock
-          code={`const myBrand: BrandDefinition = {
+          code={`const myBrand: Brand = {
   // ...palettes
   fontConfig: {
     heading: {
@@ -355,7 +357,7 @@ const config = createTamagui(createBrandConfig(shadcnBrand))`}
           standard durations.
         </p>
         <CodeBlock
-          code={`const myBrand: BrandDefinition = {
+          code={`const myBrand: Brand = {
   // ...other config
   animations: {
     driver: 'css',  // 'css' (web) or 'reanimated' (native)
@@ -441,10 +443,9 @@ const config = createTamagui(createBrandConfig(shadcnBrand))`}
           Start from an existing brand and override what you need, or build from scratch.
         </p>
         <CodeBlock
-          code={`import { createBrandConfig, defaultBrand, type BrandDefinition } from '@vlting/ui'
-import { createTamagui } from 'tamagui'
+          code={`import { injectBrandCSS, defaultBrand, type Brand } from '@vlting/ui'
 
-const myBrand: BrandDefinition = {
+const myBrand: Brand = {
   ...defaultBrand,
   name: 'my-company',
   palettes: {
@@ -473,7 +474,7 @@ const myBrand: BrandDefinition = {
   },
 }
 
-const config = createTamagui(createBrandConfig(myBrand))`}
+injectBrandCSS(myBrand)`}
           language="tsx"
         />
       </section>
@@ -487,18 +488,18 @@ const config = createTamagui(createBrandConfig(myBrand))`}
           use <code>next-themes</code> to handle system preference detection and persistence.
         </p>
         <CodeBlock
-          code={`import { Provider, createBrandConfig, defaultBrand } from '@vlting/ui'
-import { createTamagui } from 'tamagui'
+          code={`import { StlProvider } from '@vlting/stl-react'
+import { injectBrandCSS, defaultBrand } from '@vlting/ui'
 import { ThemeProvider, useTheme } from 'next-themes'
 
-const config = createTamagui(createBrandConfig(defaultBrand))
+injectBrandCSS(defaultBrand)
 
 function Inner({ children }) {
   const { resolvedTheme } = useTheme()
   return (
-    <Provider config={config} defaultTheme={resolvedTheme === 'dark' ? 'dark' : 'light'}>
+    <StlProvider defaultColorMode={resolvedTheme === 'dark' ? 'dark' : 'light'}>
       {children}
-    </Provider>
+    </StlProvider>
   )
 }
 
