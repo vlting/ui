@@ -1,6 +1,7 @@
 // CONSTANTS //////////////////////////////////////////////////////////////////////////////////////
 
 export const DEFAULT_COLOR_MODE = "light" as const
+export const COLOR_MODE_ATTR = "data-color-mode" as const
 
 // Neutron Palette
 export const DEFAULT_HUE = 174
