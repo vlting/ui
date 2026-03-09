@@ -1,23 +1,45 @@
-import { View, styled } from 'tamagui'
-import type { GetProps } from 'tamagui'
+import { styled } from '../stl-react/src/config'
+import type { ComponentProps } from 'react'
 
-export const Skeleton = styled(View, {
-  backgroundColor: '$color4',
-  borderRadius: '$2',
-  overflow: 'hidden',
-  animation: 'lazy',
-  opacity: 0.5,
-  enterStyle: { opacity: 0.3 },
-  // web-only ARIA attribute
-  'aria-hidden': true,
+const SKELETON_KEYFRAMES = `@keyframes vlting-skeleton-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.3; } }`
+let keyframesInjected = false
 
-  variants: {
+const SkeletonFrame = styled(
+  "div",
+  {
+    backgroundColor: "$surface3",
+    borderRadius: "$2",
+    overflow: "hidden",
+  },
+  {
     circle: {
-      true: {
-        borderRadius: '$full',
-      },
+      true: { borderRadius: "$full" },
     },
-  } as const,
-} as any)
+  },
+  "Skeleton"
+)
 
-export type SkeletonProps = GetProps<typeof Skeleton>
+export interface SkeletonProps extends ComponentProps<typeof SkeletonFrame> {
+  circle?: boolean
+}
+
+export function Skeleton({ circle, style, ...props }: SkeletonProps) {
+  if (typeof document !== 'undefined' && !keyframesInjected) {
+    const sheet = document.createElement('style')
+    sheet.textContent = SKELETON_KEYFRAMES
+    document.head.appendChild(sheet)
+    keyframesInjected = true
+  }
+
+  return (
+    <SkeletonFrame
+      circle={circle}
+      aria-hidden
+      style={{
+        animation: 'vlting-skeleton-pulse 2s ease-in-out infinite',
+        ...style,
+      }}
+      {...props}
+    />
+  )
+}
