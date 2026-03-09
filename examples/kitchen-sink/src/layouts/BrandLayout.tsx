@@ -303,7 +303,12 @@ function NavGroup({
 export function BrandLayout() {
   const { brand = 'default' } = useParams<{ brand: string }>()
   const location = useLocation()
-  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem('stl-color-mode') as 'light' | 'dark') || 'light'
+    }
+    return 'light'
+  })
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const brandKey = (brand in brands ? brand : 'default') as BrandKey
@@ -316,10 +321,14 @@ export function BrandLayout() {
       const root = document.querySelector('.brand-layout') as HTMLElement | null
       if (root) {
         const bg = getComputedStyle(root).backgroundColor
-        document.documentElement.style.backgroundColor = bg
         document.body.style.backgroundColor = bg
       }
     })
+  }, [theme])
+
+  // Persist color mode preference
+  useEffect(() => {
+    localStorage.setItem('stl-color-mode', theme)
   }, [theme])
 
   // Scroll to anchor when hash changes (React Router doesn't do this natively)
