@@ -1,30 +1,36 @@
-import { Popover as TamaguiPopover } from '@tamagui/popover'
 import type React from 'react'
-import type { ComponentType } from 'react'
-import { YStack, styled } from 'tamagui'
+import { createContext, useCallback, useContext, useEffect, useRef } from 'react'
+import { styled } from '../../stl-react/src/config'
+import { useDisclosure } from '../../stl-headless/src'
 
-const StyledContent = styled(YStack, {
-  backgroundColor: '$background',
-  borderRadius: '$4',
-  borderWidth: 1,
-  borderColor: '$borderColor',
-  padding: '$3',
-  elevation: '$4',
-  // @ts-expect-error Tamagui v2 RC
-  animation: 'medium',
-  // @ts-expect-error Tamagui v2 RC
-  enterStyle: { opacity: 0, scale: 0.95, y: '$-0.5' },
-  // @ts-expect-error Tamagui v2 RC
-  exitStyle: { opacity: 0, scale: 0.95, y: '$-0.5' },
-})
+const ContentFrame = styled("div", {
+  backgroundColor: "$background",
+  borderRadius: "$4",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "$borderColor",
+  padding: "12px",
+  zIndex: "1000",
+  position: "absolute",
+}, "PopoverContent")
 
-// Tamagui v2 RC GetProps bug — cast for JSX usage
-const PopoverRoot = TamaguiPopover as ComponentType<Record<string, unknown>>
-const PopoverTrigger = TamaguiPopover.Trigger as ComponentType<Record<string, unknown>>
-const PopoverAnchor = TamaguiPopover.Anchor as ComponentType<Record<string, unknown>>
-const PopoverArrow = TamaguiPopover.Arrow as ComponentType<Record<string, unknown>>
-const PopoverClose = TamaguiPopover.Close as ComponentType<Record<string, unknown>>
-const ContentFrame = StyledContent as ComponentType<Record<string, unknown>>
+interface PopoverContextValue {
+  isOpen: boolean
+  onToggle: () => void
+  onClose: () => void
+  triggerRef: React.RefObject<HTMLElement>
+  contentRef: React.RefObject<HTMLDivElement>
+  placement: 'top' | 'bottom' | 'left' | 'right'
+  offset: number
+}
+
+const PopoverContext = createContext<PopoverContextValue | null>(null)
+
+function usePopoverContext() {
+  const ctx = useContext(PopoverContext)
+  if (!ctx) throw new Error('Popover compound components must be used within Popover.Root')
+  return ctx
+}
 
 export interface PopoverRootProps {
   children: React.ReactNode
@@ -33,7 +39,6 @@ export interface PopoverRootProps {
   onOpenChange?: (open: boolean) => void
   placement?: 'top' | 'bottom' | 'left' | 'right'
   offset?: number
-  hoverable?: boolean
 }
 
 function Root({
@@ -42,57 +47,111 @@ function Root({
   defaultOpen,
   onOpenChange,
   placement = 'bottom',
-  offset,
-  hoverable,
+  offset = 4,
 }: PopoverRootProps) {
+  const disclosure = useDisclosure({ open, defaultOpen, onOpenChange })
+  const triggerRef = useRef<HTMLElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  // Close on click outside
+  useEffect(() => {
+    if (!disclosure.isOpen) return
+    const handler = (e: MouseEvent) => {
+      const target = e.target as Node
+      if (
+        triggerRef.current?.contains(target) ||
+        contentRef.current?.contains(target)
+      ) return
+      disclosure.onClose()
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [disclosure.isOpen, disclosure.onClose])
+
+  // Close on Escape
+  useEffect(() => {
+    if (!disclosure.isOpen) return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') disclosure.onClose()
+    }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [disclosure.isOpen, disclosure.onClose])
+
   return (
-    <PopoverRoot
-      open={open}
-      defaultOpen={defaultOpen}
-      onOpenChange={onOpenChange}
-      placement={placement}
-      offset={offset ?? 4}
-      hoverable={hoverable}
-    >
-      {children}
-    </PopoverRoot>
+    <PopoverContext.Provider value={{
+      isOpen: disclosure.isOpen,
+      onToggle: disclosure.onToggle,
+      onClose: disclosure.onClose,
+      triggerRef,
+      contentRef,
+      placement,
+      offset,
+    }}>
+      <div style={{ position: 'relative', display: 'inline-flex' }}>
+        {children}
+      </div>
+    </PopoverContext.Provider>
   )
 }
 
 function Trigger({ children }: { children: React.ReactNode }) {
-  return <PopoverTrigger asChild>{children}</PopoverTrigger>
+  const { onToggle, isOpen, triggerRef } = usePopoverContext()
+
+  return (
+    <div
+      ref={triggerRef as React.RefObject<HTMLDivElement>}
+      onClick={onToggle}
+      aria-expanded={isOpen}
+      aria-haspopup="dialog"
+      style={{ display: 'inline-flex', cursor: 'pointer' }}
+    >
+      {children}
+    </div>
+  )
 }
 
 function Anchor({ children }: { children: React.ReactNode }) {
-  return <PopoverAnchor asChild>{children}</PopoverAnchor>
+  return <div style={{ display: 'inline-flex' }}>{children}</div>
 }
 
-interface PopoverContentProps {
-  children: React.ReactNode
+const PLACEMENT_STYLES: Record<string, React.CSSProperties> = {
+  top: { bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: '4px' },
+  bottom: { top: '100%', left: '50%', transform: 'translateX(-50%)', marginTop: '4px' },
+  left: { right: '100%', top: '50%', transform: 'translateY(-50%)', marginRight: '4px' },
+  right: { left: '100%', top: '50%', transform: 'translateY(-50%)', marginLeft: '4px' },
 }
 
-const PopoverContentJsx = TamaguiPopover.Content as ComponentType<Record<string, unknown>>
+function Content({ children }: { children: React.ReactNode }) {
+  const { isOpen, contentRef, placement } = usePopoverContext()
 
-function Content({ children }: PopoverContentProps) {
+  if (!isOpen) return null
+
   return (
-    <PopoverContentJsx>
-      <PopoverArrow
-        borderWidth={1}
-        borderColor="$borderColor"
-        backgroundColor="$background"
-        size="$1"
-      />
-      <ContentFrame>{children}</ContentFrame>
-    </PopoverContentJsx>
+    <ContentFrame
+      ref={contentRef}
+      role="dialog"
+      style={{
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        ...PLACEMENT_STYLES[placement],
+      }}
+    >
+      {children}
+    </ContentFrame>
   )
 }
 
 function Arrow() {
-  return <PopoverArrow borderWidth={1} borderColor="$borderColor" />
+  return null
 }
 
 function Close({ children }: { children?: React.ReactNode }) {
-  return <PopoverClose asChild>{children}</PopoverClose>
+  const { onClose } = usePopoverContext()
+  return (
+    <div onClick={onClose} style={{ cursor: 'pointer', display: 'inline-flex' }}>
+      {children}
+    </div>
+  )
 }
 
 export const Popover = { Root, Trigger, Anchor, Content, Arrow, Close }
