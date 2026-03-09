@@ -3,7 +3,7 @@ import { generateThemeColors } from "../../shared/utils"
 import { Colors } from "../props"
 import { ScaleEntry, ColorPaletteEntry, PrefixedKey } from "../scales"
 import { ThemeOverrides, StyleManager, Conditions, StyleMangerProps } from "../StyleManager"
-import { darkVarMap, CSS, tokenToVarMap } from "../styles.css"
+import { CSS, tokenToVarMap } from "../styles.css"
 import { VariantCSS } from "../styles.models"
 import { addPrefix } from "./general.utils"
 
@@ -24,7 +24,10 @@ export function getColorOverrides(colorMode: ColorMode, semanticColorOverrides: 
   return overrides
 }
 
-/** Get theme tokens that need to override the pre-generated design system */
+/**
+ * Get theme tokens that need to override the pre-generated design system.
+ * Returns only user-provided overrides — dark mode vars are now delivered via build-time CSS.
+ */
 export function getThemeOverrides(
   colorMode: ColorMode = "light",
   userOverrides?: ThemeOverrides,
@@ -38,10 +41,7 @@ export function getThemeOverrides(
           ...(semanticColorOverrides ? getColorOverrides(colorMode, semanticColorOverrides) : {}),
         }
 
-  const style = {
-    ...(colorMode === "dark" ? darkVarMap : {}),
-    ...flattenOverrides(overrides),
-  }
+  const style = flattenOverrides(overrides)
   return { overrides: overrides ?? {}, style }
 }
 
