@@ -1,6 +1,4 @@
 import { render, screen } from '../../src/__test-utils__/render'
-
-// @ts-expect-error Tamagui v2 RC GetProps bug
 import { Divider } from './Divider'
 
 describe('Divider', () => {
