@@ -12,6 +12,7 @@ const StyledTitle = styled(Text, {
   fontFamily: '$heading',
   fontWeight: '$4',
   fontSize: '$6',
+  lineHeight: '$6',
   color: '$color',
 })
 

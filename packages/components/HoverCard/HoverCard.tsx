@@ -59,7 +59,7 @@ function Root({ children, openDelay = 700, closeDelay = 300 }: HoverCardRootProp
 
   return (
     <HoverCardContext.Provider value={{ open, onMouseEnter, onMouseLeave }}>
-      <ViewJsx display="inline-flex">{children}</ViewJsx>
+      <ViewJsx position="relative" display="inline-flex">{children}</ViewJsx>
     </HoverCardContext.Provider>
   )
 }

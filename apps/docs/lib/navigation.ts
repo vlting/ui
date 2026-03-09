@@ -1,0 +1,118 @@
+export interface NavItem {
+  label: string
+  href: string
+}
+
+export interface NavSection {
+  title: string
+  items: NavItem[]
+}
+
+export const navigation: NavSection[] = [
+  {
+    title: 'Getting Started',
+    items: [
+      { label: 'Overview', href: '/docs' },
+      { label: 'Theming', href: '/docs/theming' },
+    ],
+  },
+  {
+    title: 'Components',
+    items: [
+      { label: 'Accordion', href: '/docs/components/accordion' },
+      { label: 'Alert', href: '/docs/components/alert' },
+      { label: 'Alert Dialog', href: '/docs/components/alert-dialog' },
+      { label: 'Aspect Ratio', href: '/docs/components/aspect-ratio' },
+      { label: 'Avatar', href: '/docs/components/avatar' },
+      { label: 'Badge', href: '/docs/components/badge' },
+      { label: 'Breadcrumb', href: '/docs/components/breadcrumb' },
+      { label: 'Button', href: '/docs/components/button' },
+      { label: 'Button Group', href: '/docs/components/button-group' },
+      { label: 'Calendar', href: '/docs/components/calendar' },
+      { label: 'Card', href: '/docs/components/card' },
+      { label: 'Carousel', href: '/docs/components/carousel' },
+      { label: 'Checkbox', href: '/docs/components/checkbox' },
+      { label: 'Collapsible', href: '/docs/components/collapsible' },
+      { label: 'Combobox', href: '/docs/components/combobox' },
+      { label: 'Command', href: '/docs/components/command' },
+      { label: 'Context Menu', href: '/docs/components/context-menu' },
+      { label: 'Data Table', href: '/docs/components/data-table' },
+      { label: 'Date Picker', href: '/docs/components/date-picker' },
+      { label: 'Dialog', href: '/docs/components/dialog' },
+      { label: 'Drawer', href: '/docs/components/drawer' },
+      { label: 'Dropdown Menu', href: '/docs/components/dropdown-menu' },
+      { label: 'Empty', href: '/docs/components/empty' },
+      { label: 'Field', href: '/docs/components/field' },
+      { label: 'Form', href: '/docs/components/form' },
+      { label: 'Hover Card', href: '/docs/components/hover-card' },
+      { label: 'Input', href: '/docs/components/input' },
+      { label: 'Input Group', href: '/docs/components/input-group' },
+      { label: 'Input OTP', href: '/docs/components/input-otp' },
+      { label: 'Item', href: '/docs/components/item' },
+      { label: 'Kbd', href: '/docs/components/kbd' },
+      { label: 'Label', href: '/docs/components/label' },
+      { label: 'Loader', href: '/docs/components/loader' },
+      { label: 'Menubar', href: '/docs/components/menubar' },
+      { label: 'Navigation Menu', href: '/docs/components/navigation-menu' },
+      { label: 'Native Select', href: '/docs/components/native-select' },
+      { label: 'Pagination', href: '/docs/components/pagination' },
+      { label: 'Popover', href: '/docs/components/popover' },
+      { label: 'Progress', href: '/docs/components/progress' },
+      { label: 'Radio Group', href: '/docs/components/radio-group' },
+      { label: 'Resizable', href: '/docs/components/resizable' },
+      { label: 'Scroll Area', href: '/docs/components/scroll-area' },
+      { label: 'Select', href: '/docs/components/select' },
+      { label: 'Separator', href: '/docs/components/separator' },
+      { label: 'Sheet', href: '/docs/components/sheet' },
+      { label: 'Sidebar', href: '/docs/components/sidebar' },
+      { label: 'Skeleton', href: '/docs/components/skeleton' },
+      { label: 'Slider', href: '/docs/components/slider' },
+      { label: 'Spinner', href: '/docs/components/spinner' },
+      { label: 'Switch', href: '/docs/components/switch' },
+      { label: 'Table', href: '/docs/components/table' },
+      { label: 'Tabs', href: '/docs/components/tabs' },
+      { label: 'Textarea', href: '/docs/components/textarea' },
+      { label: 'Toast', href: '/docs/components/toast' },
+      { label: 'Toggle', href: '/docs/components/toggle' },
+      { label: 'Toggle Group', href: '/docs/components/toggle-group' },
+      { label: 'Tooltip', href: '/docs/components/tooltip' },
+    ],
+  },
+  {
+    title: 'Blocks',
+    items: [
+      { label: 'Auth', href: '/docs/blocks/auth' },
+      { label: 'Sidebar', href: '/docs/blocks/sidebar' },
+      { label: 'Dashboard', href: '/docs/blocks/dashboard' },
+      { label: 'Data Table', href: '/docs/blocks/data-table' },
+      { label: 'Settings', href: '/docs/blocks/settings' },
+      { label: 'Pricing', href: '/docs/blocks/pricing' },
+      { label: 'Hero', href: '/docs/blocks/hero' },
+      { label: 'Feed', href: '/docs/blocks/feed' },
+      { label: 'App Shell', href: '/docs/blocks/app-shell' },
+      { label: 'Empty State', href: '/docs/blocks/empty-state' },
+    ],
+  },
+  {
+    title: 'Charts',
+    items: [
+      { label: 'Area Chart', href: '/docs/charts/area' },
+      { label: 'Bar Chart', href: '/docs/charts/bar' },
+      { label: 'Line Chart', href: '/docs/charts/line' },
+      { label: 'Pie Chart', href: '/docs/charts/pie' },
+      { label: 'Radar Chart', href: '/docs/charts/radar' },
+      { label: 'Radial Chart', href: '/docs/charts/radial' },
+    ],
+  },
+  {
+    title: 'Icons',
+    items: [{ label: 'Icon Browser', href: '/docs/icons' }],
+  },
+  {
+    title: 'Guides',
+    items: [
+      { label: 'Theming', href: '/docs/theming' },
+      { label: 'Migration from shadcn', href: '/docs/migration' },
+    ],
+  },
+]
