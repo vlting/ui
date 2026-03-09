@@ -66,7 +66,7 @@ import {
 } from "./props"
 import { getSelector } from "./utils"
 import { CssFromMap, CssFromCustomVars, MergedCssProps, ConditionKey, InlineConditionCss, BASE } from "./styles.models"
-import { CoreColorName, STYLE_UNIT } from "../shared/models/"
+import { COLOR_MODE_ATTR, CoreColorName, STYLE_UNIT } from "../shared/models/"
 import { getTextColor } from "../shared/utils/"
 
 /*************************************************************************************************
@@ -546,6 +546,7 @@ export type CSS = BaseCSS & ConditionalCSS
  * THEME GENERATION
  *************************************************************************************************/
 export const varMap = {} as Record<string, string | number>
+/** @deprecated Dark mode vars are now delivered via build-time CSS. This export will be removed in the next major. */
 export const darkVarMap = {} as Record<string, string | number>
 
 function getTokensFromVars<V extends BaseVars>(vars: V, map = varMap) {
@@ -698,7 +699,12 @@ export const tokenValue = {
   zIndex: getTokenToValuesMap("zIndex", tokenToVarMap.zIndex),
 } as const
 
-export const darkColor = getTokensFromVars(color.darkVars!, darkVarMap)
-export const darkShadow = getTokensFromVars(shadow.darkVars!, darkVarMap)
+getTokensFromVars(color.darkVars!, darkVarMap)
+getTokensFromVars(shadow.darkVars!, darkVarMap)
 
 globalStyle(":root", varMap)
+
+// IMPORTANT: This rule MUST appear after the :root rule above.
+// Both selectors have specificity (0,1,0) — source order is the tiebreaker.
+// Moving this above :root will silently break dark mode.
+globalStyle(`[${COLOR_MODE_ATTR}="dark"]`, darkVarMap)
