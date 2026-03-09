@@ -1,0 +1,65 @@
+{
+  "name": "@vlting/stl",
+  "version": "0.0.1",
+  "type": "module",
+  "author": "Lucas Castro <lucas.castro@gmail.com>",
+  "description": "STL - Style Token Layer: a small, but mighty, styling library for modern app development",
+  "main": "dist/stl.js",
+  "module": "dist/stl.es.js",
+  "jsnext:main": "dist/stl.es.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": false,
+  "directories": {
+    "dist": "dist",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/stl.es.js",
+      "require": "./dist/stl.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./styles": {
+      "import": "./dist/stl.css",
+      "require": "./dist/stl.css"
+    }
+  },
+  "scripts": {
+    "build:js": "vite build",
+    "build:types": "tsc --declaration --declarationDir dist/types",
+    "build": "yarn build:js && yarn build:types",
+    "watch": "vite build --watch",
+    "build:lib": "yarn build",
+    "watch:lib": "yarn watch",
+    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/vlting/ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vlting/ui.git"
+  },
+  "devDependencies": {
+    "@types/node": "20.12.12",
+    "@typescript-eslint/eslint-plugin": "7.9.0",
+    "@typescript-eslint/parser": "7.9.0",
+    "@vanilla-extract/css": "^1.15.1",
+    "@vanilla-extract/vite-plugin": "^4.0.9",
+    "eslint": "9.2.0",
+    "eslint-config-prettier": "9.x",
+    "prettier": "3.x",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vite-plugin-dts": "^3.9.1"
+  }
+}
