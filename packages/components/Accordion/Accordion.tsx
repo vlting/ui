@@ -1,37 +1,62 @@
-import { Accordion as TamaguiAccordion } from '@tamagui/accordion'
 import type React from 'react'
-import type { ComponentType } from 'react'
-import { Text, styled } from 'tamagui'
+import { createContext, useCallback, useContext, useId, useRef, useState } from 'react'
+import { styled } from '../../stl-react/src/config'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const TextJsx = Text as AnyFC
+const ItemFrame = styled("div", {
+  borderBottomWidth: "1px",
+  borderBottomStyle: "solid",
+  borderBottomColor: "$borderColor",
+}, "AccordionItem")
 
-// Cast for JSX usage — Tamagui v2 RC GetFinalProps bug
-const TamaguiAccordionJsx = TamaguiAccordion as unknown as ComponentType<
-  Record<string, unknown>
->
-const TamaguiAccordionItemJsx = TamaguiAccordion.Item as unknown as ComponentType<
-  Record<string, unknown>
->
-const TamaguiAccordionHeaderJsx = TamaguiAccordion.Header as ComponentType<
-  Record<string, unknown>
->
-const TamaguiAccordionTriggerJsx = TamaguiAccordion.Trigger as ComponentType<
-  Record<string, unknown>
->
-const TamaguiAccordionContentJsx = TamaguiAccordion.Content as ComponentType<
-  Record<string, unknown>
->
+const TriggerButton = styled("button", {
+  display: "flex",
+  width: "100%",
+  alignItems: "center",
+  justifyContent: "space-between",
+  padding: "12px 0",
+  cursor: "pointer",
+  backgroundColor: "transparent",
+  border: "none",
+  fontFamily: "$body",
+  fontWeight: "$500",
+  fontSize: "$p",
+  color: "$defaultBody",
+  textAlign: "left",
+  outline: "none",
+}, "AccordionTrigger")
 
-// @ts-expect-error Tamagui v2 RC
-const TriggerText = styled(Text, {
-  fontFamily: '$body',
-  fontWeight: '$3',
-  fontSize: '$4',
-  color: '$color',
-  flex: 1,
+// --- Context ---
+
+interface AccordionContextValue {
+  type: 'single' | 'multiple'
+  collapsible: boolean
+  expandedValues: string[]
+  toggle: (value: string) => void
+}
+
+const AccordionContext = createContext<AccordionContextValue>({
+  type: 'single',
+  collapsible: true,
+  expandedValues: [],
+  toggle: () => {},
 })
+
+interface AccordionItemContextValue {
+  value: string
+  isOpen: boolean
+  contentId: string
+  triggerId: string
+}
+
+const AccordionItemContext = createContext<AccordionItemContextValue>({
+  value: '',
+  isOpen: false,
+  contentId: '',
+  triggerId: '',
+})
+
+// --- Components ---
 
 export interface AccordionRootProps {
   children: React.ReactNode
@@ -46,23 +71,24 @@ function Root({
   defaultValue = [],
   collapsible = true,
 }: AccordionRootProps) {
-  if (type === 'multiple') {
-    return (
-      <TamaguiAccordionJsx type="multiple" defaultValue={defaultValue} width="100%">
-        {children}
-      </TamaguiAccordionJsx>
-    )
-  }
+  const [expandedValues, setExpandedValues] = useState<string[]>(defaultValue)
+
+  const toggle = useCallback((value: string) => {
+    setExpandedValues((prev) => {
+      const isExpanded = prev.includes(value)
+      if (type === 'single') {
+        if (isExpanded && collapsible) return []
+        if (isExpanded) return prev
+        return [value]
+      }
+      return isExpanded ? prev.filter((v) => v !== value) : [...prev, value]
+    })
+  }, [type, collapsible])
 
   return (
-    <TamaguiAccordionJsx
-      type="single"
-      defaultValue={defaultValue[0] || ''}
-      collapsible={collapsible}
-      width="100%"
-    >
-      {children}
-    </TamaguiAccordionJsx>
+    <AccordionContext.Provider value={{ type, collapsible, expandedValues, toggle }}>
+      <div style={{ width: '100%' }}>{children}</div>
+    </AccordionContext.Provider>
   )
 }
 
@@ -72,14 +98,19 @@ export interface AccordionItemProps {
 }
 
 function Item({ children, value }: AccordionItemProps) {
+  const { expandedValues } = useContext(AccordionContext)
+  const id = useId()
+  const isOpen = expandedValues.includes(value)
+
   return (
-    <TamaguiAccordionItemJsx
-      value={value}
-      borderBottomWidth={1}
-      borderBottomColor="$borderColor"
-    >
-      {children}
-    </TamaguiAccordionItemJsx>
+    <AccordionItemContext.Provider value={{
+      value,
+      isOpen,
+      contentId: `${id}-content`,
+      triggerId: `${id}-trigger`,
+    }}>
+      <ItemFrame>{children}</ItemFrame>
+    </AccordionItemContext.Provider>
   )
 }
 
@@ -88,53 +119,29 @@ export interface AccordionTriggerProps {
 }
 
 function Trigger({ children }: AccordionTriggerProps) {
+  const { toggle } = useContext(AccordionContext)
+  const { value, isOpen, contentId, triggerId } = useContext(AccordionItemContext)
   const reducedMotion = useReducedMotion()
 
   return (
-    <TamaguiAccordionHeaderJsx
-      unstyled
-      backgroundColor="transparent"
-      borderWidth={0}
-      padding={0}
-      margin={0}
+    <TriggerButton
+      id={triggerId}
+      onClick={() => toggle(value)}
+      aria-expanded={isOpen}
+      aria-controls={contentId}
     >
-      <TamaguiAccordionTriggerJsx
-        unstyled
-        width="100%"
-        paddingVertical="$3"
-        paddingHorizontal={0}
-        cursor="pointer"
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="space-between"
-        backgroundColor="transparent"
-        borderWidth={0}
-        hoverStyle={{ backgroundColor: '$backgroundHover' }}
-        focusVisibleStyle={{
-          outlineWidth: 2,
-          outlineOffset: 1,
-          outlineColor: '$outlineColor',
-          outlineStyle: 'solid',
+      <span style={{ flex: 1 }}>{children}</span>
+      <span
+        style={{
+          fontSize: '12px',
+          opacity: 0.5,
+          transition: reducedMotion ? 'none' : 'transform 150ms ease-in-out',
+          transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
         }}
       >
-        {({ open }: { open: boolean }) => (
-          <>
-            {/* @ts-expect-error Tamagui v2 RC */}
-            <TriggerText>{children}</TriggerText>
-            <TextJsx
-              color="$colorSubtitle"
-              fontSize="$2"
-              style={{
-                transition: reducedMotion ? 'none' : 'transform 150ms ease-in-out',
-                transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
-              }}
-            >
-              {'\u25BE'}
-            </TextJsx>
-          </>
-        )}
-      </TamaguiAccordionTriggerJsx>
-    </TamaguiAccordionHeaderJsx>
+        ▾
+      </span>
+    </TriggerButton>
   )
 }
 
@@ -143,10 +150,25 @@ export interface AccordionContentProps {
 }
 
 function Content({ children }: AccordionContentProps) {
+  const { isOpen, contentId, triggerId } = useContext(AccordionItemContext)
+  const reducedMotion = useReducedMotion()
+  const contentRef = useRef<HTMLDivElement>(null)
+
   return (
-    <TamaguiAccordionContentJsx unstyled paddingBottom="$3" paddingHorizontal={0}>
+    <div
+      id={contentId}
+      role="region"
+      aria-labelledby={triggerId}
+      ref={contentRef}
+      style={{
+        overflow: 'hidden',
+        maxHeight: isOpen ? '9999px' : '0',
+        transition: reducedMotion ? 'none' : 'max-height 200ms ease-in-out',
+        paddingBottom: isOpen ? '12px' : '0',
+      }}
+    >
       {children}
-    </TamaguiAccordionContentJsx>
+    </div>
   )
 }
 

@@ -1,47 +1,48 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
 import React, { useCallback, useRef, useState } from 'react'
-import { Text, View } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
+const NavTrigger = styled("button", {
+  display: "inline-flex",
+  alignItems: "center",
+  backgroundColor: "transparent",
+  border: "none",
+  cursor: "pointer",
+  fontFamily: "$body",
+  fontWeight: "$500",
+  fontSize: "$p",
+  color: "$defaultBody",
+  padding: "6px 12px",
+  borderRadius: "$2",
+  outline: "none",
+  gap: "4px",
+}, "NavMenuTrigger")
 
-const NavTriggerBtn = styledHtml('button', {
-  display: 'inline-flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  cursor: 'pointer',
-  alignItems: 'center',
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-} as any)
-const NavTriggerBtnJsx = NavTriggerBtn as AnyFC
+const NavLink = styled("a", {
+  display: "flex",
+  flexDirection: "column",
+  textDecoration: "none",
+  color: "inherit",
+  padding: "6px 12px",
+  borderRadius: "$2",
+  outline: "none",
+  fontFamily: "$body",
+  fontSize: "$p",
+}, "NavMenuLink")
 
-const NavLinkAnchor = styledHtml('a', {
-  display: 'flex',
-  flexDirection: 'column',
-  boxSizing: 'border-box',
-  textDecoration: 'none',
-  color: 'inherit',
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: -2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-} as any)
-const NavLinkAnchorJsx = NavLinkAnchor as AnyFC
+const ContentFrame = styled("div", {
+  position: "absolute",
+  top: "100%",
+  left: "0",
+  marginTop: "4px",
+  zIndex: "50",
+  backgroundColor: "$background",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "$borderColor",
+  borderRadius: "$4",
+  padding: "8px",
+  minWidth: "400px",
+}, "NavMenuContent")
 
 export interface NavigationMenuRootProps {
   children: React.ReactNode
@@ -83,25 +84,17 @@ function Root({ children }: NavigationMenuRootProps) {
 
   return (
     <NavMenuContext.Provider value={{ activeItem, setActiveItem }}>
-      <ViewJsx
-        position="relative"
-        flexDirection="row"
-        alignItems="center"
-        role="navigation"
+      <nav
         aria-label="Main"
         onKeyDown={handleKeyDown}
+        style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
       >
         {children}
-      </ViewJsx>
+      </nav>
       {activeItem !== null && (
-        <ViewJsx
-          position="fixed"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          zIndex={49}
-          onPress={() => setActiveItem(null)}
+        <div
+          onClick={() => setActiveItem(null)}
+          style={{ position: 'fixed', inset: 0, zIndex: 49 }}
         />
       )}
     </NavMenuContext.Provider>
@@ -123,33 +116,32 @@ function List({ children }: { children: React.ReactNode }) {
     const currentIndex = triggers.indexOf(e.target as HTMLElement)
     if (currentIndex === -1) return
 
+    let nextIdx: number | undefined
     if (e.key === 'ArrowRight') {
-      e.preventDefault()
-      const next = currentIndex + 1 >= triggers.length ? 0 : currentIndex + 1
-      triggers[next]?.focus()
+      nextIdx = currentIndex + 1 >= triggers.length ? 0 : currentIndex + 1
     } else if (e.key === 'ArrowLeft') {
-      e.preventDefault()
-      const prev = currentIndex - 1 < 0 ? triggers.length - 1 : currentIndex - 1
-      triggers[prev]?.focus()
+      nextIdx = currentIndex - 1 < 0 ? triggers.length - 1 : currentIndex - 1
     } else if (e.key === 'Home') {
-      e.preventDefault()
-      triggers[0]?.focus()
+      nextIdx = 0
     } else if (e.key === 'End') {
+      nextIdx = triggers.length - 1
+    }
+
+    if (nextIdx !== undefined) {
       e.preventDefault()
-      triggers[triggers.length - 1]?.focus()
+      triggers[nextIdx]?.focus()
     }
   }, [])
 
   return (
-    <ViewJsx
+    <div
       ref={listRef}
-      flexDirection="row"
-      alignItems="center"
-      gap="$0.25"
+      role="menubar"
       onKeyDown={handleKeyDown}
+      style={{ display: 'flex', alignItems: 'center', gap: '2px' }}
     >
       {children}
-    </ViewJsx>
+    </div>
   )
 }
 
@@ -157,9 +149,9 @@ function NavItem({ children, value }: NavigationMenuItemProps) {
   const [id] = useState(() => value ?? `nav-item-${++navItemId}`)
   return (
     <NavItemContext.Provider value={{ value: id }}>
-      <ViewJsx position="relative" display="inline-flex">
+      <div style={{ position: 'relative', display: 'inline-flex' }}>
         {children}
-      </ViewJsx>
+      </div>
     </NavItemContext.Provider>
   )
 }
@@ -186,25 +178,16 @@ function Trigger({ children }: { children: React.ReactNode }) {
   )
 
   return (
-    <NavTriggerBtnJsx
+    <NavTrigger
       type="button"
-      height="$3"
-      paddingLeft="$1.5"
-      paddingRight="$1.5"
-      borderRadius="$3"
-      backgroundColor={isOpen ? '$color2' : 'transparent'}
-      hoverStyle={{ backgroundColor: '$color2' }}
       onClick={() => setActiveItem(isOpen ? null : value)}
       aria-expanded={isOpen}
       onKeyDown={handleKeyDown}
+      style={{ backgroundColor: isOpen ? 'var(--surface2, #f3f4f6)' : 'transparent' }}
     >
-      <TextJsx fontSize="$4" fontFamily="$body" fontWeight="$3" color="$color">
-        {children}
-      </TextJsx>
-      <TextJsx fontSize={10} color="$colorSubtitle" marginLeft="$0.5">
-        {isOpen ? '\u25B2' : '\u25BC'}
-      </TextJsx>
-    </NavTriggerBtnJsx>
+      {children}
+      <span style={{ fontSize: '10px', opacity: 0.5 }}>{isOpen ? '▲' : '▼'}</span>
+    </NavTrigger>
   )
 }
 
@@ -222,24 +205,25 @@ function Content({ children }: { children: React.ReactNode }) {
       if (links.length === 0) return
 
       const currentIndex = links.indexOf(e.target as HTMLElement)
+      let nextIdx: number | undefined
 
       if (e.key === 'ArrowDown') {
-        e.preventDefault()
-        const next = currentIndex + 1 >= links.length ? 0 : currentIndex + 1
-        links[next]?.focus()
+        nextIdx = currentIndex + 1 >= links.length ? 0 : currentIndex + 1
       } else if (e.key === 'ArrowUp') {
-        e.preventDefault()
-        const prev = currentIndex - 1 < 0 ? links.length - 1 : currentIndex - 1
-        links[prev]?.focus()
+        nextIdx = currentIndex - 1 < 0 ? links.length - 1 : currentIndex - 1
       } else if (e.key === 'Home') {
-        e.preventDefault()
-        links[0]?.focus()
+        nextIdx = 0
       } else if (e.key === 'End') {
-        e.preventDefault()
-        links[links.length - 1]?.focus()
+        nextIdx = links.length - 1
       } else if (e.key === 'Escape' || e.key === 'Tab') {
         e.preventDefault()
         setActiveItem(null)
+        return
+      }
+
+      if (nextIdx !== undefined) {
+        e.preventDefault()
+        links[nextIdx]?.focus()
       }
     },
     [setActiveItem],
@@ -248,49 +232,21 @@ function Content({ children }: { children: React.ReactNode }) {
   if (activeItem !== value) return null
 
   return (
-    <ViewJsx
+    <ContentFrame
       ref={contentRef}
-      position="absolute"
-      top="100%"
-      left={0}
-      marginTop="$0.5"
-      zIndex={50}
-      backgroundColor="$background"
-      borderWidth={1}
-      borderColor="$borderColor"
-      borderRadius="$5"
-      padding="$2"
-      minWidth={400}
-      style={{ boxShadow: 'var(--shadowMd)' }}
       onKeyDown={handleKeyDown}
+      style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
     >
       {children}
-    </ViewJsx>
+    </ContentFrame>
   )
 }
 
 function Link({ children, href, active, onSelect }: NavigationMenuLinkProps) {
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault()
-        onSelect?.()
-      }
-    },
-    [onSelect],
-  )
-
   return (
-    <NavLinkAnchorJsx
+    <NavLink
       href={href}
-      paddingLeft="$1.5"
-      paddingRight="$1.5"
-      paddingTop="$0.75"
-      paddingBottom="$0.75"
-      borderRadius="$3"
-      cursor="pointer"
-      backgroundColor={active ? '$color2' : 'transparent'}
-      hoverStyle={{ backgroundColor: '$color2' }}
+      tabIndex={-1}
       onClick={
         onSelect
           ? (e: React.MouseEvent) => {
@@ -299,37 +255,32 @@ function Link({ children, href, active, onSelect }: NavigationMenuLinkProps) {
             }
           : undefined
       }
-      tabIndex={-1}
-      onKeyDown={handleKeyDown}
+      style={{
+        backgroundColor: active ? 'var(--surface2, #f3f4f6)' : 'transparent',
+        fontWeight: active ? 600 : 400,
+      }}
     >
-      <TextJsx
-        fontSize="$4"
-        fontFamily="$body"
-        color="$color"
-        fontWeight={active ? '$3' : '$2'}
-      >
-        {children}
-      </TextJsx>
-    </NavLinkAnchorJsx>
+      {children}
+    </NavLink>
   )
 }
 
 function Indicator() {
   return (
-    <ViewJsx
-      height="$0.25"
-      backgroundColor="$color10"
-      borderRadius={9999}
-      position="absolute"
-      bottom={0}
-      left={0}
-      right={0}
-    />
+    <div style={{
+      height: '2px',
+      backgroundColor: 'var(--color10, #0066ff)',
+      borderRadius: '9999px',
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+    }} />
   )
 }
 
 function Viewport({ children }: { children?: React.ReactNode }) {
-  return <ViewJsx>{children}</ViewJsx>
+  return <div>{children}</div>
 }
 
 export const NavigationMenu = {
