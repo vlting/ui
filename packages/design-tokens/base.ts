@@ -1,6 +1,3 @@
-import { blue, gray, green, orange, pink, purple, red, yellow } from '@tamagui/colors'
-import { createTokens } from '@tamagui/core'
-
 export const size = {
   0: 0,
   0.25: 2,
@@ -118,21 +115,4 @@ export const color = {
   white: '#ffffff',
   black: '#000000',
   transparent: 'transparent',
-  ...blue,
-  ...gray,
-  ...green,
-  ...orange,
-  ...pink,
-  ...purple,
-  ...red,
-  ...yellow,
 } as const
-
-export const tokens = createTokens({
-  size,
-  space,
-  radius,
-  color,
-  zIndex,
-  borderWidth,
-})

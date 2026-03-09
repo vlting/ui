@@ -1,5 +1,3 @@
-import { createThemeBuilder } from '@tamagui/theme-builder'
-
 // ---------------------------------------------------------------------------
 // Palettes
 // ---------------------------------------------------------------------------
@@ -267,15 +265,14 @@ export type ShadowScale = {
   '2xl'?: ShadowToken
 }
 
-const SHADOW_VAR_NAMES: Record<keyof ShadowScale, string> = {
-  sm: 'shadowSm',
-  md: 'shadowMd',
-  lg: 'shadowLg',
-  xl: 'shadowXl',
-  '2xl': 'shadow2xl',
-}
-
 export function shadowScaleToThemeValues(scale: ShadowScale): Record<string, string> {
+  const SHADOW_VAR_NAMES: Record<keyof ShadowScale, string> = {
+    sm: 'shadowSm',
+    md: 'shadowMd',
+    lg: 'shadowLg',
+    xl: 'shadowXl',
+    '2xl': 'shadow2xl',
+  }
   const values: Record<string, string> = {}
   for (const [level, varName] of Object.entries(SHADOW_VAR_NAMES) as [
     keyof ShadowScale,
@@ -366,10 +363,12 @@ export const darkShadows: ShadowScale = {
 }
 
 // ---------------------------------------------------------------------------
-// Theme Builder
+// Surface Templates (design abstractions — framework-agnostic)
 // ---------------------------------------------------------------------------
+// These map semantic roles to 12-step palette indices.
+// index 0 = lightest in light mode, 11 = darkest.
 
-const templates = {
+export const surfaceTemplates = {
   base: {
     background: 0,
     backgroundHover: 1,
@@ -445,124 +444,22 @@ const templates = {
     borderColorPress: 9,
     borderColorFocus: 7,
   },
-}
+} as const
 
-export function buildThemes(
-  overridePalettes?: Record<string, string[]>,
-  overrideShadows?: { light?: ShadowScale; dark?: ShadowScale },
-  outlineValues?: { width: number; offset: number },
-  overlayValues?: { light?: string; dark?: string },
-) {
-  const mergedLightShadows = shadowScaleToThemeValues(
-    overrideShadows?.light ?? lightShadows,
-  )
-  const mergedDarkShadows = shadowScaleToThemeValues(overrideShadows?.dark ?? darkShadows)
-
-  const outlineThemeValues: Record<string, string> = {
-    outlineWidth: String(outlineValues?.width ?? 2),
-    outlineOffset: String(outlineValues?.offset ?? 1),
+/**
+ * Resolve a surface template against a palette to produce actual CSS values.
+ *
+ * @param palette - A 12-step color palette (array of hex strings)
+ * @param template - A surface template (maps roles → palette indices)
+ * @returns Record of CSS variable name → resolved color value
+ */
+export function resolveTemplate(
+  palette: string[],
+  template: Record<string, number>,
+): Record<string, string> {
+  const resolved: Record<string, string> = {}
+  for (const [role, index] of Object.entries(template)) {
+    resolved[`--vlt-${role}`] = palette[index]
   }
-
-  const overlayThemeValues = {
-    light: { overlayBackground: overlayValues?.light ?? 'rgba(0,0,0,0.5)' },
-    dark: { overlayBackground: overlayValues?.dark ?? 'rgba(0,0,0,0.6)' },
-  }
-
-  const colorChildThemes: Record<string, unknown> = {
-    blue: [
-      { parent: 'light', palette: 'light_blue', template: 'base' },
-      { parent: 'dark', palette: 'dark_blue', template: 'base' },
-    ],
-    red: [
-      { parent: 'light', palette: 'light_red', template: 'base' },
-      { parent: 'dark', palette: 'dark_red', template: 'base' },
-    ],
-    green: [
-      { parent: 'light', palette: 'light_green', template: 'base' },
-      { parent: 'dark', palette: 'dark_green', template: 'base' },
-    ],
-    orange: [
-      { parent: 'light', palette: 'light_orange', template: 'base' },
-      { parent: 'dark', palette: 'dark_orange', template: 'base' },
-    ],
-    purple: [
-      { parent: 'light', palette: 'light_purple', template: 'base' },
-      { parent: 'dark', palette: 'dark_purple', template: 'base' },
-    ],
-    pink: [
-      { parent: 'light', palette: 'light_pink', template: 'base' },
-      { parent: 'dark', palette: 'dark_pink', template: 'base' },
-    ],
-    yellow: [
-      { parent: 'light', palette: 'light_yellow', template: 'base' },
-      { parent: 'dark', palette: 'dark_yellow', template: 'base' },
-    ],
-  }
-
-  const themeBuilder = createThemeBuilder()
-    .addPalettes({
-      light: overridePalettes?.light ?? lightPalette,
-      dark: overridePalettes?.dark ?? darkPalette,
-      light_blue: overridePalettes?.light_blue ?? accentPalettes.blue.light,
-      dark_blue: overridePalettes?.dark_blue ?? accentPalettes.blue.dark,
-      light_red: overridePalettes?.light_red ?? accentPalettes.red.light,
-      dark_red: overridePalettes?.dark_red ?? accentPalettes.red.dark,
-      light_green: overridePalettes?.light_green ?? accentPalettes.green.light,
-      dark_green: overridePalettes?.dark_green ?? accentPalettes.green.dark,
-      light_orange: overridePalettes?.light_orange ?? accentPalettes.orange.light,
-      dark_orange: overridePalettes?.dark_orange ?? accentPalettes.orange.dark,
-      light_purple: overridePalettes?.light_purple ?? accentPalettes.purple.light,
-      dark_purple: overridePalettes?.dark_purple ?? accentPalettes.purple.dark,
-      light_pink: overridePalettes?.light_pink ?? accentPalettes.pink.light,
-      dark_pink: overridePalettes?.dark_pink ?? accentPalettes.pink.dark,
-      light_yellow: overridePalettes?.light_yellow ?? accentPalettes.yellow.light,
-      dark_yellow: overridePalettes?.dark_yellow ?? accentPalettes.yellow.dark,
-    })
-    .addTemplates(templates)
-    .addThemes({
-      light: {
-        template: 'base',
-        palette: 'light',
-        nonInheritedValues: {
-          ...mergedLightShadows,
-          shadowColor: 'rgba(0,0,0,0.15)',
-          ...outlineThemeValues,
-          ...overlayThemeValues.light,
-        },
-      },
-      dark: {
-        template: 'base',
-        palette: 'dark',
-        nonInheritedValues: {
-          ...mergedDarkShadows,
-          shadowColor: 'rgba(0,0,0,0.40)',
-          ...outlineThemeValues,
-          ...overlayThemeValues.dark,
-        },
-      },
-    })
-    // @ts-expect-error v2 RC: addChildThemes palette type inference limitation
-    .addChildThemes(colorChildThemes)
-    .addChildThemes(
-      {
-        alt1: { template: 'surface1' },
-        alt2: { template: 'surface2' },
-        surface1: { template: 'surface1' },
-        surface2: { template: 'surface2' },
-        surface3: { template: 'surface3' },
-        inverseSurface: { template: 'inverse' },
-      },
-      {
-        avoidNestingWithin: [
-          'alt1',
-          'alt2',
-          'surface1',
-          'surface2',
-          'surface3',
-          'inverseSurface',
-        ],
-      },
-    )
-
-  return themeBuilder.build()
+  return resolved
 }
