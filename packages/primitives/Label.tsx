@@ -1,18 +1,18 @@
-import { Label as TamaguiLabel } from '@tamagui/label'
 import type React from 'react'
-import type { ComponentType } from 'react'
-import { Text } from 'tamagui'
+import { styled } from '../stl-react/src/config'
 
-// Map named sizes to Tamagui size tokens
-const SIZE_TOKEN_MAP: Record<string, string> = {
-  sm: '$2',
-  md: '$3',
-  lg: '$4',
-}
-
-// Cast for JSX — Tamagui v2 RC GetFinalProps bug
-const TamaguiLabelJsx = TamaguiLabel as ComponentType<Record<string, unknown>>
-const TextJsx = Text as ComponentType<Record<string, unknown>>
+const LabelFrame = styled(
+  "label",
+  { fontFamily: "$body", display: "inline-flex", alignItems: "center", gap: "$1" },
+  {
+    size: {
+      sm: { fontSize: "$12" },
+      md: { fontSize: "$14" },
+      lg: { fontSize: "$16" },
+    },
+  },
+  "Label"
+)
 
 export interface LabelProps {
   children: React.ReactNode
@@ -22,12 +22,10 @@ export interface LabelProps {
 }
 
 export function Label({ children, htmlFor, size = 'md', required }: LabelProps) {
-  const sizeToken = SIZE_TOKEN_MAP[size]
-
   return (
-    <TamaguiLabelJsx htmlFor={htmlFor} size={sizeToken}>
+    <LabelFrame htmlFor={htmlFor} size={size}>
       {children}
-      {required && <TextJsx color="$red10"> *</TextJsx>}
-    </TamaguiLabelJsx>
+      {required && <span style={{ color: 'var(--red10, red)' }}> *</span>}
+    </LabelFrame>
   )
 }

@@ -7,8 +7,7 @@ describe('Label', () => {
     expect(screen.getByText('Email')).toBeTruthy()
   })
 
-  it.skip('renders a <label> element with htmlFor', () => {
-    // TODO: Tamagui Label rendering in JSDOM may differ from browser
+  it('renders a <label> element with htmlFor', () => {
     const { container } = render(<Label htmlFor="email-input">Email</Label>)
     const label = container.querySelector('label')
     expect(label).toBeTruthy()
@@ -21,9 +20,7 @@ describe('Label', () => {
   })
 
   it('does not show asterisk when not required', () => {
-    const { container } = render(<Label>Name</Label>)
-    const asterisks = container.querySelectorAll('[style*="color"]')
-    // No red asterisk should be rendered
+    render(<Label>Name</Label>)
     expect(screen.queryByText('*')).toBeNull()
   })
 
