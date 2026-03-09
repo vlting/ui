@@ -1,8 +1,7 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import type React from 'react'
 import { useState } from 'react'
-import { YStack } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 import { Button } from '../../components/Button'
 import { Checkbox } from '../../components/Checkbox'
 import { Input } from '../../components/Input'
@@ -16,21 +15,12 @@ import {
   AuthSocialButtons,
 } from './_shared'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-
-const ButtonJsx = Button as AnyFC
-const ButtonTextJsx = Button.Text as AnyFC
-const CheckboxRootJsx = Checkbox.Root as AnyFC
-const InputJsx = Input as AnyFC
-const YStackJsx = YStack as AnyFC
-
-const FormElement = styledHtml('form', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 16,
-  width: '100%',
-} as any)
-const FormJsx = FormElement as AnyFC
+const FormElement = styled("form", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "16px",
+  width: "100%",
+}, "AuthForm")
 
 // -- Types --
 
@@ -90,6 +80,8 @@ const variantDefaults: Record<AuthBlockVariant, { title: string; description: st
   },
 }
 
+const VStack = { display: 'flex', flexDirection: 'column' as const }
+
 // -- Main component --
 
 export function AuthBlock(props: AuthBlockProps) {
@@ -114,7 +106,7 @@ export function AuthBlock(props: AuthBlockProps) {
   }
 }
 
-// -- login-standard: Email + password form --
+// -- login-standard --
 
 function LoginStandard({
   title,
@@ -139,80 +131,36 @@ function LoginStandard({
 
   return (
     <AuthFormCard>
-      <YStackJsx gap="$4" width="100%">
+      <div style={{ ...VStack, gap: '16px', width: '100%' }}>
         <AuthFormHeader logo={logo} title={title!} description={description} />
         <AuthErrorMessage error={error} />
-
         {socialProviders.length > 0 ? (
           <>
             <AuthSocialButtons providers={socialProviders} />
             <AuthDivider />
           </>
         ) : null}
-
-        <FormJsx onSubmit={handleSubmit}>
-          <InputJsx
-            label="Email"
-            type="email"
-            placeholder="m@example.com"
-            value={email}
-            onChangeText={setEmail}
-          />
-          <InputJsx
-            label="Password"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-          />
-
-          {forgotPasswordHref || onForgotPassword ? (
-            <AuthFooterLink
-              text=""
-              linkText="Forgot your password?"
-              href={forgotPasswordHref}
-              onPress={onForgotPassword}
-            />
-          ) : null}
-
-          <ButtonJsx
-            variant="default"
-            width="100%"
-            onPress={() =>
-              handleSubmit(new Event('submit') as unknown as React.FormEvent)
-            }
-            disabled={loading}
-            loading={loading}
-          >
-            <ButtonTextJsx>Sign in</ButtonTextJsx>
-          </ButtonJsx>
-        </FormJsx>
-
-        {signupHref || onSignup ? (
-          <AuthFooterLink
-            text="Don't have an account?"
-            linkText="Sign up"
-            href={signupHref}
-            onPress={onSignup}
-          />
-        ) : null}
-      </YStackJsx>
+        <FormElement onSubmit={handleSubmit}>
+          <Input label="Email" type="email" placeholder="m@example.com" value={email} onChangeText={setEmail} />
+          <Input label="Password" type="password" placeholder="Password" value={password} onChangeText={setPassword} />
+          {(forgotPasswordHref || onForgotPassword) && (
+            <AuthFooterLink text="" linkText="Forgot your password?" href={forgotPasswordHref} onPress={onForgotPassword} />
+          )}
+          <Button variant="default" style={{ width: '100%' }} onClick={() => handleSubmit(new Event('submit') as unknown as React.FormEvent)} disabled={loading}>
+            <Button.Text>Sign in</Button.Text>
+          </Button>
+        </FormElement>
+        {(signupHref || onSignup) && (
+          <AuthFooterLink text="Don't have an account?" linkText="Sign up" href={signupHref} onPress={onSignup} />
+        )}
+      </div>
     </AuthFormCard>
   )
 }
 
-// -- login-otp: Email + verification code --
+// -- login-otp --
 
-function LoginOtp({
-  title,
-  description,
-  logo,
-  signupHref,
-  onSignup,
-  onSubmit,
-  loading = false,
-  error,
-}: AuthBlockProps) {
+function LoginOtp({ title, description, logo, signupHref, onSignup, onSubmit, loading = false, error }: AuthBlockProps) {
   const [email, setEmail] = useState('')
   const [code, setCode] = useState('')
 
@@ -223,66 +171,27 @@ function LoginOtp({
 
   return (
     <AuthFormCard>
-      <YStackJsx gap="$4" width="100%">
+      <div style={{ ...VStack, gap: '16px', width: '100%' }}>
         <AuthFormHeader logo={logo} title={title!} description={description} />
         <AuthErrorMessage error={error} />
-
-        <FormJsx onSubmit={handleSubmit}>
-          <InputJsx
-            label="Email"
-            type="email"
-            placeholder="m@example.com"
-            value={email}
-            onChangeText={setEmail}
-          />
-          <InputJsx
-            label="Verification code"
-            type="text"
-            placeholder="Enter 6-digit code"
-            value={code}
-            onChangeText={setCode}
-            inputMode="numeric"
-          />
-
-          <ButtonJsx
-            variant="default"
-            width="100%"
-            onPress={() =>
-              handleSubmit(new Event('submit') as unknown as React.FormEvent)
-            }
-            disabled={loading}
-            loading={loading}
-          >
-            <ButtonTextJsx>Verify</ButtonTextJsx>
-          </ButtonJsx>
-        </FormJsx>
-
-        {signupHref || onSignup ? (
-          <AuthFooterLink
-            text="Don't have an account?"
-            linkText="Sign up"
-            href={signupHref}
-            onPress={onSignup}
-          />
-        ) : null}
-      </YStackJsx>
+        <FormElement onSubmit={handleSubmit}>
+          <Input label="Email" type="email" placeholder="m@example.com" value={email} onChangeText={setEmail} />
+          <Input label="Verification code" type="text" placeholder="Enter 6-digit code" value={code} onChangeText={setCode} />
+          <Button variant="default" style={{ width: '100%' }} onClick={() => handleSubmit(new Event('submit') as unknown as React.FormEvent)} disabled={loading}>
+            <Button.Text>Verify</Button.Text>
+          </Button>
+        </FormElement>
+        {(signupHref || onSignup) && (
+          <AuthFooterLink text="Don't have an account?" linkText="Sign up" href={signupHref} onPress={onSignup} />
+        )}
+      </div>
     </AuthFormCard>
   )
 }
 
-// -- login-magic: Email-only magic link --
+// -- login-magic --
 
-function LoginMagic({
-  title,
-  description,
-  logo,
-  socialProviders = [],
-  signupHref,
-  onSignup,
-  onSubmit,
-  loading = false,
-  error,
-}: AuthBlockProps) {
+function LoginMagic({ title, description, logo, socialProviders = [], signupHref, onSignup, onSubmit, loading = false, error }: AuthBlockProps) {
   const [email, setEmail] = useState('')
 
   function handleSubmit(e: React.FormEvent) {
@@ -292,98 +201,49 @@ function LoginMagic({
 
   return (
     <AuthFormCard>
-      <YStackJsx gap="$4" width="100%">
+      <div style={{ ...VStack, gap: '16px', width: '100%' }}>
         <AuthFormHeader logo={logo} title={title!} description={description} />
         <AuthErrorMessage error={error} />
-
         {socialProviders.length > 0 ? (
           <>
             <AuthSocialButtons providers={socialProviders} />
             <AuthDivider />
           </>
         ) : null}
-
-        <FormJsx onSubmit={handleSubmit}>
-          <InputJsx
-            label="Email"
-            type="email"
-            placeholder="m@example.com"
-            value={email}
-            onChangeText={setEmail}
-          />
-
-          <ButtonJsx
-            variant="default"
-            width="100%"
-            onPress={() =>
-              handleSubmit(new Event('submit') as unknown as React.FormEvent)
-            }
-            disabled={loading}
-            loading={loading}
-          >
-            <ButtonTextJsx>Send sign-in link</ButtonTextJsx>
-          </ButtonJsx>
-        </FormJsx>
-
-        {signupHref || onSignup ? (
-          <AuthFooterLink
-            text="Don't have an account?"
-            linkText="Sign up"
-            href={signupHref}
-            onPress={onSignup}
-          />
-        ) : null}
-      </YStackJsx>
+        <FormElement onSubmit={handleSubmit}>
+          <Input label="Email" type="email" placeholder="m@example.com" value={email} onChangeText={setEmail} />
+          <Button variant="default" style={{ width: '100%' }} onClick={() => handleSubmit(new Event('submit') as unknown as React.FormEvent)} disabled={loading}>
+            <Button.Text>Send sign-in link</Button.Text>
+          </Button>
+        </FormElement>
+        {(signupHref || onSignup) && (
+          <AuthFooterLink text="Don't have an account?" linkText="Sign up" href={signupHref} onPress={onSignup} />
+        )}
+      </div>
     </AuthFormCard>
   )
 }
 
-// -- login-social: Social providers only --
+// -- login-social --
 
-function LoginSocial({
-  title,
-  description,
-  logo,
-  socialProviders = [],
-  signupHref,
-  onSignup,
-  error,
-}: AuthBlockProps) {
+function LoginSocial({ title, description, logo, socialProviders = [], signupHref, onSignup, error }: AuthBlockProps) {
   return (
     <AuthFormCard>
-      <YStackJsx gap="$4" width="100%">
+      <div style={{ ...VStack, gap: '16px', width: '100%' }}>
         <AuthFormHeader logo={logo} title={title!} description={description} />
         <AuthErrorMessage error={error} />
         <AuthSocialButtons providers={socialProviders} />
-
-        {signupHref || onSignup ? (
-          <AuthFooterLink
-            text="Don't have an account?"
-            linkText="Sign up"
-            href={signupHref}
-            onPress={onSignup}
-          />
-        ) : null}
-      </YStackJsx>
+        {(signupHref || onSignup) && (
+          <AuthFooterLink text="Don't have an account?" linkText="Sign up" href={signupHref} onPress={onSignup} />
+        )}
+      </div>
     </AuthFormCard>
   )
 }
 
-// -- signup-standard: Name + email + password + terms --
+// -- signup-standard --
 
-function SignupStandard({
-  title,
-  description,
-  logo,
-  socialProviders = [],
-  loginHref,
-  onLogin,
-  termsHref,
-  privacyHref,
-  onSubmit,
-  loading = false,
-  error,
-}: AuthBlockProps) {
+function SignupStandard({ title, description, logo, socialProviders = [], loginHref, onLogin, termsHref, privacyHref, onSubmit, loading = false, error }: AuthBlockProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -396,105 +256,45 @@ function SignupStandard({
 
   return (
     <AuthFormCard>
-      <YStackJsx gap="$4" width="100%">
+      <div style={{ ...VStack, gap: '16px', width: '100%' }}>
         <AuthFormHeader logo={logo} title={title!} description={description} />
         <AuthErrorMessage error={error} />
-
         {socialProviders.length > 0 ? (
           <>
             <AuthSocialButtons providers={socialProviders} />
             <AuthDivider />
           </>
         ) : null}
-
-        <FormJsx onSubmit={handleSubmit}>
-          <InputJsx
-            label="Name"
-            type="text"
-            placeholder="John Doe"
-            value={name}
-            onChangeText={setName}
-          />
-          <InputJsx
-            label="Email"
-            type="email"
-            placeholder="m@example.com"
-            value={email}
-            onChangeText={setEmail}
-          />
-          <InputJsx
-            label="Password"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-          />
-
-          {termsHref || privacyHref ? (
-            <CheckboxRootJsx
+        <FormElement onSubmit={handleSubmit}>
+          <Input label="Name" type="text" placeholder="John Doe" value={name} onChangeText={setName} />
+          <Input label="Email" type="email" placeholder="m@example.com" value={email} onChangeText={setEmail} />
+          <Input label="Password" type="password" placeholder="Password" value={password} onChangeText={setPassword} />
+          {(termsHref || privacyHref) && (
+            <Checkbox.Root
               checked={termsAccepted}
-              onCheckedChange={(checked: boolean | 'indeterminate') =>
-                setTermsAccepted(checked === true)
-              }
+              onCheckedChange={(checked: boolean | 'indeterminate') => setTermsAccepted(checked === true)}
             >
               I agree to the{' '}
-              {termsHref ? (
-                <a href={termsHref} style={{ color: 'inherit' }}>
-                  Terms of Service
-                </a>
-              ) : (
-                'Terms of Service'
-              )}{' '}
-              and{' '}
-              {privacyHref ? (
-                <a href={privacyHref} style={{ color: 'inherit' }}>
-                  Privacy Policy
-                </a>
-              ) : (
-                'Privacy Policy'
-              )}
-            </CheckboxRootJsx>
-          ) : null}
-
-          <ButtonJsx
-            variant="default"
-            width="100%"
-            onPress={() =>
-              handleSubmit(new Event('submit') as unknown as React.FormEvent)
-            }
-            disabled={loading}
-            loading={loading}
-          >
-            <ButtonTextJsx>Create account</ButtonTextJsx>
-          </ButtonJsx>
-        </FormJsx>
-
-        {loginHref || onLogin ? (
-          <AuthFooterLink
-            text="Already have an account?"
-            linkText="Sign in"
-            href={loginHref}
-            onPress={onLogin}
-          />
-        ) : null}
-      </YStackJsx>
+              {termsHref ? <a href={termsHref} style={{ color: 'inherit' }}>Terms of Service</a> : 'Terms of Service'}
+              {' '}and{' '}
+              {privacyHref ? <a href={privacyHref} style={{ color: 'inherit' }}>Privacy Policy</a> : 'Privacy Policy'}
+            </Checkbox.Root>
+          )}
+          <Button variant="default" style={{ width: '100%' }} onClick={() => handleSubmit(new Event('submit') as unknown as React.FormEvent)} disabled={loading}>
+            <Button.Text>Create account</Button.Text>
+          </Button>
+        </FormElement>
+        {(loginHref || onLogin) && (
+          <AuthFooterLink text="Already have an account?" linkText="Sign in" href={loginHref} onPress={onLogin} />
+        )}
+      </div>
     </AuthFormCard>
   )
 }
 
-// -- signup-social: Social-first with email fallback --
+// -- signup-social --
 
-function SignupSocial({
-  title,
-  description,
-  logo,
-  socialProviders = [],
-  loginHref,
-  onLogin,
-  onSubmit,
-  loading = false,
-  error,
-}: AuthBlockProps) {
+function SignupSocial({ title, description, logo, socialProviders = [], loginHref, onLogin, onSubmit, loading = false, error }: AuthBlockProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -505,55 +305,26 @@ function SignupSocial({
 
   return (
     <AuthFormCard>
-      <YStackJsx gap="$4" width="100%">
+      <div style={{ ...VStack, gap: '16px', width: '100%' }}>
         <AuthFormHeader logo={logo} title={title!} description={description} />
         <AuthErrorMessage error={error} />
-
         {socialProviders.length > 0 ? (
           <>
             <AuthSocialButtons providers={socialProviders} />
             <AuthDivider text="or" />
           </>
         ) : null}
-
-        <FormJsx onSubmit={handleSubmit}>
-          <InputJsx
-            label="Email"
-            type="email"
-            placeholder="m@example.com"
-            value={email}
-            onChangeText={setEmail}
-          />
-          <InputJsx
-            label="Password"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-          />
-
-          <ButtonJsx
-            variant="default"
-            width="100%"
-            onPress={() =>
-              handleSubmit(new Event('submit') as unknown as React.FormEvent)
-            }
-            disabled={loading}
-            loading={loading}
-          >
-            <ButtonTextJsx>Create account</ButtonTextJsx>
-          </ButtonJsx>
-        </FormJsx>
-
-        {loginHref || onLogin ? (
-          <AuthFooterLink
-            text="Already have an account?"
-            linkText="Sign in"
-            href={loginHref}
-            onPress={onLogin}
-          />
-        ) : null}
-      </YStackJsx>
+        <FormElement onSubmit={handleSubmit}>
+          <Input label="Email" type="email" placeholder="m@example.com" value={email} onChangeText={setEmail} />
+          <Input label="Password" type="password" placeholder="Password" value={password} onChangeText={setPassword} />
+          <Button variant="default" style={{ width: '100%' }} onClick={() => handleSubmit(new Event('submit') as unknown as React.FormEvent)} disabled={loading}>
+            <Button.Text>Create account</Button.Text>
+          </Button>
+        </FormElement>
+        {(loginHref || onLogin) && (
+          <AuthFooterLink text="Already have an account?" linkText="Sign in" href={loginHref} onPress={onLogin} />
+        )}
+      </div>
     </AuthFormCard>
   )
 }

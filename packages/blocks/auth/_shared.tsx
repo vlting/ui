@@ -1,21 +1,31 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType, ReactNode } from 'react'
-import { XStack, YStack } from 'tamagui'
+import type { ReactNode } from 'react'
+import { styled } from '../../stl-react/src/config'
 import { Button } from '../../components/Button'
 import { Card } from '../../components/Card'
 import { Separator } from '../../primitives/Separator'
 import { Text } from '../../primitives/Text'
 import type { SocialProvider } from '../_shared/types'
 
-type AnyFC = ComponentType<Record<string, unknown>>
+const FooterLinkBtn = styled("button", {
+  display: "inline",
+  appearance: "none",
+  border: "none",
+  background: "none",
+  padding: "0",
+  margin: "0",
+  fontFamily: "inherit",
+  fontSize: "inherit",
+  color: "var(--color10, #0066ff)",
+  cursor: "pointer",
+  textDecoration: "underline",
+  outline: "none",
+}, "AuthFooterLinkButton")
 
-const CardJsx = Card as AnyFC
-const ButtonJsx = Button as AnyFC
-const ButtonTextJsx = Button.Text as AnyFC
-const TextJsx = Text as AnyFC
-const SeparatorJsx = Separator as AnyFC
-const YStackJsx = YStack as AnyFC
-const XStackJsx = XStack as AnyFC
+const FooterLinkA = styled("a", {
+  color: "var(--color10, #0066ff)",
+  textDecoration: "underline",
+  outline: "none",
+}, "AuthFooterLinkAnchor")
 
 // -- AuthFormCard --
 
@@ -25,14 +35,9 @@ export interface AuthFormCardProps {
 
 export function AuthFormCard({ children }: AuthFormCardProps) {
   return (
-    <CardJsx
-      width="100%"
-      style={{ maxWidth: 400 }}
-      paddingHorizontal="$6"
-      paddingVertical="$6"
-    >
+    <Card style={{ width: '100%', maxWidth: 400, padding: '24px' }}>
       {children}
-    </CardJsx>
+    </Card>
   )
 }
 
@@ -46,22 +51,17 @@ export interface AuthFormHeaderProps {
 
 export function AuthFormHeader({ logo, title, description }: AuthFormHeaderProps) {
   return (
-    <YStackJsx alignItems="center" gap="$1.5">
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
       {logo}
-      <TextJsx fontSize="$5" fontWeight="$4" fontFamily="$heading" textAlign="center">
+      <Text style={{ fontSize: '18px', fontWeight: 600, textAlign: 'center' }}>
         {title}
-      </TextJsx>
+      </Text>
       {description ? (
-        <TextJsx
-          fontSize="$3"
-          color="$colorSubtitle"
-          fontFamily="$body"
-          textAlign="center"
-        >
+        <Text style={{ fontSize: '14px', opacity: 0.6, textAlign: 'center' }}>
           {description}
-        </TextJsx>
+        </Text>
       ) : null}
-    </YStackJsx>
+    </div>
   )
 }
 
@@ -76,38 +76,38 @@ export function AuthSocialButtons({ providers }: AuthSocialButtonsProps) {
 
   if (providers.length <= 2) {
     return (
-      <YStackJsx gap="$2" width="100%">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
         {providers.map((provider) => (
-          <ButtonJsx
+          <Button
             key={provider.name}
             variant="outline"
-            onPress={provider.onPress}
-            width="100%"
+            onClick={provider.onPress}
+            style={{ width: '100%' }}
           >
-            <XStackJsx alignItems="center" gap="$2">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               {provider.icon}
-              <ButtonTextJsx>Continue with {provider.name}</ButtonTextJsx>
-            </XStackJsx>
-          </ButtonJsx>
+              <Button.Text>Continue with {provider.name}</Button.Text>
+            </div>
+          </Button>
         ))}
-      </YStackJsx>
+      </div>
     )
   }
 
   return (
-    <XStackJsx gap="$2" justifyContent="center" width="100%">
+    <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', width: '100%' }}>
       {providers.map((provider) => (
-        <ButtonJsx
+        <Button
           key={provider.name}
           variant="outline"
           size="icon"
-          onPress={provider.onPress}
+          onClick={provider.onPress}
           aria-label={`Continue with ${provider.name}`}
         >
           {provider.icon}
-        </ButtonJsx>
+        </Button>
       ))}
-    </XStackJsx>
+    </div>
   )
 }
 
@@ -119,50 +119,17 @@ export interface AuthDividerProps {
 
 export function AuthDivider({ text = 'or continue with' }: AuthDividerProps) {
   return (
-    <XStackJsx alignItems="center" gap="$2" width="100%">
-      <SeparatorJsx flex={1} />
-      <TextJsx fontSize="$2" color="$colorSubtitle">
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%' }}>
+      <Separator style={{ flex: 1 }} />
+      <Text style={{ fontSize: '12px', opacity: 0.6 }}>
         {text}
-      </TextJsx>
-      <SeparatorJsx flex={1} />
-    </XStackJsx>
+      </Text>
+      <Separator style={{ flex: 1 }} />
+    </div>
   )
 }
 
 // -- AuthFooterLink --
-
-const FooterLinkButton = styledHtml('button', {
-  display: 'inline',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  fontSize: 'inherit',
-  color: '$color10',
-  cursor: 'pointer',
-  textDecoration: 'underline',
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-} as any)
-const FooterLinkButtonJsx = FooterLinkButton as AnyFC
-
-const FooterLinkAnchor = styledHtml('a', {
-  color: '$color10',
-  textDecoration: 'underline',
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-} as any)
-const FooterLinkAnchorJsx = FooterLinkAnchor as AnyFC
 
 export interface AuthFooterLinkProps {
   text: string
@@ -173,16 +140,16 @@ export interface AuthFooterLinkProps {
 
 export function AuthFooterLink({ text, linkText, href, onPress }: AuthFooterLinkProps) {
   return (
-    <TextJsx fontSize="$2" color="$colorSubtitle" textAlign="center">
+    <Text style={{ fontSize: '12px', opacity: 0.6, textAlign: 'center' }}>
       {text}{' '}
       {href ? (
-        <FooterLinkAnchorJsx href={href}>{linkText}</FooterLinkAnchorJsx>
+        <FooterLinkA href={href}>{linkText}</FooterLinkA>
       ) : (
-        <FooterLinkButtonJsx type="button" onClick={onPress}>
+        <FooterLinkBtn type="button" onClick={onPress}>
           {linkText}
-        </FooterLinkButtonJsx>
+        </FooterLinkBtn>
       )}
-    </TextJsx>
+    </Text>
   )
 }
 
@@ -191,8 +158,8 @@ export function AuthFooterLink({ text, linkText, href, onPress }: AuthFooterLink
 export function AuthErrorMessage({ error }: { error?: string }) {
   if (!error) return null
   return (
-    <TextJsx fontSize="$2" color="$red10" textAlign="center" role="alert">
+    <Text style={{ fontSize: '12px', color: 'red', textAlign: 'center' }} role="alert">
       {error}
-    </TextJsx>
+    </Text>
   )
 }

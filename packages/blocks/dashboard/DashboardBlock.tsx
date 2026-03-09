@@ -1,7 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table'
-import type { ComponentType, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import React from 'react'
-import { Text, View } from 'tamagui'
 import { Card } from '../../components/Card'
 import { Chart } from '../../components/Chart'
 import type { ChartConfig } from '../../components/Chart'
@@ -10,17 +9,6 @@ import { DataTable } from '../../components/DataTable'
 import { Sidebar } from '../../components/Sidebar'
 import type { NavGroup } from '../sidebar/_shared'
 import { SidebarNavGroup } from '../sidebar/_shared'
-
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
-const CardJsx = Card as AnyFC
-const CardHeaderJsx = Card.Header as AnyFC
-const CardTitleJsx = Card.Title as AnyFC
-const CardContentJsx = Card.Content as AnyFC
-const ChartJsx = Chart as unknown as AnyFC
-const BarChartJsx = BarChart as unknown as AnyFC
-const DataTableJsx = DataTable as unknown as AnyFC
 
 // -- Types --
 
@@ -50,6 +38,9 @@ export interface DashboardBlockProps {
   children?: ReactNode
 }
 
+const col = { display: 'flex', flexDirection: 'column' as const }
+const row = { display: 'flex', flexDirection: 'row' as const }
+
 // -- Main component --
 
 export function DashboardBlock(props: DashboardBlockProps) {
@@ -64,31 +55,19 @@ export function DashboardBlock(props: DashboardBlockProps) {
   } = props
 
   const content = (
-    <ViewJsx flex={1} padding="$4" gap="$4">
-      <ViewJsx gap="$1">
-        <TextJsx fontSize="$7" fontWeight="$4" fontFamily="$heading" color="$color">
-          {title}
-        </TextJsx>
-        {description && (
-          <TextJsx fontSize="$4" fontFamily="$body" color="$colorSubtle">
-            {description}
-          </TextJsx>
-        )}
-      </ViewJsx>
-
-      {variant === 'analytics' ? (
-        <AnalyticsContent {...props} />
-      ) : (
-        <OverviewContent {...props} />
-      )}
-
+    <div style={{ ...col, flex: 1, padding: '16px', gap: '16px' }}>
+      <div style={{ ...col, gap: '4px' }}>
+        <span style={{ fontSize: '24px', fontWeight: 600 }}>{title}</span>
+        {description && <span style={{ fontSize: '16px', opacity: 0.6 }}>{description}</span>}
+      </div>
+      {variant === 'analytics' ? <AnalyticsContent {...props} /> : <OverviewContent {...props} />}
       {children}
-    </ViewJsx>
+    </div>
   )
 
   if (sidebarGroups && sidebarGroups.length > 0) {
     return (
-      <ViewJsx flexDirection="row" flex={1} minHeight="100vh">
+      <div style={{ ...row, flex: 1, minHeight: '100vh' }}>
         <Sidebar.Root collapsible="offcanvas" side="left" variant="sidebar" defaultOpen>
           {sidebarHeader && <Sidebar.Header>{sidebarHeader}</Sidebar.Header>}
           <Sidebar.Content>
@@ -102,55 +81,46 @@ export function DashboardBlock(props: DashboardBlockProps) {
           {sidebarFooter && <Sidebar.Footer>{sidebarFooter}</Sidebar.Footer>}
         </Sidebar.Root>
         {content}
-      </ViewJsx>
+      </div>
     )
   }
 
   return content
 }
 
-// -- Analytics variant: metrics + chart + table --
+// -- Analytics variant --
 
-function AnalyticsContent({
-  metrics,
-  chartConfig,
-  chartData,
-  chartXAxisKey = 'name',
-  tableData,
-  tableColumns,
-}: DashboardBlockProps) {
+function AnalyticsContent({ metrics, chartConfig, chartData, chartXAxisKey = 'name', tableData, tableColumns }: DashboardBlockProps) {
   return (
     <>
       {metrics && metrics.length > 0 && <MetricsGrid metrics={metrics} />}
-
       {chartConfig && chartData && (
-        <CardJsx>
-          <CardHeaderJsx>
-            <CardTitleJsx>Overview</CardTitleJsx>
-          </CardHeaderJsx>
-          <CardContentJsx>
-            <ChartJsx config={chartConfig}>
-              <BarChartJsx data={chartData} xAxisKey={chartXAxisKey} />
-            </ChartJsx>
-          </CardContentJsx>
-        </CardJsx>
+        <Card>
+          <Card.Header>
+            <Card.Title>Overview</Card.Title>
+          </Card.Header>
+          <Card.Content>
+            <Chart config={chartConfig}>
+              <BarChart data={chartData} xAxisKey={chartXAxisKey} />
+            </Chart>
+          </Card.Content>
+        </Card>
       )}
-
       {tableData && tableColumns && (
-        <CardJsx>
-          <CardHeaderJsx>
-            <CardTitleJsx>Recent Activity</CardTitleJsx>
-          </CardHeaderJsx>
-          <CardContentJsx>
-            <DataTableJsx data={tableData} columns={tableColumns} />
-          </CardContentJsx>
-        </CardJsx>
+        <Card>
+          <Card.Header>
+            <Card.Title>Recent Activity</Card.Title>
+          </Card.Header>
+          <Card.Content>
+            <DataTable data={tableData} columns={tableColumns} />
+          </Card.Content>
+        </Card>
       )}
     </>
   )
 }
 
-// -- Overview variant: metric cards grid --
+// -- Overview variant --
 
 function OverviewContent({ metrics }: DashboardBlockProps) {
   if (!metrics || metrics.length === 0) return null
@@ -161,52 +131,29 @@ function OverviewContent({ metrics }: DashboardBlockProps) {
 
 function MetricsGrid({ metrics }: { metrics: MetricCard[] }) {
   return (
-    <ViewJsx
-      flexDirection="row"
-      flexWrap="wrap"
-      gap="$3"
-      width="100%"
-    >
+    <div style={{ ...row, flexWrap: 'wrap', gap: '12px', width: '100%' }}>
       {metrics.map((metric, i) => (
-        <CardJsx
-          key={`metric-${i}`}
-          flex={1}
-          style={{ minWidth: 200 }}
-          padding="$4"
-        >
-          <ViewJsx flexDirection="row" alignItems="center" justifyContent="space-between">
-            <TextJsx fontSize="$3" fontFamily="$body" color="$colorSubtle">
-              {metric.title}
-            </TextJsx>
+        <Card key={`metric-${i}`} style={{ flex: 1, minWidth: 200, padding: '16px' }}>
+          <div style={{ ...row, alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: '14px', opacity: 0.6 }}>{metric.title}</span>
             {metric.icon}
-          </ViewJsx>
-          <TextJsx
-            fontSize="$8"
-            fontWeight="$4"
-            fontFamily="$heading"
-            color="$color"
-            paddingTop="$1"
-          >
+          </div>
+          <span style={{ fontSize: '28px', fontWeight: 600, paddingTop: '4px', display: 'block' }}>
             {metric.value}
-          </TextJsx>
+          </span>
           {metric.change && (
-            <TextJsx
-              fontSize="$2"
-              fontFamily="$body"
-              color={
-                metric.trend === 'up'
-                  ? '$green10'
-                  : metric.trend === 'down'
-                    ? '$red10'
-                    : '$colorSubtle'
-              }
-              paddingTop="$0.5"
-            >
+            <span style={{
+              fontSize: '12px',
+              paddingTop: '2px',
+              display: 'block',
+              color: metric.trend === 'up' ? 'green' : metric.trend === 'down' ? 'red' : undefined,
+              opacity: metric.trend === 'neutral' ? 0.6 : 1,
+            }}>
               {metric.change}
-            </TextJsx>
+            </span>
           )}
-        </CardJsx>
+        </Card>
       ))}
-    </ViewJsx>
+    </div>
   )
 }
