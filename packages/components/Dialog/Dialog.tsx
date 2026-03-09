@@ -1,41 +1,108 @@
-import { Dialog as TamaguiDialog } from '@tamagui/dialog'
-import type React from 'react'
-import type { ComponentType } from 'react'
-import { Text, View, XStack, styled } from 'tamagui'
+import React, { createContext, useCallback, useContext, useEffect, useId, useRef } from 'react'
+import { createPortal } from 'react-dom'
+import { styled } from '../../stl-react/src/config'
+import { useDisclosure } from '../../stl-headless/src'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const XStackJsx = XStack as AnyFC
+const StyledOverlay = styled(
+  "div",
+  {
+    position: "fixed",
+    top: "0",
+    left: "0",
+    right: "0",
+    bottom: "0",
+    backgroundColor: "var(--overlayBackground, rgba(0,0,0,0.5))",
+    zIndex: "40",
+    transition: "opacity 200ms ease",
+  },
+  "DialogOverlay"
+)
 
-// @ts-expect-error Tamagui v2 RC
-const StyledTitle = styled(Text, {
-  fontFamily: '$heading',
-  fontWeight: '$4',
-  fontSize: '$6',
-  lineHeight: '$6',
-  color: '$color',
+const StyledContent = styled(
+  "div",
+  {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "var(--background, #fff)",
+    borderRadius: "12px",
+    width: "90%",
+    maxHeight: "85%",
+    overflowY: "auto",
+    zIndex: "50",
+    display: "flex",
+    flexDirection: "column",
+    gap: "12px",
+    boxShadow: "var(--shadowXl, 0 25px 50px -12px rgba(0,0,0,0.25))",
+    transition: "opacity 200ms ease, transform 200ms ease",
+  },
+  {
+    size: {
+      sm: { maxWidth: "400px", padding: "16px" },
+      md: { maxWidth: "500px", padding: "20px" },
+      lg: { maxWidth: "640px", padding: "24px" },
+    },
+  },
+  "DialogContent"
+)
+
+const StyledTitle = styled(
+  "h2",
+  {
+    fontFamily: "var(--font-heading)",
+    fontWeight: "600",
+    fontSize: "var(--fontSize-6, 20px)",
+    lineHeight: "1.3",
+    color: "var(--color)",
+    margin: "0",
+  },
+  "DialogTitle"
+)
+
+const StyledDescription = styled(
+  "p",
+  {
+    fontFamily: "var(--font-body)",
+    fontSize: "var(--fontSize-4, 16px)",
+    color: "var(--colorSubtitle)",
+    margin: "0",
+  },
+  "DialogDescription"
+)
+
+const StyledHeader = styled(
+  "div",
+  { display: "flex", flexDirection: "column", gap: "4px" },
+  "DialogHeader"
+)
+
+const StyledFooter = styled(
+  "div",
+  {
+    display: "flex",
+    justifyContent: "flex-end",
+    gap: "8px",
+    paddingTop: "12px",
+  },
+  "DialogFooter"
+)
+
+interface DialogContextValue {
+  isOpen: boolean
+  onOpen: () => void
+  onClose: () => void
+  titleId: string
+  descriptionId: string
+}
+
+const DialogContext = createContext<DialogContextValue>({
+  isOpen: false,
+  onOpen: () => {},
+  onClose: () => {},
+  titleId: '',
+  descriptionId: '',
 })
-
-// @ts-expect-error Tamagui v2 RC
-const StyledDescription = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$4',
-  color: '$colorSubtitle',
-})
-
-// Tamagui v2 RC GetProps bug — cast for JSX usage
-const DialogRoot = TamaguiDialog as ComponentType<Record<string, unknown>>
-const DialogTrigger = TamaguiDialog.Trigger as ComponentType<Record<string, unknown>>
-const DialogPortal = TamaguiDialog.Portal as ComponentType<Record<string, unknown>>
-const DialogOverlayFrame = TamaguiDialog.Overlay as ComponentType<Record<string, unknown>>
-const DialogContent = TamaguiDialog.Content as ComponentType<Record<string, unknown>>
-const DialogTitleFrame = TamaguiDialog.Title as ComponentType<Record<string, unknown>>
-const DialogDescriptionFrame = TamaguiDialog.Description as ComponentType<
-  Record<string, unknown>
->
-const DialogClose = TamaguiDialog.Close as ComponentType<Record<string, unknown>>
-const TitleText = StyledTitle as ComponentType<Record<string, unknown>>
-const DescText = StyledDescription as ComponentType<Record<string, unknown>>
 
 export interface DialogRootProps {
   children: React.ReactNode
@@ -45,20 +112,35 @@ export interface DialogRootProps {
 }
 
 function Root({ children, open, defaultOpen, onOpenChange }: DialogRootProps) {
+  const disclosure = useDisclosure({ open, defaultOpen, onOpenChange })
+  const id = useId()
+
   return (
-    <DialogRoot open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
+    <DialogContext.Provider
+      value={{
+        isOpen: disclosure.isOpen,
+        onOpen: disclosure.onOpen,
+        onClose: disclosure.onClose,
+        titleId: `dialog-title-${id}`,
+        descriptionId: `dialog-desc-${id}`,
+      }}
+    >
       {children}
-    </DialogRoot>
+    </DialogContext.Provider>
   )
 }
 
 function Trigger({ children }: { children: React.ReactNode }) {
-  return <DialogTrigger asChild>{children}</DialogTrigger>
+  const { onOpen } = useContext(DialogContext)
+
+  return (
+    <span onClick={onOpen} style={{ display: 'inline-flex', cursor: 'pointer' }}>
+      {children}
+    </span>
+  )
 }
 
 function Overlay() {
-  // Overlay is rendered automatically inside Content's portal.
-  // This component is kept for API compatibility.
   return null
 }
 
@@ -67,79 +149,96 @@ interface DialogContentProps {
   size?: 'sm' | 'md' | 'lg'
 }
 
-const SIZE_MAX_WIDTH = { sm: '$dialogSm' as const, md: '$dialogMd' as const, lg: '$dialogLg' as const }
-const SIZE_PADDING = { sm: '$4' as const, md: '$5' as const, lg: '$6' as const }
-
 function Content({ children, size = 'md' }: DialogContentProps) {
-  return (
-    <DialogPortal>
-      <DialogOverlayFrame
-        backgroundColor="$overlayBackground"
-        animation="medium"
-        opacity={1}
-        enterStyle={{ opacity: 0 }}
-        exitStyle={{ opacity: 0 }}
-        position="fixed"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        zIndex="$4"
-      />
-      <DialogContent
-        backgroundColor="$background"
-        borderRadius="$6"
-        padding={SIZE_PADDING[size]}
-        width="90%"
-        maxWidth={SIZE_MAX_WIDTH[size]}
-        maxHeight="85%"
-        animation="medium"
-        gap="$3"
-        enterStyle={{ opacity: 0, scale: 0.95 }}
-        exitStyle={{ opacity: 0, scale: 0.95 }}
-        zIndex="$5"
-        style={{ boxShadow: 'var(--shadowXl)' }}
+  const { isOpen, onClose, titleId, descriptionId } = useContext(DialogContext)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose()
+        return
+      }
+
+      if (e.key === 'Tab') {
+        const focusable = contentRef.current?.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+        if (!focusable || focusable.length === 0) return
+
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault()
+            last.focus()
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault()
+            first.focus()
+          }
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    const firstFocusable = contentRef.current?.querySelector<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )
+    firstFocusable?.focus()
+
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen, onClose])
+
+  if (!isOpen) return null
+
+  return createPortal(
+    <>
+      <StyledOverlay onClick={onClose} />
+      <StyledContent
+        ref={contentRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
+        size={size}
       >
         {children}
-      </DialogContent>
-    </DialogPortal>
+      </StyledContent>
+    </>,
+    document.body,
   )
 }
 
 function Title({ children }: { children: React.ReactNode }) {
-  return (
-    <DialogTitleFrame>
-      <TitleText>{children}</TitleText>
-    </DialogTitleFrame>
-  )
+  const { titleId } = useContext(DialogContext)
+  return <StyledTitle id={titleId}>{children}</StyledTitle>
 }
 
 function Description({ children }: { children: React.ReactNode }) {
-  return (
-    <DialogDescriptionFrame>
-      <DescText>{children}</DescText>
-    </DialogDescriptionFrame>
-  )
+  const { descriptionId } = useContext(DialogContext)
+  return <StyledDescription id={descriptionId}>{children}</StyledDescription>
 }
 
 function Close({ children }: { children?: React.ReactNode }) {
-  return <DialogClose asChild>{children}</DialogClose>
+  const { onClose } = useContext(DialogContext)
+  return (
+    <span onClick={onClose} style={{ display: 'inline-flex', cursor: 'pointer' }}>
+      {children}
+    </span>
+  )
 }
 
 function Header({ children }: { children: React.ReactNode }) {
-  return (
-    <ViewJsx flexDirection="column" gap="$1">
-      {children}
-    </ViewJsx>
-  )
+  return <StyledHeader>{children}</StyledHeader>
 }
 
 function Footer({ children }: { children: React.ReactNode }) {
-  return (
-    <XStackJsx justifyContent="flex-end" gap="$2" paddingTop="$3">
-      {children}
-    </XStackJsx>
-  )
+  return <StyledFooter>{children}</StyledFooter>
 }
 
 export const Dialog = {
