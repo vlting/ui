@@ -1,188 +1,96 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
+import { styled } from '../../stl-react/src/config'
 
 // ---------------------------------------------------------------------------
 // Headings — weight alternation: h1(heavy) h2(light) h3(heavy) h4(light) h5(heavy) h6(light)
-// Font weight keys map to heading levels in reverse: key 6=h1, key 5=h2, etc.
 // ---------------------------------------------------------------------------
 
-const H1Frame = styledHtml('h1', {
-  fontFamily: '$heading',
-  fontSize: '$9',
-  lineHeight: '$9',
-  fontWeight: '$6',
-  letterSpacing: '$7',
-  color: '$color',
-  margin: 0,
-} as any)
+export const H1 = styled("h1", {
+  fontFamily: "$heading", fontSize: "$h1", lineHeight: "$heading", fontWeight: "$800",
+  letterSpacing: "-0.025em", color: "$defaultHeading", margin: "0",
+}, "H1")
 
-const H2Frame = styledHtml('h2', {
-  fontFamily: '$heading',
-  fontSize: '$8',
-  lineHeight: '$8',
-  fontWeight: '$5',
-  letterSpacing: '$6',
-  color: '$color',
-  margin: 0,
-} as any)
+export const H2 = styled("h2", {
+  fontFamily: "$heading", fontSize: "$h2", lineHeight: "$heading", fontWeight: "$700",
+  letterSpacing: "-0.025em", color: "$defaultHeading", margin: "0",
+}, "H2")
 
-const H3Frame = styledHtml('h3', {
-  fontFamily: '$heading',
-  fontSize: '$7',
-  lineHeight: '$7',
-  fontWeight: '$4',
-  letterSpacing: '$5',
-  color: '$color',
-  margin: 0,
-} as any)
+export const H3 = styled("h3", {
+  fontFamily: "$heading", fontSize: "$h3", lineHeight: "$heading", fontWeight: "$600",
+  color: "$defaultHeading", margin: "0",
+}, "H3")
 
-const H4Frame = styledHtml('h4', {
-  fontFamily: '$heading',
-  fontSize: '$6',
-  lineHeight: '$6',
-  fontWeight: '$3',
-  letterSpacing: '$4',
-  color: '$color',
-  margin: 0,
-} as any)
+export const H4 = styled("h4", {
+  fontFamily: "$heading", fontSize: "$h4", lineHeight: "$heading", fontWeight: "$500",
+  color: "$defaultHeading", margin: "0",
+}, "H4")
 
-const H5Frame = styledHtml('h5', {
-  fontFamily: '$heading',
-  fontSize: '$5',
-  lineHeight: '$5',
-  fontWeight: '$2',
-  letterSpacing: '$3',
-  color: '$color',
-  margin: 0,
-} as any)
+export const H5 = styled("h5", {
+  fontFamily: "$heading", fontSize: "$h5", lineHeight: "$heading", fontWeight: "$400",
+  color: "$defaultHeading", margin: "0",
+}, "H5")
 
-const H6Frame = styledHtml('h6', {
-  fontFamily: '$heading',
-  fontSize: '$4',
-  lineHeight: '$4',
-  fontWeight: '$1',
-  letterSpacing: '$2',
-  color: '$color',
-  margin: 0,
-} as any)
+export const H6 = styled("h6", {
+  fontFamily: "$heading", fontSize: "$h6", lineHeight: "$heading", fontWeight: "$400",
+  color: "$defaultHeading", margin: "0",
+}, "H6")
 
 // ---------------------------------------------------------------------------
 // Body text
 // ---------------------------------------------------------------------------
 
-const PFrame = styledHtml('p', {
-  fontFamily: '$body',
-  fontSize: '$5',
-  lineHeight: '$5',
-  fontWeight: '$2',
-  color: '$color',
-  margin: 0,
-} as any)
+export const P = styled("p", {
+  fontFamily: "$body", fontSize: "$p", lineHeight: "$body",
+  fontWeight: "$400", color: "$defaultBody", margin: "0",
+}, "P")
 
-const LeadFrame = styledHtml('p', {
-  fontFamily: '$body',
-  fontSize: '$7',
-  lineHeight: '$7',
-  fontWeight: '$2',
-  color: '$colorSubtitle',
-  margin: 0,
-} as any)
+export const Lead = styled("p", {
+  fontFamily: "$body", fontSize: "$h3", lineHeight: "$body",
+  fontWeight: "$400", color: "$tertiary7", margin: "0",
+}, "Lead")
 
-const LargeFrame = styledHtml('span', {
-  fontFamily: '$body',
-  fontSize: '$6',
-  lineHeight: '$6',
-  fontWeight: '$4',
-  color: '$color',
-} as any)
+export const Large = styled("span", {
+  fontFamily: "$body", fontSize: "$h4", lineHeight: "$body",
+  fontWeight: "$600", color: "$defaultBody",
+}, "Large")
 
-const SmallFrame = styledHtml('small', {
-  fontFamily: '$body',
-  fontSize: '$4',
-  lineHeight: '$4',
-  fontWeight: '$3',
-  color: '$color',
-} as any)
+export const Small = styled("small", {
+  fontFamily: "$body", fontSize: "$14", lineHeight: "$body",
+  fontWeight: "$500", color: "$defaultBody",
+}, "Small")
 
-const MutedFrame = styledHtml('p', {
-  fontFamily: '$body',
-  fontSize: '$4',
-  lineHeight: '$4',
-  fontWeight: '$2',
-  color: '$colorSubtitle',
-  margin: 0,
-} as any)
+export const Muted = styled("p", {
+  fontFamily: "$body", fontSize: "$14", lineHeight: "$body",
+  fontWeight: "$400", color: "$tertiary7", margin: "0",
+}, "Muted")
 
 // ---------------------------------------------------------------------------
 // Block elements
 // ---------------------------------------------------------------------------
 
-const BlockquoteFrame = styledHtml('blockquote', {
-  fontFamily: '$quote',
-  fontStyle: 'italic',
-  fontSize: '$2',
-  lineHeight: '$2',
-  fontWeight: '$1',
-  color: '$color',
-  margin: 0,
-  paddingLeft: '$2',
-  borderLeftWidth: 2,
-  borderLeftStyle: 'solid',
-  borderLeftColor: '$borderColor',
-} as any)
+export const Blockquote = styled("blockquote", {
+  fontFamily: "$quote", fontStyle: "italic",
+  fontSize: "$p", lineHeight: "$body", fontWeight: "$400",
+  color: "$defaultBody", margin: "0",
+  paddingLeft: "$3", borderLeftWidth: "2px",
+  borderLeftStyle: "solid", borderLeftColor: "$borderColor",
+}, "Blockquote")
 
-const InlineCodeFrame = styledHtml('code', {
-  fontFamily: '$mono',
-  fontSize: '$4',
-  lineHeight: '$4',
-  fontWeight: '$1',
-  backgroundColor: '$color2',
-  borderRadius: '$2',
-  paddingLeft: '$0.5',
-  paddingRight: '$0.5',
-  paddingTop: '$0.25',
-  paddingBottom: '$0.25',
-  color: '$color',
-} as any)
+export const InlineCode = styled("code", {
+  fontFamily: "$code", fontSize: "$14", lineHeight: "$body",
+  fontWeight: "$400", backgroundColor: "$surface2",
+  borderRadius: "$2", paddingLeft: "$1", paddingRight: "$1",
+  paddingTop: "$0.5", paddingBottom: "$0.5", color: "$defaultBody",
+}, "InlineCode")
 
 // ---------------------------------------------------------------------------
 // Lists
 // ---------------------------------------------------------------------------
 
-const UlFrame = styledHtml('ul', {
-  fontFamily: '$body',
-  fontSize: '$5',
-  lineHeight: '$5',
-  color: '$color',
-  margin: 0,
-  paddingLeft: '$3.5',
-} as any)
+export const List = styled("ul", {
+  fontFamily: "$body", fontSize: "$p", lineHeight: "$body",
+  color: "$defaultBody", margin: "0", paddingLeft: "$5",
+}, "List")
 
-const LiFrame = styledHtml('li', {
-  fontFamily: '$body',
-  fontSize: 'inherit',
-  lineHeight: 'inherit',
-  color: 'inherit',
-} as any)
-
-// ---------------------------------------------------------------------------
-// Cast for JSX usage — v2 RC GetFinalProps bug
-// ---------------------------------------------------------------------------
-
-type AnyFC = ComponentType<Record<string, unknown>>
-
-export const H1 = H1Frame as AnyFC
-export const H2 = H2Frame as AnyFC
-export const H3 = H3Frame as AnyFC
-export const H4 = H4Frame as AnyFC
-export const H5 = H5Frame as AnyFC
-export const H6 = H6Frame as AnyFC
-export const P = PFrame as AnyFC
-export const Lead = LeadFrame as AnyFC
-export const Large = LargeFrame as AnyFC
-export const Small = SmallFrame as AnyFC
-export const Muted = MutedFrame as AnyFC
-export const Blockquote = BlockquoteFrame as AnyFC
-export const InlineCode = InlineCodeFrame as AnyFC
-export const List = UlFrame as AnyFC
-export const ListItem = LiFrame as AnyFC
+export const ListItem = styled("li", {
+  fontFamily: "$body", fontSize: "inherit", lineHeight: "inherit", color: "inherit",
+}, "ListItem")
