@@ -6,6 +6,9 @@ import { handleListComponents } from './tools/list-components.js'
 import { handleGetComponent } from './tools/get-component.js'
 import { handleGetMigration } from './tools/get-migration.js'
 import { handleSearchIcons } from './tools/search-icons.js'
+import { handleSuggestComponent } from './tools/suggest-component.js'
+import { handleGenerateCode } from './tools/generate-code.js'
+import { handleValidateCode } from './tools/validate-code.js'
 
 const server = new McpServer({
   name: '@vlting/ui-mcp',
@@ -63,6 +66,41 @@ server.tool(
   },
   async (args) => ({
     content: [{ type: 'text' as const, text: JSON.stringify(handleSearchIcons(args), null, 2) }],
+  })
+)
+
+server.tool(
+  'suggest_component',
+  'Given a UI intent description, suggest the best @vlting/ui component(s) to use',
+  {
+    intent: z.string().describe('UI intent description (e.g., "show a confirmation dialog", "date picker", "sidebar navigation")'),
+  },
+  async (args) => ({
+    content: [{ type: 'text' as const, text: JSON.stringify(handleSuggestComponent(args), null, 2) }],
+  })
+)
+
+server.tool(
+  'generate_code',
+  'Generate boilerplate code for a @vlting/ui component or composition',
+  {
+    component: z.string().describe('Component name (e.g., "Card", "Dialog", "AuthBlock")'),
+    props: z.record(z.unknown()).optional().describe('Props to set on the component'),
+    children: z.string().optional().describe('Children content string'),
+  },
+  async (args) => ({
+    content: [{ type: 'text' as const, text: JSON.stringify(handleGenerateCode(args), null, 2) }],
+  })
+)
+
+server.tool(
+  'validate_code',
+  'Validate code against @vlting/ui design system rules (tokens, accessibility, anti-patterns)',
+  {
+    code: z.string().describe('The code to validate'),
+  },
+  async (args) => ({
+    content: [{ type: 'text' as const, text: JSON.stringify(handleValidateCode(args), null, 2) }],
   })
 )
 
