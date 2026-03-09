@@ -36,6 +36,7 @@ vi.mock("@vlting/stl", () => {
 
   return {
     DEFAULT_COLOR_MODE: "light",
+    COLOR_MODE_ATTR: "data-color-mode",
     conditionsMap,
     conditionKeys: Object.keys(conditionsMap),
     mapConditions: (
@@ -230,5 +231,41 @@ describe("StlProvider", () => {
       </StlProvider>,
     )
     expect(screen.getByText("with overrides")).toBeInTheDocument()
+  })
+
+  it("sets data-color-mode attribute on html when dark mode", () => {
+    render(
+      <StlProvider defaultColorMode="dark">
+        <div>dark content</div>
+      </StlProvider>,
+    )
+    expect(document.documentElement.getAttribute("data-color-mode")).toBe("dark")
+  })
+
+  it("sets data-color-mode attribute on html when light mode", () => {
+    render(
+      <StlProvider defaultColorMode="light">
+        <div>light content</div>
+      </StlProvider>,
+    )
+    expect(document.documentElement.getAttribute("data-color-mode")).toBe("light")
+  })
+
+  it("does not set inline style on html when no overrides", () => {
+    render(
+      <StlProvider>
+        <div>no overrides</div>
+      </StlProvider>,
+    )
+    expect(document.documentElement.hasAttribute("style")).toBe(false)
+  })
+
+  it("does not inject style tag when no overrides", () => {
+    render(
+      <StlProvider>
+        <div>no overrides</div>
+      </StlProvider>,
+    )
+    expect(document.getElementById("stl-theme-overrides")).toBeNull()
   })
 })
