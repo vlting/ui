@@ -1,20 +1,35 @@
-import { RadioGroup as TamaguiRadioGroup } from '@tamagui/radio-group'
 import React from 'react'
-import type { ComponentType } from 'react'
-import { XStack, YStack } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-// Tamagui v2 RC GetProps bug — cast for JSX usage
-const RadioGroupRoot = TamaguiRadioGroup as unknown as ComponentType<
-  Record<string, unknown>
->
-const RadioGroupItem = TamaguiRadioGroup.Item as unknown as ComponentType<
-  Record<string, unknown>
->
-const RadioGroupIndicator = TamaguiRadioGroup.Indicator as unknown as ComponentType<
-  Record<string, unknown>
->
+const RadioDot = styled("div", {
+  borderRadius: "9999px",
+  backgroundColor: "var(--color10, #0066ff)",
+}, {
+  size: {
+    sm: { width: "6px", height: "6px" },
+    md: { width: "8px", height: "8px" },
+    lg: { width: "10px", height: "10px" },
+  },
+}, "RadioDot")
 
-const SIZE_MAP = { sm: '$3' as const, md: '$4' as const, lg: '$5' as const }
+const RadioCircle = styled("div", {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "$borderColor",
+  borderRadius: "9999px",
+  backgroundColor: "transparent",
+  flexShrink: "0",
+  transition: "border-color 0.15s",
+}, {
+  size: {
+    sm: { width: "16px", height: "16px" },
+    md: { width: "20px", height: "20px" },
+    lg: { width: "24px", height: "24px" },
+  },
+}, "RadioCircle")
 
 export interface RadioGroupRootProps {
   children: React.ReactNode
@@ -29,6 +44,12 @@ export interface RadioGroupRootProps {
 }
 
 const RadioGroupSizeContext = React.createContext<'sm' | 'md' | 'lg'>('md')
+const RadioGroupValueContext = React.createContext<{
+  value?: string
+  name?: string
+  disabled?: boolean
+  onValueChange?: (value: string) => void
+}>({})
 
 function Root({
   children,
@@ -41,22 +62,33 @@ function Root({
   orientation = 'vertical',
   'aria-label': ariaLabel,
 }: RadioGroupRootProps) {
-  const Container = orientation === 'horizontal' ? XStack : YStack
+  const [internalValue, setInternalValue] = React.useState(defaultValue ?? '')
+  const isControlled = value !== undefined
+  const currentValue = isControlled ? value : internalValue
+
+  const handleChange = React.useCallback((newValue: string) => {
+    if (!isControlled) setInternalValue(newValue)
+    onValueChange?.(newValue)
+  }, [isControlled, onValueChange])
 
   return (
     <RadioGroupSizeContext.Provider value={size}>
-      <RadioGroupRoot
-        value={value}
-        defaultValue={defaultValue}
-        onValueChange={onValueChange}
-        disabled={disabled}
-        name={name}
-        orientation={orientation}
-        aria-label={ariaLabel}
-      >
-        {/* @ts-expect-error Tamagui v2 RC */}
-        <Container gap="$2">{children}</Container>
-      </RadioGroupRoot>
+      <RadioGroupValueContext.Provider value={{ value: currentValue, name, disabled, onValueChange: handleChange }}>
+        <fieldset
+          role="radiogroup"
+          aria-label={ariaLabel}
+          style={{
+            display: 'flex',
+            flexDirection: orientation === 'horizontal' ? 'row' : 'column',
+            gap: '8px',
+            border: 'none',
+            margin: 0,
+            padding: 0,
+          }}
+        >
+          {children}
+        </fieldset>
+      </RadioGroupValueContext.Provider>
     </RadioGroupSizeContext.Provider>
   )
 }
@@ -73,34 +105,42 @@ function Item({
   children,
 }: RadioGroupItemProps) {
   const size = React.useContext(RadioGroupSizeContext)
+  const group = React.useContext(RadioGroupValueContext)
+  const isDisabled = itemDisabled || group.disabled
+  const isSelected = group.value === itemValue
 
   return (
     <label
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: 8,
-        cursor: itemDisabled ? 'not-allowed' : 'pointer',
+        gap: '8px',
+        cursor: isDisabled ? 'not-allowed' : 'pointer',
         userSelect: 'none',
       }}
     >
-      <RadioGroupItem
+      <input
+        type="radio"
+        name={group.name}
         value={itemValue}
-        disabled={itemDisabled}
-        size={SIZE_MAP[size]}
-        borderWidth={1}
-        borderColor="$borderColor"
-        borderRadius="$full"
-        backgroundColor="transparent"
-        focusVisibleStyle={{
-          outlineWidth: 2,
-          outlineOffset: 1,
-          outlineColor: '$color10',
-          outlineStyle: 'solid',
+        checked={isSelected}
+        onChange={() => group.onValueChange?.(itemValue)}
+        disabled={isDisabled}
+        style={{
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
+          padding: 0,
+          margin: '-1px',
+          overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)',
+          whiteSpace: 'nowrap',
+          borderWidth: 0,
         }}
-      >
-        <RadioGroupIndicator backgroundColor="$color10" borderRadius={1000} />
-      </RadioGroupItem>
+      />
+      <RadioCircle size={size}>
+        {isSelected && <RadioDot size={size} />}
+      </RadioCircle>
       {children}
     </label>
   )

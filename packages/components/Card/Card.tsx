@@ -1,148 +1,130 @@
-import { CardFrame as TamaguiCardFrame } from '@tamagui/card'
 import type React from 'react'
-import type { GetProps } from 'tamagui'
-import { Text, YStack, styled, withStaticProperties } from 'tamagui'
+import type { ComponentProps } from 'react'
+import { styled } from '../../stl-react/src/config'
 
-// Extend Tamagui's Card frame with our custom variants.
-// Tamagui's Card provides a YStack-based container with theme support
-// and size→borderRadius token mapping via createStyledContext.
-const CardFrame = styled(TamaguiCardFrame, {
-  borderWidth: 1,
-  borderColor: '$borderColor',
-  borderRadius: '$4',
-  overflow: 'hidden',
-
-  variants: {
+const CardFrame = styled(
+  "article",
+  {
+    display: "flex",
+    flexDirection: "column",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "$borderColor",
+    borderRadius: "$4",
+    overflow: "hidden",
+    backgroundColor: "$surface1",
+  },
+  {
     size: {
-      // @ts-expect-error Tamagui v2 RC
-      sm: { padding: '$2' },
-      // @ts-expect-error Tamagui v2 RC
-      md: { padding: '$0' },
-      // @ts-expect-error Tamagui v2 RC
-      lg: { padding: '$0' },
+      sm: { padding: "$2" },
+      md: { padding: "0px" },
+      lg: { padding: "0px" },
     },
     elevated: {
-      // @ts-expect-error Tamagui v2 RC
-      true: {
-        borderWidth: 0,
-      },
+      true: { borderWidth: "0px" },
     },
     interactive: {
-      true: {
-        cursor: 'pointer',
-        tabIndex: 0,
-        role: 'button',
-        // @ts-expect-error Tamagui v2 RC
-        hoverStyle: { backgroundColor: '$backgroundHover' },
-        // @ts-expect-error Tamagui v2 RC
-        pressStyle: { backgroundColor: '$backgroundPress', scale: 0.99 },
-        // @ts-expect-error Tamagui v2 RC
-        focusVisibleStyle: {
-          outlineWidth: 2,
-          outlineOffset: 2,
-          outlineColor: '$outlineColor',
-          outlineStyle: 'solid',
-        },
-        // @ts-expect-error Tamagui v2 RC
-        animation: 'fast',
-      },
+      true: { cursor: "pointer" },
     },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    size: 'md',
   },
-})
+  "Card"
+)
 
-// @ts-expect-error Tamagui v2 RC
-const CardHeader = styled(YStack, {
-  paddingHorizontal: '$4',
-  paddingTop: '$4',
-  paddingBottom: '$2',
-  gap: '$1',
-  flexShrink: 0,
-})
+const CardHeader = styled(
+  "header",
+  {
+    display: "flex",
+    flexDirection: "column",
+    paddingLeft: "$4",
+    paddingRight: "$4",
+    paddingTop: "$4",
+    paddingBottom: "$2",
+    gap: "$1",
+    flexShrink: 0,
+  },
+  "CardHeader"
+)
 
-// @ts-expect-error Tamagui v2 RC
-const CardContent = styled(YStack, {
-  paddingHorizontal: '$4',
-  paddingVertical: '$2',
-  flex: 1,
-  overflow: 'hidden',
-})
+const CardContent = styled(
+  "div",
+  {
+    display: "flex",
+    flexDirection: "column",
+    paddingLeft: "$4",
+    paddingRight: "$4",
+    paddingTop: "$2",
+    paddingBottom: "$2",
+    flex: 1,
+    overflow: "hidden",
+  },
+  "CardContent"
+)
 
-// @ts-expect-error Tamagui v2 RC
-const CardFooter = styled(YStack, {
-  paddingHorizontal: '$4',
-  paddingTop: '$2',
-  paddingBottom: '$4',
-  flexShrink: 0,
-})
+const CardFooter = styled(
+  "div",
+  {
+    display: "flex",
+    flexDirection: "column",
+    paddingLeft: "$4",
+    paddingRight: "$4",
+    paddingTop: "$2",
+    paddingBottom: "$4",
+    flexShrink: 0,
+  },
+  "CardFooter"
+)
 
-const CardTitleText = styled(Text, {
-  fontFamily: '$heading',
-  fontWeight: '$4',
-
-  variants: {
+const CardTitleText = styled(
+  "span",
+  { fontFamily: "$heading", fontWeight: "$600" },
+  {
     size: {
-      // @ts-expect-error Tamagui v2 RC
-      sm: { fontSize: '$4' },
-      // @ts-expect-error Tamagui v2 RC
-      md: { fontSize: '$5' },
-      // @ts-expect-error Tamagui v2 RC
-      lg: { fontSize: '$6' },
+      sm: { fontSize: "$16" },
+      md: { fontSize: "$18" },
+      lg: { fontSize: "$21" },
     },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    size: 'md',
   },
-})
+  "CardTitle"
+)
 
 function CardTitle({
   children,
-  size,
-  ...props
+  size = 'md',
 }: { children?: React.ReactNode; size?: 'sm' | 'md' | 'lg' }) {
   return (
     <h3 style={{ margin: 0 }}>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <CardTitleText size={size} {...props}>
-        {children}
-      </CardTitleText>
+      <CardTitleText size={size}>{children}</CardTitleText>
     </h3>
   )
 }
 
-const CardDescription = styled(Text, {
-  fontFamily: '$body',
-  color: '$colorSubtitle',
-
-  variants: {
+const CardDescription = styled(
+  "p",
+  { fontFamily: "$body", color: "$secondaryText12", margin: "0px" },
+  {
     size: {
-      // @ts-expect-error Tamagui v2 RC
-      sm: { fontSize: '$2' },
-      // @ts-expect-error Tamagui v2 RC
-      md: { fontSize: '$3' },
-      // @ts-expect-error Tamagui v2 RC
-      lg: { fontSize: '$4' },
+      sm: { fontSize: "$12" },
+      md: { fontSize: "$14" },
+      lg: { fontSize: "$16" },
     },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    size: 'md',
   },
-})
+  "CardDescription"
+)
 
-export const Card = withStaticProperties(CardFrame, {
+export interface CardProps extends ComponentProps<typeof CardFrame> {
+  size?: 'sm' | 'md' | 'lg'
+  elevated?: boolean
+  interactive?: boolean
+}
+
+function CardRoot({ size = 'md', ...props }: CardProps) {
+  return <CardFrame size={size} {...props} />
+}
+
+export const Card = Object.assign(CardRoot, {
   Header: CardHeader,
   Content: CardContent,
   Footer: CardFooter,
   Title: CardTitle,
   Description: CardDescription,
 })
-
-export type CardProps = GetProps<typeof CardFrame>

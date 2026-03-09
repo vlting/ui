@@ -1,16 +1,29 @@
-import React from 'react'
-import { useTheme } from 'tamagui'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import type { ChartConfig, LegendLayout } from './types'
 import { getSeriesColors } from './utils'
 
+function useResolvedTokens() {
+  const ref = useRef<HTMLDivElement>(null)
+  const [tokens, setTokens] = useState<Record<string, string>>({})
+
+  const resolve = useCallback(() => {
+    const el = ref.current
+    if (!el) return
+    const cs = getComputedStyle(el)
+    setTokens({
+      color: cs.getPropertyValue('--color').trim() || '#111111',
+    })
+  }, [])
+
+  useEffect(() => { resolve() }, [resolve])
+
+  return { ref, tokens }
+}
+
 export interface ChartLegendProps {
-  /** Legend layout direction */
   layout?: LegendLayout
-  /** Chart configuration (provides labels and colors) */
   config: ChartConfig
-  /** Vertical alignment hint (for container positioning) */
   verticalAlign?: 'top' | 'bottom'
-  /** Key to use for item names (defaults to 'label' from config) */
   nameKey?: string
 }
 
@@ -19,21 +32,12 @@ export function ChartLegend({
   config,
   nameKey,
 }: ChartLegendProps) {
-  const theme = useTheme()
-
-  // Build a flat theme lookup for color resolution
-  const themeFlat: Record<string, string> = {}
-  for (const [key, val] of Object.entries(theme)) {
-    if (val && typeof val === 'object' && 'val' in val && typeof val.val === 'string') {
-      themeFlat[key] = val.val
-    }
-  }
-
-  const resolvedColors = getSeriesColors(config, themeFlat)
+  const { ref, tokens } = useResolvedTokens()
+  const resolvedColors = getSeriesColors(config, tokens)
   const keys = Object.keys(config)
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', padding: '8px 0' }}>
+    <div ref={ref} style={{ display: 'flex', justifyContent: 'center', padding: '8px 0' }}>
       <ul
         role="list"
         style={{
@@ -73,7 +77,7 @@ export function ChartLegend({
                   flexShrink: 0,
                 }}
               />
-              <span style={{ color: theme.color?.val || '#111111' }}>
+              <span style={{ color: tokens.color || '#111111' }}>
                 {label}
               </span>
             </li>

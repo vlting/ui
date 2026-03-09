@@ -1,7 +1,27 @@
-import React from 'react'
-import { useTheme } from 'tamagui'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import type { TooltipVariant, TooltipIndicator } from './types'
 import { useChartContext } from './Chart'
+
+function useResolvedTokens() {
+  const ref = useRef<HTMLDivElement>(null)
+  const [tokens, setTokens] = useState<Record<string, string>>({})
+
+  const resolve = useCallback(() => {
+    const el = ref.current
+    if (!el) return
+    const cs = getComputedStyle(el)
+    setTokens({
+      background: cs.getPropertyValue('--background').trim() || '#ffffff',
+      color: cs.getPropertyValue('--color').trim() || '#111111',
+      color8: cs.getPropertyValue('--color8').trim() || '#6a6a6a',
+      borderColor: cs.getPropertyValue('--borderColor').trim() || '#e8e8e8',
+    })
+  }, [])
+
+  useEffect(() => { resolve() }, [resolve])
+
+  return { ref, tokens }
+}
 
 interface TooltipPayloadItem {
   name: string
@@ -10,27 +30,16 @@ interface TooltipPayloadItem {
 }
 
 export interface ChartTooltipProps {
-  /** Tooltip display variant */
   variant?: TooltipVariant
-  /** Whether the tooltip is currently visible */
   active?: boolean
-  /** Data items to display */
   payload?: TooltipPayloadItem[]
-  /** Category label (e.g., month name, date) */
   label?: string
-  /** Custom label formatter */
   labelFormatter?: (label: string) => string
-  /** Custom value formatter */
   valueFormatter?: (value: number) => string
-  /** Hide the label */
   hideLabel?: boolean
-  /** Hide the color indicator */
   hideIndicator?: boolean
-  /** Indicator style */
   indicator?: TooltipIndicator
-  /** Key to use for item names */
   nameKey?: string
-  /** Custom content (used with variant="custom") */
   children?: React.ReactNode
 }
 
@@ -75,27 +84,26 @@ export function ChartTooltip({
   nameKey,
   children,
 }: ChartTooltipProps) {
-  const theme = useTheme()
+  const { ref, tokens } = useResolvedTokens()
   const chartCtx = useChartContext()
 
   if (!active || (!payload?.length && variant !== 'custom' && variant !== 'label')) {
-    return null
+    return <div ref={ref} style={{ display: 'none' }} />
   }
 
   const containerStyle: React.CSSProperties = {
-    background: theme.background?.val || '#ffffff',
-    border: `1px solid ${theme.borderColor?.val || '#e8e8e8'}`,
+    background: tokens.background || '#ffffff',
+    border: `1px solid ${tokens.borderColor || '#e8e8e8'}`,
     borderRadius: 7,
     padding: '8px 12px',
     boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
     fontSize: 12,
-    color: theme.color?.val || '#111111',
+    color: tokens.color || '#111111',
     minWidth: 120,
     pointerEvents: 'none',
   }
 
-  const subtitleColor =
-    (theme as Record<string, { val?: string }>).color8?.val || '#6a6a6a'
+  const subtitleColor = tokens.color8 || '#6a6a6a'
 
   const formattedLabel =
     label != null && labelFormatter ? labelFormatter(label) : label
@@ -109,7 +117,7 @@ export function ChartTooltip({
     : undefined
 
   return (
-    <div style={containerStyle}>
+    <div ref={ref} style={containerStyle}>
       {showLabel && (
         <div
           style={{

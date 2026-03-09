@@ -1,13 +1,75 @@
-import { Sheet as TamaguiSheet } from '@tamagui/sheet'
-import type React from 'react'
-import type { ComponentType } from 'react'
+import React, { createContext, useContext, useEffect, useId } from 'react'
+import { createPortal } from 'react-dom'
+import { styled } from '../../stl-react/src/config'
+import { useDisclosure } from '../../stl-headless/src'
 
-// Tamagui v2 RC GetProps bug — cast for JSX usage
-const SheetRoot = TamaguiSheet as ComponentType<Record<string, unknown>>
-const SheetFrame = TamaguiSheet.Frame as ComponentType<Record<string, unknown>>
-const SheetHandle = TamaguiSheet.Handle as ComponentType<Record<string, unknown>>
-const SheetOverlay = TamaguiSheet.Overlay as ComponentType<Record<string, unknown>>
-const SheetScrollView = TamaguiSheet.ScrollView as ComponentType<Record<string, unknown>>
+const StyledOverlay = styled(
+  "div",
+  {
+    position: "fixed",
+    top: "0",
+    left: "0",
+    right: "0",
+    bottom: "0",
+    backgroundColor: "var(--overlayBackground, rgba(0,0,0,0.5))",
+    zIndex: "40",
+    transition: "opacity 200ms ease",
+  },
+  "SheetOverlay"
+)
+
+const StyledFrame = styled(
+  "div",
+  {
+    position: "fixed",
+    bottom: "0",
+    left: "0",
+    right: "0",
+    backgroundColor: "var(--background, #fff)",
+    borderTopLeftRadius: "12px",
+    borderTopRightRadius: "12px",
+    padding: "16px",
+    zIndex: "50",
+    maxHeight: "90vh",
+    display: "flex",
+    flexDirection: "column",
+    transition: "transform 300ms ease",
+  },
+  "SheetFrame"
+)
+
+const StyledHandle = styled(
+  "div",
+  {
+    width: "36px",
+    height: "4px",
+    borderRadius: "9999px",
+    backgroundColor: "var(--color6)",
+    opacity: "0.5",
+    margin: "0 auto 8px",
+    cursor: "grab",
+  },
+  "SheetHandle"
+)
+
+const StyledScrollView = styled(
+  "div",
+  {
+    overflowY: "auto",
+    flex: "1",
+  },
+  "SheetScrollView"
+)
+
+interface SheetContextValue {
+  isOpen: boolean
+  onClose: () => void
+}
+
+const SheetContext = createContext<SheetContextValue>({
+  isOpen: false,
+  onClose: () => {},
+})
 
 export interface SheetRootProps {
   children: React.ReactNode
@@ -25,42 +87,40 @@ function Root({
   children,
   open,
   onOpenChange,
-  snapPoints,
-  position,
-  defaultPosition,
   modal = true,
   dismissOnOverlayPress = true,
-  dismissOnSnapToBottom = true,
 }: SheetRootProps) {
+  const disclosure = useDisclosure({ open, onOpenChange })
+
   return (
-    <SheetRoot
-      open={open}
-      onOpenChange={onOpenChange}
-      snapPoints={snapPoints}
-      position={position}
-      defaultPosition={defaultPosition}
-      modal={modal}
-      dismissOnOverlayPress={dismissOnOverlayPress}
-      dismissOnSnapToBottom={dismissOnSnapToBottom}
-    >
+    <SheetContext.Provider value={{ isOpen: disclosure.isOpen, onClose: disclosure.onClose }}>
       {children}
-    </SheetRoot>
+    </SheetContext.Provider>
   )
 }
 
 function Overlay() {
-  return (
-    <SheetOverlay
-      backgroundColor="$overlayBackground"
-      animation="medium"
-      enterStyle={{ opacity: 0 }}
-      exitStyle={{ opacity: 0 }}
-    />
+  const { isOpen, onClose } = useContext(SheetContext)
+
+  useEffect(() => {
+    if (!isOpen) return
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', handleKey)
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [isOpen, onClose])
+
+  if (!isOpen) return null
+
+  return createPortal(
+    <StyledOverlay onClick={onClose} />,
+    document.body,
   )
 }
 
 function Handle() {
-  return <SheetHandle backgroundColor="$color6" opacity={0.5} />
+  return <StyledHandle />
 }
 
 interface SheetFrameProps {
@@ -68,20 +128,24 @@ interface SheetFrameProps {
 }
 
 function Frame({ children }: SheetFrameProps) {
-  return (
-    <SheetFrame
-      backgroundColor="$background"
-      borderTopLeftRadius="$6"
-      borderTopRightRadius="$6"
-      padding="$4"
+  const { isOpen } = useContext(SheetContext)
+
+  if (!isOpen) return null
+
+  return createPortal(
+    <StyledFrame
+      role="dialog"
+      aria-modal="true"
+      style={{ transform: isOpen ? 'translateY(0)' : 'translateY(100%)' }}
     >
       {children}
-    </SheetFrame>
+    </StyledFrame>,
+    document.body,
   )
 }
 
 function ScrollView({ children }: { children: React.ReactNode }) {
-  return <SheetScrollView>{children}</SheetScrollView>
+  return <StyledScrollView>{children}</StyledScrollView>
 }
 
 export const Sheet = { Root, Overlay, Handle, Frame, ScrollView }

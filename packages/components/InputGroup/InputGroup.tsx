@@ -1,9 +1,5 @@
 import React, { useContext } from 'react'
-import type { ComponentType } from 'react'
-import { View, XStack, styled, withStaticProperties } from 'tamagui'
-
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
+import { styled } from '../../stl-react/src/config'
 
 type InputGroupSize = 'sm' | 'md' | 'lg'
 
@@ -24,6 +20,10 @@ export interface InputGroupProps {
   'aria-label'?: string
 }
 
+const InputGroupWrapper = styled("div", {
+  display: "inline-flex",
+}, "InputGroupWrapper")
+
 function InputGroupRoot({
   children,
   orientation = 'horizontal',
@@ -37,7 +37,7 @@ function InputGroupRoot({
 
   return (
     <InputGroupContext.Provider value={{ size }}>
-      <ViewJsx display="inline-flex">
+      <InputGroupWrapper>
         <style
           dangerouslySetInnerHTML={{
             __html: isHorizontal
@@ -55,48 +55,42 @@ function InputGroupRoot({
             `,
           }}
         />
-        <ViewJsx
+        <div
           role="group"
           aria-label={ariaLabel}
-          flexDirection={isHorizontal ? 'row' : 'column'}
-          display="inline-flex"
           className={className}
+          style={{
+            display: 'inline-flex',
+            flexDirection: isHorizontal ? 'row' : 'column',
+          }}
         >
           {children}
-        </ViewJsx>
-      </ViewJsx>
+        </div>
+      </InputGroupWrapper>
     </InputGroupContext.Provider>
   )
 }
 
 // --- Addon ---
 
-const InputGroupAddonFrame = styled(XStack, {
-  alignItems: 'center',
-  justifyContent: 'center',
-  paddingHorizontal: '$2',
-  backgroundColor: '$color3',
-  borderWidth: 1,
-  borderColor: '$borderColor',
-
-  variants: {
-    size: {
-      // @ts-expect-error Tamagui v2 RC
-      sm: { borderRadius: '$3', paddingHorizontal: '$1.5' },
-      // @ts-expect-error Tamagui v2 RC
-      md: { borderRadius: '$4', paddingHorizontal: '$2' },
-      // @ts-expect-error Tamagui v2 RC
-      lg: { borderRadius: '$5', paddingHorizontal: '$2.5' },
-    },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    size: 'md',
+const InputGroupAddonFrame = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  paddingLeft: "8px",
+  paddingRight: "8px",
+  backgroundColor: "$surface3",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "$borderColor",
+  borderRadius: "$4",
+}, {
+  size: {
+    sm: { borderRadius: "$2", paddingLeft: "6px", paddingRight: "6px" },
+    md: { borderRadius: "$4", paddingLeft: "8px", paddingRight: "8px" },
+    lg: { borderRadius: "$4", paddingLeft: "10px", paddingRight: "10px" },
   },
-})
-
-const InputGroupAddonJsx = InputGroupAddonFrame as AnyFC
+}, "InputGroupAddon")
 
 export interface InputGroupAddonProps {
   children: React.ReactNode
@@ -104,37 +98,28 @@ export interface InputGroupAddonProps {
 
 function InputGroupAddon({ children }: InputGroupAddonProps) {
   const { size } = useInputGroupContext()
-  return <InputGroupAddonJsx size={size}>{children}</InputGroupAddonJsx>
+  return <InputGroupAddonFrame size={size}>{children}</InputGroupAddonFrame>
 }
 
 // --- Element ---
 
-const InputGroupElementFrame = styled(XStack, {
-  position: 'absolute',
-  top: 0,
-  bottom: 0,
-  alignItems: 'center',
-  justifyContent: 'center',
-  paddingHorizontal: '$2',
-  zIndex: 1,
-  pointerEvents: 'none',
-
-  variants: {
-    placement: {
-      // @ts-expect-error Tamagui v2 RC
-      left: { left: 0 },
-      // @ts-expect-error Tamagui v2 RC
-      right: { right: 0 },
-    },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    placement: 'left',
+const InputGroupElementFrame = styled("div", {
+  position: "absolute",
+  top: "0",
+  bottom: "0",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  paddingLeft: "8px",
+  paddingRight: "8px",
+  zIndex: "1",
+  pointerEvents: "none",
+}, {
+  placement: {
+    left: { left: "0" },
+    right: { right: "0" },
   },
-})
-
-const InputGroupElementJsx = InputGroupElementFrame as AnyFC
+}, "InputGroupElement")
 
 export interface InputGroupElementProps {
   children: React.ReactNode
@@ -146,9 +131,9 @@ function InputGroupElement({
   placement = 'left',
 }: InputGroupElementProps) {
   return (
-    <InputGroupElementJsx placement={placement}>
+    <InputGroupElementFrame placement={placement}>
       {children}
-    </InputGroupElementJsx>
+    </InputGroupElementFrame>
   )
 }
 
@@ -164,7 +149,7 @@ function InputGroupInput({ children }: InputGroupInputProps) {
 
 // --- Compound Export ---
 
-export const InputGroup = withStaticProperties(InputGroupRoot, {
+export const InputGroup = Object.assign(InputGroupRoot, {
   Addon: InputGroupAddon,
   Element: InputGroupElement,
   Input: InputGroupInput,

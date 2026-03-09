@@ -1,14 +1,56 @@
-import { Switch as TamaguiSwitch } from '@tamagui/switch'
-import type { ComponentType } from 'react'
+import React, { useState } from 'react'
+import { styled } from '../../stl-react/src/config'
 
-// Tamagui v2 RC GetProps bug — cast for JSX usage
-const SwitchFrame = TamaguiSwitch as ComponentType<Record<string, unknown>>
-const SwitchThumb = TamaguiSwitch.Thumb as ComponentType<Record<string, unknown>>
+const SwitchTrack = styled(
+  "button",
+  {
+    position: "relative",
+    display: "inline-flex",
+    alignItems: "center",
+    borderRadius: "9999px",
+    border: "none",
+    cursor: "pointer",
+    padding: "2px",
+    transition: "background-color 200ms ease",
+    flexShrink: 0,
+  },
+  {
+    size: {
+      sm: { width: "36px", height: "20px" },
+      md: { width: "44px", height: "24px" },
+      lg: { width: "52px", height: "28px" },
+    },
+    disabled: {
+      true: { opacity: "0.5", cursor: "not-allowed" },
+    },
+  },
+  "Switch"
+)
 
-const SIZE_MAP = { sm: '$3' as const, md: '$4' as const, lg: '$5' as const }
-const WIDTH_MAP: Record<string, string | number> = { sm: '$4.5', md: '$6', lg: '$7' }
-const THUMB_SIZE_MAP: Record<string, string | number> = { sm: '$0.75', md: '$1', lg: '$1.5' }
-const PADDING_MAP: Record<string, number> = { sm: 2, md: 3, lg: 4 }
+const SwitchThumb = styled(
+  "span",
+  {
+    display: "block",
+    borderRadius: "9999px",
+    backgroundColor: "var(--background, #fff)",
+    boxShadow: "0 1px 2px rgba(0,0,0,0.2)",
+    transition: "transform 200ms ease",
+  },
+  {
+    size: {
+      sm: { width: "16px", height: "16px" },
+      md: { width: "20px", height: "20px" },
+      lg: { width: "24px", height: "24px" },
+    },
+  },
+  "SwitchThumb"
+)
+
+const THUMB_TRANSLATE: Record<string, string> = {
+  sm: 'translateX(16px)',
+  md: 'translateX(20px)',
+  lg: 'translateX(24px)',
+}
 
 export interface SwitchProps {
   checked?: boolean
@@ -20,48 +62,43 @@ export interface SwitchProps {
 }
 
 export function Switch({
-  checked,
-  defaultChecked,
+  checked: controlledChecked,
+  defaultChecked = false,
   onCheckedChange,
   disabled = false,
   size = 'md',
   name,
 }: SwitchProps) {
+  const [internalChecked, setInternalChecked] = useState(defaultChecked)
+  const isControlled = controlledChecked !== undefined
+  const isChecked = isControlled ? controlledChecked : internalChecked
+
+  const handleClick = () => {
+    if (disabled) return
+    const next = !isChecked
+    if (!isControlled) setInternalChecked(next)
+    onCheckedChange?.(next)
+  }
+
   return (
-    <SwitchFrame
-      checked={checked}
-      defaultChecked={defaultChecked}
-      onCheckedChange={onCheckedChange}
+    <SwitchTrack
+      type="button"
+      role="switch"
+      aria-checked={isChecked}
       disabled={disabled}
-      size={SIZE_MAP[size]}
-      name={name}
-      backgroundColor="$color4"
-      borderRadius="$full"
-      padding={PADDING_MAP[size]}
-      cursor={disabled ? 'not-allowed' : 'pointer'}
-      opacity={disabled ? 0.5 : 1}
-      animation="fast"
-      alignItems="center"
-      width={WIDTH_MAP[size]}
-      focusVisibleStyle={{
-        outlineWidth: 2,
-        outlineOffset: 2,
-        outlineColor: '$color8',
-        outlineStyle: 'solid',
+      onClick={handleClick}
+      size={size}
+      style={{
+        backgroundColor: isChecked ? 'var(--color10)' : 'var(--color4)',
       }}
     >
+      {name && <input type="hidden" name={name} value={isChecked ? 'on' : 'off'} />}
       <SwitchThumb
-        animation="fast"
-        backgroundColor="$background"
-        borderRadius="$full"
-        width={THUMB_SIZE_MAP[size]}
-        height={THUMB_SIZE_MAP[size]}
-        shadowColor="$shadowColor"
-        shadowRadius={2}
-        shadowOffset={{ width: 0, height: 1 }}
-        shadowOpacity={0.2}
-        elevation={2}
+        size={size}
+        style={{
+          transform: isChecked ? THUMB_TRANSLATE[size] : 'translateX(0)',
+        }}
       />
-    </SwitchFrame>
+    </SwitchTrack>
   )
 }

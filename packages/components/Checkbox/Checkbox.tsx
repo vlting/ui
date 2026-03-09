@@ -1,12 +1,5 @@
-import { Checkbox as TamaguiCheckbox } from '@tamagui/checkbox'
-import type React from 'react'
-import type { ComponentType } from 'react'
-
-// Tamagui v2 RC GetProps bug — cast for JSX usage
-const CheckboxButton = TamaguiCheckbox as ComponentType<Record<string, unknown>>
-const CheckboxIndicator = TamaguiCheckbox.Indicator as ComponentType<
-  Record<string, unknown>
->
+import React, { useCallback, useRef } from 'react'
+import { styled } from '../../stl-react/src/config'
 
 function CheckSvg({ size = 14 }: { size?: number }) {
   return (
@@ -42,7 +35,24 @@ function MinusSvg({ size = 14 }: { size?: number }) {
   )
 }
 
-const SIZE_MAP = { sm: '$3' as const, md: '$4' as const, lg: '$5' as const }
+const CheckboxBox = styled("div", {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  borderWidth: "2px",
+  borderStyle: "solid",
+  borderRadius: "$2",
+  flexShrink: "0",
+  transition: "border-color 0.15s, background-color 0.15s",
+}, {
+  size: {
+    sm: { width: "16px", height: "16px" },
+    md: { width: "20px", height: "20px" },
+    lg: { width: "24px", height: "24px" },
+  },
+}, "CheckboxBox")
+
+const ICON_SIZE_MAP: Record<string, number> = { sm: 12, md: 14, lg: 18 }
 
 export interface CheckboxRootProps {
   children?: React.ReactNode
@@ -56,8 +66,6 @@ export interface CheckboxRootProps {
   value?: string
 }
 
-const ICON_SIZE_MAP: Record<string, number> = { sm: 12, md: 14, lg: 18 }
-
 function Root({
   children,
   checked,
@@ -69,8 +77,24 @@ function Root({
   name,
   value,
 }: CheckboxRootProps) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const isControlled = checked !== undefined
   const isChecked = checked === true
   const isIndeterminate = checked === 'indeterminate'
+
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isIndeterminate) {
+      onCheckedChange?.(true)
+    } else {
+      onCheckedChange?.(e.target.checked)
+    }
+  }, [isIndeterminate, onCheckedChange])
+
+  React.useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.indeterminate = isIndeterminate
+    }
+  }, [isIndeterminate])
 
   return (
     <label
@@ -83,45 +107,49 @@ function Root({
         userSelect: 'none',
       }}
     >
-      <CheckboxButton
-        checked={checked}
-        defaultChecked={defaultChecked}
-        onCheckedChange={onCheckedChange}
+      <input
+        ref={inputRef}
+        type="checkbox"
+        checked={isControlled ? isChecked : undefined}
+        defaultChecked={!isControlled ? defaultChecked : undefined}
+        onChange={handleChange}
         disabled={disabled}
-        size={SIZE_MAP[size]}
         required={required}
         name={name}
         value={value}
-        borderRadius="$2"
-        borderWidth={2}
-        borderColor={isChecked || isIndeterminate ? '$color10' : '$borderColor'}
-        backgroundColor={isChecked || isIndeterminate ? '$color10' : 'transparent'}
-        color={isChecked || isIndeterminate ? '$color1' : '$color'}
-        hoverStyle={{
-          borderColor: '$color8',
+        style={{
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
+          padding: 0,
+          margin: '-1px',
+          overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)',
+          whiteSpace: 'nowrap',
+          borderWidth: 0,
         }}
-        focusVisibleStyle={{
-          outlineWidth: 2,
-          outlineOffset: 2,
-          outlineColor: '$color8',
-          outlineStyle: 'solid',
+      />
+      <CheckboxBox
+        size={size}
+        style={{
+          borderColor: isChecked || isIndeterminate ? 'var(--color10, #0066ff)' : 'var(--borderColor, #d1d5db)',
+          backgroundColor: isChecked || isIndeterminate ? 'var(--color10, #0066ff)' : 'transparent',
+          color: isChecked || isIndeterminate ? 'white' : 'inherit',
         }}
       >
-        <CheckboxIndicator>
-          {isIndeterminate ? (
-            <MinusSvg size={ICON_SIZE_MAP[size]} />
-          ) : (
-            <CheckSvg size={ICON_SIZE_MAP[size]} />
-          )}
-        </CheckboxIndicator>
-      </CheckboxButton>
+        {(isChecked || isIndeterminate) && (
+          isIndeterminate
+            ? <MinusSvg size={ICON_SIZE_MAP[size]} />
+            : <CheckSvg size={ICON_SIZE_MAP[size]} />
+        )}
+      </CheckboxBox>
       {children}
     </label>
   )
 }
 
 function Indicator({ children }: { children?: React.ReactNode }) {
-  return <CheckboxIndicator>{children}</CheckboxIndicator>
+  return <>{children}</>
 }
 
 export const Checkbox = { Root, Indicator }

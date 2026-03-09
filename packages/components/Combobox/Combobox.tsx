@@ -1,12 +1,72 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
 import type React from 'react'
 import { useCallback, useMemo, useRef, useState } from 'react'
-import { Text, View } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
+const TriggerButton = styled("button", {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  width: "100%",
+  backgroundColor: "$background",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "$borderColor",
+  borderRadius: "$4",
+  padding: "8px 12px",
+  fontFamily: "$body",
+  fontSize: "$p",
+  color: "$defaultBody",
+  cursor: "pointer",
+  outline: "none",
+  textAlign: "left",
+}, {
+  disabled: {
+    true: { cursor: "not-allowed", opacity: "0.5" },
+  },
+}, "ComboboxTrigger")
+
+const DropdownFrame = styled("div", {
+  position: "absolute",
+  top: "100%",
+  left: "0",
+  right: "0",
+  marginTop: "4px",
+  backgroundColor: "$background",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "$borderColor",
+  borderRadius: "$4",
+  zIndex: "1000",
+  overflow: "hidden",
+}, "ComboboxDropdown")
+
+const SearchInput = styled("input", {
+  display: "flex",
+  width: "100%",
+  backgroundColor: "transparent",
+  fontSize: "$p",
+  fontFamily: "$body",
+  color: "$defaultBody",
+  outline: "none",
+  border: "none",
+  padding: "0",
+}, "ComboboxSearchInput")
+
+const OptionButton = styled("button", {
+  display: "flex",
+  alignItems: "center",
+  width: "100%",
+  padding: "8px 12px",
+  fontFamily: "$body",
+  fontSize: "$p",
+  color: "$defaultBody",
+  cursor: "pointer",
+  border: "none",
+  backgroundColor: "transparent",
+  textAlign: "left",
+  outline: "none",
+  borderRadius: "$2",
+}, "ComboboxOption")
 
 function ChevronsUpDownSvg() {
   return (
@@ -25,41 +85,6 @@ function CheckSvg() {
   )
 }
 
-const BtnFrame = styledHtml('button', {
-  display: 'flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  cursor: 'pointer',
-  textAlign: 'left',
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-} as any)
-const BtnJsx = BtnFrame as AnyFC
-
-const InputFrame = styledHtml('input', {
-  display: 'flex',
-  width: '100%',
-  backgroundColor: 'transparent',
-  fontSize: '$4',
-  fontFamily: '$body',
-  color: '$color',
-  outline: 'none',
-  border: 'none',
-  padding: 0,
-} as any)
-
-const InputJsx = InputFrame as AnyFC
-
 export interface ComboboxOption {
   value: string
   label: string
@@ -76,13 +101,6 @@ export interface ComboboxRootProps {
   disabled?: boolean
 }
 
-export interface ComboboxItemProps {
-  value: string
-  label: string
-  isSelected: boolean
-  onSelect: () => void
-}
-
 function Root({
   options,
   value,
@@ -96,6 +114,7 @@ function Root({
   const [search, setSearch] = useState('')
   const [highlightIndex, setHighlightIndex] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
 
   const filtered = useMemo(
     () => options.filter((o) => o.label.toLowerCase().includes(search.toLowerCase())),
@@ -134,24 +153,24 @@ function Root({
     [filtered, highlightIndex, handleSelect],
   )
 
+  // Close on outside click
+  React.useEffect(() => {
+    if (!open) return
+    const handler = (e: MouseEvent) => {
+      if (!rootRef.current?.contains(e.target as Node)) {
+        setOpen(false)
+        setSearch('')
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [open])
+
   return (
-    <ViewJsx position="relative" width="100%">
-      {/* Trigger */}
-      <BtnJsx
+    <div ref={rootRef} style={{ position: 'relative', width: '100%' }}>
+      <TriggerButton
         type="button"
-        alignItems="center"
-        justifyContent="space-between"
-        height="$4"
-        paddingLeft="$2"
-        paddingRight="$2"
-        borderWidth={1}
-        borderColor="$borderColor"
-        borderRadius="$4"
-        backgroundColor="$background"
-        cursor={disabled ? 'not-allowed' : 'pointer'}
-        opacity={disabled ? 0.5 : 1}
-        disabled={disabled}
-        hoverStyle={disabled ? undefined : { borderColor: '$color8' }}
+        disabled={disabled || undefined}
         onClick={
           disabled
             ? undefined
@@ -164,46 +183,24 @@ function Root({
         aria-expanded={open}
         aria-haspopup="listbox"
       >
-        <TextJsx
-          fontSize="$3"
-          fontFamily="$body"
-          color={value ? '$color' : '$placeholderColor'}
-        >
+        <span style={!value ? { opacity: 0.5 } : undefined}>
           {selectedLabel ?? placeholder}
-        </TextJsx>
+        </span>
         <ChevronsUpDownSvg />
-      </BtnJsx>
+      </TriggerButton>
 
-      {/* Dropdown */}
       {open && (
-        <ViewJsx
-          position="absolute"
-          top="100%"
-          left={0}
-          right={0}
-          marginTop="$0.5"
-          backgroundColor="$background"
-          borderWidth={1}
-          borderColor="$borderColor"
-          borderRadius="$4"
-          zIndex="$5"
-          overflow="hidden"
-          style={{ boxShadow: 'var(--shadowMd)' }}
-        >
-          {/* Search input */}
-          <ViewJsx
-            flexDirection="row"
-            alignItems="center"
-            paddingLeft="$2"
-            paddingRight="$2"
-            height="$4"
-            borderBottomWidth={1}
-            borderColor="$borderColor"
-          >
-            <InputJsx
+        <DropdownFrame style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: '8px 12px',
+            borderBottom: '1px solid var(--borderColor, #e5e7eb)',
+          }}>
+            <SearchInput
               ref={inputRef}
               value={search}
-              onChange={(e: any) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setSearch(e.target.value)
                 setHighlightIndex(0)
               }}
@@ -211,56 +208,41 @@ function Root({
               placeholder={searchPlaceholder}
               aria-label="Search options"
             />
-          </ViewJsx>
+          </div>
 
-          {/* Options */}
-          <ViewJsx maxHeight="$14" padding="$1" style={{ overflowY: 'auto' }} role="listbox">
+          <div role="listbox" style={{ maxHeight: '240px', padding: '4px', overflowY: 'auto' }}>
             {filtered.length === 0 ? (
-              <ViewJsx padding="$2" alignItems="center">
-                <TextJsx fontSize="$3" color="$colorSubtitle" fontFamily="$body">
-                  {emptyMessage}
-                </TextJsx>
-              </ViewJsx>
+              <div style={{ padding: '8px', textAlign: 'center', opacity: 0.5 }}>
+                {emptyMessage}
+              </div>
             ) : (
               filtered.map((option, i) => {
                 const isSelected = option.value === value
                 const isHighlighted = i === highlightIndex
                 return (
-                  <BtnJsx
+                  <OptionButton
                     key={option.value}
                     type="button"
-                    alignItems="center"
-                    width="100%"
-                    height="$4"
-                    paddingLeft="$2"
-                    paddingRight="$2"
-                    paddingVertical="$1"
-                    borderRadius="$2"
-                    backgroundColor={isHighlighted ? '$color3' : 'transparent'}
-                    hoverStyle={{ backgroundColor: '$color3' }}
                     onClick={() => handleSelect(option.value)}
                     role="option"
                     aria-selected={isSelected}
+                    style={{
+                      backgroundColor: isHighlighted ? 'var(--surface3, #f3f4f6)' : 'transparent',
+                      fontWeight: isSelected ? 600 : 400,
+                    }}
                   >
-                    <ViewJsx width="$2" alignItems="center">
+                    <span style={{ width: '20px', display: 'inline-flex', alignItems: 'center' }}>
                       {isSelected && <CheckSvg />}
-                    </ViewJsx>
-                    <TextJsx
-                      fontSize="$3"
-                      fontFamily="$body"
-                      color="$color"
-                      fontWeight={isSelected ? '$3' : '$2'}
-                    >
-                      {option.label}
-                    </TextJsx>
-                  </BtnJsx>
+                    </span>
+                    {option.label}
+                  </OptionButton>
                 )
               })
             )}
-          </ViewJsx>
-        </ViewJsx>
+          </div>
+        </DropdownFrame>
       )}
-    </ViewJsx>
+    </div>
   )
 }
 

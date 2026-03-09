@@ -1,130 +1,81 @@
-import { Button as TamaguiButton } from '@tamagui/button'
 import React, { createContext, useContext } from 'react'
-import type { GetProps } from 'tamagui'
-import { Spinner, Text, Theme, XStack, styled, withStaticProperties } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 import { VisuallyHidden } from '../../primitives'
 
-// Extend Tamagui's Button.Frame with our custom variants.
-// Tamagui Button already renders <button type="button"> with correct semantics,
-// ARIA, focus styles, hover/press interactions, and token-based sizing.
-const ButtonFrame = styled(TamaguiButton.Frame, {
-  // @ts-expect-error Tamagui v2 RC PseudoStyleWithTransition type limitation
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 1,
-    outlineColor: '$color10',
-    outlineStyle: 'solid',
+const ButtonFrame = styled(
+  "button",
+  {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "8px",
+    borderRadius: "6px",
+    fontFamily: "var(--font-body)",
+    fontWeight: "500",
+    cursor: "pointer",
+    border: "none",
+    transition: "background-color 150ms ease, border-color 150ms ease",
+    outline: "none",
   },
-
-  variants: {
+  {
     variant: {
-      // shadcn: "default" — solid primary background
-      default: {
-        backgroundColor: '$color10',
-        borderWidth: 0,
-        borderColor: 'transparent',
-        // @ts-expect-error Tamagui v2 RC
-        hoverStyle: {
-          backgroundColor: '$color11',
-          borderColor: 'transparent',
-        },
-        // @ts-expect-error Tamagui v2 RC
-        pressStyle: {
-          backgroundColor: '$color11',
-          borderColor: 'transparent',
-        },
-      },
-      // Backwards compat alias
-      solid: {
-        backgroundColor: '$color10',
-        borderWidth: 0,
-        borderColor: 'transparent',
-        // @ts-expect-error Tamagui v2 RC
-        hoverStyle: {
-          backgroundColor: '$color11',
-          borderColor: 'transparent',
-        },
-        // @ts-expect-error Tamagui v2 RC
-        pressStyle: {
-          backgroundColor: '$color11',
-          borderColor: 'transparent',
-        },
-      },
-      // shadcn: "secondary"
-      secondary: {
-        backgroundColor: '$color2',
-        borderWidth: 0,
-        borderColor: 'transparent',
-        // @ts-expect-error Tamagui v2 RC
-        hoverStyle: {
-          backgroundColor: '$color3',
-        },
-      },
-      // shadcn: "destructive" — light accent bg, dark accent text
-      destructive: {
-        backgroundColor: '$color4',
-        borderWidth: 0,
-        borderColor: 'transparent',
-        // @ts-expect-error Tamagui v2 RC
-        hoverStyle: {
-          backgroundColor: '$color5',
-        },
-      },
-      outline: {
-        backgroundColor: 'transparent',
-        borderWidth: 1,
-        borderColor: '$borderColor',
-        // @ts-expect-error Tamagui v2 RC
-        hoverStyle: {
-          backgroundColor: '$backgroundHover',
-        },
-      },
-      ghost: {
-        backgroundColor: 'transparent',
-        borderWidth: 0,
-        borderColor: 'transparent',
-        // @ts-expect-error Tamagui v2 RC
-        hoverStyle: {
-          backgroundColor: '$backgroundHover',
-        },
-      },
-      // shadcn: "link"
-      // @ts-expect-error Tamagui v2 RC
-      link: {
-        backgroundColor: 'transparent',
-        borderWidth: 0,
-        borderColor: 'transparent',
-        paddingLeft: 0,
-        paddingRight: 0,
-      },
+      default: { backgroundColor: "var(--color10)", color: "var(--color1)", borderWidth: "0" },
+      solid: { backgroundColor: "var(--color10)", color: "var(--color1)", borderWidth: "0" },
+      secondary: { backgroundColor: "var(--color2)", color: "var(--color)", borderWidth: "0" },
+      destructive: { backgroundColor: "var(--color4)", color: "var(--color11)", borderWidth: "0" },
+      outline: { backgroundColor: "transparent", borderWidth: "1px", borderStyle: "solid", borderColor: "var(--borderColor)", color: "var(--color)" },
+      ghost: { backgroundColor: "transparent", color: "var(--color)", borderWidth: "0" },
+      link: { backgroundColor: "transparent", color: "var(--color10)", borderWidth: "0", paddingLeft: "0", paddingRight: "0", textDecoration: "underline" },
+    },
+    size: {
+      xs: { height: "28px", paddingLeft: "8px", paddingRight: "8px", fontSize: "var(--fontSize-1, 11px)" },
+      sm: { height: "32px", paddingLeft: "12px", paddingRight: "12px", fontSize: "var(--fontSize-2, 12px)" },
+      md: { height: "36px", paddingLeft: "16px", paddingRight: "16px", fontSize: "var(--fontSize-4, 16px)" },
+      lg: { height: "40px", paddingLeft: "20px", paddingRight: "20px", fontSize: "var(--fontSize-5, 18px)" },
+      icon: { height: "36px", width: "36px", padding: "0", fontSize: "var(--fontSize-4, 16px)" },
     },
     disabled: {
-      // @ts-expect-error Tamagui v2 RC
-      true: {
-        opacity: 0.5,
-        cursor: 'not-allowed',
-        pointerEvents: 'none',
-      },
+      true: { opacity: "0.5", cursor: "not-allowed", pointerEvents: "none" },
     },
-  } as const,
-})
+  },
+  "Button"
+)
 
-// Map our named sizes to Tamagui size tokens
-const SIZE_TOKEN_MAP: Record<string, string> = {
-  xs: '$2',
-  sm: '$3',
-  md: '$4',
-  lg: '$5',
-  icon: '$4',
-}
+const ButtonTextFrame = styled(
+  "span",
+  {
+    fontFamily: "var(--font-body)",
+    fontWeight: "500",
+  },
+  {
+    textVariant: {
+      default: { color: "var(--color1)" },
+      solid: { color: "var(--color1)" },
+      secondary: { color: "var(--color)" },
+      destructive: { color: "var(--color11)" },
+      outline: { color: "var(--color)" },
+      ghost: { color: "var(--color)" },
+      link: { color: "var(--color10)", textDecoration: "underline" },
+    },
+    size: {
+      xs: { fontSize: "var(--fontSize-1, 11px)" },
+      sm: { fontSize: "var(--fontSize-2, 12px)" },
+      md: { fontSize: "var(--fontSize-4, 16px)" },
+      lg: { fontSize: "var(--fontSize-5, 18px)" },
+    },
+  },
+  "ButtonText"
+)
 
-type ButtonFrameProps = GetProps<typeof ButtonFrame>
-
-// Cast for JSX usage — Tamagui v2 RC GetFinalProps resolves all props as undefined
-type AnyFC = React.ComponentType<Record<string, unknown>>
-const ButtonFrameJsx = ButtonFrame as AnyFC
-const SpinnerJsx = Spinner as AnyFC
-const VisuallyHiddenJsx = VisuallyHidden as AnyFC
+const ButtonIconFrame = styled(
+  "span",
+  {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  "ButtonIcon"
+)
 
 type ButtonVariant =
   | 'default'
@@ -135,69 +86,25 @@ type ButtonVariant =
   | 'ghost'
   | 'link'
 
-const SPINNER_COLOR_MAP: Record<ButtonVariant, string> = {
-  default: '$color1',
-  solid: '$color1',
-  destructive: '$color11',
-  secondary: '$color',
-  outline: '$color',
-  ghost: '$color',
-  link: '$color10',
-}
-
 const ButtonContext = createContext<{ variant: ButtonVariant }>({ variant: 'default' })
 
-const ButtonTextBase = styled(Text, {
-  fontFamily: '$body',
-  fontWeight: '$3',
+const SPINNER_COLOR_MAP: Record<ButtonVariant, string> = {
+  default: 'var(--color1)',
+  solid: 'var(--color1)',
+  destructive: 'var(--color11)',
+  secondary: 'var(--color)',
+  outline: 'var(--color)',
+  ghost: 'var(--color)',
+  link: 'var(--color10)',
+}
 
-  variants: {
-    textVariant: {
-      // @ts-expect-error Tamagui v2 RC
-      default: { color: '$color1' },
-      // @ts-expect-error Tamagui v2 RC
-      solid: { color: '$color1' },
-      // @ts-expect-error Tamagui v2 RC
-      secondary: { color: '$color' },
-      // @ts-expect-error Tamagui v2 RC
-      destructive: { color: '$color11' },
-      // @ts-expect-error Tamagui v2 RC
-      outline: { color: '$color' },
-      // @ts-expect-error Tamagui v2 RC
-      ghost: { color: '$color' },
-      // @ts-expect-error Tamagui v2 RC
-      link: { color: '$color10', textDecorationLine: 'underline' as any },
-    },
-    size: {
-      // @ts-expect-error Tamagui v2 RC
-      xs: { fontSize: '$1' },
-      // @ts-expect-error Tamagui v2 RC
-      sm: { fontSize: '$2' },
-      // @ts-expect-error Tamagui v2 RC
-      md: { fontSize: '$4' },
-      // @ts-expect-error Tamagui v2 RC
-      lg: { fontSize: '$5' },
-    },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    textVariant: 'default',
-    // @ts-expect-error Tamagui v2 RC
-    size: 'md',
-  },
-})
-
-// @ts-expect-error Tamagui v2 RC
-const ButtonIcon = styled(XStack, {
-  alignItems: 'center',
-  justifyContent: 'center',
-})
-
-function ButtonText(props: React.ComponentProps<typeof ButtonTextBase>) {
+function ButtonText(props: React.HTMLAttributes<HTMLSpanElement> & { size?: 'xs' | 'sm' | 'md' | 'lg' }) {
   const { variant } = useContext(ButtonContext)
-  // @ts-expect-error Tamagui v2 RC
-  return <ButtonTextBase {...props} textVariant={variant} />
+  return <ButtonTextFrame {...props} textVariant={variant} />
+}
+
+function ButtonIcon({ children, ...props }: React.HTMLAttributes<HTMLSpanElement>) {
+  return <ButtonIconFrame {...props}>{children}</ButtonIconFrame>
 }
 
 export interface ButtonProps {
@@ -211,77 +118,74 @@ export interface ButtonProps {
   asChild?: boolean
 }
 
-const TONE_THEME_MAP: Record<string, string | undefined> = {
-  neutral: undefined,
-  primary: 'blue',
-  success: 'green',
-  warning: 'orange',
-  danger: 'red',
+const spinnerKeyframes = `
+@keyframes vlting-spin {
+  to { transform: rotate(360deg); }
 }
+`
 
-// For destructive variant, always use red theme
-const VARIANT_THEME_OVERRIDE: Record<string, string | undefined> = {
-  destructive: 'red',
+function Spinner({ color }: { color: string }) {
+  return (
+    <>
+      <style dangerouslySetInnerHTML={{ __html: spinnerKeyframes }} />
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        style={{ animation: 'vlting-spin 0.6s linear infinite' }}
+        aria-hidden="true"
+      >
+        <circle cx="8" cy="8" r="6" stroke={color} strokeWidth="2" opacity="0.25" />
+        <path d="M14 8a6 6 0 0 0-6-6" stroke={color} strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    </>
+  )
 }
 
 const ButtonBase = React.forwardRef<
   HTMLButtonElement,
-  ButtonProps & Omit<ButtonFrameProps, keyof ButtonProps>
+  ButtonProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof ButtonProps>
 >(function ButtonBase(
   {
     loading,
     children,
     disabled,
     variant = 'default',
-    tone = 'neutral',
     size = 'md',
     onPress,
-    asChild,
     ...props
   },
   ref,
 ) {
   const isDisabled = disabled ?? loading ?? false
-  const themeName = VARIANT_THEME_OVERRIDE[variant] ?? TONE_THEME_MAP[tone]
-  const sizeToken = SIZE_TOKEN_MAP[size]
-  const isIcon = size === 'icon'
 
-  const frame = (
-    // @ts-expect-error Tamagui v2 RC
+  return (
     <ButtonContext.Provider value={{ variant }}>
-      <ButtonFrameJsx
+      <ButtonFrame
         ref={ref}
+        type="button"
         disabled={isDisabled}
         aria-busy={loading || undefined}
-        onPress={isDisabled ? undefined : onPress}
-        {...props}
+        onClick={isDisabled ? undefined : onPress}
         variant={variant}
-        size={sizeToken}
-        {...(isIcon ? { width: sizeToken, padding: 0 } : {})}
+        size={size}
+        {...props}
       >
         {loading ? (
           <>
-            <SpinnerJsx
-              size="small"
-              color={SPINNER_COLOR_MAP[variant as ButtonVariant]}
-            />
-            <VisuallyHiddenJsx>Loading</VisuallyHiddenJsx>
+            <Spinner color={SPINNER_COLOR_MAP[variant]} />
+            <VisuallyHidden>Loading</VisuallyHidden>
           </>
         ) : (
           children
         )}
-      </ButtonFrameJsx>
+      </ButtonFrame>
     </ButtonContext.Provider>
   )
-
-  if (themeName) {
-    return <Theme name={themeName}>{frame}</Theme>
-  }
-
-  return frame
 })
 
-export const Button = withStaticProperties(ButtonBase, {
+export const Button = Object.assign(ButtonBase, {
   Text: ButtonText,
   Icon: ButtonIcon,
 })

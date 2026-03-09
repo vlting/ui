@@ -1,54 +1,88 @@
-import { Select as TamaguiSelect } from '@tamagui/select'
-import React from 'react'
-import type { ComponentType } from 'react'
-import { Text, View, styled, withStaticProperties } from 'tamagui'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { styled } from '../../stl-react/src/config'
 
-type AnyFC = ComponentType<Record<string, unknown>>
+const TriggerFrame = styled("button", {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  backgroundColor: "$background",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "$borderColor",
+  borderRadius: "$4",
+  fontFamily: "$body",
+  fontSize: "$p",
+  color: "$defaultBody",
+  cursor: "pointer",
+  padding: "8px 12px",
+  gap: "8px",
+  width: "100%",
+  textAlign: "left",
+  outline: "none",
+}, {
+  size: {
+    sm: { padding: "4px 8px", fontSize: "$14", borderRadius: "$2" },
+    md: { padding: "8px 12px", fontSize: "$p", borderRadius: "$4" },
+    lg: { padding: "12px 16px", fontSize: "$p", borderRadius: "$4" },
+  },
+  disabled: {
+    true: { cursor: "not-allowed", opacity: "0.5" },
+  },
+}, "SelectTrigger")
 
-// @ts-expect-error Tamagui v2 RC
-const ChevronIcon = styled(Text, {
-  color: '$color',
-  fontSize: '$2',
+const DropdownFrame = styled("div", {
+  position: "absolute",
+  top: "100%",
+  left: "0",
+  right: "0",
+  marginTop: "4px",
+  backgroundColor: "$background",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "$borderColor",
+  borderRadius: "$4",
+  zIndex: "1000",
+  overflow: "hidden",
+}, "SelectDropdown")
+
+const ItemFrame = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  padding: "8px 12px",
+  fontFamily: "$body",
+  fontSize: "$p",
+  color: "$defaultBody",
+  cursor: "pointer",
+}, "SelectItem")
+
+const LabelFrame = styled("div", {
+  fontFamily: "$body",
+  fontSize: "$14",
+  fontWeight: "$500",
+  color: "$tertiary7",
+  padding: "4px 12px",
+}, "SelectLabel")
+
+const SeparatorFrame = styled("div", {
+  height: "1px",
+  backgroundColor: "$borderColor",
+  margin: "4px 0",
+}, "SelectSeparator")
+
+interface SelectContextValue {
+  value?: string
+  onSelect: (value: string) => void
+  highlightIndex: number
+  setHighlightIndex: (i: number) => void
+  isOpen: boolean
+}
+
+const SelectContext = React.createContext<SelectContextValue>({
+  onSelect: () => {},
+  highlightIndex: -1,
+  setHighlightIndex: () => {},
+  isOpen: false,
 })
-
-// Tamagui v2 RC GetProps bug — cast for JSX usage
-const SelectRoot = TamaguiSelect as AnyFC
-const SelectTrigger = TamaguiSelect.Trigger as AnyFC
-const SelectValueJsx = TamaguiSelect.Value as AnyFC
-const SelectContent = TamaguiSelect.Content as AnyFC
-const SelectViewport = TamaguiSelect.Viewport as AnyFC
-const SelectTamaguiItem = TamaguiSelect.Item as unknown as AnyFC
-const SelectItemText = TamaguiSelect.ItemText as AnyFC
-const ChevronText = ChevronIcon as AnyFC
-const SelectGroupJsx = TamaguiSelect.Group as AnyFC
-
-// @ts-expect-error Tamagui v2 RC
-const SelectLabelText = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$2',
-  fontWeight: '$3',
-  color: '$colorSubtitle',
-  paddingHorizontal: '$3',
-  paddingVertical: '$1',
-})
-
-// @ts-expect-error Tamagui v2 RC
-const SelectSeparatorFrame = styled(View, {
-  height: 1,
-  backgroundColor: '$borderColor',
-  marginVertical: '$1',
-})
-
-const SelectLabelJsx = SelectLabelText as AnyFC
-const SelectSeparatorJsx = SelectSeparatorFrame as AnyFC
-
-const SIZE_MAP = { sm: '$3' as const, md: '$4' as const, lg: '$5' as const }
-const SIZE_PADDING_MAP = {
-  sm: { h: '$1.5', v: '$1', fontSize: '$2' },
-  md: { h: '$2', v: '$1.5', fontSize: '$3' },
-  lg: { h: '$2.5', v: '$2', fontSize: '$4' },
-} as const
-const SIZE_RADIUS_MAP = { sm: '$3', md: '$4', lg: '$5' } as const
 
 export interface SelectProps {
   children?: React.ReactNode
@@ -62,60 +96,108 @@ export interface SelectProps {
 
 function SelectRootComponent({
   children,
-  value,
+  value: controlledValue,
   defaultValue,
   onValueChange,
   placeholder = 'Select...',
   size = 'md',
   disabled,
 }: SelectProps) {
-  // Inject index prop into SelectItem children for Tamagui's keyboard nav
-  let index = 0
-  const indexedChildren = React.Children.map(children, (child) => {
-    if (React.isValidElement(child)) {
-      return React.cloneElement(child as React.ReactElement<{ _index?: number }>, {
-        _index: index++,
-      })
-    }
-    return child
-  })
+  const [internalValue, setInternalValue] = useState(defaultValue ?? '')
+  const isControlled = controlledValue !== undefined
+  const value = isControlled ? controlledValue : internalValue
 
-  const sizePadding = SIZE_PADDING_MAP[size]
+  const [isOpen, setIsOpen] = useState(false)
+  const [highlightIndex, setHighlightIndex] = useState(0)
+  const rootRef = useRef<HTMLDivElement>(null)
+
+  const onSelect = useCallback((val: string) => {
+    if (!isControlled) setInternalValue(val)
+    onValueChange?.(val)
+    setIsOpen(false)
+  }, [isControlled, onValueChange])
+
+  // Collect item values for display
+  const items = React.Children.toArray(children).filter(
+    (child): child is React.ReactElement => React.isValidElement(child) && (child.type as any) === SelectItem
+  )
+  const selectedLabel = items.find((item) => item.props.value === value)?.props.children ?? value
+
+  // Close on outside click
+  useEffect(() => {
+    if (!isOpen) return
+    const handler = (e: MouseEvent) => {
+      if (!rootRef.current?.contains(e.target as Node)) setIsOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [isOpen])
+
+  // Keyboard navigation
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (!isOpen) {
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        setIsOpen(true)
+        setHighlightIndex(0)
+      }
+      return
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      setHighlightIndex((i) => Math.min(i + 1, items.length - 1))
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      setHighlightIndex((i) => Math.max(i - 1, 0))
+    } else if (e.key === 'Home') {
+      e.preventDefault()
+      setHighlightIndex(0)
+    } else if (e.key === 'End') {
+      e.preventDefault()
+      setHighlightIndex(items.length - 1)
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      const item = items[highlightIndex]
+      if (item) onSelect(item.props.value)
+    } else if (e.key === 'Escape') {
+      setIsOpen(false)
+    }
+  }, [isOpen, items, highlightIndex, onSelect])
 
   return (
-    <SelectRoot
-      value={value}
-      defaultValue={defaultValue}
-      onValueChange={onValueChange}
-      disablePreventBodyScroll
-    >
-      <SelectTrigger
-        disabled={disabled}
-        size={SIZE_MAP[size]}
-        paddingHorizontal={sizePadding.h}
-        paddingVertical={sizePadding.v}
-        borderWidth={1}
-        borderColor="$borderColor"
-        borderRadius={SIZE_RADIUS_MAP[size]}
-        backgroundColor="$background"
-        gap="$2"
-        cursor={disabled ? 'not-allowed' : 'pointer'}
-        opacity={disabled ? 0.5 : 1}
-        focusVisibleStyle={{
-          outlineWidth: 2,
-          outlineOffset: 1,
-          outlineColor: '$color10',
-          outlineStyle: 'solid',
-        }}
-      >
-        <SelectValueJsx placeholder={placeholder} fontSize={sizePadding.fontSize} />
-        <ChevronText>▾</ChevronText>
-      </SelectTrigger>
+    <SelectContext.Provider value={{ value, onSelect, highlightIndex, setHighlightIndex, isOpen }}>
+      <div ref={rootRef} style={{ position: 'relative', width: '100%' }}>
+        <TriggerFrame
+          type="button"
+          size={size}
+          disabled={disabled || undefined}
+          onClick={() => !disabled && setIsOpen(!isOpen)}
+          onKeyDown={handleKeyDown}
+          role="combobox"
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+        >
+          <span style={!value ? { opacity: 0.5 } : undefined}>
+            {value ? selectedLabel : placeholder}
+          </span>
+          <span aria-hidden>▾</span>
+        </TriggerFrame>
 
-      <SelectContent zIndex={1000}>
-        <SelectViewport>{indexedChildren}</SelectViewport>
-      </SelectContent>
-    </SelectRoot>
+        {isOpen && (
+          <DropdownFrame style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
+            <div role="listbox" style={{ padding: '4px', maxHeight: '240px', overflowY: 'auto' }}>
+              {React.Children.map(children, (child, i) => {
+                if (React.isValidElement(child) && (child.type as any) === SelectItem) {
+                  const itemIdx = items.indexOf(child as React.ReactElement)
+                  return React.cloneElement(child as React.ReactElement<{ _index?: number }>, { _index: itemIdx })
+                }
+                return child
+              })}
+            </div>
+          </DropdownFrame>
+        )}
+      </div>
+    </SelectContext.Provider>
   )
 }
 
@@ -126,38 +208,47 @@ export interface SelectItemProps {
 }
 
 function SelectItem({ value: itemValue, children, _index = 0 }: SelectItemProps) {
+  const { value, onSelect, highlightIndex, setHighlightIndex } = React.useContext(SelectContext)
+  const isSelected = value === itemValue
+  const isHighlighted = highlightIndex === _index
+
   return (
-    <SelectTamaguiItem
-      value={itemValue}
-      index={_index}
-      paddingHorizontal="$3"
-      paddingVertical="$2"
-      cursor="pointer"
+    <ItemFrame
+      role="option"
+      aria-selected={isSelected}
+      onClick={() => onSelect(itemValue)}
+      onMouseEnter={() => setHighlightIndex(_index)}
+      style={{
+        backgroundColor: isHighlighted ? 'var(--surface3, #f3f4f6)' : 'transparent',
+        borderRadius: '4px',
+        fontWeight: isSelected ? 600 : 400,
+      }}
     >
-      <SelectItemText fontFamily="$body" color="$color" fontSize="$3">
-        {children}
-      </SelectItemText>
-    </SelectTamaguiItem>
+      <span style={{ width: '20px', display: 'inline-flex', alignItems: 'center' }}>
+        {isSelected && '✓'}
+      </span>
+      {children}
+    </ItemFrame>
   )
 }
 
 function SelectValue({ placeholder }: { placeholder?: string }) {
-  return <SelectValueJsx placeholder={placeholder} />
+  return <>{placeholder}</>
 }
 
 function SelectGroupComponent({ children }: { children: React.ReactNode }) {
-  return <SelectGroupJsx>{children}</SelectGroupJsx>
+  return <div role="group">{children}</div>
 }
 
 function SelectLabel({ children }: { children: React.ReactNode }) {
-  return <SelectLabelJsx>{children}</SelectLabelJsx>
+  return <LabelFrame>{children}</LabelFrame>
 }
 
 function SelectSeparator() {
-  return <SelectSeparatorJsx />
+  return <SeparatorFrame />
 }
 
-export const Select = withStaticProperties(SelectRootComponent, {
+export const Select = Object.assign(SelectRootComponent, {
   Item: SelectItem,
   Value: SelectValue,
   Group: SelectGroupComponent,

@@ -1,63 +1,45 @@
 import type React from 'react'
 import { createContext, useContext, useState } from 'react'
-import type { ComponentType } from 'react'
-import { Image as TamaguiImage, Text, View, styled } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ImageJsx = TamaguiImage as AnyFC
-
-const AvatarFrame = styled(View, {
-  borderRadius: '$full',
-  overflow: 'hidden',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: '$color5',
-
-  variants: {
-    size: {
-      // @ts-expect-error Tamagui v2 RC
-      sm: { width: '$2.5', height: '$2.5' },
-      // @ts-expect-error Tamagui v2 RC
-      md: { width: '$3.5', height: '$3.5' },
-      // @ts-expect-error Tamagui v2 RC
-      lg: { width: '$5', height: '$5' },
-      // @ts-expect-error Tamagui v2 RC
-      xl: { width: '$7', height: '$7' },
-    },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    size: 'md',
+const AvatarFrame = styled(
+  "div",
+  {
+    display: "flex",
+    borderRadius: "$full",
+    overflow: "hidden",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "$tertiary5",
   },
-})
-
-const AvatarFallbackText = styled(Text, {
-  fontFamily: '$body',
-  fontWeight: '$3',
-  color: '$color11',
-
-  variants: {
+  {
     size: {
-      // @ts-expect-error Tamagui v2 RC
-      sm: { fontSize: '$1' },
-      // @ts-expect-error Tamagui v2 RC
-      md: { fontSize: '$3' },
-      // @ts-expect-error Tamagui v2 RC
-      lg: { fontSize: '$5' },
-      // @ts-expect-error Tamagui v2 RC
-      xl: { fontSize: '$7' },
+      sm: { width: "32px", height: "32px" },
+      md: { width: "40px", height: "40px" },
+      lg: { width: "52px", height: "52px" },
+      xl: { width: "74px", height: "74px" },
     },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    size: 'md',
   },
-})
+  "Avatar"
+)
 
-const AvatarFrameJsx = AvatarFrame as AnyFC
-const AvatarFallbackTextJsx = AvatarFallbackText as AnyFC
+const AvatarFallbackText = styled(
+  "span",
+  {
+    fontFamily: "$body",
+    fontWeight: "$500",
+    color: "$tertiary11",
+  },
+  {
+    size: {
+      sm: { fontSize: "$12" },
+      md: { fontSize: "$14" },
+      lg: { fontSize: "$18" },
+      xl: { fontSize: "$21" },
+    },
+  },
+  "AvatarFallback"
+)
 
 type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
 const SIZE_PX: Record<AvatarSize, number> = { sm: 32, md: 40, lg: 52, xl: 74 }
@@ -85,32 +67,33 @@ export interface AvatarProps {
 
 export function Avatar({ children, src, alt, fallback, size = 'md' }: AvatarProps) {
   const [imgError, setImgError] = useState(false)
+  const px = SIZE_PX[size]
 
-  // Legacy single-component API: if no children, render image/fallback directly
   if (!children) {
     const showImage = src && !imgError
-    const px = SIZE_PX[size]
     return (
-      <AvatarFrameJsx size={size} role="img" aria-label={alt || fallback || 'avatar'}>
+      <AvatarFrame size={size} role="img" aria-label={alt || fallback || 'avatar'}>
         {showImage ? (
-          <ImageJsx
-            source={{ uri: src!, width: px, height: px }}
-            style={{ width: px, height: px }}
+          <img
+            src={src!}
+            alt={alt || fallback || 'avatar'}
+            width={px}
+            height={px}
+            style={{ width: px, height: px, objectFit: 'cover' }}
             onError={() => setImgError(true)}
           />
         ) : (
-          <AvatarFallbackTextJsx size={size}>{fallback || '?'}</AvatarFallbackTextJsx>
+          <AvatarFallbackText size={size}>{fallback || '?'}</AvatarFallbackText>
         )}
-      </AvatarFrameJsx>
+      </AvatarFrame>
     )
   }
 
-  // Compound API: <Avatar><Avatar.Image /><Avatar.Fallback /></Avatar>
   return (
     <AvatarContext.Provider value={{ size, imgError, setImgError }}>
-      <AvatarFrameJsx size={size} role="img">
+      <AvatarFrame size={size} role="img">
         {children}
-      </AvatarFrameJsx>
+      </AvatarFrame>
     </AvatarContext.Provider>
   )
 }
@@ -127,22 +110,21 @@ function AvatarImage({ src, alt }: AvatarImageProps) {
   if (imgError) return null
 
   return (
-    <ImageJsx
-      source={{ uri: src, width: px, height: px }}
-      style={{ width: px, height: px }}
-      onError={() => setImgError(true)}
+    <img
+      src={src}
       alt={alt}
+      width={px}
+      height={px}
+      style={{ width: px, height: px, objectFit: 'cover' }}
+      onError={() => setImgError(true)}
     />
   )
 }
 
 function AvatarFallback({ children }: { children: React.ReactNode }) {
   const { size, imgError } = useContext(AvatarContext)
-
-  // Only show fallback when image has errored or no image is present
   if (!imgError) return null
-
-  return <AvatarFallbackTextJsx size={size}>{children}</AvatarFallbackTextJsx>
+  return <AvatarFallbackText size={size}>{children}</AvatarFallbackText>
 }
 
 Avatar.Image = AvatarImage

@@ -1,96 +1,31 @@
-import { ToggleGroup as TamaguiToggleGroup } from '@tamagui/toggle-group'
-import { styledHtml } from '@tamagui/web'
-import React from 'react'
-import type { ComponentType } from 'react'
-import { withStaticProperties } from 'tamagui'
+import React, { useCallback, useState } from 'react'
+import { styled } from '../../stl-react/src/config'
 
-// --- Standalone Toggle ---
-// Tamagui does not export a standalone Toggle component, so we keep our own
-// using styledHtml('button') which renders a real <button> element.
-
-const ToggleFrame = styledHtml('button', {
-  display: 'inline-flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  fontSize: '$3',
-  fontWeight: '$3',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderWidth: 1,
-  borderStyle: 'solid',
-  borderColor: '$borderColor',
-  borderRadius: '$4',
-  cursor: 'pointer',
-  animation: 'fast',
-  backgroundColor: 'transparent',
-  color: '$color',
-
-  hoverStyle: {
-    backgroundColor: '$color3',
-    borderColor: '$color8',
+const ToggleBtn = styled("button", {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "$borderColor",
+  borderRadius: "$4",
+  cursor: "pointer",
+  backgroundColor: "transparent",
+  color: "$defaultBody",
+  fontFamily: "$body",
+  fontWeight: "$500",
+  transition: "background-color 0.15s, border-color 0.15s",
+  outline: "none",
+}, {
+  size: {
+    sm: { height: "32px", paddingLeft: "8px", paddingRight: "8px", fontSize: "$14" },
+    md: { height: "36px", paddingLeft: "12px", paddingRight: "12px", fontSize: "$p" },
+    lg: { height: "40px", paddingLeft: "16px", paddingRight: "16px", fontSize: "$p" },
   },
-
-  pressStyle: {
-    backgroundColor: '$color4',
+  disabled: {
+    true: { opacity: "0.5", cursor: "not-allowed", pointerEvents: "none" },
   },
-
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$color8',
-    outlineStyle: 'solid',
-  },
-
-  variants: {
-    variant: {
-      default: {
-        borderWidth: 1,
-        borderColor: '$borderColor',
-      },
-      outline: {
-        borderWidth: 1,
-        borderColor: '$borderColor',
-      },
-    },
-    size: {
-      sm: { height: '$3.5', paddingHorizontal: '$2', fontSize: '$2' },
-      md: { height: '$4', paddingHorizontal: '$3', fontSize: '$3' },
-      lg: { height: '$4.5', paddingHorizontal: '$4', fontSize: '$4' },
-    },
-    pressed: {
-      true: {
-        backgroundColor: '$color4',
-        borderColor: '$color8',
-        color: '$color12',
-        hoverStyle: {
-          backgroundColor: '$color5',
-        },
-      },
-    },
-    disabled: {
-      true: {
-        opacity: 0.5,
-        cursor: 'not-allowed',
-        pointerEvents: 'none',
-      },
-    },
-  } as const,
-
-  defaultVariants: {
-    variant: 'default',
-    size: 'md',
-    pressed: false,
-  },
-} as any)
-
-// Cast for JSX — Tamagui v2 RC GetFinalProps bug
-const ToggleButton = ToggleFrame as ComponentType<Record<string, unknown>>
+}, "Toggle")
 
 export interface ToggleProps {
   children?: React.ReactNode
@@ -107,57 +42,53 @@ export function Toggle({
   pressed: controlledPressed,
   defaultPressed = false,
   onPressedChange,
-  variant = 'default',
   size = 'md',
   disabled,
 }: ToggleProps) {
-  const [internalPressed, setInternalPressed] = React.useState(defaultPressed)
+  const [internalPressed, setInternalPressed] = useState(defaultPressed)
   const isPressed = controlledPressed ?? internalPressed
 
-  const handlePress = () => {
+  const handlePress = useCallback(() => {
     if (disabled) return
     const next = !isPressed
     setInternalPressed(next)
     onPressedChange?.(next)
-  }
+  }, [disabled, isPressed, onPressedChange])
 
   return (
-    <ToggleButton
+    <ToggleBtn
       type="button"
       aria-pressed={isPressed}
       aria-disabled={disabled || undefined}
-      disabled={disabled}
+      disabled={disabled || undefined}
       onClick={handlePress}
-      variant={variant}
       size={size}
-      pressed={isPressed}
+      style={{
+        backgroundColor: isPressed ? 'var(--surface3, #e5e7eb)' : 'transparent',
+        borderColor: isPressed ? 'var(--color8, #9ca3af)' : undefined,
+      }}
     >
       {children}
-    </ToggleButton>
+    </ToggleBtn>
   )
 }
 
 // --- ToggleGroup ---
-// Uses Tamagui's official ToggleGroup which provides:
-// - <div role="group"> container
-// - <button> items with aria-pressed
-// - Roving focus keyboard navigation (arrow keys)
-// - Single/multiple selection modes
 
-// Cast for JSX usage
-const TamaguiToggleGroupJsx = TamaguiToggleGroup as unknown as ComponentType<
-  Record<string, unknown>
->
-const TamaguiToggleGroupItemJsx = TamaguiToggleGroup.Item as unknown as ComponentType<
-  Record<string, unknown>
->
-
-// Map named sizes to Tamagui tokens
-const SIZE_TOKEN_MAP: Record<string, string> = {
-  sm: '$3',
-  md: '$4',
-  lg: '$5',
+interface ToggleGroupContextValue {
+  type: 'single' | 'multiple'
+  values: string[]
+  toggle: (value: string) => void
+  size: 'sm' | 'md' | 'lg'
+  disabled?: boolean
 }
+
+const ToggleGroupContext = React.createContext<ToggleGroupContextValue>({
+  type: 'single',
+  values: [],
+  toggle: () => {},
+  size: 'md',
+})
 
 export interface ToggleGroupProps {
   children?: React.ReactNode
@@ -180,53 +111,48 @@ function ToggleGroupRoot({
   disabled,
   orientation = 'horizontal',
 }: ToggleGroupProps) {
-  const sizeToken = SIZE_TOKEN_MAP[size]
-
-  const normalizedValue =
-    value !== undefined
-      ? Array.isArray(value)
-        ? value
-        : type === 'multiple'
-          ? [value]
-          : value
-      : undefined
-  const normalizedDefault =
-    defaultValue !== undefined
-      ? Array.isArray(defaultValue)
-        ? defaultValue
-        : type === 'multiple'
-          ? [defaultValue]
-          : defaultValue
-      : undefined
-
-  if (type === 'multiple') {
-    return (
-      <TamaguiToggleGroupJsx
-        type="multiple"
-        orientation={orientation}
-        value={normalizedValue as string[] | undefined}
-        defaultValue={normalizedDefault as string[] | undefined}
-        onValueChange={onValueChange}
-        disabled={disabled}
-        size={sizeToken}
-      >
-        {children}
-      </TamaguiToggleGroupJsx>
-    )
+  const normalize = (v?: string | string[]): string[] => {
+    if (!v) return []
+    return Array.isArray(v) ? v : [v]
   }
 
+  const [internal, setInternal] = useState<string[]>(normalize(defaultValue))
+  const isControlled = value !== undefined
+  const values = isControlled ? normalize(value) : internal
+
+  const toggle = useCallback((val: string) => {
+    const update = (prev: string[]) => {
+      if (type === 'single') {
+        return prev.includes(val) ? [] : [val]
+      }
+      return prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val]
+    }
+
+    if (!isControlled) {
+      setInternal((prev) => {
+        const next = update(prev)
+        onValueChange?.(type === 'single' ? (next[0] ?? '') : next)
+        return next
+      })
+    } else {
+      const next = update(values)
+      onValueChange?.(type === 'single' ? (next[0] ?? '') : next)
+    }
+  }, [type, isControlled, values, onValueChange])
+
   return (
-    <TamaguiToggleGroupJsx
-      type="single"
-      orientation={orientation}
-      value={normalizedValue as string | undefined}
-      defaultValue={normalizedDefault as string | undefined}
-      onValueChange={onValueChange}
-      disabled={disabled}
-      size={sizeToken}
-    >
-      {children}
-    </TamaguiToggleGroupJsx>
+    <ToggleGroupContext.Provider value={{ type, values, toggle, size, disabled }}>
+      <div
+        role="group"
+        style={{
+          display: 'inline-flex',
+          flexDirection: orientation === 'horizontal' ? 'row' : 'column',
+          gap: '1px',
+        }}
+      >
+        {children}
+      </div>
+    </ToggleGroupContext.Provider>
   )
 }
 
@@ -236,14 +162,28 @@ export interface ToggleGroupItemProps {
   disabled?: boolean
 }
 
-function ToggleGroupItem({ children, value, disabled }: ToggleGroupItemProps) {
+function ToggleGroupItem({ children, value, disabled: itemDisabled }: ToggleGroupItemProps) {
+  const { values, toggle, size, disabled: groupDisabled } = React.useContext(ToggleGroupContext)
+  const isPressed = values.includes(value)
+  const isDisabled = itemDisabled || groupDisabled
+
   return (
-    <TamaguiToggleGroupItemJsx value={value} disabled={disabled}>
+    <ToggleBtn
+      type="button"
+      aria-pressed={isPressed}
+      disabled={isDisabled || undefined}
+      onClick={() => !isDisabled && toggle(value)}
+      size={size}
+      style={{
+        backgroundColor: isPressed ? 'var(--surface3, #e5e7eb)' : 'transparent',
+        borderColor: isPressed ? 'var(--color8, #9ca3af)' : undefined,
+      }}
+    >
       {children}
-    </TamaguiToggleGroupItemJsx>
+    </ToggleBtn>
   )
 }
 
-export const ToggleGroup = withStaticProperties(ToggleGroupRoot, {
+export const ToggleGroup = Object.assign(ToggleGroupRoot, {
   Item: ToggleGroupItem,
 })

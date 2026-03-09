@@ -1,63 +1,53 @@
 import type React from 'react'
-import type { ComponentType } from 'react'
-import { Text, View, XStack, styled } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-
-const AlertFrame = styled(XStack, {
-  borderRadius: '$3',
-  borderWidth: 1,
-  borderColor: '$borderColor',
-  padding: '$3',
-  gap: '$2',
-  alignItems: 'flex-start',
-
-  variants: {
-    variant: {
-      // @ts-expect-error Tamagui v2 RC
-      default: {
-        backgroundColor: '$background',
-      },
-      // @ts-expect-error Tamagui v2 RC
-      destructive: {
-        borderColor: '$red8',
-        backgroundColor: '$red2',
-      },
-    },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    variant: 'default',
+const AlertFrame = styled(
+  "section",
+  {
+    display: "flex",
+    flexDirection: "row",
+    borderRadius: "$3",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "$borderColor",
+    padding: "$3",
+    gap: "$2",
+    alignItems: "flex-start",
   },
-})
+  {
+    variant: {
+      default: { backgroundColor: "$surface1" },
+      destructive: { borderColor: "$red8", backgroundColor: "$red2" },
+    },
+  },
+  "Alert"
+)
 
-// @ts-expect-error Tamagui v2 RC
-const AlertTitle = styled(Text, {
-  fontFamily: '$body',
-  fontWeight: '$4',
-  fontSize: '$4',
-  color: '$color',
-})
+const AlertTitle = styled(
+  "span",
+  { fontFamily: "$body", fontWeight: "$600", fontSize: "$16", color: "$color" },
+  "AlertTitle"
+)
 
-// @ts-expect-error Tamagui v2 RC
-const AlertDescription = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$3',
-  color: '$colorSubtitle',
-})
+const AlertDescription = styled(
+  "span",
+  { fontFamily: "$body", fontSize: "$14", color: "$secondaryText12" },
+  "AlertDescription"
+)
 
-// @ts-expect-error Tamagui v2 RC
-const AlertIconFrame = styled(View, {
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexShrink: 0,
-  width: 16,
-  height: 16,
-  marginTop: '$0.25',
-})
-
-const AlertIconJsx = AlertIconFrame as AnyFC
+const AlertIconFrame = styled(
+  "div",
+  {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    width: "16px",
+    height: "16px",
+    marginTop: "2px",
+  },
+  "AlertIcon"
+)
 
 export interface AlertProps {
   children: React.ReactNode
@@ -66,7 +56,6 @@ export interface AlertProps {
 
 function Root({ children, variant = 'default' }: AlertProps) {
   return (
-    // @ts-expect-error Tamagui v2 RC
     <AlertFrame variant={variant} role={variant === 'destructive' ? 'alert' : 'status'}>
       {children}
     </AlertFrame>
@@ -74,17 +63,15 @@ function Root({ children, variant = 'default' }: AlertProps) {
 }
 
 function Title({ children }: { children: React.ReactNode }) {
-  // @ts-expect-error Tamagui v2 RC
   return <AlertTitle>{children}</AlertTitle>
 }
 
 function Description({ children }: { children: React.ReactNode }) {
-  // @ts-expect-error Tamagui v2 RC
   return <AlertDescription>{children}</AlertDescription>
 }
 
 function Icon({ children }: { children: React.ReactNode }) {
-  return <AlertIconJsx>{children}</AlertIconJsx>
+  return <AlertIconFrame>{children}</AlertIconFrame>
 }
 
 export const Alert = { Root, Title, Description, Icon }
