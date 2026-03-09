@@ -1,95 +1,83 @@
-import { Dialog as TamaguiDialog } from '@tamagui/dialog'
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
-import React from 'react'
-import { View, styled } from 'tamagui'
+import React, { useEffect, useId } from 'react'
+import { createPortal } from 'react-dom'
+import { styled } from '../../stl-react/src/config'
+import { useDisclosure } from '../../stl-headless/src'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-
-// Cast for JSX usage — v2 RC GetFinalProps bug
-const DialogRoot = TamaguiDialog as AnyFC
-const DialogTrigger = TamaguiDialog.Trigger as AnyFC
-const DialogPortal = TamaguiDialog.Portal as AnyFC
-const DialogOverlay = TamaguiDialog.Overlay as AnyFC
-const DialogContent = TamaguiDialog.Content as AnyFC
-const DialogTitle = TamaguiDialog.Title as AnyFC
-const DialogDescription = TamaguiDialog.Description as AnyFC
-const DialogClose = TamaguiDialog.Close as AnyFC
-const ViewJsx = View as AnyFC
-
-// @ts-expect-error Tamagui v2 RC
-const HandleBar = styled(View, {
-  width: '$4.5',
-  height: '$0.5',
-  backgroundColor: '$color6',
-  borderRadius: '$full',
-  alignSelf: 'center',
-  marginTop: '$0.75',
-  marginBottom: '$0.75',
-})
-
-// @ts-expect-error Tamagui v2 RC
-const DrawerHeaderFrame = styled(View, {
-  paddingLeft: '$3.5',
-  paddingRight: '$3.5',
-  paddingTop: '$2',
-  paddingBottom: '$2',
-})
-
-// @ts-expect-error Tamagui v2 RC
-const DrawerFooterFrame = styled(View, {
-  paddingLeft: '$3.5',
-  paddingRight: '$3.5',
-  paddingTop: '$2',
-  paddingBottom: '$3.5',
-  flexDirection: 'row',
-  justifyContent: 'flex-end',
-  gap: '$1.5',
-})
-
-const HandleBarJsx = HandleBar as AnyFC
-const DrawerHeaderJsx = DrawerHeaderFrame as AnyFC
-const DrawerFooterJsx = DrawerFooterFrame as AnyFC
-
-const DIRECTION_STYLES = {
-  bottom: {
-    position: 'fixed' as const,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    maxHeight: '90vh',
+const DrawerOverlay = styled(
+  "div",
+  {
+    position: "fixed",
+    top: "0",
+    left: "0",
+    right: "0",
+    bottom: "0",
+    backgroundColor: "var(--overlayBackground, rgba(0,0,0,0.5))",
+    zIndex: "40",
+    transition: "opacity 200ms ease",
   },
-  top: {
-    position: 'fixed' as const,
-    top: 0,
-    left: 0,
-    right: 0,
-    maxHeight: '90vh',
+  "DrawerOverlay"
+)
+
+const DrawerContentFrame = styled(
+  "div",
+  {
+    backgroundColor: "var(--background, #fff)",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "var(--borderColor)",
+    zIndex: "50",
+    display: "flex",
+    flexDirection: "column",
   },
-  left: {
-    position: 'fixed' as const,
-    top: 0,
-    left: 0,
-    bottom: 0,
-    maxWidth: '90vw',
-    width: 360, // $drawer token value
+  "DrawerContent"
+)
+
+const DrawerHeaderFrame = styled(
+  "div",
+  { paddingLeft: "28px", paddingRight: "28px", paddingTop: "16px", paddingBottom: "16px" },
+  "DrawerHeader"
+)
+
+const DrawerFooterFrame = styled(
+  "div",
+  {
+    paddingLeft: "28px",
+    paddingRight: "28px",
+    paddingTop: "16px",
+    paddingBottom: "28px",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    gap: "12px",
   },
-  right: {
-    position: 'fixed' as const,
-    top: 0,
-    right: 0,
-    bottom: 0,
-    maxWidth: '90vw',
-    width: 360, // $drawer token value
+  "DrawerFooter"
+)
+
+const HandleBar = styled(
+  "div",
+  {
+    width: "36px",
+    height: "4px",
+    backgroundColor: "var(--color6)",
+    borderRadius: "9999px",
+    margin: "6px auto",
   },
+  "DrawerHandle"
+)
+
+const DIRECTION_STYLES: Record<string, React.CSSProperties> = {
+  bottom: { position: 'fixed', bottom: 0, left: 0, right: 0, maxHeight: '90vh' },
+  top: { position: 'fixed', top: 0, left: 0, right: 0, maxHeight: '90vh' },
+  left: { position: 'fixed', top: 0, left: 0, bottom: 0, maxWidth: '90vw', width: 360 },
+  right: { position: 'fixed', top: 0, right: 0, bottom: 0, maxWidth: '90vw', width: 360 },
 }
 
-const DIRECTION_RADII = {
-  bottom: { borderTopLeftRadius: '$5', borderTopRightRadius: '$5' },
-  top: { borderBottomLeftRadius: '$5', borderBottomRightRadius: '$5' },
-  left: { borderTopRightRadius: '$5', borderBottomRightRadius: '$5' },
-  right: { borderTopLeftRadius: '$5', borderBottomLeftRadius: '$5' },
-} as const
+const DIRECTION_RADII: Record<string, React.CSSProperties> = {
+  bottom: { borderTopLeftRadius: 10, borderTopRightRadius: 10 },
+  top: { borderBottomLeftRadius: 10, borderBottomRightRadius: 10 },
+  left: { borderTopRightRadius: 10, borderBottomRightRadius: 10 },
+  right: { borderTopLeftRadius: 10, borderBottomLeftRadius: 10 },
+}
 
 export interface DrawerRootProps {
   children: React.ReactNode
@@ -106,22 +94,45 @@ export interface DrawerContentProps {
 
 const DrawerContext = React.createContext<{
   direction: 'bottom' | 'top' | 'left' | 'right'
+  isOpen: boolean
+  onClose: () => void
+  onOpen: () => void
+  titleId: string
+  descriptionId: string
 }>({
   direction: 'bottom',
+  isOpen: false,
+  onClose: () => {},
+  onOpen: () => {},
+  titleId: '',
+  descriptionId: '',
 })
 
 function Root({ children, open, onOpenChange, direction = 'bottom' }: DrawerRootProps) {
+  const disclosure = useDisclosure({ open, onOpenChange })
+  const id = useId()
+
   return (
-    <DrawerContext.Provider value={{ direction }}>
-      <DialogRoot open={open} onOpenChange={onOpenChange} modal>
-        {children}
-      </DialogRoot>
+    <DrawerContext.Provider value={{
+      direction,
+      isOpen: disclosure.isOpen,
+      onClose: disclosure.onClose,
+      onOpen: disclosure.onOpen,
+      titleId: `drawer-title-${id}`,
+      descriptionId: `drawer-desc-${id}`,
+    }}>
+      {children}
     </DrawerContext.Provider>
   )
 }
 
 function Trigger({ children }: { children: React.ReactNode }) {
-  return <DialogTrigger asChild>{children}</DialogTrigger>
+  const { onOpen } = React.useContext(DrawerContext)
+  return (
+    <span onClick={onOpen} style={{ display: 'inline-flex', cursor: 'pointer' }}>
+      {children}
+    </span>
+  )
 }
 
 function useIsTouchDevice() {
@@ -141,71 +152,83 @@ function Content({ children, direction: directionProp, showHandle }: DrawerConte
   const isTouch = useIsTouchDevice()
   const shouldShowHandle = showHandle ?? (isVertical && isTouch)
 
-  return (
-    <DialogPortal>
-      <DialogOverlay
-        backgroundColor="$overlayBackground"
-        animation="medium"
+  useEffect(() => {
+    if (!ctx.isOpen) return
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') ctx.onClose()
+    }
+    document.addEventListener('keydown', handleKey)
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [ctx.isOpen, ctx.onClose])
+
+  if (!ctx.isOpen) return null
+
+  return createPortal(
+    <>
+      <DrawerOverlay onClick={ctx.onClose} />
+      <DrawerContentFrame
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={ctx.titleId}
+        aria-describedby={ctx.descriptionId}
         style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
+          boxShadow: 'var(--shadowLg)',
+          ...DIRECTION_STYLES[direction],
+          ...(isTouch ? DIRECTION_RADII[direction] : {}),
         }}
-      />
-      <DialogContent
-        backgroundColor="$background"
-        borderWidth={1}
-        borderColor="$borderColor"
-        animation="medium"
-        aria-describedby={undefined}
-        {...(isTouch ? DIRECTION_RADII[direction] : {})}
-        style={{ boxShadow: 'var(--shadowLg)', ...DIRECTION_STYLES[direction] }}
       >
-        {shouldShowHandle && <HandleBarJsx />}
+        {shouldShowHandle && <HandleBar />}
         {children}
-      </DialogContent>
-    </DialogPortal>
+      </DrawerContentFrame>
+    </>,
+    document.body,
   )
 }
 
 function Header({ children }: { children: React.ReactNode }) {
-  return <DrawerHeaderJsx>{children}</DrawerHeaderJsx>
+  return <DrawerHeaderFrame>{children}</DrawerHeaderFrame>
 }
 
 function Footer({ children }: { children: React.ReactNode }) {
-  return <DrawerFooterJsx>{children}</DrawerFooterJsx>
+  return <DrawerFooterFrame>{children}</DrawerFooterFrame>
 }
 
-const DrawerTitleH2 = styledHtml('h2', {
-  fontSize: '$7',
-  fontWeight: '$4',
-  fontFamily: '$heading',
-  color: '$color',
-  margin: 0,
-} as any) as AnyFC
-
 function Title({ children }: { children: React.ReactNode }) {
+  const { titleId } = React.useContext(DrawerContext)
   return (
-    <DialogTitle>
-      <DrawerTitleH2>{children}</DrawerTitleH2>
-    </DialogTitle>
+    <h2 id={titleId} style={{
+      fontSize: 'var(--fontSize-7, 24px)',
+      fontWeight: '600',
+      fontFamily: 'var(--font-heading)',
+      color: 'var(--color)',
+      margin: 0,
+    }}>
+      {children}
+    </h2>
   )
 }
 
 function Description({ children }: { children: React.ReactNode }) {
+  const { descriptionId } = React.useContext(DrawerContext)
   return (
-    <DialogDescription>
-      <ViewJsx fontSize="$3" color="$colorSubtitle" fontFamily="$body">
-        {children}
-      </ViewJsx>
-    </DialogDescription>
+    <p id={descriptionId} style={{
+      fontSize: 'var(--fontSize-3, 14px)',
+      color: 'var(--colorSubtitle)',
+      fontFamily: 'var(--font-body)',
+      margin: 0,
+    }}>
+      {children}
+    </p>
   )
 }
 
 function Close({ children }: { children: React.ReactNode }) {
-  return <DialogClose asChild>{children}</DialogClose>
+  const { onClose } = React.useContext(DrawerContext)
+  return (
+    <span onClick={onClose} style={{ display: 'inline-flex', cursor: 'pointer' }}>
+      {children}
+    </span>
+  )
 }
 
 export const Drawer = {

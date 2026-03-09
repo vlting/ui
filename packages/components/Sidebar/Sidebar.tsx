@@ -1,63 +1,79 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
 import React, { useCallback, useState } from 'react'
-import { Text, View } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
-
-const GroupLabelH3 = styledHtml('h3', {
-  fontSize: '$2',
-  fontWeight: '$4',
-  color: '$colorSubtitle',
-  fontFamily: '$body',
-  margin: 0,
-} as any) as AnyFC
-
-const SidebarBtn = styledHtml('button', {
-  display: 'inline-flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  cursor: 'pointer',
-  alignItems: 'center',
-  justifyContent: 'center',
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
+const SidebarFrame = styled(
+  "aside",
+  {
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    overflow: "hidden",
   },
-} as any)
-const SidebarBtnJsx = SidebarBtn as AnyFC
+  "Sidebar"
+)
 
-const MenuItemBtn = styledHtml('button', {
-  display: 'flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  width: '100%',
-  textAlign: 'left',
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: -2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
+const SidebarHeaderFrame = styled(
+  "div",
+  {
+    paddingLeft: "16px",
+    paddingRight: "16px",
+    paddingTop: "12px",
+    paddingBottom: "12px",
+    borderBottomWidth: "1px",
+    borderBottomStyle: "solid",
+    borderBottomColor: "var(--borderColor)",
   },
-} as any)
-const MenuItemBtnJsx = MenuItemBtn as AnyFC
+  "SidebarHeader"
+)
+
+const SidebarContentFrame = styled(
+  "div",
+  { flex: "1", overflow: "auto", paddingTop: "6px", paddingBottom: "6px" },
+  "SidebarContent"
+)
+
+const SidebarFooterFrame = styled(
+  "div",
+  {
+    paddingLeft: "16px",
+    paddingRight: "16px",
+    paddingTop: "12px",
+    paddingBottom: "12px",
+    borderTopWidth: "1px",
+    borderTopStyle: "solid",
+    borderTopColor: "var(--borderColor)",
+  },
+  "SidebarFooter"
+)
+
+const SidebarGroupFrame = styled("div", { paddingBottom: "6px" }, "SidebarGroup")
+
+const SidebarGroupLabelFrame = styled(
+  "div",
+  { paddingLeft: "16px", paddingRight: "16px", paddingTop: "6px", paddingBottom: "4px" },
+  "SidebarGroupLabel"
+)
+
+const SidebarMenuFrame = styled(
+  "nav",
+  { display: "flex", flexDirection: "column", gap: "1px", paddingLeft: "6px", paddingRight: "6px" },
+  "SidebarMenu"
+)
+
+const SidebarSeparatorFrame = styled(
+  "hr",
+  {
+    height: "1px",
+    backgroundColor: "var(--borderColor)",
+    marginTop: "6px",
+    marginBottom: "6px",
+    marginLeft: "16px",
+    marginRight: "16px",
+    border: "none",
+  },
+  "SidebarSeparator"
+)
 
 export interface SidebarRootProps {
   children: React.ReactNode
@@ -127,89 +143,49 @@ function Root({
 
   const collapsed = !open && collapsible === 'icon'
 
+  const borderStyle: React.CSSProperties = {
+    width: collapsed ? collapsedWidth : open ? width : 0,
+    transition: reducedMotion ? 'none' : 'width 250ms ease-in-out',
+    backgroundColor: variant === 'floating' ? 'var(--background)' : 'var(--color1)',
+    ...(side === 'left' && variant === 'sidebar' ? { borderRight: '1px solid var(--borderColor)' } : {}),
+    ...(side === 'right' && variant === 'sidebar' ? { borderLeft: '1px solid var(--borderColor)' } : {}),
+    ...(variant === 'floating' ? {
+      margin: 8,
+      border: '1px solid var(--borderColor)',
+      boxShadow: 'var(--shadowMd)',
+      borderRadius: 10,
+    } : {}),
+  }
+
   return (
     <SidebarContext.Provider
-      value={{
-        open,
-        setOpen,
-        collapsed,
-        collapsible,
-        side,
-        variant,
-        width,
-        collapsedWidth,
-      }}
+      value={{ open, setOpen, collapsed, collapsible, side, variant, width, collapsedWidth }}
     >
-      <ViewJsx
-        flexDirection="column"
-        height="100%"
-        backgroundColor={variant === 'floating' ? '$background' : '$color1'}
-        borderRightWidth={side === 'left' && variant === 'sidebar' ? 1 : 0}
-        borderLeftWidth={side === 'right' && variant === 'sidebar' ? 1 : 0}
-        borderColor="$borderColor"
-        overflow="hidden"
-        borderRadius={variant === 'floating' ? '$5' : undefined}
-        style={{
-          width: collapsed ? collapsedWidth : open ? width : 0,
-          transition: reducedMotion ? 'none' : 'width 250ms ease-in-out',
-          ...(variant === 'floating'
-            ? {
-                margin: 8, /* space $0.75 */
-                borderWidth: 1,
-                borderColor: 'var(--borderColor)',
-                boxShadow: 'var(--shadowMd)',
-              }
-            : {}),
-        }}
+      <SidebarFrame
         role="complementary"
         aria-label="Sidebar"
+        style={borderStyle}
       >
         {children}
-      </ViewJsx>
+      </SidebarFrame>
     </SidebarContext.Provider>
   )
 }
 
 function Header({ children }: { children: React.ReactNode }) {
-  return (
-    <ViewJsx
-      paddingLeft="$2"
-      paddingRight="$2"
-      paddingTop="$1.5"
-      paddingBottom="$1.5"
-      borderBottomWidth={1}
-      borderBottomColor="$borderColor"
-    >
-      {children}
-    </ViewJsx>
-  )
+  return <SidebarHeaderFrame>{children}</SidebarHeaderFrame>
 }
 
 function SidebarContent({ children }: { children: React.ReactNode }) {
-  return (
-    <ViewJsx flex={1} overflow="auto" paddingTop="$0.75" paddingBottom="$0.75">
-      {children}
-    </ViewJsx>
-  )
+  return <SidebarContentFrame>{children}</SidebarContentFrame>
 }
 
 function Footer({ children }: { children: React.ReactNode }) {
-  return (
-    <ViewJsx
-      paddingLeft="$2"
-      paddingRight="$2"
-      paddingTop="$1.5"
-      paddingBottom="$1.5"
-      borderTopWidth={1}
-      borderTopColor="$borderColor"
-    >
-      {children}
-    </ViewJsx>
-  )
+  return <SidebarFooterFrame>{children}</SidebarFooterFrame>
 }
 
 function Group({ children }: SidebarGroupProps) {
-  return <ViewJsx paddingBottom="$0.75">{children}</ViewJsx>
+  return <SidebarGroupFrame>{children}</SidebarGroupFrame>
 }
 
 function GroupLabel({ children }: { children: React.ReactNode }) {
@@ -217,96 +193,112 @@ function GroupLabel({ children }: { children: React.ReactNode }) {
   if (collapsed) return null
 
   return (
-    <ViewJsx paddingLeft="$2" paddingRight="$2" paddingTop="$0.75" paddingBottom="$0.5">
-      <GroupLabelH3>{children}</GroupLabelH3>
-    </ViewJsx>
+    <SidebarGroupLabelFrame>
+      <h3 style={{
+        fontSize: 'var(--fontSize-2, 12px)',
+        fontWeight: '600',
+        color: 'var(--colorSubtitle)',
+        fontFamily: 'var(--font-body)',
+        margin: 0,
+      }}>
+        {children}
+      </h3>
+    </SidebarGroupLabelFrame>
   )
 }
 
 function GroupContent({ children }: { children: React.ReactNode }) {
-  return <ViewJsx>{children}</ViewJsx>
+  return <div>{children}</div>
 }
 
 function SidebarMenu({ children }: { children: React.ReactNode }) {
-  return (
-    <ViewJsx role="menu" gap={1} paddingLeft="$0.75" paddingRight="$0.75">
-      {children}
-    </ViewJsx>
-  )
+  return <SidebarMenuFrame role="menu">{children}</SidebarMenuFrame>
 }
 
 function MenuItem({ children, active, disabled, onPress }: SidebarMenuItemProps) {
   return (
-    <MenuItemBtnJsx
+    <button
       type="button"
-      alignItems="center"
-      height="$3"
-      paddingLeft="$0.75"
-      paddingRight="$0.75"
-      borderRadius="$3"
-      cursor={disabled ? 'not-allowed' : 'pointer'}
-      opacity={disabled ? 0.5 : 1}
-      backgroundColor={active ? '$color2' : 'transparent'}
-      hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
       onClick={disabled ? undefined : onPress}
       disabled={disabled}
       role="menuitem"
       aria-disabled={disabled}
       aria-current={active ? 'page' : undefined}
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        height: 36,
+        paddingLeft: 6,
+        paddingRight: 6,
+        borderRadius: 6,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.5 : 1,
+        backgroundColor: active ? 'var(--color2)' : 'transparent',
+        border: 'none',
+        width: '100%',
+        textAlign: 'left',
+        fontFamily: 'inherit',
+        font: 'inherit',
+        color: 'inherit',
+        padding: 0,
+        margin: 0,
+        appearance: 'none' as const,
+        boxSizing: 'border-box' as const,
+      }}
     >
       {children}
-    </MenuItemBtnJsx>
+    </button>
   )
 }
 
 function MenuButton({ children, active, disabled, onPress }: SidebarMenuItemProps) {
   return (
     <MenuItem active={active} disabled={disabled} onPress={onPress}>
-      <TextJsx
-        fontSize="$4"
-        fontFamily="$body"
-        color="$color"
-        fontWeight={active ? '$3' : '$2'}
-      >
+      <span style={{
+        fontSize: 'var(--fontSize-4, 16px)',
+        fontFamily: 'var(--font-body)',
+        color: 'var(--color)',
+        fontWeight: active ? '500' : '400',
+      }}>
         {children}
-      </TextJsx>
+      </span>
     </MenuItem>
   )
 }
 
 function SidebarSeparator() {
-  return (
-    <ViewJsx
-      height={1}
-      backgroundColor="$borderColor"
-      marginTop="$0.75"
-      marginBottom="$0.75"
-      marginLeft="$2"
-      marginRight="$2"
-    />
-  )
+  return <SidebarSeparatorFrame />
 }
 
 function Trigger({ children }: { children?: React.ReactNode }) {
   const { open, setOpen } = React.useContext(SidebarContext)
 
   return (
-    <SidebarBtnJsx
+    <button
       type="button"
-      width="$2"
-      height="$2"
-      borderRadius="$2"
-      hoverStyle={{ backgroundColor: '$color2' }}
       onClick={() => setOpen(!open)}
       aria-label={open ? 'Close sidebar' : 'Open sidebar'}
       aria-expanded={open}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 32,
+        height: 32,
+        borderRadius: 4,
+        border: 'none',
+        backgroundColor: 'transparent',
+        cursor: 'pointer',
+        fontFamily: 'inherit',
+      }}
     >
       {children ?? (
-        <TextJsx fontSize="$5" color="$color">
-          {open ? '\u2630' : '\u2630'}
-        </TextJsx>
+        <span style={{ fontSize: 'var(--fontSize-5, 18px)', color: 'var(--color)' }}>
+          {'\u2630'}
+        </span>
       )}
-    </SidebarBtnJsx>
+    </button>
   )
 }
 
@@ -314,15 +306,16 @@ function Rail() {
   const { side } = React.useContext(SidebarContext)
 
   return (
-    <ViewJsx
-      position="absolute"
-      top={0}
-      bottom={0}
-      width="$0.5"
-      style={{ [side === 'left' ? 'right' : 'left']: 0 }}
-      cursor="col-resize"
-      backgroundColor="transparent"
-      hoverStyle={{ backgroundColor: '$color3' }}
+    <div
+      style={{
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        width: 4,
+        [side === 'left' ? 'right' : 'left']: 0,
+        cursor: 'col-resize',
+        backgroundColor: 'transparent',
+      }}
     />
   )
 }
