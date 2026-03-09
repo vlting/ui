@@ -1,6 +1,6 @@
 import type React from 'react'
 import type { ComponentType } from 'react'
-import { Text, XStack, styled } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 import { Button, type ButtonProps } from '../Button'
 
 type ButtonVariant = NonNullable<ButtonProps['variant']>
@@ -9,35 +9,45 @@ type AnyFC = ComponentType<Record<string, unknown>>
 const ButtonJsx = Button as AnyFC
 const ButtonTextJsx = Button.Text as AnyFC
 
-// @ts-expect-error Tamagui v2 RC
-const PaginationFrame = styled(XStack, {
-  alignItems: 'center',
-  gap: '$1.5',
-  flexWrap: 'nowrap',
-})
-
-const PAGE_BUTTON_MIN_WIDTH = { sm: '$2', md: '$3', lg: '$4' } as const
-
-const EllipsisText = styled(Text, {
-  fontFamily: '$body',
-  color: '$colorSubtitle',
-
-  variants: {
-    size: {
-      // @ts-expect-error Tamagui v2 RC
-      sm: { fontSize: '$2' },
-      // @ts-expect-error Tamagui v2 RC
-      md: { fontSize: '$3' },
-      // @ts-expect-error Tamagui v2 RC
-      lg: { fontSize: '$4' },
-    },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    size: 'md',
+const PaginationFrame = styled(
+  "nav",
+  {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: "6px",
+    flexWrap: "nowrap",
   },
-})
+  "Pagination"
+)
+
+const PAGE_BUTTON_MIN_WIDTH = { sm: 28, md: 36, lg: 44 } as const
+
+const EllipsisText = styled(
+  "span",
+  {
+    fontFamily: "$body",
+    color: "$secondaryText12",
+  },
+  {
+    size: {
+      sm: { fontSize: "$12" },
+      md: { fontSize: "$14" },
+      lg: { fontSize: "$16" },
+    },
+  },
+  "PaginationEllipsis"
+)
+
+const EllipsisFrame = styled(
+  "div",
+  {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  "PaginationEllipsisFrame"
+)
 
 /**
  * Compute which page numbers to display, inserting null for ellipsis gaps.
@@ -111,8 +121,7 @@ function Root({
   const pages = computePageRange(currentPage, totalPages, siblingCount)
 
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <PaginationFrame role="navigation" aria-label="Pagination">
+    <PaginationFrame aria-label="Pagination">
       <Previous
         disabled={currentPage <= 1}
         onPress={() => onPageChange(currentPage - 1)}
@@ -230,17 +239,11 @@ function Item({
 
 function Ellipsis({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <XStack
-      alignItems="center"
-      justifyContent="center"
-      minWidth={PAGE_BUTTON_MIN_WIDTH[size]}
-    >
-      {/* @ts-expect-error Tamagui v2 RC */}
+    <EllipsisFrame style={{ minWidth: PAGE_BUTTON_MIN_WIDTH[size] }}>
       <EllipsisText size={size} aria-hidden>
         ...
       </EllipsisText>
-    </XStack>
+    </EllipsisFrame>
   )
 }
 

@@ -1,15 +1,81 @@
-import { Slider as TamaguiSlider } from '@tamagui/slider'
-import type { ComponentType } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
+import { styled } from '../../stl-react/src/config'
 
-// Tamagui v2 RC GetProps bug — cast for JSX usage
-const SliderRoot = TamaguiSlider as ComponentType<Record<string, unknown>>
-const SliderTrack = TamaguiSlider.Track as ComponentType<Record<string, unknown>>
-const SliderTrackActive = TamaguiSlider.TrackActive as ComponentType<
-  Record<string, unknown>
->
-const SliderThumb = TamaguiSlider.Thumb as ComponentType<Record<string, unknown>>
+const SliderRoot = styled(
+  "div",
+  {
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    touchAction: "none",
+    userSelect: "none",
+  },
+  {
+    size: {
+      sm: { height: "20px" },
+      md: { height: "24px" },
+      lg: { height: "28px" },
+    },
+    disabled: {
+      true: { opacity: "0.5", pointerEvents: "none" },
+    },
+  },
+  "Slider"
+)
 
-const SIZE_MAP = { sm: '$2' as const, md: '$3' as const, lg: '$4' as const }
+const SliderTrack = styled(
+  "div",
+  {
+    position: "relative",
+    width: "100%",
+    borderRadius: "9999px",
+    backgroundColor: "var(--color4)",
+    overflow: "hidden",
+  },
+  {
+    size: {
+      sm: { height: "4px" },
+      md: { height: "6px" },
+      lg: { height: "8px" },
+    },
+  },
+  "SliderTrack"
+)
+
+const SliderRange = styled(
+  "div",
+  {
+    position: "absolute",
+    height: "100%",
+    backgroundColor: "var(--color10)",
+    borderRadius: "9999px",
+  },
+  "SliderRange"
+)
+
+const SliderThumb = styled(
+  "div",
+  {
+    position: "absolute",
+    top: "50%",
+    borderRadius: "9999px",
+    backgroundColor: "var(--background, #fff)",
+    borderWidth: "2px",
+    borderStyle: "solid",
+    borderColor: "var(--color10)",
+    cursor: "pointer",
+    transform: "translate(-50%, -50%)",
+  },
+  {
+    size: {
+      sm: { width: "16px", height: "16px" },
+      md: { width: "20px", height: "20px" },
+      lg: { width: "24px", height: "24px" },
+    },
+  },
+  "SliderThumb"
+)
 
 export interface SliderProps {
   value?: number
@@ -24,7 +90,7 @@ export interface SliderProps {
 }
 
 export function Slider({
-  value,
+  value: controlledValue,
   defaultValue = 0,
   min = 0,
   max = 100,
@@ -34,31 +100,62 @@ export function Slider({
   disabled,
   'aria-label': ariaLabel,
 }: SliderProps) {
-  const handleValueChange = (values: number[]) => {
-    onValueChange?.(values[0])
+  const [internalValue, setInternalValue] = useState(defaultValue)
+  const isControlled = controlledValue !== undefined
+  const currentValue = isControlled ? controlledValue : internalValue
+  const trackRef = useRef<HTMLDivElement>(null)
+  const dragging = useRef(false)
+
+  const percentage = ((currentValue - min) / (max - min)) * 100
+
+  const updateValue = useCallback((clientX: number) => {
+    const track = trackRef.current
+    if (!track) return
+    const rect = track.getBoundingClientRect()
+    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width))
+    const raw = min + ratio * (max - min)
+    const stepped = Math.round(raw / step) * step
+    const clamped = Math.max(min, Math.min(max, stepped))
+    if (!isControlled) setInternalValue(clamped)
+    onValueChange?.(clamped)
+  }, [min, max, step, isControlled, onValueChange])
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    if (disabled) return
+    dragging.current = true
+    ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
+    updateValue(e.clientX)
+  }
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!dragging.current) return
+    updateValue(e.clientX)
+  }
+
+  const handlePointerUp = () => {
+    dragging.current = false
   }
 
   return (
     <SliderRoot
-      value={value !== undefined ? [value] : undefined}
-      defaultValue={[defaultValue]}
-      min={min}
-      max={max}
-      step={step}
-      onValueChange={handleValueChange}
-      disabled={disabled}
-      size={SIZE_MAP[size]}
+      size={size}
+      disabled={disabled ? true : undefined}
+      role="slider"
+      aria-valuenow={currentValue}
+      aria-valuemin={min}
+      aria-valuemax={max}
       aria-label={ariaLabel}
+      tabIndex={disabled ? -1 : 0}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
     >
-      <SliderTrack backgroundColor="$color4" borderRadius="$6">
-        <SliderTrackActive backgroundColor="$color10" borderRadius="$6" />
+      <SliderTrack ref={trackRef} size={size}>
+        <SliderRange style={{ width: `${percentage}%` }} />
       </SliderTrack>
       <SliderThumb
-        index={0}
-        circular
-        backgroundColor="$background"
-        borderWidth={2}
-        borderColor="$color10"
+        size={size}
+        style={{ left: `${percentage}%` }}
       />
     </SliderRoot>
   )

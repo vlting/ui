@@ -1,13 +1,35 @@
-import { Progress as TamaguiProgress } from '@tamagui/progress'
-import type { ComponentType } from 'react'
+import type React from 'react'
+import { styled } from '../../stl-react/src/config'
 
-// Tamagui v2 RC GetProps bug — cast for JSX usage
-const ProgressRoot = TamaguiProgress as ComponentType<Record<string, unknown>>
-const ProgressIndicator = TamaguiProgress.Indicator as ComponentType<
-  Record<string, unknown>
->
+const ProgressTrack = styled(
+  "div",
+  {
+    position: "relative",
+    overflow: "hidden",
+    borderRadius: "9999px",
+    backgroundColor: "var(--color4)",
+    width: "100%",
+  },
+  {
+    size: {
+      sm: { height: "4px" },
+      md: { height: "6px" },
+      lg: { height: "8px" },
+    },
+  },
+  "Progress"
+)
 
-const SIZE_HEIGHT: Record<string, string | number> = { sm: '$0.5', md: '$0.75', lg: '$1' }
+const ProgressIndicator = styled(
+  "div",
+  {
+    height: "100%",
+    backgroundColor: "var(--color10)",
+    borderRadius: "9999px",
+    transition: "width 200ms ease",
+  },
+  "ProgressIndicator"
+)
 
 export interface ProgressProps {
   value?: number
@@ -22,18 +44,18 @@ export function Progress({
   size = 'md',
   'aria-label': ariaLabel,
 }: ProgressProps) {
+  const percentage = Math.min(100, Math.max(0, (value / max) * 100))
+
   return (
-    <ProgressRoot
-      value={value}
-      max={max}
-      height={SIZE_HEIGHT[size]}
-      backgroundColor="$color4"
-      borderRadius="$10"
-      overflow="hidden"
-      width="100%"
+    <ProgressTrack
+      role="progressbar"
+      aria-valuenow={value}
+      aria-valuemin={0}
+      aria-valuemax={max}
       aria-label={ariaLabel}
+      size={size}
     >
-      <ProgressIndicator backgroundColor="$color10" borderRadius="$10" animation="fast" />
-    </ProgressRoot>
+      <ProgressIndicator style={{ width: `${percentage}%` }} />
+    </ProgressTrack>
   )
 }
