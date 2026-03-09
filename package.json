@@ -90,17 +90,6 @@
     "generate:icons": "node scripts/generate-icons.mjs"
   },
   "dependencies": {
-    "@tamagui/animations-css": "2.0.0-rc.14",
-    "@tamagui/animations-reanimated": "2.0.0-rc.14",
-    "@tamagui/colors": "2.0.0-rc.14",
-    "@tamagui/config": "2.0.0-rc.14",
-    "@tamagui/font-inter": "2.0.0-rc.14",
-    "@tamagui/lucide-icons": "2.0.0-rc.14",
-    "@tamagui/shorthands": "2.0.0-rc.14",
-    "@tamagui/theme-builder": "2.0.0-rc.14",
-    "@tamagui/themes": "2.0.0-rc.14",
-    "@tamagui/toast": "2.0.0-rc.14",
-    "tamagui": "2.0.0-rc.14",
     "victory": "^37.3.6"
   },
   "devDependencies": {
@@ -109,7 +98,6 @@
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
     "@biomejs/biome": "^1.9.4",
-    "@tamagui/build": "2.0.0-rc.14",
     "@tanstack/react-table": "^8.21.3",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -132,7 +120,9 @@
     "react-native-web": "^0.21.2",
     "react-test-renderer": "19.1.0",
     "remixicon": "4.9.1",
-    "typescript": "~5.9.2"
+    "@vanilla-extract/css": "^1.15.1",
+    "typescript": "~5.9.2",
+    "vite": "^5.2.11"
   },
   "peerDependencies": {
     "@tanstack/react-table": ">=8",
