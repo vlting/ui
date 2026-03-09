@@ -1,17 +1,17 @@
-import type { ComponentType } from 'react'
+import { styled } from '../../stl-react/src/config'
 import type React from 'react'
-import { View, styled } from 'tamagui'
 
-type AnyFC = ComponentType<Record<string, unknown>>
+const ScrollAreaFrame = styled(
+  "div",
+  { position: "relative", overflow: "hidden" },
+  "ScrollArea"
+)
 
-// @ts-expect-error Tamagui v2 RC
-const ScrollAreaFrame = styled(View, {
-  position: 'relative',
-  overflow: 'hidden',
-})
-
-const ScrollAreaFrameJsx = ScrollAreaFrame as AnyFC
-const ViewJsx = View as AnyFC
+const ViewportFrame = styled(
+  "div",
+  { borderRadius: "inherit" },
+  "ScrollAreaViewport"
+)
 
 export interface ScrollAreaRootProps {
   children: React.ReactNode
@@ -32,7 +32,7 @@ const OVERFLOW_STYLES = {
 
 function Root({ children }: ScrollAreaRootProps) {
   return (
-    <ScrollAreaFrameJsx>
+    <ScrollAreaFrame>
       {children}
       <style
         dangerouslySetInnerHTML={{
@@ -45,28 +45,21 @@ function Root({ children }: ScrollAreaRootProps) {
           `,
         }}
       />
-    </ScrollAreaFrameJsx>
+    </ScrollAreaFrame>
   )
 }
 
 function Viewport({ children, orientation = 'vertical' }: ScrollAreaViewportProps) {
   return (
-    <ViewJsx
-      borderRadius="inherit"
+    <ViewportFrame
       className="vlting-scroll-viewport"
       style={{ width: '100%', height: '100%', ...OVERFLOW_STYLES[orientation] }}
     >
       {children}
-    </ViewJsx>
+    </ViewportFrame>
   )
 }
 
-/**
- * Scrollbar, Thumb, and Corner are no-op components provided for API
- * compatibility with libraries like Radix ScrollArea. ScrollArea uses
- * CSS-based scrollbar styling (webkit-scrollbar + scrollbar-width) in
- * Root instead of custom scrollbar track/thumb elements.
- */
 function Scrollbar(_props: { orientation?: 'vertical' | 'horizontal' }) {
   return null
 }

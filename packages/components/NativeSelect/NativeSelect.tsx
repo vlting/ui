@@ -1,73 +1,42 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
+import { styled } from '../../stl-react/src/config'
 import type React from 'react'
+import type { ComponentProps } from 'react'
 
-const SelectFrame = styledHtml('select', {
-  display: 'flex',
-  width: '100%',
-  appearance: 'none',
-  backgroundColor: '$background',
-  borderWidth: 1,
-  borderStyle: 'solid',
-  borderColor: '$borderColor',
-  borderRadius: '$4',
-  color: '$color',
-  fontFamily: '$body',
-  cursor: 'pointer',
-  outline: 'none',
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
+const SelectFrame = styled(
+  "select",
+  {
+    display: "flex",
+    width: "100%",
+    appearance: "none",
+    backgroundColor: "$background",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "$borderColor",
+    borderRadius: "$4",
+    color: "$defaultBody",
+    fontFamily: "$body",
+    cursor: "pointer",
+    outline: "none",
+    backgroundImage:
+      'url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 20 20%27%3e%3cpath stroke=%27%236b7280%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%271.5%27 d=%27M6 8l4 4 4-4%27/%3e%3c/svg%3e")',
+    backgroundPosition: "right 8px center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "16px",
   },
-
-  // Custom arrow via background image
-  backgroundImage:
-    'url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 20 20%27%3e%3cpath stroke=%27%236b7280%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%271.5%27 d=%27M6 8l4 4 4-4%27/%3e%3c/svg%3e")',
-  backgroundPosition: 'right 8px center',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: '16px',
-
-  variants: {
+  {
     size: {
-      sm: {
-        height: '$2.5',
-        paddingLeft: '$1',
-        paddingRight: '$4',
-        fontSize: '$3',
-      },
-      md: {
-        height: '$3',
-        paddingLeft: '$1.5',
-        paddingRight: '$4.5',
-        fontSize: '$4',
-      },
-      lg: {
-        height: '$3.5',
-        paddingLeft: 14,
-        paddingRight: 36,
-        fontSize: '$4',
-      },
+      sm: { height: "$6", paddingLeft: "$2", paddingRight: "$8", fontSize: "$14" },
+      md: { height: "$8", paddingLeft: "$3", paddingRight: "$10", fontSize: "$p" },
+      lg: { height: "$10", paddingLeft: "$3", paddingRight: "$10", fontSize: "$p" },
     },
     disabled: {
-      true: {
-        opacity: 0.5,
-        cursor: 'not-allowed',
-      },
+      true: { opacity: "0.5", cursor: "not-allowed" },
     },
-  } as const,
-
-  defaultVariants: {
-    size: 'md',
   },
-} as any)
+  "NativeSelect"
+)
 
-const OptionFrame = styledHtml('option', {} as any)
-
-// Cast for JSX usage — v2 RC GetFinalProps bug
-const SelectJsx = SelectFrame as ComponentType<Record<string, unknown>>
-const OptionJsx = OptionFrame as ComponentType<Record<string, unknown>>
+const OptionFrame = styled("option", {}, "NativeSelectOption")
 
 export interface NativeSelectRootProps {
   children: React.ReactNode
@@ -99,30 +68,30 @@ function Root({
   'aria-label': ariaLabel,
 }: NativeSelectRootProps) {
   return (
-    <SelectJsx
+    <SelectFrame
       value={value}
       defaultValue={defaultValue}
-      onChange={(e: any) => onValueChange?.(e.target.value)}
+      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onValueChange?.(e.target.value)}
       disabled={disabled || undefined}
       size={size}
       name={name}
       aria-label={ariaLabel}
     >
       {placeholder && (
-        <OptionJsx value="" disabled>
+        <OptionFrame value="" disabled>
           {placeholder}
-        </OptionJsx>
+        </OptionFrame>
       )}
       {children}
-    </SelectJsx>
+    </SelectFrame>
   )
 }
 
 function Option({ children, value, disabled }: NativeSelectOptionProps) {
   return (
-    <OptionJsx value={value} disabled={disabled || undefined}>
+    <OptionFrame value={value} disabled={disabled || undefined}>
       {children}
-    </OptionJsx>
+    </OptionFrame>
   )
 }
 
