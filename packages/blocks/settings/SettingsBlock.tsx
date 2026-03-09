@@ -1,7 +1,6 @@
-import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
 import { useState } from 'react'
-import { Text, View, XStack, YStack } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 import { Avatar } from '../../components/Avatar'
 import { Button } from '../../components/Button'
 import { Card } from '../../components/Card'
@@ -13,10 +12,6 @@ import { Textarea } from '../../components/Textarea'
 import type { BlockProps } from '../_shared/types'
 
 type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
-const XStackJsx = XStack as AnyFC
-const YStackJsx = YStack as AnyFC
 const CardJsx = Card as AnyFC
 const CardHeaderJsx = Card.Header as AnyFC
 const CardTitleJsx = Card.Title as AnyFC
@@ -33,13 +28,16 @@ const AvatarJsx = Avatar as AnyFC
 const SelectJsx = Select as unknown as AnyFC
 const SelectItemJsx = Select.Item as unknown as AnyFC
 
-const FormElement = styledHtml('form', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 16,
-  width: '100%',
-} as any)
-const FormJsx = FormElement as AnyFC
+const FormElement = styled(
+  "form",
+  {
+    display: "flex",
+    flexDirection: "column",
+    gap: "16px",
+    width: "100%",
+  },
+  "SettingsForm"
+)
 
 // -- Types --
 
@@ -93,21 +91,21 @@ function ProfileSettings({
   const [bio, setBio] = useState(user.bio ?? '')
 
   return (
-    <CardJsx width="100%" style={{ maxWidth: 600 }}>
+    <CardJsx style={{ width: '100%', maxWidth: 600 }}>
       <CardHeaderJsx>
         <CardTitleJsx>{title}</CardTitleJsx>
         <CardDescriptionJsx>{description}</CardDescriptionJsx>
       </CardHeaderJsx>
       <CardContentJsx>
-        <FormJsx
+        <FormElement
           onSubmit={(e: Event) => {
             e.preventDefault()
             onSave?.({ name, email, bio })
           }}
         >
-          <YStackJsx alignItems="center" gap="$3" paddingBottom="$2">
-            <AvatarJsx size="lg" src={user.avatar} fallback={name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)} />
-          </YStackJsx>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, paddingBottom: 8 }}>
+            <AvatarJsx size="lg" src={user.avatar} fallback={name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)} />
+          </div>
 
           <InputJsx label="Name" value={name} onChangeText={setName} placeholder="Your name" />
           <InputJsx
@@ -133,7 +131,7 @@ function ProfileSettings({
           >
             <ButtonTextJsx>Save changes</ButtonTextJsx>
           </ButtonJsx>
-        </FormJsx>
+        </FormElement>
       </CardContentJsx>
     </CardJsx>
   )
@@ -147,32 +145,36 @@ function PreferencesSettings({
   preferences = [],
 }: SettingsBlockProps) {
   return (
-    <CardJsx width="100%" style={{ maxWidth: 600 }}>
+    <CardJsx style={{ width: '100%', maxWidth: 600 }}>
       <CardHeaderJsx>
         <CardTitleJsx>{title}</CardTitleJsx>
         <CardDescriptionJsx>{description}</CardDescriptionJsx>
       </CardHeaderJsx>
       <CardContentJsx>
-        <YStackJsx gap="$0" width="100%">
+        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
           {preferences.map((pref, i) => (
-            <ViewJsx key={`pref-${i}`}>
+            <div key={`pref-${i}`}>
               {i > 0 && <SeparatorJsx />}
-              <XStackJsx
-                justifyContent="space-between"
-                alignItems="center"
-                paddingVertical="$3"
-                width="100%"
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingTop: 12,
+                  paddingBottom: 12,
+                  width: '100%',
+                }}
               >
-                <YStackJsx gap="$0.5" flex={1} paddingRight="$3">
-                  <TextJsx fontSize="$4" fontWeight="$3" fontFamily="$body" color="$color">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1, paddingRight: 12 }}>
+                  <span style={{ fontSize: 16, fontWeight: 500, fontFamily: 'var(--font-body)', color: 'var(--color)' }}>
                     {pref.label}
-                  </TextJsx>
+                  </span>
                   {pref.description && (
-                    <TextJsx fontSize="$3" fontFamily="$body" color="$colorSubtle">
+                    <span style={{ fontSize: 14, fontFamily: 'var(--font-body)', color: 'var(--secondaryText12)' }}>
                       {pref.description}
-                    </TextJsx>
+                    </span>
                   )}
-                </YStackJsx>
+                </div>
 
                 {pref.type === 'toggle' ? (
                   <SwitchJsx
@@ -192,10 +194,10 @@ function PreferencesSettings({
                     ))}
                   </SelectJsx>
                 ) : null}
-              </XStackJsx>
-            </ViewJsx>
+              </div>
+            </div>
           ))}
-        </YStackJsx>
+        </div>
       </CardContentJsx>
     </CardJsx>
   )
@@ -211,38 +213,38 @@ function AccountSettings({
   loading = false,
 }: SettingsBlockProps) {
   return (
-    <YStackJsx gap="$4" width="100%" style={{ maxWidth: 600 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%', maxWidth: 600 }}>
       <CardJsx>
         <CardHeaderJsx>
           <CardTitleJsx>{title}</CardTitleJsx>
           <CardDescriptionJsx>{description}</CardDescriptionJsx>
         </CardHeaderJsx>
         <CardContentJsx>
-          <YStackJsx gap="$4">
-            <XStackJsx justifyContent="space-between" alignItems="center">
-              <YStackJsx gap="$0.5">
-                <TextJsx fontSize="$4" fontWeight="$3" fontFamily="$body" color="$color">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <span style={{ fontSize: 16, fontWeight: 500, fontFamily: 'var(--font-body)', color: 'var(--color)' }}>
                   Password
-                </TextJsx>
-                <TextJsx fontSize="$3" fontFamily="$body" color="$colorSubtle">
+                </span>
+                <span style={{ fontSize: 14, fontFamily: 'var(--font-body)', color: 'var(--secondaryText12)' }}>
                   Change your account password
-                </TextJsx>
-              </YStackJsx>
+                </span>
+              </div>
               <ButtonJsx variant="outline" onPress={onChangePassword} disabled={loading}>
                 <ButtonTextJsx>Change password</ButtonTextJsx>
               </ButtonJsx>
-            </XStackJsx>
-          </YStackJsx>
+            </div>
+          </div>
         </CardContentJsx>
       </CardJsx>
 
       {onDeleteAccount && (
-        <CardJsx borderColor="$red6">
+        <CardJsx style={{ borderColor: 'var(--red6)' }}>
           <CardHeaderJsx>
             <CardTitleJsx>
-              <TextJsx fontSize="$5" fontWeight="$4" fontFamily="$heading" color="$red10">
+              <span style={{ fontSize: 18, fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--red10)' }}>
                 Danger Zone
-              </TextJsx>
+              </span>
             </CardTitleJsx>
             <CardDescriptionJsx>
               Permanently delete your account and all associated data.
@@ -255,6 +257,6 @@ function AccountSettings({
           </CardFooterJsx>
         </CardJsx>
       )}
-    </YStackJsx>
+    </div>
   )
 }

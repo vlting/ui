@@ -1,12 +1,9 @@
-import { styledHtml } from '@tamagui/web'
 import type { ComponentType, ReactNode } from 'react'
-import { Text, View } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 import { Sidebar } from '../../components/Sidebar'
 import { Badge } from '../../primitives/Badge'
 
 type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
 
 // --- Types ---
 
@@ -53,44 +50,49 @@ export interface SidebarBlockProps {
 
 // --- Styled Elements ---
 
-const NavLink = styledHtml('a', {
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  width: '100%',
-  textDecoration: 'none',
-  color: 'inherit',
-  gap: 8,
-} as any)
-const NavLinkJsx = NavLink as AnyFC
+const NavLink = styled(
+  "a",
+  {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    textDecoration: "none",
+    color: "inherit",
+    gap: "8px",
+  },
+  "SidebarNavLink"
+)
 
 // --- Helper Components ---
 
 export function SidebarNavItem({ item }: { item: NavItem }) {
   const content = (
-    <ViewJsx flexDirection="row" alignItems="center" gap="$1.5" flex={1}>
+    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 6, flex: 1 }}>
       {item.icon && (
-        <ViewJsx width="$1.5" height="$1.5" alignItems="center" justifyContent="center">
+        <div style={{ width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           {item.icon}
-        </ViewJsx>
+        </div>
       )}
-      <TextJsx
-        fontSize="$4"
-        fontFamily="$body"
-        color="$color"
-        fontWeight={item.active ? '$3' : '$2'}
-        flex={1}
+      <span
+        style={{
+          fontSize: 16,
+          fontFamily: 'var(--font-body)',
+          color: 'var(--color)',
+          fontWeight: item.active ? 500 : 400,
+          flex: 1,
+        }}
       >
         {item.label}
-      </TextJsx>
+      </span>
       {item.badge != null && (
         <Badge variant="secondary" size="sm">
-          <TextJsx fontSize="$2" fontFamily="$body" color="$color">
+          <span style={{ fontSize: 12, fontFamily: 'var(--font-body)', color: 'var(--color)' }}>
             {item.badge}
-          </TextJsx>
+          </span>
         </Badge>
       )}
-    </ViewJsx>
+    </div>
   )
 
   if (item.href) {
@@ -100,7 +102,7 @@ export function SidebarNavItem({ item }: { item: NavItem }) {
         disabled={item.disabled}
         onPress={item.onPress}
       >
-        <NavLinkJsx href={item.href}>{content}</NavLinkJsx>
+        <NavLink href={item.href}>{content}</NavLink>
       </Sidebar.MenuItem>
     )
   }

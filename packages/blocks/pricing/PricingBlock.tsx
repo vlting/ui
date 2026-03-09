@@ -1,6 +1,5 @@
-import { styledHtml } from '@tamagui/web'
 import type { ComponentType } from 'react'
-import { Text, View, XStack, YStack } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 import { Badge } from '../../primitives/Badge'
 import { Button } from '../../components/Button'
 import { Card } from '../../components/Card'
@@ -8,10 +7,6 @@ import { Separator } from '../../primitives/Separator'
 import type { BlockProps } from '../_shared/types'
 
 type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
-const XStackJsx = XStack as AnyFC
-const YStackJsx = YStack as AnyFC
 const CardJsx = Card as AnyFC
 const CardHeaderJsx = Card.Header as AnyFC
 const CardTitleJsx = Card.Title as AnyFC
@@ -23,25 +18,55 @@ const ButtonTextJsx = Button.Text as AnyFC
 const SeparatorJsx = Separator as AnyFC
 const BadgeJsx = Badge as AnyFC
 
-const ToggleButton = styledHtml('button', {
-  appearance: 'none',
-  border: '1px solid',
-  borderColor: '$borderColor',
-  background: 'none',
-  padding: '6px 16px',
-  cursor: 'pointer',
-  fontFamily: 'inherit',
-  fontSize: 14,
-  color: '$color',
-  borderRadius: 6,
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
+const ToggleButton = styled(
+  "button",
+  {
+    appearance: "none",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "$borderColor",
+    background: "none",
+    padding: "6px 16px",
+    cursor: "pointer",
+    fontFamily: "inherit",
+    fontSize: "$14",
+    color: "$color",
+    borderRadius: "6px",
   },
-} as any)
-const ToggleButtonJsx = ToggleButton as AnyFC
+  "PricingToggle"
+)
+
+const PricingTable = styled(
+  "table",
+  { width: "100%", borderCollapse: "collapse", fontFamily: "inherit" },
+  "PricingTable"
+)
+
+const Th = styled(
+  "th",
+  {
+    padding: "12px 16px",
+    textAlign: "left",
+    fontWeight: "600",
+    fontSize: "$14",
+    borderBottomWidth: "1px",
+    borderBottomStyle: "solid",
+    borderColor: "$borderColor",
+  },
+  "PricingTh"
+)
+
+const Td = styled(
+  "td",
+  {
+    padding: "10px 16px",
+    fontSize: "$14",
+    borderBottomWidth: "1px",
+    borderBottomStyle: "solid",
+    borderColor: "$borderColor",
+  },
+  "PricingTd"
+)
 
 // -- Types --
 
@@ -80,35 +105,35 @@ export function PricingBlock(props: PricingBlockProps) {
   } = props
 
   return (
-    <YStackJsx alignItems="center" gap="$4" width="100%" padding="$4">
-      <YStackJsx alignItems="center" gap="$1.5">
-        <TextJsx fontSize="$7" fontWeight="$4" fontFamily="$heading" color="$color" textAlign="center">
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, width: '100%', padding: 16 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+        <span style={{ fontSize: 24, fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--color)', textAlign: 'center' }}>
           {title}
-        </TextJsx>
+        </span>
         {description && (
-          <TextJsx fontSize="$4" fontFamily="$body" color="$colorSubtle" textAlign="center">
+          <span style={{ fontSize: 16, fontFamily: 'var(--font-body)', color: 'var(--secondaryText12)', textAlign: 'center' }}>
             {description}
-          </TextJsx>
+          </span>
         )}
-      </YStackJsx>
+      </div>
 
       {onBillingPeriodChange && (
-        <XStackJsx gap="$1" alignItems="center">
-          <ToggleButtonJsx
+        <div style={{ display: 'flex', flexDirection: 'row', gap: 4, alignItems: 'center' }}>
+          <ToggleButton
             type="button"
             onClick={() => onBillingPeriodChange('monthly')}
-            style={billingPeriod === 'monthly' ? { backgroundColor: 'var(--color9)' } : {}}
+            style={billingPeriod === 'monthly' ? { backgroundColor: 'var(--surface2)' } : {}}
           >
             Monthly
-          </ToggleButtonJsx>
-          <ToggleButtonJsx
+          </ToggleButton>
+          <ToggleButton
             type="button"
             onClick={() => onBillingPeriodChange('yearly')}
-            style={billingPeriod === 'yearly' ? { backgroundColor: 'var(--color9)' } : {}}
+            style={billingPeriod === 'yearly' ? { backgroundColor: 'var(--surface2)' } : {}}
           >
             Yearly
-          </ToggleButtonJsx>
-        </XStackJsx>
+          </ToggleButton>
+        </div>
       )}
 
       {variant === 'cards' ? (
@@ -118,7 +143,7 @@ export function PricingBlock(props: PricingBlockProps) {
       ) : (
         <PricingSimple {...props} />
       )}
-    </YStackJsx>
+    </div>
   )
 }
 
@@ -130,7 +155,7 @@ function PricingCards({
   onSelectPlan,
 }: PricingBlockProps) {
   return (
-    <XStackJsx gap="$4" flexWrap="wrap" justifyContent="center" width="100%">
+    <div style={{ display: 'flex', flexDirection: 'row', gap: 16, flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
       {plans.map((plan) => {
         const price = billingPeriod === 'monthly' ? plan.price.monthly : plan.price.yearly
         const currency = plan.currency ?? '$'
@@ -138,55 +163,60 @@ function PricingCards({
         return (
           <CardJsx
             key={plan.id}
-            flex={1}
-            style={{ minWidth: 260, maxWidth: 360 }}
-            borderColor={plan.highlighted ? '$color10' : '$borderColor'}
-            borderWidth={plan.highlighted ? 2 : 1}
+            style={{
+              flex: 1,
+              minWidth: 260,
+              maxWidth: 360,
+              borderColor: plan.highlighted ? 'var(--primary10)' : undefined,
+              borderWidth: plan.highlighted ? 2 : undefined,
+            }}
           >
             <CardHeaderJsx>
-              <XStackJsx justifyContent="space-between" alignItems="center">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <CardTitleJsx>{plan.name}</CardTitleJsx>
                 {plan.highlighted && (
                   <BadgeJsx variant="secondary" size="sm">
-                    <TextJsx fontSize="$1" fontFamily="$body">Popular</TextJsx>
+                    <span style={{ fontSize: 12, fontFamily: 'var(--font-body)' }}>Popular</span>
                   </BadgeJsx>
                 )}
-              </XStackJsx>
+              </div>
               {plan.description && (
                 <CardDescriptionJsx>{plan.description}</CardDescriptionJsx>
               )}
             </CardHeaderJsx>
 
             <CardContentJsx>
-              <YStackJsx gap="$3">
-                <XStackJsx alignItems="baseline" gap="$1">
-                  <TextJsx fontSize="$9" fontWeight="$4" fontFamily="$heading" color="$color">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+                  <span style={{ fontSize: 36, fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--color)' }}>
                     {currency}{price}
-                  </TextJsx>
-                  <TextJsx fontSize="$3" fontFamily="$body" color="$colorSubtle">
+                  </span>
+                  <span style={{ fontSize: 14, fontFamily: 'var(--font-body)', color: 'var(--secondaryText12)' }}>
                     /{billingPeriod === 'monthly' ? 'mo' : 'yr'}
-                  </TextJsx>
-                </XStackJsx>
+                  </span>
+                </div>
 
                 <SeparatorJsx />
 
-                <YStackJsx gap="$2">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {plan.features.map((feat, i) => (
-                    <XStackJsx key={i} gap="$2" alignItems="center">
-                      <TextJsx fontSize="$3" color={feat.included ? '$green10' : '$colorSubtle'}>
+                    <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                      <span style={{ fontSize: 14, color: feat.included ? 'var(--green10)' : 'var(--secondaryText12)' }}>
                         {feat.included ? '\u2713' : '\u2717'}
-                      </TextJsx>
-                      <TextJsx
-                        fontSize="$3"
-                        fontFamily="$body"
-                        color={feat.included ? '$color' : '$colorSubtle'}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: 14,
+                          fontFamily: 'var(--font-body)',
+                          color: feat.included ? 'var(--color)' : 'var(--secondaryText12)',
+                        }}
                       >
                         {feat.text}
-                      </TextJsx>
-                    </XStackJsx>
+                      </span>
+                    </div>
                   ))}
-                </YStackJsx>
-              </YStackJsx>
+                </div>
+              </div>
             </CardContentJsx>
 
             <CardFooterJsx>
@@ -201,38 +231,11 @@ function PricingCards({
           </CardJsx>
         )
       })}
-    </XStackJsx>
+    </div>
   )
 }
 
 // -- Comparison variant --
-
-const TableElement = styledHtml('table', {
-  width: '100%',
-  borderCollapse: 'collapse',
-  fontFamily: 'inherit',
-} as any)
-const TableJsx = TableElement as AnyFC
-
-const Th = styledHtml('th', {
-  padding: '12px 16px',
-  textAlign: 'left',
-  fontWeight: 600,
-  fontSize: 14,
-  borderBottomWidth: 1,
-  borderBottomStyle: 'solid',
-  borderColor: '$borderColor',
-} as any)
-const ThJsx = Th as AnyFC
-
-const Td = styledHtml('td', {
-  padding: '10px 16px',
-  fontSize: 14,
-  borderBottomWidth: 1,
-  borderBottomStyle: 'solid',
-  borderColor: '$borderColor',
-} as any)
-const TdJsx = Td as AnyFC
 
 function PricingComparison({
   plans,
@@ -244,47 +247,47 @@ function PricingComparison({
   )
 
   return (
-    <ViewJsx width="100%" overflow="auto">
-      <TableJsx>
+    <div style={{ width: '100%', overflow: 'auto' }}>
+      <PricingTable>
         <thead>
           <tr>
-            <ThJsx>Feature</ThJsx>
+            <Th>Feature</Th>
             {plans.map((plan) => (
-              <ThJsx key={plan.id} style={{ textAlign: 'center' }}>
+              <Th key={plan.id} style={{ textAlign: 'center' }}>
                 {plan.name}
-              </ThJsx>
+              </Th>
             ))}
           </tr>
         </thead>
         <tbody>
           <tr>
-            <TdJsx>
-              <TextJsx fontWeight="$3" fontFamily="$body" color="$color">Price</TextJsx>
-            </TdJsx>
+            <Td>
+              <span style={{ fontWeight: 500, fontFamily: 'var(--font-body)', color: 'var(--color)' }}>Price</span>
+            </Td>
             {plans.map((plan) => {
               const price =
                 billingPeriod === 'monthly' ? plan.price.monthly : plan.price.yearly
               const currency = plan.currency ?? '$'
               return (
-                <TdJsx key={plan.id} style={{ textAlign: 'center' }}>
-                  <TextJsx fontWeight="$4" fontFamily="$heading" color="$color">
+                <Td key={plan.id} style={{ textAlign: 'center' }}>
+                  <span style={{ fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--color)' }}>
                     {currency}{price}/{billingPeriod === 'monthly' ? 'mo' : 'yr'}
-                  </TextJsx>
-                </TdJsx>
+                  </span>
+                </Td>
               )
             })}
           </tr>
           {allFeatures.map((featureText) => (
             <tr key={featureText}>
-              <TdJsx>{featureText}</TdJsx>
+              <Td>{featureText}</Td>
               {plans.map((plan) => {
                 const feat = plan.features.find((f) => f.text === featureText)
                 return (
-                  <TdJsx key={plan.id} style={{ textAlign: 'center' }}>
-                    <TextJsx color={feat?.included ? '$green10' : '$colorSubtle'}>
+                  <Td key={plan.id} style={{ textAlign: 'center' }}>
+                    <span style={{ color: feat?.included ? 'var(--green10)' : 'var(--secondaryText12)' }}>
                       {feat?.included ? '\u2713' : '\u2717'}
-                    </TextJsx>
-                  </TdJsx>
+                    </span>
+                  </Td>
                 )
               })}
             </tr>
@@ -292,9 +295,9 @@ function PricingComparison({
         </tbody>
         <tfoot>
           <tr>
-            <TdJsx />
+            <Td />
             {plans.map((plan) => (
-              <TdJsx key={plan.id} style={{ textAlign: 'center' }}>
+              <Td key={plan.id} style={{ textAlign: 'center' }}>
                 <ButtonJsx
                   variant={plan.highlighted ? 'default' : 'outline'}
                   size="sm"
@@ -302,12 +305,12 @@ function PricingComparison({
                 >
                   <ButtonTextJsx>{plan.cta ?? 'Select'}</ButtonTextJsx>
                 </ButtonJsx>
-              </TdJsx>
+              </Td>
             ))}
           </tr>
         </tfoot>
-      </TableJsx>
-    </ViewJsx>
+      </PricingTable>
+    </div>
   )
 }
 
@@ -325,44 +328,46 @@ function PricingSimple({
   const currency = plan.currency ?? '$'
 
   return (
-    <CardJsx width="100%" style={{ maxWidth: 400 }} padding="$5">
-      <YStackJsx alignItems="center" gap="$4">
-        <TextJsx fontSize="$5" fontWeight="$4" fontFamily="$heading" color="$color">
+    <CardJsx style={{ width: '100%', maxWidth: 400, padding: 20 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+        <span style={{ fontSize: 18, fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--color)' }}>
           {plan.name}
-        </TextJsx>
+        </span>
         {plan.description && (
-          <TextJsx fontSize="$3" fontFamily="$body" color="$colorSubtle" textAlign="center">
+          <span style={{ fontSize: 14, fontFamily: 'var(--font-body)', color: 'var(--secondaryText12)', textAlign: 'center' }}>
             {plan.description}
-          </TextJsx>
+          </span>
         )}
 
-        <XStackJsx alignItems="baseline" gap="$1">
-          <TextJsx fontSize="$9" fontWeight="$4" fontFamily="$heading" color="$color">
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+          <span style={{ fontSize: 36, fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--color)' }}>
             {currency}{price}
-          </TextJsx>
-          <TextJsx fontSize="$3" fontFamily="$body" color="$colorSubtle">
+          </span>
+          <span style={{ fontSize: 14, fontFamily: 'var(--font-body)', color: 'var(--secondaryText12)' }}>
             /{billingPeriod === 'monthly' ? 'mo' : 'yr'}
-          </TextJsx>
-        </XStackJsx>
+          </span>
+        </div>
 
-        <SeparatorJsx width="100%" />
+        <SeparatorJsx style={{ width: '100%' }} />
 
-        <YStackJsx gap="$2" width="100%">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%' }}>
           {plan.features.map((feat, i) => (
-            <XStackJsx key={i} gap="$2" alignItems="center">
-              <TextJsx fontSize="$3" color={feat.included ? '$green10' : '$colorSubtle'}>
+            <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <span style={{ fontSize: 14, color: feat.included ? 'var(--green10)' : 'var(--secondaryText12)' }}>
                 {feat.included ? '\u2713' : '\u2717'}
-              </TextJsx>
-              <TextJsx
-                fontSize="$3"
-                fontFamily="$body"
-                color={feat.included ? '$color' : '$colorSubtle'}
+              </span>
+              <span
+                style={{
+                  fontSize: 14,
+                  fontFamily: 'var(--font-body)',
+                  color: feat.included ? 'var(--color)' : 'var(--secondaryText12)',
+                }}
               >
                 {feat.text}
-              </TextJsx>
-            </XStackJsx>
+              </span>
+            </div>
           ))}
-        </YStackJsx>
+        </div>
 
         <ButtonJsx
           variant="default"
@@ -371,7 +376,7 @@ function PricingSimple({
         >
           <ButtonTextJsx>{plan.cta ?? 'Get started'}</ButtonTextJsx>
         </ButtonJsx>
-      </YStackJsx>
+      </div>
     </CardJsx>
   )
 }

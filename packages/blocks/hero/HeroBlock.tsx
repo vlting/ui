@@ -1,24 +1,19 @@
-import { styledHtml } from '@tamagui/web'
 import type { ComponentType, ReactNode } from 'react'
-import { Text, View, XStack, YStack } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 import { Badge } from '../../primitives/Badge'
 import { Button } from '../../components/Button'
 import type { BlockProps } from '../_shared/types'
 
 type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
-const XStackJsx = XStack as AnyFC
-const YStackJsx = YStack as AnyFC
 const ButtonJsx = Button as AnyFC
 const ButtonTextJsx = Button.Text as AnyFC
 const BadgeJsx = Badge as AnyFC
 
-const AnchorEl = styledHtml('a', {
-  textDecoration: 'none',
-  color: 'inherit',
-} as any)
-const AnchorJsx = AnchorEl as AnyFC
+const Anchor = styled(
+  "a",
+  { textDecoration: "none", color: "inherit" },
+  "HeroAnchor"
+)
 
 // -- Types --
 
@@ -72,7 +67,7 @@ function ActionButton({
     </ButtonJsx>
   )
   if (action.href) {
-    return <AnchorJsx href={action.href}>{btn}</AnchorJsx>
+    return <Anchor href={action.href}>{btn}</Anchor>
   }
   return btn
 }
@@ -88,47 +83,55 @@ function HeroCentered({
   align = 'center',
 }: HeroBlockProps) {
   return (
-    <YStackJsx
-      alignItems={align === 'center' ? 'center' : 'flex-start'}
-      justifyContent="center"
-      padding="$8"
-      gap="$4"
-      minHeight={400}
-      width="100%"
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: align === 'center' ? 'center' : 'flex-start',
+        justifyContent: 'center',
+        padding: 32,
+        gap: 16,
+        minHeight: 400,
+        width: '100%',
+      }}
     >
       {badge && (
         <BadgeJsx variant="secondary">
-          <TextJsx fontSize="$2" fontFamily="$body">{badge}</TextJsx>
+          <span style={{ fontSize: 12, fontFamily: 'var(--font-body)' }}>{badge}</span>
         </BadgeJsx>
       )}
-      <TextJsx
-        fontSize="$10"
-        fontWeight="$4"
-        fontFamily="$heading"
-        color="$color"
-        textAlign={align}
-        style={{ maxWidth: 800 }}
+      <span
+        style={{
+          fontSize: 48,
+          fontWeight: 600,
+          fontFamily: 'var(--font-heading)',
+          color: 'var(--color)',
+          textAlign: align,
+          maxWidth: 800,
+        }}
       >
         {title}
-      </TextJsx>
+      </span>
       {description && (
-        <TextJsx
-          fontSize="$5"
-          fontFamily="$body"
-          color="$colorSubtle"
-          textAlign={align}
-          style={{ maxWidth: 600 }}
+        <span
+          style={{
+            fontSize: 18,
+            fontFamily: 'var(--font-body)',
+            color: 'var(--secondaryText12)',
+            textAlign: align,
+            maxWidth: 600,
+          }}
         >
           {description}
-        </TextJsx>
+        </span>
       )}
       {(primaryAction || secondaryAction) && (
-        <XStackJsx gap="$3" paddingTop="$2">
+        <div style={{ display: 'flex', flexDirection: 'row', gap: 12, paddingTop: 8 }}>
           {primaryAction && <ActionButton action={primaryAction} variant="default" />}
           {secondaryAction && <ActionButton action={secondaryAction} variant="outline" />}
-        </XStackJsx>
+        </div>
       )}
-    </YStackJsx>
+    </div>
   )
 }
 
@@ -145,53 +148,62 @@ function HeroSplit({
   align = 'left',
 }: HeroBlockProps) {
   const textContent = (
-    <YStackJsx
-      flex={1}
-      justifyContent="center"
-      gap="$4"
-      padding="$6"
-      alignItems={align === 'center' ? 'center' : 'flex-start'}
+    <div
+      style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        gap: 16,
+        padding: 24,
+        alignItems: align === 'center' ? 'center' : 'flex-start',
+      }}
     >
       {badge && (
         <BadgeJsx variant="secondary">
-          <TextJsx fontSize="$2" fontFamily="$body">{badge}</TextJsx>
+          <span style={{ fontSize: 12, fontFamily: 'var(--font-body)' }}>{badge}</span>
         </BadgeJsx>
       )}
-      <TextJsx
-        fontSize="$9"
-        fontWeight="$4"
-        fontFamily="$heading"
-        color="$color"
-        textAlign={align}
+      <span
+        style={{
+          fontSize: 36,
+          fontWeight: 600,
+          fontFamily: 'var(--font-heading)',
+          color: 'var(--color)',
+          textAlign: align,
+        }}
       >
         {title}
-      </TextJsx>
+      </span>
       {description && (
-        <TextJsx fontSize="$5" fontFamily="$body" color="$colorSubtle" textAlign={align}>
+        <span
+          style={{
+            fontSize: 18,
+            fontFamily: 'var(--font-body)',
+            color: 'var(--secondaryText12)',
+            textAlign: align,
+          }}
+        >
           {description}
-        </TextJsx>
+        </span>
       )}
       {(primaryAction || secondaryAction) && (
-        <XStackJsx gap="$3" paddingTop="$2">
+        <div style={{ display: 'flex', flexDirection: 'row', gap: 12, paddingTop: 8 }}>
           {primaryAction && <ActionButton action={primaryAction} variant="default" />}
           {secondaryAction && <ActionButton action={secondaryAction} variant="outline" />}
-        </XStackJsx>
+        </div>
       )}
-    </YStackJsx>
+    </div>
   )
 
   const mediaContent = media ? (
-    <ViewJsx flex={1} alignItems="center" justifyContent="center" padding="$4">
+    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
       {media}
-    </ViewJsx>
+    </div>
   ) : null
 
   return (
-    <XStackJsx
-      width="100%"
-      minHeight={400}
-      $sm={{ flexDirection: 'column' }}
-    >
+    <div style={{ display: 'flex', flexDirection: 'row', width: '100%', minHeight: 400 }}>
       {mediaPosition === 'left' ? (
         <>
           {mediaContent}
@@ -203,7 +215,7 @@ function HeroSplit({
           {mediaContent}
         </>
       )}
-    </XStackJsx>
+    </div>
   )
 }
 
@@ -219,13 +231,14 @@ function HeroImageBg({
   badge,
 }: HeroBlockProps) {
   return (
-    <ViewJsx
-      width="100%"
-      minHeight={500}
-      justifyContent="center"
-      alignItems="center"
-      padding="$8"
+    <div
       style={{
+        width: '100%',
+        minHeight: 500,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 32,
         position: 'relative',
         backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
         backgroundSize: 'cover',
@@ -233,52 +246,55 @@ function HeroImageBg({
       }}
     >
       {overlay && (
-        <ViewJsx
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundColor: 'rgba(0,0,0,0.5)',
-          }}
-        />
+        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)' }} />
       )}
-      <YStackJsx
-        alignItems="center"
-        gap="$4"
-        style={{ position: 'relative', zIndex: 1 }}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 16,
+          position: 'relative',
+          zIndex: 1,
+        }}
       >
         {badge && (
           <BadgeJsx variant="secondary">
-            <TextJsx fontSize="$2" fontFamily="$body">{badge}</TextJsx>
+            <span style={{ fontSize: 12, fontFamily: 'var(--font-body)' }}>{badge}</span>
           </BadgeJsx>
         )}
-        <TextJsx
-          fontSize="$10"
-          fontWeight="$4"
-          fontFamily="$heading"
-          color="white"
-          textAlign="center"
-          style={{ maxWidth: 800 }}
+        <span
+          style={{
+            fontSize: 48,
+            fontWeight: 600,
+            fontFamily: 'var(--font-heading)',
+            color: 'white',
+            textAlign: 'center',
+            maxWidth: 800,
+          }}
         >
           {title}
-        </TextJsx>
+        </span>
         {description && (
-          <TextJsx
-            fontSize="$5"
-            fontFamily="$body"
-            color="rgba(255,255,255,0.85)"
-            textAlign="center"
-            style={{ maxWidth: 600 }}
+          <span
+            style={{
+              fontSize: 18,
+              fontFamily: 'var(--font-body)',
+              color: 'rgba(255,255,255,0.85)',
+              textAlign: 'center',
+              maxWidth: 600,
+            }}
           >
             {description}
-          </TextJsx>
+          </span>
         )}
         {(primaryAction || secondaryAction) && (
-          <XStackJsx gap="$3" paddingTop="$2">
+          <div style={{ display: 'flex', flexDirection: 'row', gap: 12, paddingTop: 8 }}>
             {primaryAction && <ActionButton action={primaryAction} variant="default" />}
             {secondaryAction && <ActionButton action={secondaryAction} variant="outline" />}
-          </XStackJsx>
+          </div>
         )}
-      </YStackJsx>
-    </ViewJsx>
+      </div>
+    </div>
   )
 }
