@@ -1,0 +1,277 @@
+import {
+  ColorNumberKey,
+  ColorPalette,
+  CoreColorName,
+  DEFAULT_SOURCE_COLORS,
+  ScaleColorName,
+} from "../../shared/models/colorGen.models"
+import { generateThemeColors, getTextColor } from "../../shared/utils/colorGen.utils"
+import { addPrefix, CharHash } from "../utils"
+import { ColorPaletteEntry, CssAliasMap, CssValueMap, ScaleEntry, ThemeScale } from "./scales.models"
+import { getCssMapFromVars, getPropsFromCssMap, getThemePropsFromCssMap } from "./scales.utils"
+
+/** Generator function for `color` theme scale */
+export function getColor(hash: CharHash) {
+  const cssAliasMap = {} as CssAliasMap<any>
+  const cssValueMapFromAliases = {} as CssValueMap
+
+  const addAlias = (k: string, v: string) => {
+    cssAliasMap[addPrefix(k)] = addPrefix(v)
+    cssValueMapFromAliases[k] = k
+  }
+
+  const lightPalette = generateThemeColors<ScaleEntry>(
+    DEFAULT_SOURCE_COLORS,
+    "light",
+    (
+      key: keyof ColorPaletteEntry,
+      palette: ColorPalette<ScaleEntry>,
+      value: string | number,
+      numberKey?: ColorNumberKey,
+      isMapped = false
+    ) => {
+      if (isMapped) {
+        addAlias(key, String(value))
+      } else {
+        palette[key] = { ...hash.var, value: String(value) }
+      }
+      // Create a matching text alias
+      const baseKey = key.replace(String(numberKey), "")
+      addAlias(`${baseKey}Text${numberKey ?? ""}`, getTextColor(baseKey as ScaleColorName, numberKey))
+    }
+  )
+
+  const shadowBase = { ...hash.var, value: "0 0% 0%" }
+
+  const lightScale = {
+    shadowBase,
+    shadowBlack: { ...hash.var, value: "hsl(0 0% 0%)" },
+    defaultBody: { ...hash.var, value: lightPalette[getTextColor(CoreColorName.tertiary, 2)].ref },
+    defaultHeading: { ...hash.var, value: lightPalette.tertiary10.ref },
+    // Unique to light palette
+    panel: { ...hash.var, value: lightPalette.min.ref },
+    shadowLight: { ...hash.var, value: `hsl(${shadowBase.ref} / .05)` },
+    shadowHeavy: { ...hash.var, value: `hsl(${shadowBase.ref} / .15)` },
+    shadowHeaviest: { ...hash.var, value: `hsl(${shadowBase.ref} / .25)` },
+    // Static color constants
+    white: { ...hash.var, value: "hsl(0,0%,100%)" },
+    black: { ...hash.var, value: "hsl(0,0%,0%)" },
+    transparent: { ...hash.var, value: "transparent" },
+    // Semantic aliases (map to palette steps)
+    background: { ...hash.var, value: lightPalette.min.ref },
+    backgroundHover: { ...hash.var, value: lightPalette.tertiary1.ref },
+    backgroundPress: { ...hash.var, value: lightPalette.tertiary2.ref },
+    color: { ...hash.var, value: lightPalette.tertiary12.ref },
+    colorHover: { ...hash.var, value: lightPalette.tertiary12.ref },
+    colorPress: { ...hash.var, value: lightPalette.tertiary10.ref },
+    borderColor: { ...hash.var, value: lightPalette.tertiary4.ref },
+    borderColorHover: { ...hash.var, value: lightPalette.tertiary5.ref },
+    borderColorPress: { ...hash.var, value: lightPalette.tertiary3.ref },
+    shadowColor: { ...hash.var, value: `hsl(${shadowBase.ref} / .15)` },
+    // Surface levels
+    surface1: { ...hash.var, value: lightPalette.tertiary1.ref },
+    surface2: { ...hash.var, value: lightPalette.tertiary2.ref },
+    surface3: { ...hash.var, value: lightPalette.tertiary3.ref },
+    inverse: { ...hash.var, value: lightPalette.tertiary12.ref },
+    ...lightPalette,
+  } as const
+
+  const darkVars = {
+    shadowBase,
+    shadowBlack: lightScale.shadowBlack,
+    defaultBody: lightScale.defaultBody,
+    defaultHeading: lightScale.defaultHeading,
+    // Unique to dark palette
+    panel: { ...lightScale.panel, value: lightScale.tertiary3.ref },
+    shadowLight: { ...lightScale.shadowLight, value: `hsl(${shadowBase.ref} / .2)` },
+    shadowHeavy: { ...lightScale.shadowHeavy, value: `hsl(${shadowBase.ref} / .35)` },
+    shadowHeaviest: { ...lightScale.shadowHeavy, value: `hsl(${shadowBase.ref} / .5)` },
+    // Static color constants (same in dark mode)
+    white: lightScale.white,
+    black: lightScale.black,
+    transparent: lightScale.transparent,
+    // Semantic aliases (dark mode: inverted palette indices)
+    background: { ...lightScale.background, value: lightScale.tertiary12.ref },
+    backgroundHover: { ...lightScale.backgroundHover, value: lightScale.tertiary11.ref },
+    backgroundPress: { ...lightScale.backgroundPress, value: lightScale.tertiary10.ref },
+    color: { ...lightScale.color, value: lightScale.min.ref },
+    colorHover: { ...lightScale.colorHover, value: lightScale.min.ref },
+    colorPress: { ...lightScale.colorPress, value: lightScale.tertiary2.ref },
+    borderColor: { ...lightScale.borderColor, value: lightScale.tertiary8.ref },
+    borderColorHover: { ...lightScale.borderColorHover, value: lightScale.tertiary7.ref },
+    borderColorPress: { ...lightScale.borderColorPress, value: lightScale.tertiary9.ref },
+    shadowColor: { ...lightScale.shadowColor, value: `hsl(${shadowBase.ref} / .40)` },
+    // Surface levels (dark mode)
+    surface1: { ...lightScale.surface1, value: lightScale.tertiary11.ref },
+    surface2: { ...lightScale.surface2, value: lightScale.tertiary10.ref },
+    surface3: { ...lightScale.surface3, value: lightScale.tertiary9.ref },
+    inverse: { ...lightScale.inverse, value: lightScale.min.ref },
+    ...generateThemeColors<ScaleEntry>(
+      DEFAULT_SOURCE_COLORS,
+      "dark",
+      (
+        key: keyof ColorPaletteEntry,
+        palette: ColorPalette<ScaleEntry>,
+        value: string | number,
+        _numberKey?: ColorNumberKey,
+        isMapped = false
+      ) => {
+        if (!isMapped) {
+          palette[key] = { ...lightScale[key], value: String(value) }
+        }
+      }
+    ),
+  } as const
+
+  ////////////////////////////////////////////////////////////////////////////////
+  const vars = lightScale
+  const cssValueMap = { ...getCssMapFromVars(lightScale), ...cssValueMapFromAliases } as const
+  const themeProps = { ...getThemePropsFromCssMap(cssValueMap) } as const
+
+  return {
+    vars,
+    darkVars,
+    themeProps,
+    cssValueMap,
+    cssValueMapProps: getPropsFromCssMap(cssValueMap),
+    cssAliasMap,
+  } as ThemeScale<typeof vars, typeof themeProps, typeof cssValueMap, typeof cssAliasMap>
+}
+
+// FILTER KEYS ////////////////////////////////////////////////////////////////
+// Used for generating types that map to only parts of this scale
+
+export const colorCore = {
+  min: true,
+  max: true,
+  primary1: true,
+  primary2: true,
+  primary3: true,
+  primary4: true,
+  primary5: true,
+  primary6: true,
+  primary7: true,
+  primary8: true,
+  primary9: true,
+  primary10: true,
+  primary11: true,
+  primary12: true,
+  secondary1: true,
+  secondary2: true,
+  secondary3: true,
+  secondary4: true,
+  secondary5: true,
+  secondary6: true,
+  secondary7: true,
+  secondary8: true,
+  secondary9: true,
+  secondary10: true,
+  secondary11: true,
+  secondary12: true,
+  tertiary1: true,
+  tertiary2: true,
+  tertiary3: true,
+  tertiary4: true,
+  tertiary5: true,
+  tertiary6: true,
+  tertiary7: true,
+  tertiary8: true,
+  tertiary9: true,
+  tertiary10: true,
+  tertiary11: true,
+  tertiary12: true,
+  // Accent colors
+  blue1: true, blue2: true, blue3: true, blue4: true, blue5: true, blue6: true,
+  blue7: true, blue8: true, blue9: true, blue10: true, blue11: true, blue12: true,
+  red1: true, red2: true, red3: true, red4: true, red5: true, red6: true,
+  red7: true, red8: true, red9: true, red10: true, red11: true, red12: true,
+  green1: true, green2: true, green3: true, green4: true, green5: true, green6: true,
+  green7: true, green8: true, green9: true, green10: true, green11: true, green12: true,
+  orange1: true, orange2: true, orange3: true, orange4: true, orange5: true, orange6: true,
+  orange7: true, orange8: true, orange9: true, orange10: true, orange11: true, orange12: true,
+  purple1: true, purple2: true, purple3: true, purple4: true, purple5: true, purple6: true,
+  purple7: true, purple8: true, purple9: true, purple10: true, purple11: true, purple12: true,
+  pink1: true, pink2: true, pink3: true, pink4: true, pink5: true, pink6: true,
+  pink7: true, pink8: true, pink9: true, pink10: true, pink11: true, pink12: true,
+  yellow1: true, yellow2: true, yellow3: true, yellow4: true, yellow5: true, yellow6: true,
+  yellow7: true, yellow8: true, yellow9: true, yellow10: true, yellow11: true, yellow12: true,
+  // Static constants
+  white: true,
+  black: true,
+  transparent: true,
+} as const
+
+export const colorText = {
+  ...colorCore,
+  defaultBody: true,
+  defaultHeading: true,
+  primaryText1: true,
+  primaryText2: true,
+  primaryText3: true,
+  primaryText4: true,
+  primaryText5: true,
+  primaryText6: true,
+  primaryText7: true,
+  primaryText8: true,
+  primaryText9: true,
+  primaryText10: true,
+  primaryText11: true,
+  primaryText12: true,
+  secondaryText1: true,
+  secondaryText2: true,
+  secondaryText3: true,
+  secondaryText4: true,
+  secondaryText5: true,
+  secondaryText6: true,
+  secondaryText7: true,
+  secondaryText8: true,
+  secondaryText9: true,
+  secondaryText10: true,
+  secondaryText11: true,
+  secondaryText12: true,
+  tertiaryText1: true,
+  tertiaryText2: true,
+  tertiaryText3: true,
+  tertiaryText4: true,
+  tertiaryText5: true,
+  tertiaryText6: true,
+  tertiaryText7: true,
+  tertiaryText8: true,
+  tertiaryText9: true,
+  tertiaryText10: true,
+  tertiaryText11: true,
+  tertiaryText12: true,
+  // Accent text colors
+  blueText1: true, blueText2: true, blueText3: true, blueText4: true, blueText5: true, blueText6: true,
+  blueText7: true, blueText8: true, blueText9: true, blueText10: true, blueText11: true, blueText12: true,
+  redText1: true, redText2: true, redText3: true, redText4: true, redText5: true, redText6: true,
+  redText7: true, redText8: true, redText9: true, redText10: true, redText11: true, redText12: true,
+  greenText1: true, greenText2: true, greenText3: true, greenText4: true, greenText5: true, greenText6: true,
+  greenText7: true, greenText8: true, greenText9: true, greenText10: true, greenText11: true, greenText12: true,
+  orangeText1: true, orangeText2: true, orangeText3: true, orangeText4: true, orangeText5: true, orangeText6: true,
+  orangeText7: true, orangeText8: true, orangeText9: true, orangeText10: true, orangeText11: true, orangeText12: true,
+  purpleText1: true, purpleText2: true, purpleText3: true, purpleText4: true, purpleText5: true, purpleText6: true,
+  purpleText7: true, purpleText8: true, purpleText9: true, purpleText10: true, purpleText11: true, purpleText12: true,
+  pinkText1: true, pinkText2: true, pinkText3: true, pinkText4: true, pinkText5: true, pinkText6: true,
+  pinkText7: true, pinkText8: true, pinkText9: true, pinkText10: true, pinkText11: true, pinkText12: true,
+  yellowText1: true, yellowText2: true, yellowText3: true, yellowText4: true, yellowText5: true, yellowText6: true,
+  yellowText7: true, yellowText8: true, yellowText9: true, yellowText10: true, yellowText11: true, yellowText12: true,
+  // Semantic colors
+  background: true,
+  backgroundHover: true,
+  backgroundPress: true,
+  color: true,
+  colorHover: true,
+  colorPress: true,
+  borderColor: true,
+  borderColorHover: true,
+  borderColorPress: true,
+  shadowColor: true,
+  surface1: true,
+  surface2: true,
+  surface3: true,
+  inverse: true,
+  white: true,
+  black: true,
+  transparent: true,
+} as const

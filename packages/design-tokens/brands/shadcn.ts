@@ -1,4 +1,4 @@
-import type { BrandDefinition } from './index'
+import type { Brand } from './types'
 
 /**
  * shadcn brand — Pixel-perfect match for shadcn/ui's default "Neutral" theme.
@@ -18,7 +18,7 @@ import type { BrandDefinition } from './index'
  *   oklch(0.145 0 0)  ≈ #0a0a0a
  *   oklch(0.577 0.245 27.325) ≈ #ef4444  (destructive red)
  */
-export const shadcnBrand: BrandDefinition = {
+export const shadcnBrand: Brand = {
   name: 'shadcn',
 
   palettes: {
@@ -188,15 +188,6 @@ export const shadcnBrand: BrandDefinition = {
     },
   },
 
-  borders: {
-    widths: { thin: 1 },
-  },
-
-  outline: {
-    width: 2,
-    offset: 1,
-  },
-
   shadows: {
     light: {
       sm: {
@@ -274,40 +265,9 @@ export const shadcnBrand: BrandDefinition = {
     },
   },
 
-  fontConfig: {
-    heading: { family: 'Inter', weights: { heavy: 700, light: 400 } },
-    body: { family: 'Inter', weight: 400 },
-    mono: {
-      family: 'JetBrains Mono',
-      fallback: 'ui-monospace, SFMono-Regular, monospace',
-      weight: 400,
-    },
-    quote: { family: 'Inter', weight: 300, style: 'italic' },
-  },
-
   fonts: {
-    heading: {
-      family: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      weight: { 1: '400', 2: '500', 3: '600', 4: '600', 5: '700', 6: '700', true: '600' },
-      letterSpacing: {
-        1: 0,
-        2: 0,
-        3: -0.2,
-        4: -0.3,
-        5: -0.4,
-        6: -0.5,
-        7: -0.6,
-        8: -0.7,
-        true: -0.4,
-      },
-    },
-    body: {
-      family: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      weight: { 1: '400', 2: '400', 3: '500', 4: '600', true: '400' },
-    },
-  },
-
-  typography: {
-    heading: { transform: 'none' },
+    heading: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    body: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    mono: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace',
   },
 }

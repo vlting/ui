@@ -3,7 +3,7 @@
  *
  * These define the role-based color slots consumed by components.
  * They map to 12-step palette indices (0=lightest, 11=darkest for light mode).
- * The actual values come from themes built via @tamagui/theme-builder.
+ * The actual values come from resolved surface templates.
  */
 
 /** Palette index mapping for semantic roles */
