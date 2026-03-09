@@ -1,0 +1,23 @@
+{
+  "name": "@vlting/stl-ui",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Unified STL API — auto-resolves to stl-react (web) or stl-native (React Native)",
+  "license": "MIT",
+  "main": "web.js",
+  "types": "web.d.ts",
+  "exports": {
+    ".": {
+      "react-native": "./native.js",
+      "default": "./web.js"
+    }
+  },
+  "peerDependencies": {
+    "@vlting/stl-react": "^0.0.1",
+    "@vlting/stl-native": "^0.0.1"
+  },
+  "peerDependenciesMeta": {
+    "@vlting/stl-react": { "optional": true },
+    "@vlting/stl-native": { "optional": true }
+  }
+}
