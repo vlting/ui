@@ -1,97 +1,62 @@
-import { Input as TamaguiInput } from '@tamagui/input'
 import type React from 'react'
 import { useId } from 'react'
-import type { ComponentType } from 'react'
-import { Text, View, XStack, YStack, styled } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-// Extend Tamagui Input with our error variant.
-// Tamagui Input already renders <input> with proper focus/hover/theme styles.
-const StyledInput = styled(TamaguiInput, {
-  // @ts-expect-error Tamagui v2 RC PseudoStyleWithTransition type limitation
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 1,
-    outlineColor: '$color10',
-    outlineStyle: 'solid',
+const InputFrame = styled("input", {
+  fontFamily: "$body",
+  fontSize: "$p",
+  color: "$defaultBody",
+  backgroundColor: "$background",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "$borderColor",
+  borderRadius: "$4",
+  padding: "8px 12px",
+  outline: "none",
+  width: "100%",
+  boxSizing: "border-box",
+}, {
+  fieldSize: {
+    sm: { borderRadius: "$2", paddingLeft: "6px", paddingRight: "6px", paddingTop: "4px", paddingBottom: "4px", fontSize: "$14" },
+    md: { borderRadius: "$4", paddingLeft: "8px", paddingRight: "8px", paddingTop: "6px", paddingBottom: "6px" },
+    lg: { borderRadius: "$4", paddingLeft: "10px", paddingRight: "10px", paddingTop: "8px", paddingBottom: "8px" },
   },
-
-  variants: {
-    error: {
-      // @ts-expect-error Tamagui v2 RC
-      true: {
-        borderColor: '$red10',
-      },
-    },
-    fieldSize: {
-      // @ts-expect-error Tamagui v2 RC
-      sm: { borderRadius: '$3', paddingHorizontal: '$1.5', paddingVertical: '$1' },
-      // @ts-expect-error Tamagui v2 RC
-      md: { borderRadius: '$4', paddingHorizontal: '$2', paddingVertical: '$1.5' },
-      // @ts-expect-error Tamagui v2 RC
-      lg: { borderRadius: '$5', paddingHorizontal: '$2.5', paddingVertical: '$2' },
-    },
-  } as const,
-})
-
-// Cast for JSX — Tamagui v2 RC GetFinalProps bug
-const StyledInputJsx = StyledInput as ComponentType<Record<string, unknown>>
-
-const StyledLabelText = styled(Text, {
-  fontFamily: '$body',
-  fontWeight: '$3',
-  color: '$color',
-  marginBottom: '$1',
-
-  variants: {
-    size: {
-      // @ts-expect-error Tamagui v2 RC
-      sm: { fontSize: '$2' },
-      // @ts-expect-error Tamagui v2 RC
-      md: { fontSize: '$3' },
-      // @ts-expect-error Tamagui v2 RC
-      lg: { fontSize: '$4' },
-    },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    size: 'md',
+  error: {
+    true: { borderColor: "red" },
   },
-})
+}, "Input")
 
-const InputHelper = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$2',
-  marginTop: '$1',
-
-  variants: {
-    tone: {
-      // @ts-expect-error Tamagui v2 RC
-      neutral: { color: '$colorSubtitle' },
-      // @ts-expect-error Tamagui v2 RC
-      error: { color: '$red10' },
-    },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    tone: 'neutral',
+const StyledLabelText = styled("span", {
+  fontFamily: "$body",
+  fontWeight: "$500",
+  color: "$defaultBody",
+  marginBottom: "4px",
+  display: "block",
+}, {
+  size: {
+    sm: { fontSize: "$14" },
+    md: { fontSize: "$p" },
+    lg: { fontSize: "$p" },
   },
-})
+}, "InputLabel")
 
-// @ts-expect-error Tamagui v2 RC
-const SlotFrame = styled(View, {
-  alignItems: 'center',
-  justifyContent: 'center',
-})
-const SlotFrameJsx = SlotFrame as ComponentType<Record<string, unknown>>
+const InputHelper = styled("span", {
+  fontFamily: "$body",
+  fontSize: "$14",
+  marginTop: "4px",
+  display: "block",
+}, {
+  tone: {
+    neutral: { color: "$tertiary7" },
+    error: { color: "red" },
+  },
+}, "InputHelper")
 
-// Map named sizes to Tamagui size tokens
-const SIZE_TOKEN_MAP: Record<string, string> = {
-  sm: '$3',
-  md: '$4',
-  lg: '$5',
-}
+const SlotFrame = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}, "InputSlot")
 
 export interface InputProps {
   size?: 'sm' | 'md' | 'lg'
@@ -136,66 +101,50 @@ export function Input({
   const inputId = useId()
   const helperId = useId()
   const displayHelper = error && errorMessage ? errorMessage : helperText
-  const sizeToken = SIZE_TOKEN_MAP[size]
+
+  const inputEl = (
+    <InputFrame
+      id={inputId}
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      defaultValue={defaultValue}
+      onChange={onChangeText ? (e: React.ChangeEvent<HTMLInputElement>) => onChangeText(e.target.value) : undefined}
+      disabled={disabled || undefined}
+      error={error || undefined}
+      fieldSize={size}
+      aria-invalid={error || undefined}
+      aria-describedby={displayHelper ? helperId : undefined}
+      aria-label={!label ? placeholder : undefined}
+      style={leadingSlot || trailingSlot ? { flex: 1 } : undefined}
+    />
+  )
 
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <YStack>
+    <div>
       {label && (
         <label htmlFor={inputId} style={{ display: 'block' }}>
-          {/* @ts-expect-error Tamagui v2 RC */}
           <StyledLabelText size={size}>{label}</StyledLabelText>
         </label>
       )}
       {leadingSlot || trailingSlot ? (
-        // When slots are present, wrap input in an XStack for layout
-        // @ts-expect-error Tamagui v2 RC
-        <XStack alignItems="center" gap="$2">
-          {leadingSlot && <SlotFrameJsx>{leadingSlot}</SlotFrameJsx>}
-          <StyledInputJsx
-            id={inputId}
-            type={type}
-            placeholder={placeholder}
-            value={value}
-            defaultValue={defaultValue}
-            onChangeText={onChangeText}
-            disabled={disabled}
-            error={error}
-            size={sizeToken}
-            fieldSize={size}
-            aria-invalid={error || undefined}
-            aria-describedby={displayHelper ? helperId : undefined}
-            aria-label={!label ? placeholder : undefined}
-            flex={1}
-          />
-          {trailingSlot && <SlotFrameJsx>{trailingSlot}</SlotFrameJsx>}
-        </XStack>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {leadingSlot && <SlotFrame>{leadingSlot}</SlotFrame>}
+          {inputEl}
+          {trailingSlot && <SlotFrame>{trailingSlot}</SlotFrame>}
+        </div>
       ) : (
-        <StyledInputJsx
-          id={inputId}
-          placeholder={placeholder}
-          value={value}
-          defaultValue={defaultValue}
-          onChangeText={onChangeText}
-          disabled={disabled}
-          error={error}
-          size={sizeToken}
-          fieldSize={size}
-          aria-invalid={error || undefined}
-          aria-describedby={displayHelper ? helperId : undefined}
-          aria-label={!label ? placeholder : undefined}
-        />
+        inputEl
       )}
       {displayHelper && (
-        // @ts-expect-error Tamagui v2 RC
         <InputHelper id={helperId} tone={error ? 'error' : 'neutral'}>
           {displayHelper}
         </InputHelper>
       )}
-    </YStack>
+    </div>
   )
 }
 
-Input.Frame = StyledInput
+Input.Frame = InputFrame
 Input.Label = StyledLabelText
 Input.Helper = InputHelper

@@ -1,8 +1,6 @@
-import { Form as TamaguiForm } from '@tamagui/form'
 import type React from 'react'
-import type { ComponentType } from 'react'
 import { createContext, useContext } from 'react'
-import { Text, YStack, styled } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
 interface FormFieldContextValue {
   error?: boolean
@@ -15,41 +13,37 @@ function useFormFieldContext() {
   return useContext(FormFieldContext)
 }
 
-// Cast for JSX — Tamagui v2 RC GetFinalProps bug
-const TamaguiFormJsx = TamaguiForm as ComponentType<Record<string, unknown>>
+const FormFrame = styled("form", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "16px",
+  width: "100%",
+}, "Form")
 
-// @ts-expect-error Tamagui v2 RC
-const FormVisualFrame = styled(YStack, {
-  gap: '$4',
-  width: '100%',
-})
+const FieldFrame = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "6px",
+}, "FormField")
 
-// @ts-expect-error Tamagui v2 RC
-const FieldFrame = styled(YStack, {
-  gap: '$1.5',
-})
+const FieldLabel = styled("span", {
+  fontFamily: "$body",
+  fontWeight: "$500",
+  fontSize: "$p",
+  color: "$defaultBody",
+}, "FormFieldLabel")
 
-// @ts-expect-error Tamagui v2 RC
-const FieldLabel = styled(Text, {
-  fontFamily: '$body',
-  fontWeight: '$3',
-  fontSize: '$3',
-  color: '$color',
-})
+const FieldDescription = styled("span", {
+  fontFamily: "$body",
+  fontSize: "$14",
+  color: "$tertiary7",
+}, "FormFieldDescription")
 
-// @ts-expect-error Tamagui v2 RC
-const FieldDescription = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$2',
-  color: '$colorSubtitle',
-})
-
-// @ts-expect-error Tamagui v2 RC
-const FieldError = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$2',
-  color: '$red10',
-})
+const FieldError = styled("span", {
+  fontFamily: "$body",
+  fontSize: "$14",
+  color: "red",
+}, "FormFieldError")
 
 export interface FormRootProps {
   children: React.ReactNode
@@ -57,18 +51,15 @@ export interface FormRootProps {
 }
 
 function Root({ children, onSubmit }: FormRootProps) {
-  // Tamagui Form's onSubmit is () => void (no event arg).
-  // We wrap to preserve our API that passes the event.
-  const handleSubmit = () => {
-    // Create a synthetic-like call — Tamagui already prevents default
-    onSubmit?.({} as React.FormEvent)
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    onSubmit?.(e)
   }
 
   return (
-    <TamaguiFormJsx onSubmit={handleSubmit}>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <FormVisualFrame>{children}</FormVisualFrame>
-    </TamaguiFormJsx>
+    <FormFrame onSubmit={handleSubmit}>
+      {children}
+    </FormFrame>
   )
 }
 
@@ -81,7 +72,6 @@ export interface FormFieldProps {
 function Field({ children, error, disabled }: FormFieldProps) {
   return (
     <FormFieldContext.Provider value={{ error, disabled }}>
-      {/* @ts-expect-error Tamagui v2 RC */}
       <FieldFrame>{children}</FieldFrame>
     </FormFieldContext.Provider>
   )
@@ -90,21 +80,18 @@ function Field({ children, error, disabled }: FormFieldProps) {
 function Label({ children, htmlFor }: { children: React.ReactNode; htmlFor?: string }) {
   return (
     <label htmlFor={htmlFor}>
-      {/* @ts-expect-error Tamagui v2 RC */}
       <FieldLabel>{children}</FieldLabel>
     </label>
   )
 }
 
 function Description({ children }: { children: React.ReactNode }) {
-  // @ts-expect-error Tamagui v2 RC
   return <FieldDescription>{children}</FieldDescription>
 }
 
 function ErrorMessage({ children }: { children: React.ReactNode }) {
   const { error } = useFormFieldContext()
   if (!error) return null
-  // @ts-expect-error Tamagui v2 RC
   return <FieldError role="alert">{children}</FieldError>
 }
 
