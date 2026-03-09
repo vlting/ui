@@ -1,25 +1,99 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
 import React, { useCallback, useRef, useState } from 'react'
-import { Text, View } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
+const CommandRoot = styled(
+  "div",
+  {
+    backgroundColor: "var(--background, #fff)",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "var(--borderColor)",
+    borderRadius: "10px",
+    overflow: "hidden",
+  },
+  "Command"
+)
 
-const SearchInput = styledHtml('input', {
-  display: 'flex',
-  width: '100%',
-  backgroundColor: 'transparent',
-  fontSize: '$4',
-  fontFamily: '$body',
-  color: '$color',
-  outline: 'none',
-  border: 'none',
-  padding: 0,
-} as any)
+const CommandInputFrame = styled(
+  "div",
+  {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: "12px",
+    paddingRight: "12px",
+    height: "48px",
+    borderBottomWidth: "1px",
+    borderBottomStyle: "solid",
+    borderBottomColor: "var(--borderColor)",
+  },
+  "CommandInput"
+)
 
-const SearchInputJsx = SearchInput as AnyFC
+const CommandSearchIcon = styled(
+  "span",
+  {
+    fontSize: "var(--fontSize-4, 16px)",
+    color: "var(--colorSubtitle)",
+    marginRight: "6px",
+  },
+  "CommandSearchIcon"
+)
+
+const CommandListFrame = styled(
+  "div",
+  { maxHeight: "320px", overflowY: "auto", padding: "4px" },
+  "CommandList"
+)
+
+const CommandEmptyFrame = styled(
+  "div",
+  { padding: "28px", display: "flex", alignItems: "center", justifyContent: "center" },
+  "CommandEmpty"
+)
+
+const CommandItemFrame = styled(
+  "div",
+  {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    height: "36px",
+    paddingLeft: "6px",
+    paddingRight: "6px",
+    borderRadius: "6px",
+    cursor: "pointer",
+  },
+  "CommandItem"
+)
+
+const CommandSeparator = styled(
+  "div",
+  {
+    height: "1px",
+    backgroundColor: "var(--borderColor)",
+    marginTop: "4px",
+    marginBottom: "4px",
+  },
+  "CommandSeparator"
+)
+
+const CommandGroupHeader = styled(
+  "span",
+  {
+    fontSize: "var(--fontSize-2, 12px)",
+    fontWeight: "500",
+    color: "var(--colorSubtitle)",
+    fontFamily: "var(--font-body)",
+  },
+  "CommandGroupHeader"
+)
+
+const CommandLoadingFrame = styled(
+  "div",
+  { padding: "12px", display: "flex", alignItems: "center", justifyContent: "center" },
+  "CommandLoading"
+)
 
 export interface CommandRootProps {
   children: React.ReactNode
@@ -61,17 +135,9 @@ function Root({ children, filter, loop: _loop }: CommandRootProps) {
 
   return (
     <CommandContext.Provider value={{ search, setSearch, filter: defaultFilter }}>
-      <ViewJsx
-        backgroundColor="$background"
-        borderWidth={1}
-        borderColor="$borderColor"
-        borderRadius="$5"
-        overflow="hidden"
-        role="listbox"
-        aria-label="Command menu"
-      >
+      <CommandRoot role="listbox" aria-label="Command menu">
         {children}
-      </ViewJsx>
+      </CommandRoot>
     </CommandContext.Provider>
   )
 }
@@ -83,71 +149,56 @@ function Input({
   const inputRef = useRef<HTMLInputElement>(null)
 
   return (
-    <ViewJsx
-      flexDirection="row"
-      alignItems="center"
-      paddingLeft="$1.5"
-      paddingRight="$1.5"
-      height="$4"
-      borderBottomWidth={1}
-      borderBottomColor="$borderColor"
-    >
-      <TextJsx fontSize="$4" color="$colorSubtitle" marginRight="$0.75">
-        {'\u{1F50D}'}
-      </TextJsx>
-      <SearchInputJsx
+    <CommandInputFrame>
+      <CommandSearchIcon>{'\u{1F50D}'}</CommandSearchIcon>
+      <input
         ref={inputRef}
         value={search}
-        onChange={(e: any) => setSearch(e.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
         placeholder={placeholder}
         aria-label="Search commands"
+        style={{
+          display: 'flex',
+          width: '100%',
+          backgroundColor: 'transparent',
+          fontSize: 'var(--fontSize-4, 16px)',
+          fontFamily: 'var(--font-body)',
+          color: 'var(--color)',
+          outline: 'none',
+          border: 'none',
+          padding: 0,
+        }}
       />
-    </ViewJsx>
+    </CommandInputFrame>
   )
 }
 
 function CommandList({ children }: { children: React.ReactNode }) {
-  return (
-    <ViewJsx maxHeight="$16" style={{ overflowY: 'auto' }} padding="$0.5">
-      {children}
-    </ViewJsx>
-  )
+  return <CommandListFrame>{children}</CommandListFrame>
 }
 
 function Empty({ children = 'No results found.' }: { children?: React.ReactNode }) {
   const { search } = React.useContext(CommandContext)
   if (!search) return null
   return (
-    <ViewJsx padding="$3.5" alignItems="center">
-      <TextJsx fontSize="$4" color="$colorSubtitle" fontFamily="$body">
+    <CommandEmptyFrame>
+      <span style={{ fontSize: 'var(--fontSize-4, 16px)', color: 'var(--colorSubtitle)', fontFamily: 'var(--font-body)' }}>
         {children}
-      </TextJsx>
-    </ViewJsx>
+      </span>
+    </CommandEmptyFrame>
   )
 }
 
 function Group({ children, heading }: CommandGroupProps) {
   return (
-    <ViewJsx>
+    <div>
       {heading && (
-        <ViewJsx
-          paddingLeft="$0.75"
-          paddingRight="$0.75"
-          paddingTop="$0.75"
-          paddingBottom="$0.5"
-        >
-          <TextJsx
-            fontSize="$2"
-            fontWeight="$3"
-            color="$colorSubtitle"
-            fontFamily="$body"
-          >
-            {heading}
-          </TextJsx>
-        </ViewJsx>
+        <div style={{ paddingLeft: 6, paddingRight: 6, paddingTop: 6, paddingBottom: 4 }}>
+          <CommandGroupHeader>{heading}</CommandGroupHeader>
+        </div>
       )}
       {children}
-    </ViewJsx>
+    </div>
   )
 }
 
@@ -160,49 +211,31 @@ function Item({ children, value, onSelect, disabled, keywords }: CommandItemProp
   if (!visible) return null
 
   return (
-    <ViewJsx
-      flexDirection="row"
-      alignItems="center"
-      height="$3"
-      paddingLeft="$0.75"
-      paddingRight="$0.75"
-      borderRadius="$3"
-      cursor={disabled ? 'not-allowed' : 'pointer'}
-      opacity={disabled ? 0.5 : 1}
-      hoverStyle={disabled ? undefined : { backgroundColor: '$color2' }}
-      focusVisibleStyle={{
-        outlineWidth: 2,
-        outlineOffset: -2,
-        outlineColor: '$outlineColor',
-        outlineStyle: 'solid',
-      }}
-      onPress={disabled ? undefined : () => onSelect?.(value)}
+    <CommandItemFrame
+      onClick={disabled ? undefined : () => onSelect?.(value)}
       role="option"
       aria-disabled={disabled}
+      style={{
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.5 : 1,
+      }}
     >
       {children}
-    </ViewJsx>
+    </CommandItemFrame>
   )
 }
 
 function Separator() {
-  return (
-    <ViewJsx
-      height={1}
-      backgroundColor="$borderColor"
-      marginTop="$0.5"
-      marginBottom="$0.5"
-    />
-  )
+  return <CommandSeparator />
 }
 
 function Loading({ children = 'Loading...' }: { children?: React.ReactNode }) {
   return (
-    <ViewJsx padding="$1.5" alignItems="center">
-      <TextJsx fontSize="$4" color="$colorSubtitle" fontFamily="$body">
+    <CommandLoadingFrame>
+      <span style={{ fontSize: 'var(--fontSize-4, 16px)', color: 'var(--colorSubtitle)', fontFamily: 'var(--font-body)' }}>
         {children}
-      </TextJsx>
-    </ViewJsx>
+      </span>
+    </CommandLoadingFrame>
   )
 }
 

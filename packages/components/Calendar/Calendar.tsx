@@ -1,12 +1,6 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
 import type React from 'react'
 import { useCallback, useMemo, useState } from 'react'
-import { Text, View } from 'tamagui'
-
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
+import { styled } from '../../stl-react/src/config'
 
 function ChevronLeftSvg() {
   return (
@@ -24,55 +18,64 @@ function ChevronRightSvg() {
   )
 }
 
-const NavBtn = styledHtml('button', {
-  display: 'inline-flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  cursor: 'pointer',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: '$3',
-  hoverStyle: {
-    backgroundColor: '$color2',
-  },
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-} as any)
-const NavBtnJsx = NavBtn as AnyFC
+const CalendarFrame = styled("div", { padding: "16px", userSelect: "none" }, "Calendar")
 
-const DayBtn = styledHtml('button', {
-  display: 'inline-flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '$3',
-  height: '$3',
-  borderRadius: '$3',
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
+const CalendarHeader = styled(
+  "div",
+  {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingBottom: "16px",
+    borderBottomWidth: "1px",
+    borderBottomStyle: "solid",
+    borderBottomColor: "var(--borderColor)",
+    marginBottom: "8px",
   },
-} as any)
-const DayBtnJsx = DayBtn as AnyFC
+  "CalendarHeader"
+)
+
+const NavBtn = styled(
+  "button",
+  {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    border: "none",
+    backgroundColor: "transparent",
+    cursor: "pointer",
+    padding: "8px",
+    borderRadius: "6px",
+    fontFamily: "inherit",
+  },
+  "CalendarNavBtn"
+)
+
+const DayHeaderRow = styled("div", { display: "flex", flexDirection: "row" }, "CalendarDayHeaders")
+
+const WeekRow = styled("div", { display: "flex", flexDirection: "row", gap: "4px" }, "CalendarWeekRow")
+
+const DayGrid = styled("div", { display: "flex", flexDirection: "column", gap: "4px" }, "CalendarDayGrid")
+
+const DayBtn = styled(
+  "button",
+  {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "36px",
+    height: "36px",
+    borderRadius: "6px",
+    border: "none",
+    backgroundColor: "transparent",
+    cursor: "pointer",
+    fontFamily: "inherit",
+    padding: "0",
+    margin: "0",
+  },
+  "CalendarDayBtn"
+)
 
 const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 
@@ -171,7 +174,6 @@ function Root({
     const rows: Array<Array<{ date: Date; outsideMonth: boolean }>> = []
     let currentWeek: Array<{ date: Date; outsideMonth: boolean }> = []
 
-    // Fill leading days from previous month
     const prevMonthDays = getDaysInMonth(year, monthIndex - 1)
     for (let i = firstDay - 1; i >= 0; i--) {
       currentWeek.push({
@@ -205,59 +207,55 @@ function Root({
   })
 
   return (
-    <ViewJsx padding="$2" userSelect="none">
-      {/* Header */}
-      <ViewJsx
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="space-between"
-        paddingBottom="$2"
-        borderBottomWidth={1}
-        borderColor="$borderColor"
-        marginBottom="$1"
-      >
-        <NavBtnJsx
+    <CalendarFrame>
+      <CalendarHeader>
+        <NavBtn
           type="button"
-          padding="$1"
           onClick={() => goToMonth(-1)}
           aria-label="Previous month"
         >
           <ChevronLeftSvg />
-        </NavBtnJsx>
-        <TextJsx fontSize="$4" fontWeight="$3" fontFamily="$body" color="$color">
+        </NavBtn>
+        <span style={{
+          fontSize: 'var(--fontSize-4, 16px)',
+          fontWeight: '500',
+          fontFamily: 'var(--font-body)',
+          color: 'var(--color)',
+        }}>
           {monthName} {year}
-        </TextJsx>
-        <NavBtnJsx
+        </span>
+        <NavBtn
           type="button"
-          padding="$1"
           onClick={() => goToMonth(1)}
           aria-label="Next month"
         >
           <ChevronRightSvg />
-        </NavBtnJsx>
-      </ViewJsx>
+        </NavBtn>
+      </CalendarHeader>
 
-      {/* Day headers */}
-      <ViewJsx flexDirection="row">
+      <DayHeaderRow>
         {DAYS.map((d) => (
-          <ViewJsx
+          <div
             key={d}
-            width="$3"
-            height="$3"
-            alignItems="center"
-            justifyContent="center"
+            style={{
+              width: 36,
+              height: 36,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 'var(--fontSize-2, 12px)',
+              color: 'var(--colorSubtitle)',
+              fontFamily: 'var(--font-body)',
+            }}
           >
-            <TextJsx fontSize="$2" color="$colorSubtitle" fontFamily="$body">
-              {d}
-            </TextJsx>
-          </ViewJsx>
+            {d}
+          </div>
         ))}
-      </ViewJsx>
+      </DayHeaderRow>
 
-      {/* Grid */}
-      <ViewJsx gap="$0.5">
+      <DayGrid>
         {weeks.map((week, wi) => (
-          <ViewJsx key={wi} flexDirection="row" gap="$0.5">
+          <WeekRow key={wi}>
             {week.map((entry, di) => {
               const { date, outsideMonth } = entry
               const sel = isDateSelected(date)
@@ -265,20 +263,9 @@ function Root({
               const dateDisabled = isDateDisabled(date) || outsideMonth
 
               return (
-                <DayBtnJsx
+                <DayBtn
                   key={`${date.getMonth()}-${date.getDate()}`}
                   type="button"
-                  cursor={dateDisabled ? 'default' : 'pointer'}
-                  opacity={outsideMonth ? 0.4 : dateDisabled ? 0.3 : 1}
-                  backgroundColor={sel ? '$color10' : 'transparent'}
-                  borderWidth={todayDate && !sel ? 1 : 0}
-                  borderColor={todayDate && !sel ? '$color8' : 'transparent'}
-                  borderStyle="solid"
-                  hoverStyle={
-                    dateDisabled
-                      ? undefined
-                      : { backgroundColor: sel ? '$color10' : '$color3' }
-                  }
                   onClick={dateDisabled ? undefined : () => onSelect?.(date)}
                   disabled={dateDisabled}
                   aria-selected={sel}
@@ -287,22 +274,30 @@ function Root({
                     day: 'numeric',
                     year: 'numeric',
                   })}
+                  style={{
+                    cursor: dateDisabled ? 'default' : 'pointer',
+                    opacity: outsideMonth ? 0.4 : dateDisabled ? 0.3 : 1,
+                    backgroundColor: sel ? 'var(--color10)' : 'transparent',
+                    borderWidth: todayDate && !sel ? 1 : 0,
+                    borderColor: todayDate && !sel ? 'var(--color8)' : 'transparent',
+                    borderStyle: 'solid',
+                  }}
                 >
-                  <TextJsx
-                    fontSize="$3"
-                    fontFamily="$body"
-                    fontWeight={todayDate ? '$4' : '$2'}
-                    color={sel ? '$color1' : outsideMonth ? '$color5' : '$color'}
-                  >
+                  <span style={{
+                    fontSize: 'var(--fontSize-3, 14px)',
+                    fontFamily: 'var(--font-body)',
+                    fontWeight: todayDate ? '600' : '400',
+                    color: sel ? 'var(--color1)' : outsideMonth ? 'var(--color5)' : 'var(--color)',
+                  }}>
                     {date.getDate()}
-                  </TextJsx>
-                </DayBtnJsx>
+                  </span>
+                </DayBtn>
               )
             })}
-          </ViewJsx>
+          </WeekRow>
         ))}
-      </ViewJsx>
-    </ViewJsx>
+      </DayGrid>
+    </CalendarFrame>
   )
 }
 

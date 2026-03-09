@@ -1,10 +1,35 @@
-import React, { createContext, useContext, useRef, useState, useEffect, useMemo } from 'react'
-import { useTheme } from 'tamagui'
+import React, { createContext, useContext, useRef, useState, useEffect, useMemo, useCallback } from 'react'
 import type { ChartConfig } from './types'
 import { createChartTheme } from './theme'
 import { getSeriesColors } from './utils'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 import { ChartDataTable } from './ChartDataTable'
+
+// -- Resolve CSS custom properties to actual values --
+
+function useResolvedTheme() {
+  const [tokens, setTokens] = useState<Record<string, string>>({})
+  const ref = useRef<HTMLDivElement>(null)
+
+  const resolve = useCallback(() => {
+    const el = ref.current
+    if (!el) return
+    const cs = getComputedStyle(el)
+    setTokens({
+      background: cs.getPropertyValue('--background').trim() || '#ffffff',
+      color: cs.getPropertyValue('--color').trim() || '#111111',
+      color4: cs.getPropertyValue('--color4').trim() || '#ededed',
+      color8: cs.getPropertyValue('--color8').trim() || '#6a6a6a',
+      borderColor: cs.getPropertyValue('--borderColor').trim() || '#e8e8e8',
+    })
+  }, [])
+
+  useEffect(() => {
+    resolve()
+  }, [resolve])
+
+  return { ref, tokens }
+}
 
 // -- Chart Context --
 
@@ -13,7 +38,6 @@ interface ChartContextValue {
   resolvedColors: Record<string, string>
   victoryTheme: ReturnType<typeof createChartTheme>
   dimensions: { width: number; height: number }
-  /** Whether the user prefers reduced motion */
   reducedMotion: boolean
 }
 
@@ -30,19 +54,12 @@ export function useChartContext(): ChartContextValue {
 // -- Chart Component --
 
 export interface ChartContainerProps {
-  /** Chart configuration mapping series keys to labels/colors */
   config: ChartConfig
-  /** Chart content (chart type components) */
   children: React.ReactNode
-  /** Accessibility label describing the chart */
   accessibilityLabel: string
-  /** Explicit width in pixels (overrides responsive sizing) */
   width?: number
-  /** Explicit height in pixels (overrides responsive sizing, default: 350) */
   height?: number
-  /** Raw chart data for hidden screen reader accessibility table */
   data?: Record<string, unknown>[]
-  /** Key used for the x-axis / row label column in the data table (default: 'x') */
   xAxisKey?: string
 }
 
@@ -59,20 +76,17 @@ export function Chart({
 }: ChartContainerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [measuredWidth, setMeasuredWidth] = useState(0)
-  const theme = useTheme()
+  const { ref: themeRef, tokens } = useResolvedTheme()
   const reducedMotion = useReducedMotion()
 
-  // Responsive sizing — only measure if no explicit width
   useEffect(() => {
     if (explicitWidth != null) return
 
     const el = containerRef.current
     if (!el) return
 
-    // Initial measurement
     setMeasuredWidth(el.clientWidth)
 
-    // Observe resize
     if (typeof ResizeObserver !== 'undefined') {
       const observer = new ResizeObserver((entries) => {
         for (const entry of entries) {
@@ -84,14 +98,13 @@ export function Chart({
     }
   }, [explicitWidth])
 
-  // Resolve theme tokens to hex values for chart theming
   const resolvedTokens = useMemo(() => ({
-    background: theme.background?.val || '#ffffff',
-    color: theme.color?.val || '#111111',
-    colorSubtitle: (theme as Record<string, { val?: string }>).color8?.val || '#6a6a6a',
-    borderColor: theme.borderColor?.val || '#e8e8e8',
-    color4: (theme as Record<string, { val?: string }>).color4?.val || '#ededed',
-  }), [theme])
+    background: tokens.background || '#ffffff',
+    color: tokens.color || '#111111',
+    colorSubtitle: tokens.color8 || '#6a6a6a',
+    borderColor: tokens.borderColor || '#e8e8e8',
+    color4: tokens.color4 || '#ededed',
+  }), [tokens])
 
   const victoryTheme = useMemo(
     () => createChartTheme(resolvedTokens),
@@ -99,17 +112,8 @@ export function Chart({
   )
 
   const resolvedColors = useMemo(
-    () => {
-      // Build a flat lookup from theme for token resolution
-      const themeFlat: Record<string, string> = {}
-      for (const [key, val] of Object.entries(theme)) {
-        if (val && typeof val === 'object' && 'val' in val && typeof val.val === 'string') {
-          themeFlat[key] = val.val
-        }
-      }
-      return getSeriesColors(config, themeFlat)
-    },
-    [config, theme]
+    () => getSeriesColors(config, tokens),
+    [config, tokens]
   )
 
   const finalWidth = explicitWidth ?? measuredWidth
@@ -128,7 +132,10 @@ export function Chart({
 
   return (
     <div
-      ref={containerRef}
+      ref={(el) => {
+        (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el
+        ;(themeRef as React.MutableRefObject<HTMLDivElement | null>).current = el
+      }}
       role="img"
       aria-label={accessibilityLabel}
       style={{

@@ -1,14 +1,6 @@
-import { styledHtml } from '@tamagui/web'
 import type React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import type { ComponentType } from 'react'
-import { Text, View, XStack, YStack, styled } from 'tamagui'
-
-type AnyFC = ComponentType<Record<string, unknown>>
-const TextJsx = Text as AnyFC
-const XStackJsx = XStack as AnyFC
-const ViewJsx = View as AnyFC
-const YStackJsx = YStack as AnyFC
+import { styled } from '../../stl-react/src/config'
 
 // ─── Calendar utilities (no external deps) ─────────────────────────
 
@@ -29,37 +21,21 @@ function isSameDay(a: Date, b: Date): boolean {
 }
 
 function isDateDisabled(date: Date, minDate?: Date, maxDate?: Date): boolean {
-  if (
-    minDate &&
-    date < new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate())
-  ) {
-    return true
-  }
-  if (
-    maxDate &&
-    date > new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate())
-  ) {
-    return true
-  }
+  if (minDate && date < new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate())) return true
+  if (maxDate && date > new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate())) return true
   return false
 }
 
 function formatDate(date: Date, locale = 'en-US'): string {
-  return new Intl.DateTimeFormat(locale, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  }).format(date)
+  return new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'short', day: 'numeric' }).format(date)
 }
 
 function getMonthName(year: number, month: number, locale = 'en-US'): string {
-  return new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(
-    new Date(year, month, 1),
-  )
+  return new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(new Date(year, month, 1))
 }
 
 function getWeekdayNames(locale = 'en-US'): string[] {
-  const base = new Date(2024, 0, 7) // a known Sunday
+  const base = new Date(2024, 0, 7)
   return Array.from({ length: 7 }, (_, i) => {
     const d = new Date(base)
     d.setDate(base.getDate() + i)
@@ -69,251 +45,114 @@ function getWeekdayNames(locale = 'en-US'): string[] {
 
 // ─── Styled primitives ─────────────────────────────────────────────
 
-const TriggerFrame = styledHtml('button', {
-  display: 'flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  fontFamily: 'inherit',
-  margin: 0,
-  alignItems: 'center',
-  borderWidth: 1,
-  borderColor: '$borderColor',
-  borderRadius: '$4',
-  cursor: 'pointer',
-  backgroundColor: '$background',
-  gap: '$2',
-
-  hoverStyle: {
-    borderColor: '$color8',
+const TriggerFrame = styled(
+  "button",
+  {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "var(--borderColor)",
+    borderRadius: "8px",
+    cursor: "pointer",
+    backgroundColor: "var(--background, #fff)",
+    gap: "8px",
+    fontFamily: "inherit",
+    margin: "0",
   },
-
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-
-  variants: {
+  {
+    size: {
+      sm: { paddingTop: "4px", paddingBottom: "4px", paddingLeft: "12px", paddingRight: "12px", height: "28px" },
+      md: { paddingTop: "8px", paddingBottom: "8px", paddingLeft: "16px", paddingRight: "16px", height: "36px" },
+      lg: { paddingTop: "12px", paddingBottom: "12px", paddingLeft: "20px", paddingRight: "20px", height: "40px" },
+    },
     hasError: {
-      true: {
-        borderColor: '$red10',
-      },
+      true: { borderColor: "var(--red10)" },
     },
     isDisabled: {
-      true: {
-        opacity: 0.5,
-        cursor: 'not-allowed',
-        pointerEvents: 'none',
-      },
+      true: { opacity: "0.5", cursor: "not-allowed", pointerEvents: "none" },
     },
-    size: {
-      sm: {
-        paddingVertical: '$1',
-        paddingHorizontal: '$3',
-        height: '$3.5',
-      },
-      md: {
-        paddingVertical: '$2',
-        paddingHorizontal: '$4',
-        height: '$4',
-      },
-      lg: {
-        paddingVertical: '$3',
-        paddingHorizontal: '$5',
-        height: '$4.5',
-      },
-    },
-  } as const,
-
-  defaultVariants: {
-    size: 'md',
   },
-} as any)
-const TriggerFrameJsx = TriggerFrame as AnyFC
+  "DatePickerTrigger"
+)
 
-const TriggerText = styled(Text, {
-  fontFamily: '$body',
-  flex: 1,
-
-  variants: {
+const TriggerText = styled(
+  "span",
+  {
+    fontFamily: "var(--font-body)",
+    flex: "1",
+  },
+  {
     isPlaceholder: {
-      // @ts-expect-error Tamagui v2 RC
-      true: { color: '$colorSubtitle' },
-      // @ts-expect-error Tamagui v2 RC
-      false: { color: '$color' },
+      true: { color: "var(--colorSubtitle)" },
+      false: { color: "var(--color)" },
     },
     size: {
-      // @ts-expect-error Tamagui v2 RC
-      sm: { fontSize: '$2' },
-      // @ts-expect-error Tamagui v2 RC
-      md: { fontSize: '$3' },
-      // @ts-expect-error Tamagui v2 RC
-      lg: { fontSize: '$4' },
+      sm: { fontSize: "var(--fontSize-2, 12px)" },
+      md: { fontSize: "var(--fontSize-3, 14px)" },
+      lg: { fontSize: "var(--fontSize-4, 16px)" },
     },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    isPlaceholder: false,
-    // @ts-expect-error Tamagui v2 RC
-    size: 'md',
   },
-})
+  "DatePickerTriggerText"
+)
 
-// @ts-expect-error Tamagui v2 RC
-const CalendarDropdown = styled(YStack, {
-  position: 'absolute',
-  top: '100%',
-  left: 0,
-  zIndex: '$1',
-  marginTop: '$1',
-  backgroundColor: '$background',
-  borderWidth: 1,
-  borderColor: '$borderColor',
-  borderRadius: '$4',
-  padding: '$3',
-  style: {
-    boxShadow: 'var(--shadowMd)',
+const CalendarDropdown = styled(
+  "div",
+  {
+    position: "absolute",
+    top: "100%",
+    left: "0",
+    zIndex: "10",
+    marginTop: "4px",
+    backgroundColor: "var(--background, #fff)",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "var(--borderColor)",
+    borderRadius: "8px",
+    padding: "12px",
+    boxShadow: "var(--shadowMd, 0 4px 6px -1px rgba(0,0,0,0.1))",
   },
-})
+  "DatePickerDropdown"
+)
 
-const DayCell = styledHtml('button', {
-  display: 'inline-flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '$3',
-  height: '$3',
-  borderRadius: '$3',
-  cursor: 'pointer',
-
-  hoverStyle: {
-    backgroundColor: '$backgroundHover',
+const DayCell = styled(
+  "button",
+  {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "36px",
+    height: "36px",
+    borderRadius: "6px",
+    border: "none",
+    backgroundColor: "transparent",
+    cursor: "pointer",
+    fontFamily: "inherit",
+    padding: "0",
+    margin: "0",
   },
+  "DatePickerDayCell"
+)
 
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
+const NavButton = styled(
+  "button",
+  {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "28px",
+    height: "28px",
+    borderRadius: "6px",
+    border: "none",
+    backgroundColor: "transparent",
+    cursor: "pointer",
+    fontFamily: "inherit",
+    padding: "0",
+    margin: "0",
   },
-
-  variants: {
-    selected: {
-      true: {
-        backgroundColor: '$color10',
-        hoverStyle: {
-          backgroundColor: '$color11',
-        },
-      },
-    },
-    isToday: {
-      true: {
-        borderWidth: 1,
-        borderColor: '$color8',
-      },
-    },
-    isDisabled: {
-      true: {
-        opacity: 0.3,
-        cursor: 'not-allowed',
-        pointerEvents: 'none',
-      },
-    },
-    inRange: {
-      true: {
-        backgroundColor: '$color4',
-        hoverStyle: {
-          backgroundColor: '$color5',
-        },
-      },
-    },
-    rangeStart: {
-      true: {
-        backgroundColor: '$color10',
-        borderTopLeftRadius: '$3',
-        borderBottomLeftRadius: '$3',
-        hoverStyle: {
-          backgroundColor: '$color11',
-        },
-      },
-    },
-    rangeEnd: {
-      true: {
-        backgroundColor: '$color10',
-        borderTopRightRadius: '$3',
-        borderBottomRightRadius: '$3',
-        hoverStyle: {
-          backgroundColor: '$color11',
-        },
-      },
-    },
-  } as const,
-} as any)
-const DayCellJsx = DayCell as AnyFC
-
-const DayText = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$2',
-  textAlign: 'center',
-
-  variants: {
-    selected: {
-      // @ts-expect-error Tamagui v2 RC
-      true: { color: '$color1' },
-      // @ts-expect-error Tamagui v2 RC
-      false: { color: '$color' },
-    },
-  } as const,
-
-  defaultVariants: {
-    // @ts-expect-error Tamagui v2 RC
-    selected: false,
-  },
-})
-
-const NavButton = styledHtml('button', {
-  display: 'inline-flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
-  margin: 0,
-  fontFamily: 'inherit',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '$2.5',
-  height: '$2.5',
-  borderRadius: '$3',
-  cursor: 'pointer',
-
-  hoverStyle: {
-    backgroundColor: '$backgroundHover',
-  },
-
-  pressStyle: {
-    opacity: 0.85,
-  },
-
-  focusVisibleStyle: {
-    outlineWidth: 2,
-    outlineOffset: 2,
-    outlineColor: '$outlineColor',
-    outlineStyle: 'solid',
-  },
-} as any)
-const NavButtonJsx = NavButton as AnyFC
+  "DatePickerNavButton"
+)
 
 // ─── Calendar Component ─────────────────────────────────────────────
 
@@ -327,7 +166,6 @@ interface CalendarProps {
   maxDate?: Date
   locale?: string
   today: Date
-  // Range support
   rangeStart?: Date
   rangeEnd?: Date
 }
@@ -367,61 +205,36 @@ function Calendar({
   for (let i = 0; i < days.length; i += 7) {
     weeks.push(days.slice(i, i + 7))
   }
-  // Pad last row
   const lastRow = weeks[weeks.length - 1]
   while (lastRow && lastRow.length < 7) lastRow.push(null)
 
   return (
-    <YStackJsx gap="$1.5" minWidth="$15">
-      {/* Header */}
-      <XStackJsx
-        alignItems="center"
-        justifyContent="space-between"
-        paddingHorizontal="$1"
-      >
-        <NavButtonJsx type="button" onClick={prevMonth} aria-label="Previous month">
-          <TextJsx fontFamily="$body" fontSize="$4" color="$color">
-            ‹
-          </TextJsx>
-        </NavButtonJsx>
-        <TextJsx fontFamily="$body" fontSize="$3" fontWeight="$3" color="$color">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 260 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 4px' }}>
+        <NavButton type="button" onClick={prevMonth} aria-label="Previous month">
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-4, 16px)', color: 'var(--color)' }}>‹</span>
+        </NavButton>
+        <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-3, 14px)', fontWeight: '500', color: 'var(--color)' }}>
           {getMonthName(viewYear, viewMonth, locale)}
-        </TextJsx>
-        <NavButtonJsx type="button" onClick={nextMonth} aria-label="Next month">
-          <TextJsx fontFamily="$body" fontSize="$4" color="$color">
-            ›
-          </TextJsx>
-        </NavButtonJsx>
-      </XStackJsx>
+        </span>
+        <NavButton type="button" onClick={nextMonth} aria-label="Next month">
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-4, 16px)', color: 'var(--color)' }}>›</span>
+        </NavButton>
+      </div>
 
-      {/* Weekday headers */}
-      <XStackJsx>
+      <div style={{ display: 'flex' }}>
         {weekdays.map((wd, i) => (
-          <ViewJsx
-            key={i}
-            width="$3"
-            height="$1.5"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <TextJsx
-              fontFamily="$body"
-              fontSize="$1"
-              color="$colorSubtitle"
-              fontWeight="$3"
-            >
-              {wd}
-            </TextJsx>
-          </ViewJsx>
+          <div key={i} style={{ width: 36, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-1, 11px)', color: 'var(--colorSubtitle)', fontWeight: '500' }}>{wd}</span>
+          </div>
         ))}
-      </XStackJsx>
+      </div>
 
-      {/* Day grid */}
       {weeks.map((week, wi) => (
-        <XStackJsx key={wi}>
+        <div key={wi} style={{ display: 'flex' }}>
           {week.map((day, di) => {
             if (day === null) {
-              return <ViewJsx key={di} width="$3" height="$3" />
+              return <div key={di} style={{ width: 36, height: 36 }} />
             }
 
             const date = new Date(viewYear, viewMonth, day)
@@ -429,34 +242,42 @@ function Calendar({
             const isTodayDate = isSameDay(date, today)
             const disabled = isDateDisabled(date, minDate, maxDate)
 
-            // Range state
             const isRangeStart = rangeStart ? isSameDay(date, rangeStart) : false
             const isRangeEnd = rangeEnd ? isSameDay(date, rangeEnd) : false
-            const isInRange =
-              rangeStart && rangeEnd && date > rangeStart && date < rangeEnd
+            const isInRange = rangeStart && rangeEnd && date > rangeStart && date < rangeEnd
 
             const showSelected = isSelected || isRangeStart || isRangeEnd
 
             return (
-              <DayCellJsx
+              <DayCell
                 key={di}
                 type="button"
-                selected={showSelected}
-                isToday={isTodayDate && !showSelected}
-                isDisabled={disabled}
-                inRange={!!isInRange && !showSelected}
                 onClick={() => onSelectDate(date)}
                 aria-label={`${day}`}
                 aria-selected={isSelected || undefined}
+                style={{
+                  backgroundColor: showSelected ? 'var(--color10)' : isInRange ? 'var(--color4)' : 'transparent',
+                  borderWidth: isTodayDate && !showSelected ? 1 : 0,
+                  borderColor: isTodayDate && !showSelected ? 'var(--color8)' : 'transparent',
+                  borderStyle: 'solid',
+                  opacity: disabled ? 0.3 : 1,
+                  cursor: disabled ? 'not-allowed' : 'pointer',
+                  pointerEvents: disabled ? 'none' : undefined,
+                }}
               >
-                {/* @ts-expect-error Tamagui v2 RC */}
-                <DayText selected={showSelected}>{day}</DayText>
-              </DayCellJsx>
+                <span style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: 'var(--fontSize-2, 12px)',
+                  color: showSelected ? 'var(--color1)' : 'var(--color)',
+                }}>
+                  {day}
+                </span>
+              </DayCell>
             )
           })}
-        </XStackJsx>
+        </div>
       ))}
-    </YStackJsx>
+    </div>
   )
 }
 
@@ -519,7 +340,6 @@ function DatePickerRoot({
     setViewMonth(month)
   }, [])
 
-  // Close on click outside
   useEffect(() => {
     if (!open) return
     const handler = (e: MouseEvent) => {
@@ -531,7 +351,6 @@ function DatePickerRoot({
     return () => document.removeEventListener('mousedown', handler)
   }, [open])
 
-  // Close on Escape
   useEffect(() => {
     if (!open) return
     const handler = (e: KeyboardEvent) => {
@@ -542,33 +361,31 @@ function DatePickerRoot({
   }, [open])
 
   return (
-    <YStackJsx gap="$1.5">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
       {label && (
-        <TextJsx fontFamily="$body" fontSize="$2" fontWeight="$3" color="$color">
+        <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-2, 12px)', fontWeight: '500', color: 'var(--color)' }}>
           {label}
-        </TextJsx>
+        </span>
       )}
-      <ViewJsx position="relative" ref={containerRef as React.Ref<any>}>
-        <TriggerFrameJsx
+      <div style={{ position: 'relative' }} ref={containerRef}>
+        <TriggerFrame
           type="button"
-          hasError={error}
-          isDisabled={disabled}
+          hasError={error ? true : undefined}
+          isDisabled={disabled ? true : undefined}
           size={size}
           onClick={() => setOpen((o) => !o)}
           aria-label={label ?? placeholder}
           aria-expanded={open}
         >
-          {/* @ts-expect-error Tamagui v2 RC — variant props */}
           <TriggerText isPlaceholder={!selectedDate} size={size}>
             {selectedDate ? formatDate(selectedDate, locale) : placeholder}
           </TriggerText>
-          <TextJsx fontFamily="$body" fontSize="$3" color="$colorSubtitle">
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-3, 14px)', color: 'var(--colorSubtitle)' }}>
             ▾
-          </TextJsx>
-        </TriggerFrameJsx>
+          </span>
+        </TriggerFrame>
 
         {open && (
-          // @ts-expect-error Tamagui v2 RC
           <CalendarDropdown>
             <Calendar
               viewYear={viewYear}
@@ -583,18 +400,18 @@ function DatePickerRoot({
             />
           </CalendarDropdown>
         )}
-      </ViewJsx>
+      </div>
       {error && errorMessage && (
-        <TextJsx fontFamily="$body" fontSize="$1" color="$red10">
+        <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-1, 11px)', color: 'var(--red10)' }}>
           {errorMessage}
-        </TextJsx>
+        </span>
       )}
       {helperText && !error && (
-        <TextJsx fontFamily="$body" fontSize="$1" color="$colorSubtitle">
+        <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-1, 11px)', color: 'var(--colorSubtitle)' }}>
           {helperText}
-        </TextJsx>
+        </span>
       )}
-    </YStackJsx>
+    </div>
   )
 }
 

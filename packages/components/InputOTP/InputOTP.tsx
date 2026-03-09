@@ -1,20 +1,52 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
 import React, { useCallback, useRef, useState } from 'react'
-import { View } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
+const OTPRoot = styled(
+  "div",
+  { position: "relative", display: "inline-flex", flexDirection: "row", alignItems: "center" },
+  "InputOTP"
+)
 
-const HiddenInput = styledHtml('input', {
-  position: 'absolute',
-  opacity: 0,
-  width: 1,
-  height: 1,
-  overflow: 'hidden',
-} as any)
+const OTPGroup = styled(
+  "div",
+  { display: "flex", flexDirection: "row", alignItems: "center", gap: "6px" },
+  "InputOTPGroup"
+)
 
-const HiddenInputJsx = HiddenInput as AnyFC
+const OTPSlotFrame = styled(
+  "div",
+  {
+    width: "40px",
+    height: "48px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "var(--borderColor)",
+    borderRadius: "8px",
+    backgroundColor: "var(--background, #fff)",
+    fontSize: "var(--fontSize-7, 24px)",
+    fontFamily: "var(--font-body)",
+    fontWeight: "500",
+    color: "var(--color)",
+    cursor: "text",
+  },
+  "InputOTPSlot"
+)
+
+const OTPSeparator = styled(
+  "div",
+  {
+    width: "6px",
+    height: "2px",
+    backgroundColor: "var(--color6)",
+    borderRadius: "9999px",
+    marginLeft: "2px",
+    marginRight: "2px",
+  },
+  "InputOTPSeparator"
+)
 
 export interface InputOTPRootProps {
   children: React.ReactNode
@@ -59,7 +91,7 @@ function Root({
   const regex = pattern ? new RegExp(pattern) : null
 
   const handleChange = useCallback(
-    (e: any) => {
+    (e: React.ChangeEvent<HTMLInputElement>) => {
       let newValue = e.target.value.slice(0, maxLength)
       if (regex) {
         newValue = newValue
@@ -91,13 +123,8 @@ function Root({
 
   return (
     <InputOTPContext.Provider value={{ value, activeIndex, maxLength, focus }}>
-      <ViewJsx
-        position="relative"
-        display="inline-flex"
-        flexDirection="row"
-        alignItems="center"
-      >
-        <HiddenInputJsx
+      <OTPRoot>
+        <input
           ref={inputRef}
           type="text"
           inputMode="numeric"
@@ -109,22 +136,21 @@ function Root({
           maxLength={maxLength}
           disabled={disabled || undefined}
           aria-label={`Enter ${maxLength}-digit code`}
-          style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
+          style={{ position: 'absolute', opacity: 0, width: 1, height: 1, overflow: 'hidden', pointerEvents: 'none' }}
         />
-        <ViewJsx flexDirection="row" alignItems="center" onPress={focus} cursor="text">
+        <div
+          onClick={focus}
+          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'text' }}
+        >
           {children}
-        </ViewJsx>
-      </ViewJsx>
+        </div>
+      </OTPRoot>
     </InputOTPContext.Provider>
   )
 }
 
 function Group({ children }: { children: React.ReactNode }) {
-  return (
-    <ViewJsx flexDirection="row" alignItems="center" gap={6}>
-      {children}
-    </ViewJsx>
-  )
+  return <OTPGroup>{children}</OTPGroup>
 }
 
 function Slot({ index }: InputOTPSlotProps) {
@@ -133,43 +159,20 @@ function Slot({ index }: InputOTPSlotProps) {
   const isActive = index === activeIndex
 
   return (
-    <ViewJsx
-      width="$3.5"
-      height="$4"
-      borderWidth={1}
-      borderColor={isActive ? '$color' : '$borderColor'}
-      borderRadius="$4"
-      alignItems="center"
-      justifyContent="center"
-      backgroundColor="$background"
-      onPress={focus}
-      style={isActive ? { boxShadow: '0 0 0 2px var(--outlineColor)' } : undefined}
+    <OTPSlotFrame
+      onClick={focus}
+      style={{
+        borderColor: isActive ? 'var(--color)' : undefined,
+        boxShadow: isActive ? '0 0 0 2px var(--outlineColor)' : undefined,
+      }}
     >
-      <ViewJsx
-        fontSize="$7"
-        fontFamily="$body"
-        fontWeight="$3"
-        color="$color"
-        textAlign="center"
-        lineHeight="$6"
-      >
-        {char}
-      </ViewJsx>
-    </ViewJsx>
+      {char}
+    </OTPSlotFrame>
   )
 }
 
 function Separator() {
-  return (
-    <ViewJsx
-      width="$0.75"
-      height="$0.25"
-      backgroundColor="$color6"
-      borderRadius={9999}
-      marginLeft="$0.25"
-      marginRight="$0.25"
-    />
-  )
+  return <OTPSeparator />
 }
 
 export const InputOTP = { Root, Group, Slot, Separator }

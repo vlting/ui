@@ -1,9 +1,27 @@
-import type { ComponentType } from 'react'
 import React, { useCallback, useRef, useState } from 'react'
-import { View } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
+const PanelGroupFrame = styled("div", { display: "flex", width: "100%", height: "100%", overflow: "hidden" }, "ResizablePanelGroup")
+
+const PanelFrame = styled("div", { overflow: "hidden" }, "ResizablePanel")
+
+const HandleFrame = styled(
+  "div",
+  {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "var(--borderColor)",
+    flexShrink: 0,
+  },
+  "ResizableHandle"
+)
+
+const HandleDot = styled(
+  "div",
+  { borderRadius: "9999px", backgroundColor: "var(--color6)" },
+  "ResizableHandleDot"
+)
 
 export interface ResizablePanelGroupProps {
   children: React.ReactNode
@@ -46,7 +64,6 @@ function PanelGroup({
   const panelCount = React.Children.count(children)
   const panelIndexRef = useRef(0)
 
-  // Reset counter on each render so indices are stable across re-mounts
   panelIndexRef.current = 0
 
   const nextPanelIndex = useCallback(() => {
@@ -79,27 +96,21 @@ function PanelGroup({
     [onLayout],
   )
 
-  // Initialize equal sizes if not set
   if (sizes.length === 0 && panelCount > 0) {
     const equalSize = 100 / panelCount
     const initial = Array.from({ length: panelCount }, () => equalSize)
     setSizes(initial)
   }
 
-  const isH = direction === 'horizontal'
-
   return (
     <ResizableContext.Provider
       value={{ direction, registerPanel, sizes, onResize, nextPanelIndex }}
     >
-      <ViewJsx
-        flexDirection={isH ? 'row' : 'column'}
-        width="100%"
-        height="100%"
-        overflow="hidden"
+      <PanelGroupFrame
+        style={{ flexDirection: direction === 'horizontal' ? 'row' : 'column' }}
       >
         {children}
-      </ViewJsx>
+      </PanelGroupFrame>
     </ResizableContext.Provider>
   )
 }
@@ -117,8 +128,7 @@ function Panel({
   const isH = direction === 'horizontal'
 
   return (
-    <ViewJsx
-      overflow="hidden"
+    <PanelFrame
       style={{
         [isH ? 'width' : 'height']: `${size}%`,
         [isH ? 'height' : 'width']: '100%',
@@ -126,7 +136,7 @@ function Panel({
       }}
     >
       {children}
-    </ViewJsx>
+    </PanelFrame>
   )
 }
 
@@ -164,30 +174,26 @@ function Handle({ withHandle = true }: ResizableHandleProps) {
   )
 
   return (
-    <ViewJsx
-      alignItems="center"
-      justifyContent="center"
-      backgroundColor="$borderColor"
-      cursor={isH ? 'col-resize' : 'row-resize'}
+    <HandleFrame
       onMouseDown={handleMouseDown}
-      style={{
-        [isH ? 'width' : 'height']: 4,
-        [isH ? 'height' : 'width']: '100%',
-      }}
-      hoverStyle={{ backgroundColor: '$color5' }}
       role="separator"
       aria-orientation={isH ? 'vertical' : 'horizontal'}
       tabIndex={0}
+      style={{
+        [isH ? 'width' : 'height']: 4,
+        [isH ? 'height' : 'width']: '100%',
+        cursor: isH ? 'col-resize' : 'row-resize',
+      }}
     >
       {withHandle && (
-        <ViewJsx
-          width={isH ? '$0.5' : 16}
-          height={isH ? 16 : '$0.5'}
-          borderRadius={9999}
-          backgroundColor="$color6"
+        <HandleDot
+          style={{
+            width: isH ? 4 : 16,
+            height: isH ? 16 : 4,
+          }}
         />
       )}
-    </ViewJsx>
+    </HandleFrame>
   )
 }
 
