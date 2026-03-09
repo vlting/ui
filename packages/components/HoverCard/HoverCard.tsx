@@ -1,22 +1,17 @@
-import type { ComponentType } from 'react'
 import React, { useCallback, useRef, useState } from 'react'
-import { View, styled } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-
-// @ts-expect-error Tamagui v2 RC
-const ContentFrame = styled(View, {
-  backgroundColor: '$background',
-  borderWidth: 1,
-  borderColor: '$borderColor',
-  borderRadius: '$5',
-  padding: '$3.5',
-  zIndex: '$5',
-  minWidth: '$15',
-})
-
-const ContentFrameJsx = ContentFrame as AnyFC
-const ViewJsx = View as AnyFC
+const ContentFrame = styled("div", {
+  backgroundColor: "$background",
+  borderWidth: "1px",
+  borderStyle: "solid",
+  borderColor: "$borderColor",
+  borderRadius: "$4",
+  padding: "14px",
+  zIndex: "100",
+  minWidth: "200px",
+  position: "absolute",
+}, "HoverCardContent")
 
 export interface HoverCardRootProps {
   children: React.ReactNode
@@ -59,7 +54,9 @@ function Root({ children, openDelay = 700, closeDelay = 300 }: HoverCardRootProp
 
   return (
     <HoverCardContext.Provider value={{ open, onMouseEnter, onMouseLeave }}>
-      <ViewJsx position="relative" display="inline-flex">{children}</ViewJsx>
+      <div style={{ position: 'relative', display: 'inline-flex' }}>
+        {children}
+      </div>
     </HoverCardContext.Provider>
   )
 }
@@ -68,32 +65,26 @@ function Trigger({ children }: { children: React.ReactNode }) {
   const { onMouseEnter, onMouseLeave } = React.useContext(HoverCardContext)
 
   return (
-    <ViewJsx
+    <div
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      display="inline-flex"
-      position="relative"
+      style={{ display: 'inline-flex', position: 'relative' }}
     >
       {children}
-    </ViewJsx>
+    </div>
   )
 }
 
-const SIDE_STYLES = {
-  top: { bottom: '100%' },
-  bottom: { top: '100%' },
-} as const
+const SIDE_STYLES: Record<string, React.CSSProperties> = {
+  top: { bottom: '100%', marginBottom: '4px' },
+  bottom: { top: '100%', marginTop: '4px' },
+}
 
-const SIDE_MARGIN = {
-  top: { marginBottom: '$0.5' },
-  bottom: { marginTop: '$0.5' },
-} as const
-
-const ALIGN_STYLES = {
+const ALIGN_STYLES: Record<string, React.CSSProperties> = {
   start: { left: 0 },
   center: { left: '50%', transform: 'translateX(-50%)' },
   end: { right: 0 },
-} as const
+}
 
 function Content({ children, side = 'bottom', align = 'center' }: HoverCardContentProps) {
   const { open, onMouseEnter, onMouseLeave } = React.useContext(HoverCardContext)
@@ -101,20 +92,18 @@ function Content({ children, side = 'bottom', align = 'center' }: HoverCardConte
   if (!open) return null
 
   return (
-    <ContentFrameJsx
-      position="absolute"
+    <ContentFrame
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       role="tooltip"
-      {...SIDE_MARGIN[side]}
       style={{
-        boxShadow: 'var(--shadowMd)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
         ...SIDE_STYLES[side],
         ...ALIGN_STYLES[align],
       }}
     >
       {children}
-    </ContentFrameJsx>
+    </ContentFrame>
   )
 }
 
