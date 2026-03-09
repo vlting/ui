@@ -1,33 +1,84 @@
-import { Menu as TamaguiMenu } from '@tamagui/menu'
-import type React from 'react'
-import type { ComponentType } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { styled } from '../../stl-react/src/config'
 
-// Tamagui v2 RC GetProps bug — cast for JSX usage
-const MenuRoot = TamaguiMenu as ComponentType<Record<string, unknown>>
-const MenuTrigger = TamaguiMenu.Trigger as ComponentType<Record<string, unknown>>
-const MenuPortal = TamaguiMenu.Portal as ComponentType<Record<string, unknown>>
-const MenuContent = TamaguiMenu.Content as ComponentType<Record<string, unknown>>
-const MenuGroup = TamaguiMenu.Group as ComponentType<Record<string, unknown>>
-const MenuLabel = TamaguiMenu.Label as ComponentType<Record<string, unknown>>
-const MenuItem = TamaguiMenu.Item as ComponentType<Record<string, unknown>>
-const MenuItemTitle = TamaguiMenu.ItemTitle as ComponentType<Record<string, unknown>>
-const MenuItemSubtitle = TamaguiMenu.ItemSubtitle as ComponentType<
-  Record<string, unknown>
->
-const MenuItemIcon = TamaguiMenu.ItemIcon as ComponentType<Record<string, unknown>>
-const MenuCheckboxItem = TamaguiMenu.CheckboxItem as ComponentType<
-  Record<string, unknown>
->
-const MenuRadioGroup = TamaguiMenu.RadioGroup as ComponentType<Record<string, unknown>>
-const MenuRadioItem = TamaguiMenu.RadioItem as ComponentType<Record<string, unknown>>
-const MenuItemIndicator = TamaguiMenu.ItemIndicator as ComponentType<
-  Record<string, unknown>
->
-const MenuSeparator = TamaguiMenu.Separator as ComponentType<Record<string, unknown>>
-const MenuArrow = TamaguiMenu.Arrow as ComponentType<Record<string, unknown>>
-const MenuSub = TamaguiMenu.Sub as ComponentType<Record<string, unknown>>
-const MenuSubTrigger = TamaguiMenu.SubTrigger as ComponentType<Record<string, unknown>>
-const MenuSubContent = TamaguiMenu.SubContent as ComponentType<Record<string, unknown>>
+const MenuContentFrame = styled(
+  "div",
+  {
+    backgroundColor: "$surface1",
+    borderRadius: "$4",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "$borderColor",
+    padding: "$2",
+    minWidth: "180px",
+    boxShadow: "var(--shadowMd)",
+  },
+  "MenuContent"
+)
+
+const MenuItemFrame = styled(
+  "div",
+  {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: "$3",
+    paddingRight: "$3",
+    paddingTop: "$2",
+    paddingBottom: "$2",
+    borderRadius: "$2",
+    cursor: "pointer",
+    fontFamily: "$body",
+    fontSize: "$14",
+    color: "$color",
+  },
+  "MenuItem"
+)
+
+const MenuLabelFrame = styled(
+  "div",
+  {
+    paddingLeft: "$3",
+    paddingRight: "$3",
+    paddingTop: "$1",
+    paddingBottom: "$1",
+    color: "$secondaryText12",
+    fontSize: "$12",
+    fontFamily: "$body",
+  },
+  "MenuLabel"
+)
+
+const MenuSeparatorFrame = styled(
+  "div",
+  {
+    height: "1px",
+    backgroundColor: "$borderColor",
+    marginTop: "$1",
+    marginBottom: "$1",
+  },
+  "MenuSeparator"
+)
+
+const MenuItemTitleText = styled(
+  "span",
+  { fontFamily: "$body", fontSize: "$14", color: "$color" },
+  "MenuItemTitle"
+)
+
+const MenuItemSubtitleText = styled(
+  "span",
+  { fontFamily: "$body", fontSize: "$12", color: "$secondaryText12" },
+  "MenuItemSubtitle"
+)
+
+const MenuContext = React.createContext<{
+  open: boolean
+  setOpen: (v: boolean) => void
+  close: () => void
+  triggerRef: React.RefObject<HTMLElement | null>
+}>({ open: false, setOpen: () => {}, close: () => {}, triggerRef: { current: null } })
 
 export interface MenuRootProps {
   children: React.ReactNode
@@ -36,20 +87,76 @@ export interface MenuRootProps {
   onOpenChange?: (open: boolean) => void
 }
 
-function Root({ children, open, defaultOpen, onOpenChange }: MenuRootProps) {
+function Root({ children, open: controlledOpen, defaultOpen, onOpenChange }: MenuRootProps) {
+  const [internalOpen, setInternalOpen] = useState(defaultOpen ?? false)
+  const open = controlledOpen ?? internalOpen
+  const triggerRef = useRef<HTMLElement | null>(null)
+
+  const setOpen = useCallback(
+    (v: boolean) => {
+      setInternalOpen(v)
+      onOpenChange?.(v)
+    },
+    [onOpenChange],
+  )
+
+  const close = useCallback(() => {
+    setOpen(false)
+    triggerRef.current?.focus()
+  }, [setOpen])
+
   return (
-    <MenuRoot open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
-      {children}
-    </MenuRoot>
+    <MenuContext.Provider value={{ open, setOpen, close, triggerRef }}>
+      <div style={{ position: 'relative', display: 'inline-flex' }}>
+        {children}
+      </div>
+    </MenuContext.Provider>
   )
 }
 
 function Trigger({ children }: { children: React.ReactNode }) {
-  return <MenuTrigger asChild>{children}</MenuTrigger>
+  const { open, setOpen, close, triggerRef } = React.useContext(MenuContext)
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        if (!open) setOpen(true)
+      } else if (e.key === 'Escape' && open) {
+        e.preventDefault()
+        close()
+      }
+    },
+    [open, setOpen, close],
+  )
+
+  return (
+    <button
+      ref={triggerRef as React.RefObject<HTMLButtonElement>}
+      type="button"
+      onClick={() => setOpen(!open)}
+      aria-haspopup="menu"
+      aria-expanded={open}
+      onKeyDown={handleKeyDown}
+      style={{
+        display: 'inline-flex',
+        appearance: 'none',
+        border: 'none',
+        background: 'none',
+        padding: 0,
+        margin: 0,
+        fontFamily: 'inherit',
+        cursor: 'pointer',
+      }}
+    >
+      {children}
+    </button>
+  )
 }
 
 function Portal({ children }: { children: React.ReactNode }) {
-  return <MenuPortal>{children}</MenuPortal>
+  if (typeof document === 'undefined') return null
+  return createPortal(children, document.body)
 }
 
 interface MenuContentProps {
@@ -57,40 +164,81 @@ interface MenuContentProps {
 }
 
 function Content({ children }: MenuContentProps) {
+  const { open, close } = React.useContext(MenuContext)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [focusedIndex, setFocusedIndex] = useState(-1)
+
+  useEffect(() => {
+    if (open && contentRef.current) {
+      setFocusedIndex(0)
+      const items = contentRef.current.querySelectorAll(
+        '[role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]',
+      )
+      if (items.length > 0) {
+        ;(items[0] as HTMLElement).focus()
+      }
+    }
+    if (!open) setFocusedIndex(-1)
+  }, [open])
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const container = contentRef.current
+      if (!container) return
+
+      const items = Array.from(
+        container.querySelectorAll(
+          '[role="menuitem"]:not([aria-disabled="true"]), [role="menuitemcheckbox"]:not([aria-disabled="true"]), [role="menuitemradio"]:not([aria-disabled="true"])',
+        ),
+      ) as HTMLElement[]
+      if (items.length === 0) return
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        const next = focusedIndex + 1 >= items.length ? 0 : focusedIndex + 1
+        setFocusedIndex(next)
+        items[next]?.focus()
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        const prev = focusedIndex - 1 < 0 ? items.length - 1 : focusedIndex - 1
+        setFocusedIndex(prev)
+        items[prev]?.focus()
+      } else if (e.key === 'Home') {
+        e.preventDefault()
+        setFocusedIndex(0)
+        items[0]?.focus()
+      } else if (e.key === 'End') {
+        e.preventDefault()
+        setFocusedIndex(items.length - 1)
+        items[items.length - 1]?.focus()
+      } else if (e.key === 'Escape' || e.key === 'Tab') {
+        e.preventDefault()
+        close()
+      }
+    },
+    [close, focusedIndex],
+  )
+
+  if (!open) return null
+
   return (
-    <MenuContent
-      backgroundColor="$background"
-      borderRadius="$4"
-      borderWidth={1}
-      borderColor="$borderColor"
-      padding="$2"
-      elevation="$4"
-      minWidth={180}
-      animation="medium"
-      enterStyle={{ opacity: 0, scale: 0.95, y: -4 }}
-      exitStyle={{ opacity: 0, scale: 0.95, y: -4 }}
+    <MenuContentFrame
+      ref={contentRef}
+      role="menu"
+      onKeyDown={handleKeyDown}
+      style={{ position: 'absolute', top: '100%', left: 0, marginTop: 4, zIndex: 50 }}
     >
       {children}
-    </MenuContent>
+    </MenuContentFrame>
   )
 }
 
 function Group({ children }: { children: React.ReactNode }) {
-  return <MenuGroup>{children}</MenuGroup>
+  return <div role="group">{children}</div>
 }
 
 function Label({ children }: { children: React.ReactNode }) {
-  return (
-    <MenuLabel
-      paddingHorizontal="$3"
-      paddingVertical="$1"
-      color="$colorSubtitle"
-      fontSize="$2"
-      fontFamily="$body"
-    >
-      {children}
-    </MenuLabel>
-  )
+  return <MenuLabelFrame>{children}</MenuLabelFrame>
 }
 
 interface MenuItemProps {
@@ -100,41 +248,49 @@ interface MenuItemProps {
 }
 
 function Item({ children, onSelect, disabled }: MenuItemProps) {
+  const { close } = React.useContext(MenuContext)
+
+  const handleClick = useCallback(() => {
+    if (disabled) return
+    onSelect?.()
+    close()
+  }, [disabled, onSelect, close])
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if ((e.key === 'Enter' || e.key === ' ') && !disabled) {
+        e.preventDefault()
+        onSelect?.()
+        close()
+      }
+    },
+    [disabled, onSelect, close],
+  )
+
   return (
-    <MenuItem
-      onSelect={onSelect}
-      disabled={disabled}
-      paddingHorizontal="$3"
-      paddingVertical="$2"
-      borderRadius="$2"
-      cursor="pointer"
-      hoverStyle={{ backgroundColor: '$color4' }}
-      focusVisibleStyle={{ backgroundColor: '$color4' }}
-      opacity={disabled ? 0.5 : 1}
+    <MenuItemFrame
+      role="menuitem"
+      aria-disabled={disabled || undefined}
+      tabIndex={-1}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      style={{ opacity: disabled ? 0.5 : 1, cursor: disabled ? 'not-allowed' : 'pointer' }}
     >
       {children}
-    </MenuItem>
+    </MenuItemFrame>
   )
 }
 
 function ItemTitle({ children }: { children: React.ReactNode }) {
-  return (
-    <MenuItemTitle fontSize="$3" fontFamily="$body" color="$color">
-      {children}
-    </MenuItemTitle>
-  )
+  return <MenuItemTitleText>{children}</MenuItemTitleText>
 }
 
 function ItemSubtitle({ children }: { children: React.ReactNode }) {
-  return (
-    <MenuItemSubtitle fontSize="$2" fontFamily="$body" color="$colorSubtitle">
-      {children}
-    </MenuItemSubtitle>
-  )
+  return <MenuItemSubtitleText>{children}</MenuItemSubtitleText>
 }
 
 function ItemIcon({ children }: { children: React.ReactNode }) {
-  return <MenuItemIcon>{children}</MenuItemIcon>
+  return <span style={{ display: 'flex', alignItems: 'center', marginRight: 8 }}>{children}</span>
 }
 
 interface CheckboxItemProps {
@@ -144,29 +300,48 @@ interface CheckboxItemProps {
   disabled?: boolean
 }
 
-function CheckboxItem({
-  children,
-  checked,
-  onCheckedChange,
-  disabled,
-}: CheckboxItemProps) {
+function CheckboxItem({ children, checked, onCheckedChange, disabled }: CheckboxItemProps) {
+  const { close } = React.useContext(MenuContext)
+
+  const handleClick = useCallback(() => {
+    if (disabled) return
+    onCheckedChange?.(!checked)
+    close()
+  }, [disabled, checked, onCheckedChange, close])
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if ((e.key === 'Enter' || e.key === ' ') && !disabled) {
+        e.preventDefault()
+        onCheckedChange?.(!checked)
+        close()
+      }
+    },
+    [disabled, checked, onCheckedChange, close],
+  )
+
   return (
-    <MenuCheckboxItem
-      checked={checked}
-      onCheckedChange={onCheckedChange}
-      disabled={disabled}
-      paddingHorizontal="$3"
-      paddingVertical="$2"
-      borderRadius="$2"
-      cursor="pointer"
-      hoverStyle={{ backgroundColor: '$color4' }}
-      focusVisibleStyle={{ backgroundColor: '$color4' }}
-      opacity={disabled ? 0.5 : 1}
+    <MenuItemFrame
+      role="menuitemcheckbox"
+      aria-checked={checked}
+      aria-disabled={disabled || undefined}
+      tabIndex={-1}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      style={{ opacity: disabled ? 0.5 : 1, cursor: disabled ? 'not-allowed' : 'pointer' }}
     >
+      <span style={{ width: 16, display: 'flex', alignItems: 'center' }}>
+        {checked && '\u2713'}
+      </span>
       {children}
-    </MenuCheckboxItem>
+    </MenuItemFrame>
   )
 }
+
+const RadioGroupContext = React.createContext<{
+  value?: string
+  onValueChange?: (value: string) => void
+}>({})
 
 function RadioGroup({
   children,
@@ -178,9 +353,9 @@ function RadioGroup({
   onValueChange?: (value: string) => void
 }) {
   return (
-    <MenuRadioGroup value={value} onValueChange={onValueChange}>
-      {children}
-    </MenuRadioGroup>
+    <RadioGroupContext.Provider value={{ value, onValueChange }}>
+      <div role="group">{children}</div>
+    </RadioGroupContext.Provider>
   )
 }
 
@@ -193,48 +368,86 @@ function RadioItem({
   value: string
   disabled?: boolean
 }) {
+  const { close } = React.useContext(MenuContext)
+  const { value: selectedValue, onValueChange } = React.useContext(RadioGroupContext)
+  const isChecked = selectedValue === value
+
+  const handleClick = useCallback(() => {
+    if (disabled) return
+    onValueChange?.(value)
+    close()
+  }, [disabled, value, onValueChange, close])
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if ((e.key === 'Enter' || e.key === ' ') && !disabled) {
+        e.preventDefault()
+        onValueChange?.(value)
+        close()
+      }
+    },
+    [disabled, value, onValueChange, close],
+  )
+
   return (
-    <MenuRadioItem
-      value={value}
-      disabled={disabled}
-      paddingHorizontal="$3"
-      paddingVertical="$2"
-      borderRadius="$2"
-      cursor="pointer"
-      hoverStyle={{ backgroundColor: '$color4' }}
-      focusVisibleStyle={{ backgroundColor: '$color4' }}
-      opacity={disabled ? 0.5 : 1}
+    <MenuItemFrame
+      role="menuitemradio"
+      aria-checked={isChecked}
+      aria-disabled={disabled || undefined}
+      tabIndex={-1}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      style={{ opacity: disabled ? 0.5 : 1, cursor: disabled ? 'not-allowed' : 'pointer' }}
     >
+      <span style={{ width: 16, display: 'flex', alignItems: 'center' }}>
+        {isChecked && '\u2022'}
+      </span>
       {children}
-    </MenuRadioItem>
+    </MenuItemFrame>
   )
 }
 
 function ItemIndicator({ children }: { children?: React.ReactNode }) {
-  return <MenuItemIndicator>{children}</MenuItemIndicator>
+  return <span style={{ display: 'flex', alignItems: 'center' }}>{children}</span>
 }
 
 function Separator() {
-  return <MenuSeparator borderColor="$borderColor" marginVertical="$1" />
+  return <MenuSeparatorFrame />
 }
 
 function Arrow() {
-  return <MenuArrow borderWidth={1} borderColor="$borderColor" />
+  return null
 }
+
+const SubContext = React.createContext<{
+  open: boolean
+  setOpen: (v: boolean) => void
+}>({ open: false, setOpen: () => {} })
 
 function Sub({
   children,
-  open,
+  open: controlledOpen,
   onOpenChange,
 }: {
   children: React.ReactNode
   open?: boolean
   onOpenChange?: (open: boolean) => void
 }) {
+  const [internalOpen, setInternalOpen] = useState(false)
+  const open = controlledOpen ?? internalOpen
+
+  const setOpen = useCallback(
+    (v: boolean) => {
+      setInternalOpen(v)
+      onOpenChange?.(v)
+    },
+    [onOpenChange],
+  )
+
   return (
-    <MenuSub open={open} onOpenChange={onOpenChange}>
-      {children}
-    </MenuSub>
+    <SubContext.Provider value={{ open, setOpen }}>
+      <div style={{ position: 'relative' }}>{children}</div>
+    </SubContext.Provider>
   )
 }
 
@@ -245,38 +458,51 @@ function SubTrigger({
   children: React.ReactNode
   disabled?: boolean
 }) {
+  const { open, setOpen } = React.useContext(SubContext)
+
   return (
-    <MenuSubTrigger
-      disabled={disabled}
-      paddingHorizontal="$3"
-      paddingVertical="$2"
-      borderRadius="$2"
-      cursor="pointer"
-      hoverStyle={{ backgroundColor: '$color4' }}
-      focusVisibleStyle={{ backgroundColor: '$color4' }}
-      opacity={disabled ? 0.5 : 1}
+    <MenuItemFrame
+      role="menuitem"
+      aria-haspopup="menu"
+      aria-expanded={open}
+      aria-disabled={disabled || undefined}
+      tabIndex={-1}
+      onMouseEnter={disabled ? undefined : () => setOpen(true)}
+      onMouseLeave={disabled ? undefined : () => setOpen(false)}
+      onKeyDown={(e: React.KeyboardEvent) => {
+        if (e.key === 'ArrowRight' && !disabled) {
+          e.preventDefault()
+          setOpen(true)
+        } else if (e.key === 'ArrowLeft' || e.key === 'Escape') {
+          e.preventDefault()
+          setOpen(false)
+        }
+      }}
+      style={{
+        justifyContent: 'space-between',
+        opacity: disabled ? 0.5 : 1,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+      }}
     >
       {children}
-    </MenuSubTrigger>
+      <span aria-hidden>&#x25B8;</span>
+    </MenuItemFrame>
   )
 }
 
 function SubContent({ children }: { children: React.ReactNode }) {
+  const { open } = React.useContext(SubContext)
+
+  if (!open) return null
+
   return (
-    <MenuSubContent
-      backgroundColor="$background"
-      borderRadius="$4"
-      borderWidth={1}
-      borderColor="$borderColor"
-      padding="$2"
-      elevation="$4"
-      minWidth={180}
-      animation="medium"
-      enterStyle={{ opacity: 0, scale: 0.95, x: -4 }}
-      exitStyle={{ opacity: 0, scale: 0.95, x: -4 }}
+    <MenuContentFrame
+      role="menu"
+      onMouseEnter={() => {}}
+      style={{ position: 'absolute', left: '100%', top: 0, marginLeft: 4, zIndex: 51 }}
     >
       {children}
-    </MenuSubContent>
+    </MenuContentFrame>
   )
 }
 
