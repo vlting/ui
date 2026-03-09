@@ -28,5 +28,22 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vlting/ui.git",
+    "directory": "packages/mcp-server"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "design-system",
+    "vlting",
+    "ui",
+    "component-library",
+    "ai"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }
