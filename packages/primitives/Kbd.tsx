@@ -1,50 +1,27 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType } from 'react'
+import { styled } from '../stl-react/src/config'
 
-const KbdFrame = styledHtml('kbd', {
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  fontFamily: '$mono',
-  backgroundColor: '$color2',
-  borderWidth: 1,
-  borderStyle: 'solid',
-  borderColor: '$borderColor',
-  borderBottomWidth: 2,
-  color: '$color',
-
-  variants: {
-    size: {
-      sm: {
-        fontSize: '$1',
-        lineHeight: '$1',
-        paddingLeft: 4,
-        paddingRight: 4,
-        paddingTop: 1,
-        paddingBottom: 1,
-        borderRadius: '$2',
-        minWidth: 20,
-      },
-      md: {
-        fontSize: '$2',
-        lineHeight: '$1',
-        paddingLeft: 6,
-        paddingRight: 6,
-        paddingTop: 2,
-        paddingBottom: 2,
-        borderRadius: '$2',
-        minWidth: 24,
-      },
-    },
-  } as const,
-
-  defaultVariants: {
-    size: 'md',
+const KbdFrame = styled(
+  "kbd",
+  {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontFamily: "$code",
+    backgroundColor: "$surface2",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "$borderColor",
+    borderBottomWidth: "2px",
+    color: "$color",
   },
-} as any)
-
-// Cast for JSX usage — v2 RC GetFinalProps bug
-const KbdJsx = KbdFrame as ComponentType<Record<string, unknown>>
+  {
+    size: {
+      sm: { fontSize: "$12", borderRadius: "$2", minWidth: "20px", paddingLeft: "4px", paddingRight: "4px", paddingTop: "1px", paddingBottom: "1px" },
+      md: { fontSize: "$14", borderRadius: "$2", minWidth: "24px", paddingLeft: "6px", paddingRight: "6px", paddingTop: "2px", paddingBottom: "2px" },
+    },
+  },
+  "Kbd"
+)
 
 export interface KbdProps {
   children: string
@@ -52,5 +29,5 @@ export interface KbdProps {
 }
 
 export function Kbd({ children, size = 'md' }: KbdProps) {
-  return <KbdJsx size={size}>{children}</KbdJsx>
+  return <KbdFrame size={size}>{children}</KbdFrame>
 }
