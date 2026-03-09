@@ -1,0 +1,145 @@
+---
+slug: stl-migration
+status: planning
+created: 2026-03-09
+---
+# Replace Tamagui with @vlting/stl
+
+## Overview
+
+vlt-ui has 238+ components on Tamagui v2 RC (2.0.0-rc.14) with 208 `@ts-expect-error` hacks and 263+ type casts due to fundamental bugs in v2 RC's type system. Replace with a forked, rebranded Quarks engine (`@vlting/stl`) — zero-runtime CSS via Vanilla Extract, 18 token scales, clean `styled()` API.
+
+**Key decisions:**
+- Fork quarks into monorepo (no git history needed)
+- `@vlting/stl` / `stl-react` / `stl-native` / `stl-headless` package split
+- Drop BrandDefinition factory → simple data objects + CSS variable injection
+- Build `stl-headless` from scratch (React Aria hooks on web, custom RN adapters)
+- Bottom-up migration: foundation → primitives → simple → compound → blocks
+- Vite + Vanilla Extract build (replaces `tamagui-build`)
+- No backwards compat needed (not in production)
+
+**Source:** neutron-ui quarks packages at `/Users/lucas/Sites/neutron-ui/packages/`
+
+## Metadata
+- **Saga issue:** #105
+- **Created:** 2026-03-09
+- **Auto-merge:** false
+- **Integrations:** github
+
+## Epic 1: Foundation Setup
+**Objective:** Copy quarks into monorepo as @vlting/stl, rebrand, production-harden, set up build pipeline, map token scales, replace Provider
+**Dependencies:** none
+**Epic slug:** stl-foundation
+**Epic branch:** epic/stl-foundation
+**Status:** pending
+
+### Stage 1.1: Package Scaffold & Rebrand
+**Branch prefix:** chore
+**Acceptance criteria:**
+- [ ] quarks source copied to packages/stl/, packages/stl-react/, packages/stl-native/
+- [ ] All `@withneutron/quarks` references rebranded to `@vlting/stl`
+- [ ] All `Quarks` identifiers renamed to `Stl` (QuarksProvider → StlProvider, etc.)
+- [ ] Debug console.log statements removed from StyleManager
+- [ ] package.json files updated with correct names, deps, and build outputs
+- [ ] vite.config.ts files updated with correct output filenames
+- [ ] TypeScript compiles without errors in all 3 packages
+**Status:** pending
+
+### Stage 1.2: Token Scale Mapping
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] vlt-ui token scales (size, space, radius, color, zIndex, borderWidth) mapped to stl scale system
+- [ ] 12-step color palettes (light + dark) integrated
+- [ ] Surface themes and shadow scales mapped
+- [ ] Brand system simplified to plain data objects + CSS variable injection
+- [ ] BrandDefinition factory pattern removed
+**Status:** pending
+
+### Stage 1.3: Provider & Build Pipeline
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] TamaguiProvider replaced with StlProvider in src/provider/Provider.tsx
+- [ ] Vite + Vanilla Extract build pipeline configured (replaces tamagui-build)
+- [ ] Package exports updated in root package.json
+- [ ] tsconfig paths updated for new packages
+- [ ] Build produces correct ESM + CJS output
+- [ ] Tamagui dependencies removed from package.json
+**Status:** pending
+
+## Epic 2: Primitives Migration
+**Objective:** Migrate 18 primitive components from Tamagui styled() to stl styled()
+**Dependencies:** Epic 1
+**Epic slug:** stl-primitives
+**Epic branch:** epic/stl-primitives
+**Status:** pending
+
+### Stage 2.1: Layout Primitives
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] Box, Stack, VStack, HStack migrated to stl styled()
+- [ ] Spacer, Divider, Separator migrated
+- [ ] AspectRatio migrated
+- [ ] Zero @ts-expect-error in migrated files
+- [ ] All existing tests pass
+**Status:** pending
+
+### Stage 2.2: Text & Visual Primitives
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] Text, Heading migrated to stl styled()
+- [ ] Badge, Skeleton, Spinner, Kbd migrated
+- [ ] Icon component migrated (Lucide icon compat)
+- [ ] Label, VisuallyHidden, Portal migrated
+- [ ] Zero @ts-expect-error in migrated files
+- [ ] All existing tests pass
+**Status:** pending
+
+## Epic 3: Components & Headless Layer
+**Objective:** Migrate ~55 components, build stl-headless with React Aria hooks
+**Dependencies:** Epic 2
+**Epic slug:** stl-components
+**Epic branch:** epic/stl-components
+**Status:** pending
+
+### Stage 3.1: Simple Components
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] Alert, Card, Avatar migrated
+- [ ] All simple styled-only components migrated (~35 total)
+- [ ] Zero @ts-expect-error in migrated files
+**Status:** pending
+
+### Stage 3.2: Headless Layer Setup
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] packages/stl-headless/ created with package scaffold
+- [ ] Core hooks: useDialog, useSelect, useToast, usePopover, useAccordion
+- [ ] React Aria hooks integrated as web behavioral foundation
+- [ ] Cross-platform state logic (platform-agnostic)
+**Status:** pending
+
+### Stage 3.3: Compound Components
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] Dialog, Sheet, Select, Toast, Popover migrated using headless hooks
+- [ ] Accordion, Tabs, Tooltip, AlertDialog migrated
+- [ ] Collapsible, Slider, Menu migrated
+- [ ] Full keyboard navigation and a11y preserved
+**Status:** pending
+
+## Epic 4: Blocks Migration
+**Objective:** Migrate 10 block layouts composed from migrated components
+**Dependencies:** Epic 3
+**Epic slug:** stl-blocks
+**Epic branch:** epic/stl-blocks
+**Status:** pending
+
+### Stage 4.1: Block Migration
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] All 10 blocks migrated (Auth, Dashboard, DataTable, Settings, Pricing, etc.)
+- [ ] Tamagui fully removed from codebase
+- [ ] Zero @ts-expect-error remaining
+- [ ] All tests pass
+- [ ] Build succeeds with Vite + Vanilla Extract
+**Status:** pending

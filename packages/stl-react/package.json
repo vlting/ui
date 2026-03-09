@@ -1,0 +1,79 @@
+{
+  "name": "@vlting/stl-react",
+  "version": "0.0.1",
+  "type": "module",
+  "author": "Lucas Castro <lucas.castro@gmail.com>",
+  "description": "STL React - Style Token Layer bindings for React",
+  "main": "dist/stl-react.js",
+  "module": "dist/stl-react.es.js",
+  "jsnext:main": "dist/stl-react.es.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": false,
+  "directories": {
+    "dist": "dist",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/stl-react.es.js",
+      "require": "./dist/stl-react.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./styles": {
+      "import": "./dist/stl-react.css",
+      "require": "./dist/stl-react.css"
+    }
+  },
+  "scripts": {
+    "build:js": "vite build",
+    "build:types": "tsc --declaration --declarationDir dist/types",
+    "build": "yarn build:js && yarn build:types",
+    "watch": "vite build --watch",
+    "build:lib": "yarn build",
+    "watch:lib": "yarn watch",
+    "version": "changeset version",
+    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "bugs": {
+    "url": "https://github.com/vlting/ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vlting/ui.git",
+    "directory": "packages/stl-react"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "dependencies": {
+    "@vlting/stl": "^0.0.1"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "20.12.12",
+    "@types/react": "18.3.2",
+    "@typescript-eslint/eslint-plugin": "7.9.0",
+    "@typescript-eslint/parser": "7.9.0",
+    "eslint": "9.2.0",
+    "eslint-config-prettier": "9.x",
+    "eslint-plugin-react": "7.x",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^3.2.4"
+  }
+}
