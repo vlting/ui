@@ -1,51 +1,63 @@
-import { Tabs as TamaguiTabs, useTabsContext } from '@tamagui/tabs'
-import type React from 'react'
-import type { ComponentType } from 'react'
-import { Text, View, styled } from 'tamagui'
+import React, { createContext, useCallback, useContext, useId, useState } from 'react'
+import { styled } from '../../stl-react/src/config'
 
-// Cast for JSX usage — Tamagui v2 RC GetFinalProps bug
-const TamaguiTabsJsx = TamaguiTabs as ComponentType<Record<string, unknown>>
-const TamaguiTabsListJsx = TamaguiTabs.List as ComponentType<Record<string, unknown>>
-const TamaguiTabsTabJsx = TamaguiTabs.Tab as unknown as ComponentType<
-  Record<string, unknown>
->
-const TamaguiTabsContentJsx = TamaguiTabs.Content as unknown as ComponentType<
-  Record<string, unknown>
->
-
-// Map named sizes to padding values
-const SIZE_PADDING_MAP: Record<string, { h: string; v: string }> = {
-  sm: { h: '$2', v: '$1' },
-  md: { h: '$3', v: '$2' },
-  lg: { h: '$4', v: '$3' },
+interface TabsContextValue {
+  value: string
+  onValueChange: (value: string) => void
+  baseId: string
 }
 
-const StyledTriggerText = styled(Text, {
-  fontFamily: '$body',
-  fontWeight: '$3',
+const TabsContext = createContext<TabsContextValue>({
+  value: '',
+  onValueChange: () => {},
+  baseId: '',
+})
 
-  variants: {
-    active: {
-      // @ts-expect-error Tamagui v2 RC
-      true: { color: '$color10' },
-      // @ts-expect-error Tamagui v2 RC
-      false: { color: '$colorSubtitle' },
-    },
+const TabsRootFrame = styled("div", { display: "flex", flexDirection: "column" }, "Tabs")
+
+const TabsListFrame = styled(
+  "div",
+  {
+    display: "inline-flex",
+    alignItems: "center",
+    backgroundColor: "var(--color3)",
+    borderRadius: "8px",
+    padding: "4px",
+    gap: "0",
+  },
+  "TabsList"
+)
+
+const TabsTriggerFrame = styled(
+  "button",
+  {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    border: "none",
+    cursor: "pointer",
+    borderRadius: "6px",
+    fontFamily: "var(--font-body)",
+    fontWeight: "500",
+    backgroundColor: "transparent",
+    color: "var(--colorSubtitle)",
+    transition: "background-color 150ms ease, color 150ms ease",
+  },
+  {
     size: {
-      // @ts-expect-error Tamagui v2 RC
-      sm: { fontSize: '$2' },
-      // @ts-expect-error Tamagui v2 RC
-      md: { fontSize: '$3' },
-      // @ts-expect-error Tamagui v2 RC
-      lg: { fontSize: '$4' },
+      sm: { paddingLeft: "8px", paddingRight: "8px", paddingTop: "4px", paddingBottom: "4px", fontSize: "var(--fontSize-2, 12px)" },
+      md: { paddingLeft: "12px", paddingRight: "12px", paddingTop: "8px", paddingBottom: "8px", fontSize: "var(--fontSize-3, 14px)" },
+      lg: { paddingLeft: "16px", paddingRight: "16px", paddingTop: "12px", paddingBottom: "12px", fontSize: "var(--fontSize-4, 16px)" },
     },
-  } as const,
-})
+  },
+  "TabsTrigger"
+)
 
-// @ts-expect-error Tamagui v2 RC
-const StyledContent = styled(View, {
-  paddingVertical: '$3',
-})
+const TabsContentFrame = styled(
+  "div",
+  { paddingTop: "12px", paddingBottom: "12px" },
+  "TabsContent"
+)
 
 export interface TabsRootProps {
   children: React.ReactNode
@@ -55,11 +67,21 @@ export interface TabsRootProps {
   orientation?: 'horizontal' | 'vertical'
 }
 
-function Root({ children, ...props }: TabsRootProps) {
+function Root({ children, value: controlledValue, defaultValue = '', onValueChange, ...props }: TabsRootProps) {
+  const [internalValue, setInternalValue] = useState(defaultValue)
+  const isControlled = controlledValue !== undefined
+  const value = isControlled ? controlledValue : internalValue
+  const baseId = useId()
+
+  const handleValueChange = useCallback((newValue: string) => {
+    if (!isControlled) setInternalValue(newValue)
+    onValueChange?.(newValue)
+  }, [isControlled, onValueChange])
+
   return (
-    <TamaguiTabsJsx {...props} activationMode="manual">
-      {children}
-    </TamaguiTabsJsx>
+    <TabsContext.Provider value={{ value, onValueChange: handleValueChange, baseId }}>
+      <TabsRootFrame>{children}</TabsRootFrame>
+    </TabsContext.Provider>
   )
 }
 
@@ -70,16 +92,7 @@ export interface TabsListProps {
 
 function List({ children }: TabsListProps) {
   return (
-    <TamaguiTabsListJsx
-      unstyled
-      backgroundColor="$color3"
-      borderRadius="$4"
-      padding="$1"
-      gap="$0"
-      alignItems="center"
-    >
-      {children}
-    </TamaguiTabsListJsx>
+    <TabsListFrame role="tablist">{children}</TabsListFrame>
   )
 }
 
@@ -90,41 +103,28 @@ interface StyledTabsTriggerProps {
   size?: 'sm' | 'md' | 'lg'
 }
 
-function Trigger({
-  children,
-  value: tabValue,
-  disabled,
-  size = 'md',
-}: StyledTabsTriggerProps) {
-  const context = useTabsContext()
-  const isSelected = tabValue === context.value
-  const padding = SIZE_PADDING_MAP[size]
+function Trigger({ children, value: tabValue, disabled, size = 'md' }: StyledTabsTriggerProps) {
+  const { value, onValueChange, baseId } = useContext(TabsContext)
+  const isSelected = tabValue === value
 
   return (
-    <TamaguiTabsTabJsx
-      value={tabValue}
+    <TabsTriggerFrame
+      role="tab"
+      aria-selected={isSelected}
+      aria-controls={`${baseId}-panel-${tabValue}`}
+      id={`${baseId}-tab-${tabValue}`}
+      tabIndex={isSelected ? 0 : -1}
       disabled={disabled}
-      unstyled
-      paddingHorizontal={padding.h}
-      paddingVertical={padding.v}
-      borderRadius="$3"
-      cursor={disabled ? 'not-allowed' : 'pointer'}
-      alignItems="center"
-      justifyContent="center"
-      backgroundColor={isSelected ? '$background' : 'transparent'}
-      hoverStyle={isSelected ? undefined : { backgroundColor: '$backgroundHover' }}
-      focusVisibleStyle={{
-        outlineWidth: 2,
-        outlineOffset: 1,
-        outlineColor: '$outlineColor',
-        outlineStyle: 'solid',
+      onClick={() => !disabled && onValueChange(tabValue)}
+      size={size}
+      style={{
+        backgroundColor: isSelected ? 'var(--background)' : undefined,
+        color: isSelected ? 'var(--color10)' : undefined,
+        cursor: disabled ? 'not-allowed' : 'pointer',
       }}
     >
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledTriggerText active={isSelected} size={size}>
-        {children}
-      </StyledTriggerText>
-    </TamaguiTabsTabJsx>
+      {children}
+    </TabsTriggerFrame>
   )
 }
 
@@ -133,12 +133,19 @@ export interface TabsContentProps {
   value: string
 }
 
-function Content({ children, value }: TabsContentProps) {
+function Content({ children, value: tabValue }: TabsContentProps) {
+  const { value, baseId } = useContext(TabsContext)
+  if (tabValue !== value) return null
+
   return (
-    <TamaguiTabsContentJsx value={value}>
-      {/* @ts-expect-error Tamagui v2 RC */}
-      <StyledContent>{children}</StyledContent>
-    </TamaguiTabsContentJsx>
+    <TabsContentFrame
+      role="tabpanel"
+      id={`${baseId}-panel-${tabValue}`}
+      aria-labelledby={`${baseId}-tab-${tabValue}`}
+      tabIndex={0}
+    >
+      {children}
+    </TabsContentFrame>
   )
 }
 
