@@ -1,39 +1,34 @@
 import type React from 'react'
-import type { ComponentType } from 'react'
-import { View, Text, styled } from 'tamagui'
-import type { GetProps } from 'tamagui'
+import { styled } from '../stl-react/src/config'
 
-// Standard sr-only technique using inline styles for properties Tamagui doesn't support
 const srOnlyStyle: React.CSSProperties = {
   clip: 'rect(0, 0, 0, 0)',
   clipPath: 'inset(50%)',
   whiteSpace: 'nowrap',
 }
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const TextJsx = Text as AnyFC
+const VisuallyHiddenFrame = styled(
+  "span",
+  {
+    position: "absolute",
+    width: "1px",
+    height: "1px",
+    padding: "0",
+    margin: "-1px",
+    overflow: "hidden",
+    borderWidth: "0",
+  },
+  "VisuallyHidden"
+)
 
-// @ts-expect-error Tamagui v2 RC
-const VisuallyHiddenFrame = styled(View, {
-  position: 'absolute',
-  width: 1,
-  height: 1,
-  padding: 0,
-  margin: -1,
-  overflow: 'hidden',
-  borderWidth: 0,
-})
+export interface VisuallyHiddenProps {
+  children?: React.ReactNode
+}
 
-export function VisuallyHidden({
-  children,
-  ...props
-}: GetProps<typeof VisuallyHiddenFrame> & { children?: React.ReactNode }) {
+export function VisuallyHidden({ children, ...props }: VisuallyHiddenProps) {
   return (
-    // @ts-expect-error Tamagui v2 RC
-    <VisuallyHiddenFrame {...props} style={srOnlyStyle}>
-      <TextJsx>{children}</TextJsx>
+    <VisuallyHiddenFrame style={srOnlyStyle} {...props}>
+      {children}
     </VisuallyHiddenFrame>
   )
 }
-
-export type VisuallyHiddenProps = GetProps<typeof VisuallyHidden>

@@ -1,12 +1,6 @@
-import type { GetProps } from 'tamagui'
-import { XStack as TXStack, YStack as TYStack, styled } from 'tamagui'
+import { Column } from '../stl-react/src/primitives/Column/Column'
+import { Row } from '../stl-react/src/primitives/Row/Row'
 
-export const VStack = styled(TYStack, {})
-export type VStackProps = GetProps<typeof VStack>
-
-export const HStack = styled(TXStack, {})
-export type HStackProps = GetProps<typeof HStack>
-
-/** Alias for VStack — default vertical layout */
-export const Stack = VStack
-export type StackProps = VStackProps
+export const VStack = Column
+export const HStack = Row
+export const Stack = Column

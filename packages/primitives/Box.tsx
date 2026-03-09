@@ -1,15 +1,12 @@
-import type { GetProps } from 'tamagui'
-import { View, styled } from 'tamagui'
+import { styled } from '../stl-react/src/config'
 
-export const Box = styled(View, {
-  variants: {
+export const Box = styled(
+  "div",
+  {},
+  {
     centered: {
-      true: {
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
+      true: { display: "flex", alignItems: "center", justifyContent: "center" },
     },
-  } as const,
-} as any)
-
-export type BoxProps = GetProps<typeof Box>
+  },
+  "Box"
+)

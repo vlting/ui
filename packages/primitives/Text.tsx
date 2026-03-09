@@ -1,38 +1,42 @@
-import type { GetProps } from 'tamagui'
-import { Text as TText, styled } from 'tamagui'
+import type { ComponentProps } from 'react'
+import { styled } from '../stl-react/src/config'
 
-export const Text = styled(TText, {
-  fontFamily: '$body',
-  color: '$color',
-
-  variants: {
+const TextFrame = styled(
+  "p",
+  { fontFamily: "$body", color: "$color", fontSize: "$16", lineHeight: "$body" },
+  {
     size: {
-      xs: { fontSize: '$1', lineHeight: '$1' },
-      sm: { fontSize: '$2', lineHeight: '$2' },
-      md: { fontSize: '$4', lineHeight: '$4' },
-      lg: { fontSize: '$6', lineHeight: '$6' },
-      xl: { fontSize: '$8', lineHeight: '$8' },
+      xs: { fontSize: "$12" },
+      sm: { fontSize: "$14" },
+      md: { fontSize: "$16" },
+      lg: { fontSize: "$18" },
+      xl: { fontSize: "$21" },
     },
     tone: {
-      neutral: { color: '$color' },
-      muted: { color: '$colorSubtitle' },
-      primary: { color: '$color10' },
-      success: { color: '$green10' },
-      warning: { color: '$orange10' },
-      danger: { color: '$red10' },
+      neutral: { color: "$color" },
+      muted: { color: "$secondaryText12" },
+      primary: { color: "$primary10" },
+      success: { color: "$green10" },
+      warning: { color: "$orange10" },
+      danger: { color: "$red10" },
     },
     weight: {
-      light: { fontWeight: '$1' },
-      normal: { fontWeight: '$2' },
-      medium: { fontWeight: '$3' },
-      semibold: { fontWeight: '$4' },
-      bold: { fontWeight: '$5' },
+      light: { fontWeight: "$300" },
+      normal: { fontWeight: "$400" },
+      medium: { fontWeight: "$500" },
+      semibold: { fontWeight: "$600" },
+      bold: { fontWeight: "$700" },
     },
-  } as const,
-
-  defaultVariants: {
-    size: 'md',
   },
-} as any)
+  "Text"
+)
 
-export type TextProps = GetProps<typeof Text>
+export interface TextProps extends ComponentProps<typeof TextFrame> {
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  tone?: 'neutral' | 'muted' | 'primary' | 'success' | 'warning' | 'danger'
+  weight?: 'light' | 'normal' | 'medium' | 'semibold' | 'bold'
+}
+
+export function Text({ size = 'md', ...props }: TextProps) {
+  return <TextFrame size={size} {...props} />
+}
