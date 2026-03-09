@@ -1,67 +1,41 @@
-import { Text, styled } from 'tamagui'
-import type { GetProps } from 'tamagui'
+import { styled } from '../stl-react/src/config'
+import type { ComponentProps } from 'react'
 
-export const Badge = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$1',
-  fontWeight: '$4',
-  paddingHorizontal: '$2',
-  paddingVertical: '$1',
-  borderRadius: '$10',
-  overflow: 'hidden',
-  alignSelf: 'flex-start',
-
-  variants: {
+const BadgeFrame = styled(
+  "span",
+  {
+    display: "inline-flex",
+    alignItems: "center",
+    fontFamily: "$body",
+    fontSize: "$12",
+    fontWeight: "$600",
+    borderRadius: "$full",
+    overflow: "hidden",
+    alignSelf: "flex-start",
+  },
+  {
     variant: {
-      // shadcn: "default" — solid primary background
-      default: {
-        backgroundColor: '$color6',
-        color: '$color1',
-      },
-      // Backwards compat alias
-      solid: {
-        backgroundColor: '$color6',
-        color: '$color1',
-      },
-      // shadcn: "secondary" — muted background
-      secondary: {
-        backgroundColor: '$color3',
-        color: '$color',
-      },
-      // shadcn: "destructive" — red background
-      destructive: {
-        backgroundColor: '$red10',
-        color: '$color1',
-      },
-      outline: {
-        backgroundColor: 'transparent',
-        borderWidth: 1,
-        borderColor: '$borderColor',
-        color: '$color',
-      },
-      subtle: {
-        backgroundColor: '$color3',
-        color: '$color11',
-      },
-    },
-    tone: {
-      neutral: {},
-      primary: {},
-      success: {},
-      warning: {},
-      danger: {},
+      default: { backgroundColor: "$primary6", color: "$white" },
+      solid: { backgroundColor: "$primary6", color: "$white" },
+      secondary: { backgroundColor: "$surface2", color: "$color" },
+      destructive: { backgroundColor: "$red10", color: "$white" },
+      outline: { backgroundColor: "transparent", borderWidth: "1px", borderStyle: "solid", borderColor: "$borderColor", color: "$color" },
+      subtle: { backgroundColor: "$surface2", color: "$tertiary11" },
     },
     size: {
-      sm: { fontSize: '$1', paddingHorizontal: '$1.5', paddingVertical: '$0.5' },
-      md: { fontSize: '$1', paddingHorizontal: '$2', paddingVertical: '$1' },
-      lg: { fontSize: '$2', paddingHorizontal: '$2.5', paddingVertical: '$1' },
+      sm: { fontSize: "$12", paddingLeft: "$1", paddingRight: "$1", paddingTop: "0px", paddingBottom: "0px" },
+      md: { fontSize: "$12", paddingLeft: "$2", paddingRight: "$2", paddingTop: "$1", paddingBottom: "$1" },
+      lg: { fontSize: "$14", paddingLeft: "$3", paddingRight: "$3", paddingTop: "$1", paddingBottom: "$1" },
     },
-  } as const,
-
-  defaultVariants: {
-    variant: 'default',
-    size: 'md',
   },
-} as any)
+  "Badge"
+)
 
-export type BadgeProps = GetProps<typeof Badge>
+export interface BadgeProps extends ComponentProps<typeof BadgeFrame> {
+  variant?: 'default' | 'solid' | 'secondary' | 'destructive' | 'outline' | 'subtle'
+  size?: 'sm' | 'md' | 'lg'
+}
+
+export function Badge({ variant = 'default', size = 'md', ...props }: BadgeProps) {
+  return <BadgeFrame variant={variant} size={size} {...props} />
+}
