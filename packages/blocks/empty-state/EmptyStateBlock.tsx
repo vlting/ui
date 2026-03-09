@@ -1,27 +1,17 @@
-import { styledHtml } from '@tamagui/web'
-import type { ComponentType, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { useState } from 'react'
-import { Text, View, YStack } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import type { BlockProps } from '../_shared/types'
 
-type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
-const YStackJsx = YStack as AnyFC
-const ButtonJsx = Button as AnyFC
-const ButtonTextJsx = Button.Text as AnyFC
-const InputJsx = Input as AnyFC
-
-const FormElement = styledHtml('form', {
-  display: 'flex',
-  flexDirection: 'row',
-  gap: 8,
-  width: '100%',
-  maxWidth: 360,
-} as any)
-const FormJsx = FormElement as AnyFC
+const FormElement = styled("form", {
+  display: "flex",
+  flexDirection: "row",
+  gap: "8px",
+  width: "100%",
+  maxWidth: "360px",
+}, "EmptyStateForm")
 
 // -- Types --
 
@@ -38,8 +28,6 @@ export interface EmptyStateBlockProps extends BlockProps {
   onNotify?: (email: string) => void
 }
 
-// -- Default titles --
-
 const variantDefaults: Record<EmptyStateBlockVariant, { title: string; description: string }> = {
   'no-data': {
     title: 'No items yet',
@@ -53,6 +41,16 @@ const variantDefaults: Record<EmptyStateBlockVariant, { title: string; descripti
     title: 'Coming soon',
     description: 'This feature is under development. Stay tuned!',
   },
+}
+
+const center = {
+  display: 'flex',
+  flexDirection: 'column' as const,
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '32px',
+  gap: '16px',
+  minHeight: '300px',
 }
 
 // -- Main component --
@@ -72,156 +70,60 @@ export function EmptyStateBlock(props: EmptyStateBlockProps) {
   }
 }
 
-// -- No data variant --
-
-function NoDataState({
-  title,
-  description,
-  icon,
-  action,
-}: EmptyStateBlockProps) {
+function NoDataState({ title, description, icon, action }: EmptyStateBlockProps) {
   return (
-    <YStackJsx
-      alignItems="center"
-      justifyContent="center"
-      padding="$8"
-      gap="$4"
-      minHeight={300}
-    >
-      {icon && (
-        <ViewJsx opacity={0.5} paddingBottom="$2">
-          {icon}
-        </ViewJsx>
-      )}
-      <TextJsx fontSize="$6" fontWeight="$4" fontFamily="$heading" color="$color" textAlign="center">
-        {title}
-      </TextJsx>
-      <TextJsx
-        fontSize="$4"
-        fontFamily="$body"
-        color="$colorSubtle"
-        textAlign="center"
-        style={{ maxWidth: 400 }}
-      >
-        {description}
-      </TextJsx>
+    <div style={center}>
+      {icon && <div style={{ opacity: 0.5, paddingBottom: '8px' }}>{icon}</div>}
+      <span style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center' }}>{title}</span>
+      <span style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}>{description}</span>
       {action && (
-        <ButtonJsx variant="default" onPress={action.onPress}>
-          <ButtonTextJsx>{action.label}</ButtonTextJsx>
-        </ButtonJsx>
+        <Button variant="default" onClick={action.onPress}>
+          <Button.Text>{action.label}</Button.Text>
+        </Button>
       )}
-    </YStackJsx>
+    </div>
   )
 }
 
-// -- Error variant --
-
-function ErrorState({
-  title,
-  description,
-  icon,
-  errorCode,
-  onRetry,
-}: EmptyStateBlockProps) {
+function ErrorState({ title, description, icon, errorCode, onRetry }: EmptyStateBlockProps) {
   return (
-    <YStackJsx
-      alignItems="center"
-      justifyContent="center"
-      padding="$8"
-      gap="$4"
-      minHeight={300}
-    >
-      {icon && (
-        <ViewJsx opacity={0.5} paddingBottom="$2">
-          {icon}
-        </ViewJsx>
-      )}
-      {errorCode && (
-        <TextJsx fontSize="$9" fontWeight="$4" fontFamily="$heading" color="$colorSubtle">
-          {errorCode}
-        </TextJsx>
-      )}
-      <TextJsx fontSize="$6" fontWeight="$4" fontFamily="$heading" color="$color" textAlign="center">
-        {title}
-      </TextJsx>
-      <TextJsx
-        fontSize="$4"
-        fontFamily="$body"
-        color="$colorSubtle"
-        textAlign="center"
-        style={{ maxWidth: 400 }}
-      >
-        {description}
-      </TextJsx>
+    <div style={center}>
+      {icon && <div style={{ opacity: 0.5, paddingBottom: '8px' }}>{icon}</div>}
+      {errorCode && <span style={{ fontSize: '36px', fontWeight: 600, opacity: 0.3 }}>{errorCode}</span>}
+      <span style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center' }}>{title}</span>
+      <span style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}>{description}</span>
       {onRetry && (
-        <ButtonJsx variant="default" onPress={onRetry}>
-          <ButtonTextJsx>Try again</ButtonTextJsx>
-        </ButtonJsx>
+        <Button variant="default" onClick={onRetry}>
+          <Button.Text>Try again</Button.Text>
+        </Button>
       )}
-    </YStackJsx>
+    </div>
   )
 }
 
-// -- Coming soon variant --
-
-function ComingSoonState({
-  title,
-  description,
-  icon,
-  onNotify,
-}: EmptyStateBlockProps) {
+function ComingSoonState({ title, description, icon, onNotify }: EmptyStateBlockProps) {
   const [email, setEmail] = useState('')
 
   return (
-    <YStackJsx
-      alignItems="center"
-      justifyContent="center"
-      padding="$8"
-      gap="$4"
-      minHeight={300}
-    >
-      {icon && (
-        <ViewJsx opacity={0.5} paddingBottom="$2">
-          {icon}
-        </ViewJsx>
-      )}
-      <TextJsx fontSize="$6" fontWeight="$4" fontFamily="$heading" color="$color" textAlign="center">
-        {title}
-      </TextJsx>
-      <TextJsx
-        fontSize="$4"
-        fontFamily="$body"
-        color="$colorSubtle"
-        textAlign="center"
-        style={{ maxWidth: 400 }}
-      >
-        {description}
-      </TextJsx>
+    <div style={center}>
+      {icon && <div style={{ opacity: 0.5, paddingBottom: '8px' }}>{icon}</div>}
+      <span style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center' }}>{title}</span>
+      <span style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}>{description}</span>
       {onNotify && (
-        <FormJsx
-          onSubmit={(e: Event) => {
+        <FormElement
+          onSubmit={(e: React.FormEvent) => {
             e.preventDefault()
             if (email) onNotify(email)
           }}
         >
-          <ViewJsx flex={1}>
-            <InputJsx
-              type="email"
-              placeholder="your@email.com"
-              value={email}
-              onChangeText={setEmail}
-            />
-          </ViewJsx>
-          <ButtonJsx
-            variant="default"
-            onPress={() => {
-              if (email) onNotify(email)
-            }}
-          >
-            <ButtonTextJsx>Notify me</ButtonTextJsx>
-          </ButtonJsx>
-        </FormJsx>
+          <div style={{ flex: 1 }}>
+            <Input type="email" placeholder="your@email.com" value={email} onChangeText={setEmail} />
+          </div>
+          <Button variant="default" onClick={() => { if (email) onNotify(email) }}>
+            <Button.Text>Notify me</Button.Text>
+          </Button>
+        </FormElement>
       )}
-    </YStackJsx>
+    </div>
   )
 }
