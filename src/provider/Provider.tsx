@@ -1,13 +1,12 @@
 import type { ReactNode } from 'react'
-import { TamaguiProvider, type TamaguiProviderProps } from 'tamagui'
+import type { ColorMode } from '@vlting/stl'
 import type { BrandFontConfig } from '../../packages/design-tokens/brands'
+import { StlProvider } from '../../packages/stl-react/src/providers/StlProvider'
 import { useFontLoader } from '../../packages/utils/useFontLoader'
-import defaultConfig from '../../config/tamagui.config'
 
 export interface ProviderProps {
   children: ReactNode
-  config?: TamaguiProviderProps['config']
-  defaultTheme?: 'light' | 'dark'
+  defaultColorMode?: ColorMode
   fontConfig?: BrandFontConfig
   /** Shown while fonts are loading on React Native. Ignored on web. */
   fontLoadingFallback?: ReactNode
@@ -15,16 +14,15 @@ export interface ProviderProps {
 
 export function Provider({
   children,
-  config = defaultConfig,
-  defaultTheme = 'light',
+  defaultColorMode = 'light',
   fontConfig,
   fontLoadingFallback = null,
 }: ProviderProps) {
   const { loaded } = useFontLoader(fontConfig)
 
   return (
-    <TamaguiProvider config={config} defaultTheme={defaultTheme}>
+    <StlProvider defaultColorMode={defaultColorMode}>
       {loaded ? children : fontLoadingFallback}
-    </TamaguiProvider>
+    </StlProvider>
   )
 }

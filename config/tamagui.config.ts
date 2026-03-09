@@ -1,12 +1,2 @@
-import { createTamagui } from 'tamagui'
-import { createBrandConfig, defaultBrand } from '../packages/design-tokens/brands'
-
-const config = createTamagui(createBrandConfig(defaultBrand))
-
-export type AppConfig = typeof config
-
-declare module 'tamagui' {
-  interface TamaguiCustomConfig extends AppConfig {}
-}
-
-export default config
+/** @deprecated Use StlProvider directly. This file will be removed. */
+export { defaultBrand as defaultConfig } from '../packages/design-tokens/brands'
