@@ -1,0 +1,3887 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "generated": "2026-03-09",
+  "library": "@vlting/ui",
+  "description": "Cross-platform design system built on Tamagui v2. Multi-brand theming, tree-shakeable imports.",
+  "install": "npm install @vlting/ui",
+  "components": [
+    {
+      "name": "AspectRatio",
+      "layer": "primitive",
+      "category": "layout",
+      "import": "import { AspectRatio } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "ratio": {
+          "type": "number",
+          "values": [
+            "16/9",
+            "4/3",
+            "1"
+          ]
+        }
+      },
+      "notes": [
+        "shadcn AspectRatio wraps Radix UI AspectRatio; vlting uses a pure CSS padding-bottom technique",
+        "Default ratio is 1 in vlting (square)",
+        "vlting accepts a style prop instead of className for custom styling"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use style prop or wrap in a styled container",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "asChild",
+          "to": "Not supported; wrap children directly",
+          "reason": "No Radix dependency"
+        }
+      ]
+    },
+    {
+      "name": "Badge",
+      "layer": "primitive",
+      "category": "data-display",
+      "import": "import { Badge } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "variant": {
+          "type": "string",
+          "values": [
+            "default",
+            "solid",
+            "secondary",
+            "destructive",
+            "outline",
+            "subtle"
+          ]
+        },
+        "tone": {
+          "type": "string",
+          "values": [
+            "neutral",
+            "primary",
+            "success",
+            "warning",
+            "danger"
+          ]
+        },
+        "size": {
+          "type": "string",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        }
+      },
+      "whenToUse": "Status indicators, counts, labels",
+      "whenNotToUse": "Clickable labels — use Button variant=\"ghost\"",
+      "notes": [
+        "vlting Badge extends shadcn variants with 'solid' (alias for default) and 'subtle'",
+        "vlting adds 'tone' prop for semantic color (neutral, primary, success, warning, danger)",
+        "vlting adds 'size' prop (sm, md, lg); shadcn relies on className for sizing",
+        "vlting Badge is a Tamagui styled(Text) component; accepts Tamagui style props"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props (e.g. backgroundColor, padding)",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "variant='default'",
+          "to": "variant='default' or variant='solid' (alias)",
+          "reason": "API parity with extra alias"
+        }
+      ]
+    },
+    {
+      "name": "Box",
+      "layer": "primitive",
+      "category": "layout",
+      "import": "import { Box } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "centered": {
+          "type": "boolean",
+          "values": [
+            "true"
+          ]
+        }
+      },
+      "notes": [
+        "No direct shadcn equivalent; Box is a generic layout primitive based on Tamagui View",
+        "Accepts all Tamagui View style props (padding, margin, backgroundColor, etc.)",
+        "The 'centered' variant sets alignItems and justifyContent to 'center'"
+      ]
+    },
+    {
+      "name": "Divider",
+      "layer": "primitive",
+      "category": "layout",
+      "import": "import { Divider } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "orientation": {
+          "type": "string",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        }
+      },
+      "notes": [
+        "No direct shadcn equivalent; similar to shadcn Separator but named 'Divider'",
+        "Sets role='separator' and aria-orientation automatically",
+        "Default orientation is 'horizontal'",
+        "See also the Separator primitive which is a styled Tamagui component with a similar API"
+      ]
+    },
+    {
+      "name": "Heading",
+      "layer": "primitive",
+      "category": "typography",
+      "import": "import { Heading } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "level": {
+          "type": "number",
+          "values": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ]
+        }
+      },
+      "notes": [
+        "No direct shadcn equivalent; shadcn uses plain HTML headings or Typography patterns",
+        "Renders semantic HTML heading elements (h1-h6) using styledHtml",
+        "Default level is 2 (renders <h2>)",
+        "Each level has preset fontSize, lineHeight, and fontWeight from Tamagui tokens",
+        "Accepts a ref (forwardRef to HTMLHeadingElement)"
+      ]
+    },
+    {
+      "name": "Icon",
+      "layer": "primitive",
+      "category": "media",
+      "import": "import { Icon } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "icon": {
+          "type": "IconFC"
+        },
+        "size": {
+          "type": "number | string",
+          "values": [
+            "$1",
+            "16",
+            "24"
+          ]
+        },
+        "color": {
+          "type": "string"
+        },
+        "aria-hidden": {
+          "type": "boolean",
+          "values": [
+            "true",
+            "false"
+          ]
+        },
+        "aria-label": {
+          "type": "string"
+        }
+      },
+      "notes": [
+        "No direct shadcn equivalent; shadcn uses lucide-react icons directly",
+        "Wraps any icon component that accepts size + color props (e.g. @tamagui/lucide-icons)",
+        "Icons are decorative (aria-hidden=true) by default; set aria-hidden=false and aria-label for semantic icons",
+        "IconFC type: ComponentType<{ size?: number | string; color?: string }>"
+      ]
+    },
+    {
+      "name": "Kbd",
+      "layer": "primitive",
+      "category": "typography",
+      "import": "import { Kbd } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "size": {
+          "type": "string",
+          "values": [
+            "sm",
+            "md"
+          ]
+        }
+      },
+      "notes": [
+        "No direct shadcn equivalent; shadcn has no keyboard shortcut display component",
+        "Renders a semantic <kbd> HTML element using styledHtml",
+        "Default size is 'md'",
+        "Uses monospace font family ($mono) and styled border for keyboard key appearance"
+      ]
+    },
+    {
+      "name": "Label",
+      "layer": "primitive",
+      "category": "forms",
+      "import": "import { Label } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "htmlFor": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        "required": {
+          "type": "boolean",
+          "values": [
+            "true",
+            "false"
+          ]
+        }
+      },
+      "notes": [
+        "shadcn Label wraps Radix UI Label; vlting wraps @tamagui/label",
+        "vlting adds 'size' prop (sm, md, lg) mapped to Tamagui size tokens ($2, $3, $4)",
+        "vlting adds 'required' prop that renders a red asterisk (*) after the label text",
+        "Default size is 'md'"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "No built-in required indicator",
+          "to": "Use required prop for asterisk",
+          "reason": "Built-in accessibility pattern"
+        }
+      ]
+    },
+    {
+      "name": "Portal",
+      "layer": "primitive",
+      "category": "utility",
+      "import": "import { Portal } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "notes": [
+        "No direct shadcn equivalent; shadcn components use Radix portals internally",
+        "Wraps Tamagui's Portal component for rendering children outside the parent DOM tree",
+        "Useful for modals, tooltips, and overlays"
+      ]
+    },
+    {
+      "name": "Separator",
+      "layer": "primitive",
+      "category": "layout",
+      "import": "import { Separator } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "orientation": {
+          "type": "string",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        "decorative": {
+          "type": "boolean",
+          "values": [
+            "true"
+          ]
+        }
+      },
+      "notes": [
+        "shadcn Separator wraps Radix UI Separator; vlting uses Tamagui styled(View) with role='separator'",
+        "Both support orientation (horizontal/vertical) and decorative props",
+        "Default orientation is 'horizontal' in both",
+        "vlting Separator sets aria-orientation automatically via variants",
+        "vlting also exports a Divider primitive with similar functionality"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props (e.g. backgroundColor, margin)",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "asChild",
+          "to": "Not supported",
+          "reason": "No Radix dependency"
+        }
+      ]
+    },
+    {
+      "name": "Skeleton",
+      "layer": "primitive",
+      "category": "feedback",
+      "import": "import { Skeleton } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "circle": {
+          "type": "boolean",
+          "values": [
+            "true"
+          ]
+        },
+        "width": {
+          "type": "number | string"
+        },
+        "height": {
+          "type": "number | string"
+        }
+      },
+      "whenToUse": "Content placeholder during loading",
+      "whenNotToUse": "Action indicator — use Spinner",
+      "notes": [
+        "shadcn Skeleton is a simple div with className for sizing; vlting is a Tamagui styled(View)",
+        "vlting has built-in 'lazy' animation with opacity pulse",
+        "vlting adds 'circle' variant for circular skeletons (sets borderRadius to $full)",
+        "vlting sets aria-hidden=true automatically",
+        "Size is controlled via Tamagui style props (width, height) instead of className"
+      ],
+      "migration": [
+        {
+          "from": "className='h-4 w-[250px]'",
+          "to": "Use width={250} height='$1' style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "className='rounded-full'",
+          "to": "Use circle prop",
+          "reason": "Built-in variant instead of utility class"
+        }
+      ]
+    },
+    {
+      "name": "Spacer",
+      "layer": "primitive",
+      "category": "layout",
+      "import": "import { Spacer } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "size": {
+          "type": "string",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl"
+          ]
+        }
+      },
+      "notes": [
+        "No direct shadcn equivalent; shadcn uses margin/padding utilities or gap for spacing",
+        "Without a size prop, Spacer uses flex: 1 to fill available space",
+        "With a size prop (xs-xl), sets fixed width and height via Tamagui tokens",
+        "Useful for adding consistent spacing between elements in flex layouts"
+      ]
+    },
+    {
+      "name": "Spinner",
+      "layer": "primitive",
+      "category": "feedback",
+      "import": "import { Spinner } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "size": {
+          "type": "string",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        "color": {
+          "type": "string"
+        }
+      },
+      "whenToUse": "Inline loading indicator",
+      "whenNotToUse": "Content placeholder — use Skeleton",
+      "notes": [
+        "No direct shadcn equivalent; shadcn has no built-in spinner/loading component",
+        "Renders 8 dots in a circular pattern with rotating animation",
+        "Respects prefers-reduced-motion via useReducedMotion hook",
+        "Sets role='status' and aria-label='Loading' automatically",
+        "Default size is 'md'; default color uses $color token"
+      ]
+    },
+    {
+      "name": "Stack",
+      "layer": "primitive",
+      "category": "layout",
+      "import": "import { Stack, VStack, HStack } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "gap": {
+          "type": "number | string",
+          "values": [
+            "$1",
+            "$2",
+            "$4"
+          ]
+        },
+        "padding": {
+          "type": "number | string"
+        },
+        "alignItems": {
+          "type": "string",
+          "values": [
+            "center",
+            "flex-start",
+            "flex-end",
+            "stretch"
+          ]
+        },
+        "justifyContent": {
+          "type": "string",
+          "values": [
+            "center",
+            "flex-start",
+            "flex-end",
+            "space-between"
+          ]
+        }
+      },
+      "notes": [
+        "No direct shadcn equivalent; shadcn uses div with flex utilities",
+        "Stack and VStack are vertical (YStack); HStack is horizontal (XStack)",
+        "Stack is an alias for VStack (vertical by default)",
+        "Accepts all Tamagui layout style props (gap, padding, margin, flex, etc.)",
+        "Exports: Stack (VStack alias), VStack, HStack with corresponding Props types"
+      ]
+    },
+    {
+      "name": "Text",
+      "layer": "primitive",
+      "category": "typography",
+      "import": "import { Text } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "size": {
+          "type": "string",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl"
+          ]
+        },
+        "tone": {
+          "type": "string",
+          "values": [
+            "neutral",
+            "muted",
+            "primary",
+            "success",
+            "warning",
+            "danger"
+          ]
+        },
+        "weight": {
+          "type": "string",
+          "values": [
+            "light",
+            "normal",
+            "medium",
+            "semibold",
+            "bold"
+          ]
+        }
+      },
+      "notes": [
+        "No direct shadcn equivalent; shadcn uses plain HTML elements with Tailwind typography",
+        "Built on Tamagui styled(Text) with $body font family",
+        "Default size is 'md'",
+        "Tone variants map to semantic color tokens ($color, $colorSubtitle, $color10, $green10, $orange10, $red10)",
+        "Accepts all Tamagui Text style props (color, fontSize, fontWeight, etc.)"
+      ]
+    },
+    {
+      "name": "VisuallyHidden",
+      "layer": "primitive",
+      "category": "accessibility",
+      "import": "import { VisuallyHidden } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "notes": [
+        "No direct shadcn equivalent; shadcn uses Radix VisuallyHidden or sr-only utility class",
+        "Uses standard screen-reader-only technique (clip, clipPath, overflow hidden, 1px size)",
+        "Built on Tamagui styled(View) with inline sr-only CSS properties",
+        "Useful for accessible labels and descriptions hidden from visual display"
+      ]
+    },
+    {
+      "name": "Accordion",
+      "layer": "component",
+      "category": "disclosure",
+      "import": "import { Accordion } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Accordion.Root": {
+          "type": {
+            "type": "string",
+            "values": [
+              "single",
+              "multiple"
+            ]
+          }
+        },
+        "Accordion.Item": {},
+        "Accordion.Trigger": {},
+        "Accordion.Content": {}
+      },
+      "whenToUse": "Collapsible content sections, FAQ",
+      "whenNotToUse": "Tab-like switching — use Tabs",
+      "accessibility": {
+        "role": "region",
+        "keyboard": [
+          "Enter",
+          "Space",
+          "Arrow keys"
+        ]
+      },
+      "notes": [
+        "shadcn uses flat exports (AccordionItem, AccordionTrigger); vlting uses compound pattern (Accordion.Item, Accordion.Trigger)",
+        "vlting defaultValue is always string[] (array), even for type='single'",
+        "Default type is 'single', default collapsible is true",
+        "Built on @tamagui/accordion; includes animated chevron indicator",
+        "Respects prefers-reduced-motion for trigger animation"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<AccordionItem>",
+          "to": "<Accordion.Item>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "defaultValue='item-1' (string)",
+          "to": "defaultValue={['item-1']} (string[])",
+          "reason": "Consistent array API for both single and multiple types"
+        }
+      ]
+    },
+    {
+      "name": "Alert",
+      "layer": "component",
+      "category": "feedback",
+      "import": "import { Alert } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Alert.Root": {},
+        "Alert.Title": {},
+        "Alert.Description": {},
+        "Alert.Icon": {}
+      },
+      "whenToUse": "Static inline message (info, warning, error)",
+      "whenNotToUse": "Temporary notification — use toast()",
+      "notes": [
+        "shadcn uses flat exports; vlting uses compound pattern (Alert.Root, Alert.Title, etc.)",
+        "vlting adds Alert.Icon sub-component for icon placement",
+        "Destructive variant automatically sets role='alert'; default uses role='status'",
+        "Default variant is 'default'"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<Alert>",
+          "to": "<Alert.Root>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "<AlertTitle>",
+          "to": "<Alert.Title>",
+          "reason": "Compound component pattern"
+        }
+      ]
+    },
+    {
+      "name": "AlertDialog",
+      "layer": "component",
+      "category": "overlay",
+      "import": "import { AlertDialog } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "AlertDialog.Root": {},
+        "AlertDialog.Trigger": {},
+        "AlertDialog.Overlay": {},
+        "AlertDialog.Content": {},
+        "AlertDialog.Title": {},
+        "AlertDialog.Description": {},
+        "AlertDialog.Footer": {},
+        "AlertDialog.Cancel": {},
+        "AlertDialog.Action": {}
+      },
+      "whenToUse": "Destructive confirmations, important decisions",
+      "whenNotToUse": "Complex content — use Dialog",
+      "accessibility": {
+        "role": "alertdialog",
+        "keyboard": [
+          "Escape",
+          "Tab (trapped)"
+        ]
+      },
+      "notes": [
+        "shadcn uses flat exports; vlting uses compound pattern (AlertDialog.Root, AlertDialog.Content, etc.)",
+        "vlting has Overlay as a separate sub-component; shadcn bakes overlay into AlertDialogContent",
+        "vlting replaces AlertDialogHeader with AlertDialog.Title and AlertDialog.Description directly",
+        "Built on @tamagui/alert-dialog with animated enter/exit styles",
+        "Trigger and Cancel/Action use asChild internally"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<AlertDialog>",
+          "to": "<AlertDialog.Root>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "<AlertDialogHeader>",
+          "to": "No Header wrapper; use AlertDialog.Title and AlertDialog.Description directly",
+          "reason": "Simplified structure"
+        },
+        {
+          "from": "asChild on Trigger",
+          "to": "asChild is used internally; pass children directly",
+          "reason": "Simplified API"
+        }
+      ]
+    },
+    {
+      "name": "AreaChart",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { AreaChart } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "whenToUse": "Trends over time, cumulative data",
+      "whenNotToUse": "Comparing categories — use BarChart",
+      "props": {
+        "data": {
+          "type": "ChartDataPoint[]"
+        },
+        "variant": {
+          "type": "AreaChartVariant",
+          "values": [
+            "default",
+            "stacked",
+            "percent",
+            "step",
+            "gradient",
+            "sparkline",
+            "interactive",
+            "multiple",
+            "legend",
+            "axes"
+          ]
+        },
+        "xKey": {
+          "type": "string"
+        },
+        "dataKeys": {
+          "type": "string[]"
+        }
+      }
+    },
+    {
+      "name": "Avatar",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { Avatar } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Avatar": {},
+        "Avatar.Image": {},
+        "Avatar.Fallback": {}
+      },
+      "notes": [
+        "vlting supports both legacy single-prop API (src, alt, fallback) and compound pattern (Avatar.Image, Avatar.Fallback)",
+        "Legacy props (src, alt, fallback) are deprecated; prefer compound pattern",
+        "vlting adds built-in 'size' prop (sm=32px, md=40px, lg=52px, xl=74px); shadcn uses className for sizing",
+        "Default size is 'md'",
+        "Image error handling shows fallback automatically via React context"
+      ],
+      "migration": [
+        {
+          "from": "className='h-10 w-10'",
+          "to": "Use size='md' prop",
+          "reason": "Cross-platform; token-based sizing"
+        },
+        {
+          "from": "<AvatarImage>",
+          "to": "<Avatar.Image>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "<AvatarFallback>",
+          "to": "<Avatar.Fallback>",
+          "reason": "Compound component pattern"
+        }
+      ]
+    },
+    {
+      "name": "BarChart",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { BarChart } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "whenToUse": "Comparing categories, discrete values",
+      "whenNotToUse": "Continuous trends — use LineChart",
+      "props": {
+        "data": {
+          "type": "ChartDataPoint[]"
+        },
+        "variant": {
+          "type": "BarChartVariant",
+          "values": [
+            "default",
+            "horizontal",
+            "stacked",
+            "percent",
+            "grouped",
+            "mixed",
+            "negative",
+            "interactive",
+            "label",
+            "custom"
+          ]
+        },
+        "xKey": {
+          "type": "string"
+        },
+        "dataKeys": {
+          "type": "string[]"
+        }
+      }
+    },
+    {
+      "name": "Breadcrumb",
+      "layer": "component",
+      "category": "navigation",
+      "import": "import { Breadcrumb } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Breadcrumb.Root": {},
+        "Breadcrumb.Item": {},
+        "Breadcrumb.Link": {},
+        "Breadcrumb.Page": {},
+        "Breadcrumb.Separator": {}
+      },
+      "whenToUse": "Hierarchical path navigation",
+      "whenNotToUse": "Linear step flow — use custom stepper",
+      "accessibility": {
+        "role": "navigation",
+        "keyboard": [
+          "Tab"
+        ]
+      },
+      "notes": [
+        "shadcn uses flat exports (BreadcrumbItem, BreadcrumbLink); vlting uses compound pattern",
+        "vlting Breadcrumb.Root renders semantic <nav aria-label='Breadcrumb'> with <ol>",
+        "Breadcrumb.Link supports both href (anchor) and onPress (callback) navigation",
+        "Breadcrumb.Page sets aria-current='page' automatically",
+        "Separator defaults to '/' character; pass children to customize",
+        "shadcn has BreadcrumbList wrapper; vlting bakes list into Root"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<BreadcrumbItem>",
+          "to": "<Breadcrumb.Item>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "<BreadcrumbList>",
+          "to": "Not needed; list is built into Breadcrumb.Root",
+          "reason": "Simplified structure"
+        },
+        {
+          "from": "onClick handler",
+          "to": "Use onPress prop on Breadcrumb.Link",
+          "reason": "Cross-platform event naming"
+        }
+      ]
+    },
+    {
+      "name": "Button",
+      "layer": "component",
+      "category": "interactive",
+      "import": "import { Button } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "variant": {
+          "type": "string",
+          "values": [
+            "default",
+            "solid",
+            "secondary",
+            "destructive",
+            "outline",
+            "ghost",
+            "link"
+          ]
+        },
+        "tone": {
+          "type": "string",
+          "values": [
+            "neutral",
+            "primary",
+            "success",
+            "warning",
+            "danger"
+          ]
+        },
+        "size": {
+          "type": "string",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "icon"
+          ]
+        },
+        "loading": {
+          "type": "boolean",
+          "values": [
+            "true",
+            "false"
+          ]
+        },
+        "disabled": {
+          "type": "boolean",
+          "values": [
+            "true",
+            "false"
+          ]
+        },
+        "onPress": {
+          "type": "function",
+          "values": [
+            "() => void"
+          ]
+        },
+        "asChild": {
+          "type": "boolean",
+          "values": [
+            "true",
+            "false"
+          ]
+        }
+      },
+      "whenToUse": "Triggering actions (submit, toggle, navigate)",
+      "whenNotToUse": "Navigation-only links — use <a> or Link instead",
+      "accessibility": {
+        "role": "button",
+        "keyboard": [
+          "Enter",
+          "Space"
+        ]
+      },
+      "notes": [
+        "vlting adds 'solid' variant as alias for 'default'",
+        "vlting adds 'tone' prop for semantic color theming (neutral, primary, success, warning, danger)",
+        "vlting adds 'loading' prop with built-in spinner and aria-busy support",
+        "vlting size uses named tokens (xs, sm, md, lg, icon); shadcn uses default/sm/lg/icon",
+        "vlting has Button.Text and Button.Icon sub-components for compound usage",
+        "Built on @tamagui/button with focus-visible outline styles",
+        "Destructive variant automatically applies red theme"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "onClick",
+          "to": "onPress",
+          "reason": "Cross-platform event naming"
+        },
+        {
+          "from": "size='default'",
+          "to": "size='md'",
+          "reason": "Consistent named sizing"
+        },
+        {
+          "from": "No loading state",
+          "to": "Use loading prop for built-in spinner",
+          "reason": "Built-in loading pattern"
+        }
+      ]
+    },
+    {
+      "name": "ButtonGroup",
+      "layer": "component",
+      "category": "interactive",
+      "import": "import { ButtonGroup } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "ButtonGroup.Root": {}
+      },
+      "whenToUse": "Grouping related buttons together",
+      "whenNotToUse": "Toggle between options — use ToggleGroup",
+      "notes": [
+        "No direct shadcn equivalent; shadcn has no ButtonGroup component",
+        "Groups buttons with connected borders (removes inner border-radius, overlaps borders)",
+        "Default orientation is 'horizontal'",
+        "Sets role='group' with optional aria-label",
+        "Uses CSS class injection for border-radius and margin adjustments on children"
+      ]
+    },
+    {
+      "name": "Calendar",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { Calendar } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Calendar.Root": {}
+      },
+      "whenToUse": "Inline date selection",
+      "whenNotToUse": "Popup date selection — use DatePicker",
+      "notes": [
+        "shadcn Calendar wraps react-day-picker; vlting is a custom implementation with Tamagui styling",
+        "vlting uses minDate/maxDate for date range constraints; shadcn uses disabled matchers",
+        "vlting supports controlled month navigation via month and onMonthChange props",
+        "Default mode is 'single'",
+        "Built with semantic HTML buttons and ARIA labels for accessibility",
+        "Keyboard navigation via arrow keys for month switching"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "disabled={[matcher]} (complex matchers)",
+          "to": "Use disabled boolean + minDate/maxDate",
+          "reason": "Simplified constraint API"
+        },
+        {
+          "from": "react-day-picker props",
+          "to": "Custom API; not all react-day-picker props are available",
+          "reason": "Different underlying implementation"
+        }
+      ]
+    },
+    {
+      "name": "Card",
+      "layer": "component",
+      "category": "layout",
+      "import": "import { Card } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Card": {},
+        "Card.Header": {},
+        "Card.Content": {},
+        "Card.Footer": {},
+        "Card.Title": {},
+        "Card.Description": {}
+      },
+      "whenToUse": "Grouped content with header/body/footer",
+      "whenNotToUse": "Simple container — use Box or VStack",
+      "notes": [
+        "shadcn uses flat exports (CardHeader, CardTitle); vlting uses compound pattern (Card.Header, Card.Title)",
+        "vlting adds 'size' variant (sm, md, lg) affecting padding and text sizes",
+        "vlting adds 'elevated' variant (removes border, expects shadow via theme)",
+        "vlting adds 'interactive' variant with hover, press, focus styles and cursor pointer",
+        "Card.Title renders a semantic <h3> element; default size is 'md'",
+        "Built on @tamagui/card CardFrame with withStaticProperties"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props or variant props (size, elevated, interactive)",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<CardHeader>",
+          "to": "<Card.Header>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "No interactive variant",
+          "to": "Use interactive prop for clickable cards",
+          "reason": "Built-in interaction pattern"
+        }
+      ]
+    },
+    {
+      "name": "Carousel",
+      "layer": "component",
+      "category": "interactive",
+      "import": "import { Carousel } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "props": {
+        "Carousel.Root": {},
+        "Carousel.Content": {},
+        "Carousel.Item": {},
+        "Carousel.Previous": {},
+        "Carousel.Next": {},
+        "Carousel.Dots": {}
+      },
+      "whenToUse": "Sliding through images or cards",
+      "whenNotToUse": "Tabs-like content — use Tabs",
+      "notes": [
+        "shadcn Carousel wraps Embla Carousel; vlting is a custom implementation",
+        "vlting adds built-in autoplay with autoplayInterval prop (default 5000ms)",
+        "vlting adds Carousel.Dots sub-component for dot indicator navigation",
+        "vlting respects prefers-reduced-motion (disables autoplay and transitions)",
+        "Keyboard navigation: ArrowLeft/Right for horizontal, ArrowUp/Down for vertical",
+        "Default orientation is 'horizontal'; loop defaults to false",
+        "Sets role='region', aria-roledescription='carousel' on root; aria-roledescription='slide' on items"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<CarouselContent>",
+          "to": "<Carousel.Content>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "opts={{ loop: true }}",
+          "to": "loop={true} (direct prop)",
+          "reason": "Simplified API; no opts wrapper"
+        },
+        {
+          "from": "Embla Carousel API",
+          "to": "Custom API; not all Embla options available",
+          "reason": "Different underlying implementation"
+        }
+      ]
+    },
+    {
+      "name": "Chart",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { Chart } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "whenToUse": "Container for all chart types",
+      "props": {
+        "config": {
+          "type": "ChartConfig"
+        },
+        "aria-label": {
+          "type": "string"
+        }
+      },
+      "accessibility": {
+        "role": "img",
+        "keyboard": []
+      }
+    },
+    {
+      "name": "ChartDataTable",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { ChartDataTable } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "whenToUse": "Screen reader accessible chart data (hidden visually)",
+      "props": {}
+    },
+    {
+      "name": "ChartLegend",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { ChartLegend } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "whenToUse": "Identifying chart data series",
+      "props": {
+        "layout": {
+          "type": "LegendLayout",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        }
+      }
+    },
+    {
+      "name": "ChartTooltip",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { ChartTooltip } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "whenToUse": "Interactive data point details on hover",
+      "props": {
+        "variant": {
+          "type": "TooltipVariant",
+          "values": [
+            "default",
+            "label",
+            "custom",
+            "grid",
+            "minimal",
+            "dashed",
+            "indicator-dot",
+            "indicator-line",
+            "no-indicator"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Checkbox",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { Checkbox } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Checkbox.Root": {},
+        "Checkbox.Indicator": {}
+      },
+      "whenToUse": "Boolean or multi-select options",
+      "whenNotToUse": "Single toggle — use Switch",
+      "accessibility": {
+        "role": "checkbox",
+        "keyboard": [
+          "Space"
+        ]
+      },
+      "notes": [
+        "shadcn Checkbox wraps Radix Checkbox; vlting wraps @tamagui/checkbox",
+        "vlting Checkbox.Root wraps everything in a <label> with flex layout (checkbox + label text)",
+        "vlting adds 'size' prop (sm, md, lg) mapped to Tamagui size tokens ($3, $4, $5)",
+        "Default size is 'md'; default check icon is a checkmark character",
+        "Pass label text as children of Checkbox.Root",
+        "Both support indeterminate state"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props or size prop",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<Checkbox /> + separate <label>",
+          "to": "<Checkbox.Root>Label text</Checkbox.Root> (built-in label wrapper)",
+          "reason": "Integrated label pattern"
+        },
+        {
+          "from": "No size prop",
+          "to": "Use size='sm' | 'md' | 'lg'",
+          "reason": "Built-in sizing"
+        }
+      ]
+    },
+    {
+      "name": "Collapsible",
+      "layer": "component",
+      "category": "disclosure",
+      "import": "import { Collapsible } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Collapsible.Root": {},
+        "Collapsible.Trigger": {},
+        "Collapsible.Content": {}
+      },
+      "whenToUse": "Single collapsible section",
+      "whenNotToUse": "Multiple sections — use Accordion",
+      "notes": [
+        "shadcn uses flat exports; vlting uses compound pattern (Collapsible.Root, Collapsible.Trigger)",
+        "Built on @tamagui/collapsible",
+        "Collapsible.Content sets role='region' automatically",
+        "Trigger is unstyled by default (transparent background, no border)"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<Collapsible>",
+          "to": "<Collapsible.Root>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "<CollapsibleTrigger>",
+          "to": "<Collapsible.Trigger>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "asChild on Trigger",
+          "to": "Not supported; Trigger renders children directly",
+          "reason": "Simplified API"
+        }
+      ]
+    },
+    {
+      "name": "Combobox",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { Combobox } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Combobox.Root": {}
+      },
+      "whenToUse": "Searchable/filterable option list",
+      "whenNotToUse": "Small fixed list — use Select",
+      "accessibility": {
+        "role": "combobox",
+        "keyboard": [
+          "Arrow keys",
+          "Enter",
+          "Escape"
+        ]
+      },
+      "notes": [
+        "shadcn Combobox is composed from Command + Popover; vlting is a single integrated component",
+        "vlting takes options as a data array (ComboboxOption[]: { value, label }); shadcn uses declarative children",
+        "Built-in search filtering, keyboard navigation (ArrowUp/Down, Enter, Escape)",
+        "Sets role='combobox', aria-expanded, and aria-haspopup='listbox' for accessibility",
+        "Dropdown options use role='option' and aria-selected"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "Compose Command + Popover manually",
+          "to": "Single <Combobox.Root options={...} /> component",
+          "reason": "Integrated API; no manual composition needed"
+        },
+        {
+          "from": "Declarative <CommandItem> children",
+          "to": "Data-driven options prop",
+          "reason": "Simplified data API"
+        }
+      ]
+    },
+    {
+      "name": "Command",
+      "layer": "component",
+      "category": "interactive",
+      "import": "import { Command } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Command.Root": {},
+        "Command.Input": {},
+        "Command.List": {},
+        "Command.Empty": {},
+        "Command.Group": {},
+        "Command.Item": {},
+        "Command.Separator": {},
+        "Command.Loading": {}
+      },
+      "whenToUse": "Command palette, searchable action list",
+      "whenNotToUse": "Simple dropdown — use DropdownMenu",
+      "accessibility": {
+        "role": "listbox",
+        "keyboard": [
+          "Arrow keys",
+          "Enter",
+          "Escape"
+        ]
+      },
+      "notes": [
+        "shadcn wraps cmdk library; vlting is a custom implementation with Tamagui styling",
+        "vlting filter returns boolean (match/no match); shadcn cmdk filter returns number (score)",
+        "vlting adds Command.Loading sub-component; shadcn uses CommandLoading from cmdk",
+        "Items support keywords prop for additional search terms beyond value",
+        "Uses React context for search state sharing between Input and Items",
+        "Sets role='listbox' on root and role='option' on items"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<Command>",
+          "to": "<Command.Root>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "filter returns number (ranking score)",
+          "to": "filter returns boolean (visible/hidden)",
+          "reason": "Simplified filtering; no ranking"
+        },
+        {
+          "from": "CommandDialog (dialog wrapper)",
+          "to": "Not available; compose Command.Root inside Dialog manually",
+          "reason": "Composable approach"
+        }
+      ]
+    },
+    {
+      "name": "ContextMenu",
+      "layer": "component",
+      "category": "overlay",
+      "import": "import { ContextMenu } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "props": {
+        "ContextMenu.Root": {},
+        "ContextMenu.Trigger": {},
+        "ContextMenu.Content": {},
+        "ContextMenu.Item": {},
+        "ContextMenu.CheckboxItem": {},
+        "ContextMenu.Separator": {},
+        "ContextMenu.Label": {}
+      },
+      "whenToUse": "Right-click context actions",
+      "whenNotToUse": "Mobile — no right-click; use DropdownMenu",
+      "accessibility": {
+        "role": "menu",
+        "keyboard": [
+          "Arrow keys",
+          "Enter",
+          "Escape"
+        ]
+      },
+      "notes": [
+        "shadcn wraps Radix ContextMenu; vlting is a custom implementation using native contextmenu event",
+        "vlting adds built-in 'shortcut' prop on Item for keyboard shortcut display",
+        "Menu auto-closes when an item is selected",
+        "Uses role='menu', role='menuitem', and role='menuitemcheckbox' for accessibility",
+        "Positioned at mouse cursor coordinates on right-click"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<ContextMenu>",
+          "to": "<ContextMenu.Root>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "<ContextMenuContent>",
+          "to": "<ContextMenu.Content>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "Sub-menus (ContextMenuSub)",
+          "to": "Not yet supported",
+          "reason": "Simplified initial implementation"
+        }
+      ]
+    },
+    {
+      "name": "DataTable",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { DataTable } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "props": {
+        "data": {
+          "type": "TData[]"
+        },
+        "columns": {
+          "type": "ColumnDef<TData, unknown>[]"
+        },
+        "caption": {
+          "type": "string"
+        },
+        "sorting": {
+          "type": "SortingState"
+        },
+        "onSortingChange": {
+          "type": "function",
+          "values": [
+            "(sorting: SortingState) => void"
+          ]
+        },
+        "columnFilters": {
+          "type": "ColumnFiltersState"
+        },
+        "onColumnFiltersChange": {
+          "type": "function",
+          "values": [
+            "(filters: ColumnFiltersState) => void"
+          ]
+        },
+        "globalFilter": {
+          "type": "string"
+        },
+        "onGlobalFilterChange": {
+          "type": "function",
+          "values": [
+            "(filter: string) => void"
+          ]
+        },
+        "pagination": {
+          "type": "PaginationState"
+        },
+        "onPaginationChange": {
+          "type": "function",
+          "values": [
+            "(pagination: PaginationState) => void"
+          ]
+        },
+        "columnVisibility": {
+          "type": "VisibilityState"
+        },
+        "onColumnVisibilityChange": {
+          "type": "function",
+          "values": [
+            "(visibility: VisibilityState) => void"
+          ]
+        },
+        "enablePagination": {
+          "type": "boolean",
+          "values": [
+            "true",
+            "false"
+          ]
+        },
+        "pageSize": {
+          "type": "number",
+          "values": [
+            "10"
+          ]
+        }
+      },
+      "whenToUse": "Tables with sorting, filtering, pagination",
+      "whenNotToUse": "Simple static data — use Table",
+      "notes": [
+        "Both use @tanstack/react-table under the hood",
+        "shadcn DataTable is a pattern/recipe; vlting provides a ready-to-use component",
+        "vlting supports both controlled and uncontrolled sorting, filtering, pagination, and visibility",
+        "vlting re-exports ColumnDef, SortingState, ColumnFiltersState, VisibilityState, PaginationState types",
+        "Renders using vlting Table compound component internally",
+        "Sortable columns show arrow indicators and set aria-sort attribute",
+        "Default pageSize is 10; pagination is opt-in via enablePagination"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props on wrapper",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "Manual useReactTable setup",
+          "to": "Single <DataTable /> component with props",
+          "reason": "Simplified API; no manual table hook setup"
+        },
+        {
+          "from": "Custom pagination UI",
+          "to": "Built-in pagination via enablePagination prop",
+          "reason": "Integrated pagination"
+        }
+      ]
+    },
+    {
+      "name": "DatePicker",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { DatePicker } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "value": {
+          "type": "Date"
+        },
+        "defaultValue": {
+          "type": "Date"
+        },
+        "onValueChange": {
+          "type": "function",
+          "values": [
+            "(date: Date | undefined) => void"
+          ]
+        },
+        "placeholder": {
+          "type": "string",
+          "values": [
+            "Select date..."
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "helperText": {
+          "type": "string"
+        },
+        "error": {
+          "type": "boolean"
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "size": {
+          "type": "string",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        "minDate": {
+          "type": "Date"
+        },
+        "maxDate": {
+          "type": "Date"
+        },
+        "locale": {
+          "type": "string",
+          "values": [
+            "en-US"
+          ]
+        }
+      },
+      "whenToUse": "Date selection in a popup",
+      "whenNotToUse": "Date range — use DateRangePicker",
+      "notes": [
+        "shadcn DatePicker is composed from Calendar + Popover + Button; vlting is a single integrated component",
+        "vlting includes built-in label, helperText, error state, and errorMessage support",
+        "vlting supports controlled and uncontrolled modes (value/defaultValue)",
+        "Also exports DateRangePicker for date range selection",
+        "Built-in locale support via Intl.DateTimeFormat",
+        "Default size is 'md'; supports sm, md, lg trigger sizes",
+        "Closes on Escape key or click outside"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props or size prop",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "Compose Calendar + Popover + Button manually",
+          "to": "Single <DatePicker /> component",
+          "reason": "Integrated API; no manual composition needed"
+        },
+        {
+          "from": "No built-in label/error",
+          "to": "Use label, error, errorMessage props",
+          "reason": "Built-in form field features"
+        }
+      ]
+    },
+    {
+      "name": "Dialog",
+      "layer": "component",
+      "category": "overlay",
+      "import": "import { Dialog } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Dialog.Root": {},
+        "Dialog.Trigger": {},
+        "Dialog.Content": {},
+        "Dialog.Title": {},
+        "Dialog.Description": {},
+        "Dialog.Header": {},
+        "Dialog.Footer": {},
+        "Dialog.Close": {},
+        "Dialog.Overlay": {}
+      },
+      "whenToUse": "Complex forms, detail views, multi-step flows",
+      "whenNotToUse": "Simple yes/no — use AlertDialog",
+      "accessibility": {
+        "role": "dialog",
+        "keyboard": [
+          "Escape",
+          "Tab (trapped)"
+        ]
+      },
+      "notes": [
+        "shadcn uses flat exports; vlting uses compound pattern (Dialog.Root, Dialog.Content, etc.)",
+        "vlting Dialog.Content accepts size prop (sm, md, lg) controlling maxWidth and padding",
+        "Overlay is rendered automatically inside Content's portal; Dialog.Overlay is a no-op kept for API compatibility",
+        "Built on @tamagui/dialog with animated enter/exit styles",
+        "Trigger and Close use asChild internally",
+        "Default size is 'md'"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props or size prop",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<Dialog>",
+          "to": "<Dialog.Root>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "<DialogContent className='sm:max-w-[425px]'>",
+          "to": "<Dialog.Content size='sm'>",
+          "reason": "Token-based sizing via size prop"
+        },
+        {
+          "from": "Separate overlay setup",
+          "to": "Overlay is automatic inside Content",
+          "reason": "Simplified structure"
+        }
+      ]
+    },
+    {
+      "name": "Direction",
+      "layer": "component",
+      "category": "utility",
+      "import": "import { Direction, DirectionProvider, useDirection } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Direction.Provider (DirectionProvider)": {}
+      },
+      "notes": [
+        "No direct shadcn equivalent; shadcn has no RTL/LTR direction context",
+        "DirectionProvider wraps children with a React context for text direction",
+        "Defaults to document.documentElement.dir on web, or 'ltr' as fallback",
+        "useDirection() hook returns the current direction ('ltr' or 'rtl')",
+        "Useful for bidirectional layout support in cross-platform apps"
+      ]
+    },
+    {
+      "name": "Drawer",
+      "layer": "component",
+      "category": "overlay",
+      "import": "import { Drawer } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Drawer.Root": {},
+        "Drawer.Trigger": {},
+        "Drawer.Content": {},
+        "Drawer.Header": {},
+        "Drawer.Footer": {},
+        "Drawer.Title": {},
+        "Drawer.Description": {},
+        "Drawer.Close": {}
+      },
+      "whenToUse": "Bottom panels on mobile, swipe-to-dismiss",
+      "whenNotToUse": "Desktop side panels — use Sheet",
+      "notes": [
+        "shadcn Drawer wraps Vaul (vaul-drawer); vlting builds on @tamagui/dialog with fixed positioning",
+        "vlting adds 'direction' prop (bottom, top, left, right); shadcn Vaul is bottom-only by default",
+        "vlting auto-shows handle bar on touch devices for vertical drawers; override with showHandle prop",
+        "Default direction is 'bottom'",
+        "Side drawers (left, right) have a fixed width of 360px with 90vw max",
+        "Built on @tamagui/dialog with Portal, Overlay, and animated enter/exit"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<Drawer>",
+          "to": "<Drawer.Root>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "<DrawerContent>",
+          "to": "<Drawer.Content>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "Bottom-only (Vaul)",
+          "to": "direction prop supports top, bottom, left, right",
+          "reason": "Multi-directional drawer support"
+        }
+      ]
+    },
+    {
+      "name": "DropdownMenu",
+      "layer": "component",
+      "category": "overlay",
+      "import": "import { DropdownMenu } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "DropdownMenu.Root": {},
+        "DropdownMenu.Trigger": {},
+        "DropdownMenu.Content": {},
+        "DropdownMenu.Item": {},
+        "DropdownMenu.CheckboxItem": {},
+        "DropdownMenu.Separator": {},
+        "DropdownMenu.Label": {}
+      },
+      "whenToUse": "Action menu triggered by button click",
+      "whenNotToUse": "Form selection — use Select",
+      "accessibility": {
+        "role": "menu",
+        "keyboard": [
+          "Arrow keys",
+          "Enter",
+          "Escape"
+        ]
+      },
+      "notes": [
+        "shadcn wraps Radix DropdownMenu; vlting is a custom implementation with keyboard navigation",
+        "vlting adds built-in 'shortcut' prop on Item for keyboard shortcut display in mono font",
+        "Full keyboard support: ArrowUp/Down navigation, Home/End, Enter/Space selection, Escape/Tab close",
+        "Focus returns to trigger on close",
+        "Sets aria-haspopup='menu', aria-expanded on trigger; role='menu' on content; role='menuitem'/role='menuitemcheckbox' on items"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<DropdownMenu>",
+          "to": "<DropdownMenu.Root>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "<DropdownMenuContent>",
+          "to": "<DropdownMenu.Content>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "Sub-menus (DropdownMenuSub)",
+          "to": "Not yet supported",
+          "reason": "Simplified initial implementation"
+        }
+      ]
+    },
+    {
+      "name": "Empty",
+      "layer": "component",
+      "category": "feedback",
+      "import": "import { Empty } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Empty.Root": {},
+        "Empty.Media": {},
+        "Empty.Title": {},
+        "Empty.Description": {},
+        "Empty.Action": {}
+      },
+      "whenToUse": "No-content states with message and optional action",
+      "whenNotToUse": "Loading states — use Loader or Skeleton",
+      "notes": [
+        "No direct shadcn equivalent; shadcn has no empty state component",
+        "Compound component for empty state displays (no data, no results, etc.)",
+        "Root sets role='status' for accessibility",
+        "Media sub-component renders media/icons at 50% opacity",
+        "Title renders a semantic <h3> element",
+        "Action sub-component wraps CTA buttons with top margin"
+      ]
+    },
+    {
+      "name": "Field",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { Field } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Field.Root": {},
+        "Field.Label": {},
+        "Field.Control": {},
+        "Field.Description": {},
+        "Field.Error": {}
+      },
+      "whenToUse": "Wrapping form inputs with label, description, error",
+      "whenNotToUse": "Standalone labels — use Label directly",
+      "notes": [
+        "No direct shadcn equivalent; shadcn uses FormField from react-hook-form integration",
+        "Compound component for accessible form fields with auto-generated IDs",
+        "Field.Control clones children with id, aria-describedby, aria-invalid, and disabled props",
+        "Field.Error renders with role='alert' and only shows when error is true",
+        "Field.Description is hidden when error is shown (error takes precedence for aria-describedby)",
+        "Uses React context to share field state (id, error, disabled) across sub-components"
+      ]
+    },
+    {
+      "name": "Form",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { Form } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Form.Root": {},
+        "Form.Field": {},
+        "Form.Label": {},
+        "Form.Description": {},
+        "Form.ErrorMessage": {}
+      },
+      "whenToUse": "Form submission with validation",
+      "whenNotToUse": "Single input without submit — use Input directly",
+      "notes": [
+        "shadcn Form deeply integrates with react-hook-form; vlting Form is a standalone component",
+        "vlting Form.Root wraps @tamagui/form with onSubmit callback",
+        "Form.Field provides error/disabled context to child components",
+        "Form.ErrorMessage renders with role='alert' and only shows when field has error",
+        "No dependency on react-hook-form; can be used with any form library or state management",
+        "Form layout uses $4 gap between fields"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "useForm() + FormProvider required",
+          "to": "No form library dependency; pass onSubmit directly",
+          "reason": "Library-agnostic form handling"
+        },
+        {
+          "from": "<FormField control={form.control} name='...' render={...} />",
+          "to": "<Form.Field error={...}> children </Form.Field>",
+          "reason": "Simplified API; no render prop pattern"
+        },
+        {
+          "from": "<FormMessage>",
+          "to": "<Form.ErrorMessage>",
+          "reason": "Different naming"
+        }
+      ]
+    },
+    {
+      "name": "HoverCard",
+      "layer": "component",
+      "category": "overlay",
+      "import": "import { HoverCard } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "HoverCard.Root": {},
+        "HoverCard.Trigger": {},
+        "HoverCard.Content": {}
+      },
+      "whenToUse": "Rich preview on hover (user profile, link preview)",
+      "whenNotToUse": "Click interaction — use Popover",
+      "notes": [
+        "shadcn wraps Radix HoverCard; vlting is a custom implementation with mouse enter/leave events",
+        "Both support openDelay and closeDelay (defaults: 700ms open, 300ms close)",
+        "vlting Content supports side (top/bottom) and align (start/center/end) positioning",
+        "Content sets role='tooltip' for accessibility",
+        "Hovering over the content keeps it open (delay cleared on re-enter)"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<HoverCard>",
+          "to": "<HoverCard.Root>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "<HoverCardContent>",
+          "to": "<HoverCard.Content>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "side='left' | 'right'",
+          "to": "Only side='top' | 'bottom' supported",
+          "reason": "Simplified positioning"
+        }
+      ]
+    },
+    {
+      "name": "Input",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { Input } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "size": {
+          "type": "string",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "values": [
+            "text",
+            "password",
+            "email",
+            "number",
+            "search",
+            "tel",
+            "url",
+            "date",
+            "file"
+          ]
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "defaultValue": {
+          "type": "string"
+        },
+        "onChangeText": {
+          "type": "function",
+          "values": [
+            "(text: string) => void"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "helperText": {
+          "type": "string"
+        },
+        "error": {
+          "type": "boolean"
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "leadingSlot": {
+          "type": "ReactNode"
+        },
+        "trailingSlot": {
+          "type": "ReactNode"
+        }
+      },
+      "whenToUse": "Single-line text input",
+      "whenNotToUse": "Multi-line text — use Textarea",
+      "accessibility": {
+        "role": "textbox",
+        "keyboard": [
+          "Tab"
+        ]
+      },
+      "notes": [
+        "shadcn Input is a minimal styled input; vlting Input includes label, helper text, and error states",
+        "vlting uses onChangeText (Tamagui/React Native pattern) instead of onChange; receives text string directly",
+        "vlting adds size prop (sm, md, lg) controlling height, padding, border-radius, and label font size",
+        "vlting adds leadingSlot and trailingSlot for icons or buttons inside the input row",
+        "Built on @tamagui/input; supports focus-visible outline styling",
+        "Auto-generates IDs for label-input association and aria-describedby for helper/error text",
+        "Also exposes Input.Frame, Input.Label, Input.Helper as lower-level styled components"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props or size/error props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "onChange={(e) => ...}",
+          "to": "onChangeText={(text) => ...}",
+          "reason": "Cross-platform; receives text string, not event object"
+        },
+        {
+          "from": "No built-in label/error",
+          "to": "Use label, error, errorMessage, helperText props",
+          "reason": "Built-in form field features"
+        },
+        {
+          "from": "No slot support",
+          "to": "Use leadingSlot/trailingSlot for addons",
+          "reason": "Built-in icon/addon support"
+        }
+      ]
+    },
+    {
+      "name": "InputGroup",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { InputGroup } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "InputGroup (Root)": {},
+        "InputGroup.Addon": {},
+        "InputGroup.Element": {},
+        "InputGroup.Input": {}
+      },
+      "whenToUse": "Input with prefix/suffix elements (icons, buttons, addons)",
+      "whenNotToUse": "Simple input — use Input",
+      "notes": [
+        "No direct shadcn equivalent; shadcn has no InputGroup component",
+        "Groups inputs with addons (text, icons) with connected borders (removes inner border-radius)",
+        "InputGroup.Addon renders a styled addon cell (e.g., currency symbol, prefix/suffix text)",
+        "InputGroup.Element renders an absolutely-positioned overlay (e.g., search icon inside input)",
+        "Size context is shared from root to Addon via React context",
+        "Default orientation is 'horizontal'; default size is 'md'",
+        "Uses withStaticProperties for compound component pattern"
+      ]
+    },
+    {
+      "name": "InputOTP",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { InputOTP } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "InputOTP.Root": {},
+        "InputOTP.Group": {},
+        "InputOTP.Slot": {},
+        "InputOTP.Separator": {}
+      },
+      "whenToUse": "OTP/PIN/verification code input",
+      "whenNotToUse": "Regular text — use Input",
+      "notes": [
+        "shadcn wraps input-otp library; vlting is a custom implementation",
+        "vlting adds onComplete callback that fires when all digits are entered",
+        "Supports controlled and uncontrolled modes (value prop)",
+        "Pattern prop accepts a regex string to validate each character (e.g., '[0-9]' for digits only)",
+        "Hidden input has inputMode='numeric' and autoComplete='one-time-code' for mobile optimization",
+        "Default maxLength is 6",
+        "Active slot shows focus ring via boxShadow"
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform"
+        },
+        {
+          "from": "<InputOTP>",
+          "to": "<InputOTP.Root>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "<InputOTPGroup>",
+          "to": "<InputOTP.Group>",
+          "reason": "Compound component pattern"
+        },
+        {
+          "from": "REGEXP_ONLY_DIGITS constant",
+          "to": "Pass pattern string directly (e.g., '[0-9]')",
+          "reason": "No constant exports; pass regex string"
+        },
+        {
+          "from": "No onComplete callback",
+          "to": "Use onComplete for auto-submit when all digits entered",
+          "reason": "Built-in completion handler"
+        }
+      ]
+    },
+    {
+      "name": "Item",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { Item } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Item.Root": {},
+        "Item.Leading": {},
+        "Item.Content": {},
+        "Item.Title": {},
+        "Item.Description": {},
+        "Item.Trailing": {}
+      },
+      "whenToUse": "List items with leading/trailing content",
+      "whenNotToUse": "Simple text list — use List + ListItem",
+      "notes": [
+        "No shadcn equivalent. Item is a custom @vlting/ui compound component for list items.",
+        "Compound component with Root, Leading, Content, Title, Description, and Trailing sub-components.",
+        "Uses withStaticProperties for compound API: <Item><Item.Leading /><Item.Content><Item.Title /><Item.Description /></Item.Content><Item.Trailing /></Item>",
+        "The 'interactive' variant adds hover/press/focus styles with cursor: pointer."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        }
+      ]
+    },
+    {
+      "name": "LineChart",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { LineChart } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "whenToUse": "Trends, time series, comparisons",
+      "whenNotToUse": "Part-of-whole — use PieChart",
+      "props": {
+        "data": {
+          "type": "ChartDataPoint[]"
+        },
+        "variant": {
+          "type": "LineChartVariant",
+          "values": [
+            "default",
+            "multiple",
+            "dots",
+            "step",
+            "custom",
+            "label",
+            "linear",
+            "interactive",
+            "legend",
+            "sparkline"
+          ]
+        },
+        "xKey": {
+          "type": "string"
+        },
+        "dataKeys": {
+          "type": "string[]"
+        }
+      }
+    },
+    {
+      "name": "Loader",
+      "layer": "component",
+      "category": "feedback",
+      "import": "import { Loader } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "size": {
+          "type": "string",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        "variant": {
+          "type": "string",
+          "values": [
+            "primary",
+            "light",
+            "dark"
+          ]
+        }
+      },
+      "whenToUse": "Full-area loading state",
+      "whenNotToUse": "Inline loading — use Spinner",
+      "notes": [
+        "No shadcn equivalent. Loader is a custom @vlting/ui component wrapping Tamagui's Spinner.",
+        "Simple functional component, not compound. Usage: <Loader size='md' variant='primary' />",
+        "Maps variant to color tokens: primary=$color10, light=$color4, dark=$color11."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        }
+      ]
+    },
+    {
+      "name": "Menu",
+      "layer": "component",
+      "category": "other",
+      "import": "import { Menu } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Menu.Root": {},
+        "Menu.Trigger": {},
+        "Menu.Portal": {},
+        "Menu.Content": {},
+        "Menu.Group": {},
+        "Menu.Label": {},
+        "Menu.Item": {},
+        "Menu.ItemTitle": {},
+        "Menu.ItemSubtitle": {},
+        "Menu.ItemIcon": {},
+        "Menu.CheckboxItem": {},
+        "Menu.RadioGroup": {},
+        "Menu.RadioItem": {},
+        "Menu.ItemIndicator": {},
+        "Menu.Separator": {},
+        "Menu.Arrow": {},
+        "Menu.Sub": {},
+        "Menu.SubTrigger": {},
+        "Menu.SubContent": {}
+      },
+      "notes": [
+        "No direct shadcn equivalent. Menu wraps @tamagui/menu and provides a Radix-like compound API.",
+        "Includes CheckboxItem, RadioGroup, RadioItem, Sub-menus, and ItemIndicator.",
+        "Uses Portal for rendering content outside the DOM tree.",
+        "Supports nested sub-menus via Menu.Sub, Menu.SubTrigger, and Menu.SubContent."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        }
+      ]
+    },
+    {
+      "name": "Menubar",
+      "layer": "component",
+      "category": "navigation",
+      "import": "import { Menubar } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "props": {
+        "Menubar.Root": {},
+        "Menubar.Menu": {},
+        "Menubar.Trigger": {},
+        "Menubar.Content": {},
+        "Menubar.Item": {},
+        "Menubar.Separator": {},
+        "Menubar.Label": {}
+      },
+      "accessibility": {
+        "role": "menubar",
+        "keyboard": [
+          "Arrow keys",
+          "Enter",
+          "Escape"
+        ]
+      },
+      "notes": [
+        "shadcn Menubar uses Radix UI primitives; @vlting/ui uses a custom context-based implementation with native HTML buttons.",
+        "The vlting Menubar.Item has a built-in 'shortcut' prop for displaying keyboard shortcuts, while shadcn requires a separate <MenubarShortcut> component.",
+        "vlting Menubar auto-manages open state via context, with hover-switch between menus when any is open.",
+        "shadcn has additional sub-components like MenubarCheckboxItem, MenubarRadioGroup, MenubarSub etc. that are not yet implemented in vlting."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "<MenubarShortcut>Ctrl+N</MenubarShortcut>",
+          "to": "<Menubar.Item shortcut='Ctrl+N'>",
+          "reason": "Shortcut is a prop on Item, not a separate component"
+        },
+        {
+          "from": "<MenubarMenu>",
+          "to": "<Menubar.Menu>",
+          "reason": "Dot-notation compound component API"
+        },
+        {
+          "from": "MenubarCheckboxItem / MenubarRadioGroup",
+          "to": "Not yet implemented",
+          "reason": "Feature parity in progress"
+        }
+      ]
+    },
+    {
+      "name": "NativeSelect",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { NativeSelect } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "NativeSelect.Root": {},
+        "NativeSelect.Option": {}
+      },
+      "notes": [
+        "No shadcn equivalent. NativeSelect renders a native HTML <select> element via styledHtml.",
+        "Uses compound API: <NativeSelect.Root><NativeSelect.Option value='a'>A</NativeSelect.Option></NativeSelect.Root>",
+        "Unlike Select (which uses Tamagui's custom dropdown), NativeSelect uses the browser's native select picker.",
+        "Placeholder is rendered as a disabled <option> at the top of the list.",
+        "Custom chevron arrow via CSS background-image SVG."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "onChange={(e) => ...}",
+          "to": "onValueChange={(value) => ...}",
+          "reason": "Simplified callback with value directly, not event object"
+        }
+      ]
+    },
+    {
+      "name": "NavigationMenu",
+      "layer": "component",
+      "category": "navigation",
+      "import": "import { NavigationMenu } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "props": {
+        "NavigationMenu.Root": {},
+        "NavigationMenu.List": {},
+        "NavigationMenu.Item": {},
+        "NavigationMenu.Trigger": {},
+        "NavigationMenu.Content": {},
+        "NavigationMenu.Link": {},
+        "NavigationMenu.Indicator": {},
+        "NavigationMenu.Viewport": {}
+      },
+      "whenToUse": "Top-level horizontal site navigation",
+      "whenNotToUse": "Mobile nav — use Sheet or Drawer",
+      "accessibility": {
+        "role": "navigation",
+        "keyboard": [
+          "Arrow keys",
+          "Tab"
+        ]
+      },
+      "notes": [
+        "shadcn uses Radix NavigationMenu; vlting uses a custom context-based implementation.",
+        "vlting NavigationMenu.Link has an 'active' boolean prop for highlighting the current page.",
+        "Full keyboard navigation: ArrowLeft/Right between triggers, ArrowUp/Down within content, Escape to close.",
+        "vlting uses dot-notation compound API while shadcn uses separate named imports.",
+        "Indicator is a visual-only bar at the bottom, rendered via NavigationMenu.Indicator."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "<NavigationMenuList>",
+          "to": "<NavigationMenu.List>",
+          "reason": "Dot-notation compound component API"
+        },
+        {
+          "from": "navigationMenuTriggerStyle()",
+          "to": "Styling is built-in to NavigationMenu.Trigger",
+          "reason": "No separate style utility needed"
+        },
+        {
+          "from": "asChild on Link",
+          "to": "NavigationMenu.Link renders an <a> tag directly; use href and onSelect props",
+          "reason": "Different composition model"
+        }
+      ]
+    },
+    {
+      "name": "Pagination",
+      "layer": "component",
+      "category": "navigation",
+      "import": "import { Pagination } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Pagination.Root": {},
+        "Pagination.Previous": {},
+        "Pagination.Next": {},
+        "Pagination.Item": {},
+        "Pagination.Ellipsis": {}
+      },
+      "whenToUse": "Navigating paginated data",
+      "whenNotToUse": "Infinite scroll — use IntersectionObserver",
+      "accessibility": {
+        "role": "navigation",
+        "keyboard": [
+          "Tab"
+        ]
+      },
+      "notes": [
+        "vlting Pagination.Root is a fully managed component: pass currentPage, totalPages, and onPageChange, and it auto-renders page buttons with ellipsis.",
+        "shadcn Pagination is purely presentational (links with href); vlting is state-driven (onPageChange callback).",
+        "vlting supports Button variant customization for nav, page, and active page buttons via navVariant/pageVariant/activePageVariant props.",
+        "Built-in page range computation with configurable siblingCount."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "<PaginationLink href='/page/2'>",
+          "to": "<Pagination.Root onPageChange={...} />",
+          "reason": "vlting uses callback-based navigation, not href links"
+        },
+        {
+          "from": "Manual page rendering",
+          "to": "Automatic page rendering via Root",
+          "reason": "vlting Root handles all page number rendering automatically"
+        },
+        {
+          "from": "onClick",
+          "to": "onPress / onPageChange",
+          "reason": "Cross-platform event naming"
+        }
+      ]
+    },
+    {
+      "name": "PieChart",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { PieChart } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "whenToUse": "Part-of-whole relationships, distributions",
+      "whenNotToUse": "Many categories — use BarChart",
+      "props": {
+        "data": {
+          "type": "ChartDataPoint[]"
+        },
+        "variant": {
+          "type": "PieChartVariant",
+          "values": [
+            "default",
+            "donut",
+            "interactive",
+            "label",
+            "custom",
+            "stacked",
+            "legend",
+            "separator",
+            "half",
+            "nested",
+            "active"
+          ]
+        },
+        "dataKey": {
+          "type": "string"
+        },
+        "nameKey": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "Popover",
+      "layer": "component",
+      "category": "overlay",
+      "import": "import { Popover } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Popover.Root": {},
+        "Popover.Trigger": {},
+        "Popover.Anchor": {},
+        "Popover.Content": {},
+        "Popover.Arrow": {},
+        "Popover.Close": {}
+      },
+      "whenToUse": "Click-triggered popup with interactive content",
+      "whenNotToUse": "Simple hover info — use Tooltip",
+      "notes": [
+        "shadcn uses Radix Popover; vlting wraps @tamagui/popover.",
+        "vlting uses 'placement' prop on Root instead of 'side' on Content.",
+        "vlting supports 'hoverable' prop for tooltip-like hover behavior.",
+        "Content includes built-in Arrow by default (can also use Popover.Arrow separately).",
+        "Animations use Tamagui's animation system (medium animation with scale/opacity enter/exit)."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "<PopoverContent side='top'>",
+          "to": "<Popover.Root placement='top'>",
+          "reason": "Placement is on Root, not Content"
+        },
+        {
+          "from": "sideOffset on Content",
+          "to": "offset on Root",
+          "reason": "Offset configured at Root level"
+        },
+        {
+          "from": "<PopoverContent>",
+          "to": "<Popover.Content>",
+          "reason": "Dot-notation compound component API"
+        }
+      ]
+    },
+    {
+      "name": "Progress",
+      "layer": "component",
+      "category": "feedback",
+      "import": "import { Progress } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "value": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "size": {
+          "type": "string",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        "aria-label": {
+          "type": "string"
+        }
+      },
+      "notes": [
+        "Both are simple single-component APIs with value and max props.",
+        "vlting adds a 'size' variant (sm/md/lg) that controls track height.",
+        "vlting wraps @tamagui/progress with built-in indicator and animation.",
+        "shadcn uses Radix Progress; vlting uses Tamagui Progress.",
+        "Size maps: sm=$0.5, md=$0.75, lg=$1 height."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "No size prop",
+          "to": "size='sm' | 'md' | 'lg'",
+          "reason": "vlting includes built-in size variants"
+        }
+      ]
+    },
+    {
+      "name": "RadarChart",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { RadarChart } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "whenToUse": "Multi-dimensional comparisons, skill charts",
+      "whenNotToUse": "Simple comparisons — use BarChart",
+      "props": {
+        "data": {
+          "type": "ChartDataPoint[]"
+        },
+        "variant": {
+          "type": "RadarChartVariant",
+          "values": [
+            "default",
+            "dots",
+            "multiple",
+            "lines",
+            "label",
+            "custom",
+            "radius",
+            "grid",
+            "circle",
+            "filled",
+            "icons",
+            "legend",
+            "stacked",
+            "interactive"
+          ]
+        },
+        "dataKeys": {
+          "type": "string[]"
+        }
+      }
+    },
+    {
+      "name": "RadialChart",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { RadialChart } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "whenToUse": "Gauge-like displays, progress circles",
+      "whenNotToUse": "Full pie — use PieChart",
+      "props": {
+        "data": {
+          "type": "ChartDataPoint[]"
+        },
+        "variant": {
+          "type": "RadialChartVariant",
+          "values": [
+            "default",
+            "label",
+            "grid",
+            "text",
+            "shape",
+            "stacked"
+          ]
+        },
+        "dataKey": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "RadioGroup",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { RadioGroup } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "RadioGroup.Root": {},
+        "RadioGroup.Item": {}
+      },
+      "whenToUse": "Mutually exclusive options (2-5 visible)",
+      "whenNotToUse": "Many options — use Select or Combobox",
+      "accessibility": {
+        "role": "radiogroup",
+        "keyboard": [
+          "Arrow keys"
+        ]
+      },
+      "notes": [
+        "Both use compound API with Root + Item pattern.",
+        "vlting adds a 'size' prop on Root (sm/md/lg) that propagates to all items via context.",
+        "vlting RadioGroup.Item renders a <label> wrapper with the radio indicator and children as label text.",
+        "shadcn requires a separate <Label> component next to RadioGroupItem; vlting Item includes the label.",
+        "vlting wraps @tamagui/radio-group with built-in indicator styling."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "<RadioGroupItem /><Label htmlFor='r1'>Option</Label>",
+          "to": "<RadioGroup.Item value='r1'>Option</RadioGroup.Item>",
+          "reason": "Label is built into the Item component as children"
+        },
+        {
+          "from": "<RadioGroup>",
+          "to": "<RadioGroup.Root>",
+          "reason": "Dot-notation compound component API"
+        },
+        {
+          "from": "No size prop",
+          "to": "size='sm' | 'md' | 'lg' on Root",
+          "reason": "vlting includes built-in size variants"
+        }
+      ]
+    },
+    {
+      "name": "Resizable",
+      "layer": "component",
+      "category": "layout",
+      "import": "import { Resizable } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "props": {
+        "Resizable.PanelGroup": {},
+        "Resizable.Panel": {},
+        "Resizable.Handle": {}
+      },
+      "whenToUse": "Adjustable panel layouts",
+      "whenNotToUse": "Fixed layouts — use flex/grid",
+      "notes": [
+        "shadcn wraps react-resizable-panels; vlting uses a custom context-based implementation.",
+        "API is very similar: PanelGroup, Panel, Handle with the same prop names.",
+        "vlting handles panel sizing with percentage-based widths/heights via internal state.",
+        "Handle renders a drag grip indicator when withHandle is true (default).",
+        "Mouse-based drag resizing with proper cursor styles (col-resize/row-resize)."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "<ResizablePanelGroup>",
+          "to": "<Resizable.PanelGroup>",
+          "reason": "Dot-notation compound component API"
+        },
+        {
+          "from": "react-resizable-panels library",
+          "to": "Custom implementation",
+          "reason": "No external dependency for resize logic"
+        }
+      ]
+    },
+    {
+      "name": "ScrollArea",
+      "layer": "component",
+      "category": "layout",
+      "import": "import { ScrollArea } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "ScrollArea.Root": {
+          "type": {
+            "type": "string",
+            "values": [
+              "auto",
+              "always",
+              "scroll",
+              "hover"
+            ]
+          }
+        },
+        "ScrollArea.Viewport": {},
+        "ScrollArea.Scrollbar": {},
+        "ScrollArea.Thumb": {},
+        "ScrollArea.Corner": {}
+      },
+      "whenToUse": "Custom scrollbar styling for overflow content",
+      "whenNotToUse": "Simple overflow — use native scroll",
+      "notes": [
+        "shadcn uses Radix ScrollArea with custom scrollbar tracks/thumbs; vlting uses CSS-based scrollbar styling.",
+        "vlting Scrollbar, Thumb, and Corner are no-op components provided for API shape compatibility only.",
+        "Actual scrollbar styling in vlting uses CSS ::-webkit-scrollbar and scrollbar-width/scrollbar-color.",
+        "Content should be placed inside ScrollArea.Viewport, not directly in ScrollArea.Root.",
+        "Viewport's 'orientation' prop controls overflow direction."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "<ScrollArea><content /><ScrollBar /></ScrollArea>",
+          "to": "<ScrollArea.Root><ScrollArea.Viewport><content /></ScrollArea.Viewport></ScrollArea.Root>",
+          "reason": "Content must be inside Viewport sub-component"
+        },
+        {
+          "from": "Custom rendered scrollbar tracks",
+          "to": "CSS-based scrollbar styling",
+          "reason": "Uses native scrollbar styling for performance and simplicity"
+        }
+      ]
+    },
+    {
+      "name": "Select",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { Select } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Select (Root)": {},
+        "Select.Item": {},
+        "Select.Value": {},
+        "Select.Group": {},
+        "Select.Label": {},
+        "Select.Separator": {}
+      },
+      "whenToUse": "Picking one from many options (5+)",
+      "whenNotToUse": "Few options (2-4) — use RadioGroup",
+      "accessibility": {
+        "role": "listbox",
+        "keyboard": [
+          "Arrow keys",
+          "Enter",
+          "Escape"
+        ]
+      },
+      "notes": [
+        "vlting Select is a simplified API: Root component renders the trigger, value display, and content all-in-one.",
+        "shadcn requires manually composing SelectTrigger + SelectValue + SelectContent + SelectViewport; vlting handles this automatically.",
+        "vlting uses withStaticProperties for compound API: <Select><Select.Item value='a'>A</Select.Item></Select>",
+        "vlting wraps @tamagui/select.",
+        "Size prop affects trigger height, padding, and font size."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "<Select><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>...</SelectContent></Select>",
+          "to": "<Select placeholder='...'><Select.Item>...</Select.Item></Select>",
+          "reason": "Simplified API: trigger and content are handled by Root"
+        },
+        {
+          "from": "No size prop",
+          "to": "size='sm' | 'md' | 'lg'",
+          "reason": "vlting includes built-in size variants"
+        }
+      ]
+    },
+    {
+      "name": "Sheet",
+      "layer": "component",
+      "category": "overlay",
+      "import": "import { Sheet } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Sheet.Root": {},
+        "Sheet.Overlay": {},
+        "Sheet.Handle": {},
+        "Sheet.Frame": {},
+        "Sheet.ScrollView": {}
+      },
+      "whenToUse": "Side panels, detail views, mobile navigation",
+      "whenNotToUse": "Small confirmations — use AlertDialog",
+      "notes": [
+        "shadcn Sheet is a side drawer (top/right/bottom/left); vlting Sheet is a bottom sheet with snap points.",
+        "vlting wraps @tamagui/sheet which is mobile-oriented with drag-to-dismiss and snap points.",
+        "vlting Sheet always opens from the bottom; for side drawers, use the Drawer component instead.",
+        "Includes Handle component for the drag indicator and Overlay for the backdrop.",
+        "ScrollView sub-component enables scrollable content within the sheet frame."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "<SheetContent side='right'>",
+          "to": "<Sheet.Root><Sheet.Frame>",
+          "reason": "vlting Sheet is always bottom-up; use Drawer for side panels"
+        },
+        {
+          "from": "SheetHeader, SheetTitle, SheetDescription",
+          "to": "Compose content freely inside Sheet.Frame",
+          "reason": "No built-in header/title sub-components; use Typography or custom layout"
+        },
+        {
+          "from": "No snap points",
+          "to": "snapPoints={[50, 90]}",
+          "reason": "vlting supports snap-to-position for mobile-like sheet behavior"
+        }
+      ]
+    },
+    {
+      "name": "Sidebar",
+      "layer": "component",
+      "category": "navigation",
+      "import": "import { Sidebar } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Sidebar.Root": {},
+        "Sidebar.Header": {},
+        "Sidebar.Content": {},
+        "Sidebar.Footer": {},
+        "Sidebar.Group": {},
+        "Sidebar.GroupLabel": {},
+        "Sidebar.GroupContent": {},
+        "Sidebar.Menu": {},
+        "Sidebar.MenuItem": {},
+        "Sidebar.MenuButton": {},
+        "Sidebar.Separator": {},
+        "Sidebar.Trigger": {},
+        "Sidebar.Rail": {}
+      },
+      "whenToUse": "App navigation sidebar",
+      "whenNotToUse": "Simple nav list — use VStack + links",
+      "accessibility": {
+        "role": "navigation",
+        "keyboard": [
+          "Arrow keys",
+          "Tab"
+        ]
+      },
+      "notes": [
+        "No direct shadcn equivalent (shadcn/ui sidebar is an application layout recipe, not a primitive component).",
+        "Rich compound API with 13 sub-components for building complete sidebar layouts.",
+        "Supports three collapse modes: 'offcanvas' (slides away), 'icon' (collapses to icon width), 'none' (always open).",
+        "Three visual variants: 'sidebar' (bordered), 'floating' (elevated with shadow), 'inset'.",
+        "GroupLabel auto-hides when collapsed in 'icon' mode.",
+        "Uses CSS transitions for smooth open/close animation; respects prefers-reduced-motion.",
+        "Trigger component auto-toggles open state and updates aria-expanded."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "onClick",
+          "to": "onPress",
+          "reason": "Cross-platform event naming"
+        }
+      ]
+    },
+    {
+      "name": "Slider",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { Slider } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "value": {
+          "type": "number"
+        },
+        "defaultValue": {
+          "type": "number"
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "step": {
+          "type": "number"
+        },
+        "onValueChange": {
+          "type": "function"
+        },
+        "size": {
+          "type": "string",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "aria-label": {
+          "type": "string"
+        }
+      },
+      "accessibility": {
+        "role": "slider",
+        "keyboard": [
+          "Arrow keys"
+        ]
+      },
+      "notes": [
+        "shadcn uses Radix Slider with value as number[]; vlting uses a single number value.",
+        "vlting wraps @tamagui/slider; the array-to-single conversion is handled internally.",
+        "vlting adds a 'size' prop (sm/md/lg) controlling the slider track and thumb size.",
+        "vlting is single-thumb only; shadcn supports multi-thumb range sliders.",
+        "Track, TrackActive, and Thumb are rendered automatically; no sub-components needed."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "value={[50]} / onValueChange={(val) => val[0]}",
+          "to": "value={50} / onValueChange={(val) => val}",
+          "reason": "Single number value, not array"
+        },
+        {
+          "from": "defaultValue={[50]}",
+          "to": "defaultValue={50}",
+          "reason": "Single number, not array"
+        },
+        {
+          "from": "Multi-thumb support",
+          "to": "Single thumb only",
+          "reason": "Simplified API for single-value sliders"
+        }
+      ]
+    },
+    {
+      "name": "Switch",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { Switch } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "checked": {
+          "type": "boolean"
+        },
+        "defaultChecked": {
+          "type": "boolean"
+        },
+        "onCheckedChange": {
+          "type": "function"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "size": {
+          "type": "string",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "whenToUse": "On/off toggle with immediate effect",
+      "whenNotToUse": "Form submission boolean — use Checkbox",
+      "accessibility": {
+        "role": "switch",
+        "keyboard": [
+          "Space"
+        ]
+      },
+      "notes": [
+        "Very similar API between shadcn and vlting.",
+        "vlting adds a 'size' prop (sm/md/lg) controlling overall dimensions.",
+        "vlting wraps @tamagui/switch with built-in thumb.",
+        "Both use checked/onCheckedChange pattern.",
+        "Size maps to different widths and thumb sizes: sm=$4.5 wide, md=$6 wide, lg=$7 wide."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "No size prop",
+          "to": "size='sm' | 'md' | 'lg'",
+          "reason": "vlting includes built-in size variants"
+        },
+        {
+          "from": "id prop for label association",
+          "to": "Use name prop or wrap in <label>",
+          "reason": "Different label association pattern"
+        }
+      ]
+    },
+    {
+      "name": "Table",
+      "layer": "component",
+      "category": "data-display",
+      "import": "import { Table } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "props": {
+        "Table.Root": {},
+        "Table.Header": {},
+        "Table.Body": {},
+        "Table.Footer": {},
+        "Table.Row": {},
+        "Table.Head": {},
+        "Table.Cell": {},
+        "Table.Caption": {}
+      },
+      "whenToUse": "Static tabular data",
+      "whenNotToUse": "Interactive features needed — use DataTable",
+      "accessibility": {
+        "role": "table",
+        "keyboard": [
+          "Tab"
+        ]
+      },
+      "notes": [
+        "Both use native HTML table elements (table, thead, tbody, tr, th, td, caption).",
+        "vlting Table uses native HTML elements directly (not Tamagui styled views) for proper table layout context.",
+        "Styling uses CSS custom properties mapping to Tamagui theme tokens via inline styles.",
+        "Both have nearly identical compound APIs with the same sub-component names.",
+        "Table.Head defaults scope='col' for accessibility.",
+        "All sub-components accept their respective HTML element props and a style override."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "style={{...}} with CSS custom properties",
+          "reason": "Uses inline styles with Tamagui token CSS variables instead of className"
+        },
+        {
+          "from": "<TableHeader>",
+          "to": "<Table.Header>",
+          "reason": "Dot-notation compound component API"
+        }
+      ]
+    },
+    {
+      "name": "Tabs",
+      "layer": "component",
+      "category": "navigation",
+      "import": "import { Tabs } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Tabs.Root": {},
+        "Tabs.List": {},
+        "Tabs.Trigger": {},
+        "Tabs.Content": {}
+      },
+      "whenToUse": "Switching between related views/sections",
+      "whenNotToUse": "Multi-step wizard — use Stepper pattern",
+      "accessibility": {
+        "role": "tablist",
+        "keyboard": [
+          "Arrow keys"
+        ]
+      },
+      "notes": [
+        "Both use compound API with Root/List/Trigger/Content.",
+        "vlting wraps @tamagui/tabs with manual activation mode.",
+        "vlting adds 'size' prop on Trigger (sm/md/lg) affecting padding and font size.",
+        "vlting uses useTabsContext internally to determine active state for styling.",
+        "List renders with background color and rounded container for a segmented control appearance."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "<Tabs>",
+          "to": "<Tabs.Root>",
+          "reason": "Dot-notation compound component API"
+        },
+        {
+          "from": "<TabsList>",
+          "to": "<Tabs.List>",
+          "reason": "Dot-notation compound component API"
+        },
+        {
+          "from": "<TabsTrigger>",
+          "to": "<Tabs.Trigger>",
+          "reason": "Dot-notation compound component API"
+        },
+        {
+          "from": "No size prop",
+          "to": "size='sm' | 'md' | 'lg' on Trigger",
+          "reason": "vlting includes built-in size variants"
+        }
+      ]
+    },
+    {
+      "name": "Textarea",
+      "layer": "component",
+      "category": "forms",
+      "import": "import { Textarea } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "value": {
+          "type": "string"
+        },
+        "defaultValue": {
+          "type": "string"
+        },
+        "onChangeText": {
+          "type": "function"
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "helperText": {
+          "type": "string"
+        },
+        "error": {
+          "type": "boolean"
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "size": {
+          "type": "string",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        "rows": {
+          "type": "number"
+        },
+        "maxLength": {
+          "type": "number"
+        }
+      },
+      "notes": [
+        "vlting Textarea is a higher-level component that includes optional label, helper text, and error state.",
+        "shadcn Textarea is a bare styled textarea; vlting wraps @tamagui/input TextArea with a form field layout.",
+        "vlting uses onChangeText (string callback) instead of onChange (event callback).",
+        "When error is true and errorMessage is provided, it displays instead of helperText.",
+        "Auto-generates unique IDs for label-textarea association and aria-describedby linking."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "onChange={(e) => e.target.value}",
+          "to": "onChangeText={(text) => text}",
+          "reason": "Direct string callback for cross-platform compatibility"
+        },
+        {
+          "from": "Separate <Label> component",
+          "to": "label='...' prop on Textarea",
+          "reason": "Label is built into the component"
+        },
+        {
+          "from": "No built-in error state",
+          "to": "error + errorMessage props",
+          "reason": "vlting includes form field error handling"
+        }
+      ]
+    },
+    {
+      "name": "Toast",
+      "layer": "component",
+      "category": "feedback",
+      "import": "import { Toast, toast } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "declarative_api": {},
+        "imperative_api": {}
+      },
+      "whenToUse": "Temporary notifications, action confirmations",
+      "whenNotToUse": "Persistent messages — use Alert",
+      "notes": [
+        "vlting Toast has BOTH declarative and imperative APIs.",
+        "Declarative: <Toast.Root variant='success'><Toast.Title>...</Toast.Title></Toast.Root>",
+        "Imperative: toast('Hello'), toast.success('Done'), toast.error('Failed'), toast.warning('Watch out')",
+        "toast.promise() handles loading/success/error states automatically for async operations.",
+        "vlting has 4 variants (default, success, error, warning); shadcn has 2 (default, destructive).",
+        "Imperative toasts require <Toast.ImperativeViewport /> to be mounted in the component tree.",
+        "Uses useSyncExternalStore for the imperative toast store (works outside React components).",
+        "Also exports useToastController and useToastState hooks from @tamagui/toast."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "variant='destructive'",
+          "to": "variant='error' (also 'success', 'warning')",
+          "reason": "Different variant naming and more options"
+        },
+        {
+          "from": "useToast() + toast() from custom hook",
+          "to": "import { toast } from '@vlting/ui' (global function)",
+          "reason": "Imperative API is a standalone function, not a hook"
+        },
+        {
+          "from": "<Toaster /> component",
+          "to": "<Toast.Provider><Toast.Viewport /><Toast.ImperativeViewport /></Toast.Provider>",
+          "reason": "Explicit provider and viewport setup"
+        }
+      ]
+    },
+    {
+      "name": "Toggle",
+      "layer": "component",
+      "category": "interactive",
+      "import": "import { Toggle, ToggleGroup } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Toggle": {},
+        "ToggleGroup": {
+          "type": {
+            "type": "string",
+            "values": [
+              "single",
+              "multiple"
+            ],
+            "default": "single"
+          }
+        },
+        "ToggleGroup.Item": {}
+      },
+      "whenToUse": "Single on/off button (bold, italic)",
+      "whenNotToUse": "Form boolean — use Checkbox or Switch",
+      "accessibility": {
+        "role": "button",
+        "keyboard": [
+          "Enter",
+          "Space"
+        ]
+      },
+      "notes": [
+        "Very similar API between shadcn and vlting for standalone Toggle.",
+        "vlting also exports ToggleGroup (from @tamagui/toggle-group) with single/multiple selection modes.",
+        "vlting standalone Toggle uses styledHtml('button') for native <button> rendering.",
+        "Toggle sizes: shadcn uses 'default'/'sm'/'lg'; vlting uses 'sm'/'md'/'lg'.",
+        "ToggleGroup uses withStaticProperties for ToggleGroup.Item compound API.",
+        "ToggleGroup supports roving focus keyboard navigation via Tamagui."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "size='default'",
+          "to": "size='md'",
+          "reason": "Different default size naming"
+        },
+        {
+          "from": "Separate ToggleGroup import",
+          "to": "import { ToggleGroup } from '@vlting/ui'",
+          "reason": "Bundled with Toggle module"
+        },
+        {
+          "from": "<ToggleGroupItem>",
+          "to": "<ToggleGroup.Item>",
+          "reason": "Dot-notation compound component API"
+        }
+      ]
+    },
+    {
+      "name": "Tooltip",
+      "layer": "component",
+      "category": "overlay",
+      "import": "import { Tooltip, TooltipProvider } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "Tooltip": {},
+        "TooltipProvider": {}
+      },
+      "whenToUse": "Brief supplementary info on hover",
+      "whenNotToUse": "Interactive content — use Popover",
+      "accessibility": {
+        "role": "tooltip",
+        "keyboard": [
+          "Escape"
+        ]
+      },
+      "notes": [
+        "vlting Tooltip is a simplified single-component API: <Tooltip content='text'><Button /></Tooltip>",
+        "shadcn requires composing Tooltip + TooltipTrigger + TooltipContent manually.",
+        "vlting uses 'content' prop for tooltip text; no need for a separate Content sub-component.",
+        "vlting uses 'delay' prop; shadcn uses 'delayDuration'.",
+        "vlting wraps @tamagui/tooltip with built-in arrow and animations.",
+        "TooltipProvider wraps @tamagui/tooltip's TooltipGroup for shared delay behavior."
+      ],
+      "migration": [
+        {
+          "from": "className='...'",
+          "to": "Use Tamagui style props",
+          "reason": "Cross-platform compatibility"
+        },
+        {
+          "from": "<Tooltip><TooltipTrigger>Hover</TooltipTrigger><TooltipContent>Text</TooltipContent></Tooltip>",
+          "to": "<Tooltip content='Text'><Button>Hover</Button></Tooltip>",
+          "reason": "Simplified single-component API with content prop"
+        },
+        {
+          "from": "delayDuration={200}",
+          "to": "delay={200}",
+          "reason": "Shorter prop name"
+        },
+        {
+          "from": "Side/offset on Content",
+          "to": "side/sideOffset on Tooltip root",
+          "reason": "All config on the single Tooltip component"
+        }
+      ]
+    },
+    {
+      "name": "Typography",
+      "layer": "component",
+      "category": "other",
+      "import": "import { H1, H2, H3, H4, H5, H6, P, Lead, Large, Small, Muted, Blockquote, InlineCode, List, ListItem } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "props": {
+        "H1": {},
+        "H2": {},
+        "H3": {},
+        "H4": {},
+        "H5": {},
+        "H6": {},
+        "P": {},
+        "Lead": {},
+        "Large": {},
+        "Small": {},
+        "Muted": {},
+        "Blockquote": {},
+        "InlineCode": {},
+        "List": {},
+        "ListItem": {}
+      },
+      "notes": [
+        "shadcn uses Tailwind CSS classes on raw HTML elements; vlting provides pre-styled components.",
+        "All vlting Typography components use styledHtml() which renders actual semantic HTML elements.",
+        "Heading weight alternation pattern: h1(heavy/$6) -> h2(light/$5) -> h3(heavy/$4) -> h4(light/$3) -> h5(heavy/$2) -> h6(light/$1).",
+        "All components accept standard HTML element props and Tamagui style props.",
+        "Components are individually exported (not a compound component).",
+        "Uses Tamagui font tokens ($heading, $body, $mono, $quote) for consistent typography across brands."
+      ],
+      "migration": [
+        {
+          "from": "className='scroll-m-20 text-4xl font-extrabold'",
+          "to": "<H1>Title</H1>",
+          "reason": "Pre-styled components instead of utility classes"
+        },
+        {
+          "from": "<p className='text-sm text-muted-foreground'>",
+          "to": "<Muted>Text</Muted>",
+          "reason": "Semantic component instead of utility classes"
+        },
+        {
+          "from": "<code className='bg-muted px-1 rounded'>",
+          "to": "<InlineCode>code</InlineCode>",
+          "reason": "Pre-styled component"
+        },
+        {
+          "from": "Raw HTML elements + Tailwind",
+          "to": "styledHtml components with Tamagui tokens",
+          "reason": "Token-based styling for cross-platform and theming support"
+        }
+      ]
+    },
+    {
+      "name": "AppShellBlock",
+      "layer": "block",
+      "category": "composition",
+      "import": "import { AppShellBlock } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "whenToUse": "Complete app shell with sidebar/header",
+      "props": {
+        "variant": {
+          "type": "AppShellBlockVariant",
+          "values": [
+            "sidebar-header",
+            "sidebar-only",
+            "header-only",
+            "dashboard"
+          ]
+        }
+      }
+    },
+    {
+      "name": "AuthBlock",
+      "layer": "block",
+      "category": "composition",
+      "import": "import { AuthBlock } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "whenToUse": "Login and signup forms",
+      "whenNotToUse": "Custom auth flow — compose from Form + Input + Button",
+      "props": {
+        "variant": {
+          "type": "AuthBlockVariant",
+          "values": [
+            "login-card",
+            "login-split",
+            "signup-card",
+            "signup-split",
+            "signup-social"
+          ]
+        },
+        "onSubmit": {
+          "type": "(data) => void"
+        }
+      }
+    },
+    {
+      "name": "DashboardBlock",
+      "layer": "block",
+      "category": "composition",
+      "import": "import { DashboardBlock } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "whenToUse": "Overview dashboards with metrics",
+      "props": {
+        "variant": {
+          "type": "DashboardBlockVariant",
+          "values": [
+            "metrics-grid",
+            "metrics-chart"
+          ]
+        },
+        "metrics": {
+          "type": "MetricCard[]"
+        }
+      }
+    },
+    {
+      "name": "DataTableBlock",
+      "layer": "block",
+      "category": "composition",
+      "import": "import { DataTableBlock } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "whenToUse": "Pre-composed data table layouts",
+      "whenNotToUse": "Custom table — use DataTable directly",
+      "props": {
+        "variant": {
+          "type": "DataTableBlockVariant",
+          "values": [
+            "default",
+            "with-filters",
+            "with-toolbar"
+          ]
+        }
+      }
+    },
+    {
+      "name": "EmptyStateBlock",
+      "layer": "block",
+      "category": "composition",
+      "import": "import { EmptyStateBlock } from '@vlting/ui'",
+      "platforms": [
+        "web",
+        "native"
+      ],
+      "whenToUse": "Empty state pages with illustration and action",
+      "props": {
+        "variant": {
+          "type": "EmptyStateBlockVariant",
+          "values": [
+            "simple",
+            "with-action",
+            "illustration",
+            "search",
+            "error"
+          ]
+        }
+      }
+    },
+    {
+      "name": "FeedBlock",
+      "layer": "block",
+      "category": "composition",
+      "import": "import { FeedBlock } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "whenToUse": "Activity feeds, timelines, notifications",
+      "props": {
+        "variant": {
+          "type": "FeedBlockVariant",
+          "values": [
+            "timeline",
+            "notifications",
+            "comments"
+          ]
+        }
+      }
+    },
+    {
+      "name": "HeroBlock",
+      "layer": "block",
+      "category": "composition",
+      "import": "import { HeroBlock } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "whenToUse": "Landing page hero sections",
+      "props": {
+        "variant": {
+          "type": "HeroBlockVariant",
+          "values": [
+            "centered",
+            "split",
+            "gradient",
+            "minimal"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "actions": {
+          "type": "HeroAction[]"
+        }
+      }
+    },
+    {
+      "name": "PricingBlock",
+      "layer": "block",
+      "category": "composition",
+      "import": "import { PricingBlock } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "whenToUse": "Pricing display pages",
+      "props": {
+        "variant": {
+          "type": "PricingBlockVariant",
+          "values": [
+            "cards",
+            "table",
+            "comparison"
+          ]
+        }
+      }
+    },
+    {
+      "name": "SettingsBlock",
+      "layer": "block",
+      "category": "composition",
+      "import": "import { SettingsBlock } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "whenToUse": "Settings pages with form sections",
+      "props": {
+        "variant": {
+          "type": "SettingsBlockVariant",
+          "values": [
+            "profile",
+            "notifications",
+            "appearance"
+          ]
+        }
+      }
+    },
+    {
+      "name": "SidebarBlock",
+      "layer": "block",
+      "category": "composition",
+      "import": "import { SidebarBlock } from '@vlting/ui'",
+      "platforms": [
+        "web"
+      ],
+      "whenToUse": "App navigation sidebar with pre-built layouts",
+      "whenNotToUse": "Simple nav — use Sidebar component directly",
+      "props": {
+        "variant": {
+          "type": "SidebarBlockVariant",
+          "values": [
+            "simple",
+            "with-groups",
+            "with-icons",
+            "collapsible",
+            "with-footer",
+            "with-search",
+            "with-file-tree",
+            "with-nested"
+          ]
+        },
+        "items": {
+          "type": "NavItem[]"
+        }
+      }
+    }
+  ],
+  "totalCount": 88
+}
