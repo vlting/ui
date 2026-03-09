@@ -1,38 +1,42 @@
 import React from 'react'
-import { Text, styled } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 
 const BREADCRUMB_FOCUS_STYLE_ID = 'vlt-breadcrumb-focus'
 const BREADCRUMB_FOCUS_CSS = `.vlt-breadcrumb-link:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; border-radius: 2px; }`
 
-const BreadcrumbLinkText = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$3',
-  color: '$colorSubtitle',
-  cursor: 'pointer',
-  textDecorationLine: 'none',
-
-  // @ts-expect-error Tamagui v2 RC PseudoStyleWithTransition type limitation
-  hoverStyle: {
-    color: '$color',
-    textDecorationLine: 'underline',
+const BreadcrumbLinkText = styled(
+  "span",
+  {
+    fontFamily: "$body",
+    fontSize: "$14",
+    color: "$secondaryText12",
+    cursor: "pointer",
+    textDecoration: "none",
   },
-})
+  "BreadcrumbLink"
+)
 
-// @ts-expect-error Tamagui v2 RC
-const BreadcrumbPageText = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$3',
-  fontWeight: '$3',
-  color: '$color',
-})
+const BreadcrumbPageText = styled(
+  "span",
+  {
+    fontFamily: "$body",
+    fontSize: "$14",
+    fontWeight: "$500",
+    color: "$color",
+  },
+  "BreadcrumbPage"
+)
 
-// @ts-expect-error Tamagui v2 RC
-const BreadcrumbSeparatorText = styled(Text, {
-  fontFamily: '$body',
-  fontSize: '$3',
-  color: '$colorSubtitle',
-  userSelect: 'none',
-})
+const BreadcrumbSeparatorText = styled(
+  "span",
+  {
+    fontFamily: "$body",
+    fontSize: "$14",
+    color: "$secondaryText12",
+    userSelect: "none",
+  },
+  "BreadcrumbSeparator"
+)
 
 export interface BreadcrumbProps {
   children: React.ReactNode
@@ -95,7 +99,6 @@ function Link({
         borderRadius: 2,
       }}
     >
-      {/* @ts-expect-error Tamagui v2 RC */}
       <BreadcrumbLinkText>{children}</BreadcrumbLinkText>
     </a>
   )
@@ -104,7 +107,6 @@ function Link({
 function Page({ children }: { children: React.ReactNode }) {
   return (
     <span aria-current="page">
-      {/* @ts-expect-error Tamagui v2 RC */}
       <BreadcrumbPageText>{children}</BreadcrumbPageText>
     </span>
   )
@@ -117,7 +119,6 @@ function Separator({ children = '/' }: { children?: React.ReactNode }) {
       aria-hidden="true"
       style={{ display: 'flex', alignItems: 'center' }}
     >
-      {/* @ts-expect-error Tamagui v2 RC */}
       <BreadcrumbSeparatorText>{children}</BreadcrumbSeparatorText>
     </li>
   )
