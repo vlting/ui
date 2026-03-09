@@ -1,7 +1,6 @@
-import { styledHtml } from '@tamagui/web'
 import type { ComponentType, ReactNode } from 'react'
 import React from 'react'
-import { Text, View } from 'tamagui'
+import { styled } from '../../stl-react/src/config'
 import { Button } from '../../components/Button'
 import { Separator } from '../../primitives/Separator'
 import { Sheet } from '../../components/Sheet'
@@ -11,17 +10,18 @@ import type { NavGroup } from '../sidebar/_shared'
 import { SidebarNavGroup } from '../sidebar/_shared'
 
 type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
 const ButtonJsx = Button as AnyFC
 const SeparatorJsx = Separator as AnyFC
 
-const Nav = styledHtml('nav', {
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-} as any)
-const NavJsx = Nav as AnyFC
+const NavElement = styled(
+  "nav",
+  {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+  },
+  "AppShellNav"
+)
 
 // -- Types --
 
@@ -78,43 +78,43 @@ function SidebarLayout({
   children,
 }: AppShellBlockProps) {
   return (
-    <ViewJsx flexDirection="row" flex={1} minHeight="100vh">
+    <div style={{ display: 'flex', flexDirection: 'row', flex: 1, minHeight: '100vh' }}>
       <Sidebar.Root collapsible="offcanvas" side="left" variant="sidebar" defaultOpen>
         {sidebarHeader && <Sidebar.Header>{sidebarHeader}</Sidebar.Header>}
         <Sidebar.Content>
-          <NavJsx>
+          <NavElement>
             {sidebarGroups.map((group, i) => (
               <React.Fragment key={`group-${group.label ?? i}`}>
                 {i > 0 && <Sidebar.Separator />}
                 <SidebarNavGroup group={group} />
               </React.Fragment>
             ))}
-          </NavJsx>
+          </NavElement>
         </Sidebar.Content>
         {sidebarFooter && <Sidebar.Footer>{sidebarFooter}</Sidebar.Footer>}
       </Sidebar.Root>
 
-      <ViewJsx flex={1} padding="$4">
+      <div style={{ flex: 1, padding: 16 }}>
         {children}
-      </ViewJsx>
+      </div>
 
       {onSheetOpenChange && (
         <Sheet.Root open={sheetOpen} onOpenChange={onSheetOpenChange}>
           <Sheet.Overlay />
           <Sheet.Frame>
             <Sheet.Handle />
-            <NavJsx>
+            <NavElement>
               {sidebarGroups.map((group, i) => (
                 <React.Fragment key={`sheet-group-${group.label ?? i}`}>
                   {i > 0 && <SeparatorJsx />}
                   <SidebarNavGroup group={group} />
                 </React.Fragment>
               ))}
-            </NavJsx>
+            </NavElement>
           </Sheet.Frame>
         </Sheet.Root>
       )}
-    </ViewJsx>
+    </div>
   )
 }
 
@@ -129,37 +129,37 @@ function TabLayout({
   const defaultTab = activeTab ?? tabs[0]?.value
 
   return (
-    <ViewJsx flex={1} minHeight="100vh" flexDirection="column">
+    <div style={{ flex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Tabs.Root
         defaultValue={defaultTab}
         value={activeTab}
         onValueChange={onTabChange}
       >
-        <ViewJsx flex={1}>
+        <div style={{ flex: 1 }}>
           {tabs.map((tab) => (
             <Tabs.Content key={tab.value} value={tab.value}>
-              <ViewJsx flex={1} padding="$4">
+              <div style={{ flex: 1, padding: 16 }}>
                 {tab.content}
-              </ViewJsx>
+              </div>
             </Tabs.Content>
           ))}
           {children}
-        </ViewJsx>
+        </div>
 
         <Tabs.List>
           {tabs.map((tab) => (
             <Tabs.Trigger key={tab.value} value={tab.value}>
-              <ViewJsx alignItems="center" gap="$0.5">
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
                 {tab.icon}
-                <TextJsx fontSize="$2" fontFamily="$body" color="$color">
+                <span style={{ fontSize: 12, fontFamily: 'var(--font-body)', color: 'var(--color)' }}>
                   {tab.label}
-                </TextJsx>
-              </ViewJsx>
+                </span>
+              </div>
             </Tabs.Trigger>
           ))}
         </Tabs.List>
       </Tabs.Root>
-    </ViewJsx>
+    </div>
   )
 }
 
@@ -175,60 +175,60 @@ function SplitPane({
   detailHeader,
 }: AppShellBlockProps) {
   return (
-    <ViewJsx flexDirection="row" flex={1} minHeight="100vh">
+    <div style={{ display: 'flex', flexDirection: 'row', flex: 1, minHeight: '100vh' }}>
       {/* Master pane */}
-      <ViewJsx
-        width={masterWidth}
-        borderRightWidth={1}
-        borderColor="$borderColor"
-        flexDirection="column"
-        display={showDetail ? 'none' : 'flex'}
-        $md={{ width: '100%', borderRightWidth: 0, display: 'flex' }}
+      <div
+        style={{
+          width: masterWidth,
+          borderRight: '1px solid var(--borderColor)',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
       >
         {masterHeader && (
-          <ViewJsx
-            padding="$3"
-            borderBottomWidth={1}
-            borderColor="$borderColor"
-          >
+          <div style={{ padding: 12, borderBottom: '1px solid var(--borderColor)' }}>
             {masterHeader}
-          </ViewJsx>
+          </div>
         )}
-        <ViewJsx flex={1} overflow="hidden">
+        <div style={{ flex: 1, overflow: 'hidden' }}>
           {masterContent}
-        </ViewJsx>
-      </ViewJsx>
+        </div>
+      </div>
 
       {/* Detail pane */}
-      <ViewJsx
-        flex={1}
-        flexDirection="column"
-        display={showDetail ? 'flex' : 'none'}
-        $md={{ display: showDetail ? 'flex' : 'none' }}
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          ...(showDetail ? {} : { display: 'none' }),
+        }}
       >
         {(detailHeader || onBack) && (
-          <ViewJsx
-            padding="$3"
-            borderBottomWidth={1}
-            borderColor="$borderColor"
-            flexDirection="row"
-            alignItems="center"
-            gap="$2"
+          <div
+            style={{
+              padding: 12,
+              borderBottom: '1px solid var(--borderColor)',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 8,
+            }}
           >
             {onBack && (
               <ButtonJsx variant="ghost" size="sm" onPress={onBack}>
-                <TextJsx fontSize="$3" fontFamily="$body" color="$color">
+                <span style={{ fontSize: 14, fontFamily: 'var(--font-body)', color: 'var(--color)' }}>
                   &larr; Back
-                </TextJsx>
+                </span>
               </ButtonJsx>
             )}
             {detailHeader}
-          </ViewJsx>
+          </div>
         )}
-        <ViewJsx flex={1} overflow="hidden">
+        <div style={{ flex: 1, overflow: 'hidden' }}>
           {detailContent}
-        </ViewJsx>
-      </ViewJsx>
-    </ViewJsx>
+        </div>
+      </div>
+    </div>
   )
 }

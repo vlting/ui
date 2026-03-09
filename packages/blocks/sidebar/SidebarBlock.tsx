@@ -1,6 +1,5 @@
 import type { ComponentType, ReactNode } from 'react'
 import React from 'react'
-import { Text, View } from 'tamagui'
 import { Calendar } from '../../components/Calendar'
 import { Collapsible } from '../../components/Collapsible'
 import { Input } from '../../components/Input'
@@ -10,8 +9,6 @@ import type { FileTreeItem, NavGroup, NavItem } from './_shared'
 import { SidebarNavGroup, SidebarNavItem } from './_shared'
 
 type AnyFC = ComponentType<Record<string, unknown>>
-const ViewJsx = View as AnyFC
-const TextJsx = Text as AnyFC
 const InputJsx = Input as AnyFC
 
 // -- Types --
@@ -81,20 +78,20 @@ export function SidebarBlock({
       {header && <Sidebar.Header>{header}</Sidebar.Header>}
 
       {variant === 'icon-only' && (
-        <ViewJsx paddingHorizontal="$2" paddingTop="$1">
+        <div style={{ paddingLeft: 8, paddingRight: 8, paddingTop: 4 }}>
           <Sidebar.Trigger />
-        </ViewJsx>
+        </div>
       )}
 
       {variant === 'floating' && searchPlaceholder && (
-        <ViewJsx paddingHorizontal="$3" paddingTop="$2" paddingBottom="$1">
+        <div style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 4 }}>
           <InputJsx
             placeholder={searchPlaceholder}
             onChange={(e: { target: { value: string } }) =>
               onSearchChange?.(e.target.value)
             }
           />
-        </ViewJsx>
+        </div>
       )}
 
       <Sidebar.Content>
@@ -167,29 +164,34 @@ function CollapsibleGroup({ group }: { group: NavGroup }) {
     <Sidebar.Group>
       <Collapsible.Root defaultOpen={group.defaultOpen !== false}>
         <Collapsible.Trigger>
-          <ViewJsx
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="space-between"
-            paddingLeft="$2"
-            paddingRight="$2"
-            paddingTop="$0.75"
-            paddingBottom="$0.5"
-            cursor="pointer"
-            width="100%"
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingLeft: 8,
+              paddingRight: 8,
+              paddingTop: 6,
+              paddingBottom: 4,
+              cursor: 'pointer',
+              width: '100%',
+            }}
           >
-            <TextJsx
-              fontSize="$2"
-              fontWeight="$4"
-              color="$colorSubtitle"
-              fontFamily="$body"
+            <span
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: 'var(--secondaryText12)',
+                fontFamily: 'var(--font-body)',
+              }}
             >
               {group.label}
-            </TextJsx>
-            <TextJsx fontSize="$2" color="$colorSubtitle">
+            </span>
+            <span style={{ fontSize: 12, color: 'var(--secondaryText12)' }}>
               &#9662;
-            </TextJsx>
-          </ViewJsx>
+            </span>
+          </div>
         </Collapsible.Trigger>
         <Collapsible.Content>
           <Sidebar.GroupContent>
@@ -210,52 +212,51 @@ function CollapsibleGroup({ group }: { group: NavGroup }) {
 function NestedNavItem({ item, depth = 0 }: { item: NavItem; depth?: number }) {
   if (!item.children || item.children.length === 0) {
     return (
-      <ViewJsx paddingLeft={depth > 0 ? `$${depth * 2}` : undefined}>
+      <div style={depth > 0 ? { paddingLeft: depth * 16 } : undefined}>
         <SidebarNavItem item={item} />
-      </ViewJsx>
+      </div>
     )
   }
 
   return (
     <Collapsible.Root defaultOpen={!!item.active}>
       <Collapsible.Trigger>
-        <ViewJsx
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="space-between"
-          paddingLeft={depth > 0 ? `$${depth * 2 + 2}` : '$2'}
-          paddingRight="$2"
-          paddingTop="$1.5"
-          paddingBottom="$1.5"
-          cursor="pointer"
-          width="100%"
-          borderRadius="$2"
-          hoverStyle={{ backgroundColor: '$backgroundHover' }}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingLeft: depth > 0 ? depth * 16 + 8 : 8,
+            paddingRight: 8,
+            paddingTop: 6,
+            paddingBottom: 6,
+            cursor: 'pointer',
+            width: '100%',
+            borderRadius: 4,
+          }}
         >
-          <ViewJsx flexDirection="row" alignItems="center" gap="$1.5" flex={1}>
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 6, flex: 1 }}>
             {item.icon && (
-              <ViewJsx
-                width="$1.5"
-                height="$1.5"
-                alignItems="center"
-                justifyContent="center"
-              >
+              <div style={{ width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {item.icon}
-              </ViewJsx>
+              </div>
             )}
-            <TextJsx
-              fontSize="$4"
-              fontFamily="$body"
-              color="$color"
-              fontWeight={item.active ? '$3' : '$2'}
+            <span
+              style={{
+                fontSize: 16,
+                fontFamily: 'var(--font-body)',
+                color: 'var(--color)',
+                fontWeight: item.active ? 500 : 400,
+              }}
             >
               {item.label}
-            </TextJsx>
-          </ViewJsx>
-          <TextJsx fontSize="$2" color="$colorSubtitle">
+            </span>
+          </div>
+          <span style={{ fontSize: 12, color: 'var(--secondaryText12)' }}>
             &#9662;
-          </TextJsx>
-        </ViewJsx>
+          </span>
+        </div>
       </Collapsible.Trigger>
       <Collapsible.Content>
         <Sidebar.Menu>
@@ -290,9 +291,9 @@ function IconNavItem({ item }: { item: NavItem }) {
 
   return (
     <Tooltip content={item.label} side="right">
-      <ViewJsx>
+      <div>
         <SidebarNavItem item={item} />
-      </ViewJsx>
+      </div>
     </Tooltip>
   )
 }
@@ -323,40 +324,44 @@ function FileTreeNode({ item, depth = 0 }: { item: FileTreeItem; depth?: number 
     return (
       <Collapsible.Root defaultOpen={!!item.active}>
         <Collapsible.Trigger>
-          <ViewJsx
-            flexDirection="row"
-            alignItems="center"
-            gap="$1"
-            paddingLeft={indent + 8}
-            paddingRight="$2"
-            paddingTop="$1"
-            paddingBottom="$1"
-            cursor="pointer"
-            width="100%"
-            borderRadius="$2"
-            hoverStyle={{ backgroundColor: '$backgroundHover' }}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 4,
+              paddingLeft: indent + 8,
+              paddingRight: 8,
+              paddingTop: 4,
+              paddingBottom: 4,
+              cursor: 'pointer',
+              width: '100%',
+              borderRadius: 4,
+            }}
           >
-            <TextJsx fontSize="$3" color="$colorSubtitle">
+            <span style={{ fontSize: 14, color: 'var(--secondaryText12)' }}>
               &#9656;
-            </TextJsx>
+            </span>
             {item.icon ? (
-              <ViewJsx width="$1" height="$1" alignItems="center" justifyContent="center">
+              <div style={{ width: 14, height: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {item.icon}
-              </ViewJsx>
+              </div>
             ) : (
-              <TextJsx fontSize="$3" color="$colorSubtitle">
+              <span style={{ fontSize: 14, color: 'var(--secondaryText12)' }}>
                 &#128193;
-              </TextJsx>
+              </span>
             )}
-            <TextJsx
-              fontSize="$3"
-              fontFamily="$body"
-              color="$color"
-              fontWeight={item.active ? '$3' : '$2'}
+            <span
+              style={{
+                fontSize: 14,
+                fontFamily: 'var(--font-body)',
+                color: 'var(--color)',
+                fontWeight: item.active ? 500 : 400,
+              }}
             >
               {item.name}
-            </TextJsx>
-          </ViewJsx>
+            </span>
+          </div>
         </Collapsible.Trigger>
         <Collapsible.Content>
           {item.children.map((child, i) => (
@@ -369,25 +374,27 @@ function FileTreeNode({ item, depth = 0 }: { item: FileTreeItem; depth?: number 
 
   return (
     <Sidebar.MenuItem active={item.active} onPress={item.onPress}>
-      <ViewJsx flexDirection="row" alignItems="center" gap="$1" paddingLeft={indent + 20}>
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 4, paddingLeft: indent + 20 }}>
         {item.icon ? (
-          <ViewJsx width="$1" height="$1" alignItems="center" justifyContent="center">
+          <div style={{ width: 14, height: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             {item.icon}
-          </ViewJsx>
+          </div>
         ) : (
-          <TextJsx fontSize="$3" color="$colorSubtitle">
+          <span style={{ fontSize: 14, color: 'var(--secondaryText12)' }}>
             &#128196;
-          </TextJsx>
+          </span>
         )}
-        <TextJsx
-          fontSize="$3"
-          fontFamily="$body"
-          color="$color"
-          fontWeight={item.active ? '$3' : '$2'}
+        <span
+          style={{
+            fontSize: 14,
+            fontFamily: 'var(--font-body)',
+            color: 'var(--color)',
+            fontWeight: item.active ? 500 : 400,
+          }}
         >
           {item.name}
-        </TextJsx>
-      </ViewJsx>
+        </span>
+      </div>
     </Sidebar.MenuItem>
   )
 }
@@ -420,9 +427,9 @@ function CalendarContent({
   calendarPosition: 'top' | 'bottom'
 }) {
   const calendarSection = (
-    <ViewJsx padding="$2">
+    <div style={{ padding: 8 }}>
       <Calendar.Root mode="single" selected={selectedDate} onSelect={onDateSelect} />
-    </ViewJsx>
+    </div>
   )
 
   const navSection = groups.map((group, i) => (
