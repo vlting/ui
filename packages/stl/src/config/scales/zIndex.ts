@@ -18,6 +18,10 @@ export function getZIndex(hash: CharHash) {
     10: { ...hash.var, value: "800" },
     11: { ...hash.var, value: "900" },
     12: { ...hash.var, value: "1000" },
+    // vlt-ui z-index aliases (vlt-ui key → value)
+    // vlt 1→100 ≈ stl 3, vlt 2→200 ≈ stl 4, etc.
+    // vlt 6→1000 ≈ stl 12, vlt 7→10000
+    10000: { ...hash.var, value: "10000" },
     min: { ...hash.var, value: "-1" },
     max: { ...hash.var, value: "9999" },
   } as const

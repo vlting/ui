@@ -1,4 +1,4 @@
-import type { BrandDefinition } from './index'
+import type { Brand } from './types'
 
 /**
  * Fun brand — Playful, expressive, dark-first.
@@ -6,7 +6,7 @@ import type { BrandDefinition } from './index'
  * Pinkish-purple accent (#A855F7 range), purple-tinted neutrals,
  * generous rounding, no borders, flat/no shadows.
  */
-export const funBrand: BrandDefinition = {
+export const funBrand: Brand = {
   name: 'fun',
 
   palettes: {
@@ -155,17 +155,6 @@ export const funBrand: BrandDefinition = {
     },
   },
 
-  outline: {
-    width: 3,
-    offset: 3,
-  },
-
-  // Lighter overlay — playful, less dramatic
-  overlay: {
-    light: 'rgba(0,0,0,0.25)',
-    dark: 'rgba(0,0,0,0.35)',
-  },
-
   // Flat / no shadows
   shadows: {
     light: {
@@ -184,37 +173,9 @@ export const funBrand: BrandDefinition = {
     },
   },
 
-  fontConfig: {
-    heading: {
-      family: 'DM Serif Display',
-      fallback: 'Playfair Display, Georgia, serif',
-      weights: { heavy: 400, light: 400 },
-    },
-    body: {
-      family: 'DM Sans',
-      fallback: 'Nunito Sans, Inter, system-ui, sans-serif',
-      weight: 400,
-    },
-    mono: {
-      family: 'Fira Code',
-      fallback: 'ui-monospace, monospace',
-      weight: 400,
-    },
-    quote: {
-      family: 'DM Serif Display',
-      fallback: 'Georgia, serif',
-      weight: 400,
-      style: 'italic',
-    },
-  },
-
   fonts: {
-    heading: {
-      family: "'DM Serif Display', 'Playfair Display', 'Lora', Georgia, serif",
-      weight: { 1: '400', 2: '400', 3: '400', 4: '400', 5: '400', 6: '400', true: '400' },
-    },
-    body: {
-      family: "'DM Sans', 'Nunito Sans', Inter, system-ui, sans-serif",
-    },
+    heading: "'DM Serif Display', 'Playfair Display', 'Lora', Georgia, serif",
+    body: "'DM Sans', 'Nunito Sans', Inter, system-ui, sans-serif",
+    mono: 'Fira Code, ui-monospace, monospace',
   },
 }
