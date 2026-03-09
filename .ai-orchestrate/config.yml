@@ -1,0 +1,14 @@
+integrations: [github]
+github:
+  owner: vlting
+  repo: ui
+  mode: owner
+  project_number: 1
+  project_node_id: PVT_kwDODxaco84BP_ab
+  status_field_id: PVTSSF_lADODxaco84BP_abzg-PVjU
+  status_options:
+    planning: 1ab91906
+    todo: 7dbd5883
+    in_progress: bf105a86
+    in_review: 7e73f574
+    done: e0bcb0e8
