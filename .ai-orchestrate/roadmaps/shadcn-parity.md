@@ -138,44 +138,58 @@ Transform `@vlting/ui` from a component library into a complete, AI-native desig
 **Dependencies:** Epic 2, Epic 3, Epic 4
 **Epic slug:** ai-skill
 **Epic branch:** epic/ai-skill
-**Epic PR:** #TBD
+**Epic PR:** #93
 **GitHub Sub-Issue:** #92
 **Tech spec:** .ai-orchestrate/docs/ai-skill/tech-spec.md
-**Status:** in-progress
+**Status:** complete
+**Review notes:** All 3 stages delivered (PRs #97-#99). Epic PR #93 merged. SKILL.md with component heuristics/composition/anti-patterns, registry.json (88 entries), llms.txt (~2KB) + llms-full.txt (~34KB).
 
 ### Stage 1: SKILL.md
-**Branch prefix:** feat
-**Acceptance criteria:**
-- [ ] SKILL.md at docs/ai/SKILL.md with all sections
-- [ ] Component selection decision trees for common UI patterns
-- [ ] Composition rules for compound components
-- [ ] Token enforcement rules
-- [ ] Anti-patterns section
-- [ ] Cross-platform guidance
-- [ ] Accessibility defaults
-**Status:** pending
+**Status:** complete
+**Stage PR:** #97
 
 ### Stage 2: Component Registry JSON
-**Branch prefix:** feat
-**Acceptance criteria:**
-- [ ] registry.json at docs/ai/registry.json
-- [ ] All 52 components, 20 primitives, 10 blocks, 8 chart types included
-- [ ] Each entry has props, variants, whenToUse, examples, accessibility, platforms
-- [ ] Auto-generated from API mapping JSONs where possible
-**Status:** pending
+**Status:** complete
+**Stage PR:** #98
 
 ### Stage 3: llms.txt + llms-full.txt
-**Branch prefix:** feat
-**Acceptance criteria:**
-- [ ] llms.txt at docs/ai/llms.txt following llmstxt.org convention
-- [ ] llms-full.txt at docs/ai/llms-full.txt with comprehensive reference
-- [ ] Covers all components, blocks, charts with examples
-- [ ] Decision trees and anti-patterns included in full version
-**Status:** pending
+**Status:** complete
+**Stage PR:** #99
 
 ## Epic 8: MCP Server
 **Objective:** Build MCP server exposing tools for component lookup, code generation, design system validation, migration mapping, and icon search. Publishable as npm package.
 **Dependencies:** Epic 7
 **Epic slug:** mcp-server
 **Epic branch:** epic/mcp-server
+**Epic PR:** #TBD
+**GitHub Sub-Issue:** #TBD
+**Tech spec:** .ai-orchestrate/docs/mcp-server/tech-spec.md
+**Status:** in-progress
+
+### Stage 1: Foundation + Read Tools
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] Package scaffold at packages/mcp-server/ with MCP SDK
+- [ ] list_components tool — list/filter components by category/layer
+- [ ] get_component tool — full metadata lookup
+- [ ] get_migration_mapping tool — shadcn → vlting mapping
+- [ ] search_icons tool — search icons by name/category
+- [ ] Server starts and responds to tool calls
+**Status:** pending
+
+### Stage 2: Intelligence Tools
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] suggest_component tool — intent-based component suggestions
+- [ ] generate_code tool — template-based boilerplate generation
+- [ ] validate_code tool — rule-based code validation (tokens, a11y, patterns)
+**Status:** pending
+
+### Stage 3: Package + Integration
+**Branch prefix:** chore
+**Acceptance criteria:**
+- [ ] npm publish config for @vlting/ui-mcp
+- [ ] README with setup for Claude Code, Cursor
+- [ ] All 7 tools tested end-to-end
+- [ ] Response times < 200ms for metadata queries
 **Status:** pending
