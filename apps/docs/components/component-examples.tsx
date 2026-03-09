@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, type ReactNode, type ComponentType } from 'react'
-import { Text } from 'tamagui'
+import { Text } from '../../../../packages/stl-react/src/primitives/Text/Text'
 import { ComponentPreview } from './component-preview'
 import type { ComponentExample } from '@/lib/registry'
 

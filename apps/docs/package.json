@@ -16,8 +16,7 @@
     "react-dom": "19.1.0",
     "react-native-svg-web": "^1.0.9",
     "react-native-web": "^0.21.2",
-    "shiki": "^3.2.1",
-    "tamagui": "2.0.0-rc.14"
+    "shiki": "^3.2.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.7",

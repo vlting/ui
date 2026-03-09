@@ -12,8 +12,11 @@ export const navigation: NavSection[] = [
   {
     title: 'Getting Started',
     items: [
-      { label: 'Overview', href: '/docs' },
+      { label: 'Introduction', href: '/docs' },
+      { label: 'Installation', href: '/docs/installation' },
       { label: 'Theming', href: '/docs/theming' },
+      { label: 'Dark Mode', href: '/docs/dark-mode' },
+      { label: 'Changelog', href: '/docs/changelog' },
     ],
   },
   {

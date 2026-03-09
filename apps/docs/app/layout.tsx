@@ -6,7 +6,7 @@ import './globals.css'
 export const metadata: Metadata = {
   title: '@vlting/ui — Cross-platform design system',
   description:
-    'Cross-platform design system built on Tamagui v2 — 38+ components, 30 blocks, 6 chart types, 3200+ icons.',
+    'Cross-platform design system built on @vlting/stl — 68+ components, 10 blocks, 6 chart types, 3200+ icons.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
