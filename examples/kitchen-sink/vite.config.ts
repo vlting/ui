@@ -12,6 +12,7 @@ export default defineConfig({
       'react-native-svg': 'react-native-svg-web',
       'react-native': 'react-native-web',
       '@vlting/ui': path.resolve(__dirname, '../../src'),
+      '@vlting/stl': path.resolve(__dirname, '../../packages/stl/src'),
     },
   },
 })
