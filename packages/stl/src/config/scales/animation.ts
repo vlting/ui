@@ -113,14 +113,27 @@ export function getAnimation(hash: CharHash, keyframeHash: CharHash) {
   }
 
   const fastDuration = { ...hash.var, value: ".25s" }
+  const normalDuration = { ...hash.var, value: ".3s" }
   const vars = {
     fastDuration,
+    normalDuration,
     slowDuration: { ...hash.var, value: ".75s" },
     defaultDuration: { ...hash.var, value: fastDuration.ref },
     spinDuration: { ...hash.var, value: "1.25s" },
     spinAndPauseDuration: { ...hash.var, value: "1.75s" },
     flashSizeDuration: { ...hash.var, value: ".5s" },
     bounceDuration: { ...hash.var, value: "2.5s" },
+    // Easing
+    defaultEasing: { ...hash.var, value: "ease" },
+    easeIn: { ...hash.var, value: "ease-in" },
+    easeOut: { ...hash.var, value: "ease-out" },
+    easeInOut: { ...hash.var, value: "ease-in-out" },
+    // Common transition properties
+    transitionAll: { ...hash.var, value: "all" },
+    transitionColors: { ...hash.var, value: "background-color, border-color, color, fill, stroke" },
+    transitionOpacity: { ...hash.var, value: "opacity" },
+    transitionShadow: { ...hash.var, value: "box-shadow" },
+    transitionTransform: { ...hash.var, value: "transform" },
   } as const
 
   const transition = {
@@ -298,6 +311,7 @@ export const animationCombos = {
 
 export const animationDurations = {
   fastDuration: true,
+  normalDuration: true,
   slowDuration: true,
   defaultDuration: true,
   spinDuration: true,
@@ -306,6 +320,23 @@ export const animationDurations = {
   bounceDuration: true,
 } as const
 export const hiddenAnimationDurations = { ...animationCombos } as const
+
+export const animationEasings = {
+  defaultEasing: true,
+  easeIn: true,
+  easeOut: true,
+  easeInOut: true,
+} as const
+export const hiddenAnimationEasings = { ...animationCombos } as const
+
+export const animationTransitionProperties = {
+  transitionAll: true,
+  transitionColors: true,
+  transitionOpacity: true,
+  transitionShadow: true,
+  transitionTransform: true,
+} as const
+export const hiddenAnimationTransitionProperties = { ...animationCombos } as const
 
 export const animationNames = {
   spinName: true,
