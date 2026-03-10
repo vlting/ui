@@ -4,9 +4,13 @@ import { ComponentPreview } from './component-preview'
 import { getLiveExample } from './live-examples'
 import type { ComponentExample } from '@/lib/registry'
 
+interface HighlightedExample extends ComponentExample {
+  codeHtml?: { light: string; dark: string }
+}
+
 interface ComponentExamplesProps {
   componentSlug: string
-  examples: ComponentExample[]
+  examples: HighlightedExample[]
 }
 
 export function ComponentExamples({
@@ -24,7 +28,7 @@ export function ComponentExamples({
                 {example.description}
               </p>
             )}
-            <ComponentPreview code={example.code} title={example.name}>
+            <ComponentPreview code={example.code} codeHtml={example.codeHtml} title={example.name}>
               {livePreview ?? (
                 <p className="text-sm text-muted-foreground italic">
                   Live preview coming soon.
