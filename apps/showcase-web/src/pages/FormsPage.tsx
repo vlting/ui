@@ -8,10 +8,13 @@ import { RadioGroup } from '@vlting/ui/components'
 import { Select } from '@vlting/ui/components'
 import { Slider } from '@vlting/ui/components'
 import { Toggle } from '@vlting/ui/components'
+import { ToggleGroup } from '@vlting/ui/components'
 import { Field } from '@vlting/ui/components'
 import { InputGroup } from '@vlting/ui/components'
 import { InputOTP } from '@vlting/ui/components'
 import { NativeSelect } from '@vlting/ui/components'
+import { Combobox } from '@vlting/ui/components'
+import { DatePicker } from '@vlting/ui/components'
 import { Label } from '@vlting/ui/primitives'
 
 export function FormsPage() {
@@ -46,16 +49,16 @@ export function FormsPage() {
       <Section title="Field">
         <DemoCard label="Form field with label and description">
           <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <Field>
+            <Field.Root>
               <Field.Label>Username</Field.Label>
               <Input placeholder="Enter username" />
               <Field.Description>Your unique display name.</Field.Description>
-            </Field>
-            <Field>
+            </Field.Root>
+            <Field.Root>
               <Field.Label>Email</Field.Label>
               <Input type="email" placeholder="name@example.com" />
               <Field.Error>Please enter a valid email address.</Field.Error>
-            </Field>
+            </Field.Root>
           </div>
         </DemoCard>
       </Section>
@@ -74,11 +77,11 @@ export function FormsPage() {
       <Section title="Checkbox">
         <DemoCard label="Checkbox states">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <Checkbox checked={checked} onCheckedChange={setChecked}>
+            <Checkbox.Root checked={checked} onCheckedChange={(v) => setChecked(v === true)}>
               Accept terms and conditions
-            </Checkbox>
-            <Checkbox disabled>Disabled checkbox</Checkbox>
-            <Checkbox checked disabled>Checked disabled</Checkbox>
+            </Checkbox.Root>
+            <Checkbox.Root disabled>Disabled checkbox</Checkbox.Root>
+            <Checkbox.Root checked disabled>Checked disabled</Checkbox.Root>
           </div>
         </DemoCard>
       </Section>
@@ -94,27 +97,22 @@ export function FormsPage() {
 
       <Section title="RadioGroup">
         <DemoCard label="Radio options">
-          <RadioGroup defaultValue="option1">
+          <RadioGroup.Root defaultValue="option1">
             <RadioGroup.Item value="option1">Option 1</RadioGroup.Item>
             <RadioGroup.Item value="option2">Option 2</RadioGroup.Item>
             <RadioGroup.Item value="option3">Option 3</RadioGroup.Item>
-          </RadioGroup>
+          </RadioGroup.Root>
         </DemoCard>
       </Section>
 
       <Section title="Select">
         <DemoCard label="Dropdown select">
           <div style={{ maxWidth: 300 }}>
-            <Select>
-              <Select.Trigger>
-                <Select.Value placeholder="Choose a fruit" />
-              </Select.Trigger>
-              <Select.Content>
-                <Select.Item value="apple">Apple</Select.Item>
-                <Select.Item value="banana">Banana</Select.Item>
-                <Select.Item value="cherry">Cherry</Select.Item>
-                <Select.Item value="grape">Grape</Select.Item>
-              </Select.Content>
+            <Select placeholder="Choose a fruit">
+              <Select.Item value="apple">Apple</Select.Item>
+              <Select.Item value="banana">Banana</Select.Item>
+              <Select.Item value="cherry">Cherry</Select.Item>
+              <Select.Item value="grape">Grape</Select.Item>
             </Select>
           </div>
         </DemoCard>
@@ -123,12 +121,12 @@ export function FormsPage() {
       <Section title="NativeSelect">
         <DemoCard label="Native HTML select">
           <div style={{ maxWidth: 300 }}>
-            <NativeSelect>
-              <option value="">Select...</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </NativeSelect>
+            <NativeSelect.Root>
+              <NativeSelect.Option value="">Select...</NativeSelect.Option>
+              <NativeSelect.Option value="1">Option 1</NativeSelect.Option>
+              <NativeSelect.Option value="2">Option 2</NativeSelect.Option>
+              <NativeSelect.Option value="3">Option 3</NativeSelect.Option>
+            </NativeSelect.Root>
           </div>
         </DemoCard>
       </Section>
@@ -155,7 +153,57 @@ export function FormsPage() {
 
       <Section title="InputOTP">
         <DemoCard label="One-time password input">
-          <InputOTP length={6} />
+          <InputOTP.Root maxLength={6}>
+            <InputOTP.Group>
+              {Array.from({ length: 6 }, (_, i) => (
+                <InputOTP.Slot key={i} index={i} />
+              ))}
+            </InputOTP.Group>
+          </InputOTP.Root>
+        </DemoCard>
+      </Section>
+
+      <Section title="ToggleGroup">
+        <DemoCard label="Single selection toggle group">
+          <ToggleGroup.Root type="single" defaultValue="center">
+            <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
+            <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
+            <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
+          </ToggleGroup.Root>
+        </DemoCard>
+        <DemoCard label="Multiple selection toggle group">
+          <ToggleGroup.Root type="multiple" defaultValue={['bold']}>
+            <ToggleGroup.Item value="bold">B</ToggleGroup.Item>
+            <ToggleGroup.Item value="italic">I</ToggleGroup.Item>
+            <ToggleGroup.Item value="underline">U</ToggleGroup.Item>
+          </ToggleGroup.Root>
+        </DemoCard>
+      </Section>
+
+      <Section title="Combobox">
+        <DemoCard label="Searchable select">
+          <div style={{ maxWidth: 300 }}>
+            <Combobox.Root
+              options={[
+                { value: 'react', label: 'React' },
+                { value: 'vue', label: 'Vue' },
+                { value: 'angular', label: 'Angular' },
+                { value: 'svelte', label: 'Svelte' },
+                { value: 'solid', label: 'SolidJS' },
+              ]}
+              placeholder="Select framework..."
+              searchPlaceholder="Search frameworks..."
+              emptyMessage="No frameworks found."
+            />
+          </div>
+        </DemoCard>
+      </Section>
+
+      <Section title="DatePicker">
+        <DemoCard label="Date selection">
+          <div style={{ maxWidth: 300 }}>
+            <DatePicker placeholder="Pick a date" label="Event date" />
+          </div>
         </DemoCard>
       </Section>
     </div>

@@ -16,12 +16,24 @@ import { Label } from "../../../../packages/components/Label/Label.native"
 // Tier 2
 import { Dialog } from "../../../../packages/components/Dialog/Dialog.native"
 import { Sheet } from "../../../../packages/components/Sheet/Sheet.native"
+import { Select } from "../../../../packages/components/Select/Select.native"
 import { Tabs } from "../../../../packages/components/Tabs/Tabs.native"
 import { Accordion } from "../../../../packages/components/Accordion/Accordion.native"
+import { Toast, useNativeToast } from "../../../../packages/components/Toast/Toast.native"
 import { Tooltip } from "../../../../packages/components/Tooltip/Tooltip.native"
+import { DropdownMenu } from "../../../../packages/components/DropdownMenu/DropdownMenu.native"
 
 // Primitives for layout
 import { Row, Column, Text, Spacer } from "../../../../packages/stl-native/src/primitives"
+
+function ToastDemo() {
+  const { add } = useNativeToast()
+  return (
+    <Button onPress={() => add({ message: `Hello at ${Date.now() % 1000}`, duration: 3000 })}>
+      <Button.Text>Show Toast</Button.Text>
+    </Button>
+  )
+}
 
 export function ComponentsScreen() {
   const [checked, setChecked] = useState(false)
@@ -86,7 +98,7 @@ export function ComponentsScreen() {
         <RNText style={styles.sectionTitle}>Checkbox</RNText>
         <Checkbox.Root
           checked={checked}
-          onCheckedChange={(v: boolean) => setChecked(v)}
+          onCheckedChange={(v: boolean | 'indeterminate') => setChecked(v === true)}
         >
           <Text>Accept terms and conditions</Text>
         </Checkbox.Root>
@@ -237,7 +249,7 @@ export function ComponentsScreen() {
 
       <View style={styles.section}>
         <RNText style={styles.sectionTitle}>Accordion</RNText>
-        <Accordion type="single" collapsible>
+        <Accordion type="single">
           <Accordion.Item value="item-1">
             <Accordion.Trigger>What is @vlting/ui?</Accordion.Trigger>
             <Accordion.Content>
@@ -251,6 +263,48 @@ export function ComponentsScreen() {
             </Accordion.Content>
           </Accordion.Item>
         </Accordion>
+      </View>
+
+      <View style={styles.section}>
+        <RNText style={styles.sectionTitle}>Select</RNText>
+        <Select placeholder="Choose a fruit...">
+          <Select.Item value="apple">Apple</Select.Item>
+          <Select.Item value="banana">Banana</Select.Item>
+          <Select.Item value="cherry">Cherry</Select.Item>
+          <Select.Item value="date">Date</Select.Item>
+        </Select>
+      </View>
+
+      <View style={styles.section}>
+        <RNText style={styles.sectionTitle}>Toast</RNText>
+        <Toast>
+          <ToastDemo />
+        </Toast>
+      </View>
+
+      <View style={styles.section}>
+        <RNText style={styles.sectionTitle}>DropdownMenu</RNText>
+        <DropdownMenu>
+          <DropdownMenu.Trigger>
+            <Button variant="outline">
+              <Button.Text>Open Menu</Button.Text>
+            </Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <DropdownMenu.Label>Actions</DropdownMenu.Label>
+            <DropdownMenu.Separator />
+            <DropdownMenu.Item onPress={() => RNAlert.alert("Edit")}>
+              <Text>Edit</Text>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item onPress={() => RNAlert.alert("Duplicate")}>
+              <Text>Duplicate</Text>
+            </DropdownMenu.Item>
+            <DropdownMenu.Separator />
+            <DropdownMenu.Item onPress={() => RNAlert.alert("Delete")}>
+              <Text>Delete</Text>
+            </DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu>
       </View>
 
       <View style={styles.section}>

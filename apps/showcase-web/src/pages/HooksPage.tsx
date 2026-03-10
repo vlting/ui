@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { Section, DemoCard, DemoRow } from '../components/Section'
 import { Button } from '@vlting/ui/components'
 
@@ -6,10 +6,8 @@ import { Button } from '@vlting/ui/components'
 import {
   useColorMode,
   useConditions,
-  useLayout,
   useMediaQuery,
   useRTL,
-  useTokens,
   useTransition,
 } from '@vlting/stl-react'
 
@@ -72,7 +70,7 @@ export function HooksPage() {
       </Section>
 
       <Section title="useListState">
-        <DemoCard label="List selection management">
+        <DemoCard label="List highlight navigation">
           <UseListStateDemo />
         </DemoCard>
       </Section>
@@ -135,8 +133,8 @@ function UseConditionsDemo() {
 }
 
 function UseMediaQueryDemo() {
-  const isWide = useMediaQuery('(min-width: 768px)', false, true, false)
-  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)', false, true, false)
+  const isWide = useMediaQuery('(min-width: 768px)', false)
+  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)', false)
   return (
     <DemoRow>
       <span>≥768px: <strong>{String(isWide)}</strong></span>
@@ -146,20 +144,20 @@ function UseMediaQueryDemo() {
 }
 
 function UseRTLDemo() {
-  const { isRTL } = useRTL()
+  const isRTL = useRTL()
   return <span>isRTL: <strong>{String(isRTL)}</strong></span>
 }
 
 function UseTransitionDemo() {
   const [visible, setVisible] = useState(true)
-  const { styles, isVisible } = useTransition(visible, { duration: 300 })
+  const { style, mounted } = useTransition(visible, { enter: 300, exit: 300 })
   return (
     <div>
       <Button variant="outline" size="sm" onClick={() => setVisible(v => !v)}>
         {visible ? 'Hide' : 'Show'}
       </Button>
-      {isVisible && (
-        <div style={{ ...styles, marginTop: 12, padding: 16, background: '#f0f0ff', borderRadius: 8 }}>
+      {mounted && (
+        <div style={{ ...style, marginTop: 12, padding: 16, background: '#f0f0ff', borderRadius: 8 }}>
           Animated content
         </div>
       )}
@@ -188,21 +186,34 @@ function UseDisclosureDemo() {
 
 function UseListStateDemo() {
   const items = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry']
-  const { selectedKeys, toggleKey, isSelected, selectAll, clearSelection } = useListState(items)
+  const { highlightIndex, getItemProps, onKeyDown } = useListState({
+    items,
+    onSelect: (item) => alert(`Selected: ${item}`),
+  })
   return (
     <div>
-      <DemoRow>
-        <Button size="sm" variant="outline" onClick={selectAll}>Select All</Button>
-        <Button size="sm" variant="outline" onClick={clearSelection}>Clear</Button>
-        <span>Selected: {selectedKeys.size}</span>
-      </DemoRow>
-      <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 4 }}>
-        {items.map(item => (
-          <label key={item} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
-            <input type="checkbox" checked={isSelected(item)} onChange={() => toggleKey(item)} />
-            {item}
-          </label>
-        ))}
+      <p style={{ fontSize: 14, marginBottom: 8 }}>
+        Highlighted: <strong>{items[highlightIndex] ?? 'none'}</strong>
+      </p>
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      <div onKeyDown={onKeyDown} tabIndex={0} style={{ display: 'flex', flexDirection: 'column', gap: 4, outline: 'none' }}>
+        {items.map((item, i) => {
+          const itemProps = getItemProps(i)
+          return (
+            <div
+              key={item}
+              {...itemProps}
+              style={{
+                padding: '6px 12px',
+                borderRadius: 4,
+                cursor: 'pointer',
+                background: itemProps['aria-selected'] ? '#e0e7ff' : '#f5f5f5',
+              }}
+            >
+              {item}
+            </div>
+          )
+        })}
       </div>
     </div>
   )
@@ -210,7 +221,10 @@ function UseListStateDemo() {
 
 function UseSearchDemo() {
   const items = ['React', 'React Native', 'Next.js', 'Vite', 'TypeScript', 'Vanilla Extract']
-  const { query, setQuery, results } = useSearch(items, { keys: [] })
+  const { query, setQuery, filtered } = useSearch({
+    items,
+    filterFn: (item, q) => item.toLowerCase().includes(q.toLowerCase()),
+  })
   return (
     <div>
       <input
@@ -220,8 +234,8 @@ function UseSearchDemo() {
         style={{ padding: '8px 12px', borderRadius: 6, border: '1px solid #ddd', width: 300 }}
       />
       <div style={{ marginTop: 8, fontSize: 14 }}>
-        {(results.length > 0 ? results : items).map(item => (
-          <div key={String(item)} style={{ padding: '4px 0' }}>{String(item)}</div>
+        {filtered.map(item => (
+          <div key={item} style={{ padding: '4px 0' }}>{item}</div>
         ))}
       </div>
     </div>
@@ -230,46 +244,49 @@ function UseSearchDemo() {
 
 function UseTabsDemo() {
   const tabs = ['Overview', 'Features', 'Pricing']
-  const { activeTab, setActiveTab, isActive } = useTabs(tabs)
+  const { activeValue, getTabProps, getTabPanelProps } = useTabs({ defaultValue: tabs[0] })
   return (
     <div>
       <DemoRow>
-        {tabs.map(tab => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            style={{
-              padding: '6px 12px',
-              borderRadius: 6,
-              border: 'none',
-              background: isActive(tab) ? '#0066ff' : '#eee',
-              color: isActive(tab) ? '#fff' : '#333',
-              cursor: 'pointer',
-            }}
-          >
-            {tab}
-          </button>
-        ))}
+        {tabs.map(tab => {
+          const tabProps = getTabProps(tab)
+          return (
+            <button
+              key={tab}
+              onClick={tabProps.onClick}
+              style={{
+                padding: '6px 12px',
+                borderRadius: 6,
+                border: 'none',
+                background: tabProps['aria-selected'] ? '#0066ff' : '#eee',
+                color: tabProps['aria-selected'] ? '#fff' : '#333',
+                cursor: 'pointer',
+              }}
+            >
+              {tab}
+            </button>
+          )
+        })}
       </DemoRow>
       <div style={{ marginTop: 12, padding: 12, background: '#f5f5f5', borderRadius: 6 }}>
-        Active: <strong>{activeTab}</strong>
+        Active: <strong>{activeValue}</strong>
       </div>
     </div>
   )
 }
 
 function UseToastQueueDemo() {
-  const { toasts, addToast, removeToast } = useToastQueue()
+  const { toasts, add, remove } = useToastQueue()
   return (
     <div>
-      <Button size="sm" onClick={() => addToast({ title: `Toast ${Date.now() % 1000}`, duration: 3000 })}>
+      <Button size="sm" onClick={() => add({ message: `Toast ${Date.now() % 1000}`, duration: 3000 })}>
         Add Toast
       </Button>
       <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 4 }}>
         {toasts.map(toast => (
           <div key={toast.id} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: 8, background: '#f0f0f0', borderRadius: 4 }}>
-            <span>{toast.title}</span>
-            <button onClick={() => removeToast(toast.id)} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>×</button>
+            <span>{toast.message}</span>
+            <button onClick={() => remove(toast.id)} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>×</button>
           </div>
         ))}
       </div>
@@ -278,11 +295,11 @@ function UseToastQueueDemo() {
 }
 
 function UseControllableStateDemo() {
-  const [value, setValue] = useControllableState({ defaultValue: 'Hello' })
+  const [value, setValue] = useControllableState<string>({ defaultProp: 'Hello' })
   return (
     <DemoRow>
       <input
-        value={value}
+        value={value ?? ''}
         onChange={e => setValue(e.target.value)}
         style={{ padding: '8px 12px', borderRadius: 6, border: '1px solid #ddd' }}
       />

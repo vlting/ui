@@ -1,11 +1,11 @@
-import { useState } from 'react'
 import { ScrollView, View, Text, StyleSheet, Pressable } from 'react-native'
 
 // stl-native hooks
-import { useColorMode } from '../../../packages/stl-native/src/hooks/useColorMode'
-import { useConditions } from '../../../packages/stl-native/src/hooks/useConditions'
-import { useLayout } from '../../../packages/stl-native/src/hooks/useLayout'
-import { useRTL } from '../../../packages/stl-native/src/hooks/useRTL'
+import { useColorMode } from '../../../../packages/stl-native/src/hooks/useColorMode'
+import { useConditions } from '../../../../packages/stl-native/src/hooks/useConditions'
+import { useMediaQuery } from '../../../../packages/stl-native/src/hooks/useMediaQuery'
+import { useTokens } from '../../../../packages/stl-native/src/hooks/useTokens'
+import { useRTL } from '../../../../packages/stl-native/src/hooks/useRTL'
 
 // stl-headless hooks
 import {
@@ -13,7 +13,7 @@ import {
   useListState,
   useTabs,
   useToastQueue,
-} from '../../../packages/stl-headless/src'
+} from '../../../../packages/stl-headless/src'
 
 export function HooksScreen() {
   return (
@@ -27,6 +27,14 @@ export function HooksScreen() {
 
       <Section title="useConditions">
         <UseConditionsDemo />
+      </Section>
+
+      <Section title="useMediaQuery">
+        <UseMediaQueryDemo />
+      </Section>
+
+      <Section title="useTokens">
+        <UseTokensDemo />
       </Section>
 
       <Section title="useRTL">
@@ -82,8 +90,24 @@ function UseConditionsDemo() {
   )
 }
 
+function UseMediaQueryDemo() {
+  const isTablet = useMediaQuery('(min-width: 768px)', false, true)
+  return <Text>isTablet (≥768px): {String(isTablet)}</Text>
+}
+
+function UseTokensDemo() {
+  const { tokenValue } = useTokens()
+  return (
+    <View style={styles.codeBox}>
+      <Text style={styles.code}>
+        {tokenValue ? 'Theme tokens resolved' : 'No tokens available'}
+      </Text>
+    </View>
+  )
+}
+
 function UseRTLDemo() {
-  const { isRTL } = useRTL()
+  const isRTL = useRTL()
   return <Text>isRTL: {String(isRTL)}</Text>
 }
 
@@ -111,21 +135,13 @@ function UseDisclosureDemo() {
 
 function UseListStateDemo() {
   const items = ['Apple', 'Banana', 'Cherry', 'Date']
-  const { selectedKeys, toggleKey, isSelected, selectAll, clearSelection } = useListState(items)
+  const { highlightIndex, highlightedItem, setHighlightIndex } = useListState({ items })
   return (
     <View>
-      <View style={styles.row}>
-        <Pressable onPress={selectAll} style={[styles.button, { backgroundColor: '#28a745' }]}>
-          <Text style={styles.buttonText}>All</Text>
-        </Pressable>
-        <Pressable onPress={clearSelection} style={[styles.button, { backgroundColor: '#888' }]}>
-          <Text style={styles.buttonText}>Clear</Text>
-        </Pressable>
-        <Text>Selected: {selectedKeys.size}</Text>
-      </View>
-      {items.map(item => (
-        <Pressable key={item} onPress={() => toggleKey(item)} style={styles.listItem}>
-          <Text>{isSelected(item) ? '☑' : '☐'} {item}</Text>
+      <Text>Highlighted: {highlightedItem ?? 'none'} (index {highlightIndex})</Text>
+      {items.map((item, i) => (
+        <Pressable key={item} onPress={() => setHighlightIndex(i)} style={styles.listItem}>
+          <Text>{highlightIndex === i ? '▸' : '  '} {item}</Text>
         </Pressable>
       ))}
     </View>
@@ -134,41 +150,41 @@ function UseListStateDemo() {
 
 function UseTabsDemo() {
   const tabs = ['Overview', 'Features', 'Pricing']
-  const { activeTab, setActiveTab, isActive } = useTabs(tabs)
+  const { activeValue, setActiveValue } = useTabs({ defaultValue: 'Overview' })
   return (
     <View>
       <View style={styles.row}>
         {tabs.map(tab => (
           <Pressable
             key={tab}
-            onPress={() => setActiveTab(tab)}
-            style={[styles.tabButton, isActive(tab) && styles.tabActive]}
+            onPress={() => setActiveValue(tab)}
+            style={[styles.tabButton, activeValue === tab && styles.tabActive]}
           >
-            <Text style={isActive(tab) ? styles.tabTextActive : styles.tabText}>{tab}</Text>
+            <Text style={activeValue === tab ? styles.tabTextActive : styles.tabText}>{tab}</Text>
           </Pressable>
         ))}
       </View>
       <View style={styles.tabContent}>
-        <Text>Active: {activeTab}</Text>
+        <Text>Active: {activeValue}</Text>
       </View>
     </View>
   )
 }
 
 function UseToastQueueDemo() {
-  const { toasts, addToast, removeToast } = useToastQueue()
+  const { toasts, add, remove } = useToastQueue()
   return (
     <View>
       <Pressable
-        onPress={() => addToast({ title: `Toast ${Date.now() % 1000}`, duration: 3000 })}
+        onPress={() => add({ message: `Toast ${Date.now() % 1000}`, duration: 3000 })}
         style={styles.button}
       >
         <Text style={styles.buttonText}>Add Toast</Text>
       </Pressable>
-      {toasts.map(toast => (
+      {toasts.map((toast) => (
         <View key={toast.id} style={styles.toastItem}>
-          <Text>{toast.title}</Text>
-          <Pressable onPress={() => removeToast(toast.id)}>
+          <Text>{toast.message}</Text>
+          <Pressable onPress={() => remove(toast.id)}>
             <Text style={{ fontSize: 18 }}>×</Text>
           </Pressable>
         </View>
