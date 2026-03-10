@@ -335,6 +335,46 @@ const registry: ComponentEntry[] = [
   </Card.Footer>
 </Card>`,
       },
+      {
+        name: 'Elevated',
+        description: 'A card with elevated shadow.',
+        code: `<Card elevated>
+  <Card.Header>
+    <Card.Title>Elevated Card</Card.Title>
+    <Card.Description>This card has an elevated shadow.</Card.Description>
+  </Card.Header>
+  <Card.Content>
+    <p>Elevated cards draw more attention on the page.</p>
+  </Card.Content>
+</Card>`,
+      },
+      {
+        name: 'Interactive',
+        description: 'A card with hover and press states.',
+        code: `<Card interactive>
+  <Card.Header>
+    <Card.Title>Interactive Card</Card.Title>
+    <Card.Description>Hover or press to see the interaction.</Card.Description>
+  </Card.Header>
+  <Card.Content>
+    <p>Interactive cards respond to user input.</p>
+  </Card.Content>
+</Card>`,
+      },
+    ],
+    whenToUse: [
+      'Grouping related content and actions',
+      'Displaying items in a grid or list layout',
+      'Previewing content before navigating to a detail view',
+    ],
+    whenNotToUse: [
+      'Simple text content — use a plain container or section',
+      'Navigation — use a Link or Button instead',
+    ],
+    a11yNotes: [
+      'Interactive cards should use role="button" or be wrapped in a link',
+      'Card titles should use appropriate heading levels',
+      'Ensure sufficient color contrast for card borders and backgrounds',
     ],
   },
   {
@@ -376,6 +416,52 @@ const registry: ComponentEntry[] = [
   Accept terms and conditions
 </Checkbox.Root>`,
       },
+      {
+        name: 'Sizes',
+        description: 'Checkboxes in different sizes.',
+        code: `<div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+  <Checkbox.Root size="sm">
+    <Checkbox.Indicator />
+    Small
+  </Checkbox.Root>
+  <Checkbox.Root size="md">
+    <Checkbox.Indicator />
+    Medium
+  </Checkbox.Root>
+  <Checkbox.Root size="lg">
+    <Checkbox.Indicator />
+    Large
+  </Checkbox.Root>
+</div>`,
+      },
+      {
+        name: 'With Description',
+        description: 'A checkbox wrapped in a Field for label and description.',
+        code: `<Field.Root>
+  <Field.Label>Marketing emails</Field.Label>
+  <Field.Control>
+    <Checkbox.Root>
+      <Checkbox.Indicator />
+      Receive marketing emails
+    </Checkbox.Root>
+  </Field.Control>
+  <Field.Description>You can unsubscribe at any time.</Field.Description>
+</Field.Root>`,
+      },
+    ],
+    whenToUse: [
+      'Toggling a single option on or off',
+      'Selecting multiple items from a list',
+      'Accepting terms or conditions',
+    ],
+    whenNotToUse: [
+      'Mutually exclusive options — use RadioGroup instead',
+      'Instant toggle with visible on/off state — use Switch instead',
+    ],
+    a11yNotes: [
+      'Always provide a visible label or aria-label',
+      'Uses role="checkbox" with aria-checked',
+      'Supports keyboard activation with Space',
     ],
   },
   {
@@ -546,6 +632,59 @@ const registry: ComponentEntry[] = [
   </Dialog.Content>
 </Dialog.Root>`,
       },
+      {
+        name: 'With Form',
+        description: 'A dialog containing a form with inputs.',
+        code: `<Dialog.Root>
+  <Dialog.Trigger>
+    <Button><Button.Text>Edit Profile</Button.Text></Button>
+  </Dialog.Trigger>
+  <Dialog.Content>
+    <Dialog.Header>
+      <Dialog.Title>Edit Profile</Dialog.Title>
+      <Dialog.Description>
+        Make changes to your profile here. Click save when done.
+      </Dialog.Description>
+    </Dialog.Header>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: '16px 0' }}>
+      <Field.Root>
+        <Field.Label>Name</Field.Label>
+        <Field.Control>
+          <Input placeholder="Your name" />
+        </Field.Control>
+      </Field.Root>
+      <Field.Root>
+        <Field.Label>Email</Field.Label>
+        <Field.Control>
+          <Input placeholder="you@example.com" />
+        </Field.Control>
+      </Field.Root>
+    </div>
+    <Dialog.Footer>
+      <Dialog.Close>
+        <Button variant="outline"><Button.Text>Cancel</Button.Text></Button>
+      </Dialog.Close>
+      <Button><Button.Text>Save changes</Button.Text></Button>
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog.Root>`,
+      },
+    ],
+    whenToUse: [
+      'Confirming a destructive or important action',
+      'Collecting user input that blocks the main workflow',
+      'Displaying critical information that requires acknowledgment',
+    ],
+    whenNotToUse: [
+      'Non-blocking notifications — use Toast instead',
+      'Contextual information — use Popover or Tooltip instead',
+      'Navigation or page-level content — use a route or Drawer instead',
+    ],
+    a11yNotes: [
+      'Focus is trapped within the dialog when open',
+      'Escape key closes the dialog',
+      'Uses role="dialog" with aria-labelledby and aria-describedby',
+      'Focus returns to the trigger element on close',
     ],
   },
   {
@@ -724,6 +863,15 @@ const registry: ComponentEntry[] = [
         name: 'Basic',
         description: 'A simple text input.',
         code: `<Input placeholder="Type something..." />`,
+      },
+      {
+        name: 'Sizes',
+        description: 'Inputs in different sizes.',
+        code: `<div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+  <Input size="sm" placeholder="Small" />
+  <Input size="md" placeholder="Medium" />
+  <Input size="lg" placeholder="Large" />
+</div>`,
       },
       {
         name: 'With Field',
@@ -1091,6 +1239,58 @@ const registry: ComponentEntry[] = [
   <Select.Item value="grape">Grape</Select.Item>
 </Select>`,
       },
+      {
+        name: 'With Groups',
+        description: 'A select with grouped options.',
+        code: `<Select placeholder="Select a food">
+  <Select.Group>
+    <Select.Label>Fruits</Select.Label>
+    <Select.Item value="apple">Apple</Select.Item>
+    <Select.Item value="banana">Banana</Select.Item>
+    <Select.Item value="orange">Orange</Select.Item>
+  </Select.Group>
+  <Select.Separator />
+  <Select.Group>
+    <Select.Label>Vegetables</Select.Label>
+    <Select.Item value="carrot">Carrot</Select.Item>
+    <Select.Item value="broccoli">Broccoli</Select.Item>
+    <Select.Item value="spinach">Spinach</Select.Item>
+  </Select.Group>
+</Select>`,
+      },
+      {
+        name: 'Sizes',
+        description: 'Selects in different sizes.',
+        code: `<div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+  <Select size="sm" placeholder="Small">
+    <Select.Item value="a">Option A</Select.Item>
+    <Select.Item value="b">Option B</Select.Item>
+  </Select>
+  <Select size="md" placeholder="Medium">
+    <Select.Item value="a">Option A</Select.Item>
+    <Select.Item value="b">Option B</Select.Item>
+  </Select>
+  <Select size="lg" placeholder="Large">
+    <Select.Item value="a">Option A</Select.Item>
+    <Select.Item value="b">Option B</Select.Item>
+  </Select>
+</div>`,
+      },
+    ],
+    whenToUse: [
+      'Choosing a single option from a predefined list',
+      'When there are more than 5 options (otherwise use RadioGroup)',
+      'Space-constrained forms where a dropdown saves room',
+    ],
+    whenNotToUse: [
+      'Searchable/filterable lists — use Combobox instead',
+      'Multiple selections — use Checkbox group or multi-select',
+      'Fewer than 4 options — use RadioGroup for better visibility',
+    ],
+    a11yNotes: [
+      'Uses role="listbox" with aria-activedescendant',
+      'Supports keyboard navigation with arrow keys and type-ahead',
+      'Escape closes the dropdown and returns focus to the trigger',
     ],
   },
   {
@@ -1231,6 +1431,36 @@ const registry: ComponentEntry[] = [
   <Label>Airplane Mode</Label>
 </div>`,
       },
+      {
+        name: 'Sizes',
+        description: 'Switches in different sizes.',
+        code: `<div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+  <Switch size="sm" aria-label="Small" />
+  <Switch size="md" aria-label="Medium" />
+  <Switch size="lg" aria-label="Large" />
+</div>`,
+      },
+      {
+        name: 'Disabled',
+        description: 'A disabled switch.',
+        code: `<div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+  <Switch disabled aria-label="Disabled off" />
+  <Switch disabled defaultChecked aria-label="Disabled on" />
+</div>`,
+      },
+    ],
+    whenToUse: [
+      'Toggling a feature or setting on/off with immediate effect',
+      'Binary choices like enable/disable, show/hide',
+    ],
+    whenNotToUse: [
+      'Selecting from multiple options — use RadioGroup or Select',
+      'Form submission required before effect — use Checkbox instead',
+    ],
+    a11yNotes: [
+      'Uses role="switch" with aria-checked',
+      'Always provide aria-label or a visible label',
+      'Supports keyboard activation with Space',
     ],
   },
   {
@@ -1302,6 +1532,53 @@ const registry: ComponentEntry[] = [
   </Tabs.Content>
 </Tabs.Root>`,
       },
+      {
+        name: 'With Cards',
+        description: 'Tabs where each panel contains a Card.',
+        code: `<Tabs.Root defaultValue="account">
+  <Tabs.List>
+    <Tabs.Trigger value="account">Account</Tabs.Trigger>
+    <Tabs.Trigger value="notifications">Notifications</Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Content value="account">
+    <Card>
+      <Card.Header>
+        <Card.Title>Account</Card.Title>
+        <Card.Description>Manage your account settings and preferences.</Card.Description>
+      </Card.Header>
+      <Card.Content>
+        <p>Update your display name, email, and profile photo.</p>
+      </Card.Content>
+    </Card>
+  </Tabs.Content>
+  <Tabs.Content value="notifications">
+    <Card>
+      <Card.Header>
+        <Card.Title>Notifications</Card.Title>
+        <Card.Description>Configure how you receive notifications.</Card.Description>
+      </Card.Header>
+      <Card.Content>
+        <p>Choose which notifications you want to receive.</p>
+      </Card.Content>
+    </Card>
+  </Tabs.Content>
+</Tabs.Root>`,
+      },
+    ],
+    whenToUse: [
+      'Organizing related content into switchable panels',
+      'Reducing page clutter by grouping content sections',
+      'Settings pages with multiple categories',
+    ],
+    whenNotToUse: [
+      'Sequential steps — use a Stepper or wizard pattern instead',
+      'Navigation between different pages — use a navigation bar or sidebar',
+    ],
+    a11yNotes: [
+      'Uses role="tablist", role="tab", and role="tabpanel"',
+      'Arrow keys navigate between tabs',
+      'Tab panels are associated with triggers via aria-controls',
+      'Only the active tab is in the tab order',
     ],
   },
   {
