@@ -64,7 +64,8 @@ E1 (Foundation) → E2 (Docs) → E3 (Showcases) → E4 (A11y) → E5 (Ship)
 **Dependencies:** Epic 1
 **Epic slug:** docs-polish
 **Epic branch:** epic/docs-polish
-**Status:** pending
+**Epic PR:** #170
+**Status:** complete
 
 ### Stage 2.1: Fix Component Rendering
 **Branch prefix:** fix
