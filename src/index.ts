@@ -303,6 +303,14 @@ export {
   useControllableState,
   useFocusTrap,
   useKeyboardNavigation,
+  useMediaQuery,
+  useDebounce,
+  useIntersectionObserver,
+  useClipboard,
+} from '../packages/hooks'
+export type {
+  UseIntersectionObserverOptions,
+  UseClipboardReturn,
 } from '../packages/hooks'
 
 // Utils
