@@ -79,7 +79,6 @@ export class StyleManager {
   private conditionName = ''
   private pseudoClassName = ''
   private overridesName = ''
-  private classNameKey = 'class'
 
   private index: number | undefined
   private length: number | undefined
@@ -254,11 +253,8 @@ export class StyleManager {
     }
   }
 
-  useClassName() {
-    this.classNameKey = 'className'
-  }
-
-  compile() {
+  compile(useClassName?: boolean) {
+    const classNameKey = useClassName ? 'className' : 'class'
     // Any further usage of this class will be for nested composition
     this.parentClassDicts.push({
       [BASE]: { ...this.classDict[BASE] },
@@ -281,7 +277,7 @@ export class StyleManager {
       debug?: any
     } = {
       style: {},
-      [this.classNameKey]: className,
+      [classNameKey]: className,
       debug: this.getDebugInfo(),
     }
 
