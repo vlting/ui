@@ -36,8 +36,8 @@ interface ChartTheme {
 }
 
 /**
- * Creates a Victory-compatible theme object from resolved Tamagui token values.
- * This keeps the chart styling aligned with the active Tamagui theme.
+ * Creates a Victory-compatible theme object from resolved design token values.
+ * This keeps the chart styling aligned with the active theme.
  */
 export function createChartTheme(resolvedTokens: ResolvedTokens): ChartTheme {
   return {

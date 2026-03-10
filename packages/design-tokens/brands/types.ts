@@ -3,7 +3,7 @@ import type { ShadowScale } from '../themes'
 /**
  * Brand — a simple data object describing visual identity.
  *
- * No factory pattern, no Tamagui dependencies.
+ * No factory pattern, no framework dependencies.
  * Consumed by `injectBrandVars()` to produce CSS custom properties.
  */
 export interface Brand {

@@ -13,7 +13,7 @@ describe('Spinner', () => {
   })
 
   it.skip('renders 8 dot elements', () => {
-    // TODO: requires browser environment — Tamagui style serialization differs in JSDOM
+    // TODO: requires browser environment — style serialization differs in JSDOM
     const { container } = render(<Spinner />)
     const statusEl = container.querySelector('[role="status"]')
     const dots = statusEl!.querySelectorAll('[style*="position: absolute"]')
