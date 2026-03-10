@@ -129,12 +129,6 @@ function BrandProvider({ children }: { children: ReactNode }) {
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    {/*
-      Dark mode is managed by two complementary systems:
-      - next-themes: sets `class="dark"` on <html> for Tailwind CSS
-      - @vlting/stl: sets `data-color-mode="dark"` on <html> for STL CSS variables
-      Both can coexist — they use different attributes and don't conflict.
-    */}
     <ThemeProvider
       attribute="class"
       defaultTheme="system"
