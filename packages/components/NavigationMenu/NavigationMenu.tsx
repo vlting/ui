@@ -235,7 +235,7 @@ function Content({ children }: { children: React.ReactNode }) {
     <ContentFrame
       ref={contentRef}
       onKeyDown={handleKeyDown}
-      style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
+      style={{ boxShadow: 'var(--stl-shadow-md, 0 4px 12px var(--stl-maxAlpha8, rgba(0,0,0,0.15)))' }}
     >
       {children}
     </ContentFrame>

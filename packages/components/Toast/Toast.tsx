@@ -15,9 +15,9 @@ const ToastFrame = styled("div", {
 }, {
   variant: {
     default: { backgroundColor: "$background", borderColor: "$borderColor" },
-    success: { backgroundColor: "#f0fdf4", borderColor: "#86efac" },
-    error: { backgroundColor: "#fef2f2", borderColor: "#fca5a5" },
-    warning: { backgroundColor: "#fffbeb", borderColor: "#fcd34d" },
+    success: { backgroundColor: "var(--stl-successBg, #f0fdf4)", borderColor: "var(--stl-successBorder, #86efac)" },
+    error: { backgroundColor: "var(--stl-errorBg, #fef2f2)", borderColor: "var(--stl-errorBorder, #fca5a5)" },
+    warning: { backgroundColor: "var(--stl-warningBg, #fffbeb)", borderColor: "var(--stl-warningBorder, #fcd34d)" },
   },
 }, "Toast")
 
@@ -42,7 +42,7 @@ export interface ToastRootProps {
 
 function Root({ children, variant = 'default' }: ToastRootProps) {
   return (
-    <ToastFrame variant={variant} role="alert" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
+    <ToastFrame variant={variant} role="alert" style={{ boxShadow: 'var(--stl-shadow-md, 0 4px 12px var(--stl-maxAlpha8, rgba(0,0,0,0.15)))' }}>
       {children}
     </ToastFrame>
   )

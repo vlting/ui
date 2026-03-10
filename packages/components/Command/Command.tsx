@@ -4,7 +4,7 @@ import { styled } from '../../stl-react/src/config'
 const CommandRoot = styled(
   "div",
   {
-    backgroundColor: "var(--background, #fff)",
+    backgroundColor: "var(--stl-background, #fff)",
     borderWidth: "1px",
     borderStyle: "solid",
     borderColor: "var(--borderColor)",
