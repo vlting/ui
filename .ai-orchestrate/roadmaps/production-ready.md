@@ -75,7 +75,7 @@ E4 (RN Parity) ─────────────────┤
 **Dependencies:** none (parallel with E1)
 **Epic slug:** theming-hardening
 **Epic branch:** epic/theming-hardening
-**Status:** in-progress
+**Status:** done
 
 ### Stage 2.1: Token Audit + Discipline Enforcement
 **Branch prefix:** feat
