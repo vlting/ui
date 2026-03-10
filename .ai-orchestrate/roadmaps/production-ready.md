@@ -211,15 +211,15 @@ E4 (RN Parity) ─────────────────┤
 **Dependencies:** Epic 3
 **Epic slug:** docs-overhaul
 **Epic branch:** epic/docs-overhaul
-**Status:** pending
+**Status:** in-progress
 
 ### Stage 5.1: Fix Rendering + Empty Previews
 **Branch prefix:** fix
 **Acceptance criteria:**
-- [ ] NextJS docs app component rendering debugged (SSR/hydration with STL)
-- [ ] Every component page shows a live preview
-- [ ] Zero empty preview states across all component pages
-**Status:** pending
+- [x] NextJS docs app component rendering debugged (SSR/hydration with STL)
+- [x] Every component page shows a live preview
+- [x] Zero empty preview states across all component pages
+**Status:** done
 
 ### Stage 5.2: Interactive Examples + Copy-Paste Patterns
 **Branch prefix:** feat
