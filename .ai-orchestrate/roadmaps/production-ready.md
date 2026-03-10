@@ -164,23 +164,23 @@ E4 (RN Parity) ─────────────────┤
 **Dependencies:** none (parallel)
 **Epic slug:** rn-parity
 **Epic branch:** epic/rn-parity
-**Status:** in-progress
+**Status:** pending
 
 ### Stage 4.1: Architecture + stl-native Feature Parity
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [x] .native.tsx strategy documented and scaffolded
-- [x] stl-native styled() API equivalent to stl-react (variants, conditions, pseudo-states)
-- [x] Current stl-native gaps vs stl-react audited
-**Status:** done
+- [ ] .native.tsx strategy documented and scaffolded
+- [ ] stl-native styled() API equivalent to stl-react (variants, conditions, pseudo-states)
+- [ ] Current stl-native gaps vs stl-react audited
+**Status:** pending
 
 ### Stage 4.2: Primitive Parity
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] All 19 web primitives have RN equivalents
-- [ ] Gaps filled: Separator, Divider, Skeleton, Spinner, Kbd, Badge, VisuallyHidden, Portal
-- [ ] All primitives render on iOS + Android via showcase-native
-**Status:** pending
+- [x] All 19 web primitives have RN equivalents
+- [x] Gaps filled: Separator, Divider, Skeleton, Spinner, Kbd, Badge, VisuallyHidden, Portal
+- [x] All primitives render on iOS + Android via showcase-native
+**Status:** done
 
 ### Stage 4.3: Tier 1 Component Porting
 **Branch prefix:** feat
