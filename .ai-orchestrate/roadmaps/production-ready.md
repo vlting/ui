@@ -111,16 +111,16 @@ E4 (RN Parity) ─────────────────┤
 **Dependencies:** Epic 1, Epic 2
 **Epic slug:** component-quality
 **Epic branch:** epic/component-quality
-**Status:** pending
+**Status:** in-progress
 
 ### Stage 3.1: Automated Gap Report
 **Branch prefix:** chore
 **Acceptance criteria:**
-- [ ] Playwright + axe-core run against all 55 components
-- [ ] Token validation script run
-- [ ] Generated report: missing focus styles, contrast failures, keyboard issues, token violations
-- [ ] Prioritized fix list with severity
-**Status:** pending
+- [x] Playwright + axe-core run against all 55 components
+- [x] Token validation script run
+- [x] Generated report: missing focus styles, contrast failures, keyboard issues, token violations
+- [x] Prioritized fix list with severity
+**Status:** done
 
 ### Stage 3.2: Interaction States
 **Branch prefix:** feat
