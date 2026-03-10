@@ -18,9 +18,10 @@ export function Section({ title, children }: { title: string; children: ReactNod
   )
 }
 
-export function DemoCard({ label, children }: { label: string; children: ReactNode }) {
+export function DemoCard({ label, children, testId }: { label: string; children: ReactNode; testId?: string }) {
   return (
     <div
+      data-testid={testId}
       style={{
         border: '1px solid var(--stl-borderColor, #e5e5e5)',
         borderRadius: 8,

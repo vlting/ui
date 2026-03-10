@@ -153,6 +153,7 @@ export { Drawer } from './Drawer'
 export type { DrawerRootProps, DrawerContentProps } from './Drawer'
 
 export {
+  Typography,
   H1,
   H2,
   H3,

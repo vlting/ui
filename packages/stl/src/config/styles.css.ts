@@ -564,15 +564,17 @@ function getTokensFromVars<V extends BaseVars>(vars: V, map = varMap) {
 
 function getTokenToVarsMap<V extends BaseVars, A extends CssAliasMap>(vars: V, aliases?: A) {
   const output = {} as { [k in PrefixedKey<V>]: string }
-  Object.entries(vars).forEach(([key, { name }]) => {
+  Object.entries(vars).forEach(([key, entry]) => {
+    if (!entry || typeof entry !== 'object' || !('name' in entry)) return
     const token = addPrefix(key)
-    output[token as keyof typeof output] = name
+    output[token as keyof typeof output] = entry.name
     return output
   })
   if (aliases) {
     Object.entries(aliases).forEach(([token, alias]) => {
       const keyFromAlias = removePrefix(alias)
-      output[token as keyof typeof output] = keyFromAlias === SCALED_ALIAS ? SCALED_ALIAS : vars[keyFromAlias].name
+      const varEntry = vars[keyFromAlias]
+      output[token as keyof typeof output] = keyFromAlias === SCALED_ALIAS ? SCALED_ALIAS : varEntry?.name ?? ''
       return output
     })
   }

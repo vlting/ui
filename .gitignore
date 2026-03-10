@@ -17,3 +17,6 @@ coverage/
 .worktrees/
 .history/
 .playwright-mcp/
+playwright-report/
+test-results/
+blob-report/

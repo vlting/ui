@@ -91,7 +91,9 @@
     "dev:showcase-native": "yarn workspace @vlting/showcase-native start",
     "dev:docs": "yarn workspace @vlting/docs dev",
     "build:docs": "yarn workspace @vlting/docs build",
-    "generate:icons": "node scripts/generate-icons.mjs"
+    "generate:icons": "node scripts/generate-icons.mjs",
+    "test:e2e": "yarn workspace @vlting/showcase-web test:e2e",
+    "test:e2e:update": "yarn workspace @vlting/showcase-web test:e2e:update"
   },
   "dependencies": {
     "victory": "^37.3.6"

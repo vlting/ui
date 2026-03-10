@@ -11,6 +11,7 @@ import { NavigationPage } from './pages/NavigationPage'
 import { HooksPage } from './pages/HooksPage'
 import { BlocksPage } from './pages/BlocksPage'
 import { IconsPage } from './pages/IconsPage'
+import { ButtonPage } from './pages/components/ButtonPage'
 
 export function App() {
   return (
@@ -27,6 +28,7 @@ export function App() {
         <Route path="hooks" element={<HooksPage />} />
         <Route path="blocks" element={<BlocksPage />} />
         <Route path="icons" element={<IconsPage />} />
+        <Route path="components/button" element={<ButtonPage />} />
       </Route>
     </Routes>
   )

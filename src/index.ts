@@ -132,6 +132,7 @@ export {
   Item,
   ButtonGroup,
   Drawer,
+  Typography,
   H1,
   H2,
   H3,
