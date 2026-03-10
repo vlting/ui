@@ -1,6 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
+const SELECT_INTERACTION_STYLE_ID = 'vlt-select-interaction'
+const SELECT_INTERACTION_CSS = `
+.vlt-select-trigger:hover:not(:disabled) { border-color: var(--borderColorHover, var(--borderColor)); }
+.vlt-select-trigger:focus-visible { outline: 2px solid var(--stl-outline-primaryColorBase, currentColor); outline-offset: 2px; }
+`
+
 const TriggerFrame = styled("button", {
   display: "flex",
   alignItems: "center",
@@ -19,6 +25,7 @@ const TriggerFrame = styled("button", {
   width: "100%",
   textAlign: "left",
   outline: "none",
+  transition: "border-color 150ms ease",
 }, {
   size: {
     sm: { padding: "4px 8px", fontSize: "$14", borderRadius: "$2" },
@@ -123,6 +130,15 @@ function SelectRootComponent({
   )
   const selectedLabel = items.find((item) => item.props.value === value)?.props.children ?? value
 
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    if (document.getElementById(SELECT_INTERACTION_STYLE_ID)) return
+    const el = document.createElement('style')
+    el.id = SELECT_INTERACTION_STYLE_ID
+    el.textContent = SELECT_INTERACTION_CSS
+    document.head.appendChild(el)
+  }, [])
+
   // Close on outside click
   useEffect(() => {
     if (!isOpen) return
@@ -169,6 +185,7 @@ function SelectRootComponent({
       <div ref={rootRef} style={{ position: 'relative', width: '100%' }}>
         <TriggerFrame
           type="button"
+          className="vlt-select-trigger"
           size={size}
           disabled={disabled || undefined}
           onClick={() => !disabled && setIsOpen(!isOpen)}
@@ -184,7 +201,7 @@ function SelectRootComponent({
         </TriggerFrame>
 
         {isOpen && (
-          <DropdownFrame style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
+          <DropdownFrame style={{ boxShadow: 'var(--stl-shadow-md, 0 4px 12px var(--shadowColor, rgba(0,0,0,0.1)))' }}>
             <div role="listbox" style={{ padding: '4px', maxHeight: '240px', overflowY: 'auto' }}>
               {React.Children.map(children, (child, i) => {
                 if (React.isValidElement(child) && (child.type as any) === SelectItem) {
@@ -219,7 +236,7 @@ function SelectItem({ value: itemValue, children, _index = 0 }: SelectItemProps)
       onClick={() => onSelect(itemValue)}
       onMouseEnter={() => setHighlightIndex(_index)}
       style={{
-        backgroundColor: isHighlighted ? 'var(--surface3, #f3f4f6)' : 'transparent',
+        backgroundColor: isHighlighted ? 'var(--surface3)' : 'transparent',
         borderRadius: '4px',
         fontWeight: isSelected ? 600 : 400,
       }}

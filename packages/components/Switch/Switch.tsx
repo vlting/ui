@@ -1,5 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
+
+const SWITCH_INTERACTION_STYLE_ID = 'vlt-switch-interaction'
+const SWITCH_INTERACTION_CSS = `
+.vlt-switch:hover:not(:disabled) { filter: brightness(1.08); }
+.vlt-switch:focus-visible { outline: 2px solid var(--stl-outline-primaryColorBase, currentColor); outline-offset: 2px; }
+.vlt-switch:active:not(:disabled) .vlt-switch-thumb { transform: scaleX(1.1); }
+`
 
 const SwitchTrack = styled(
   "button",
@@ -32,8 +39,8 @@ const SwitchThumb = styled(
   {
     display: "block",
     borderRadius: "9999px",
-    backgroundColor: "var(--background, #fff)",
-    boxShadow: "0 1px 2px rgba(0,0,0,0.2)",
+    backgroundColor: "var(--background, var(--stl-color-min, #fff))",
+    boxShadow: "var(--stl-shadow-sm, 0 1px 2px var(--shadowColor, rgba(0,0,0,0.1)))",
     transition: "transform 200ms ease",
   },
   {
@@ -80,9 +87,19 @@ export function Switch({
     onCheckedChange?.(next)
   }
 
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    if (document.getElementById(SWITCH_INTERACTION_STYLE_ID)) return
+    const el = document.createElement('style')
+    el.id = SWITCH_INTERACTION_STYLE_ID
+    el.textContent = SWITCH_INTERACTION_CSS
+    document.head.appendChild(el)
+  }, [])
+
   return (
     <SwitchTrack
       type="button"
+      className="vlt-switch"
       role="switch"
       aria-checked={isChecked}
       disabled={disabled}
@@ -94,6 +111,7 @@ export function Switch({
     >
       {name && <input type="hidden" name={name} value={isChecked ? 'on' : 'off'} />}
       <SwitchThumb
+        className="vlt-switch-thumb"
         size={size}
         style={{
           transform: isChecked ? THUMB_TRANSLATE[size] : 'translateX(0)',

@@ -11,7 +11,7 @@ const StyledOverlay = styled(
     left: "0",
     right: "0",
     bottom: "0",
-    backgroundColor: "var(--overlayBackground, rgba(0,0,0,0.5))",
+    backgroundColor: "var(--stl-maxAlpha8, rgba(0,0,0,0.5))",
     zIndex: "40",
     transition: "opacity 200ms ease",
   },
@@ -224,12 +224,40 @@ function Description({ children }: { children: React.ReactNode }) {
   return <StyledDescription id={descriptionId}>{children}</StyledDescription>
 }
 
+const StyledClose = styled(
+  "button",
+  {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+    border: "none",
+    backgroundColor: "transparent",
+    color: "var(--color)",
+    borderRadius: "4px",
+    padding: "4px",
+    outline: "none",
+    transition: "background-color 150ms ease",
+    hovered: {
+      backgroundColor: "var(--color3)",
+    },
+    focused: {
+      outline: "2px solid var(--stl-outline-primaryColorBase, currentColor)",
+      outlineOffset: "2px",
+    },
+    pressed: {
+      backgroundColor: "var(--color4)",
+    },
+  },
+  "DialogClose"
+)
+
 function Close({ children }: { children?: React.ReactNode }) {
   const { onClose } = useContext(DialogContext)
   return (
-    <span onClick={onClose} style={{ display: 'inline-flex', cursor: 'pointer' }}>
+    <StyledClose onClick={onClose} type="button" aria-label="Close dialog">
       {children}
-    </span>
+    </StyledClose>
   )
 }
 
