@@ -154,10 +154,10 @@ E4 (RN Parity) ─────────────────┤
 ### Stage 3.5: Test Hardening
 **Branch prefix:** test
 **Acceptance criteria:**
-- [ ] All 55 test files upgraded: keyboard nav, ARIA state assertions, focus management
-- [ ] Each test validates its *.spec.md requirements
+- [x] All 55 test files upgraded: keyboard nav, ARIA state assertions, focus management
+- [x] Each test validates its *.spec.md requirements
 - [ ] All tests pass, coverage meets spec requirements
-**Status:** pending
+**Status:** done
 
 ## Epic 4: React Native Parity
 **Objective:** Core components work on React Native. Parallel with E1-E2.
