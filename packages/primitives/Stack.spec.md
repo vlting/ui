@@ -19,7 +19,7 @@
 
 ## 3. Anatomy
 
-Three exports, no custom variants or base styles beyond Tamagui defaults:
+Three exports, no custom variants or base styles beyond STL defaults:
 - `VStack` — `styled(YStack)` with `flexDirection: 'column'`
 - `HStack` — `styled(XStack)` with `flexDirection: 'row'`
 - `Stack` — direct reference to VStack (not a wrapper)
@@ -46,15 +46,15 @@ None.
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders `<div>` (Tamagui default). Consumers must set `accessibilityRole` when the stack serves a semantic purpose (`navigation`, `toolbar`, `list`, `group`).
+- **Semantic element:** Renders `<div>` (STL default). Consumers must set `accessibilityRole` when the stack serves a semantic purpose (`navigation`, `toolbar`, `list`, `group`).
 - **ARIA attributes:** None by default. Consumer-provided roles and labels are forwarded.
 
 ---
 
 ## 6. Styling
 
-- **Design tokens used:** Inherits all Tamagui stack style props. All spacing and sizing must use tokens.
-- **Responsive behavior:** Supports all Tamagui responsive and media-query props.
+- **Design tokens used:** Inherits all STL stack style props. All spacing and sizing must use tokens.
+- **Responsive behavior:** Supports all STL responsive and media-query props.
 - **Dark mode:** Fully compatible — no default colors applied.
 
 ---

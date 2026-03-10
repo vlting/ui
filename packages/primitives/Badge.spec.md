@@ -47,7 +47,7 @@ None.
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders as text (Tamagui Text → `<span>` on web).
+- **Semantic element:** Renders as text (STL Text → `<span>` on web).
 - **ARIA attributes:** None by default. If the badge conveys status meaning, the consumer should ensure the status is also communicated through text context or `aria-label` on a parent.
 - **Contrast:** Each variant's foreground/background combination must meet WCAG 4.5:1 for text contrast. The `destructive` variant uses `$red10` on `$color1` — verify in both themes.
 
@@ -61,7 +61,7 @@ None.
   - Spacing: `paddingHorizontal`/`paddingVertical` from token scale
   - Shape: `borderRadius: '$10'` (pill shape), `overflow: 'hidden'`
   - Layout: `alignSelf: 'flex-start'` prevents stretching in flex containers
-- **Responsive behavior:** Inherits Tamagui responsive props.
+- **Responsive behavior:** Inherits STL responsive props.
 - **Dark mode:** Color tokens resolve automatically.
 
 ---

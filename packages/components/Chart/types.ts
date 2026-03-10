@@ -4,7 +4,7 @@ import type { ComponentType } from 'react'
 export interface ChartConfigEntry {
   /** Human-readable label for this series */
   label: string
-  /** Tamagui token reference for the series color (e.g., "$blue8", "$color9") */
+  /** Design token reference for the series color (e.g., "$blue8", "$color9") */
   color: string
   /** Optional icon component for this series */
   icon?: ComponentType

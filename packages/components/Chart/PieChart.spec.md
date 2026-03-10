@@ -67,10 +67,10 @@ Renders pie and donut chart visualizations within a `<Chart>` container. Support
 
 ## 6. Styling
 
-- **Colors:** From `resolvedColors` (Tamagui token resolution)
+- **Colors:** From `resolvedColors` (STL token resolution)
 - **Responsive:** Automatically sizes to `dimensions` from ChartContainer
 - **Reduced motion:** `prefers-reduced-motion` disables active slice animations
-- **Dark mode:** Colors and text adapt via Tamagui theme tokens
+- **Dark mode:** Colors and text adapt via STL theme tokens
 
 ## 7. Composition
 

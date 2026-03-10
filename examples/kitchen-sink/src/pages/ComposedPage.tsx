@@ -1,17 +1,20 @@
 import {
   Accordion,
   AlertDialog,
+  Box,
   Breadcrumb,
   Button,
   Collapsible,
   Form,
+  HStack,
   Heading,
   Input,
   Pagination,
   Table,
+  Text,
+  VStack,
 } from '@vlting/ui'
 import { useState } from 'react'
-import { Text, View, XStack, YStack } from 'tamagui'
 import { DemoCard, Section } from '../components/Section'
 
 function AccordionDemo() {
@@ -21,8 +24,8 @@ function AccordionDemo() {
         <Accordion.Item value="item-1">
           <Accordion.Trigger>What is this design system?</Accordion.Trigger>
           <Accordion.Content>
-            <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
-              A cross-platform, open-source design system built on Tamagui v2. It provides
+            <Text size="sm" tone="muted">
+              A cross-platform, open-source design system. It provides
               layered primitives, styled components, and composed patterns.
             </Text>
           </Accordion.Content>
@@ -30,19 +33,17 @@ function AccordionDemo() {
         <Accordion.Item value="item-2">
           <Accordion.Trigger>How does theming work?</Accordion.Trigger>
           <Accordion.Content>
-            <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
-              Themes are built with a 12-step palette system using @tamagui/theme-builder.
-              Brand configs drive all visual tokens including color, typography, and
-              spacing.
+            <Text size="sm" tone="muted">
+              Themes are built with a 12-step palette system. Brand configs drive all
+              visual tokens including color, typography, and spacing.
             </Text>
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="item-3">
           <Accordion.Trigger>Can I use it with React Native?</Accordion.Trigger>
           <Accordion.Content>
-            <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
-              Yes. Because the system is built on Tamagui, components compile to optimized
-              native views on iOS and Android, and to flat CSS on the web.
+            <Text size="sm" tone="muted">
+              Yes. Components work on both web and native platforms.
             </Text>
           </Accordion.Content>
         </Accordion.Item>
@@ -93,15 +94,11 @@ function BreadcrumbDemo() {
     <DemoCard label="3-level navigation breadcrumb">
       <Breadcrumb.Root>
         <Breadcrumb.Item>
-          <Breadcrumb.Link href="#" onPress={() => {}}>
-            Home
-          </Breadcrumb.Link>
+          <Breadcrumb.Link href="#" onPress={() => {}}>Home</Breadcrumb.Link>
         </Breadcrumb.Item>
         <Breadcrumb.Separator />
         <Breadcrumb.Item>
-          <Breadcrumb.Link href="#" onPress={() => {}}>
-            Projects
-          </Breadcrumb.Link>
+          <Breadcrumb.Link href="#" onPress={() => {}}>Projects</Breadcrumb.Link>
         </Breadcrumb.Item>
         <Breadcrumb.Separator />
         <Breadcrumb.Item>
@@ -117,30 +114,30 @@ function CollapsibleDemo() {
     <DemoCard label="Toggle to reveal hidden content">
       <Collapsible.Root defaultOpen={false}>
         <Collapsible.Trigger>
-          <View
-            backgroundColor="$color4"
-            paddingHorizontal="$4"
-            paddingVertical="$2"
-            borderRadius="$3"
-            cursor="pointer"
+          <Box
+            style={{
+              backgroundColor: 'var(--vlt-color-4)',
+              paddingInline: 16,
+              paddingBlock: 8,
+              borderRadius: 6,
+              cursor: 'pointer',
+            }}
           >
-            <Text fontFamily="$body" fontSize="$3">
-              Toggle Details
-            </Text>
-          </View>
+            <Text size="sm">Toggle Details</Text>
+          </Box>
         </Collapsible.Trigger>
         <Collapsible.Content>
-          <YStack paddingTop="$3" gap="$2">
-            <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
+          <VStack style={{ paddingTop: 12, gap: 8 }}>
+            <Text size="sm" tone="muted">
               This content is hidden by default and revealed when the trigger is clicked.
               The Collapsible component supports controlled and uncontrolled modes via
               open, defaultOpen, and onOpenChange props.
             </Text>
-            <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
+            <Text size="xs" tone="muted">
               Use collapsible sections for progressive disclosure — showing users only the
               information they need, when they need it.
             </Text>
-          </YStack>
+          </VStack>
         </Collapsible.Content>
       </Collapsible.Root>
     </DemoCard>
@@ -163,16 +160,16 @@ function FormDemo() {
           <Input placeholder="Choose a username" error />
           <Form.ErrorMessage>This username is already taken.</Form.ErrorMessage>
         </Form.Field>
-        <XStack gap="$2" paddingTop="$2">
+        <HStack style={{ gap: 8, paddingTop: 8 }}>
           <Button onPress={() => setSubmitted(true)}>
             <Button.Text>Submit</Button.Text>
           </Button>
           {submitted && (
-            <Text fontFamily="$body" fontSize="$3" color="$green10" alignSelf="center">
+            <Text size="sm" tone="success" style={{ alignSelf: 'center' }}>
               Form submitted!
             </Text>
           )}
-        </XStack>
+        </HStack>
       </Form.Root>
     </DemoCard>
   )
@@ -193,12 +190,7 @@ const ALL_TEAM_MEMBERS = [
   { name: "Liam O'Brien", role: 'Mobile Developer', status: 'Active', hours: 39 },
   { name: 'Maya Rodriguez', role: 'Technical Writer', status: 'Active', hours: 32 },
   { name: 'Nathan Park', role: 'Infrastructure Engineer', status: 'Active', hours: 43 },
-  {
-    name: 'Olivia Turner',
-    role: 'Accessibility Specialist',
-    status: 'Active',
-    hours: 36,
-  },
+  { name: 'Olivia Turner', role: 'Accessibility Specialist', status: 'Active', hours: 36 },
 ]
 
 const ROWS_PER_PAGE = 5
@@ -236,55 +228,31 @@ function TableDemo() {
             <Table.Cell fontWeight="600">Page total</Table.Cell>
             <Table.Cell />
             <Table.Cell />
-            <Table.Cell textAlign="right" fontWeight="600">
-              {totalHours}
-            </Table.Cell>
+            <Table.Cell textAlign="right" fontWeight="600">{totalHours}</Table.Cell>
           </Table.Row>
         </Table.Footer>
       </Table.Root>
-      <XStack justifyContent="center" paddingTop="$3">
-        <Pagination.Root
-          currentPage={page}
-          totalPages={totalPages}
-          onPageChange={setPage}
-          size="sm"
-        />
-      </XStack>
+      <HStack style={{ justifyContent: 'center', paddingTop: 12 }}>
+        <Pagination.Root currentPage={page} totalPages={totalPages} onPageChange={setPage} size="sm" />
+      </HStack>
     </DemoCard>
   )
 }
 
 export function ComposedPage() {
   return (
-    <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
+    <VStack style={{ padding: 24, gap: 8, maxWidth: 900, marginInline: 'auto', width: '100%' }}>
       <Heading level={1}>Composed</Heading>
-      <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
+      <Text tone="muted" style={{ marginBottom: 16 }}>
         Complex multi-part components built from primitives.
       </Text>
 
-      <Section title="Accordion">
-        <AccordionDemo />
-      </Section>
-
-      <Section title="AlertDialog">
-        <AlertDialogDemo />
-      </Section>
-
-      <Section title="Breadcrumb">
-        <BreadcrumbDemo />
-      </Section>
-
-      <Section title="Collapsible">
-        <CollapsibleDemo />
-      </Section>
-
-      <Section title="Form">
-        <FormDemo />
-      </Section>
-
-      <Section title="Table">
-        <TableDemo />
-      </Section>
-    </YStack>
+      <Section title="Accordion"><AccordionDemo /></Section>
+      <Section title="AlertDialog"><AlertDialogDemo /></Section>
+      <Section title="Breadcrumb"><BreadcrumbDemo /></Section>
+      <Section title="Collapsible"><CollapsibleDemo /></Section>
+      <Section title="Form"><FormDemo /></Section>
+      <Section title="Table"><TableDemo /></Section>
+    </VStack>
   )
 }

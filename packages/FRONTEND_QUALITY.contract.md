@@ -22,7 +22,7 @@ Every component must produce semantically correct HTML:
 - **Maximum 3 levels of nesting** within a single component's rendered output (excluding children passed by consumers). If more levels are needed, justify why.
 - **No styling-only elements**: No element may exist solely to apply a single CSS property. That property must be moved to an existing parent or child element.
 - **Compound sub-components** (e.g., `Button.Text`, `Button.Icon`) should not introduce wrapper elements beyond the styled element itself.
-- **Tamagui `tag` prop caveat**: The `tag` prop in `styled()` does NOT change the rendered HTML element in Tamagui v2 RC. Use `styledHtml()` or wrap native HTML elements with Tamagui styled components for visual styling.
+- Use `styled()` from @vlting/stl for styling, which correctly handles HTML element rendering.
 
 ---
 
@@ -96,10 +96,10 @@ focusVisibleStyle: {
 
 ## 4. Cross-Platform Considerations
 
-- Components must work on web and React Native (Tamagui handles this, but component authors must not introduce web-only APIs without fallbacks)
-- Use Tamagui style props for layout — not raw CSS (`className`, `style={{}}`, etc.)
-- `styledHtml()` elements are web-only by nature. They should have React Native alternatives or be clearly documented as web-only
-- Do not use browser-specific APIs (e.g., `document.querySelector`, `window.addEventListener`) directly in components — use Tamagui or React abstractions
+- Components must work on web and React Native (STL handles this, but component authors must not introduce web-only APIs without fallbacks)
+- Use STL style props for layout — not raw CSS (`className`, `style={{}}`, etc.)
+- Web-only styled elements should have React Native alternatives or be clearly documented as web-only
+- Do not use browser-specific APIs (e.g., `document.querySelector`, `window.addEventListener`) directly in components — use STL or React abstractions
 
 ---
 

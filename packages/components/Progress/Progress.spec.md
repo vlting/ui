@@ -22,8 +22,8 @@
 
 ## 3. Anatomy
 
-- **Progress** (Root) — Track container wrapping Tamagui's Progress primitive.
-- **Progress.Indicator** — Internal fill bar (rendered by Tamagui, not directly exposed).
+- **Progress** (Root) — Track container wrapping STL's Progress primitive.
+- **Progress.Indicator** — Internal fill bar (rendered by STL, not directly exposed).
 
 Single-component API; no compound sub-components are exposed.
 
@@ -45,14 +45,14 @@ Single-component API; no compound sub-components are exposed.
 
 ### Motion
 
-- Tamagui Progress.Indicator may animate width changes.
+- STL Progress.Indicator may animate width changes.
 - Should respect `prefers-reduced-motion`.
 
 ---
 
 ## 5. Accessibility
 
-- **Semantic element:** Tamagui Progress renders with `role="progressbar"` semantics.
+- **Semantic element:** STL Progress renders with `role="progressbar"` semantics.
 - **ARIA attributes:** `aria-valuenow` (current value), `aria-valuemin` (0), `aria-valuemax` (max), `aria-label` (consumer-provided).
 - **Focus management:** Not focusable — purely informational.
 - **Screen reader announcements:** Value communicated via ARIA value attributes.

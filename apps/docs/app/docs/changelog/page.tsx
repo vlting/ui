@@ -18,7 +18,7 @@ export default function ChangelogPage() {
           <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 4 }}>v0.2.0</h2>
           <p style={{ fontSize: 12, color: 'var(--color-muted-foreground)', marginBottom: 12 }}>March 2026</p>
           <ul style={{ fontSize: 14, lineHeight: 1.8, color: 'var(--color-muted-foreground)', paddingLeft: 20 }}>
-            <li>Replaced Tamagui with @vlting/stl (zero-runtime CSS via Vanilla Extract)</li>
+            <li>Migrated to @vlting/stl (zero-runtime CSS via Vanilla Extract)</li>
             <li>New styled() API with variant system</li>
             <li>Created stl-headless package with 8 behavioral hooks</li>
             <li>Added stl-ui meta-package for cross-platform resolution</li>
@@ -32,7 +32,7 @@ export default function ChangelogPage() {
           <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 4 }}>v0.1.0</h2>
           <p style={{ fontSize: 12, color: 'var(--color-muted-foreground)', marginBottom: 12 }}>Initial release</p>
           <ul style={{ fontSize: 14, lineHeight: 1.8, color: 'var(--color-muted-foreground)', paddingLeft: 20 }}>
-            <li>Initial component library on Tamagui v2 RC</li>
+            <li>Initial component library</li>
             <li>238 component stubs across 24 modules</li>
             <li>Brand system with 4 pre-built brands</li>
             <li>Icon generation from Remixicon</li>

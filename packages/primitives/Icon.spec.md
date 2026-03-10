@@ -19,7 +19,7 @@
 
 ## 3. Anatomy
 
-Plain React function component (NOT a Tamagui styled component). Renders the passed `icon` component directly with forwarded `size` and `color` props. No wrapping container element.
+Plain React function component (NOT a STL styled component). Renders the passed `icon` component directly with forwarded `size` and `color` props. No wrapping container element.
 
 - `icon`: component conforming to `IconFC` (`ComponentType<{ size?: number; color?: string }>`).
 - `size`: number (default: 20).
@@ -57,7 +57,7 @@ None.
 
 - **Design tokens used:** None directly — Icon is a plain component. Color and size are passed through to the icon component.
 - **Default size:** 20 (unitless, interpreted as pixels by icon libraries).
-- **Responsive behavior:** Does not support Tamagui media-query props. Consumers manage responsive sizing at the usage site.
+- **Responsive behavior:** Does not support STL media-query props. Consumers manage responsive sizing at the usage site.
 - **Dark mode:** Consumer passes appropriate theme-resolved color.
 
 ---
@@ -75,7 +75,7 @@ None.
 - Changing the `IconFC` type signature.
 - Changing the default `size` from 20.
 - Wrapping the icon in additional DOM elements.
-- Switching to Tamagui `styled()` (would change type API and rendering behavior).
+- Switching to STL `styled()` (would change type API and rendering behavior).
 
 ---
 

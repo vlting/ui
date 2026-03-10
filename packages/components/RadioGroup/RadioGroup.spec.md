@@ -24,7 +24,7 @@
 ## 3. Anatomy
 
 - **RadioGroup** (Root) — Container with `role="radiogroup"`, manages selection state.
-- **RadioGroup.Item** — Individual radio option wrapping Tamagui RadioGroup.Item + Indicator, with a native `<label>`.
+- **RadioGroup.Item** — Individual radio option wrapping STL RadioGroup.Item + Indicator, with a native `<label>`.
 
 > **TypeScript is the source of truth for props.** See `RadioGroupProps` in `RadioGroup.tsx` for the full typed API.
 
@@ -42,7 +42,7 @@
 
 ### Keyboard Interaction
 
-- **Arrow Up/Down** (vertical) or **Arrow Left/Right** (horizontal) — Moves selection to adjacent radio item (roving tabindex via Tamagui).
+- **Arrow Up/Down** (vertical) or **Arrow Left/Right** (horizontal) — Moves selection to adjacent radio item (roving tabindex via STL).
 - **Tab** — Moves focus into/out of the radio group (only the selected or first item is tabbable).
 - **Space** — Selects the focused radio item.
 - Follows the [WAI-ARIA Radio Group pattern](https://www.w3.org/WAI/ARIA/apg/patterns/radio/).
@@ -55,7 +55,7 @@
 
 ## 5. Accessibility
 
-- **Semantic element:** Tamagui RadioGroup provides `role="radiogroup"` on root and `role="radio"` on items.
+- **Semantic element:** STL RadioGroup provides `role="radiogroup"` on root and `role="radio"` on items.
 - **ARIA attributes:** `aria-label` on root; `aria-checked` on each item; `aria-disabled` when disabled.
 - **Focus management:** Roving tabindex — only one item tabbable at a time; arrow keys move focus and selection.
 - **Screen reader announcements:** Group label, item label, and checked state announced.

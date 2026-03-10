@@ -6,355 +6,283 @@ import {
   HStack,
   Heading,
   Label,
+  Separator,
   Skeleton,
   Spacer,
-  Separator as VSeparator,
+  Text,
   VStack,
-  Text as VText,
   VisuallyHidden,
 } from '@vlting/ui'
-import { Text, View, XStack, YStack } from 'tamagui'
 import { DemoCard, Section } from '../components/Section'
 
 export function PrimitivesPage() {
   return (
-    <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
+    <VStack style={{ padding: 24, gap: 8, maxWidth: 900, marginInline: 'auto', width: '100%' }}>
       <Heading level={1}>Primitives</Heading>
-      <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
+      <Text tone="muted" style={{ marginBottom: 16 }}>
         Layer 1 — basic building blocks.
       </Text>
 
       <Section title="AspectRatio">
-        <XStack gap="$3" flexWrap="wrap">
+        <HStack style={{ gap: 12, flexWrap: 'wrap' }}>
           <DemoCard label="1:1 (Square)">
             <AspectRatio ratio={1}>
-              <View
-                backgroundColor="$color4"
-                borderRadius="$3"
-                width="100%"
-                height="100%"
-                alignItems="center"
-                justifyContent="center"
+              <Box
+                centered
+                style={{
+                  backgroundColor: 'var(--vlt-color-4)',
+                  borderRadius: 6,
+                  width: '100%',
+                  height: '100%',
+                }}
               >
-                <Text fontFamily="$body" fontSize="$3">
-                  1:1
-                </Text>
-              </View>
+                <Text size="sm">1:1</Text>
+              </Box>
             </AspectRatio>
           </DemoCard>
           <DemoCard label="16:9 (Widescreen)">
             <AspectRatio ratio={16 / 9}>
-              <View
-                backgroundColor="$color4"
-                borderRadius="$3"
-                width="100%"
-                height="100%"
-                alignItems="center"
-                justifyContent="center"
+              <Box
+                centered
+                style={{
+                  backgroundColor: 'var(--vlt-color-4)',
+                  borderRadius: 6,
+                  width: '100%',
+                  height: '100%',
+                }}
               >
-                <Text fontFamily="$body" fontSize="$3">
-                  16:9
-                </Text>
-              </View>
+                <Text size="sm">16:9</Text>
+              </Box>
             </AspectRatio>
           </DemoCard>
-        </XStack>
+        </HStack>
       </Section>
 
       <Section title="Badge">
-        <XStack gap="$3" flexWrap="wrap">
+        <HStack style={{ gap: 12, flexWrap: 'wrap' }}>
           <DemoCard label="Variants">
-            <XStack gap="$2" flexWrap="wrap" alignItems="center">
+            <HStack style={{ gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
               <Badge variant="solid">Solid</Badge>
               <Badge variant="outline">Outline</Badge>
               <Badge variant="subtle">Subtle</Badge>
-            </XStack>
+            </HStack>
           </DemoCard>
           <DemoCard label="All variants x tones">
-            <YStack gap="$3">
-              <XStack gap="$2" flexWrap="wrap" alignItems="center">
+            <VStack style={{ gap: 12 }}>
+              <HStack style={{ gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
                 <Badge tone="neutral">Neutral</Badge>
                 <Badge tone="primary">Primary</Badge>
                 <Badge tone="success">Success</Badge>
                 <Badge tone="warning">Warning</Badge>
                 <Badge tone="danger">Danger</Badge>
-              </XStack>
-              <XStack gap="$2" flexWrap="wrap" alignItems="center">
-                <Badge variant="outline" tone="neutral">
-                  Neutral
-                </Badge>
-                <Badge variant="outline" tone="primary">
-                  Primary
-                </Badge>
-                <Badge variant="outline" tone="success">
-                  Success
-                </Badge>
-                <Badge variant="outline" tone="warning">
-                  Warning
-                </Badge>
-                <Badge variant="outline" tone="danger">
-                  Danger
-                </Badge>
-              </XStack>
-              <XStack gap="$2" flexWrap="wrap" alignItems="center">
-                <Badge variant="subtle" tone="neutral">
-                  Neutral
-                </Badge>
-                <Badge variant="subtle" tone="primary">
-                  Primary
-                </Badge>
-                <Badge variant="subtle" tone="success">
-                  Success
-                </Badge>
-                <Badge variant="subtle" tone="warning">
-                  Warning
-                </Badge>
-                <Badge variant="subtle" tone="danger">
-                  Danger
-                </Badge>
-              </XStack>
-            </YStack>
+              </HStack>
+              <HStack style={{ gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+                <Badge variant="outline" tone="neutral">Neutral</Badge>
+                <Badge variant="outline" tone="primary">Primary</Badge>
+                <Badge variant="outline" tone="success">Success</Badge>
+                <Badge variant="outline" tone="warning">Warning</Badge>
+                <Badge variant="outline" tone="danger">Danger</Badge>
+              </HStack>
+              <HStack style={{ gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+                <Badge variant="subtle" tone="neutral">Neutral</Badge>
+                <Badge variant="subtle" tone="primary">Primary</Badge>
+                <Badge variant="subtle" tone="success">Success</Badge>
+                <Badge variant="subtle" tone="warning">Warning</Badge>
+                <Badge variant="subtle" tone="danger">Danger</Badge>
+              </HStack>
+            </VStack>
           </DemoCard>
           <DemoCard label="Sizes">
-            <XStack gap="$2" alignItems="center" flexWrap="wrap">
+            <HStack style={{ gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
               <Badge size="sm">Small</Badge>
               <Badge size="md">Medium</Badge>
               <Badge size="lg">Large</Badge>
-            </XStack>
+            </HStack>
           </DemoCard>
-        </XStack>
+        </HStack>
       </Section>
 
       <Section title="Box">
-        <XStack gap="$3" flexWrap="wrap">
+        <HStack style={{ gap: 12, flexWrap: 'wrap' }}>
           <DemoCard label="Default">
-            <Box padding="$4" backgroundColor="$color3" borderRadius="$3">
-              <Text fontFamily="$body">A basic Box</Text>
+            <Box style={{ padding: 16, backgroundColor: 'var(--vlt-color-3)', borderRadius: 6 }}>
+              <Text>A basic Box</Text>
             </Box>
           </DemoCard>
           <DemoCard label="Centered">
             <Box
               centered
-              padding="$6"
-              backgroundColor="$color2"
-              borderRadius="$3"
-              minHeight={100}
+              style={{ padding: 24, backgroundColor: 'var(--vlt-color-2)', borderRadius: 6, minHeight: 100 }}
             >
-              <Text fontFamily="$body">Centered content</Text>
+              <Text>Centered content</Text>
             </Box>
           </DemoCard>
-        </XStack>
+        </HStack>
       </Section>
 
       <Section title="Divider">
         <DemoCard label="Horizontal & Vertical">
-          <YStack gap="$3">
-            <Text fontFamily="$body" fontSize="$3">
-              Above divider
-            </Text>
+          <VStack style={{ gap: 12 }}>
+            <Text size="sm">Above divider</Text>
             <Divider />
-            <Text fontFamily="$body" fontSize="$3">
-              Below divider
-            </Text>
-            <XStack gap="$3" alignItems="center" height={60}>
-              <Text fontFamily="$body" fontSize="$3">
-                Left
-              </Text>
+            <Text size="sm">Below divider</Text>
+            <HStack style={{ gap: 12, alignItems: 'center', height: 60 }}>
+              <Text size="sm">Left</Text>
               <Divider orientation="vertical" />
-              <Text fontFamily="$body" fontSize="$3">
-                Right
-              </Text>
-            </XStack>
-          </YStack>
+              <Text size="sm">Right</Text>
+            </HStack>
+          </VStack>
         </DemoCard>
       </Section>
 
       <Section title="Heading">
         <DemoCard label="Levels 1-6">
-          <YStack gap="$2">
+          <VStack style={{ gap: 8 }}>
             <Heading level={1}>Heading Level 1</Heading>
             <Heading level={2}>Heading Level 2</Heading>
             <Heading level={3}>Heading Level 3</Heading>
             <Heading level={4}>Heading Level 4</Heading>
             <Heading level={5}>Heading Level 5</Heading>
             <Heading level={6}>Heading Level 6</Heading>
-          </YStack>
+          </VStack>
         </DemoCard>
       </Section>
 
       <Section title="Label">
-        <XStack gap="$3" flexWrap="wrap">
+        <HStack style={{ gap: 12, flexWrap: 'wrap' }}>
           <DemoCard label="Sizes">
-            <YStack gap="$3">
+            <VStack style={{ gap: 12 }}>
               <Label size="sm">Small label</Label>
               <Label size="md">Medium label</Label>
               <Label size="lg">Large label</Label>
-            </YStack>
+            </VStack>
           </DemoCard>
           <DemoCard label="Required indicator">
-            <YStack gap="$3">
+            <VStack style={{ gap: 12 }}>
               <Label required>Required field</Label>
-              <Label htmlFor="email-input" required size="md">
-                Email address
-              </Label>
-            </YStack>
+              <Label htmlFor="email-input" required size="md">Email address</Label>
+            </VStack>
           </DemoCard>
-        </XStack>
+        </HStack>
       </Section>
 
       <Section title="Separator">
-        <XStack gap="$3" flexWrap="wrap">
+        <HStack style={{ gap: 12, flexWrap: 'wrap' }}>
           <DemoCard label="Horizontal">
-            <YStack gap="$3">
-              <Text fontFamily="$body" fontSize="$3">
-                Content above
-              </Text>
-              <VSeparator orientation="horizontal" />
-              <Text fontFamily="$body" fontSize="$3">
-                Content below
-              </Text>
-            </YStack>
+            <VStack style={{ gap: 12 }}>
+              <Text size="sm">Content above</Text>
+              <Separator orientation="horizontal" />
+              <Text size="sm">Content below</Text>
+            </VStack>
           </DemoCard>
           <DemoCard label="Vertical">
-            <XStack gap="$3" alignItems="center" height={60}>
-              <Text fontFamily="$body" fontSize="$3">
-                Left
-              </Text>
-              <VSeparator orientation="vertical" />
-              <Text fontFamily="$body" fontSize="$3">
-                Right
-              </Text>
-            </XStack>
+            <HStack style={{ gap: 12, alignItems: 'center', height: 60 }}>
+              <Text size="sm">Left</Text>
+              <Separator orientation="vertical" />
+              <Text size="sm">Right</Text>
+            </HStack>
           </DemoCard>
           <DemoCard label="Decorative">
-            <YStack gap="$3">
-              <Text fontFamily="$body" fontSize="$3">
-                A decorative separator (no semantic meaning)
-              </Text>
-              <VSeparator decorative />
-            </YStack>
+            <VStack style={{ gap: 12 }}>
+              <Text size="sm">A decorative separator (no semantic meaning)</Text>
+              <Separator decorative />
+            </VStack>
           </DemoCard>
-        </XStack>
+        </HStack>
       </Section>
 
       <Section title="Skeleton">
         <DemoCard label="Loading placeholders">
-          <YStack gap="$3">
+          <VStack style={{ gap: 12 }}>
             <Skeleton width="100%" height={20} borderRadius="$2" />
             <Skeleton width="75%" height={20} borderRadius="$2" />
-            <XStack gap="$3" alignItems="center">
+            <HStack style={{ gap: 12, alignItems: 'center' }}>
               <Skeleton circle width={40} height={40} />
-              <YStack gap="$2" flex={1}>
+              <VStack style={{ gap: 8, flex: 1 }}>
                 <Skeleton width="60%" height={14} borderRadius="$2" />
                 <Skeleton width="40%" height={14} borderRadius="$2" />
-              </YStack>
-            </XStack>
-          </YStack>
+              </VStack>
+            </HStack>
+          </VStack>
         </DemoCard>
       </Section>
 
       <Section title="Spacer">
         <DemoCard label="Between elements">
-          <HStack
-            alignItems="center"
-            backgroundColor="$color2"
-            borderRadius="$3"
-            padding="$2"
-          >
-            <Text fontFamily="$body" fontSize="$3">
-              Start
-            </Text>
+          <HStack style={{ alignItems: 'center', backgroundColor: 'var(--vlt-color-2)', borderRadius: 6, padding: 8 }}>
+            <Text size="sm">Start</Text>
             <Spacer />
-            <Text fontFamily="$body" fontSize="$3">
-              End
-            </Text>
+            <Text size="sm">End</Text>
           </HStack>
         </DemoCard>
       </Section>
 
       <Section title="Stack / VStack / HStack">
-        <XStack gap="$3" flexWrap="wrap">
-          <DemoCard label="VStack (gap=$3)">
-            <VStack gap="$3">
-              <View backgroundColor="$color4" padding="$2" borderRadius="$2">
-                <Text fontFamily="$body" fontSize="$2">
-                  Item 1
-                </Text>
-              </View>
-              <View backgroundColor="$color4" padding="$2" borderRadius="$2">
-                <Text fontFamily="$body" fontSize="$2">
-                  Item 2
-                </Text>
-              </View>
-              <View backgroundColor="$color4" padding="$2" borderRadius="$2">
-                <Text fontFamily="$body" fontSize="$2">
-                  Item 3
-                </Text>
-              </View>
+        <HStack style={{ gap: 12, flexWrap: 'wrap' }}>
+          <DemoCard label="VStack (gap=12)">
+            <VStack style={{ gap: 12 }}>
+              <Box style={{ backgroundColor: 'var(--vlt-color-4)', padding: 8, borderRadius: 4 }}>
+                <Text size="xs">Item 1</Text>
+              </Box>
+              <Box style={{ backgroundColor: 'var(--vlt-color-4)', padding: 8, borderRadius: 4 }}>
+                <Text size="xs">Item 2</Text>
+              </Box>
+              <Box style={{ backgroundColor: 'var(--vlt-color-4)', padding: 8, borderRadius: 4 }}>
+                <Text size="xs">Item 3</Text>
+              </Box>
             </VStack>
           </DemoCard>
-          <DemoCard label="HStack (gap=$3)">
-            <HStack gap="$3">
-              <View backgroundColor="$color4" padding="$2" borderRadius="$2">
-                <Text fontFamily="$body" fontSize="$2">
-                  A
-                </Text>
-              </View>
-              <View backgroundColor="$color4" padding="$2" borderRadius="$2">
-                <Text fontFamily="$body" fontSize="$2">
-                  B
-                </Text>
-              </View>
-              <View backgroundColor="$color4" padding="$2" borderRadius="$2">
-                <Text fontFamily="$body" fontSize="$2">
-                  C
-                </Text>
-              </View>
+          <DemoCard label="HStack (gap=12)">
+            <HStack style={{ gap: 12 }}>
+              <Box style={{ backgroundColor: 'var(--vlt-color-4)', padding: 8, borderRadius: 4 }}>
+                <Text size="xs">A</Text>
+              </Box>
+              <Box style={{ backgroundColor: 'var(--vlt-color-4)', padding: 8, borderRadius: 4 }}>
+                <Text size="xs">B</Text>
+              </Box>
+              <Box style={{ backgroundColor: 'var(--vlt-color-4)', padding: 8, borderRadius: 4 }}>
+                <Text size="xs">C</Text>
+              </Box>
             </HStack>
           </DemoCard>
-        </XStack>
+        </HStack>
       </Section>
 
       <Section title="Text">
         <DemoCard label="Sizes & Tones">
-          <YStack gap="$2">
-            <VText size="xs">Extra small text</VText>
-            <VText size="sm">Small text</VText>
-            <VText size="md">Medium text (default)</VText>
-            <VText size="lg">Large text</VText>
-            <VText size="xl">Extra large text</VText>
-            <VText tone="muted">Muted tone</VText>
-            <VText tone="primary">Primary tone</VText>
-            <VText tone="success">Success tone</VText>
-            <VText tone="warning">Warning tone</VText>
-            <VText tone="danger">Danger tone</VText>
-          </YStack>
+          <VStack style={{ gap: 8 }}>
+            <Text size="xs">Extra small text</Text>
+            <Text size="sm">Small text</Text>
+            <Text size="md">Medium text (default)</Text>
+            <Text size="lg">Large text</Text>
+            <Text size="xl">Extra large text</Text>
+            <Text tone="muted">Muted tone</Text>
+            <Text tone="primary">Primary tone</Text>
+            <Text tone="success">Success tone</Text>
+            <Text tone="warning">Warning tone</Text>
+            <Text tone="danger">Danger tone</Text>
+          </VStack>
         </DemoCard>
       </Section>
 
       <Section title="VisuallyHidden">
         <DemoCard label="Screen-reader-only content">
-          <YStack gap="$3">
-            <Text fontFamily="$body" fontSize="$3">
+          <VStack style={{ gap: 12 }}>
+            <Text size="sm">
               The text below is wrapped in VisuallyHidden. It is present in the DOM and
               accessible to screen readers, but not visible on screen.
             </Text>
             <VisuallyHidden>
               This content is only available to assistive technologies.
             </VisuallyHidden>
-            <View
-              backgroundColor="$color3"
-              borderRadius="$3"
-              padding="$3"
-              alignItems="center"
-            >
-              <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
+            <Box centered style={{ backgroundColor: 'var(--vlt-color-3)', borderRadius: 6, padding: 12 }}>
+              <Text size="xs" tone="muted">
                 (hidden content is in the DOM here — inspect to verify)
               </Text>
-            </View>
-          </YStack>
+            </Box>
+          </VStack>
         </DemoCard>
       </Section>
-    </YStack>
+    </VStack>
   )
 }

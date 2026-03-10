@@ -8,7 +8,7 @@ describe('Separator', () => {
   })
 
   it.skip('has role="separator"', () => {
-    // TODO: Tamagui styled View may not render role in JSDOM
+    // TODO: styled View may not render role in JSDOM
     render(<Separator testID="separator" />)
     expect(screen.getByRole('separator')).toBeTruthy()
   })

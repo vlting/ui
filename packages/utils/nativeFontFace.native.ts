@@ -5,10 +5,10 @@ import { buildFontKey } from './useFontLoader.native'
 // ---------------------------------------------------------------------------
 // nativeFontFace (React Native)
 //
-// Builds Tamagui `face` maps so RN can resolve (fontWeight, fontStyle)
+// Builds `face` maps so RN can resolve (fontWeight, fontStyle)
 // to the loaded font name (e.g. "Inter_400_normal").
 //
-// Without `face`, Tamagui on Android cannot distinguish font weights —
+// Without `face`, Android cannot distinguish font weights —
 // a known RN limitation where all weights render as regular.
 // ---------------------------------------------------------------------------
 

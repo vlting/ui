@@ -43,7 +43,7 @@
 
 ### Keyboard Interaction
 
-- **Escape** — Closes the sheet (Tamagui built-in).
+- **Escape** — Closes the sheet (STL built-in).
 - **Tab** — Cycles focus within sheet content when modal.
 
 ### Motion
@@ -56,8 +56,8 @@
 
 ## 5. Accessibility
 
-- **Semantic element:** Tamagui Sheet manages ARIA structure.
-- **ARIA attributes:** Modal sheet gets dialog semantics (Tamagui-managed).
+- **Semantic element:** STL Sheet manages ARIA structure.
+- **ARIA attributes:** Modal sheet gets dialog semantics (STL-managed).
 - **Focus management:** When `modal` is true, focus is trapped within the sheet.
 - **Screen reader announcements:** Sheet open/close state communicated.
 - **Important:** Drag-to-dismiss must not be the only dismiss method — Overlay press and Escape key must also work.

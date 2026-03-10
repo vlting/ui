@@ -1,14 +1,17 @@
 import {
   AlertDialog,
+  Box,
   Button,
   Dialog,
   Drawer,
+  HStack,
   Heading,
   HoverCard,
+  Text,
   Tooltip,
+  VStack,
 } from '@vlting/ui'
 import { useState } from 'react'
-import { Text, View, XStack, YStack } from 'tamagui'
 import { DemoCard, Section } from '../components/Section'
 
 export function OverlaysPage() {
@@ -19,13 +22,12 @@ export function OverlaysPage() {
   const [leftPanelOpen, setLeftPanelOpen] = useState(false)
 
   return (
-    <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
+    <VStack style={{ padding: 24, gap: 8, maxWidth: 900, marginInline: 'auto', width: '100%' }}>
       <Heading level={1}>Overlays</Heading>
-      <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
+      <Text tone="muted" style={{ marginBottom: 16 }}>
         AlertDialog, Dialog, Drawer, HoverCard, and Tooltip components.
       </Text>
 
-      {/* AlertDialog */}
       <Section title="AlertDialog">
         <DemoCard label="Confirmation dialog">
           <AlertDialog.Root open={alertDialogOpen} onOpenChange={setAlertDialogOpen}>
@@ -58,7 +60,6 @@ export function OverlaysPage() {
         </DemoCard>
       </Section>
 
-      {/* Dialog */}
       <Section title="Dialog">
         <DemoCard label="Open/Close">
           <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -73,21 +74,20 @@ export function OverlaysPage() {
               <Dialog.Description>
                 This is a styled dialog component with overlay, title, and close controls.
               </Dialog.Description>
-              <YStack paddingTop="$4">
+              <VStack style={{ paddingTop: 16 }}>
                 <Dialog.Close>
                   <Button variant="outline" onPress={() => setDialogOpen(false)}>
                     <Button.Text>Close</Button.Text>
                   </Button>
                 </Dialog.Close>
-              </YStack>
+              </VStack>
             </Dialog.Content>
           </Dialog.Root>
         </DemoCard>
       </Section>
 
-      {/* Drawers & Panels */}
       <Section title="Drawers & Panels">
-        <XStack gap="$3" flexWrap="wrap">
+        <HStack style={{ gap: 12, flexWrap: 'wrap' }}>
           <DemoCard label="Bottom drawer">
             <Drawer.Root open={drawerOpen} onOpenChange={setDrawerOpen}>
               <Drawer.Trigger>
@@ -96,27 +96,21 @@ export function OverlaysPage() {
                 </Button>
               </Drawer.Trigger>
               <Drawer.Content>
-                <YStack padding="$4" gap="$3">
-                  <Text fontFamily="$heading" fontSize="$5" fontWeight="$4">
+                <VStack style={{ padding: 16, gap: 12 }}>
+                  <Text size="lg" weight="semibold" style={{ fontFamily: 'var(--vlt-font-heading)' }}>
                     Bottom Drawer
                   </Text>
-                  <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
-                    Slides up from the bottom.
-                  </Text>
+                  <Text size="sm" tone="muted">Slides up from the bottom.</Text>
                   <Button variant="outline" onPress={() => setDrawerOpen(false)}>
                     <Button.Text>Close</Button.Text>
                   </Button>
-                </YStack>
+                </VStack>
               </Drawer.Content>
             </Drawer.Root>
           </DemoCard>
 
           <DemoCard label="Right panel">
-            <Drawer.Root
-              open={rightPanelOpen}
-              onOpenChange={setRightPanelOpen}
-              direction="right"
-            >
+            <Drawer.Root open={rightPanelOpen} onOpenChange={setRightPanelOpen} direction="right">
               <Drawer.Trigger>
                 <Button onPress={() => setRightPanelOpen(true)}>
                   <Button.Text>Open Right</Button.Text>
@@ -127,11 +121,11 @@ export function OverlaysPage() {
                   <Drawer.Title>Settings</Drawer.Title>
                   <Drawer.Description>Adjust your preferences below.</Drawer.Description>
                 </Drawer.Header>
-                <YStack padding="$3.5" gap="$3" flex={1}>
-                  <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
+                <VStack style={{ padding: 14, gap: 12, flex: 1 }}>
+                  <Text size="sm" tone="muted">
                     Right-side panel for detail views, settings, or inspectors.
                   </Text>
-                </YStack>
+                </VStack>
                 <Drawer.Footer>
                   <Button variant="outline" onPress={() => setRightPanelOpen(false)}>
                     <Button.Text>Cancel</Button.Text>
@@ -145,11 +139,7 @@ export function OverlaysPage() {
           </DemoCard>
 
           <DemoCard label="Left panel">
-            <Drawer.Root
-              open={leftPanelOpen}
-              onOpenChange={setLeftPanelOpen}
-              direction="left"
-            >
+            <Drawer.Root open={leftPanelOpen} onOpenChange={setLeftPanelOpen} direction="left">
               <Drawer.Trigger>
                 <Button onPress={() => setLeftPanelOpen(true)}>
                   <Button.Text>Open Left</Button.Text>
@@ -159,23 +149,24 @@ export function OverlaysPage() {
                 <Drawer.Header>
                   <Drawer.Title>Navigation</Drawer.Title>
                 </Drawer.Header>
-                <YStack padding="$3.5" gap="$2" flex={1}>
+                <VStack style={{ padding: 14, gap: 8, flex: 1 }}>
                   {['Dashboard', 'Projects', 'Teams', 'Settings'].map((item) => (
-                    <Text
+                    <span
                       key={item}
-                      fontFamily="$body"
-                      fontSize="$3"
-                      color="$color"
-                      paddingVertical="$2"
-                      paddingHorizontal="$2"
-                      borderRadius="$2"
-                      hoverStyle={{ backgroundColor: '$backgroundHover' }}
-                      cursor="pointer"
+                      style={{
+                        fontFamily: 'var(--vlt-font-body)',
+                        fontSize: 14,
+                        color: 'var(--vlt-color-12)',
+                        paddingBlock: 8,
+                        paddingInline: 8,
+                        borderRadius: 4,
+                        cursor: 'pointer',
+                      }}
                     >
                       {item}
-                    </Text>
+                    </span>
                   ))}
-                </YStack>
+                </VStack>
                 <Drawer.Footer>
                   <Button variant="outline" onPress={() => setLeftPanelOpen(false)}>
                     <Button.Text>Close</Button.Text>
@@ -184,66 +175,59 @@ export function OverlaysPage() {
               </Drawer.Content>
             </Drawer.Root>
           </DemoCard>
-        </XStack>
+        </HStack>
       </Section>
 
-      {/* HoverCard */}
       <Section title="HoverCard">
         <DemoCard label="Hover over the trigger">
           <HoverCard.Root>
             <HoverCard.Trigger>
-              <View
-                backgroundColor="$color4"
-                paddingHorizontal="$4"
-                paddingVertical="$2"
-                borderRadius="$3"
-                cursor="pointer"
-                alignSelf="flex-start"
+              <Box
+                style={{
+                  backgroundColor: 'var(--vlt-color-4)',
+                  paddingInline: 16,
+                  paddingBlock: 8,
+                  borderRadius: 6,
+                  cursor: 'pointer',
+                  alignSelf: 'flex-start',
+                  display: 'inline-block',
+                }}
               >
-                <Text fontFamily="$body" fontSize="$3" fontWeight="$3">
-                  @vlting
-                </Text>
-              </View>
+                <Text size="sm" weight="medium">@vlting</Text>
+              </Box>
             </HoverCard.Trigger>
             <HoverCard.Content>
-              <YStack gap="$2" padding="$3" maxWidth={280}>
-                <Text fontFamily="$body" fontSize="$4" fontWeight="$3">
-                  @vlting/ui
-                </Text>
-                <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
-                  A cross-platform, open-source design system built on Tamagui.
-                </Text>
-                <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
-                  238 components · MIT licensed
-                </Text>
-              </YStack>
+              <VStack style={{ gap: 8, padding: 12, maxWidth: 280 }}>
+                <Text weight="medium">@vlting/ui</Text>
+                <Text size="sm" tone="muted">A cross-platform, open-source design system.</Text>
+                <Text size="xs" tone="muted">238 components · MIT licensed</Text>
+              </VStack>
             </HoverCard.Content>
           </HoverCard.Root>
         </DemoCard>
       </Section>
 
-      {/* Tooltip */}
       <Section title="Tooltip">
         <DemoCard label="All sides">
-          <XStack gap="$4" flexWrap="wrap" justifyContent="center">
+          <HStack style={{ gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
             {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
               <Tooltip key={side} content={`Tooltip on ${side}`} side={side}>
-                <View
-                  backgroundColor="$color4"
-                  paddingHorizontal="$4"
-                  paddingVertical="$2"
-                  borderRadius="$3"
-                  cursor="pointer"
+                <Box
+                  style={{
+                    backgroundColor: 'var(--vlt-color-4)',
+                    paddingInline: 16,
+                    paddingBlock: 8,
+                    borderRadius: 6,
+                    cursor: 'pointer',
+                  }}
                 >
-                  <Text fontFamily="$body" fontSize="$3" textTransform="capitalize">
-                    {side}
-                  </Text>
-                </View>
+                  <Text size="sm" style={{ textTransform: 'capitalize' }}>{side}</Text>
+                </Box>
               </Tooltip>
             ))}
-          </XStack>
+          </HStack>
         </DemoCard>
       </Section>
-    </YStack>
+    </VStack>
   )
 }

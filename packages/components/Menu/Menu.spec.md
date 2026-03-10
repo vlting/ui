@@ -19,7 +19,7 @@
 
 ## 3. Anatomy
 
-Compound component wrapping `@tamagui/menu` with extensive sub-components:
+Compound component wrapping `STL` with extensive sub-components:
 - `Menu` (Root) — state management. Props: `open`, `defaultOpen`, `onOpenChange`.
 - `Menu.Trigger` — opens the menu.
 - `Menu.Portal` — portal container.
@@ -45,21 +45,21 @@ Compound component wrapping `@tamagui/menu` with extensive sub-components:
 
 ### Keyboard Interaction
 
-- Arrow keys navigate items (delegated to Tamagui).
+- Arrow keys navigate items (delegated to STL).
 - Enter/Space activates items.
 - Escape closes menu.
 - Submenu opens on hover/arrow key.
 
 ### Motion
 
-- Enter/exit animations via Tamagui `animation: 'medium'`.
+- Enter/exit animations via STL `animation: 'medium'`.
 - Must respect `prefers-reduced-motion`.
 
 ---
 
 ## 5. Accessibility
 
-- **ARIA attributes:** Inherited from `@tamagui/menu` — `role="menu"`, `role="menuitem"`, `role="menuitemcheckbox"`, `role="menuitemradio"`.
+- **ARIA attributes:** Inherited from `STL` — `role="menu"`, `role="menuitem"`, `role="menuitemcheckbox"`, `role="menuitemradio"`.
 - **Focus management:** Arrow key navigation within menu. Escape returns focus to trigger.
 
 ---

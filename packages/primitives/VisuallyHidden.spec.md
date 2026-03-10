@@ -22,7 +22,7 @@
 Function component wrapping a `styled(View)` frame with the sr-only CSS technique.
 
 Two layers of hidden styles:
-- Tamagui styled props: `position: absolute`, `width: 1`, `height: 1`, `padding: 0`, `margin: -1`, `overflow: hidden`, `borderWidth: 0`.
+- STL styled props: `position: absolute`, `width: 1`, `height: 1`, `padding: 0`, `margin: -1`, `overflow: hidden`, `borderWidth: 0`.
 - Inline CSS styles: `clip: rect(0, 0, 0, 0)`, `clipPath: inset(50%)`, `whiteSpace: nowrap`.
 
 > **TypeScript is the source of truth for props.** See `VisuallyHiddenProps` in `VisuallyHidden.tsx` for the full typed API. Do not duplicate prop tables here.
