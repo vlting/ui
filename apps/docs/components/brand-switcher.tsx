@@ -29,9 +29,7 @@ export function BrandSwitcher() {
         value={brand}
         onChange={handleChange}
         className={`appearance-none rounded-md border bg-transparent pl-2 pr-7 py-1 text-sm font-medium cursor-pointer transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 ${
-          flash
-            ? 'border-primary'
-            : 'border-border hover:border-muted-foreground'
+          flash ? 'border-primary' : 'border-border hover:border-muted-foreground'
         } text-foreground-secondary`}
         aria-label="Select brand theme"
       >

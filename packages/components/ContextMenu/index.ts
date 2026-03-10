@@ -1,6 +1,6 @@
-export { ContextMenu } from './ContextMenu'
 export type {
-  ContextMenuRootProps,
-  ContextMenuItemProps,
   ContextMenuCheckboxItemProps,
+  ContextMenuItemProps,
+  ContextMenuRootProps,
 } from './ContextMenu'
+export { ContextMenu } from './ContextMenu'

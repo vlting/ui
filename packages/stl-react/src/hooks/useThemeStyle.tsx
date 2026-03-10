@@ -1,12 +1,12 @@
-import { useMemo, useEffect } from 'react'
 import {
-  ColorMode,
-  COLOR_MODE_ATTR,
-  getThemeOverrides,
-  SemanticColorOverrides,
-  ThemeOverrides,
   tokenValue as baseTokenValue,
+  COLOR_MODE_ATTR,
+  type ColorMode,
+  getThemeOverrides,
+  type SemanticColorOverrides,
+  type ThemeOverrides,
 } from '@vlting/stl'
+import { useEffect, useMemo } from 'react'
 import { isSSR } from '../shared/utils'
 
 const STYLE_TAG_ID = 'stl-theme-overrides'

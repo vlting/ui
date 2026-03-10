@@ -1,18 +1,18 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { DocsSidebar } from '@/components/docs-sidebar'
 import { TableOfContents } from '@/components/table-of-contents'
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const pathname = usePathname()
+  const _pathname = usePathname()
 
   // Close sidebar on navigation
   useEffect(() => {
     setSidebarOpen(false)
-  }, [pathname])
+  }, [])
 
   return (
     <div className="flex min-h-[calc(100vh-3.5rem)]">
@@ -22,7 +22,15 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         className="fixed bottom-4 right-4 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background shadow-lg md:hidden"
         aria-label="Open navigation"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          aria-hidden="true"
+        >
           <path d="M3 12h18M3 6h18M3 18h18" />
         </svg>
       </button>
@@ -46,7 +54,15 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
                 className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-accent"
                 aria-label="Close navigation"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </button>

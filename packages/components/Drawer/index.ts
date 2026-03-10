@@ -1,2 +1,2 @@
+export type { DrawerContentProps, DrawerRootProps } from './Drawer'
 export { Drawer } from './Drawer'
-export type { DrawerRootProps, DrawerContentProps } from './Drawer'

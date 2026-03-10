@@ -123,7 +123,8 @@ const registry: ChartEntry[] = [
       },
       {
         name: 'Gradient',
-        description: 'Area chart with gradient fills that fade from the series color to transparent.',
+        description:
+          'Area chart with gradient fills that fade from the series color to transparent.',
         code: `${sampleData}
 
 <Chart config={chartConfig}>
@@ -136,7 +137,8 @@ const registry: ChartEntry[] = [
       },
       {
         name: 'Stacked',
-        description: 'Stacked area chart where series are layered on top of each other to show totals.',
+        description:
+          'Stacked area chart where series are layered on top of each other to show totals.',
         code: `${sampleData}
 
 <Chart config={chartConfig}>
@@ -162,7 +164,8 @@ const registry: ChartEntry[] = [
       },
       {
         name: 'Step',
-        description: 'Step-line area chart with sharp transitions instead of smooth curves.',
+        description:
+          'Step-line area chart with sharp transitions instead of smooth curves.',
         code: `${sampleData}
 
 <Chart config={chartConfig}>
@@ -218,7 +221,8 @@ const registry: ChartEntry[] = [
       },
       {
         name: 'Linear',
-        description: 'Area chart with linear interpolation (straight lines between points).',
+        description:
+          'Area chart with linear interpolation (straight lines between points).',
         code: `${sampleData}
 
 <Chart config={chartConfig}>

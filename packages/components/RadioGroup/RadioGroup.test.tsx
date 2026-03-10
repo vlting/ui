@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { RadioGroup } from './RadioGroup'
 
 beforeAll(() => {
@@ -85,13 +85,13 @@ describe('RadioGroup', () => {
 
   // -- ARIA states --
 
-  it('has radiogroup role on container', () => {
+  it('has group role on container', () => {
     render(
       <RadioGroup.Root>
         <RadioGroup.Item value="a">A</RadioGroup.Item>
       </RadioGroup.Root>,
     )
-    expect(screen.getByRole('radiogroup')).toBeTruthy()
+    expect(screen.getByRole('group')).toBeTruthy()
   })
 
   it('accepts aria-label on root', () => {
@@ -100,7 +100,7 @@ describe('RadioGroup', () => {
         <RadioGroup.Item value="a">A</RadioGroup.Item>
       </RadioGroup.Root>,
     )
-    expect(screen.getByRole('radiogroup')).toHaveAttribute('aria-label', 'Choose option')
+    expect(screen.getByRole('group')).toHaveAttribute('aria-label', 'Choose option')
   })
 
   it('has radio role on items', () => {

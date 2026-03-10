@@ -1,15 +1,15 @@
 'use client'
 
 import {
-  useState,
-  useMemo,
-  useCallback,
+  type ComponentType,
+  type LazyExoticComponent,
   lazy,
   Suspense,
-  type LazyExoticComponent,
-  type ComponentType,
+  useCallback,
+  useMemo,
+  useState,
 } from 'react'
-import { searchIcons, categories, iconCount, type IconEntry } from '../lib/icon-data'
+import { categories, type IconEntry, iconCount, searchIcons } from '../lib/icon-data'
 
 type IconComponent = ComponentType<{ size?: number | string; color?: string }>
 
@@ -76,7 +76,10 @@ function IconCell({
   copied: string | null
 }) {
   const componentName =
-    icon.components[variant] || icon.components.line || icon.components.default || icon.components.fill
+    icon.components[variant] ||
+    icon.components.line ||
+    icon.components.default ||
+    icon.components.fill
   const importText = `import { ${componentName} } from '@vlting/ui'`
   const isCopied = copied === componentName
 
@@ -133,7 +136,9 @@ function IconCell({
             <LazyIcon size={24} color="currentColor" />
           </Suspense>
         ) : (
-          <span style={{ color: 'var(--color-muted-foreground)', fontSize: 10 }}>N/A</span>
+          <span style={{ color: 'var(--color-muted-foreground)', fontSize: 10 }}>
+            N/A
+          </span>
         )}
       </span>
       <span
@@ -209,8 +214,12 @@ export function IconBrowser() {
                 fontSize: 13,
                 border: 'none',
                 cursor: 'pointer',
-                backgroundColor: variant === v ? 'var(--color-foreground)' : 'transparent',
-                color: variant === v ? 'var(--color-background)' : 'var(--color-muted-foreground)',
+                backgroundColor:
+                  variant === v ? 'var(--color-foreground)' : 'transparent',
+                color:
+                  variant === v
+                    ? 'var(--color-background)'
+                    : 'var(--color-muted-foreground)',
                 transition: 'all 0.15s',
                 textTransform: 'capitalize',
               }}
@@ -236,7 +245,11 @@ export function IconBrowser() {
           flexWrap: 'wrap',
         }}
       >
-        <CategoryButton label="All" active={category === 'all'} onClick={() => setCategory('all')} />
+        <CategoryButton
+          label="All"
+          active={category === 'all'}
+          onClick={() => setCategory('all')}
+        />
         {categories.map((cat) => (
           <CategoryButton
             key={cat}

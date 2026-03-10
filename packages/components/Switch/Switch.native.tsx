@@ -1,7 +1,6 @@
-import React, { forwardRef, useState, useCallback, useRef, useEffect } from 'react'
-import { View, Pressable, Animated } from 'react-native'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ViewStyle } from 'react-native'
-import { styled } from '../../stl-native/src/config/styled'
+import { Animated, Pressable } from 'react-native'
 
 // ---------------------------------------------------------------------------
 // Size constants

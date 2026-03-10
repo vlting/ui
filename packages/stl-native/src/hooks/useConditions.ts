@@ -1,5 +1,5 @@
-import { useConditionMask } from './useConditionMask'
 import { CondBit } from '../config/conditions'
+import { useConditionMask } from './useConditionMask'
 
 export function useConditions(): Record<string, boolean> {
   const mask = useConditionMask()

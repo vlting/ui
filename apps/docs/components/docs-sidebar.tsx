@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { navigation, type NavSection } from '@/lib/navigation'
+import { useEffect, useRef, useState } from 'react'
+import { type NavSection, navigation } from '@/lib/navigation'
 
 function SidebarSection({ section }: { section: NavSection }) {
   const pathname = usePathname()
@@ -58,7 +58,7 @@ function SidebarSection({ section }: { section: NavSection }) {
 export function DocsSidebar() {
   const scrollRef = useRef<HTMLElement>(null)
   const savedScrollRef = useRef(0)
-  const pathname = usePathname()
+  const _pathname = usePathname()
 
   // Save scroll position before pathname changes trigger re-render
   useEffect(() => {
@@ -70,7 +70,7 @@ export function DocsSidebar() {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = savedScrollRef.current
     }
-  }, [pathname])
+  }, [])
 
   return (
     <aside ref={scrollRef} className="h-full overflow-y-auto px-2 py-4">

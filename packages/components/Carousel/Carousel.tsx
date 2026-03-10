@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { styled } from '../../stl-react/src/config'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
+import { styled } from '../../stl-react/src/config'
 
 const NavButton = styled(
   'button',
@@ -132,7 +132,6 @@ function Root({
         role="region"
         aria-roledescription="carousel"
         aria-label="Carousel"
-        tabIndex={0}
         onKeyDown={handleKeyDown}
       >
         {React.Children.map(children, (child) => {

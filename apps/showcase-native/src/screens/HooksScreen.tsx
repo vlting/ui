@@ -1,12 +1,4 @@
-import { ScrollView, View, Text, StyleSheet, Pressable } from 'react-native'
-
-// stl-native hooks
-import { useColorMode } from '../../../../packages/stl-native/src/hooks/useColorMode'
-import { useConditions } from '../../../../packages/stl-native/src/hooks/useConditions'
-import { useMediaQuery } from '../../../../packages/stl-native/src/hooks/useMediaQuery'
-import { useTokens } from '../../../../packages/stl-native/src/hooks/useTokens'
-import { useRTL } from '../../../../packages/stl-native/src/hooks/useRTL'
-
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 // stl-headless hooks
 import {
   useDisclosure,
@@ -14,6 +6,12 @@ import {
   useTabs,
   useToastQueue,
 } from '../../../../packages/stl-headless/src'
+// stl-native hooks
+import { useColorMode } from '../../../../packages/stl-native/src/hooks/useColorMode'
+import { useConditions } from '../../../../packages/stl-native/src/hooks/useConditions'
+import { useMediaQuery } from '../../../../packages/stl-native/src/hooks/useMediaQuery'
+import { useRTL } from '../../../../packages/stl-native/src/hooks/useRTL'
+import { useTokens } from '../../../../packages/stl-native/src/hooks/useTokens'
 
 export function HooksScreen() {
   return (
@@ -138,10 +136,18 @@ function UseListStateDemo() {
   const { highlightIndex, highlightedItem, setHighlightIndex } = useListState({ items })
   return (
     <View>
-      <Text>Highlighted: {highlightedItem ?? 'none'} (index {highlightIndex})</Text>
+      <Text>
+        Highlighted: {highlightedItem ?? 'none'} (index {highlightIndex})
+      </Text>
       {items.map((item, i) => (
-        <Pressable key={item} onPress={() => setHighlightIndex(i)} style={styles.listItem}>
-          <Text>{highlightIndex === i ? '▸' : '  '} {item}</Text>
+        <Pressable
+          key={item}
+          onPress={() => setHighlightIndex(i)}
+          style={styles.listItem}
+        >
+          <Text>
+            {highlightIndex === i ? '▸' : '  '} {item}
+          </Text>
         </Pressable>
       ))}
     </View>
@@ -154,13 +160,15 @@ function UseTabsDemo() {
   return (
     <View>
       <View style={styles.row}>
-        {tabs.map(tab => (
+        {tabs.map((tab) => (
           <Pressable
             key={tab}
             onPress={() => setActiveValue(tab)}
             style={[styles.tabButton, activeValue === tab && styles.tabActive]}
           >
-            <Text style={activeValue === tab ? styles.tabTextActive : styles.tabText}>{tab}</Text>
+            <Text style={activeValue === tab ? styles.tabTextActive : styles.tabText}>
+              {tab}
+            </Text>
           </Pressable>
         ))}
       </View>
@@ -200,13 +208,28 @@ const styles = StyleSheet.create({
   section: { marginBottom: 28 },
   sectionTitle: { fontSize: 16, fontWeight: '600', marginBottom: 8 },
   row: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, alignItems: 'center' },
-  button: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 6, backgroundColor: '#0066ff' },
+  button: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 6,
+    backgroundColor: '#0066ff',
+  },
   buttonText: { color: '#fff', fontWeight: '600', fontSize: 13 },
   codeBox: { backgroundColor: '#f5f5f5', padding: 12, borderRadius: 8 },
   code: { fontSize: 11, fontFamily: 'monospace' },
-  disclosedBox: { marginTop: 8, padding: 12, backgroundColor: '#f0fff0', borderRadius: 8 },
+  disclosedBox: {
+    marginTop: 8,
+    padding: 12,
+    backgroundColor: '#f0fff0',
+    borderRadius: 8,
+  },
   listItem: { paddingVertical: 6 },
-  tabButton: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 6, backgroundColor: '#eee' },
+  tabButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 6,
+    backgroundColor: '#eee',
+  },
   tabActive: { backgroundColor: '#0066ff' },
   tabText: { color: '#333', fontSize: 13 },
   tabTextActive: { color: '#fff', fontSize: 13, fontWeight: '600' },

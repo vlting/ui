@@ -1,27 +1,27 @@
-import { ColorSetter } from '../../config/scales/scales.models'
+import type { ColorSetter } from '../../config/scales/scales.models'
 import {
-  ColorGenOptions,
-  ColorMode,
-  ColorNumberKey,
-  ColorPalette,
-  COLOR_KEYS,
-  StaticColorName,
-  ScaleColorName,
-  ThemeColor,
-  MATRIX_INDICES,
-  SEGMENT_SIZE,
-  MAX_NEUTRAL_SATURATION,
-  DECODE_DIFF,
-  ZERO_SATURATION_LUMINANCE,
   ALPHA_KEY,
-  MAX_ALPHA_TEXT_COLOR_TARGETS,
-  MIN_ALPHA_TEXT_COLOR_TARGETS,
-  TEXT_COLOR_TARGETS,
   ALPHA_TEXT_COLOR_TARGETS,
-  AlphaColorName,
   ALPHA_VALUES,
+  AlphaColorName,
+  COLOR_KEYS,
+  type ColorGenOptions,
+  type ColorMode,
+  type ColorNumberKey,
+  type ColorPalette,
   CoreColorName,
+  DECODE_DIFF,
+  MATRIX_INDICES,
+  MAX_ALPHA_TEXT_COLOR_TARGETS,
+  MAX_NEUTRAL_SATURATION,
+  MIN_ALPHA_TEXT_COLOR_TARGETS,
+  type ScaleColorName,
+  SEGMENT_SIZE,
+  StaticColorName,
+  TEXT_COLOR_TARGETS,
+  type ThemeColor,
   ZERO_SATURATION_INDICES,
+  ZERO_SATURATION_LUMINANCE,
 } from '../models/colorGen.models'
 
 const COLOR_MATRIX: Record<string, string> = {
@@ -126,14 +126,14 @@ export function generateThemeColors<T = string>(
 
     // Validate hue and saturation (skip for mapped/aliased colors)
     if (!isMapped) {
-      if (typeof hue !== 'number' || isNaN(hue) || hue > 360 || hue < 0) {
+      if (typeof hue !== 'number' || Number.isNaN(hue) || hue > 360 || hue < 0) {
         throw new Error(
           `Invalid value for hue on color "${colorKey}": ${hue}. Must be a number between 0 and 360.`,
         )
       }
       if (
         typeof saturation !== 'number' ||
-        isNaN(saturation) ||
+        Number.isNaN(saturation) ||
         saturation > 100 ||
         saturation < 0
       ) {
@@ -170,7 +170,7 @@ export function generateThemeColors<T = string>(
       // Validate contrast
       if (
         typeof contrast !== 'number' ||
-        isNaN(contrast) ||
+        Number.isNaN(contrast) ||
         contrast > 100 ||
         contrast < 0
       ) {

@@ -1,6 +1,6 @@
 import { act } from '@testing-library/react'
-import { render, screen, waitFor } from '../../../src/__test-utils__/render'
-import { toast, useImperativeToasts, __resetStore } from './toast-imperative'
+import { render } from '../../../src/__test-utils__/render'
+import { __resetStore, toast, useImperativeToasts } from './toast-imperative'
 
 beforeEach(() => {
   __resetStore()

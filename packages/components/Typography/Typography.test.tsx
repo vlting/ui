@@ -58,9 +58,9 @@ describe('Typography', () => {
     expect(container.querySelector('small')).toBeTruthy()
   })
 
-  it('renders Muted as span element', () => {
+  it('renders Muted as p element', () => {
     const { container } = render(<Muted>Muted text</Muted>)
-    expect(container.querySelector('span')).toBeTruthy()
+    expect(container.querySelector('p')).toBeTruthy()
   })
 
   it('renders Blockquote as blockquote element', () => {

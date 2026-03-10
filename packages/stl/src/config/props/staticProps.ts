@@ -1,5 +1,5 @@
+import type { CssPropKey, CssRule, FilterKeys } from './props.models'
 import { omitKeys } from './props.utils'
-import { FilterKeys, CssPropKey, CssRule } from './props.models'
 
 const DEFAULT_VALUES = { initial: true } as const
 const INHERITED_VALUES = { ...DEFAULT_VALUES, inherit: true } as const

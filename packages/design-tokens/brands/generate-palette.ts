@@ -76,7 +76,7 @@ function relativeLuminance(h: number, s: number, l: number): number {
 
   // sRGB linearization
   const linearize = (v: number) =>
-    v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)
+    v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4
 
   return 0.2126 * linearize(r) + 0.7152 * linearize(g) + 0.0722 * linearize(b)
 }

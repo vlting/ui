@@ -1,6 +1,6 @@
 'use client'
 
-import { Playground, getPlaygroundConfig } from './playground'
+import { getPlaygroundConfig, Playground } from './playground'
 
 interface PlaygroundSectionProps {
   slug: string

@@ -1,4 +1,4 @@
-import { ThemeScale } from './scales.models'
+import type { ThemeScale } from './scales.models'
 import { getAliasMap, getPropsFromCssMap, getThemePropsFromCssMap } from './scales.utils'
 
 /** Generator function for `typo` theme scale */

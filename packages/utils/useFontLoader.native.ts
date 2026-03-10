@@ -106,11 +106,6 @@ export function useFontLoader(fontConfig?: BrandFontConfig): FontLoadState {
 
     const Font = tryRequireExpoFont()
     if (!Font) {
-      console.warn(
-        '[@vlting/ui] expo-font is not installed. ' +
-          'Fonts will fall back to system defaults on React Native. ' +
-          'Install expo-font for custom Google Fonts support.',
-      )
       setState({ loaded: true, error: null })
       return
     }
@@ -158,11 +153,7 @@ export function useFontLoader(fontConfig?: BrandFontConfig): FontLoadState {
         setState({ loaded: true, error: null })
       } catch (err) {
         if (timedOut) {
-          console.warn(
-            '[@vlting/ui] Font loading timed out after 5s. Using system fonts.',
-          )
         } else if (!(err instanceof DOMException && err.name === 'AbortError')) {
-          console.warn('[@vlting/ui] Font loading failed, using system fonts:', err)
         }
         // Graceful degradation: always render with system fonts
         setState({

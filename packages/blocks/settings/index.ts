@@ -1,6 +1,6 @@
-export { SettingsBlock } from './SettingsBlock'
 export type {
+  PreferenceItem,
   SettingsBlockProps,
   SettingsBlockVariant,
-  PreferenceItem,
 } from './SettingsBlock'
+export { SettingsBlock } from './SettingsBlock'

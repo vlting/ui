@@ -1,11 +1,11 @@
 import type { ComponentType, ReactNode } from 'react'
 import React from 'react'
-import { styled } from '../../stl-react/src/config'
 import { Button } from '../../components/Button'
-import { Separator } from '../../primitives/Separator'
 import { Sheet } from '../../components/Sheet'
 import { Sidebar } from '../../components/Sidebar'
 import { Tabs } from '../../components/Tabs'
+import { Separator } from '../../primitives/Separator'
+import { styled } from '../../stl-react/src/config'
 import type { NavGroup } from '../sidebar/_shared'
 import { SidebarNavGroup } from '../sidebar/_shared'
 

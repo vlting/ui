@@ -13,9 +13,16 @@
  * Uses only Node.js stdlib — zero external dependencies.
  */
 
-import { readdirSync, readFileSync, writeFileSync, rmSync, mkdirSync, existsSync } from 'fs'
-import { join, basename, resolve, dirname } from 'path'
-import { fileURLToPath } from 'url'
+import {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs'
+import { basename, dirname, join, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -33,16 +40,13 @@ const GENERATED_DIR = join(ICONS_OUTPUT, 'generated')
 function toPascalCase(str) {
   return str
     .split(/[-_\s]+/)
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join('')
 }
 
 /** Normalise a category folder name to a kebab-case slug */
 function categorySlug(folderName) {
-  return folderName
-    .replace(/ & /g, '-and-')
-    .toLowerCase()
-    .replace(/\s+/g, '-')
+  return folderName.replace(/ & /g, '-and-').toLowerCase().replace(/\s+/g, '-')
 }
 
 /** Extract the first `d="..."` value from an SVG string */
@@ -58,10 +62,6 @@ function extractPathData(svgContent) {
 function main() {
   // 1. Validate input exists
   if (!existsSync(ICONS_INPUT)) {
-    console.error(
-      `Error: remixicon not found at ${ICONS_INPUT}\n` +
-      'Run "yarn add -D remixicon" first.'
-    )
     process.exit(1)
   }
 
@@ -71,11 +71,11 @@ function main() {
 
   // 3. Read all categories
   const categoryFolders = readdirSync(ICONS_INPUT, { withFileTypes: true })
-    .filter(d => d.isDirectory())
-    .map(d => d.name)
+    .filter((d) => d.isDirectory())
+    .map((d) => d.name)
     .sort()
 
-  const allComponents = []       // { componentName, fileName, pathData, category, baseName, variant }
+  const allComponents = [] // { componentName, fileName, pathData, category, baseName, variant }
   const categorySlugs = new Set()
 
   for (const folder of categoryFolders) {
@@ -84,7 +84,7 @@ function main() {
 
     const categoryDir = join(ICONS_INPUT, folder)
     const svgFiles = readdirSync(categoryDir)
-      .filter(f => f.endsWith('.svg'))
+      .filter((f) => f.endsWith('.svg'))
       .sort()
 
     for (const svgFile of svgFiles) {
@@ -93,12 +93,11 @@ function main() {
       const pathData = extractPathData(svgContent)
 
       if (!pathData) {
-        console.warn(`Warning: no path data found in ${svgFile}, skipping`)
         continue
       }
 
       const fileNameNoExt = basename(svgFile, '.svg') // e.g. "arrow-right-line"
-      const componentName = 'Ri' + toPascalCase(fileNameNoExt) // e.g. "RiArrowRightLine"
+      const componentName = `Ri${toPascalCase(fileNameNoExt)}` // e.g. "RiArrowRightLine"
 
       // Determine base name and variant
       let baseName = fileNameNoExt
@@ -141,14 +140,16 @@ function main() {
     '',
   ]
   for (const icon of allComponents) {
-    indexLines.push(`export { ${icon.componentName} } from './generated/${icon.componentName}'`)
+    indexLines.push(
+      `export { ${icon.componentName} } from './generated/${icon.componentName}'`,
+    )
   }
   indexLines.push(`export type { IconFC } from './createIcon'`)
   indexLines.push('')
   writeFileSync(join(ICONS_OUTPUT, 'index.ts'), indexLines.join('\n'))
 
   // 6. Write types file (packages/icons/types.ts)
-  const sortedFileNames = allComponents.map(c => c.fileName).sort()
+  const sortedFileNames = allComponents.map((c) => c.fileName).sort()
   const sortedCategories = [...categorySlugs].sort()
 
   const typesLines = [
@@ -190,14 +191,14 @@ function main() {
     } else {
       // Icons without -line/-fill suffix (standalone)
       entry.variants.push('default')
-      entry.components['default'] = icon.componentName
+      entry.components.default = icon.componentName
     }
   }
 
   // Sort icon entries by name, sort variants within each
   const iconEntries = [...iconMap.values()]
     .sort((a, b) => a.name.localeCompare(b.name))
-    .map(entry => ({
+    .map((entry) => ({
       ...entry,
       variants: entry.variants.sort(),
     }))
@@ -206,7 +207,7 @@ function main() {
   let remixVersion = 'unknown'
   try {
     const remixPkg = JSON.parse(
-      readFileSync(join(ROOT, 'node_modules', 'remixicon', 'package.json'), 'utf-8')
+      readFileSync(join(ROOT, 'node_modules', 'remixicon', 'package.json'), 'utf-8'),
     )
     remixVersion = remixPkg.version
   } catch {
@@ -222,7 +223,7 @@ function main() {
 
   writeFileSync(
     join(ICONS_OUTPUT, 'manifest.json'),
-    JSON.stringify(manifest, null, 2) + '\n'
+    `${JSON.stringify(manifest, null, 2)}\n`,
   )
 
   // 8. Write per-category barrel exports (packages/icons/categories/)
@@ -247,7 +248,9 @@ function main() {
       '',
     ]
     for (const icon of components) {
-      catLines.push(`export { ${icon.componentName} } from '../generated/${icon.componentName}'`)
+      catLines.push(
+        `export { ${icon.componentName} } from '../generated/${icon.componentName}'`,
+      )
     }
     catLines.push('')
     writeFileSync(join(categoriesDir, `${cat}.ts`), catLines.join('\n'))
@@ -264,12 +267,6 @@ function main() {
   }
   catIndexLines.push('')
   writeFileSync(join(categoriesDir, 'index.ts'), catIndexLines.join('\n'))
-
-  // 9. Summary
-  console.log(
-    `Generated ${allComponents.length} icon components across ${sortedCategories.length} categories`
-  )
-  console.log(`Generated ${sortedCategories.length} category barrel exports`)
 }
 
 main()

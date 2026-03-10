@@ -10,8 +10,15 @@ export default function DarkModePage() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
       <div>
         <h1 style={{ fontSize: 32, fontWeight: 700, marginBottom: 8 }}>Dark Mode</h1>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 16, lineHeight: 1.6 }}>
-          @vlting/ui supports dark mode out of the box. All token colors automatically adapt.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 16,
+            lineHeight: 1.6,
+          }}
+        >
+          @vlting/ui supports dark mode out of the box. All token colors automatically
+          adapt.
         </p>
       </div>
 
@@ -96,14 +103,28 @@ function App() {
 
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>How It Works</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          STL uses 12-step color palettes for both light and dark modes. When the color mode
-          changes, all <code>$color</code>, <code>$background</code>, <code>$borderColor</code>,
-          and other semantic tokens automatically resolve to the correct palette.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          STL uses 12-step color palettes for both light and dark modes. When the color
+          mode changes, all <code>$color</code>, <code>$background</code>,{' '}
+          <code>$borderColor</code>, and other semantic tokens automatically resolve to
+          the correct palette.
         </p>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          The <code>useColorMode()</code> hook provides <code>colorMode</code>, <code>isDark</code>,
-          <code>setColorMode()</code>, and <code>toggleColorMode()</code> for programmatic control.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          The <code>useColorMode()</code> hook provides <code>colorMode</code>,{' '}
+          <code>isDark</code>,<code>setColorMode()</code>, and{' '}
+          <code>toggleColorMode()</code> for programmatic control.
         </p>
       </section>
     </div>

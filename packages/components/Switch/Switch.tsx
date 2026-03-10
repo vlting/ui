@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const SWITCH_INTERACTION_STYLE_ID = 'vlt-switch-interaction'

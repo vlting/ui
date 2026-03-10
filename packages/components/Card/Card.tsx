@@ -93,7 +93,10 @@ const CardTitleText = styled(
 function CardTitle({
   children,
   size = 'md',
-}: { children?: React.ReactNode; size?: 'sm' | 'md' | 'lg' }) {
+}: {
+  children?: React.ReactNode
+  size?: 'sm' | 'md' | 'lg'
+}) {
   return (
     <h3 style={{ margin: 0 }}>
       <CardTitleText size={size}>{children}</CardTitleText>

@@ -1,13 +1,12 @@
-import { describe, it, expect, beforeAll } from 'vitest'
-import { renderHook } from './renderHook'
+import { configureTheme } from '../config/theme'
 import { useColorMode } from '../hooks/useColorMode'
 import { useConditions } from '../hooks/useConditions'
+import { useLayout } from '../hooks/useLayout'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useRTL } from '../hooks/useRTL'
 import { useTokens } from '../hooks/useTokens'
-import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useTransition } from '../hooks/useTransition'
-import { useLayout } from '../hooks/useLayout'
-import { configureTheme } from '../config/theme'
+import { renderHook } from './renderHook'
 
 beforeAll(() => {
   configureTheme()
@@ -161,10 +160,10 @@ describe('useTransition', () => {
 
 describe('useLayout', () => {
   it('returns an onLayout callback', () => {
-    let capturedSize: any = null
+    let _capturedSize: any = null
     const { result } = renderHook(() =>
       useLayout(null, (size) => {
-        capturedSize = size
+        _capturedSize = size
       }),
     )
     expect(result).toHaveProperty('onLayout')

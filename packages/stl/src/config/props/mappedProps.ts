@@ -1,7 +1,7 @@
-import { CoreCustomValues, NotShared, Shared } from '../../shared/models'
-import { OverrideScaledProp } from '../styles.css'
-import { CssPropKey } from './props.models'
-import { ComplexShorthandProp } from './sourceProps'
+import type { CoreCustomValues, NotShared, Shared } from '../../shared/models'
+import type { OverrideScaledProp } from '../styles.css'
+import type { CssPropKey } from './props.models'
+import type { ComplexShorthandProp } from './sourceProps'
 
 type PropValue = string | number
 

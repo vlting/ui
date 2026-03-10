@@ -1,15 +1,16 @@
-import React, { forwardRef, useState, useCallback, useEffect, useRef } from 'react'
+import type React from 'react'
+import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
+import type { LayoutChangeEvent, ViewStyle } from 'react-native'
 import {
-  View,
-  Text as RNText,
-  Pressable as RNPressable,
-  Image as RNImage,
-  ScrollView as RNScrollView,
-  Linking,
   ActivityIndicator,
   Animated,
+  Linking,
+  Image as RNImage,
+  Pressable as RNPressable,
+  ScrollView as RNScrollView,
+  Text as RNText,
+  View,
 } from 'react-native'
-import type { LayoutChangeEvent, ViewStyle } from 'react-native'
 import { styled } from '../config/styled'
 
 /** Basic layout container — maps to RN View */

@@ -68,6 +68,7 @@ module.exports = {
   ActivityIndicator,
   Keyboard,
   useColorScheme: () => 'light',
+  useWindowDimensions: () => ({ width: 375, height: 812 }),
   NativeModules: {},
   NativeEventEmitter: class {},
   DeviceEventEmitter: { addListener: () => ({ remove: () => {} }) },

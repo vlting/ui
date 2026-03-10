@@ -1,15 +1,15 @@
 import {
   type ColumnDef,
   type ColumnFiltersState,
-  type PaginationState,
-  type SortingState,
-  type VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  type PaginationState,
+  type SortingState,
   useReactTable,
+  type VisibilityState,
 } from '@tanstack/react-table'
 import { useState } from 'react'
 import { Table } from '../Table'
@@ -196,8 +196,8 @@ export function DataTable<TData>({
 
 export type {
   ColumnDef,
-  SortingState,
   ColumnFiltersState,
-  VisibilityState,
   PaginationState,
+  SortingState,
+  VisibilityState,
 } from '@tanstack/react-table'

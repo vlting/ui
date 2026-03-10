@@ -1,4 +1,4 @@
-import { ColorMode } from '../shared/models'
+import type { ColorMode } from '../shared/models'
 
 const xl = 1699.9987654321
 const lg = 1399.9987654321

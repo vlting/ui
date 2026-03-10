@@ -1,12 +1,10 @@
-import { Section, DemoCard } from '../../components/Section'
 import { Tabs } from '@vlting/ui/components'
+import { DemoCard, Section } from '../../components/Section'
 
 export function TabsPage() {
   return (
     <div>
-      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>
-        Tabs
-      </h1>
+      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>Tabs</h1>
 
       <Section title="Default">
         <DemoCard label="Tabs with content panels" testId="tabs-default">

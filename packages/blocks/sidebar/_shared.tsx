@@ -1,9 +1,7 @@
-import type { ComponentType, ReactNode } from 'react'
-import { styled } from '../../stl-react/src/config'
+import type { ReactNode } from 'react'
 import { Sidebar } from '../../components/Sidebar'
 import { Badge } from '../../primitives/Badge'
-
-type AnyFC = ComponentType<Record<string, unknown>>
+import { styled } from '../../stl-react/src/config'
 
 // --- Types ---
 

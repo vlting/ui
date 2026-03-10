@@ -1,13 +1,10 @@
-import { Section, DemoCard, DemoRow } from '../../components/Section'
-import { Button } from '@vlting/ui/components'
-import { ButtonGroup } from '@vlting/ui/components'
+import { Button, ButtonGroup } from '@vlting/ui/components'
+import { DemoCard, DemoRow, Section } from '../../components/Section'
 
 export function ButtonPage() {
   return (
     <div>
-      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>
-        Button
-      </h1>
+      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>Button</h1>
 
       <Section title="Variants">
         <DemoCard label="Button variants" testId="button-variants">

@@ -1,4 +1,5 @@
-import React, { createContext, useCallback, useContext, useId, useState } from 'react'
+import type React from 'react'
+import { createContext, useCallback, useContext, useId, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
 interface TabsContextValue {

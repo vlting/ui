@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
+import { expect, test } from '@playwright/test'
 
 test.describe('Button component', () => {
   test.beforeEach(async ({ page }) => {
@@ -47,9 +47,7 @@ test.describe('Button component', () => {
   // --- Interaction states ---
 
   test('hover state', async ({ page }) => {
-    const button = page.locator(
-      '[data-testid="button-variants"] button',
-    ).first()
+    const button = page.locator('[data-testid="button-variants"] button').first()
     await button.hover()
     await expect(button).toHaveScreenshot('button-hover.png', {
       maxDiffPixelRatio: 0.01,
@@ -63,15 +61,12 @@ test.describe('Button component', () => {
     const maxTabs = 20
     let found = false
     for (let i = 0; i < maxTabs; i++) {
-      const focused = page.locator(
-        '[data-testid="button-variants"] button:focus-visible',
-      )
+      const focused = page.locator('[data-testid="button-variants"] button:focus-visible')
       if ((await focused.count()) > 0) {
         found = true
-        await expect(focused.first()).toHaveScreenshot(
-          'button-focus-visible.png',
-          { maxDiffPixelRatio: 0.01 },
-        )
+        await expect(focused.first()).toHaveScreenshot('button-focus-visible.png', {
+          maxDiffPixelRatio: 0.01,
+        })
         break
       }
       await page.keyboard.press('Tab')
@@ -88,10 +83,6 @@ test.describe('Button component', () => {
 
     // Log all violations for visibility
     if (results.violations.length > 0) {
-      console.log(
-        'A11y violations (light):',
-        results.violations.map((v) => `${v.id}: ${v.help} (${v.impact})`),
-      )
     }
 
     // Only fail on critical/serious that aren't color-contrast
@@ -115,10 +106,6 @@ test.describe('Button component', () => {
       .analyze()
 
     if (results.violations.length > 0) {
-      console.log(
-        'A11y violations (dark):',
-        results.violations.map((v) => `${v.id}: ${v.help} (${v.impact})`),
-      )
     }
 
     const blocking = results.violations.filter(

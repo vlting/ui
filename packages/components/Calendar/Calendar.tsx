@@ -280,7 +280,7 @@ function Root({
       <DayGrid>
         {weeks.map((week, wi) => (
           <WeekRow key={wi}>
-            {week.map((entry, di) => {
+            {week.map((entry, _di) => {
               const { date, outsideMonth } = entry
               const sel = isDateSelected(date)
               const todayDate = isToday(date)

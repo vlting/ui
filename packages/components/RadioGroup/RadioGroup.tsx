@@ -90,7 +90,6 @@ function Root({
         value={{ value: currentValue, name, disabled, onValueChange: handleChange }}
       >
         <fieldset
-          role="radiogroup"
           aria-label={ariaLabel}
           style={{
             display: 'flex',

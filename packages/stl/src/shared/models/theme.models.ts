@@ -1,4 +1,4 @@
-import { ColorMode } from './colorGen.models'
+import type { ColorMode } from './colorGen.models'
 
 export const BASE_STYLE_SIZE = 4
 export const STYLE_UNIT = 'rem'

@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { Section, DemoCard, DemoRow } from '../components/Section'
 import { Button } from '@vlting/ui/components'
+import { useState } from 'react'
+import { DemoCard, Section } from '../components/Section'
 
 const blocks = [
   { name: 'AuthBlock', desc: 'Login, signup, forgot password flows' },
@@ -22,33 +22,47 @@ export function BlocksPage() {
     <div>
       <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }}>Blocks</h1>
       <p style={{ color: '#666', marginBottom: 24, fontSize: 14 }}>
-        Pre-built page layouts composed from primitives and components. Each block is a complete, production-ready UI section.
+        Pre-built page layouts composed from primitives and components. Each block is a
+        complete, production-ready UI section.
       </p>
 
       <Section title="Available Blocks">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
-          {blocks.map(block => (
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+            gap: 16,
+          }}
+        >
+          {blocks.map((block) => (
             <DemoCard key={block.name} label={block.name}>
-              <p style={{ fontSize: 14, color: '#666', marginBottom: 12 }}>{block.desc}</p>
+              <p style={{ fontSize: 14, color: '#666', marginBottom: 12 }}>
+                {block.desc}
+              </p>
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setActiveBlock(activeBlock === block.name ? null : block.name)}
+                onClick={() =>
+                  setActiveBlock(activeBlock === block.name ? null : block.name)
+                }
               >
                 {activeBlock === block.name ? 'Hide Preview' : 'Show Preview'}
               </Button>
               {activeBlock === block.name && (
-                <div style={{
-                  marginTop: 12,
-                  padding: 16,
-                  background: 'var(--stl-surface1, #f8f8f8)',
-                  borderRadius: 8,
-                  border: '1px dashed #ddd',
-                  textAlign: 'center',
-                  color: '#888',
-                  fontSize: 14,
-                }}>
-                  Block preview — {block.name} renders here when imported from @vlting/ui/blocks
+                <div
+                  style={{
+                    marginTop: 12,
+                    padding: 16,
+                    background: 'var(--stl-surface1, #f8f8f8)',
+                    borderRadius: 8,
+                    border: '1px dashed #ddd',
+                    textAlign: 'center',
+                    color: '#888',
+                    fontSize: 14,
+                  }}
+                >
+                  Block preview — {block.name} renders here when imported from
+                  @vlting/ui/blocks
                 </div>
               )}
             </DemoCard>
@@ -58,8 +72,16 @@ export function BlocksPage() {
 
       <Section title="Block Architecture">
         <DemoCard label="How blocks are structured">
-          <pre style={{ fontSize: 12, padding: 12, background: '#f5f5f5', borderRadius: 6, overflow: 'auto' }}>
-{`// Import a block
+          <pre
+            style={{
+              fontSize: 12,
+              padding: 12,
+              background: '#f5f5f5',
+              borderRadius: 6,
+              overflow: 'auto',
+            }}
+          >
+            {`// Import a block
 import { AuthBlock } from '@vlting/ui/blocks'
 
 // Blocks are self-contained compositions

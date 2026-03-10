@@ -1,4 +1,4 @@
-import { FilterKeys, PickKeys } from './props.models'
+import type { FilterKeys, PickKeys } from './props.models'
 
 // Only these props should have interact state classes/vars generated for them
 // 20

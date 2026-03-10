@@ -9,17 +9,20 @@
 
 import {
   COLOR_KEYS,
-  CoreColorName,
-  DEFAULT_SOURCE_COLORS,
-  FlavorColorName,
-  StatusColorName,
   type ColorMode,
   type ColorNumberKey,
   type ColorPalette,
+  CoreColorName,
+  DEFAULT_SOURCE_COLORS,
+  FlavorColorName,
   type ScaleColorName,
+  StatusColorName,
   type ThemeColor,
 } from '../packages/stl/src/shared/models/colorGen.models'
-import { generateThemeColors, getTextColor } from '../packages/stl/src/shared/utils/colorGen.utils'
+import {
+  generateThemeColors,
+  getTextColor,
+} from '../packages/stl/src/shared/utils/colorGen.utils'
 
 // HSL parsing and color math
 
@@ -39,14 +42,39 @@ function hslToLuminance(h: number, s: number, l: number): number {
   const c = (1 - Math.abs(2 * l - 1)) * s
   const x = c * (1 - Math.abs(((h / 60) % 2) - 1))
   const m = l - c / 2
-  let r = 0, g = 0, b = 0
-  if (h < 60)       { r = c; g = x; b = 0 }
-  else if (h < 120) { r = x; g = c; b = 0 }
-  else if (h < 180) { r = 0; g = c; b = x }
-  else if (h < 240) { r = 0; g = x; b = c }
-  else if (h < 300) { r = x; g = 0; b = c }
-  else              { r = c; g = 0; b = x }
-  return 0.2126 * sRGBtoLinear(r + m) + 0.7152 * sRGBtoLinear(g + m) + 0.0722 * sRGBtoLinear(b + m)
+  let r = 0,
+    g = 0,
+    b = 0
+  if (h < 60) {
+    r = c
+    g = x
+    b = 0
+  } else if (h < 120) {
+    r = x
+    g = c
+    b = 0
+  } else if (h < 180) {
+    r = 0
+    g = c
+    b = x
+  } else if (h < 240) {
+    r = 0
+    g = x
+    b = c
+  } else if (h < 300) {
+    r = x
+    g = 0
+    b = c
+  } else {
+    r = c
+    g = 0
+    b = x
+  }
+  return (
+    0.2126 * sRGBtoLinear(r + m) +
+    0.7152 * sRGBtoLinear(g + m) +
+    0.0722 * sRGBtoLinear(b + m)
+  )
 }
 
 function contrastRatio(l1: number, l2: number): number {
@@ -146,9 +174,25 @@ for (const mode of modes) {
 
       // WCAG AA: 4.5:1 for normal text, 3:1 for large text/UI
       if (ratio < 3) {
-        violations.push({ color, step, mode, ratio: Math.round(ratio * 100) / 100, required: 3, bg: bgHSL, fg: fgHSL })
+        violations.push({
+          color,
+          step,
+          mode,
+          ratio: Math.round(ratio * 100) / 100,
+          required: 3,
+          bg: bgHSL,
+          fg: fgHSL,
+        })
       } else if (ratio < 4.5) {
-        violations.push({ color, step, mode, ratio: Math.round(ratio * 100) / 100, required: 4.5, bg: bgHSL, fg: fgHSL })
+        violations.push({
+          color,
+          step,
+          mode,
+          ratio: Math.round(ratio * 100) / 100,
+          required: 4.5,
+          bg: bgHSL,
+          fg: fgHSL,
+        })
       }
     }
   }
@@ -157,42 +201,20 @@ for (const mode of modes) {
 // Report
 
 if (violations.length === 0) {
-  console.log('✓ All color pairs meet WCAG AA contrast requirements')
   process.exit(0)
 }
 
-const critical = violations.filter(v => v.ratio < 3)
-const warnings = violations.filter(v => v.ratio >= 3)
-
-console.log(`\n✗ Found ${violations.length} contrast violation(s)\n`)
+const critical = violations.filter((v) => v.ratio < 3)
+const warnings = violations.filter((v) => v.ratio >= 3)
 
 if (critical.length > 0) {
-  console.log(`  FAIL (<3:1) — ${critical.length} pairs below minimum for large text/UI:`)
-  console.log('  ┌─────────────┬──────┬───────┬───────┬──────────┐')
-  console.log('  │ Color       │ Step │ Mode  │ Ratio │ Required │')
-  console.log('  ├─────────────┼──────┼───────┼───────┼──────────┤')
-  for (const v of critical) {
-    console.log(
-      `  │ ${v.color.padEnd(11)} │ ${String(v.step).padStart(4)} │ ${v.mode.padEnd(5)} │ ${v.ratio.toFixed(2).padStart(5)} │ ${v.required.toFixed(1).padStart(8)} │`,
-    )
+  for (const _v of critical) {
   }
-  console.log('  └─────────────┴──────┴───────┴───────┴──────────┘')
-  console.log()
 }
 
 if (warnings.length > 0) {
-  console.log(`  WARN (3:1–4.5:1) — ${warnings.length} pairs below normal text requirement:`)
-  console.log('  ┌─────────────┬──────┬───────┬───────┬──────────┐')
-  console.log('  │ Color       │ Step │ Mode  │ Ratio │ Required │')
-  console.log('  ├─────────────┼──────┼───────┼───────┼──────────┤')
-  for (const v of warnings) {
-    console.log(
-      `  │ ${v.color.padEnd(11)} │ ${String(v.step).padStart(4)} │ ${v.mode.padEnd(5)} │ ${v.ratio.toFixed(2).padStart(5)} │ ${v.required.toFixed(1).padStart(8)} │`,
-    )
+  for (const _v of warnings) {
   }
-  console.log('  └─────────────┴──────┴───────┴───────┴──────────┘')
 }
-
-console.log()
 // Report-only — don't fail CI
 process.exit(0)

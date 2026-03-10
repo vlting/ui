@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 interface TransitionOptions {
   enter?: number

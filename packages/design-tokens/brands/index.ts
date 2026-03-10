@@ -2,9 +2,9 @@
 // New Brand API (simple data objects + CSS variable injection)
 // ---------------------------------------------------------------------------
 
-export type { Brand } from './types'
-export { injectBrandVars, getBrandStyleTag } from './inject'
 export { generatePalette, getTextColorStep } from './generate-palette'
+export { getBrandStyleTag, injectBrandVars } from './inject'
+export type { Brand } from './types'
 
 // ---------------------------------------------------------------------------
 // Built-in brands

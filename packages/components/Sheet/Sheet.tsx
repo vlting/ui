@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useEffect, useId } from 'react'
+import type React from 'react'
+import { createContext, useContext, useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { styled } from '../../stl-react/src/config'
 import { useDisclosure } from '../../stl-headless/src'
+import { styled } from '../../stl-react/src/config'
 
 const StyledOverlay = styled(
   'div',

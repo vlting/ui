@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import pkg from './package.json'
@@ -18,7 +18,7 @@ export default defineConfig({
     rollupOptions: {
       external: (id: string) =>
         Object.keys(pkg.peerDependencies).some(
-          (dep) => id === dep || id.startsWith(dep + '/'),
+          (dep) => id === dep || id.startsWith(`${dep}/`),
         ),
       output: {
         sourcemapExcludeSources: true,

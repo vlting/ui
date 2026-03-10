@@ -1,25 +1,46 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "organizeImports": {
-    "enabled": true
-  },
+  "$schema": "https://biomejs.dev/schemas/2.3.12/schema.json",
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "correctness": {
         "noUnusedVariables": "error",
-        "noUnusedImports": "error"
+        "noUnusedImports": "error",
+        "noUnusedFunctionParameters": "warn"
       },
       "suspicious": {
         "noExplicitAny": "warn",
-        "noConsole": "error"
+        "noConsole": "error",
+        "noArrayIndexKey": "warn",
+        "noAssignInExpressions": "warn",
+        "noShadowRestrictedNames": "warn",
+        "noTemplateCurlyInString": "warn",
+        "noControlCharactersInRegex": "warn",
+        "useIterableCallbackReturn": "warn"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "warn"
+      },
+      "performance": {
+        "noAccumulatingSpread": "warn"
+      },
+      "complexity": {
+        "noBannedTypes": "warn"
       },
       "style": {
         "noNonNullAssertion": "off"
       },
       "a11y": {
-        "recommended": true
+        "recommended": true,
+        "useSemanticElements": "warn",
+        "noStaticElementInteractions": "warn",
+        "useKeyWithClickEvents": "warn",
+        "noSvgWithoutTitle": "warn",
+        "useAriaPropsSupportedByRole": "warn",
+        "useButtonType": "warn",
+        "noLabelWithoutControl": "warn"
       }
     }
   },
@@ -37,6 +58,6 @@
     }
   },
   "files": {
-    "ignore": ["node_modules", "dist", ".tamagui"]
+    "includes": ["**", "!**/node_modules", "!**/dist", "!**/.tamagui"]
   }
 }

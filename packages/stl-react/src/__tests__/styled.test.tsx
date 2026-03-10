@@ -1,8 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { describe, it, expect, vi } from 'vitest'
 
 // Mock @vlting/stl
-vi.mock('@vlting/stl', () => {
+jest.mock('@vlting/stl', () => {
   const conditionsMap: Record<string, any> = {
     ltr: true,
     rtl: true,

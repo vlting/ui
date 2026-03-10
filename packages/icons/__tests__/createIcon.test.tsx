@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '@testing-library/react'
 import { createIcon, type IconFC } from '../createIcon'
 import { RiArrowRightLine } from '../generated/RiArrowRightLine'

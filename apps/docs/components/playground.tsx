@@ -1,29 +1,29 @@
 'use client'
 
-import { useState, useMemo, type ReactNode, type ComponentType } from 'react'
+import { type ComponentType, type ReactNode, useMemo, useState } from 'react'
 
 // Cast for docs usage
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyFC = ComponentType<any>
 
 import {
-  Button as _Button,
-  Input as _Input,
-  Card as _Card,
-  Dialog as _Dialog,
-  Tabs as _Tabs,
-  Tooltip as _Tooltip,
-  Badge as _Badge,
-  Switch as _Switch,
-  Progress as _Progress,
-  Checkbox as _Checkbox,
-  Select as _Select,
-  Slider as _Slider,
   Alert as _Alert,
   Avatar as _Avatar,
-  Toggle as _Toggle,
+  Badge as _Badge,
+  Button as _Button,
+  Card as _Card,
+  Checkbox as _Checkbox,
+  Dialog as _Dialog,
+  Input as _Input,
+  Progress as _Progress,
+  Select as _Select,
+  Slider as _Slider,
   Spinner as _Spinner,
+  Switch as _Switch,
+  Tabs as _Tabs,
   Textarea as _Textarea,
+  Toggle as _Toggle,
+  Tooltip as _Tooltip,
 } from '@vlting/ui'
 
 const Button = _Button as AnyFC & { Text: AnyFC }
@@ -45,7 +45,12 @@ const Dialog = _Dialog as unknown as {
   Footer: AnyFC
   Close: AnyFC
 }
-const Select = _Select as AnyFC & { Item: AnyFC; Group: AnyFC; Label: AnyFC; Separator: AnyFC }
+const Select = _Select as AnyFC & {
+  Item: AnyFC
+  Group: AnyFC
+  Label: AnyFC
+  Separator: AnyFC
+}
 const Tabs = _Tabs as unknown as {
   Root: AnyFC
   List: AnyFC
@@ -85,7 +90,15 @@ const playgroundConfigs: Record<string, PlaygroundConfig> = {
         prop: 'variant',
         type: 'select',
         label: 'Variant',
-        options: ['default', 'solid', 'secondary', 'destructive', 'outline', 'ghost', 'link'],
+        options: [
+          'default',
+          'solid',
+          'secondary',
+          'destructive',
+          'outline',
+          'ghost',
+          'link',
+        ],
         defaultValue: 'default',
       },
       {
@@ -159,15 +172,24 @@ const playgroundConfigs: Record<string, PlaygroundConfig> = {
   },
   dialog: {
     component: 'Dialog',
-    controls: [
-      { prop: 'modal', type: 'boolean', label: 'Modal', defaultValue: true },
-    ],
+    controls: [{ prop: 'modal', type: 'boolean', label: 'Modal', defaultValue: true }],
   },
   select: {
     component: 'Select',
     controls: [
-      { prop: 'placeholder', type: 'string', label: 'Placeholder', defaultValue: 'Select an option' },
-      { prop: 'size', type: 'select', label: 'Size', options: ['sm', 'md', 'lg'], defaultValue: 'md' },
+      {
+        prop: 'placeholder',
+        type: 'string',
+        label: 'Placeholder',
+        defaultValue: 'Select an option',
+      },
+      {
+        prop: 'size',
+        type: 'select',
+        label: 'Size',
+        options: ['sm', 'md', 'lg'],
+        defaultValue: 'md',
+      },
       { prop: 'disabled', type: 'boolean', label: 'Disabled', defaultValue: false },
     ],
   },
@@ -415,9 +437,7 @@ const playgroundConfigs: Record<string, PlaygroundConfig> = {
   },
 }
 
-export function getPlaygroundConfig(
-  slug: string,
-): PlaygroundConfig | undefined {
+export function getPlaygroundConfig(slug: string): PlaygroundConfig | undefined {
   return playgroundConfigs[slug]
 }
 
@@ -466,14 +486,18 @@ function renderPlayground(
       return (
         <Dialog.Root modal={props.modal as boolean}>
           <Dialog.Trigger>
-            <Button><Button.Text>Open Dialog</Button.Text></Button>
+            <Button>
+              <Button.Text>Open Dialog</Button.Text>
+            </Button>
           </Dialog.Trigger>
           <Dialog.Overlay>
             <Dialog.Content>
               <Dialog.Title>Dialog Title</Dialog.Title>
               <Dialog.Description>This is a dialog description.</Dialog.Description>
               <Dialog.Close>
-                <Button><Button.Text>Close</Button.Text></Button>
+                <Button>
+                  <Button.Text>Close</Button.Text>
+                </Button>
               </Dialog.Close>
             </Dialog.Content>
           </Dialog.Overlay>
@@ -529,12 +553,7 @@ function renderPlayground(
         />
       )
     case 'progress':
-      return (
-        <Progress
-          value={props.value as number}
-          size={props.size as string}
-        />
-      )
+      return <Progress value={props.value as number} size={props.size as string} />
     case 'checkbox':
       return (
         <Checkbox.Root
@@ -578,9 +597,7 @@ function renderPlayground(
         </Toggle>
       )
     case 'spinner':
-      return (
-        <Spinner size={props.size as string} />
-      )
+      return <Spinner size={props.size as string} />
     case 'textarea':
       return (
         <Textarea
@@ -661,20 +678,15 @@ export function Playground({ slug }: PlaygroundProps) {
   const config = playgroundConfigs[slug]
   if (!config) return null
 
-  const [props, setProps] = useState<Record<string, string | boolean | number>>(
-    () => {
-      const initial: Record<string, string | boolean | number> = {}
-      for (const control of config.controls) {
-        initial[control.prop] = control.defaultValue
-      }
-      return initial
-    },
-  )
+  const [props, setProps] = useState<Record<string, string | boolean | number>>(() => {
+    const initial: Record<string, string | boolean | number> = {}
+    for (const control of config.controls) {
+      initial[control.prop] = control.defaultValue
+    }
+    return initial
+  })
 
-  const code = useMemo(
-    () => generateCode(slug, config, props),
-    [slug, config, props],
-  )
+  const code = useMemo(() => generateCode(slug, config, props), [slug, config, props])
 
   const updateProp = (prop: string, value: string | boolean | number) => {
     setProps((prev) => ({ ...prev, [prop]: value }))
@@ -711,14 +723,10 @@ export function Playground({ slug }: PlaygroundProps) {
                   <input
                     type="checkbox"
                     checked={props[control.prop] as boolean}
-                    onChange={(e) =>
-                      updateProp(control.prop, e.target.checked)
-                    }
+                    onChange={(e) => updateProp(control.prop, e.target.checked)}
                     className="rounded"
                   />
-                  <span className="text-sm">
-                    {props[control.prop] ? 'On' : 'Off'}
-                  </span>
+                  <span className="text-sm">{props[control.prop] ? 'On' : 'Off'}</span>
                 </label>
               )}
               {control.type === 'string' && (
@@ -733,9 +741,7 @@ export function Playground({ slug }: PlaygroundProps) {
                 <input
                   type="number"
                   value={props[control.prop] as number}
-                  onChange={(e) =>
-                    updateProp(control.prop, Number(e.target.value))
-                  }
+                  onChange={(e) => updateProp(control.prop, Number(e.target.value))}
                   className="w-full rounded border border-border bg-background px-2 py-1 text-sm"
                 />
               )}

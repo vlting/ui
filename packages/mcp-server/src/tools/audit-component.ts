@@ -1,6 +1,6 @@
-import { readFileSync, readdirSync, existsSync } from 'fs'
-import { resolve, dirname } from 'path'
-import { fileURLToPath } from 'url'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = resolve(__dirname, '..', '..', '..', '..')
@@ -29,7 +29,7 @@ function auditFile(filePath: string): Violation[] {
   const violations: Violation[] = []
   const content = readFileSync(filePath, 'utf8')
   const lines = content.split('\n')
-  const relPath = filePath.replace(root + '/', '')
+  const relPath = filePath.replace(`${root}/`, '')
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]
@@ -111,7 +111,7 @@ export function handleAuditComponent(args: { name: string }): AuditResult {
 
   return {
     component: name,
-    directory: dir.replace(root + '/', ''),
+    directory: dir.replace(`${root}/`, ''),
     violations,
     summary: {
       total: violations.length,

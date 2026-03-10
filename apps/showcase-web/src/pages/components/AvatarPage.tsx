@@ -1,12 +1,10 @@
-import { Section, DemoCard, DemoRow } from '../../components/Section'
 import { Avatar } from '@vlting/ui/components'
+import { DemoCard, DemoRow, Section } from '../../components/Section'
 
 export function AvatarPage() {
   return (
     <div>
-      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>
-        Avatar
-      </h1>
+      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>Avatar</h1>
 
       <Section title="Sizes">
         <DemoCard label="Avatar sizes" testId="avatar-sizes">

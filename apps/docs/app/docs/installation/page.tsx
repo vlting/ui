@@ -10,7 +10,13 @@ export default function InstallationPage() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
       <div>
         <h1 style={{ fontSize: 32, fontWeight: 700, marginBottom: 8 }}>Installation</h1>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 16, lineHeight: 1.6 }}>
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 16,
+            lineHeight: 1.6,
+          }}
+        >
           Get started with @vlting/ui in your React or React Native project.
         </p>
       </div>
@@ -27,9 +33,15 @@ export default function InstallationPage() {
 
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Peer Dependencies</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          Ensure you have React 19+ installed. For React Native projects, also install
-          the native dependencies.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          Ensure you have React 19+ installed. For React Native projects, also install the
+          native dependencies.
         </p>
         <CodeBlock
           code={`# Web

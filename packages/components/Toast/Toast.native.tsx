@@ -1,12 +1,12 @@
-import React, { createContext, useContext, useCallback } from 'react'
-import { View, Text as RNText, Pressable } from 'react-native'
+import React, { createContext, useContext } from 'react'
 import type { ViewStyle } from 'react-native'
-import { styled } from '../../stl-native/src/config/styled'
-import { useToastQueue } from '../../stl-headless/src/useToastQueue'
+import { Pressable, Text as RNText, View } from 'react-native'
 import type {
   Toast as ToastType,
   UseToastQueueReturn,
 } from '../../stl-headless/src/useToastQueue'
+import { useToastQueue } from '../../stl-headless/src/useToastQueue'
+import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------
 // Styled frames

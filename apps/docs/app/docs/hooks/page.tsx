@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { getAllHooks } from '@/lib/hook-registry'
 
 export const metadata: Metadata = {
@@ -26,12 +26,8 @@ export default function HooksPage() {
             href={`/docs/hooks/${hook.slug}`}
             className="block p-4 border border-border rounded-lg hover:bg-surface-muted transition-colors"
           >
-            <h3 className="text-base font-semibold font-mono mb-1">
-              {hook.name}
-            </h3>
-            <p className="text-sm text-foreground-secondary">
-              {hook.description}
-            </p>
+            <h3 className="text-base font-semibold font-mono mb-1">{hook.name}</h3>
+            <p className="text-sm text-foreground-secondary">{hook.description}</p>
           </Link>
         ))}
       </div>

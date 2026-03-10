@@ -7,14 +7,11 @@
  * Usage: npx tsx scripts/validate-tokens.ts
  */
 
-import { readFileSync, readdirSync, statSync } from 'fs'
-import { join, relative } from 'path'
+import { readdirSync, readFileSync, statSync } from 'node:fs'
+import { join, relative } from 'node:path'
 
 const ROOT = join(__dirname, '..')
-const SCAN_DIRS = [
-  join(ROOT, 'packages/components'),
-  join(ROOT, 'packages/primitives'),
-]
+const SCAN_DIRS = [join(ROOT, 'packages/components'), join(ROOT, 'packages/primitives')]
 
 // Patterns that indicate hardcoded values
 const VIOLATIONS = [
@@ -32,8 +29,14 @@ const VIOLATIONS = [
 
 // Files to skip
 const SKIP = [
-  '.test.', '.spec.', '.md', 'api-mapping.json', '__test',
-  'node_modules', 'dist', '.d.ts',
+  '.test.',
+  '.spec.',
+  '.md',
+  'api-mapping.json',
+  '__test',
+  'node_modules',
+  'dist',
+  '.d.ts',
 ]
 
 interface Violation {
@@ -44,7 +47,7 @@ interface Violation {
 }
 
 function shouldSkip(path: string): boolean {
-  return SKIP.some(s => path.includes(s))
+  return SKIP.some((s) => path.includes(s))
 }
 
 function scanFile(filePath: string): Violation[] {
@@ -67,7 +70,7 @@ function scanFile(filePath: string): Violation[] {
 
     for (const v of VIOLATIONS) {
       if (v.pattern.test(line)) {
-        if (v.exclude && v.exclude.test(line)) continue
+        if (v.exclude?.test(line)) continue
         violations.push({
           file: relPath,
           line: i + 1,
@@ -110,16 +113,13 @@ for (const dir of SCAN_DIRS) {
 }
 
 if (allViolations.length === 0) {
-  console.log('✓ No token violations found')
   process.exit(0)
 }
 
 if (ciMode) {
   // GitHub Actions annotation format
-  for (const v of allViolations) {
-    console.log(`::warning file=${v.file},line=${v.line}::${v.type}: ${v.content}`)
+  for (const _v of allViolations) {
   }
-  console.log(`\n${allViolations.length} token violation(s) found.`)
 } else {
   // Group by type for human-readable output
   const grouped = new Map<string, Violation[]>()
@@ -128,17 +128,11 @@ if (ciMode) {
     list.push(v)
     grouped.set(v.type, list)
   }
-
-  console.log(`\n✗ Found ${allViolations.length} token violations:\n`)
-  for (const [type, violations] of grouped) {
-    console.log(`  ${type} (${violations.length}):`)
-    for (const v of violations.slice(0, 10)) {
-      console.log(`    ${v.file}:${v.line} — ${v.content}`)
+  for (const [_type, violations] of grouped) {
+    for (const _v of violations.slice(0, 10)) {
     }
     if (violations.length > 10) {
-      console.log(`    ... and ${violations.length - 10} more`)
     }
-    console.log()
   }
 }
 

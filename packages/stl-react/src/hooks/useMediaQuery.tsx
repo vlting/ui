@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { isSSR } from '../shared/utils'
 
 export function useMediaQuery(

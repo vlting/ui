@@ -1,9 +1,6 @@
 import { listComponents } from '../data/registry.js'
 
-export function handleListComponents(args: {
-  category?: string
-  layer?: string
-}) {
+export function handleListComponents(args: { category?: string; layer?: string }) {
   const components = listComponents({
     category: args.category,
     layer: args.layer,

@@ -1,10 +1,10 @@
-import type { ReactNode } from 'react'
 import type React from 'react'
+import type { ReactNode } from 'react'
 import { useState } from 'react'
-import { styled } from '../../stl-react/src/config'
 import { Button } from '../../components/Button'
 import { Checkbox } from '../../components/Checkbox'
 import { Input } from '../../components/Input'
+import { styled } from '../../stl-react/src/config'
 import type { BlockProps, SocialProvider } from '../_shared/types'
 import {
   AuthDivider,

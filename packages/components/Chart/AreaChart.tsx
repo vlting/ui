@@ -1,17 +1,17 @@
-import React, { useMemo, useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import Svg, {
-  Path,
   Defs,
-  LinearGradient,
-  Stop,
   G,
   Line,
+  LinearGradient,
+  Path,
+  Stop,
   Text as SvgText,
 } from 'react-native-svg'
-import type { ChartConfig, ChartDataPoint, TooltipVariant } from './types'
 import { useChartContext } from './Chart'
 import { ChartLegend } from './ChartLegend'
 import { ChartTooltip } from './ChartTooltip'
+import type { ChartConfig, ChartDataPoint, TooltipVariant } from './types'
 
 export type AreaChartVariant =
   | 'default'
@@ -73,7 +73,7 @@ function niceTickValues(min: number, max: number, count: number): number[] {
   if (min === max) return [min]
   const range = max - min
   const rough = range / (count - 1)
-  const magnitude = Math.pow(10, Math.floor(Math.log10(rough)))
+  const magnitude = 10 ** Math.floor(Math.log10(rough))
   const residual = rough / magnitude
   let nice: number
   if (residual <= 1.5) nice = magnitude
@@ -122,7 +122,6 @@ function buildLinePath(
       return buildNaturalPath(points)
     case 'monotoneX':
       return buildMonotoneXPath(points)
-    case 'linear':
     default:
       return points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.px},${p.py}`).join('')
   }
@@ -419,7 +418,7 @@ export function AreaChart({
         const botLine = reversedBase
           .map((p, i) => `${i === 0 ? 'L' : 'L'}${p.px},${p.py}`)
           .join('')
-        return topLine + botLine + 'Z'
+        return `${topLine + botLine}Z`
       })
     }
 

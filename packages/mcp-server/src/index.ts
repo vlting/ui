@@ -2,16 +2,16 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod'
-import { handleListComponents } from './tools/list-components.js'
+import { handleAuditComponent } from './tools/audit-component.js'
+import { handleGenerateCode } from './tools/generate-code.js'
+import { handleGetBlock } from './tools/get-block.js'
 import { handleGetComponent } from './tools/get-component.js'
 import { handleGetMigration } from './tools/get-migration.js'
+import { handleGetThemeTokens } from './tools/get-theme-tokens.js'
+import { handleListComponents } from './tools/list-components.js'
 import { handleSearchIcons } from './tools/search-icons.js'
 import { handleSuggestComponent } from './tools/suggest-component.js'
-import { handleGenerateCode } from './tools/generate-code.js'
 import { handleValidateCode } from './tools/validate-code.js'
-import { handleGetThemeTokens } from './tools/get-theme-tokens.js'
-import { handleAuditComponent } from './tools/audit-component.js'
-import { handleGetBlock } from './tools/get-block.js'
 
 const server = new McpServer({
   name: '@vlting/ui-mcp',
@@ -188,7 +188,6 @@ async function main() {
   await server.connect(transport)
 }
 
-main().catch((err) => {
-  console.error('MCP server error:', err)
+main().catch((_err) => {
   process.exit(1)
 })

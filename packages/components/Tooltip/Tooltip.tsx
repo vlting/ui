@@ -1,11 +1,5 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useId,
-  useRef,
-  useState,
-} from 'react'
+import type React from 'react'
+import { createContext, useCallback, useContext, useId, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const TooltipContentFrame = styled(
@@ -110,9 +104,7 @@ export function Tooltip({
       onFocus={show}
       onBlur={hide}
     >
-      <span aria-describedby={visible ? `tooltip-${id}` : undefined}>
-        {children}
-      </span>
+      <span aria-describedby={visible ? `tooltip-${id}` : undefined}>{children}</span>
       {visible && (
         <TooltipContentFrame role="tooltip" id={`tooltip-${id}`} style={positionStyle}>
           <TooltipText>{content}</TooltipText>
