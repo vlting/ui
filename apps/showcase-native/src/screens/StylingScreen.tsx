@@ -1,5 +1,5 @@
 import { ScrollView, View, Text, StyleSheet, Pressable } from 'react-native'
-import { useColorMode } from '../../../packages/stl-native/src/hooks/useColorMode'
+import { useColorMode } from '../../../../packages/stl-native/src/hooks/useColorMode'
 
 const palettes = ['primary', 'red', 'green', 'blue', 'orange', 'purple']
 const steps = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
