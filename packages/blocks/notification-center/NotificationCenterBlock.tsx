@@ -304,7 +304,12 @@ function DropdownNotifications({
             </span>
           </div>
         ) : (
-          <div style={{ ...col, padding: 8 }} role="feed" aria-label={title} aria-live="polite">
+          <div
+            style={{ ...col, padding: 8 }}
+            role="feed"
+            aria-label={title}
+            aria-live="polite"
+          >
             {notifications.map((n) => (
               <NotificationRow
                 key={n.id}
@@ -383,7 +388,12 @@ function GroupedNotifications({
             </span>
           </div>
         ) : (
-          <div style={{ ...col, gap: 16 }} role="feed" aria-label={title} aria-live="polite">
+          <div
+            style={{ ...col, gap: 16 }}
+            role="feed"
+            aria-label={title}
+            aria-live="polite"
+          >
             {Array.from(groups.entries()).map(([category, items]) => (
               <div key={category} style={{ ...col, gap: 4 }}>
                 <span

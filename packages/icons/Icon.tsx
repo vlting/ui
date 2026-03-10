@@ -1,4 +1,4 @@
-import { lazy, memo, Suspense, type LazyExoticComponent, type ComponentType } from 'react'
+import { type ComponentType, type LazyExoticComponent, lazy, memo, Suspense } from 'react'
 import type { IconFC } from './createIcon'
 
 export type { IconFC } from './createIcon'

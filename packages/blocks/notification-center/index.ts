@@ -1,6 +1,6 @@
-export { NotificationCenterBlock } from './NotificationCenterBlock'
 export type {
+  Notification,
   NotificationCenterBlockProps,
   NotificationCenterBlockVariant,
-  Notification,
 } from './NotificationCenterBlock'
+export { NotificationCenterBlock } from './NotificationCenterBlock'

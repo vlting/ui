@@ -1,5 +1,5 @@
-import { addStaticValuePrefix, CharHash } from '../utils'
-import { ColorVars, ThemeScale } from './scales.models'
+import { addStaticValuePrefix, type CharHash } from '../utils'
+import type { ColorVars, ThemeScale } from './scales.models'
 import {
   getAliasMap,
   getCssMapFromVars,

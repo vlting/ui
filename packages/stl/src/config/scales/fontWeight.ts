@@ -1,5 +1,5 @@
-import { addPrefix, CharHash } from '../utils'
-import { ThemeScale } from './scales.models'
+import { addPrefix, type CharHash } from '../utils'
+import type { ThemeScale } from './scales.models'
 import {
   getCssMapFromVars,
   getPropsFromCssMap,

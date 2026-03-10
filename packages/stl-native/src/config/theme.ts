@@ -1,9 +1,9 @@
 import { Platform } from 'react-native'
 import {
-  generateThemeColors,
-  DEFAULT_SOURCE_COLORS,
   type ColorGenOptions,
   type ColorMode,
+  DEFAULT_SOURCE_COLORS,
+  generateThemeColors,
 } from '../shared/colorGen'
 
 // TYPES ///////////////////////////////////////////////////////////////////////

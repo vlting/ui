@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react'
-import { Svg, Path, G, Text as SvgText } from 'react-native-svg'
+import type React from 'react'
+import { useMemo } from 'react'
+import { G, Path, Svg, Text as SvgText } from 'react-native-svg'
 import { useChartContext } from './Chart'
 import { ChartLegend } from './ChartLegend'
 import type { ChartDataPoint, TooltipVariant } from './types'

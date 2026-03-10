@@ -1,8 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { describe, it, expect, vi } from 'vitest'
 
 // Mock @vlting/stl before importing components
-vi.mock('@vlting/stl', () => {
+jest.mock('@vlting/stl', () => {
   const conditionsMap: Record<string, any> = {
     ltr: true,
     rtl: true,
@@ -119,21 +118,21 @@ vi.mock('@vlting/stl', () => {
 
 import {
   Box,
-  Row,
   Column,
-  Grid,
-  Text,
-  Heading,
-  SubHeading,
-  Link,
-  Image,
-  Pressable,
-  ScrollView,
-  List,
-  OList,
-  ListItem,
   FlexList,
   FlexListItem,
+  Grid,
+  Heading,
+  Image,
+  Link,
+  List,
+  ListItem,
+  OList,
+  Pressable,
+  Row,
+  ScrollView,
+  SubHeading,
+  Text,
 } from '../primitives'
 
 describe('Primitives', () => {
@@ -248,9 +247,9 @@ describe('Primitives', () => {
   })
 
   it('Pressable handles onClick', () => {
-    const handleClick = vi.fn()
+    const handleClick = jest.fn()
     render(<Pressable onClick={handleClick}>click</Pressable>)
     screen.getByText('click').click()
-    expect(handleClick).toHaveBeenCalledOnce()
+    expect(handleClick).toHaveBeenCalledTimes(1)
   })
 })

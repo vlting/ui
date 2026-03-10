@@ -134,8 +134,14 @@ export const navigation: NavSection[] = [
       { label: 'getGoogleFontsUrl', href: '/docs/utilities/get-google-fonts-url' },
       { label: 'useFontLoader', href: '/docs/utilities/use-font-loader' },
       { label: 'isSystemFont', href: '/docs/utilities/is-system-font' },
-      { label: 'extractFamiliesFromConfig', href: '/docs/utilities/extract-families-from-config' },
-      { label: 'buildFaceMapsFromConfig', href: '/docs/utilities/build-face-maps-from-config' },
+      {
+        label: 'extractFamiliesFromConfig',
+        href: '/docs/utilities/extract-families-from-config',
+      },
+      {
+        label: 'buildFaceMapsFromConfig',
+        href: '/docs/utilities/build-face-maps-from-config',
+      },
     ],
   },
   {

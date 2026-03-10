@@ -1,6 +1,11 @@
+import type { getColor } from '../scales'
+import type {
+  CssPropKey,
+  CustomVarPropValue,
+  FilterKeys,
+  KeysFromScale,
+} from './props.models'
 import { omitKeys } from './props.utils'
-import { FilterKeys, CssPropKey, CustomVarPropValue, KeysFromScale } from './props.models'
-import { getColor } from '../scales'
 
 /**
  * Used to generate CSS classes for custom values (via a combo of className + CSS var).

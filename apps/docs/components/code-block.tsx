@@ -28,9 +28,7 @@ export async function CodeBlock({
     <div className="relative rounded-lg border border-border overflow-hidden">
       {title && (
         <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-surface-muted">
-          <span className="text-sm text-foreground-secondary font-mono">
-            {title}
-          </span>
+          <span className="text-sm text-foreground-secondary font-mono">{title}</span>
         </div>
       )}
       <div className="relative group">

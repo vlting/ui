@@ -15,7 +15,10 @@
   "directories": {
     "dist": "dist"
   },
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "exports": {
     ".": {
       "import": "./dist/stl-native.es.js",

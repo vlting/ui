@@ -1,6 +1,7 @@
-import React, { createContext, useContext, forwardRef, useState } from 'react'
-import { View, Text as RNText, Pressable, ActivityIndicator } from 'react-native'
+import type React from 'react'
+import { createContext, forwardRef, useContext } from 'react'
 import type { ViewStyle } from 'react-native'
+import { ActivityIndicator, Pressable, Text as RNText, View } from 'react-native'
 import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------

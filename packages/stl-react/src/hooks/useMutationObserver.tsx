@@ -1,5 +1,5 @@
 import type { RefObject } from 'react'
-import { useMemo, useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { getRefElement, isSSR } from '../shared/utils'
 
 const DEFAULT_OPTIONS = {

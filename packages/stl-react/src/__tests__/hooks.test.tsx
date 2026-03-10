@@ -1,9 +1,8 @@
-import { renderHook, act } from '@testing-library/react'
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { act, renderHook } from '@testing-library/react'
 import type { ReactNode } from 'react'
 
 // Mock @vlting/stl
-vi.mock('@vlting/stl', () => {
+jest.mock('@vlting/stl', () => {
   const conditionsMap: Record<string, any> = {
     ltr: true,
     rtl: true,
@@ -120,10 +119,10 @@ vi.mock('@vlting/stl', () => {
 
 import { useColorMode } from '../hooks/useColorMode'
 import { useConditions } from '../hooks/useConditions'
-import { useTransition } from '../hooks/useTransition'
 import { useMediaQuery } from '../hooks/useMediaQuery'
-import { useTokens } from '../hooks/useTokens'
 import { useRTL } from '../hooks/useRTL'
+import { useTokens } from '../hooks/useTokens'
+import { useTransition } from '../hooks/useTransition'
 import { StlProvider } from '../providers/StlProvider'
 
 function createWrapper(props: Record<string, any> = {}) {
@@ -205,7 +204,7 @@ describe('useConditions', () => {
 
 describe('useTransition', () => {
   beforeEach(() => {
-    vi.useFakeTimers()
+    jest.useFakeTimers()
   })
 
   it('returns active, mounted, and style when visible', () => {
@@ -221,7 +220,7 @@ describe('useTransition', () => {
     const { result } = renderHook(() => useTransition(false, { exit: 100 }))
 
     act(() => {
-      vi.advanceTimersByTime(150)
+      jest.advanceTimersByTime(150)
     })
 
     expect(result.current.mounted).toBe(false)
@@ -235,7 +234,7 @@ describe('useTransition', () => {
   })
 
   afterEach(() => {
-    vi.useRealTimers()
+    jest.useRealTimers()
   })
 })
 

@@ -1,6 +1,5 @@
+import { StlProvider, useColorMode } from '@vlting/stl-react'
 import { NavLink, Outlet } from 'react-router-dom'
-import { StlProvider } from '@vlting/stl-react'
-import { useColorMode } from '@vlting/stl-react'
 import { BrandSwitcher } from '../components/BrandSwitcher'
 
 const navItems = [
@@ -57,7 +56,7 @@ function Sidebar() {
         @vlting/stl
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {navItems.map(item => (
+        {navItems.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
@@ -70,7 +69,9 @@ function Sidebar() {
               color: isActive ? 'var(--stl-primary6, #0066ff)' : 'var(--stl-color, #333)',
               backgroundColor: isActive ? 'var(--stl-surface2, #f0f0ff)' : 'transparent',
               fontWeight: isActive ? 600 : 400,
-              borderRight: isActive ? '2px solid var(--stl-primary6, #0066ff)' : '2px solid transparent',
+              borderRight: isActive
+                ? '2px solid var(--stl-primary6, #0066ff)'
+                : '2px solid transparent',
             })}
           >
             {item.label}
@@ -99,9 +100,7 @@ function LayoutInner() {
             zIndex: 10,
           }}
         >
-          <h1 style={{ fontSize: 16, fontWeight: 600, margin: 0 }}>
-            STL Showcase
-          </h1>
+          <h1 style={{ fontSize: 16, fontWeight: 600, margin: 0 }}>STL Showcase</h1>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <BrandSwitcher />
             <ThemeToggle />

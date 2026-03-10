@@ -1,5 +1,4 @@
-export { DatePicker } from './DatePicker'
 export type { DatePickerProps } from './DatePicker'
-
-export { DateRangePicker } from './DateRangePicker'
+export { DatePicker } from './DatePicker'
 export type { DateRangePickerProps } from './DateRangePicker'
+export { DateRangePicker } from './DateRangePicker'

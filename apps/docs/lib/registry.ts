@@ -404,7 +404,8 @@ const registry: ComponentEntry[] = [
     name: 'Checkbox',
     slug: 'checkbox',
     category: 'components',
-    description: 'A control that allows the user to toggle between checked and unchecked.',
+    description:
+      'A control that allows the user to toggle between checked and unchecked.',
     importPath: "import { Checkbox } from '@vlting/ui'",
     apiMappingPath: 'packages/components/Checkbox/api-mapping.json',
     examples: [
@@ -564,8 +565,7 @@ const registry: ComponentEntry[] = [
     name: 'Data Table',
     slug: 'data-table',
     category: 'components',
-    description:
-      'A powerful table component with sorting, filtering, and pagination.',
+    description: 'A powerful table component with sorting, filtering, and pagination.',
     importPath: "import { DataTable } from '@vlting/ui'",
     apiMappingPath: 'packages/components/DataTable/api-mapping.json',
     examples: [
@@ -605,7 +605,8 @@ const registry: ComponentEntry[] = [
     name: 'Dialog',
     slug: 'dialog',
     category: 'components',
-    description: 'A modal window that overlays the main content and requires user interaction.',
+    description:
+      'A modal window that overlays the main content and requires user interaction.',
     importPath: "import { Dialog } from '@vlting/ui'",
     apiMappingPath: 'packages/components/Dialog/api-mapping.json',
     examples: [
@@ -774,8 +775,7 @@ const registry: ComponentEntry[] = [
     name: 'Field',
     slug: 'field',
     category: 'components',
-    description:
-      'A form field wrapper with label, description, and error message slots.',
+    description: 'A form field wrapper with label, description, and error message slots.',
     importPath: "import { Field } from '@vlting/ui'",
     apiMappingPath: 'packages/components/Field/api-mapping.json',
     examples: [
@@ -1600,7 +1600,8 @@ const registry: ComponentEntry[] = [
     name: 'Toast',
     slug: 'toast',
     category: 'components',
-    description: 'A brief notification that appears temporarily at the edge of the screen.',
+    description:
+      'A brief notification that appears temporarily at the edge of the screen.',
     importPath: "import { Toast } from '@vlting/ui'",
     apiMappingPath: 'packages/components/Toast/api-mapping.json',
     examples: [
@@ -1639,9 +1640,20 @@ const { toast } = useToast()
     category: 'components',
     description: 'A group of toggle buttons where one or multiple can be active.',
     importPath: "import { ToggleGroup } from '@vlting/ui'",
-    whenToUse: ['Switch between mutually exclusive options like view modes (grid/list)', 'Text formatting toggles (bold/italic/underline)', 'Filter or display mode selectors'],
-    whenNotToUse: ['Navigation or actions with side effects — use Tabs instead', 'Form selections where only one option applies — use RadioGroup instead'],
-    a11yNotes: ['Uses role="group" with aria-label', 'Each toggle uses aria-pressed', 'Supports keyboard navigation with arrow keys'],
+    whenToUse: [
+      'Switch between mutually exclusive options like view modes (grid/list)',
+      'Text formatting toggles (bold/italic/underline)',
+      'Filter or display mode selectors',
+    ],
+    whenNotToUse: [
+      'Navigation or actions with side effects — use Tabs instead',
+      'Form selections where only one option applies — use RadioGroup instead',
+    ],
+    a11yNotes: [
+      'Uses role="group" with aria-label',
+      'Each toggle uses aria-pressed',
+      'Supports keyboard navigation with arrow keys',
+    ],
     examples: [
       {
         name: 'Basic',
@@ -1667,7 +1679,8 @@ const { toast } = useToast()
     name: 'Tooltip',
     slug: 'tooltip',
     category: 'components',
-    description: 'A popup that displays additional information when hovering over an element.',
+    description:
+      'A popup that displays additional information when hovering over an element.',
     importPath: "import { Tooltip } from '@vlting/ui'",
     apiMappingPath: 'packages/components/Tooltip/api-mapping.json',
     examples: [

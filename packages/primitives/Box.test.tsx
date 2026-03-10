@@ -3,7 +3,7 @@ import { Box } from './Box'
 
 describe('Box', () => {
   it('renders without errors', () => {
-    render(<Box testID="box" />)
+    render(<Box data-testid="box" />)
     expect(screen.getByTestId('box')).toBeTruthy()
   })
 
@@ -14,12 +14,12 @@ describe('Box', () => {
 
   it.skip('applies centered variant styles', () => {
     // TODO: requires browser environment for computed styles
-    render(<Box centered testID="box" />)
+    render(<Box centered data-testid="box" />)
     expect(screen.getByTestId('box')).toBeTruthy()
   })
 
   it('accepts style props', () => {
-    render(<Box padding="$4" testID="box" />)
+    render(<Box padding="$4" data-testid="box" />)
     expect(screen.getByTestId('box')).toBeTruthy()
   })
 })

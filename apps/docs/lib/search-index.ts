@@ -1,8 +1,8 @@
 import { Index } from 'flexsearch'
-import { getAllComponents } from './registry'
 import { getAllBlocks } from './block-registry'
 import { getAllCharts } from './chart-registry'
 import { icons } from './icon-data'
+import { getAllComponents } from './registry'
 
 export type SearchItemType = 'component' | 'block' | 'chart' | 'icon' | 'page'
 
@@ -83,9 +83,21 @@ function buildIndex() {
   // Static pages
   const pages: Array<{ name: string; description: string; href: string }> = [
     { name: 'Getting Started', description: 'Introduction to @vlting/ui', href: '/docs' },
-    { name: 'Theming', description: 'Brand system, palettes, tokens, and fonts', href: '/docs/theming' },
-    { name: 'Migration Guide', description: 'Migrate from shadcn/ui to @vlting/ui', href: '/docs/migration' },
-    { name: 'Icons', description: 'Browse 3200+ Remix icons with search and filter', href: '/docs/icons' },
+    {
+      name: 'Theming',
+      description: 'Brand system, palettes, tokens, and fonts',
+      href: '/docs/theming',
+    },
+    {
+      name: 'Migration Guide',
+      description: 'Migrate from shadcn/ui to @vlting/ui',
+      href: '/docs/migration',
+    },
+    {
+      name: 'Icons',
+      description: 'Browse 3200+ Remix icons with search and filter',
+      href: '/docs/icons',
+    },
   ]
   for (const p of pages) {
     searchItems.push({

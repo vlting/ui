@@ -5,7 +5,7 @@ describe('Stack', () => {
   describe('VStack', () => {
     it('renders children', () => {
       render(
-        <VStack testID="vstack">
+        <VStack data-testid="vstack">
           <div>Child</div>
         </VStack>,
       )
@@ -17,7 +17,7 @@ describe('Stack', () => {
   describe('HStack', () => {
     it('renders children', () => {
       render(
-        <HStack testID="hstack">
+        <HStack data-testid="hstack">
           <div>Child</div>
         </HStack>,
       )
@@ -29,7 +29,7 @@ describe('Stack', () => {
   describe('Stack (alias)', () => {
     it('renders children', () => {
       render(
-        <Stack testID="stack">
+        <Stack data-testid="stack">
           <div>Child</div>
         </Stack>,
       )

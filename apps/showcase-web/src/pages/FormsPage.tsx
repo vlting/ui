@@ -1,21 +1,22 @@
+import {
+  Checkbox,
+  Combobox,
+  DatePicker,
+  Field,
+  Input,
+  InputGroup,
+  InputOTP,
+  NativeSelect,
+  RadioGroup,
+  Select,
+  Slider,
+  Switch,
+  Textarea,
+  Toggle,
+  ToggleGroup,
+} from '@vlting/ui/components'
 import { useState } from 'react'
-import { Section, DemoCard, DemoRow } from '../components/Section'
-import { Input } from '@vlting/ui/components'
-import { Textarea } from '@vlting/ui/components'
-import { Checkbox } from '@vlting/ui/components'
-import { Switch } from '@vlting/ui/components'
-import { RadioGroup } from '@vlting/ui/components'
-import { Select } from '@vlting/ui/components'
-import { Slider } from '@vlting/ui/components'
-import { Toggle } from '@vlting/ui/components'
-import { ToggleGroup } from '@vlting/ui/components'
-import { Field } from '@vlting/ui/components'
-import { InputGroup } from '@vlting/ui/components'
-import { InputOTP } from '@vlting/ui/components'
-import { NativeSelect } from '@vlting/ui/components'
-import { Combobox } from '@vlting/ui/components'
-import { DatePicker } from '@vlting/ui/components'
-import { Label } from '@vlting/ui/primitives'
+import { DemoCard, DemoRow, Section } from '../components/Section'
 
 export function FormsPage() {
   const [checked, setChecked] = useState(false)
@@ -29,7 +30,9 @@ export function FormsPage() {
 
       <Section title="Input">
         <DemoCard label="Input variants">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 400 }}>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 400 }}
+          >
             <Input placeholder="Default input" />
             <Input placeholder="Disabled input" disabled />
             <Input type="password" placeholder="Password" />
@@ -48,7 +51,9 @@ export function FormsPage() {
 
       <Section title="Field">
         <DemoCard label="Form field with label and description">
-          <div style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div
+            style={{ maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 16 }}
+          >
             <Field.Root>
               <Field.Label>Username</Field.Label>
               <Input placeholder="Enter username" />
@@ -77,11 +82,16 @@ export function FormsPage() {
       <Section title="Checkbox">
         <DemoCard label="Checkbox states">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <Checkbox.Root checked={checked} onCheckedChange={(v) => setChecked(v === true)}>
+            <Checkbox.Root
+              checked={checked}
+              onCheckedChange={(v) => setChecked(v === true)}
+            >
               Accept terms and conditions
             </Checkbox.Root>
             <Checkbox.Root disabled>Disabled checkbox</Checkbox.Root>
-            <Checkbox.Root checked disabled>Checked disabled</Checkbox.Root>
+            <Checkbox.Root checked disabled>
+              Checked disabled
+            </Checkbox.Root>
           </div>
         </DemoCard>
       </Section>

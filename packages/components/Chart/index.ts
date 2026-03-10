@@ -1,34 +1,34 @@
-export { Chart, useChartContext } from './Chart'
-export type { ChartContainerProps } from './Chart'
-export { ChartTooltip } from './ChartTooltip'
-export type { ChartTooltipProps } from './ChartTooltip'
-export { ChartLegend } from './ChartLegend'
-export type { ChartLegendProps } from './ChartLegend'
-export { ChartDataTable } from './ChartDataTable'
-export type { ChartDataTableProps } from './ChartDataTable'
-export { AreaChart } from './AreaChart'
 export type { AreaChartProps } from './AreaChart'
-export { BarChart } from './BarChart'
+export { AreaChart } from './AreaChart'
 export type { BarChartProps } from './BarChart'
-export { LineChart } from './LineChart'
+export { BarChart } from './BarChart'
+export type { ChartContainerProps } from './Chart'
+export { Chart, useChartContext } from './Chart'
+export type { ChartDataTableProps } from './ChartDataTable'
+export { ChartDataTable } from './ChartDataTable'
+export type { ChartLegendProps } from './ChartLegend'
+export { ChartLegend } from './ChartLegend'
+export type { ChartTooltipProps } from './ChartTooltip'
+export { ChartTooltip } from './ChartTooltip'
 export type { LineChartProps } from './LineChart'
-export { PieChart } from './PieChart'
+export { LineChart } from './LineChart'
 export type { PieChartProps } from './PieChart'
-export { RadarChart } from './RadarChart'
+export { PieChart } from './PieChart'
 export type { RadarChartProps } from './RadarChart'
-export { RadialChart } from './RadialChart'
+export { RadarChart } from './RadarChart'
 export type { RadialChartProps } from './RadialChart'
+export { RadialChart } from './RadialChart'
 export type {
+  AreaChartVariant,
+  BarChartVariant,
   ChartConfig,
   ChartConfigEntry,
   ChartDataPoint,
-  TooltipVariant,
-  TooltipIndicator,
   LegendLayout,
-  AreaChartVariant,
-  BarChartVariant,
   LineChartVariant,
   PieChartVariant,
   RadarChartVariant,
   RadialChartVariant,
+  TooltipIndicator,
+  TooltipVariant,
 } from './types'

@@ -1,5 +1,5 @@
-import { styled } from '../stl-react/src/config'
 import React from 'react'
+import { styled } from '../stl-react/src/config'
 
 const baseStyles = {
   fontFamily: '$heading',

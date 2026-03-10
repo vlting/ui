@@ -78,7 +78,11 @@ function Link({
   children,
   href,
   onPress,
-}: { children: React.ReactNode; href?: string; onPress?: () => void }) {
+}: {
+  children: React.ReactNode
+  href?: string
+  onPress?: () => void
+}) {
   return (
     <a
       href={href || '#'}

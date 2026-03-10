@@ -1,4 +1,3 @@
-import React from 'react'
 import type { ChartConfig } from './types'
 
 export interface ChartDataTableProps {

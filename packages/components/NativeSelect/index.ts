@@ -1,2 +1,2 @@
+export type { NativeSelectOptionProps, NativeSelectRootProps } from './NativeSelect'
 export { NativeSelect } from './NativeSelect'
-export type { NativeSelectRootProps, NativeSelectOptionProps } from './NativeSelect'

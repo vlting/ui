@@ -1,4 +1,4 @@
-import { render, waitFor, act } from '@testing-library/react'
+import { act, render, waitFor } from '@testing-library/react'
 import { Suspense } from 'react'
 import { DynamicIcon } from '../Icon'
 

@@ -1,4 +1,4 @@
-import { Section, DemoCard, DemoRow } from '../components/Section'
+import { DemoCard, Section } from '../components/Section'
 
 export function UtilsPage() {
   return (
@@ -10,8 +10,16 @@ export function UtilsPage() {
 
       <Section title="cn()">
         <DemoCard label="Class name merging (clsx + tailwind-merge)">
-          <pre style={{ fontSize: 12, padding: 12, background: '#f5f5f5', borderRadius: 6, overflow: 'auto' }}>
-{`import { cn } from '@vlting/ui/utils'
+          <pre
+            style={{
+              fontSize: 12,
+              padding: 12,
+              background: '#f5f5f5',
+              borderRadius: 6,
+              overflow: 'auto',
+            }}
+          >
+            {`import { cn } from '@vlting/ui/utils'
 
 // Merge class names — handles conflicts and falsy values
 cn('px-4 py-2', 'px-6')           // → 'py-2 px-6'
@@ -32,8 +40,16 @@ function MyComponent({ className, active }: Props) {
 
       <Section title="mergeRefs()">
         <DemoCard label="Combine multiple refs into one">
-          <pre style={{ fontSize: 12, padding: 12, background: '#f5f5f5', borderRadius: 6, overflow: 'auto' }}>
-{`import { mergeRefs } from '@vlting/ui/utils'
+          <pre
+            style={{
+              fontSize: 12,
+              padding: 12,
+              background: '#f5f5f5',
+              borderRadius: 6,
+              overflow: 'auto',
+            }}
+          >
+            {`import { mergeRefs } from '@vlting/ui/utils'
 
 // Merge callback refs and RefObjects into a single ref callback
 const Component = forwardRef<HTMLDivElement, Props>((props, forwardedRef) => {
@@ -57,8 +73,16 @@ const Component = forwardRef<HTMLDivElement, Props>((props, forwardedRef) => {
 
       <Section title="composeEventHandlers()">
         <DemoCard label="Chain event handlers with cancellation support">
-          <pre style={{ fontSize: 12, padding: 12, background: '#f5f5f5', borderRadius: 6, overflow: 'auto' }}>
-{`import { composeEventHandlers } from '@vlting/ui/utils'
+          <pre
+            style={{
+              fontSize: 12,
+              padding: 12,
+              background: '#f5f5f5',
+              borderRadius: 6,
+              overflow: 'auto',
+            }}
+          >
+            {`import { composeEventHandlers } from '@vlting/ui/utils'
 
 // Compose two event handlers — the internal handler only runs
 // if the external handler doesn't call event.preventDefault()
@@ -82,8 +106,16 @@ const Component = forwardRef<HTMLDivElement, Props>((props, forwardedRef) => {
 
       <Section title="FontLoader">
         <DemoCard label="Google Fonts loading utilities">
-          <pre style={{ fontSize: 12, padding: 12, background: '#f5f5f5', borderRadius: 6, overflow: 'auto' }}>
-{`import {
+          <pre
+            style={{
+              fontSize: 12,
+              padding: 12,
+              background: '#f5f5f5',
+              borderRadius: 6,
+              overflow: 'auto',
+            }}
+          >
+            {`import {
   FontLoader,
   getGoogleFontsUrl,
   useFontLoader,

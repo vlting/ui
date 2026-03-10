@@ -1,2 +1,2 @@
+export type { CarouselItemProps, CarouselRootProps } from './Carousel'
 export { Carousel } from './Carousel'
-export type { CarouselRootProps, CarouselItemProps } from './Carousel'

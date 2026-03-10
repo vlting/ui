@@ -10,11 +10,7 @@
         "props": {
           "ratio": {
             "type": "number",
-            "values": [
-              "16/9",
-              "4/3",
-              "1"
-            ]
+            "values": ["16/9", "4/3", "1"]
           },
           "children": {
             "type": "ReactNode",
@@ -31,11 +27,7 @@
         "props": {
           "ratio": {
             "type": "number",
-            "values": [
-              "16/9",
-              "4/3",
-              "1"
-            ]
+            "values": ["16/9", "4/3", "1"]
           },
           "children": {
             "type": "ReactNode",
@@ -72,12 +64,7 @@
         "props": {
           "variant": {
             "type": "string",
-            "values": [
-              "default",
-              "secondary",
-              "destructive",
-              "outline"
-            ]
+            "values": ["default", "secondary", "destructive", "outline"]
           },
           "className": {
             "type": "string",
@@ -105,21 +92,11 @@
           },
           "tone": {
             "type": "string",
-            "values": [
-              "neutral",
-              "primary",
-              "success",
-              "warning",
-              "danger"
-            ]
+            "values": ["neutral", "primary", "success", "warning", "danger"]
           },
           "size": {
             "type": "string",
-            "values": [
-              "sm",
-              "md",
-              "lg"
-            ]
+            "values": ["sm", "md", "lg"]
           },
           "children": {
             "type": "ReactNode",
@@ -154,9 +131,7 @@
         "props": {
           "centered": {
             "type": "boolean",
-            "values": [
-              "true"
-            ]
+            "values": ["true"]
           },
           "children": {
             "type": "ReactNode",
@@ -179,10 +154,7 @@
         "props": {
           "orientation": {
             "type": "string",
-            "values": [
-              "horizontal",
-              "vertical"
-            ]
+            "values": ["horizontal", "vertical"]
           }
         }
       },
@@ -202,14 +174,7 @@
         "props": {
           "level": {
             "type": "number",
-            "values": [
-              "1",
-              "2",
-              "3",
-              "4",
-              "5",
-              "6"
-            ]
+            "values": ["1", "2", "3", "4", "5", "6"]
           },
           "children": {
             "type": "ReactNode",
@@ -238,11 +203,7 @@
           },
           "size": {
             "type": "number | string",
-            "values": [
-              "$1",
-              "16",
-              "24"
-            ]
+            "values": ["$1", "16", "24"]
           },
           "color": {
             "type": "string",
@@ -250,10 +211,7 @@
           },
           "aria-hidden": {
             "type": "boolean",
-            "values": [
-              "true",
-              "false"
-            ]
+            "values": ["true", "false"]
           },
           "aria-label": {
             "type": "string",
@@ -281,10 +239,7 @@
           },
           "size": {
             "type": "string",
-            "values": [
-              "sm",
-              "md"
-            ]
+            "values": ["sm", "md"]
           }
         }
       },
@@ -328,18 +283,11 @@
           },
           "size": {
             "type": "string",
-            "values": [
-              "sm",
-              "md",
-              "lg"
-            ]
+            "values": ["sm", "md", "lg"]
           },
           "required": {
             "type": "boolean",
-            "values": [
-              "true",
-              "false"
-            ]
+            "values": ["true", "false"]
           }
         }
       },
@@ -388,17 +336,11 @@
         "props": {
           "orientation": {
             "type": "string",
-            "values": [
-              "horizontal",
-              "vertical"
-            ]
+            "values": ["horizontal", "vertical"]
           },
           "decorative": {
             "type": "boolean",
-            "values": [
-              "true",
-              "false"
-            ]
+            "values": ["true", "false"]
           },
           "className": {
             "type": "string",
@@ -411,16 +353,11 @@
         "props": {
           "orientation": {
             "type": "string",
-            "values": [
-              "horizontal",
-              "vertical"
-            ]
+            "values": ["horizontal", "vertical"]
           },
           "decorative": {
             "type": "boolean",
-            "values": [
-              "true"
-            ]
+            "values": ["true"]
           }
         }
       },
@@ -460,9 +397,7 @@
         "props": {
           "circle": {
             "type": "boolean",
-            "values": [
-              "true"
-            ]
+            "values": ["true"]
           },
           "width": {
             "type": "number | string",
@@ -502,13 +437,7 @@
         "props": {
           "size": {
             "type": "string",
-            "values": [
-              "xs",
-              "sm",
-              "md",
-              "lg",
-              "xl"
-            ]
+            "values": ["xs", "sm", "md", "lg", "xl"]
           }
         }
       },
@@ -528,11 +457,7 @@
         "props": {
           "size": {
             "type": "string",
-            "values": [
-              "sm",
-              "md",
-              "lg"
-            ]
+            "values": ["sm", "md", "lg"]
           },
           "color": {
             "type": "string",
@@ -561,11 +486,7 @@
           },
           "gap": {
             "type": "number | string",
-            "values": [
-              "$1",
-              "$2",
-              "$4"
-            ]
+            "values": ["$1", "$2", "$4"]
           },
           "padding": {
             "type": "number | string",
@@ -573,21 +494,11 @@
           },
           "alignItems": {
             "type": "string",
-            "values": [
-              "center",
-              "flex-start",
-              "flex-end",
-              "stretch"
-            ]
+            "values": ["center", "flex-start", "flex-end", "stretch"]
           },
           "justifyContent": {
             "type": "string",
-            "values": [
-              "center",
-              "flex-start",
-              "flex-end",
-              "space-between"
-            ]
+            "values": ["center", "flex-start", "flex-end", "space-between"]
           }
         }
       },
@@ -608,34 +519,15 @@
         "props": {
           "size": {
             "type": "string",
-            "values": [
-              "xs",
-              "sm",
-              "md",
-              "lg",
-              "xl"
-            ]
+            "values": ["xs", "sm", "md", "lg", "xl"]
           },
           "tone": {
             "type": "string",
-            "values": [
-              "neutral",
-              "muted",
-              "primary",
-              "success",
-              "warning",
-              "danger"
-            ]
+            "values": ["neutral", "muted", "primary", "success", "warning", "danger"]
           },
           "weight": {
             "type": "string",
-            "values": [
-              "light",
-              "normal",
-              "medium",
-              "semibold",
-              "bold"
-            ]
+            "values": ["light", "normal", "medium", "semibold", "bold"]
           },
           "children": {
             "type": "ReactNode",
@@ -681,10 +573,7 @@
         "props": {
           "type": {
             "type": "string",
-            "values": [
-              "single",
-              "multiple"
-            ]
+            "values": ["single", "multiple"]
           },
           "defaultValue": {
             "type": "string | string[]",
@@ -692,10 +581,7 @@
           },
           "collapsible": {
             "type": "boolean",
-            "values": [
-              "true",
-              "false"
-            ]
+            "values": ["true", "false"]
           },
           "value": {
             "type": "string",
@@ -713,10 +599,7 @@
           "Accordion.Root": {
             "type": {
               "type": "string",
-              "values": [
-                "single",
-                "multiple"
-              ]
+              "values": ["single", "multiple"]
             },
             "defaultValue": {
               "type": "string[]",
@@ -724,10 +607,7 @@
             },
             "collapsible": {
               "type": "boolean",
-              "values": [
-                "true",
-                "false"
-              ]
+              "values": ["true", "false"]
             },
             "children": {
               "type": "ReactNode",
@@ -790,10 +670,7 @@
         "props": {
           "variant": {
             "type": "string",
-            "values": [
-              "default",
-              "destructive"
-            ]
+            "values": ["default", "destructive"]
           },
           "className": {
             "type": "string",
@@ -807,10 +684,7 @@
           "Alert.Root": {
             "variant": {
               "type": "string",
-              "values": [
-                "default",
-                "destructive"
-              ]
+              "values": ["default", "destructive"]
             },
             "children": {
               "type": "ReactNode",
@@ -876,9 +750,7 @@
           },
           "onOpenChange": {
             "type": "function",
-            "values": [
-              "(open: boolean) => void"
-            ]
+            "values": ["(open: boolean) => void"]
           },
           "className": {
             "type": "string",
@@ -900,9 +772,7 @@
             },
             "onOpenChange": {
               "type": "function",
-              "values": [
-                "(open: boolean) => void"
-              ]
+              "values": ["(open: boolean) => void"]
             },
             "children": {
               "type": "ReactNode",
@@ -1006,12 +876,7 @@
           "Avatar": {
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg",
-                "xl"
-              ]
+              "values": ["sm", "md", "lg", "xl"]
             },
             "src": {
               "type": "string",
@@ -1109,9 +974,7 @@
             },
             "onPress": {
               "type": "function",
-              "values": [
-                "() => void"
-              ]
+              "values": ["() => void"]
             },
             "children": {
               "type": "ReactNode",
@@ -1127,9 +990,7 @@
           "Breadcrumb.Separator": {
             "children": {
               "type": "ReactNode",
-              "values": [
-                "/"
-              ]
+              "values": ["/"]
             }
           }
         }
@@ -1172,30 +1033,15 @@
         "props": {
           "variant": {
             "type": "string",
-            "values": [
-              "default",
-              "secondary",
-              "destructive",
-              "outline",
-              "ghost",
-              "link"
-            ]
+            "values": ["default", "secondary", "destructive", "outline", "ghost", "link"]
           },
           "size": {
             "type": "string",
-            "values": [
-              "default",
-              "sm",
-              "lg",
-              "icon"
-            ]
+            "values": ["default", "sm", "lg", "icon"]
           },
           "asChild": {
             "type": "boolean",
-            "values": [
-              "true",
-              "false"
-            ]
+            "values": ["true", "false"]
           },
           "className": {
             "type": "string",
@@ -1224,50 +1070,27 @@
           },
           "tone": {
             "type": "string",
-            "values": [
-              "neutral",
-              "primary",
-              "success",
-              "warning",
-              "danger"
-            ]
+            "values": ["neutral", "primary", "success", "warning", "danger"]
           },
           "size": {
             "type": "string",
-            "values": [
-              "xs",
-              "sm",
-              "md",
-              "lg",
-              "icon"
-            ]
+            "values": ["xs", "sm", "md", "lg", "icon"]
           },
           "loading": {
             "type": "boolean",
-            "values": [
-              "true",
-              "false"
-            ]
+            "values": ["true", "false"]
           },
           "disabled": {
             "type": "boolean",
-            "values": [
-              "true",
-              "false"
-            ]
+            "values": ["true", "false"]
           },
           "onPress": {
             "type": "function",
-            "values": [
-              "() => void"
-            ]
+            "values": ["() => void"]
           },
           "asChild": {
             "type": "boolean",
-            "values": [
-              "true",
-              "false"
-            ]
+            "values": ["true", "false"]
           },
           "children": {
             "type": "ReactNode",
@@ -1316,10 +1139,7 @@
           "ButtonGroup.Root": {
             "orientation": {
               "type": "string",
-              "values": [
-                "horizontal",
-                "vertical"
-              ]
+              "values": ["horizontal", "vertical"]
             },
             "aria-label": {
               "type": "string",
@@ -1348,11 +1168,7 @@
         "props": {
           "mode": {
             "type": "string",
-            "values": [
-              "single",
-              "range",
-              "multiple"
-            ]
+            "values": ["single", "range", "multiple"]
           },
           "selected": {
             "type": "Date | DateRange",
@@ -1360,9 +1176,7 @@
           },
           "onSelect": {
             "type": "function",
-            "values": [
-              "(date: Date) => void"
-            ]
+            "values": ["(date: Date) => void"]
           },
           "disabled": {
             "type": "boolean | Matcher[]",
@@ -1384,9 +1198,7 @@
             },
             "onSelect": {
               "type": "function",
-              "values": [
-                "(date: Date) => void"
-              ]
+              "values": ["(date: Date) => void"]
             },
             "month": {
               "type": "Date",
@@ -1394,9 +1206,7 @@
             },
             "onMonthChange": {
               "type": "function",
-              "values": [
-                "(date: Date) => void"
-              ]
+              "values": ["(date: Date) => void"]
             },
             "disabled": {
               "type": "boolean",
@@ -1412,11 +1222,7 @@
             },
             "mode": {
               "type": "string",
-              "values": [
-                "single",
-                "range",
-                "multiple"
-              ]
+              "values": ["single", "range", "multiple"]
             }
           }
         }
@@ -1464,23 +1270,15 @@
           "Card": {
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ]
+              "values": ["sm", "md", "lg"]
             },
             "elevated": {
               "type": "boolean",
-              "values": [
-                "true"
-              ]
+              "values": ["true"]
             },
             "interactive": {
               "type": "boolean",
-              "values": [
-                "true"
-              ]
+              "values": ["true"]
             },
             "children": {
               "type": "ReactNode",
@@ -1508,11 +1306,7 @@
           "Card.Title": {
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ]
+              "values": ["sm", "md", "lg"]
             },
             "children": {
               "type": "ReactNode",
@@ -1522,11 +1316,7 @@
           "Card.Description": {
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ]
+              "values": ["sm", "md", "lg"]
             },
             "children": {
               "type": "ReactNode",
@@ -1568,10 +1358,7 @@
         "props": {
           "orientation": {
             "type": "string",
-            "values": [
-              "horizontal",
-              "vertical"
-            ]
+            "values": ["horizontal", "vertical"]
           },
           "opts": {
             "type": "EmblaCarouselOptions",
@@ -1589,30 +1376,19 @@
           "Carousel.Root": {
             "orientation": {
               "type": "string",
-              "values": [
-                "horizontal",
-                "vertical"
-              ]
+              "values": ["horizontal", "vertical"]
             },
             "loop": {
               "type": "boolean",
-              "values": [
-                "true",
-                "false"
-              ]
+              "values": ["true", "false"]
             },
             "autoplay": {
               "type": "boolean",
-              "values": [
-                "true",
-                "false"
-              ]
+              "values": ["true", "false"]
             },
             "autoplayInterval": {
               "type": "number",
-              "values": [
-                "5000"
-              ]
+              "values": ["5000"]
             },
             "children": {
               "type": "ReactNode",
@@ -1693,9 +1469,7 @@
           },
           "onCheckedChange": {
             "type": "function",
-            "values": [
-              "(checked: boolean | 'indeterminate') => void"
-            ]
+            "values": ["(checked: boolean | 'indeterminate') => void"]
           },
           "disabled": {
             "type": "boolean",
@@ -1733,9 +1507,7 @@
             },
             "onCheckedChange": {
               "type": "function",
-              "values": [
-                "(checked: boolean | 'indeterminate') => void"
-              ]
+              "values": ["(checked: boolean | 'indeterminate') => void"]
             },
             "disabled": {
               "type": "boolean",
@@ -1743,11 +1515,7 @@
             },
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ]
+              "values": ["sm", "md", "lg"]
             },
             "required": {
               "type": "boolean",
@@ -1815,9 +1583,7 @@
           },
           "onOpenChange": {
             "type": "function",
-            "values": [
-              "(open: boolean) => void"
-            ]
+            "values": ["(open: boolean) => void"]
           },
           "className": {
             "type": "string",
@@ -1839,9 +1605,7 @@
             },
             "onOpenChange": {
               "type": "function",
-              "values": [
-                "(open: boolean) => void"
-              ]
+              "values": ["(open: boolean) => void"]
             },
             "children": {
               "type": "ReactNode",
@@ -1916,27 +1680,19 @@
             },
             "onValueChange": {
               "type": "function",
-              "values": [
-                "(value: string) => void"
-              ]
+              "values": ["(value: string) => void"]
             },
             "placeholder": {
               "type": "string",
-              "values": [
-                "Select..."
-              ]
+              "values": ["Select..."]
             },
             "searchPlaceholder": {
               "type": "string",
-              "values": [
-                "Search..."
-              ]
+              "values": ["Search..."]
             },
             "emptyMessage": {
               "type": "string",
-              "values": [
-                "No results found."
-              ]
+              "values": ["No results found."]
             },
             "disabled": {
               "type": "boolean",
@@ -1977,9 +1733,7 @@
         "props": {
           "filter": {
             "type": "function",
-            "values": [
-              "(value: string, search: string) => number"
-            ]
+            "values": ["(value: string, search: string) => number"]
           },
           "loop": {
             "type": "boolean",
@@ -1997,9 +1751,7 @@
           "Command.Root": {
             "filter": {
               "type": "function",
-              "values": [
-                "(value: string, search: string) => boolean"
-              ]
+              "values": ["(value: string, search: string) => boolean"]
             },
             "loop": {
               "type": "boolean",
@@ -2013,9 +1765,7 @@
           "Command.Input": {
             "placeholder": {
               "type": "string",
-              "values": [
-                "Type a command or search..."
-              ]
+              "values": ["Type a command or search..."]
             }
           },
           "Command.List": {
@@ -2027,9 +1777,7 @@
           "Command.Empty": {
             "children": {
               "type": "ReactNode",
-              "values": [
-                "No results found."
-              ]
+              "values": ["No results found."]
             }
           },
           "Command.Group": {
@@ -2049,9 +1797,7 @@
             },
             "onSelect": {
               "type": "function",
-              "values": [
-                "(value: string) => void"
-              ]
+              "values": ["(value: string) => void"]
             },
             "disabled": {
               "type": "boolean",
@@ -2070,9 +1816,7 @@
           "Command.Loading": {
             "children": {
               "type": "ReactNode",
-              "values": [
-                "Loading..."
-              ]
+              "values": ["Loading..."]
             }
           }
         }
@@ -2115,9 +1859,7 @@
         "props": {
           "onOpenChange": {
             "type": "function",
-            "values": [
-              "(open: boolean) => void"
-            ]
+            "values": ["(open: boolean) => void"]
           },
           "className": {
             "type": "string",
@@ -2131,9 +1873,7 @@
           "ContextMenu.Root": {
             "onOpenChange": {
               "type": "function",
-              "values": [
-                "(open: boolean) => void"
-              ]
+              "values": ["(open: boolean) => void"]
             },
             "children": {
               "type": "ReactNode",
@@ -2155,9 +1895,7 @@
           "ContextMenu.Item": {
             "onSelect": {
               "type": "function",
-              "values": [
-                "() => void"
-              ]
+              "values": ["() => void"]
             },
             "disabled": {
               "type": "boolean",
@@ -2179,9 +1917,7 @@
             },
             "onCheckedChange": {
               "type": "function",
-              "values": [
-                "(checked: boolean) => void"
-              ]
+              "values": ["(checked: boolean) => void"]
             },
             "disabled": {
               "type": "boolean",
@@ -2267,9 +2003,7 @@
           },
           "onSortingChange": {
             "type": "function",
-            "values": [
-              "(sorting: SortingState) => void"
-            ]
+            "values": ["(sorting: SortingState) => void"]
           },
           "columnFilters": {
             "type": "ColumnFiltersState",
@@ -2277,9 +2011,7 @@
           },
           "onColumnFiltersChange": {
             "type": "function",
-            "values": [
-              "(filters: ColumnFiltersState) => void"
-            ]
+            "values": ["(filters: ColumnFiltersState) => void"]
           },
           "globalFilter": {
             "type": "string",
@@ -2287,9 +2019,7 @@
           },
           "onGlobalFilterChange": {
             "type": "function",
-            "values": [
-              "(filter: string) => void"
-            ]
+            "values": ["(filter: string) => void"]
           },
           "pagination": {
             "type": "PaginationState",
@@ -2297,9 +2027,7 @@
           },
           "onPaginationChange": {
             "type": "function",
-            "values": [
-              "(pagination: PaginationState) => void"
-            ]
+            "values": ["(pagination: PaginationState) => void"]
           },
           "columnVisibility": {
             "type": "VisibilityState",
@@ -2307,22 +2035,15 @@
           },
           "onColumnVisibilityChange": {
             "type": "function",
-            "values": [
-              "(visibility: VisibilityState) => void"
-            ]
+            "values": ["(visibility: VisibilityState) => void"]
           },
           "enablePagination": {
             "type": "boolean",
-            "values": [
-              "true",
-              "false"
-            ]
+            "values": ["true", "false"]
           },
           "pageSize": {
             "type": "number",
-            "values": [
-              "10"
-            ]
+            "values": ["10"]
           }
         }
       },
@@ -2377,15 +2098,11 @@
           },
           "onValueChange": {
             "type": "function",
-            "values": [
-              "(date: Date | undefined) => void"
-            ]
+            "values": ["(date: Date | undefined) => void"]
           },
           "placeholder": {
             "type": "string",
-            "values": [
-              "Select date..."
-            ]
+            "values": ["Select date..."]
           },
           "label": {
             "type": "string",
@@ -2409,11 +2126,7 @@
           },
           "size": {
             "type": "string",
-            "values": [
-              "sm",
-              "md",
-              "lg"
-            ]
+            "values": ["sm", "md", "lg"]
           },
           "minDate": {
             "type": "Date",
@@ -2425,9 +2138,7 @@
           },
           "locale": {
             "type": "string",
-            "values": [
-              "en-US"
-            ]
+            "values": ["en-US"]
           }
         }
       },
@@ -2473,9 +2184,7 @@
           },
           "onOpenChange": {
             "type": "function",
-            "values": [
-              "(open: boolean) => void"
-            ]
+            "values": ["(open: boolean) => void"]
           },
           "className": {
             "type": "string",
@@ -2497,9 +2206,7 @@
             },
             "onOpenChange": {
               "type": "function",
-              "values": [
-                "(open: boolean) => void"
-              ]
+              "values": ["(open: boolean) => void"]
             },
             "children": {
               "type": "ReactNode",
@@ -2515,11 +2222,7 @@
           "Dialog.Content": {
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ]
+              "values": ["sm", "md", "lg"]
             },
             "children": {
               "type": "ReactNode",
@@ -2599,10 +2302,7 @@
           "Direction.Provider (DirectionProvider)": {
             "dir": {
               "type": "string",
-              "values": [
-                "ltr",
-                "rtl"
-              ]
+              "values": ["ltr", "rtl"]
             },
             "children": {
               "type": "ReactNode",
@@ -2631,9 +2331,7 @@
           },
           "onOpenChange": {
             "type": "function",
-            "values": [
-              "(open: boolean) => void"
-            ]
+            "values": ["(open: boolean) => void"]
           },
           "className": {
             "type": "string",
@@ -2651,18 +2349,11 @@
             },
             "onOpenChange": {
               "type": "function",
-              "values": [
-                "(open: boolean) => void"
-              ]
+              "values": ["(open: boolean) => void"]
             },
             "direction": {
               "type": "string",
-              "values": [
-                "bottom",
-                "top",
-                "left",
-                "right"
-              ]
+              "values": ["bottom", "top", "left", "right"]
             },
             "children": {
               "type": "ReactNode",
@@ -2678,12 +2369,7 @@
           "Drawer.Content": {
             "direction": {
               "type": "string",
-              "values": [
-                "bottom",
-                "top",
-                "left",
-                "right"
-              ]
+              "values": ["bottom", "top", "left", "right"]
             },
             "showHandle": {
               "type": "boolean",
@@ -2768,9 +2454,7 @@
           },
           "onOpenChange": {
             "type": "function",
-            "values": [
-              "(open: boolean) => void"
-            ]
+            "values": ["(open: boolean) => void"]
           },
           "modal": {
             "type": "boolean",
@@ -2792,9 +2476,7 @@
             },
             "onOpenChange": {
               "type": "function",
-              "values": [
-                "(open: boolean) => void"
-              ]
+              "values": ["(open: boolean) => void"]
             },
             "modal": {
               "type": "boolean",
@@ -2820,9 +2502,7 @@
           "DropdownMenu.Item": {
             "onSelect": {
               "type": "function",
-              "values": [
-                "() => void"
-              ]
+              "values": ["() => void"]
             },
             "disabled": {
               "type": "boolean",
@@ -2844,9 +2524,7 @@
             },
             "onCheckedChange": {
               "type": "function",
-              "values": [
-                "(checked: boolean) => void"
-              ]
+              "values": ["(checked: boolean) => void"]
             },
             "disabled": {
               "type": "boolean",
@@ -3017,9 +2695,7 @@
           "Form.Root": {
             "onSubmit": {
               "type": "function",
-              "values": [
-                "(e: React.FormEvent) => void"
-              ]
+              "values": ["(e: React.FormEvent) => void"]
             },
             "children": {
               "type": "ReactNode",
@@ -3102,15 +2778,11 @@
         "props": {
           "openDelay": {
             "type": "number",
-            "values": [
-              "700"
-            ]
+            "values": ["700"]
           },
           "closeDelay": {
             "type": "number",
-            "values": [
-              "300"
-            ]
+            "values": ["300"]
           },
           "className": {
             "type": "string",
@@ -3124,15 +2796,11 @@
           "HoverCard.Root": {
             "openDelay": {
               "type": "number",
-              "values": [
-                "700"
-              ]
+              "values": ["700"]
             },
             "closeDelay": {
               "type": "number",
-              "values": [
-                "300"
-              ]
+              "values": ["300"]
             },
             "children": {
               "type": "ReactNode",
@@ -3148,18 +2816,11 @@
           "HoverCard.Content": {
             "side": {
               "type": "string",
-              "values": [
-                "top",
-                "bottom"
-              ]
+              "values": ["top", "bottom"]
             },
             "align": {
               "type": "string",
-              "values": [
-                "start",
-                "center",
-                "end"
-              ]
+              "values": ["start", "center", "end"]
             },
             "children": {
               "type": "ReactNode",
@@ -3205,15 +2866,7 @@
         "props": {
           "type": {
             "type": "string",
-            "values": [
-              "text",
-              "password",
-              "email",
-              "number",
-              "search",
-              "tel",
-              "url"
-            ]
+            "values": ["text", "password", "email", "number", "search", "tel", "url"]
           },
           "placeholder": {
             "type": "string",
@@ -3234,11 +2887,7 @@
         "props": {
           "size": {
             "type": "string",
-            "values": [
-              "sm",
-              "md",
-              "lg"
-            ]
+            "values": ["sm", "md", "lg"]
           },
           "type": {
             "type": "string",
@@ -3268,9 +2917,7 @@
           },
           "onChangeText": {
             "type": "function",
-            "values": [
-              "(text: string) => void"
-            ]
+            "values": ["(text: string) => void"]
           },
           "label": {
             "type": "string",
@@ -3343,18 +2990,11 @@
           "InputGroup (Root)": {
             "orientation": {
               "type": "string",
-              "values": [
-                "horizontal",
-                "vertical"
-              ]
+              "values": ["horizontal", "vertical"]
             },
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ]
+              "values": ["sm", "md", "lg"]
             },
             "aria-label": {
               "type": "string",
@@ -3374,10 +3014,7 @@
           "InputGroup.Element": {
             "placement": {
               "type": "string",
-              "values": [
-                "left",
-                "right"
-              ]
+              "values": ["left", "right"]
             },
             "children": {
               "type": "ReactNode",
@@ -3410,15 +3047,11 @@
         "props": {
           "maxLength": {
             "type": "number",
-            "values": [
-              "6"
-            ]
+            "values": ["6"]
           },
           "pattern": {
             "type": "string",
-            "values": [
-              "REGEXP_ONLY_DIGITS"
-            ]
+            "values": ["REGEXP_ONLY_DIGITS"]
           },
           "className": {
             "type": "string",
@@ -3432,9 +3065,7 @@
           "InputOTP.Root": {
             "maxLength": {
               "type": "number",
-              "values": [
-                "6"
-              ]
+              "values": ["6"]
             },
             "value": {
               "type": "string",
@@ -3442,15 +3073,11 @@
             },
             "onChange": {
               "type": "function",
-              "values": [
-                "(value: string) => void"
-              ]
+              "values": ["(value: string) => void"]
             },
             "onComplete": {
               "type": "function",
-              "values": [
-                "(value: string) => void"
-              ]
+              "values": ["(value: string) => void"]
             },
             "disabled": {
               "type": "boolean",
@@ -3526,19 +3153,12 @@
           "Item.Root": {
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             },
             "interactive": {
               "type": "boolean",
-              "values": [
-                true,
-                false
-              ]
+              "values": [true, false]
             }
           },
           "Item.Leading": {
@@ -3550,22 +3170,14 @@
           "Item.Title": {
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             }
           },
           "Item.Description": {
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             }
           },
@@ -3596,20 +3208,12 @@
         "props": {
           "size": {
             "type": "string",
-            "values": [
-              "sm",
-              "md",
-              "lg"
-            ],
+            "values": ["sm", "md", "lg"],
             "default": "md"
           },
           "variant": {
             "type": "string",
-            "values": [
-              "primary",
-              "light",
-              "dark"
-            ],
+            "values": ["primary", "light", "dark"],
             "default": "primary"
           }
         }
@@ -3806,11 +3410,7 @@
           "MenubarContent": {
             "align": {
               "type": "string",
-              "values": [
-                "start",
-                "center",
-                "end"
-              ]
+              "values": ["start", "center", "end"]
             },
             "sideOffset": {
               "type": "number"
@@ -3918,11 +3518,7 @@
             },
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             },
             "name": {
@@ -4103,12 +3699,7 @@
             },
             "size": {
               "type": "string",
-              "values": [
-                "default",
-                "sm",
-                "lg",
-                "icon"
-              ]
+              "values": ["default", "sm", "lg", "icon"]
             }
           },
           "PaginationPrevious": {
@@ -4146,11 +3737,7 @@
             },
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             },
             "navVariant": {
@@ -4200,11 +3787,7 @@
             },
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             },
             "variant": {
@@ -4224,11 +3807,7 @@
             },
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             },
             "variant": {
@@ -4252,11 +3831,7 @@
             },
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             },
             "variant": {
@@ -4266,11 +3841,7 @@
           "Pagination.Ellipsis": {
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             }
           }
@@ -4321,23 +3892,14 @@
           "PopoverContent": {
             "side": {
               "type": "string",
-              "values": [
-                "top",
-                "right",
-                "bottom",
-                "left"
-              ]
+              "values": ["top", "right", "bottom", "left"]
             },
             "sideOffset": {
               "type": "number"
             },
             "align": {
               "type": "string",
-              "values": [
-                "start",
-                "center",
-                "end"
-              ]
+              "values": ["start", "center", "end"]
             },
             "className": {
               "type": "string"
@@ -4361,12 +3923,7 @@
             },
             "placement": {
               "type": "string",
-              "values": [
-                "top",
-                "bottom",
-                "left",
-                "right"
-              ],
+              "values": ["top", "bottom", "left", "right"],
               "default": "bottom"
             },
             "offset": {
@@ -4466,11 +4023,7 @@
           },
           "size": {
             "type": "string",
-            "values": [
-              "sm",
-              "md",
-              "lg"
-            ],
+            "values": ["sm", "md", "lg"],
             "default": "md"
           },
           "aria-label": {
@@ -4519,10 +4072,7 @@
             },
             "orientation": {
               "type": "string",
-              "values": [
-                "horizontal",
-                "vertical"
-              ]
+              "values": ["horizontal", "vertical"]
             }
           },
           "RadioGroupItem": {
@@ -4561,19 +4111,12 @@
             },
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             },
             "orientation": {
               "type": "string",
-              "values": [
-                "horizontal",
-                "vertical"
-              ],
+              "values": ["horizontal", "vertical"],
               "default": "vertical"
             },
             "aria-label": {
@@ -4636,10 +4179,7 @@
           "ResizablePanelGroup": {
             "direction": {
               "type": "string",
-              "values": [
-                "horizontal",
-                "vertical"
-              ]
+              "values": ["horizontal", "vertical"]
             },
             "onLayout": {
               "type": "function"
@@ -4678,10 +4218,7 @@
           "Resizable.PanelGroup": {
             "direction": {
               "type": "string",
-              "values": [
-                "horizontal",
-                "vertical"
-              ],
+              "values": ["horizontal", "vertical"],
               "default": "horizontal"
             },
             "onLayout": {
@@ -4755,21 +4292,13 @@
             },
             "type": {
               "type": "string",
-              "values": [
-                "auto",
-                "always",
-                "scroll",
-                "hover"
-              ]
+              "values": ["auto", "always", "scroll", "hover"]
             }
           },
           "ScrollBar": {
             "orientation": {
               "type": "string",
-              "values": [
-                "vertical",
-                "horizontal"
-              ]
+              "values": ["vertical", "horizontal"]
             }
           }
         }
@@ -4780,20 +4309,11 @@
           "ScrollArea.Root": {
             "orientation": {
               "type": "string",
-              "values": [
-                "vertical",
-                "horizontal",
-                "both"
-              ]
+              "values": ["vertical", "horizontal", "both"]
             },
             "type": {
               "type": "string",
-              "values": [
-                "auto",
-                "always",
-                "scroll",
-                "hover"
-              ]
+              "values": ["auto", "always", "scroll", "hover"]
             },
             "children": {
               "type": "ReactNode"
@@ -4802,11 +4322,7 @@
           "ScrollArea.Viewport": {
             "orientation": {
               "type": "string",
-              "values": [
-                "vertical",
-                "horizontal",
-                "both"
-              ],
+              "values": ["vertical", "horizontal", "both"],
               "default": "vertical"
             },
             "children": {
@@ -4816,10 +4332,7 @@
           "ScrollArea.Scrollbar": {
             "orientation": {
               "type": "string",
-              "values": [
-                "vertical",
-                "horizontal"
-              ]
+              "values": ["vertical", "horizontal"]
             }
           },
           "ScrollArea.Thumb": {},
@@ -4912,11 +4425,7 @@
             },
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             },
             "disabled": {
@@ -4994,12 +4503,7 @@
           "SheetContent": {
             "side": {
               "type": "string",
-              "values": [
-                "top",
-                "right",
-                "bottom",
-                "left"
-              ]
+              "values": ["top", "right", "bottom", "left"]
             },
             "className": {
               "type": "string"
@@ -5096,28 +4600,17 @@
           "Sidebar.Root": {
             "collapsible": {
               "type": "string",
-              "values": [
-                "offcanvas",
-                "icon",
-                "none"
-              ],
+              "values": ["offcanvas", "icon", "none"],
               "default": "offcanvas"
             },
             "side": {
               "type": "string",
-              "values": [
-                "left",
-                "right"
-              ],
+              "values": ["left", "right"],
               "default": "left"
             },
             "variant": {
               "type": "string",
-              "values": [
-                "sidebar",
-                "floating",
-                "inset"
-              ],
+              "values": ["sidebar", "floating", "inset"],
               "default": "sidebar"
             },
             "defaultOpen": {
@@ -5268,10 +4761,7 @@
           },
           "orientation": {
             "type": "string",
-            "values": [
-              "horizontal",
-              "vertical"
-            ]
+            "values": ["horizontal", "vertical"]
           },
           "className": {
             "type": "string"
@@ -5307,11 +4797,7 @@
           },
           "size": {
             "type": "string",
-            "values": [
-              "sm",
-              "md",
-              "lg"
-            ],
+            "values": ["sm", "md", "lg"],
             "default": "md"
           },
           "disabled": {
@@ -5400,11 +4886,7 @@
           },
           "size": {
             "type": "string",
-            "values": [
-              "sm",
-              "md",
-              "lg"
-            ],
+            "values": ["sm", "md", "lg"],
             "default": "md"
           },
           "name": {
@@ -5604,10 +5086,7 @@
             },
             "orientation": {
               "type": "string",
-              "values": [
-                "horizontal",
-                "vertical"
-              ]
+              "values": ["horizontal", "vertical"]
             }
           },
           "TabsTrigger": {
@@ -5649,10 +5128,7 @@
             },
             "orientation": {
               "type": "string",
-              "values": [
-                "horizontal",
-                "vertical"
-              ]
+              "values": ["horizontal", "vertical"]
             },
             "children": {
               "type": "ReactNode"
@@ -5661,11 +5137,7 @@
           "Tabs.List": {
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ]
+              "values": ["sm", "md", "lg"]
             },
             "children": {
               "type": "ReactNode"
@@ -5681,11 +5153,7 @@
             },
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             },
             "children": {
@@ -5796,11 +5264,7 @@
           },
           "size": {
             "type": "string",
-            "values": [
-              "sm",
-              "md",
-              "lg"
-            ],
+            "values": ["sm", "md", "lg"],
             "default": "md"
           },
           "rows": {
@@ -5850,10 +5314,7 @@
           "Toast": {
             "variant": {
               "type": "string",
-              "values": [
-                "default",
-                "destructive"
-              ]
+              "values": ["default", "destructive"]
             },
             "className": {
               "type": "string"
@@ -5868,12 +5329,7 @@
           "ToastProvider": {
             "swipeDirection": {
               "type": "string",
-              "values": [
-                "up",
-                "down",
-                "left",
-                "right"
-              ]
+              "values": ["up", "down", "left", "right"]
             },
             "duration": {
               "type": "number"
@@ -5888,12 +5344,7 @@
             "Toast.Root": {
               "variant": {
                 "type": "string",
-                "values": [
-                  "default",
-                  "success",
-                  "error",
-                  "warning"
-                ],
+                "values": ["default", "success", "error", "warning"],
                 "default": "default"
               },
               "duration": {
@@ -5938,12 +5389,7 @@
             "Toast.Provider": {
               "swipeDirection": {
                 "type": "string",
-                "values": [
-                  "up",
-                  "down",
-                  "left",
-                  "right"
-                ],
+                "values": ["up", "down", "left", "right"],
                 "default": "right"
               },
               "duration": {
@@ -6067,18 +5513,11 @@
           },
           "variant": {
             "type": "string",
-            "values": [
-              "default",
-              "outline"
-            ]
+            "values": ["default", "outline"]
           },
           "size": {
             "type": "string",
-            "values": [
-              "default",
-              "sm",
-              "lg"
-            ]
+            "values": ["default", "sm", "lg"]
           },
           "disabled": {
             "type": "boolean"
@@ -6105,19 +5544,12 @@
             },
             "variant": {
               "type": "string",
-              "values": [
-                "default",
-                "outline"
-              ],
+              "values": ["default", "outline"],
               "default": "default"
             },
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             },
             "disabled": {
@@ -6130,10 +5562,7 @@
           "ToggleGroup": {
             "type": {
               "type": "string",
-              "values": [
-                "single",
-                "multiple"
-              ],
+              "values": ["single", "multiple"],
               "default": "single"
             },
             "value": {
@@ -6148,11 +5577,7 @@
             },
             "size": {
               "type": "string",
-              "values": [
-                "sm",
-                "md",
-                "lg"
-              ],
+              "values": ["sm", "md", "lg"],
               "default": "md"
             },
             "disabled": {
@@ -6160,10 +5585,7 @@
             },
             "orientation": {
               "type": "string",
-              "values": [
-                "horizontal",
-                "vertical"
-              ],
+              "values": ["horizontal", "vertical"],
               "default": "horizontal"
             },
             "children": {
@@ -6234,23 +5656,14 @@
           "TooltipContent": {
             "side": {
               "type": "string",
-              "values": [
-                "top",
-                "right",
-                "bottom",
-                "left"
-              ]
+              "values": ["top", "right", "bottom", "left"]
             },
             "sideOffset": {
               "type": "number"
             },
             "align": {
               "type": "string",
-              "values": [
-                "start",
-                "center",
-                "end"
-              ]
+              "values": ["start", "center", "end"]
             },
             "className": {
               "type": "string"
@@ -6282,12 +5695,7 @@
             },
             "side": {
               "type": "string",
-              "values": [
-                "top",
-                "right",
-                "bottom",
-                "left"
-              ],
+              "values": ["top", "right", "bottom", "left"],
               "default": "top"
             },
             "sideOffset": {
@@ -6296,11 +5704,7 @@
             },
             "align": {
               "type": "string",
-              "values": [
-                "start",
-                "center",
-                "end"
-              ],
+              "values": ["start", "center", "end"],
               "default": "center"
             },
             "delay": {

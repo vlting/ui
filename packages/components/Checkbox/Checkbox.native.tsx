@@ -1,6 +1,7 @@
-import React, { forwardRef, useCallback, useState } from 'react'
-import { View, Text as RNText, Pressable } from 'react-native'
+import type React from 'react'
+import { useCallback, useState } from 'react'
 import type { ViewStyle } from 'react-native'
+import { Pressable, Text as RNText, View } from 'react-native'
 import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------

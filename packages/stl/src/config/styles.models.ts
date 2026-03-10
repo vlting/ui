@@ -1,12 +1,12 @@
-import { Shared, NotShared, CoreCustomValues } from '../shared/models'
-import { conditionsMap } from './conditions'
-import {
+import type { CoreCustomValues, NotShared, Shared } from '../shared/models'
+import type { conditionsMap } from './conditions'
+import type {
   CssPropKey,
   CustomVarPropHints,
   CustomVarPropValue,
   WithMappedProps,
 } from './props'
-import { CSS } from './styles.css'
+import type { CSS } from './styles.css'
 
 export const BASE = 'base'
 
@@ -58,15 +58,17 @@ export type MergedCssProps<A extends MapProps, B extends MapProps, C extends Map
   [prop in NestedShared<B, A, C>]?: A[prop] | C[prop] | B[prop]
 } & { [prop in NestedShared<A, B, C>]?: A[prop] | C[prop] | B[prop] } & {
   [prop in NestedShared<C, B, A>]?: A[prop] | C[prop] | B[prop]
-} & { [prop in NestedShared<B, C, A>]?: A[prop] | C[prop] | B[prop] } & //
-{ [prop in ExclusivelyShared<A, C, B>]?: A[prop] | C[prop] } & {
+} & { [prop in NestedShared<B, C, A>]?: A[prop] | C[prop] | B[prop] } & {
+  //
+  [prop in ExclusivelyShared<A, C, B>]?: A[prop] | C[prop]
+} & {
   [prop in ExclusivelyShared<A, B, C>]?: A[prop] | B[prop]
 } & { [prop in ExclusivelyShared<C, A, B>]?: A[prop] | C[prop] } & {
   [prop in ExclusivelyShared<C, B, A>]?: B[prop] | C[prop]
 } & { [prop in ExclusivelyShared<B, C, A>]?: B[prop] | C[prop] } & {
   [prop in ExclusivelyShared<B, A, C>]?: A[prop] | B[prop]
-} & //
-{ [prop in Exclusive<A, C, B>]?: A[prop] } & {
+} & { [prop in Exclusive<A, C, B>]?: A[prop] } & {
+  //
   [prop in Exclusive<A, B, C>]?: A[prop]
 } & { [prop in Exclusive<C, A, B>]?: C[prop] } & {
   [prop in Exclusive<C, B, A>]?: C[prop]

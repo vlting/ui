@@ -239,7 +239,7 @@ function SelectRootComponent({
               role="listbox"
               style={{ padding: '4px', maxHeight: '240px', overflowY: 'auto' }}
             >
-              {React.Children.map(children, (child, i) => {
+              {React.Children.map(children, (child, _i) => {
                 if (React.isValidElement(child) && (child.type as any) === SelectItem) {
                   const itemIdx = items.indexOf(child as React.ReactElement)
                   return React.cloneElement(

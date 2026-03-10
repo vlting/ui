@@ -510,14 +510,19 @@ export function generateThemeColors<T = string>(
     let hue = isInputObject ? inputValue.hue : (inputValue as number)
     let saturation = isInputObject ? (inputValue.saturation ?? 100) : 100
 
-    if ((!isMapped && typeof hue !== 'number') || isNaN(hue) || hue > 360 || hue < 0) {
+    if (
+      (!isMapped && typeof hue !== 'number') ||
+      Number.isNaN(hue) ||
+      hue > 360 ||
+      hue < 0
+    ) {
       throw new Error(
         `Invalid value for hue on color "${colorKey}": ${hue}. Must be a number between 0 and 360.`,
       )
     }
     if (
       typeof saturation !== 'number' ||
-      isNaN(saturation) ||
+      Number.isNaN(saturation) ||
       saturation > 100 ||
       saturation < 0
     ) {
@@ -548,7 +553,7 @@ export function generateThemeColors<T = string>(
       const contrast = inputValue.contrast
       if (
         typeof contrast !== 'number' ||
-        isNaN(contrast) ||
+        Number.isNaN(contrast) ||
         contrast > 100 ||
         contrast < 0
       ) {

@@ -1,14 +1,14 @@
-import { Section, DemoCard } from '../components/Section'
+import type { ChartConfig, ChartDataPoint } from '@vlting/ui/components'
 import {
-  Chart,
   AreaChart,
   BarChart,
+  Chart,
   LineChart,
   PieChart,
   RadarChart,
   RadialChart,
 } from '@vlting/ui/components'
-import type { ChartConfig, ChartDataPoint } from '@vlting/ui/components'
+import { DemoCard, Section } from '../components/Section'
 
 // -- Shared sample data --
 
@@ -60,9 +60,7 @@ const radarConfig: ChartConfig = {
   competitor: { label: 'Competitor', color: '$red8' },
 }
 
-const radialData: ChartDataPoint[] = [
-  { x: 'Progress', y: 72 },
-]
+const radialData: ChartDataPoint[] = [{ x: 'Progress', y: 72 }]
 
 const radialConfig: ChartConfig = {
   y: { label: 'Completion', color: '$primary8' },
@@ -73,18 +71,25 @@ export function ChartsPage() {
     <div>
       <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }}>Charts</h1>
       <p style={{ color: '#666', marginBottom: 24, fontSize: 14 }}>
-        Six chart types built on Victory, wrapped in a unified <code>&lt;Chart&gt;</code> container that resolves design tokens.
+        Six chart types built on Victory, wrapped in a unified <code>&lt;Chart&gt;</code>{' '}
+        container that resolves design tokens.
       </p>
 
       {/* Area Chart */}
       <Section title="AreaChart">
         <DemoCard label="Default area chart">
-          <Chart config={singleSeriesConfig} accessibilityLabel="Monthly revenue area chart">
+          <Chart
+            config={singleSeriesConfig}
+            accessibilityLabel="Monthly revenue area chart"
+          >
             <AreaChart data={monthlyData} config={singleSeriesConfig} />
           </Chart>
         </DemoCard>
         <DemoCard label="Stacked area (two series)">
-          <Chart config={twoSeriesConfig} accessibilityLabel="Desktop vs mobile stacked area chart">
+          <Chart
+            config={twoSeriesConfig}
+            accessibilityLabel="Desktop vs mobile stacked area chart"
+          >
             <AreaChart
               data={monthlyData}
               config={twoSeriesConfig}
@@ -95,7 +100,11 @@ export function ChartsPage() {
         </DemoCard>
         <DemoCard label="Gradient variant">
           <Chart config={singleSeriesConfig} accessibilityLabel="Gradient area chart">
-            <AreaChart data={monthlyData} config={singleSeriesConfig} variant="gradient" />
+            <AreaChart
+              data={monthlyData}
+              config={singleSeriesConfig}
+              variant="gradient"
+            />
           </Chart>
         </DemoCard>
       </Section>
@@ -122,8 +131,17 @@ export function ChartsPage() {
       {/* Line Chart */}
       <Section title="LineChart">
         <DemoCard label="Line chart with dots">
-          <Chart config={twoSeriesConfig} accessibilityLabel="Line chart with data points">
-            <LineChart data={monthlyData} variant="dots" xAxisKey="x" showXAxis showYAxis />
+          <Chart
+            config={twoSeriesConfig}
+            accessibilityLabel="Line chart with data points"
+          >
+            <LineChart
+              data={monthlyData}
+              variant="dots"
+              xAxisKey="x"
+              showXAxis
+              showYAxis
+            />
           </Chart>
         </DemoCard>
         <DemoCard label="Multiple series with legend">
@@ -214,8 +232,16 @@ export function ChartsPage() {
       {/* Chart Composition */}
       <Section title="Chart API">
         <DemoCard label="How charts are structured">
-          <pre style={{ fontSize: 12, padding: 12, background: '#f5f5f5', borderRadius: 6, overflow: 'auto' }}>
-{`// Every chart type wraps in a <Chart> container
+          <pre
+            style={{
+              fontSize: 12,
+              padding: 12,
+              background: '#f5f5f5',
+              borderRadius: 6,
+              overflow: 'auto',
+            }}
+          >
+            {`// Every chart type wraps in a <Chart> container
 import { Chart, BarChart } from '@vlting/ui/components'
 import type { ChartConfig, ChartDataPoint } from '@vlting/ui/components'
 

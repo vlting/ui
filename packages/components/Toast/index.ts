@@ -1,4 +1,4 @@
+export type { ToastProviderProps, ToastRootProps, ToastViewportProps } from './Toast'
 export { Toast, useToastController, useToastState } from './Toast'
-export type { ToastRootProps, ToastViewportProps, ToastProviderProps } from './Toast'
-export { toast, ImperativeToastViewport, useImperativeToasts } from './toast-imperative'
-export type { ToastData, PromiseToastData } from './toast-imperative'
+export type { PromiseToastData, ToastData } from './toast-imperative'
+export { ImperativeToastViewport, toast, useImperativeToasts } from './toast-imperative'

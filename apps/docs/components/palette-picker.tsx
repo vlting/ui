@@ -1,13 +1,17 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 // Inline the palette generation to avoid SSR import issues
 const LIGHT_LIGHTNESS = [98, 95, 90, 83, 74, 64, 53, 42, 32, 23, 15, 8]
 const DARK_LIGHTNESS = [8, 12, 18, 24, 32, 42, 53, 64, 74, 83, 90, 96]
 const SATURATION_CURVE = [0.15, 0.3, 0.5, 0.7, 0.85, 0.95, 1, 0.95, 0.9, 0.85, 0.75, 0.6]
 
-function generatePalette(hue: number, saturation: number, mode: 'light' | 'dark'): string[] {
+function generatePalette(
+  hue: number,
+  saturation: number,
+  mode: 'light' | 'dark',
+): string[] {
   const lightness = mode === 'light' ? LIGHT_LIGHTNESS : DARK_LIGHTNESS
   return lightness.map((l, i) => {
     const s = Math.round(saturation * SATURATION_CURVE[i])
@@ -35,10 +39,18 @@ export function PalettePicker() {
   const [saturation, setSaturation] = useState(50)
   const [mode, setMode] = useState<'light' | 'dark'>('light')
 
-  const palette = useMemo(() => generatePalette(hue, saturation, mode), [hue, saturation, mode])
+  const palette = useMemo(
+    () => generatePalette(hue, saturation, mode),
+    [hue, saturation, mode],
+  )
 
   const codeOutput = useMemo(() => {
-    const steps = palette.map((c, i) => `  '${c}',${i === 0 ? '  // 0 — background' : i === 11 ? '  // 11 — foreground' : ''}`).join('\n')
+    const steps = palette
+      .map(
+        (c, i) =>
+          `  '${c}',${i === 0 ? '  // 0 — background' : i === 11 ? '  // 11 — foreground' : ''}`,
+      )
+      .join('\n')
     return `palettes: {\n  ${mode}: [\n${steps}\n  ],\n}`
   }, [palette, mode])
 
@@ -90,7 +102,9 @@ export function PalettePicker() {
               <button
                 onClick={() => setMode('light')}
                 className={`flex-1 px-3 py-1 text-xs font-medium rounded-md transition-colors ${
-                  mode === 'light' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'
+                  mode === 'light'
+                    ? 'bg-background text-foreground shadow-sm'
+                    : 'text-muted-foreground'
                 }`}
               >
                 Light
@@ -98,7 +112,9 @@ export function PalettePicker() {
               <button
                 onClick={() => setMode('dark')}
                 className={`flex-1 px-3 py-1 text-xs font-medium rounded-md transition-colors ${
-                  mode === 'dark' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground'
+                  mode === 'dark'
+                    ? 'bg-background text-foreground shadow-sm'
+                    : 'text-muted-foreground'
                 }`}
               >
                 Dark
@@ -134,7 +150,9 @@ export function PalettePicker() {
                 className="w-3 h-3 rounded-sm border border-border-muted"
                 style={{ backgroundColor: palette[step as number] }}
               />
-              <span>{step}: {label}</span>
+              <span>
+                {step}: {label}
+              </span>
             </div>
           ))}
         </div>

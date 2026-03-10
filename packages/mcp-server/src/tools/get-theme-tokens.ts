@@ -1,6 +1,6 @@
-import { readFileSync } from 'fs'
-import { resolve, dirname } from 'path'
-import { fileURLToPath } from 'url'
+import { readFileSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = resolve(__dirname, '..', '..', '..', '..')
@@ -39,7 +39,7 @@ function parseScaleFile(
         tokens.push({
           name: key,
           cssVar: `--stl-${category}-${key}`,
-          defaultValue: isNaN(Number(value)) ? value : Number(value),
+          defaultValue: Number.isNaN(Number(value)) ? value : Number(value),
         })
       }
     }

@@ -1,4 +1,4 @@
-import { ScrollView, View, Text, StyleSheet } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 export function HomeScreen() {
   return (
@@ -13,7 +13,7 @@ export function HomeScreen() {
           { label: 'Styling', desc: 'Token scales, colors, themes' },
           { label: 'Primitives', desc: 'Box, Row, Column, Text, Grid' },
           { label: 'Hooks', desc: 'Native hooks: colorMode, conditions, layout' },
-        ].map(item => (
+        ].map((item) => (
           <View key={item.label} style={styles.card}>
             <Text style={styles.cardTitle}>{item.label}</Text>
             <Text style={styles.cardDesc}>{item.desc}</Text>

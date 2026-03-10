@@ -1,7 +1,7 @@
-import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { getUtility, getAllUtilities } from '@/lib/utility-registry'
+import { notFound } from 'next/navigation'
 import { CodeBlock } from '@/components/code-block'
+import { getAllUtilities, getUtility } from '@/lib/utility-registry'
 
 interface PageProps {
   params: Promise<{ name: string }>
@@ -31,9 +31,7 @@ export default async function UtilityPage({ params }: PageProps) {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2 font-mono">{util.name}</h1>
-        <p className="text-lg text-foreground-secondary mb-4">
-          {util.description}
-        </p>
+        <p className="text-lg text-foreground-secondary mb-4">{util.description}</p>
         <div className="inline-block">
           <CodeBlock code={util.importPath} language="typescript" />
         </div>
@@ -69,7 +67,9 @@ export default async function UtilityPage({ params }: PageProps) {
                   <tr key={p.name} className="border-b border-border-muted last:border-0">
                     <td className="py-2 px-4 font-mono text-xs">{p.name}</td>
                     <td className="py-2 px-4 font-mono text-xs">{p.type}</td>
-                    <td className="py-2 px-4 text-foreground-secondary">{p.description}</td>
+                    <td className="py-2 px-4 text-foreground-secondary">
+                      {p.description}
+                    </td>
                   </tr>
                 ))}
               </tbody>

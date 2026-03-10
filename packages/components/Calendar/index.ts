@@ -1,2 +1,2 @@
+export type { CalendarDayProps, CalendarRootProps } from './Calendar'
 export { Calendar } from './Calendar'
-export type { CalendarRootProps, CalendarDayProps } from './Calendar'

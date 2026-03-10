@@ -1,14 +1,14 @@
 import type { ComponentType } from 'react'
 import { useState } from 'react'
-import { styled } from '../../stl-react/src/config'
 import { Avatar } from '../../components/Avatar'
 import { Button } from '../../components/Button'
 import { Card } from '../../components/Card'
 import { Input } from '../../components/Input'
 import { Select } from '../../components/Select'
-import { Separator } from '../../primitives/Separator'
 import { Switch } from '../../components/Switch'
 import { Textarea } from '../../components/Textarea'
+import { Separator } from '../../primitives/Separator'
+import { styled } from '../../stl-react/src/config'
 import type { BlockProps } from '../_shared/types'
 
 type AnyFC = ComponentType<Record<string, unknown>>

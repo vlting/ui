@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest'
 import { nativeMappedProps } from '../config/mappedProps'
 import { normalizeToRN } from '../config/propMap'
 

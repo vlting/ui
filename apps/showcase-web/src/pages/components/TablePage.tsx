@@ -1,12 +1,10 @@
-import { Section, DemoCard } from '../../components/Section'
 import { Table } from '@vlting/ui/components'
+import { DemoCard, Section } from '../../components/Section'
 
 export function TablePage() {
   return (
     <div>
-      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>
-        Table
-      </h1>
+      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>Table</h1>
 
       <Section title="Default">
         <DemoCard label="Default table" testId="table-default">

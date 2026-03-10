@@ -1,14 +1,14 @@
-export { styled } from './styled'
-export { NativeStyleResolver } from './NativeStyleResolver'
-export { configureTheme, createNativeTheme, getTheme, defaultNativeTheme } from './theme'
-export type { NativeThemeConfig, NativeTheme, NativeTokenMaps } from './theme'
-export { computeConditionMask, CondBit, maskMatches } from './conditions'
 export type { ConditionMask } from './conditions'
-export { normalizeToRN, cssToRN } from './propMap'
+export { CondBit, computeConditionMask, maskMatches } from './conditions'
 export { nativeMappedProps } from './mappedProps'
+export { NativeStyleResolver } from './NativeStyleResolver'
+export { cssToRN, normalizeToRN } from './propMap'
+export { styled } from './styled'
+export type { NativeTheme, NativeThemeConfig, NativeTokenMaps } from './theme'
+export { configureTheme, createNativeTheme, defaultNativeTheme, getTheme } from './theme'
 export {
-  resolveToken,
+  isShadowProp,
   propScaleMap,
   resolveShadowToken,
-  isShadowProp,
+  resolveToken,
 } from './tokenResolver'

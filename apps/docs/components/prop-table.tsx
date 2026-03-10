@@ -11,9 +11,7 @@ export function PropTable({ props, title }: PropTableProps) {
 
   return (
     <div className="my-6">
-      {title && (
-        <h4 className="text-base font-semibold mb-3 font-mono">{title}</h4>
-      )}
+      {title && <h4 className="text-base font-semibold mb-3 font-mono">{title}</h4>}
       <div className="overflow-x-auto border border-border rounded-lg">
         <table className="w-full text-sm">
           <thead>
@@ -26,10 +24,7 @@ export function PropTable({ props, title }: PropTableProps) {
           </thead>
           <tbody>
             {entries.map(([name, def]) => (
-              <tr
-                key={name}
-                className="border-b border-border-muted last:border-0"
-              >
+              <tr key={name} className="border-b border-border-muted last:border-0">
                 <td className="py-2 px-4 font-mono text-sm">
                   {name}
                   {def.required && (
@@ -45,9 +40,7 @@ export function PropTable({ props, title }: PropTableProps) {
                 <td className="py-2 px-4">
                   {def.values && def.values.length > 0 ? (
                     <span className="font-mono text-xs">
-                      {def.values
-                        .map((v) => `"${v}"`)
-                        .join(' | ')}
+                      {def.values.map((v) => `"${v}"`).join(' | ')}
                     </span>
                   ) : (
                     <span className="font-mono text-xs text-foreground-secondary">

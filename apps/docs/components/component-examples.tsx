@@ -1,8 +1,8 @@
 'use client'
 
+import type { ComponentExample } from '@/lib/registry'
 import { ComponentPreview } from './component-preview'
 import { getLiveExample } from './live-examples'
-import type { ComponentExample } from '@/lib/registry'
 
 interface HighlightedExample extends ComponentExample {
   codeHtml?: { light: string; dark: string }
@@ -13,10 +13,7 @@ interface ComponentExamplesProps {
   examples: HighlightedExample[]
 }
 
-export function ComponentExamples({
-  componentSlug,
-  examples,
-}: ComponentExamplesProps) {
+export function ComponentExamples({ componentSlug, examples }: ComponentExamplesProps) {
   return (
     <div className="space-y-6">
       {examples.map((example) => {
@@ -28,7 +25,11 @@ export function ComponentExamples({
                 {example.description}
               </p>
             )}
-            <ComponentPreview code={example.code} codeHtml={example.codeHtml} title={example.name}>
+            <ComponentPreview
+              code={example.code}
+              codeHtml={example.codeHtml}
+              title={example.name}
+            >
               {livePreview ?? (
                 <p className="text-sm text-muted-foreground italic">
                   Live preview coming soon.

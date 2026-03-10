@@ -1,8 +1,7 @@
-import React from 'react'
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Chart, useChartContext } from './Chart'
-import { ChartTooltip } from './ChartTooltip'
 import { ChartLegend } from './ChartLegend'
+import { ChartTooltip } from './ChartTooltip'
 import type { ChartConfig } from './types'
 
 const mockConfig: ChartConfig = {
@@ -60,16 +59,15 @@ describe('Chart', () => {
 // -- ChartTooltip --
 
 describe('ChartTooltip', () => {
-  it('returns null when not active', () => {
+  it('renders hidden div when not active', () => {
     const { container } = render(
       <Chart config={mockConfig} accessibilityLabel="Test chart" width={400} height={300}>
         <ChartTooltip active={false} />
       </Chart>,
     )
-    // Only the outer Chart div should be present
-    const chartDiv = container.querySelector('[role="img"]')!
-    // ChartTooltip renders nothing when not active
-    expect(chartDiv.querySelector('div > div > div')).toBeNull()
+    const hiddenDiv = container.querySelector('[style*="display: none"]')
+    expect(hiddenDiv).toBeTruthy()
+    expect(hiddenDiv?.style.display).toBe('none')
   })
 
   it('returns null with empty payload', () => {
@@ -80,7 +78,7 @@ describe('ChartTooltip', () => {
     )
     const chartDiv = container.querySelector('[role="img"]')!
     // Inner tooltip container should not render
-    const children = chartDiv.querySelector('[role="img"] > div')
+    const _children = chartDiv.querySelector('[role="img"] > div')
     // With active=true but empty payload, ChartTooltip returns null
     expect(container.querySelector('[style*="pointer-events"]')).toBeNull()
   })

@@ -11,7 +11,6 @@ import {
   combinedPseudoClasses,
   complexShorthandMappedProps,
   directionalProps,
-  getIndexErrorMessage,
   isCustomNthChild,
   mappedProps,
   type NthChildKeys,
@@ -177,7 +176,9 @@ export class StyleManager {
   ) {
     const scaledMap = scaledPropMap[pseudo as keyof typeof scaledPropMap]
     const scaledProp = scaledMap ? scaledMap[prop as keyof typeof scaledMap] : undefined
+    // @ts-expect-error — indexed access with prop key
     const scaleKey = scaledPropScale[prop as ScaledKey]
+    // @ts-expect-error — complex indexed access on readonly scale map
     const propScale = managerScales[scaleKey]
     const scaledValue: string | undefined =
       scaledProp && value in scaledProp
@@ -350,7 +351,6 @@ export class StyleManager {
         const checker =
           nthChildCheckers[propName as NthChildKeys] || nthChildCheckers[BASE]
         if (this.index === undefined) {
-          console.error(getIndexErrorMessage(propName as NthChildKeys))
           continue
         }
         const isMatchingNthChild = checker(
@@ -627,6 +627,7 @@ export class StyleManager {
 
     // If value is scaled, but we ended up here, it could be filtered out of the scale (e.g., a non-core color)
     if (propScale?.themeProps[value as keyof typeof propScale.themeProps]) {
+      // @ts-expect-error — complex indexed access on readonly token map
       const tokenMap = tokenToVarMap[scaleKey]
       let varFromToken = tokenMap[value as keyof typeof tokenMap]
       if (varFromToken) {

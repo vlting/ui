@@ -17,7 +17,11 @@ const hooks: HookEntry[] = [
     importPath: "import { useClipboard } from '@vlting/ui'",
     signature: 'useClipboard(timeout?: number): { copy, copied }',
     parameters: [
-      { name: 'timeout', type: 'number', description: 'How long `copied` stays true (default 2000ms)' },
+      {
+        name: 'timeout',
+        type: 'number',
+        description: 'How long `copied` stays true (default 2000ms)',
+      },
     ],
     returns: '`{ copy: (text: string) => Promise<void>, copied: boolean }`',
     usage: `const { copy, copied } = useClipboard()
@@ -31,13 +35,27 @@ return (
   {
     name: 'useControllableState',
     slug: 'use-controllable-state',
-    description: 'Manage state that can be either controlled (via prop) or uncontrolled (internal).',
+    description:
+      'Manage state that can be either controlled (via prop) or uncontrolled (internal).',
     importPath: "import { useControllableState } from '@vlting/ui'",
-    signature: 'useControllableState<T>({ prop?, defaultProp?, onChange? }): [value, setValue]',
+    signature:
+      'useControllableState<T>({ prop?, defaultProp?, onChange? }): [value, setValue]',
     parameters: [
-      { name: 'prop', type: 'T | undefined', description: 'Controlled value (makes the hook controlled)' },
-      { name: 'defaultProp', type: 'T | undefined', description: 'Initial value for uncontrolled mode' },
-      { name: 'onChange', type: '(value: T) => void', description: 'Callback when value changes' },
+      {
+        name: 'prop',
+        type: 'T | undefined',
+        description: 'Controlled value (makes the hook controlled)',
+      },
+      {
+        name: 'defaultProp',
+        type: 'T | undefined',
+        description: 'Initial value for uncontrolled mode',
+      },
+      {
+        name: 'onChange',
+        type: '(value: T) => void',
+        description: 'Callback when value changes',
+      },
     ],
     returns: '`[T | undefined, (next: T | ((prev) => T)) => void]`',
     usage: `// Uncontrolled with default
@@ -60,7 +78,11 @@ const [value, setValue] = useControllableState({
     signature: 'useDebounce<T>(value: T, delay?: number): T',
     parameters: [
       { name: 'value', type: 'T', description: 'The value to debounce' },
-      { name: 'delay', type: 'number', description: 'Delay in milliseconds (default 300)' },
+      {
+        name: 'delay',
+        type: 'number',
+        description: 'Delay in milliseconds (default 300)',
+      },
     ],
     returns: 'The debounced value',
     usage: `const [search, setSearch] = useState('')
@@ -73,11 +95,16 @@ useEffect(() => {
   {
     name: 'useFocusTrap',
     slug: 'use-focus-trap',
-    description: 'Trap focus within a container element. Tab and Shift+Tab cycle within the container when active.',
+    description:
+      'Trap focus within a container element. Tab and Shift+Tab cycle within the container when active.',
     importPath: "import { useFocusTrap } from '@vlting/ui'",
     signature: 'useFocusTrap<T extends HTMLElement>(active?: boolean): RefObject<T>',
     parameters: [
-      { name: 'active', type: 'boolean', description: 'Whether the trap is currently active (default false)' },
+      {
+        name: 'active',
+        type: 'boolean',
+        description: 'Whether the trap is currently active (default false)',
+      },
     ],
     returns: 'A ref to attach to the container element',
     usage: `const [active, setActive] = useState(false)
@@ -94,14 +121,31 @@ return (
   {
     name: 'useIntersectionObserver',
     slug: 'use-intersection-observer',
-    description: 'Observe whether an element is visible in the viewport using IntersectionObserver.',
+    description:
+      'Observe whether an element is visible in the viewport using IntersectionObserver.',
     importPath: "import { useIntersectionObserver } from '@vlting/ui'",
     signature: 'useIntersectionObserver(ref, options?): IntersectionObserverEntry | null',
     parameters: [
-      { name: 'ref', type: 'RefObject<Element | null>', description: 'A React ref attached to the target element' },
-      { name: 'options.threshold', type: 'number | number[]', description: 'Visibility threshold(s)' },
-      { name: 'options.root', type: 'Element | null', description: 'Root element for the observer' },
-      { name: 'options.rootMargin', type: 'string', description: 'Margin around the root' },
+      {
+        name: 'ref',
+        type: 'RefObject<Element | null>',
+        description: 'A React ref attached to the target element',
+      },
+      {
+        name: 'options.threshold',
+        type: 'number | number[]',
+        description: 'Visibility threshold(s)',
+      },
+      {
+        name: 'options.root',
+        type: 'Element | null',
+        description: 'Root element for the observer',
+      },
+      {
+        name: 'options.rootMargin',
+        type: 'string',
+        description: 'Margin around the root',
+      },
     ],
     returns: 'The latest `IntersectionObserverEntry` or `null`',
     usage: `const ref = useRef<HTMLDivElement>(null)
@@ -117,16 +161,34 @@ return (
   {
     name: 'useKeyboardNavigation',
     slug: 'use-keyboard-navigation',
-    description: 'Arrow key navigation handler for lists and grids. Supports vertical, horizontal, and both orientations with optional looping.',
+    description:
+      'Arrow key navigation handler for lists and grids. Supports vertical, horizontal, and both orientations with optional looping.',
     importPath: "import { useKeyboardNavigation } from '@vlting/ui'",
-    signature: 'useKeyboardNavigation(items, activeIndex, setActiveIndex, options?): KeyboardEventHandler',
+    signature:
+      'useKeyboardNavigation(items, activeIndex, setActiveIndex, options?): KeyboardEventHandler',
     parameters: [
       { name: 'items', type: 'number', description: 'Total number of navigable items' },
       { name: 'activeIndex', type: 'number', description: 'Currently active item index' },
-      { name: 'setActiveIndex', type: '(index: number) => void', description: 'Callback to update active index' },
-      { name: 'options.orientation', type: "'horizontal' | 'vertical' | 'both'", description: 'Navigation direction (default vertical)' },
-      { name: 'options.loop', type: 'boolean', description: 'Whether to loop at boundaries (default false)' },
-      { name: 'options.onSelect', type: '(index: number) => void', description: 'Callback when Enter is pressed' },
+      {
+        name: 'setActiveIndex',
+        type: '(index: number) => void',
+        description: 'Callback to update active index',
+      },
+      {
+        name: 'options.orientation',
+        type: "'horizontal' | 'vertical' | 'both'",
+        description: 'Navigation direction (default vertical)',
+      },
+      {
+        name: 'options.loop',
+        type: 'boolean',
+        description: 'Whether to loop at boundaries (default false)',
+      },
+      {
+        name: 'options.onSelect',
+        type: '(index: number) => void',
+        description: 'Callback when Enter is pressed',
+      },
     ],
     returns: 'A `KeyboardEvent` handler to attach to the container',
     usage: `const [activeIndex, setActiveIndex] = useState(0)

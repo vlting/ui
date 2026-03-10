@@ -1,13 +1,12 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
 import { StlProvider } from '../../../packages/stl-native/src/providers/StlProvider'
-
-import { StylingScreen } from './screens/StylingScreen'
-import { PrimitivesScreen } from './screens/PrimitivesScreen'
-import { HooksScreen } from './screens/HooksScreen'
-import { HomeScreen } from './screens/HomeScreen'
 import { ComponentsScreen } from './screens/ComponentsScreen'
+import { HomeScreen } from './screens/HomeScreen'
+import { HooksScreen } from './screens/HooksScreen'
+import { PrimitivesScreen } from './screens/PrimitivesScreen'
+import { StylingScreen } from './screens/StylingScreen'
 
 const Tab = createBottomTabNavigator()
 
