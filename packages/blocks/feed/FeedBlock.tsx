@@ -73,7 +73,7 @@ function TimelineFeed({ title, events = [] }: FeedBlockProps) {
     <Card style={{ width: '100%', maxWidth: 600, padding: '16px' }}>
       <div style={{ ...col, gap: '16px' }}>
         {title && <span style={{ fontSize: '18px', fontWeight: 600 }}>{title}</span>}
-        <div style={{ ...col, gap: '0', paddingLeft: '12px' }}>
+        <div style={{ ...col, gap: '0', paddingLeft: '12px' }} role="feed" aria-label={title ?? 'Timeline'}>
           {events.map((event, i) => {
             const isLast = i === events.length - 1
             const dotColor =
@@ -144,11 +144,13 @@ function NotificationsFeed({
             </Button>
           )}
         </div>
-        <div style={{ ...col }}>
+        <div style={{ ...col }} role="feed" aria-label={title}>
           {notifications.map((item, i) => (
             <div key={item.id}>
               {i > 0 && <Separator />}
               <div
+                role="article"
+                aria-label={item.title}
                 style={{
                   ...row,
                   gap: '12px',
@@ -215,7 +217,7 @@ function CommentsFeed({ title = 'Comments', comments = [], onLike }: FeedBlockPr
     <Card style={{ width: '100%', maxWidth: 600, padding: '16px' }}>
       <div style={{ ...col, gap: '16px' }}>
         {title && <span style={{ fontSize: '18px', fontWeight: 600 }}>{title}</span>}
-        <div style={{ ...col, gap: '12px' }}>
+        <div style={{ ...col, gap: '12px' }} role="feed" aria-label={title}>
           {comments.map((comment) => (
             <CommentNode key={comment.id} comment={comment} onLike={onLike} />
           ))}

@@ -82,7 +82,7 @@ function SidebarLayout({
       <Sidebar.Root collapsible="offcanvas" side="left" variant="sidebar" defaultOpen>
         {sidebarHeader && <Sidebar.Header>{sidebarHeader}</Sidebar.Header>}
         <Sidebar.Content>
-          <NavElement>
+          <NavElement aria-label="Main navigation">
             {sidebarGroups.map((group, i) => (
               <React.Fragment key={`group-${group.label ?? i}`}>
                 {i > 0 && <Sidebar.Separator />}
@@ -94,7 +94,7 @@ function SidebarLayout({
         {sidebarFooter && <Sidebar.Footer>{sidebarFooter}</Sidebar.Footer>}
       </Sidebar.Root>
 
-      <div style={{ flex: 1, padding: 16 }}>{children}</div>
+      <main style={{ flex: 1, padding: 16 }}>{children}</main>
 
       {onSheetOpenChange && (
         <Sheet.Root open={sheetOpen} onOpenChange={onSheetOpenChange}>
@@ -126,14 +126,14 @@ function TabLayout({ tabs = [], activeTab, onTabChange, children }: AppShellBloc
       style={{ flex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
     >
       <Tabs.Root defaultValue={defaultTab} value={activeTab} onValueChange={onTabChange}>
-        <div style={{ flex: 1 }}>
+        <main style={{ flex: 1 }}>
           {tabs.map((tab) => (
             <Tabs.Content key={tab.value} value={tab.value}>
               <div style={{ flex: 1, padding: 16 }}>{tab.content}</div>
             </Tabs.Content>
           ))}
           {children}
-        </div>
+        </main>
 
         <Tabs.List>
           {tabs.map((tab) => (
@@ -179,13 +179,14 @@ function SplitPane({
   return (
     <div style={{ display: 'flex', flexDirection: 'row', flex: 1, minHeight: '100vh' }}>
       {/* Master pane */}
-      <div
+      <aside
         style={{
           width: masterWidth,
           borderRight: '1px solid var(--borderColor)',
           display: 'flex',
           flexDirection: 'column',
         }}
+        aria-label="Master pane"
       >
         {masterHeader && (
           <div style={{ padding: 12, borderBottom: '1px solid var(--borderColor)' }}>
@@ -193,10 +194,10 @@ function SplitPane({
           </div>
         )}
         <div style={{ flex: 1, overflow: 'hidden' }}>{masterContent}</div>
-      </div>
+      </aside>
 
       {/* Detail pane */}
-      <div
+      <main
         style={{
           flex: 1,
           display: 'flex',
@@ -232,7 +233,7 @@ function SplitPane({
           </div>
         )}
         <div style={{ flex: 1, overflow: 'hidden' }}>{detailContent}</div>
-      </div>
+      </main>
     </div>
   )
 }

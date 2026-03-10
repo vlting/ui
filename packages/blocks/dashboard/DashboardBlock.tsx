@@ -57,9 +57,9 @@ export function DashboardBlock(props: DashboardBlockProps) {
   const content = (
     <div style={{ ...col, flex: 1, padding: '16px', gap: '16px' }}>
       <div style={{ ...col, gap: '4px' }}>
-        <span style={{ fontSize: '24px', fontWeight: 600 }}>{title}</span>
+        <h1 style={{ fontSize: '24px', fontWeight: 600, margin: 0 }}>{title}</h1>
         {description && (
-          <span style={{ fontSize: '16px', opacity: 0.6 }}>{description}</span>
+          <p style={{ fontSize: '16px', opacity: 0.6, margin: 0 }}>{description}</p>
         )}
       </div>
       {variant === 'analytics' ? (

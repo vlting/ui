@@ -96,7 +96,7 @@ function HeroCentered({
           <span style={{ fontSize: 12, fontFamily: 'var(--font-body)' }}>{badge}</span>
         </BadgeJsx>
       )}
-      <span
+      <h1
         style={{
           fontSize: 48,
           fontWeight: 600,
@@ -104,22 +104,24 @@ function HeroCentered({
           color: 'var(--color)',
           textAlign: align,
           maxWidth: 800,
+          margin: 0,
         }}
       >
         {title}
-      </span>
+      </h1>
       {description && (
-        <span
+        <p
           style={{
             fontSize: 18,
             fontFamily: 'var(--font-body)',
             color: 'var(--secondaryText12)',
             textAlign: align,
             maxWidth: 600,
+            margin: 0,
           }}
         >
           {description}
-        </span>
+        </p>
       )}
       {(primaryAction || secondaryAction) && (
         <div style={{ display: 'flex', flexDirection: 'row', gap: 12, paddingTop: 8 }}>
@@ -160,28 +162,30 @@ function HeroSplit({
           <span style={{ fontSize: 12, fontFamily: 'var(--font-body)' }}>{badge}</span>
         </BadgeJsx>
       )}
-      <span
+      <h1
         style={{
           fontSize: 36,
           fontWeight: 600,
           fontFamily: 'var(--font-heading)',
           color: 'var(--color)',
           textAlign: align,
+          margin: 0,
         }}
       >
         {title}
-      </span>
+      </h1>
       {description && (
-        <span
+        <p
           style={{
             fontSize: 18,
             fontFamily: 'var(--font-body)',
             color: 'var(--secondaryText12)',
             textAlign: align,
+            margin: 0,
           }}
         >
           {description}
-        </span>
+        </p>
       )}
       {(primaryAction || secondaryAction) && (
         <div style={{ display: 'flex', flexDirection: 'row', gap: 12, paddingTop: 8 }}>
@@ -269,7 +273,7 @@ function HeroImageBg({
             <span style={{ fontSize: 12, fontFamily: 'var(--font-body)' }}>{badge}</span>
           </BadgeJsx>
         )}
-        <span
+        <h1
           style={{
             fontSize: 48,
             fontWeight: 600,
@@ -277,22 +281,24 @@ function HeroImageBg({
             color: 'white',
             textAlign: 'center',
             maxWidth: 800,
+            margin: 0,
           }}
         >
           {title}
-        </span>
+        </h1>
         {description && (
-          <span
+          <p
             style={{
               fontSize: 18,
               fontFamily: 'var(--font-body)',
               color: 'rgba(255,255,255,0.85)',
               textAlign: 'center',
               maxWidth: 600,
+              margin: 0,
             }}
           >
             {description}
-          </span>
+          </p>
         )}
         {(primaryAction || secondaryAction) && (
           <div style={{ display: 'flex', flexDirection: 'row', gap: 12, paddingTop: 8 }}>

@@ -118,17 +118,18 @@ export function PricingBlock(props: PricingBlockProps) {
       <div
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
       >
-        <span
+        <h2
           style={{
             fontSize: 24,
             fontWeight: 600,
             fontFamily: 'var(--font-heading)',
             color: 'var(--color)',
             textAlign: 'center',
+            margin: 0,
           }}
         >
           {title}
-        </span>
+        </h2>
         {description && (
           <span
             style={{
