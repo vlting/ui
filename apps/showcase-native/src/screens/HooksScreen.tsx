@@ -3,6 +3,8 @@ import { ScrollView, View, Text, StyleSheet, Pressable } from 'react-native'
 // stl-native hooks
 import { useColorMode } from '../../../../packages/stl-native/src/hooks/useColorMode'
 import { useConditions } from '../../../../packages/stl-native/src/hooks/useConditions'
+import { useMediaQuery } from '../../../../packages/stl-native/src/hooks/useMediaQuery'
+import { useTokens } from '../../../../packages/stl-native/src/hooks/useTokens'
 import { useRTL } from '../../../../packages/stl-native/src/hooks/useRTL'
 
 // stl-headless hooks
@@ -25,6 +27,14 @@ export function HooksScreen() {
 
       <Section title="useConditions">
         <UseConditionsDemo />
+      </Section>
+
+      <Section title="useMediaQuery">
+        <UseMediaQueryDemo />
+      </Section>
+
+      <Section title="useTokens">
+        <UseTokensDemo />
       </Section>
 
       <Section title="useRTL">
@@ -76,6 +86,22 @@ function UseConditionsDemo() {
   return (
     <View style={styles.codeBox}>
       <Text style={styles.code}>{JSON.stringify(conditions, null, 2)}</Text>
+    </View>
+  )
+}
+
+function UseMediaQueryDemo() {
+  const isTablet = useMediaQuery('(min-width: 768px)', false, true)
+  return <Text>isTablet (≥768px): {String(isTablet)}</Text>
+}
+
+function UseTokensDemo() {
+  const { tokenValue } = useTokens()
+  return (
+    <View style={styles.codeBox}>
+      <Text style={styles.code}>
+        {tokenValue ? 'Theme tokens resolved' : 'No tokens available'}
+      </Text>
     </View>
   )
 }
