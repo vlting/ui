@@ -81,9 +81,9 @@ function NoDataState({ title, description, icon, action }: EmptyStateBlockProps)
   return (
     <div style={center}>
       {icon && <div style={{ opacity: 0.5, paddingBottom: '8px' }}>{icon}</div>}
-      <span style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center' }}>
+      <h2 style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center', margin: 0 }}>
         {title}
-      </span>
+      </h2>
       <span
         style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}
       >
@@ -113,9 +113,9 @@ function ErrorState({
           {errorCode}
         </span>
       )}
-      <span style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center' }}>
+      <h2 style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center', margin: 0 }}>
         {title}
-      </span>
+      </h2>
       <span
         style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}
       >
@@ -136,9 +136,9 @@ function ComingSoonState({ title, description, icon, onNotify }: EmptyStateBlock
   return (
     <div style={center}>
       {icon && <div style={{ opacity: 0.5, paddingBottom: '8px' }}>{icon}</div>}
-      <span style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center' }}>
+      <h2 style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center', margin: 0 }}>
         {title}
-      </span>
+      </h2>
       <span
         style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}
       >
@@ -157,6 +157,7 @@ function ComingSoonState({ title, description, icon, onNotify }: EmptyStateBlock
               placeholder="your@email.com"
               value={email}
               onChangeText={setEmail}
+              aria-label="Email for notifications"
             />
           </div>
           <Button

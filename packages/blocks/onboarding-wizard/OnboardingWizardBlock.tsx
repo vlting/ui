@@ -249,6 +249,8 @@ function CardsWizard({
           <div
             key={s.id}
             role="listitem"
+            aria-current={i === currentStep ? 'step' : undefined}
+            aria-label={s.title}
             style={{
               width: i === currentStep ? 24 : 8,
               height: 8,
