@@ -41,8 +41,8 @@ describe('Provider', () => {
     ).not.toThrow()
   })
 
-  it('wraps children with Tamagui theme context', () => {
-    // Verify that Tamagui-styled components can render inside Provider
+  it('wraps children with theme context', () => {
+    // Verify that styled components can render inside Provider
     const { getByText } = render(
       <Provider>
         <span>Themed Content</span>

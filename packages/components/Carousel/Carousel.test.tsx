@@ -44,7 +44,7 @@ describe('Carousel', () => {
   })
 
   it.skip('has role="region" with aria-roledescription', () => {
-    // TODO: Tamagui may not render ARIA attributes in JSDOM
+    // TODO: styled component may not render ARIA attributes in JSDOM
     render(
       <Carousel.Root>
         <Carousel.Content>

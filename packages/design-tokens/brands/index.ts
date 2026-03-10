@@ -37,7 +37,7 @@ export const media = {
 } as const
 
 // ---------------------------------------------------------------------------
-// Deprecated — old Tamagui-coupled types
+// Deprecated — old legacy types
 // ---------------------------------------------------------------------------
 
 /** @deprecated Use `Brand` instead. Will be removed in a future version. */

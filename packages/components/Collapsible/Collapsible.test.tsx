@@ -13,7 +13,7 @@ describe('Collapsible', () => {
   })
 
   it.skip('shows content when open', () => {
-    // TODO: Tamagui Collapsible rendering in JSDOM
+    // TODO: Collapsible rendering in JSDOM
     render(
       <Collapsible.Root open>
         <Collapsible.Trigger>Toggle</Collapsible.Trigger>
