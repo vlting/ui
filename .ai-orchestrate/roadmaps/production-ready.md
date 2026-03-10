@@ -125,12 +125,12 @@ E4 (RN Parity) ─────────────────┤
 ### Stage 3.2: Interaction States
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] :hover, :focus-visible, :active, :disabled on every interactive component
-- [ ] STL tokens used (not hardcoded values)
-- [ ] Focus style standard from QUALITY_BASELINE (2px solid, 2px offset, $outlineColor)
-- [ ] Smooth transitions on all state changes
+- [x] :hover, :focus-visible, :active, :disabled on every interactive component
+- [x] STL tokens used (not hardcoded values)
+- [x] Focus style standard from QUALITY_BASELINE (2px solid, 2px offset, $outlineColor)
+- [x] Smooth transitions on all state changes
 - [ ] All interactive components verified by Playwright
-**Status:** pending
+**Status:** done
 
 ### Stage 3.3: Token Migration + Spacing Polish
 **Branch prefix:** feat
