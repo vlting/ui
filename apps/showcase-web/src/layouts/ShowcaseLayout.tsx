@@ -12,7 +12,9 @@ const navItems = [
   { to: '/overlays', label: 'Overlays & Modals' },
   { to: '/data-display', label: 'Data Display' },
   { to: '/navigation', label: 'Navigation' },
+  { to: '/charts', label: 'Charts' },
   { to: '/hooks', label: 'Hooks' },
+  { to: '/utils', label: 'Utilities' },
   { to: '/blocks', label: 'Blocks' },
   { to: '/icons', label: 'Icons' },
 ]

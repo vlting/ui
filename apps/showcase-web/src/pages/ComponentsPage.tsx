@@ -8,6 +8,7 @@ import { Typography } from '@vlting/ui/components'
 import { Empty } from '@vlting/ui/components'
 import { Progress } from '@vlting/ui/components'
 import { Loader } from '@vlting/ui/components'
+import { Item } from '@vlting/ui/components'
 import type { ComponentType, ReactNode } from 'react'
 
 const Card = CardBase as unknown as ComponentType<
@@ -136,17 +137,52 @@ export function ComponentsPage() {
       </Section>
 
       <Section title="Typography">
-        <DemoCard label="Typography components">
+        <DemoCard label="Headings">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <Typography.H1>Heading 1</Typography.H1>
             <Typography.H2>Heading 2</Typography.H2>
             <Typography.H3>Heading 3</Typography.H3>
             <Typography.H4>Heading 4</Typography.H4>
-            <Typography.P>Paragraph text with normal line height and spacing.</Typography.P>
+          </div>
+        </DemoCard>
+        <DemoCard label="Body text variants">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <Typography.Lead>Lead text — slightly larger introductory text.</Typography.Lead>
+            <Typography.P>Paragraph text with normal line height and spacing.</Typography.P>
             <Typography.Large>Large text</Typography.Large>
             <Typography.Small>Small text</Typography.Small>
             <Typography.Muted>Muted text for secondary content.</Typography.Muted>
+          </div>
+        </DemoCard>
+      </Section>
+
+      <Section title="Item">
+        <DemoCard label="List item with leading, content, and trailing">
+          <div style={{ maxWidth: 500, display: 'flex', flexDirection: 'column', gap: 4 }}>
+            <Item.Root>
+              <Item.Leading>
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#e0e7ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>A</div>
+              </Item.Leading>
+              <Item.Content>
+                <Item.Title>Alice Johnson</Item.Title>
+                <Item.Description>alice@example.com</Item.Description>
+              </Item.Content>
+              <Item.Trailing>
+                <Button variant="ghost" size="sm">View</Button>
+              </Item.Trailing>
+            </Item.Root>
+            <Item.Root>
+              <Item.Leading>
+                <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>B</div>
+              </Item.Leading>
+              <Item.Content>
+                <Item.Title>Bob Smith</Item.Title>
+                <Item.Description>bob@example.com</Item.Description>
+              </Item.Content>
+              <Item.Trailing>
+                <Button variant="ghost" size="sm">View</Button>
+              </Item.Trailing>
+            </Item.Root>
           </div>
         </DemoCard>
       </Section>
