@@ -98,6 +98,11 @@ function scanDir(dir: string): Violation[] {
   return violations
 }
 
+// CLI flags
+const args = process.argv.slice(2)
+const ciMode = args.includes('--ci')
+const reportOnly = args.includes('--report-only')
+
 // Run
 const allViolations: Violation[] = []
 for (const dir of SCAN_DIRS) {
@@ -109,24 +114,32 @@ if (allViolations.length === 0) {
   process.exit(0)
 }
 
-// Group by type
-const grouped = new Map<string, Violation[]>()
-for (const v of allViolations) {
-  const list = grouped.get(v.type) || []
-  list.push(v)
-  grouped.set(v.type, list)
+if (ciMode) {
+  // GitHub Actions annotation format
+  for (const v of allViolations) {
+    console.log(`::warning file=${v.file},line=${v.line}::${v.type}: ${v.content}`)
+  }
+  console.log(`\n${allViolations.length} token violation(s) found.`)
+} else {
+  // Group by type for human-readable output
+  const grouped = new Map<string, Violation[]>()
+  for (const v of allViolations) {
+    const list = grouped.get(v.type) || []
+    list.push(v)
+    grouped.set(v.type, list)
+  }
+
+  console.log(`\n✗ Found ${allViolations.length} token violations:\n`)
+  for (const [type, violations] of grouped) {
+    console.log(`  ${type} (${violations.length}):`)
+    for (const v of violations.slice(0, 10)) {
+      console.log(`    ${v.file}:${v.line} — ${v.content}`)
+    }
+    if (violations.length > 10) {
+      console.log(`    ... and ${violations.length - 10} more`)
+    }
+    console.log()
+  }
 }
 
-console.log(`\n✗ Found ${allViolations.length} token violations:\n`)
-for (const [type, violations] of grouped) {
-  console.log(`  ${type} (${violations.length}):`)
-  for (const v of violations.slice(0, 10)) {
-    console.log(`    ${v.file}:${v.line} — ${v.content}`)
-  }
-  if (violations.length > 10) {
-    console.log(`    ... and ${violations.length - 10} more`)
-  }
-  console.log()
-}
-
-process.exit(1)
+process.exit(reportOnly ? 0 : 1)
