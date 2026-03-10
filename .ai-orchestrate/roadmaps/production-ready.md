@@ -243,30 +243,30 @@ E4 (RN Parity) ─────────────────┤
 **Dependencies:** Epic 3, Epic 5
 **Epic slug:** ai-native-tooling
 **Epic branch:** epic/ai-native-tooling
-**Status:** pending
+**Status:** done
 
 ### Stage 6.1: MCP Server Improvements
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] New tools: get_theme_tokens, audit_component, get_block
-- [ ] All api-mapping.json files updated for accuracy
-- [ ] MCP tools return accurate, up-to-date info
-**Status:** pending
+- [x] New tools: get_theme_tokens, audit_component, get_block
+- [x] All api-mapping.json files updated for accuracy
+- [x] MCP tools return accurate, up-to-date info
+**Status:** done
 
 ### Stage 6.2: Component Expansion
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Gap analysis vs shadcn/ui catalog — missing components built
-- [ ] Chart completion (7 chart specs verified)
-- [ ] Hook expansion: useMediaQuery, useDebounce, useIntersectionObserver, useClipboard
-- [ ] Component count competitive with shadcn/ui
-**Status:** pending
+- [x] Gap analysis vs shadcn/ui catalog — missing components built
+- [x] Chart completion (7 chart specs verified)
+- [x] Hook expansion: useMediaQuery, useDebounce, useIntersectionObserver, useClipboard
+- [x] Component count competitive with shadcn/ui
+**Status:** done
 
 ### Stage 6.3: Block Expansion + AI Generation Skill
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] New blocks: file upload, onboarding wizard, notification center, chat interface
-- [ ] Claude skill for UI generation
-- [ ] validate_code tool: token discipline, a11y, correct usage, dark mode compat
-- [ ] AI-generated code passes all quality gates
-**Status:** pending
+- [x] New blocks: file upload, onboarding wizard, notification center, chat interface
+- [x] Claude skill for UI generation
+- [x] validate_code tool: token discipline, a11y, correct usage, dark mode compat
+- [x] AI-generated code passes all quality gates
+**Status:** done
