@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { ShowcaseLayout } from './layouts/ShowcaseLayout'
 import { HomePage } from './pages/HomePage'
 import { StylingPage } from './pages/StylingPage'
@@ -8,7 +8,9 @@ import { FormsPage } from './pages/FormsPage'
 import { OverlaysPage } from './pages/OverlaysPage'
 import { DataDisplayPage } from './pages/DataDisplayPage'
 import { NavigationPage } from './pages/NavigationPage'
+import { ChartsPage } from './pages/ChartsPage'
 import { HooksPage } from './pages/HooksPage'
+import { UtilsPage } from './pages/UtilsPage'
 import { BlocksPage } from './pages/BlocksPage'
 import { IconsPage } from './pages/IconsPage'
 import { AccordionPage } from './pages/components/AccordionPage'
@@ -38,7 +40,9 @@ export function App() {
         <Route path="overlays" element={<OverlaysPage />} />
         <Route path="data-display" element={<DataDisplayPage />} />
         <Route path="navigation" element={<NavigationPage />} />
+        <Route path="charts" element={<ChartsPage />} />
         <Route path="hooks" element={<HooksPage />} />
+        <Route path="utils" element={<UtilsPage />} />
         <Route path="blocks" element={<BlocksPage />} />
         <Route path="icons" element={<IconsPage />} />
         <Route path="components/accordion" element={<AccordionPage />} />

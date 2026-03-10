@@ -3,6 +3,7 @@ import { Breadcrumb } from '@vlting/ui/components'
 import { ContextMenu } from '@vlting/ui/components'
 import { DropdownMenu } from '@vlting/ui/components'
 import { Menubar } from '@vlting/ui/components'
+import { NavigationMenu } from '@vlting/ui/components'
 import { Pagination } from '@vlting/ui/components'
 import { Command } from '@vlting/ui/components'
 import { Button } from '@vlting/ui/components'
@@ -112,8 +113,34 @@ export function NavigationPage() {
         </DemoCard>
       </Section>
 
+      <Section title="NavigationMenu">
+        <DemoCard label="Horizontal navigation with dropdown">
+          <NavigationMenu.Root>
+            <NavigationMenu.List>
+              <NavigationMenu.Item>
+                <NavigationMenu.Link href="#" active>Home</NavigationMenu.Link>
+              </NavigationMenu.Item>
+              <NavigationMenu.Item value="products">
+                <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
+                <NavigationMenu.Content>
+                  <NavigationMenu.Link href="#">Product A</NavigationMenu.Link>
+                  <NavigationMenu.Link href="#">Product B</NavigationMenu.Link>
+                  <NavigationMenu.Link href="#">Product C</NavigationMenu.Link>
+                </NavigationMenu.Content>
+              </NavigationMenu.Item>
+              <NavigationMenu.Item>
+                <NavigationMenu.Link href="#">About</NavigationMenu.Link>
+              </NavigationMenu.Item>
+              <NavigationMenu.Item>
+                <NavigationMenu.Link href="#">Contact</NavigationMenu.Link>
+              </NavigationMenu.Item>
+            </NavigationMenu.List>
+          </NavigationMenu.Root>
+        </DemoCard>
+      </Section>
+
       <Section title="Command">
-        <DemoCard label="Command palette">
+        <DemoCard label="Command palette / search">
           <div style={{ maxWidth: 400, border: '1px solid #ddd', borderRadius: 8, overflow: 'hidden' }}>
             <Command.Root>
               <Command.Input placeholder="Type a command or search..." />

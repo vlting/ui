@@ -8,10 +8,13 @@ import { RadioGroup } from '@vlting/ui/components'
 import { Select } from '@vlting/ui/components'
 import { Slider } from '@vlting/ui/components'
 import { Toggle } from '@vlting/ui/components'
+import { ToggleGroup } from '@vlting/ui/components'
 import { Field } from '@vlting/ui/components'
 import { InputGroup } from '@vlting/ui/components'
 import { InputOTP } from '@vlting/ui/components'
 import { NativeSelect } from '@vlting/ui/components'
+import { Combobox } from '@vlting/ui/components'
+import { DatePicker } from '@vlting/ui/components'
 import { Label } from '@vlting/ui/primitives'
 
 export function FormsPage() {
@@ -157,6 +160,50 @@ export function FormsPage() {
               ))}
             </InputOTP.Group>
           </InputOTP.Root>
+        </DemoCard>
+      </Section>
+
+      <Section title="ToggleGroup">
+        <DemoCard label="Single selection toggle group">
+          <ToggleGroup.Root type="single" defaultValue="center">
+            <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
+            <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
+            <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
+          </ToggleGroup.Root>
+        </DemoCard>
+        <DemoCard label="Multiple selection toggle group">
+          <ToggleGroup.Root type="multiple" defaultValue={['bold']}>
+            <ToggleGroup.Item value="bold">B</ToggleGroup.Item>
+            <ToggleGroup.Item value="italic">I</ToggleGroup.Item>
+            <ToggleGroup.Item value="underline">U</ToggleGroup.Item>
+          </ToggleGroup.Root>
+        </DemoCard>
+      </Section>
+
+      <Section title="Combobox">
+        <DemoCard label="Searchable select">
+          <div style={{ maxWidth: 300 }}>
+            <Combobox.Root
+              options={[
+                { value: 'react', label: 'React' },
+                { value: 'vue', label: 'Vue' },
+                { value: 'angular', label: 'Angular' },
+                { value: 'svelte', label: 'Svelte' },
+                { value: 'solid', label: 'SolidJS' },
+              ]}
+              placeholder="Select framework..."
+              searchPlaceholder="Search frameworks..."
+              emptyMessage="No frameworks found."
+            />
+          </div>
+        </DemoCard>
+      </Section>
+
+      <Section title="DatePicker">
+        <DemoCard label="Date selection">
+          <div style={{ maxWidth: 300 }}>
+            <DatePicker placeholder="Pick a date" label="Event date" />
+          </div>
         </DemoCard>
       </Section>
     </div>
