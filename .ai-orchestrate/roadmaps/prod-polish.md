@@ -40,7 +40,7 @@ E1 (Foundation) → E2 (Docs) → E3 (Showcases) → E4 (A11y) → E5 (Ship)
 - [ ] All `tamagui` / `Tamagui` references removed from source code (packages/, src/, apps/, config/)
 - [ ] config/tamagui.config.ts removed
 - [ ] .tamagui/ directory removed
-- [ ] kitchen-sink example migrated from Tamagui to STL (or removed if not viable)
+- [x] kitchen-sink example removed (replaced by showcase-web)
 - [ ] AI_CONSTITUTION.md updated to remove Tamagui-specific rules
 - [ ] Migration docs updated
 - [ ] jest.config.js, tsconfig paths cleaned of tamagui references

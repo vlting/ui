@@ -94,7 +94,6 @@
     "lint:fix": "biome check --write src/ packages/",
     "format": "biome format --write src/ packages/",
     "typecheck": "tsc --noEmit",
-    "dev:kitchen-sink": "yarn workspace @vlting/examples-kitchen-sink dev",
     "dev:showcase-web": "yarn workspace @vlting/showcase-web dev",
     "dev:showcase-native": "yarn workspace @vlting/showcase-native start",
     "dev:docs": "yarn workspace @vlting/docs dev",

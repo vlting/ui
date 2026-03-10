@@ -303,7 +303,7 @@ This repo uses **yarn workspaces** (`"workspaces": ["examples/*"]`). All example
 
 When creating a new example app:
 
-1. **Package name**: Use `@vlting/examples-<name>` (e.g., `@vlting/examples-kitchen-sink`)
+1. **Package name**: Use `@vlting/examples-<name>` (e.g., `@vlting/examples-showcase-web`)
 2. **Depend on `@vlting/ui` via `"*"`** — yarn workspaces resolve this to the local root package (the root is listed as `"."` in the workspaces array)
 3. **Do NOT duplicate shared dependencies** (`react`, `react-dom`, `tamagui`, `react-native-web`, `react-native-svg-web`, `prop-types`, `typescript`, `@types/react`, etc.) in the example's `package.json` — these are hoisted from the root
 4. **Only list deps unique to the example** (e.g., `react-router-dom`, `@vitejs/plugin-react`, `vite`)
@@ -336,7 +336,7 @@ When creating a new example app:
 ## 7.2 Running Example Apps
 
 From the repo root:
-- `yarn dev:kitchen-sink` — Run the kitchen-sink example
+- `yarn dev:showcase-web` — Run the showcase-web example
 - Or: `cd examples/<name> && yarn dev`
 
 Always run `yarn` (install) from the **repo root** before running any example.
