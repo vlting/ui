@@ -20,7 +20,7 @@
 
 ## 3. Anatomy
 
-Compound component wrapping Tamagui AlertDialog primitives with Portal:
+Compound component wrapping STL AlertDialog primitives with Portal:
 - `AlertDialog` (Root) — state management. Props: `open`, `defaultOpen`, `onOpenChange`.
 - `AlertDialog.Trigger` — opens the dialog.
 - `AlertDialog.Overlay` — backdrop overlay with opacity animation.
@@ -44,7 +44,7 @@ Compound component wrapping Tamagui AlertDialog primitives with Portal:
 
 ### Keyboard Interaction
 
-- **Escape** — closes the dialog (delegated to Tamagui).
+- **Escape** — closes the dialog (delegated to STL).
 - **Tab/Shift+Tab** — cycles focus within the dialog (focus trap).
 - **Enter/Space** — activates focused button (Cancel or Action).
 
@@ -58,7 +58,7 @@ Compound component wrapping Tamagui AlertDialog primitives with Portal:
 
 ## 5. Accessibility
 
-- **Semantic element:** Tamagui AlertDialog provides `role="alertdialog"`.
+- **Semantic element:** STL AlertDialog provides `role="alertdialog"`.
 - **ARIA attributes:** `aria-modal="true"`, `aria-labelledby` (Title), `aria-describedby` (Description).
 - **Focus management:** Focus is trapped within the dialog. On close, focus returns to the trigger element.
 

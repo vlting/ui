@@ -59,7 +59,7 @@ None. Dividers must not animate.
 - **Design tokens used:**
   - `backgroundColor: '$borderColor'` — line color
   - `marginVertical: '$2'` (horizontal) / `marginHorizontal: '$2'` (vertical) — spacing
-- **Responsive behavior:** Supports Tamagui responsive and media-query props. Consumers can change orientation or visibility at different breakpoints.
+- **Responsive behavior:** Supports STL responsive and media-query props. Consumers can change orientation or visibility at different breakpoints.
 - **Dark mode:** `$borderColor` resolves to appropriate dark theme value automatically.
 
 ---

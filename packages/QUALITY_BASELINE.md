@@ -7,7 +7,7 @@ Universal quality requirements that every UI component in `@vlting/ui` must meet
 ## Semantic HTML
 
 - **Interactive components** (`Button`, `Input`, `Select`, `Checkbox`, etc.) must render the correct native HTML element (`<button>`, `<input>`, `<select>`, etc.) — not a `<div>` with ARIA role patching.
-- **In Tamagui:** use `styledHtml()` for semantic elements, NOT `styled(View, { tag: 'button' })`. The `tag` prop does not change the rendered HTML element in Tamagui v2 RC.
+- Use `styled()` from @vlting/stl for semantic elements with proper HTML element rendering.
 - **Container components** should use appropriate sectioning/landmark elements where applicable (`<dialog>`, `<section>`, `<article>`, `<details>`).
 - **Text components** must use the correct element for their purpose (`<p>`, `<h1>`–`<h6>`, `<span>`, `<label>`, `<code>`, `<blockquote>`).
 - **List-based components** must render `<ul>`/`<ol>`/`<li>` structures.
@@ -72,9 +72,9 @@ focusVisibleStyle: {
 
 ## Cross-Platform
 
-- Components must work on web and React Native (Tamagui handles this, but authors must not introduce web-only APIs without fallbacks)
-- Use Tamagui style props for layout — not raw CSS (`className`, `style={{}}`)
-- `styledHtml()` elements are web-only by nature — document as such or provide RN alternatives
+- Components must work on web and React Native (STL handles this, but authors must not introduce web-only APIs without fallbacks)
+- Use STL style props for layout — not raw CSS (`className`, `style={{}}`)
+- Web-only styled elements should be documented as such or provide RN alternatives
 
 ---
 

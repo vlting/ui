@@ -57,7 +57,7 @@ None at the group level.
 
 ## 6. Styling
 
-- **Design tokens used:** Inherits Tamagui View tokens. CSS injection modifies child button border-radius and margins.
+- **Design tokens used:** Inherits STL View tokens. CSS injection modifies child button border-radius and margins.
 - **Orientation:** Horizontal (default) — buttons side by side. Vertical — buttons stacked.
 - **Dark mode:** Inherits from child button tokens.
 

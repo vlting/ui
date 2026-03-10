@@ -52,7 +52,7 @@
 
 ### Motion
 
-- None. Hover and press feedback is immediate via Tamagui style props.
+- None. Hover and press feedback is immediate via STL style props.
 
 ---
 
@@ -60,7 +60,7 @@
 
 - **Semantic element:** Renders as a `div` (XStack). No implicit ARIA role.
 - **ARIA attributes:** Consumers add `role="listitem"` when inside a `role="list"` container, or `role="option"` inside a listbox.
-- **Focus management:** Interactive items receive focus via `tabIndex: 0` (set by consumer or via Tamagui's focusable behavior).
+- **Focus management:** Interactive items receive focus via `tabIndex: 0` (set by consumer or via STL's focusable behavior).
 - **Screen reader announcements:** Title and description text are announced naturally as text content.
 - **Contrast:** Title uses `$color` (primary text), Description uses `$colorSubtitle` (muted) — both must meet 4.5:1 against background.
 

@@ -26,13 +26,13 @@
 
 Button is a compound component created via `withStaticProperties`. It consists of:
 
-- **Button (root)** — A `forwardRef` wrapper around a styled `TamaguiButton.Frame` (`ButtonFrame`). Handles variant resolution, tone-to-theme mapping, size-to-token mapping, loading/disabled state, and context provisioning.
+- **Button (root)** — A `forwardRef` wrapper around a styled `STLButton.Frame` (`ButtonFrame`). Handles variant resolution, tone-to-theme mapping, size-to-token mapping, loading/disabled state, and context provisioning.
 - **Button.Text** — A styled `Text` sub-component for button label text. Reads the parent `ButtonContext` to resolve text color based on the active variant.
 - **Button.Icon** — A styled `XStack` sub-component for wrapping icon elements. Centered alignment.
 
 When `loading` is `true`, children are replaced by a `Spinner` (with variant-appropriate color) plus a `VisuallyHidden` "Loading" label. The button becomes disabled.
 
-When a `tone` other than `'neutral'` is set (or the variant is `'destructive'`), the root is wrapped in a Tamagui `<Theme>` to apply the corresponding color scheme.
+When a `tone` other than `'neutral'` is set (or the variant is `'destructive'`), the root is wrapped in a STL `<Theme>` to apply the corresponding color scheme.
 
 > **TypeScript is the source of truth for props.** See `ButtonProps` in `Button.tsx` for the full typed API. Do not duplicate prop tables here.
 
@@ -45,29 +45,29 @@ When a `tone` other than `'neutral'` is set (or the variant is `'destructive'`),
 - **Idle** — Renders with variant-specific background and border. `default`/`solid` use `$color10` fill; `outline` has a `$borderColor` border; `ghost` is transparent; `secondary` uses `$color2`; `destructive` uses `$color10` with red theme; `link` is transparent with no padding.
 - **Hover** — Variant-specific hover backgrounds (e.g., `$color11` for solid/default, `$backgroundHover` for outline/ghost, `$color3` for secondary).
 - **Focus** — Visible focus ring via `focusVisibleStyle`: 2px solid outline with `$color10` color and 1px offset.
-- **Active (press)** — Tamagui Button.Frame provides press feedback via its built-in press styles.
+- **Active (press)** — STL Button.Frame provides press feedback via its built-in press styles.
 - **Disabled** — Opacity 0.5, `cursor: not-allowed`, `pointerEvents: none`. No visual feedback on press or hover. Derived from `disabled ?? loading ?? false`.
 - **Loading** — Children are replaced by a `<Spinner size="small" />` with variant-appropriate color, plus a `<VisuallyHidden>Loading</VisuallyHidden>` announcement. Button becomes disabled. `aria-busy` is set.
 - **Error** — Not applicable. Buttons do not have an error state.
 
 ### Keyboard Interaction
 
-- Enter and Space must activate the button. This is provided by the underlying `TamaguiButton.Frame` which renders a native `<button>` element.
+- Enter and Space must activate the button. This is provided by the underlying `STLButton.Frame` which renders a native `<button>` element.
 - Follows the WAI-ARIA APG [Button pattern](https://www.w3.org/WAI/ARIA/apg/patterns/button/).
 
 ### Motion
 
-- Hover and press transitions are handled by Tamagui's built-in style animation.
+- Hover and press transitions are handled by STL's built-in style animation.
 - Must honor `prefers-reduced-motion` — when reduced motion is preferred, transitions should be instant or omitted.
 
 ---
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders as a native `<button>` element via `TamaguiButton.Frame`, which provides correct button semantics out of the box.
+- **Semantic element:** Renders as a native `<button>` element via `STLButton.Frame`, which provides correct button semantics out of the box.
 - **ARIA attributes:**
   - `aria-busy` is set to `true` when `loading` is `true`; omitted otherwise.
-  - `aria-disabled` is set by the underlying Tamagui Button when the `disabled` prop is true.
+  - `aria-disabled` is set by the underlying STL Button when the `disabled` prop is true.
   - When loading, a `<VisuallyHidden>Loading</VisuallyHidden>` provides a screen reader announcement.
 - **Focus management:** The focus ring (`focusVisibleStyle`) is visible on keyboard focus. Focus must not be trapped inside the button.
 - **Screen reader announcements:** Announces as a button natively. Announces disabled state via `aria-disabled`. Announces busy state via `aria-busy`. Loading text is announced via visually hidden content.
@@ -81,9 +81,9 @@ When a `tone` other than `'neutral'` is set (or the variant is `'destructive'`),
   - Colors: `$color10`, `$color11`, `$color1`, `$color2`, `$color3`, `$borderColor`, `$backgroundHover`, `$color` (text).
   - Font: `$body` family, `$3` weight.
   - Font sizes scale with size variant (`$1`, `$2`, `$4`, `$5`).
-  - Sizes map to Tamagui size tokens via `SIZE_TOKEN_MAP`: `xs`=`$2`, `sm`=`$3`, `md`=`$4`, `lg`=`$5`, `icon`=`$4`.
+  - Sizes map to STL size tokens via `SIZE_TOKEN_MAP`: `xs`=`$2`, `sm`=`$3`, `md`=`$4`, `lg`=`$5`, `icon`=`$4`.
   - Focus: `$color10` for outline color.
-- **Responsive behavior:** The button accepts Tamagui media query props on the root frame. Consumers may apply responsive size or layout overrides. The component itself does not impose breakpoint-specific rules.
+- **Responsive behavior:** The button accepts STL media query props on the root frame. Consumers may apply responsive size or layout overrides. The component itself does not impose breakpoint-specific rules.
 - **Reduced motion:** Hover and press transitions must degrade gracefully when `prefers-reduced-motion: reduce` is active.
 - **Dark mode:** All visual tokens (`$color10`, `$borderColor`, `$backgroundHover`, `$color`) must resolve correctly in both light and dark themes. The button must remain legible and maintain contrast ratios in both modes. No hardcoded hex colors or pixel values are used.
 

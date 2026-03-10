@@ -65,7 +65,7 @@ All sub-components use `styledHtml()` to render native HTML elements:
 - **ARIA attributes:** None required — native HTML semantics are sufficient.
 - **Focus management:** Not applicable.
 - **Screen reader announcements:** Heading levels, blockquote, list structure all communicated via native HTML semantics.
-- **Important:** Uses `styledHtml()` to guarantee correct HTML element rendering (not Tamagui `styled()` with `tag`).
+- **Important:** Uses `styledHtml()` to guarantee correct HTML element rendering (not STL `styled()` with `tag`).
 
 ---
 

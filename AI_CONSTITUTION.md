@@ -2,7 +2,7 @@
 
 This document governs all AI-assisted changes in this repository.
 
-`vlt-ui` is a cross-platform design system and component library built on Tamagui.
+`vlt-ui` is a cross-platform design system and component library built on @vlting/stl.
 It must remain stable, predictable, accessible, and framework-agnostic.
 
 This repository contains **no business logic**.
@@ -139,8 +139,8 @@ AI-generated code commonly substitutes generic `<div>` elements for semantic HTM
 
 ### Semantic Element Rules
 
-- **Interactive elements**: Use `<button>` for actions, `<a>` for navigation. NEVER use `<div>`, `<span>`, or Tamagui `View`/`XStack`/`YStack` with `onPress`/`onClick` as a substitute.
-- **Headings**: Use `<h1>`–`<h6>` in logical order. Never skip heading levels. In Tamagui, use the `Heading` component with the `level` prop (renders native heading elements via `styledHtml()`).
+- **Interactive elements**: Use `<button>` for actions, `<a>` for navigation. NEVER use `<div>`, `<span>`, or `Box`/`HStack`/`VStack` with `onPress`/`onClick` as a substitute.
+- **Headings**: Use `<h1>`–`<h6>` in logical order. Never skip heading levels. Use the `Heading` component with the `level` prop.
 - **Forms**: Every `<input>` must have an associated `<label>` via `htmlFor`/`id`. Use `<form>`, `<fieldset>`, and `<legend>` for form structure. Use `<select>` for native dropdowns.
 - **Lists**: Use `<ul>`/`<ol>` for lists of items, not a stack of `<div>`s.
 - **Tables**: Use `<table>`, `<thead>`, `<tbody>`, `<th>`, `<td>` for tabular data.
@@ -148,45 +148,30 @@ AI-generated code commonly substitutes generic `<div>` elements for semantic HTM
 
 ### DOM Optimization Rules
 
-- **No styling-only wrappers**: Never add a `<div>` or `<View>` solely for padding, margin, or alignment when those styles can be applied directly to the parent or child element. This reduces DOM size, improves accessibility tree clarity, and avoids unnecessary layout recalculations.
+- **No styling-only wrappers**: Never add a `<div>` or `<Box>` solely for padding, margin, or alignment when those styles can be applied directly to the parent or child element. This reduces DOM size, improves accessibility tree clarity, and avoids unnecessary layout recalculations.
 - **Minimal nesting**: Components must produce the minimum DOM nodes necessary. Audit rendered output (not just source) to verify.
 - **Compound component wrappers**: Sub-components (e.g., `Button.Text`, `Button.Icon`) should use `styled()` on existing elements, not wrap in additional containers.
-- **Tamagui-specific**: The `tag` prop in `styled()` does NOT change the rendered HTML element in Tamagui v2 RC. Use `styledHtml('button')` or native HTML elements with Tamagui styling wrappers inside.
-- **No layout wrappers inside interactive elements**: `<a>` and `<button>` elements must own their own spacing and layout styles — never delegate padding, margin, gap, or alignment to a child `<div>`, `<View>`, `<XStack>`, `<YStack>`, or `<Stack>`. The extra node inflates the DOM, can interfere with focus behavior, and is semantically wrong (the interactive element should define its own box model).
+- **No layout wrappers inside interactive elements**: `<a>` and `<button>` elements must own their own spacing and layout styles — never delegate padding, margin, gap, or alignment to a child `<div>`, `<Box>`, `<HStack>`, `<VStack>`, or `<Stack>`. The extra node inflates the DOM, can interfere with focus behavior, and is semantically wrong (the interactive element should define its own box model).
 
   **Bad:**
   ```tsx
   <a href="/page" style={{ display: 'block' }}>
-    <XStack padding="$2" gap="$1">
+    <HStack style={{ padding: 'var(--space-2)', gap: 'var(--space-1)' }}>
       <Text>Label</Text>
-    </XStack>
+    </HStack>
   </a>
   ```
   Renders: `<a><div style="padding…"><span>Label</span></div></a>` — unnecessary `<div>`.
 
-  **Good (`asChild` pattern — preferred):**
+  **Good:**
   ```tsx
-  <XStack asChild padding="$2" gap="$1">
-    <Link to="/page" style={{ textDecoration: 'none', color: 'inherit' }}>
-      <Text>Label</Text>
-    </Link>
-  </XStack>
+  <a href="/page" style={{ display: 'flex', padding: 'var(--space-2)', gap: 'var(--space-1)', textDecoration: 'none', color: 'inherit' }}>
+    <Text>Label</Text>
+  </a>
   ```
-  Renders: `<a style="padding…"><span>Label</span></a>` — Tamagui clones the `<Link>`, merges resolved styles onto it, and discards the wrapper. Tokens resolve normally.
+  Renders: `<a style="padding…"><span>Label</span></a>` — no wrapper.
 
-  The same pattern works for native elements:
-  ```tsx
-  <XStack asChild padding="$2" gap="$1">
-    <button type="button" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-      <Text>Label</Text>
-    </button>
-  </XStack>
-  ```
-  Renders: `<button style="padding…"><span>Label</span></button>` — no wrapper.
-
-  Use `asChild` whenever a Tamagui layout component wraps a single interactive child (`<a>`, `<button>`, `<Link>`, or any element that must be the outermost DOM node for semantic/accessibility reasons). The Tamagui component provides token-resolved styles; `asChild` ensures they're applied to the child instead of creating a wrapper `<div>`.
-
-  Fallback: for cases where `asChild` isn't supported, use `styledHtml()` for native elements or inline `style` with CSS custom properties for third-party components.
+  Apply spacing and layout styles directly to the interactive element. Use CSS custom properties from the STL design token system for token-resolved values.
 
 ### Rendered Output Verification
 
@@ -305,16 +290,13 @@ When creating a new example app:
 
 1. **Package name**: Use `@vlting/examples-<name>` (e.g., `@vlting/examples-showcase-web`)
 2. **Depend on `@vlting/ui` via `"*"`** — yarn workspaces resolve this to the local root package (the root is listed as `"."` in the workspaces array)
-3. **Do NOT duplicate shared dependencies** (`react`, `react-dom`, `tamagui`, `react-native-web`, `react-native-svg-web`, `prop-types`, `typescript`, `@types/react`, etc.) in the example's `package.json` — these are hoisted from the root
+3. **Do NOT duplicate shared dependencies** (`react`, `react-dom`, `react-native-web`, `react-native-svg-web`, `prop-types`, `typescript`, `@types/react`, etc.) in the example's `package.json` — these are hoisted from the root
 4. **Only list deps unique to the example** (e.g., `react-router-dom`, `@vitejs/plugin-react`, `vite`)
 5. **Add a root-level dev script**: Add `"dev:<name>": "yarn workspace @vlting/examples-<name> dev"` to the root `package.json` scripts
 6. **Vite aliases**: The example's `vite.config.ts` must include these aliases:
    ```ts
    import path from 'path'
    // ...
-   define: {
-     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-   },
    resolve: {
      alias: {
        'react-native-svg': 'react-native-svg-web',
@@ -323,8 +305,7 @@ When creating a new example app:
      },
    },
    ```
-   - The `define` is required because Tamagui references `process.env.NODE_ENV` which doesn't exist in the browser
-   - The `react-native-svg` alias is required because `@tamagui/lucide-icons` imports it, and the native version has codegen that doesn't work on web
+   - The `react-native-svg` alias is required because icon packages may import it, and the native version has codegen that doesn't work on web
 7. **TypeScript paths**: The example's `tsconfig.json` must map `@vlting/ui` and `@vlting/ui/*` to the source:
    ```json
    "paths": {

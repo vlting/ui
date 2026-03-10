@@ -18,9 +18,9 @@ All components are exported from a single package — no per-component installs.
 
 These apply to **every** component and should be addressed first.
 
-### className → Tamagui Style Props
+### className → STL Style Props
 
-shadcn uses Tailwind CSS utility classes. @vlting/ui uses Tamagui style props for cross-platform support (web + React Native).
+shadcn uses Tailwind CSS utility classes. @vlting/ui uses STL style props for cross-platform support (web + React Native).
 
 ```diff
 - <Button className="bg-red-500 p-4 rounded-lg">Click</Button>

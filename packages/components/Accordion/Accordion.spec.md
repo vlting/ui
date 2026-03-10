@@ -20,7 +20,7 @@
 
 ## 3. Anatomy
 
-Compound component wrapping Tamagui Accordion primitives:
+Compound component wrapping STL Accordion primitives:
 - `Accordion` (Root) — manages open state. Props: `type` (`'single'`/`'multiple'`), `defaultValue`, `collapsible`.
 - `Accordion.Item` — wraps a trigger/content pair. Props: `value` (string identifier).
 - `Accordion.Trigger` — clickable header that toggles its panel. Renders a rotating chevron indicator (180° on open).
@@ -36,25 +36,25 @@ Compound component wrapping Tamagui Accordion primitives:
 
 - **Collapsed** (default) — content hidden, chevron pointing down.
 - **Expanded** — content visible, chevron rotated 180°.
-- **Disabled** — trigger non-interactive (when supported by Tamagui).
+- **Disabled** — trigger non-interactive (when supported by STL).
 
 ### Keyboard Interaction
 
 - **Enter/Space** — toggle the focused trigger's panel.
-- **Arrow Down/Up** — move focus between triggers (delegated to Tamagui).
+- **Arrow Down/Up** — move focus between triggers (delegated to STL).
 - **Home/End** — move to first/last trigger.
 
 ### Motion
 
 - Chevron rotates 180° on expand/collapse via CSS transition (150ms ease-in-out, matching `fast` animation token).
-- Content panel expands/collapses with Tamagui animation.
+- Content panel expands/collapses with STL animation.
 - Must respect `prefers-reduced-motion`.
 
 ---
 
 ## 5. Accessibility
 
-- **Semantic elements:** Tamagui Accordion provides proper heading + button structure.
+- **Semantic elements:** STL Accordion provides proper heading + button structure.
 - **ARIA attributes:** `aria-expanded` on triggers, `aria-controls` linking trigger to panel, `role="region"` on panels.
 - **Focus management:** Focus moves between triggers via arrow keys. Content is not in the tab order when collapsed.
 
@@ -63,7 +63,7 @@ Compound component wrapping Tamagui Accordion primitives:
 ## 6. Styling
 
 - **Design tokens used:** `$borderColor` for item borders, `$background` for content, `$color` for text. Chevron uses `$color`.
-- **Responsive behavior:** Full-width by default. Inherits Tamagui responsive props.
+- **Responsive behavior:** Full-width by default. Inherits STL responsive props.
 - **Dark mode:** Token resolution handles automatically.
 
 ---

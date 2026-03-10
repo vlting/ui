@@ -80,7 +80,7 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "NODE_OPTIONS='--max-old-space-size=8192' vite build && tsc --emitDeclarationOnly --outDir dist/types",
     "build:stl": "cd packages/stl && npx vite build",
     "build:stl-react": "cd packages/stl-react && npx vite build",
     "build:stl-native": "cd packages/stl-native && npx vite build",

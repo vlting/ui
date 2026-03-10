@@ -14,7 +14,7 @@ describe('Combobox', () => {
   })
 
   it.skip('has role="combobox" on trigger', () => {
-    // TODO: Tamagui may not render role in JSDOM
+    // TODO: styled component may not render role in JSDOM
     render(<Combobox.Root options={options} placeholder="Select" />)
     expect(screen.getByRole('combobox')).toBeTruthy()
   })

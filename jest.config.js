@@ -23,6 +23,6 @@ module.exports = {
   },
   setupFilesAfterEnv: ['./jest.setup.js'],
   transformIgnorePatterns: [
-    'node_modules/(?!(tamagui|@tamagui|react-native|@react-native|react-native-web|@tiptap|invariant|scheduler)/)',
+    'node_modules/(?!(react-native|@react-native|react-native-web|@tiptap|invariant|scheduler)/)',
   ],
 }

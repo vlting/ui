@@ -1,7 +1,7 @@
 import { memo, type ComponentType } from 'react'
 import Svg, { Path } from 'react-native-svg'
 
-/** Icon component type — compatible with @tamagui/lucide-icons and the Icon primitive */
+/** Icon component type — compatible with lucide-icons and the Icon primitive */
 export type IconFC = ComponentType<{ size?: number | string; color?: string }>
 
 /**

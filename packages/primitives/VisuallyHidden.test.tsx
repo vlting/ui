@@ -8,7 +8,7 @@ describe('VisuallyHidden', () => {
   })
 
   it.skip('applies sr-only clip styles', () => {
-    // TODO: requires browser environment — Tamagui inline styles not applied in JSDOM
+    // TODO: requires browser environment — inline styles not applied in JSDOM
     const { container } = render(<VisuallyHidden>Hidden text</VisuallyHidden>)
     const el = container.firstChild as HTMLElement
     expect(el.style.clip).toMatch(/rect/)
@@ -17,7 +17,7 @@ describe('VisuallyHidden', () => {
   })
 
   it.skip('applies position absolute', () => {
-    // TODO: requires browser environment — Tamagui inline styles not applied in JSDOM
+    // TODO: requires browser environment — inline styles not applied in JSDOM
     const { container } = render(<VisuallyHidden>Hidden text</VisuallyHidden>)
     const el = container.firstChild as HTMLElement
     expect(el.style.position).toBe('absolute')

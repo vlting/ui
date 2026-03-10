@@ -109,13 +109,13 @@ const rules: ValidationRule[] = [
   {
     name: 'no-classname',
     pattern: /\bclassName\s*[={]/g,
-    message: 'className is not supported in @vlting/ui. Use Tamagui style props.',
+    message: 'className is not supported in @vlting/ui. Use STL style props.',
     suggestion: 'Replace className with inline style props (padding="$4", etc.)',
   },
   {
     name: 'no-style-object-pixels',
     pattern: /style\s*=\s*\{\s*\{[^}]*(?:px|em|rem)/g,
-    message: 'CSS units in style object. Use Tamagui token values instead.',
+    message: 'CSS units in style object. Use design token values instead.',
     suggestion: 'Replace "16px" with "$4", "8px" with "$2", etc.',
   },
 ]

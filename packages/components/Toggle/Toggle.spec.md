@@ -24,7 +24,7 @@
 
 - **Toggle** — Standalone toggle button using `styledHtml('button')` for native HTML `<button>`.
 - **ToggleGroup** — Container for multiple related toggles (single or multiple selection).
-- **ToggleGroup.Item** — Individual toggle within a group (wraps Tamagui ToggleGroup.Item).
+- **ToggleGroup.Item** — Individual toggle within a group (wraps STL ToggleGroup.Item).
 
 > **TypeScript is the source of truth for props.** See `ToggleProps` and `ToggleGroupProps` in `Toggle.tsx` for the full typed API.
 
@@ -43,7 +43,7 @@
 ### Keyboard Interaction
 
 - **Enter/Space** — Toggles pressed state.
-- **ToggleGroup:** Arrow keys navigate between items (roving tabindex via Tamagui).
+- **ToggleGroup:** Arrow keys navigate between items (roving tabindex via STL).
 - Follows the [WAI-ARIA Toggle Button pattern](https://www.w3.org/WAI/ARIA/apg/patterns/button/).
 
 ### Motion
@@ -54,7 +54,7 @@
 
 ## 5. Accessibility
 
-- **Semantic element:** Native `<button>` via `styledHtml('button')` for Toggle. Tamagui ToggleGroup for group.
+- **Semantic element:** Native `<button>` via `styledHtml('button')` for Toggle. STL ToggleGroup for group.
 - **ARIA attributes:** `aria-pressed` (true/false) on Toggle; `type="button"` to prevent form submission; `aria-disabled` when disabled.
 - **Focus management:** Standard tab order. ToggleGroup uses roving tabindex for arrow key navigation.
 - **Screen reader announcements:** Button role, pressed state, and label announced.

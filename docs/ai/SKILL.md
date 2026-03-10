@@ -1,6 +1,6 @@
 # @vlting/ui — AI Skill
 
-Cross-platform design system (web + React Native) built on Tamagui v2. Multi-brand theming, 16 primitives, 52 components, 10 blocks, 8 chart types, 3229 icons.
+Cross-platform design system (web + React Native) built on @vlting/stl (STL). Multi-brand theming, 16 primitives, 52 components, 10 blocks, 8 chart types, 3229 icons.
 
 ## Quick Start
 
@@ -511,7 +511,7 @@ Examples: `RiHomeLine`, `RiHomeFill`, `RiSearchLine`, `RiSettingsLine`
 <Box onClick={handler}>
 <Input onChange={handler}>
 
-// RIGHT — Tamagui/RN events
+// RIGHT — STL/RN events
 <Box onPress={handler}>
 <Input onChangeText={handler}>
 ```

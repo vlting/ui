@@ -60,7 +60,7 @@ None.
   - `md`: `$2`
   - `lg`: `$4`
   - `xl`: `$6`
-- **Responsive behavior:** Flex spacer adapts with container. Fixed sizes are constant. Supports Tamagui responsive props.
+- **Responsive behavior:** Flex spacer adapts with container. Fixed sizes are constant. Supports STL responsive props.
 - **Dark mode:** Not applicable — no visual appearance.
 
 ---

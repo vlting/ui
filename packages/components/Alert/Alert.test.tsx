@@ -14,7 +14,7 @@ describe('Alert', () => {
   })
 
   it.skip('has role="status" for default variant', () => {
-    // TODO: Tamagui may not render role in JSDOM
+    // TODO: styled component may not render role in JSDOM
     render(
       <Alert.Root testID="alert">
         <Alert.Title>Info</Alert.Title>
@@ -24,7 +24,7 @@ describe('Alert', () => {
   })
 
   it.skip('has role="alert" for destructive variant', () => {
-    // TODO: Tamagui may not render role in JSDOM
+    // TODO: styled component may not render role in JSDOM
     render(
       <Alert.Root variant="destructive">
         <Alert.Title>Error</Alert.Title>

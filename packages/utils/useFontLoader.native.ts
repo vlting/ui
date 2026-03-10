@@ -48,7 +48,7 @@ export function parseFontFacesFromCSS(css: string): FontFaceEntry[] {
 }
 
 // ---------------------------------------------------------------------------
-// Build font name key matching Tamagui face map convention
+// Build font name key matching face map convention
 // ---------------------------------------------------------------------------
 
 export function buildFontKey(family: string, weight: string, style: string): string {
