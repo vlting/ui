@@ -89,12 +89,12 @@ E4 (RN Parity) ─────────────────┤
 ### Stage 2.2: Brand Customization UX
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Single-hue-to-palette pipeline cleaned up
-- [ ] User provides hue+saturation → full 12-step palette with correct text contrast
-- [ ] Complementary palette generation verified (primary→secondary→tertiary)
-- [ ] Multi-brand demo: 3+ brand configs in showcase
-- [ ] Brand switch in showcase works flawlessly, both modes
-**Status:** pending
+- [x] Single-hue-to-palette pipeline cleaned up
+- [x] User provides hue+saturation → full 12-step palette with correct text contrast
+- [x] Complementary palette generation verified (primary→secondary→tertiary)
+- [x] Multi-brand demo: 3+ brand configs in showcase
+- [x] Brand switch in showcase works flawlessly, both modes
+**Status:** done
 
 ### Stage 2.3: Animation & Interaction Tokens
 **Branch prefix:** feat
