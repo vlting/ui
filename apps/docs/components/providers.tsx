@@ -79,10 +79,10 @@ function useBrandCSSProperties(brand: BrandKey, resolvedTheme: string | undefine
     }
 
     // Expose brand font family
-    const fontConfig = definition.fontConfig
-    if (fontConfig) {
-      root.style.setProperty('--brand-font-heading', fontConfig.heading.family)
-      root.style.setProperty('--brand-font-body', fontConfig.body.family)
+    const fonts = definition.fonts
+    if (fonts) {
+      if (fonts.heading) root.style.setProperty('--brand-font-heading', fonts.heading)
+      if (fonts.body) root.style.setProperty('--brand-font-body', fonts.body)
     }
 
     // Set a data attribute for brand-specific CSS targeting
