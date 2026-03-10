@@ -35,10 +35,10 @@ const ButtonFrame = styled(
       link: { backgroundColor: "transparent", color: "var(--color10)", borderWidth: "0", paddingLeft: "0", paddingRight: "0", textDecoration: "underline" },
     },
     size: {
-      xs: { height: "28px", paddingLeft: "8px", paddingRight: "8px", fontSize: "var(--fontSize-1, 11px)" },
-      sm: { height: "32px", paddingLeft: "12px", paddingRight: "12px", fontSize: "var(--fontSize-2, 12px)" },
-      md: { height: "36px", paddingLeft: "16px", paddingRight: "16px", fontSize: "var(--fontSize-4, 16px)" },
-      lg: { height: "40px", paddingLeft: "20px", paddingRight: "20px", fontSize: "var(--fontSize-5, 18px)" },
+      xs: { height: "28px", paddingTop: "4px", paddingBottom: "4px", paddingLeft: "8px", paddingRight: "8px", fontSize: "var(--fontSize-1, 11px)" },
+      sm: { height: "32px", paddingTop: "8px", paddingBottom: "8px", paddingLeft: "12px", paddingRight: "12px", fontSize: "var(--fontSize-2, 12px)" },
+      md: { height: "36px", paddingTop: "8px", paddingBottom: "8px", paddingLeft: "16px", paddingRight: "16px", fontSize: "var(--fontSize-4, 16px)" },
+      lg: { height: "40px", paddingTop: "12px", paddingBottom: "12px", paddingLeft: "24px", paddingRight: "24px", fontSize: "var(--fontSize-5, 18px)" },
       icon: { height: "36px", width: "36px", padding: "0", fontSize: "var(--fontSize-4, 16px)" },
     },
     disabled: {

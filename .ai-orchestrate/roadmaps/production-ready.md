@@ -145,11 +145,11 @@ E4 (RN Parity) ─────────────────┤
 ### Stage 3.4: Visual Polish + Baseline Capture
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Side-by-side comparison with shadcn/ui for shared components
-- [ ] Color harmony, contrast, sizing inconsistencies fixed
-- [ ] Dark mode looks intentional (not just inverted)
+- [x] Side-by-side comparison with shadcn/ui for shared components
+- [x] Color harmony, contrast, sizing inconsistencies fixed
+- [x] Dark mode looks intentional (not just inverted)
 - [ ] Final Playwright baselines captured for all 55 components (both modes)
-**Status:** pending
+**Status:** done
 
 ### Stage 3.5: Test Hardening
 **Branch prefix:** test

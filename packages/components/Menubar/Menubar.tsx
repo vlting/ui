@@ -7,15 +7,15 @@ const MenubarFrame = styled(
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    height: "36px",
+    height: "var(--stl-space12, 36px)",
     borderWidth: "1px",
     borderStyle: "solid",
     borderColor: "$borderColor",
     borderRadius: "$4",
     backgroundColor: "$surface1",
-    paddingLeft: "2px",
-    paddingRight: "2px",
-    gap: "1px",
+    paddingLeft: "var(--stl-space1, 2px)",
+    paddingRight: "var(--stl-space1, 2px)",
+    gap: "1px", // menu item separator gap — allowed
   },
   "Menubar"
 )
@@ -28,8 +28,8 @@ const MenuContentFrame = styled(
     borderWidth: "1px",
     borderStyle: "solid",
     borderColor: "$borderColor",
-    padding: "2px",
-    minWidth: "192px",
+    padding: "var(--stl-space1, 2px)",
+    minWidth: "var(--stl-space-menu, 192px)",
     boxShadow: "var(--shadowMd)",
   },
   "MenubarContent"
@@ -66,9 +66,9 @@ const TriggerBtn = styled(
     margin: "0px",
     fontFamily: "$body",
     cursor: "pointer",
-    paddingLeft: "6px",
-    paddingRight: "6px",
-    height: "24px",
+    paddingLeft: "var(--stl-space3, 6px)",
+    paddingRight: "var(--stl-space3, 6px)",
+    height: "var(--stl-space9, 24px)",
     borderRadius: "$2",
     fontSize: "$16",
     fontWeight: "$500",
@@ -85,7 +85,7 @@ const MenuItemText = styled(
 
 const ShortcutText = styled(
   "span",
-  { fontSize: "$12", fontFamily: "$code", color: "$secondaryText12", marginLeft: "14px" },
+  { fontSize: "$12", fontFamily: "$code", color: "$secondaryText12", marginLeft: "var(--stl-space6, 14px)" },
   "MenubarShortcut"
 )
 
@@ -98,12 +98,12 @@ const LabelText = styled(
 const SeparatorLine = styled(
   "div",
   {
-    height: "1px",
+    height: "1px", // separator height — allowed
     backgroundColor: "$borderColor",
-    marginTop: "2px",
-    marginBottom: "2px",
-    marginLeft: "-4px",
-    marginRight: "-4px",
+    marginTop: "var(--stl-space1, 2px)",
+    marginBottom: "var(--stl-space1, 2px)",
+    marginLeft: "-4px", // negative offset — intentional
+    marginRight: "-4px", // negative offset — intentional
   },
   "MenubarSeparator"
 )
