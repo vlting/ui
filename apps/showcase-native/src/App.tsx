@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { StatusBar } from 'expo-status-bar'
-import { StlProvider } from '../../packages/stl-native/src/providers/StlProvider'
+import { StlProvider } from '../../../packages/stl-native/src/providers/StlProvider'
 
 import { StylingScreen } from './screens/StylingScreen'
 import { PrimitivesScreen } from './screens/PrimitivesScreen'
