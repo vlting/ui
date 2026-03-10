@@ -62,28 +62,26 @@ export function styled<C extends ComponentType, V extends Variants | undefined>(
       variantsDefinition,
     )
 
-    const hasStyleManager = !!styleManager
     const isStyledComponent = !!(component as any).isStyledComponent
     const Element = !isStyledComponent
       ? ((polyAs as FunctionComponent<any>) ?? component)
       : (component as FunctionComponent<any>)
 
-    if (hasStyleManager) styleManager.useClassName()
-
-    const { debug, ...styleProps } = style(
+    const { debug, ...styleProps } = style({
       css,
       conditions,
       variantCss,
-      propsCss,
+      overrides: propsCss,
       styleName,
-      styleManager,
-      {
+      manager: styleManager,
+      props: {
         className,
         index,
         length,
         isStyledComponent,
       },
-    )
+      useClassName: true,
+    })
 
     if (hasVariants && hasVariantKeys) {
       variantKeys.forEach((key) => {

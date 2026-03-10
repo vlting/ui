@@ -62,15 +62,19 @@ export function getThemeOverrides(
 }
 
 /** Converts a CSS style object into a set of pre-generated CSS class names, and possibly a style object */
-export function style(
-  css: CSS,
-  conditions: Conditions,
-  variantCss?: VariantCSS,
-  overrides?: CSS | null,
-  styleName?: string,
-  manager?: StyleManager,
-  props?: StyleMangerProps,
-) {
+export function style(input: {
+  css: CSS
+  conditions: Conditions
+  variantCss?: VariantCSS
+  overrides?: CSS | null
+  styleName?: string
+  manager?: StyleManager
+  props?: StyleMangerProps
+  useClassName?: boolean
+}) {
+  let { manager } = input
+  const { css, conditions, variantCss, overrides, styleName, props, useClassName } = input
+
   if (manager) {
     manager.setNewStyle(conditions, styleName, props)
   } else {
@@ -90,7 +94,7 @@ export function style(
     manager.processOverridesCss(overrides)
   }
 
-  return manager.compile()
+  return manager.compile(useClassName)
 }
 
 /** Keeps the order of merged CSS selectors & props, unlike a regular merge, if an object key is repeated */
