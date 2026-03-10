@@ -41,7 +41,18 @@ const TabsTriggerFrame = styled(
     fontWeight: "500",
     backgroundColor: "transparent",
     color: "var(--colorSubtitle)",
-    transition: "background-color 150ms ease, color 150ms ease",
+    outline: "none",
+    transition: "background-color var(--stl-animation-fastDuration, 150ms) ease, color var(--stl-animation-fastDuration, 150ms) ease",
+    hovered: {
+      backgroundColor: "var(--color2)",
+    },
+    focused: {
+      outline: "2px solid var(--stl-outline-primaryColorBase, currentColor)",
+      outlineOffset: "2px",
+    },
+    pressed: {
+      backgroundColor: "var(--color4)",
+    },
   },
   {
     size: {

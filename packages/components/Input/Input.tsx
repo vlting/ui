@@ -1,6 +1,13 @@
 import type React from 'react'
-import { useId } from 'react'
+import { useEffect, useId } from 'react'
 import { styled } from '../../stl-react/src/config'
+
+const INPUT_INTERACTION_STYLE_ID = 'vlt-input-interaction'
+const INPUT_INTERACTION_CSS = `
+.vlt-input:hover:not(:disabled):not(:focus-visible) { border-color: var(--borderColorHover, var(--borderColor)); }
+.vlt-input:focus-visible { outline: 2px solid var(--stl-outline-primaryColorBase, currentColor); outline-offset: 2px; border-color: var(--borderColorPress, var(--borderColor)); }
+.vlt-input:disabled { opacity: 0.5; cursor: not-allowed; }
+`
 
 const InputFrame = styled("input", {
   fontFamily: "$body",
@@ -15,14 +22,15 @@ const InputFrame = styled("input", {
   outline: "none",
   width: "100%",
   boxSizing: "border-box",
+  transition: "border-color 150ms ease, outline 150ms ease",
 }, {
   fieldSize: {
-    sm: { borderRadius: "$2", paddingLeft: "6px", paddingRight: "6px", paddingTop: "4px", paddingBottom: "4px", fontSize: "$14" },
-    md: { borderRadius: "$4", paddingLeft: "8px", paddingRight: "8px", paddingTop: "6px", paddingBottom: "6px" },
-    lg: { borderRadius: "$4", paddingLeft: "10px", paddingRight: "10px", paddingTop: "8px", paddingBottom: "8px" },
+    sm: { height: "32px", borderRadius: "$2", paddingLeft: "6px", paddingRight: "6px", paddingTop: "4px", paddingBottom: "4px", fontSize: "$14" },
+    md: { height: "40px", borderRadius: "$4", paddingLeft: "8px", paddingRight: "8px", paddingTop: "6px", paddingBottom: "6px" },
+    lg: { height: "44px", borderRadius: "$4", paddingLeft: "10px", paddingRight: "10px", paddingTop: "8px", paddingBottom: "8px" },
   },
   error: {
-    true: { borderColor: "red" },
+    true: { borderColor: "var(--stl-color-error9, var(--red10, #ef4444))" },
   },
 }, "Input")
 
@@ -48,7 +56,7 @@ const InputHelper = styled("span", {
 }, {
   tone: {
     neutral: { color: "$tertiary7" },
-    error: { color: "red" },
+    error: { color: "var(--stl-color-error9, var(--red10, #ef4444))" },
   },
 }, "InputHelper")
 
@@ -102,8 +110,18 @@ export function Input({
   const helperId = useId()
   const displayHelper = error && errorMessage ? errorMessage : helperText
 
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    if (document.getElementById(INPUT_INTERACTION_STYLE_ID)) return
+    const el = document.createElement('style')
+    el.id = INPUT_INTERACTION_STYLE_ID
+    el.textContent = INPUT_INTERACTION_CSS
+    document.head.appendChild(el)
+  }, [])
+
   const inputEl = (
     <InputFrame
+      className="vlt-input"
       id={inputId}
       type={type}
       placeholder={placeholder}

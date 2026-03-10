@@ -21,7 +21,7 @@ const CardFrame = styled(
       lg: { padding: "0px" },
     },
     elevated: {
-      true: { borderWidth: "0px" },
+      true: { borderWidth: "0px", boxShadow: "var(--stl-shadow-sm, 0 1px 3px rgba(0,0,0,0.08))" },
     },
     interactive: {
       true: { cursor: "pointer" },

@@ -1,6 +1,13 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useEffect } from 'react'
 import { styled } from '../../stl-react/src/config'
 import { VisuallyHidden } from '../../primitives'
+
+const BUTTON_INTERACTION_STYLE_ID = 'vlt-button-interaction'
+const BUTTON_INTERACTION_CSS = `
+.vlt-btn:hover:not(:disabled) { filter: brightness(1.1); }
+.vlt-btn:focus-visible { outline: 2px solid var(--stl-outline-primaryColorBase, currentColor); outline-offset: 2px; }
+.vlt-btn:active:not(:disabled) { filter: brightness(0.95); transform: scale(0.98); }
+`
 
 const ButtonFrame = styled(
   "button",
@@ -14,7 +21,7 @@ const ButtonFrame = styled(
     fontWeight: "500",
     cursor: "pointer",
     border: "none",
-    transition: "background-color 150ms ease, border-color 150ms ease",
+    transition: "background-color 150ms ease, border-color 150ms ease, filter 150ms ease, transform 100ms ease",
     outline: "none",
   },
   {
@@ -28,10 +35,10 @@ const ButtonFrame = styled(
       link: { backgroundColor: "transparent", color: "var(--color10)", borderWidth: "0", paddingLeft: "0", paddingRight: "0", textDecoration: "underline" },
     },
     size: {
-      xs: { height: "28px", paddingLeft: "8px", paddingRight: "8px", fontSize: "var(--fontSize-1, 11px)" },
-      sm: { height: "32px", paddingLeft: "12px", paddingRight: "12px", fontSize: "var(--fontSize-2, 12px)" },
-      md: { height: "36px", paddingLeft: "16px", paddingRight: "16px", fontSize: "var(--fontSize-4, 16px)" },
-      lg: { height: "40px", paddingLeft: "20px", paddingRight: "20px", fontSize: "var(--fontSize-5, 18px)" },
+      xs: { height: "28px", paddingTop: "4px", paddingBottom: "4px", paddingLeft: "8px", paddingRight: "8px", fontSize: "var(--fontSize-1, 11px)" },
+      sm: { height: "32px", paddingTop: "8px", paddingBottom: "8px", paddingLeft: "12px", paddingRight: "12px", fontSize: "var(--fontSize-2, 12px)" },
+      md: { height: "36px", paddingTop: "8px", paddingBottom: "8px", paddingLeft: "16px", paddingRight: "16px", fontSize: "var(--fontSize-4, 16px)" },
+      lg: { height: "40px", paddingTop: "12px", paddingBottom: "12px", paddingLeft: "24px", paddingRight: "24px", fontSize: "var(--fontSize-5, 18px)" },
       icon: { height: "36px", width: "36px", padding: "0", fontSize: "var(--fontSize-4, 16px)" },
     },
     disabled: {
@@ -160,11 +167,21 @@ const ButtonBase = React.forwardRef<
 ) {
   const isDisabled = disabled ?? loading ?? false
 
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    if (document.getElementById(BUTTON_INTERACTION_STYLE_ID)) return
+    const el = document.createElement('style')
+    el.id = BUTTON_INTERACTION_STYLE_ID
+    el.textContent = BUTTON_INTERACTION_CSS
+    document.head.appendChild(el)
+  }, [])
+
   return (
     <ButtonContext.Provider value={{ variant }}>
       <ButtonFrame
         ref={ref}
         type="button"
+        className="vlt-btn"
         disabled={isDisabled}
         aria-busy={loading || undefined}
         onClick={isDisabled ? undefined : onPress}

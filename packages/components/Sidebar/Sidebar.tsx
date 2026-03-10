@@ -16,10 +16,10 @@ const SidebarFrame = styled(
 const SidebarHeaderFrame = styled(
   "div",
   {
-    paddingLeft: "16px",
-    paddingRight: "16px",
-    paddingTop: "12px",
-    paddingBottom: "12px",
+    paddingLeft: "var(--stl-space7, 16px)",
+    paddingRight: "var(--stl-space7, 16px)",
+    paddingTop: "var(--stl-space5, 12px)",
+    paddingBottom: "var(--stl-space5, 12px)",
     borderBottomWidth: "1px",
     borderBottomStyle: "solid",
     borderBottomColor: "var(--borderColor)",
@@ -29,17 +29,17 @@ const SidebarHeaderFrame = styled(
 
 const SidebarContentFrame = styled(
   "div",
-  { flex: "1", overflow: "auto", paddingTop: "6px", paddingBottom: "6px" },
+  { flex: "1", overflow: "auto", paddingTop: "var(--stl-space3, 6px)", paddingBottom: "var(--stl-space3, 6px)" },
   "SidebarContent"
 )
 
 const SidebarFooterFrame = styled(
   "div",
   {
-    paddingLeft: "16px",
-    paddingRight: "16px",
-    paddingTop: "12px",
-    paddingBottom: "12px",
+    paddingLeft: "var(--stl-space7, 16px)",
+    paddingRight: "var(--stl-space7, 16px)",
+    paddingTop: "var(--stl-space5, 12px)",
+    paddingBottom: "var(--stl-space5, 12px)",
     borderTopWidth: "1px",
     borderTopStyle: "solid",
     borderTopColor: "var(--borderColor)",
@@ -47,29 +47,29 @@ const SidebarFooterFrame = styled(
   "SidebarFooter"
 )
 
-const SidebarGroupFrame = styled("div", { paddingBottom: "6px" }, "SidebarGroup")
+const SidebarGroupFrame = styled("div", { paddingBottom: "var(--stl-space3, 6px)" }, "SidebarGroup")
 
 const SidebarGroupLabelFrame = styled(
   "div",
-  { paddingLeft: "16px", paddingRight: "16px", paddingTop: "6px", paddingBottom: "4px" },
+  { paddingLeft: "var(--stl-space7, 16px)", paddingRight: "var(--stl-space7, 16px)", paddingTop: "var(--stl-space3, 6px)", paddingBottom: "var(--stl-space2, 4px)" },
   "SidebarGroupLabel"
 )
 
 const SidebarMenuFrame = styled(
   "nav",
-  { display: "flex", flexDirection: "column", gap: "1px", paddingLeft: "6px", paddingRight: "6px" },
+  { display: "flex", flexDirection: "column", gap: "1px", paddingLeft: "var(--stl-space3, 6px)", paddingRight: "var(--stl-space3, 6px)" },
   "SidebarMenu"
 )
 
 const SidebarSeparatorFrame = styled(
   "hr",
   {
-    height: "1px",
+    height: "1px", // separator height — allowed
     backgroundColor: "var(--borderColor)",
-    marginTop: "6px",
-    marginBottom: "6px",
-    marginLeft: "16px",
-    marginRight: "16px",
+    marginTop: "var(--stl-space3, 6px)",
+    marginBottom: "var(--stl-space3, 6px)",
+    marginLeft: "var(--stl-space7, 16px)",
+    marginRight: "var(--stl-space7, 16px)",
     border: "none",
   },
   "SidebarSeparator"
