@@ -397,6 +397,17 @@ if (animation.keyframes) {
   })
 }
 
+// Reduced motion: disable animations and transitions for users who prefer it
+globalStyle("*", {
+  "@media": {
+    "(prefers-reduced-motion: reduce)": {
+      animationDuration: "0.01s !important",
+      animationIterationCount: "1 !important",
+      transitionDuration: "0.01s !important",
+    },
+  },
+})
+
 // CUSTOM VAR PROPS ///////////////////////////////////////////////////////////////////////////////
 /** Generate vars and classes for custom props */
 const customVarProps = generateCustomVarPropsCss((prop: CssPropKey, template?: (value: string) => string) => {
@@ -710,3 +721,4 @@ globalStyle(":root", varMap)
 // Both selectors have specificity (0,1,0) — source order is the tiebreaker.
 // Moving this above :root will silently break dark mode.
 globalStyle(`[${COLOR_MODE_ATTR}="dark"]`, darkVarMap)
+

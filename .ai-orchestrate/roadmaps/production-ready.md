@@ -75,36 +75,36 @@ E4 (RN Parity) ─────────────────┤
 **Dependencies:** none (parallel with E1)
 **Epic slug:** theming-hardening
 **Epic branch:** epic/theming-hardening
-**Status:** pending
+**Status:** done
 
 ### Stage 2.1: Token Audit + Discipline Enforcement
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] All 18 scales audited — completeness, light/dark correctness verified
-- [ ] Gaps in palette generation (colorGen.utils.ts) fixed
-- [ ] Transition tokens added as CSS custom properties
-- [ ] All token scales documented, no gaps
-**Status:** pending
+- [x] All 18 scales audited — completeness, light/dark correctness verified
+- [x] Gaps in palette generation (colorGen.utils.ts) fixed
+- [x] Transition tokens added as CSS custom properties
+- [x] All token scales documented, no gaps
+**Status:** done
 
 ### Stage 2.2: Brand Customization UX
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Single-hue-to-palette pipeline cleaned up
-- [ ] User provides hue+saturation → full 12-step palette with correct text contrast
-- [ ] Complementary palette generation verified (primary→secondary→tertiary)
-- [ ] Multi-brand demo: 3+ brand configs in showcase
-- [ ] Brand switch in showcase works flawlessly, both modes
-**Status:** pending
+- [x] Single-hue-to-palette pipeline cleaned up
+- [x] User provides hue+saturation → full 12-step palette with correct text contrast
+- [x] Complementary palette generation verified (primary→secondary→tertiary)
+- [x] Multi-brand demo: 3+ brand configs in showcase
+- [x] Brand switch in showcase works flawlessly, both modes
+**Status:** done
 
 ### Stage 2.3: Animation & Interaction Tokens
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Animation tokens: --stl-duration-fast, --stl-duration-normal, --stl-easing-default
-- [ ] Focus ring tokens: consistent outlineWidth, outlineOffset, outlineColor
-- [ ] Hover/press color shift tokens verified and used
-- [ ] prefers-reduced-motion support via tokens
-- [ ] All interactive states use token-based values
-**Status:** pending
+- [x] Animation tokens: --stl-duration-fast, --stl-duration-normal, --stl-easing-default
+- [x] Focus ring tokens: consistent outlineWidth, outlineOffset, outlineColor
+- [x] Hover/press color shift tokens verified and used
+- [x] prefers-reduced-motion support via tokens
+- [x] All interactive states use token-based values
+**Status:** done
 
 ## Epic 3: Component Quality Audit & Visual Polish
 **Objective:** Every component matches shadcn/ui visual quality.
