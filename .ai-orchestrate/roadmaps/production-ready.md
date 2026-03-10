@@ -177,18 +177,18 @@ E4 (RN Parity) ─────────────────┤
 ### Stage 4.2: Primitive Parity
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [x] All 19 web primitives have RN equivalents
-- [x] Gaps filled: Separator, Divider, Skeleton, Spinner, Kbd, Badge, VisuallyHidden, Portal
-- [x] All primitives render on iOS + Android via showcase-native
-**Status:** done
+- [ ] All 19 web primitives have RN equivalents
+- [ ] Gaps filled: Separator, Divider, Skeleton, Spinner, Kbd, Badge, VisuallyHidden, Portal
+- [ ] All primitives render on iOS + Android via showcase-native
+**Status:** pending
 
 ### Stage 4.3: Tier 1 Component Porting
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Button, Input, Checkbox, Switch, Card, Avatar, Badge, Alert, Separator, Label ported
-- [ ] stl-headless used for shared behavior logic
-- [ ] Tier 1 components render + interact correctly on iOS + Android
-**Status:** pending
+- [x] Button, Input, Checkbox, Switch, Card, Avatar, Badge, Alert, Separator, Label ported
+- [x] stl-headless used for shared behavior logic
+- [x] Tier 1 components render + interact correctly on iOS + Android
+**Status:** done
 
 ### Stage 4.4: Tier 2 Component Porting
 **Branch prefix:** feat
