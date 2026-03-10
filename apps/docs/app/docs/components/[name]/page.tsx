@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { codeToHtml } from 'shiki'
 import { getComponent, getAllComponents } from '@/lib/registry'
 import { loadApiMapping, flattenProps } from '@/lib/api-mapping'
 import { CodeBlock } from '@/components/code-block'
@@ -38,6 +39,18 @@ export default async function ComponentPage({ params }: PageProps) {
     ? flattenProps(apiMapping.component, apiMapping.vlting.props)
     : null
 
+  // Pre-highlight example code server-side for Shiki rendering
+  const highlightedExamples = await Promise.all(
+    component.examples.map(async (example) => {
+      const trimmed = example.code.trim()
+      const [light, dark] = await Promise.all([
+        codeToHtml(trimmed, { lang: 'tsx', theme: 'github-light-default' }),
+        codeToHtml(trimmed, { lang: 'tsx', theme: 'github-dark' }),
+      ])
+      return { ...example, codeHtml: { light, dark } }
+    }),
+  )
+
   return (
     <div className="max-w-4xl">
       {/* Header */}
@@ -57,7 +70,7 @@ export default async function ComponentPage({ params }: PageProps) {
           <h2 className="text-xl font-semibold mb-4">Examples</h2>
           <ComponentExamples
             componentSlug={component.slug}
-            examples={component.examples}
+            examples={highlightedExamples}
           />
         </section>
       )}
