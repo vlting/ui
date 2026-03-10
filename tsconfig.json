@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "ESNext",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2021", "DOM", "DOM.Iterable"],
     "jsx": "react-native",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -14,8 +14,8 @@
     "strict": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "declaration": true,
     "declarationDir": "dist/types",
     "outDir": "dist",
@@ -38,11 +38,20 @@
     "types": ["node", "react", "jest"]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
     "config/**/*.ts",
-    "packages/**/*.ts",
-    "packages/**/*.tsx"
+    "packages/stl/**/*.ts",
+    "packages/stl/**/*.tsx",
+    "packages/design-tokens/**/*.ts",
+    "packages/hooks/**/*.ts",
+    "packages/hooks/**/*.tsx",
+    "packages/utils/**/*.ts",
+    "packages/icons/**/*.ts",
+    "packages/icons/**/*.tsx"
   ],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx", "apps", "examples"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
 }

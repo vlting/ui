@@ -1,7 +1,7 @@
-import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { codeToHtml } from 'shiki'
-import { getHook, getAllHooks } from '@/lib/hook-registry'
+import { getAllHooks, getHook } from '@/lib/hook-registry'
 
 interface PageProps {
   params: Promise<{ name: string }>
@@ -79,10 +79,15 @@ export default async function HookPage({ params }: PageProps) {
               </thead>
               <tbody>
                 {hook.parameters.map((param) => (
-                  <tr key={param.name} className="border-b border-border-muted last:border-0">
+                  <tr
+                    key={param.name}
+                    className="border-b border-border-muted last:border-0"
+                  >
                     <td className="py-2 px-4 font-mono text-xs">{param.name}</td>
                     <td className="py-2 px-4 font-mono text-xs">{param.type}</td>
-                    <td className="py-2 px-4 text-foreground-secondary">{param.description}</td>
+                    <td className="py-2 px-4 text-foreground-secondary">
+                      {param.description}
+                    </td>
                   </tr>
                 ))}
               </tbody>

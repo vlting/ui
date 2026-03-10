@@ -1,12 +1,14 @@
-import { Section, DemoCard, DemoRow } from '../components/Section'
-import { Breadcrumb } from '@vlting/ui/components'
-import { ContextMenu } from '@vlting/ui/components'
-import { DropdownMenu } from '@vlting/ui/components'
-import { Menubar } from '@vlting/ui/components'
-import { NavigationMenu } from '@vlting/ui/components'
-import { Pagination } from '@vlting/ui/components'
-import { Command } from '@vlting/ui/components'
-import { Button } from '@vlting/ui/components'
+import {
+  Breadcrumb,
+  Button,
+  Command,
+  ContextMenu,
+  DropdownMenu,
+  Menubar,
+  NavigationMenu,
+  Pagination,
+} from '@vlting/ui/components'
+import { DemoCard, Section } from '../components/Section'
 
 export function NavigationPage() {
   return (
@@ -54,13 +56,15 @@ export function NavigationPage() {
         <DemoCard label="Right-click context menu">
           <ContextMenu.Root>
             <ContextMenu.Trigger>
-              <div style={{
-                border: '2px dashed #ccc',
-                borderRadius: 8,
-                padding: 40,
-                textAlign: 'center',
-                color: '#888',
-              }}>
+              <div
+                style={{
+                  border: '2px dashed #ccc',
+                  borderRadius: 8,
+                  padding: 40,
+                  textAlign: 'center',
+                  color: '#888',
+                }}
+              >
                 Right-click here
               </div>
             </ContextMenu.Trigger>
@@ -105,11 +109,7 @@ export function NavigationPage() {
 
       <Section title="Pagination">
         <DemoCard label="Page navigation">
-          <Pagination.Root
-            currentPage={1}
-            totalPages={5}
-            onPageChange={() => {}}
-          />
+          <Pagination.Root currentPage={1} totalPages={5} onPageChange={() => {}} />
         </DemoCard>
       </Section>
 
@@ -118,7 +118,9 @@ export function NavigationPage() {
           <NavigationMenu.Root>
             <NavigationMenu.List>
               <NavigationMenu.Item>
-                <NavigationMenu.Link href="#" active>Home</NavigationMenu.Link>
+                <NavigationMenu.Link href="#" active>
+                  Home
+                </NavigationMenu.Link>
               </NavigationMenu.Item>
               <NavigationMenu.Item value="products">
                 <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
@@ -141,7 +143,14 @@ export function NavigationPage() {
 
       <Section title="Command">
         <DemoCard label="Command palette / search">
-          <div style={{ maxWidth: 400, border: '1px solid #ddd', borderRadius: 8, overflow: 'hidden' }}>
+          <div
+            style={{
+              maxWidth: 400,
+              border: '1px solid #ddd',
+              borderRadius: 8,
+              overflow: 'hidden',
+            }}
+          >
             <Command.Root>
               <Command.Input placeholder="Type a command or search..." />
               <Command.List>

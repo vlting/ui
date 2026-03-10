@@ -1,26 +1,26 @@
 import {
   createContext,
+  type ReactNode,
   useCallback,
   useEffect,
   useMemo,
   useState,
-  type ReactNode,
 } from 'react'
 import {
+  AccessibilityInfo,
   Appearance,
   Dimensions,
   I18nManager,
-  AccessibilityInfo,
   type ScaledSize,
 } from 'react-native'
-import type { ColorMode } from '../shared/colorGen'
-import { DEFAULT_COLOR_MODE } from '../shared/colorGen'
 import {
+  type ConditionKeys,
+  type ConditionMask,
   computeConditionMask,
   observerConditionsMap,
-  type ConditionMask,
-  type ConditionKeys,
 } from '../config/conditions'
+import type { ColorMode } from '../shared/colorGen'
+import { DEFAULT_COLOR_MODE } from '../shared/colorGen'
 
 // CONTEXT /////////////////////////////////////////////////////////////////////
 
@@ -136,7 +136,7 @@ export function StlProvider({
       '!lowData': true,
       debug: isDebugMode,
     })
-  }, [windowWidth, isDark, isRTL, isReducedMotion, isDebugMode])
+  }, [windowWidth, isDark, isReducedMotion, isDebugMode])
 
   const stlValue = useMemo<StlContextValue>(
     () => ({

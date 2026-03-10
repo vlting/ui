@@ -1,6 +1,6 @@
-import { Section, DemoCard, DemoRow } from '../../components/Section'
 import { Badge as BadgeBase } from '@vlting/ui/primitives'
 import type { ComponentType, ReactNode } from 'react'
+import { DemoCard, DemoRow, Section } from '../../components/Section'
 
 // Badge's underlying styled() component doesn't expose children in its types,
 // but the <span> element does accept children at runtime.
@@ -11,9 +11,7 @@ const Badge = BadgeBase as ComponentType<
 export function BadgePage() {
   return (
     <div>
-      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>
-        Badge
-      </h1>
+      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>Badge</h1>
 
       <Section title="Variants">
         <DemoCard label="Badge variants" testId="badge-variants">

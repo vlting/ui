@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
+import { expect, test } from '@playwright/test'
 
 const KNOWN_ISSUES = ['color-contrast', 'target-size']
 
@@ -30,12 +30,6 @@ for (const pg of pages) {
         .analyze()
 
       if (results.violations.length > 0) {
-        console.log(
-          `A11y violations (${pg.name} light):`,
-          results.violations.map(
-            (v) => `${v.id}: ${v.help} (${v.impact})`,
-          ),
-        )
       }
 
       const blocking = results.violations.filter(
@@ -59,12 +53,6 @@ for (const pg of pages) {
         .analyze()
 
       if (results.violations.length > 0) {
-        console.log(
-          `A11y violations (${pg.name} dark):`,
-          results.violations.map(
-            (v) => `${v.id}: ${v.help} (${v.impact})`,
-          ),
-        )
       }
 
       const blocking = results.violations.filter(

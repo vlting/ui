@@ -1,5 +1,5 @@
-import type { Brand } from './types'
 import { generatePalette } from './generate-palette'
+import type { Brand } from './types'
 
 /**
  * Default brand — Clean neutral grays + cyan-blue primary + muted purple secondary.

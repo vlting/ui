@@ -1,18 +1,17 @@
-import { Section, DemoCard, DemoRow } from '../../components/Section'
-import { Card as CardBase, Button } from '@vlting/ui/components'
+import { Button, Card as CardBase } from '@vlting/ui/components'
 import type { ComponentType, ReactNode } from 'react'
+import { DemoCard, Section } from '../../components/Section'
 
 // Card's styled() base doesn't expose children in its types
 const Card = CardBase as unknown as ComponentType<
   Parameters<typeof CardBase>[0] & { children?: ReactNode }
-> & typeof CardBase
+> &
+  typeof CardBase
 
 export function CardPage() {
   return (
     <div>
-      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>
-        Card
-      </h1>
+      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>Card</h1>
 
       <Section title="Default">
         <DemoCard label="Card with title and description" testId="card-default">
@@ -20,7 +19,9 @@ export function CardPage() {
             <Card>
               <Card.Header>
                 <Card.Title>Card Title</Card.Title>
-                <Card.Description>This is a description for the card component.</Card.Description>
+                <Card.Description>
+                  This is a description for the card component.
+                </Card.Description>
               </Card.Header>
               <Card.Content>
                 <p>Card content goes here. It can contain any elements.</p>
@@ -36,13 +37,17 @@ export function CardPage() {
             <Card>
               <Card.Header>
                 <Card.Title>Card Title</Card.Title>
-                <Card.Description>This is a description for the card component.</Card.Description>
+                <Card.Description>
+                  This is a description for the card component.
+                </Card.Description>
               </Card.Header>
               <Card.Content>
                 <p>Card content goes here. It can contain any elements.</p>
               </Card.Content>
               <Card.Footer>
-                <Button variant="outline" size="sm">Cancel</Button>
+                <Button variant="outline" size="sm">
+                  Cancel
+                </Button>
                 <Button size="sm">Save</Button>
               </Card.Footer>
             </Card>

@@ -1,6 +1,6 @@
-export { OnboardingWizardBlock } from './OnboardingWizardBlock'
 export type {
+  OnboardingStep,
   OnboardingWizardBlockProps,
   OnboardingWizardBlockVariant,
-  OnboardingStep,
 } from './OnboardingWizardBlock'
+export { OnboardingWizardBlock } from './OnboardingWizardBlock'

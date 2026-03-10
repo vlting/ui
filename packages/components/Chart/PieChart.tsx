@@ -1,9 +1,10 @@
-import React, { useMemo, useCallback, useState } from 'react'
-import Svg, { Path, G, Text as SvgText, Line } from 'react-native-svg'
-import type { ChartConfig, ChartDataPoint, TooltipVariant } from './types'
+import type React from 'react'
+import { useCallback, useMemo, useState } from 'react'
+import Svg, { G, Line, Path, Text as SvgText } from 'react-native-svg'
 import { useChartContext } from './Chart'
 import { ChartLegend } from './ChartLegend'
 import { ChartTooltip } from './ChartTooltip'
+import type { ChartConfig, ChartDataPoint, TooltipVariant } from './types'
 
 export type PieChartVariant =
   | 'default'
@@ -363,25 +364,23 @@ export function PieChart({
       <Svg width={chartWidth} height={chartHeight}>
         {isStacked && stackedRings ? (
           // Stacked variant: nested rings
-          <>
-            {stackedRings.map((ring) =>
-              ring.slices.map((slice, si) => (
-                <Path
-                  key={`ring-${ring.seriesKey}-${si}`}
-                  d={describeArc(
-                    cx,
-                    cy,
-                    ring.outerR,
-                    ring.innerR,
-                    slice.startAngle,
-                    slice.endAngle,
-                  )}
-                  fill={slice.color}
-                  fillOpacity={0.8 - si * 0.05}
-                />
-              )),
-            )}
-          </>
+          stackedRings.map((ring) =>
+            ring.slices.map((slice, si) => (
+              <Path
+                key={`ring-${ring.seriesKey}-${si}`}
+                d={describeArc(
+                  cx,
+                  cy,
+                  ring.outerR,
+                  ring.innerR,
+                  slice.startAngle,
+                  slice.endAngle,
+                )}
+                fill={slice.color}
+                fillOpacity={0.8 - si * 0.05}
+              />
+            )),
+          )
         ) : (
           // Standard pie/donut slices
           <G>

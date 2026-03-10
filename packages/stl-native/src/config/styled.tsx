@@ -1,14 +1,15 @@
-import { type ComponentType, type ForwardedRef, forwardRef, createElement } from 'react'
-import type { ViewStyle, TextStyle } from 'react-native'
+import { type ComponentType, createElement, type ForwardedRef, forwardRef } from 'react'
+import type { TextStyle, ViewStyle } from 'react-native'
 
 /** Loose CSS descriptor type for native */
 type CSS = Record<
   string,
   string | number | Record<string, string | number | Record<string, string | number>>
 >
-import { NativeStyleResolver } from './NativeStyleResolver'
+
 import { useConditionMask } from '../hooks/useConditionMask'
 import { CondBit, type ConditionMask } from './conditions'
+import { NativeStyleResolver } from './NativeStyleResolver'
 
 type NativeStyle = Readonly<ViewStyle & TextStyle>
 

@@ -7,6 +7,7 @@ const CHECKBOX_INTERACTION_CSS = `
 input:focus-visible + .vlt-checkbox-box { outline: 2px solid var(--stl-outline-primaryColorBase, currentColor); outline-offset: 2px; }
 input:active:not(:disabled) + .vlt-checkbox-box { transform: scale(0.95); }
 `
+
 import { styled } from '../../stl-react/src/config'
 
 function CheckSvg({ size = 14 }: { size?: number }) {

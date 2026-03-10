@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 interface TocItem {
   id: string
@@ -12,7 +12,7 @@ interface TocItem {
 export function TableOfContents() {
   const [headings, setHeadings] = useState<TocItem[]>([])
   const [activeId, setActiveId] = useState<string>('')
-  const pathname = usePathname()
+  const _pathname = usePathname()
 
   // Extract headings from the main content area on mount and pathname change
   useEffect(() => {
@@ -36,7 +36,7 @@ export function TableOfContents() {
       })
     })
     setHeadings(items)
-  }, [pathname])
+  }, [])
 
   // Track active heading with IntersectionObserver
   useEffect(() => {
@@ -50,7 +50,7 @@ export function TableOfContents() {
           }
         }
       },
-      { rootMargin: '-80px 0px -80% 0px', threshold: 0 }
+      { rootMargin: '-80px 0px -80% 0px', threshold: 0 },
     )
 
     headings.forEach(({ id }) => {
@@ -65,22 +65,16 @@ export function TableOfContents() {
 
   return (
     <nav aria-label="Table of contents" className="space-y-1 text-sm">
-      <p className="mb-2 font-medium text-foreground">
-        On this page
-      </p>
+      <p className="mb-2 font-medium text-foreground">On this page</p>
       {headings.map((heading) => (
         <a
           key={heading.id}
           href={`#${heading.id}`}
           onClick={(e) => {
             e.preventDefault()
-            document
-              .getElementById(heading.id)
-              ?.scrollIntoView({ behavior: 'smooth' })
+            document.getElementById(heading.id)?.scrollIntoView({ behavior: 'smooth' })
           }}
-          className={`block py-1 transition-colors ${
-            heading.level === 3 ? 'pl-4' : ''
-          } ${
+          className={`block py-1 transition-colors ${heading.level === 3 ? 'pl-4' : ''} ${
             activeId === heading.id
               ? 'font-medium text-primary'
               : 'text-muted-foreground hover:text-foreground'

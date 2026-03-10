@@ -1,2 +1,2 @@
-export { EmptyStateBlock } from './EmptyStateBlock'
 export type { EmptyStateBlockProps, EmptyStateBlockVariant } from './EmptyStateBlock'
+export { EmptyStateBlock } from './EmptyStateBlock'

@@ -1,5 +1,5 @@
-import { test, expect, type Page } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
+import { expect, test } from '@playwright/test'
 
 interface ComponentTestOptions {
   /** Route path, e.g. '/components/card' */
@@ -29,10 +29,9 @@ export function componentTests(name: string, opts: ComponentTestOptions) {
       test(`light mode — ${label}`, async ({ page }) => {
         const section = page.locator(`[data-testid="${testId}"]`)
         await expect(section).toBeVisible()
-        await expect(section).toHaveScreenshot(
-          `${testId}-light.png`,
-          { maxDiffPixelRatio: 0.01 },
-        )
+        await expect(section).toHaveScreenshot(`${testId}-light.png`, {
+          maxDiffPixelRatio: 0.01,
+        })
       })
     }
 
@@ -43,17 +42,13 @@ export function componentTests(name: string, opts: ComponentTestOptions) {
         const [label, testId] = firstEntry
         test(`dark mode — ${label}`, async ({ page }) => {
           await page.evaluate(() => {
-            document.documentElement.setAttribute(
-              'data-color-mode',
-              'dark',
-            )
+            document.documentElement.setAttribute('data-color-mode', 'dark')
           })
           await page.waitForTimeout(100)
           const section = page.locator(`[data-testid="${testId}"]`)
-          await expect(section).toHaveScreenshot(
-            `${testId}-dark.png`,
-            { maxDiffPixelRatio: 0.01 },
-          )
+          await expect(section).toHaveScreenshot(`${testId}-dark.png`, {
+            maxDiffPixelRatio: 0.01,
+          })
         })
       }
     }
@@ -65,19 +60,13 @@ export function componentTests(name: string, opts: ComponentTestOptions) {
         .analyze()
 
       if (results.violations.length > 0) {
-        console.log(
-          `A11y violations (${name} light):`,
-          results.violations.map(
-            (v) => `${v.id}: ${v.help} (${v.impact})`,
-          ),
-        )
       }
 
       const blocking = results.violations.filter(
         (v) =>
           (v.impact === 'critical' || v.impact === 'serious') &&
           // Known issues deferred to E3 (component quality audit)
-        !['color-contrast', 'target-size'].includes(v.id),
+          !['color-contrast', 'target-size'].includes(v.id),
       )
       expect(blocking).toEqual([])
     })
@@ -93,19 +82,13 @@ export function componentTests(name: string, opts: ComponentTestOptions) {
         .analyze()
 
       if (results.violations.length > 0) {
-        console.log(
-          `A11y violations (${name} dark):`,
-          results.violations.map(
-            (v) => `${v.id}: ${v.help} (${v.impact})`,
-          ),
-        )
       }
 
       const blocking = results.violations.filter(
         (v) =>
           (v.impact === 'critical' || v.impact === 'serious') &&
           // Known issues deferred to E3 (component quality audit)
-        !['color-contrast', 'target-size'].includes(v.id),
+          !['color-contrast', 'target-size'].includes(v.id),
       )
       expect(blocking).toEqual([])
     })

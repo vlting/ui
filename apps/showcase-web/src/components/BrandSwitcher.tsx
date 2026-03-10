@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useState } from 'react'
 import { useColorMode } from '@vlting/stl-react'
+import type { Brand } from '@vlting/ui/design-tokens'
 import {
   defaultBrand,
   funBrand,
+  injectBrandVars,
   poshBrand,
   shadcnBrand,
-  injectBrandVars,
 } from '@vlting/ui/design-tokens'
-import type { Brand } from '@vlting/ui/design-tokens'
+import { useCallback, useEffect, useState } from 'react'
 
 type BrandKey = 'default' | 'shadcn' | 'fun' | 'posh'
 
@@ -62,18 +62,21 @@ export function useBrandSwitcher() {
     return () => clearBrandVars(brand, mode)
   }, [brandKey, mode])
 
-  const setBrand = useCallback((key: BrandKey) => {
-    // Clear old brand vars before applying new ones
-    setBrandKey(prev => {
-      clearBrandVars(brandMap[prev], mode)
-      return key
-    })
-    try {
-      localStorage.setItem(STORAGE_KEY, key)
-    } catch {
-      // Storage unavailable
-    }
-  }, [mode])
+  const setBrand = useCallback(
+    (key: BrandKey) => {
+      // Clear old brand vars before applying new ones
+      setBrandKey((prev) => {
+        clearBrandVars(brandMap[prev], mode)
+        return key
+      })
+      try {
+        localStorage.setItem(STORAGE_KEY, key)
+      } catch {
+        // Storage unavailable
+      }
+    },
+    [mode],
+  )
 
   return { brandKey, setBrand, brandOptions: Object.keys(brandMap) as BrandKey[] }
 }
@@ -103,7 +106,7 @@ export function BrandSwitcher() {
         fontSize: 14,
       }}
     >
-      {brandOptions.map(key => (
+      {brandOptions.map((key) => (
         <option key={key} value={key}>
           {brandLabels[key]}
         </option>

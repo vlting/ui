@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getAllUtilities, utilityCategories, getUtilitiesByCategory } from '@/lib/utility-registry'
+import { getUtilitiesByCategory, utilityCategories } from '@/lib/utility-registry'
 
 export const metadata: Metadata = {
   title: 'Utilities — @vlting/ui',

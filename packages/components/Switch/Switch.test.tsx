@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { Switch } from './Switch'
 
 beforeAll(() => {

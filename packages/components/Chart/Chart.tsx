@@ -1,17 +1,18 @@
-import React, {
+import type React from 'react'
+import {
   createContext,
+  useCallback,
   useContext,
-  useRef,
-  useState,
   useEffect,
   useMemo,
-  useCallback,
+  useRef,
+  useState,
 } from 'react'
-import type { ChartConfig } from './types'
-import { createChartTheme } from './theme'
-import { getSeriesColors } from './utils'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 import { ChartDataTable } from './ChartDataTable'
+import { createChartTheme } from './theme'
+import type { ChartConfig } from './types'
+import { getSeriesColors } from './utils'
 
 // -- Resolve CSS custom properties to actual values --
 

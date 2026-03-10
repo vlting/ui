@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, type ComponentType } from 'react'
+import { type ComponentType, useEffect, useState } from 'react'
 
 // Sample data for each chart type — matches the format expected by chart components
 const sampleBarData = [
@@ -61,7 +61,10 @@ const chartConfigMap: Record<string, Record<string, { label: string; color: stri
   line: defaultConfig,
   pie: pieConfig,
   radar: defaultConfig,
-  radial: { visitors: { label: 'Visitors', color: '#3b8fdb' }, bounced: { label: 'Bounced', color: '#dc4a4a' } },
+  radial: {
+    visitors: { label: 'Visitors', color: '#3b8fdb' },
+    bounced: { label: 'Bounced', color: '#dc4a4a' },
+  },
 }
 
 interface ChartPreviewProps {
@@ -89,7 +92,9 @@ export function ChartPreview({ type }: ChartPreviewProps) {
         setChartComponent(() => Component)
         setChartContainer(() => Container)
       } catch (err) {
-        setError(`Failed to load chart: ${err instanceof Error ? err.message : String(err)}`)
+        setError(
+          `Failed to load chart: ${err instanceof Error ? err.message : String(err)}`,
+        )
       }
     }
 

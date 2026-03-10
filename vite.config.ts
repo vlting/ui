@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
@@ -6,8 +6,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       formats: ['es', 'cjs'],
-      fileName: (format) =>
-        format === 'es' ? 'esm/index.mjs' : 'cjs/index.cjs',
+      fileName: (format) => (format === 'es' ? 'esm/index.mjs' : 'cjs/index.cjs'),
     },
     rollupOptions: {
       external: [

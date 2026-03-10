@@ -17,7 +17,11 @@
     "@vlting/stl-native": "^0.0.1"
   },
   "peerDependenciesMeta": {
-    "@vlting/stl-react": { "optional": true },
-    "@vlting/stl-native": { "optional": true }
+    "@vlting/stl-react": {
+      "optional": true
+    },
+    "@vlting/stl-native": {
+      "optional": true
+    }
   }
 }

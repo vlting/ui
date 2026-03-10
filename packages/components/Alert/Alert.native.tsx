@@ -1,6 +1,6 @@
-import React from 'react'
-import { View, Text as RNText } from 'react-native'
+import type React from 'react'
 import type { ViewStyle } from 'react-native'
+import { Text as RNText, View } from 'react-native'
 import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------

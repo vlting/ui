@@ -1,6 +1,5 @@
-import { describe, it, expect, beforeAll } from 'vitest'
-import { resolveToken, isShadowProp, resolveShadowToken } from '../config/tokenResolver'
 import { configureTheme, getTheme, type NativeTokenMaps } from '../config/theme'
+import { isShadowProp, resolveShadowToken, resolveToken } from '../config/tokenResolver'
 
 let lightTokens: NativeTokenMaps
 let darkTokens: NativeTokenMaps

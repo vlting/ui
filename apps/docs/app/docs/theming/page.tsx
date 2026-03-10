@@ -13,25 +13,35 @@ export default function ThemingPage() {
       {/* Header */}
       <div>
         <h1 style={{ fontSize: 32, fontWeight: 700, marginBottom: 8 }}>Theming</h1>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 16, lineHeight: 1.6 }}>
-          Customize the entire design system through a single brand configuration. Colors, tokens,
-          fonts, shadows, and animations — all controlled declaratively.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 16,
+            lineHeight: 1.6,
+          }}
+        >
+          Customize the entire design system through a single brand configuration. Colors,
+          tokens, fonts, shadows, and animations — all controlled declaratively.
         </p>
       </div>
 
       {/* Overview */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>How It Works</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          The brand system uses plain data objects: you define a <code>Brand</code> object,
-          call <code>injectBrandCSS()</code> to set CSS variables, then wrap your app in
-          <code>StlProvider</code>. Every component automatically picks up your brand&apos;s colors,
-          spacing, fonts, and more.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          The brand system uses plain data objects: you define a <code>Brand</code>{' '}
+          object, call <code>injectBrandCSS()</code> to set CSS variables, then wrap your
+          app in
+          <code>StlProvider</code>. Every component automatically picks up your
+          brand&apos;s colors, spacing, fonts, and more.
         </p>
-        <CodeBlock
-          code={`Brand → injectBrandCSS() → StlProvider`}
-          language="text"
-        />
+        <CodeBlock code={`Brand → injectBrandCSS() → StlProvider`} language="text" />
       </section>
 
       {/* Quick Start */}
@@ -58,9 +68,15 @@ export function App({ children }) {
       {/* Pre-built Brands */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Pre-built Brands</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          Four brands ship out of the box. Use the brand switcher at the top of this site to preview
-          them live.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          Four brands ship out of the box. Use the brand switcher at the top of this site
+          to preview them live.
         </p>
         <div
           style={{
@@ -132,10 +148,16 @@ injectBrandCSS(shadcnBrand)`}
       {/* Brand Definition */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Brand Definition</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          A brand is a plain data object conforming to the <code>Brand</code> interface. Every
-          field except <code>name</code> and <code>palettes</code> is optional — sensible defaults
-          are applied for anything you omit.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          A brand is a plain data object conforming to the <code>Brand</code> interface.
+          Every field except <code>name</code> and <code>palettes</code> is optional —
+          sensible defaults are applied for anything you omit.
         </p>
         <CodeBlock
           code={`interface Brand {
@@ -168,9 +190,15 @@ injectBrandCSS(shadcnBrand)`}
       {/* Palette System */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Palette System</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          Each brand defines a <strong>12-step color palette</strong> for light and dark modes.
-          The palette indices map to semantic roles:
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          Each brand defines a <strong>12-step color palette</strong> for light and dark
+          modes. The palette indices map to semantic roles:
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
@@ -199,7 +227,12 @@ injectBrandCSS(shadcnBrand)`}
                   <td style={{ padding: '6px 12px' }}>
                     <code>{index}</code>
                   </td>
-                  <td style={{ padding: '6px 12px', color: 'var(--color-muted-foreground)' }}>
+                  <td
+                    style={{
+                      padding: '6px 12px',
+                      color: 'var(--color-muted-foreground)',
+                    }}
+                  >
                     {role}
                   </td>
                 </tr>
@@ -207,13 +240,26 @@ injectBrandCSS(shadcnBrand)`}
             </tbody>
           </table>
         </div>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          Accent palettes follow the same 12-step pattern and are used for semantic colors like
-          destructive (red), success (green), or brand accent (blue).
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          Accent palettes follow the same 12-step pattern and are used for semantic colors
+          like destructive (red), success (green), or brand accent (blue).
         </p>
 
         <h3 style={{ fontSize: 18, fontWeight: 600, marginTop: 16 }}>Try It</h3>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 13, lineHeight: 1.6, marginBottom: 8 }}>
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 13,
+            lineHeight: 1.6,
+            marginBottom: 8,
+          }}
+        >
           Adjust the hue and saturation sliders to preview a 12-step palette in real time.
           Copy the generated code into your brand definition.
         </p>
@@ -250,13 +296,25 @@ injectBrandCSS(shadcnBrand)`}
       {/* Token Reference */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Token Reference</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
           Tokens are the atomic design values used across all components. Use them via the
           <code>$</code> prefix in styled() CSS or the css prop.
         </p>
 
         <h3 style={{ fontSize: 18, fontWeight: 600, marginTop: 8 }}>Size Tokens</h3>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 13, lineHeight: 1.6 }}>
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 13,
+            lineHeight: 1.6,
+          }}
+        >
           Numeric scale 0–16 plus semantic tokens for layout landmarks.
         </p>
         <CodeBlock
@@ -272,7 +330,13 @@ injectBrandCSS(shadcnBrand)`}
         />
 
         <h3 style={{ fontSize: 18, fontWeight: 600, marginTop: 8 }}>Space Tokens</h3>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 13, lineHeight: 1.6 }}>
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 13,
+            lineHeight: 1.6,
+          }}
+        >
           Spacing scale 0–16 for margins and padding. Negative values are also available.
         </p>
         <CodeBlock
@@ -283,7 +347,13 @@ injectBrandCSS(shadcnBrand)`}
         />
 
         <h3 style={{ fontSize: 18, fontWeight: 600, marginTop: 8 }}>Radius Tokens</h3>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 13, lineHeight: 1.6 }}>
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 13,
+            lineHeight: 1.6,
+          }}
+        >
           Border radius scale 0–12 plus <code>$full</code> for pill shapes.
         </p>
         <CodeBlock
@@ -294,7 +364,13 @@ injectBrandCSS(shadcnBrand)`}
         />
 
         <h3 style={{ fontSize: 18, fontWeight: 600, marginTop: 8 }}>Color Tokens</h3>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 13, lineHeight: 1.6 }}>
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 13,
+            lineHeight: 1.6,
+          }}
+        >
           Semantic color tokens adapt to light/dark mode automatically.
         </p>
         <CodeBlock
@@ -309,9 +385,16 @@ injectBrandCSS(shadcnBrand)`}
       {/* CSS Custom Properties */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>CSS Custom Properties</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          The brand system injects CSS custom properties on <code>:root</code>. Use them directly in
-          CSS or inline styles for interoperability with Tailwind and plain CSS.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          The brand system injects CSS custom properties on <code>:root</code>. Use them
+          directly in CSS or inline styles for interoperability with Tailwind and plain
+          CSS.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
@@ -324,7 +407,10 @@ injectBrandCSS(shadcnBrand)`}
             <tbody>
               {[
                 ['--vlt-color-1 … --vlt-color-12', 'Neutral palette steps (1-indexed)'],
-                ['--vlt-{accent}-1 … --vlt-{accent}-12', 'Accent palette steps (e.g. --vlt-blue-6)'],
+                [
+                  '--vlt-{accent}-1 … --vlt-{accent}-12',
+                  'Accent palette steps (e.g. --vlt-blue-6)',
+                ],
                 ['--vlt-size-{n}', 'Size token overrides'],
                 ['--vlt-space-{n}', 'Space token overrides'],
                 ['--vlt-radius-{n}', 'Border radius overrides'],
@@ -334,8 +420,17 @@ injectBrandCSS(shadcnBrand)`}
                 ['--vlt-font-mono', 'Monospace font family'],
               ].map(([prop, desc]) => (
                 <tr key={prop} style={{ borderBottom: '1px solid var(--color-border)' }}>
-                  <td style={{ padding: '6px 12px' }}><code>{prop}</code></td>
-                  <td style={{ padding: '6px 12px', color: 'var(--color-muted-foreground)' }}>{desc}</td>
+                  <td style={{ padding: '6px 12px' }}>
+                    <code>{prop}</code>
+                  </td>
+                  <td
+                    style={{
+                      padding: '6px 12px',
+                      color: 'var(--color-muted-foreground)',
+                    }}
+                  >
+                    {desc}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -357,10 +452,17 @@ injectBrandCSS(shadcnBrand)`}
       {/* Font Configuration */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Font Configuration</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          Four font roles are available: <code>heading</code>, <code>body</code>, <code>mono</code>,
-          and <code>quote</code>. The heading font uses a weight alternation pattern where odd heading
-          levels (h1, h3, h5) use the heavy weight and even levels (h2, h4, h6) use the light weight.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          Four font roles are available: <code>heading</code>, <code>body</code>,{' '}
+          <code>mono</code>, and <code>quote</code>. The heading font uses a weight
+          alternation pattern where odd heading levels (h1, h3, h5) use the heavy weight
+          and even levels (h2, h4, h6) use the light weight.
         </p>
         <CodeBlock
           code={`const myBrand: Brand = {
@@ -394,7 +496,13 @@ injectBrandCSS(shadcnBrand)`}
 }`}
           language="tsx"
         />
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
           Use font tokens in components via the <code>fontFamily</code> prop:
         </p>
         <CodeBlock
@@ -408,9 +516,15 @@ injectBrandCSS(shadcnBrand)`}
       {/* Animations */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Animations</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          Control animation durations and easing curves per brand. Defaults use CSS transitions with
-          standard durations.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          Control animation durations and easing curves per brand. Defaults use CSS
+          transitions with standard durations.
         </p>
         <CodeBlock
           code={`const myBrand: Brand = {
@@ -438,9 +552,15 @@ injectBrandCSS(shadcnBrand)`}
       {/* Media Queries */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Media Queries</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          Default breakpoints are provided. Override them via the <code>media</code> field in your
-          brand definition.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          Default breakpoints are provided. Override them via the <code>media</code> field
+          in your brand definition.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
@@ -467,10 +587,20 @@ injectBrandCSS(shadcnBrand)`}
                   <td style={{ padding: '6px 12px' }}>
                     <code>{token}</code>
                   </td>
-                  <td style={{ padding: '6px 12px', color: 'var(--color-muted-foreground)' }}>
+                  <td
+                    style={{
+                      padding: '6px 12px',
+                      color: 'var(--color-muted-foreground)',
+                    }}
+                  >
                     {value}
                   </td>
-                  <td style={{ padding: '6px 12px', color: 'var(--color-muted-foreground)' }}>
+                  <td
+                    style={{
+                      padding: '6px 12px',
+                      color: 'var(--color-muted-foreground)',
+                    }}
+                  >
                     {usage}
                   </td>
                 </tr>
@@ -495,7 +625,13 @@ injectBrandCSS(shadcnBrand)`}
       {/* Creating a Custom Brand */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Creating a Custom Brand</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
           Start from an existing brand and override what you need, or build from scratch.
         </p>
         <CodeBlock
@@ -538,10 +674,17 @@ injectBrandCSS(myBrand)`}
       {/* Dark Mode */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Dark Mode</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          The theme system generates both light and dark themes from your brand palettes. Set the
-          active theme via the Provider&apos;s <code>defaultTheme</code> prop. For Next.js apps,
-          use <code>next-themes</code> to handle system preference detection and persistence.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          The theme system generates both light and dark themes from your brand palettes.
+          Set the active theme via the Provider&apos;s <code>defaultTheme</code> prop. For
+          Next.js apps, use <code>next-themes</code> to handle system preference detection
+          and persistence.
         </p>
         <CodeBlock
           code={`import { StlProvider } from '@vlting/stl-react'

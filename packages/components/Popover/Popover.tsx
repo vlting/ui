@@ -1,7 +1,7 @@
 import type React from 'react'
-import { createContext, useCallback, useContext, useEffect, useRef } from 'react'
-import { styled } from '../../stl-react/src/config'
+import { createContext, useContext, useEffect, useRef } from 'react'
 import { useDisclosure } from '../../stl-headless/src'
+import { styled } from '../../stl-react/src/config'
 
 const ContentFrame = styled(
   'div',

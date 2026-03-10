@@ -77,5 +77,5 @@ function buildPropsString(props?: Record<string, unknown>): string {
       return `${key}={${JSON.stringify(value)}}`
     })
     .filter(Boolean)
-  return parts.length ? ' ' + parts.join(' ') : ''
+  return parts.length ? ` ${parts.join(' ')}` : ''
 }

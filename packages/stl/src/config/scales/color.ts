@@ -1,13 +1,13 @@
 import {
-  ColorNumberKey,
-  ColorPalette,
+  type ColorNumberKey,
+  type ColorPalette,
   CoreColorName,
   DEFAULT_SOURCE_COLORS,
-  ScaleColorName,
+  type ScaleColorName,
 } from '../../shared/models/colorGen.models'
 import { generateThemeColors, getTextColor } from '../../shared/utils/colorGen.utils'
-import { addPrefix, CharHash } from '../utils'
-import {
+import { addPrefix, type CharHash } from '../utils'
+import type {
   ColorPaletteEntry,
   CssAliasMap,
   CssValueMap,

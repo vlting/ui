@@ -1,6 +1,6 @@
-export { Sidebar } from './Sidebar'
 export type {
-  SidebarRootProps,
   SidebarGroupProps,
   SidebarMenuItemProps,
+  SidebarRootProps,
 } from './Sidebar'
+export { Sidebar } from './Sidebar'

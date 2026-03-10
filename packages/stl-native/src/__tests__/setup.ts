@@ -1,7 +1,5 @@
-import { vi } from 'vitest'
-
 // Mock react-native
-vi.mock('react-native', () => ({
+jest.mock('react-native', () => ({
   View: 'View',
   Text: 'Text',
   Pressable: 'Pressable',
@@ -21,18 +19,18 @@ vi.mock('react-native', () => ({
   },
   Dimensions: {
     get: () => ({ width: 375, height: 812 }),
-    addEventListener: vi.fn(() => ({ remove: vi.fn() })),
+    addEventListener: jest.fn(() => ({ remove: jest.fn() })),
   },
   Appearance: {
     getColorScheme: () => 'light',
-    addChangeListener: vi.fn(() => ({ remove: vi.fn() })),
+    addChangeListener: jest.fn(() => ({ remove: jest.fn() })),
   },
   AccessibilityInfo: {
-    isReduceMotionEnabled: vi.fn(() => Promise.resolve(false)),
-    addEventListener: vi.fn(() => ({ remove: vi.fn() })),
+    isReduceMotionEnabled: jest.fn(() => Promise.resolve(false)),
+    addEventListener: jest.fn(() => ({ remove: jest.fn() })),
   },
   I18nManager: { isRTL: false },
-  Linking: { openURL: vi.fn() },
+  Linking: { openURL: jest.fn() },
   useWindowDimensions: () => ({ width: 375, height: 812 }),
   StyleSheet: {
     create: (styles: any) => styles,

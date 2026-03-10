@@ -1,6 +1,6 @@
-import { readFileSync, readdirSync, existsSync, statSync } from 'fs'
-import { resolve, dirname } from 'path'
-import { fileURLToPath } from 'url'
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = resolve(__dirname, '..', '..', '..', '..')
@@ -54,7 +54,7 @@ function getBlockFiles(name: string, dir: string): BlockResult {
         !entry.endsWith('.test.tsx')
       ) {
         files.push({
-          path: full.replace(root + '/', ''),
+          path: full.replace(`${root}/`, ''),
           content: readFileSync(full, 'utf8'),
         })
       }
@@ -62,5 +62,5 @@ function getBlockFiles(name: string, dir: string): BlockResult {
   }
 
   readDir(dir)
-  return { name, directory: dir.replace(root + '/', ''), files }
+  return { name, directory: dir.replace(`${root}/`, ''), files }
 }

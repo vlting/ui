@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Animated } from 'react-native'
 
 interface TransitionResult {
@@ -38,7 +38,7 @@ export function useTransition(
         if (finished) setMounted(false)
       })
     }
-  }, [visible, enterDuration, exitDuration])
+  }, [visible, enterDuration, exitDuration, opacity])
 
   return {
     active: visible,

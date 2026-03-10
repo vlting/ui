@@ -4,14 +4,14 @@ import {
   CodeFontFamily,
   codeFonts,
   DEFAULT_FONTS,
-  FontFamilyData,
-  FontFamilyKey,
-  FontFamilySpec,
-  FontWeight,
-  GetThemeFonts,
+  type FontFamilyData,
+  type FontFamilyKey,
+  type FontFamilySpec,
+  type FontWeight,
+  type GetThemeFonts,
   HeadingFontFamily,
+  type HtmlHeadLink,
   headingFonts,
-  HtmlHeadLink,
 } from '../models'
 
 const getFontWeightReducer =

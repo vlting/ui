@@ -1,4 +1,4 @@
-import { searchIcons, getIconCategories } from '../data/icons.js'
+import { getIconCategories, searchIcons } from '../data/icons.js'
 
 export function handleSearchIcons(args: {
   query?: string

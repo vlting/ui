@@ -1,6 +1,6 @@
-export { DropdownMenu } from './DropdownMenu'
 export type {
-  DropdownMenuRootProps,
-  DropdownMenuItemProps,
   DropdownMenuCheckboxItemProps,
+  DropdownMenuItemProps,
+  DropdownMenuRootProps,
 } from './DropdownMenu'
+export { DropdownMenu } from './DropdownMenu'

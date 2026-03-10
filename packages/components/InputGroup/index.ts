@@ -1,7 +1,7 @@
-export { InputGroup } from './InputGroup'
 export type {
-  InputGroupProps,
   InputGroupAddonProps,
   InputGroupElementProps,
   InputGroupInputProps,
+  InputGroupProps,
 } from './InputGroup'
+export { InputGroup } from './InputGroup'

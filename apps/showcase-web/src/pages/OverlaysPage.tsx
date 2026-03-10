@@ -1,14 +1,16 @@
+import {
+  AlertDialog,
+  Button,
+  Collapsible,
+  Dialog,
+  Drawer,
+  HoverCard,
+  Popover,
+  Sheet,
+  Tooltip,
+} from '@vlting/ui/components'
 import { useState } from 'react'
-import { Section, DemoCard, DemoRow } from '../components/Section'
-import { Dialog } from '@vlting/ui/components'
-import { AlertDialog } from '@vlting/ui/components'
-import { Sheet } from '@vlting/ui/components'
-import { Drawer } from '@vlting/ui/components'
-import { Popover } from '@vlting/ui/components'
-import { Tooltip } from '@vlting/ui/components'
-import { HoverCard } from '@vlting/ui/components'
-import { Collapsible } from '@vlting/ui/components'
-import { Button } from '@vlting/ui/components'
+import { DemoCard, DemoRow, Section } from '../components/Section'
 
 export function OverlaysPage() {
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -19,7 +21,9 @@ export function OverlaysPage() {
 
   return (
     <div>
-      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>Overlays & Modals</h1>
+      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>
+        Overlays & Modals
+      </h1>
 
       <Section title="Dialog">
         <DemoCard label="Modal dialog">
@@ -28,13 +32,17 @@ export function OverlaysPage() {
             <Dialog.Content>
               <Dialog.Header>
                 <Dialog.Title>Edit Profile</Dialog.Title>
-                <Dialog.Description>Make changes to your profile here.</Dialog.Description>
+                <Dialog.Description>
+                  Make changes to your profile here.
+                </Dialog.Description>
               </Dialog.Header>
               <div style={{ padding: '16px 0' }}>
                 <p>Dialog body content</p>
               </div>
               <Dialog.Footer>
-                <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
+                <Button variant="outline" onClick={() => setDialogOpen(false)}>
+                  Cancel
+                </Button>
                 <Button onClick={() => setDialogOpen(false)}>Save</Button>
               </Dialog.Footer>
             </Dialog.Content>
@@ -44,7 +52,9 @@ export function OverlaysPage() {
 
       <Section title="AlertDialog">
         <DemoCard label="Confirmation dialog">
-          <Button variant="destructive" onClick={() => setAlertOpen(true)}>Delete Item</Button>
+          <Button variant="destructive" onClick={() => setAlertOpen(true)}>
+            Delete Item
+          </Button>
           <AlertDialog.Root open={alertOpen} onOpenChange={setAlertOpen}>
             <AlertDialog.Content>
               <AlertDialog.Title>Are you sure?</AlertDialog.Title>
@@ -68,7 +78,9 @@ export function OverlaysPage() {
               <Sheet.Handle />
               <div style={{ padding: 16 }}>
                 <h3 style={{ margin: '0 0 8px' }}>Sheet Title</h3>
-                <p style={{ color: '#666', margin: '0 0 16px' }}>Sheet description goes here.</p>
+                <p style={{ color: '#666', margin: '0 0 16px' }}>
+                  Sheet description goes here.
+                </p>
                 <p>Sheet body content. This slides in from the side.</p>
               </div>
             </Sheet.Frame>
@@ -102,7 +114,9 @@ export function OverlaysPage() {
             <Popover.Content>
               <div style={{ padding: 8 }}>
                 <p style={{ fontWeight: 600, marginBottom: 8 }}>Popover Content</p>
-                <p style={{ fontSize: 14, color: '#666' }}>This is a popover with custom content.</p>
+                <p style={{ fontSize: 14, color: '#666' }}>
+                  This is a popover with custom content.
+                </p>
               </div>
             </Popover.Content>
           </Popover.Root>
@@ -123,12 +137,16 @@ export function OverlaysPage() {
         <DemoCard label="Rich hover preview">
           <HoverCard.Root>
             <HoverCard.Trigger>
-              <span style={{ textDecoration: 'underline', cursor: 'pointer' }}>@vlting</span>
+              <span style={{ textDecoration: 'underline', cursor: 'pointer' }}>
+                @vlting
+              </span>
             </HoverCard.Trigger>
             <HoverCard.Content>
               <div style={{ padding: 8 }}>
                 <p style={{ fontWeight: 600 }}>@vlting</p>
-                <p style={{ fontSize: 14, color: '#666' }}>Open-source design system for React & React Native.</p>
+                <p style={{ fontSize: 14, color: '#666' }}>
+                  Open-source design system for React & React Native.
+                </p>
               </div>
             </HoverCard.Content>
           </HoverCard.Root>

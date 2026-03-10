@@ -1,10 +1,14 @@
-import { THEME_PREFIX, VarData } from '../utils'
-import { BodyFontFamily, HeadingFontFamily, CodeFontFamily } from '../../shared/models'
-import {
+import type {
+  BodyFontFamily,
+  CodeFontFamily,
+  HeadingFontFamily,
+} from '../../shared/models'
+import type {
   ColorNumberKey,
   ColorPalette,
   ThemeColor,
 } from '../../shared/models/colorGen.models'
+import type { THEME_PREFIX, VarData } from '../utils'
 
 export const SCALED_ALIAS = '@'
 

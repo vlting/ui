@@ -158,7 +158,9 @@ function Root({ children, filter, loop: _loop }: CommandRootProps) {
 
 function Input({
   placeholder = 'Type a command or search...',
-}: { placeholder?: string }) {
+}: {
+  placeholder?: string
+}) {
   const { search, setSearch } = React.useContext(CommandContext)
   const inputRef = useRef<HTMLInputElement>(null)
 

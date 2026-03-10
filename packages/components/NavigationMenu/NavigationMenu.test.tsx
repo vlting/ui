@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { NavigationMenu } from './NavigationMenu'
 
 describe('NavigationMenu', () => {
@@ -245,7 +245,7 @@ describe('NavigationMenu', () => {
           </NavigationMenu.List>
         </NavigationMenu.Root>,
       )
-      const menubar = screen.getByRole('menubar')
+      const _menubar = screen.getByRole('menubar')
       const productsBtn = screen.getByText('Products').closest('button')!
       productsBtn.focus()
 

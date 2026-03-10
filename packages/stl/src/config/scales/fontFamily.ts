@@ -1,13 +1,13 @@
 import {
-  SystemFontFamily,
   BodyFontFamily,
-  HeadingFontFamily,
   CodeFontFamily,
   DEFAULT_FONTS,
+  HeadingFontFamily,
+  SystemFontFamily,
 } from '../../shared/models'
 import { enumKeys } from '../../shared/utils'
-import { CharHash } from '../utils'
-import { ScaleEntry, ThemeScale } from './scales.models'
+import type { CharHash } from '../utils'
+import type { ScaleEntry, ThemeScale } from './scales.models'
 import {
   getCssMapFromVars,
   getPropsFromCssMap,

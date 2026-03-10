@@ -80,7 +80,7 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "NODE_OPTIONS='--max-old-space-size=8192' vite build && tsc --emitDeclarationOnly --outDir dist/types",
+    "build": "NODE_OPTIONS='--max-old-space-size=8192' vite build && npx tsc --emitDeclarationOnly --outDir dist/types",
     "build:stl": "cd packages/stl && npx vite build",
     "build:stl-react": "cd packages/stl-react && npx vite build",
     "build:stl-native": "cd packages/stl-native && npx vite build",
@@ -88,12 +88,12 @@
     "build:types": "tsc --emitDeclarationOnly --outDir dist/types",
     "watch": "vite build --watch",
     "clean": "rm -rf dist packages/stl/dist packages/stl-react/dist packages/stl-native/dist",
-    "test": "jest",
+    "test": "npx jest",
     "test:coverage": "jest --coverage",
     "lint": "biome check src/ packages/",
     "lint:fix": "biome check --write src/ packages/",
     "format": "biome format --write src/ packages/",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "NODE_OPTIONS='--max-old-space-size=8192' npx tsc --noEmit",
     "dev:showcase-web": "yarn workspace @vlting/showcase-web dev",
     "dev:showcase-native": "yarn workspace @vlting/showcase-native start",
     "dev:docs": "yarn workspace @vlting/docs dev",

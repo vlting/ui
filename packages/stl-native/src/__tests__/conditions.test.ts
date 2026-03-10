@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest'
 import { CondBit, computeConditionMask, maskMatches } from '../config/conditions'
 
 describe('CondBit', () => {

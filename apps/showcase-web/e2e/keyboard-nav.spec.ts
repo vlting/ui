@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('Keyboard navigation smoke tests', () => {
   test.beforeEach(async ({ page }) => {
@@ -28,9 +28,7 @@ test.describe('Keyboard navigation smoke tests', () => {
     // Find and focus the first button
     const button = page.locator('button').first()
     await button.focus()
-    const isFocused = await button.evaluate(
-      (el) => document.activeElement === el,
-    )
+    const isFocused = await button.evaluate((el) => document.activeElement === el)
     expect(isFocused).toBe(true)
 
     // Press Enter — should not throw
@@ -51,7 +49,7 @@ test.describe('Keyboard navigation smoke tests', () => {
 
     // Look for a trigger button that opens a dialog
     const trigger = page.locator('[data-testid]').filter({ hasText: 'Open' }).first()
-    if (await trigger.count() === 0) {
+    if ((await trigger.count()) === 0) {
       test.skip(true, 'No dialog trigger found on overlays page')
       return
     }
@@ -65,7 +63,7 @@ test.describe('Keyboard navigation smoke tests', () => {
 
     // Verify the overlay is no longer visible (dialog/sheet content)
     const overlay = page.locator('[role="dialog"]')
-    if (await overlay.count() > 0) {
+    if ((await overlay.count()) > 0) {
       await expect(overlay.first()).not.toBeVisible()
     }
   })
@@ -76,7 +74,8 @@ test.describe('Keyboard navigation smoke tests', () => {
     for (let i = 0; i < 5; i++) {
       await page.keyboard.press('Tab')
       const tag = await page.evaluate(
-        () => `${document.activeElement?.tagName}:${document.activeElement?.textContent?.slice(0, 20)}`,
+        () =>
+          `${document.activeElement?.tagName}:${document.activeElement?.textContent?.slice(0, 20)}`,
       )
       focusedElements.push(tag)
     }

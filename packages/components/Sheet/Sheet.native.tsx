@@ -1,9 +1,10 @@
-import React, { createContext, useContext } from 'react'
-import { View, Text as RNText, Pressable, Modal } from 'react-native'
+import type React from 'react'
+import { createContext, useContext } from 'react'
 import type { ViewStyle } from 'react-native'
-import { styled } from '../../stl-native/src/config/styled'
-import { useDisclosure } from '../../stl-headless/src/useDisclosure'
+import { Modal, Pressable, Text as RNText, View } from 'react-native'
 import type { UseDisclosureProps } from '../../stl-headless/src/useDisclosure'
+import { useDisclosure } from '../../stl-headless/src/useDisclosure'
+import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------
 // Styled frames

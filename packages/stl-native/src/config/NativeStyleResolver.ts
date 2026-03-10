@@ -1,15 +1,16 @@
-import type { ViewStyle, TextStyle } from 'react-native'
+import type { TextStyle, ViewStyle } from 'react-native'
 
 /** Loose CSS descriptor type for native — replaces STL's CSS type */
 type CSS = Record<
   string,
   string | number | Record<string, string | number | Record<string, string | number>>
 >
-import { type ConditionMask, CondBit, maskMatches } from './conditions'
+
+import { CondBit, type ConditionMask, maskMatches } from './conditions'
+import { type NativeMappedPropKey, nativeMappedProps } from './mappedProps'
 import { normalizeToRN } from './propMap'
-import { nativeMappedProps, type NativeMappedPropKey } from './mappedProps'
-import { resolveToken, isShadowProp, resolveShadowToken } from './tokenResolver'
 import { getTheme, type NativeTokenMaps } from './theme'
+import { isShadowProp, resolveShadowToken, resolveToken } from './tokenResolver'
 
 type NativeStyle = Readonly<ViewStyle & TextStyle>
 type StyleEntry = [string, number | string]

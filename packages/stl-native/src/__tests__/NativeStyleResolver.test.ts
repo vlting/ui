@@ -1,6 +1,5 @@
-import { describe, it, expect, beforeAll } from 'vitest'
-import { NativeStyleResolver } from '../config/NativeStyleResolver'
 import { CondBit, computeConditionMask } from '../config/conditions'
+import { NativeStyleResolver } from '../config/NativeStyleResolver'
 import { configureTheme, getTheme } from '../config/theme'
 
 beforeAll(() => {

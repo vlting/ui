@@ -1,6 +1,5 @@
-import { styled } from '../../stl-react/src/config'
 import type React from 'react'
-import type { ComponentProps } from 'react'
+import { styled } from '../../stl-react/src/config'
 
 const SelectFrame = styled(
   'select',

@@ -1,9 +1,9 @@
 import type { ComponentType } from 'react'
-import { styled } from '../../stl-react/src/config'
-import { Badge } from '../../primitives/Badge'
 import { Button } from '../../components/Button'
 import { Card } from '../../components/Card'
+import { Badge } from '../../primitives/Badge'
 import { Separator } from '../../primitives/Separator'
+import { styled } from '../../stl-react/src/config'
 import type { BlockProps } from '../_shared/types'
 
 type AnyFC = ComponentType<Record<string, unknown>>

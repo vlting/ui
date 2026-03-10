@@ -1,21 +1,24 @@
-import { useState } from 'react'
-import { Section, DemoCard, DemoRow } from '../../components/Section'
 import { Checkbox } from '@vlting/ui/components'
+import { useState } from 'react'
+import { DemoCard, DemoRow, Section } from '../../components/Section'
 
 export function CheckboxPage() {
   const [checked, setChecked] = useState(false)
-  const [indeterminate, setIndeterminate] = useState<boolean | 'indeterminate'>('indeterminate')
+  const [indeterminate, setIndeterminate] = useState<boolean | 'indeterminate'>(
+    'indeterminate',
+  )
 
   return (
     <div>
-      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>
-        Checkbox
-      </h1>
+      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>Checkbox</h1>
 
       <Section title="Default">
         <DemoCard label="Basic checkbox" testId="checkbox-default">
           <DemoRow>
-            <Checkbox.Root checked={checked} onCheckedChange={(v) => setChecked(v === true)}>
+            <Checkbox.Root
+              checked={checked}
+              onCheckedChange={(v) => setChecked(v === true)}
+            >
               Accept terms
             </Checkbox.Root>
           </DemoRow>

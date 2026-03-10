@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useCallback } from 'react'
-import { View, Text as RNText, Pressable, Modal, FlatList } from 'react-native'
+import React, { createContext, useCallback, useContext, useState } from 'react'
 import type { ViewStyle } from 'react-native'
+import { Modal, Pressable, Text as RNText, View } from 'react-native'
 import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------

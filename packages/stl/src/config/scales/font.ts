@@ -1,5 +1,5 @@
 import { addStaticValuePrefix } from '../utils'
-import { ThemeScale } from './scales.models'
+import type { ThemeScale } from './scales.models'
 import { getAliasMap, getPropsFromCssMap, getThemePropsFromCssMap } from './scales.utils'
 
 /** Generator function for `font` theme scale */

@@ -1,5 +1,5 @@
-import { styled } from '../stl-react/src/config'
 import type { ComponentProps } from 'react'
+import { styled } from '../stl-react/src/config'
 
 const SKELETON_KEYFRAMES = `@keyframes vlting-skeleton-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.3; } }`
 let keyframesInjected = false
