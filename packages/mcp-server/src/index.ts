@@ -9,6 +9,9 @@ import { handleSearchIcons } from './tools/search-icons.js'
 import { handleSuggestComponent } from './tools/suggest-component.js'
 import { handleGenerateCode } from './tools/generate-code.js'
 import { handleValidateCode } from './tools/validate-code.js'
+import { handleGetThemeTokens } from './tools/get-theme-tokens.js'
+import { handleAuditComponent } from './tools/audit-component.js'
+import { handleGetBlock } from './tools/get-block.js'
 
 const server = new McpServer({
   name: '@vlting/ui-mcp',
@@ -101,6 +104,37 @@ server.tool(
   },
   async (args) => ({
     content: [{ type: 'text' as const, text: JSON.stringify(handleValidateCode(args), null, 2) }],
+  })
+)
+
+server.tool(
+  'get_theme_tokens',
+  'Get the full list of STL CSS custom properties and design tokens with default values, grouped by category',
+  {},
+  async () => ({
+    content: [{ type: 'text' as const, text: JSON.stringify(handleGetThemeTokens(), null, 2) }],
+  })
+)
+
+server.tool(
+  'audit_component',
+  'Audit a @vlting/ui component for token violations (hardcoded colors, sizes) and accessibility issues',
+  {
+    name: z.string().describe('Component name (e.g., "Button", "Card", "Dialog")'),
+  },
+  async (args) => ({
+    content: [{ type: 'text' as const, text: JSON.stringify(handleAuditComponent(args), null, 2) }],
+  })
+)
+
+server.tool(
+  'get_block',
+  'Get the full source code of a @vlting/ui block (composed UI pattern)',
+  {
+    name: z.string().describe('Block name (e.g., "auth", "sidebar", "dashboard")'),
+  },
+  async (args) => ({
+    content: [{ type: 'text' as const, text: JSON.stringify(handleGetBlock(args), null, 2) }],
   })
 )
 
