@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const TriggerButton = styled(
@@ -151,6 +151,7 @@ function Root({
   const [highlightIndex, setHighlightIndex] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
   const rootRef = useRef<HTMLDivElement>(null)
+  const listboxId = `combobox-listbox-${useId()}`
 
   const filtered = useMemo(
     () => options.filter((o) => o.label.toLowerCase().includes(search.toLowerCase())),
@@ -218,6 +219,7 @@ function Root({
         role="combobox"
         aria-expanded={open}
         aria-haspopup="listbox"
+        aria-controls={open ? listboxId : undefined}
       >
         <span style={!value ? { opacity: 0.5 } : undefined}>
           {selectedLabel ?? placeholder}
@@ -251,6 +253,7 @@ function Root({
           </div>
 
           <div
+            id={listboxId}
             role="listbox"
             style={{ maxHeight: '240px', padding: '4px', overflowY: 'auto' }}
           >
