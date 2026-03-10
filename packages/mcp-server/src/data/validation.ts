@@ -76,6 +76,25 @@ const rules: ValidationRule[] = [
     message: 'onChange is web-only on Input/Textarea. Use onChangeText.',
     suggestion: 'Replace onChange with onChangeText',
   },
+  // Dark mode considerations
+  {
+    name: 'no-hardcoded-background-white',
+    pattern: /(?:backgroundColor|background)\s*[:=]\s*["'](?:white|#fff(?:fff)?|#FFF(?:FFF)?)["']/g,
+    message: 'Hardcoded white background breaks dark mode. Use semantic tokens.',
+    suggestion: 'Replace with "$background" or "var(--background)" for automatic dark mode support',
+  },
+  {
+    name: 'no-hardcoded-text-black',
+    pattern: /\bcolor\s*[:=]\s*["'](?:black|#000(?:000)?)["']/g,
+    message: 'Hardcoded black text color breaks dark mode. Use semantic tokens.',
+    suggestion: 'Replace with "$color" or "var(--color)" for automatic dark mode support',
+  },
+  {
+    name: 'missing-aria-label-button',
+    pattern: /<(?:Button|Pressable|TouchableOpacity)(?!\s+(?:[^>]*(?:aria-label|accessibilityLabel)))[^>]*>[^<]*(?:<[^/]|$)/g,
+    message: 'Interactive element may be missing an accessible label.',
+    suggestion: 'Add aria-label="..." or include visible text content for screen readers',
+  },
   // Anti-patterns
   {
     name: 'no-classname',
@@ -96,7 +115,6 @@ export function validateCode(code: string): {
   issues: ValidationIssue[]
 } {
   const issues: ValidationIssue[] = []
-  const lines = code.split('\n')
 
   for (const rule of rules) {
     // Reset regex lastIndex for global patterns
