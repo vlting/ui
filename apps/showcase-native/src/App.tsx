@@ -7,6 +7,7 @@ import { StylingScreen } from './screens/StylingScreen'
 import { PrimitivesScreen } from './screens/PrimitivesScreen'
 import { HooksScreen } from './screens/HooksScreen'
 import { HomeScreen } from './screens/HomeScreen'
+import { ComponentsScreen } from './screens/ComponentsScreen'
 
 const Tab = createBottomTabNavigator()
 
@@ -25,6 +26,7 @@ export default function App() {
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Styling" component={StylingScreen} />
           <Tab.Screen name="Primitives" component={PrimitivesScreen} />
+          <Tab.Screen name="Components" component={ComponentsScreen} />
           <Tab.Screen name="Hooks" component={HooksScreen} />
         </Tab.Navigator>
       </NavigationContainer>
