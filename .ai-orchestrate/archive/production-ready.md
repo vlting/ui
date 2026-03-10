@@ -1,6 +1,6 @@
 ---
 slug: production-ready
-status: in-progress
+status: done
 created: 2026-03-09
 ---
 # Production-Ready @vlting/ui
