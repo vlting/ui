@@ -95,7 +95,7 @@ export function ChartTooltip({
     background: tokens.background || 'var(--stl-background, #ffffff)',
     border: `1px solid ${tokens.borderColor || 'var(--stl-border, #e8e8e8)'}`,
     borderRadius: 7,
-    padding: '8px 12px',
+    padding: 'var(--stl-space4, 8px) var(--stl-space5, 12px)',
     boxShadow: 'var(--stl-shadow-sm, 0 2px 8px rgba(0,0,0,0.08))',
     fontSize: 12,
     color: tokens.color || 'var(--stl-foreground, #111111)',
@@ -154,7 +154,7 @@ export function ChartTooltip({
                 display: 'flex',
                 alignItems: 'center',
                 gap: 8,
-                padding: '2px 0',
+                padding: 'var(--stl-space1, 2px) 0',
               }}
             >
               {!hideIndicator && (
