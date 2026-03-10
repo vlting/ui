@@ -134,17 +134,19 @@ E1 (Foundation) → E2 (Docs) → E3 (Showcases) → E4 (A11y) → E5 (Ship)
 **Dependencies:** Epic 2, Epic 3
 **Epic slug:** a11y-audit
 **Epic branch:** epic/a11y-audit
-**Status:** pending
+**Epic PR:** #175
+**Status:** complete
 
 ### Stage 4.1: Audit & Fix
 **Branch prefix:** fix
 **Acceptance criteria:**
-- [ ] axe-core audit run against all visual components (primitives, components, blocks, charts)
-- [ ] All WCAG A violations fixed
-- [ ] Keyboard navigation verified for all interactive components
-- [ ] Focus management verified for all overlay/dialog components
-- [ ] Playwright a11y tests updated and passing
-**Status:** pending
+- [x] axe-core audit run against all visual components (primitives, components, blocks, charts)
+- [x] All WCAG A violations fixed
+- [x] Keyboard navigation verified for all interactive components
+- [x] Focus management verified for all overlay/dialog components
+- [x] Playwright a11y tests updated and passing
+**Stage PR:** #174
+**Status:** done
 
 ## Epic 5: README & Ship
 **Objective:** Professional README, all workflows green, final verification.
