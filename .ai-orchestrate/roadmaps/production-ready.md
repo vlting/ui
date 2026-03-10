@@ -99,12 +99,12 @@ E4 (RN Parity) ─────────────────┤
 ### Stage 2.3: Animation & Interaction Tokens
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Animation tokens: --stl-duration-fast, --stl-duration-normal, --stl-easing-default
-- [ ] Focus ring tokens: consistent outlineWidth, outlineOffset, outlineColor
-- [ ] Hover/press color shift tokens verified and used
-- [ ] prefers-reduced-motion support via tokens
-- [ ] All interactive states use token-based values
-**Status:** pending
+- [x] Animation tokens: --stl-duration-fast, --stl-duration-normal, --stl-easing-default
+- [x] Focus ring tokens: consistent outlineWidth, outlineOffset, outlineColor
+- [x] Hover/press color shift tokens verified and used
+- [x] prefers-reduced-motion support via tokens
+- [x] All interactive states use token-based values
+**Status:** done
 
 ## Epic 3: Component Quality Audit & Visual Polish
 **Objective:** Every component matches shadcn/ui visual quality.
