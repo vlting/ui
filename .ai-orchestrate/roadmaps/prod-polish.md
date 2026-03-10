@@ -106,25 +106,28 @@ E1 (Foundation) → E2 (Docs) → E3 (Showcases) → E4 (A11y) → E5 (Ship)
 **Dependencies:** Epic 1
 **Epic slug:** showcase-polish
 **Epic branch:** epic/showcase-polish
-**Status:** pending
+**Epic PR:** #173
+**Status:** complete
 
 ### Stage 3.1: Fix Builds & Core Functionality
 **Branch prefix:** fix
 **Acceptance criteria:**
-- [ ] `yarn build` succeeds for showcase-web (Vite)
-- [ ] showcase-web: every page loads without errors
-- [ ] showcase-native: Expo build succeeds, all screens load
-- [ ] Brand switching and theme toggling work in both showcases
-**Status:** pending
+- [x] `yarn build` succeeds for showcase-web (Vite)
+- [x] showcase-web: every page loads without errors
+- [x] showcase-native: Expo build succeeds, all screens load
+- [x] Brand switching and theme toggling work in both showcases
+**Stage PR:** #171
+**Status:** done
 
 ### Stage 3.2: API Surface Coverage & UI Polish
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] showcase-web covers: styling tokens, all primitives, all components, all blocks, all charts, all hooks, utils, icons
-- [ ] showcase-native covers: all available native primitives and components
-- [ ] UI design polish: spacing, alignment, color harmony, dark mode
-- [ ] Demo cards are well-organized with clear labels and states
-**Status:** pending
+- [x] showcase-web covers: styling tokens, all primitives, all components, all blocks, all charts, all hooks, utils, icons
+- [x] showcase-native covers: all available native primitives and components
+- [x] UI design polish: spacing, alignment, color harmony, dark mode
+- [x] Demo cards are well-organized with clear labels and states
+**Stage PR:** #172
+**Status:** done
 
 ## Epic 4: Accessibility Audit
 **Objective:** All visual components meet WCAG A standards.
