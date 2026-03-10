@@ -35,7 +35,7 @@ E4 (RN Parity) ─────────────────┤
 **Dependencies:** none
 **Epic slug:** quality-infra
 **Epic branch:** epic/production-ready
-**Status:** in-progress
+**Status:** done
 
 ### Stage 1.1: Playwright Setup + CI Pipeline
 **Branch prefix:** feat
@@ -63,12 +63,12 @@ E4 (RN Parity) ─────────────────┤
 ### Stage 1.3: A11y Automation + Token Validation
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] axe-core audit for every showcase page (both color modes)
-- [ ] WCAG 2.2 AA tag filter (wcag2a, wcag2aa, wcag22aa)
-- [ ] Token validation script: flag hardcoded px/hex/rgb/hsl in component source
-- [ ] Contrast ratio validation from STL color matrix
-- [ ] CI fails on a11y violations and token violations
-**Status:** pending
+- [x] axe-core audit for every showcase page (both color modes)
+- [x] WCAG 2.2 AA tag filter (wcag2a, wcag2aa, wcag22aa)
+- [x] Token validation script: flag hardcoded px/hex/rgb/hsl in component source
+- [x] Contrast ratio validation from STL color matrix
+- [x] CI fails on a11y violations and token violations
+**Status:** done
 
 ## Epic 2: Theming System Hardening
 **Objective:** STL theming is bulletproof, brand customization is trivial.
