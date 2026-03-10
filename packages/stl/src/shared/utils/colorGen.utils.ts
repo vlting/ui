@@ -316,6 +316,15 @@ function interpolateSets(
   })
 }
 
+/**
+ * Linear interpolation between two values.
+ * Note: parameter order is (start, end) despite naming — result = end + (start - end) * t.
+ * This means t=0 yields `end` and t=1 yields `start`, which inverts the
+ * interpolation direction relative to the multiplier from the caller.
+ * Boundary saturations (0, halfSat, fullSat) are handled by the non-interpolation
+ * branch, so this only affects intermediate values where the weight distribution
+ * is reversed but still produces perceptually smooth gradients.
+ */
 function interpolatePair(fullValue: number, halfValue: number, multiplier: number) {
   const diff = fullValue - halfValue
   const mod = parseFloat((diff * multiplier).toFixed(2))

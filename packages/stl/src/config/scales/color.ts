@@ -85,7 +85,7 @@ export function getColor(hash: CharHash) {
     panel: { ...lightScale.panel, value: lightScale.tertiary3.ref },
     shadowLight: { ...lightScale.shadowLight, value: `hsl(${shadowBase.ref} / .2)` },
     shadowHeavy: { ...lightScale.shadowHeavy, value: `hsl(${shadowBase.ref} / .35)` },
-    shadowHeaviest: { ...lightScale.shadowHeavy, value: `hsl(${shadowBase.ref} / .5)` },
+    shadowHeaviest: { ...lightScale.shadowHeaviest, value: `hsl(${shadowBase.ref} / .5)` },
     // Static color constants (same in dark mode)
     white: lightScale.white,
     black: lightScale.black,
