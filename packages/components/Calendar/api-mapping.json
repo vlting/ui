@@ -34,8 +34,20 @@
     "Keyboard navigation via arrow keys for month switching"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
-    { "shadcn": "disabled={[matcher]} (complex matchers)", "vlting": "Use disabled boolean + minDate/maxDate", "reason": "Simplified constraint API" },
-    { "shadcn": "react-day-picker props", "vlting": "Custom API; not all react-day-picker props are available", "reason": "Different underlying implementation" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "disabled={[matcher]} (complex matchers)",
+      "vlting": "Use disabled boolean + minDate/maxDate",
+      "reason": "Simplified constraint API"
+    },
+    {
+      "shadcn": "react-day-picker props",
+      "vlting": "Custom API; not all react-day-picker props are available",
+      "reason": "Different underlying implementation"
+    }
   ]
 }

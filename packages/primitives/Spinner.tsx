@@ -45,7 +45,8 @@ export function Spinner({ size = 'md', color }: SpinnerProps) {
       })}
       <style
         dangerouslySetInnerHTML={{
-          __html: '@keyframes vlting-spinner { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }',
+          __html:
+            '@keyframes vlting-spinner { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }',
         }}
       />
     </div>

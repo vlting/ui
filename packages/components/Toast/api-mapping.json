@@ -21,7 +21,11 @@
     "props": {
       "declarative_api": {
         "Toast.Root": {
-          "variant": { "type": "string", "values": ["default", "success", "error", "warning"], "default": "default" },
+          "variant": {
+            "type": "string",
+            "values": ["default", "success", "error", "warning"],
+            "default": "default"
+          },
           "duration": { "type": "number" },
           "children": { "type": "ReactNode" }
         },
@@ -43,7 +47,11 @@
           "multipleToasts": { "type": "boolean" }
         },
         "Toast.Provider": {
-          "swipeDirection": { "type": "string", "values": ["up", "down", "left", "right"], "default": "right" },
+          "swipeDirection": {
+            "type": "string",
+            "values": ["up", "down", "left", "right"],
+            "default": "right"
+          },
           "duration": { "type": "number", "default": 5000 },
           "children": { "type": "ReactNode" }
         },
@@ -56,7 +64,10 @@
           "title": { "type": "string", "required": true },
           "opts.description": { "type": "string" },
           "opts.duration": { "type": "number" },
-          "opts.action": { "type": "object", "shape": "{ label: string, altText: string, onClick: () => void }" },
+          "opts.action": {
+            "type": "object",
+            "shape": "{ label: string, altText: string, onClick: () => void }"
+          },
           "returns": "string (toast ID)"
         },
         "toast.success(title, opts?)": {
@@ -75,7 +86,10 @@
           "promise": { "type": "Promise<T>", "required": true },
           "data.loading": { "type": "string", "required": true },
           "data.success": { "type": "string | ((data: T) => string)", "required": true },
-          "data.error": { "type": "string | ((err: unknown) => string)", "required": true },
+          "data.error": {
+            "type": "string | ((err: unknown) => string)",
+            "required": true
+          },
           "returns": "Promise<T>"
         },
         "toast.dismiss(id)": {
@@ -96,9 +110,25 @@
     "Also exports useToastController and useToastState hooks from @tamagui/toast."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "variant='destructive'", "vlting": "variant='error' (also 'success', 'warning')", "reason": "Different variant naming and more options" },
-    { "shadcn": "useToast() + toast() from custom hook", "vlting": "import { toast } from '@vlting/ui' (global function)", "reason": "Imperative API is a standalone function, not a hook" },
-    { "shadcn": "<Toaster /> component", "vlting": "<Toast.Provider><Toast.Viewport /><Toast.ImperativeViewport /></Toast.Provider>", "reason": "Explicit provider and viewport setup" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "variant='destructive'",
+      "vlting": "variant='error' (also 'success', 'warning')",
+      "reason": "Different variant naming and more options"
+    },
+    {
+      "shadcn": "useToast() + toast() from custom hook",
+      "vlting": "import { toast } from '@vlting/ui' (global function)",
+      "reason": "Imperative API is a standalone function, not a hook"
+    },
+    {
+      "shadcn": "<Toaster /> component",
+      "vlting": "<Toast.Provider><Toast.Viewport /><Toast.ImperativeViewport /></Toast.Provider>",
+      "reason": "Explicit provider and viewport setup"
+    }
   ]
 }

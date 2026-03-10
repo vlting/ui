@@ -22,16 +22,22 @@ server.tool(
   'list_components',
   'List all @vlting/ui components, optionally filtered by category or layer',
   {
-    category: z.string().optional().describe(
-      'Filter by category: layout, forms, interactive, overlay, feedback, data-display, navigation, typography, disclosure, utility, composition, media, accessibility'
-    ),
-    layer: z.string().optional().describe(
-      'Filter by layer: primitive, component, block'
-    ),
+    category: z
+      .string()
+      .optional()
+      .describe(
+        'Filter by category: layout, forms, interactive, overlay, feedback, data-display, navigation, typography, disclosure, utility, composition, media, accessibility',
+      ),
+    layer: z.string().optional().describe('Filter by layer: primitive, component, block'),
   },
   async (args) => ({
-    content: [{ type: 'text' as const, text: JSON.stringify(handleListComponents(args), null, 2) }],
-  })
+    content: [
+      {
+        type: 'text' as const,
+        text: JSON.stringify(handleListComponents(args), null, 2),
+      },
+    ],
+  }),
 )
 
 server.tool(
@@ -41,8 +47,10 @@ server.tool(
     name: z.string().describe('Component name (e.g., "Button", "Card", "AuthBlock")'),
   },
   async (args) => ({
-    content: [{ type: 'text' as const, text: JSON.stringify(handleGetComponent(args), null, 2) }],
-  })
+    content: [
+      { type: 'text' as const, text: JSON.stringify(handleGetComponent(args), null, 2) },
+    ],
+  }),
 )
 
 server.tool(
@@ -52,48 +60,74 @@ server.tool(
     component: z.string().describe('Component name (e.g., "Button", "Dialog", "Select")'),
   },
   async (args) => ({
-    content: [{ type: 'text' as const, text: JSON.stringify(handleGetMigration(args), null, 2) }],
-  })
+    content: [
+      { type: 'text' as const, text: JSON.stringify(handleGetMigration(args), null, 2) },
+    ],
+  }),
 )
 
 server.tool(
   'search_icons',
   'Search @vlting/ui Remix Icons by name or category (3229 icons available)',
   {
-    query: z.string().optional().describe('Search term (e.g., "home", "arrow", "settings")'),
-    category: z.string().optional().describe(
-      'Icon category: arrows, buildings, business, communication, design, development, device, document, editor, finance, food, logos, map, media, others, system, user-and-faces, weather'
-    ),
-    style: z.enum(['line', 'fill']).optional().describe('Icon style: line (outline) or fill (solid)'),
+    query: z
+      .string()
+      .optional()
+      .describe('Search term (e.g., "home", "arrow", "settings")'),
+    category: z
+      .string()
+      .optional()
+      .describe(
+        'Icon category: arrows, buildings, business, communication, design, development, device, document, editor, finance, food, logos, map, media, others, system, user-and-faces, weather',
+      ),
+    style: z
+      .enum(['line', 'fill'])
+      .optional()
+      .describe('Icon style: line (outline) or fill (solid)'),
     limit: z.number().optional().describe('Max results (default 20)'),
   },
   async (args) => ({
-    content: [{ type: 'text' as const, text: JSON.stringify(handleSearchIcons(args), null, 2) }],
-  })
+    content: [
+      { type: 'text' as const, text: JSON.stringify(handleSearchIcons(args), null, 2) },
+    ],
+  }),
 )
 
 server.tool(
   'suggest_component',
   'Given a UI intent description, suggest the best @vlting/ui component(s) to use',
   {
-    intent: z.string().describe('UI intent description (e.g., "show a confirmation dialog", "date picker", "sidebar navigation")'),
+    intent: z
+      .string()
+      .describe(
+        'UI intent description (e.g., "show a confirmation dialog", "date picker", "sidebar navigation")',
+      ),
   },
   async (args) => ({
-    content: [{ type: 'text' as const, text: JSON.stringify(handleSuggestComponent(args), null, 2) }],
-  })
+    content: [
+      {
+        type: 'text' as const,
+        text: JSON.stringify(handleSuggestComponent(args), null, 2),
+      },
+    ],
+  }),
 )
 
 server.tool(
   'generate_code',
   'Generate boilerplate code for a @vlting/ui component or composition',
   {
-    component: z.string().describe('Component name (e.g., "Card", "Dialog", "AuthBlock")'),
+    component: z
+      .string()
+      .describe('Component name (e.g., "Card", "Dialog", "AuthBlock")'),
     props: z.record(z.unknown()).optional().describe('Props to set on the component'),
     children: z.string().optional().describe('Children content string'),
   },
   async (args) => ({
-    content: [{ type: 'text' as const, text: JSON.stringify(handleGenerateCode(args), null, 2) }],
-  })
+    content: [
+      { type: 'text' as const, text: JSON.stringify(handleGenerateCode(args), null, 2) },
+    ],
+  }),
 )
 
 server.tool(
@@ -103,8 +137,10 @@ server.tool(
     code: z.string().describe('The code to validate'),
   },
   async (args) => ({
-    content: [{ type: 'text' as const, text: JSON.stringify(handleValidateCode(args), null, 2) }],
-  })
+    content: [
+      { type: 'text' as const, text: JSON.stringify(handleValidateCode(args), null, 2) },
+    ],
+  }),
 )
 
 server.tool(
@@ -112,8 +148,10 @@ server.tool(
   'Get the full list of STL CSS custom properties and design tokens with default values, grouped by category',
   {},
   async () => ({
-    content: [{ type: 'text' as const, text: JSON.stringify(handleGetThemeTokens(), null, 2) }],
-  })
+    content: [
+      { type: 'text' as const, text: JSON.stringify(handleGetThemeTokens(), null, 2) },
+    ],
+  }),
 )
 
 server.tool(
@@ -123,8 +161,13 @@ server.tool(
     name: z.string().describe('Component name (e.g., "Button", "Card", "Dialog")'),
   },
   async (args) => ({
-    content: [{ type: 'text' as const, text: JSON.stringify(handleAuditComponent(args), null, 2) }],
-  })
+    content: [
+      {
+        type: 'text' as const,
+        text: JSON.stringify(handleAuditComponent(args), null, 2),
+      },
+    ],
+  }),
 )
 
 server.tool(
@@ -134,8 +177,10 @@ server.tool(
     name: z.string().describe('Block name (e.g., "auth", "sidebar", "dashboard")'),
   },
   async (args) => ({
-    content: [{ type: 'text' as const, text: JSON.stringify(handleGetBlock(args), null, 2) }],
-  })
+    content: [
+      { type: 'text' as const, text: JSON.stringify(handleGetBlock(args), null, 2) },
+    ],
+  }),
 )
 
 async function main() {

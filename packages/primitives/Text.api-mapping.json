@@ -5,8 +5,14 @@
     "import": "import { Text } from '@vlting/ui'",
     "props": {
       "size": { "type": "string", "values": ["xs", "sm", "md", "lg", "xl"] },
-      "tone": { "type": "string", "values": ["neutral", "muted", "primary", "success", "warning", "danger"] },
-      "weight": { "type": "string", "values": ["light", "normal", "medium", "semibold", "bold"] },
+      "tone": {
+        "type": "string",
+        "values": ["neutral", "muted", "primary", "success", "warning", "danger"]
+      },
+      "weight": {
+        "type": "string",
+        "values": ["light", "normal", "medium", "semibold", "bold"]
+      },
       "children": { "type": "ReactNode", "values": [] }
     }
   },

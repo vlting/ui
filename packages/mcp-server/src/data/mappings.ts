@@ -41,7 +41,7 @@ export function getMigrationMapping(component: string): MappingEntry | undefined
     mappings.primitives[component] ??
     // Try case-insensitive
     Object.values({ ...mappings.components, ...mappings.primitives }).find(
-      (e) => e.component.toLowerCase() === component.toLowerCase()
+      (e) => e.component.toLowerCase() === component.toLowerCase(),
     )
   )
 }

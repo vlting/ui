@@ -2,65 +2,65 @@ import React, { useCallback, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const MenuContentFrame = styled(
-  "div",
+  'div',
   {
-    backgroundColor: "$surface1",
-    borderRadius: "$4",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "$borderColor",
-    padding: "$1",
-    minWidth: "180px",
-    boxShadow: "var(--shadowMd)",
+    backgroundColor: '$surface1',
+    borderRadius: '$4',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    padding: '$1',
+    minWidth: '180px',
+    boxShadow: 'var(--shadowMd)',
   },
-  "ContextMenuContent"
+  'ContextMenuContent',
 )
 
 const MenuItemBtn = styled(
-  "button",
+  'button',
   {
-    display: "flex",
-    flexDirection: "row",
-    boxSizing: "border-box",
-    appearance: "none",
-    border: "none",
-    background: "none",
-    padding: "0px",
-    margin: "0px",
-    fontFamily: "inherit",
-    width: "100%",
-    textAlign: "left",
+    display: 'flex',
+    flexDirection: 'row',
+    boxSizing: 'border-box',
+    appearance: 'none',
+    border: 'none',
+    background: 'none',
+    padding: '0px',
+    margin: '0px',
+    fontFamily: 'inherit',
+    width: '100%',
+    textAlign: 'left',
   },
-  "ContextMenuItem"
+  'ContextMenuItem',
 )
 
 const MenuItemText = styled(
-  "span",
-  { fontSize: "$14", fontFamily: "$body", color: "$color" },
-  "ContextMenuItemText"
+  'span',
+  { fontSize: '$14', fontFamily: '$body', color: '$color' },
+  'ContextMenuItemText',
 )
 
 const ShortcutText = styled(
-  "span",
-  { fontSize: "$12", fontFamily: "$code", color: "$secondaryText12", marginLeft: "14px" },
-  "ContextMenuShortcut"
+  'span',
+  { fontSize: '$12', fontFamily: '$code', color: '$secondaryText12', marginLeft: '14px' },
+  'ContextMenuShortcut',
 )
 
 const LabelText = styled(
-  "span",
-  { fontSize: "$12", fontWeight: "$600", color: "$secondaryText12", fontFamily: "$body" },
-  "ContextMenuLabel"
+  'span',
+  { fontSize: '$12', fontWeight: '$600', color: '$secondaryText12', fontFamily: '$body' },
+  'ContextMenuLabel',
 )
 
 const SeparatorLine = styled(
-  "div",
+  'div',
   {
-    height: "1px",
-    backgroundColor: "$borderColor",
-    marginTop: "2px",
-    marginBottom: "2px",
+    height: '1px',
+    backgroundColor: '$borderColor',
+    marginTop: '2px',
+    marginBottom: '2px',
   },
-  "ContextMenuSeparator"
+  'ContextMenuSeparator',
 )
 
 export interface ContextMenuRootProps {
@@ -125,10 +125,7 @@ function Root({ children, onOpenChange }: ContextMenuRootProps) {
       </div>
       {open && (
         <>
-          <div
-            style={{ position: 'fixed', inset: 0, zIndex: 40 }}
-            onClick={close}
-          />
+          <div style={{ position: 'fixed', inset: 0, zIndex: 40 }} onClick={close} />
           <MenuContentFrame
             role="menu"
             style={{
@@ -190,7 +187,16 @@ function Item({ children, onSelect, disabled, shortcut }: ContextMenuItemProps) 
 
 function CheckSvg() {
   return (
-    <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={12}
+      height={12}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={3}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M20 6L9 17l-5-5" />
     </svg>
   )

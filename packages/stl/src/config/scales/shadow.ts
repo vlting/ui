@@ -1,6 +1,10 @@
-import { CharHash } from "../utils"
-import { ColorVars, ThemeScale } from "./scales.models"
-import { getCssMapFromVars, getPropsFromCssMap, getThemePropsFromCssMap } from "./scales.utils"
+import { CharHash } from '../utils'
+import { ColorVars, ThemeScale } from './scales.models'
+import {
+  getCssMapFromVars,
+  getPropsFromCssMap,
+  getThemePropsFromCssMap,
+} from './scales.utils'
 
 /** Generator function for `shadow` theme scale */
 export function getShadow<T extends ColorVars>(hash: CharHash, color: T) {
@@ -41,7 +45,7 @@ export function getShadow<T extends ColorVars>(hash: CharHash, color: T) {
     md,
     lg,
     xl,
-    "2xl": xxl,
+    '2xl': xxl,
   } as const
   const darkVars = {
     low: { ...low, value: `0px 1.5px 2.3px hsl(${color.shadowBase.ref} / .38)` },
@@ -87,7 +91,7 @@ export function getShadow<T extends ColorVars>(hash: CharHash, color: T) {
     0px 19.1px 28.7px hsl(${color.shadowBase.ref} / .30),
     0px 40.8px 61.2px hsl(${color.shadowBase.ref} / .44)`,
     },
-    "2xl": {
+    '2xl': {
       ...highHeavy,
       value: `0px 8.6px 20px hsl(${color.shadowBase.ref} / .2),
     0px 19.1px 50px hsl(${color.shadowBase.ref} / .35),

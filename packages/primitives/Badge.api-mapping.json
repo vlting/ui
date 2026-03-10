@@ -3,7 +3,10 @@
   "shadcn": {
     "import": "import { Badge } from '@/components/ui/badge'",
     "props": {
-      "variant": { "type": "string", "values": ["default", "secondary", "destructive", "outline"] },
+      "variant": {
+        "type": "string",
+        "values": ["default", "secondary", "destructive", "outline"]
+      },
       "className": { "type": "string", "values": [] },
       "children": { "type": "ReactNode", "values": [] }
     }
@@ -11,8 +14,14 @@
   "vlting": {
     "import": "import { Badge } from '@vlting/ui'",
     "props": {
-      "variant": { "type": "string", "values": ["default", "solid", "secondary", "destructive", "outline", "subtle"] },
-      "tone": { "type": "string", "values": ["neutral", "primary", "success", "warning", "danger"] },
+      "variant": {
+        "type": "string",
+        "values": ["default", "solid", "secondary", "destructive", "outline", "subtle"]
+      },
+      "tone": {
+        "type": "string",
+        "values": ["neutral", "primary", "success", "warning", "danger"]
+      },
       "size": { "type": "string", "values": ["sm", "md", "lg"] },
       "children": { "type": "ReactNode", "values": [] }
     }
@@ -24,7 +33,15 @@
     "vlting Badge is a Tamagui styled(Text) component; accepts Tamagui style props"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props (e.g. backgroundColor, padding)", "reason": "Cross-platform" },
-    { "shadcn": "variant='default'", "vlting": "variant='default' or variant='solid' (alias)", "reason": "API parity with extra alias" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props (e.g. backgroundColor, padding)",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "variant='default'",
+      "vlting": "variant='default' or variant='solid' (alias)",
+      "reason": "API parity with extra alias"
+    }
   ]
 }

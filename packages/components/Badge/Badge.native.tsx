@@ -1,7 +1,7 @@
-import React, { forwardRef } from "react"
-import { View, Text as RNText } from "react-native"
-import type { ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
+import React, { forwardRef } from 'react'
+import { View, Text as RNText } from 'react-native'
+import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -10,43 +10,43 @@ import { styled } from "../../stl-native/src/config/styled"
 const BadgeContainer = styled(
   View,
   {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 9999,
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
   },
   {
     variant: {
-      default: { backgroundColor: "$primary6" },
-      secondary: { backgroundColor: "$color4" },
-      destructive: { backgroundColor: "$red6" },
+      default: { backgroundColor: '$primary6' },
+      secondary: { backgroundColor: '$color4' },
+      destructive: { backgroundColor: '$red6' },
       outline: {
-        backgroundColor: "transparent",
+        backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: "$borderColor",
+        borderColor: '$borderColor',
       },
     },
   },
-  "Badge",
+  'Badge',
 )
 
 const BadgeText = styled(
   RNText,
   {
     fontSize: 12,
-    fontWeight: "600",
+    fontWeight: '600',
   },
   {
     variant: {
-      default: { color: "#fff" },
-      secondary: { color: "$defaultBody" },
-      destructive: { color: "#fff" },
-      outline: { color: "$defaultBody" },
+      default: { color: '#fff' },
+      secondary: { color: '$defaultBody' },
+      destructive: { color: '#fff' },
+      outline: { color: '$defaultBody' },
     },
   },
-  "BadgeText",
+  'BadgeText',
 )
 
 // ---------------------------------------------------------------------------
@@ -54,13 +54,13 @@ const BadgeText = styled(
 // ---------------------------------------------------------------------------
 
 export interface BadgeProps {
-  variant?: "default" | "secondary" | "destructive" | "outline"
+  variant?: 'default' | 'secondary' | 'destructive' | 'outline'
   children?: React.ReactNode
   style?: ViewStyle
 }
 
 export const Badge = forwardRef<View, BadgeProps>(
-  ({ variant = "default", children, style, ...props }, ref) => (
+  ({ variant = 'default', children, style, ...props }, ref) => (
     <BadgeContainer
       ref={ref}
       variant={variant}
@@ -68,7 +68,7 @@ export const Badge = forwardRef<View, BadgeProps>(
       accessibilityRole="text"
       {...props}
     >
-      {typeof children === "string" ? (
+      {typeof children === 'string' ? (
         <BadgeText variant={variant}>{children}</BadgeText>
       ) : (
         children
@@ -76,4 +76,4 @@ export const Badge = forwardRef<View, BadgeProps>(
     </BadgeContainer>
   ),
 )
-Badge.displayName = "Badge"
+Badge.displayName = 'Badge'

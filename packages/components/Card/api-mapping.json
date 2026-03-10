@@ -43,8 +43,20 @@
     "Built on @tamagui/card CardFrame with withStaticProperties"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props or variant props (size, elevated, interactive)", "reason": "Cross-platform" },
-    { "shadcn": "<CardHeader>", "vlting": "<Card.Header>", "reason": "Compound component pattern" },
-    { "shadcn": "No interactive variant", "vlting": "Use interactive prop for clickable cards", "reason": "Built-in interaction pattern" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props or variant props (size, elevated, interactive)",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "<CardHeader>",
+      "vlting": "<Card.Header>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "No interactive variant",
+      "vlting": "Use interactive prop for clickable cards",
+      "reason": "Built-in interaction pattern"
+    }
   ]
 }

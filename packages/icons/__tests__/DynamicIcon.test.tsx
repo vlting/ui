@@ -21,18 +21,14 @@ function renderWithSuspense(ui: React.ReactElement) {
 
 describe('DynamicIcon', () => {
   it('renders an icon by name', async () => {
-    const { container } = renderWithSuspense(
-      <DynamicIcon name="arrow-right" />
-    )
+    const { container } = renderWithSuspense(<DynamicIcon name="arrow-right" />)
     await waitFor(() => {
       expect(container.querySelector('svg')).toBeTruthy()
     })
   })
 
   it('accepts variant prop', async () => {
-    const { container } = renderWithSuspense(
-      <DynamicIcon name="home" variant="fill" />
-    )
+    const { container } = renderWithSuspense(<DynamicIcon name="home" variant="fill" />)
     await waitFor(() => {
       expect(container.querySelector('svg')).toBeTruthy()
     })
@@ -40,7 +36,7 @@ describe('DynamicIcon', () => {
 
   it('accepts size and color props', async () => {
     const { container } = renderWithSuspense(
-      <DynamicIcon name="arrow-right" size={32} color="red" />
+      <DynamicIcon name="arrow-right" size={32} color="red" />,
     )
     await waitFor(() => {
       const svg = container.querySelector('svg')
@@ -51,12 +47,10 @@ describe('DynamicIcon', () => {
   })
 
   it('handles unknown icon names gracefully', async () => {
-    const { container } = renderWithSuspense(
-      <DynamicIcon name="nonexistent-icon-xyz" />
-    )
+    const { container } = renderWithSuspense(<DynamicIcon name="nonexistent-icon-xyz" />)
     // Should not throw — the error handler in getLazyIcon returns a null component
     await act(async () => {
-      await new Promise(r => setTimeout(r, 100))
+      await new Promise((r) => setTimeout(r, 100))
     })
     // Component renders without error (may render null/empty)
     expect(container).toBeTruthy()
@@ -67,7 +61,7 @@ describe('DynamicIcon', () => {
       <>
         <DynamicIcon name="arrow-right" />
         <DynamicIcon name="arrow-right" />
-      </>
+      </>,
     )
     await waitFor(() => {
       const svgs = container.querySelectorAll('svg')

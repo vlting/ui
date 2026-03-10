@@ -24,7 +24,15 @@
     "Default size is 'md'"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
-    { "shadcn": "No built-in required indicator", "vlting": "Use required prop for asterisk", "reason": "Built-in accessibility pattern" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "No built-in required indicator",
+      "vlting": "Use required prop for asterisk",
+      "reason": "Built-in accessibility pattern"
+    }
   ]
 }

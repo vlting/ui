@@ -36,9 +36,25 @@
     "Auto-generates unique IDs for label-textarea association and aria-describedby linking."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "onChange={(e) => e.target.value}", "vlting": "onChangeText={(text) => text}", "reason": "Direct string callback for cross-platform compatibility" },
-    { "shadcn": "Separate <Label> component", "vlting": "label='...' prop on Textarea", "reason": "Label is built into the component" },
-    { "shadcn": "No built-in error state", "vlting": "error + errorMessage props", "reason": "vlting includes form field error handling" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "onChange={(e) => e.target.value}",
+      "vlting": "onChangeText={(text) => text}",
+      "reason": "Direct string callback for cross-platform compatibility"
+    },
+    {
+      "shadcn": "Separate <Label> component",
+      "vlting": "label='...' prop on Textarea",
+      "reason": "Label is built into the component"
+    },
+    {
+      "shadcn": "No built-in error state",
+      "vlting": "error + errorMessage props",
+      "reason": "vlting includes form field error handling"
+    }
   ]
 }

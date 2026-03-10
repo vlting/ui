@@ -1,11 +1,11 @@
-import { styled } from "../../config"
-import { getTextStyles } from "../Text/Text"
+import { styled } from '../../config'
+import { getTextStyles } from '../Text/Text'
 
 export const ListItem = styled(
-  "li",
+  'li',
   {
     ...getTextStyles(),
-    lineHeight: "$listItem",
+    lineHeight: '$listItem',
   },
-  "ListItem"
+  'ListItem',
 )

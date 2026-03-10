@@ -1,23 +1,23 @@
-import { useState, useEffect } from "react"
-import { isSSR } from "../shared/utils"
+import { useState, useEffect } from 'react'
+import { isSSR } from '../shared/utils'
 
 export function useMediaQuery(
   query: string,
   defaultValue: boolean,
   trueValue?: never,
-  falseValue?: never
+  falseValue?: never,
 ): boolean
 export function useMediaQuery<T>(
   query: string,
   defaultValue: T,
   trueValue: T,
-  falseValue: T
+  falseValue: T,
 ): T
 export function useMediaQuery<T = boolean>(
   query: string,
   defaultValue: T,
   trueValue?: T,
-  falseValue?: T
+  falseValue?: T,
 ): T | boolean {
   const trueOutput = trueValue ?? true
   const falseOutput = falseValue ?? false
@@ -36,10 +36,10 @@ export function useMediaQuery<T = boolean>(
       const listener = () => {
         setMatches(media.matches)
       }
-      media.addEventListener("change", listener)
+      media.addEventListener('change', listener)
 
       // Remove the listener, on destroy
-      return () => media.removeEventListener("change", listener)
+      return () => media.removeEventListener('change', listener)
     }
     return
   }, [query])

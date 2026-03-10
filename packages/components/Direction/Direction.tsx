@@ -26,9 +26,7 @@ export function DirectionProvider({ children, dir }: DirectionProviderProps) {
   const resolvedDir = dir ?? direction
 
   return (
-    <DirectionContext.Provider value={resolvedDir}>
-      {children}
-    </DirectionContext.Provider>
+    <DirectionContext.Provider value={resolvedDir}>{children}</DirectionContext.Provider>
   )
 }
 

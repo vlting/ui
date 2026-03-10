@@ -51,26 +51,42 @@ export interface SidebarBlockProps {
 // --- Styled Elements ---
 
 const NavLink = styled(
-  "a",
+  'a',
   {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-    textDecoration: "none",
-    color: "inherit",
-    gap: "8px",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    textDecoration: 'none',
+    color: 'inherit',
+    gap: '8px',
   },
-  "SidebarNavLink"
+  'SidebarNavLink',
 )
 
 // --- Helper Components ---
 
 export function SidebarNavItem({ item }: { item: NavItem }) {
   const content = (
-    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 6, flex: 1 }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
+        flex: 1,
+      }}
+    >
       {item.icon && (
-        <div style={{ width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div
+          style={{
+            width: 16,
+            height: 16,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           {item.icon}
         </div>
       )}
@@ -87,7 +103,13 @@ export function SidebarNavItem({ item }: { item: NavItem }) {
       </span>
       {item.badge != null && (
         <Badge variant="secondary" size="sm">
-          <span style={{ fontSize: 12, fontFamily: 'var(--font-body)', color: 'var(--color)' }}>
+          <span
+            style={{
+              fontSize: 12,
+              fontFamily: 'var(--font-body)',
+              color: 'var(--color)',
+            }}
+          >
             {item.badge}
           </span>
         </Badge>

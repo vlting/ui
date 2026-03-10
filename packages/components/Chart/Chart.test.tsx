@@ -17,7 +17,7 @@ describe('Chart', () => {
     render(
       <Chart config={mockConfig} accessibilityLabel="Test chart">
         <div>chart content</div>
-      </Chart>
+      </Chart>,
     )
     expect(screen.getByRole('img')).toBeInTheDocument()
   })
@@ -26,7 +26,7 @@ describe('Chart', () => {
     render(
       <Chart config={mockConfig} accessibilityLabel="Test chart">
         <div>chart content</div>
-      </Chart>
+      </Chart>,
     )
     const container = screen.getByRole('img')
     expect(container).toHaveAttribute('aria-label', 'Test chart')
@@ -36,7 +36,7 @@ describe('Chart', () => {
     render(
       <Chart config={mockConfig} accessibilityLabel="Test chart" width={400} height={300}>
         <div>chart content</div>
-      </Chart>
+      </Chart>,
     )
     const container = screen.getByRole('img')
     expect(container.style.width).toBe('400px')
@@ -51,7 +51,7 @@ describe('Chart', () => {
 
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => render(<BadConsumer />)).toThrow(
-      'useChartContext must be used within a <Chart> component'
+      'useChartContext must be used within a <Chart> component',
     )
     consoleSpy.mockRestore()
   })
@@ -64,7 +64,7 @@ describe('ChartTooltip', () => {
     const { container } = render(
       <Chart config={mockConfig} accessibilityLabel="Test chart" width={400} height={300}>
         <ChartTooltip active={false} />
-      </Chart>
+      </Chart>,
     )
     // Only the outer Chart div should be present
     const chartDiv = container.querySelector('[role="img"]')!
@@ -76,7 +76,7 @@ describe('ChartTooltip', () => {
     const { container } = render(
       <Chart config={mockConfig} accessibilityLabel="Test chart" width={400} height={300}>
         <ChartTooltip active={true} payload={[]} />
-      </Chart>
+      </Chart>,
     )
     const chartDiv = container.querySelector('[role="img"]')!
     // Inner tooltip container should not render
@@ -93,7 +93,7 @@ describe('ChartTooltip', () => {
           label="January"
           payload={[{ name: 'Revenue', value: 1000, color: '#3b8fdb' }]}
         />
-      </Chart>
+      </Chart>,
     )
     expect(screen.getByText('Revenue')).toBeInTheDocument()
     expect(screen.getByText('1000')).toBeInTheDocument()
@@ -109,7 +109,7 @@ describe('ChartTooltip', () => {
           label="February"
           payload={[{ name: 'Revenue', value: 500, color: '#3b8fdb' }]}
         />
-      </Chart>
+      </Chart>,
     )
     expect(screen.getByText('February')).toBeInTheDocument()
     // label variant does not render payload items
@@ -124,7 +124,7 @@ describe('ChartLegend', () => {
     render(
       <Chart config={mockConfig} accessibilityLabel="Test chart" width={400} height={300}>
         <ChartLegend config={mockConfig} />
-      </Chart>
+      </Chart>,
     )
     expect(screen.getByText('Revenue')).toBeInTheDocument()
     expect(screen.getByText('Expenses')).toBeInTheDocument()
@@ -134,7 +134,7 @@ describe('ChartLegend', () => {
     const { container } = render(
       <Chart config={mockConfig} accessibilityLabel="Test chart" width={400} height={300}>
         <ChartLegend config={mockConfig} />
-      </Chart>
+      </Chart>,
     )
     expect(container.querySelector('ul')).toBeInTheDocument()
     expect(container.querySelectorAll('li')).toHaveLength(2)
@@ -144,7 +144,7 @@ describe('ChartLegend', () => {
     const { container } = render(
       <Chart config={mockConfig} accessibilityLabel="Test chart" width={400} height={300}>
         <ChartLegend config={mockConfig} />
-      </Chart>
+      </Chart>,
     )
     const list = container.querySelector('ul')!
     expect(list.style.flexDirection).toBe('row')
@@ -154,7 +154,7 @@ describe('ChartLegend', () => {
     const { container } = render(
       <Chart config={mockConfig} accessibilityLabel="Test chart" width={400} height={300}>
         <ChartLegend config={mockConfig} layout="vertical" />
-      </Chart>
+      </Chart>,
     )
     const list = container.querySelector('ul')!
     expect(list.style.flexDirection).toBe('column')
@@ -171,9 +171,15 @@ describe('ChartDataTable', () => {
 
   it('renders hidden data table when data prop is provided', () => {
     render(
-      <Chart config={mockConfig} accessibilityLabel="Revenue chart" data={mockData} xAxisKey="month" width={400}>
+      <Chart
+        config={mockConfig}
+        accessibilityLabel="Revenue chart"
+        data={mockData}
+        xAxisKey="month"
+        width={400}
+      >
         <div>chart content</div>
-      </Chart>
+      </Chart>,
     )
     expect(screen.getByRole('table')).toBeInTheDocument()
   })
@@ -182,16 +188,22 @@ describe('ChartDataTable', () => {
     render(
       <Chart config={mockConfig} accessibilityLabel="Revenue chart" width={400}>
         <div>chart content</div>
-      </Chart>
+      </Chart>,
     )
     expect(screen.queryByRole('table')).toBeNull()
   })
 
   it('renders correct column headers from config labels', () => {
     render(
-      <Chart config={mockConfig} accessibilityLabel="Revenue chart" data={mockData} xAxisKey="month" width={400}>
+      <Chart
+        config={mockConfig}
+        accessibilityLabel="Revenue chart"
+        data={mockData}
+        xAxisKey="month"
+        width={400}
+      >
         <div>chart content</div>
-      </Chart>
+      </Chart>,
     )
     const headers = screen.getAllByRole('columnheader')
     expect(headers).toHaveLength(3) // month + revenue + expenses
@@ -202,9 +214,15 @@ describe('ChartDataTable', () => {
 
   it('renders correct data rows', () => {
     render(
-      <Chart config={mockConfig} accessibilityLabel="Revenue chart" data={mockData} xAxisKey="month" width={400}>
+      <Chart
+        config={mockConfig}
+        accessibilityLabel="Revenue chart"
+        data={mockData}
+        xAxisKey="month"
+        width={400}
+      >
         <div>chart content</div>
-      </Chart>
+      </Chart>,
     )
     const rows = screen.getAllByRole('row')
     // 1 header row + 2 data rows
@@ -213,9 +231,15 @@ describe('ChartDataTable', () => {
 
   it('data table is visually hidden', () => {
     render(
-      <Chart config={mockConfig} accessibilityLabel="Revenue chart" data={mockData} xAxisKey="month" width={400}>
+      <Chart
+        config={mockConfig}
+        accessibilityLabel="Revenue chart"
+        data={mockData}
+        xAxisKey="month"
+        width={400}
+      >
         <div>chart content</div>
-      </Chart>
+      </Chart>,
     )
     const table = screen.getByRole('table')
     const wrapper = table.parentElement!
@@ -238,7 +262,7 @@ describe('reducedMotion context', () => {
     render(
       <Chart config={mockConfig} accessibilityLabel="test" width={400}>
         <ContextReader />
-      </Chart>
+      </Chart>,
     )
     expect(contextValue).not.toBeNull()
     expect(typeof contextValue!.reducedMotion).toBe('boolean')

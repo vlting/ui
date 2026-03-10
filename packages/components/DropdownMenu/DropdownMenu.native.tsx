@@ -1,12 +1,7 @@
-import React, { createContext, useContext, useState, useCallback, useRef } from "react"
-import {
-  View,
-  Text as RNText,
-  Pressable,
-  Modal,
-} from "react-native"
-import type { ViewStyle, LayoutRectangle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
+import React, { createContext, useContext, useState, useCallback, useRef } from 'react'
+import { View, Text as RNText, Pressable, Modal } from 'react-native'
+import type { ViewStyle, LayoutRectangle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -15,26 +10,26 @@ import { styled } from "../../stl-native/src/config/styled"
 const DropdownMenuContentFrame = styled(
   View,
   {
-    backgroundColor: "$background",
-    borderRadius: "$3",
+    backgroundColor: '$background',
+    borderRadius: '$3',
     borderWidth: 1,
-    borderColor: "$borderColor",
+    borderColor: '$borderColor',
     paddingVertical: 4,
     minWidth: 180,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 8,
   },
-  "DropdownMenuContent",
+  'DropdownMenuContent',
 )
 
 const DropdownMenuItemFrame = styled(
   Pressable,
   {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 10,
     pressed: { opacity: 0.85 },
@@ -44,7 +39,7 @@ const DropdownMenuItemFrame = styled(
       true: {},
     },
   },
-  "DropdownMenuItem",
+  'DropdownMenuItem',
 )
 
 const DropdownMenuItemTextFrame = styled(
@@ -54,35 +49,35 @@ const DropdownMenuItemTextFrame = styled(
   },
   {
     destructive: {
-      true: { color: "$red9" },
-      false: { color: "$defaultBody" },
+      true: { color: '$red9' },
+      false: { color: '$defaultBody' },
     },
   },
-  "DropdownMenuItemText",
+  'DropdownMenuItemText',
 )
 
 const DropdownMenuLabelFrame = styled(
   RNText,
   {
     fontSize: 12,
-    fontWeight: "600",
-    color: "$color3",
+    fontWeight: '600',
+    color: '$color3',
     paddingHorizontal: 16,
     paddingVertical: 6,
-    textTransform: "uppercase",
+    textTransform: 'uppercase',
   },
-  "DropdownMenuLabel",
+  'DropdownMenuLabel',
 )
 
 const DropdownMenuSeparatorFrame = styled(
   View,
   {
     height: 1,
-    backgroundColor: "$borderColor",
+    backgroundColor: '$borderColor',
     marginVertical: 4,
     marginHorizontal: 8,
   },
-  "DropdownMenuSeparator",
+  'DropdownMenuSeparator',
 )
 
 // ---------------------------------------------------------------------------
@@ -142,7 +137,9 @@ function DropdownMenuRoot({
       <View ref={triggerRef} style={style}>
         {triggerChild &&
           React.isValidElement(triggerChild) &&
-          React.cloneElement(triggerChild as React.ReactElement<any>, { onPress: onOpen })}
+          React.cloneElement(triggerChild as React.ReactElement<any>, {
+            onPress: onOpen,
+          })}
       </View>
       {otherChildren}
     </DropdownMenuContext.Provider>
@@ -187,15 +184,11 @@ function DropdownMenuContent({
       onRequestClose={onClose}
       statusBarTranslucent
     >
-      <Pressable
-        style={{ flex: 1 }}
-        onPress={onClose}
-        accessibilityRole="none"
-      >
+      <Pressable style={{ flex: 1 }} onPress={onClose} accessibilityRole="none">
         <DropdownMenuContentFrame
           style={[
             {
-              position: "absolute",
+              position: 'absolute',
               left: triggerLayout?.x ?? 0,
               top: (triggerLayout?.y ?? 0) + (triggerLayout?.height ?? 0) + 4,
             },
@@ -238,7 +231,7 @@ function DropdownMenuItem({
       accessibilityRole="menuitem"
       accessibilityState={{ disabled }}
     >
-      {typeof children === "string" ? (
+      {typeof children === 'string' ? (
         <DropdownMenuItemTextFrame destructive={destructive}>
           {children}
         </DropdownMenuItemTextFrame>

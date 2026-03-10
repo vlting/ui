@@ -4,30 +4,46 @@ import { styled } from '../../stl-react/src/config'
 
 // --- Styled Frames ---
 
-const FieldRoot = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-  gap: "4px",
-}, "FieldRoot")
+const FieldRoot = styled(
+  'div',
+  {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+  },
+  'FieldRoot',
+)
 
-const LabelText = styled("span", {
-  fontFamily: "$body",
-  fontWeight: "$500",
-  fontSize: "$p",
-  color: "$defaultBody",
-}, "FieldLabelText")
+const LabelText = styled(
+  'span',
+  {
+    fontFamily: '$body',
+    fontWeight: '$500',
+    fontSize: '$p',
+    color: '$defaultBody',
+  },
+  'FieldLabelText',
+)
 
-const DescriptionText = styled("span", {
-  fontFamily: "$body",
-  fontSize: "$14",
-  color: "$tertiary7",
-}, "FieldDescription")
+const DescriptionText = styled(
+  'span',
+  {
+    fontFamily: '$body',
+    fontSize: '$14',
+    color: '$tertiary7',
+  },
+  'FieldDescription',
+)
 
-const ErrorText = styled("span", {
-  fontFamily: "$body",
-  fontSize: "$14",
-  color: "red",
-}, "FieldError")
+const ErrorText = styled(
+  'span',
+  {
+    fontFamily: '$body',
+    fontSize: '$14',
+    color: 'red',
+  },
+  'FieldError',
+)
 
 // --- Context ---
 
@@ -120,11 +136,7 @@ function Description({ children }: FieldDescriptionProps) {
 
   if (error) return null
 
-  return (
-    <DescriptionText id={descriptionId}>
-      {children}
-    </DescriptionText>
-  )
+  return <DescriptionText id={descriptionId}>{children}</DescriptionText>
 }
 
 function Error({ children }: FieldErrorProps) {

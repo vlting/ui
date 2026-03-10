@@ -39,9 +39,25 @@
     "Form layout uses $4 gap between fields"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
-    { "shadcn": "useForm() + FormProvider required", "vlting": "No form library dependency; pass onSubmit directly", "reason": "Library-agnostic form handling" },
-    { "shadcn": "<FormField control={form.control} name='...' render={...} />", "vlting": "<Form.Field error={...}> children </Form.Field>", "reason": "Simplified API; no render prop pattern" },
-    { "shadcn": "<FormMessage>", "vlting": "<Form.ErrorMessage>", "reason": "Different naming" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "useForm() + FormProvider required",
+      "vlting": "No form library dependency; pass onSubmit directly",
+      "reason": "Library-agnostic form handling"
+    },
+    {
+      "shadcn": "<FormField control={form.control} name='...' render={...} />",
+      "vlting": "<Form.Field error={...}> children </Form.Field>",
+      "reason": "Simplified API; no render prop pattern"
+    },
+    {
+      "shadcn": "<FormMessage>",
+      "vlting": "<Form.ErrorMessage>",
+      "reason": "Different naming"
+    }
   ]
 }

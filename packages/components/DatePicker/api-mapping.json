@@ -11,7 +11,10 @@
     "props": {
       "value": { "type": "Date", "values": [] },
       "defaultValue": { "type": "Date", "values": [] },
-      "onValueChange": { "type": "function", "values": ["(date: Date | undefined) => void"] },
+      "onValueChange": {
+        "type": "function",
+        "values": ["(date: Date | undefined) => void"]
+      },
       "placeholder": { "type": "string", "values": ["Select date..."] },
       "label": { "type": "string", "values": [] },
       "helperText": { "type": "string", "values": [] },
@@ -34,8 +37,20 @@
     "Closes on Escape key or click outside"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props or size prop", "reason": "Cross-platform" },
-    { "shadcn": "Compose Calendar + Popover + Button manually", "vlting": "Single <DatePicker /> component", "reason": "Integrated API; no manual composition needed" },
-    { "shadcn": "No built-in label/error", "vlting": "Use label, error, errorMessage props", "reason": "Built-in form field features" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props or size prop",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "Compose Calendar + Popover + Button manually",
+      "vlting": "Single <DatePicker /> component",
+      "reason": "Integrated API; no manual composition needed"
+    },
+    {
+      "shadcn": "No built-in label/error",
+      "vlting": "Use label, error, errorMessage props",
+      "reason": "Built-in form field features"
+    }
   ]
 }

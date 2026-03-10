@@ -106,13 +106,10 @@ export function getGoogleFontsUrl(config: BrandFontConfig): string {
       const encodedFamily = family.replace(/ /g, '+')
 
       const needsItalic =
-        config.quote.family === family &&
-        (config.quote.style ?? 'italic') === 'italic'
+        config.quote.family === family && (config.quote.style ?? 'italic') === 'italic'
 
       if (needsItalic) {
-        const specs = sortedWeights
-          .flatMap((w) => [`0,${w}`, `1,${w}`])
-          .join(';')
+        const specs = sortedWeights.flatMap((w) => [`0,${w}`, `1,${w}`]).join(';')
         return `family=${encodedFamily}:ital,wght@${specs}`
       }
 

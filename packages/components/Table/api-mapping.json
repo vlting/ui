@@ -68,7 +68,15 @@
     "All sub-components accept their respective HTML element props and a style override."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "style={{...}} with CSS custom properties", "reason": "Uses inline styles with Tamagui token CSS variables instead of className" },
-    { "shadcn": "<TableHeader>", "vlting": "<Table.Header>", "reason": "Dot-notation compound component API" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "style={{...}} with CSS custom properties",
+      "reason": "Uses inline styles with Tamagui token CSS variables instead of className"
+    },
+    {
+      "shadcn": "<TableHeader>",
+      "vlting": "<Table.Header>",
+      "reason": "Dot-notation compound component API"
+    }
   ]
 }

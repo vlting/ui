@@ -10,78 +10,141 @@ const BUTTON_INTERACTION_CSS = `
 `
 
 const ButtonFrame = styled(
-  "button",
+  'button',
   {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "8px",
-    borderRadius: "6px",
-    fontFamily: "var(--font-body)",
-    fontWeight: "500",
-    cursor: "pointer",
-    border: "none",
-    transition: "background-color 150ms ease, border-color 150ms ease, filter 150ms ease, transform 100ms ease",
-    outline: "none",
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    borderRadius: '6px',
+    fontFamily: 'var(--font-body)',
+    fontWeight: '500',
+    cursor: 'pointer',
+    border: 'none',
+    transition:
+      'background-color 150ms ease, border-color 150ms ease, filter 150ms ease, transform 100ms ease',
+    outline: 'none',
   },
   {
     variant: {
-      default: { backgroundColor: "var(--color10)", color: "var(--color1)", borderWidth: "0" },
-      solid: { backgroundColor: "var(--color10)", color: "var(--color1)", borderWidth: "0" },
-      secondary: { backgroundColor: "var(--color2)", color: "var(--color)", borderWidth: "0" },
-      destructive: { backgroundColor: "var(--color4)", color: "var(--color11)", borderWidth: "0" },
-      outline: { backgroundColor: "transparent", borderWidth: "1px", borderStyle: "solid", borderColor: "var(--borderColor)", color: "var(--color)" },
-      ghost: { backgroundColor: "transparent", color: "var(--color)", borderWidth: "0" },
-      link: { backgroundColor: "transparent", color: "var(--color10)", borderWidth: "0", paddingLeft: "0", paddingRight: "0", textDecoration: "underline" },
+      default: {
+        backgroundColor: 'var(--color10)',
+        color: 'var(--color1)',
+        borderWidth: '0',
+      },
+      solid: {
+        backgroundColor: 'var(--color10)',
+        color: 'var(--color1)',
+        borderWidth: '0',
+      },
+      secondary: {
+        backgroundColor: 'var(--color2)',
+        color: 'var(--color)',
+        borderWidth: '0',
+      },
+      destructive: {
+        backgroundColor: 'var(--color4)',
+        color: 'var(--color11)',
+        borderWidth: '0',
+      },
+      outline: {
+        backgroundColor: 'transparent',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderColor: 'var(--borderColor)',
+        color: 'var(--color)',
+      },
+      ghost: { backgroundColor: 'transparent', color: 'var(--color)', borderWidth: '0' },
+      link: {
+        backgroundColor: 'transparent',
+        color: 'var(--color10)',
+        borderWidth: '0',
+        paddingLeft: '0',
+        paddingRight: '0',
+        textDecoration: 'underline',
+      },
     },
     size: {
-      xs: { height: "28px", paddingTop: "4px", paddingBottom: "4px", paddingLeft: "8px", paddingRight: "8px", fontSize: "var(--fontSize-1, 11px)" },
-      sm: { height: "32px", paddingTop: "8px", paddingBottom: "8px", paddingLeft: "12px", paddingRight: "12px", fontSize: "var(--fontSize-2, 12px)" },
-      md: { height: "36px", paddingTop: "8px", paddingBottom: "8px", paddingLeft: "16px", paddingRight: "16px", fontSize: "var(--fontSize-4, 16px)" },
-      lg: { height: "40px", paddingTop: "12px", paddingBottom: "12px", paddingLeft: "24px", paddingRight: "24px", fontSize: "var(--fontSize-5, 18px)" },
-      icon: { height: "36px", width: "36px", padding: "0", fontSize: "var(--fontSize-4, 16px)" },
+      xs: {
+        height: '28px',
+        paddingTop: '4px',
+        paddingBottom: '4px',
+        paddingLeft: '8px',
+        paddingRight: '8px',
+        fontSize: 'var(--fontSize-1, 11px)',
+      },
+      sm: {
+        height: '32px',
+        paddingTop: '8px',
+        paddingBottom: '8px',
+        paddingLeft: '12px',
+        paddingRight: '12px',
+        fontSize: 'var(--fontSize-2, 12px)',
+      },
+      md: {
+        height: '36px',
+        paddingTop: '8px',
+        paddingBottom: '8px',
+        paddingLeft: '16px',
+        paddingRight: '16px',
+        fontSize: 'var(--fontSize-4, 16px)',
+      },
+      lg: {
+        height: '40px',
+        paddingTop: '12px',
+        paddingBottom: '12px',
+        paddingLeft: '24px',
+        paddingRight: '24px',
+        fontSize: 'var(--fontSize-5, 18px)',
+      },
+      icon: {
+        height: '36px',
+        width: '36px',
+        padding: '0',
+        fontSize: 'var(--fontSize-4, 16px)',
+      },
     },
     disabled: {
-      true: { opacity: "0.5", cursor: "not-allowed", pointerEvents: "none" },
+      true: { opacity: '0.5', cursor: 'not-allowed', pointerEvents: 'none' },
     },
   },
-  "Button"
+  'Button',
 )
 
 const ButtonTextFrame = styled(
-  "span",
+  'span',
   {
-    fontFamily: "var(--font-body)",
-    fontWeight: "500",
+    fontFamily: 'var(--font-body)',
+    fontWeight: '500',
   },
   {
     textVariant: {
-      default: { color: "var(--color1)" },
-      solid: { color: "var(--color1)" },
-      secondary: { color: "var(--color)" },
-      destructive: { color: "var(--color11)" },
-      outline: { color: "var(--color)" },
-      ghost: { color: "var(--color)" },
-      link: { color: "var(--color10)", textDecoration: "underline" },
+      default: { color: 'var(--color1)' },
+      solid: { color: 'var(--color1)' },
+      secondary: { color: 'var(--color)' },
+      destructive: { color: 'var(--color11)' },
+      outline: { color: 'var(--color)' },
+      ghost: { color: 'var(--color)' },
+      link: { color: 'var(--color10)', textDecoration: 'underline' },
     },
     size: {
-      xs: { fontSize: "var(--fontSize-1, 11px)" },
-      sm: { fontSize: "var(--fontSize-2, 12px)" },
-      md: { fontSize: "var(--fontSize-4, 16px)" },
-      lg: { fontSize: "var(--fontSize-5, 18px)" },
+      xs: { fontSize: 'var(--fontSize-1, 11px)' },
+      sm: { fontSize: 'var(--fontSize-2, 12px)' },
+      md: { fontSize: 'var(--fontSize-4, 16px)' },
+      lg: { fontSize: 'var(--fontSize-5, 18px)' },
     },
   },
-  "ButtonText"
+  'ButtonText',
 )
 
 const ButtonIconFrame = styled(
-  "span",
+  'span',
   {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  "ButtonIcon"
+  'ButtonIcon',
 )
 
 type ButtonVariant =
@@ -105,7 +168,9 @@ const SPINNER_COLOR_MAP: Record<ButtonVariant, string> = {
   link: 'var(--color10)',
 }
 
-function ButtonText(props: React.HTMLAttributes<HTMLSpanElement> & { size?: 'xs' | 'sm' | 'md' | 'lg' }) {
+function ButtonText(
+  props: React.HTMLAttributes<HTMLSpanElement> & { size?: 'xs' | 'sm' | 'md' | 'lg' },
+) {
   const { variant } = useContext(ButtonContext)
   return <ButtonTextFrame {...props} textVariant={variant} />
 }
@@ -144,7 +209,12 @@ function Spinner({ color }: { color: string }) {
         aria-hidden="true"
       >
         <circle cx="8" cy="8" r="6" stroke={color} strokeWidth="2" opacity="0.25" />
-        <path d="M14 8a6 6 0 0 0-6-6" stroke={color} strokeWidth="2" strokeLinecap="round" />
+        <path
+          d="M14 8a6 6 0 0 0-6-6"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
       </svg>
     </>
   )
@@ -154,15 +224,7 @@ const ButtonBase = React.forwardRef<
   HTMLButtonElement,
   ButtonProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof ButtonProps>
 >(function ButtonBase(
-  {
-    loading,
-    children,
-    disabled,
-    variant = 'default',
-    size = 'md',
-    onPress,
-    ...props
-  },
+  { loading, children, disabled, variant = 'default', size = 'md', onPress, ...props },
   ref,
 ) {
   const isDisabled = disabled ?? loading ?? false

@@ -124,9 +124,7 @@ function buildLinePath(
       return buildMonotoneXPath(points)
     case 'linear':
     default:
-      return points
-        .map((p, i) => `${i === 0 ? 'M' : 'L'}${p.px},${p.py}`)
-        .join('')
+      return points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.px},${p.py}`).join('')
   }
 }
 
@@ -187,7 +185,7 @@ function naturalSpline(values: number[]): { c1: number[]; c2: number[] } {
 
   for (let j = n - 1; j >= 0; j--) {
     c[j] = z[j] - mu[j] * c[j + 1]
-    b[j] = (a[j + 1] - a[j]) / h[j] - h[j] * (c[j + 1] + 2 * c[j]) / 3
+    b[j] = (a[j + 1] - a[j]) / h[j] - (h[j] * (c[j + 1] + 2 * c[j])) / 3
     d[j] = (c[j + 1] - c[j]) / (3 * h[j])
   }
 
@@ -650,9 +648,7 @@ export function AreaChart({
       )}
 
       {showTooltip && !isInteractive && tooltipVariant && (
-        <ChartTooltip variant={tooltipVariant}>
-          {customTooltip}
-        </ChartTooltip>
+        <ChartTooltip variant={tooltipVariant}>{customTooltip}</ChartTooltip>
       )}
 
       {hasLegend && <ChartLegend config={config} />}

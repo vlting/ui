@@ -1,2 +1,5 @@
 import { createIcon } from '../createIcon'
-export const RiExpandUpDownFill = createIcon('M18 9 12 3 6 9H18ZM18 15 12 21 6 15H18Z', 'RiExpandUpDownFill')
+export const RiExpandUpDownFill = createIcon(
+  'M18 9 12 3 6 9H18ZM18 15 12 21 6 15H18Z',
+  'RiExpandUpDownFill',
+)

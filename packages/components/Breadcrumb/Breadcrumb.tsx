@@ -5,37 +5,37 @@ const BREADCRUMB_FOCUS_STYLE_ID = 'vlt-breadcrumb-focus'
 const BREADCRUMB_FOCUS_CSS = `.vlt-breadcrumb-link:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; border-radius: 2px; }`
 
 const BreadcrumbLinkText = styled(
-  "span",
+  'span',
   {
-    fontFamily: "$body",
-    fontSize: "$14",
-    color: "$secondaryText12",
-    cursor: "pointer",
-    textDecoration: "none",
+    fontFamily: '$body',
+    fontSize: '$14',
+    color: '$secondaryText12',
+    cursor: 'pointer',
+    textDecoration: 'none',
   },
-  "BreadcrumbLink"
+  'BreadcrumbLink',
 )
 
 const BreadcrumbPageText = styled(
-  "span",
+  'span',
   {
-    fontFamily: "$body",
-    fontSize: "$14",
-    fontWeight: "$500",
-    color: "$color",
+    fontFamily: '$body',
+    fontSize: '$14',
+    fontWeight: '$500',
+    color: '$color',
   },
-  "BreadcrumbPage"
+  'BreadcrumbPage',
 )
 
 const BreadcrumbSeparatorText = styled(
-  "span",
+  'span',
   {
-    fontFamily: "$body",
-    fontSize: "$14",
-    color: "$secondaryText12",
-    userSelect: "none",
+    fontFamily: '$body',
+    fontSize: '$14',
+    color: '$secondaryText12',
+    userSelect: 'none',
   },
-  "BreadcrumbSeparator"
+  'BreadcrumbSeparator',
 )
 
 export interface BreadcrumbProps {

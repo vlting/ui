@@ -1,6 +1,11 @@
-import { addStaticValuePrefix, CharHash } from "../utils"
-import { ThemeScale, Keyframes } from "./scales.models"
-import { getAliasMap, getCssMapFromVars, getPropsFromCssMap, getThemePropsFromCssMap } from "./scales.utils"
+import { addStaticValuePrefix, CharHash } from '../utils'
+import { ThemeScale, Keyframes } from './scales.models'
+import {
+  getAliasMap,
+  getCssMapFromVars,
+  getPropsFromCssMap,
+  getThemePropsFromCssMap,
+} from './scales.utils'
 
 /** Generator function for `animation` theme scale */
 export function getAnimation(hash: CharHash, keyframeHash: CharHash) {
@@ -13,136 +18,139 @@ export function getAnimation(hash: CharHash, keyframeHash: CharHash) {
   const bounceLeft = keyframeHash.name
   const keyframes: Keyframes = {
     [spin]: {
-      "0%, 5.1%": { transform: "rotate(0deg)" },
-      "20%, 80%": { transform: "rotate(180deg)" },
-      "50%, to": { transform: "rotate(360deg)" },
+      '0%, 5.1%': { transform: 'rotate(0deg)' },
+      '20%, 80%': { transform: 'rotate(180deg)' },
+      '50%, to': { transform: 'rotate(360deg)' },
     },
     [spinAndPause]: {
-      "0%, 25.1%": { transform: "rotate(0deg)" },
-      "10%, 40%": { transform: "rotate(180deg)" },
-      "25%, 50%, to": { transform: "rotate(360deg)" },
+      '0%, 25.1%': { transform: 'rotate(0deg)' },
+      '10%, 40%': { transform: 'rotate(180deg)' },
+      '25%, 50%, to': { transform: 'rotate(360deg)' },
     },
     [flashSize]: {
-      "0%, to": { transform: "scale3d(1, 1, 1)" },
-      "50%": { transform: "scale3d(1.12, 1.12, 1)" },
+      '0%, to': { transform: 'scale3d(1, 1, 1)' },
+      '50%': { transform: 'scale3d(1.12, 1.12, 1)' },
     },
     [bounceUp]: {
-      "0%, 10%, 26.5%, 50%, to": {
-        animationTimingFunction: "cubic-bezier(.215, .61, .355, 1)",
-        transform: "translate3d(0, 0, 0)",
+      '0%, 10%, 26.5%, 50%, to': {
+        animationTimingFunction: 'cubic-bezier(.215, .61, .355, 1)',
+        transform: 'translate3d(0, 0, 0)',
       },
-      "20%, 21.5%": {
-        animationTimingFunction: "cubic-bezier(.755, .05, .855, .06)",
-        transform: "translate3d(0, -30px, 0) scaleY(1.1)",
+      '20%, 21.5%': {
+        animationTimingFunction: 'cubic-bezier(.755, .05, .855, .06)',
+        transform: 'translate3d(0, -30px, 0) scaleY(1.1)',
       },
-      "35%": {
-        animationTimingFunction: "cubic-bezier(.755, .05, .855, .06)",
-        transform: "translate3d(0, -15px, 0) scaleY(1.05)",
+      '35%': {
+        animationTimingFunction: 'cubic-bezier(.755, .05, .855, .06)',
+        transform: 'translate3d(0, -15px, 0) scaleY(1.05)',
       },
-      "40%": {
-        transitionTimingFunction: "cubic-bezier(.215, .61, .355, 1)",
-        transform: "translate3d(0, 0, 0) scaleY(.95)",
+      '40%': {
+        transitionTimingFunction: 'cubic-bezier(.215, .61, .355, 1)',
+        transform: 'translate3d(0, 0, 0) scaleY(.95)',
       },
-      "45%": {
-        transform: "translate3d(0, -4px, 0) scaleY(1.02)",
+      '45%': {
+        transform: 'translate3d(0, -4px, 0) scaleY(1.02)',
       },
     },
     [bounceRight]: {
-      "0%, 10%, 26.5%, 50%, to": {
-        animationTimingFunction: "cubic-bezier(.215, .61, .355, 1)",
-        transform: "translate3d(0, 0, 0)",
+      '0%, 10%, 26.5%, 50%, to': {
+        animationTimingFunction: 'cubic-bezier(.215, .61, .355, 1)',
+        transform: 'translate3d(0, 0, 0)',
       },
-      "20%, 21.5%": {
-        animationTimingFunction: "cubic-bezier(.755, .05, .855, .06)",
-        transform: "translate3d(30px, 0, 0) scaleX(1.1)",
+      '20%, 21.5%': {
+        animationTimingFunction: 'cubic-bezier(.755, .05, .855, .06)',
+        transform: 'translate3d(30px, 0, 0) scaleX(1.1)',
       },
-      "35%": {
-        animationTimingFunction: "cubic-bezier(.755, .05, .855, .06)",
-        transform: "translate3d(15px, 0, 0) scaleX(1.05)",
+      '35%': {
+        animationTimingFunction: 'cubic-bezier(.755, .05, .855, .06)',
+        transform: 'translate3d(15px, 0, 0) scaleX(1.05)',
       },
-      "40%": {
-        transitionTimingFunction: "cubic-bezier(.215, .61, .355, 1)",
-        transform: "translate3d(0, 0, 0) scaleX(.95)",
+      '40%': {
+        transitionTimingFunction: 'cubic-bezier(.215, .61, .355, 1)',
+        transform: 'translate3d(0, 0, 0) scaleX(.95)',
       },
-      "45%": {
-        transform: "translate3d(4px, 0, 0) scaleX(1.02)",
+      '45%': {
+        transform: 'translate3d(4px, 0, 0) scaleX(1.02)',
       },
     },
     [bounceDown]: {
-      "0%, 10%, 26.5%, 50%, to": {
-        animationTimingFunction: "cubic-bezier(.215, .61, .355, 1)",
-        transform: "translate3d(0, 0, 0)",
+      '0%, 10%, 26.5%, 50%, to': {
+        animationTimingFunction: 'cubic-bezier(.215, .61, .355, 1)',
+        transform: 'translate3d(0, 0, 0)',
       },
-      "20%, 21.5%": {
-        animationTimingFunction: "cubic-bezier(.755, .05, .855, .06)",
-        transform: "translate3d(0, 30px, 0) scaleY(1.1)",
+      '20%, 21.5%': {
+        animationTimingFunction: 'cubic-bezier(.755, .05, .855, .06)',
+        transform: 'translate3d(0, 30px, 0) scaleY(1.1)',
       },
-      "35%": {
-        animationTimingFunction: "cubic-bezier(.755, .05, .855, .06)",
-        transform: "translate3d(0, 15px, 0) scaleY(1.05)",
+      '35%': {
+        animationTimingFunction: 'cubic-bezier(.755, .05, .855, .06)',
+        transform: 'translate3d(0, 15px, 0) scaleY(1.05)',
       },
-      "40%": {
-        transitionTimingFunction: "cubic-bezier(.215, .61, .355, 1)",
-        transform: "translate3d(0, 0, 0) scaleY(.95)",
+      '40%': {
+        transitionTimingFunction: 'cubic-bezier(.215, .61, .355, 1)',
+        transform: 'translate3d(0, 0, 0) scaleY(.95)',
       },
-      "45%": {
-        transform: "translate3d(0, 4px, 0) scaleY(1.02)",
+      '45%': {
+        transform: 'translate3d(0, 4px, 0) scaleY(1.02)',
       },
     },
     [bounceLeft]: {
-      "0%, 10%, 26.5%, 50%, to": {
-        animationTimingFunction: "cubic-bezier(.215, .61, .355, 1)",
-        transform: "translate3d(0, 0, 0)",
+      '0%, 10%, 26.5%, 50%, to': {
+        animationTimingFunction: 'cubic-bezier(.215, .61, .355, 1)',
+        transform: 'translate3d(0, 0, 0)',
       },
-      "20%, 21.5%": {
-        animationTimingFunction: "cubic-bezier(.755, .05, .855, .06)",
-        transform: "translate3d(-30px, 0, 0) scaleX(1.1)",
+      '20%, 21.5%': {
+        animationTimingFunction: 'cubic-bezier(.755, .05, .855, .06)',
+        transform: 'translate3d(-30px, 0, 0) scaleX(1.1)',
       },
-      "35%": {
-        animationTimingFunction: "cubic-bezier(.755, .05, .855, .06)",
-        transform: "translate3d(-15px, 0, 0) scaleX(1.05)",
+      '35%': {
+        animationTimingFunction: 'cubic-bezier(.755, .05, .855, .06)',
+        transform: 'translate3d(-15px, 0, 0) scaleX(1.05)',
       },
-      "40%": {
-        transitionTimingFunction: "cubic-bezier(.215, .61, .355, 1)",
-        transform: "translate3d(0, 0, 0) scaleX(.95)",
+      '40%': {
+        transitionTimingFunction: 'cubic-bezier(.215, .61, .355, 1)',
+        transform: 'translate3d(0, 0, 0) scaleX(.95)',
       },
-      "45%": {
-        transform: "translate3d(-4px, 0, 0) scaleX(1.02)",
+      '45%': {
+        transform: 'translate3d(-4px, 0, 0) scaleX(1.02)',
       },
     },
   }
 
-  const fastDuration = { ...hash.var, value: ".25s" }
-  const normalDuration = { ...hash.var, value: ".3s" }
+  const fastDuration = { ...hash.var, value: '.25s' }
+  const normalDuration = { ...hash.var, value: '.3s' }
   const vars = {
     fastDuration,
     normalDuration,
-    slowDuration: { ...hash.var, value: ".75s" },
+    slowDuration: { ...hash.var, value: '.75s' },
     defaultDuration: { ...hash.var, value: fastDuration.ref },
-    spinDuration: { ...hash.var, value: "1.25s" },
-    spinAndPauseDuration: { ...hash.var, value: "1.75s" },
-    flashSizeDuration: { ...hash.var, value: ".5s" },
-    bounceDuration: { ...hash.var, value: "2.5s" },
+    spinDuration: { ...hash.var, value: '1.25s' },
+    spinAndPauseDuration: { ...hash.var, value: '1.75s' },
+    flashSizeDuration: { ...hash.var, value: '.5s' },
+    bounceDuration: { ...hash.var, value: '2.5s' },
     // Easing
-    defaultEasing: { ...hash.var, value: "ease" },
-    easeIn: { ...hash.var, value: "ease-in" },
-    easeOut: { ...hash.var, value: "ease-out" },
-    easeInOut: { ...hash.var, value: "ease-in-out" },
+    defaultEasing: { ...hash.var, value: 'ease' },
+    easeIn: { ...hash.var, value: 'ease-in' },
+    easeOut: { ...hash.var, value: 'ease-out' },
+    easeInOut: { ...hash.var, value: 'ease-in-out' },
     // Common transition properties
-    transitionAll: { ...hash.var, value: "all" },
-    transitionColors: { ...hash.var, value: "background-color, border-color, color, fill, stroke" },
-    transitionOpacity: { ...hash.var, value: "opacity" },
-    transitionShadow: { ...hash.var, value: "box-shadow" },
-    transitionTransform: { ...hash.var, value: "transform" },
+    transitionAll: { ...hash.var, value: 'all' },
+    transitionColors: {
+      ...hash.var,
+      value: 'background-color, border-color, color, fill, stroke',
+    },
+    transitionOpacity: { ...hash.var, value: 'opacity' },
+    transitionShadow: { ...hash.var, value: 'box-shadow' },
+    transitionTransform: { ...hash.var, value: 'transform' },
   } as const
 
   const transition = {
-    transitionProperty: addStaticValuePrefix("opacity, transform"),
-    transitionDuration: "defaultDuration",
+    transitionProperty: addStaticValuePrefix('opacity, transform'),
+    transitionDuration: 'defaultDuration',
   } as const
   const hidden = {
-    opacity: addStaticValuePrefix("0"),
-    pointerEvents: addStaticValuePrefix("none"),
+    opacity: addStaticValuePrefix('0'),
+    pointerEvents: addStaticValuePrefix('none'),
   } as const
 
   const cssValueMap = {
@@ -155,106 +163,106 @@ export function getAnimation(hash: CharHash, keyframeHash: CharHash) {
     bounceDownName: bounceDown,
     bounceLeftName: bounceLeft,
     // Combo aliases
-    spin: "spin",
-    spinAndPause: "spinAndPause",
-    flashSize: "flashSize",
-    bounceUp: "bounceUp",
-    bounceRight: "bounceRight",
-    bounceDown: "bounceDown",
-    bounceLeft: "bounceLeft",
-    slideInTop: "slideInTop",
-    slideOutTop: "slideOutTop",
-    slideInRight: "slideInRight",
-    slideOutRight: "slideOutRight",
-    slideInBottom: "slideInBottom",
-    slideOutBottom: "slideOutBottom",
-    slideInLeft: "slideInLeft",
-    slideOutLeft: "slideOutLeft",
-    fadeIn: "fadeIn",
-    fadeOut: "fadeOut",
-    zoomIn: "zoomIn",
-    zoomOut: "zoomOut",
+    spin: 'spin',
+    spinAndPause: 'spinAndPause',
+    flashSize: 'flashSize',
+    bounceUp: 'bounceUp',
+    bounceRight: 'bounceRight',
+    bounceDown: 'bounceDown',
+    bounceLeft: 'bounceLeft',
+    slideInTop: 'slideInTop',
+    slideOutTop: 'slideOutTop',
+    slideInRight: 'slideInRight',
+    slideOutRight: 'slideOutRight',
+    slideInBottom: 'slideInBottom',
+    slideOutBottom: 'slideOutBottom',
+    slideInLeft: 'slideInLeft',
+    slideOutLeft: 'slideOutLeft',
+    fadeIn: 'fadeIn',
+    fadeOut: 'fadeOut',
+    zoomIn: 'zoomIn',
+    zoomOut: 'zoomOut',
   } as const
 
   const { aliasMap, cssAliases } = getAliasMap({
     // Animations
     spin: {
-      animationName: "spinName",
-      animationDuration: "spinDuration",
-      animationIterationCount: addStaticValuePrefix("infinite"),
-      animationTimingFunction: addStaticValuePrefix("ease-in-out"),
-      animationFillMode: addStaticValuePrefix("both"),
+      animationName: 'spinName',
+      animationDuration: 'spinDuration',
+      animationIterationCount: addStaticValuePrefix('infinite'),
+      animationTimingFunction: addStaticValuePrefix('ease-in-out'),
+      animationFillMode: addStaticValuePrefix('both'),
     },
     spinAndPause: {
-      animationName: "spinAndPauseName",
-      animationDuration: "spinAndPauseDuration",
-      animationIterationCount: addStaticValuePrefix("infinite"),
-      animationTimingFunction: addStaticValuePrefix("ease-in-out"),
-      animationFillMode: addStaticValuePrefix("both"),
+      animationName: 'spinAndPauseName',
+      animationDuration: 'spinAndPauseDuration',
+      animationIterationCount: addStaticValuePrefix('infinite'),
+      animationTimingFunction: addStaticValuePrefix('ease-in-out'),
+      animationFillMode: addStaticValuePrefix('both'),
     },
     flashSize: {
-      animationName: "flashSizeName",
-      animationDuration: "flashSizeDuration",
-      animationIterationCount: addStaticValuePrefix("2"),
-      animationTimingFunction: addStaticValuePrefix("ease-in-out"),
-      animationFillMode: addStaticValuePrefix("both"),
+      animationName: 'flashSizeName',
+      animationDuration: 'flashSizeDuration',
+      animationIterationCount: addStaticValuePrefix('2'),
+      animationTimingFunction: addStaticValuePrefix('ease-in-out'),
+      animationFillMode: addStaticValuePrefix('both'),
     },
     bounceUp: {
-      animationName: "bounceUpName",
-      animationDuration: "bounceDuration",
-      animationIterationCount: addStaticValuePrefix("infinite"),
-      animationTimingFunction: addStaticValuePrefix("ease-in-out"),
-      animationFillMode: addStaticValuePrefix("both"),
-      transformOrigin: addStaticValuePrefix("center bottom"),
+      animationName: 'bounceUpName',
+      animationDuration: 'bounceDuration',
+      animationIterationCount: addStaticValuePrefix('infinite'),
+      animationTimingFunction: addStaticValuePrefix('ease-in-out'),
+      animationFillMode: addStaticValuePrefix('both'),
+      transformOrigin: addStaticValuePrefix('center bottom'),
     },
     bounceRight: {
-      animationName: "bounceRightName",
-      animationDuration: "bounceDuration",
-      animationIterationCount: addStaticValuePrefix("infinite"),
-      animationTimingFunction: addStaticValuePrefix("ease-in-out"),
-      animationFillMode: addStaticValuePrefix("both"),
-      transformOrigin: addStaticValuePrefix("left center"),
+      animationName: 'bounceRightName',
+      animationDuration: 'bounceDuration',
+      animationIterationCount: addStaticValuePrefix('infinite'),
+      animationTimingFunction: addStaticValuePrefix('ease-in-out'),
+      animationFillMode: addStaticValuePrefix('both'),
+      transformOrigin: addStaticValuePrefix('left center'),
     },
     bounceDown: {
-      animationName: "bounceDownName",
-      animationDuration: "bounceDuration",
-      animationIterationCount: addStaticValuePrefix("infinite"),
-      animationTimingFunction: addStaticValuePrefix("ease-in-out"),
-      animationFillMode: addStaticValuePrefix("both"),
-      transformOrigin: addStaticValuePrefix("center top"),
+      animationName: 'bounceDownName',
+      animationDuration: 'bounceDuration',
+      animationIterationCount: addStaticValuePrefix('infinite'),
+      animationTimingFunction: addStaticValuePrefix('ease-in-out'),
+      animationFillMode: addStaticValuePrefix('both'),
+      transformOrigin: addStaticValuePrefix('center top'),
     },
     bounceLeft: {
-      animationName: "bounceLeftName",
-      animationDuration: "bounceDuration",
-      animationIterationCount: addStaticValuePrefix("infinite"),
-      animationTimingFunction: addStaticValuePrefix("ease-in-out"),
-      animationFillMode: addStaticValuePrefix("both"),
-      transformOrigin: addStaticValuePrefix("right center"),
+      animationName: 'bounceLeftName',
+      animationDuration: 'bounceDuration',
+      animationIterationCount: addStaticValuePrefix('infinite'),
+      animationTimingFunction: addStaticValuePrefix('ease-in-out'),
+      animationFillMode: addStaticValuePrefix('both'),
+      transformOrigin: addStaticValuePrefix('right center'),
     },
     // Animated Transitions
     slideInTop: transition,
     slideOutTop: {
       ...hidden,
       ...transition,
-      transform: addStaticValuePrefix("translate3d(0,-100%,0)"),
+      transform: addStaticValuePrefix('translate3d(0,-100%,0)'),
     },
     slideInRight: transition,
     slideOutRight: {
       ...hidden,
       ...transition,
-      transform: addStaticValuePrefix("translate3d(-100%,0,0)"),
+      transform: addStaticValuePrefix('translate3d(-100%,0,0)'),
     },
     slideInBottom: transition,
     slideOutBottom: {
       ...hidden,
       ...transition,
-      transform: addStaticValuePrefix("translate3d(0,100%,0)"),
+      transform: addStaticValuePrefix('translate3d(0,100%,0)'),
     },
     slideInLeft: transition,
     slideOutLeft: {
       ...hidden,
       ...transition,
-      transform: addStaticValuePrefix("translate3d(100%,0,0)"),
+      transform: addStaticValuePrefix('translate3d(100%,0,0)'),
     },
     fadeIn: transition,
     fadeOut: {
@@ -265,7 +273,7 @@ export function getAnimation(hash: CharHash, keyframeHash: CharHash) {
     zoomOut: {
       ...hidden,
       ...transition,
-      transform: addStaticValuePrefix("scale3d(.5,.5,1)"),
+      transform: addStaticValuePrefix('scale3d(.5,.5,1)'),
     },
   })
 
@@ -281,7 +289,13 @@ export function getAnimation(hash: CharHash, keyframeHash: CharHash) {
     cssAliasMap,
     aliasMap,
     keyframes,
-  } as ThemeScale<typeof vars, typeof themeProps, typeof cssValueMap, typeof cssAliasMap, typeof keyframes>
+  } as ThemeScale<
+    typeof vars,
+    typeof themeProps,
+    typeof cssValueMap,
+    typeof cssAliasMap,
+    typeof keyframes
+  >
 }
 
 // FILTER KEYS ////////////////////////////////////////////////////////////////

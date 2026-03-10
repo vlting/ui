@@ -1,10 +1,15 @@
-import { addStaticValuePrefix, CharHash } from "../utils"
-import { ColorVars, ThemeScale } from "./scales.models"
-import { getAliasMap, getCssMapFromVars, getPropsFromCssMap, getThemePropsFromCssMap } from "./scales.utils"
+import { addStaticValuePrefix, CharHash } from '../utils'
+import { ColorVars, ThemeScale } from './scales.models'
+import {
+  getAliasMap,
+  getCssMapFromVars,
+  getPropsFromCssMap,
+  getThemePropsFromCssMap,
+} from './scales.utils'
 
 /** Generator function for `outline` theme scale */
 export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
-  const widthBase = { ...hash.var, value: "2rem" } as const
+  const widthBase = { ...hash.var, value: '2rem' } as const
   const widthMin = { ...hash.var, value: `calc(${widthBase.ref} - 1rem)` } as const
   const widthMax = { ...hash.var, value: `calc(${widthBase.ref} + 2rem)` } as const
   const widthDefault = { ...hash.var, value: widthBase.ref } as const
@@ -20,11 +25,14 @@ export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
   const tertiaryColorMax = { ...hash.var, value: color.tertiary10.ref } as const
 
   const offsetBase = { ...hash.var, value: widthBase.ref } as const
-  const offsetMin = { ...hash.var, value: `max(0, calc(${offsetBase.ref}) - 2rem)` } as const
+  const offsetMin = {
+    ...hash.var,
+    value: `max(0, calc(${offsetBase.ref}) - 2rem)`,
+  } as const
   const offsetMax = { ...hash.var, value: `calc(${offsetBase.ref} + 2rem)` } as const
   const offsetDefault = { ...hash.var, value: offsetBase.ref } as const
 
-  const styleDefault = { ...hash.var, value: "solid" } as const
+  const styleDefault = { ...hash.var, value: 'solid' } as const
 
   const vars = {
     widthBase,
@@ -51,36 +59,40 @@ export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
   const cssValueMap = {
     ...getCssMapFromVars(vars),
     // COMBO PLACEHOLDERS //
-    primary: "primary",
-    primaryMin: "primaryMin",
-    primaryMax: "primaryMax",
-    secondary: "secondary",
-    secondaryMin: "secondaryMin",
-    secondaryMax: "secondaryMax",
-    tertiary: "tertiary",
-    tertiaryMin: "tertiaryMin",
-    tertiaryMax: "tertiaryMax",
+    primary: 'primary',
+    primaryMin: 'primaryMin',
+    primaryMax: 'primaryMax',
+    secondary: 'secondary',
+    secondaryMin: 'secondaryMin',
+    secondaryMax: 'secondaryMax',
+    tertiary: 'tertiary',
+    tertiaryMin: 'tertiaryMin',
+    tertiaryMax: 'tertiaryMax',
   } as const
 
   const { aliasMap, cssAliases } = getAliasMap(
     {
-      primary: { outlineColor: "primaryColorBase" },
-      primaryMin: { outlineColor: "primaryColorMin" },
-      primaryMax: { outlineColor: "primaryColorMax" },
-      secondary: { outlineColor: "secondaryColorBase" },
-      secondaryMin: { outlineColor: "secondaryColorMin" },
-      secondaryMax: { outlineColor: "secondaryColorMax" },
-      tertiary: { outlineColor: "tertiaryColorBase" },
-      tertiaryMin: { outlineColor: "tertiaryColorMin" },
-      tertiaryMax: { outlineColor: "tertiaryColorMax" },
-      [addStaticValuePrefix("none")]: { outlineColor: addStaticValuePrefix("transparent") },
-      [addStaticValuePrefix("initial")]: { outlineColor: addStaticValuePrefix("transparent") },
+      primary: { outlineColor: 'primaryColorBase' },
+      primaryMin: { outlineColor: 'primaryColorMin' },
+      primaryMax: { outlineColor: 'primaryColorMax' },
+      secondary: { outlineColor: 'secondaryColorBase' },
+      secondaryMin: { outlineColor: 'secondaryColorMin' },
+      secondaryMax: { outlineColor: 'secondaryColorMax' },
+      tertiary: { outlineColor: 'tertiaryColorBase' },
+      tertiaryMin: { outlineColor: 'tertiaryColorMin' },
+      tertiaryMax: { outlineColor: 'tertiaryColorMax' },
+      [addStaticValuePrefix('none')]: {
+        outlineColor: addStaticValuePrefix('transparent'),
+      },
+      [addStaticValuePrefix('initial')]: {
+        outlineColor: addStaticValuePrefix('transparent'),
+      },
     },
     {
-      outlineWidth: "widthDefault",
-      outlineStyle: "styleDefault",
-      outlineOffset: "offsetDefault",
-    }
+      outlineWidth: 'widthDefault',
+      outlineStyle: 'styleDefault',
+      outlineOffset: 'offsetDefault',
+    },
   )
 
   const cssAliasMap = { ...cssAliases } as const

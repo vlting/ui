@@ -2,95 +2,116 @@ import type { ComponentProps } from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const ItemRoot = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    flexDirection: "row",
-    paddingTop: "$2",
-    paddingBottom: "$2",
-    paddingLeft: "$3",
-    paddingRight: "$3",
-    alignItems: "center",
-    gap: "10px",
-    width: "100%",
-    minHeight: "44px",
+    display: 'flex',
+    flexDirection: 'row',
+    paddingTop: '$2',
+    paddingBottom: '$2',
+    paddingLeft: '$3',
+    paddingRight: '$3',
+    alignItems: 'center',
+    gap: '10px',
+    width: '100%',
+    minHeight: '44px',
   },
   {
     size: {
-      sm: { paddingTop: "6px", paddingBottom: "6px", paddingLeft: "$2", paddingRight: "$2", gap: "$2", minHeight: "36px" },
-      md: { paddingTop: "$2", paddingBottom: "$2", paddingLeft: "$3", paddingRight: "$3", gap: "10px", minHeight: "44px" },
-      lg: { paddingTop: "$3", paddingBottom: "$3", paddingLeft: "$4", paddingRight: "$4", gap: "$3", minHeight: "52px" },
+      sm: {
+        paddingTop: '6px',
+        paddingBottom: '6px',
+        paddingLeft: '$2',
+        paddingRight: '$2',
+        gap: '$2',
+        minHeight: '36px',
+      },
+      md: {
+        paddingTop: '$2',
+        paddingBottom: '$2',
+        paddingLeft: '$3',
+        paddingRight: '$3',
+        gap: '10px',
+        minHeight: '44px',
+      },
+      lg: {
+        paddingTop: '$3',
+        paddingBottom: '$3',
+        paddingLeft: '$4',
+        paddingRight: '$4',
+        gap: '$3',
+        minHeight: '52px',
+      },
     },
     interactive: {
-      true: { cursor: "pointer", borderRadius: "$3" },
+      true: { cursor: 'pointer', borderRadius: '$3' },
     },
   },
-  "Item"
+  'Item',
 )
 
 const ItemLeading = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     flexShrink: 0,
   },
-  "ItemLeading"
+  'ItemLeading',
 )
 
 const ItemContent = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     flex: 1,
-    gap: "$1",
+    gap: '$1',
   },
-  "ItemContent"
+  'ItemContent',
 )
 
 const ItemTitle = styled(
-  "span",
+  'span',
   {
-    fontFamily: "$body",
-    fontWeight: "$500",
+    fontFamily: '$body',
+    fontWeight: '$500',
   },
   {
     size: {
-      sm: { fontSize: "$14" },
-      md: { fontSize: "$16" },
-      lg: { fontSize: "$18" },
+      sm: { fontSize: '$14' },
+      md: { fontSize: '$16' },
+      lg: { fontSize: '$18' },
     },
   },
-  "ItemTitle"
+  'ItemTitle',
 )
 
 const ItemDescription = styled(
-  "span",
+  'span',
   {
-    fontFamily: "$body",
-    color: "$secondaryText12",
+    fontFamily: '$body',
+    color: '$secondaryText12',
   },
   {
     size: {
-      sm: { fontSize: "$12" },
-      md: { fontSize: "$14" },
-      lg: { fontSize: "$16" },
+      sm: { fontSize: '$12' },
+      md: { fontSize: '$14' },
+      lg: { fontSize: '$16' },
     },
   },
-  "ItemDescription"
+  'ItemDescription',
 )
 
 const ItemTrailing = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     flexShrink: 0,
   },
-  "ItemTrailing"
+  'ItemTrailing',
 )
 
 export const Item = Object.assign(ItemRoot, {

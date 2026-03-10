@@ -2,16 +2,12 @@ import { styled } from '../../stl-react/src/config'
 import type React from 'react'
 
 const ScrollAreaFrame = styled(
-  "div",
-  { position: "relative", overflow: "hidden" },
-  "ScrollArea"
+  'div',
+  { position: 'relative', overflow: 'hidden' },
+  'ScrollArea',
 )
 
-const ViewportFrame = styled(
-  "div",
-  { borderRadius: "inherit" },
-  "ScrollAreaViewport"
-)
+const ViewportFrame = styled('div', { borderRadius: 'inherit' }, 'ScrollAreaViewport')
 
 export interface ScrollAreaRootProps {
   children: React.ReactNode

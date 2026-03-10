@@ -37,7 +37,12 @@ export function searchIcons(opts: {
 }): Array<{ name: string; importName: string; category: string; style: string }> {
   const manifest = getManifest()
   const limit = opts.limit ?? 20
-  const results: Array<{ name: string; importName: string; category: string; style: string }> = []
+  const results: Array<{
+    name: string
+    importName: string
+    category: string
+    style: string
+  }> = []
 
   for (const icon of manifest.icons) {
     if (opts.category && icon.category !== opts.category) continue

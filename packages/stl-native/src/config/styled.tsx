@@ -1,20 +1,18 @@
-import {
-  type ComponentType,
-  type ForwardedRef,
-  forwardRef,
-  createElement,
-} from "react"
-import type { ViewStyle, TextStyle } from "react-native"
+import { type ComponentType, type ForwardedRef, forwardRef, createElement } from 'react'
+import type { ViewStyle, TextStyle } from 'react-native'
 
 /** Loose CSS descriptor type for native */
-type CSS = Record<string, string | number | Record<string, string | number | Record<string, string | number>>>
-import { NativeStyleResolver } from "./NativeStyleResolver"
-import { useConditionMask } from "../hooks/useConditionMask"
-import { CondBit, type ConditionMask } from "./conditions"
+type CSS = Record<
+  string,
+  string | number | Record<string, string | number | Record<string, string | number>>
+>
+import { NativeStyleResolver } from './NativeStyleResolver'
+import { useConditionMask } from '../hooks/useConditionMask'
+import { CondBit, type ConditionMask } from './conditions'
 
 type NativeStyle = Readonly<ViewStyle & TextStyle>
 
-const INTERACTION_KEYS = new Set(["hovered", "pressed", "focused"])
+const INTERACTION_KEYS = new Set(['hovered', 'pressed', 'focused'])
 
 /** Checks if a CSS descriptor contains interaction condition keys */
 function hasInteractionKeys(css: CSS): boolean {
@@ -31,9 +29,7 @@ interface VariantResolverEntry {
   resolver: NativeStyleResolver
 }
 
-function buildVariantResolvers(
-  variants: Variants,
-): Map<string, VariantResolverEntry[]> {
+function buildVariantResolvers(variants: Variants): Map<string, VariantResolverEntry[]> {
   const map = new Map<string, VariantResolverEntry[]>()
   for (const [variantName, variantValues] of Object.entries(variants)) {
     const entries: VariantResolverEntry[] = []
@@ -78,8 +74,8 @@ function resolveWithVariants(
     const activeValue = activeVariants[variantName]
     if (activeValue === undefined || activeValue === false) continue
 
-    const valueKey = activeValue === true ? "true" : String(activeValue)
-    const entry = entries.find(e => e.key === valueKey)
+    const valueKey = activeValue === true ? 'true' : String(activeValue)
+    const entry = entries.find((e) => e.key === valueKey)
     if (!entry) continue
 
     const variantStyle = entry.resolver.resolve(conditionMask, index, length)
@@ -108,9 +104,10 @@ function resolveWithOverrides(
     overrideCache.set(cssProp, maskCache)
   }
 
-  const cacheKey = index !== undefined && length !== undefined
-    ? `${conditionMask}|${index}|${length}`
-    : String(conditionMask)
+  const cacheKey =
+    index !== undefined && length !== undefined
+      ? `${conditionMask}|${index}|${length}`
+      : String(conditionMask)
 
   const cached = maskCache.get(cacheKey)
   if (cached !== undefined) return cached
@@ -127,10 +124,13 @@ function resolveWithOverrides(
 type Variants = Record<string, Record<string, CSS>>
 
 type VariantProps<V extends Variants> = {
-  [K in keyof V]?: keyof V[K] extends "true" | "false" ? boolean : keyof V[K]
+  [K in keyof V]?: keyof V[K] extends 'true' | 'false' ? boolean : keyof V[K]
 }
 
-type StyledComponentProps<P, V extends Variants | undefined> = Omit<P, "css" | "style" | "index" | "length"> & {
+type StyledComponentProps<P, V extends Variants | undefined> = Omit<
+  P,
+  'css' | 'style' | 'index' | 'length'
+> & {
   css?: CSS
   style?: ViewStyle & TextStyle
   index?: number
@@ -147,16 +147,11 @@ type StyledComponentProps<P, V extends Variants | undefined> = Omit<P, "css" | "
 export function styled<
   C extends ComponentType<any>,
   V extends Variants | undefined = undefined,
->(
-  component: C,
-  css: CSS,
-  variants?: string | V,
-  styleName?: string,
-) {
+>(component: C, css: CSS, variants?: string | V, styleName?: string) {
   // Normalize overloaded args (same pattern as web)
-  styleName = typeof variants === "string" ? variants : styleName
-  const hasVariants = !!variants && typeof variants !== "string"
-  const variantsDefinition = hasVariants ? variants as Variants : undefined
+  styleName = typeof variants === 'string' ? variants : styleName
+  const hasVariants = !!variants && typeof variants !== 'string'
+  const variantsDefinition = hasVariants ? (variants as Variants) : undefined
   const variantKeys: string[] = hasVariants ? Object.keys(variants as Variants) : []
 
   // === Module scope — runs once at styled() time ===
@@ -167,7 +162,10 @@ export function styled<
   const variantCache = new Map<string, NativeStyle>()
   const needsInteractionStyle = hasInteractionKeys(css)
 
-  type Props = StyledComponentProps<React.ComponentProps<C>, V extends Variants ? V : undefined>
+  type Props = StyledComponentProps<
+    React.ComponentProps<C>,
+    V extends Variants ? V : undefined
+  >
 
   function StyledComponent(props: Props, ref: ForwardedRef<any>) {
     const conditionMask = useConditionMask()
@@ -193,7 +191,15 @@ export function styled<
           for (const key of variantKeys) {
             activeVariants[key] = (props as any)[key]
           }
-          style = resolveWithVariants(style, variantResolvers, activeVariants, mask, variantCache, index, length)
+          style = resolveWithVariants(
+            style,
+            variantResolvers,
+            activeVariants,
+            mask,
+            variantCache,
+            index,
+            length,
+          )
         }
 
         if (cssProp) {
@@ -203,7 +209,11 @@ export function styled<
         return styleProp ? { ...style, ...styleProp } : style
       }
 
-      componentProps.style = (state: { pressed?: boolean; hovered?: boolean; focused?: boolean }) => {
+      componentProps.style = (state: {
+        pressed?: boolean
+        hovered?: boolean
+        focused?: boolean
+      }) => {
         let mask = conditionMask
         if (state.hovered) mask |= CondBit.hovered
         if (state.pressed) mask |= CondBit.pressed
@@ -223,7 +233,15 @@ export function styled<
       for (const key of variantKeys) {
         activeVariants[key] = (props as any)[key]
       }
-      style = resolveWithVariants(style, variantResolvers, activeVariants, conditionMask, variantCache, index, length)
+      style = resolveWithVariants(
+        style,
+        variantResolvers,
+        activeVariants,
+        conditionMask,
+        variantCache,
+        index,
+        length,
+      )
     }
 
     // css prop override (dynamic — WeakMap keyed by css object reference)
@@ -237,9 +255,9 @@ export function styled<
     return createElement(component, { ...componentProps, style: finalStyle, ref })
   }
 
-  StyledComponent.displayName = styleName || `Styled(${
-    (component as any).displayName || (component as any).name || "Component"
-  })`
+  StyledComponent.displayName =
+    styleName ||
+    `Styled(${(component as any).displayName || (component as any).name || 'Component'})`
 
   const forwarded = forwardRef(StyledComponent) as any
   forwarded.isStyledComponent = true

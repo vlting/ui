@@ -162,10 +162,7 @@ export function useFontLoader(fontConfig?: BrandFontConfig): FontLoadState {
             '[@vlting/ui] Font loading timed out after 5s. Using system fonts.',
           )
         } else if (!(err instanceof DOMException && err.name === 'AbortError')) {
-          console.warn(
-            '[@vlting/ui] Font loading failed, using system fonts:',
-            err,
-          )
+          console.warn('[@vlting/ui] Font loading failed, using system fonts:', err)
         }
         // Graceful degradation: always render with system fonts
         setState({

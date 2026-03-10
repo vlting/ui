@@ -1,11 +1,11 @@
-import { ColorMode } from "../shared/models"
+import { ColorMode } from '../shared/models'
 
 const xl = 1699.9987654321
 const lg = 1399.9987654321
 const md = 1099.9987654321
 const sm = 799.9987654321
 const xs = 599.9987654321
-const unit = "rem"
+const unit = 'rem'
 const unitModifier = 0.0625
 
 export function getQueryFromBreakpoint(breakpoint: number) {
@@ -34,12 +34,12 @@ export type BreakpointOverrides = { [k in ResponsiveCondition]?: number }
 export const queryConditionsMap = {
   ...responsiveConditionsMap,
 
-  hightContrast: "(prefers-contrast: more)",
-  lowMotion: "(prefers-reduced-motion)",
-  lowData: "(prefers-reduced-data)",
-  touch: "(hover: none)",
-  pointer: "(hover: hover) and (pointer: fine)",
-  tv: "(hover: hover) and (pointer: coarse)",
+  hightContrast: '(prefers-contrast: more)',
+  lowMotion: '(prefers-reduced-motion)',
+  lowData: '(prefers-reduced-data)',
+  touch: '(hover: none)',
+  pointer: '(hover: hover) and (pointer: fine)',
+  tv: '(hover: hover) and (pointer: coarse)',
 } as const
 
 export type QueryConditions = Record<keyof typeof queryConditionsMap, boolean>
@@ -55,10 +55,10 @@ export type Direction = keyof typeof directionalConditions
 export const conditionsMap = {
   ...directionalConditions,
 
-  light: "COLOR_MODE === light",
-  dark: "COLOR_MODE === dark",
+  light: 'COLOR_MODE === light',
+  dark: 'COLOR_MODE === dark',
 
-  debug: "debugmode",
+  debug: 'debugmode',
 
   /**
    * For all conditions below, create a `ConditionsContext` at our base provider,
@@ -75,18 +75,18 @@ export const conditionsMap = {
    */
   ...queryConditionsMap,
 
-  "!xl": true,
-  "!lg": true,
-  "!md": true,
-  "!sm": true,
-  "!xs": true,
+  '!xl': true,
+  '!lg': true,
+  '!md': true,
+  '!sm': true,
+  '!xs': true,
 
-  "!hightContrast": "(prefers-contrast: more)",
-  "!lowMotion": "(prefers-reduced-motion)",
-  "!lowData": "(prefers-reduced-data)",
-  "!touch": "(hover: none)",
-  "!pointer": "(hover: hover) and (pointer: fine)",
-  "!tv": "(hover: hover) and (pointer: coarse)",
+  '!hightContrast': '(prefers-contrast: more)',
+  '!lowMotion': '(prefers-reduced-motion)',
+  '!lowData': '(prefers-reduced-data)',
+  '!touch': '(hover: none)',
+  '!pointer': '(hover: hover) and (pointer: fine)',
+  '!tv': '(hover: hover) and (pointer: coarse)',
 } as const
 
 export type ConditionKeys = keyof typeof conditionsMap
@@ -96,41 +96,41 @@ export function mapConditions(
   conditions: QueryConditions,
   colorMode: ColorMode,
   debug = false,
-  direction: Direction = "ltr"
+  direction: Direction = 'ltr',
 ) {
   return {
     ...conditions,
 
-    "!xl": !conditions.xl,
-    "!lg": !conditions.lg,
-    "!md": !conditions.md,
-    "!sm": !conditions.sm,
-    "!xs": !conditions.xs,
+    '!xl': !conditions.xl,
+    '!lg': !conditions.lg,
+    '!md': !conditions.md,
+    '!sm': !conditions.sm,
+    '!xs': !conditions.xs,
 
-    ltr: direction === "ltr",
-    rtl: direction === "rtl",
+    ltr: direction === 'ltr',
+    rtl: direction === 'rtl',
 
-    "!hightContrast": !conditions.hightContrast,
-    "!lowMotion": !conditions.lowMotion,
-    "!lowData": !conditions.lowData,
-    "!touch": !conditions.touch,
-    "!pointer": !conditions.pointer,
-    "!tv": !conditions.tv,
+    '!hightContrast': !conditions.hightContrast,
+    '!lowMotion': !conditions.lowMotion,
+    '!lowData': !conditions.lowData,
+    '!touch': !conditions.touch,
+    '!pointer': !conditions.pointer,
+    '!tv': !conditions.tv,
 
-    light: colorMode === "light",
-    dark: colorMode === "dark",
+    light: colorMode === 'light',
+    dark: colorMode === 'dark',
 
     debug,
   } as const
 }
 
 export enum ConditionCategory {
-  locale = "locale",
-  responsive = "responsive",
-  preference = "preference",
-  device = "device",
-  colorMode = "colorMode",
-  debug = "debug",
+  locale = 'locale',
+  responsive = 'responsive',
+  preference = 'preference',
+  device = 'device',
+  colorMode = 'colorMode',
+  debug = 'debug',
 }
 
 export const ConditionCategories: { [k in ConditionKeys]: ConditionCategory } = {
@@ -141,23 +141,23 @@ export const ConditionCategories: { [k in ConditionKeys]: ConditionCategory } = 
   md: ConditionCategory.responsive,
   sm: ConditionCategory.responsive,
   xs: ConditionCategory.responsive,
-  "!xl": ConditionCategory.responsive,
-  "!lg": ConditionCategory.responsive,
-  "!md": ConditionCategory.responsive,
-  "!sm": ConditionCategory.responsive,
-  "!xs": ConditionCategory.responsive,
+  '!xl': ConditionCategory.responsive,
+  '!lg': ConditionCategory.responsive,
+  '!md': ConditionCategory.responsive,
+  '!sm': ConditionCategory.responsive,
+  '!xs': ConditionCategory.responsive,
   hightContrast: ConditionCategory.preference,
   lowMotion: ConditionCategory.preference,
   lowData: ConditionCategory.preference,
-  "!hightContrast": ConditionCategory.preference,
-  "!lowMotion": ConditionCategory.preference,
-  "!lowData": ConditionCategory.preference,
+  '!hightContrast': ConditionCategory.preference,
+  '!lowMotion': ConditionCategory.preference,
+  '!lowData': ConditionCategory.preference,
   touch: ConditionCategory.device,
   pointer: ConditionCategory.device,
   tv: ConditionCategory.device,
-  "!touch": ConditionCategory.device,
-  "!pointer": ConditionCategory.device,
-  "!tv": ConditionCategory.device,
+  '!touch': ConditionCategory.device,
+  '!pointer': ConditionCategory.device,
+  '!tv': ConditionCategory.device,
   light: ConditionCategory.colorMode,
   dark: ConditionCategory.colorMode,
   debug: ConditionCategory.debug,

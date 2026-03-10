@@ -58,9 +58,15 @@ export function DashboardBlock(props: DashboardBlockProps) {
     <div style={{ ...col, flex: 1, padding: '16px', gap: '16px' }}>
       <div style={{ ...col, gap: '4px' }}>
         <span style={{ fontSize: '24px', fontWeight: 600 }}>{title}</span>
-        {description && <span style={{ fontSize: '16px', opacity: 0.6 }}>{description}</span>}
+        {description && (
+          <span style={{ fontSize: '16px', opacity: 0.6 }}>{description}</span>
+        )}
       </div>
-      {variant === 'analytics' ? <AnalyticsContent {...props} /> : <OverviewContent {...props} />}
+      {variant === 'analytics' ? (
+        <AnalyticsContent {...props} />
+      ) : (
+        <OverviewContent {...props} />
+      )}
       {children}
     </div>
   )
@@ -90,7 +96,14 @@ export function DashboardBlock(props: DashboardBlockProps) {
 
 // -- Analytics variant --
 
-function AnalyticsContent({ metrics, chartConfig, chartData, chartXAxisKey = 'name', tableData, tableColumns }: DashboardBlockProps) {
+function AnalyticsContent({
+  metrics,
+  chartConfig,
+  chartData,
+  chartXAxisKey = 'name',
+  tableData,
+  tableColumns,
+}: DashboardBlockProps) {
   return (
     <>
       {metrics && metrics.length > 0 && <MetricsGrid metrics={metrics} />}
@@ -138,17 +151,31 @@ function MetricsGrid({ metrics }: { metrics: MetricCard[] }) {
             <span style={{ fontSize: '14px', opacity: 0.6 }}>{metric.title}</span>
             {metric.icon}
           </div>
-          <span style={{ fontSize: '28px', fontWeight: 600, paddingTop: '4px', display: 'block' }}>
+          <span
+            style={{
+              fontSize: '28px',
+              fontWeight: 600,
+              paddingTop: '4px',
+              display: 'block',
+            }}
+          >
             {metric.value}
           </span>
           {metric.change && (
-            <span style={{
-              fontSize: '12px',
-              paddingTop: '2px',
-              display: 'block',
-              color: metric.trend === 'up' ? 'green' : metric.trend === 'down' ? 'red' : undefined,
-              opacity: metric.trend === 'neutral' ? 0.6 : 1,
-            }}>
+            <span
+              style={{
+                fontSize: '12px',
+                paddingTop: '2px',
+                display: 'block',
+                color:
+                  metric.trend === 'up'
+                    ? 'green'
+                    : metric.trend === 'down'
+                      ? 'red'
+                      : undefined,
+                opacity: metric.trend === 'neutral' ? 0.6 : 1,
+              }}
+            >
               {metric.change}
             </span>
           )}

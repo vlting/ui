@@ -9,10 +9,7 @@
   "bin": {
     "vlting-ui-mcp": "dist/index.js"
   },
-  "files": [
-    "dist",
-    "data"
-  ],
+  "files": ["dist", "data"],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",

@@ -1,7 +1,7 @@
-import React, { forwardRef } from "react"
-import { View, Text as RNText } from "react-native"
-import type { ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
+import React, { forwardRef } from 'react'
+import { View, Text as RNText } from 'react-native'
+import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -10,12 +10,12 @@ import { styled } from "../../stl-native/src/config/styled"
 const CardFrame = styled(
   View,
   {
-    flexDirection: "column",
+    flexDirection: 'column',
     borderWidth: 1,
-    borderColor: "$borderColor",
-    borderRadius: "$3",
-    overflow: "hidden",
-    backgroundColor: "$surface1",
+    borderColor: '$borderColor',
+    borderRadius: '$3',
+    overflow: 'hidden',
+    backgroundColor: '$surface1',
   },
   {
     size: {
@@ -26,7 +26,7 @@ const CardFrame = styled(
     elevated: {
       true: {
         borderWidth: 0,
-        shadowColor: "#000",
+        shadowColor: '#000',
         shadowOffset: 1,
         shadowOpacity: 0.08,
         shadowRadius: 3,
@@ -34,49 +34,49 @@ const CardFrame = styled(
       },
     },
   },
-  "Card",
+  'Card',
 )
 
 const CardHeaderFrame = styled(
   View,
   {
-    flexDirection: "column",
+    flexDirection: 'column',
     paddingHorizontal: 16,
     paddingTop: 16,
     paddingBottom: 8,
     gap: 4,
   },
-  "CardHeader",
+  'CardHeader',
 )
 
 const CardContentFrame = styled(
   View,
   {
-    flexDirection: "column",
+    flexDirection: 'column',
     paddingHorizontal: 16,
     paddingVertical: 8,
     flex: 1,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
-  "CardContent",
+  'CardContent',
 )
 
 const CardFooterFrame = styled(
   View,
   {
-    flexDirection: "column",
+    flexDirection: 'column',
     paddingHorizontal: 16,
     paddingTop: 8,
     paddingBottom: 16,
   },
-  "CardFooter",
+  'CardFooter',
 )
 
 const CardTitleText = styled(
   RNText,
   {
-    fontWeight: "600",
-    color: "$defaultHeading",
+    fontWeight: '600',
+    color: '$defaultHeading',
   },
   {
     size: {
@@ -85,13 +85,13 @@ const CardTitleText = styled(
       lg: { fontSize: 21 },
     },
   },
-  "CardTitle",
+  'CardTitle',
 )
 
 const CardDescriptionText = styled(
   RNText,
   {
-    color: "$secondaryText12",
+    color: '$secondaryText12',
   },
   {
     size: {
@@ -100,7 +100,7 @@ const CardDescriptionText = styled(
       lg: { fontSize: 16 },
     },
   },
-  "CardDescription",
+  'CardDescription',
 )
 
 // ---------------------------------------------------------------------------
@@ -154,19 +154,15 @@ function CardFooter({
 
 function CardTitle({
   children,
-  size = "md",
+  size = 'md',
   style,
 }: {
   children?: React.ReactNode
-  size?: "sm" | "md" | "lg"
+  size?: 'sm' | 'md' | 'lg'
   style?: ViewStyle
 }) {
   return (
-    <CardTitleText
-      size={size}
-      style={style}
-      accessibilityRole="header"
-    >
+    <CardTitleText size={size} style={style} accessibilityRole="header">
       {children}
     </CardTitleText>
   )
@@ -174,11 +170,11 @@ function CardTitle({
 
 function CardDescription({
   children,
-  size = "md",
+  size = 'md',
   style,
 }: {
   children?: React.ReactNode
-  size?: "sm" | "md" | "lg"
+  size?: 'sm' | 'md' | 'lg'
   style?: ViewStyle
 }) {
   return (
@@ -194,12 +190,12 @@ function CardDescription({
 
 export interface CardProps {
   children?: React.ReactNode
-  size?: "sm" | "md" | "lg"
+  size?: 'sm' | 'md' | 'lg'
   elevated?: boolean
   style?: ViewStyle
 }
 
-function CardRoot({ children, size = "md", elevated, style, ...props }: CardProps) {
+function CardRoot({ children, size = 'md', elevated, style, ...props }: CardProps) {
   return (
     <CardFrame size={size} elevated={elevated || undefined} style={style} {...props}>
       {children}

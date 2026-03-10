@@ -17,14 +17,25 @@ interface TokenCategory {
   tokens: TokenEntry[]
 }
 
-function parseScaleFile(filePath: string, category: string, description: string): TokenCategory {
+function parseScaleFile(
+  filePath: string,
+  category: string,
+  description: string,
+): TokenCategory {
   const tokens: TokenEntry[] = []
   try {
     const content = readFileSync(filePath, 'utf8')
     const entries = content.matchAll(/['"]?(\w+)['"]?\s*:\s*(['"]?[^,}\n]+['"]?)/g)
     for (const [, key, rawValue] of entries) {
       const value = rawValue.trim().replace(/['",]/g, '')
-      if (key && value && !key.startsWith('//') && key !== 'const' && key !== 'export' && key !== 'type') {
+      if (
+        key &&
+        value &&
+        !key.startsWith('//') &&
+        key !== 'const' &&
+        key !== 'export' &&
+        key !== 'type'
+      ) {
         tokens.push({
           name: key,
           cssVar: `--stl-${category}-${key}`,
@@ -64,18 +75,45 @@ export function handleGetThemeTokens(): TokenCategory[] {
 
   // CSS custom properties from brand injection
   try {
-    const injectFile = readFileSync(resolve(root, 'packages/design-tokens/brands/inject.ts'), 'utf8')
+    const injectFile = readFileSync(
+      resolve(root, 'packages/design-tokens/brands/inject.ts'),
+      'utf8',
+    )
     const varPrefix = injectFile.match(/VAR_PREFIX\s*=\s*'([^']+)'/)?.[1] || '--vlt'
     categories.push({
       category: 'brand-vars',
       description: `CSS custom properties injected by injectBrandVars() with prefix "${varPrefix}"`,
       tokens: [
-        { name: 'color-1…12', cssVar: `${varPrefix}-color-{1..12}`, defaultValue: 'Neutral palette steps' },
-        { name: '{accent}-1…12', cssVar: `${varPrefix}-{accent}-{1..12}`, defaultValue: 'Accent palette steps' },
-        { name: 'shadow-{level}', cssVar: `${varPrefix}-shadow-{sm|md|lg|xl|2xl}`, defaultValue: 'Shadow values' },
-        { name: 'font-heading', cssVar: `${varPrefix}-font-heading`, defaultValue: 'Heading font family' },
-        { name: 'font-body', cssVar: `${varPrefix}-font-body`, defaultValue: 'Body font family' },
-        { name: 'font-mono', cssVar: `${varPrefix}-font-mono`, defaultValue: 'Monospace font family' },
+        {
+          name: 'color-1…12',
+          cssVar: `${varPrefix}-color-{1..12}`,
+          defaultValue: 'Neutral palette steps',
+        },
+        {
+          name: '{accent}-1…12',
+          cssVar: `${varPrefix}-{accent}-{1..12}`,
+          defaultValue: 'Accent palette steps',
+        },
+        {
+          name: 'shadow-{level}',
+          cssVar: `${varPrefix}-shadow-{sm|md|lg|xl|2xl}`,
+          defaultValue: 'Shadow values',
+        },
+        {
+          name: 'font-heading',
+          cssVar: `${varPrefix}-font-heading`,
+          defaultValue: 'Heading font family',
+        },
+        {
+          name: 'font-body',
+          cssVar: `${varPrefix}-font-body`,
+          defaultValue: 'Body font family',
+        },
+        {
+          name: 'font-mono',
+          cssVar: `${varPrefix}-font-mono`,
+          defaultValue: 'Monospace font family',
+        },
       ],
     })
   } catch {

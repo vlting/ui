@@ -2,8 +2,14 @@ import { useCallback, useEffect, useState } from 'react'
 import type { RefObject } from 'react'
 
 type Placement =
-  | 'top' | 'bottom' | 'left' | 'right'
-  | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'top-start'
+  | 'top-end'
+  | 'bottom-start'
+  | 'bottom-end'
 
 export interface UsePopoverPositionProps {
   placement?: Placement
@@ -62,9 +68,14 @@ function computePosition(
 
 function flip(placement: Placement): Placement {
   const map: Record<string, Placement> = {
-    top: 'bottom', bottom: 'top', left: 'right', right: 'left',
-    'top-start': 'bottom-start', 'top-end': 'bottom-end',
-    'bottom-start': 'top-start', 'bottom-end': 'top-end',
+    top: 'bottom',
+    bottom: 'top',
+    left: 'right',
+    right: 'left',
+    'top-start': 'bottom-start',
+    'top-end': 'bottom-end',
+    'bottom-start': 'top-start',
+    'bottom-end': 'top-end',
   }
   return map[placement] ?? placement
 }

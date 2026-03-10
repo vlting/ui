@@ -57,8 +57,20 @@
     "Size prop affects trigger height, padding, and font size."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "<Select><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>...</SelectContent></Select>", "vlting": "<Select placeholder='...'><Select.Item>...</Select.Item></Select>", "reason": "Simplified API: trigger and content are handled by Root" },
-    { "shadcn": "No size prop", "vlting": "size='sm' | 'md' | 'lg'", "reason": "vlting includes built-in size variants" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "<Select><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>...</SelectContent></Select>",
+      "vlting": "<Select placeholder='...'><Select.Item>...</Select.Item></Select>",
+      "reason": "Simplified API: trigger and content are handled by Root"
+    },
+    {
+      "shadcn": "No size prop",
+      "vlting": "size='sm' | 'md' | 'lg'",
+      "reason": "vlting includes built-in size variants"
+    }
   ]
 }

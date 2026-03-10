@@ -5,7 +5,10 @@
     "props": {
       "pressed": { "type": "boolean" },
       "defaultPressed": { "type": "boolean" },
-      "onPressedChange": { "type": "function", "signature": "(pressed: boolean) => void" },
+      "onPressedChange": {
+        "type": "function",
+        "signature": "(pressed: boolean) => void"
+      },
       "variant": { "type": "string", "values": ["default", "outline"] },
       "size": { "type": "string", "values": ["default", "sm", "lg"] },
       "disabled": { "type": "boolean" },
@@ -18,20 +21,38 @@
       "Toggle": {
         "pressed": { "type": "boolean" },
         "defaultPressed": { "type": "boolean", "default": false },
-        "onPressedChange": { "type": "function", "signature": "(pressed: boolean) => void" },
-        "variant": { "type": "string", "values": ["default", "outline"], "default": "default" },
+        "onPressedChange": {
+          "type": "function",
+          "signature": "(pressed: boolean) => void"
+        },
+        "variant": {
+          "type": "string",
+          "values": ["default", "outline"],
+          "default": "default"
+        },
         "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
         "disabled": { "type": "boolean" },
         "children": { "type": "ReactNode" }
       },
       "ToggleGroup": {
-        "type": { "type": "string", "values": ["single", "multiple"], "default": "single" },
+        "type": {
+          "type": "string",
+          "values": ["single", "multiple"],
+          "default": "single"
+        },
         "value": { "type": "string | string[]" },
         "defaultValue": { "type": "string | string[]" },
-        "onValueChange": { "type": "function", "signature": "(value: string | string[]) => void" },
+        "onValueChange": {
+          "type": "function",
+          "signature": "(value: string | string[]) => void"
+        },
         "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
         "disabled": { "type": "boolean" },
-        "orientation": { "type": "string", "values": ["horizontal", "vertical"], "default": "horizontal" },
+        "orientation": {
+          "type": "string",
+          "values": ["horizontal", "vertical"],
+          "default": "horizontal"
+        },
         "children": { "type": "ReactNode" }
       },
       "ToggleGroup.Item": {
@@ -50,9 +71,25 @@
     "ToggleGroup supports roving focus keyboard navigation via Tamagui."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "size='default'", "vlting": "size='md'", "reason": "Different default size naming" },
-    { "shadcn": "Separate ToggleGroup import", "vlting": "import { ToggleGroup } from '@vlting/ui'", "reason": "Bundled with Toggle module" },
-    { "shadcn": "<ToggleGroupItem>", "vlting": "<ToggleGroup.Item>", "reason": "Dot-notation compound component API" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "size='default'",
+      "vlting": "size='md'",
+      "reason": "Different default size naming"
+    },
+    {
+      "shadcn": "Separate ToggleGroup import",
+      "vlting": "import { ToggleGroup } from '@vlting/ui'",
+      "reason": "Bundled with Toggle module"
+    },
+    {
+      "shadcn": "<ToggleGroupItem>",
+      "vlting": "<ToggleGroup.Item>",
+      "reason": "Dot-notation compound component API"
+    }
   ]
 }

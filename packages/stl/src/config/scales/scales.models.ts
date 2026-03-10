@@ -1,28 +1,52 @@
-import { THEME_PREFIX, VarData } from "../utils"
-import { BodyFontFamily, HeadingFontFamily, CodeFontFamily } from "../../shared/models"
-import { ColorNumberKey, ColorPalette, ThemeColor } from "../../shared/models/colorGen.models"
+import { THEME_PREFIX, VarData } from '../utils'
+import { BodyFontFamily, HeadingFontFamily, CodeFontFamily } from '../../shared/models'
+import {
+  ColorNumberKey,
+  ColorPalette,
+  ThemeColor,
+} from '../../shared/models/colorGen.models'
 
-export const SCALED_ALIAS = "@"
+export const SCALED_ALIAS = '@'
 
-export const STATIC_VALUE_PREFIX = "^"
+export const STATIC_VALUE_PREFIX = '^'
 
 // TYPES //////////////////////////////////////////////////////////////////////
 export type ThemePropValue = string
 export type CssValue = string | Record<string, string | number>
-export type CssAlias<T extends string | number = string | number> = `${typeof THEME_PREFIX}${T}` | typeof SCALED_ALIAS
+export type CssAlias<T extends string | number = string | number> =
+  | `${typeof THEME_PREFIX}${T}`
+  | typeof SCALED_ALIAS
 export type ScaleEntry = VarData & {
   value: CssValue
 }
 export type ThemeProps = Record<string | number, ThemePropValue>
 export type CssValueMap = Record<string | number, CssValue>
-export type CssValueMapProps<C extends CssValueMap> = Record<PrefixedKey<C>, [string, string | number][] | null>
-export type CssAliasMap<C extends CssValueMap = CssValueMap> = Record<string | number, CssAlias<keyof Omit<C, symbol>>>
+export type CssValueMapProps<C extends CssValueMap> = Record<
+  PrefixedKey<C>,
+  [string, string | number][] | null
+>
+export type CssAliasMap<C extends CssValueMap = CssValueMap> = Record<
+  string | number,
+  CssAlias<keyof Omit<C, symbol>>
+>
 export type BaseVars<T extends string | number = string | number> = Record<T, ScaleEntry>
 export type FlatMap = Record<string, string>
 export type AliasMap = Record<string, string | FlatMap>
 
 export type Font = BaseVars<
-  "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "body" | "code" | "quote" | "li" | "small" | "em" | "strong"
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'body'
+  | 'code'
+  | 'quote'
+  | 'li'
+  | 'small'
+  | 'em'
+  | 'strong'
 >
 export type LineHeight = BaseVars<
   | 4
@@ -32,18 +56,18 @@ export type LineHeight = BaseVars<
   | 24
   | 32
   | 40
-  | "min"
-  | "spaced"
-  | "tight"
-  | "tightest"
-  | "flat"
-  | "body"
-  | "heading"
-  | "subHeading"
-  | "listItem"
-  | "field"
-  | "label"
-  | "button"
+  | 'min'
+  | 'spaced'
+  | 'tight'
+  | 'tightest'
+  | 'flat'
+  | 'body'
+  | 'heading'
+  | 'subHeading'
+  | 'listItem'
+  | 'field'
+  | 'label'
+  | 'button'
 >
 export type FontSize = BaseVars<
   | 14
@@ -56,75 +80,75 @@ export type FontSize = BaseVars<
   | 44
   | 56
   | 72
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "h6"
-  | "p"
-  | "code"
-  | "quote"
-  | "field"
-  | "button"
-  | "fieldTiny"
-  | "fieldSmall"
-  | "fieldLarge"
-  | "buttonTiny"
-  | "buttonSmall"
-  | "buttonLarge"
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'p'
+  | 'code'
+  | 'quote'
+  | 'field'
+  | 'button'
+  | 'fieldTiny'
+  | 'fieldSmall'
+  | 'fieldLarge'
+  | 'buttonTiny'
+  | 'buttonSmall'
+  | 'buttonLarge'
 >
 export type TypeSpace = BaseVars<
-  | "emBase"
-  | "emMin"
-  | "emMax"
-  | "remBase"
-  | "remMin"
-  | "remMax"
-  | "chBase"
-  | "chMin"
-  | "chMax"
-  | "tightest"
-  | "tight"
-  | "regular"
-  | "loose"
+  | 'emBase'
+  | 'emMin'
+  | 'emMax'
+  | 'remBase'
+  | 'remMin'
+  | 'remMax'
+  | 'chBase'
+  | 'chMin'
+  | 'chMax'
+  | 'tightest'
+  | 'tight'
+  | 'regular'
+  | 'loose'
 >
 export type FontWeight = BaseVars<
-  | "100"
-  | "200"
-  | "300"
-  | "400"
-  | "500"
-  | "600"
-  | "700"
-  | "800"
-  | "900"
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "h6"
-  | "p"
-  | "a"
-  | "code"
-  | "quote"
+  | '100'
+  | '200'
+  | '300'
+  | '400'
+  | '500'
+  | '600'
+  | '700'
+  | '800'
+  | '900'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'p'
+  | 'a'
+  | 'code'
+  | 'quote'
 >
 export type FontFamily = BaseVars<
-  | "heading"
-  | "body"
-  | "button"
-  | "code"
-  | "quote"
-  | "systemSans"
-  | "systemSerif"
-  | "systemMono"
+  | 'heading'
+  | 'body'
+  | 'button'
+  | 'code'
+  | 'quote'
+  | 'systemSans'
+  | 'systemSerif'
+  | 'systemMono'
   | keyof typeof BodyFontFamily
   | keyof typeof HeadingFontFamily
   | keyof typeof CodeFontFamily
 >
 
-export type CoreColorKeys = ThemeColor | "shadowBase"
+export type CoreColorKeys = ThemeColor | 'shadowBase'
 export type ColorVars = Record<CoreColorKeys, ScaleEntry>
 export type ColorPaletteEntry = ColorPalette<ScaleEntry>
 export type ColorSetter<T = ScaleEntry> = (
@@ -175,32 +199,30 @@ export interface ThemeScale<
 }
 
 export enum Scale {
-  animation = "animation",
-  border = "border",
-  color = "color",
-  column = "column",
-  font = "font",
-  fontFamily = "fontFamily",
-  fontSize = "fontSize",
-  fontWeight = "fontWeight",
-  lineHeight = "lineHeight",
-  outline = "outline",
-  radius = "radius",
-  row = "row",
-  shadow = "shadow",
-  size = "size",
-  space = "space",
-  textDecoration = "textDecoration",
-  typoSpace = "typoSpace",
-  typo = "typo",
-  zIndex = "zIndex",
+  animation = 'animation',
+  border = 'border',
+  color = 'color',
+  column = 'column',
+  font = 'font',
+  fontFamily = 'fontFamily',
+  fontSize = 'fontSize',
+  fontWeight = 'fontWeight',
+  lineHeight = 'lineHeight',
+  outline = 'outline',
+  radius = 'radius',
+  row = 'row',
+  shadow = 'shadow',
+  size = 'size',
+  space = 'space',
+  textDecoration = 'textDecoration',
+  typoSpace = 'typoSpace',
+  typo = 'typo',
+  zIndex = 'zIndex',
 }
 
 export type Scales = {
   [key in Scale]: ThemeScale
 }
 
-export type PrefixedKey<T extends Record<string | number | symbol, unknown>> = `${typeof THEME_PREFIX}${Exclude<
-  keyof T,
-  symbol
->}`
+export type PrefixedKey<T extends Record<string | number | symbol, unknown>> =
+  `${typeof THEME_PREFIX}${Exclude<keyof T, symbol>}`

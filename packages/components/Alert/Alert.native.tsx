@@ -1,7 +1,7 @@
-import React from "react"
-import { View, Text as RNText } from "react-native"
-import type { ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
+import React from 'react'
+import { View, Text as RNText } from 'react-native'
+import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -10,54 +10,54 @@ import { styled } from "../../stl-native/src/config/styled"
 const AlertFrame = styled(
   View,
   {
-    flexDirection: "row",
-    borderRadius: "$3",
+    flexDirection: 'row',
+    borderRadius: '$3',
     borderWidth: 1,
-    borderColor: "$borderColor",
+    borderColor: '$borderColor',
     padding: 12,
     gap: 8,
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
   },
   {
     variant: {
-      default: { backgroundColor: "$surface1" },
-      destructive: { borderColor: "$red8", backgroundColor: "$red2" },
-      warning: { borderColor: "$yellow8", backgroundColor: "$yellow2" },
-      info: { borderColor: "$blue8", backgroundColor: "$blue2" },
+      default: { backgroundColor: '$surface1' },
+      destructive: { borderColor: '$red8', backgroundColor: '$red2' },
+      warning: { borderColor: '$yellow8', backgroundColor: '$yellow2' },
+      info: { borderColor: '$blue8', backgroundColor: '$blue2' },
     },
   },
-  "Alert",
+  'Alert',
 )
 
 const AlertTitle = styled(
   RNText,
   {
-    fontWeight: "600",
+    fontWeight: '600',
     fontSize: 16,
-    color: "$defaultBody",
+    color: '$defaultBody',
   },
-  "AlertTitle",
+  'AlertTitle',
 )
 
 const AlertDescription = styled(
   RNText,
   {
     fontSize: 14,
-    color: "$secondaryText12",
+    color: '$secondaryText12',
   },
-  "AlertDescription",
+  'AlertDescription',
 )
 
 const AlertIconFrame = styled(
   View,
   {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 16,
     height: 16,
     marginTop: 2,
   },
-  "AlertIcon",
+  'AlertIcon',
 )
 
 // ---------------------------------------------------------------------------
@@ -66,16 +66,16 @@ const AlertIconFrame = styled(
 
 export interface AlertProps {
   children: React.ReactNode
-  variant?: "default" | "destructive" | "warning" | "info"
+  variant?: 'default' | 'destructive' | 'warning' | 'info'
   style?: ViewStyle
 }
 
-function Root({ children, variant = "default", style }: AlertProps) {
+function Root({ children, variant = 'default', style }: AlertProps) {
   return (
     <AlertFrame
       variant={variant}
       style={style}
-      accessibilityRole={variant === "destructive" ? "alert" : "summary"}
+      accessibilityRole={variant === 'destructive' ? 'alert' : 'summary'}
     >
       {children}
     </AlertFrame>

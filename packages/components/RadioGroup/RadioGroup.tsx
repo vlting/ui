@@ -1,35 +1,45 @@
 import React from 'react'
 import { styled } from '../../stl-react/src/config'
 
-const RadioDot = styled("div", {
-  borderRadius: "9999px",
-  backgroundColor: "var(--color10, #0066ff)",
-}, {
-  size: {
-    sm: { width: "6px", height: "6px" },
-    md: { width: "8px", height: "8px" },
-    lg: { width: "10px", height: "10px" },
+const RadioDot = styled(
+  'div',
+  {
+    borderRadius: '9999px',
+    backgroundColor: 'var(--color10, #0066ff)',
   },
-}, "RadioDot")
+  {
+    size: {
+      sm: { width: '6px', height: '6px' },
+      md: { width: '8px', height: '8px' },
+      lg: { width: '10px', height: '10px' },
+    },
+  },
+  'RadioDot',
+)
 
-const RadioCircle = styled("div", {
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "$borderColor",
-  borderRadius: "9999px",
-  backgroundColor: "transparent",
-  flexShrink: "0",
-  transition: "border-color 0.15s",
-}, {
-  size: {
-    sm: { width: "16px", height: "16px" },
-    md: { width: "20px", height: "20px" },
-    lg: { width: "24px", height: "24px" },
+const RadioCircle = styled(
+  'div',
+  {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    borderRadius: '9999px',
+    backgroundColor: 'transparent',
+    flexShrink: '0',
+    transition: 'border-color 0.15s',
   },
-}, "RadioCircle")
+  {
+    size: {
+      sm: { width: '16px', height: '16px' },
+      md: { width: '20px', height: '20px' },
+      lg: { width: '24px', height: '24px' },
+    },
+  },
+  'RadioCircle',
+)
 
 export interface RadioGroupRootProps {
   children: React.ReactNode
@@ -66,14 +76,19 @@ function Root({
   const isControlled = value !== undefined
   const currentValue = isControlled ? value : internalValue
 
-  const handleChange = React.useCallback((newValue: string) => {
-    if (!isControlled) setInternalValue(newValue)
-    onValueChange?.(newValue)
-  }, [isControlled, onValueChange])
+  const handleChange = React.useCallback(
+    (newValue: string) => {
+      if (!isControlled) setInternalValue(newValue)
+      onValueChange?.(newValue)
+    },
+    [isControlled, onValueChange],
+  )
 
   return (
     <RadioGroupSizeContext.Provider value={size}>
-      <RadioGroupValueContext.Provider value={{ value: currentValue, name, disabled, onValueChange: handleChange }}>
+      <RadioGroupValueContext.Provider
+        value={{ value: currentValue, name, disabled, onValueChange: handleChange }}
+      >
         <fieldset
           role="radiogroup"
           aria-label={ariaLabel}
@@ -138,9 +153,7 @@ function Item({
           borderWidth: 0,
         }}
       />
-      <RadioCircle size={size}>
-        {isSelected && <RadioDot size={size} />}
-      </RadioCircle>
+      <RadioCircle size={size}>{isSelected && <RadioDot size={size} />}</RadioCircle>
       {children}
     </label>
   )

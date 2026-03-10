@@ -34,30 +34,47 @@ function auditFile(filePath: string): Violation[] {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]
     const lineNum = i + 1
-    if (line.trim().startsWith('//') || line.trim().startsWith('*') || line.trim().startsWith('import')) continue
+    if (
+      line.trim().startsWith('//') ||
+      line.trim().startsWith('*') ||
+      line.trim().startsWith('import')
+    )
+      continue
 
     for (const match of line.matchAll(HEX_RE)) {
       const before = line.substring(0, match.index)
       if (before.includes('var(') && !before.includes(')')) continue
       violations.push({
-        file: relPath, line: lineNum, type: 'hardcoded-color', severity: 'warning',
-        message: `Hardcoded hex color "${match[0]}" — use a design token`, match: match[0],
+        file: relPath,
+        line: lineNum,
+        type: 'hardcoded-color',
+        severity: 'warning',
+        message: `Hardcoded hex color "${match[0]}" — use a design token`,
+        match: match[0],
       })
     }
     for (const match of line.matchAll(RGBA_RE)) {
       const before = line.substring(0, match.index)
       if (before.includes('var(') && !before.includes(')')) continue
       violations.push({
-        file: relPath, line: lineNum, type: 'hardcoded-color', severity: 'warning',
-        message: `Hardcoded rgba() — use a design token`, match: match[0],
+        file: relPath,
+        line: lineNum,
+        type: 'hardcoded-color',
+        severity: 'warning',
+        message: `Hardcoded rgba() — use a design token`,
+        match: match[0],
       })
     }
     for (const match of line.matchAll(HSLA_RE)) {
       const before = line.substring(0, match.index)
       if (before.includes('var(') && !before.includes(')')) continue
       violations.push({
-        file: relPath, line: lineNum, type: 'hardcoded-color', severity: 'warning',
-        message: `Hardcoded hsla() — use a design token`, match: match[0],
+        file: relPath,
+        line: lineNum,
+        type: 'hardcoded-color',
+        severity: 'warning',
+        message: `Hardcoded hsla() — use a design token`,
+        match: match[0],
       })
     }
   }
@@ -73,12 +90,20 @@ export function handleAuditComponent(args: { name: string }): AuditResult {
   ]
   const dir = dirs.find((d) => existsSync(d))
   if (!dir) {
-    return { component: name, directory: 'not found', violations: [], summary: { total: 0, errors: 0, warnings: 0 } }
+    return {
+      component: name,
+      directory: 'not found',
+      violations: [],
+      summary: { total: 0, errors: 0, warnings: 0 },
+    }
   }
 
   const violations: Violation[] = []
   const files = readdirSync(dir).filter(
-    (f) => (f.endsWith('.tsx') || f.endsWith('.ts')) && !f.endsWith('.test.tsx') && !f.endsWith('.spec.ts')
+    (f) =>
+      (f.endsWith('.tsx') || f.endsWith('.ts')) &&
+      !f.endsWith('.test.tsx') &&
+      !f.endsWith('.spec.ts'),
   )
   for (const file of files) {
     violations.push(...auditFile(resolve(dir, file)))

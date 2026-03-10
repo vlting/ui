@@ -1,6 +1,6 @@
-import type { Reducer } from "react"
-import { useCallback, useReducer, useState } from "react"
-import { useMediaQuery } from "../hooks/useMediaQuery"
+import type { Reducer } from 'react'
+import { useCallback, useReducer, useState } from 'react'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import {
   ColorMode,
   mapConditions,
@@ -8,10 +8,10 @@ import {
   BreakpointOverrides,
   Direction,
   observerConditionsMap,
-} from "@vlting/stl"
-import { useMutationObserver } from "../hooks/useMutationObserver"
-import { isSSR } from "../shared/utils"
-import { useLayout } from "../hooks/useLayout"
+} from '@vlting/stl'
+import { useMutationObserver } from '../hooks/useMutationObserver'
+import { isSSR } from '../shared/utils'
+import { useLayout } from '../hooks/useLayout'
 
 const DEFAULT_RESPONSIVE_CONDITIONS = {
   xs: false,
@@ -34,10 +34,10 @@ type ResponsiveConditionAction = {
   overrides?: BreakpointOverrides | Record<string, any>
 }
 
-function responsiveConditionsReducer<S extends ResponsiveConditionsState, A extends ResponsiveConditionAction>(
-  state: S,
-  action: A,
-) {
+function responsiveConditionsReducer<
+  S extends ResponsiveConditionsState,
+  A extends ResponsiveConditionAction,
+>(state: S, action: A) {
   const { overrides = {}, width } = action
   const xs = width <= (overrides.xs ?? observerConditionsMap.xs)
   const sm = width <= (overrides.sm ?? observerConditionsMap.sm)
@@ -105,17 +105,17 @@ export function useContextConditions(
 
   // Calculate locale (writing) direction
   const [direction, setDirection] = useState<Direction>(
-    isSSR ? "ltr" : document.documentElement.dir === "rtl" ? "rtl" : "ltr",
+    isSSR ? 'ltr' : document.documentElement.dir === 'rtl' ? 'rtl' : 'ltr',
   )
-  const mutator: MutationCallback = useCallback(mutations => {
-    mutations.forEach(mutation => {
-      const dir = ((mutation.target as HTMLElement).dir ?? "ltr") as Direction
+  const mutator: MutationCallback = useCallback((mutations) => {
+    mutations.forEach((mutation) => {
+      const dir = ((mutation.target as HTMLElement).dir ?? 'ltr') as Direction
       setDirection(dir)
     })
   }, [])
   useMutationObserver(isSSR ? null : document.documentElement, mutator, {
     attributes: true,
-    attributeFilter: ["dir"],
+    attributeFilter: ['dir'],
   })
 
   return mapConditions(

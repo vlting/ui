@@ -1,7 +1,7 @@
-import React, { forwardRef, useState, useCallback, useRef, useEffect } from "react"
-import { View, Pressable, Animated } from "react-native"
-import type { ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
+import React, { forwardRef, useState, useCallback, useRef, useEffect } from 'react'
+import { View, Pressable, Animated } from 'react-native'
+import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------
 // Size constants
@@ -22,7 +22,7 @@ export interface SwitchProps {
   defaultChecked?: boolean
   onCheckedChange?: (checked: boolean) => void
   disabled?: boolean
-  size?: "sm" | "md" | "lg"
+  size?: 'sm' | 'md' | 'lg'
   style?: ViewStyle
 }
 
@@ -31,7 +31,7 @@ export function Switch({
   defaultChecked = false,
   onCheckedChange,
   disabled = false,
-  size = "md",
+  size = 'md',
   style,
 }: SwitchProps) {
   const [internalChecked, setInternalChecked] = useState(defaultChecked)
@@ -70,8 +70,8 @@ export function Switch({
           height: dims.height,
           borderRadius: dims.height / 2,
           padding: dims.padding,
-          backgroundColor: isChecked ? "#007AFF" : "#999",
-          justifyContent: "center",
+          backgroundColor: isChecked ? '#007AFF' : '#999',
+          justifyContent: 'center',
           opacity: disabled ? 0.5 : 1,
         },
         style,
@@ -82,9 +82,9 @@ export function Switch({
           width: dims.thumbSize,
           height: dims.thumbSize,
           borderRadius: dims.thumbSize / 2,
-          backgroundColor: "#fff",
+          backgroundColor: '#fff',
           transform: [{ translateX }],
-          shadowColor: "#000",
+          shadowColor: '#000',
           shadowOffset: { width: 0, height: 1 },
           shadowOpacity: 0.18,
           shadowRadius: 1,

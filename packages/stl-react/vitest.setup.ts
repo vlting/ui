@@ -1,4 +1,4 @@
-import { vi } from "vitest"
+import { vi } from 'vitest'
 
 // jsdom doesn't have ResizeObserver
 global.ResizeObserver = vi.fn().mockImplementation(() => ({

@@ -21,7 +21,7 @@ export function handleGenerateCode(args: GenerateArgs) {
 function buildCode(
   comp: RegistryComponent,
   props?: Record<string, unknown>,
-  children?: string
+  children?: string,
 ): string {
   const name = comp.name
   const propsStr = buildPropsString(props)
@@ -70,10 +70,12 @@ function buildCode(
 
 function buildPropsString(props?: Record<string, unknown>): string {
   if (!props || Object.keys(props).length === 0) return ''
-  const parts = Object.entries(props).map(([key, value]) => {
-    if (typeof value === 'string') return `${key}="${value}"`
-    if (typeof value === 'boolean') return value ? key : ''
-    return `${key}={${JSON.stringify(value)}}`
-  }).filter(Boolean)
+  const parts = Object.entries(props)
+    .map(([key, value]) => {
+      if (typeof value === 'string') return `${key}="${value}"`
+      if (typeof value === 'boolean') return value ? key : ''
+      return `${key}={${JSON.stringify(value)}}`
+    })
+    .filter(Boolean)
   return parts.length ? ' ' + parts.join(' ') : ''
 }

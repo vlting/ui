@@ -48,17 +48,32 @@ export function DataTableBlock({
     <Card style={{ width: '100%', padding: '16px' }}>
       <div style={{ ...col, gap: '16px', width: '100%' }}>
         {(title || description || actions) && (
-          <div style={{ ...row, justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
+          <div
+            style={{
+              ...row,
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              width: '100%',
+            }}
+          >
             <div style={{ ...col, gap: '4px', flex: 1 }}>
-              {title && <span style={{ fontSize: '18px', fontWeight: 600 }}>{title}</span>}
-              {description && <span style={{ fontSize: '14px', opacity: 0.6 }}>{description}</span>}
+              {title && (
+                <span style={{ fontSize: '18px', fontWeight: 600 }}>{title}</span>
+              )}
+              {description && (
+                <span style={{ fontSize: '14px', opacity: 0.6 }}>{description}</span>
+              )}
             </div>
             {actions}
           </div>
         )}
         {searchable && (
           <div style={{ maxWidth: 300 }}>
-            <Input placeholder={searchPlaceholder} value={globalFilter} onChangeText={setGlobalFilter} />
+            <Input
+              placeholder={searchPlaceholder}
+              value={globalFilter}
+              onChangeText={setGlobalFilter}
+            />
           </div>
         )}
         <DataTable

@@ -33,9 +33,25 @@
     "Trigger is unstyled by default (transparent background, no border)"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
-    { "shadcn": "<Collapsible>", "vlting": "<Collapsible.Root>", "reason": "Compound component pattern" },
-    { "shadcn": "<CollapsibleTrigger>", "vlting": "<Collapsible.Trigger>", "reason": "Compound component pattern" },
-    { "shadcn": "asChild on Trigger", "vlting": "Not supported; Trigger renders children directly", "reason": "Simplified API" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "<Collapsible>",
+      "vlting": "<Collapsible.Root>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "<CollapsibleTrigger>",
+      "vlting": "<Collapsible.Trigger>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "asChild on Trigger",
+      "vlting": "Not supported; Trigger renders children directly",
+      "reason": "Simplified API"
+    }
   ]
 }

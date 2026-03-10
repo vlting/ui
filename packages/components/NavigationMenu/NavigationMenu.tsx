@@ -1,48 +1,60 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
-const NavTrigger = styled("button", {
-  display: "inline-flex",
-  alignItems: "center",
-  backgroundColor: "transparent",
-  border: "none",
-  cursor: "pointer",
-  fontFamily: "$body",
-  fontWeight: "$500",
-  fontSize: "$p",
-  color: "$defaultBody",
-  padding: "6px 12px",
-  borderRadius: "$2",
-  outline: "none",
-  gap: "4px",
-}, "NavMenuTrigger")
+const NavTrigger = styled(
+  'button',
+  {
+    display: 'inline-flex',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+    fontFamily: '$body',
+    fontWeight: '$500',
+    fontSize: '$p',
+    color: '$defaultBody',
+    padding: '6px 12px',
+    borderRadius: '$2',
+    outline: 'none',
+    gap: '4px',
+  },
+  'NavMenuTrigger',
+)
 
-const NavLink = styled("a", {
-  display: "flex",
-  flexDirection: "column",
-  textDecoration: "none",
-  color: "inherit",
-  padding: "6px 12px",
-  borderRadius: "$2",
-  outline: "none",
-  fontFamily: "$body",
-  fontSize: "$p",
-}, "NavMenuLink")
+const NavLink = styled(
+  'a',
+  {
+    display: 'flex',
+    flexDirection: 'column',
+    textDecoration: 'none',
+    color: 'inherit',
+    padding: '6px 12px',
+    borderRadius: '$2',
+    outline: 'none',
+    fontFamily: '$body',
+    fontSize: '$p',
+  },
+  'NavMenuLink',
+)
 
-const ContentFrame = styled("div", {
-  position: "absolute",
-  top: "100%",
-  left: "0",
-  marginTop: "4px",
-  zIndex: "50",
-  backgroundColor: "$background",
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "$borderColor",
-  borderRadius: "$4",
-  padding: "8px",
-  minWidth: "400px",
-}, "NavMenuContent")
+const ContentFrame = styled(
+  'div',
+  {
+    position: 'absolute',
+    top: '100%',
+    left: '0',
+    marginTop: '4px',
+    zIndex: '50',
+    backgroundColor: '$background',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    borderRadius: '$4',
+    padding: '8px',
+    minWidth: '400px',
+  },
+  'NavMenuContent',
+)
 
 export interface NavigationMenuRootProps {
   children: React.ReactNode
@@ -149,9 +161,7 @@ function NavItem({ children, value }: NavigationMenuItemProps) {
   const [id] = useState(() => value ?? `nav-item-${++navItemId}`)
   return (
     <NavItemContext.Provider value={{ value: id }}>
-      <div style={{ position: 'relative', display: 'inline-flex' }}>
-        {children}
-      </div>
+      <div style={{ position: 'relative', display: 'inline-flex' }}>{children}</div>
     </NavItemContext.Provider>
   )
 }
@@ -235,7 +245,10 @@ function Content({ children }: { children: React.ReactNode }) {
     <ContentFrame
       ref={contentRef}
       onKeyDown={handleKeyDown}
-      style={{ boxShadow: 'var(--stl-shadow-md, 0 4px 12px var(--stl-maxAlpha8, rgba(0,0,0,0.15)))' }}
+      style={{
+        boxShadow:
+          'var(--stl-shadow-md, 0 4px 12px var(--stl-maxAlpha8, rgba(0,0,0,0.15)))',
+      }}
     >
       {children}
     </ContentFrame>
@@ -267,15 +280,17 @@ function Link({ children, href, active, onSelect }: NavigationMenuLinkProps) {
 
 function Indicator() {
   return (
-    <div style={{
-      height: '2px',
-      backgroundColor: 'var(--color10, #0066ff)',
-      borderRadius: '9999px',
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
-    }} />
+    <div
+      style={{
+        height: '2px',
+        backgroundColor: 'var(--color10, #0066ff)',
+        borderRadius: '9999px',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+      }}
+    />
   )
 }
 

@@ -15,7 +15,19 @@ export type {
 export { Card } from './Card'
 export type { CardProps } from './Card'
 
-export { Chart, useChartContext, ChartTooltip, ChartLegend, ChartDataTable, AreaChart, BarChart, LineChart, PieChart, RadarChart, RadialChart } from './Chart'
+export {
+  Chart,
+  useChartContext,
+  ChartTooltip,
+  ChartLegend,
+  ChartDataTable,
+  AreaChart,
+  BarChart,
+  LineChart,
+  PieChart,
+  RadarChart,
+  RadialChart,
+} from './Chart'
 export type {
   ChartContainerProps,
   ChartTooltipProps,

@@ -2,79 +2,79 @@ import React, { useCallback, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const SliderRoot = styled(
-  "div",
+  'div',
   {
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    width: "100%",
-    touchAction: "none",
-    userSelect: "none",
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    touchAction: 'none',
+    userSelect: 'none',
   },
   {
     size: {
-      sm: { height: "20px" },
-      md: { height: "24px" },
-      lg: { height: "28px" },
+      sm: { height: '20px' },
+      md: { height: '24px' },
+      lg: { height: '28px' },
     },
     disabled: {
-      true: { opacity: "0.5", pointerEvents: "none" },
+      true: { opacity: '0.5', pointerEvents: 'none' },
     },
   },
-  "Slider"
+  'Slider',
 )
 
 const SliderTrack = styled(
-  "div",
+  'div',
   {
-    position: "relative",
-    width: "100%",
-    borderRadius: "9999px",
-    backgroundColor: "var(--color4)",
-    overflow: "hidden",
+    position: 'relative',
+    width: '100%',
+    borderRadius: '9999px',
+    backgroundColor: 'var(--color4)',
+    overflow: 'hidden',
   },
   {
     size: {
-      sm: { height: "4px" },
-      md: { height: "6px" },
-      lg: { height: "8px" },
+      sm: { height: '4px' },
+      md: { height: '6px' },
+      lg: { height: '8px' },
     },
   },
-  "SliderTrack"
+  'SliderTrack',
 )
 
 const SliderRange = styled(
-  "div",
+  'div',
   {
-    position: "absolute",
-    height: "100%",
-    backgroundColor: "var(--color10)",
-    borderRadius: "9999px",
+    position: 'absolute',
+    height: '100%',
+    backgroundColor: 'var(--color10)',
+    borderRadius: '9999px',
   },
-  "SliderRange"
+  'SliderRange',
 )
 
 const SliderThumb = styled(
-  "div",
+  'div',
   {
-    position: "absolute",
-    top: "50%",
-    borderRadius: "9999px",
-    backgroundColor: "var(--background, #fff)",
-    borderWidth: "2px",
-    borderStyle: "solid",
-    borderColor: "var(--color10)",
-    cursor: "pointer",
-    transform: "translate(-50%, -50%)",
+    position: 'absolute',
+    top: '50%',
+    borderRadius: '9999px',
+    backgroundColor: 'var(--background, #fff)',
+    borderWidth: '2px',
+    borderStyle: 'solid',
+    borderColor: 'var(--color10)',
+    cursor: 'pointer',
+    transform: 'translate(-50%, -50%)',
   },
   {
     size: {
-      sm: { width: "16px", height: "16px" },
-      md: { width: "20px", height: "20px" },
-      lg: { width: "24px", height: "24px" },
+      sm: { width: '16px', height: '16px' },
+      md: { width: '20px', height: '20px' },
+      lg: { width: '24px', height: '24px' },
     },
   },
-  "SliderThumb"
+  'SliderThumb',
 )
 
 export interface SliderProps {
@@ -108,17 +108,20 @@ export function Slider({
 
   const percentage = ((currentValue - min) / (max - min)) * 100
 
-  const updateValue = useCallback((clientX: number) => {
-    const track = trackRef.current
-    if (!track) return
-    const rect = track.getBoundingClientRect()
-    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width))
-    const raw = min + ratio * (max - min)
-    const stepped = Math.round(raw / step) * step
-    const clamped = Math.max(min, Math.min(max, stepped))
-    if (!isControlled) setInternalValue(clamped)
-    onValueChange?.(clamped)
-  }, [min, max, step, isControlled, onValueChange])
+  const updateValue = useCallback(
+    (clientX: number) => {
+      const track = trackRef.current
+      if (!track) return
+      const rect = track.getBoundingClientRect()
+      const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width))
+      const raw = min + ratio * (max - min)
+      const stepped = Math.round(raw / step) * step
+      const clamped = Math.max(min, Math.min(max, stepped))
+      if (!isControlled) setInternalValue(clamped)
+      onValueChange?.(clamped)
+    },
+    [min, max, step, isControlled, onValueChange],
+  )
 
   const handlePointerDown = (e: React.PointerEvent) => {
     if (disabled) return
@@ -153,10 +156,7 @@ export function Slider({
       <SliderTrack ref={trackRef} size={size}>
         <SliderRange style={{ width: `${percentage}%` }} />
       </SliderTrack>
-      <SliderThumb
-        size={size}
-        style={{ left: `${percentage}%` }}
-      />
+      <SliderThumb size={size} style={{ left: `${percentage}%` }} />
     </SliderRoot>
   )
 }

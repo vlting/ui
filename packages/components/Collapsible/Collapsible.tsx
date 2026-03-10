@@ -1,4 +1,11 @@
-import React, { createContext, useCallback, useContext, useId, useRef, useState } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useId,
+  useRef,
+  useState,
+} from 'react'
 import { styled } from '../../stl-react/src/config'
 
 interface CollapsibleContextValue {
@@ -15,16 +22,16 @@ const CollapsibleContext = createContext<CollapsibleContextValue>({
   triggerId: '',
 })
 
-const CollapsibleRoot = styled("div", { width: "100%" }, "Collapsible")
+const CollapsibleRoot = styled('div', { width: '100%' }, 'Collapsible')
 
 const CollapsibleContentFrame = styled(
-  "div",
+  'div',
   {
-    overflow: "hidden",
-    transition: "grid-template-rows 200ms ease",
-    display: "grid",
+    overflow: 'hidden',
+    transition: 'grid-template-rows 200ms ease',
+    display: 'grid',
   },
-  "CollapsibleContent"
+  'CollapsibleContent',
 )
 
 export interface CollapsibleRootProps {
@@ -34,7 +41,12 @@ export interface CollapsibleRootProps {
   onOpenChange?: (open: boolean) => void
 }
 
-function Root({ children, open: controlledOpen, defaultOpen = false, onOpenChange }: CollapsibleRootProps) {
+function Root({
+  children,
+  open: controlledOpen,
+  defaultOpen = false,
+  onOpenChange,
+}: CollapsibleRootProps) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen)
   const isControlled = controlledOpen !== undefined
   const open = isControlled ? controlledOpen : internalOpen
@@ -47,10 +59,15 @@ function Root({ children, open: controlledOpen, defaultOpen = false, onOpenChang
   }, [open, isControlled, onOpenChange])
 
   return (
-    <CollapsibleContext.Provider value={{ open, toggle, contentId: `collapsible-content-${id}`, triggerId: `collapsible-trigger-${id}` }}>
-      <CollapsibleRoot data-state={open ? 'open' : 'closed'}>
-        {children}
-      </CollapsibleRoot>
+    <CollapsibleContext.Provider
+      value={{
+        open,
+        toggle,
+        contentId: `collapsible-content-${id}`,
+        triggerId: `collapsible-trigger-${id}`,
+      }}
+    >
+      <CollapsibleRoot data-state={open ? 'open' : 'closed'}>{children}</CollapsibleRoot>
     </CollapsibleContext.Provider>
   )
 }
@@ -100,9 +117,7 @@ function Content({ children }: CollapsibleContentProps) {
       aria-labelledby={triggerId}
       style={{ gridTemplateRows: open ? '1fr' : '0fr' }}
     >
-      <div style={{ overflow: 'hidden' }}>
-        {children}
-      </div>
+      <div style={{ overflow: 'hidden' }}>{children}</div>
     </CollapsibleContentFrame>
   )
 }

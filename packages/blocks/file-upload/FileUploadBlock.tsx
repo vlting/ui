@@ -87,12 +87,22 @@ function FileItem({
       </div>
       <div style={{ ...row, gap: 8 }}>
         {file.status === 'error' && onRetry && (
-          <ButtonJsx variant="ghost" size="sm" onPress={() => onRetry(file.id)} aria-label={`Retry ${file.name}`}>
+          <ButtonJsx
+            variant="ghost"
+            size="sm"
+            onPress={() => onRetry(file.id)}
+            aria-label={`Retry ${file.name}`}
+          >
             <ButtonTextJsx>Retry</ButtonTextJsx>
           </ButtonJsx>
         )}
         {onRemove && (
-          <ButtonJsx variant="ghost" size="sm" onPress={() => onRemove(file.id)} aria-label={`Remove ${file.name}`}>
+          <ButtonJsx
+            variant="ghost"
+            size="sm"
+            onPress={() => onRemove(file.id)}
+            aria-label={`Remove ${file.name}`}
+          >
             <ButtonTextJsx>Remove</ButtonTextJsx>
           </ButtonJsx>
         )}
@@ -172,7 +182,14 @@ function DropzoneUpload({
           <span style={{ fontSize: 16, fontWeight: 500, fontFamily: 'var(--font-body)' }}>
             {title}
           </span>
-          <span style={{ fontSize: 14, opacity: 0.6, fontFamily: 'var(--font-body)', textAlign: 'center' }}>
+          <span
+            style={{
+              fontSize: 14,
+              opacity: 0.6,
+              fontFamily: 'var(--font-body)',
+              textAlign: 'center',
+            }}
+          >
             {description}
           </span>
           {maxSize && (
@@ -286,7 +303,9 @@ function GalleryUpload({
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               ) : (
-                <span style={{ fontSize: 12, opacity: 0.5, textAlign: 'center', padding: 8 }}>
+                <span
+                  style={{ fontSize: 12, opacity: 0.5, textAlign: 'center', padding: 8 }}
+                >
                   {file.name}
                 </span>
               )}
@@ -301,12 +320,20 @@ function GalleryUpload({
                     backgroundColor: 'var(--background, rgba(255,255,255,0.9))',
                   }}
                 >
-                  <ProgressJsx value={file.progress} aria-label={`Uploading ${file.name}`} />
+                  <ProgressJsx
+                    value={file.progress}
+                    aria-label={`Uploading ${file.name}`}
+                  />
                 </div>
               )}
               {onRemove && (
                 <div style={{ position: 'absolute', top: 4, right: 4 }}>
-                  <ButtonJsx variant="ghost" size="sm" onPress={() => onRemove(file.id)} aria-label={`Remove ${file.name}`}>
+                  <ButtonJsx
+                    variant="ghost"
+                    size="sm"
+                    onPress={() => onRemove(file.id)}
+                    aria-label={`Remove ${file.name}`}
+                  >
                     <ButtonTextJsx>x</ButtonTextJsx>
                   </ButtonJsx>
                 </div>
@@ -352,7 +379,9 @@ function GalleryUpload({
             }}
           >
             <span style={{ fontSize: 24, opacity: 0.4 }}>+</span>
-            <span style={{ fontSize: 11, opacity: 0.5, fontFamily: 'var(--font-body)' }}>Add</span>
+            <span style={{ fontSize: 11, opacity: 0.5, fontFamily: 'var(--font-body)' }}>
+              Add
+            </span>
           </div>
         </div>
       </div>

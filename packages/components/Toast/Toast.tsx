@@ -1,38 +1,60 @@
 import type React from 'react'
 import { styled } from '../../stl-react/src/config'
 
-const ToastFrame = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-  gap: "4px",
-  padding: "12px",
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderRadius: "$4",
-  minWidth: "300px",
-  maxWidth: "420px",
-  position: "relative",
-}, {
-  variant: {
-    default: { backgroundColor: "$background", borderColor: "$borderColor" },
-    success: { backgroundColor: "var(--stl-successBg, #f0fdf4)", borderColor: "var(--stl-successBorder, #86efac)" },
-    error: { backgroundColor: "var(--stl-errorBg, #fef2f2)", borderColor: "var(--stl-errorBorder, #fca5a5)" },
-    warning: { backgroundColor: "var(--stl-warningBg, #fffbeb)", borderColor: "var(--stl-warningBorder, #fcd34d)" },
+const ToastFrame = styled(
+  'div',
+  {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+    padding: '12px',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderRadius: '$4',
+    minWidth: '300px',
+    maxWidth: '420px',
+    position: 'relative',
   },
-}, "Toast")
+  {
+    variant: {
+      default: { backgroundColor: '$background', borderColor: '$borderColor' },
+      success: {
+        backgroundColor: 'var(--stl-successBg, #f0fdf4)',
+        borderColor: 'var(--stl-successBorder, #86efac)',
+      },
+      error: {
+        backgroundColor: 'var(--stl-errorBg, #fef2f2)',
+        borderColor: 'var(--stl-errorBorder, #fca5a5)',
+      },
+      warning: {
+        backgroundColor: 'var(--stl-warningBg, #fffbeb)',
+        borderColor: 'var(--stl-warningBorder, #fcd34d)',
+      },
+    },
+  },
+  'Toast',
+)
 
-const TitleText = styled("div", {
-  fontFamily: "$heading",
-  fontWeight: "$600",
-  fontSize: "$p",
-  color: "$defaultHeading",
-}, "ToastTitle")
+const TitleText = styled(
+  'div',
+  {
+    fontFamily: '$heading',
+    fontWeight: '$600',
+    fontSize: '$p',
+    color: '$defaultHeading',
+  },
+  'ToastTitle',
+)
 
-const DescriptionText = styled("div", {
-  fontFamily: "$body",
-  fontSize: "$14",
-  color: "$tertiary7",
-}, "ToastDescription")
+const DescriptionText = styled(
+  'div',
+  {
+    fontFamily: '$body',
+    fontSize: '$14',
+    color: '$tertiary7',
+  },
+  'ToastDescription',
+)
 
 export interface ToastRootProps {
   children: React.ReactNode
@@ -42,7 +64,14 @@ export interface ToastRootProps {
 
 function Root({ children, variant = 'default' }: ToastRootProps) {
   return (
-    <ToastFrame variant={variant} role="alert" style={{ boxShadow: 'var(--stl-shadow-md, 0 4px 12px var(--stl-maxAlpha8, rgba(0,0,0,0.15)))' }}>
+    <ToastFrame
+      variant={variant}
+      role="alert"
+      style={{
+        boxShadow:
+          'var(--stl-shadow-md, 0 4px 12px var(--stl-maxAlpha8, rgba(0,0,0,0.15)))',
+      }}
+    >
       {children}
     </ToastFrame>
   )
@@ -122,5 +151,14 @@ function useToastState() {
   return null
 }
 
-export const Toast = { Root, Title, Description, Action, Close, Viewport, Provider, ImperativeViewport: ImperativeToastViewport }
+export const Toast = {
+  Root,
+  Title,
+  Description,
+  Action,
+  Close,
+  Viewport,
+  Provider,
+  ImperativeViewport: ImperativeToastViewport,
+}
 export { useToastController, useToastState }

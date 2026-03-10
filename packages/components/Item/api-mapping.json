@@ -32,6 +32,10 @@
     "The 'interactive' variant adds hover/press/focus styles with cursor: pointer."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    }
   ]
 }

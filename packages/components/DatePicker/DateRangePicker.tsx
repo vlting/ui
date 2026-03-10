@@ -21,17 +21,31 @@ function isSameDay(a: Date, b: Date): boolean {
 }
 
 function isDateDisabled(date: Date, minDate?: Date, maxDate?: Date): boolean {
-  if (minDate && date < new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate())) return true
-  if (maxDate && date > new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate())) return true
+  if (
+    minDate &&
+    date < new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate())
+  )
+    return true
+  if (
+    maxDate &&
+    date > new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate())
+  )
+    return true
   return false
 }
 
 function formatDate(date: Date, locale = 'en-US'): string {
-  return new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'short', day: 'numeric' }).format(date)
+  return new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(date)
 }
 
 function getMonthName(year: number, month: number, locale = 'en-US'): string {
-  return new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(new Date(year, month, 1))
+  return new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(
+    new Date(year, month, 1),
+  )
 }
 
 function getWeekdayNames(locale = 'en-US'): string[] {
@@ -46,112 +60,130 @@ function getWeekdayNames(locale = 'en-US'): string[] {
 // ─── Styled primitives ─────────────────────────────────────────────
 
 const TriggerFrame = styled(
-  "button",
+  'button',
   {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "var(--borderColor)",
-    borderRadius: "8px",
-    cursor: "pointer",
-    backgroundColor: "var(--stl-background, #fff)",
-    gap: "8px",
-    fontFamily: "inherit",
-    margin: "0",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'var(--borderColor)',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    backgroundColor: 'var(--stl-background, #fff)',
+    gap: '8px',
+    fontFamily: 'inherit',
+    margin: '0',
   },
   {
     size: {
-      sm: { paddingTop: "4px", paddingBottom: "4px", paddingLeft: "12px", paddingRight: "12px", height: "28px" },
-      md: { paddingTop: "8px", paddingBottom: "8px", paddingLeft: "16px", paddingRight: "16px", height: "36px" },
-      lg: { paddingTop: "12px", paddingBottom: "12px", paddingLeft: "20px", paddingRight: "20px", height: "40px" },
+      sm: {
+        paddingTop: '4px',
+        paddingBottom: '4px',
+        paddingLeft: '12px',
+        paddingRight: '12px',
+        height: '28px',
+      },
+      md: {
+        paddingTop: '8px',
+        paddingBottom: '8px',
+        paddingLeft: '16px',
+        paddingRight: '16px',
+        height: '36px',
+      },
+      lg: {
+        paddingTop: '12px',
+        paddingBottom: '12px',
+        paddingLeft: '20px',
+        paddingRight: '20px',
+        height: '40px',
+      },
     },
     hasError: {
-      true: { borderColor: "var(--red10)" },
+      true: { borderColor: 'var(--red10)' },
     },
     isDisabled: {
-      true: { opacity: "0.5", cursor: "not-allowed", pointerEvents: "none" },
+      true: { opacity: '0.5', cursor: 'not-allowed', pointerEvents: 'none' },
     },
   },
-  "DateRangePickerTrigger"
+  'DateRangePickerTrigger',
 )
 
 const TriggerText = styled(
-  "span",
+  'span',
   {
-    fontFamily: "var(--font-body)",
-    flex: "1",
+    fontFamily: 'var(--font-body)',
+    flex: '1',
   },
   {
     isPlaceholder: {
-      true: { color: "var(--colorSubtitle)" },
-      false: { color: "var(--color)" },
+      true: { color: 'var(--colorSubtitle)' },
+      false: { color: 'var(--color)' },
     },
     size: {
-      sm: { fontSize: "var(--fontSize-2, 12px)" },
-      md: { fontSize: "var(--fontSize-3, 14px)" },
-      lg: { fontSize: "var(--fontSize-4, 16px)" },
+      sm: { fontSize: 'var(--fontSize-2, 12px)' },
+      md: { fontSize: 'var(--fontSize-3, 14px)' },
+      lg: { fontSize: 'var(--fontSize-4, 16px)' },
     },
   },
-  "DateRangePickerTriggerText"
+  'DateRangePickerTriggerText',
 )
 
 const CalendarDropdown = styled(
-  "div",
+  'div',
   {
-    position: "absolute",
-    top: "100%",
-    left: "0",
-    zIndex: "10",
-    marginTop: "4px",
-    backgroundColor: "var(--stl-background, #fff)",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "var(--borderColor)",
-    borderRadius: "8px",
-    padding: "12px",
-    boxShadow: "var(--stl-shadow-md, 0 4px 6px -1px rgba(0,0,0,0.1))",
+    position: 'absolute',
+    top: '100%',
+    left: '0',
+    zIndex: '10',
+    marginTop: '4px',
+    backgroundColor: 'var(--stl-background, #fff)',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'var(--borderColor)',
+    borderRadius: '8px',
+    padding: '12px',
+    boxShadow: 'var(--stl-shadow-md, 0 4px 6px -1px rgba(0,0,0,0.1))',
   },
-  "DateRangePickerDropdown"
+  'DateRangePickerDropdown',
 )
 
 const DayCell = styled(
-  "button",
+  'button',
   {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "36px",
-    height: "36px",
-    borderRadius: "6px",
-    border: "none",
-    backgroundColor: "transparent",
-    cursor: "pointer",
-    fontFamily: "inherit",
-    padding: "0",
-    margin: "0",
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '36px',
+    height: '36px',
+    borderRadius: '6px',
+    border: 'none',
+    backgroundColor: 'transparent',
+    cursor: 'pointer',
+    fontFamily: 'inherit',
+    padding: '0',
+    margin: '0',
   },
-  "DateRangePickerDayCell"
+  'DateRangePickerDayCell',
 )
 
 const NavButton = styled(
-  "button",
+  'button',
   {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "28px",
-    height: "28px",
-    borderRadius: "6px",
-    border: "none",
-    backgroundColor: "transparent",
-    cursor: "pointer",
-    fontFamily: "inherit",
-    padding: "0",
-    margin: "0",
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '28px',
+    height: '28px',
+    borderRadius: '6px',
+    border: 'none',
+    backgroundColor: 'transparent',
+    cursor: 'pointer',
+    fontFamily: 'inherit',
+    padding: '0',
+    margin: '0',
   },
-  "DateRangePickerNavButton"
+  'DateRangePickerNavButton',
 )
 
 // ─── Month Calendar ─────────────────────────────────────────────────
@@ -202,20 +234,50 @@ function MonthCalendar({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 260 }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 4px' }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 4px',
+        }}
+      >
         {showNav === 'left' || showNav === 'both' ? (
           <NavButton type="button" onClick={onPrev} aria-label="Previous month">
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-4, 16px)', color: 'var(--color)' }}>‹</span>
+            <span
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'var(--fontSize-4, 16px)',
+                color: 'var(--color)',
+              }}
+            >
+              ‹
+            </span>
           </NavButton>
         ) : (
           <div style={{ width: 28 }} />
         )}
-        <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-3, 14px)', fontWeight: '500', color: 'var(--color)' }}>
+        <span
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--fontSize-3, 14px)',
+            fontWeight: '500',
+            color: 'var(--color)',
+          }}
+        >
           {getMonthName(viewYear, viewMonth, locale)}
         </span>
         {showNav === 'right' || showNav === 'both' ? (
           <NavButton type="button" onClick={onNext} aria-label="Next month">
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-4, 16px)', color: 'var(--color)' }}>›</span>
+            <span
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'var(--fontSize-4, 16px)',
+                color: 'var(--color)',
+              }}
+            >
+              ›
+            </span>
           </NavButton>
         ) : (
           <div style={{ width: 28 }} />
@@ -224,8 +286,26 @@ function MonthCalendar({
 
       <div style={{ display: 'flex' }}>
         {weekdays.map((wd, i) => (
-          <div key={i} style={{ width: 36, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-1, 11px)', color: 'var(--colorSubtitle)', fontWeight: '500' }}>{wd}</span>
+          <div
+            key={i}
+            style={{
+              width: 36,
+              height: 24,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'var(--fontSize-1, 11px)',
+                color: 'var(--colorSubtitle)',
+                fontWeight: '500',
+              }}
+            >
+              {wd}
+            </span>
           </div>
         ))}
       </div>
@@ -243,7 +323,8 @@ function MonthCalendar({
 
             const isStart = selectedStart ? isSameDay(date, selectedStart) : false
             const isEnd = selectedEnd ? isSameDay(date, selectedEnd) : false
-            const isInRange = selectedStart && selectedEnd && date > selectedStart && date < selectedEnd
+            const isInRange =
+              selectedStart && selectedEnd && date > selectedStart && date < selectedEnd
 
             const showSelected = isStart || isEnd
 
@@ -255,21 +336,28 @@ function MonthCalendar({
                 aria-label={`${day}`}
                 aria-selected={showSelected || undefined}
                 style={{
-                  backgroundColor: showSelected ? 'var(--color10)' : isInRange ? 'var(--color4)' : 'transparent',
+                  backgroundColor: showSelected
+                    ? 'var(--color10)'
+                    : isInRange
+                      ? 'var(--color4)'
+                      : 'transparent',
                   borderRadius: isInRange && !showSelected ? 0 : 6,
                   borderWidth: isTodayDate && !showSelected ? 1 : 0,
-                  borderColor: isTodayDate && !showSelected ? 'var(--color8)' : 'transparent',
+                  borderColor:
+                    isTodayDate && !showSelected ? 'var(--color8)' : 'transparent',
                   borderStyle: 'solid',
                   opacity: disabled ? 0.3 : 1,
                   cursor: disabled ? 'not-allowed' : 'pointer',
                   pointerEvents: disabled ? 'none' : undefined,
                 }}
               >
-                <span style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 'var(--fontSize-2, 12px)',
-                  color: showSelected ? 'var(--color1)' : 'var(--color)',
-                }}>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: 'var(--fontSize-2, 12px)',
+                    color: showSelected ? 'var(--color1)' : 'var(--color)',
+                  }}
+                >
                   {day}
                 </span>
               </DayCell>
@@ -314,7 +402,9 @@ function DateRangePickerRoot({
   maxDate,
   locale = 'en-US',
 }: DateRangePickerProps) {
-  const [internalValue, setInternalValue] = useState<{ start: Date; end: Date } | undefined>(defaultValue)
+  const [internalValue, setInternalValue] = useState<
+    { start: Date; end: Date } | undefined
+  >(defaultValue)
   const selectedRange = value !== undefined ? value : internalValue
   const today = new Date()
 
@@ -401,7 +491,14 @@ function DateRangePickerRoot({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
       {label && (
-        <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-2, 12px)', fontWeight: '500', color: 'var(--color)' }}>
+        <span
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--fontSize-2, 12px)',
+            fontWeight: '500',
+            color: 'var(--color)',
+          }}
+        >
           {label}
         </span>
       )}
@@ -421,7 +518,13 @@ function DateRangePickerRoot({
           <TriggerText isPlaceholder={!selectedRange} size={size}>
             {triggerLabel}
           </TriggerText>
-          <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-3, 14px)', color: 'var(--colorSubtitle)' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: 'var(--fontSize-3, 14px)',
+              color: 'var(--colorSubtitle)',
+            }}
+          >
             ▾
           </span>
         </TriggerFrame>
@@ -460,12 +563,24 @@ function DateRangePickerRoot({
         )}
       </div>
       {error && errorMessage && (
-        <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-1, 11px)', color: 'var(--red10)' }}>
+        <span
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--fontSize-1, 11px)',
+            color: 'var(--red10)',
+          }}
+        >
           {errorMessage}
         </span>
       )}
       {helperText && !error && (
-        <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--fontSize-1, 11px)', color: 'var(--colorSubtitle)' }}>
+        <span
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--fontSize-1, 11px)',
+            color: 'var(--colorSubtitle)',
+          }}
+        >
           {helperText}
         </span>
       )}

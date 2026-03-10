@@ -8,7 +8,10 @@ export { useSearch } from './useSearch'
 export type { UseSearchProps, UseSearchReturn } from './useSearch'
 
 export { usePopoverPosition } from './usePopoverPosition'
-export type { UsePopoverPositionProps, UsePopoverPositionReturn } from './usePopoverPosition'
+export type {
+  UsePopoverPositionProps,
+  UsePopoverPositionReturn,
+} from './usePopoverPosition'
 
 export { useTabs } from './useTabs'
 export type { UseTabsProps, UseTabsReturn } from './useTabs'

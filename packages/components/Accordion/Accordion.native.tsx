@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from "react"
+import React, { createContext, useContext, useState, useCallback } from 'react'
 import {
   View,
   Text as RNText,
@@ -6,12 +6,12 @@ import {
   LayoutAnimation,
   UIManager,
   Platform,
-} from "react-native"
-import type { ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
+} from 'react-native'
+import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
 
 // Enable LayoutAnimation on Android
-if (Platform.OS === "android" && UIManager.setLayoutAnimationEnabledExperimental) {
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true)
 }
 
@@ -23,45 +23,45 @@ const AccordionFrame = styled(
   View,
   {
     borderWidth: 1,
-    borderColor: "$borderColor",
-    borderRadius: "$3",
-    overflow: "hidden",
+    borderColor: '$borderColor',
+    borderRadius: '$3',
+    overflow: 'hidden',
   },
-  "Accordion",
+  'Accordion',
 )
 
 const AccordionItemFrame = styled(
   View,
   {
     borderBottomWidth: 1,
-    borderColor: "$borderColor",
+    borderColor: '$borderColor',
   },
-  "AccordionItem",
+  'AccordionItem',
 )
 
 const AccordionTriggerFrame = styled(
   Pressable,
   {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 14,
-    backgroundColor: "$background",
+    backgroundColor: '$background',
     pressed: { opacity: 0.85 },
   },
-  "AccordionTrigger",
+  'AccordionTrigger',
 )
 
 const AccordionTriggerTextFrame = styled(
   RNText,
   {
     fontSize: 14,
-    fontWeight: "500",
-    color: "$defaultBody",
+    fontWeight: '500',
+    color: '$defaultBody',
     flex: 1,
   },
-  "AccordionTriggerText",
+  'AccordionTriggerText',
 )
 
 const AccordionContentFrame = styled(
@@ -69,9 +69,9 @@ const AccordionContentFrame = styled(
   {
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: "$color1",
+    backgroundColor: '$color1',
   },
-  "AccordionContent",
+  'AccordionContent',
 )
 
 // ---------------------------------------------------------------------------
@@ -79,13 +79,13 @@ const AccordionContentFrame = styled(
 // ---------------------------------------------------------------------------
 
 interface AccordionContextValue {
-  type: "single" | "multiple"
+  type: 'single' | 'multiple'
   expandedValues: Set<string>
   toggle: (value: string) => void
 }
 
 const AccordionContext = createContext<AccordionContextValue>({
-  type: "single",
+  type: 'single',
   expandedValues: new Set(),
   toggle: () => {},
 })
@@ -96,7 +96,7 @@ interface AccordionItemContextValue {
 }
 
 const AccordionItemContext = createContext<AccordionItemContextValue>({
-  value: "",
+  value: '',
   isExpanded: false,
 })
 
@@ -106,14 +106,14 @@ const AccordionItemContext = createContext<AccordionItemContextValue>({
 
 export interface AccordionRootProps {
   children: React.ReactNode
-  type?: "single" | "multiple"
+  type?: 'single' | 'multiple'
   defaultValue?: string[]
   style?: ViewStyle
 }
 
 function AccordionRoot({
   children,
-  type = "single",
+  type = 'single',
   defaultValue = [],
   style,
 }: AccordionRootProps) {
@@ -129,7 +129,7 @@ function AccordionRoot({
         if (next.has(value)) {
           next.delete(value)
         } else {
-          if (type === "single") next.clear()
+          if (type === 'single') next.clear()
           next.add(value)
         }
         return next
@@ -179,14 +179,12 @@ function AccordionTrigger({
       accessibilityRole="button"
       accessibilityState={{ expanded: isExpanded }}
     >
-      {typeof children === "string" ? (
+      {typeof children === 'string' ? (
         <AccordionTriggerTextFrame>{children}</AccordionTriggerTextFrame>
       ) : (
         children
       )}
-      <RNText style={{ fontSize: 12, color: "$color3" }}>
-        {isExpanded ? "▲" : "▼"}
-      </RNText>
+      <RNText style={{ fontSize: 12, color: '$color3' }}>{isExpanded ? '▲' : '▼'}</RNText>
     </AccordionTriggerFrame>
   )
 }

@@ -1,5 +1,5 @@
-import { useColorMode } from "./useColorMode"
-import { getTheme } from "../config/theme"
+import { useColorMode } from './useColorMode'
+import { getTheme } from '../config/theme'
 
 export function useTokens() {
   const { colorMode } = useColorMode()

@@ -4,61 +4,61 @@ import { styled } from '../../stl-react/src/config'
 import { useDisclosure } from '../../stl-headless/src'
 
 const StyledOverlay = styled(
-  "div",
+  'div',
   {
-    position: "fixed",
-    top: "0",
-    left: "0",
-    right: "0",
-    bottom: "0",
-    backgroundColor: "var(--overlayBackground, rgba(0,0,0,0.5))",
-    zIndex: "40",
-    transition: "opacity 200ms ease",
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    right: '0',
+    bottom: '0',
+    backgroundColor: 'var(--overlayBackground, rgba(0,0,0,0.5))',
+    zIndex: '40',
+    transition: 'opacity 200ms ease',
   },
-  "SheetOverlay"
+  'SheetOverlay',
 )
 
 const StyledFrame = styled(
-  "div",
+  'div',
   {
-    position: "fixed",
-    bottom: "0",
-    left: "0",
-    right: "0",
-    backgroundColor: "var(--background, #fff)",
-    borderTopLeftRadius: "12px",
-    borderTopRightRadius: "12px",
-    padding: "16px",
-    zIndex: "50",
-    maxHeight: "90vh",
-    display: "flex",
-    flexDirection: "column",
-    transition: "transform 300ms ease",
+    position: 'fixed',
+    bottom: '0',
+    left: '0',
+    right: '0',
+    backgroundColor: 'var(--background, #fff)',
+    borderTopLeftRadius: '12px',
+    borderTopRightRadius: '12px',
+    padding: '16px',
+    zIndex: '50',
+    maxHeight: '90vh',
+    display: 'flex',
+    flexDirection: 'column',
+    transition: 'transform 300ms ease',
   },
-  "SheetFrame"
+  'SheetFrame',
 )
 
 const StyledHandle = styled(
-  "div",
+  'div',
   {
-    width: "36px",
-    height: "4px",
-    borderRadius: "9999px",
-    backgroundColor: "var(--color6)",
-    opacity: "0.5",
-    margin: "0 auto 8px",
-    cursor: "grab",
+    width: '36px',
+    height: '4px',
+    borderRadius: '9999px',
+    backgroundColor: 'var(--color6)',
+    opacity: '0.5',
+    margin: '0 auto 8px',
+    cursor: 'grab',
   },
-  "SheetHandle"
+  'SheetHandle',
 )
 
 const StyledScrollView = styled(
-  "div",
+  'div',
   {
-    overflowY: "auto",
-    flex: "1",
+    overflowY: 'auto',
+    flex: '1',
   },
-  "SheetScrollView"
+  'SheetScrollView',
 )
 
 interface SheetContextValue {
@@ -93,7 +93,9 @@ function Root({
   const disclosure = useDisclosure({ open, onOpenChange })
 
   return (
-    <SheetContext.Provider value={{ isOpen: disclosure.isOpen, onClose: disclosure.onClose }}>
+    <SheetContext.Provider
+      value={{ isOpen: disclosure.isOpen, onClose: disclosure.onClose }}
+    >
       {children}
     </SheetContext.Provider>
   )
@@ -113,10 +115,7 @@ function Overlay() {
 
   if (!isOpen) return null
 
-  return createPortal(
-    <StyledOverlay onClick={onClose} />,
-    document.body,
-  )
+  return createPortal(<StyledOverlay onClick={onClose} />, document.body)
 }
 
 function Handle() {

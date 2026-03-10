@@ -146,5 +146,4 @@ describe('Button', () => {
     btn.focus()
     expect(document.activeElement).toBe(btn)
   })
-
 })

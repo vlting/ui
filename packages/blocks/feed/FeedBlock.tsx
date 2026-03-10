@@ -76,17 +76,44 @@ function TimelineFeed({ title, events = [] }: FeedBlockProps) {
         <div style={{ ...col, gap: '0', paddingLeft: '12px' }}>
           {events.map((event, i) => {
             const isLast = i === events.length - 1
-            const dotColor = event.status === 'completed' ? 'green' : event.status === 'current' ? 'var(--color10, #0066ff)' : '#d1d5db'
+            const dotColor =
+              event.status === 'completed'
+                ? 'green'
+                : event.status === 'current'
+                  ? 'var(--color10, #0066ff)'
+                  : '#d1d5db'
 
             return (
               <div key={event.id} style={{ ...row, gap: '12px' }}>
                 <div style={{ ...col, alignItems: 'center', width: '24px' }}>
-                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: dotColor, marginTop: '4px', flexShrink: 0 }} />
-                  {!isLast && <div style={{ flex: 1, width: '2px', backgroundColor: 'var(--borderColor, #e5e7eb)', minHeight: '40px' }} />}
+                  <div
+                    style={{
+                      width: '10px',
+                      height: '10px',
+                      borderRadius: '50%',
+                      backgroundColor: dotColor,
+                      marginTop: '4px',
+                      flexShrink: 0,
+                    }}
+                  />
+                  {!isLast && (
+                    <div
+                      style={{
+                        flex: 1,
+                        width: '2px',
+                        backgroundColor: 'var(--borderColor, #e5e7eb)',
+                        minHeight: '40px',
+                      }}
+                    />
+                  )}
                 </div>
                 <div style={{ ...col, flex: 1, gap: '2px', paddingBottom: '16px' }}>
                   <span style={{ fontSize: '16px', fontWeight: 500 }}>{event.title}</span>
-                  {event.description && <span style={{ fontSize: '14px', opacity: 0.6 }}>{event.description}</span>}
+                  {event.description && (
+                    <span style={{ fontSize: '14px', opacity: 0.6 }}>
+                      {event.description}
+                    </span>
+                  )}
                   <span style={{ fontSize: '12px', opacity: 0.5 }}>{event.date}</span>
                 </div>
               </div>
@@ -100,7 +127,12 @@ function TimelineFeed({ title, events = [] }: FeedBlockProps) {
 
 // -- Notifications variant --
 
-function NotificationsFeed({ title = 'Notifications', notifications = [], onMarkRead, onMarkAllRead }: FeedBlockProps) {
+function NotificationsFeed({
+  title = 'Notifications',
+  notifications = [],
+  onMarkRead,
+  onMarkAllRead,
+}: FeedBlockProps) {
   return (
     <Card style={{ width: '100%', maxWidth: 500, padding: '16px' }}>
       <div style={{ ...col, gap: '12px' }}>
@@ -132,17 +164,40 @@ function NotificationsFeed({ title = 'Notifications', notifications = [], onMark
                 }}
               >
                 {item.icon && (
-                  <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '2px' }}>
+                  <div
+                    style={{
+                      width: '24px',
+                      height: '24px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginTop: '2px',
+                    }}
+                  >
                     {item.icon}
                   </div>
                 )}
                 <div style={{ ...col, flex: 1, gap: '2px' }}>
-                  <span style={{ fontSize: '14px', fontWeight: item.read ? 400 : 500 }}>{item.title}</span>
-                  {item.description && <span style={{ fontSize: '12px', opacity: 0.6 }}>{item.description}</span>}
+                  <span style={{ fontSize: '14px', fontWeight: item.read ? 400 : 500 }}>
+                    {item.title}
+                  </span>
+                  {item.description && (
+                    <span style={{ fontSize: '12px', opacity: 0.6 }}>
+                      {item.description}
+                    </span>
+                  )}
                   <span style={{ fontSize: '11px', opacity: 0.5 }}>{item.timestamp}</span>
                 </div>
                 {!item.read && (
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--color10, #0066ff)', marginTop: '4px' }} />
+                  <div
+                    style={{
+                      width: '8px',
+                      height: '8px',
+                      borderRadius: '50%',
+                      backgroundColor: 'var(--color10, #0066ff)',
+                      marginTop: '4px',
+                    }}
+                  />
                 )}
               </div>
             </div>
@@ -170,8 +225,17 @@ function CommentsFeed({ title = 'Comments', comments = [], onLike }: FeedBlockPr
   )
 }
 
-function CommentNode({ comment, onLike, depth = 0 }: { comment: CommentItem; onLike?: (id: string) => void; depth?: number }) {
-  const initials = comment.author.name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2)
+function CommentNode({
+  comment,
+  onLike,
+  depth = 0,
+}: { comment: CommentItem; onLike?: (id: string) => void; depth?: number }) {
+  const initials = comment.author.name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2)
 
   return (
     <div style={{ ...col, gap: '8px', paddingLeft: depth > 0 ? '16px' : undefined }}>
@@ -179,7 +243,9 @@ function CommentNode({ comment, onLike, depth = 0 }: { comment: CommentItem; onL
         <Avatar size="sm" src={comment.author.avatar} fallback={initials} />
         <div style={{ ...col, flex: 1, gap: '4px' }}>
           <div style={{ ...row, gap: '8px', alignItems: 'center' }}>
-            <span style={{ fontSize: '14px', fontWeight: 500 }}>{comment.author.name}</span>
+            <span style={{ fontSize: '14px', fontWeight: 500 }}>
+              {comment.author.name}
+            </span>
             <span style={{ fontSize: '12px', opacity: 0.5 }}>{comment.timestamp}</span>
           </div>
           <span style={{ fontSize: '14px' }}>{comment.text}</span>
@@ -197,7 +263,12 @@ function CommentNode({ comment, onLike, depth = 0 }: { comment: CommentItem; onL
       {comment.replies && comment.replies.length > 0 && (
         <div style={{ ...col, gap: '8px' }}>
           {comment.replies.map((reply) => (
-            <CommentNode key={reply.id} comment={reply} onLike={onLike} depth={depth + 1} />
+            <CommentNode
+              key={reply.id}
+              comment={reply}
+              onLike={onLike}
+              depth={depth + 1}
+            />
           ))}
         </div>
       )}

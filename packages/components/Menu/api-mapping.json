@@ -41,7 +41,10 @@
       },
       "Menu.CheckboxItem": {
         "checked": { "type": "boolean" },
-        "onCheckedChange": { "type": "function", "signature": "(checked: boolean) => void" },
+        "onCheckedChange": {
+          "type": "function",
+          "signature": "(checked: boolean) => void"
+        },
         "disabled": { "type": "boolean" },
         "children": { "type": "ReactNode" }
       },
@@ -81,6 +84,10 @@
     "Supports nested sub-menus via Menu.Sub, Menu.SubTrigger, and Menu.SubContent."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    }
   ]
 }

@@ -3,28 +3,36 @@ import { createContext, useCallback, useContext, useId, useRef, useState } from 
 import { styled } from '../../stl-react/src/config'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
-const ItemFrame = styled("div", {
-  borderBottomWidth: "1px",
-  borderBottomStyle: "solid",
-  borderBottomColor: "$borderColor",
-}, "AccordionItem")
+const ItemFrame = styled(
+  'div',
+  {
+    borderBottomWidth: '1px',
+    borderBottomStyle: 'solid',
+    borderBottomColor: '$borderColor',
+  },
+  'AccordionItem',
+)
 
-const TriggerButton = styled("button", {
-  display: "flex",
-  width: "100%",
-  alignItems: "center",
-  justifyContent: "space-between",
-  padding: "12px 0",
-  cursor: "pointer",
-  backgroundColor: "transparent",
-  border: "none",
-  fontFamily: "$body",
-  fontWeight: "$500",
-  fontSize: "$p",
-  color: "$defaultBody",
-  textAlign: "left",
-  outline: "none",
-}, "AccordionTrigger")
+const TriggerButton = styled(
+  'button',
+  {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '12px 0',
+    cursor: 'pointer',
+    backgroundColor: 'transparent',
+    border: 'none',
+    fontFamily: '$body',
+    fontWeight: '$500',
+    fontSize: '$p',
+    color: '$defaultBody',
+    textAlign: 'left',
+    outline: 'none',
+  },
+  'AccordionTrigger',
+)
 
 // --- Context ---
 
@@ -73,17 +81,20 @@ function Root({
 }: AccordionRootProps) {
   const [expandedValues, setExpandedValues] = useState<string[]>(defaultValue)
 
-  const toggle = useCallback((value: string) => {
-    setExpandedValues((prev) => {
-      const isExpanded = prev.includes(value)
-      if (type === 'single') {
-        if (isExpanded && collapsible) return []
-        if (isExpanded) return prev
-        return [value]
-      }
-      return isExpanded ? prev.filter((v) => v !== value) : [...prev, value]
-    })
-  }, [type, collapsible])
+  const toggle = useCallback(
+    (value: string) => {
+      setExpandedValues((prev) => {
+        const isExpanded = prev.includes(value)
+        if (type === 'single') {
+          if (isExpanded && collapsible) return []
+          if (isExpanded) return prev
+          return [value]
+        }
+        return isExpanded ? prev.filter((v) => v !== value) : [...prev, value]
+      })
+    },
+    [type, collapsible],
+  )
 
   return (
     <AccordionContext.Provider value={{ type, collapsible, expandedValues, toggle }}>
@@ -103,12 +114,14 @@ function Item({ children, value }: AccordionItemProps) {
   const isOpen = expandedValues.includes(value)
 
   return (
-    <AccordionItemContext.Provider value={{
-      value,
-      isOpen,
-      contentId: `${id}-content`,
-      triggerId: `${id}-trigger`,
-    }}>
+    <AccordionItemContext.Provider
+      value={{
+        value,
+        isOpen,
+        contentId: `${id}-content`,
+        triggerId: `${id}-trigger`,
+      }}
+    >
       <ItemFrame>{children}</ItemFrame>
     </AccordionItemContext.Provider>
   )

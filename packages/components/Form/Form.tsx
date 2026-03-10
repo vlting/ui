@@ -13,37 +13,57 @@ function useFormFieldContext() {
   return useContext(FormFieldContext)
 }
 
-const FormFrame = styled("form", {
-  display: "flex",
-  flexDirection: "column",
-  gap: "16px",
-  width: "100%",
-}, "Form")
+const FormFrame = styled(
+  'form',
+  {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    width: '100%',
+  },
+  'Form',
+)
 
-const FieldFrame = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-  gap: "6px",
-}, "FormField")
+const FieldFrame = styled(
+  'div',
+  {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '6px',
+  },
+  'FormField',
+)
 
-const FieldLabel = styled("span", {
-  fontFamily: "$body",
-  fontWeight: "$500",
-  fontSize: "$p",
-  color: "$defaultBody",
-}, "FormFieldLabel")
+const FieldLabel = styled(
+  'span',
+  {
+    fontFamily: '$body',
+    fontWeight: '$500',
+    fontSize: '$p',
+    color: '$defaultBody',
+  },
+  'FormFieldLabel',
+)
 
-const FieldDescription = styled("span", {
-  fontFamily: "$body",
-  fontSize: "$14",
-  color: "$tertiary7",
-}, "FormFieldDescription")
+const FieldDescription = styled(
+  'span',
+  {
+    fontFamily: '$body',
+    fontSize: '$14',
+    color: '$tertiary7',
+  },
+  'FormFieldDescription',
+)
 
-const FieldError = styled("span", {
-  fontFamily: "$body",
-  fontSize: "$14",
-  color: "red",
-}, "FormFieldError")
+const FieldError = styled(
+  'span',
+  {
+    fontFamily: '$body',
+    fontSize: '$14',
+    color: 'red',
+  },
+  'FormFieldError',
+)
 
 export interface FormRootProps {
   children: React.ReactNode
@@ -56,11 +76,7 @@ function Root({ children, onSubmit }: FormRootProps) {
     onSubmit?.(e)
   }
 
-  return (
-    <FormFrame onSubmit={handleSubmit}>
-      {children}
-    </FormFrame>
-  )
+  return <FormFrame onSubmit={handleSubmit}>{children}</FormFrame>
 }
 
 export interface FormFieldProps {

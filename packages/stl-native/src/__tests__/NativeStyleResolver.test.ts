@@ -1,59 +1,62 @@
-import { describe, it, expect, beforeAll } from "vitest"
-import { NativeStyleResolver } from "../config/NativeStyleResolver"
-import { CondBit, computeConditionMask } from "../config/conditions"
-import { configureTheme, getTheme } from "../config/theme"
+import { describe, it, expect, beforeAll } from 'vitest'
+import { NativeStyleResolver } from '../config/NativeStyleResolver'
+import { CondBit, computeConditionMask } from '../config/conditions'
+import { configureTheme, getTheme } from '../config/theme'
 
 beforeAll(() => {
   configureTheme()
 })
 
-describe("NativeStyleResolver", () => {
-  describe("basic property resolution", () => {
-    it("resolves static numeric values", () => {
+describe('NativeStyleResolver', () => {
+  describe('basic property resolution', () => {
+    it('resolves static numeric values', () => {
       const resolver = new NativeStyleResolver({ paddingTop: 16, paddingBottom: 8 })
       const style = resolver.resolve(0)
       expect(style.paddingTop).toBe(16)
       expect(style.paddingBottom).toBe(8)
     })
 
-    it("resolves static string values", () => {
-      const resolver = new NativeStyleResolver({ flexDirection: "row", alignItems: "center" })
+    it('resolves static string values', () => {
+      const resolver = new NativeStyleResolver({
+        flexDirection: 'row',
+        alignItems: 'center',
+      })
       const style = resolver.resolve(0)
-      expect(style.flexDirection).toBe("row")
-      expect(style.alignItems).toBe("center")
+      expect(style.flexDirection).toBe('row')
+      expect(style.alignItems).toBe('center')
     })
 
-    it("returns a frozen object", () => {
+    it('returns a frozen object', () => {
       const resolver = new NativeStyleResolver({ paddingTop: 16 })
       const style = resolver.resolve(0)
       expect(Object.isFrozen(style)).toBe(true)
     })
   })
 
-  describe("token resolution", () => {
-    it("resolves space tokens", () => {
-      const resolver = new NativeStyleResolver({ paddingTop: "$4" })
+  describe('token resolution', () => {
+    it('resolves space tokens', () => {
+      const resolver = new NativeStyleResolver({ paddingTop: '$4' })
       const style = resolver.resolve(0)
       expect(style.paddingTop).toBe(getTheme().light.space.$4)
     })
 
-    it("resolves color tokens", () => {
-      const resolver = new NativeStyleResolver({ backgroundColor: "$primary9" })
+    it('resolves color tokens', () => {
+      const resolver = new NativeStyleResolver({ backgroundColor: '$primary9' })
       const style = resolver.resolve(0)
       expect(style.backgroundColor).toBe(getTheme().light.color.$primary9)
     })
 
-    it("resolves fontSize tokens", () => {
-      const resolver = new NativeStyleResolver({ fontSize: "$p" })
+    it('resolves fontSize tokens', () => {
+      const resolver = new NativeStyleResolver({ fontSize: '$p' })
       const style = resolver.resolve(0)
       expect(style.fontSize).toBe(getTheme().light.fontSize.$p)
     })
   })
 
-  describe("condition-based styles", () => {
-    it("applies dark mode styles when dark bit is set", () => {
+  describe('condition-based styles', () => {
+    it('applies dark mode styles when dark bit is set', () => {
       const resolver = new NativeStyleResolver({
-        backgroundColor: "$primary9",
+        backgroundColor: '$primary9',
       })
 
       const lightStyle = resolver.resolve(CondBit.light)
@@ -64,9 +67,9 @@ describe("NativeStyleResolver", () => {
       expect(darkStyle.backgroundColor).toBe(getTheme().dark.color.$primary9)
     })
 
-    it("applies conditional branch styles via inline conditions", () => {
+    it('applies conditional branch styles via inline conditions', () => {
       const resolver = new NativeStyleResolver({
-        paddingTop: { base: "$4", dark: "$8" },
+        paddingTop: { base: '$4', dark: '$8' },
       })
 
       const lightMask = computeConditionMask({ light: true })
@@ -79,11 +82,11 @@ describe("NativeStyleResolver", () => {
       expect(darkStyle.paddingTop).toBe(getTheme().dark.space.$8)
     })
 
-    it("dark condition branch adds extra props without overriding base", () => {
+    it('dark condition branch adds extra props without overriding base', () => {
       const resolver = new NativeStyleResolver({
-        paddingTop: "$4",
+        paddingTop: '$4',
         dark: {
-          paddingBottom: "$8",
+          paddingBottom: '$8',
         },
       })
 
@@ -96,9 +99,9 @@ describe("NativeStyleResolver", () => {
       expect(darkStyle.paddingBottom).toBe(getTheme().dark.space.$8)
     })
 
-    it("applies responsive conditions via inline conditions", () => {
+    it('applies responsive conditions via inline conditions', () => {
       const resolver = new NativeStyleResolver({
-        paddingTop: { base: "$4", sm: "$8" },
+        paddingTop: { base: '$4', sm: '$8' },
       })
 
       const baseMask = computeConditionMask({})
@@ -108,9 +111,9 @@ describe("NativeStyleResolver", () => {
       expect(resolver.resolve(smMask).paddingTop).toBe(getTheme().light.space.$8)
     })
 
-    it("handles inline condition objects", () => {
+    it('handles inline condition objects', () => {
       const resolver = new NativeStyleResolver({
-        paddingTop: { base: "$4", md: "$8" },
+        paddingTop: { base: '$4', md: '$8' },
       })
 
       const baseMask = computeConditionMask({})
@@ -121,10 +124,10 @@ describe("NativeStyleResolver", () => {
     })
   })
 
-  describe("nth-child styles", () => {
-    it("applies first-child styles to index 0 (exclusive props)", () => {
+  describe('nth-child styles', () => {
+    it('applies first-child styles to index 0 (exclusive props)', () => {
       const resolver = new NativeStyleResolver({
-        first: { marginTop: "$0" },
+        first: { marginTop: '$0' },
       })
 
       const style0 = resolver.resolve(0, 0, 5)
@@ -134,9 +137,9 @@ describe("NativeStyleResolver", () => {
       expect(style1.marginTop).toBeUndefined()
     })
 
-    it("applies last-child styles to last index (exclusive props)", () => {
+    it('applies last-child styles to last index (exclusive props)', () => {
       const resolver = new NativeStyleResolver({
-        last: { marginBottom: "$0" },
+        last: { marginBottom: '$0' },
       })
 
       const styleLast = resolver.resolve(0, 4, 5)
@@ -146,9 +149,9 @@ describe("NativeStyleResolver", () => {
       expect(styleMiddle.marginBottom).toBeUndefined()
     })
 
-    it("applies even-child styles to even indices (exclusive props)", () => {
+    it('applies even-child styles to even indices (exclusive props)', () => {
       const resolver = new NativeStyleResolver({
-        even: { backgroundColor: "$primary2" },
+        even: { backgroundColor: '$primary2' },
       })
 
       const styleEven = resolver.resolve(0, 0, 4)
@@ -158,9 +161,9 @@ describe("NativeStyleResolver", () => {
       expect(styleOdd.backgroundColor).toBeUndefined()
     })
 
-    it("applies odd-child styles to odd indices (exclusive props)", () => {
+    it('applies odd-child styles to odd indices (exclusive props)', () => {
       const resolver = new NativeStyleResolver({
-        odd: { backgroundColor: "$primary3" },
+        odd: { backgroundColor: '$primary3' },
       })
 
       const styleEven = resolver.resolve(0, 0, 4)
@@ -170,10 +173,10 @@ describe("NativeStyleResolver", () => {
       expect(styleOdd.backgroundColor).toBe(getTheme().light.color.$primary3)
     })
 
-    it("skips nth-child when index/length not provided", () => {
+    it('skips nth-child when index/length not provided', () => {
       const resolver = new NativeStyleResolver({
-        paddingTop: "$4",
-        first: { paddingTop: "$0" },
+        paddingTop: '$4',
+        first: { paddingTop: '$0' },
       })
 
       const style = resolver.resolve(0)
@@ -181,29 +184,35 @@ describe("NativeStyleResolver", () => {
     })
   })
 
-  describe("interaction states", () => {
-    it("applies hovered condition via inline conditions", () => {
+  describe('interaction states', () => {
+    it('applies hovered condition via inline conditions', () => {
       const resolver = new NativeStyleResolver({
-        backgroundColor: { base: "$primary5", hovered: "$primary6" },
+        backgroundColor: { base: '$primary5', hovered: '$primary6' },
       })
 
       const normalMask = computeConditionMask({ light: true })
       const hoveredMask = normalMask | CondBit.hovered
 
-      expect(resolver.resolve(normalMask).backgroundColor).toBe(getTheme().light.color.$primary5)
-      expect(resolver.resolve(hoveredMask).backgroundColor).toBe(getTheme().light.color.$primary6)
+      expect(resolver.resolve(normalMask).backgroundColor).toBe(
+        getTheme().light.color.$primary5,
+      )
+      expect(resolver.resolve(hoveredMask).backgroundColor).toBe(
+        getTheme().light.color.$primary6,
+      )
     })
 
-    it("applies pressed condition via inline conditions", () => {
+    it('applies pressed condition via inline conditions', () => {
       const resolver = new NativeStyleResolver({
-        backgroundColor: { base: "$primary5", pressed: "$primary7" },
+        backgroundColor: { base: '$primary5', pressed: '$primary7' },
       })
 
       const pressedMask = CondBit.pressed
-      expect(resolver.resolve(pressedMask).backgroundColor).toBe(getTheme().light.color.$primary7)
+      expect(resolver.resolve(pressedMask).backgroundColor).toBe(
+        getTheme().light.color.$primary7,
+      )
     })
 
-    it("hovered branch adds exclusive props when hovered", () => {
+    it('hovered branch adds exclusive props when hovered', () => {
       const resolver = new NativeStyleResolver({
         hovered: { opacity: 0.8 },
       })
@@ -216,18 +225,18 @@ describe("NativeStyleResolver", () => {
     })
   })
 
-  describe("caching", () => {
-    it("returns the same reference for the same mask", () => {
-      const resolver = new NativeStyleResolver({ paddingTop: "$4" })
+  describe('caching', () => {
+    it('returns the same reference for the same mask', () => {
+      const resolver = new NativeStyleResolver({ paddingTop: '$4' })
       const a = resolver.resolve(0)
       const b = resolver.resolve(0)
       expect(a).toBe(b)
     })
 
-    it("caches different results for different masks", () => {
+    it('caches different results for different masks', () => {
       const resolver = new NativeStyleResolver({
-        paddingTop: "$4",
-        dark: { paddingTop: "$8" },
+        paddingTop: '$4',
+        dark: { paddingTop: '$8' },
       })
 
       const lightResult = resolver.resolve(CondBit.light)
@@ -238,10 +247,10 @@ describe("NativeStyleResolver", () => {
       expect(resolver.resolve(CondBit.dark)).toBe(darkResult)
     })
 
-    it("uses index/length in cache key for nth-child styles", () => {
+    it('uses index/length in cache key for nth-child styles', () => {
       const resolver = new NativeStyleResolver({
-        paddingTop: "$4",
-        first: { paddingTop: "$0" },
+        paddingTop: '$4',
+        first: { paddingTop: '$0' },
       })
 
       const a = resolver.resolve(0, 0, 5)
@@ -249,8 +258,8 @@ describe("NativeStyleResolver", () => {
       expect(a).not.toBe(b)
     })
 
-    it("invalidate() clears the cache", () => {
-      const resolver = new NativeStyleResolver({ paddingTop: "$4" })
+    it('invalidate() clears the cache', () => {
+      const resolver = new NativeStyleResolver({ paddingTop: '$4' })
       const before = resolver.resolve(0)
 
       resolver.invalidate()
@@ -262,10 +271,10 @@ describe("NativeStyleResolver", () => {
     })
   })
 
-  describe("lineHeight normalization", () => {
-    it("converts small lineHeight multipliers to absolute values", () => {
+  describe('lineHeight normalization', () => {
+    it('converts small lineHeight multipliers to absolute values', () => {
       const resolver = new NativeStyleResolver({
-        fontSize: "$p",
+        fontSize: '$p',
         lineHeight: 1.5,
       })
       const style = resolver.resolve(0)
@@ -273,7 +282,7 @@ describe("NativeStyleResolver", () => {
       expect(style.lineHeight).toBe(Math.round(expectedFontSize * 1.5))
     })
 
-    it("preserves large lineHeight values as-is", () => {
+    it('preserves large lineHeight values as-is', () => {
       const resolver = new NativeStyleResolver({
         lineHeight: 24,
       })
@@ -282,9 +291,9 @@ describe("NativeStyleResolver", () => {
     })
   })
 
-  describe("mapped props (shorthands)", () => {
-    it("expands p shorthand to padding props", () => {
-      const resolver = new NativeStyleResolver({ p: "$4" })
+  describe('mapped props (shorthands)', () => {
+    it('expands p shorthand to padding props', () => {
+      const resolver = new NativeStyleResolver({ p: '$4' })
       const style = resolver.resolve(0)
       const expected = getTheme().light.space.$4
       expect(style.paddingTop).toBe(expected)
@@ -293,8 +302,8 @@ describe("NativeStyleResolver", () => {
       expect(style.paddingEnd).toBe(expected)
     })
 
-    it("expands m shorthand to margin props", () => {
-      const resolver = new NativeStyleResolver({ m: "$8" })
+    it('expands m shorthand to margin props', () => {
+      const resolver = new NativeStyleResolver({ m: '$8' })
       const style = resolver.resolve(0)
       const expected = getTheme().light.space.$8
       expect(style.marginTop).toBe(expected)
@@ -303,32 +312,32 @@ describe("NativeStyleResolver", () => {
       expect(style.marginEnd).toBe(expected)
     })
 
-    it("expands bg shorthand to backgroundColor", () => {
-      const resolver = new NativeStyleResolver({ bg: "$primary5" })
+    it('expands bg shorthand to backgroundColor', () => {
+      const resolver = new NativeStyleResolver({ bg: '$primary5' })
       const style = resolver.resolve(0)
       expect(style.backgroundColor).toBe(getTheme().light.color.$primary5)
     })
   })
 
-  describe("CSS logical prop normalization", () => {
-    it("maps paddingInlineStart to paddingStart", () => {
-      const resolver = new NativeStyleResolver({ paddingInlineStart: "$4" })
+  describe('CSS logical prop normalization', () => {
+    it('maps paddingInlineStart to paddingStart', () => {
+      const resolver = new NativeStyleResolver({ paddingInlineStart: '$4' })
       const style = resolver.resolve(0)
       expect(style.paddingStart).toBe(getTheme().light.space.$4)
     })
 
-    it("maps inlineSize to width", () => {
-      const resolver = new NativeStyleResolver({ inlineSize: "$40" })
+    it('maps inlineSize to width', () => {
+      const resolver = new NativeStyleResolver({ inlineSize: '$40' })
       const style = resolver.resolve(0)
       expect(style.width).toBe(getTheme().light.size.$40)
     })
   })
 
-  describe("shadow prop expansion", () => {
-    it("expands shadow token to multiple RN shadow props", () => {
-      const resolver = new NativeStyleResolver({ shadow: "$md" })
+  describe('shadow prop expansion', () => {
+    it('expands shadow token to multiple RN shadow props', () => {
+      const resolver = new NativeStyleResolver({ shadow: '$md' })
       const style = resolver.resolve(0)
-      expect(style.shadowColor).toBe("#000")
+      expect(style.shadowColor).toBe('#000')
       expect(style.shadowOpacity).toBe(0.22)
       expect(style.shadowRadius).toBe(3)
       expect(style.elevation).toBe(3)

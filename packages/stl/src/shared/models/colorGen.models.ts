@@ -1,7 +1,7 @@
 // CONSTANTS //////////////////////////////////////////////////////////////////////////////////////
 
-export const DEFAULT_COLOR_MODE = "light" as const
-export const COLOR_MODE_ATTR = "data-color-mode" as const
+export const DEFAULT_COLOR_MODE = 'light' as const
+export const COLOR_MODE_ATTR = 'data-color-mode' as const
 
 // Neutron Palette
 export const DEFAULT_HUE = 174
@@ -26,30 +26,30 @@ export const TEXT_COLOR_TARGETS = {
   6: 12,
   7: 12,
   8: 12,
-  9: "min",
-  10: "min",
+  9: 'min',
+  10: 'min',
   11: 3,
   12: 5,
 } as const
 
 export const ALPHA_TEXT_COLOR_TARGETS = {
-  1: "max",
-  2: "max",
-  3: "max",
-  4: "max",
-  5: "max",
-  6: "max",
-  7: "max",
-  8: "max",
-  9: "min",
-  10: "min",
+  1: 'max',
+  2: 'max',
+  3: 'max',
+  4: 'max',
+  5: 'max',
+  6: 'max',
+  7: 'max',
+  8: 'max',
+  9: 'min',
+  10: 'min',
   11: 1,
   12: 2,
 } as const
 
 export const MIN_ALPHA_TEXT_COLOR_TARGETS = {
-  1: "max",
-  2: "max",
+  1: 'max',
+  2: 'max',
   3: 12,
   4: 12,
   5: 11,
@@ -63,21 +63,23 @@ export const MIN_ALPHA_TEXT_COLOR_TARGETS = {
 } as const
 
 export const MAX_ALPHA_TEXT_COLOR_TARGETS = {
-  1: "max",
-  2: "max",
-  3: "max",
-  4: "max",
-  5: "max",
-  6: "max",
-  7: "max",
-  8: "min",
-  9: "min",
+  1: 'max',
+  2: 'max',
+  3: 'max',
+  4: 'max',
+  5: 'max',
+  6: 'max',
+  7: 'max',
+  8: 'min',
+  9: 'min',
   10: 1,
   11: 2,
   12: 3,
 } as const
 
-export const ALPHA_VALUES = [0.015, 0.05, 0.1, 0.15, 0.23, 0.32, 0.42, 0.53, 0.75, 0.85, 0.9, 0.95] as const
+export const ALPHA_VALUES = [
+  0.015, 0.05, 0.1, 0.15, 0.23, 0.32, 0.42, 0.53, 0.75, 0.85, 0.9, 0.95,
+] as const
 
 export const ZERO_SATURATION_LUMINANCE = `|{ywrnhaF?5)|{ywsnhaF?5)&+15:=@EUbjy"&,037:=S]jz`
 export const ZERO_SATURATION_INDICES = {
@@ -136,70 +138,70 @@ export const DEFAULT_SOURCE_COLORS: ColorGenOptions = {
   plum: { hue: 267, saturation: 90 },
   magenta: { hue: 313, saturation: 80 },
   // Accent colors — mapped to closest flavor colors (COLOR_MATRIX is sparse)
-  blue: "aqua",
-  red: "tomato",
-  green: "forest",
-  orange: "amber",
-  purple: "plum",
-  pink: "magenta",
-  yellow: "amber",
+  blue: 'aqua',
+  red: 'tomato',
+  green: 'forest',
+  orange: 'amber',
+  purple: 'plum',
+  pink: 'magenta',
+  yellow: 'amber',
 }
 
 // TYPES //////////////////////////////////////////////////////////////////////////////////////////
 
-export type ColorMode = "light" | "dark"
-export type ColorType = "color" | "neutral"
+export type ColorMode = 'light' | 'dark'
+export type ColorType = 'color' | 'neutral'
 
 export enum StaticColorName {
-  max = "max",
-  min = "min",
+  max = 'max',
+  min = 'min',
 }
 
 export enum CoreColorName {
-  primary = "primary",
-  secondary = "secondary",
-  tertiary = "tertiary",
+  primary = 'primary',
+  secondary = 'secondary',
+  tertiary = 'tertiary',
 }
 
 export enum StatusColorName {
-  error = "error",
-  info = "info",
-  success = "success",
-  warning = "warning",
+  error = 'error',
+  info = 'info',
+  success = 'success',
+  warning = 'warning',
 }
 
 // Colors from a broad spectrum of hues, for general purposes
 export enum FlavorColorName {
-  tomato = "tomato",
-  amber = "amber",
-  grass = "grass",
-  forest = "forest",
-  aqua = "aqua",
-  indigo = "indigo",
-  plum = "plum",
-  magenta = "magenta",
+  tomato = 'tomato',
+  amber = 'amber',
+  grass = 'grass',
+  forest = 'forest',
+  aqua = 'aqua',
+  indigo = 'indigo',
+  plum = 'plum',
+  magenta = 'magenta',
 }
 
 // Accent colors matching vlt-ui palette structure
 export enum AccentColorName {
-  blue = "blue",
-  red = "red",
-  green = "green",
-  orange = "orange",
-  purple = "purple",
-  pink = "pink",
-  yellow = "yellow",
+  blue = 'blue',
+  red = 'red',
+  green = 'green',
+  orange = 'orange',
+  purple = 'purple',
+  pink = 'pink',
+  yellow = 'yellow',
 }
 
 // Translucent colors
 export enum AlphaColorName {
-  primaryAlpha = "primaryAlpha",
-  secondaryAlpha = "secondaryAlpha",
-  tertiaryAlpha = "tertiaryAlpha",
-  maxAlpha = "maxAlpha",
-  minAlpha = "minAlpha",
+  primaryAlpha = 'primaryAlpha',
+  secondaryAlpha = 'secondaryAlpha',
+  tertiaryAlpha = 'tertiaryAlpha',
+  maxAlpha = 'maxAlpha',
+  minAlpha = 'minAlpha',
 }
-export const ALPHA_KEY = "Alpha"
+export const ALPHA_KEY = 'Alpha'
 
 export type ColorNumberKey = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 
@@ -225,16 +227,26 @@ export type StaticSourceColor = {
 
 export type SemanticColors = { [k in CoreColorName]: ColorObject }
 
-export type ColorGenOptions = { [k in CoreColorName]: SourceColor } & { [k in StaticColorName]?: StaticSourceColor } & {
+export type ColorGenOptions = { [k in CoreColorName]: SourceColor } & {
+  [k in StaticColorName]?: StaticSourceColor
+} & {
   [k in StatusColorName | FlavorColorName | AccentColorName]?: SourceColor
 }
 
-export type ScaleColorName = CoreColorName | StatusColorName | FlavorColorName | AccentColorName | AlphaColorName
+export type ScaleColorName =
+  | CoreColorName
+  | StatusColorName
+  | FlavorColorName
+  | AccentColorName
+  | AlphaColorName
 export type TextColorName = TextColor<ScaleColorName>
 
 export type ScaleTextColor = ScaleColor<TextColorName>
 
-export type ThemeColor = `${StaticColorName}` | ScaleColor<ScaleColorName> | ScaleTextColor
+export type ThemeColor =
+  | `${StaticColorName}`
+  | ScaleColor<ScaleColorName>
+  | ScaleTextColor
 
 export type ColorPalette<T = string> = {
   [key in ThemeColor]: T
@@ -243,7 +255,7 @@ export type ColorPalette<T = string> = {
 // Complimentary Colors ///////////////////////////////////////////////////////////////////////////
 function shiftHue(hue: number, shift: number) {
   if (shift > 359) {
-    throw new Error("Shift parameter must be less than 360")
+    throw new Error('Shift parameter must be less than 360')
   }
   const sum = shift + hue
   return sum > 360 ? sum - 360 : sum
@@ -299,11 +311,19 @@ function getColorPalettes(
   colors.push({
     primary: { hue, saturation: saturations[0] },
     secondary: {
-      hue: isYellowish ? splitSecondaryVariant : isRedToned ? triadSecondaryVariant : splitSecondary,
+      hue: isYellowish
+        ? splitSecondaryVariant
+        : isRedToned
+          ? triadSecondaryVariant
+          : splitSecondary,
       saturation: saturations[1],
     },
     tertiary: {
-      hue: isYellowish ? splitSecondaryVariant : isRedToned ? triadSecondaryVariant : splitSecondary,
+      hue: isYellowish
+        ? splitSecondaryVariant
+        : isRedToned
+          ? triadSecondaryVariant
+          : splitSecondary,
       saturation: saturations[2],
       isNeutral: true,
     },
@@ -318,7 +338,7 @@ export function getComplementaryHues(
   saturations: [number, number, number] = DEFAULT_SATURATIONS,
 ): [SemanticColors, SemanticColors, SemanticColors] {
   if (hue < 0 || hue > 360) {
-    throw new Error("Parameter `hue` must be a number between 0 and 360")
+    throw new Error('Parameter `hue` must be a number between 0 and 360')
   }
   return getColorPalettes(hue, saturations)
 }

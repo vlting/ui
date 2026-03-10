@@ -71,10 +71,7 @@ export function injectBrandVars(
 /**
  * Generate a `<style>` tag string with `:root` CSS variables for a brand.
  */
-export function getBrandStyleTag(
-  brand: Brand,
-  mode: 'light' | 'dark' = 'light',
-): string {
+export function getBrandStyleTag(brand: Brand, mode: 'light' | 'dark' = 'light'): string {
   const vars = injectBrandVars(brand, mode)
   const declarations = Object.entries(vars)
     .map(([name, value]) => `  ${name}: ${value};`)

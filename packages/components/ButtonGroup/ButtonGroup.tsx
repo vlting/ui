@@ -1,17 +1,9 @@
 import type React from 'react'
 import { styled } from '../../stl-react/src/config'
 
-const ButtonGroupOuter = styled(
-  "div",
-  { display: "inline-flex" },
-  "ButtonGroup"
-)
+const ButtonGroupOuter = styled('div', { display: 'inline-flex' }, 'ButtonGroup')
 
-const ButtonGroupInner = styled(
-  "div",
-  { display: "inline-flex" },
-  "ButtonGroupInner"
-)
+const ButtonGroupInner = styled('div', { display: 'inline-flex' }, 'ButtonGroupInner')
 
 export interface ButtonGroupRootProps {
   children: React.ReactNode

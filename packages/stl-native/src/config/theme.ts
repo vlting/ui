@@ -1,10 +1,10 @@
-import { Platform } from "react-native"
+import { Platform } from 'react-native'
 import {
   generateThemeColors,
   DEFAULT_SOURCE_COLORS,
   type ColorGenOptions,
   type ColorMode,
-} from "../shared/colorGen"
+} from '../shared/colorGen'
 
 // TYPES ///////////////////////////////////////////////////////////////////////
 
@@ -141,42 +141,42 @@ function buildFontSizeTokens(base: number): Record<string, number> {
 
 function buildFontWeightTokens(): Record<string, string> {
   return {
-    $100: "100",
-    $200: "200",
-    $300: "300",
-    $400: "400",
-    $500: "500",
-    $600: "600",
-    $700: "700",
-    $800: "800",
-    $900: "900",
-    $h1: "500",
-    $h2: "700",
-    $h3: "600",
-    $h4: "800",
-    $h5: "600",
-    $h6: "800",
-    $p: "300",
-    $a: "300",
-    $code: "600",
-    $quote: "300",
+    $100: '100',
+    $200: '200',
+    $300: '300',
+    $400: '400',
+    $500: '500',
+    $600: '600',
+    $700: '700',
+    $800: '800',
+    $900: '900',
+    $h1: '500',
+    $h2: '700',
+    $h3: '600',
+    $h4: '800',
+    $h5: '600',
+    $h6: '800',
+    $p: '300',
+    $a: '300',
+    $code: '600',
+    $quote: '300',
     // Aliases
-    $thin: "100",
-    $extraLight: "200",
-    $light: "300",
-    $regular: "400",
-    $medium: "500",
-    $semiBold: "600",
-    $bold: "700",
-    $extraBold: "800",
-    $black: "900",
+    $thin: '100',
+    $extraLight: '200',
+    $light: '300',
+    $regular: '400',
+    $medium: '500',
+    $semiBold: '600',
+    $bold: '700',
+    $extraBold: '800',
+    $black: '900',
   }
 }
 
 function buildFontFamilyTokens(): Record<string, string> {
-  const sans = Platform.OS === "ios" ? "System" : "Roboto"
-  const mono = Platform.OS === "ios" ? "Menlo" : "monospace"
-  const serif = Platform.OS === "ios" ? "Georgia" : "serif"
+  const sans = Platform.OS === 'ios' ? 'System' : 'Roboto'
+  const mono = Platform.OS === 'ios' ? 'Menlo' : 'monospace'
+  const serif = Platform.OS === 'ios' ? 'Georgia' : 'serif'
   return {
     $heading: sans,
     $body: sans,
@@ -290,7 +290,7 @@ function buildColorTokens(
   inputColors: Partial<ColorGenOptions>,
   mode: ColorMode,
 ): Record<string, string> {
-  const isDark = mode === "dark"
+  const isDark = mode === 'dark'
 
   // generateThemeColors returns a ColorPalette<string> keyed by ThemeColor
   // The setter callback populates the palette; the return value IS the palette.
@@ -301,7 +301,7 @@ function buildColorTokens(
       if (isMapped) {
         // For mapped colors, `value` is the source color name (e.g., "primary1")
         // Copy the resolved value from the palette
-        colors[key] = colors[value as keyof typeof colors] ?? ""
+        colors[key] = colors[value as keyof typeof colors] ?? ''
       } else {
         colors[key] = String(value)
       }
@@ -315,14 +315,14 @@ function buildColorTokens(
   }
 
   // Add special color tokens
-  tokens.$shadowBase = "0 0% 0%"
-  tokens.$shadowBlack = "hsl(0,0%,0%)"
-  tokens.$defaultBody = tokens.$tertiaryText2 || tokens.$tertiary11 || "#333333"
-  tokens.$defaultHeading = tokens.$tertiary10 || "#111111"
-  tokens.$panel = isDark ? (tokens.$tertiary3 || "#2a2a2a") : (tokens.$min || "#ffffff")
-  tokens.$shadowLight = isDark ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,0.05)"
-  tokens.$shadowHeavy = isDark ? "rgba(0,0,0,0.35)" : "rgba(0,0,0,0.15)"
-  tokens.$shadowHeaviest = isDark ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.25)"
+  tokens.$shadowBase = '0 0% 0%'
+  tokens.$shadowBlack = 'hsl(0,0%,0%)'
+  tokens.$defaultBody = tokens.$tertiaryText2 || tokens.$tertiary11 || '#333333'
+  tokens.$defaultHeading = tokens.$tertiary10 || '#111111'
+  tokens.$panel = isDark ? tokens.$tertiary3 || '#2a2a2a' : tokens.$min || '#ffffff'
+  tokens.$shadowLight = isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.05)'
+  tokens.$shadowHeavy = isDark ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0.15)'
+  tokens.$shadowHeaviest = isDark ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.25)'
 
   return tokens
 }
@@ -349,24 +349,24 @@ export function createNativeTheme(config: NativeThemeConfig = {}): NativeTheme {
   const typoSpace = buildTypoSpaceTokens()
 
   // Build themed scales (colors differ per mode)
-  const lightColors = buildColorTokens(inputColors, "light")
-  const darkColors = buildColorTokens(inputColors, "dark")
+  const lightColors = buildColorTokens(inputColors, 'light')
+  const darkColors = buildColorTokens(inputColors, 'dark')
 
   // Apply overrides
   const overrides = config.overrides
   if (overrides) {
-    if (overrides.space) applyOverrides(space, overrides.space, "$")
-    if (overrides.size) applyOverrides(size, overrides.size, "$")
-    if (overrides.fontSize) applyOverrides(fontSize, overrides.fontSize, "$")
-    if (overrides.fontWeight) applyOverrides(fontWeight, overrides.fontWeight, "$")
-    if (overrides.fontFamily) applyOverrides(fontFamily, overrides.fontFamily, "$")
-    if (overrides.lineHeight) applyOverrides(lineHeight, overrides.lineHeight, "$")
-    if (overrides.radius) applyOverrides(radius, overrides.radius, "$")
-    if (overrides.zIndex) applyOverrides(zIndex, overrides.zIndex, "$")
-    if (overrides.typoSpace) applyOverrides(typoSpace, overrides.typoSpace, "$")
+    if (overrides.space) applyOverrides(space, overrides.space, '$')
+    if (overrides.size) applyOverrides(size, overrides.size, '$')
+    if (overrides.fontSize) applyOverrides(fontSize, overrides.fontSize, '$')
+    if (overrides.fontWeight) applyOverrides(fontWeight, overrides.fontWeight, '$')
+    if (overrides.fontFamily) applyOverrides(fontFamily, overrides.fontFamily, '$')
+    if (overrides.lineHeight) applyOverrides(lineHeight, overrides.lineHeight, '$')
+    if (overrides.radius) applyOverrides(radius, overrides.radius, '$')
+    if (overrides.zIndex) applyOverrides(zIndex, overrides.zIndex, '$')
+    if (overrides.typoSpace) applyOverrides(typoSpace, overrides.typoSpace, '$')
     if (overrides.color) {
-      applyOverrides(lightColors, overrides.color, "$")
-      applyOverrides(darkColors, overrides.color, "$")
+      applyOverrides(lightColors, overrides.color, '$')
+      applyOverrides(darkColors, overrides.color, '$')
     }
   }
 
@@ -395,7 +395,11 @@ export function createNativeTheme(config: NativeThemeConfig = {}): NativeTheme {
   })
 }
 
-function applyOverrides<T>(target: Record<string, T>, overrides: Record<string, T>, prefix: string) {
+function applyOverrides<T>(
+  target: Record<string, T>,
+  overrides: Record<string, T>,
+  prefix: string,
+) {
   for (const [key, value] of Object.entries(overrides)) {
     const prefixedKey = key.startsWith(prefix) ? key : `${prefix}${key}`
     target[prefixedKey] = value
@@ -403,10 +407,13 @@ function applyOverrides<T>(target: Record<string, T>, overrides: Record<string, 
 }
 
 function hashConfig(config: NativeThemeConfig): string {
-  return JSON.stringify(config).split("").reduce((h, c) => {
-    h = ((h << 5) - h + c.charCodeAt(0)) | 0
-    return h
-  }, 0).toString(36)
+  return JSON.stringify(config)
+    .split('')
+    .reduce((h, c) => {
+      h = ((h << 5) - h + c.charCodeAt(0)) | 0
+      return h
+    }, 0)
+    .toString(36)
 }
 
 // MODULE SINGLETON ////////////////////////////////////////////////////////////

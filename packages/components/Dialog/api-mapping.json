@@ -52,9 +52,25 @@
     "Default size is 'md'"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props or size prop", "reason": "Cross-platform" },
-    { "shadcn": "<Dialog>", "vlting": "<Dialog.Root>", "reason": "Compound component pattern" },
-    { "shadcn": "<DialogContent className='sm:max-w-[425px]'>", "vlting": "<Dialog.Content size='sm'>", "reason": "Token-based sizing via size prop" },
-    { "shadcn": "Separate overlay setup", "vlting": "Overlay is automatic inside Content", "reason": "Simplified structure" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props or size prop",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "<Dialog>",
+      "vlting": "<Dialog.Root>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "<DialogContent className='sm:max-w-[425px]'>",
+      "vlting": "<Dialog.Content size='sm'>",
+      "reason": "Token-based sizing via size prop"
+    },
+    {
+      "shadcn": "Separate overlay setup",
+      "vlting": "Overlay is automatic inside Content",
+      "reason": "Simplified structure"
+    }
   ]
 }

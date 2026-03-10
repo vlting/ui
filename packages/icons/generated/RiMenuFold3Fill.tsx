@@ -1,2 +1,5 @@
 import { createIcon } from '../createIcon'
-export const RiMenuFold3Fill = createIcon('M21 4H7V6H21V4ZM21 11H11V13H21V11ZM21 18H7V20H21V18ZM8 17V7L3 11.9996L8 17Z', 'RiMenuFold3Fill')
+export const RiMenuFold3Fill = createIcon(
+  'M21 4H7V6H21V4ZM21 11H11V13H21V11ZM21 18H7V20H21V18ZM8 17V7L3 11.9996L8 17Z',
+  'RiMenuFold3Fill',
+)

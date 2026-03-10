@@ -39,8 +39,20 @@
     "Respects prefers-reduced-motion for trigger animation"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
-    { "shadcn": "<AccordionItem>", "vlting": "<Accordion.Item>", "reason": "Compound component pattern" },
-    { "shadcn": "defaultValue='item-1' (string)", "vlting": "defaultValue={['item-1']} (string[])", "reason": "Consistent array API for both single and multiple types" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "<AccordionItem>",
+      "vlting": "<Accordion.Item>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "defaultValue='item-1' (string)",
+      "vlting": "defaultValue={['item-1']} (string[])",
+      "reason": "Consistent array API for both single and multiple types"
+    }
   ]
 }

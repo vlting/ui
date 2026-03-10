@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react"
-import { Animated } from "react-native"
+import { useState, useEffect, useRef } from 'react'
+import { Animated } from 'react-native'
 
 interface TransitionResult {
   active: boolean
@@ -12,7 +12,10 @@ interface TransitionOptions {
   exit?: number
 }
 
-export function useTransition(visible: boolean, options?: TransitionOptions): TransitionResult {
+export function useTransition(
+  visible: boolean,
+  options?: TransitionOptions,
+): TransitionResult {
   const [mounted, setMounted] = useState(visible)
   const opacity = useRef(new Animated.Value(visible ? 1 : 0)).current
   const enterDuration = options?.enter ?? 200

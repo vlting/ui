@@ -39,9 +39,7 @@ export function getRegistry(): Registry {
 }
 
 export function findComponent(name: string): RegistryComponent | undefined {
-  return getRegistry().components.find(
-    (c) => c.name.toLowerCase() === name.toLowerCase()
-  )
+  return getRegistry().components.find((c) => c.name.toLowerCase() === name.toLowerCase())
 }
 
 export function listComponents(opts?: {

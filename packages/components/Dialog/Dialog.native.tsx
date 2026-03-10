@@ -1,14 +1,9 @@
-import React, { createContext, useContext, forwardRef } from "react"
-import {
-  View,
-  Text as RNText,
-  Pressable,
-  Modal,
-} from "react-native"
-import type { ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
-import { useDisclosure } from "../../stl-headless/src/useDisclosure"
-import type { UseDisclosureProps } from "../../stl-headless/src/useDisclosure"
+import React, { createContext, useContext, forwardRef } from 'react'
+import { View, Text as RNText, Pressable, Modal } from 'react-native'
+import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
+import { useDisclosure } from '../../stl-headless/src/useDisclosure'
+import type { UseDisclosureProps } from '../../stl-headless/src/useDisclosure'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -18,29 +13,29 @@ const DialogOverlayFrame = styled(
   View,
   {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  "DialogOverlay",
+  'DialogOverlay',
 )
 
 const DialogContentFrame = styled(
   View,
   {
-    backgroundColor: "$background",
-    borderRadius: "$3",
+    backgroundColor: '$background',
+    borderRadius: '$3',
     paddingHorizontal: 24,
     paddingVertical: 20,
-    width: "90%",
+    width: '90%',
     maxWidth: 420,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 12,
     elevation: 8,
   },
-  "DialogContent",
+  'DialogContent',
 )
 
 const DialogHeaderFrame = styled(
@@ -48,48 +43,48 @@ const DialogHeaderFrame = styled(
   {
     marginBottom: 12,
   },
-  "DialogHeader",
+  'DialogHeader',
 )
 
 const DialogFooterFrame = styled(
   View,
   {
-    flexDirection: "row",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     gap: 8,
     marginTop: 16,
   },
-  "DialogFooter",
+  'DialogFooter',
 )
 
 const DialogTitleFrame = styled(
   RNText,
   {
     fontSize: 18,
-    fontWeight: "600",
-    color: "$defaultBody",
+    fontWeight: '600',
+    color: '$defaultBody',
   },
-  "DialogTitle",
+  'DialogTitle',
 )
 
 const DialogDescriptionFrame = styled(
   RNText,
   {
     fontSize: 14,
-    color: "$color3",
+    color: '$color3',
     marginTop: 4,
   },
-  "DialogDescription",
+  'DialogDescription',
 )
 
 const DialogCloseFrame = styled(
   Pressable,
   {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
     padding: 4,
     pressed: { opacity: 0.85 },
   },
-  "DialogClose",
+  'DialogClose',
 )
 
 // ---------------------------------------------------------------------------
@@ -119,11 +114,7 @@ function DialogRoot({
   ...disclosureProps
 }: { children: React.ReactNode } & UseDisclosureProps) {
   const disclosure = useDisclosure(disclosureProps)
-  return (
-    <DialogContext.Provider value={disclosure}>
-      {children}
-    </DialogContext.Provider>
-  )
+  return <DialogContext.Provider value={disclosure}>{children}</DialogContext.Provider>
 }
 
 function DialogTrigger({
@@ -135,11 +126,7 @@ function DialogTrigger({
 }) {
   const { onOpen } = useContext(DialogContext)
   return (
-    <Pressable
-      onPress={onOpen}
-      style={style}
-      accessibilityRole="button"
-    >
+    <Pressable onPress={onOpen} style={style} accessibilityRole="button">
       {children}
     </Pressable>
   )
@@ -163,14 +150,11 @@ function DialogContent({
     >
       <DialogOverlayFrame>
         <Pressable
-          style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
           onPress={onClose}
           accessibilityRole="none"
         />
-        <DialogContentFrame
-          style={style}
-          accessibilityRole="alert"
-        >
+        <DialogContentFrame style={style} accessibilityRole="alert">
           {children}
         </DialogContentFrame>
       </DialogOverlayFrame>
@@ -237,7 +221,7 @@ function DialogClose({
       accessibilityRole="button"
       accessibilityLabel="Close dialog"
     >
-      {children ?? <RNText style={{ fontSize: 16, color: "$defaultBody" }}>✕</RNText>}
+      {children ?? <RNText style={{ fontSize: 16, color: '$defaultBody' }}>✕</RNText>}
     </DialogCloseFrame>
   )
 }

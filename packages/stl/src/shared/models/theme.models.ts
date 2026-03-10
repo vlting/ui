@@ -1,80 +1,80 @@
-import { ColorMode } from "./colorGen.models"
+import { ColorMode } from './colorGen.models'
 
 export const BASE_STYLE_SIZE = 4
-export const STYLE_UNIT = "rem"
+export const STYLE_UNIT = 'rem'
 
 // MISC ///////////////////////////////////////////////////////////////////////
 export const DELAYS = {
   notificationReveal: 500,
 }
-export const THEME_PRIMITIVE_PROPS: string[] = ["className", "selector", "toString"]
+export const THEME_PRIMITIVE_PROPS: string[] = ['className', 'selector', 'toString']
 export const THEME_FULL_PROPS: string[] = [
-  "className",
-  "selector",
-  "toString",
-  "borderStyles",
-  "borderWidths",
-  "colors",
-  "fontSizes",
-  "fontWeights",
-  "fonts",
-  "letterSpacings",
-  "lineHeights",
-  "radii",
-  "shadows",
-  "sizes",
-  "space",
-  "transitions",
-  "zIndices",
+  'className',
+  'selector',
+  'toString',
+  'borderStyles',
+  'borderWidths',
+  'colors',
+  'fontSizes',
+  'fontWeights',
+  'fonts',
+  'letterSpacings',
+  'lineHeights',
+  'radii',
+  'shadows',
+  'sizes',
+  'space',
+  'transitions',
+  'zIndices',
 ]
 export const THEME_STYLE_PROPS: string[] = [
-  "borderStyles",
-  "borderWidths",
-  "colors",
-  "fontSizes",
-  "fontWeights",
-  "fonts",
-  "letterSpacings",
-  "lineHeights",
-  "radii",
-  "shadows",
-  "sizes",
-  "space",
-  "transitions",
-  "zIndices",
+  'borderStyles',
+  'borderWidths',
+  'colors',
+  'fontSizes',
+  'fontWeights',
+  'fonts',
+  'letterSpacings',
+  'lineHeights',
+  'radii',
+  'shadows',
+  'sizes',
+  'space',
+  'transitions',
+  'zIndices',
 ]
 
 export type ThemeStyleProps =
-  | "borderStyles"
-  | "borderWidths"
-  | "colors"
-  | "fontSizes"
-  | "fontWeights"
-  | "fonts"
-  | "letterSpacings"
-  | "lineHeights"
-  | "radii"
-  | "shadows"
-  | "sizes"
-  | "space"
-  | "transitions"
-  | "zIndices"
+  | 'borderStyles'
+  | 'borderWidths'
+  | 'colors'
+  | 'fontSizes'
+  | 'fontWeights'
+  | 'fonts'
+  | 'letterSpacings'
+  | 'lineHeights'
+  | 'radii'
+  | 'shadows'
+  | 'sizes'
+  | 'space'
+  | 'transitions'
+  | 'zIndices'
 
 // SIZING /////////////////////////////////////////////////////////////////////
 export enum SemanticSize {
-  auto = "auto",
-  px = "px",
-  rem = "rem",
-  base = "base",
-  none = "none",
-  quarter = "quarter",
-  third = "third",
-  half = "half",
-  twoThirds = "twoThirds",
-  threeQuarters = "threeQuarters",
-  full = "full",
-  fullVh = "fullVh",
-  fullVw = "fullVw",
+  auto = 'auto',
+  px = 'px',
+  rem = 'rem',
+  base = 'base',
+  none = 'none',
+  quarter = 'quarter',
+  third = 'third',
+  half = 'half',
+  twoThirds = 'twoThirds',
+  threeQuarters = 'threeQuarters',
+  full = 'full',
+  fullVh = 'fullVh',
+  fullVw = 'fullVw',
 }
 
 export type SemanticSizes = keyof typeof SemanticSize
@@ -93,11 +93,11 @@ export const BREAKPOINT_KEYS = Object.keys(breakpoints)
 
 export type Breakpoints = keyof typeof breakpoints
 
-export const RADIUS_KEYS = ["px", "base", "none", "round", "pill", "field", "button"]
+export const RADIUS_KEYS = ['px', 'base', 'none', 'round', 'pill', 'field', 'button']
 
 // TYPOGRAPHY /////////////////////////////////////////////////////////////////
 export enum FontSource {
-  google = "google",
+  google = 'google',
 }
 
 export type FontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
@@ -119,10 +119,13 @@ Consolas,"Liberation Mono",
 "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"`,
 }
 
-export type SystemFontFallbackToken = "systemSans" | "systemSerif" | "systemMono"
+export type SystemFontFallbackToken = 'systemSans' | 'systemSerif' | 'systemMono'
 
 export interface Font<
-  T extends BodyFontFamily | HeadingFontFamily | CodeFontFamily = BodyFontFamily | HeadingFontFamily | CodeFontFamily
+  T extends BodyFontFamily | HeadingFontFamily | CodeFontFamily =
+    | BodyFontFamily
+    | HeadingFontFamily
+    | CodeFontFamily,
 > {
   source: FontSource
   family: T
@@ -134,48 +137,48 @@ export interface Font<
 
 export enum BodyFontFamily {
   // Sans serif
-  openSans = "Open Sans",
-  firaSans = "Fira Sans",
-  workSans = "Work Sans",
-  sourceSansPro = "Source Sans Pro",
-  rubik = "Rubik",
-  raleway = "Raleway",
-  lato = "Lato",
-  mulish = "Mulish",
-  inter = "Inter",
-  hind = "Hind",
+  openSans = 'Open Sans',
+  firaSans = 'Fira Sans',
+  workSans = 'Work Sans',
+  sourceSansPro = 'Source Sans Pro',
+  rubik = 'Rubik',
+  raleway = 'Raleway',
+  lato = 'Lato',
+  mulish = 'Mulish',
+  inter = 'Inter',
+  hind = 'Hind',
   // Serif
-  bitter = "Bitter",
-  sourceSerifPro = "Source Serif Pro",
-  merriweather = "Merriweather",
-  alegreya = "Alegreya",
+  bitter = 'Bitter',
+  sourceSerifPro = 'Source Serif Pro',
+  merriweather = 'Merriweather',
+  alegreya = 'Alegreya',
 }
 
 export enum HeadingFontFamily {
   // Serif
-  libreBaskerville = "Libre Baskerville",
-  vollkorn = "Vollkorn",
-  ptSerif = "PT Serif",
-  lora = "Lora",
-  arvo = "Arvo",
-  cormorantInfant = "Cormorant Infant",
-  playfairDisplay = "Playfair Display",
+  libreBaskerville = 'Libre Baskerville',
+  vollkorn = 'Vollkorn',
+  ptSerif = 'PT Serif',
+  lora = 'Lora',
+  arvo = 'Arvo',
+  cormorantInfant = 'Cormorant Infant',
+  playfairDisplay = 'Playfair Display',
   // Sans serif
-  montserrat = "Montserrat",
-  firaSans = "Fira Sans",
-  sourceSansPro = "Source Sans Pro",
-  lato = "Lato",
-  rubik = "Rubik",
-  raleway = "Raleway",
+  montserrat = 'Montserrat',
+  firaSans = 'Fira Sans',
+  sourceSansPro = 'Source Sans Pro',
+  lato = 'Lato',
+  rubik = 'Rubik',
+  raleway = 'Raleway',
   // Monospaced
-  firaCode = "Fira Code",
-  inconsolata = "Inconsolata",
+  firaCode = 'Fira Code',
+  inconsolata = 'Inconsolata',
 }
 
 export enum CodeFontFamily {
   // Monospaced
-  firaCode = "Fira Code",
-  inconsolata = "Inconsolata",
+  firaCode = 'Fira Code',
+  inconsolata = 'Inconsolata',
 }
 
 // Default to 300, 400, 600, 800
@@ -186,7 +189,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.openSans,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [300, 400, 600, 800],
     italicWeights: [300, 400, 600, 800],
   },
@@ -194,7 +197,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.firaSans,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [300, 400, 600, 800],
     italicWeights: [300, 400, 600, 800],
   },
@@ -202,7 +205,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.workSans,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [300, 400, 600, 800],
     italicWeights: [300, 400, 600, 800],
   },
@@ -210,7 +213,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.sourceSansPro,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [300, 400, 600, 900],
     italicWeights: [300, 400, 600, 900],
   },
@@ -218,7 +221,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.rubik,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [300, 400, 600, 800],
     italicWeights: [300, 400, 600, 800],
   },
@@ -226,7 +229,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.raleway,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [300, 400, 600, 800],
     italicWeights: [300, 400, 600, 800],
   },
@@ -234,7 +237,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.lato,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [300, 400, 700, 900],
     italicWeights: [300, 400, 700, 900],
   },
@@ -242,7 +245,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.mulish,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [300, 400, 600, 800],
     italicWeights: [300, 400, 600, 800],
   },
@@ -250,7 +253,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.inter,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [300, 400, 600, 800],
     italicWeights: [300, 400, 600, 800],
   },
@@ -259,7 +262,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.bitter,
     fallback: SystemFontFamily.serif,
-    fallbackKey: "systemSerif",
+    fallbackKey: 'systemSerif',
     weights: [300, 400, 600, 800],
     italicWeights: [300, 400, 600, 800],
   },
@@ -267,7 +270,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.sourceSerifPro,
     fallback: SystemFontFamily.serif,
-    fallbackKey: "systemSerif",
+    fallbackKey: 'systemSerif',
     weights: [300, 400, 600, 700],
     italicWeights: [300, 400, 600, 700],
   },
@@ -275,7 +278,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.merriweather,
     fallback: SystemFontFamily.serif,
-    fallbackKey: "systemSerif",
+    fallbackKey: 'systemSerif',
     weights: [300, 400, 700, 900],
     italicWeights: [300, 400, 700, 900],
   },
@@ -283,7 +286,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.alegreya,
     fallback: SystemFontFamily.serif,
-    fallbackKey: "systemSerif",
+    fallbackKey: 'systemSerif',
     weights: [400, 500, 700, 800],
     italicWeights: [400, 500, 700, 800],
   },
@@ -291,7 +294,7 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
     source: FontSource.google,
     family: BodyFontFamily.hind,
     fallback: SystemFontFamily.serif,
-    fallbackKey: "systemSerif",
+    fallbackKey: 'systemSerif',
     weights: [300, 400, 600, 700],
     italicWeights: [300, 400, 600, 700],
   },
@@ -299,13 +302,16 @@ export const bodyFonts: Record<keyof typeof BodyFontFamily, Font<BodyFontFamily>
 
 // Default to 600, 700, 800
 /** Web fonts usable for headings */
-export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFontFamily>> = {
+export const headingFonts: Record<
+  keyof typeof HeadingFontFamily,
+  Font<HeadingFontFamily>
+> = {
   // Serif
   libreBaskerville: {
     source: FontSource.google,
     family: HeadingFontFamily.libreBaskerville,
     fallback: SystemFontFamily.serif,
-    fallbackKey: "systemSerif",
+    fallbackKey: 'systemSerif',
     weights: [400, 700],
     italicWeights: [400],
   },
@@ -313,7 +319,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.vollkorn,
     fallback: SystemFontFamily.serif,
-    fallbackKey: "systemSerif",
+    fallbackKey: 'systemSerif',
     weights: [400, 600, 700, 800],
     italicWeights: [400, 600, 700, 800],
   },
@@ -321,7 +327,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.ptSerif,
     fallback: SystemFontFamily.serif,
-    fallbackKey: "systemSerif",
+    fallbackKey: 'systemSerif',
     weights: [400, 700],
     italicWeights: [400, 700],
   },
@@ -329,7 +335,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.lora,
     fallback: SystemFontFamily.serif,
-    fallbackKey: "systemSerif",
+    fallbackKey: 'systemSerif',
     weights: [400, 500, 600, 700],
     italicWeights: [400, 500, 600, 700],
   },
@@ -337,7 +343,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.arvo,
     fallback: SystemFontFamily.serif,
-    fallbackKey: "systemSerif",
+    fallbackKey: 'systemSerif',
     weights: [400, 700],
     italicWeights: [400, 700],
   },
@@ -345,7 +351,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.cormorantInfant,
     fallback: SystemFontFamily.serif,
-    fallbackKey: "systemSerif",
+    fallbackKey: 'systemSerif',
     weights: [400, 500, 600, 700],
     italicWeights: [400, 500, 600, 700],
   },
@@ -353,7 +359,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.playfairDisplay,
     fallback: SystemFontFamily.serif,
-    fallbackKey: "systemSerif",
+    fallbackKey: 'systemSerif',
     weights: [400, 600, 700, 800],
     italicWeights: [400, 600, 700, 800],
   },
@@ -362,7 +368,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.montserrat,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [400, 600, 700, 800],
     italicWeights: [400, 600, 700, 800],
   },
@@ -370,7 +376,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.firaSans,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [400, 600, 700, 800],
     italicWeights: [400, 600, 700, 800],
   },
@@ -378,7 +384,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.sourceSansPro,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [400, 600, 700, 900],
     italicWeights: [400, 600, 700, 900],
   },
@@ -386,7 +392,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.lato,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [400, 700, 900],
     italicWeights: [400, 700, 900],
   },
@@ -394,7 +400,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.rubik,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [400, 600, 700, 800],
     italicWeights: [400, 600, 700, 800],
   },
@@ -402,7 +408,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.raleway,
     fallback: SystemFontFamily.sansSerif,
-    fallbackKey: "systemSans",
+    fallbackKey: 'systemSans',
     weights: [400, 600, 700, 800],
     italicWeights: [400, 600, 700, 800],
   },
@@ -411,7 +417,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.firaCode,
     fallback: SystemFontFamily.monospace,
-    fallbackKey: "systemMono",
+    fallbackKey: 'systemMono',
     weights: [400, 500, 600, 700],
     italicWeights: [400, 500, 600, 700],
   },
@@ -419,7 +425,7 @@ export const headingFonts: Record<keyof typeof HeadingFontFamily, Font<HeadingFo
     source: FontSource.google,
     family: HeadingFontFamily.inconsolata,
     fallback: SystemFontFamily.monospace,
-    fallbackKey: "systemMono",
+    fallbackKey: 'systemMono',
     weights: [400, 600, 700, 800],
     italicWeights: [400, 600, 700, 800],
   },
@@ -433,7 +439,7 @@ export const codeFonts: Record<keyof typeof CodeFontFamily, Font<CodeFontFamily>
     source: FontSource.google,
     family: CodeFontFamily.firaCode,
     fallback: SystemFontFamily.monospace,
-    fallbackKey: "systemMono",
+    fallbackKey: 'systemMono',
     weights: [300, 400, 600],
     italicWeights: [400],
   },
@@ -441,13 +447,16 @@ export const codeFonts: Record<keyof typeof CodeFontFamily, Font<CodeFontFamily>
     source: FontSource.google,
     family: CodeFontFamily.inconsolata,
     fallback: SystemFontFamily.monospace,
-    fallbackKey: "systemMono",
+    fallbackKey: 'systemMono',
     weights: [300, 400, 600],
     italicWeights: [400],
   },
 }
 
-export type FontFamilyKey = keyof typeof BodyFontFamily | keyof typeof HeadingFontFamily | keyof typeof CodeFontFamily
+export type FontFamilyKey =
+  | keyof typeof BodyFontFamily
+  | keyof typeof HeadingFontFamily
+  | keyof typeof CodeFontFamily
 
 export interface FontFamilySpec {
   body?: keyof typeof BodyFontFamily
@@ -471,38 +480,38 @@ export interface FontLinkData extends FontFamilyData {
 export type FontFamily = typeof bodyFonts | typeof headingFonts | typeof codeFonts
 
 export const DEFAULT_FONTS: Required<FontFamilySpec> = {
-  body: "sourceSansPro",
-  button: "sourceSansPro",
-  heading: "montserrat",
-  code: "firaCode",
+  body: 'sourceSansPro',
+  button: 'sourceSansPro',
+  heading: 'montserrat',
+  code: 'firaCode',
 }
 export interface HtmlHeadLink {
   href: string
-  crossOrigin?: "anonymous" | "use-credentials"
-  rel: "preconnect" | "prefetch" | "preload" | "prerender" | "stylesheet" | string
+  crossOrigin?: 'anonymous' | 'use-credentials'
+  rel: 'preconnect' | 'prefetch' | 'preload' | 'prerender' | 'stylesheet' | string
   /** Potential destination for a preload request (for rel="preload" and rel="modulepreload") */
   as?:
-    | "audio"
-    | "audioworklet"
-    | "document"
-    | "embed"
-    | "fetch"
-    | "font"
-    | "frame"
-    | "iframe"
-    | "image"
-    | "manifest"
-    | "object"
-    | "paintworklet"
-    | "report"
-    | "script"
-    | "serviceworker"
-    | "sharedworker"
-    | "style"
-    | "track"
-    | "video"
-    | "worker"
-    | "xslt"
+    | 'audio'
+    | 'audioworklet'
+    | 'document'
+    | 'embed'
+    | 'fetch'
+    | 'font'
+    | 'frame'
+    | 'iframe'
+    | 'image'
+    | 'manifest'
+    | 'object'
+    | 'paintworklet'
+    | 'report'
+    | 'script'
+    | 'serviceworker'
+    | 'sharedworker'
+    | 'style'
+    | 'track'
+    | 'video'
+    | 'worker'
+    | 'xslt'
     | string
 }
 

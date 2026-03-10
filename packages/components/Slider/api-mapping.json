@@ -36,9 +36,25 @@
     "Track, TrackActive, and Thumb are rendered automatically; no sub-components needed."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "value={[50]} / onValueChange={(val) => val[0]}", "vlting": "value={50} / onValueChange={(val) => val}", "reason": "Single number value, not array" },
-    { "shadcn": "defaultValue={[50]}", "vlting": "defaultValue={50}", "reason": "Single number, not array" },
-    { "shadcn": "Multi-thumb support", "vlting": "Single thumb only", "reason": "Simplified API for single-value sliders" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "value={[50]} / onValueChange={(val) => val[0]}",
+      "vlting": "value={50} / onValueChange={(val) => val}",
+      "reason": "Single number value, not array"
+    },
+    {
+      "shadcn": "defaultValue={[50]}",
+      "vlting": "defaultValue={50}",
+      "reason": "Single number, not array"
+    },
+    {
+      "shadcn": "Multi-thumb support",
+      "vlting": "Single thumb only",
+      "reason": "Simplified API for single-value sliders"
+    }
   ]
 }

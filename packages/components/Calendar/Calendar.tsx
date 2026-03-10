@@ -4,7 +4,16 @@ import { styled } from '../../stl-react/src/config'
 
 function ChevronLeftSvg() {
   return (
-    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M15 18l-6-6 6-6" />
     </svg>
   )
@@ -12,69 +21,90 @@ function ChevronLeftSvg() {
 
 function ChevronRightSvg() {
   return (
-    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M9 18l6-6-6-6" />
     </svg>
   )
 }
 
-const CalendarFrame = styled("div", { padding: "16px", userSelect: "none" }, "Calendar")
+const CalendarFrame = styled('div', { padding: '16px', userSelect: 'none' }, 'Calendar')
 
 const CalendarHeader = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingBottom: "16px",
-    borderBottomWidth: "1px",
-    borderBottomStyle: "solid",
-    borderBottomColor: "var(--borderColor)",
-    marginBottom: "8px",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: '16px',
+    borderBottomWidth: '1px',
+    borderBottomStyle: 'solid',
+    borderBottomColor: 'var(--borderColor)',
+    marginBottom: '8px',
   },
-  "CalendarHeader"
+  'CalendarHeader',
 )
 
 const NavBtn = styled(
-  "button",
+  'button',
   {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    border: "none",
-    backgroundColor: "transparent",
-    cursor: "pointer",
-    padding: "8px",
-    borderRadius: "6px",
-    fontFamily: "inherit",
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: 'none',
+    backgroundColor: 'transparent',
+    cursor: 'pointer',
+    padding: '8px',
+    borderRadius: '6px',
+    fontFamily: 'inherit',
   },
-  "CalendarNavBtn"
+  'CalendarNavBtn',
 )
 
-const DayHeaderRow = styled("div", { display: "flex", flexDirection: "row" }, "CalendarDayHeaders")
+const DayHeaderRow = styled(
+  'div',
+  { display: 'flex', flexDirection: 'row' },
+  'CalendarDayHeaders',
+)
 
-const WeekRow = styled("div", { display: "flex", flexDirection: "row", gap: "4px" }, "CalendarWeekRow")
+const WeekRow = styled(
+  'div',
+  { display: 'flex', flexDirection: 'row', gap: '4px' },
+  'CalendarWeekRow',
+)
 
-const DayGrid = styled("div", { display: "flex", flexDirection: "column", gap: "4px" }, "CalendarDayGrid")
+const DayGrid = styled(
+  'div',
+  { display: 'flex', flexDirection: 'column', gap: '4px' },
+  'CalendarDayGrid',
+)
 
 const DayBtn = styled(
-  "button",
+  'button',
   {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "36px",
-    height: "36px",
-    borderRadius: "6px",
-    border: "none",
-    backgroundColor: "transparent",
-    cursor: "pointer",
-    fontFamily: "inherit",
-    padding: "0",
-    margin: "0",
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '36px',
+    height: '36px',
+    borderRadius: '6px',
+    border: 'none',
+    backgroundColor: 'transparent',
+    cursor: 'pointer',
+    fontFamily: 'inherit',
+    padding: '0',
+    margin: '0',
   },
-  "CalendarDayBtn"
+  'CalendarDayBtn',
 )
 
 const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
@@ -209,26 +239,20 @@ function Root({
   return (
     <CalendarFrame>
       <CalendarHeader>
-        <NavBtn
-          type="button"
-          onClick={() => goToMonth(-1)}
-          aria-label="Previous month"
-        >
+        <NavBtn type="button" onClick={() => goToMonth(-1)} aria-label="Previous month">
           <ChevronLeftSvg />
         </NavBtn>
-        <span style={{
-          fontSize: 'var(--fontSize-4, 16px)',
-          fontWeight: '500',
-          fontFamily: 'var(--font-body)',
-          color: 'var(--color)',
-        }}>
+        <span
+          style={{
+            fontSize: 'var(--fontSize-4, 16px)',
+            fontWeight: '500',
+            fontFamily: 'var(--font-body)',
+            color: 'var(--color)',
+          }}
+        >
           {monthName} {year}
         </span>
-        <NavBtn
-          type="button"
-          onClick={() => goToMonth(1)}
-          aria-label="Next month"
-        >
+        <NavBtn type="button" onClick={() => goToMonth(1)} aria-label="Next month">
           <ChevronRightSvg />
         </NavBtn>
       </CalendarHeader>
@@ -283,12 +307,18 @@ function Root({
                     borderStyle: 'solid',
                   }}
                 >
-                  <span style={{
-                    fontSize: 'var(--fontSize-3, 14px)',
-                    fontFamily: 'var(--font-body)',
-                    fontWeight: todayDate ? '600' : '400',
-                    color: sel ? 'var(--color1)' : outsideMonth ? 'var(--color5)' : 'var(--color)',
-                  }}>
+                  <span
+                    style={{
+                      fontSize: 'var(--fontSize-3, 14px)',
+                      fontFamily: 'var(--font-body)',
+                      fontWeight: todayDate ? '600' : '400',
+                      color: sel
+                        ? 'var(--color1)'
+                        : outsideMonth
+                          ? 'var(--color5)'
+                          : 'var(--color)',
+                    }}
+                  >
                     {date.getDate()}
                   </span>
                 </DayBtn>

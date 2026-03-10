@@ -17,11 +17,14 @@ export function useContextMenu({
   const [isOpen, setIsOpen] = useState(false)
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
-  const open = useCallback((x: number, y: number) => {
-    setPosition({ x, y })
-    setIsOpen(true)
-    onOpenChange?.(true)
-  }, [onOpenChange])
+  const open = useCallback(
+    (x: number, y: number) => {
+      setPosition({ x, y })
+      setIsOpen(true)
+      onOpenChange?.(true)
+    },
+    [onOpenChange],
+  )
 
   const close = useCallback(() => {
     setIsOpen(false)
@@ -44,12 +47,15 @@ export function useContextMenu({
     }
   }, [isOpen, close])
 
-  const getTargetProps = useCallback(() => ({
-    onContextMenu: (e: React.MouseEvent) => {
-      e.preventDefault()
-      open(e.clientX, e.clientY)
-    },
-  }), [open])
+  const getTargetProps = useCallback(
+    () => ({
+      onContextMenu: (e: React.MouseEvent) => {
+        e.preventDefault()
+        open(e.clientX, e.clientY)
+      },
+    }),
+    [open],
+  )
 
   return { isOpen, position, close, getTargetProps }
 }

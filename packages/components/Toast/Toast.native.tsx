@@ -1,13 +1,12 @@
-import React, { createContext, useContext, useCallback } from "react"
-import {
-  View,
-  Text as RNText,
-  Pressable,
-} from "react-native"
-import type { ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
-import { useToastQueue } from "../../stl-headless/src/useToastQueue"
-import type { Toast as ToastType, UseToastQueueReturn } from "../../stl-headless/src/useToastQueue"
+import React, { createContext, useContext, useCallback } from 'react'
+import { View, Text as RNText, Pressable } from 'react-native'
+import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
+import { useToastQueue } from '../../stl-headless/src/useToastQueue'
+import type {
+  Toast as ToastType,
+  UseToastQueueReturn,
+} from '../../stl-headless/src/useToastQueue'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -16,63 +15,63 @@ import type { Toast as ToastType, UseToastQueueReturn } from "../../stl-headless
 const ToastViewportFrame = styled(
   View,
   {
-    position: "absolute",
+    position: 'absolute',
     top: 56,
     left: 16,
     right: 16,
     gap: 8,
   },
-  "ToastViewport",
+  'ToastViewport',
 )
 
 const ToastRootFrame = styled(
   View,
   {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "$background",
-    borderRadius: "$3",
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '$background',
+    borderRadius: '$3',
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderWidth: 1,
-    borderColor: "$borderColor",
-    shadowColor: "#000",
+    borderColor: '$borderColor',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15,
     shadowRadius: 6,
     elevation: 6,
   },
-  "ToastRoot",
+  'ToastRoot',
 )
 
 const ToastTitleFrame = styled(
   RNText,
   {
     fontSize: 14,
-    fontWeight: "600",
-    color: "$defaultBody",
+    fontWeight: '600',
+    color: '$defaultBody',
   },
-  "ToastTitle",
+  'ToastTitle',
 )
 
 const ToastDescriptionFrame = styled(
   RNText,
   {
     fontSize: 12,
-    color: "$color3",
+    color: '$color3',
     marginTop: 2,
   },
-  "ToastDescription",
+  'ToastDescription',
 )
 
 const ToastCloseFrame = styled(
   Pressable,
   {
-    marginLeft: "auto",
+    marginLeft: 'auto',
     paddingLeft: 12,
     pressed: { opacity: 0.85 },
   },
-  "ToastClose",
+  'ToastClose',
 )
 
 // ---------------------------------------------------------------------------
@@ -81,13 +80,13 @@ const ToastCloseFrame = styled(
 
 interface ToastContextValue {
   toasts: ToastType[]
-  add: UseToastQueueReturn["add"]
-  remove: UseToastQueueReturn["remove"]
+  add: UseToastQueueReturn['add']
+  remove: UseToastQueueReturn['remove']
 }
 
 const ToastContext = createContext<ToastContextValue>({
   toasts: [],
-  add: () => "",
+  add: () => '',
   remove: () => {},
 })
 
@@ -106,11 +105,7 @@ export function useNativeToast() {
 
 function ToastProvider({ children }: { children: React.ReactNode }) {
   const queue = useToastQueue()
-  return (
-    <ToastContext.Provider value={queue}>
-      {children}
-    </ToastContext.Provider>
-  )
+  return <ToastContext.Provider value={queue}>{children}</ToastContext.Provider>
 }
 
 function ToastRoot({
@@ -170,7 +165,7 @@ function ToastClose({
       accessibilityRole="button"
       accessibilityLabel="Dismiss notification"
     >
-      {children ?? <RNText style={{ fontSize: 14, color: "$color3" }}>✕</RNText>}
+      {children ?? <RNText style={{ fontSize: 14, color: '$color3' }}>✕</RNText>}
     </ToastCloseFrame>
   )
 }
@@ -201,7 +196,7 @@ function ToastViewport({
               accessibilityRole="button"
               accessibilityLabel="Dismiss notification"
             >
-              <RNText style={{ fontSize: 14, color: "$color3" }}>✕</RNText>
+              <RNText style={{ fontSize: 14, color: '$color3' }}>✕</RNText>
             </ToastCloseFrame>
           </ToastRootFrame>
         ),

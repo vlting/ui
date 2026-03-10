@@ -3,11 +3,7 @@ import type { ReactElement } from 'react'
 import { Provider } from '../provider/Provider'
 
 function AllProviders({ children }: { children: React.ReactNode }) {
-  return (
-    <Provider defaultColorMode="light">
-      {children}
-    </Provider>
-  )
+  return <Provider defaultColorMode="light">{children}</Provider>
 }
 
 export function render(ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) {

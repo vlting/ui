@@ -29,14 +29,14 @@ const SelectJsx = Select as unknown as AnyFC
 const SelectItemJsx = Select.Item as unknown as AnyFC
 
 const FormElement = styled(
-  "form",
+  'form',
   {
-    display: "flex",
-    flexDirection: "column",
-    gap: "16px",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    width: '100%',
   },
-  "SettingsForm"
+  'SettingsForm',
 )
 
 // -- Types --
@@ -103,11 +103,33 @@ function ProfileSettings({
             onSave?.({ name, email, bio })
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, paddingBottom: 8 }}>
-            <AvatarJsx size="lg" src={user.avatar} fallback={name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)} />
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 12,
+              paddingBottom: 8,
+            }}
+          >
+            <AvatarJsx
+              size="lg"
+              src={user.avatar}
+              fallback={name
+                .split(' ')
+                .map((n: string) => n[0])
+                .join('')
+                .toUpperCase()
+                .slice(0, 2)}
+            />
           </div>
 
-          <InputJsx label="Name" value={name} onChangeText={setName} placeholder="Your name" />
+          <InputJsx
+            label="Name"
+            value={name}
+            onChangeText={setName}
+            placeholder="Your name"
+          />
           <InputJsx
             label="Email"
             type="email"
@@ -165,12 +187,33 @@ function PreferencesSettings({
                   width: '100%',
                 }}
               >
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1, paddingRight: 12 }}>
-                  <span style={{ fontSize: 16, fontWeight: 500, fontFamily: 'var(--font-body)', color: 'var(--color)' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    flex: 1,
+                    paddingRight: 12,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 500,
+                      fontFamily: 'var(--font-body)',
+                      color: 'var(--color)',
+                    }}
+                  >
                     {pref.label}
                   </span>
                   {pref.description && (
-                    <span style={{ fontSize: 14, fontFamily: 'var(--font-body)', color: 'var(--secondaryText12)' }}>
+                    <span
+                      style={{
+                        fontSize: 14,
+                        fontFamily: 'var(--font-body)',
+                        color: 'var(--secondaryText12)',
+                      }}
+                    >
                       {pref.description}
                     </span>
                   )}
@@ -213,7 +256,15 @@ function AccountSettings({
   loading = false,
 }: SettingsBlockProps) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%', maxWidth: 600 }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 16,
+        width: '100%',
+        maxWidth: 600,
+      }}
+    >
       <CardJsx>
         <CardHeaderJsx>
           <CardTitleJsx>{title}</CardTitleJsx>
@@ -221,12 +272,31 @@ function AccountSettings({
         </CardHeaderJsx>
         <CardContentJsx>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
               <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                <span style={{ fontSize: 16, fontWeight: 500, fontFamily: 'var(--font-body)', color: 'var(--color)' }}>
+                <span
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 500,
+                    fontFamily: 'var(--font-body)',
+                    color: 'var(--color)',
+                  }}
+                >
                   Password
                 </span>
-                <span style={{ fontSize: 14, fontFamily: 'var(--font-body)', color: 'var(--secondaryText12)' }}>
+                <span
+                  style={{
+                    fontSize: 14,
+                    fontFamily: 'var(--font-body)',
+                    color: 'var(--secondaryText12)',
+                  }}
+                >
                   Change your account password
                 </span>
               </div>
@@ -242,7 +312,14 @@ function AccountSettings({
         <CardJsx style={{ borderColor: 'var(--red6)' }}>
           <CardHeaderJsx>
             <CardTitleJsx>
-              <span style={{ fontSize: 18, fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--red10)' }}>
+              <span
+                style={{
+                  fontSize: 18,
+                  fontWeight: 600,
+                  fontFamily: 'var(--font-heading)',
+                  color: 'var(--red10)',
+                }}
+              >
                 Danger Zone
               </span>
             </CardTitleJsx>

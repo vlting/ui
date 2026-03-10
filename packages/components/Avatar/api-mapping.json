@@ -33,8 +33,20 @@
     "Image error handling shows fallback automatically via React context"
   ],
   "breaking": [
-    { "shadcn": "className='h-10 w-10'", "vlting": "Use size='md' prop", "reason": "Cross-platform; token-based sizing" },
-    { "shadcn": "<AvatarImage>", "vlting": "<Avatar.Image>", "reason": "Compound component pattern" },
-    { "shadcn": "<AvatarFallback>", "vlting": "<Avatar.Fallback>", "reason": "Compound component pattern" }
+    {
+      "shadcn": "className='h-10 w-10'",
+      "vlting": "Use size='md' prop",
+      "reason": "Cross-platform; token-based sizing"
+    },
+    {
+      "shadcn": "<AvatarImage>",
+      "vlting": "<Avatar.Image>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "<AvatarFallback>",
+      "vlting": "<Avatar.Fallback>",
+      "reason": "Compound component pattern"
+    }
   ]
 }

@@ -7,8 +7,14 @@
       "children": { "type": "ReactNode", "values": [] },
       "gap": { "type": "number | string", "values": ["$1", "$2", "$4"] },
       "padding": { "type": "number | string", "values": [] },
-      "alignItems": { "type": "string", "values": ["center", "flex-start", "flex-end", "stretch"] },
-      "justifyContent": { "type": "string", "values": ["center", "flex-start", "flex-end", "space-between"] }
+      "alignItems": {
+        "type": "string",
+        "values": ["center", "flex-start", "flex-end", "stretch"]
+      },
+      "justifyContent": {
+        "type": "string",
+        "values": ["center", "flex-start", "flex-end", "space-between"]
+      }
     }
   },
   "notes": [

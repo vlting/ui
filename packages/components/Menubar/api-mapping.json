@@ -48,9 +48,25 @@
     "shadcn has additional sub-components like MenubarCheckboxItem, MenubarRadioGroup, MenubarSub etc. that are not yet implemented in vlting."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "<MenubarShortcut>Ctrl+N</MenubarShortcut>", "vlting": "<Menubar.Item shortcut='Ctrl+N'>", "reason": "Shortcut is a prop on Item, not a separate component" },
-    { "shadcn": "<MenubarMenu>", "vlting": "<Menubar.Menu>", "reason": "Dot-notation compound component API" },
-    { "shadcn": "MenubarCheckboxItem / MenubarRadioGroup", "vlting": "Not yet implemented", "reason": "Feature parity in progress" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "<MenubarShortcut>Ctrl+N</MenubarShortcut>",
+      "vlting": "<Menubar.Item shortcut='Ctrl+N'>",
+      "reason": "Shortcut is a prop on Item, not a separate component"
+    },
+    {
+      "shadcn": "<MenubarMenu>",
+      "vlting": "<Menubar.Menu>",
+      "reason": "Dot-notation compound component API"
+    },
+    {
+      "shadcn": "MenubarCheckboxItem / MenubarRadioGroup",
+      "vlting": "Not yet implemented",
+      "reason": "Feature parity in progress"
+    }
   ]
 }

@@ -1,14 +1,9 @@
-import React, { createContext, useContext } from "react"
-import {
-  View,
-  Text as RNText,
-  Pressable,
-  Modal,
-} from "react-native"
-import type { ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
-import { useDisclosure } from "../../stl-headless/src/useDisclosure"
-import type { UseDisclosureProps } from "../../stl-headless/src/useDisclosure"
+import React, { createContext, useContext } from 'react'
+import { View, Text as RNText, Pressable, Modal } from 'react-native'
+import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
+import { useDisclosure } from '../../stl-headless/src/useDisclosure'
+import type { UseDisclosureProps } from '../../stl-headless/src/useDisclosure'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -18,29 +13,29 @@ const SheetOverlayFrame = styled(
   View,
   {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.4)",
-    justifyContent: "flex-end",
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'flex-end',
   },
-  "SheetOverlay",
+  'SheetOverlay',
 )
 
 const SheetContentFrame = styled(
   View,
   {
-    backgroundColor: "$background",
+    backgroundColor: '$background',
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     paddingHorizontal: 20,
     paddingTop: 12,
     paddingBottom: 32,
-    maxHeight: "85%",
-    shadowColor: "#000",
+    maxHeight: '85%',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.2,
     shadowRadius: 10,
     elevation: 10,
   },
-  "SheetContent",
+  'SheetContent',
 )
 
 const SheetHandleFrame = styled(
@@ -48,12 +43,12 @@ const SheetHandleFrame = styled(
   {
     width: 36,
     height: 4,
-    borderRadius: "$3",
-    backgroundColor: "$color3",
-    alignSelf: "center",
+    borderRadius: '$3',
+    backgroundColor: '$color3',
+    alignSelf: 'center',
     marginBottom: 12,
   },
-  "SheetHandle",
+  'SheetHandle',
 )
 
 const SheetHeaderFrame = styled(
@@ -61,48 +56,48 @@ const SheetHeaderFrame = styled(
   {
     marginBottom: 12,
   },
-  "SheetHeader",
+  'SheetHeader',
 )
 
 const SheetFooterFrame = styled(
   View,
   {
-    flexDirection: "row",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     gap: 8,
     marginTop: 16,
   },
-  "SheetFooter",
+  'SheetFooter',
 )
 
 const SheetTitleFrame = styled(
   RNText,
   {
     fontSize: 18,
-    fontWeight: "600",
-    color: "$defaultBody",
+    fontWeight: '600',
+    color: '$defaultBody',
   },
-  "SheetTitle",
+  'SheetTitle',
 )
 
 const SheetDescriptionFrame = styled(
   RNText,
   {
     fontSize: 14,
-    color: "$color3",
+    color: '$color3',
     marginTop: 4,
   },
-  "SheetDescription",
+  'SheetDescription',
 )
 
 const SheetCloseFrame = styled(
   Pressable,
   {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
     padding: 4,
     pressed: { opacity: 0.85 },
   },
-  "SheetClose",
+  'SheetClose',
 )
 
 // ---------------------------------------------------------------------------
@@ -132,11 +127,7 @@ function SheetRoot({
   ...disclosureProps
 }: { children: React.ReactNode } & UseDisclosureProps) {
   const disclosure = useDisclosure(disclosureProps)
-  return (
-    <SheetContext.Provider value={disclosure}>
-      {children}
-    </SheetContext.Provider>
-  )
+  return <SheetContext.Provider value={disclosure}>{children}</SheetContext.Provider>
 }
 
 function SheetTrigger({
@@ -148,11 +139,7 @@ function SheetTrigger({
 }) {
   const { onOpen } = useContext(SheetContext)
   return (
-    <Pressable
-      onPress={onOpen}
-      style={style}
-      accessibilityRole="button"
-    >
+    <Pressable onPress={onOpen} style={style} accessibilityRole="button">
       {children}
     </Pressable>
   )
@@ -178,7 +165,7 @@ function SheetContent({
     >
       <SheetOverlayFrame>
         <Pressable
-          style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
           onPress={onClose}
           accessibilityRole="none"
         />
@@ -250,7 +237,7 @@ function SheetClose({
       accessibilityRole="button"
       accessibilityLabel="Close sheet"
     >
-      {children ?? <RNText style={{ fontSize: 16, color: "$defaultBody" }}>✕</RNText>}
+      {children ?? <RNText style={{ fontSize: 16, color: '$defaultBody' }}>✕</RNText>}
     </SheetCloseFrame>
   )
 }

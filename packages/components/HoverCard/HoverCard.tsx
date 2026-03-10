@@ -1,17 +1,21 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
-const ContentFrame = styled("div", {
-  backgroundColor: "$background",
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "$borderColor",
-  borderRadius: "$4",
-  padding: "14px",
-  zIndex: "100",
-  minWidth: "200px",
-  position: "absolute",
-}, "HoverCardContent")
+const ContentFrame = styled(
+  'div',
+  {
+    backgroundColor: '$background',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    borderRadius: '$4',
+    padding: '14px',
+    zIndex: '100',
+    minWidth: '200px',
+    position: 'absolute',
+  },
+  'HoverCardContent',
+)
 
 export interface HoverCardRootProps {
   children: React.ReactNode
@@ -54,9 +58,7 @@ function Root({ children, openDelay = 700, closeDelay = 300 }: HoverCardRootProp
 
   return (
     <HoverCardContext.Provider value={{ open, onMouseEnter, onMouseLeave }}>
-      <div style={{ position: 'relative', display: 'inline-flex' }}>
-        {children}
-      </div>
+      <div style={{ position: 'relative', display: 'inline-flex' }}>{children}</div>
     </HoverCardContext.Provider>
   )
 }

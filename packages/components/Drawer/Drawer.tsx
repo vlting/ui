@@ -4,65 +4,70 @@ import { styled } from '../../stl-react/src/config'
 import { useDisclosure } from '../../stl-headless/src'
 
 const DrawerOverlay = styled(
-  "div",
+  'div',
   {
-    position: "fixed",
-    top: "0",
-    left: "0",
-    right: "0",
-    bottom: "0",
-    backgroundColor: "var(--overlayBackground, rgba(0,0,0,0.5))",
-    zIndex: "40",
-    transition: "opacity 200ms ease",
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    right: '0',
+    bottom: '0',
+    backgroundColor: 'var(--overlayBackground, rgba(0,0,0,0.5))',
+    zIndex: '40',
+    transition: 'opacity 200ms ease',
   },
-  "DrawerOverlay"
+  'DrawerOverlay',
 )
 
 const DrawerContentFrame = styled(
-  "div",
+  'div',
   {
-    backgroundColor: "var(--background, #fff)",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "var(--borderColor)",
-    zIndex: "50",
-    display: "flex",
-    flexDirection: "column",
+    backgroundColor: 'var(--background, #fff)',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'var(--borderColor)',
+    zIndex: '50',
+    display: 'flex',
+    flexDirection: 'column',
   },
-  "DrawerContent"
+  'DrawerContent',
 )
 
 const DrawerHeaderFrame = styled(
-  "div",
-  { paddingLeft: "28px", paddingRight: "28px", paddingTop: "16px", paddingBottom: "16px" },
-  "DrawerHeader"
+  'div',
+  {
+    paddingLeft: '28px',
+    paddingRight: '28px',
+    paddingTop: '16px',
+    paddingBottom: '16px',
+  },
+  'DrawerHeader',
 )
 
 const DrawerFooterFrame = styled(
-  "div",
+  'div',
   {
-    paddingLeft: "28px",
-    paddingRight: "28px",
-    paddingTop: "16px",
-    paddingBottom: "28px",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    gap: "12px",
+    paddingLeft: '28px',
+    paddingRight: '28px',
+    paddingTop: '16px',
+    paddingBottom: '28px',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: '12px',
   },
-  "DrawerFooter"
+  'DrawerFooter',
 )
 
 const HandleBar = styled(
-  "div",
+  'div',
   {
-    width: "36px",
-    height: "4px",
-    backgroundColor: "var(--color6)",
-    borderRadius: "9999px",
-    margin: "6px auto",
+    width: '36px',
+    height: '4px',
+    backgroundColor: 'var(--color6)',
+    borderRadius: '9999px',
+    margin: '6px auto',
   },
-  "DrawerHandle"
+  'DrawerHandle',
 )
 
 const DIRECTION_STYLES: Record<string, React.CSSProperties> = {
@@ -113,14 +118,16 @@ function Root({ children, open, onOpenChange, direction = 'bottom' }: DrawerRoot
   const id = useId()
 
   return (
-    <DrawerContext.Provider value={{
-      direction,
-      isOpen: disclosure.isOpen,
-      onClose: disclosure.onClose,
-      onOpen: disclosure.onOpen,
-      titleId: `drawer-title-${id}`,
-      descriptionId: `drawer-desc-${id}`,
-    }}>
+    <DrawerContext.Provider
+      value={{
+        direction,
+        isOpen: disclosure.isOpen,
+        onClose: disclosure.onClose,
+        onOpen: disclosure.onOpen,
+        titleId: `drawer-title-${id}`,
+        descriptionId: `drawer-desc-${id}`,
+      }}
+    >
       {children}
     </DrawerContext.Provider>
   )
@@ -196,13 +203,16 @@ function Footer({ children }: { children: React.ReactNode }) {
 function Title({ children }: { children: React.ReactNode }) {
   const { titleId } = React.useContext(DrawerContext)
   return (
-    <h2 id={titleId} style={{
-      fontSize: 'var(--fontSize-7, 24px)',
-      fontWeight: '600',
-      fontFamily: 'var(--font-heading)',
-      color: 'var(--color)',
-      margin: 0,
-    }}>
+    <h2
+      id={titleId}
+      style={{
+        fontSize: 'var(--fontSize-7, 24px)',
+        fontWeight: '600',
+        fontFamily: 'var(--font-heading)',
+        color: 'var(--color)',
+        margin: 0,
+      }}
+    >
       {children}
     </h2>
   )
@@ -211,12 +221,15 @@ function Title({ children }: { children: React.ReactNode }) {
 function Description({ children }: { children: React.ReactNode }) {
   const { descriptionId } = React.useContext(DrawerContext)
   return (
-    <p id={descriptionId} style={{
-      fontSize: 'var(--fontSize-3, 14px)',
-      color: 'var(--colorSubtitle)',
-      fontFamily: 'var(--font-body)',
-      margin: 0,
-    }}>
+    <p
+      id={descriptionId}
+      style={{
+        fontSize: 'var(--fontSize-3, 14px)',
+        color: 'var(--colorSubtitle)',
+        fontFamily: 'var(--font-body)',
+        margin: 0,
+      }}
+    >
       {children}
     </p>
   )

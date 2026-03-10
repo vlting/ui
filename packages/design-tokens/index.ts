@@ -23,9 +23,7 @@ export {
 export type { Brand } from './brands'
 
 // Deprecated re-exports (backward compatibility)
-export {
-  createBrandConfig,
-} from './brands'
+export { createBrandConfig } from './brands'
 export type {
   BrandDefinition,
   BrandFontConfig,

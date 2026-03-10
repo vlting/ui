@@ -1,14 +1,18 @@
-import { CharHash } from "../utils"
-import { ThemeScale } from "./scales.models"
-import { getCssMapFromVars, getPropsFromCssMap, getThemePropsFromCssMap } from "./scales.utils"
+import { CharHash } from '../utils'
+import { ThemeScale } from './scales.models'
+import {
+  getCssMapFromVars,
+  getPropsFromCssMap,
+  getThemePropsFromCssMap,
+} from './scales.utils'
 
 /** Generator function for `size` theme scale */
 export function getSize(hash: CharHash) {
-  const base = { ...hash.var, value: "4rem" } as const
+  const base = { ...hash.var, value: '4rem' } as const
 
   const sharedVars = {
-    0: { ...hash.var, value: "0" },
-    1: { ...hash.var, value: "1rem" },
+    0: { ...hash.var, value: '0' },
+    1: { ...hash.var, value: '1rem' },
     2: { ...hash.var, value: `calc(${base.ref} / 2)` },
     4: { ...hash.var, value: base.ref },
     8: { ...hash.var, value: `calc(${base.ref} * 2)` },
@@ -50,16 +54,16 @@ export function getSize(hash: CharHash) {
     3.5: { ...hash.var, value: `calc(${base.ref} * 10)` },
     4.5: { ...hash.var, value: `calc(${base.ref} * 12)` },
     // vlt-ui semantic sizes
-    sidebar: { ...hash.var, value: "256rem" },
-    sidebarCollapsed: { ...hash.var, value: "48rem" },
-    drawer: { ...hash.var, value: "360rem" },
-    dialogSm: { ...hash.var, value: "400rem" },
-    dialogMd: { ...hash.var, value: "500rem" },
-    dialogLg: { ...hash.var, value: "640rem" },
-    menuMin: { ...hash.var, value: "192rem" },
+    sidebar: { ...hash.var, value: '256rem' },
+    sidebarCollapsed: { ...hash.var, value: '48rem' },
+    drawer: { ...hash.var, value: '360rem' },
+    dialogSm: { ...hash.var, value: '400rem' },
+    dialogMd: { ...hash.var, value: '500rem' },
+    dialogLg: { ...hash.var, value: '640rem' },
+    menuMin: { ...hash.var, value: '192rem' },
     // Component
-    buttonTactileHighlight: { ...hash.var, value: "1rem" },
-    buttonTactileShadow: { ...hash.var, value: "4rem" },
+    buttonTactileHighlight: { ...hash.var, value: '1rem' },
+    buttonTactileShadow: { ...hash.var, value: '4rem' },
   } as const
 
   const vars = { ...sharedVars, base } as const

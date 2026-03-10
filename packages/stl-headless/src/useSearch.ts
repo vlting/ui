@@ -25,12 +25,9 @@ export function useSearch<T>(props: UseSearchProps<T>): UseSearchReturn<T> {
     [items, filterFn, query],
   )
 
-  const onChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setQuery(e.target.value)
-    },
-    [],
-  )
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value)
+  }, [])
 
   const inputProps = useMemo(
     () => ({

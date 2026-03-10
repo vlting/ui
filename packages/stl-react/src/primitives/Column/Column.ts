@@ -1,10 +1,10 @@
-import { styled } from "../../config"
+import { styled } from '../../config'
 
 export const Column = styled(
-  "section",
+  'section',
   {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
   },
-  "Column"
+  'Column',
 )

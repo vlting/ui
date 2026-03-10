@@ -1,3 +1,3 @@
-import { styled } from "../../config"
+import { styled } from '../../config'
 
-export const Link = styled("a", {}, "Link")
+export const Link = styled('a', {}, 'Link')

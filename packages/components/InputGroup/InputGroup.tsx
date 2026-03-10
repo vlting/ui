@@ -20,9 +20,13 @@ export interface InputGroupProps {
   'aria-label'?: string
 }
 
-const InputGroupWrapper = styled("div", {
-  display: "inline-flex",
-}, "InputGroupWrapper")
+const InputGroupWrapper = styled(
+  'div',
+  {
+    display: 'inline-flex',
+  },
+  'InputGroupWrapper',
+)
 
 function InputGroupRoot({
   children,
@@ -31,9 +35,7 @@ function InputGroupRoot({
   'aria-label': ariaLabel,
 }: InputGroupProps) {
   const isHorizontal = orientation === 'horizontal'
-  const className = isHorizontal
-    ? 'vlting-input-group-h'
-    : 'vlting-input-group-v'
+  const className = isHorizontal ? 'vlting-input-group-h' : 'vlting-input-group-v'
 
   return (
     <InputGroupContext.Provider value={{ size }}>
@@ -73,24 +75,29 @@ function InputGroupRoot({
 
 // --- Addon ---
 
-const InputGroupAddonFrame = styled("div", {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  paddingLeft: "8px",
-  paddingRight: "8px",
-  backgroundColor: "$surface3",
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "$borderColor",
-  borderRadius: "$4",
-}, {
-  size: {
-    sm: { borderRadius: "$2", paddingLeft: "6px", paddingRight: "6px" },
-    md: { borderRadius: "$4", paddingLeft: "8px", paddingRight: "8px" },
-    lg: { borderRadius: "$4", paddingLeft: "10px", paddingRight: "10px" },
+const InputGroupAddonFrame = styled(
+  'div',
+  {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: '8px',
+    paddingRight: '8px',
+    backgroundColor: '$surface3',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    borderRadius: '$4',
   },
-}, "InputGroupAddon")
+  {
+    size: {
+      sm: { borderRadius: '$2', paddingLeft: '6px', paddingRight: '6px' },
+      md: { borderRadius: '$4', paddingLeft: '8px', paddingRight: '8px' },
+      lg: { borderRadius: '$4', paddingLeft: '10px', paddingRight: '10px' },
+    },
+  },
+  'InputGroupAddon',
+)
 
 export interface InputGroupAddonProps {
   children: React.ReactNode
@@ -103,38 +110,36 @@ function InputGroupAddon({ children }: InputGroupAddonProps) {
 
 // --- Element ---
 
-const InputGroupElementFrame = styled("div", {
-  position: "absolute",
-  top: "0",
-  bottom: "0",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  paddingLeft: "8px",
-  paddingRight: "8px",
-  zIndex: "1",
-  pointerEvents: "none",
-}, {
-  placement: {
-    left: { left: "0" },
-    right: { right: "0" },
+const InputGroupElementFrame = styled(
+  'div',
+  {
+    position: 'absolute',
+    top: '0',
+    bottom: '0',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: '8px',
+    paddingRight: '8px',
+    zIndex: '1',
+    pointerEvents: 'none',
   },
-}, "InputGroupElement")
+  {
+    placement: {
+      left: { left: '0' },
+      right: { right: '0' },
+    },
+  },
+  'InputGroupElement',
+)
 
 export interface InputGroupElementProps {
   children: React.ReactNode
   placement?: 'left' | 'right'
 }
 
-function InputGroupElement({
-  children,
-  placement = 'left',
-}: InputGroupElementProps) {
-  return (
-    <InputGroupElementFrame placement={placement}>
-      {children}
-    </InputGroupElementFrame>
-  )
+function InputGroupElement({ children, placement = 'left' }: InputGroupElementProps) {
+  return <InputGroupElementFrame placement={placement}>{children}</InputGroupElementFrame>
 }
 
 // --- Input (thin wrapper forwarding size context) ---

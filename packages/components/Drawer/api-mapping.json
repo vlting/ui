@@ -51,9 +51,25 @@
     "Built on @tamagui/dialog with Portal, Overlay, and animated enter/exit"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
-    { "shadcn": "<Drawer>", "vlting": "<Drawer.Root>", "reason": "Compound component pattern" },
-    { "shadcn": "<DrawerContent>", "vlting": "<Drawer.Content>", "reason": "Compound component pattern" },
-    { "shadcn": "Bottom-only (Vaul)", "vlting": "direction prop supports top, bottom, left, right", "reason": "Multi-directional drawer support" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "<Drawer>",
+      "vlting": "<Drawer.Root>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "<DrawerContent>",
+      "vlting": "<Drawer.Content>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "Bottom-only (Vaul)",
+      "vlting": "direction prop supports top, bottom, left, right",
+      "reason": "Multi-directional drawer support"
+    }
   ]
 }

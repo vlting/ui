@@ -22,7 +22,15 @@
     "vlting accepts a style prop instead of className for custom styling"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use style prop or wrap in a styled container", "reason": "Cross-platform compatibility" },
-    { "shadcn": "asChild", "vlting": "Not supported; wrap children directly", "reason": "No Radix dependency" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use style prop or wrap in a styled container",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "asChild",
+      "vlting": "Not supported; wrap children directly",
+      "reason": "No Radix dependency"
+    }
   ]
 }

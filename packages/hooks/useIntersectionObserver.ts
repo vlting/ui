@@ -23,14 +23,11 @@ export function useIntersectionObserver(
     const node = ref.current
     if (!node) return
 
-    const observer = new IntersectionObserver(
-      ([e]) => setEntry(e),
-      {
-        threshold: options.threshold,
-        root: options.root,
-        rootMargin: options.rootMargin,
-      },
-    )
+    const observer = new IntersectionObserver(([e]) => setEntry(e), {
+      threshold: options.threshold,
+      root: options.root,
+      rootMargin: options.rootMargin,
+    })
 
     observer.observe(node)
     return () => observer.disconnect()

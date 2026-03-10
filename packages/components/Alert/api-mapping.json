@@ -32,8 +32,20 @@
     "Default variant is 'default'"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
-    { "shadcn": "<Alert>", "vlting": "<Alert.Root>", "reason": "Compound component pattern" },
-    { "shadcn": "<AlertTitle>", "vlting": "<Alert.Title>", "reason": "Compound component pattern" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "<Alert>",
+      "vlting": "<Alert.Root>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "<AlertTitle>",
+      "vlting": "<Alert.Title>",
+      "reason": "Compound component pattern"
+    }
   ]
 }

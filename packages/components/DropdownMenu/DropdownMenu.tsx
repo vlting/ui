@@ -2,67 +2,67 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const MenuContentFrame = styled(
-  "div",
+  'div',
   {
-    backgroundColor: "$surface1",
-    borderRadius: "$4",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "$borderColor",
-    padding: "2px",
-    minWidth: "180px",
-    boxShadow: "var(--shadowMd)",
+    backgroundColor: '$surface1',
+    borderRadius: '$4',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    padding: '2px',
+    minWidth: '180px',
+    boxShadow: 'var(--shadowMd)',
   },
-  "DropdownMenuContent"
+  'DropdownMenuContent',
 )
 
 const MenuItemBtn = styled(
-  "button",
+  'button',
   {
-    display: "flex",
-    flexDirection: "row",
-    boxSizing: "border-box",
-    appearance: "none",
-    border: "none",
-    background: "none",
-    padding: "0px",
-    margin: "0px",
-    fontFamily: "inherit",
-    width: "100%",
-    textAlign: "left",
+    display: 'flex',
+    flexDirection: 'row',
+    boxSizing: 'border-box',
+    appearance: 'none',
+    border: 'none',
+    background: 'none',
+    padding: '0px',
+    margin: '0px',
+    fontFamily: 'inherit',
+    width: '100%',
+    textAlign: 'left',
   },
-  "DropdownMenuItem"
+  'DropdownMenuItem',
 )
 
 const MenuItemText = styled(
-  "span",
-  { fontSize: "$16", fontFamily: "$body", color: "$color" },
-  "DropdownMenuItemText"
+  'span',
+  { fontSize: '$16', fontFamily: '$body', color: '$color' },
+  'DropdownMenuItemText',
 )
 
 const ShortcutText = styled(
-  "span",
-  { fontSize: "$12", fontFamily: "$code", color: "$secondaryText12", marginLeft: "14px" },
-  "DropdownMenuShortcut"
+  'span',
+  { fontSize: '$12', fontFamily: '$code', color: '$secondaryText12', marginLeft: '14px' },
+  'DropdownMenuShortcut',
 )
 
 const LabelText = styled(
-  "span",
-  { fontSize: "$12", fontWeight: "$600", color: "$secondaryText12", fontFamily: "$body" },
-  "DropdownMenuLabel"
+  'span',
+  { fontSize: '$12', fontWeight: '$600', color: '$secondaryText12', fontFamily: '$body' },
+  'DropdownMenuLabel',
 )
 
 const SeparatorLine = styled(
-  "div",
+  'div',
   {
-    height: "1px",
-    backgroundColor: "$borderColor",
-    marginTop: "2px",
-    marginBottom: "2px",
-    marginLeft: "-2px",
-    marginRight: "-2px",
+    height: '1px',
+    backgroundColor: '$borderColor',
+    marginTop: '2px',
+    marginBottom: '2px',
+    marginLeft: '-2px',
+    marginRight: '-2px',
   },
-  "DropdownMenuSeparator"
+  'DropdownMenuSeparator',
 )
 
 export interface DropdownMenuRootProps {
@@ -118,14 +118,9 @@ function Root({
 
   return (
     <DropdownMenuContext.Provider value={{ open, setOpen, close, triggerRef }}>
-      <div style={{ position: 'relative', display: 'inline-flex' }}>
-        {children}
-      </div>
+      <div style={{ position: 'relative', display: 'inline-flex' }}>{children}</div>
       {open && modal !== false && (
-        <div
-          style={{ position: 'fixed', inset: 0, zIndex: 40 }}
-          onClick={close}
-        />
+        <div style={{ position: 'fixed', inset: 0, zIndex: 40 }} onClick={close} />
       )}
     </DropdownMenuContext.Provider>
   )
@@ -334,9 +329,7 @@ function CheckboxItem({
       }}
     >
       <span style={{ width: 16, display: 'flex', alignItems: 'center' }}>
-        {checked && (
-          <MenuItemText>{'\u2713'}</MenuItemText>
-        )}
+        {checked && <MenuItemText>{'\u2713'}</MenuItemText>}
       </span>
       <MenuItemText>{children}</MenuItemText>
     </MenuItemBtn>

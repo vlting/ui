@@ -23,7 +23,11 @@
     "vlting also exports a Divider primitive with similar functionality"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props (e.g. backgroundColor, margin)", "reason": "Cross-platform" },
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props (e.g. backgroundColor, margin)",
+      "reason": "Cross-platform"
+    },
     { "shadcn": "asChild", "vlting": "Not supported", "reason": "No Radix dependency" }
   ]
 }

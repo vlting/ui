@@ -10,43 +10,43 @@ const ButtonJsx = Button as AnyFC
 const ButtonTextJsx = Button.Text as AnyFC
 
 const PaginationFrame = styled(
-  "nav",
+  'nav',
   {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: "6px",
-    flexWrap: "nowrap",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: '6px',
+    flexWrap: 'nowrap',
   },
-  "Pagination"
+  'Pagination',
 )
 
 const PAGE_BUTTON_MIN_WIDTH = { sm: 28, md: 36, lg: 44 } as const
 
 const EllipsisText = styled(
-  "span",
+  'span',
   {
-    fontFamily: "$body",
-    color: "$secondaryText12",
+    fontFamily: '$body',
+    color: '$secondaryText12',
   },
   {
     size: {
-      sm: { fontSize: "$12" },
-      md: { fontSize: "$14" },
-      lg: { fontSize: "$16" },
+      sm: { fontSize: '$12' },
+      md: { fontSize: '$14' },
+      lg: { fontSize: '$16' },
     },
   },
-  "PaginationEllipsis"
+  'PaginationEllipsis',
 )
 
 const EllipsisFrame = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  "PaginationEllipsisFrame"
+  'PaginationEllipsisFrame',
 )
 
 /**

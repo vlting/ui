@@ -1,4 +1,4 @@
-export * from "./conditions"
+export * from './conditions'
 export {
   token,
   tokenValue,
@@ -7,9 +7,9 @@ export {
   type BaseCSS,
   type ConditionalCSS,
   type CSS,
-} from "./styles.css"
+} from './styles.css'
 
-export * from "./utils/styles.utils"
+export * from './utils/styles.utils'
 export {
   type CssFromMap,
   type CssFromCustomVars,
@@ -23,7 +23,13 @@ export {
   type InlineConditionValue,
   type InlineConditionCss,
   type VariantCSS,
-} from "./styles.models"
+} from './styles.models'
 
-export * from "./StyleManager"
-export { getLowShadow, getMediumShadow, getHighShadow, getHighSoftShadow, getHighHeavyShadow } from "./scales"
+export * from './StyleManager'
+export {
+  getLowShadow,
+  getMediumShadow,
+  getHighShadow,
+  getHighSoftShadow,
+  getHighHeavyShadow,
+} from './scales'
