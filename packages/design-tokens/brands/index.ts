@@ -4,6 +4,7 @@
 
 export type { Brand } from './types'
 export { injectBrandVars, getBrandStyleTag } from './inject'
+export { generatePalette, getTextColorStep } from './generate-palette'
 
 // ---------------------------------------------------------------------------
 // Built-in brands
