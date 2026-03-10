@@ -243,7 +243,7 @@ E4 (RN Parity) ─────────────────┤
 **Dependencies:** Epic 3, Epic 5
 **Epic slug:** ai-native-tooling
 **Epic branch:** epic/ai-native-tooling
-**Status:** in-progress
+**Status:** done
 
 ### Stage 6.1: MCP Server Improvements
 **Branch prefix:** feat
@@ -265,8 +265,8 @@ E4 (RN Parity) ─────────────────┤
 ### Stage 6.3: Block Expansion + AI Generation Skill
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] New blocks: file upload, onboarding wizard, notification center, chat interface
-- [ ] Claude skill for UI generation
-- [ ] validate_code tool: token discipline, a11y, correct usage, dark mode compat
-- [ ] AI-generated code passes all quality gates
-**Status:** pending
+- [x] New blocks: file upload, onboarding wizard, notification center, chat interface
+- [x] Claude skill for UI generation
+- [x] validate_code tool: token discipline, a11y, correct usage, dark mode compat
+- [x] AI-generated code passes all quality gates
+**Status:** done
