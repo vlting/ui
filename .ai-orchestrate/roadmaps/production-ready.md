@@ -75,16 +75,16 @@ E4 (RN Parity) ─────────────────┤
 **Dependencies:** none (parallel with E1)
 **Epic slug:** theming-hardening
 **Epic branch:** epic/theming-hardening
-**Status:** pending
+**Status:** in-progress
 
 ### Stage 2.1: Token Audit + Discipline Enforcement
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] All 18 scales audited — completeness, light/dark correctness verified
-- [ ] Gaps in palette generation (colorGen.utils.ts) fixed
-- [ ] Transition tokens added as CSS custom properties
-- [ ] All token scales documented, no gaps
-**Status:** pending
+- [x] All 18 scales audited — completeness, light/dark correctness verified
+- [x] Gaps in palette generation (colorGen.utils.ts) fixed
+- [x] Transition tokens added as CSS custom properties
+- [x] All token scales documented, no gaps
+**Status:** done
 
 ### Stage 2.2: Brand Customization UX
 **Branch prefix:** feat
