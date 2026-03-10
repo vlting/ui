@@ -44,3 +44,19 @@ export type { AppShellBlockProps, AppShellBlockVariant } from './app-shell'
 // Empty state block
 export { EmptyStateBlock } from './empty-state'
 export type { EmptyStateBlockProps, EmptyStateBlockVariant } from './empty-state'
+
+// File upload block
+export { FileUploadBlock } from './file-upload'
+export type { FileUploadBlockProps, FileUploadBlockVariant, UploadFile } from './file-upload'
+
+// Onboarding wizard block
+export { OnboardingWizardBlock } from './onboarding-wizard'
+export type { OnboardingWizardBlockProps, OnboardingWizardBlockVariant, OnboardingStep } from './onboarding-wizard'
+
+// Notification center block
+export { NotificationCenterBlock } from './notification-center'
+export type { NotificationCenterBlockProps, NotificationCenterBlockVariant, Notification } from './notification-center'
+
+// Chat interface block
+export { ChatInterfaceBlock } from './chat-interface'
+export type { ChatInterfaceBlockProps, ChatInterfaceBlockVariant, ChatMessage } from './chat-interface'
