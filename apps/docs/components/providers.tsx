@@ -3,10 +3,12 @@
 import {
   defaultBrand,
   funBrand,
+  injectBrandVars,
   poshBrand,
   shadcnBrand,
 } from '../../../packages/design-tokens'
 import type { Brand } from '../../../packages/design-tokens'
+import { StlProvider } from '../../../packages/stl-react/src/providers/StlProvider'
 import { useTheme } from 'next-themes'
 import { ThemeProvider } from 'next-themes'
 import {
@@ -47,6 +49,7 @@ export function useBrand() {
 /**
  * Bridges brand palette colors to CSS custom properties so that
  * Tailwind-styled elements can react to brand changes.
+ * Also injects --vlt-* CSS variables for STL components.
  */
 function useBrandCSSProperties(brand: BrandKey, resolvedTheme: string | undefined) {
   useEffect(() => {
@@ -55,7 +58,7 @@ function useBrandCSSProperties(brand: BrandKey, resolvedTheme: string | undefine
     const isDark = resolvedTheme === 'dark'
     const palette = isDark ? definition.palettes.dark : definition.palettes.light
 
-    // Expose primary neutral palette as CSS custom properties
+    // Expose primary neutral palette as CSS custom properties (Tailwind)
     root.style.setProperty('--brand-bg', palette[0])
     root.style.setProperty('--brand-bg-subtle', palette[1])
     root.style.setProperty('--brand-bg-muted', palette[2])
@@ -65,7 +68,7 @@ function useBrandCSSProperties(brand: BrandKey, resolvedTheme: string | undefine
     root.style.setProperty('--brand-text', palette[10])
     root.style.setProperty('--brand-text-strong', palette[11])
 
-    // Expose accent palette (first accent, typically 'blue')
+    // Expose accent palette (first accent)
     const accentPalettes = definition.accentPalettes
     const firstAccentKey = accentPalettes ? Object.keys(accentPalettes)[0] : null
     if (firstAccentKey && accentPalettes) {
@@ -79,10 +82,17 @@ function useBrandCSSProperties(brand: BrandKey, resolvedTheme: string | undefine
     }
 
     // Expose brand font family
-    const fontConfig = definition.fontConfig
-    if (fontConfig) {
-      root.style.setProperty('--brand-font-heading', fontConfig.heading.family)
-      root.style.setProperty('--brand-font-body', fontConfig.body.family)
+    const fonts = definition.fonts
+    if (fonts) {
+      if (fonts.heading) root.style.setProperty('--brand-font-heading', fonts.heading)
+      if (fonts.body) root.style.setProperty('--brand-font-body', fonts.body)
+    }
+
+    // Inject --vlt-* CSS variables for STL components
+    const mode = isDark ? 'dark' : 'light'
+    const stlVars = injectBrandVars(definition, mode)
+    for (const [key, value] of Object.entries(stlVars)) {
+      root.style.setProperty(key, value)
     }
 
     // Set a data attribute for brand-specific CSS targeting
@@ -93,7 +103,14 @@ function useBrandCSSProperties(brand: BrandKey, resolvedTheme: string | undefine
 function BrandWrapper({ brand, children }: { brand: BrandKey; children: ReactNode }) {
   const { resolvedTheme } = useTheme()
   useBrandCSSProperties(brand, resolvedTheme)
-  return <>{children}</>
+
+  const colorMode = resolvedTheme === 'dark' ? 'dark' : 'light'
+
+  return (
+    <StlProvider defaultColorMode={colorMode}>
+      {children}
+    </StlProvider>
+  )
 }
 
 function BrandProvider({ children }: { children: ReactNode }) {

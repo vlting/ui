@@ -108,8 +108,35 @@ export const navigation: NavSection[] = [
     ],
   },
   {
+    title: 'Hooks',
+    items: [
+      { label: 'useClipboard', href: '/docs/hooks/use-clipboard' },
+      { label: 'useControllableState', href: '/docs/hooks/use-controllable-state' },
+      { label: 'useDebounce', href: '/docs/hooks/use-debounce' },
+      { label: 'useFocusTrap', href: '/docs/hooks/use-focus-trap' },
+      { label: 'useIntersectionObserver', href: '/docs/hooks/use-intersection-observer' },
+      { label: 'useKeyboardNavigation', href: '/docs/hooks/use-keyboard-navigation' },
+      { label: 'useMediaQuery', href: '/docs/hooks/use-media-query' },
+      { label: 'useReducedMotion', href: '/docs/hooks/use-reduced-motion' },
+    ],
+  },
+  {
     title: 'Icons',
     items: [{ label: 'Icon Browser', href: '/docs/icons' }],
+  },
+  {
+    title: 'Utilities',
+    items: [
+      { label: 'cn', href: '/docs/utilities/cn' },
+      { label: 'mergeRefs', href: '/docs/utilities/merge-refs' },
+      { label: 'composeEventHandlers', href: '/docs/utilities/compose-event-handlers' },
+      { label: 'FontLoader', href: '/docs/utilities/font-loader' },
+      { label: 'getGoogleFontsUrl', href: '/docs/utilities/get-google-fonts-url' },
+      { label: 'useFontLoader', href: '/docs/utilities/use-font-loader' },
+      { label: 'isSystemFont', href: '/docs/utilities/is-system-font' },
+      { label: 'extractFamiliesFromConfig', href: '/docs/utilities/extract-families-from-config' },
+      { label: 'buildFaceMapsFromConfig', href: '/docs/utilities/build-face-maps-from-config' },
+    ],
   },
   {
     title: 'Guides',

@@ -38,11 +38,11 @@ export async function CodeBlock({
           <CopyButton text={code.trim()} />
         </div>
         <div
-          className="block dark:hidden overflow-x-auto p-4 text-sm [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
+          className="block dark:hidden overflow-x-auto p-4 pr-12 text-sm [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
           dangerouslySetInnerHTML={{ __html: lightHtml }}
         />
         <div
-          className="hidden dark:block overflow-x-auto p-4 text-sm bg-surface [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
+          className="hidden dark:block overflow-x-auto p-4 pr-12 text-sm bg-surface [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
           dangerouslySetInnerHTML={{ __html: darkHtml }}
         />
       </div>

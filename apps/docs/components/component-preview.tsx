@@ -1,15 +1,19 @@
 'use client'
 
 import { useState, type ReactNode } from 'react'
+import { CopyButton } from './copy-button'
 
 interface ComponentPreviewProps {
   children: ReactNode
   code?: string
+  codeHtml?: { light: string; dark: string }
   title?: string
 }
 
-export function ComponentPreview({ children, code, title }: ComponentPreviewProps) {
+export function ComponentPreview({ children, code, codeHtml, title }: ComponentPreviewProps) {
   const [showCode, setShowCode] = useState(false)
+
+  const hasCode = code || codeHtml
 
   return (
     <div className="my-6 border border-border rounded-lg">
@@ -21,7 +25,7 @@ export function ComponentPreview({ children, code, title }: ComponentPreviewProp
       <div className="p-8 flex items-center justify-center bg-background bg-[image:radial-gradient(circle,_rgb(0_0_0_/_0.05)_1px,_transparent_1px)] dark:bg-[image:radial-gradient(circle,_rgb(255_255_255_/_0.05)_1px,_transparent_1px)] bg-[size:16px_16px]">
         <div className="w-full max-w-lg">{children}</div>
       </div>
-      {code && (
+      {hasCode && (
         <>
           <div className="border-t border-border">
             <button
@@ -45,8 +49,28 @@ export function ComponentPreview({ children, code, title }: ComponentPreviewProp
             </button>
           </div>
           {showCode && (
-            <div className="border-t border-border overflow-x-auto p-4 bg-surface-muted rounded-b-lg">
-              <pre className="text-sm font-mono whitespace-pre-wrap">{code}</pre>
+            <div className="border-t border-border rounded-b-lg relative group">
+              {code && (
+                <div className="absolute right-2 top-2 z-10">
+                  <CopyButton text={code} />
+                </div>
+              )}
+              {codeHtml ? (
+                <>
+                  <div
+                    className="block dark:hidden overflow-x-auto p-4 pr-12 text-sm [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
+                    dangerouslySetInnerHTML={{ __html: codeHtml.light }}
+                  />
+                  <div
+                    className="hidden dark:block overflow-x-auto p-4 pr-12 text-sm bg-surface [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
+                    dangerouslySetInnerHTML={{ __html: codeHtml.dark }}
+                  />
+                </>
+              ) : (
+                <div className="overflow-x-auto p-4 pr-12 bg-surface-muted">
+                  <pre className="text-sm font-mono whitespace-pre-wrap">{code}</pre>
+                </div>
+              )}
             </div>
           )}
         </>
