@@ -103,6 +103,7 @@ export function StylingPage() {
           <DemoRow>
             {radiusSteps.map(step => (
               <div key={step} style={{ textAlign: 'center' }}>
+                {/* @ts-expect-error dynamic token reference */}
                 <RadiusBox css={{ borderRadius: `$${step}` }} />
                 <div style={{ fontSize: 10, marginTop: 4 }}>${step}</div>
               </div>

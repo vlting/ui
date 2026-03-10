@@ -16,11 +16,16 @@ import { Separator } from '@vlting/stl-react'
 import { AspectRatio } from '@vlting/stl-react'
 
 // Import primitives package components
-import { Badge } from '@vlting/ui/primitives'
+import { Badge as BadgeBase } from '@vlting/ui/primitives'
 import { Spinner } from '@vlting/ui/primitives'
 import { Skeleton } from '@vlting/ui/primitives'
 import { Kbd } from '@vlting/ui/primitives'
 import { Label } from '@vlting/ui/primitives'
+import type { ComponentType, ReactNode } from 'react'
+
+const Badge = BadgeBase as ComponentType<
+  Parameters<typeof BadgeBase>[0] & { children?: ReactNode }
+>
 
 export function PrimitivesPage() {
   return (
@@ -166,10 +171,10 @@ export function PrimitivesPage() {
       <Section title="Skeleton">
         <DemoCard label="Loading skeletons">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: 300 }}>
-            <Skeleton width="100%" height={16} />
-            <Skeleton width="80%" height={16} />
-            <Skeleton width="60%" height={16} />
-            <Skeleton width={40} height={40} borderRadius="50%" />
+            <Skeleton style={{ width: '100%', height: 16 }} />
+            <Skeleton style={{ width: '80%', height: 16 }} />
+            <Skeleton style={{ width: '60%', height: 16 }} />
+            <Skeleton circle style={{ width: 40, height: 40 }} />
           </div>
         </DemoCard>
       </Section>

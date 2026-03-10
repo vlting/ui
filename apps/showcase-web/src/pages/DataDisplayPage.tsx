@@ -15,7 +15,7 @@ export function DataDisplayPage() {
       <Section title="Accordion">
         <DemoCard label="Expandable sections">
           <div style={{ maxWidth: 500 }}>
-            <Accordion type="single" collapsible>
+            <Accordion.Root type="single" collapsible>
               <Accordion.Item value="item-1">
                 <Accordion.Trigger>What is STL?</Accordion.Trigger>
                 <Accordion.Content>
@@ -35,14 +35,14 @@ export function DataDisplayPage() {
                   Yes! STL supports both React (web) and React Native through separate bindings packages.
                 </Accordion.Content>
               </Accordion.Item>
-            </Accordion>
+            </Accordion.Root>
           </div>
         </DemoCard>
       </Section>
 
       <Section title="Tabs">
         <DemoCard label="Tabbed content">
-          <Tabs defaultValue="tab1">
+          <Tabs.Root defaultValue="tab1">
             <Tabs.List>
               <Tabs.Trigger value="tab1">Account</Tabs.Trigger>
               <Tabs.Trigger value="tab2">Password</Tabs.Trigger>
@@ -57,13 +57,13 @@ export function DataDisplayPage() {
             <Tabs.Content value="tab3">
               <p style={{ padding: '16px 0' }}>General application settings.</p>
             </Tabs.Content>
-          </Tabs>
+          </Tabs.Root>
         </DemoCard>
       </Section>
 
       <Section title="Table">
         <DemoCard label="Data table">
-          <Table>
+          <Table.Root>
             <Table.Header>
               <Table.Row>
                 <Table.Head>Name</Table.Head>
@@ -86,32 +86,36 @@ export function DataDisplayPage() {
                 </Table.Row>
               ))}
             </Table.Body>
-          </Table>
+          </Table.Root>
         </DemoCard>
       </Section>
 
       <Section title="ScrollArea">
         <DemoCard label="Custom scrollbar region">
-          <ScrollArea style={{ height: 200, width: 350 }}>
-            <div style={{ padding: 16 }}>
-              {Array.from({ length: 20 }, (_, i) => (
-                <p key={i} style={{ marginBottom: 8 }}>Scroll item {i + 1} — Lorem ipsum dolor sit amet.</p>
-              ))}
-            </div>
-          </ScrollArea>
+          <div style={{ height: 200, width: 350 }}>
+            <ScrollArea.Root>
+              <ScrollArea.Viewport>
+                <div style={{ padding: 16 }}>
+                  {Array.from({ length: 20 }, (_, i) => (
+                    <p key={i} style={{ marginBottom: 8 }}>Scroll item {i + 1} — Lorem ipsum dolor sit amet.</p>
+                  ))}
+                </div>
+              </ScrollArea.Viewport>
+            </ScrollArea.Root>
+          </div>
         </DemoCard>
       </Section>
 
       <Section title="Calendar">
         <DemoCard label="Date picker calendar">
-          <Calendar />
+          <Calendar.Root />
         </DemoCard>
       </Section>
 
       <Section title="Carousel">
         <DemoCard label="Content carousel">
           <div style={{ maxWidth: 400 }}>
-            <Carousel>
+            <Carousel.Root>
               <Carousel.Content>
                 {[1, 2, 3, 4, 5].map(i => (
                   <Carousel.Item key={i}>
@@ -132,7 +136,7 @@ export function DataDisplayPage() {
               </Carousel.Content>
               <Carousel.Previous />
               <Carousel.Next />
-            </Carousel>
+            </Carousel.Root>
           </div>
         </DemoCard>
       </Section>
@@ -140,7 +144,7 @@ export function DataDisplayPage() {
       <Section title="Resizable">
         <DemoCard label="Resizable panels">
           <div style={{ height: 200, border: '1px solid #ddd', borderRadius: 8, overflow: 'hidden' }}>
-            <Resizable direction="horizontal">
+            <Resizable.PanelGroup direction="horizontal">
               <Resizable.Panel defaultSize={50}>
                 <div style={{ padding: 16, height: '100%', background: 'var(--stl-surface1, #f8f8f8)' }}>
                   Left Panel
@@ -152,7 +156,7 @@ export function DataDisplayPage() {
                   Right Panel
                 </div>
               </Resizable.Panel>
-            </Resizable>
+            </Resizable.PanelGroup>
           </div>
         </DemoCard>
       </Section>

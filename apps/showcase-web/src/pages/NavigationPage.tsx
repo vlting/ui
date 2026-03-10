@@ -3,10 +3,8 @@ import { Breadcrumb } from '@vlting/ui/components'
 import { ContextMenu } from '@vlting/ui/components'
 import { DropdownMenu } from '@vlting/ui/components'
 import { Menubar } from '@vlting/ui/components'
-import { NavigationMenu } from '@vlting/ui/components'
 import { Pagination } from '@vlting/ui/components'
 import { Command } from '@vlting/ui/components'
-import { Sidebar } from '@vlting/ui/components'
 import { Button } from '@vlting/ui/components'
 
 export function NavigationPage() {
@@ -16,28 +14,26 @@ export function NavigationPage() {
 
       <Section title="Breadcrumb">
         <DemoCard label="Navigation breadcrumbs">
-          <Breadcrumb>
-            <Breadcrumb.List>
-              <Breadcrumb.Item>
-                <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Separator />
-              <Breadcrumb.Item>
-                <Breadcrumb.Link href="/components">Components</Breadcrumb.Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Separator />
-              <Breadcrumb.Item>
-                <Breadcrumb.Page>Breadcrumb</Breadcrumb.Page>
-              </Breadcrumb.Item>
-            </Breadcrumb.List>
-          </Breadcrumb>
+          <Breadcrumb.Root>
+            <Breadcrumb.Item>
+              <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Separator />
+            <Breadcrumb.Item>
+              <Breadcrumb.Link href="/components">Components</Breadcrumb.Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Separator />
+            <Breadcrumb.Item>
+              <Breadcrumb.Page>Breadcrumb</Breadcrumb.Page>
+            </Breadcrumb.Item>
+          </Breadcrumb.Root>
         </DemoCard>
       </Section>
 
       <Section title="DropdownMenu">
         <DemoCard label="Dropdown menu">
-          <DropdownMenu>
-            <DropdownMenu.Trigger asChild>
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger>
               <Button variant="outline">Open Menu</Button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Content>
@@ -49,13 +45,13 @@ export function NavigationPage() {
               <DropdownMenu.Separator />
               <DropdownMenu.Item>Sign Out</DropdownMenu.Item>
             </DropdownMenu.Content>
-          </DropdownMenu>
+          </DropdownMenu.Root>
         </DemoCard>
       </Section>
 
       <Section title="ContextMenu">
         <DemoCard label="Right-click context menu">
-          <ContextMenu>
+          <ContextMenu.Root>
             <ContextMenu.Trigger>
               <div style={{
                 border: '2px dashed #ccc',
@@ -74,13 +70,13 @@ export function NavigationPage() {
               <ContextMenu.Separator />
               <ContextMenu.Item>Delete</ContextMenu.Item>
             </ContextMenu.Content>
-          </ContextMenu>
+          </ContextMenu.Root>
         </DemoCard>
       </Section>
 
       <Section title="Menubar">
         <DemoCard label="Application menubar">
-          <Menubar>
+          <Menubar.Root>
             <Menubar.Menu>
               <Menubar.Trigger>File</Menubar.Trigger>
               <Menubar.Content>
@@ -102,56 +98,39 @@ export function NavigationPage() {
                 <Menubar.Item>Paste</Menubar.Item>
               </Menubar.Content>
             </Menubar.Menu>
-          </Menubar>
+          </Menubar.Root>
         </DemoCard>
       </Section>
 
       <Section title="Pagination">
         <DemoCard label="Page navigation">
-          <Pagination>
-            <Pagination.Content>
-              <Pagination.Item>
-                <Pagination.Previous />
-              </Pagination.Item>
-              <Pagination.Item>
-                <Pagination.Link href="#" isActive>1</Pagination.Link>
-              </Pagination.Item>
-              <Pagination.Item>
-                <Pagination.Link href="#">2</Pagination.Link>
-              </Pagination.Item>
-              <Pagination.Item>
-                <Pagination.Link href="#">3</Pagination.Link>
-              </Pagination.Item>
-              <Pagination.Item>
-                <Pagination.Ellipsis />
-              </Pagination.Item>
-              <Pagination.Item>
-                <Pagination.Next />
-              </Pagination.Item>
-            </Pagination.Content>
-          </Pagination>
+          <Pagination.Root
+            currentPage={1}
+            totalPages={5}
+            onPageChange={() => {}}
+          />
         </DemoCard>
       </Section>
 
       <Section title="Command">
         <DemoCard label="Command palette">
           <div style={{ maxWidth: 400, border: '1px solid #ddd', borderRadius: 8, overflow: 'hidden' }}>
-            <Command>
+            <Command.Root>
               <Command.Input placeholder="Type a command or search..." />
               <Command.List>
                 <Command.Empty>No results found.</Command.Empty>
                 <Command.Group heading="Suggestions">
-                  <Command.Item>Calendar</Command.Item>
-                  <Command.Item>Search</Command.Item>
-                  <Command.Item>Settings</Command.Item>
+                  <Command.Item value="calendar">Calendar</Command.Item>
+                  <Command.Item value="search">Search</Command.Item>
+                  <Command.Item value="settings">Settings</Command.Item>
                 </Command.Group>
                 <Command.Separator />
                 <Command.Group heading="Actions">
-                  <Command.Item>New File</Command.Item>
-                  <Command.Item>New Folder</Command.Item>
+                  <Command.Item value="new-file">New File</Command.Item>
+                  <Command.Item value="new-folder">New Folder</Command.Item>
                 </Command.Group>
               </Command.List>
-            </Command>
+            </Command.Root>
           </div>
         </DemoCard>
       </Section>
