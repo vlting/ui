@@ -82,19 +82,6 @@ The current code performs DOM mutations inside `useMemo` — this is semanticall
 
 ### 7. Update example apps
 
-#### Kitchen Sink (`examples/kitchen-sink/`)
-- Verify dark mode toggle still works via `BrandLayout.tsx` theme state
-- Add FOUC-prevention blocking script to `index.html`:
-  ```html
-  <script>
-    (function() {
-      var m = localStorage.getItem('stl-color-mode');
-      if (m) document.documentElement.setAttribute('data-color-mode', m);
-    })()
-  </script>
-  ```
-- Update `BrandLayout.tsx` to persist color mode preference to localStorage
-
 #### Docs Site (`apps/docs/`)
 - Uses `next-themes` with class-based dark mode (`attribute="class"`) — separate system from STL inline injection
 - Verify no conflict between `next-themes` class toggle and new `data-color-mode` attribute
@@ -140,8 +127,6 @@ For Next.js apps using `next-themes`: configure `attribute="data-color-mode"` in
 | `packages/stl-react/src/hooks/useThemeStyle.tsx` | Replace `setAttribute("style")` with data attribute + `<style>` tag; split `useMemo`/`useEffect` |
 | `packages/stl-react/src/providers/StlProvider.tsx` | Verify `data-color-mode` integration |
 | `packages/stl-react/src/__tests__/provider.test.tsx` | Add dark mode DOM mutation tests |
-| `examples/kitchen-sink/index.html` | Add FOUC-prevention script |
-| `examples/kitchen-sink/src/layouts/BrandLayout.tsx` | Persist color mode to localStorage |
 | `apps/docs/components/providers.tsx` | Verify/update `next-themes` + STL color mode alignment |
 
 ## Risks
@@ -156,7 +141,7 @@ For Next.js apps using `next-themes`: configure `attribute="data-color-mode"` in
 
 1. `yarn build:lib` — ensure vanilla-extract generates dark mode CSS rules
 2. Inspect compiled CSS — confirm `[data-color-mode="dark"] { ... }` rules exist **after** `:root` rules
-3. Kitchen-sink dev server — toggle dark mode, verify variables switch correctly
+3. Showcase-web dev server — toggle dark mode, verify variables switch correctly
 4. DevTools: confirm no inline `style` on `<html>`, `data-color-mode` attribute toggles
 5. Test with `themeOverrides` — verify `<style id="stl-theme-overrides">` appears
 6. Test without overrides — verify no `<style>` tag injected
