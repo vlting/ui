@@ -37,7 +37,7 @@ export function ChartLegend({
   const keys = Object.keys(config)
 
   return (
-    <div ref={ref} style={{ display: 'flex', justifyContent: 'center', padding: '8px 0' }}>
+    <div ref={ref} style={{ display: 'flex', justifyContent: 'center', padding: 'var(--stl-space4, 8px) 0' }}>
       <ul
         role="list"
         style={{
