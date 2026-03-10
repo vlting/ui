@@ -11,10 +11,10 @@ function useResolvedTokens() {
     if (!el) return
     const cs = getComputedStyle(el)
     setTokens({
-      background: cs.getPropertyValue('--background').trim() || '#ffffff',
-      color: cs.getPropertyValue('--color').trim() || '#111111',
-      color8: cs.getPropertyValue('--color8').trim() || '#6a6a6a',
-      borderColor: cs.getPropertyValue('--borderColor').trim() || '#e8e8e8',
+      background: cs.getPropertyValue('--stl-background').trim() || cs.getPropertyValue('--background').trim() || '#ffffff',
+      color: cs.getPropertyValue('--stl-foreground').trim() || cs.getPropertyValue('--color').trim() || '#111111',
+      color8: cs.getPropertyValue('--stl-color8').trim() || cs.getPropertyValue('--color8').trim() || '#6a6a6a',
+      borderColor: cs.getPropertyValue('--stl-border').trim() || cs.getPropertyValue('--borderColor').trim() || '#e8e8e8',
     })
   }, [])
 
@@ -92,18 +92,18 @@ export function ChartTooltip({
   }
 
   const containerStyle: React.CSSProperties = {
-    background: tokens.background || '#ffffff',
-    border: `1px solid ${tokens.borderColor || '#e8e8e8'}`,
+    background: tokens.background || 'var(--stl-background, #ffffff)',
+    border: `1px solid ${tokens.borderColor || 'var(--stl-border, #e8e8e8)'}`,
     borderRadius: 7,
     padding: '8px 12px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+    boxShadow: 'var(--stl-shadow-sm, 0 2px 8px rgba(0,0,0,0.08))',
     fontSize: 12,
-    color: tokens.color || '#111111',
+    color: tokens.color || 'var(--stl-foreground, #111111)',
     minWidth: 120,
     pointerEvents: 'none',
   }
 
-  const subtitleColor = tokens.color8 || '#6a6a6a'
+  const subtitleColor = tokens.color8 || 'var(--stl-color8, #6a6a6a)'
 
   const formattedLabel =
     label != null && labelFormatter ? labelFormatter(label) : label
