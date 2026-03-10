@@ -164,15 +164,15 @@ E4 (RN Parity) ─────────────────┤
 **Dependencies:** none (parallel)
 **Epic slug:** rn-parity
 **Epic branch:** epic/rn-parity
-**Status:** pending
+**Status:** in-progress
 
 ### Stage 4.1: Architecture + stl-native Feature Parity
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] .native.tsx strategy documented and scaffolded
-- [ ] stl-native styled() API equivalent to stl-react (variants, conditions, pseudo-states)
-- [ ] Current stl-native gaps vs stl-react audited
-**Status:** pending
+- [x] .native.tsx strategy documented and scaffolded
+- [x] stl-native styled() API equivalent to stl-react (variants, conditions, pseudo-states)
+- [x] Current stl-native gaps vs stl-react audited
+**Status:** done
 
 ### Stage 4.2: Primitive Parity
 **Branch prefix:** feat
