@@ -25,12 +25,12 @@ const TriggerFrame = styled("button", {
   width: "100%",
   textAlign: "left",
   outline: "none",
-  transition: "border-color 150ms ease",
+  transition: "border-color 150ms ease, box-shadow 150ms ease",
 }, {
   size: {
-    sm: { padding: "4px 8px", fontSize: "$14", borderRadius: "$2" },
-    md: { padding: "8px 12px", fontSize: "$p", borderRadius: "$4" },
-    lg: { padding: "12px 16px", fontSize: "$p", borderRadius: "$4" },
+    sm: { padding: "4px 8px", fontSize: "$14", borderRadius: "$2", minHeight: "32px" },
+    md: { padding: "8px 12px", fontSize: "$p", borderRadius: "$4", minHeight: "36px" },
+    lg: { padding: "12px 16px", fontSize: "$p", borderRadius: "$4", minHeight: "44px" },
   },
   disabled: {
     true: { cursor: "not-allowed", opacity: "0.5" },
@@ -48,6 +48,7 @@ const DropdownFrame = styled("div", {
   borderStyle: "solid",
   borderColor: "$borderColor",
   borderRadius: "$4",
+  boxShadow: "var(--stl-shadow-md, 0 4px 12px var(--shadowColor, rgba(0,0,0,0.1)))",
   zIndex: "1000",
   overflow: "hidden",
 }, "SelectDropdown")
@@ -60,6 +61,7 @@ const ItemFrame = styled("div", {
   fontSize: "$p",
   color: "$defaultBody",
   cursor: "pointer",
+  transition: "background-color 100ms ease",
 }, "SelectItem")
 
 const LabelFrame = styled("div", {
@@ -201,7 +203,7 @@ function SelectRootComponent({
         </TriggerFrame>
 
         {isOpen && (
-          <DropdownFrame style={{ boxShadow: 'var(--stl-shadow-md, 0 4px 12px var(--shadowColor, rgba(0,0,0,0.1)))' }}>
+          <DropdownFrame>
             <div role="listbox" style={{ padding: '4px', maxHeight: '240px', overflowY: 'auto' }}>
               {React.Children.map(children, (child, i) => {
                 if (React.isValidElement(child) && (child.type as any) === SelectItem) {
