@@ -86,7 +86,7 @@ export function ComponentsScreen() {
         <RNText style={styles.sectionTitle}>Checkbox</RNText>
         <Checkbox.Root
           checked={checked}
-          onCheckedChange={(v: boolean) => setChecked(v)}
+          onCheckedChange={(v: boolean | 'indeterminate') => setChecked(v === true)}
         >
           <Text>Accept terms and conditions</Text>
         </Checkbox.Root>
@@ -237,7 +237,7 @@ export function ComponentsScreen() {
 
       <View style={styles.section}>
         <RNText style={styles.sectionTitle}>Accordion</RNText>
-        <Accordion type="single" collapsible>
+        <Accordion type="single">
           <Accordion.Item value="item-1">
             <Accordion.Trigger>What is @vlting/ui?</Accordion.Trigger>
             <Accordion.Content>

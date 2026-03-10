@@ -19,7 +19,7 @@ import {
   Kbd,
   Badge,
   VisuallyHidden,
-} from '../../../packages/stl-native/src/primitives'
+} from '../../../../packages/stl-native/src/primitives'
 
 export function PrimitivesScreen() {
   return (
