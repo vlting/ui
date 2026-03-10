@@ -127,7 +127,9 @@ describe('toast store', () => {
       }
     })
 
-    expect(toasts.some((t) => t.title === 'Save failed' && t.variant === 'error')).toBe(true)
+    expect(toasts.some((t) => t.title === 'Save failed' && t.variant === 'error')).toBe(
+      true,
+    )
     expect(toasts.some((t) => t.title === 'Saving...')).toBe(false)
   })
 })

@@ -2,97 +2,111 @@ import React, { useCallback, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const CommandRoot = styled(
-  "div",
+  'div',
   {
-    backgroundColor: "var(--stl-background, #fff)",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "var(--borderColor)",
-    borderRadius: "var(--stl-radius4, 10px)",
-    overflow: "hidden",
+    backgroundColor: 'var(--stl-background, #fff)',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'var(--borderColor)',
+    borderRadius: 'var(--stl-radius4, 10px)',
+    overflow: 'hidden',
   },
-  "Command"
+  'Command',
 )
 
 const CommandInputFrame = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingLeft: "var(--stl-space5, 12px)",
-    paddingRight: "var(--stl-space5, 12px)",
-    height: "var(--stl-space14, 48px)",
-    borderBottomWidth: "1px",
-    borderBottomStyle: "solid",
-    borderBottomColor: "var(--borderColor)",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 'var(--stl-space5, 12px)',
+    paddingRight: 'var(--stl-space5, 12px)',
+    height: 'var(--stl-space14, 48px)',
+    borderBottomWidth: '1px',
+    borderBottomStyle: 'solid',
+    borderBottomColor: 'var(--borderColor)',
   },
-  "CommandInput"
+  'CommandInput',
 )
 
 const CommandSearchIcon = styled(
-  "span",
+  'span',
   {
-    fontSize: "var(--fontSize-4, 16px)",
-    color: "var(--colorSubtitle)",
-    marginRight: "var(--stl-space3, 6px)",
+    fontSize: 'var(--fontSize-4, 16px)',
+    color: 'var(--colorSubtitle)',
+    marginRight: 'var(--stl-space3, 6px)',
   },
-  "CommandSearchIcon"
+  'CommandSearchIcon',
 )
 
 const CommandListFrame = styled(
-  "div",
-  { maxHeight: "var(--stl-space-xl, 320px)", overflowY: "auto", padding: "var(--stl-space2, 4px)" },
-  "CommandList"
+  'div',
+  {
+    maxHeight: 'var(--stl-space-xl, 320px)',
+    overflowY: 'auto',
+    padding: 'var(--stl-space2, 4px)',
+  },
+  'CommandList',
 )
 
 const CommandEmptyFrame = styled(
-  "div",
-  { padding: "var(--stl-space10, 28px)", display: "flex", alignItems: "center", justifyContent: "center" },
-  "CommandEmpty"
+  'div',
+  {
+    padding: 'var(--stl-space10, 28px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  'CommandEmpty',
 )
 
 const CommandItemFrame = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    height: "var(--stl-space12, 36px)",
-    paddingLeft: "var(--stl-space3, 6px)",
-    paddingRight: "var(--stl-space3, 6px)",
-    borderRadius: "var(--stl-radius2, 6px)",
-    cursor: "pointer",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 'var(--stl-space12, 36px)',
+    paddingLeft: 'var(--stl-space3, 6px)',
+    paddingRight: 'var(--stl-space3, 6px)',
+    borderRadius: 'var(--stl-radius2, 6px)',
+    cursor: 'pointer',
   },
-  "CommandItem"
+  'CommandItem',
 )
 
 const CommandSeparator = styled(
-  "div",
+  'div',
   {
-    height: "1px", // separator height — allowed
-    backgroundColor: "var(--borderColor)",
-    marginTop: "var(--stl-space2, 4px)",
-    marginBottom: "var(--stl-space2, 4px)",
+    height: '1px', // separator height — allowed
+    backgroundColor: 'var(--borderColor)',
+    marginTop: 'var(--stl-space2, 4px)',
+    marginBottom: 'var(--stl-space2, 4px)',
   },
-  "CommandSeparator"
+  'CommandSeparator',
 )
 
 const CommandGroupHeader = styled(
-  "span",
+  'span',
   {
-    fontSize: "var(--fontSize-2, 12px)",
-    fontWeight: "500",
-    color: "var(--colorSubtitle)",
-    fontFamily: "var(--font-body)",
+    fontSize: 'var(--fontSize-2, 12px)',
+    fontWeight: '500',
+    color: 'var(--colorSubtitle)',
+    fontFamily: 'var(--font-body)',
   },
-  "CommandGroupHeader"
+  'CommandGroupHeader',
 )
 
 const CommandLoadingFrame = styled(
-  "div",
-  { padding: "var(--stl-space5, 12px)", display: "flex", alignItems: "center", justifyContent: "center" },
-  "CommandLoading"
+  'div',
+  {
+    padding: 'var(--stl-space5, 12px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  'CommandLoading',
 )
 
 export interface CommandRootProps {
@@ -182,7 +196,13 @@ function Empty({ children = 'No results found.' }: { children?: React.ReactNode 
   if (!search) return null
   return (
     <CommandEmptyFrame>
-      <span style={{ fontSize: 'var(--fontSize-4, 16px)', color: 'var(--colorSubtitle)', fontFamily: 'var(--font-body)' }}>
+      <span
+        style={{
+          fontSize: 'var(--fontSize-4, 16px)',
+          color: 'var(--colorSubtitle)',
+          fontFamily: 'var(--font-body)',
+        }}
+      >
         {children}
       </span>
     </CommandEmptyFrame>
@@ -232,7 +252,13 @@ function Separator() {
 function Loading({ children = 'Loading...' }: { children?: React.ReactNode }) {
   return (
     <CommandLoadingFrame>
-      <span style={{ fontSize: 'var(--fontSize-4, 16px)', color: 'var(--colorSubtitle)', fontFamily: 'var(--font-body)' }}>
+      <span
+        style={{
+          fontSize: 'var(--fontSize-4, 16px)',
+          color: 'var(--colorSubtitle)',
+          fontFamily: 'var(--font-body)',
+        }}
+      >
         {children}
       </span>
     </CommandLoadingFrame>

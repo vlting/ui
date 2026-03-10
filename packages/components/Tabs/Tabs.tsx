@@ -13,61 +13,80 @@ const TabsContext = createContext<TabsContextValue>({
   baseId: '',
 })
 
-const TabsRootFrame = styled("div", { display: "flex", flexDirection: "column" }, "Tabs")
+const TabsRootFrame = styled('div', { display: 'flex', flexDirection: 'column' }, 'Tabs')
 
 const TabsListFrame = styled(
-  "div",
+  'div',
   {
-    display: "inline-flex",
-    alignItems: "center",
-    backgroundColor: "var(--color3)",
-    borderRadius: "8px",
-    padding: "4px",
-    gap: "0",
+    display: 'inline-flex',
+    alignItems: 'center',
+    backgroundColor: 'var(--color3)',
+    borderRadius: '8px',
+    padding: '4px',
+    gap: '0',
   },
-  "TabsList"
+  'TabsList',
 )
 
 const TabsTriggerFrame = styled(
-  "button",
+  'button',
   {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    border: "none",
-    cursor: "pointer",
-    borderRadius: "6px",
-    fontFamily: "var(--font-body)",
-    fontWeight: "500",
-    backgroundColor: "transparent",
-    color: "var(--colorSubtitle)",
-    outline: "none",
-    transition: "background-color var(--stl-animation-fastDuration, 150ms) ease, color var(--stl-animation-fastDuration, 150ms) ease",
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: 'none',
+    cursor: 'pointer',
+    borderRadius: '6px',
+    fontFamily: 'var(--font-body)',
+    fontWeight: '500',
+    backgroundColor: 'transparent',
+    color: 'var(--colorSubtitle)',
+    outline: 'none',
+    transition:
+      'background-color var(--stl-animation-fastDuration, 150ms) ease, color var(--stl-animation-fastDuration, 150ms) ease',
     hovered: {
-      backgroundColor: "var(--color2)",
+      backgroundColor: 'var(--color2)',
     },
     focused: {
-      outline: "2px solid var(--stl-outline-primaryColorBase, currentColor)",
-      outlineOffset: "2px",
+      outline: '2px solid var(--stl-outline-primaryColorBase, currentColor)',
+      outlineOffset: '2px',
     },
     pressed: {
-      backgroundColor: "var(--color4)",
+      backgroundColor: 'var(--color4)',
     },
   },
   {
     size: {
-      sm: { paddingLeft: "8px", paddingRight: "8px", paddingTop: "4px", paddingBottom: "4px", fontSize: "var(--fontSize-2, 12px)" },
-      md: { paddingLeft: "12px", paddingRight: "12px", paddingTop: "8px", paddingBottom: "8px", fontSize: "var(--fontSize-3, 14px)" },
-      lg: { paddingLeft: "16px", paddingRight: "16px", paddingTop: "12px", paddingBottom: "12px", fontSize: "var(--fontSize-4, 16px)" },
+      sm: {
+        paddingLeft: '8px',
+        paddingRight: '8px',
+        paddingTop: '4px',
+        paddingBottom: '4px',
+        fontSize: 'var(--fontSize-2, 12px)',
+      },
+      md: {
+        paddingLeft: '12px',
+        paddingRight: '12px',
+        paddingTop: '8px',
+        paddingBottom: '8px',
+        fontSize: 'var(--fontSize-3, 14px)',
+      },
+      lg: {
+        paddingLeft: '16px',
+        paddingRight: '16px',
+        paddingTop: '12px',
+        paddingBottom: '12px',
+        fontSize: 'var(--fontSize-4, 16px)',
+      },
     },
   },
-  "TabsTrigger"
+  'TabsTrigger',
 )
 
 const TabsContentFrame = styled(
-  "div",
-  { paddingTop: "12px", paddingBottom: "12px" },
-  "TabsContent"
+  'div',
+  { paddingTop: '12px', paddingBottom: '12px' },
+  'TabsContent',
 )
 
 export interface TabsRootProps {
@@ -78,16 +97,25 @@ export interface TabsRootProps {
   orientation?: 'horizontal' | 'vertical'
 }
 
-function Root({ children, value: controlledValue, defaultValue = '', onValueChange, ...props }: TabsRootProps) {
+function Root({
+  children,
+  value: controlledValue,
+  defaultValue = '',
+  onValueChange,
+  ...props
+}: TabsRootProps) {
   const [internalValue, setInternalValue] = useState(defaultValue)
   const isControlled = controlledValue !== undefined
   const value = isControlled ? controlledValue : internalValue
   const baseId = useId()
 
-  const handleValueChange = useCallback((newValue: string) => {
-    if (!isControlled) setInternalValue(newValue)
-    onValueChange?.(newValue)
-  }, [isControlled, onValueChange])
+  const handleValueChange = useCallback(
+    (newValue: string) => {
+      if (!isControlled) setInternalValue(newValue)
+      onValueChange?.(newValue)
+    },
+    [isControlled, onValueChange],
+  )
 
   return (
     <TabsContext.Provider value={{ value, onValueChange: handleValueChange, baseId }}>
@@ -102,9 +130,7 @@ export interface TabsListProps {
 }
 
 function List({ children }: TabsListProps) {
-  return (
-    <TabsListFrame role="tablist">{children}</TabsListFrame>
-  )
+  return <TabsListFrame role="tablist">{children}</TabsListFrame>
 }
 
 interface StyledTabsTriggerProps {
@@ -114,7 +140,12 @@ interface StyledTabsTriggerProps {
   size?: 'sm' | 'md' | 'lg'
 }
 
-function Trigger({ children, value: tabValue, disabled, size = 'md' }: StyledTabsTriggerProps) {
+function Trigger({
+  children,
+  value: tabValue,
+  disabled,
+  size = 'md',
+}: StyledTabsTriggerProps) {
   const { value, onValueChange, baseId } = useContext(TabsContext)
   const isSelected = tabValue === value
 

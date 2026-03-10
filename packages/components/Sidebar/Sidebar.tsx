@@ -3,76 +3,96 @@ import { styled } from '../../stl-react/src/config'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 const SidebarFrame = styled(
-  "aside",
+  'aside',
   {
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
-    overflow: "hidden",
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    overflow: 'hidden',
   },
-  "Sidebar"
+  'Sidebar',
 )
 
 const SidebarHeaderFrame = styled(
-  "div",
+  'div',
   {
-    paddingLeft: "var(--stl-space7, 16px)",
-    paddingRight: "var(--stl-space7, 16px)",
-    paddingTop: "var(--stl-space5, 12px)",
-    paddingBottom: "var(--stl-space5, 12px)",
-    borderBottomWidth: "1px",
-    borderBottomStyle: "solid",
-    borderBottomColor: "var(--borderColor)",
+    paddingLeft: 'var(--stl-space7, 16px)',
+    paddingRight: 'var(--stl-space7, 16px)',
+    paddingTop: 'var(--stl-space5, 12px)',
+    paddingBottom: 'var(--stl-space5, 12px)',
+    borderBottomWidth: '1px',
+    borderBottomStyle: 'solid',
+    borderBottomColor: 'var(--borderColor)',
   },
-  "SidebarHeader"
+  'SidebarHeader',
 )
 
 const SidebarContentFrame = styled(
-  "div",
-  { flex: "1", overflow: "auto", paddingTop: "var(--stl-space3, 6px)", paddingBottom: "var(--stl-space3, 6px)" },
-  "SidebarContent"
+  'div',
+  {
+    flex: '1',
+    overflow: 'auto',
+    paddingTop: 'var(--stl-space3, 6px)',
+    paddingBottom: 'var(--stl-space3, 6px)',
+  },
+  'SidebarContent',
 )
 
 const SidebarFooterFrame = styled(
-  "div",
+  'div',
   {
-    paddingLeft: "var(--stl-space7, 16px)",
-    paddingRight: "var(--stl-space7, 16px)",
-    paddingTop: "var(--stl-space5, 12px)",
-    paddingBottom: "var(--stl-space5, 12px)",
-    borderTopWidth: "1px",
-    borderTopStyle: "solid",
-    borderTopColor: "var(--borderColor)",
+    paddingLeft: 'var(--stl-space7, 16px)',
+    paddingRight: 'var(--stl-space7, 16px)',
+    paddingTop: 'var(--stl-space5, 12px)',
+    paddingBottom: 'var(--stl-space5, 12px)',
+    borderTopWidth: '1px',
+    borderTopStyle: 'solid',
+    borderTopColor: 'var(--borderColor)',
   },
-  "SidebarFooter"
+  'SidebarFooter',
 )
 
-const SidebarGroupFrame = styled("div", { paddingBottom: "var(--stl-space3, 6px)" }, "SidebarGroup")
+const SidebarGroupFrame = styled(
+  'div',
+  { paddingBottom: 'var(--stl-space3, 6px)' },
+  'SidebarGroup',
+)
 
 const SidebarGroupLabelFrame = styled(
-  "div",
-  { paddingLeft: "var(--stl-space7, 16px)", paddingRight: "var(--stl-space7, 16px)", paddingTop: "var(--stl-space3, 6px)", paddingBottom: "var(--stl-space2, 4px)" },
-  "SidebarGroupLabel"
+  'div',
+  {
+    paddingLeft: 'var(--stl-space7, 16px)',
+    paddingRight: 'var(--stl-space7, 16px)',
+    paddingTop: 'var(--stl-space3, 6px)',
+    paddingBottom: 'var(--stl-space2, 4px)',
+  },
+  'SidebarGroupLabel',
 )
 
 const SidebarMenuFrame = styled(
-  "nav",
-  { display: "flex", flexDirection: "column", gap: "1px", paddingLeft: "var(--stl-space3, 6px)", paddingRight: "var(--stl-space3, 6px)" },
-  "SidebarMenu"
+  'nav',
+  {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1px',
+    paddingLeft: 'var(--stl-space3, 6px)',
+    paddingRight: 'var(--stl-space3, 6px)',
+  },
+  'SidebarMenu',
 )
 
 const SidebarSeparatorFrame = styled(
-  "hr",
+  'hr',
   {
-    height: "1px", // separator height — allowed
-    backgroundColor: "var(--borderColor)",
-    marginTop: "var(--stl-space3, 6px)",
-    marginBottom: "var(--stl-space3, 6px)",
-    marginLeft: "var(--stl-space7, 16px)",
-    marginRight: "var(--stl-space7, 16px)",
-    border: "none",
+    height: '1px', // separator height — allowed
+    backgroundColor: 'var(--borderColor)',
+    marginTop: 'var(--stl-space3, 6px)',
+    marginBottom: 'var(--stl-space3, 6px)',
+    marginLeft: 'var(--stl-space7, 16px)',
+    marginRight: 'var(--stl-space7, 16px)',
+    border: 'none',
   },
-  "SidebarSeparator"
+  'SidebarSeparator',
 )
 
 export interface SidebarRootProps {
@@ -147,25 +167,36 @@ function Root({
     width: collapsed ? collapsedWidth : open ? width : 0,
     transition: reducedMotion ? 'none' : 'width 250ms ease-in-out',
     backgroundColor: variant === 'floating' ? 'var(--background)' : 'var(--color1)',
-    ...(side === 'left' && variant === 'sidebar' ? { borderRight: '1px solid var(--borderColor)' } : {}),
-    ...(side === 'right' && variant === 'sidebar' ? { borderLeft: '1px solid var(--borderColor)' } : {}),
-    ...(variant === 'floating' ? {
-      margin: 8,
-      border: '1px solid var(--borderColor)',
-      boxShadow: 'var(--shadowMd)',
-      borderRadius: 10,
-    } : {}),
+    ...(side === 'left' && variant === 'sidebar'
+      ? { borderRight: '1px solid var(--borderColor)' }
+      : {}),
+    ...(side === 'right' && variant === 'sidebar'
+      ? { borderLeft: '1px solid var(--borderColor)' }
+      : {}),
+    ...(variant === 'floating'
+      ? {
+          margin: 8,
+          border: '1px solid var(--borderColor)',
+          boxShadow: 'var(--shadowMd)',
+          borderRadius: 10,
+        }
+      : {}),
   }
 
   return (
     <SidebarContext.Provider
-      value={{ open, setOpen, collapsed, collapsible, side, variant, width, collapsedWidth }}
+      value={{
+        open,
+        setOpen,
+        collapsed,
+        collapsible,
+        side,
+        variant,
+        width,
+        collapsedWidth,
+      }}
     >
-      <SidebarFrame
-        role="complementary"
-        aria-label="Sidebar"
-        style={borderStyle}
-      >
+      <SidebarFrame role="complementary" aria-label="Sidebar" style={borderStyle}>
         {children}
       </SidebarFrame>
     </SidebarContext.Provider>
@@ -194,13 +225,15 @@ function GroupLabel({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarGroupLabelFrame>
-      <h3 style={{
-        fontSize: 'var(--fontSize-2, 12px)',
-        fontWeight: '600',
-        color: 'var(--colorSubtitle)',
-        fontFamily: 'var(--font-body)',
-        margin: 0,
-      }}>
+      <h3
+        style={{
+          fontSize: 'var(--fontSize-2, 12px)',
+          fontWeight: '600',
+          color: 'var(--colorSubtitle)',
+          fontFamily: 'var(--font-body)',
+          margin: 0,
+        }}
+      >
         {children}
       </h3>
     </SidebarGroupLabelFrame>
@@ -255,12 +288,14 @@ function MenuItem({ children, active, disabled, onPress }: SidebarMenuItemProps)
 function MenuButton({ children, active, disabled, onPress }: SidebarMenuItemProps) {
   return (
     <MenuItem active={active} disabled={disabled} onPress={onPress}>
-      <span style={{
-        fontSize: 'var(--fontSize-4, 16px)',
-        fontFamily: 'var(--font-body)',
-        color: 'var(--color)',
-        fontWeight: active ? '500' : '400',
-      }}>
+      <span
+        style={{
+          fontSize: 'var(--fontSize-4, 16px)',
+          fontFamily: 'var(--font-body)',
+          color: 'var(--color)',
+          fontWeight: active ? '500' : '400',
+        }}
+      >
         {children}
       </span>
     </MenuItem>

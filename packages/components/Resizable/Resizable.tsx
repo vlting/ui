@@ -1,26 +1,30 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
-const PanelGroupFrame = styled("div", { display: "flex", width: "100%", height: "100%", overflow: "hidden" }, "ResizablePanelGroup")
+const PanelGroupFrame = styled(
+  'div',
+  { display: 'flex', width: '100%', height: '100%', overflow: 'hidden' },
+  'ResizablePanelGroup',
+)
 
-const PanelFrame = styled("div", { overflow: "hidden" }, "ResizablePanel")
+const PanelFrame = styled('div', { overflow: 'hidden' }, 'ResizablePanel')
 
 const HandleFrame = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "var(--borderColor)",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'var(--borderColor)',
     flexShrink: 0,
   },
-  "ResizableHandle"
+  'ResizableHandle',
 )
 
 const HandleDot = styled(
-  "div",
-  { borderRadius: "9999px", backgroundColor: "var(--color6)" },
-  "ResizableHandleDot"
+  'div',
+  { borderRadius: '9999px', backgroundColor: 'var(--color6)' },
+  'ResizableHandleDot',
 )
 
 export interface ResizablePanelGroupProps {

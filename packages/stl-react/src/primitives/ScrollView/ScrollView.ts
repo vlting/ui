@@ -1,9 +1,9 @@
-import { styled } from "../../config"
+import { styled } from '../../config'
 
 export const ScrollView = styled(
-  "div",
+  'div',
   {
-    overflow: "auto",
+    overflow: 'auto',
   },
-  "ScrollView"
+  'ScrollView',
 )

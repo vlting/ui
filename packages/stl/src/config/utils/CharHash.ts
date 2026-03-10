@@ -1,59 +1,59 @@
 const firstChars = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
+  'I',
+  'J',
+  'K',
+  'L',
+  'M',
+  'N',
+  'O',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+  'V',
+  'W',
+  'X',
+  'Y',
+  'Z',
+  'a',
+  'b',
+  'c',
+  'd',
+  'e',
+  'f',
+  'g',
+  'h',
+  'i',
+  'j',
+  'k',
+  'l',
+  'm',
+  'n',
+  'o',
+  'p',
+  'q',
+  'r',
+  's',
+  't',
+  'u',
+  'v',
+  'w',
+  'x',
+  'y',
+  'z',
 ]
 
-const allChars = firstChars.concat(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"])
+const allChars = firstChars.concat(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
 
 export interface VarData {
   name: string
@@ -96,7 +96,7 @@ export class CharHash {
     }
     if (addNewIndex) {
       if (length === MAX_LENGTH) {
-        throw new Error("Maximum number of possible hashes exceeded")
+        throw new Error('Maximum number of possible hashes exceeded')
       } else {
         this.key.push(0)
       }
@@ -109,7 +109,7 @@ export class CharHash {
       const base = this.getBaseCharSet(index)
       out += base[k]
       return out
-    }, "")
+    }, '')
     this.bumpKey()
     this._count++
     return val
@@ -134,9 +134,9 @@ export class CharHash {
     return /^[\x00-\x7F]$/.test(c)
       ? c
       : c
-          .split("")
-          .map((a: string) => "\\u" + a.charCodeAt(0).toString(16).padStart(4, "0"))
-          .join("")
+          .split('')
+          .map((a: string) => '\\u' + a.charCodeAt(0).toString(16).padStart(4, '0'))
+          .join('')
   }
 }
 

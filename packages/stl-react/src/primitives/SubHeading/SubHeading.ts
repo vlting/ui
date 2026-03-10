@@ -1,17 +1,17 @@
-import { styled } from "../../config"
+import { styled } from '../../config'
 
 export const SubHeading = styled(
-  "h2",
+  'h2',
   {
-    color: "$defaultHeading",
-    typo: "$subHeading",
+    color: '$defaultHeading',
+    typo: '$subHeading',
   },
   {
     flat: {
       true: {
-        mb: "$0",
+        mb: '$0',
       },
     },
   },
-  "SubHeading"
+  'SubHeading',
 )

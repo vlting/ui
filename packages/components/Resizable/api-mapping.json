@@ -24,7 +24,11 @@
     "import": "import { Resizable } from '@vlting/ui'",
     "props": {
       "Resizable.PanelGroup": {
-        "direction": { "type": "string", "values": ["horizontal", "vertical"], "default": "horizontal" },
+        "direction": {
+          "type": "string",
+          "values": ["horizontal", "vertical"],
+          "default": "horizontal"
+        },
         "onLayout": { "type": "function", "signature": "(sizes: number[]) => void" },
         "children": { "type": "ReactNode" }
       },
@@ -48,8 +52,20 @@
     "Mouse-based drag resizing with proper cursor styles (col-resize/row-resize)."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "<ResizablePanelGroup>", "vlting": "<Resizable.PanelGroup>", "reason": "Dot-notation compound component API" },
-    { "shadcn": "react-resizable-panels library", "vlting": "Custom implementation", "reason": "No external dependency for resize logic" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "<ResizablePanelGroup>",
+      "vlting": "<Resizable.PanelGroup>",
+      "reason": "Dot-notation compound component API"
+    },
+    {
+      "shadcn": "react-resizable-panels library",
+      "vlting": "Custom implementation",
+      "reason": "No external dependency for resize logic"
+    }
   ]
 }

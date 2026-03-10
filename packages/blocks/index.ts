@@ -11,7 +11,13 @@ export type { AuthBlockProps, AuthBlockVariant } from './auth'
 
 // Sidebar block
 export { SidebarBlock } from './sidebar'
-export type { SidebarBlockProps, SidebarBlockVariant, NavItem, NavGroup, FileTreeItem } from './sidebar'
+export type {
+  SidebarBlockProps,
+  SidebarBlockVariant,
+  NavItem,
+  NavGroup,
+  FileTreeItem,
+} from './sidebar'
 
 // Dashboard block
 export { DashboardBlock } from './dashboard'
@@ -35,7 +41,13 @@ export type { HeroBlockProps, HeroBlockVariant, HeroAction } from './hero'
 
 // Feed block
 export { FeedBlock } from './feed'
-export type { FeedBlockProps, FeedBlockVariant, TimelineEvent, NotificationItem, CommentItem } from './feed'
+export type {
+  FeedBlockProps,
+  FeedBlockVariant,
+  TimelineEvent,
+  NotificationItem,
+  CommentItem,
+} from './feed'
 
 // App shell block
 export { AppShellBlock } from './app-shell'
@@ -47,16 +59,32 @@ export type { EmptyStateBlockProps, EmptyStateBlockVariant } from './empty-state
 
 // File upload block
 export { FileUploadBlock } from './file-upload'
-export type { FileUploadBlockProps, FileUploadBlockVariant, UploadFile } from './file-upload'
+export type {
+  FileUploadBlockProps,
+  FileUploadBlockVariant,
+  UploadFile,
+} from './file-upload'
 
 // Onboarding wizard block
 export { OnboardingWizardBlock } from './onboarding-wizard'
-export type { OnboardingWizardBlockProps, OnboardingWizardBlockVariant, OnboardingStep } from './onboarding-wizard'
+export type {
+  OnboardingWizardBlockProps,
+  OnboardingWizardBlockVariant,
+  OnboardingStep,
+} from './onboarding-wizard'
 
 // Notification center block
 export { NotificationCenterBlock } from './notification-center'
-export type { NotificationCenterBlockProps, NotificationCenterBlockVariant, Notification } from './notification-center'
+export type {
+  NotificationCenterBlockProps,
+  NotificationCenterBlockVariant,
+  Notification,
+} from './notification-center'
 
 // Chat interface block
 export { ChatInterfaceBlock } from './chat-interface'
-export type { ChatInterfaceBlockProps, ChatInterfaceBlockVariant, ChatMessage } from './chat-interface'
+export type {
+  ChatInterfaceBlockProps,
+  ChatInterfaceBlockVariant,
+  ChatMessage,
+} from './chat-interface'

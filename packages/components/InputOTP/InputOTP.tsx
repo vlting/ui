@@ -2,50 +2,55 @@ import React, { useCallback, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const OTPRoot = styled(
-  "div",
-  { position: "relative", display: "inline-flex", flexDirection: "row", alignItems: "center" },
-  "InputOTP"
+  'div',
+  {
+    position: 'relative',
+    display: 'inline-flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  'InputOTP',
 )
 
 const OTPGroup = styled(
-  "div",
-  { display: "flex", flexDirection: "row", alignItems: "center", gap: "6px" },
-  "InputOTPGroup"
+  'div',
+  { display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '6px' },
+  'InputOTPGroup',
 )
 
 const OTPSlotFrame = styled(
-  "div",
+  'div',
   {
-    width: "40px",
-    height: "48px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "var(--borderColor)",
-    borderRadius: "8px",
-    backgroundColor: "var(--background, #fff)",
-    fontSize: "var(--fontSize-7, 24px)",
-    fontFamily: "var(--font-body)",
-    fontWeight: "500",
-    color: "var(--color)",
-    cursor: "text",
+    width: '40px',
+    height: '48px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'var(--borderColor)',
+    borderRadius: '8px',
+    backgroundColor: 'var(--background, #fff)',
+    fontSize: 'var(--fontSize-7, 24px)',
+    fontFamily: 'var(--font-body)',
+    fontWeight: '500',
+    color: 'var(--color)',
+    cursor: 'text',
   },
-  "InputOTPSlot"
+  'InputOTPSlot',
 )
 
 const OTPSeparator = styled(
-  "div",
+  'div',
   {
-    width: "6px",
-    height: "2px",
-    backgroundColor: "var(--color6)",
-    borderRadius: "9999px",
-    marginLeft: "2px",
-    marginRight: "2px",
+    width: '6px',
+    height: '2px',
+    backgroundColor: 'var(--color6)',
+    borderRadius: '9999px',
+    marginLeft: '2px',
+    marginRight: '2px',
   },
-  "InputOTPSeparator"
+  'InputOTPSeparator',
 )
 
 export interface InputOTPRootProps {
@@ -136,11 +141,23 @@ function Root({
           maxLength={maxLength}
           disabled={disabled || undefined}
           aria-label={`Enter ${maxLength}-digit code`}
-          style={{ position: 'absolute', opacity: 0, width: 1, height: 1, overflow: 'hidden', pointerEvents: 'none' }}
+          style={{
+            position: 'absolute',
+            opacity: 0,
+            width: 1,
+            height: 1,
+            overflow: 'hidden',
+            pointerEvents: 'none',
+          }}
         />
         <div
           onClick={focus}
-          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', cursor: 'text' }}
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            cursor: 'text',
+          }}
         >
           {children}
         </div>

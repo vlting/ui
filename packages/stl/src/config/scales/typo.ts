@@ -1,5 +1,5 @@
-import { ThemeScale } from "./scales.models"
-import { getAliasMap, getPropsFromCssMap, getThemePropsFromCssMap } from "./scales.utils"
+import { ThemeScale } from './scales.models'
+import { getAliasMap, getPropsFromCssMap, getThemePropsFromCssMap } from './scales.utils'
 
 /** Generator function for `typo` theme scale */
 export function getTypo() {
@@ -8,44 +8,44 @@ export function getTypo() {
   // These keys will get mapped into classes with multiple CSS properties
   const cssValueMap = {
     // Composition combos, for class generation
-    mainHeading: "mainHeading",
-    heading: "heading",
-    subHeading: "subHeading",
-    minorHeading: "minorHeading",
-    body: "body",
-    caption: "caption",
+    mainHeading: 'mainHeading',
+    heading: 'heading',
+    subHeading: 'subHeading',
+    minorHeading: 'minorHeading',
+    body: 'body',
+    caption: 'caption',
   } as const
 
   const { aliasMap, cssAliases } = getAliasMap(
     {
       mainHeading: {
-        font: "h1",
-        lineHeight: "heading",
+        font: 'h1',
+        lineHeight: 'heading',
       },
       heading: {
-        font: "h2",
-        lineHeight: "heading",
+        font: 'h2',
+        lineHeight: 'heading',
       },
       subHeading: {
-        font: "h3",
-        lineHeight: "heading",
+        font: 'h3',
+        lineHeight: 'heading',
       },
       minorHeading: {
-        font: "h4",
-        lineHeight: "heading",
+        font: 'h4',
+        lineHeight: 'heading',
       },
       body: {
-        font: "body",
-        lineHeight: "body",
+        font: 'body',
+        lineHeight: 'body',
       },
       caption: {
-        font: "small",
-        lineHeight: "tight",
+        font: 'small',
+        lineHeight: 'tight',
       },
     },
     {
-      fontStyle: "normal",
-    }
+      fontStyle: 'normal',
+    },
   )
 
   const cssAliasMap = { ...cssAliases } as const

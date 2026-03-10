@@ -3,42 +3,42 @@ import { createContext, useContext, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const AvatarFrame = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    borderRadius: "$full",
-    overflow: "hidden",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "$tertiary5",
+    display: 'flex',
+    borderRadius: '$full',
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '$tertiary5',
   },
   {
     size: {
-      sm: { width: "32px", height: "32px" },
-      md: { width: "40px", height: "40px" },
-      lg: { width: "52px", height: "52px" },
-      xl: { width: "74px", height: "74px" },
+      sm: { width: '32px', height: '32px' },
+      md: { width: '40px', height: '40px' },
+      lg: { width: '52px', height: '52px' },
+      xl: { width: '74px', height: '74px' },
     },
   },
-  "Avatar"
+  'Avatar',
 )
 
 const AvatarFallbackText = styled(
-  "span",
+  'span',
   {
-    fontFamily: "$body",
-    fontWeight: "$500",
-    color: "$tertiary11",
+    fontFamily: '$body',
+    fontWeight: '$500',
+    color: '$tertiary11',
   },
   {
     size: {
-      sm: { fontSize: "$12" },
-      md: { fontSize: "$14" },
-      lg: { fontSize: "$18" },
-      xl: { fontSize: "$21" },
+      sm: { fontSize: '$12' },
+      md: { fontSize: '$14' },
+      lg: { fontSize: '$18' },
+      xl: { fontSize: '$21' },
     },
   },
-  "AvatarFallback"
+  'AvatarFallback',
 )
 
 type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'

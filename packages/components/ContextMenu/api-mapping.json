@@ -28,7 +28,10 @@
       },
       "ContextMenu.CheckboxItem": {
         "checked": { "type": "boolean", "values": [] },
-        "onCheckedChange": { "type": "function", "values": ["(checked: boolean) => void"] },
+        "onCheckedChange": {
+          "type": "function",
+          "values": ["(checked: boolean) => void"]
+        },
         "disabled": { "type": "boolean", "values": [] },
         "children": { "type": "ReactNode", "values": [] }
       },
@@ -46,9 +49,25 @@
     "Positioned at mouse cursor coordinates on right-click"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
-    { "shadcn": "<ContextMenu>", "vlting": "<ContextMenu.Root>", "reason": "Compound component pattern" },
-    { "shadcn": "<ContextMenuContent>", "vlting": "<ContextMenu.Content>", "reason": "Compound component pattern" },
-    { "shadcn": "Sub-menus (ContextMenuSub)", "vlting": "Not yet supported", "reason": "Simplified initial implementation" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "<ContextMenu>",
+      "vlting": "<ContextMenu.Root>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "<ContextMenuContent>",
+      "vlting": "<ContextMenu.Content>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "Sub-menus (ContextMenuSub)",
+      "vlting": "Not yet supported",
+      "reason": "Simplified initial implementation"
+    }
   ]
 }

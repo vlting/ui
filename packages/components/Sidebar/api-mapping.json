@@ -5,9 +5,17 @@
     "import": "import { Sidebar } from '@vlting/ui'",
     "props": {
       "Sidebar.Root": {
-        "collapsible": { "type": "string", "values": ["offcanvas", "icon", "none"], "default": "offcanvas" },
+        "collapsible": {
+          "type": "string",
+          "values": ["offcanvas", "icon", "none"],
+          "default": "offcanvas"
+        },
         "side": { "type": "string", "values": ["left", "right"], "default": "left" },
-        "variant": { "type": "string", "values": ["sidebar", "floating", "inset"], "default": "sidebar" },
+        "variant": {
+          "type": "string",
+          "values": ["sidebar", "floating", "inset"],
+          "default": "sidebar"
+        },
         "defaultOpen": { "type": "boolean", "default": true },
         "open": { "type": "boolean" },
         "onOpenChange": { "type": "function", "signature": "(open: boolean) => void" },
@@ -65,7 +73,11 @@
     "Trigger component auto-toggles open state and updates aria-expanded."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
     { "shadcn": "onClick", "vlting": "onPress", "reason": "Cross-platform event naming" }
   ]
 }

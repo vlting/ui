@@ -21,20 +21,20 @@ export const CondBit = {
   hightContrast: 1 << 9,
   pointer: 1 << 10,
   tv: 1 << 11,
-  "!xs": 1 << 12,
-  "!sm": 1 << 13,
-  "!md": 1 << 14,
-  "!lg": 1 << 15,
-  "!xl": 1 << 16,
+  '!xs': 1 << 12,
+  '!sm': 1 << 13,
+  '!md': 1 << 14,
+  '!lg': 1 << 15,
+  '!xl': 1 << 16,
   light: 1 << 17,
   ltr: 1 << 18,
-  "!hightContrast": 1 << 19,
-  "!lowMotion": 1 << 20,
-  "!touch": 1 << 21,
-  "!pointer": 1 << 22,
-  "!tv": 1 << 23,
+  '!hightContrast': 1 << 19,
+  '!lowMotion': 1 << 20,
+  '!touch': 1 << 21,
+  '!pointer': 1 << 22,
+  '!tv': 1 << 23,
   lowData: 1 << 24,
-  "!lowData": 1 << 25,
+  '!lowData': 1 << 25,
   debug: 1 << 26,
   hovered: 1 << 27,
   pressed: 1 << 28,
@@ -48,7 +48,9 @@ export type ConditionMask = number
 export const nativeConditionKeys = Object.keys(CondBit) as ConditionKeys[]
 
 /** Computes a bitmask from a set of active conditions */
-export function computeConditionMask(conditions: Partial<Record<ConditionKeys, boolean>>): ConditionMask {
+export function computeConditionMask(
+  conditions: Partial<Record<ConditionKeys, boolean>>,
+): ConditionMask {
   let mask = 0
   for (const key of nativeConditionKeys) {
     if (conditions[key]) {

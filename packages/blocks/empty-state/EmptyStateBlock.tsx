@@ -5,13 +5,17 @@ import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import type { BlockProps } from '../_shared/types'
 
-const FormElement = styled("form", {
-  display: "flex",
-  flexDirection: "row",
-  gap: "8px",
-  width: "100%",
-  maxWidth: "360px",
-}, "EmptyStateForm")
+const FormElement = styled(
+  'form',
+  {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '8px',
+    width: '100%',
+    maxWidth: '360px',
+  },
+  'EmptyStateForm',
+)
 
 // -- Types --
 
@@ -28,7 +32,10 @@ export interface EmptyStateBlockProps extends BlockProps {
   onNotify?: (email: string) => void
 }
 
-const variantDefaults: Record<EmptyStateBlockVariant, { title: string; description: string }> = {
+const variantDefaults: Record<
+  EmptyStateBlockVariant,
+  { title: string; description: string }
+> = {
   'no-data': {
     title: 'No items yet',
     description: 'Get started by creating your first item.',
@@ -74,8 +81,14 @@ function NoDataState({ title, description, icon, action }: EmptyStateBlockProps)
   return (
     <div style={center}>
       {icon && <div style={{ opacity: 0.5, paddingBottom: '8px' }}>{icon}</div>}
-      <span style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center' }}>{title}</span>
-      <span style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}>{description}</span>
+      <span style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center' }}>
+        {title}
+      </span>
+      <span
+        style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}
+      >
+        {description}
+      </span>
       {action && (
         <Button variant="default" onClick={action.onPress}>
           <Button.Text>{action.label}</Button.Text>
@@ -85,13 +98,29 @@ function NoDataState({ title, description, icon, action }: EmptyStateBlockProps)
   )
 }
 
-function ErrorState({ title, description, icon, errorCode, onRetry }: EmptyStateBlockProps) {
+function ErrorState({
+  title,
+  description,
+  icon,
+  errorCode,
+  onRetry,
+}: EmptyStateBlockProps) {
   return (
     <div style={center}>
       {icon && <div style={{ opacity: 0.5, paddingBottom: '8px' }}>{icon}</div>}
-      {errorCode && <span style={{ fontSize: '36px', fontWeight: 600, opacity: 0.3 }}>{errorCode}</span>}
-      <span style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center' }}>{title}</span>
-      <span style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}>{description}</span>
+      {errorCode && (
+        <span style={{ fontSize: '36px', fontWeight: 600, opacity: 0.3 }}>
+          {errorCode}
+        </span>
+      )}
+      <span style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center' }}>
+        {title}
+      </span>
+      <span
+        style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}
+      >
+        {description}
+      </span>
       {onRetry && (
         <Button variant="default" onClick={onRetry}>
           <Button.Text>Try again</Button.Text>
@@ -107,8 +136,14 @@ function ComingSoonState({ title, description, icon, onNotify }: EmptyStateBlock
   return (
     <div style={center}>
       {icon && <div style={{ opacity: 0.5, paddingBottom: '8px' }}>{icon}</div>}
-      <span style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center' }}>{title}</span>
-      <span style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}>{description}</span>
+      <span style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center' }}>
+        {title}
+      </span>
+      <span
+        style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}
+      >
+        {description}
+      </span>
       {onNotify && (
         <FormElement
           onSubmit={(e: React.FormEvent) => {
@@ -117,9 +152,19 @@ function ComingSoonState({ title, description, icon, onNotify }: EmptyStateBlock
           }}
         >
           <div style={{ flex: 1 }}>
-            <Input type="email" placeholder="your@email.com" value={email} onChangeText={setEmail} />
+            <Input
+              type="email"
+              placeholder="your@email.com"
+              value={email}
+              onChangeText={setEmail}
+            />
           </div>
-          <Button variant="default" onClick={() => { if (email) onNotify(email) }}>
+          <Button
+            variant="default"
+            onClick={() => {
+              if (email) onNotify(email)
+            }}
+          >
             <Button.Text>Notify me</Button.Text>
           </Button>
         </FormElement>

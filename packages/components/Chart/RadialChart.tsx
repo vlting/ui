@@ -5,7 +5,13 @@ import { ChartLegend } from './ChartLegend'
 import type { ChartDataPoint, TooltipVariant } from './types'
 
 /** Radial chart display variants */
-export type RadialChartVariant = 'default' | 'grid' | 'label' | 'stacked' | 'text' | 'shape'
+export type RadialChartVariant =
+  | 'default'
+  | 'grid'
+  | 'label'
+  | 'stacked'
+  | 'text'
+  | 'shape'
 
 export interface RadialChartProps {
   data: ChartDataPoint[]

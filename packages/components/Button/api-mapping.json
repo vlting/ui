@@ -3,7 +3,10 @@
   "shadcn": {
     "import": "import { Button } from '@/components/ui/button'",
     "props": {
-      "variant": { "type": "string", "values": ["default", "secondary", "destructive", "outline", "ghost", "link"] },
+      "variant": {
+        "type": "string",
+        "values": ["default", "secondary", "destructive", "outline", "ghost", "link"]
+      },
       "size": { "type": "string", "values": ["default", "sm", "lg", "icon"] },
       "asChild": { "type": "boolean", "values": ["true", "false"] },
       "className": { "type": "string", "values": [] },
@@ -13,8 +16,22 @@
   "vlting": {
     "import": "import { Button } from '@vlting/ui'",
     "props": {
-      "variant": { "type": "string", "values": ["default", "solid", "secondary", "destructive", "outline", "ghost", "link"] },
-      "tone": { "type": "string", "values": ["neutral", "primary", "success", "warning", "danger"] },
+      "variant": {
+        "type": "string",
+        "values": [
+          "default",
+          "solid",
+          "secondary",
+          "destructive",
+          "outline",
+          "ghost",
+          "link"
+        ]
+      },
+      "tone": {
+        "type": "string",
+        "values": ["neutral", "primary", "success", "warning", "danger"]
+      },
       "size": { "type": "string", "values": ["xs", "sm", "md", "lg", "icon"] },
       "loading": { "type": "boolean", "values": ["true", "false"] },
       "disabled": { "type": "boolean", "values": ["true", "false"] },
@@ -33,9 +50,21 @@
     "Destructive variant automatically applies red theme"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform"
+    },
     { "shadcn": "onClick", "vlting": "onPress", "reason": "Cross-platform event naming" },
-    { "shadcn": "size='default'", "vlting": "size='md'", "reason": "Consistent named sizing" },
-    { "shadcn": "No loading state", "vlting": "Use loading prop for built-in spinner", "reason": "Built-in loading pattern" }
+    {
+      "shadcn": "size='default'",
+      "vlting": "size='md'",
+      "reason": "Consistent named sizing"
+    },
+    {
+      "shadcn": "No loading state",
+      "vlting": "Use loading prop for built-in spinner",
+      "reason": "Built-in loading pattern"
+    }
   ]
 }

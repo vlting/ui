@@ -2,68 +2,68 @@ import type React from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const EmptyFrame = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: "18px",
-    paddingBottom: "18px",
-    paddingLeft: "14px",
-    paddingRight: "14px",
-    gap: "6px",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: '18px',
+    paddingBottom: '18px',
+    paddingLeft: '14px',
+    paddingRight: '14px',
+    gap: '6px',
   },
-  "Empty"
+  'Empty',
 )
 
 const EmptyMediaFrame = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    opacity: "0.5",
-    marginBottom: "2px",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: '0.5',
+    marginBottom: '2px',
   },
-  "EmptyMedia"
+  'EmptyMedia',
 )
 
 const EmptyTitleText = styled(
-  "h3",
+  'h3',
   {
-    fontSize: "$21",
-    fontWeight: "$600",
-    color: "$color",
-    fontFamily: "$body",
-    margin: "0px",
-    textAlign: "center",
+    fontSize: '$21',
+    fontWeight: '$600',
+    color: '$color',
+    fontFamily: '$body',
+    margin: '0px',
+    textAlign: 'center',
   },
-  "EmptyTitle"
+  'EmptyTitle',
 )
 
 const EmptyDescriptionText = styled(
-  "p",
+  'p',
   {
-    fontSize: "$16",
-    fontFamily: "$body",
-    color: "$secondaryText12",
-    textAlign: "center",
-    maxWidth: "400px",
-    margin: "0px",
+    fontSize: '$16',
+    fontFamily: '$body',
+    color: '$secondaryText12',
+    textAlign: 'center',
+    maxWidth: '400px',
+    margin: '0px',
   },
-  "EmptyDescription"
+  'EmptyDescription',
 )
 
 const EmptyActionFrame = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: "2px",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '2px',
   },
-  "EmptyAction"
+  'EmptyAction',
 )
 
 export interface EmptyRootProps {

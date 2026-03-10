@@ -39,19 +39,80 @@ export type LegendLayout = 'horizontal' | 'vertical'
 export type TooltipIndicator = 'line' | 'dot' | 'dashed'
 
 /** Area chart display variants */
-export type AreaChartVariant = 'default' | 'gradient' | 'stacked' | 'expanded' | 'step' | 'axes' | 'interactive' | 'legend' | 'linear' | 'icons'
+export type AreaChartVariant =
+  | 'default'
+  | 'gradient'
+  | 'stacked'
+  | 'expanded'
+  | 'step'
+  | 'axes'
+  | 'interactive'
+  | 'legend'
+  | 'linear'
+  | 'icons'
 
 /** Bar chart display variants */
-export type BarChartVariant = 'default' | 'horizontal' | 'stacked' | 'grouped' | 'negative' | 'label' | 'mixed' | 'custom-label' | 'active' | 'interactive'
+export type BarChartVariant =
+  | 'default'
+  | 'horizontal'
+  | 'stacked'
+  | 'grouped'
+  | 'negative'
+  | 'label'
+  | 'mixed'
+  | 'custom-label'
+  | 'active'
+  | 'interactive'
 
 /** Line chart display variants */
-export type LineChartVariant = 'default' | 'dots' | 'multiple' | 'labels' | 'stepped' | 'custom-dots' | 'interactive' | 'linear' | 'legend' | 'icons'
+export type LineChartVariant =
+  | 'default'
+  | 'dots'
+  | 'multiple'
+  | 'labels'
+  | 'stepped'
+  | 'custom-dots'
+  | 'interactive'
+  | 'linear'
+  | 'legend'
+  | 'icons'
 
 /** Pie chart display variants */
-export type PieChartVariant = 'default' | 'donut' | 'donut-text' | 'donut-active' | 'label' | 'custom-label' | 'label-list' | 'legend' | 'separator' | 'interactive' | 'stacked'
+export type PieChartVariant =
+  | 'default'
+  | 'donut'
+  | 'donut-text'
+  | 'donut-active'
+  | 'label'
+  | 'custom-label'
+  | 'label-list'
+  | 'legend'
+  | 'separator'
+  | 'interactive'
+  | 'stacked'
 
 /** Radar chart display variants */
-export type RadarChartVariant = 'default' | 'dots' | 'lines' | 'custom' | 'multiple' | 'grid-circle' | 'grid-filled' | 'grid-none' | 'legend' | 'icons' | 'radius-axis' | 'label' | 'custom-shape' | 'interactive'
+export type RadarChartVariant =
+  | 'default'
+  | 'dots'
+  | 'lines'
+  | 'custom'
+  | 'multiple'
+  | 'grid-circle'
+  | 'grid-filled'
+  | 'grid-none'
+  | 'legend'
+  | 'icons'
+  | 'radius-axis'
+  | 'label'
+  | 'custom-shape'
+  | 'interactive'
 
 /** Radial chart display variants */
-export type RadialChartVariant = 'default' | 'grid' | 'label' | 'stacked' | 'text' | 'shape'
+export type RadialChartVariant =
+  | 'default'
+  | 'grid'
+  | 'label'
+  | 'stacked'
+  | 'text'
+  | 'shape'

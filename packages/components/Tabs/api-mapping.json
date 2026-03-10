@@ -54,10 +54,30 @@
     "List renders with background color and rounded container for a segmented control appearance."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "<Tabs>", "vlting": "<Tabs.Root>", "reason": "Dot-notation compound component API" },
-    { "shadcn": "<TabsList>", "vlting": "<Tabs.List>", "reason": "Dot-notation compound component API" },
-    { "shadcn": "<TabsTrigger>", "vlting": "<Tabs.Trigger>", "reason": "Dot-notation compound component API" },
-    { "shadcn": "No size prop", "vlting": "size='sm' | 'md' | 'lg' on Trigger", "reason": "vlting includes built-in size variants" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "<Tabs>",
+      "vlting": "<Tabs.Root>",
+      "reason": "Dot-notation compound component API"
+    },
+    {
+      "shadcn": "<TabsList>",
+      "vlting": "<Tabs.List>",
+      "reason": "Dot-notation compound component API"
+    },
+    {
+      "shadcn": "<TabsTrigger>",
+      "vlting": "<Tabs.Trigger>",
+      "reason": "Dot-notation compound component API"
+    },
+    {
+      "shadcn": "No size prop",
+      "vlting": "size='sm' | 'md' | 'lg' on Trigger",
+      "reason": "vlting includes built-in size variants"
+    }
   ]
 }

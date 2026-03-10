@@ -1,2 +1,5 @@
 import { createIcon } from '../createIcon'
-export const RiFlashlightFill = createIcon('M13 10H20L11 23V14H4L13 1V10Z', 'RiFlashlightFill')
+export const RiFlashlightFill = createIcon(
+  'M13 10H20L11 23V14H4L13 1V10Z',
+  'RiFlashlightFill',
+)

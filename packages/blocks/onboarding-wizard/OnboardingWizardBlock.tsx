@@ -69,7 +69,9 @@ function StepperWizard({
     <CardJsx style={{ width: '100%', maxWidth: 700, padding: 24 }}>
       <div style={{ ...col, gap: 24 }}>
         {title && (
-          <span style={{ fontSize: 20, fontWeight: 600, fontFamily: 'var(--font-heading)' }}>
+          <span
+            style={{ fontSize: 20, fontWeight: 600, fontFamily: 'var(--font-heading)' }}
+          >
             {title}
           </span>
         )}
@@ -83,10 +85,17 @@ function StepperWizard({
               {Math.round(progress)}%
             </span>
           </div>
-          <ProgressJsx value={progress} aria-label={`Step ${currentStep + 1} of ${steps.length}`} />
+          <ProgressJsx
+            value={progress}
+            aria-label={`Step ${currentStep + 1} of ${steps.length}`}
+          />
         </div>
         {/* Step indicators */}
-        <div style={{ ...row, gap: 4, justifyContent: 'center' }} role="list" aria-label="Onboarding steps">
+        <div
+          style={{ ...row, gap: 4, justifyContent: 'center' }}
+          role="list"
+          aria-label="Onboarding steps"
+        >
           {steps.map((s, i) => (
             <div
               key={s.id}
@@ -109,12 +118,14 @@ function StepperWizard({
                   justifyContent: 'center',
                   fontSize: 14,
                   fontWeight: 500,
-                  backgroundColor: i <= currentStep
-                    ? 'var(--color10, #0066ff)'
-                    : 'var(--background2, rgba(0,0,0,0.05))',
-                  color: i <= currentStep
-                    ? 'var(--colorOnAccent, #fff)'
-                    : 'var(--color, inherit)',
+                  backgroundColor:
+                    i <= currentStep
+                      ? 'var(--color10, #0066ff)'
+                      : 'var(--background2, rgba(0,0,0,0.05))',
+                  color:
+                    i <= currentStep
+                      ? 'var(--colorOnAccent, #fff)'
+                      : 'var(--color, inherit)',
                 }}
               >
                 {i < currentStep ? '✓' : i + 1}
@@ -135,11 +146,15 @@ function StepperWizard({
         {/* Step content */}
         {step && (
           <div style={{ ...col, gap: 12, padding: 16 }}>
-            <span style={{ fontSize: 18, fontWeight: 500, fontFamily: 'var(--font-heading)' }}>
+            <span
+              style={{ fontSize: 18, fontWeight: 500, fontFamily: 'var(--font-heading)' }}
+            >
               {step.title}
             </span>
             {step.description && (
-              <span style={{ fontSize: 14, opacity: 0.7, fontFamily: 'var(--font-body)' }}>
+              <span
+                style={{ fontSize: 14, opacity: 0.7, fontFamily: 'var(--font-body)' }}
+              >
                 {step.description}
               </span>
             )}
@@ -150,7 +165,11 @@ function StepperWizard({
         <div style={{ ...row, justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ ...row, gap: 8 }}>
             {currentStep > 0 && (
-              <ButtonJsx variant="outline" onPress={onPrevious} aria-label="Previous step">
+              <ButtonJsx
+                variant="outline"
+                onPress={onPrevious}
+                aria-label="Previous step"
+              >
                 <ButtonTextJsx>Back</ButtonTextJsx>
               </ButtonJsx>
             )}
@@ -189,7 +208,9 @@ function CardsWizard({
   return (
     <div style={{ ...col, gap: 24, width: '100%', maxWidth: 600, alignItems: 'center' }}>
       {title && (
-        <span style={{ fontSize: 24, fontWeight: 600, fontFamily: 'var(--font-heading)' }}>
+        <span
+          style={{ fontSize: 24, fontWeight: 600, fontFamily: 'var(--font-heading)' }}
+        >
           {title}
         </span>
       )}
@@ -197,11 +218,20 @@ function CardsWizard({
         <CardJsx style={{ width: '100%', padding: 32 }}>
           <div style={{ ...col, gap: 16, alignItems: 'center', textAlign: 'center' }}>
             {step.icon && <div style={{ fontSize: 48 }}>{step.icon}</div>}
-            <span style={{ fontSize: 22, fontWeight: 600, fontFamily: 'var(--font-heading)' }}>
+            <span
+              style={{ fontSize: 22, fontWeight: 600, fontFamily: 'var(--font-heading)' }}
+            >
               {step.title}
             </span>
             {step.description && (
-              <span style={{ fontSize: 15, opacity: 0.7, fontFamily: 'var(--font-body)', maxWidth: 400 }}>
+              <span
+                style={{
+                  fontSize: 15,
+                  opacity: 0.7,
+                  fontFamily: 'var(--font-body)',
+                  maxWidth: 400,
+                }}
+              >
                 {step.description}
               </span>
             )}
@@ -210,7 +240,11 @@ function CardsWizard({
         </CardJsx>
       )}
       {/* Dots */}
-      <div style={{ ...row, gap: 8, justifyContent: 'center' }} role="list" aria-label="Progress">
+      <div
+        style={{ ...row, gap: 8, justifyContent: 'center' }}
+        role="list"
+        aria-label="Progress"
+      >
         {steps.map((s, i) => (
           <div
             key={s.id}
@@ -219,9 +253,10 @@ function CardsWizard({
               width: i === currentStep ? 24 : 8,
               height: 8,
               borderRadius: 4,
-              backgroundColor: i === currentStep
-                ? 'var(--color10, #0066ff)'
-                : 'var(--borderColor, #e5e7eb)',
+              backgroundColor:
+                i === currentStep
+                  ? 'var(--color10, #0066ff)'
+                  : 'var(--borderColor, #e5e7eb)',
               transition: 'width 0.2s',
             }}
           />
@@ -261,10 +296,15 @@ function MinimalWizard({
 
   return (
     <div style={{ ...col, gap: 32, width: '100%', maxWidth: 500 }}>
-      <ProgressJsx value={progress} aria-label={`Step ${currentStep + 1} of ${steps.length}`} />
+      <ProgressJsx
+        value={progress}
+        aria-label={`Step ${currentStep + 1} of ${steps.length}`}
+      />
       {step && (
         <div style={{ ...col, gap: 12 }}>
-          <span style={{ fontSize: 24, fontWeight: 600, fontFamily: 'var(--font-heading)' }}>
+          <span
+            style={{ fontSize: 24, fontWeight: 600, fontFamily: 'var(--font-heading)' }}
+          >
             {step.title}
           </span>
           {step.description && (

@@ -5,7 +5,10 @@
     "props": {
       "checked": { "type": "boolean | 'indeterminate'", "values": [] },
       "defaultChecked": { "type": "boolean", "values": [] },
-      "onCheckedChange": { "type": "function", "values": ["(checked: boolean | 'indeterminate') => void"] },
+      "onCheckedChange": {
+        "type": "function",
+        "values": ["(checked: boolean | 'indeterminate') => void"]
+      },
       "disabled": { "type": "boolean", "values": [] },
       "required": { "type": "boolean", "values": [] },
       "name": { "type": "string", "values": [] },
@@ -19,7 +22,10 @@
       "Checkbox.Root": {
         "checked": { "type": "boolean | 'indeterminate'", "values": [] },
         "defaultChecked": { "type": "boolean", "values": [] },
-        "onCheckedChange": { "type": "function", "values": ["(checked: boolean | 'indeterminate') => void"] },
+        "onCheckedChange": {
+          "type": "function",
+          "values": ["(checked: boolean | 'indeterminate') => void"]
+        },
         "disabled": { "type": "boolean", "values": [] },
         "size": { "type": "string", "values": ["sm", "md", "lg"] },
         "required": { "type": "boolean", "values": [] },
@@ -41,8 +47,20 @@
     "Both support indeterminate state"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props or size prop", "reason": "Cross-platform" },
-    { "shadcn": "<Checkbox /> + separate <label>", "vlting": "<Checkbox.Root>Label text</Checkbox.Root> (built-in label wrapper)", "reason": "Integrated label pattern" },
-    { "shadcn": "No size prop", "vlting": "Use size='sm' | 'md' | 'lg'", "reason": "Built-in sizing" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props or size prop",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "<Checkbox /> + separate <label>",
+      "vlting": "<Checkbox.Root>Label text</Checkbox.Root> (built-in label wrapper)",
+      "reason": "Integrated label pattern"
+    },
+    {
+      "shadcn": "No size prop",
+      "vlting": "Use size='sm' | 'md' | 'lg'",
+      "reason": "Built-in sizing"
+    }
   ]
 }

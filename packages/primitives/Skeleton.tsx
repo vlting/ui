@@ -5,18 +5,18 @@ const SKELETON_KEYFRAMES = `@keyframes vlting-skeleton-pulse { 0%, 100% { opacit
 let keyframesInjected = false
 
 const SkeletonFrame = styled(
-  "div",
+  'div',
   {
-    backgroundColor: "$surface3",
-    borderRadius: "$2",
-    overflow: "hidden",
+    backgroundColor: '$surface3',
+    borderRadius: '$2',
+    overflow: 'hidden',
   },
   {
     circle: {
-      true: { borderRadius: "$full" },
+      true: { borderRadius: '$full' },
     },
   },
-  "Skeleton"
+  'Skeleton',
 )
 
 export interface SkeletonProps extends ComponentProps<typeof SkeletonFrame> {

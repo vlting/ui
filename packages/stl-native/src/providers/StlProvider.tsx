@@ -5,11 +5,22 @@ import {
   useMemo,
   useState,
   type ReactNode,
-} from "react"
-import { Appearance, Dimensions, I18nManager, AccessibilityInfo, type ScaledSize } from "react-native"
-import type { ColorMode } from "../shared/colorGen"
-import { DEFAULT_COLOR_MODE } from "../shared/colorGen"
-import { computeConditionMask, observerConditionsMap, type ConditionMask, type ConditionKeys } from "../config/conditions"
+} from 'react'
+import {
+  Appearance,
+  Dimensions,
+  I18nManager,
+  AccessibilityInfo,
+  type ScaledSize,
+} from 'react-native'
+import type { ColorMode } from '../shared/colorGen'
+import { DEFAULT_COLOR_MODE } from '../shared/colorGen'
+import {
+  computeConditionMask,
+  observerConditionsMap,
+  type ConditionMask,
+  type ConditionKeys,
+} from '../config/conditions'
 
 // CONTEXT /////////////////////////////////////////////////////////////////////
 
@@ -38,11 +49,11 @@ function getBreakpointConditions(width: number): Partial<Record<ConditionKeys, b
     md: width <= observerConditionsMap.md,
     lg: width <= observerConditionsMap.lg,
     xl: width <= observerConditionsMap.xl,
-    "!xs": width > observerConditionsMap.xs,
-    "!sm": width > observerConditionsMap.sm,
-    "!md": width > observerConditionsMap.md,
-    "!lg": width > observerConditionsMap.lg,
-    "!xl": width > observerConditionsMap.xl,
+    '!xs': width > observerConditionsMap.xs,
+    '!sm': width > observerConditionsMap.sm,
+    '!md': width > observerConditionsMap.md,
+    '!lg': width > observerConditionsMap.lg,
+    '!xl': width > observerConditionsMap.xl,
   }
 }
 
@@ -63,10 +74,10 @@ export function StlProvider({
   isDebugMode = false,
 }: StlProviderProps) {
   const [colorMode, setColorMode] = useState<ColorMode>(defaultColorMode)
-  const [windowWidth, setWindowWidth] = useState(() => Dimensions.get("window").width)
+  const [windowWidth, setWindowWidth] = useState(() => Dimensions.get('window').width)
   const [isReducedMotion, setIsReducedMotion] = useState(false)
 
-  const isDark = colorMode === "dark"
+  const isDark = colorMode === 'dark'
   const isRTL = I18nManager.isRTL
 
   // Listen to dimension changes
@@ -74,14 +85,14 @@ export function StlProvider({
     const handler = ({ window }: { window: ScaledSize }) => {
       setWindowWidth(window.width)
     }
-    const sub = Dimensions.addEventListener("change", handler)
+    const sub = Dimensions.addEventListener('change', handler)
     return () => sub.remove()
   }, [])
 
   // Listen to system color scheme
   useEffect(() => {
     const sub = Appearance.addChangeListener(({ colorScheme }) => {
-      setColorMode(colorScheme === "dark" ? "dark" : "light")
+      setColorMode(colorScheme === 'dark' ? 'dark' : 'light')
     })
     return () => sub.remove()
   }, [])
@@ -89,12 +100,15 @@ export function StlProvider({
   // Detect reduced motion preference
   useEffect(() => {
     AccessibilityInfo.isReduceMotionEnabled().then(setIsReducedMotion)
-    const sub = AccessibilityInfo.addEventListener("reduceMotionChanged", setIsReducedMotion)
+    const sub = AccessibilityInfo.addEventListener(
+      'reduceMotionChanged',
+      setIsReducedMotion,
+    )
     return () => sub.remove()
   }, [])
 
   const toggleColorMode = useCallback(
-    () => setColorMode(m => (m === "light" ? "dark" : "light")),
+    () => setColorMode((m) => (m === 'light' ? 'dark' : 'light')),
     [],
   )
 
@@ -108,18 +122,18 @@ export function StlProvider({
       rtl: isRTL,
       ltr: !isRTL,
       lowMotion: isReducedMotion,
-      "!lowMotion": !isReducedMotion,
+      '!lowMotion': !isReducedMotion,
       // RN is always touch
       touch: true,
-      "!touch": false,
+      '!touch': false,
       pointer: false,
-      "!pointer": true,
+      '!pointer': true,
       tv: false,
-      "!tv": true,
+      '!tv': true,
       hightContrast: false,
-      "!hightContrast": true,
+      '!hightContrast': true,
       lowData: false,
-      "!lowData": true,
+      '!lowData': true,
       debug: isDebugMode,
     })
   }, [windowWidth, isDark, isRTL, isReducedMotion, isDebugMode])

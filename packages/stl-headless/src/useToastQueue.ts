@@ -57,7 +57,11 @@ export function useToastQueue(): UseToastQueueReturn {
   }
   const store = storeRef.current
 
-  const toasts = useSyncExternalStore(store.subscribe, store.getSnapshot, store.getSnapshot)
+  const toasts = useSyncExternalStore(
+    store.subscribe,
+    store.getSnapshot,
+    store.getSnapshot,
+  )
 
   // Auto-dismiss timers
   const timersRef = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map())

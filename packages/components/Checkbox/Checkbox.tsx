@@ -43,22 +43,27 @@ function MinusSvg({ size = 14 }: { size?: number }) {
   )
 }
 
-const CheckboxBox = styled("div", {
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  borderWidth: "2px",
-  borderStyle: "solid",
-  borderRadius: "$2",
-  flexShrink: "0",
-  transition: "border-color 0.15s, background-color 0.15s",
-}, {
-  size: {
-    sm: { width: "16px", height: "16px" },
-    md: { width: "20px", height: "20px" },
-    lg: { width: "24px", height: "24px" },
+const CheckboxBox = styled(
+  'div',
+  {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: '2px',
+    borderStyle: 'solid',
+    borderRadius: '$2',
+    flexShrink: '0',
+    transition: 'border-color 0.15s, background-color 0.15s',
   },
-}, "CheckboxBox")
+  {
+    size: {
+      sm: { width: '16px', height: '16px' },
+      md: { width: '20px', height: '20px' },
+      lg: { width: '24px', height: '24px' },
+    },
+  },
+  'CheckboxBox',
+)
 
 const ICON_SIZE_MAP: Record<string, number> = { sm: 12, md: 14, lg: 18 }
 
@@ -99,13 +104,16 @@ function Root({
     document.head.appendChild(el)
   }, [])
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    if (isIndeterminate) {
-      onCheckedChange?.(true)
-    } else {
-      onCheckedChange?.(e.target.checked)
-    }
-  }, [isIndeterminate, onCheckedChange])
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (isIndeterminate) {
+        onCheckedChange?.(true)
+      } else {
+        onCheckedChange?.(e.target.checked)
+      }
+    },
+    [isIndeterminate, onCheckedChange],
+  )
 
   React.useEffect(() => {
     if (inputRef.current) {
@@ -152,16 +160,23 @@ function Root({
         className="vlt-checkbox-box"
         size={size}
         style={{
-          borderColor: isChecked || isIndeterminate ? 'var(--color10, var(--stl-color-primary9))' : 'var(--borderColor)',
-          backgroundColor: isChecked || isIndeterminate ? 'var(--color10, var(--stl-color-primary9))' : 'transparent',
+          borderColor:
+            isChecked || isIndeterminate
+              ? 'var(--color10, var(--stl-color-primary9))'
+              : 'var(--borderColor)',
+          backgroundColor:
+            isChecked || isIndeterminate
+              ? 'var(--color10, var(--stl-color-primary9))'
+              : 'transparent',
           color: isChecked || isIndeterminate ? 'var(--color1, #fff)' : 'inherit',
         }}
       >
-        {(isChecked || isIndeterminate) && (
-          isIndeterminate
-            ? <MinusSvg size={ICON_SIZE_MAP[size]} />
-            : <CheckSvg size={ICON_SIZE_MAP[size]} />
-        )}
+        {(isChecked || isIndeterminate) &&
+          (isIndeterminate ? (
+            <MinusSvg size={ICON_SIZE_MAP[size]} />
+          ) : (
+            <CheckSvg size={ICON_SIZE_MAP[size]} />
+          ))}
       </CheckboxBox>
       {children}
     </label>

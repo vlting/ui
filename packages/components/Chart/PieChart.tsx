@@ -73,14 +73,20 @@ function getSliceData(
     const seriesKey = seriesKeys[0]
     for (const point of data) {
       const key = String(point[xAxisKey] ?? point.x)
-      const value = typeof point[seriesKey] === 'number'
-        ? (point[seriesKey] as number)
-        : typeof point.y === 'number' ? point.y : 0
+      const value =
+        typeof point[seriesKey] === 'number'
+          ? (point[seriesKey] as number)
+          : typeof point.y === 'number'
+            ? point.y
+            : 0
       slices.push({
         key,
         value: Math.max(0, value),
         label: key,
-        color: resolvedColors[key] || resolvedColors[seriesKey] || 'var(--stl-color8, #888888)',
+        color:
+          resolvedColors[key] ||
+          resolvedColors[seriesKey] ||
+          'var(--stl-color8, #888888)',
       })
     }
   } else {
@@ -88,7 +94,8 @@ function getSliceData(
     for (const seriesKey of seriesKeys) {
       let total = 0
       for (const point of data) {
-        const val = typeof point[seriesKey] === 'number' ? (point[seriesKey] as number) : 0
+        const val =
+          typeof point[seriesKey] === 'number' ? (point[seriesKey] as number) : 0
         total += Math.max(0, val)
       }
       slices.push({
@@ -209,15 +216,19 @@ export function PieChart({
   labelPosition,
   centerText,
 }: PieChartProps) {
-  const { resolvedColors, victoryTheme, dimensions, config: _ctxConfig } = useChartContext()
+  const {
+    resolvedColors,
+    victoryTheme,
+    dimensions,
+    config: _ctxConfig,
+  } = useChartContext()
   const [internalActiveIndex, setInternalActiveIndex] = useState<number | null>(null)
 
   // Resolve variant-driven flags
   const isDonut =
-    variant === 'donut' ||
-    variant === 'donut-text' ||
-    variant === 'donut-active'
-  const isInteractive = interactive || variant === 'interactive' || variant === 'donut-active'
+    variant === 'donut' || variant === 'donut-text' || variant === 'donut-active'
+  const isInteractive =
+    interactive || variant === 'interactive' || variant === 'donut-active'
   const hasLegend = showLegend || variant === 'legend'
   const hasLabels =
     showLabels ||
@@ -278,13 +289,15 @@ export function PieChart({
       const values: Array<{ key: string; value: number }> = []
 
       for (const point of data) {
-        const val = typeof point[seriesKey] === 'number' ? (point[seriesKey] as number) : 0
+        const val =
+          typeof point[seriesKey] === 'number' ? (point[seriesKey] as number) : 0
         const key = String(point[xAxisKey] ?? point.x)
         values.push({ key, value: Math.max(0, val) })
         total += Math.max(0, val)
       }
 
-      if (total === 0) return { seriesKey, outerR: ringOuterR, innerR: ringInnerR, slices: [] }
+      if (total === 0)
+        return { seriesKey, outerR: ringOuterR, innerR: ringInnerR, slices: [] }
 
       let currentAngle = startAngleProp
       const totalAngle = endAngleProp - startAngleProp
@@ -303,9 +316,23 @@ export function PieChart({
         currentAngle += sliceAngle
       }
 
-      return { seriesKey, outerR: ringOuterR, innerR: Math.max(0, ringInnerR), slices: ringSlices }
+      return {
+        seriesKey,
+        outerR: ringOuterR,
+        innerR: Math.max(0, ringInnerR),
+        slices: ringSlices,
+      }
     })
-  }, [isStacked, config, data, xAxisKey, resolvedColors, outerRadius, startAngleProp, endAngleProp])
+  }, [
+    isStacked,
+    config,
+    data,
+    xAxisKey,
+    resolvedColors,
+    outerRadius,
+    startAngleProp,
+    endAngleProp,
+  ])
 
   const handlePress = useCallback(
     (index: number) => {
@@ -329,10 +356,7 @@ export function PieChart({
   }, [activeIndex, slices])
 
   // Total for center text
-  const totalValue = useMemo(
-    () => slices.reduce((sum, s) => sum + s.value, 0),
-    [slices],
-  )
+  const totalValue = useMemo(() => slices.reduce((sum, s) => sum + s.value, 0), [slices])
 
   return (
     <>
@@ -344,7 +368,14 @@ export function PieChart({
               ring.slices.map((slice, si) => (
                 <Path
                   key={`ring-${ring.seriesKey}-${si}`}
-                  d={describeArc(cx, cy, ring.outerR, ring.innerR, slice.startAngle, slice.endAngle)}
+                  d={describeArc(
+                    cx,
+                    cy,
+                    ring.outerR,
+                    ring.innerR,
+                    slice.startAngle,
+                    slice.endAngle,
+                  )}
                   fill={slice.color}
                   fillOpacity={0.8 - si * 0.05}
                 />
@@ -363,9 +394,18 @@ export function PieChart({
               return (
                 <Path
                   key={`slice-${slice.key}-${i}`}
-                  d={describeArc(cx, cy, sliceOuterR, sliceInnerR, slice.startAngle, slice.endAngle)}
+                  d={describeArc(
+                    cx,
+                    cy,
+                    sliceOuterR,
+                    sliceInnerR,
+                    slice.startAngle,
+                    slice.endAngle,
+                  )}
                   fill={slice.color}
-                  fillOpacity={isInteractive && activeIndex != null && !isActive ? 0.5 : 1}
+                  fillOpacity={
+                    isInteractive && activeIndex != null && !isActive ? 0.5 : 1
+                  }
                   stroke={hasSeparator ? 'var(--stl-background, #ffffff)' : 'none'}
                   strokeWidth={hasSeparator ? 2 : 0}
                   onPress={() => handlePress(i)}
@@ -402,49 +442,44 @@ export function PieChart({
         )}
 
         {/* Inside labels */}
-        {hasLabels && (variant === 'label' || labelPosition === 'inside') && !CustomLabel && (
-          <G>
-            {slices.map((slice, i) => {
-              const mid = midAngle(slice.startAngle, slice.endAngle)
-              const labelR = innerRadius > 0
-                ? (outerRadius + innerRadius) / 2
-                : outerRadius * 0.65
-              const pos = polarToCartesian(cx, cy, labelR, mid)
-              return (
-                <SvgText
-                  key={`label-${i}`}
-                  x={pos.x}
-                  y={pos.y}
-                  textAnchor="middle"
-                  alignmentBaseline="central"
-                  fill="var(--stl-background, #ffffff)"
-                  fontSize={labelFontSize}
-                  fontWeight="500"
-                >
-                  {`${Math.round(slice.percentage * 100)}%`}
-                </SvgText>
-              )
-            })}
-          </G>
-        )}
+        {hasLabels &&
+          (variant === 'label' || labelPosition === 'inside') &&
+          !CustomLabel && (
+            <G>
+              {slices.map((slice, i) => {
+                const mid = midAngle(slice.startAngle, slice.endAngle)
+                const labelR =
+                  innerRadius > 0 ? (outerRadius + innerRadius) / 2 : outerRadius * 0.65
+                const pos = polarToCartesian(cx, cy, labelR, mid)
+                return (
+                  <SvgText
+                    key={`label-${i}`}
+                    x={pos.x}
+                    y={pos.y}
+                    textAnchor="middle"
+                    alignmentBaseline="central"
+                    fill="var(--stl-background, #ffffff)"
+                    fontSize={labelFontSize}
+                    fontWeight="500"
+                  >
+                    {`${Math.round(slice.percentage * 100)}%`}
+                  </SvgText>
+                )
+              })}
+            </G>
+          )}
 
         {/* Custom labels */}
         {hasLabels && variant === 'custom-label' && CustomLabel && (
           <G>
             {slices.map((slice, i) => {
               const mid = midAngle(slice.startAngle, slice.endAngle)
-              const labelR = innerRadius > 0
-                ? (outerRadius + innerRadius) / 2
-                : outerRadius * 0.65
+              const labelR =
+                innerRadius > 0 ? (outerRadius + innerRadius) / 2 : outerRadius * 0.65
               const pos = polarToCartesian(cx, cy, labelR, mid)
               return (
                 <G key={`custom-label-${i}`} x={pos.x} y={pos.y}>
-                  <CustomLabel
-                    slice={slice}
-                    index={i}
-                    cx={pos.x}
-                    cy={pos.y}
-                  />
+                  <CustomLabel slice={slice} index={i} cx={pos.x} cy={pos.y} />
                 </G>
               )
             })}

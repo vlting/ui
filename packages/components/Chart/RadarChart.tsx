@@ -3,13 +3,24 @@ import { Svg, Path, G, Circle, Line, Text as SvgText } from 'react-native-svg'
 import { useChartContext } from './Chart'
 import { ChartLegend } from './ChartLegend'
 import { ChartTooltip } from './ChartTooltip'
-import type {
-  ChartDataPoint,
-  TooltipVariant,
-} from './types'
+import type { ChartDataPoint, TooltipVariant } from './types'
 
 /** Radar chart display variants */
-export type RadarChartVariant = 'default' | 'dots' | 'lines' | 'custom' | 'multiple' | 'grid-circle' | 'grid-filled' | 'grid-none' | 'legend' | 'icons' | 'radius-axis' | 'label' | 'custom-shape' | 'interactive'
+export type RadarChartVariant =
+  | 'default'
+  | 'dots'
+  | 'lines'
+  | 'custom'
+  | 'multiple'
+  | 'grid-circle'
+  | 'grid-filled'
+  | 'grid-none'
+  | 'legend'
+  | 'icons'
+  | 'radius-axis'
+  | 'label'
+  | 'custom-shape'
+  | 'interactive'
 
 export interface RadarChartProps {
   data: ChartDataPoint[]
@@ -113,16 +124,13 @@ export function RadarChart({
   // Resolve variant flags
   const hasDots = showDotsProp ?? ['dots', 'custom-shape'].includes(variant)
   const hasLabels = showLabelsProp ?? ['label', 'radius-axis'].includes(variant)
-  const hasGrid =
-    showGridProp ?? !['grid-none'].includes(variant)
+  const hasGrid = showGridProp ?? !['grid-none'].includes(variant)
   const isInteractive = interactiveProp ?? variant === 'interactive'
   const hasLegend = showLegendProp ?? ['legend', 'icons'].includes(variant)
-  const hasRadiusAxis =
-    showRadiusAxisProp ?? variant === 'radius-axis'
+  const hasRadiusAxis = showRadiusAxisProp ?? variant === 'radius-axis'
   const isLinesOnly = variant === 'lines'
   const gridType: 'polygon' | 'circle' =
-    gridTypeProp ??
-    (variant === 'grid-circle' ? 'circle' : 'polygon')
+    gridTypeProp ?? (variant === 'grid-circle' ? 'circle' : 'polygon')
   const gridFilled = gridFillProp ?? variant === 'grid-filled'
   const fillOpacity = isLinesOnly ? 0 : (fillOpacityProp ?? 0.25)
   const sw = strokeWidthProp ?? 2
@@ -161,10 +169,8 @@ export function RadarChart({
   )
 
   // Axis tick colors from theme
-  const labelColor =
-    victoryTheme.axis.style.tickLabels.fill || 'var(--stl-color8, #666)'
-  const gridColor =
-    victoryTheme.axis.style.grid.stroke || 'var(--stl-surface3, #e0e0e0)'
+  const labelColor = victoryTheme.axis.style.tickLabels.fill || 'var(--stl-color8, #666)'
+  const gridColor = victoryTheme.axis.style.grid.stroke || 'var(--stl-surface3, #e0e0e0)'
 
   // -- Render grid --
   const gridElements = useMemo(() => {
@@ -195,7 +201,9 @@ export function RadarChart({
               cx={cx}
               cy={cy}
               r={rPrev}
-              fill={victoryTheme.tooltip.flyoutStyle.fill || 'var(--stl-background, #fff)'}
+              fill={
+                victoryTheme.tooltip.flyoutStyle.fill || 'var(--stl-background, #fff)'
+              }
             />,
           )
         } else {
@@ -226,7 +234,9 @@ export function RadarChart({
                   outerR,
                   catCount,
                 )}
-                fill={victoryTheme.tooltip.flyoutStyle.fill || 'var(--stl-background, #fff)'}
+                fill={
+                  victoryTheme.tooltip.flyoutStyle.fill || 'var(--stl-background, #fff)'
+                }
               />,
             )
           }
@@ -251,8 +261,10 @@ export function RadarChart({
         elements.push(
           <Path
             key={`grid-${level}`}
-            d={`M ${pts.split(',').join(' ').replace(/ (\d)/g, ' L $1').replace('M', 'M ')} Z`
-              .replace('M  ', 'M ')}
+            d={`M ${pts.split(',').join(' ').replace(/ (\d)/g, ' L $1').replace('M', 'M ')} Z`.replace(
+              'M  ',
+              'M ',
+            )}
             fill="none"
             stroke={gridColor}
             strokeOpacity={0.5}
@@ -280,7 +292,18 @@ export function RadarChart({
     }
 
     return elements
-  }, [hasGrid, gridLevels, gridType, gridFilled, outerR, cx, cy, catCount, gridColor, victoryTheme])
+  }, [
+    hasGrid,
+    gridLevels,
+    gridType,
+    gridFilled,
+    outerR,
+    cx,
+    cy,
+    catCount,
+    gridColor,
+    victoryTheme,
+  ])
 
   // -- Render data series --
   const seriesElements = useMemo(() => {
@@ -328,7 +351,23 @@ export function RadarChart({
         </G>
       )
     })
-  }, [seriesKeys, data, cx, cy, maxVal, outerR, catCount, resolvedColors, fillOpacity, sw, hasDots, ds, activeVertex, CustomShape, variant])
+  }, [
+    seriesKeys,
+    data,
+    cx,
+    cy,
+    maxVal,
+    outerR,
+    catCount,
+    resolvedColors,
+    fillOpacity,
+    sw,
+    hasDots,
+    ds,
+    activeVertex,
+    CustomShape,
+    variant,
+  ])
 
   // -- Render labels --
   const labelElements = useMemo(() => {

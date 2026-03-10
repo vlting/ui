@@ -45,9 +45,25 @@
     "ScrollView sub-component enables scrollable content within the sheet frame."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "<SheetContent side='right'>", "vlting": "<Sheet.Root><Sheet.Frame>", "reason": "vlting Sheet is always bottom-up; use Drawer for side panels" },
-    { "shadcn": "SheetHeader, SheetTitle, SheetDescription", "vlting": "Compose content freely inside Sheet.Frame", "reason": "No built-in header/title sub-components; use Typography or custom layout" },
-    { "shadcn": "No snap points", "vlting": "snapPoints={[50, 90]}", "reason": "vlting supports snap-to-position for mobile-like sheet behavior" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "<SheetContent side='right'>",
+      "vlting": "<Sheet.Root><Sheet.Frame>",
+      "reason": "vlting Sheet is always bottom-up; use Drawer for side panels"
+    },
+    {
+      "shadcn": "SheetHeader, SheetTitle, SheetDescription",
+      "vlting": "Compose content freely inside Sheet.Frame",
+      "reason": "No built-in header/title sub-components; use Typography or custom layout"
+    },
+    {
+      "shadcn": "No snap points",
+      "vlting": "snapPoints={[50, 90]}",
+      "reason": "vlting supports snap-to-position for mobile-like sheet behavior"
+    }
   ]
 }

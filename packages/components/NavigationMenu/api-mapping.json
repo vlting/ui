@@ -59,9 +59,25 @@
     "Indicator is a visual-only bar at the bottom, rendered via NavigationMenu.Indicator."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "<NavigationMenuList>", "vlting": "<NavigationMenu.List>", "reason": "Dot-notation compound component API" },
-    { "shadcn": "navigationMenuTriggerStyle()", "vlting": "Styling is built-in to NavigationMenu.Trigger", "reason": "No separate style utility needed" },
-    { "shadcn": "asChild on Link", "vlting": "NavigationMenu.Link renders an <a> tag directly; use href and onSelect props", "reason": "Different composition model" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "<NavigationMenuList>",
+      "vlting": "<NavigationMenu.List>",
+      "reason": "Dot-notation compound component API"
+    },
+    {
+      "shadcn": "navigationMenuTriggerStyle()",
+      "vlting": "Styling is built-in to NavigationMenu.Trigger",
+      "reason": "No separate style utility needed"
+    },
+    {
+      "shadcn": "asChild on Link",
+      "vlting": "NavigationMenu.Link renders an <a> tag directly; use href and onSelect props",
+      "reason": "Different composition model"
+    }
   ]
 }

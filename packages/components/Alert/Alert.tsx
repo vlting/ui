@@ -2,51 +2,51 @@ import type React from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const AlertFrame = styled(
-  "section",
+  'section',
   {
-    display: "flex",
-    flexDirection: "row",
-    borderRadius: "$3",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "$borderColor",
-    padding: "$3",
-    gap: "$2",
-    alignItems: "flex-start",
+    display: 'flex',
+    flexDirection: 'row',
+    borderRadius: '$3',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    padding: '$3',
+    gap: '$2',
+    alignItems: 'flex-start',
   },
   {
     variant: {
-      default: { backgroundColor: "$surface1" },
-      destructive: { borderColor: "$red8", backgroundColor: "$red2" },
+      default: { backgroundColor: '$surface1' },
+      destructive: { borderColor: '$red8', backgroundColor: '$red2' },
     },
   },
-  "Alert"
+  'Alert',
 )
 
 const AlertTitle = styled(
-  "span",
-  { fontFamily: "$body", fontWeight: "$600", fontSize: "$16", color: "$color" },
-  "AlertTitle"
+  'span',
+  { fontFamily: '$body', fontWeight: '$600', fontSize: '$16', color: '$color' },
+  'AlertTitle',
 )
 
 const AlertDescription = styled(
-  "span",
-  { fontFamily: "$body", fontSize: "$14", color: "$secondaryText12" },
-  "AlertDescription"
+  'span',
+  { fontFamily: '$body', fontSize: '$14', color: '$secondaryText12' },
+  'AlertDescription',
 )
 
 const AlertIconFrame = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     flexShrink: 0,
-    width: "16px",
-    height: "16px",
-    marginTop: "2px",
+    width: '16px',
+    height: '16px',
+    marginTop: '2px',
   },
-  "AlertIcon"
+  'AlertIcon',
 )
 
 export interface AlertProps {

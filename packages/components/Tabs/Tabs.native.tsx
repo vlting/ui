@@ -1,14 +1,9 @@
-import React, { createContext, useContext } from "react"
-import {
-  View,
-  Text as RNText,
-  Pressable,
-  ScrollView,
-} from "react-native"
-import type { ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
-import { useTabs } from "../../stl-headless/src/useTabs"
-import type { UseTabsProps } from "../../stl-headless/src/useTabs"
+import React, { createContext, useContext } from 'react'
+import { View, Text as RNText, Pressable, ScrollView } from 'react-native'
+import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
+import { useTabs } from '../../stl-headless/src/useTabs'
+import type { UseTabsProps } from '../../stl-headless/src/useTabs'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -17,11 +12,11 @@ import type { UseTabsProps } from "../../stl-headless/src/useTabs"
 const TabsListFrame = styled(
   View,
   {
-    flexDirection: "row",
+    flexDirection: 'row',
     borderBottomWidth: 1,
-    borderColor: "$borderColor",
+    borderColor: '$borderColor',
   },
-  "TabsList",
+  'TabsList',
 )
 
 const TabsTriggerFrame = styled(
@@ -35,30 +30,30 @@ const TabsTriggerFrame = styled(
     active: {
       true: {
         borderBottomWidth: 2,
-        borderBottomColor: "$primary9",
+        borderBottomColor: '$primary9',
       },
       false: {
         borderBottomWidth: 2,
-        borderBottomColor: "transparent",
+        borderBottomColor: 'transparent',
       },
     },
   },
-  "TabsTrigger",
+  'TabsTrigger',
 )
 
 const TabsTriggerTextFrame = styled(
   RNText,
   {
     fontSize: 14,
-    fontWeight: "500",
+    fontWeight: '500',
   },
   {
     active: {
-      true: { color: "$primary9" },
-      false: { color: "$color3" },
+      true: { color: '$primary9' },
+      false: { color: '$color3' },
     },
   },
-  "TabsTriggerText",
+  'TabsTriggerText',
 )
 
 const TabsContentFrame = styled(
@@ -66,7 +61,7 @@ const TabsContentFrame = styled(
   {
     paddingVertical: 12,
   },
-  "TabsContent",
+  'TabsContent',
 )
 
 // ---------------------------------------------------------------------------
@@ -79,7 +74,7 @@ interface TabsContextValue {
 }
 
 const TabsContext = createContext<TabsContextValue>({
-  activeValue: "",
+  activeValue: '',
   setActiveValue: () => {},
 })
 
@@ -113,10 +108,7 @@ function TabsList({
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{ flexGrow: 1 }}
     >
-      <TabsListFrame
-        style={style}
-        accessibilityRole="tablist" as any
-      >
+      <TabsListFrame style={style} accessibilityRole="tablist" as any>
         {children}
       </TabsListFrame>
     </ScrollView>
@@ -142,10 +134,8 @@ function TabsTrigger({
       accessibilityRole="tab"
       accessibilityState={{ selected: isActive }}
     >
-      {typeof children === "string" ? (
-        <TabsTriggerTextFrame active={isActive}>
-          {children}
-        </TabsTriggerTextFrame>
+      {typeof children === 'string' ? (
+        <TabsTriggerTextFrame active={isActive}>{children}</TabsTriggerTextFrame>
       ) : (
         children
       )}

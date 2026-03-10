@@ -1,4 +1,4 @@
-import "@testing-library/jest-dom"
+import '@testing-library/jest-dom'
 
 // Mock ResizeObserver
 class ResizeObserverMock {
@@ -13,7 +13,7 @@ class ResizeObserverMock {
 globalThis.ResizeObserver = ResizeObserverMock as any
 
 // Mock matchMedia
-Object.defineProperty(window, "matchMedia", {
+Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: (query: string) => ({
     matches: false,

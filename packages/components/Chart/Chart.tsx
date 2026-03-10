@@ -1,4 +1,12 @@
-import React, { createContext, useContext, useRef, useState, useEffect, useMemo, useCallback } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useRef,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from 'react'
 import type { ChartConfig } from './types'
 import { createChartTheme } from './theme'
 import { getSeriesColors } from './utils'
@@ -16,11 +24,26 @@ function useResolvedTheme() {
     if (!el) return
     const cs = getComputedStyle(el)
     setTokens({
-      background: cs.getPropertyValue('--stl-background').trim() || cs.getPropertyValue('--background').trim() || '#ffffff',
-      color: cs.getPropertyValue('--stl-foreground').trim() || cs.getPropertyValue('--color').trim() || '#111111',
-      color4: cs.getPropertyValue('--stl-surface2').trim() || cs.getPropertyValue('--color4').trim() || '#ededed',
-      color8: cs.getPropertyValue('--stl-color8').trim() || cs.getPropertyValue('--color8').trim() || '#6a6a6a',
-      borderColor: cs.getPropertyValue('--stl-border').trim() || cs.getPropertyValue('--borderColor').trim() || '#e8e8e8',
+      background:
+        cs.getPropertyValue('--stl-background').trim() ||
+        cs.getPropertyValue('--background').trim() ||
+        '#ffffff',
+      color:
+        cs.getPropertyValue('--stl-foreground').trim() ||
+        cs.getPropertyValue('--color').trim() ||
+        '#111111',
+      color4:
+        cs.getPropertyValue('--stl-surface2').trim() ||
+        cs.getPropertyValue('--color4').trim() ||
+        '#ededed',
+      color8:
+        cs.getPropertyValue('--stl-color8').trim() ||
+        cs.getPropertyValue('--color8').trim() ||
+        '#6a6a6a',
+      borderColor:
+        cs.getPropertyValue('--stl-border').trim() ||
+        cs.getPropertyValue('--borderColor').trim() ||
+        '#e8e8e8',
     })
   }, [])
 
@@ -98,23 +121,20 @@ export function Chart({
     }
   }, [explicitWidth])
 
-  const resolvedTokens = useMemo(() => ({
-    background: tokens.background || 'var(--stl-background, #ffffff)',
-    color: tokens.color || 'var(--stl-foreground, #111111)',
-    colorSubtitle: tokens.color8 || 'var(--stl-color8, #6a6a6a)',
-    borderColor: tokens.borderColor || 'var(--stl-border, #e8e8e8)',
-    color4: tokens.color4 || 'var(--stl-surface2, #ededed)',
-  }), [tokens])
-
-  const victoryTheme = useMemo(
-    () => createChartTheme(resolvedTokens),
-    [resolvedTokens]
+  const resolvedTokens = useMemo(
+    () => ({
+      background: tokens.background || 'var(--stl-background, #ffffff)',
+      color: tokens.color || 'var(--stl-foreground, #111111)',
+      colorSubtitle: tokens.color8 || 'var(--stl-color8, #6a6a6a)',
+      borderColor: tokens.borderColor || 'var(--stl-border, #e8e8e8)',
+      color4: tokens.color4 || 'var(--stl-surface2, #ededed)',
+    }),
+    [tokens],
   )
 
-  const resolvedColors = useMemo(
-    () => getSeriesColors(config, tokens),
-    [config, tokens]
-  )
+  const victoryTheme = useMemo(() => createChartTheme(resolvedTokens), [resolvedTokens])
+
+  const resolvedColors = useMemo(() => getSeriesColors(config, tokens), [config, tokens])
 
   const finalWidth = explicitWidth ?? measuredWidth
   const finalHeight = explicitHeight ?? DEFAULT_HEIGHT
@@ -127,13 +147,13 @@ export function Chart({
       dimensions: { width: finalWidth, height: finalHeight },
       reducedMotion,
     }),
-    [config, resolvedColors, victoryTheme, finalWidth, finalHeight, reducedMotion]
+    [config, resolvedColors, victoryTheme, finalWidth, finalHeight, reducedMotion],
   )
 
   return (
     <div
       ref={(el) => {
-        (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el
+        ;(containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el
         ;(themeRef as React.MutableRefObject<HTMLDivElement | null>).current = el
       }}
       role="img"

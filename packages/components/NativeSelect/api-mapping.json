@@ -30,7 +30,15 @@
     "Custom chevron arrow via CSS background-image SVG."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "onChange={(e) => ...}", "vlting": "onValueChange={(value) => ...}", "reason": "Simplified callback with value directly, not event object" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "onChange={(e) => ...}",
+      "vlting": "onValueChange={(value) => ...}",
+      "reason": "Simplified callback with value directly, not event object"
+    }
   ]
 }

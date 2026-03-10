@@ -11,11 +11,16 @@ function useResolvedTokens() {
     if (!el) return
     const cs = getComputedStyle(el)
     setTokens({
-      color: cs.getPropertyValue('--stl-foreground').trim() || cs.getPropertyValue('--color').trim() || '#111111',
+      color:
+        cs.getPropertyValue('--stl-foreground').trim() ||
+        cs.getPropertyValue('--color').trim() ||
+        '#111111',
     })
   }, [])
 
-  useEffect(() => { resolve() }, [resolve])
+  useEffect(() => {
+    resolve()
+  }, [resolve])
 
   return { ref, tokens }
 }
@@ -37,7 +42,14 @@ export function ChartLegend({
   const keys = Object.keys(config)
 
   return (
-    <div ref={ref} style={{ display: 'flex', justifyContent: 'center', padding: 'var(--stl-space4, 8px) 0' }}>
+    <div
+      ref={ref}
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        padding: 'var(--stl-space4, 8px) 0',
+      }}
+    >
       <ul
         role="list"
         style={{

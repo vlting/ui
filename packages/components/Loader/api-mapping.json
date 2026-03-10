@@ -5,7 +5,11 @@
     "import": "import { Loader } from '@vlting/ui'",
     "props": {
       "size": { "type": "string", "values": ["sm", "md", "lg"], "default": "md" },
-      "variant": { "type": "string", "values": ["primary", "light", "dark"], "default": "primary" }
+      "variant": {
+        "type": "string",
+        "values": ["primary", "light", "dark"],
+        "default": "primary"
+      }
     }
   },
   "notes": [
@@ -14,6 +18,10 @@
     "Maps variant to color tokens: primary=$color10, light=$color4, dark=$color11."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    }
   ]
 }

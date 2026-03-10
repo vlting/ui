@@ -2,33 +2,33 @@ import type React from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const ProgressTrack = styled(
-  "div",
+  'div',
   {
-    position: "relative",
-    overflow: "hidden",
-    borderRadius: "9999px",
-    backgroundColor: "var(--color4)",
-    width: "100%",
+    position: 'relative',
+    overflow: 'hidden',
+    borderRadius: '9999px',
+    backgroundColor: 'var(--color4)',
+    width: '100%',
   },
   {
     size: {
-      sm: { height: "4px" },
-      md: { height: "6px" },
-      lg: { height: "8px" },
+      sm: { height: '4px' },
+      md: { height: '6px' },
+      lg: { height: '8px' },
     },
   },
-  "Progress"
+  'Progress',
 )
 
 const ProgressIndicator = styled(
-  "div",
+  'div',
   {
-    height: "100%",
-    backgroundColor: "var(--color10)",
-    borderRadius: "9999px",
-    transition: "width 200ms ease",
+    height: '100%',
+    backgroundColor: 'var(--color10)',
+    borderRadius: '9999px',
+    transition: 'width 200ms ease',
   },
-  "ProgressIndicator"
+  'ProgressIndicator',
 )
 
 export interface ProgressProps {

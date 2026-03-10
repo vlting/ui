@@ -3,16 +3,20 @@ import { createContext, useCallback, useContext, useEffect, useRef } from 'react
 import { styled } from '../../stl-react/src/config'
 import { useDisclosure } from '../../stl-headless/src'
 
-const ContentFrame = styled("div", {
-  backgroundColor: "$background",
-  borderRadius: "$4",
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "$borderColor",
-  padding: "12px",
-  zIndex: "1000",
-  position: "absolute",
-}, "PopoverContent")
+const ContentFrame = styled(
+  'div',
+  {
+    backgroundColor: '$background',
+    borderRadius: '$4',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    padding: '12px',
+    zIndex: '1000',
+    position: 'absolute',
+  },
+  'PopoverContent',
+)
 
 interface PopoverContextValue {
   isOpen: boolean
@@ -28,7 +32,8 @@ const PopoverContext = createContext<PopoverContextValue | null>(null)
 
 function usePopoverContext() {
   const ctx = useContext(PopoverContext)
-  if (!ctx) throw new Error('Popover compound components must be used within Popover.Root')
+  if (!ctx)
+    throw new Error('Popover compound components must be used within Popover.Root')
   return ctx
 }
 
@@ -58,10 +63,8 @@ function Root({
     if (!disclosure.isOpen) return
     const handler = (e: MouseEvent) => {
       const target = e.target as Node
-      if (
-        triggerRef.current?.contains(target) ||
-        contentRef.current?.contains(target)
-      ) return
+      if (triggerRef.current?.contains(target) || contentRef.current?.contains(target))
+        return
       disclosure.onClose()
     }
     document.addEventListener('mousedown', handler)
@@ -79,18 +82,18 @@ function Root({
   }, [disclosure.isOpen, disclosure.onClose])
 
   return (
-    <PopoverContext.Provider value={{
-      isOpen: disclosure.isOpen,
-      onToggle: disclosure.onToggle,
-      onClose: disclosure.onClose,
-      triggerRef,
-      contentRef,
-      placement,
-      offset,
-    }}>
-      <div style={{ position: 'relative', display: 'inline-flex' }}>
-        {children}
-      </div>
+    <PopoverContext.Provider
+      value={{
+        isOpen: disclosure.isOpen,
+        onToggle: disclosure.onToggle,
+        onClose: disclosure.onClose,
+        triggerRef,
+        contentRef,
+        placement,
+        offset,
+      }}
+    >
+      <div style={{ position: 'relative', display: 'inline-flex' }}>{children}</div>
     </PopoverContext.Provider>
   )
 }
@@ -116,7 +119,12 @@ function Anchor({ children }: { children: React.ReactNode }) {
 }
 
 const PLACEMENT_STYLES: Record<string, React.CSSProperties> = {
-  top: { bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: '4px' },
+  top: {
+    bottom: '100%',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    marginBottom: '4px',
+  },
   bottom: { top: '100%', left: '50%', transform: 'translateX(-50%)', marginTop: '4px' },
   left: { right: '100%', top: '50%', transform: 'translateY(-50%)', marginRight: '4px' },
   right: { left: '100%', top: '50%', transform: 'translateY(-50%)', marginLeft: '4px' },

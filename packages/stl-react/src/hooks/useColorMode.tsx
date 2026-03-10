@@ -1,7 +1,8 @@
-import { useContext } from "react"
-import { StlContext, StlContextProps } from "../providers/StlProvider"
+import { useContext } from 'react'
+import { StlContext, StlContextProps } from '../providers/StlProvider'
 
-interface UseColorMode extends Pick<StlContextProps, "colorMode" | "setColorMode" | "toggleColorMode"> {
+interface UseColorMode
+  extends Pick<StlContextProps, 'colorMode' | 'setColorMode' | 'toggleColorMode'> {
   isDark: boolean
 }
 

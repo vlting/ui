@@ -14,13 +14,13 @@ const ButtonJsx = Button as AnyFC
 const SeparatorJsx = Separator as AnyFC
 
 const NavElement = styled(
-  "nav",
+  'nav',
   {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
   },
-  "AppShellNav"
+  'AppShellNav',
 )
 
 // -- Types --
@@ -94,9 +94,7 @@ function SidebarLayout({
         {sidebarFooter && <Sidebar.Footer>{sidebarFooter}</Sidebar.Footer>}
       </Sidebar.Root>
 
-      <div style={{ flex: 1, padding: 16 }}>
-        {children}
-      </div>
+      <div style={{ flex: 1, padding: 16 }}>{children}</div>
 
       {onSheetOpenChange && (
         <Sheet.Root open={sheetOpen} onOpenChange={onSheetOpenChange}>
@@ -120,27 +118,18 @@ function SidebarLayout({
 
 // -- tab-layout: Bottom tab navigation --
 
-function TabLayout({
-  tabs = [],
-  activeTab,
-  onTabChange,
-  children,
-}: AppShellBlockProps) {
+function TabLayout({ tabs = [], activeTab, onTabChange, children }: AppShellBlockProps) {
   const defaultTab = activeTab ?? tabs[0]?.value
 
   return (
-    <div style={{ flex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <Tabs.Root
-        defaultValue={defaultTab}
-        value={activeTab}
-        onValueChange={onTabChange}
-      >
+    <div
+      style={{ flex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
+    >
+      <Tabs.Root defaultValue={defaultTab} value={activeTab} onValueChange={onTabChange}>
         <div style={{ flex: 1 }}>
           {tabs.map((tab) => (
             <Tabs.Content key={tab.value} value={tab.value}>
-              <div style={{ flex: 1, padding: 16 }}>
-                {tab.content}
-              </div>
+              <div style={{ flex: 1, padding: 16 }}>{tab.content}</div>
             </Tabs.Content>
           ))}
           {children}
@@ -149,9 +138,22 @@ function TabLayout({
         <Tabs.List>
           {tabs.map((tab) => (
             <Tabs.Trigger key={tab.value} value={tab.value}>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 2,
+                }}
+              >
                 {tab.icon}
-                <span style={{ fontSize: 12, fontFamily: 'var(--font-body)', color: 'var(--color)' }}>
+                <span
+                  style={{
+                    fontSize: 12,
+                    fontFamily: 'var(--font-body)',
+                    color: 'var(--color)',
+                  }}
+                >
                   {tab.label}
                 </span>
               </div>
@@ -190,9 +192,7 @@ function SplitPane({
             {masterHeader}
           </div>
         )}
-        <div style={{ flex: 1, overflow: 'hidden' }}>
-          {masterContent}
-        </div>
+        <div style={{ flex: 1, overflow: 'hidden' }}>{masterContent}</div>
       </div>
 
       {/* Detail pane */}
@@ -217,7 +217,13 @@ function SplitPane({
           >
             {onBack && (
               <ButtonJsx variant="ghost" size="sm" onPress={onBack}>
-                <span style={{ fontSize: 14, fontFamily: 'var(--font-body)', color: 'var(--color)' }}>
+                <span
+                  style={{
+                    fontSize: 14,
+                    fontFamily: 'var(--font-body)',
+                    color: 'var(--color)',
+                  }}
+                >
                   &larr; Back
                 </span>
               </ButtonJsx>
@@ -225,9 +231,7 @@ function SplitPane({
             {detailHeader}
           </div>
         )}
-        <div style={{ flex: 1, overflow: 'hidden' }}>
-          {detailContent}
-        </div>
+        <div style={{ flex: 1, overflow: 'hidden' }}>{detailContent}</div>
       </div>
     </div>
   )

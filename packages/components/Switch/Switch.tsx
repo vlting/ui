@@ -9,48 +9,48 @@ const SWITCH_INTERACTION_CSS = `
 `
 
 const SwitchTrack = styled(
-  "button",
+  'button',
   {
-    position: "relative",
-    display: "inline-flex",
-    alignItems: "center",
-    borderRadius: "9999px",
-    border: "none",
-    cursor: "pointer",
-    padding: "2px",
-    transition: "background-color 200ms ease",
+    position: 'relative',
+    display: 'inline-flex',
+    alignItems: 'center',
+    borderRadius: '9999px',
+    border: 'none',
+    cursor: 'pointer',
+    padding: '2px',
+    transition: 'background-color 200ms ease',
     flexShrink: 0,
   },
   {
     size: {
-      sm: { width: "36px", height: "20px" },
-      md: { width: "44px", height: "24px" },
-      lg: { width: "52px", height: "28px" },
+      sm: { width: '36px', height: '20px' },
+      md: { width: '44px', height: '24px' },
+      lg: { width: '52px', height: '28px' },
     },
     disabled: {
-      true: { opacity: "0.5", cursor: "not-allowed" },
+      true: { opacity: '0.5', cursor: 'not-allowed' },
     },
   },
-  "Switch"
+  'Switch',
 )
 
 const SwitchThumb = styled(
-  "span",
+  'span',
   {
-    display: "block",
-    borderRadius: "9999px",
-    backgroundColor: "var(--background, var(--stl-color-min, #fff))",
-    boxShadow: "var(--stl-shadow-sm, 0 1px 2px var(--shadowColor, rgba(0,0,0,0.1)))",
-    transition: "transform 200ms ease",
+    display: 'block',
+    borderRadius: '9999px',
+    backgroundColor: 'var(--background, var(--stl-color-min, #fff))',
+    boxShadow: 'var(--stl-shadow-sm, 0 1px 2px var(--shadowColor, rgba(0,0,0,0.1)))',
+    transition: 'transform 200ms ease',
   },
   {
     size: {
-      sm: { width: "16px", height: "16px" },
-      md: { width: "20px", height: "20px" },
-      lg: { width: "24px", height: "24px" },
+      sm: { width: '16px', height: '16px' },
+      md: { width: '20px', height: '20px' },
+      lg: { width: '24px', height: '24px' },
     },
   },
-  "SwitchThumb"
+  'SwitchThumb',
 )
 
 const THUMB_TRANSLATE: Record<string, string> = {

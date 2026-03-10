@@ -19,53 +19,53 @@ const SeparatorJsx = Separator as AnyFC
 const BadgeJsx = Badge as AnyFC
 
 const ToggleButton = styled(
-  "button",
+  'button',
   {
-    appearance: "none",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "$borderColor",
-    background: "none",
-    padding: "6px 16px",
-    cursor: "pointer",
-    fontFamily: "inherit",
-    fontSize: "$14",
-    color: "$color",
-    borderRadius: "6px",
+    appearance: 'none',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    background: 'none',
+    padding: '6px 16px',
+    cursor: 'pointer',
+    fontFamily: 'inherit',
+    fontSize: '$14',
+    color: '$color',
+    borderRadius: '6px',
   },
-  "PricingToggle"
+  'PricingToggle',
 )
 
 const PricingTable = styled(
-  "table",
-  { width: "100%", borderCollapse: "collapse", fontFamily: "inherit" },
-  "PricingTable"
+  'table',
+  { width: '100%', borderCollapse: 'collapse', fontFamily: 'inherit' },
+  'PricingTable',
 )
 
 const Th = styled(
-  "th",
+  'th',
   {
-    padding: "12px 16px",
-    textAlign: "left",
-    fontWeight: "600",
-    fontSize: "$14",
-    borderBottomWidth: "1px",
-    borderBottomStyle: "solid",
-    borderColor: "$borderColor",
+    padding: '12px 16px',
+    textAlign: 'left',
+    fontWeight: '600',
+    fontSize: '$14',
+    borderBottomWidth: '1px',
+    borderBottomStyle: 'solid',
+    borderColor: '$borderColor',
   },
-  "PricingTh"
+  'PricingTh',
 )
 
 const Td = styled(
-  "td",
+  'td',
   {
-    padding: "10px 16px",
-    fontSize: "$14",
-    borderBottomWidth: "1px",
-    borderBottomStyle: "solid",
-    borderColor: "$borderColor",
+    padding: '10px 16px',
+    fontSize: '$14',
+    borderBottomWidth: '1px',
+    borderBottomStyle: 'solid',
+    borderColor: '$borderColor',
   },
-  "PricingTd"
+  'PricingTd',
 )
 
 // -- Types --
@@ -105,31 +105,63 @@ export function PricingBlock(props: PricingBlockProps) {
   } = props
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, width: '100%', padding: 16 }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
-        <span style={{ fontSize: 24, fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--color)', textAlign: 'center' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 16,
+        width: '100%',
+        padding: 16,
+      }}
+    >
+      <div
+        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
+      >
+        <span
+          style={{
+            fontSize: 24,
+            fontWeight: 600,
+            fontFamily: 'var(--font-heading)',
+            color: 'var(--color)',
+            textAlign: 'center',
+          }}
+        >
           {title}
         </span>
         {description && (
-          <span style={{ fontSize: 16, fontFamily: 'var(--font-body)', color: 'var(--secondaryText12)', textAlign: 'center' }}>
+          <span
+            style={{
+              fontSize: 16,
+              fontFamily: 'var(--font-body)',
+              color: 'var(--secondaryText12)',
+              textAlign: 'center',
+            }}
+          >
             {description}
           </span>
         )}
       </div>
 
       {onBillingPeriodChange && (
-        <div style={{ display: 'flex', flexDirection: 'row', gap: 4, alignItems: 'center' }}>
+        <div
+          style={{ display: 'flex', flexDirection: 'row', gap: 4, alignItems: 'center' }}
+        >
           <ToggleButton
             type="button"
             onClick={() => onBillingPeriodChange('monthly')}
-            style={billingPeriod === 'monthly' ? { backgroundColor: 'var(--surface2)' } : {}}
+            style={
+              billingPeriod === 'monthly' ? { backgroundColor: 'var(--surface2)' } : {}
+            }
           >
             Monthly
           </ToggleButton>
           <ToggleButton
             type="button"
             onClick={() => onBillingPeriodChange('yearly')}
-            style={billingPeriod === 'yearly' ? { backgroundColor: 'var(--surface2)' } : {}}
+            style={
+              billingPeriod === 'yearly' ? { backgroundColor: 'var(--surface2)' } : {}
+            }
           >
             Yearly
           </ToggleButton>
@@ -155,7 +187,16 @@ function PricingCards({
   onSelectPlan,
 }: PricingBlockProps) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', gap: 16, flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        gap: 16,
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        width: '100%',
+      }}
+    >
       {plans.map((plan) => {
         const price = billingPeriod === 'monthly' ? plan.price.monthly : plan.price.yearly
         const currency = plan.currency ?? '$'
@@ -172,11 +213,19 @@ function PricingCards({
             }}
           >
             <CardHeaderJsx>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
                 <CardTitleJsx>{plan.name}</CardTitleJsx>
                 {plan.highlighted && (
                   <BadgeJsx variant="secondary" size="sm">
-                    <span style={{ fontSize: 12, fontFamily: 'var(--font-body)' }}>Popular</span>
+                    <span style={{ fontSize: 12, fontFamily: 'var(--font-body)' }}>
+                      Popular
+                    </span>
                   </BadgeJsx>
                 )}
               </div>
@@ -188,10 +237,24 @@ function PricingCards({
             <CardContentJsx>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
-                  <span style={{ fontSize: 36, fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--color)' }}>
-                    {currency}{price}
+                  <span
+                    style={{
+                      fontSize: 36,
+                      fontWeight: 600,
+                      fontFamily: 'var(--font-heading)',
+                      color: 'var(--color)',
+                    }}
+                  >
+                    {currency}
+                    {price}
                   </span>
-                  <span style={{ fontSize: 14, fontFamily: 'var(--font-body)', color: 'var(--secondaryText12)' }}>
+                  <span
+                    style={{
+                      fontSize: 14,
+                      fontFamily: 'var(--font-body)',
+                      color: 'var(--secondaryText12)',
+                    }}
+                  >
                     /{billingPeriod === 'monthly' ? 'mo' : 'yr'}
                   </span>
                 </div>
@@ -200,15 +263,27 @@ function PricingCards({
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {plan.features.map((feat, i) => (
-                    <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                      <span style={{ fontSize: 14, color: feat.included ? 'var(--green10)' : 'var(--secondaryText12)' }}>
+                    <div
+                      key={i}
+                      style={{ display: 'flex', gap: 8, alignItems: 'center' }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 14,
+                          color: feat.included
+                            ? 'var(--green10)'
+                            : 'var(--secondaryText12)',
+                        }}
+                      >
                         {feat.included ? '\u2713' : '\u2717'}
                       </span>
                       <span
                         style={{
                           fontSize: 14,
                           fontFamily: 'var(--font-body)',
-                          color: feat.included ? 'var(--color)' : 'var(--secondaryText12)',
+                          color: feat.included
+                            ? 'var(--color)'
+                            : 'var(--secondaryText12)',
                         }}
                       >
                         {feat.text}
@@ -262,7 +337,15 @@ function PricingComparison({
         <tbody>
           <tr>
             <Td>
-              <span style={{ fontWeight: 500, fontFamily: 'var(--font-body)', color: 'var(--color)' }}>Price</span>
+              <span
+                style={{
+                  fontWeight: 500,
+                  fontFamily: 'var(--font-body)',
+                  color: 'var(--color)',
+                }}
+              >
+                Price
+              </span>
             </Td>
             {plans.map((plan) => {
               const price =
@@ -270,8 +353,15 @@ function PricingComparison({
               const currency = plan.currency ?? '$'
               return (
                 <Td key={plan.id} style={{ textAlign: 'center' }}>
-                  <span style={{ fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--color)' }}>
-                    {currency}{price}/{billingPeriod === 'monthly' ? 'mo' : 'yr'}
+                  <span
+                    style={{
+                      fontWeight: 600,
+                      fontFamily: 'var(--font-heading)',
+                      color: 'var(--color)',
+                    }}
+                  >
+                    {currency}
+                    {price}/{billingPeriod === 'monthly' ? 'mo' : 'yr'}
                   </span>
                 </Td>
               )
@@ -284,7 +374,13 @@ function PricingComparison({
                 const feat = plan.features.find((f) => f.text === featureText)
                 return (
                   <Td key={plan.id} style={{ textAlign: 'center' }}>
-                    <span style={{ color: feat?.included ? 'var(--green10)' : 'var(--secondaryText12)' }}>
+                    <span
+                      style={{
+                        color: feat?.included
+                          ? 'var(--green10)'
+                          : 'var(--secondaryText12)',
+                      }}
+                    >
                       {feat?.included ? '\u2713' : '\u2717'}
                     </span>
                   </Td>
@@ -329,21 +425,56 @@ function PricingSimple({
 
   return (
     <CardJsx style={{ width: '100%', maxWidth: 400, padding: 20 }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-        <span style={{ fontSize: 18, fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--color)' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 16,
+        }}
+      >
+        <span
+          style={{
+            fontSize: 18,
+            fontWeight: 600,
+            fontFamily: 'var(--font-heading)',
+            color: 'var(--color)',
+          }}
+        >
           {plan.name}
         </span>
         {plan.description && (
-          <span style={{ fontSize: 14, fontFamily: 'var(--font-body)', color: 'var(--secondaryText12)', textAlign: 'center' }}>
+          <span
+            style={{
+              fontSize: 14,
+              fontFamily: 'var(--font-body)',
+              color: 'var(--secondaryText12)',
+              textAlign: 'center',
+            }}
+          >
             {plan.description}
           </span>
         )}
 
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
-          <span style={{ fontSize: 36, fontWeight: 600, fontFamily: 'var(--font-heading)', color: 'var(--color)' }}>
-            {currency}{price}
+          <span
+            style={{
+              fontSize: 36,
+              fontWeight: 600,
+              fontFamily: 'var(--font-heading)',
+              color: 'var(--color)',
+            }}
+          >
+            {currency}
+            {price}
           </span>
-          <span style={{ fontSize: 14, fontFamily: 'var(--font-body)', color: 'var(--secondaryText12)' }}>
+          <span
+            style={{
+              fontSize: 14,
+              fontFamily: 'var(--font-body)',
+              color: 'var(--secondaryText12)',
+            }}
+          >
             /{billingPeriod === 'monthly' ? 'mo' : 'yr'}
           </span>
         </div>
@@ -353,7 +484,12 @@ function PricingSimple({
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%' }}>
           {plan.features.map((feat, i) => (
             <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-              <span style={{ fontSize: 14, color: feat.included ? 'var(--green10)' : 'var(--secondaryText12)' }}>
+              <span
+                style={{
+                  fontSize: 14,
+                  color: feat.included ? 'var(--green10)' : 'var(--secondaryText12)',
+                }}
+              >
                 {feat.included ? '\u2713' : '\u2717'}
               </span>
               <span
@@ -369,11 +505,7 @@ function PricingSimple({
           ))}
         </div>
 
-        <ButtonJsx
-          variant="default"
-          width="100%"
-          onPress={() => onSelectPlan?.(plan.id)}
-        >
+        <ButtonJsx variant="default" width="100%" onPress={() => onSelectPlan?.(plan.id)}>
           <ButtonTextJsx>{plan.cta ?? 'Get started'}</ButtonTextJsx>
         </ButtonJsx>
       </div>

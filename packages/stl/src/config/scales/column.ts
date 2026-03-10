@@ -1,11 +1,11 @@
-import { CharHash } from "../utils"
-import { BaseVars, ThemeScale } from "./scales.models"
-import { getPropsFromCssMap, getThemePropsFromCssMap } from "./scales.utils"
+import { CharHash } from '../utils'
+import { BaseVars, ThemeScale } from './scales.models'
+import { getPropsFromCssMap, getThemePropsFromCssMap } from './scales.utils'
 
 /** Generator function for `column` theme scale */
 export function getColumn<T extends BaseVars>(hash: CharHash, size: T) {
   const base = { ...hash.var, value: size.base.ref } as const
-  const repeaterMin = { ...hash.var, value: "0" } as const
+  const repeaterMin = { ...hash.var, value: '0' } as const
 
   const c40 = { ...hash.var, value: `calc(${base.ref} * 10)` } as const
   const c80 = { ...hash.var, value: `calc(${base.ref} * 20)` } as const
@@ -13,7 +13,15 @@ export function getColumn<T extends BaseVars>(hash: CharHash, size: T) {
   const c200 = { ...hash.var, value: `calc(${base.ref} * 50)` } as const
   const c320 = { ...hash.var, value: `calc(${base.ref} * 80)` } as const
 
-  const vars = { base, repeaterMin, 40: c40, 80: c80, 120: c120, 200: c200, 320: c320 } as const
+  const vars = {
+    base,
+    repeaterMin,
+    40: c40,
+    80: c80,
+    120: c120,
+    200: c200,
+    320: c320,
+  } as const
   const cssValueMap = {
     1: `repeat(1, minmax(${repeaterMin.ref}, 1fr))`,
     2: `repeat(2, minmax(${repeaterMin.ref}, 1fr))`,

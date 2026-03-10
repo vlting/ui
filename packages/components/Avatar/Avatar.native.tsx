@@ -1,7 +1,7 @@
-import React, { createContext, useContext, forwardRef, useState } from "react"
-import { View, Text as RNText, Image } from "react-native"
-import type { ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
+import React, { createContext, useContext, forwardRef, useState } from 'react'
+import { View, Text as RNText, Image } from 'react-native'
+import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -11,10 +11,10 @@ const AvatarFrame = styled(
   View,
   {
     borderRadius: 9999,
-    overflow: "hidden",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "$color4",
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '$color4',
   },
   {
     size: {
@@ -24,14 +24,14 @@ const AvatarFrame = styled(
       xl: { width: 74, height: 74 },
     },
   },
-  "Avatar",
+  'Avatar',
 )
 
 const AvatarFallbackText = styled(
   RNText,
   {
-    fontWeight: "500",
-    color: "$defaultBody",
+    fontWeight: '500',
+    color: '$defaultBody',
   },
   {
     size: {
@@ -41,14 +41,14 @@ const AvatarFallbackText = styled(
       xl: { fontSize: 21 },
     },
   },
-  "AvatarFallback",
+  'AvatarFallback',
 )
 
 // ---------------------------------------------------------------------------
 // Context
 // ---------------------------------------------------------------------------
 
-type AvatarSize = "sm" | "md" | "lg" | "xl"
+type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
 
 const SIZE_PX: Record<AvatarSize, number> = { sm: 32, md: 40, lg: 52, xl: 74 }
 
@@ -57,7 +57,7 @@ const AvatarContext = createContext<{
   imgError: boolean
   setImgError: (v: boolean) => void
 }>({
-  size: "md",
+  size: 'md',
   imgError: false,
   setImgError: () => {},
 })
@@ -80,7 +80,7 @@ export function Avatar({
   src,
   alt,
   fallback,
-  size = "md",
+  size = 'md',
   style,
 }: AvatarProps) {
   const [imgError, setImgError] = useState(false)
@@ -93,7 +93,7 @@ export function Avatar({
         size={size}
         style={style}
         accessibilityRole="image"
-        accessibilityLabel={alt || fallback || "avatar"}
+        accessibilityLabel={alt || fallback || 'avatar'}
       >
         {showImage ? (
           <Image
@@ -102,9 +102,7 @@ export function Avatar({
             onError={() => setImgError(true)}
           />
         ) : (
-          <AvatarFallbackText size={size}>
-            {fallback || "?"}
-          </AvatarFallbackText>
+          <AvatarFallbackText size={size}>{fallback || '?'}</AvatarFallbackText>
         )}
       </AvatarFrame>
     )
@@ -112,11 +110,7 @@ export function Avatar({
 
   return (
     <AvatarContext.Provider value={{ size, imgError, setImgError }}>
-      <AvatarFrame
-        size={size}
-        style={style}
-        accessibilityRole="image"
-      >
+      <AvatarFrame size={size} style={style} accessibilityRole="image">
         {children}
       </AvatarFrame>
     </AvatarContext.Provider>

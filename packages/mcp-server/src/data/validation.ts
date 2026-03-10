@@ -20,26 +20,31 @@ const rules: ValidationRule[] = [
   // Hardcoded colors
   {
     name: 'no-hardcoded-colors',
-    pattern: /(?:color|backgroundColor|borderColor|background)\s*[:=]\s*["']#[0-9a-fA-F]{3,8}["']/g,
+    pattern:
+      /(?:color|backgroundColor|borderColor|background)\s*[:=]\s*["']#[0-9a-fA-F]{3,8}["']/g,
     message: 'Hardcoded color value detected. Use semantic tokens instead.',
     suggestion: 'Replace with a token like "$color", "$background", "$borderColor"',
   },
   {
     name: 'no-hardcoded-rgb',
-    pattern: /(?:color|backgroundColor|borderColor|background)\s*[:=]\s*["'](?:rgb|rgba|hsl)\(/g,
+    pattern:
+      /(?:color|backgroundColor|borderColor|background)\s*[:=]\s*["'](?:rgb|rgba|hsl)\(/g,
     message: 'Hardcoded color function detected. Use semantic tokens instead.',
     suggestion: 'Replace with a token like "$color", "$background"',
   },
   {
     name: 'no-named-colors',
-    pattern: /(?:color|backgroundColor)\s*[:=]\s*["'](?:red|blue|green|gray|grey|white|black|orange|yellow|purple|pink)["']/g,
+    pattern:
+      /(?:color|backgroundColor)\s*[:=]\s*["'](?:red|blue|green|gray|grey|white|black|orange|yellow|purple|pink)["']/g,
     message: 'Named color used. Use semantic tokens for brand compatibility.',
-    suggestion: 'Replace with "$color", "$colorSubtitle", or a palette token like "$blue9"',
+    suggestion:
+      'Replace with "$color", "$colorSubtitle", or a palette token like "$blue9"',
   },
   // Hardcoded spacing
   {
     name: 'no-pixel-spacing',
-    pattern: /(?:padding|margin|gap|top|right|bottom|left|width|height)\s*[:=]\s*\{?\s*\d+\s*\}?(?!\s*[/*])/g,
+    pattern:
+      /(?:padding|margin|gap|top|right|bottom|left|width|height)\s*[:=]\s*\{?\s*\d+\s*\}?(?!\s*[/*])/g,
     message: 'Numeric spacing value detected. Use token values.',
     suggestion: 'Replace with "$1" (4px), "$2" (8px), "$3" (12px), "$4" (16px), etc.',
   },
@@ -48,14 +53,16 @@ const rules: ValidationRule[] = [
     name: 'no-pixel-radius',
     pattern: /borderRadius\s*[:=]\s*\{?\s*\d+\s*\}?/g,
     message: 'Numeric border radius detected. Use radius tokens.',
-    suggestion: 'Replace with "$2" (4px), "$3" (6px), "$4" (8px), "$6" (12px), "$full" (pill)',
+    suggestion:
+      'Replace with "$2" (4px), "$3" (6px), "$4" (8px), "$6" (12px), "$full" (pill)',
   },
   // Missing accessibility
   {
     name: 'input-needs-label',
     pattern: /<Input(?!\s+(?:[^>]*(?:id|aria-label)))[^>]*\/?\s*>/g,
     message: 'Input without id or aria-label. Inputs must be labelled.',
-    suggestion: 'Add id="..." and pair with <Label htmlFor="..."> or add aria-label="..."',
+    suggestion:
+      'Add id="..." and pair with <Label htmlFor="..."> or add aria-label="..."',
   },
   {
     name: 'dialog-needs-title',
@@ -79,9 +86,11 @@ const rules: ValidationRule[] = [
   // Dark mode considerations
   {
     name: 'no-hardcoded-background-white',
-    pattern: /(?:backgroundColor|background)\s*[:=]\s*["'](?:white|#fff(?:fff)?|#FFF(?:FFF)?)["']/g,
+    pattern:
+      /(?:backgroundColor|background)\s*[:=]\s*["'](?:white|#fff(?:fff)?|#FFF(?:FFF)?)["']/g,
     message: 'Hardcoded white background breaks dark mode. Use semantic tokens.',
-    suggestion: 'Replace with "$background" or "var(--background)" for automatic dark mode support',
+    suggestion:
+      'Replace with "$background" or "var(--background)" for automatic dark mode support',
   },
   {
     name: 'no-hardcoded-text-black',
@@ -91,7 +100,8 @@ const rules: ValidationRule[] = [
   },
   {
     name: 'missing-aria-label-button',
-    pattern: /<(?:Button|Pressable|TouchableOpacity)(?!\s+(?:[^>]*(?:aria-label|accessibilityLabel)))[^>]*>[^<]*(?:<[^/]|$)/g,
+    pattern:
+      /<(?:Button|Pressable|TouchableOpacity)(?!\s+(?:[^>]*(?:aria-label|accessibilityLabel)))[^>]*>[^<]*(?:<[^/]|$)/g,
     message: 'Interactive element may be missing an accessible label.',
     suggestion: 'Add aria-label="..." or include visible text content for screen readers',
   },

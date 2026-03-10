@@ -1,4 +1,4 @@
-import { FilterKeys, PickKeys } from "./props.models"
+import { FilterKeys, PickKeys } from './props.models'
 
 // Only these props should have interact state classes/vars generated for them
 // 20
@@ -70,19 +70,19 @@ export const pointerClassProps = {
 } as const
 
 export function generatePseudoClassCss<O extends Record<string, unknown>>(
-  generateClass: <K extends FilterKeys>(pseudoClass: string, keys: K) => O
+  generateClass: <K extends FilterKeys>(pseudoClass: string, keys: K) => O,
 ) {
-  const focusVisibleProps = generateClass(":focus-visible", pseudoClassProps)
-  const hoverProps = generateClass(":hover", pointerClassProps)
-  const activeProps = generateClass(":active", pseudoClassProps)
+  const focusVisibleProps = generateClass(':focus-visible', pseudoClassProps)
+  const hoverProps = generateClass(':hover', pointerClassProps)
+  const activeProps = generateClass(':active', pseudoClassProps)
   type FilteredProps = PickKeys<O, typeof pseudoClassProps>
   type FilteredPointerProps = PickKeys<O, typeof pointerClassProps>
   return {
     // NOTE: We don't include :disabled, because logic for that exists in JS anyway
     // ":focus": pseudoClassProps, // REMOVED because :focus-visible is just better
-    ":focus-visible": focusVisibleProps as FilteredProps,
-    ":hover": hoverProps as FilteredPointerProps,
-    ":active": activeProps as FilteredProps,
+    ':focus-visible': focusVisibleProps as FilteredProps,
+    ':hover': hoverProps as FilteredPointerProps,
+    ':active': activeProps as FilteredProps,
   } as const
 }
 
@@ -90,20 +90,20 @@ export function generatePseudoClassCss<O extends Record<string, unknown>>(
 // NOTE: IF YOU ADD A PROP HERE, YOU MUST ALSO ADD IT IN `classDict` IN `StyleManager.ts`
 export const pseudoClasses = {
   // NOTE: We don't include :disabled, because logic for that exists in JS anyway
-  ":focus-visible": pseudoClassProps,
-  ":hover": pointerClassProps,
-  ":active": pseudoClassProps,
+  ':focus-visible': pseudoClassProps,
+  ':hover': pointerClassProps,
+  ':active': pseudoClassProps,
 } as const
 
 // ALIASES ////////////////////////////////////////////////////////////////////////////////////////
 export const pseudoClassAliases = {
-  ":focus": [":focus-visible"],
-  ":hover, :focus": [":hover", ":focus-visible"],
-  ":hover, :focus-visible": [":hover", ":focus-visible"],
-  ":interact": [":hover", ":focus-visible"],
-  hovered: [":hover"],
-  pressed: [":active"],
-  focused: [":focus-visible"],
+  ':focus': [':focus-visible'],
+  ':hover, :focus': [':hover', ':focus-visible'],
+  ':hover, :focus-visible': [':hover', ':focus-visible'],
+  ':interact': [':hover', ':focus-visible'],
+  hovered: [':hover'],
+  pressed: [':active'],
+  focused: [':focus-visible'],
 } as const
 
 export const combinedPseudoClasses = {
@@ -119,15 +119,19 @@ export type PseudoClassKeysWithAliases = PseudoClassKeys | PseudoClassAliasKeys
 
 type PseudoClassObject = { readonly [k in PseudoClassKeys]?: Record<string, unknown> }
 
-type InnerPseudoFocus<T extends PseudoClassObject> = { ":focus"?: T[":focus-visible"] }
-type InnerPseudoHoverFocus<T extends PseudoClassObject> = { ":hover, :focus"?: T[":hover"] & T[":focus-visible"] }
-type InnerPseudoHoverFocusVisible<T extends PseudoClassObject> = {
-  ":hover, :focus-visible"?: T[":hover"] & T[":focus-visible"]
+type InnerPseudoFocus<T extends PseudoClassObject> = { ':focus'?: T[':focus-visible'] }
+type InnerPseudoHoverFocus<T extends PseudoClassObject> = {
+  ':hover, :focus'?: T[':hover'] & T[':focus-visible']
 }
-type InnerPseudoInteract<T extends PseudoClassObject> = { ":interact"?: T[":hover"] & T[":focus-visible"] }
-type InnerPseudoHovered<T extends PseudoClassObject> = { hovered?: T[":hover"] }
-type InnerPseudoPressed<T extends PseudoClassObject> = { pressed?: T[":active"] }
-type InnerPseudoFocused<T extends PseudoClassObject> = { focused?: T[":focus-visible"] }
+type InnerPseudoHoverFocusVisible<T extends PseudoClassObject> = {
+  ':hover, :focus-visible'?: T[':hover'] & T[':focus-visible']
+}
+type InnerPseudoInteract<T extends PseudoClassObject> = {
+  ':interact'?: T[':hover'] & T[':focus-visible']
+}
+type InnerPseudoHovered<T extends PseudoClassObject> = { hovered?: T[':hover'] }
+type InnerPseudoPressed<T extends PseudoClassObject> = { pressed?: T[':active'] }
+type InnerPseudoFocused<T extends PseudoClassObject> = { focused?: T[':focus-visible'] }
 
 export type PseudoClassesWithAliases<T extends PseudoClassObject> = T &
   InnerPseudoFocus<T> &

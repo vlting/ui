@@ -1,4 +1,4 @@
-import type { NativeTokenMaps } from "./theme"
+import type { NativeTokenMaps } from './theme'
 
 /** Scale name type matching the keys of NativeTokenMaps */
 type ScaleName = keyof NativeTokenMaps
@@ -9,89 +9,116 @@ type ScaleName = keyof NativeTokenMaps
  */
 export const propScaleMap: Readonly<Record<string, ScaleName>> = Object.freeze({
   // Space scale
-  marginTop: "space",
-  marginBottom: "space",
-  marginStart: "space",
-  marginEnd: "space",
-  paddingTop: "space",
-  paddingBottom: "space",
-  paddingStart: "space",
-  paddingEnd: "space",
-  top: "space",
-  bottom: "space",
-  start: "space",
-  end: "space",
-  rowGap: "space",
-  columnGap: "space",
+  marginTop: 'space',
+  marginBottom: 'space',
+  marginStart: 'space',
+  marginEnd: 'space',
+  paddingTop: 'space',
+  paddingBottom: 'space',
+  paddingStart: 'space',
+  paddingEnd: 'space',
+  top: 'space',
+  bottom: 'space',
+  start: 'space',
+  end: 'space',
+  rowGap: 'space',
+  columnGap: 'space',
 
   // Size scale
-  width: "size",
-  height: "size",
-  minWidth: "size",
-  maxWidth: "size",
-  minHeight: "size",
-  maxHeight: "size",
-  flexBasis: "size",
+  width: 'size',
+  height: 'size',
+  minWidth: 'size',
+  maxWidth: 'size',
+  minHeight: 'size',
+  maxHeight: 'size',
+  flexBasis: 'size',
 
   // Color scale
-  color: "color",
-  backgroundColor: "color",
-  borderTopColor: "color",
-  borderBottomColor: "color",
-  borderStartColor: "color",
-  borderEndColor: "color",
-  borderColor: "color",
-  textDecorationColor: "color",
-  shadowColor: "color",
+  color: 'color',
+  backgroundColor: 'color',
+  borderTopColor: 'color',
+  borderBottomColor: 'color',
+  borderStartColor: 'color',
+  borderEndColor: 'color',
+  borderColor: 'color',
+  textDecorationColor: 'color',
+  shadowColor: 'color',
 
   // Radius scale
-  borderRadius: "radius",
-  borderTopStartRadius: "radius",
-  borderTopEndRadius: "radius",
-  borderBottomStartRadius: "radius",
-  borderBottomEndRadius: "radius",
+  borderRadius: 'radius',
+  borderTopStartRadius: 'radius',
+  borderTopEndRadius: 'radius',
+  borderBottomStartRadius: 'radius',
+  borderBottomEndRadius: 'radius',
 
   // Font scales
-  fontSize: "fontSize",
-  fontWeight: "fontWeight",
-  fontFamily: "fontFamily",
-  lineHeight: "lineHeight",
-  letterSpacing: "typoSpace",
+  fontSize: 'fontSize',
+  fontWeight: 'fontWeight',
+  fontFamily: 'fontFamily',
+  lineHeight: 'lineHeight',
+  letterSpacing: 'typoSpace',
 
   // Border width — uses space scale (same as web)
-  borderTopWidth: "space",
-  borderBottomWidth: "space",
-  borderStartWidth: "space",
-  borderEndWidth: "space",
-  borderWidth: "space",
+  borderTopWidth: 'space',
+  borderBottomWidth: 'space',
+  borderStartWidth: 'space',
+  borderEndWidth: 'space',
+  borderWidth: 'space',
 
   // ZIndex
-  zIndex: "zIndex",
+  zIndex: 'zIndex',
 })
 
 /** Shadow scale tokens for RN shadow properties */
-const SHADOW_SCALE: Record<string, {
-  shadowColor: string
-  shadowOffset: { width: number; height: number }
-  shadowOpacity: number
-  shadowRadius: number
-  elevation: number
-}> = {
-  $sm: { shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.18, shadowRadius: 1, elevation: 1 },
-  $md: { shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.22, shadowRadius: 3, elevation: 3 },
-  $lg: { shadowColor: "#000", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.25, shadowRadius: 6, elevation: 6 },
-  $xl: { shadowColor: "#000", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.3, shadowRadius: 12, elevation: 12 },
+const SHADOW_SCALE: Record<
+  string,
+  {
+    shadowColor: string
+    shadowOffset: { width: number; height: number }
+    shadowOpacity: number
+    shadowRadius: number
+    elevation: number
+  }
+> = {
+  $sm: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.18,
+    shadowRadius: 1,
+    elevation: 1,
+  },
+  $md: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.22,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  $lg: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    elevation: 6,
+  },
+  $xl: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    elevation: 12,
+  },
 }
 
 /** Props that trigger shadow scale expansion */
-const SHADOW_PROPS = new Set(["shadow", "boxShadow"])
+const SHADOW_PROPS = new Set(['shadow', 'boxShadow'])
 
 /**
  * Resolves a shadow token to multiple RN shadow properties.
  * Returns null if not a shadow token.
  */
 export function resolveShadowToken(value: string | number): Record<string, any> | null {
-  if (typeof value !== "string") return null
+  if (typeof value !== 'string') return null
   return SHADOW_SCALE[value] ?? null
 }
 
@@ -115,10 +142,10 @@ export function resolveToken(
   tokenMaps: NativeTokenMaps,
 ): number | string {
   // Numbers pass through directly
-  if (typeof value === "number") return value
+  if (typeof value === 'number') return value
 
   // Non-token strings pass through
-  if (!value || value[0] !== "$") return value
+  if (!value || value[0] !== '$') return value
 
   // Look up which scale this prop uses
   const scaleName = propScaleMap[rnProp]

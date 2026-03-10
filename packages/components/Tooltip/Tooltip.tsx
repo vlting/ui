@@ -1,32 +1,39 @@
-import React, { createContext, useCallback, useContext, useId, useRef, useState } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useId,
+  useRef,
+  useState,
+} from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const TooltipContentFrame = styled(
-  "div",
+  'div',
   {
-    position: "absolute",
-    zIndex: "50",
-    backgroundColor: "var(--color11)",
-    borderRadius: "6px",
-    paddingLeft: "8px",
-    paddingRight: "8px",
-    paddingTop: "4px",
-    paddingBottom: "4px",
-    pointerEvents: "none",
-    whiteSpace: "nowrap",
-    transition: "opacity var(--stl-animation-fastDuration, 150ms) ease",
+    position: 'absolute',
+    zIndex: '50',
+    backgroundColor: 'var(--color11)',
+    borderRadius: '6px',
+    paddingLeft: '8px',
+    paddingRight: '8px',
+    paddingTop: '4px',
+    paddingBottom: '4px',
+    pointerEvents: 'none',
+    whiteSpace: 'nowrap',
+    transition: 'opacity var(--stl-animation-fastDuration, 150ms) ease',
   },
-  "TooltipContent"
+  'TooltipContent',
 )
 
 const TooltipText = styled(
-  "span",
+  'span',
   {
-    fontFamily: "var(--font-body)",
-    fontSize: "var(--fontSize-2, 12px)",
-    color: "var(--color1)",
+    fontFamily: 'var(--font-body)',
+    fontSize: 'var(--fontSize-2, 12px)',
+    color: 'var(--color1)',
   },
-  "TooltipText"
+  'TooltipText',
 )
 
 interface TooltipProviderContextValue {
@@ -105,11 +112,7 @@ export function Tooltip({
     >
       {children}
       {visible && (
-        <TooltipContentFrame
-          role="tooltip"
-          id={`tooltip-${id}`}
-          style={positionStyle}
-        >
+        <TooltipContentFrame role="tooltip" id={`tooltip-${id}`} style={positionStyle}>
           <TooltipText>{content}</TooltipText>
         </TooltipContentFrame>
       )}

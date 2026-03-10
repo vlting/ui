@@ -1,7 +1,7 @@
-import React, { forwardRef, useState } from "react"
-import { View, Text as RNText, TextInput } from "react-native"
-import type { TextStyle, ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
+import React, { forwardRef, useState } from 'react'
+import { View, Text as RNText, TextInput } from 'react-native'
+import type { TextStyle, ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -10,32 +10,50 @@ import { styled } from "../../stl-native/src/config/styled"
 const InputFrame = styled(
   TextInput,
   {
-    color: "$defaultBody",
-    backgroundColor: "$background",
+    color: '$defaultBody',
+    backgroundColor: '$background',
     borderWidth: 1,
-    borderColor: "$borderColor",
-    borderRadius: "$3",
+    borderColor: '$borderColor',
+    borderRadius: '$3',
     paddingHorizontal: 12,
     paddingVertical: 8,
   },
   {
     fieldSize: {
-      sm: { height: 32, borderRadius: "$2", paddingHorizontal: 6, paddingVertical: 4, fontSize: 14 },
-      md: { height: 40, borderRadius: "$3", paddingHorizontal: 8, paddingVertical: 6, fontSize: 16 },
-      lg: { height: 44, borderRadius: "$3", paddingHorizontal: 10, paddingVertical: 8, fontSize: 16 },
+      sm: {
+        height: 32,
+        borderRadius: '$2',
+        paddingHorizontal: 6,
+        paddingVertical: 4,
+        fontSize: 14,
+      },
+      md: {
+        height: 40,
+        borderRadius: '$3',
+        paddingHorizontal: 8,
+        paddingVertical: 6,
+        fontSize: 16,
+      },
+      lg: {
+        height: 44,
+        borderRadius: '$3',
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        fontSize: 16,
+      },
     },
     error: {
-      true: { borderColor: "$red9" },
+      true: { borderColor: '$red9' },
     },
   },
-  "Input",
+  'Input',
 )
 
 const LabelText = styled(
   RNText,
   {
-    fontWeight: "500",
-    color: "$defaultBody",
+    fontWeight: '500',
+    color: '$defaultBody',
     marginBottom: 4,
   },
   {
@@ -45,7 +63,7 @@ const LabelText = styled(
       lg: { fontSize: 16 },
     },
   },
-  "InputLabel",
+  'InputLabel',
 )
 
 const HelperText = styled(
@@ -56,20 +74,20 @@ const HelperText = styled(
   },
   {
     tone: {
-      neutral: { color: "$secondaryText12" },
-      error: { color: "$red9" },
+      neutral: { color: '$secondaryText12' },
+      error: { color: '$red9' },
     },
   },
-  "InputHelper",
+  'InputHelper',
 )
 
 const SlotFrame = styled(
   View,
   {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  "InputSlot",
+  'InputSlot',
 )
 
 // ---------------------------------------------------------------------------
@@ -77,7 +95,7 @@ const SlotFrame = styled(
 // ---------------------------------------------------------------------------
 
 export interface InputProps {
-  size?: "sm" | "md" | "lg"
+  size?: 'sm' | 'md' | 'lg'
   placeholder?: string
   value?: string
   defaultValue?: string
@@ -88,7 +106,7 @@ export interface InputProps {
   errorMessage?: string
   disabled?: boolean
   secureTextEntry?: boolean
-  keyboardType?: "default" | "email-address" | "numeric" | "phone-pad" | "url"
+  keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad' | 'url'
   leadingSlot?: React.ReactNode
   trailingSlot?: React.ReactNode
   style?: ViewStyle
@@ -96,7 +114,7 @@ export interface InputProps {
 
 export const Input = forwardRef<TextInput, InputProps>(function Input(
   {
-    size = "md",
+    size = 'md',
     placeholder,
     value,
     defaultValue,
@@ -142,7 +160,7 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
     <View style={style}>
       {label && <LabelText size={size}>{label}</LabelText>}
       {leadingSlot || trailingSlot ? (
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           {leadingSlot && <SlotFrame>{leadingSlot}</SlotFrame>}
           {inputEl}
           {trailingSlot && <SlotFrame>{trailingSlot}</SlotFrame>}
@@ -151,12 +169,10 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
         inputEl
       )}
       {displayHelper && (
-        <HelperText tone={error ? "error" : "neutral"}>
-          {displayHelper}
-        </HelperText>
+        <HelperText tone={error ? 'error' : 'neutral'}>{displayHelper}</HelperText>
       )}
     </View>
   )
 })
 
-Input.displayName = "Input"
+Input.displayName = 'Input'

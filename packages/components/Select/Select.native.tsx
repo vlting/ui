@@ -1,13 +1,7 @@
-import React, { createContext, useContext, useState, useCallback } from "react"
-import {
-  View,
-  Text as RNText,
-  Pressable,
-  Modal,
-  FlatList,
-} from "react-native"
-import type { ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
+import React, { createContext, useContext, useState, useCallback } from 'react'
+import { View, Text as RNText, Pressable, Modal, FlatList } from 'react-native'
+import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -16,47 +10,47 @@ import { styled } from "../../stl-native/src/config/styled"
 const SelectTriggerFrame = styled(
   Pressable,
   {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     borderWidth: 1,
-    borderColor: "$borderColor",
-    borderRadius: "$3",
-    backgroundColor: "$background",
+    borderColor: '$borderColor',
+    borderRadius: '$3',
+    backgroundColor: '$background',
     paddingHorizontal: 12,
     paddingVertical: 10,
     minHeight: 40,
     pressed: { opacity: 0.85 },
   },
-  "SelectTrigger",
+  'SelectTrigger',
 )
 
 const SelectOverlayFrame = styled(
   View,
   {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.4)",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  "SelectOverlay",
+  'SelectOverlay',
 )
 
 const SelectContentFrame = styled(
   View,
   {
-    backgroundColor: "$background",
-    borderRadius: "$3",
-    width: "85%",
-    maxHeight: "60%",
-    shadowColor: "#000",
+    backgroundColor: '$background',
+    borderRadius: '$3',
+    width: '85%',
+    maxHeight: '60%',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 10,
     elevation: 8,
     paddingVertical: 8,
   },
-  "SelectContent",
+  'SelectContent',
 )
 
 const SelectItemFrame = styled(
@@ -68,34 +62,34 @@ const SelectItemFrame = styled(
   },
   {
     selected: {
-      true: { backgroundColor: "$color3" },
+      true: { backgroundColor: '$color3' },
     },
   },
-  "SelectItem",
+  'SelectItem',
 )
 
 const SelectLabelFrame = styled(
   RNText,
   {
     fontSize: 12,
-    fontWeight: "600",
-    color: "$color3",
+    fontWeight: '600',
+    color: '$color3',
     paddingHorizontal: 16,
     paddingVertical: 6,
-    textTransform: "uppercase",
+    textTransform: 'uppercase',
   },
-  "SelectLabel",
+  'SelectLabel',
 )
 
 const SelectSeparatorFrame = styled(
   View,
   {
     height: 1,
-    backgroundColor: "$borderColor",
+    backgroundColor: '$borderColor',
     marginVertical: 4,
     marginHorizontal: 16,
   },
-  "SelectSeparator",
+  'SelectSeparator',
 )
 
 // ---------------------------------------------------------------------------
@@ -132,7 +126,7 @@ function SelectRoot({
   value: controlledValue,
   defaultValue,
   onValueChange: onValueChangeProp,
-  placeholder = "Select...",
+  placeholder = 'Select...',
   style,
 }: SelectProps) {
   const [internalValue, setInternalValue] = useState(defaultValue)
@@ -154,11 +148,15 @@ function SelectRoot({
 
   // Separate trigger children from item children
   const triggerChild = React.Children.toArray(children).find(
-    (child) => React.isValidElement(child) && (child as React.ReactElement<any>).type === SelectValue,
+    (child) =>
+      React.isValidElement(child) &&
+      (child as React.ReactElement<any>).type === SelectValue,
   )
 
   const menuChildren = React.Children.toArray(children).filter(
-    (child) => !React.isValidElement(child) || (child as React.ReactElement<any>).type !== SelectValue,
+    (child) =>
+      !React.isValidElement(child) ||
+      (child as React.ReactElement<any>).type !== SelectValue,
   )
 
   return (
@@ -170,11 +168,11 @@ function SelectRoot({
         accessibilityState={{ expanded: isOpen }}
       >
         {triggerChild ?? (
-          <RNText style={{ fontSize: 14, color: value ? undefined : "$color3" }}>
+          <RNText style={{ fontSize: 14, color: value ? undefined : '$color3' }}>
             {value ?? placeholder}
           </RNText>
         )}
-        <RNText style={{ fontSize: 12, color: "$color3" }}>▾</RNText>
+        <RNText style={{ fontSize: 12, color: '$color3' }}>▾</RNText>
       </SelectTriggerFrame>
 
       <Modal
@@ -186,13 +184,11 @@ function SelectRoot({
       >
         <SelectOverlayFrame>
           <Pressable
-            style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
             onPress={onClose}
             accessibilityRole="none"
           />
-          <SelectContentFrame>
-            {menuChildren}
-          </SelectContentFrame>
+          <SelectContentFrame>{menuChildren}</SelectContentFrame>
         </SelectOverlayFrame>
       </Modal>
     </SelectContext.Provider>
@@ -200,7 +196,7 @@ function SelectRoot({
 }
 
 function SelectValue({
-  placeholder = "Select...",
+  placeholder = 'Select...',
   style,
 }: {
   placeholder?: string
@@ -208,7 +204,7 @@ function SelectValue({
 }) {
   const { value } = useContext(SelectContext)
   return (
-    <RNText style={[{ fontSize: 14, color: "$defaultBody" }, style]}>
+    <RNText style={[{ fontSize: 14, color: '$defaultBody' }, style]}>
       {value ?? placeholder}
     </RNText>
   )
@@ -233,8 +229,8 @@ function SelectItem({
       accessibilityRole="menuitem"
       accessibilityState={{ selected: isSelected }}
     >
-      {typeof children === "string" ? (
-        <RNText style={{ fontSize: 14, color: "$defaultBody" }}>{children}</RNText>
+      {typeof children === 'string' ? (
+        <RNText style={{ fontSize: 14, color: '$defaultBody' }}>{children}</RNText>
       ) : (
         children
       )}

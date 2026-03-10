@@ -1,12 +1,7 @@
-import React, { createContext, useContext, forwardRef, useState } from "react"
-import {
-  View,
-  Text as RNText,
-  Pressable,
-  ActivityIndicator,
-} from "react-native"
-import type { ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
+import React, { createContext, useContext, forwardRef, useState } from 'react'
+import { View, Text as RNText, Pressable, ActivityIndicator } from 'react-native'
+import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -15,26 +10,26 @@ import { styled } from "../../stl-native/src/config/styled"
 const ButtonFrame = styled(
   Pressable,
   {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: 8,
-    borderRadius: "$3",
+    borderRadius: '$3',
     pressed: { opacity: 0.85 },
   },
   {
     variant: {
-      default: { backgroundColor: "$primary9" },
-      solid: { backgroundColor: "$primary9" },
-      secondary: { backgroundColor: "$color3" },
-      destructive: { backgroundColor: "$red9" },
+      default: { backgroundColor: '$primary9' },
+      solid: { backgroundColor: '$primary9' },
+      secondary: { backgroundColor: '$color3' },
+      destructive: { backgroundColor: '$red9' },
       outline: {
-        backgroundColor: "transparent",
+        backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: "$borderColor",
+        borderColor: '$borderColor',
       },
-      ghost: { backgroundColor: "transparent" },
-      link: { backgroundColor: "transparent" },
+      ghost: { backgroundColor: 'transparent' },
+      link: { backgroundColor: 'transparent' },
     },
     size: {
       xs: { height: 28, paddingHorizontal: 8, paddingVertical: 4 },
@@ -47,23 +42,23 @@ const ButtonFrame = styled(
       true: { opacity: 0.5 },
     },
   },
-  "Button",
+  'Button',
 )
 
 const ButtonTextFrame = styled(
   RNText,
   {
-    fontWeight: "500",
+    fontWeight: '500',
   },
   {
     textVariant: {
-      default: { color: "$color1" },
-      solid: { color: "$color1" },
-      secondary: { color: "$defaultBody" },
-      destructive: { color: "#fff" },
-      outline: { color: "$defaultBody" },
-      ghost: { color: "$defaultBody" },
-      link: { color: "$primary9", textDecorationLine: "underline" },
+      default: { color: '$color1' },
+      solid: { color: '$color1' },
+      secondary: { color: '$defaultBody' },
+      destructive: { color: '#fff' },
+      outline: { color: '$defaultBody' },
+      ghost: { color: '$defaultBody' },
+      link: { color: '$primary9', textDecorationLine: 'underline' },
     },
     size: {
       xs: { fontSize: 11 },
@@ -72,16 +67,16 @@ const ButtonTextFrame = styled(
       lg: { fontSize: 18 },
     },
   },
-  "ButtonText",
+  'ButtonText',
 )
 
 const ButtonIconFrame = styled(
   View,
   {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  "ButtonIcon",
+  'ButtonIcon',
 )
 
 // ---------------------------------------------------------------------------
@@ -89,26 +84,26 @@ const ButtonIconFrame = styled(
 // ---------------------------------------------------------------------------
 
 type ButtonVariant =
-  | "default"
-  | "solid"
-  | "secondary"
-  | "destructive"
-  | "outline"
-  | "ghost"
-  | "link"
+  | 'default'
+  | 'solid'
+  | 'secondary'
+  | 'destructive'
+  | 'outline'
+  | 'ghost'
+  | 'link'
 
 const ButtonContext = createContext<{ variant: ButtonVariant }>({
-  variant: "default",
+  variant: 'default',
 })
 
 const SPINNER_COLOR_MAP: Record<ButtonVariant, string> = {
-  default: "#fff",
-  solid: "#fff",
-  destructive: "#fff",
-  secondary: "#000",
-  outline: "#000",
-  ghost: "#000",
-  link: "#007AFF",
+  default: '#fff',
+  solid: '#fff',
+  destructive: '#fff',
+  secondary: '#000',
+  outline: '#000',
+  ghost: '#000',
+  link: '#007AFF',
 }
 
 // ---------------------------------------------------------------------------
@@ -117,12 +112,12 @@ const SPINNER_COLOR_MAP: Record<ButtonVariant, string> = {
 
 function ButtonText({
   children,
-  size = "md",
+  size = 'md',
   style,
   ...props
 }: {
   children?: React.ReactNode
-  size?: "xs" | "sm" | "md" | "lg"
+  size?: 'xs' | 'sm' | 'md' | 'lg'
   style?: ViewStyle
 }) {
   const { variant } = useContext(ButtonContext)
@@ -144,7 +139,7 @@ function ButtonIcon({ children, ...props }: { children?: React.ReactNode }) {
 export interface ButtonProps {
   children?: React.ReactNode
   variant?: ButtonVariant
-  size?: "xs" | "sm" | "md" | "lg" | "icon"
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon'
   loading?: boolean
   disabled?: boolean
   onPress?: () => void
@@ -152,15 +147,7 @@ export interface ButtonProps {
 }
 
 const ButtonBase = forwardRef<View, ButtonProps>(function ButtonBase(
-  {
-    loading,
-    children,
-    disabled,
-    variant = "default",
-    size = "md",
-    onPress,
-    ...props
-  },
+  { loading, children, disabled, variant = 'default', size = 'md', onPress, ...props },
   ref,
 ) {
   const isDisabled = disabled ?? loading ?? false
@@ -178,10 +165,7 @@ const ButtonBase = forwardRef<View, ButtonProps>(function ButtonBase(
         {...props}
       >
         {loading ? (
-          <ActivityIndicator
-            size="small"
-            color={SPINNER_COLOR_MAP[variant]}
-          />
+          <ActivityIndicator size="small" color={SPINNER_COLOR_MAP[variant]} />
         ) : (
           children
         )}

@@ -56,11 +56,12 @@ function StatusIndicator({ status }: { status?: ChatMessage['status'] }) {
     <span
       style={{
         fontSize: 11,
-        color: status === 'read'
-          ? 'var(--color10, #0066ff)'
-          : status === 'error'
-            ? 'var(--colorError, #ef4444)'
-            : 'var(--colorSubtitle, #999)',
+        color:
+          status === 'read'
+            ? 'var(--color10, #0066ff)'
+            : status === 'error'
+              ? 'var(--colorError, #ef4444)'
+              : 'var(--colorSubtitle, #999)',
       }}
       aria-label={`Message ${status}`}
     >
@@ -156,11 +157,15 @@ function StandardChat({
           }}
         >
           <div style={{ ...col, gap: 2 }}>
-            <span style={{ fontSize: 16, fontWeight: 600, fontFamily: 'var(--font-heading)' }}>
+            <span
+              style={{ fontSize: 16, fontWeight: 600, fontFamily: 'var(--font-heading)' }}
+            >
               {title}
             </span>
             {subtitle && (
-              <span style={{ fontSize: 12, opacity: 0.6, fontFamily: 'var(--font-body)' }}>
+              <span
+                style={{ fontSize: 12, opacity: 0.6, fontFamily: 'var(--font-body)' }}
+              >
                 {subtitle}
               </span>
             )}
@@ -185,7 +190,14 @@ function StandardChat({
                 }}
               >
                 {msg.author && !isUser && (
-                  <span style={{ fontSize: 12, fontWeight: 500, opacity: 0.7, fontFamily: 'var(--font-body)' }}>
+                  <span
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 500,
+                      opacity: 0.7,
+                      fontFamily: 'var(--font-body)',
+                    }}
+                  >
                     {msg.author.name}
                   </span>
                 )}
@@ -197,13 +209,19 @@ function StandardChat({
                     backgroundColor: isUser
                       ? 'var(--color10, #0066ff)'
                       : 'var(--background2, rgba(0,0,0,0.05))',
-                    color: isUser ? 'var(--colorOnAccent, #fff)' : 'var(--color, inherit)',
+                    color: isUser
+                      ? 'var(--colorOnAccent, #fff)'
+                      : 'var(--color, inherit)',
                   }}
                 >
-                  <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>{msg.text}</span>
+                  <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>
+                    {msg.text}
+                  </span>
                 </div>
                 <div style={{ ...row, gap: 6, alignItems: 'center' }}>
-                  <span style={{ fontSize: 11, opacity: 0.5, fontFamily: 'var(--font-body)' }}>
+                  <span
+                    style={{ fontSize: 11, opacity: 0.5, fontFamily: 'var(--font-body)' }}
+                  >
                     {msg.timestamp}
                   </span>
                   {isUser && <StatusIndicator status={msg.status} />}
@@ -220,7 +238,9 @@ function StandardChat({
                   backgroundColor: 'var(--background2, rgba(0,0,0,0.05))',
                 }}
               >
-                <span style={{ fontSize: 14, opacity: 0.5, fontFamily: 'var(--font-body)' }}>
+                <span
+                  style={{ fontSize: 14, opacity: 0.5, fontFamily: 'var(--font-body)' }}
+                >
                   Typing...
                 </span>
               </div>
@@ -265,11 +285,15 @@ function BubbleChat({
           }}
         >
           <div style={{ ...col, gap: 2 }}>
-            <span style={{ fontSize: 16, fontWeight: 600, fontFamily: 'var(--font-heading)' }}>
+            <span
+              style={{ fontSize: 16, fontWeight: 600, fontFamily: 'var(--font-heading)' }}
+            >
               {title}
             </span>
             {subtitle && (
-              <span style={{ fontSize: 12, opacity: 0.6, fontFamily: 'var(--font-body)' }}>
+              <span
+                style={{ fontSize: 12, opacity: 0.6, fontFamily: 'var(--font-body)' }}
+              >
                 {subtitle}
               </span>
             )}
@@ -313,13 +337,29 @@ function BubbleChat({
                       backgroundColor: isUser
                         ? 'var(--color10, #0066ff)'
                         : 'var(--background2, rgba(0,0,0,0.05))',
-                      color: isUser ? 'var(--colorOnAccent, #fff)' : 'var(--color, inherit)',
+                      color: isUser
+                        ? 'var(--colorOnAccent, #fff)'
+                        : 'var(--color, inherit)',
                     }}
                   >
-                    <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>{msg.text}</span>
+                    <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>
+                      {msg.text}
+                    </span>
                   </div>
-                  <div style={{ ...row, gap: 4, justifyContent: isUser ? 'flex-end' : 'flex-start' }}>
-                    <span style={{ fontSize: 10, opacity: 0.5, fontFamily: 'var(--font-body)' }}>
+                  <div
+                    style={{
+                      ...row,
+                      gap: 4,
+                      justifyContent: isUser ? 'flex-end' : 'flex-start',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: 10,
+                        opacity: 0.5,
+                        fontFamily: 'var(--font-body)',
+                      }}
+                    >
                       {msg.timestamp}
                     </span>
                     {isUser && <StatusIndicator status={msg.status} />}
@@ -333,7 +373,8 @@ function BubbleChat({
               <div
                 style={{
                   padding: '10px 14px',
-                  borderRadius: 'var(--radius4, 8px) var(--radius4, 8px) var(--radius4, 8px) var(--radius1, 2px)',
+                  borderRadius:
+                    'var(--radius4, 8px) var(--radius4, 8px) var(--radius4, 8px) var(--radius1, 2px)',
                   backgroundColor: 'var(--background2, rgba(0,0,0,0.05))',
                 }}
               >
@@ -383,10 +424,18 @@ function SupportChat({
           <div style={{ ...row, gap: 12, alignItems: 'center' }}>
             {avatar && <Avatar size="md" src={avatar} fallback="S" />}
             <div style={{ ...col, gap: 2 }}>
-              <span style={{ fontSize: 18, fontWeight: 600, fontFamily: 'var(--font-heading)' }}>
+              <span
+                style={{
+                  fontSize: 18,
+                  fontWeight: 600,
+                  fontFamily: 'var(--font-heading)',
+                }}
+              >
                 {title}
               </span>
-              <span style={{ fontSize: 13, opacity: 0.85, fontFamily: 'var(--font-body)' }}>
+              <span
+                style={{ fontSize: 13, opacity: 0.85, fontFamily: 'var(--font-body)' }}
+              >
                 {subtitle}
               </span>
             </div>
@@ -399,8 +448,16 @@ function SupportChat({
           aria-label="Support chat messages"
         >
           {messages.length === 0 && (
-            <div style={{ ...col, alignItems: 'center', padding: 24, gap: 8, opacity: 0.5 }}>
-              <span style={{ fontSize: 14, fontFamily: 'var(--font-body)', textAlign: 'center' }}>
+            <div
+              style={{ ...col, alignItems: 'center', padding: 24, gap: 8, opacity: 0.5 }}
+            >
+              <span
+                style={{
+                  fontSize: 14,
+                  fontFamily: 'var(--font-body)',
+                  textAlign: 'center',
+                }}
+              >
                 Send us a message and we will get back to you shortly.
               </span>
             </div>
@@ -424,12 +481,18 @@ function SupportChat({
                     backgroundColor: isUser
                       ? 'var(--color10, #0066ff)'
                       : 'var(--background2, rgba(0,0,0,0.05))',
-                    color: isUser ? 'var(--colorOnAccent, #fff)' : 'var(--color, inherit)',
+                    color: isUser
+                      ? 'var(--colorOnAccent, #fff)'
+                      : 'var(--color, inherit)',
                   }}
                 >
-                  <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>{msg.text}</span>
+                  <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>
+                    {msg.text}
+                  </span>
                 </div>
-                <span style={{ fontSize: 10, opacity: 0.5, fontFamily: 'var(--font-body)' }}>
+                <span
+                  style={{ fontSize: 10, opacity: 0.5, fontFamily: 'var(--font-body)' }}
+                >
                   {msg.timestamp}
                 </span>
               </div>
@@ -444,7 +507,9 @@ function SupportChat({
                 alignSelf: 'flex-start',
               }}
             >
-              <span style={{ fontSize: 14, opacity: 0.5, fontFamily: 'var(--font-body)' }}>
+              <span
+                style={{ fontSize: 14, opacity: 0.5, fontFamily: 'var(--font-body)' }}
+              >
                 Agent is typing...
               </span>
             </div>

@@ -27,7 +27,9 @@ export function handleGetBlock(args: { name: string }): BlockResult | { error: s
       return existsSync(full) && statSync(full).isDirectory() && !d.startsWith('_')
     })
     const match = allDirs.find(
-      (d) => d.toLowerCase() === blockName || d.toLowerCase().replace(/-/g, '') === blockName.replace(/-/g, '')
+      (d) =>
+        d.toLowerCase() === blockName ||
+        d.toLowerCase().replace(/-/g, '') === blockName.replace(/-/g, ''),
     )
     if (!match) {
       return { error: `Block "${args.name}" not found. Available: ${allDirs.join(', ')}` }
@@ -47,8 +49,14 @@ function getBlockFiles(name: string, dir: string): BlockResult {
       const stat = statSync(full)
       if (stat.isDirectory()) {
         readDir(full)
-      } else if ((entry.endsWith('.tsx') || entry.endsWith('.ts')) && !entry.endsWith('.test.tsx')) {
-        files.push({ path: full.replace(root + '/', ''), content: readFileSync(full, 'utf8') })
+      } else if (
+        (entry.endsWith('.tsx') || entry.endsWith('.ts')) &&
+        !entry.endsWith('.test.tsx')
+      ) {
+        files.push({
+          path: full.replace(root + '/', ''),
+          content: readFileSync(full, 'utf8'),
+        })
       }
     }
   }

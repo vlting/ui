@@ -1,5 +1,5 @@
-import { useContext } from "react"
-import { ConditionMaskContext } from "../providers/StlProvider"
+import { useContext } from 'react'
+import { ConditionMaskContext } from '../providers/StlProvider'
 
 /**
  * Returns the current condition bitmask from context.

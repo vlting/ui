@@ -14,14 +14,17 @@ export interface DynamicIconProps {
 function toComponentName(name: string, variant: string = 'line'): string {
   const base = name
     .split('-')
-    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join('')
   const variantSuffix = variant === 'fill' ? 'Fill' : variant === 'line' ? 'Line' : ''
   return `Ri${base}${variantSuffix}`
 }
 
 /** Module-level cache for lazy icon components */
-const cache = new Map<string, LazyExoticComponent<ComponentType<{ size?: number | string; color?: string }>>>()
+const cache = new Map<
+  string,
+  LazyExoticComponent<ComponentType<{ size?: number | string; color?: string }>>
+>()
 
 function getLazyIcon(componentName: string) {
   const cached = cache.get(componentName)
@@ -29,9 +32,9 @@ function getLazyIcon(componentName: string) {
 
   const LazyIcon = lazy(() =>
     import(`./generated/${componentName}`).then(
-      m => ({ default: (m[componentName] || Object.values(m)[0]) as IconFC }),
-      () => ({ default: (() => null) as unknown as IconFC })
-    )
+      (m) => ({ default: (m[componentName] || Object.values(m)[0]) as IconFC }),
+      () => ({ default: (() => null) as unknown as IconFC }),
+    ),
   )
 
   cache.set(componentName, LazyIcon)

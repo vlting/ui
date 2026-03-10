@@ -1,15 +1,15 @@
-import { styled } from "../../config"
+import { styled } from '../../config'
 
 export const Pressable = styled(
-  "button",
+  'button',
   {
-    appearance: "none",
-    background: "none",
-    border: "none",
-    padding: "$0",
-    cursor: "pointer",
-    font: "inherit",
-    color: "inherit",
+    appearance: 'none',
+    background: 'none',
+    border: 'none',
+    padding: '$0',
+    cursor: 'pointer',
+    font: 'inherit',
+    color: 'inherit',
   },
-  "Pressable"
+  'Pressable',
 )

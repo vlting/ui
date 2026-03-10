@@ -37,9 +37,7 @@ export function useFontLoader(fontConfig?: BrandFontConfig): FontLoadState {
     const url = getGoogleFontsUrl(fontConfig)
     if (!url) return
 
-    const existing = document.querySelector(
-      `link[href="${cssEscape(url)}"]`,
-    )
+    const existing = document.querySelector(`link[href="${cssEscape(url)}"]`)
     if (existing) {
       linkRef.current = existing as HTMLLinkElement
       return

@@ -11,14 +11,28 @@ function useResolvedTokens() {
     if (!el) return
     const cs = getComputedStyle(el)
     setTokens({
-      background: cs.getPropertyValue('--stl-background').trim() || cs.getPropertyValue('--background').trim() || '#ffffff',
-      color: cs.getPropertyValue('--stl-foreground').trim() || cs.getPropertyValue('--color').trim() || '#111111',
-      color8: cs.getPropertyValue('--stl-color8').trim() || cs.getPropertyValue('--color8').trim() || '#6a6a6a',
-      borderColor: cs.getPropertyValue('--stl-border').trim() || cs.getPropertyValue('--borderColor').trim() || '#e8e8e8',
+      background:
+        cs.getPropertyValue('--stl-background').trim() ||
+        cs.getPropertyValue('--background').trim() ||
+        '#ffffff',
+      color:
+        cs.getPropertyValue('--stl-foreground').trim() ||
+        cs.getPropertyValue('--color').trim() ||
+        '#111111',
+      color8:
+        cs.getPropertyValue('--stl-color8').trim() ||
+        cs.getPropertyValue('--color8').trim() ||
+        '#6a6a6a',
+      borderColor:
+        cs.getPropertyValue('--stl-border').trim() ||
+        cs.getPropertyValue('--borderColor').trim() ||
+        '#e8e8e8',
     })
   }, [])
 
-  useEffect(() => { resolve() }, [resolve])
+  useEffect(() => {
+    resolve()
+  }, [resolve])
 
   return { ref, tokens }
 }
@@ -43,33 +57,31 @@ export interface ChartTooltipProps {
   children?: React.ReactNode
 }
 
-const indicatorStyles: Record<
-  TooltipIndicator,
-  (color: string) => React.CSSProperties
-> = {
-  dot: (color) => ({
-    display: 'inline-block',
-    width: 8,
-    height: 8,
-    borderRadius: '50%',
-    backgroundColor: color,
-    flexShrink: 0,
-  }),
-  line: (color) => ({
-    display: 'inline-block',
-    width: 12,
-    height: 2,
-    backgroundColor: color,
-    flexShrink: 0,
-  }),
-  dashed: (color) => ({
-    display: 'inline-block',
-    width: 12,
-    height: 0,
-    borderBottom: `2px dashed ${color}`,
-    flexShrink: 0,
-  }),
-}
+const indicatorStyles: Record<TooltipIndicator, (color: string) => React.CSSProperties> =
+  {
+    dot: (color) => ({
+      display: 'inline-block',
+      width: 8,
+      height: 8,
+      borderRadius: '50%',
+      backgroundColor: color,
+      flexShrink: 0,
+    }),
+    line: (color) => ({
+      display: 'inline-block',
+      width: 12,
+      height: 2,
+      backgroundColor: color,
+      flexShrink: 0,
+    }),
+    dashed: (color) => ({
+      display: 'inline-block',
+      width: 12,
+      height: 0,
+      borderBottom: `2px dashed ${color}`,
+      flexShrink: 0,
+    }),
+  }
 
 export function ChartTooltip({
   variant = 'default',
@@ -105,16 +117,13 @@ export function ChartTooltip({
 
   const subtitleColor = tokens.color8 || 'var(--stl-color8, #6a6a6a)'
 
-  const formattedLabel =
-    label != null && labelFormatter ? labelFormatter(label) : label
+  const formattedLabel = label != null && labelFormatter ? labelFormatter(label) : label
 
   const showLabel = !hideLabel && label != null
-  const showPayload =
-    variant !== 'label' && variant !== 'custom' && payload?.length
+  const showPayload = variant !== 'label' && variant !== 'custom' && payload?.length
 
-  const config = (variant === 'icons' || variant === 'advanced')
-    ? chartCtx.config
-    : undefined
+  const config =
+    variant === 'icons' || variant === 'advanced' ? chartCtx.config : undefined
 
   return (
     <div ref={ref} style={containerStyle}>
@@ -157,12 +166,8 @@ export function ChartTooltip({
                 padding: 'var(--stl-space1, 2px) 0',
               }}
             >
-              {!hideIndicator && (
-                <span style={indicatorStyles[indicator](item.color)} />
-              )}
-              {IconComponent && (
-                <IconComponent />
-              )}
+              {!hideIndicator && <span style={indicatorStyles[indicator](item.color)} />}
+              {IconComponent && <IconComponent />}
               <span style={{ flex: 1 }}>{itemName}</span>
               <span
                 style={{

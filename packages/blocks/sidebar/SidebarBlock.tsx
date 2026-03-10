@@ -84,7 +84,9 @@ export function SidebarBlock({
       )}
 
       {variant === 'floating' && searchPlaceholder && (
-        <div style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 4 }}>
+        <div
+          style={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 4 }}
+        >
           <InputJsx
             placeholder={searchPlaceholder}
             onChange={(e: { target: { value: string } }) =>
@@ -188,9 +190,7 @@ function CollapsibleGroup({ group }: { group: NavGroup }) {
             >
               {group.label}
             </span>
-            <span style={{ fontSize: 12, color: 'var(--secondaryText12)' }}>
-              &#9662;
-            </span>
+            <span style={{ fontSize: 12, color: 'var(--secondaryText12)' }}>&#9662;</span>
           </div>
         </Collapsible.Trigger>
         <Collapsible.Content>
@@ -236,9 +236,25 @@ function NestedNavItem({ item, depth = 0 }: { item: NavItem; depth?: number }) {
             borderRadius: 4,
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 6, flex: 1 }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 6,
+              flex: 1,
+            }}
+          >
             {item.icon && (
-              <div style={{ width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div
+                style={{
+                  width: 16,
+                  height: 16,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
                 {item.icon}
               </div>
             )}
@@ -253,9 +269,7 @@ function NestedNavItem({ item, depth = 0 }: { item: NavItem; depth?: number }) {
               {item.label}
             </span>
           </div>
-          <span style={{ fontSize: 12, color: 'var(--secondaryText12)' }}>
-            &#9662;
-          </span>
+          <span style={{ fontSize: 12, color: 'var(--secondaryText12)' }}>&#9662;</span>
         </div>
       </Collapsible.Trigger>
       <Collapsible.Content>
@@ -305,9 +319,7 @@ function IconOnlyGroup({ group }: { group: NavGroup }) {
       <Sidebar.GroupContent>
         <Sidebar.Menu>
           {group.items.map((item, i) =>
-            item.icon ? (
-              <IconNavItem key={`${item.label}-${i}`} item={item} />
-            ) : null,
+            item.icon ? <IconNavItem key={`${item.label}-${i}`} item={item} /> : null,
           )}
         </Sidebar.Menu>
       </Sidebar.GroupContent>
@@ -339,11 +351,17 @@ function FileTreeNode({ item, depth = 0 }: { item: FileTreeItem; depth?: number 
               borderRadius: 4,
             }}
           >
-            <span style={{ fontSize: 14, color: 'var(--secondaryText12)' }}>
-              &#9656;
-            </span>
+            <span style={{ fontSize: 14, color: 'var(--secondaryText12)' }}>&#9656;</span>
             {item.icon ? (
-              <div style={{ width: 14, height: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div
+                style={{
+                  width: 14,
+                  height: 14,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
                 {item.icon}
               </div>
             ) : (
@@ -374,15 +392,29 @@ function FileTreeNode({ item, depth = 0 }: { item: FileTreeItem; depth?: number 
 
   return (
     <Sidebar.MenuItem active={item.active} onPress={item.onPress}>
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 4, paddingLeft: indent + 20 }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 4,
+          paddingLeft: indent + 20,
+        }}
+      >
         {item.icon ? (
-          <div style={{ width: 14, height: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div
+            style={{
+              width: 14,
+              height: 14,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             {item.icon}
           </div>
         ) : (
-          <span style={{ fontSize: 14, color: 'var(--secondaryText12)' }}>
-            &#128196;
-          </span>
+          <span style={{ fontSize: 14, color: 'var(--secondaryText12)' }}>&#128196;</span>
         )}
         <span
           style={{

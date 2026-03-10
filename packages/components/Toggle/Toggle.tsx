@@ -1,31 +1,36 @@
 import React, { useCallback, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
-const ToggleBtn = styled("button", {
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "$borderColor",
-  borderRadius: "$4",
-  cursor: "pointer",
-  backgroundColor: "transparent",
-  color: "$defaultBody",
-  fontFamily: "$body",
-  fontWeight: "$500",
-  transition: "background-color 0.15s, border-color 0.15s",
-  outline: "none",
-}, {
-  size: {
-    sm: { height: "32px", paddingLeft: "8px", paddingRight: "8px", fontSize: "$14" },
-    md: { height: "36px", paddingLeft: "12px", paddingRight: "12px", fontSize: "$p" },
-    lg: { height: "40px", paddingLeft: "16px", paddingRight: "16px", fontSize: "$p" },
+const ToggleBtn = styled(
+  'button',
+  {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    borderRadius: '$4',
+    cursor: 'pointer',
+    backgroundColor: 'transparent',
+    color: '$defaultBody',
+    fontFamily: '$body',
+    fontWeight: '$500',
+    transition: 'background-color 0.15s, border-color 0.15s',
+    outline: 'none',
   },
-  disabled: {
-    true: { opacity: "0.5", cursor: "not-allowed", pointerEvents: "none" },
+  {
+    size: {
+      sm: { height: '32px', paddingLeft: '8px', paddingRight: '8px', fontSize: '$14' },
+      md: { height: '36px', paddingLeft: '12px', paddingRight: '12px', fontSize: '$p' },
+      lg: { height: '40px', paddingLeft: '16px', paddingRight: '16px', fontSize: '$p' },
+    },
+    disabled: {
+      true: { opacity: '0.5', cursor: 'not-allowed', pointerEvents: 'none' },
+    },
   },
-}, "Toggle")
+  'Toggle',
+)
 
 export interface ToggleProps {
   children?: React.ReactNode
@@ -120,25 +125,28 @@ function ToggleGroupRoot({
   const isControlled = value !== undefined
   const values = isControlled ? normalize(value) : internal
 
-  const toggle = useCallback((val: string) => {
-    const update = (prev: string[]) => {
-      if (type === 'single') {
-        return prev.includes(val) ? [] : [val]
+  const toggle = useCallback(
+    (val: string) => {
+      const update = (prev: string[]) => {
+        if (type === 'single') {
+          return prev.includes(val) ? [] : [val]
+        }
+        return prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val]
       }
-      return prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val]
-    }
 
-    if (!isControlled) {
-      setInternal((prev) => {
-        const next = update(prev)
+      if (!isControlled) {
+        setInternal((prev) => {
+          const next = update(prev)
+          onValueChange?.(type === 'single' ? (next[0] ?? '') : next)
+          return next
+        })
+      } else {
+        const next = update(values)
         onValueChange?.(type === 'single' ? (next[0] ?? '') : next)
-        return next
-      })
-    } else {
-      const next = update(values)
-      onValueChange?.(type === 'single' ? (next[0] ?? '') : next)
-    }
-  }, [type, isControlled, values, onValueChange])
+      }
+    },
+    [type, isControlled, values, onValueChange],
+  )
 
   return (
     <ToggleGroupContext.Provider value={{ type, values, toggle, size, disabled }}>
@@ -162,8 +170,17 @@ export interface ToggleGroupItemProps {
   disabled?: boolean
 }
 
-function ToggleGroupItem({ children, value, disabled: itemDisabled }: ToggleGroupItemProps) {
-  const { values, toggle, size, disabled: groupDisabled } = React.useContext(ToggleGroupContext)
+function ToggleGroupItem({
+  children,
+  value,
+  disabled: itemDisabled,
+}: ToggleGroupItemProps) {
+  const {
+    values,
+    toggle,
+    size,
+    disabled: groupDisabled,
+  } = React.useContext(ToggleGroupContext)
   const isPressed = values.includes(value)
   const isDisabled = itemDisabled || groupDisabled
 

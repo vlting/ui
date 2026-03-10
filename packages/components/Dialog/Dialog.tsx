@@ -1,91 +1,98 @@
-import React, { createContext, useCallback, useContext, useEffect, useId, useRef } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useId,
+  useRef,
+} from 'react'
 import { createPortal } from 'react-dom'
 import { styled } from '../../stl-react/src/config'
 import { useDisclosure } from '../../stl-headless/src'
 
 const StyledOverlay = styled(
-  "div",
+  'div',
   {
-    position: "fixed",
-    top: "0",
-    left: "0",
-    right: "0",
-    bottom: "0",
-    backgroundColor: "var(--stl-maxAlpha8, rgba(0,0,0,0.5))",
-    zIndex: "40",
-    transition: "opacity 200ms ease",
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    right: '0',
+    bottom: '0',
+    backgroundColor: 'var(--stl-maxAlpha8, rgba(0,0,0,0.5))',
+    zIndex: '40',
+    transition: 'opacity 200ms ease',
   },
-  "DialogOverlay"
+  'DialogOverlay',
 )
 
 const StyledContent = styled(
-  "div",
+  'div',
   {
-    position: "fixed",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "var(--background, #fff)",
-    borderRadius: "12px",
-    width: "90%",
-    maxHeight: "85%",
-    overflowY: "auto",
-    zIndex: "50",
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px",
-    boxShadow: "var(--shadowXl, 0 25px 50px -12px rgba(0,0,0,0.25))",
-    transition: "opacity 200ms ease, transform 200ms ease",
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: 'var(--background, #fff)',
+    borderRadius: '12px',
+    width: '90%',
+    maxHeight: '85%',
+    overflowY: 'auto',
+    zIndex: '50',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+    boxShadow: 'var(--shadowXl, 0 25px 50px -12px rgba(0,0,0,0.25))',
+    transition: 'opacity 200ms ease, transform 200ms ease',
   },
   {
     size: {
-      sm: { maxWidth: "400px", padding: "16px" },
-      md: { maxWidth: "500px", padding: "20px" },
-      lg: { maxWidth: "640px", padding: "24px" },
+      sm: { maxWidth: '400px', padding: '16px' },
+      md: { maxWidth: '500px', padding: '20px' },
+      lg: { maxWidth: '640px', padding: '24px' },
     },
   },
-  "DialogContent"
+  'DialogContent',
 )
 
 const StyledTitle = styled(
-  "h2",
+  'h2',
   {
-    fontFamily: "var(--font-heading)",
-    fontWeight: "600",
-    fontSize: "var(--fontSize-6, 20px)",
-    lineHeight: "1.3",
-    color: "var(--color)",
-    margin: "0",
+    fontFamily: 'var(--font-heading)',
+    fontWeight: '600',
+    fontSize: 'var(--fontSize-6, 20px)',
+    lineHeight: '1.3',
+    color: 'var(--color)',
+    margin: '0',
   },
-  "DialogTitle"
+  'DialogTitle',
 )
 
 const StyledDescription = styled(
-  "p",
+  'p',
   {
-    fontFamily: "var(--font-body)",
-    fontSize: "var(--fontSize-4, 16px)",
-    color: "var(--colorSubtitle)",
-    margin: "0",
+    fontFamily: 'var(--font-body)',
+    fontSize: 'var(--fontSize-4, 16px)',
+    color: 'var(--colorSubtitle)',
+    margin: '0',
   },
-  "DialogDescription"
+  'DialogDescription',
 )
 
 const StyledHeader = styled(
-  "div",
-  { display: "flex", flexDirection: "column", gap: "4px" },
-  "DialogHeader"
+  'div',
+  { display: 'flex', flexDirection: 'column', gap: '4px' },
+  'DialogHeader',
 )
 
 const StyledFooter = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    justifyContent: "flex-end",
-    gap: "8px",
-    paddingTop: "12px",
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: '8px',
+    paddingTop: '12px',
   },
-  "DialogFooter"
+  'DialogFooter',
 )
 
 interface DialogContextValue {
@@ -164,7 +171,7 @@ function Content({ children, size = 'md' }: DialogContentProps) {
 
       if (e.key === 'Tab') {
         const focusable = contentRef.current?.querySelectorAll<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
         )
         if (!focusable || focusable.length === 0) return
 
@@ -187,7 +194,7 @@ function Content({ children, size = 'md' }: DialogContentProps) {
 
     document.addEventListener('keydown', handleKeyDown)
     const firstFocusable = contentRef.current?.querySelector<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
     )
     firstFocusable?.focus()
 
@@ -225,31 +232,31 @@ function Description({ children }: { children: React.ReactNode }) {
 }
 
 const StyledClose = styled(
-  "button",
+  'button',
   {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-    border: "none",
-    backgroundColor: "transparent",
-    color: "var(--color)",
-    borderRadius: "4px",
-    padding: "4px",
-    outline: "none",
-    transition: "background-color 150ms ease",
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    border: 'none',
+    backgroundColor: 'transparent',
+    color: 'var(--color)',
+    borderRadius: '4px',
+    padding: '4px',
+    outline: 'none',
+    transition: 'background-color 150ms ease',
     hovered: {
-      backgroundColor: "var(--color3)",
+      backgroundColor: 'var(--color3)',
     },
     focused: {
-      outline: "2px solid var(--stl-outline-primaryColorBase, currentColor)",
-      outlineOffset: "2px",
+      outline: '2px solid var(--stl-outline-primaryColorBase, currentColor)',
+      outlineOffset: '2px',
     },
     pressed: {
-      backgroundColor: "var(--color4)",
+      backgroundColor: 'var(--color4)',
     },
   },
-  "DialogClose"
+  'DialogClose',
 )
 
 function Close({ children }: { children?: React.ReactNode }) {

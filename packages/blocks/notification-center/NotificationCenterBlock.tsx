@@ -133,14 +133,24 @@ function NotificationRow({
             {notification.timestamp}
           </span>
           {notification.action && (
-            <ButtonJsx variant="ghost" size="sm" onPress={notification.action.onPress} aria-label={notification.action.label}>
+            <ButtonJsx
+              variant="ghost"
+              size="sm"
+              onPress={notification.action.onPress}
+              aria-label={notification.action.label}
+            >
               <ButtonTextJsx>{notification.action.label}</ButtonTextJsx>
             </ButtonJsx>
           )}
         </div>
       </div>
       {onDismiss && (
-        <ButtonJsx variant="ghost" size="sm" onPress={() => onDismiss(notification.id)} aria-label={`Dismiss ${notification.title}`}>
+        <ButtonJsx
+          variant="ghost"
+          size="sm"
+          onPress={() => onDismiss(notification.id)}
+          aria-label={`Dismiss ${notification.title}`}
+        >
           <ButtonTextJsx>x</ButtonTextJsx>
         </ButtonJsx>
       )}
@@ -179,17 +189,26 @@ function PanelNotifications({
       <div style={{ ...col, gap: 12 }}>
         <div style={{ ...row, justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ ...row, gap: 8, alignItems: 'center' }}>
-            <span style={{ fontSize: 18, fontWeight: 600, fontFamily: 'var(--font-heading)' }}>
+            <span
+              style={{ fontSize: 18, fontWeight: 600, fontFamily: 'var(--font-heading)' }}
+            >
               {title}
             </span>
             {count > 0 && (
               <BadgeJsx variant="secondary">
-                <span style={{ fontSize: 12, fontFamily: 'var(--font-body)' }}>{count}</span>
+                <span style={{ fontSize: 12, fontFamily: 'var(--font-body)' }}>
+                  {count}
+                </span>
               </BadgeJsx>
             )}
           </div>
           {onMarkAllRead && count > 0 && (
-            <ButtonJsx variant="ghost" size="sm" onPress={onMarkAllRead} aria-label="Mark all as read">
+            <ButtonJsx
+              variant="ghost"
+              size="sm"
+              onPress={onMarkAllRead}
+              aria-label="Mark all as read"
+            >
               <ButtonTextJsx>Mark all read</ButtonTextJsx>
             </ButtonJsx>
           )}
@@ -197,12 +216,19 @@ function PanelNotifications({
         <Separator />
         {notifications.length === 0 ? (
           <div style={{ padding: 32, textAlign: 'center', opacity: 0.5 }}>
-            <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>{emptyMessage}</span>
+            <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>
+              {emptyMessage}
+            </span>
           </div>
         ) : (
           <div style={{ ...col }} role="feed" aria-label={title}>
             {notifications.map((n) => (
-              <NotificationRow key={n.id} notification={n} onMarkRead={onMarkRead} onDismiss={onDismiss} />
+              <NotificationRow
+                key={n.id}
+                notification={n}
+                onMarkRead={onMarkRead}
+                onDismiss={onDismiss}
+              />
             ))}
           </div>
         )}
@@ -247,29 +273,45 @@ function DropdownNotifications({
           }}
         >
           <div style={{ ...row, gap: 8, alignItems: 'center' }}>
-            <span style={{ fontSize: 16, fontWeight: 600, fontFamily: 'var(--font-heading)' }}>
+            <span
+              style={{ fontSize: 16, fontWeight: 600, fontFamily: 'var(--font-heading)' }}
+            >
               {title}
             </span>
             {count > 0 && (
               <BadgeJsx variant="default">
-                <span style={{ fontSize: 11, fontFamily: 'var(--font-body)' }}>{count}</span>
+                <span style={{ fontSize: 11, fontFamily: 'var(--font-body)' }}>
+                  {count}
+                </span>
               </BadgeJsx>
             )}
           </div>
           {onMarkAllRead && count > 0 && (
-            <ButtonJsx variant="ghost" size="sm" onPress={onMarkAllRead} aria-label="Mark all as read">
+            <ButtonJsx
+              variant="ghost"
+              size="sm"
+              onPress={onMarkAllRead}
+              aria-label="Mark all as read"
+            >
               <ButtonTextJsx>Mark all read</ButtonTextJsx>
             </ButtonJsx>
           )}
         </div>
         {notifications.length === 0 ? (
           <div style={{ padding: 32, textAlign: 'center', opacity: 0.5 }}>
-            <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>{emptyMessage}</span>
+            <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>
+              {emptyMessage}
+            </span>
           </div>
         ) : (
           <div style={{ ...col, padding: 8 }} role="feed" aria-label={title}>
             {notifications.map((n) => (
-              <NotificationRow key={n.id} notification={n} onMarkRead={onMarkRead} onDismiss={onDismiss} />
+              <NotificationRow
+                key={n.id}
+                notification={n}
+                onMarkRead={onMarkRead}
+                onDismiss={onDismiss}
+              />
             ))}
           </div>
         )}
@@ -281,7 +323,12 @@ function DropdownNotifications({
               textAlign: 'center',
             }}
           >
-            <ButtonJsx variant="ghost" size="sm" onPress={onClearAll} aria-label="Clear all notifications">
+            <ButtonJsx
+              variant="ghost"
+              size="sm"
+              onPress={onClearAll}
+              aria-label="Clear all notifications"
+            >
               <ButtonTextJsx>Clear all</ButtonTextJsx>
             </ButtonJsx>
           </div>
@@ -313,18 +360,27 @@ function GroupedNotifications({
     <CardJsx style={{ width: '100%', maxWidth: 500, padding: 16 }}>
       <div style={{ ...col, gap: 16 }}>
         <div style={{ ...row, justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: 18, fontWeight: 600, fontFamily: 'var(--font-heading)' }}>
+          <span
+            style={{ fontSize: 18, fontWeight: 600, fontFamily: 'var(--font-heading)' }}
+          >
             {title}
           </span>
           {onMarkAllRead && (
-            <ButtonJsx variant="ghost" size="sm" onPress={onMarkAllRead} aria-label="Mark all as read">
+            <ButtonJsx
+              variant="ghost"
+              size="sm"
+              onPress={onMarkAllRead}
+              aria-label="Mark all as read"
+            >
               <ButtonTextJsx>Mark all read</ButtonTextJsx>
             </ButtonJsx>
           )}
         </div>
         {notifications.length === 0 ? (
           <div style={{ padding: 32, textAlign: 'center', opacity: 0.5 }}>
-            <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>{emptyMessage}</span>
+            <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>
+              {emptyMessage}
+            </span>
           </div>
         ) : (
           <div style={{ ...col, gap: 16 }} role="feed" aria-label={title}>
@@ -344,7 +400,12 @@ function GroupedNotifications({
                   {category}
                 </span>
                 {items.map((n) => (
-                  <NotificationRow key={n.id} notification={n} onMarkRead={onMarkRead} onDismiss={onDismiss} />
+                  <NotificationRow
+                    key={n.id}
+                    notification={n}
+                    onMarkRead={onMarkRead}
+                    onDismiss={onDismiss}
+                  />
                 ))}
               </div>
             ))}

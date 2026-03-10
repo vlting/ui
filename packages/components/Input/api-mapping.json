@@ -3,7 +3,10 @@
   "shadcn": {
     "import": "import { Input } from '@/components/ui/input'",
     "props": {
-      "type": { "type": "string", "values": ["text", "password", "email", "number", "search", "tel", "url"] },
+      "type": {
+        "type": "string",
+        "values": ["text", "password", "email", "number", "search", "tel", "url"]
+      },
       "placeholder": { "type": "string", "values": [] },
       "disabled": { "type": "boolean", "values": [] },
       "className": { "type": "string", "values": [] }
@@ -13,7 +16,20 @@
     "import": "import { Input } from '@vlting/ui'",
     "props": {
       "size": { "type": "string", "values": ["sm", "md", "lg"] },
-      "type": { "type": "string", "values": ["text", "password", "email", "number", "search", "tel", "url", "date", "file"] },
+      "type": {
+        "type": "string",
+        "values": [
+          "text",
+          "password",
+          "email",
+          "number",
+          "search",
+          "tel",
+          "url",
+          "date",
+          "file"
+        ]
+      },
       "placeholder": { "type": "string", "values": [] },
       "value": { "type": "string", "values": [] },
       "defaultValue": { "type": "string", "values": [] },
@@ -37,9 +53,25 @@
     "Also exposes Input.Frame, Input.Label, Input.Helper as lower-level styled components"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props or size/error props", "reason": "Cross-platform" },
-    { "shadcn": "onChange={(e) => ...}", "vlting": "onChangeText={(text) => ...}", "reason": "Cross-platform; receives text string, not event object" },
-    { "shadcn": "No built-in label/error", "vlting": "Use label, error, errorMessage, helperText props", "reason": "Built-in form field features" },
-    { "shadcn": "No slot support", "vlting": "Use leadingSlot/trailingSlot for addons", "reason": "Built-in icon/addon support" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props or size/error props",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "onChange={(e) => ...}",
+      "vlting": "onChangeText={(text) => ...}",
+      "reason": "Cross-platform; receives text string, not event object"
+    },
+    {
+      "shadcn": "No built-in label/error",
+      "vlting": "Use label, error, errorMessage, helperText props",
+      "reason": "Built-in form field features"
+    },
+    {
+      "shadcn": "No slot support",
+      "vlting": "Use leadingSlot/trailingSlot for addons",
+      "reason": "Built-in icon/addon support"
+    }
   ]
 }

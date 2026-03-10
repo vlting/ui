@@ -3,74 +3,74 @@ import { createPortal } from 'react-dom'
 import { styled } from '../../stl-react/src/config'
 
 const MenuContentFrame = styled(
-  "div",
+  'div',
   {
-    backgroundColor: "$surface1",
-    borderRadius: "$4",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "$borderColor",
-    padding: "$2",
-    minWidth: "180px",
-    boxShadow: "var(--shadowMd)",
+    backgroundColor: '$surface1',
+    borderRadius: '$4',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    padding: '$2',
+    minWidth: '180px',
+    boxShadow: 'var(--shadowMd)',
   },
-  "MenuContent"
+  'MenuContent',
 )
 
 const MenuItemFrame = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingLeft: "$3",
-    paddingRight: "$3",
-    paddingTop: "$2",
-    paddingBottom: "$2",
-    borderRadius: "$2",
-    cursor: "pointer",
-    fontFamily: "$body",
-    fontSize: "$14",
-    color: "$color",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: '$3',
+    paddingRight: '$3',
+    paddingTop: '$2',
+    paddingBottom: '$2',
+    borderRadius: '$2',
+    cursor: 'pointer',
+    fontFamily: '$body',
+    fontSize: '$14',
+    color: '$color',
   },
-  "MenuItem"
+  'MenuItem',
 )
 
 const MenuLabelFrame = styled(
-  "div",
+  'div',
   {
-    paddingLeft: "$3",
-    paddingRight: "$3",
-    paddingTop: "$1",
-    paddingBottom: "$1",
-    color: "$secondaryText12",
-    fontSize: "$12",
-    fontFamily: "$body",
+    paddingLeft: '$3',
+    paddingRight: '$3',
+    paddingTop: '$1',
+    paddingBottom: '$1',
+    color: '$secondaryText12',
+    fontSize: '$12',
+    fontFamily: '$body',
   },
-  "MenuLabel"
+  'MenuLabel',
 )
 
 const MenuSeparatorFrame = styled(
-  "div",
+  'div',
   {
-    height: "1px",
-    backgroundColor: "$borderColor",
-    marginTop: "$1",
-    marginBottom: "$1",
+    height: '1px',
+    backgroundColor: '$borderColor',
+    marginTop: '$1',
+    marginBottom: '$1',
   },
-  "MenuSeparator"
+  'MenuSeparator',
 )
 
 const MenuItemTitleText = styled(
-  "span",
-  { fontFamily: "$body", fontSize: "$14", color: "$color" },
-  "MenuItemTitle"
+  'span',
+  { fontFamily: '$body', fontSize: '$14', color: '$color' },
+  'MenuItemTitle',
 )
 
 const MenuItemSubtitleText = styled(
-  "span",
-  { fontFamily: "$body", fontSize: "$12", color: "$secondaryText12" },
-  "MenuItemSubtitle"
+  'span',
+  { fontFamily: '$body', fontSize: '$12', color: '$secondaryText12' },
+  'MenuItemSubtitle',
 )
 
 const MenuContext = React.createContext<{
@@ -87,7 +87,12 @@ export interface MenuRootProps {
   onOpenChange?: (open: boolean) => void
 }
 
-function Root({ children, open: controlledOpen, defaultOpen, onOpenChange }: MenuRootProps) {
+function Root({
+  children,
+  open: controlledOpen,
+  defaultOpen,
+  onOpenChange,
+}: MenuRootProps) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen ?? false)
   const open = controlledOpen ?? internalOpen
   const triggerRef = useRef<HTMLElement | null>(null)
@@ -107,9 +112,7 @@ function Root({ children, open: controlledOpen, defaultOpen, onOpenChange }: Men
 
   return (
     <MenuContext.Provider value={{ open, setOpen, close, triggerRef }}>
-      <div style={{ position: 'relative', display: 'inline-flex' }}>
-        {children}
-      </div>
+      <div style={{ position: 'relative', display: 'inline-flex' }}>{children}</div>
     </MenuContext.Provider>
   )
 }
@@ -274,7 +277,10 @@ function Item({ children, onSelect, disabled }: MenuItemProps) {
       tabIndex={-1}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      style={{ opacity: disabled ? 0.5 : 1, cursor: disabled ? 'not-allowed' : 'pointer' }}
+      style={{
+        opacity: disabled ? 0.5 : 1,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+      }}
     >
       {children}
     </MenuItemFrame>
@@ -290,7 +296,11 @@ function ItemSubtitle({ children }: { children: React.ReactNode }) {
 }
 
 function ItemIcon({ children }: { children: React.ReactNode }) {
-  return <span style={{ display: 'flex', alignItems: 'center', marginRight: 8 }}>{children}</span>
+  return (
+    <span style={{ display: 'flex', alignItems: 'center', marginRight: 8 }}>
+      {children}
+    </span>
+  )
 }
 
 interface CheckboxItemProps {
@@ -300,7 +310,12 @@ interface CheckboxItemProps {
   disabled?: boolean
 }
 
-function CheckboxItem({ children, checked, onCheckedChange, disabled }: CheckboxItemProps) {
+function CheckboxItem({
+  children,
+  checked,
+  onCheckedChange,
+  disabled,
+}: CheckboxItemProps) {
   const { close } = React.useContext(MenuContext)
 
   const handleClick = useCallback(() => {
@@ -328,7 +343,10 @@ function CheckboxItem({ children, checked, onCheckedChange, disabled }: Checkbox
       tabIndex={-1}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      style={{ opacity: disabled ? 0.5 : 1, cursor: disabled ? 'not-allowed' : 'pointer' }}
+      style={{
+        opacity: disabled ? 0.5 : 1,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+      }}
     >
       <span style={{ width: 16, display: 'flex', alignItems: 'center' }}>
         {checked && '\u2713'}
@@ -397,7 +415,10 @@ function RadioItem({
       tabIndex={-1}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      style={{ opacity: disabled ? 0.5 : 1, cursor: disabled ? 'not-allowed' : 'pointer' }}
+      style={{
+        opacity: disabled ? 0.5 : 1,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+      }}
     >
       <span style={{ width: 16, display: 'flex', alignItems: 'center' }}>
         {isChecked && '\u2022'}

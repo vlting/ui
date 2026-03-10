@@ -1,6 +1,6 @@
-export * from "./config"
-export * from "./hooks"
-export { StlProvider } from "./providers/StlProvider"
-export type { StlContextValue } from "./providers/StlProvider"
-export * from "./primitives"
-export type { ColorMode, ColorGenOptions } from "./shared/colorGen"
+export * from './config'
+export * from './hooks'
+export { StlProvider } from './providers/StlProvider'
+export type { StlContextValue } from './providers/StlProvider'
+export * from './primitives'
+export type { ColorMode, ColorGenOptions } from './shared/colorGen'

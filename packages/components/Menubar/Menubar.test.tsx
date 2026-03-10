@@ -145,9 +145,7 @@ describe('Menubar', () => {
       )
       fireEvent.click(screen.getByText('File'))
       const items = screen.getAllByRole('menuitem')
-      const disabledItem = items.find(
-        (i) => i.getAttribute('aria-disabled') === 'true',
-      )
+      const disabledItem = items.find((i) => i.getAttribute('aria-disabled') === 'true')
       expect(disabledItem).toBeTruthy()
     })
   })

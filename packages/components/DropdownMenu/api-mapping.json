@@ -32,7 +32,10 @@
       },
       "DropdownMenu.CheckboxItem": {
         "checked": { "type": "boolean", "values": [] },
-        "onCheckedChange": { "type": "function", "values": ["(checked: boolean) => void"] },
+        "onCheckedChange": {
+          "type": "function",
+          "values": ["(checked: boolean) => void"]
+        },
         "disabled": { "type": "boolean", "values": [] },
         "children": { "type": "ReactNode", "values": [] }
       },
@@ -50,9 +53,25 @@
     "Sets aria-haspopup='menu', aria-expanded on trigger; role='menu' on content; role='menuitem'/role='menuitemcheckbox' on items"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
-    { "shadcn": "<DropdownMenu>", "vlting": "<DropdownMenu.Root>", "reason": "Compound component pattern" },
-    { "shadcn": "<DropdownMenuContent>", "vlting": "<DropdownMenu.Content>", "reason": "Compound component pattern" },
-    { "shadcn": "Sub-menus (DropdownMenuSub)", "vlting": "Not yet supported", "reason": "Simplified initial implementation" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "<DropdownMenu>",
+      "vlting": "<DropdownMenu.Root>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "<DropdownMenuContent>",
+      "vlting": "<DropdownMenu.Content>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "Sub-menus (DropdownMenuSub)",
+      "vlting": "Not yet supported",
+      "reason": "Simplified initial implementation"
+    }
   ]
 }

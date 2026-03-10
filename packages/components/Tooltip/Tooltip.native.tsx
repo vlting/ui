@@ -1,12 +1,7 @@
-import React, { useState, useCallback, useRef, useEffect } from "react"
-import {
-  View,
-  Text as RNText,
-  Pressable,
-  Modal,
-} from "react-native"
-import type { ViewStyle, LayoutRectangle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
+import React, { useState, useCallback, useRef, useEffect } from 'react'
+import { View, Text as RNText, Pressable, Modal } from 'react-native'
+import type { ViewStyle, LayoutRectangle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -15,27 +10,27 @@ import { styled } from "../../stl-native/src/config/styled"
 const TooltipContentFrame = styled(
   View,
   {
-    backgroundColor: "$defaultBody",
+    backgroundColor: '$defaultBody',
     paddingHorizontal: 12,
     paddingVertical: 8,
-    borderRadius: "$3",
-    shadowColor: "#000",
+    borderRadius: '$3',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 4,
     maxWidth: 240,
   },
-  "TooltipContent",
+  'TooltipContent',
 )
 
 const TooltipTextFrame = styled(
   RNText,
   {
     fontSize: 12,
-    color: "$color1",
+    color: '$color1',
   },
-  "TooltipText",
+  'TooltipText',
 )
 
 // ---------------------------------------------------------------------------
@@ -112,15 +107,11 @@ export function Tooltip({
         onRequestClose={hide}
         statusBarTranslucent
       >
-        <Pressable
-          style={{ flex: 1 }}
-          onPress={hide}
-          accessibilityRole="none"
-        >
+        <Pressable style={{ flex: 1 }} onPress={hide} accessibilityRole="none">
           {triggerLayout && (
             <TooltipContentFrame
               style={{
-                position: "absolute",
+                position: 'absolute',
                 left: triggerLayout.x + triggerLayout.width / 2 - 60,
                 top: triggerLayout.y - 40,
               }}

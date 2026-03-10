@@ -34,9 +34,25 @@
     "Hovering over the content keeps it open (delay cleared on re-enter)"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
-    { "shadcn": "<HoverCard>", "vlting": "<HoverCard.Root>", "reason": "Compound component pattern" },
-    { "shadcn": "<HoverCardContent>", "vlting": "<HoverCard.Content>", "reason": "Compound component pattern" },
-    { "shadcn": "side='left' | 'right'", "vlting": "Only side='top' | 'bottom' supported", "reason": "Simplified positioning" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "<HoverCard>",
+      "vlting": "<HoverCard.Root>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "<HoverCardContent>",
+      "vlting": "<HoverCard.Content>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "side='left' | 'right'",
+      "vlting": "Only side='top' | 'bottom' supported",
+      "reason": "Simplified positioning"
+    }
   ]
 }

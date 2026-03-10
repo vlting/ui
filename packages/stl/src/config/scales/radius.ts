@@ -1,16 +1,20 @@
-import { CharHash } from "../utils"
-import { ThemeScale } from "./scales.models"
-import { getCssMapFromVars, getPropsFromCssMap, getThemePropsFromCssMap } from "./scales.utils"
+import { CharHash } from '../utils'
+import { ThemeScale } from './scales.models'
+import {
+  getCssMapFromVars,
+  getPropsFromCssMap,
+  getThemePropsFromCssMap,
+} from './scales.utils'
 
 /** Generator function for `radius` theme scale */
 export function getRadius(hash: CharHash) {
-  const base = { ...hash.var, value: "4rem" } as const
+  const base = { ...hash.var, value: '4rem' } as const
   const field = { ...hash.var, value: base.ref } as const
   const rounded = { ...hash.var, value: `max(${field.ref}, 4rem)` } as const
 
   const sharedVars = {
-    0: { ...hash.var, value: "0" },
-    1: { ...hash.var, value: "1rem" },
+    0: { ...hash.var, value: '0' },
+    1: { ...hash.var, value: '1rem' },
     2: { ...hash.var, value: `calc(${base.ref} * .5)` },
     3: { ...hash.var, value: `calc(${base.ref} * .75)` },
     4: { ...hash.var, value: base.ref },
@@ -34,10 +38,10 @@ export function getRadius(hash: CharHash) {
     50: { ...hash.var, value: `calc(${base.ref} * 12.5)` },
     80: { ...hash.var, value: `calc(${base.ref} * 20)` },
     // Shapes
-    rectangular: { ...hash.var, value: "0" },
-    round: { ...hash.var, value: "50%" },
-    pill: { ...hash.var, value: "400rem" },
-    full: { ...hash.var, value: "9999rem" },
+    rectangular: { ...hash.var, value: '0' },
+    round: { ...hash.var, value: '50%' },
+    pill: { ...hash.var, value: '400rem' },
+    full: { ...hash.var, value: '9999rem' },
     rounded,
     // Component
     field,

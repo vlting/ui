@@ -1,5 +1,5 @@
-import type { CSSProperties } from "react"
-import { useState, useEffect, useRef, useCallback } from "react"
+import type { CSSProperties } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 interface TransitionOptions {
   enter?: number
@@ -12,7 +12,10 @@ interface TransitionResult {
   style: CSSProperties
 }
 
-export function useTransition(visible: boolean, options?: TransitionOptions): TransitionResult {
+export function useTransition(
+  visible: boolean,
+  options?: TransitionOptions,
+): TransitionResult {
   const { enter = 300, exit = 300 } = options ?? {}
   const [mounted, setMounted] = useState(visible)
   const [active, setActive] = useState(visible)

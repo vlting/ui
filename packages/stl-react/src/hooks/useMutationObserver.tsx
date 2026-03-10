@@ -1,6 +1,6 @@
-import type { RefObject } from "react"
-import { useMemo, useEffect } from "react"
-import { getRefElement, isSSR } from "../shared/utils"
+import type { RefObject } from 'react'
+import { useMemo, useEffect } from 'react'
+import { getRefElement, isSSR } from '../shared/utils'
 
 const DEFAULT_OPTIONS = {
   attributes: true,
@@ -13,9 +13,12 @@ const DEFAULT_OPTIONS = {
 export const useMutationObserver = (
   target: RefObject<Element> | Element | Node | null,
   callback: MutationCallback,
-  options: MutationObserverInit = DEFAULT_OPTIONS
+  options: MutationObserverInit = DEFAULT_OPTIONS,
 ): void => {
-  const observer = useMemo(() => (!isSSR ? new MutationObserver(callback) : null), [callback])
+  const observer = useMemo(
+    () => (!isSSR ? new MutationObserver(callback) : null),
+    [callback],
+  )
 
   useEffect(() => {
     const element = getRefElement(target)

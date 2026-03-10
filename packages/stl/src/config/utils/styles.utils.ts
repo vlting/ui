@@ -1,13 +1,21 @@
-import { ColorMode, SemanticColors } from "../../shared/models"
-import { generateThemeColors } from "../../shared/utils"
-import { Colors } from "../props"
-import { ScaleEntry, ColorPaletteEntry, PrefixedKey } from "../scales"
-import { ThemeOverrides, StyleManager, Conditions, StyleMangerProps } from "../StyleManager"
-import { CSS, tokenToVarMap } from "../styles.css"
-import { VariantCSS } from "../styles.models"
-import { addPrefix } from "./general.utils"
+import { ColorMode, SemanticColors } from '../../shared/models'
+import { generateThemeColors } from '../../shared/utils'
+import { Colors } from '../props'
+import { ScaleEntry, ColorPaletteEntry, PrefixedKey } from '../scales'
+import {
+  ThemeOverrides,
+  StyleManager,
+  Conditions,
+  StyleMangerProps,
+} from '../StyleManager'
+import { CSS, tokenToVarMap } from '../styles.css'
+import { VariantCSS } from '../styles.models'
+import { addPrefix } from './general.utils'
 
-export function getColorOverrides(colorMode: ColorMode, semanticColorOverrides: SemanticColorOverrides) {
+export function getColorOverrides(
+  colorMode: ColorMode,
+  semanticColorOverrides: SemanticColorOverrides,
+) {
   const overrides = {
     color: {},
   } as ThemeOverrides & { color: Record<Colors, string> }
@@ -15,11 +23,17 @@ export function getColorOverrides(colorMode: ColorMode, semanticColorOverrides: 
   generateThemeColors<ScaleEntry>(
     semanticColorOverrides,
     colorMode,
-    (key: keyof ColorPaletteEntry, _palette: any, value: string | number, _numberKey?: any, isMapped = false) => {
+    (
+      key: keyof ColorPaletteEntry,
+      _palette: any,
+      value: string | number,
+      _numberKey?: any,
+      isMapped = false,
+    ) => {
       if (!isMapped) {
         overrides.color[addPrefix(key) as PrefixedKey<ColorPaletteEntry>] = String(value)
       }
-    }
+    },
   )
   return overrides
 }
@@ -29,16 +43,18 @@ export function getColorOverrides(colorMode: ColorMode, semanticColorOverrides: 
  * Returns only user-provided overrides — dark mode vars are now delivered via build-time CSS.
  */
 export function getThemeOverrides(
-  colorMode: ColorMode = "light",
+  colorMode: ColorMode = 'light',
   userOverrides?: ThemeOverrides,
-  semanticColorOverrides?: SemanticColorOverrides
+  semanticColorOverrides?: SemanticColorOverrides,
 ) {
   const overrides =
     !userOverrides && !semanticColorOverrides
       ? undefined
       : {
           ...(userOverrides ?? {}),
-          ...(semanticColorOverrides ? getColorOverrides(colorMode, semanticColorOverrides) : {}),
+          ...(semanticColorOverrides
+            ? getColorOverrides(colorMode, semanticColorOverrides)
+            : {}),
         }
 
   const style = flattenOverrides(overrides)
@@ -53,7 +69,7 @@ export function style(
   overrides?: CSS | null,
   styleName?: string,
   manager?: StyleManager,
-  props?: StyleMangerProps
+  props?: StyleMangerProps,
 ) {
   if (manager) {
     manager.setNewStyle(conditions, styleName, props)
@@ -94,7 +110,7 @@ export const mergeCss = (...cssObject: MaybeCSS[]): CSS => {
 
       if (mergedObj[key] === undefined) {
         mergedObj[key] = newValue
-      } else if (newValue && typeof newValue === "object") {
+      } else if (newValue && typeof newValue === 'object') {
         const oldValue = mergedObj[key] ? (mergedObj[key] as CSS) : ({} as CSS)
         mergedObj[key] = mergeCss(oldValue, newValue as CSS)
       } else {
@@ -109,7 +125,7 @@ export const mergeCss = (...cssObject: MaybeCSS[]): CSS => {
 }
 
 /** Generates a CSS class name from a `className` string, plus an optional pseudo-class */
-export function getSelector(className: string, pseudoClass = "") {
+export function getSelector(className: string, pseudoClass = '') {
   return `.${className}${pseudoClass}`
 }
 

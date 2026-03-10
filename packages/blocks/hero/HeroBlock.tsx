@@ -9,11 +9,7 @@ const ButtonJsx = Button as AnyFC
 const ButtonTextJsx = Button.Text as AnyFC
 const BadgeJsx = Badge as AnyFC
 
-const Anchor = styled(
-  "a",
-  { textDecoration: "none", color: "inherit" },
-  "HeroAnchor"
-)
+const Anchor = styled('a', { textDecoration: 'none', color: 'inherit' }, 'HeroAnchor')
 
 // -- Types --
 
@@ -197,7 +193,15 @@ function HeroSplit({
   )
 
   const mediaContent = media ? (
-    <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+    <div
+      style={{
+        flex: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 16,
+      }}
+    >
       {media}
     </div>
   ) : null
@@ -246,7 +250,9 @@ function HeroImageBg({
       }}
     >
       {overlay && (
-        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)' }} />
+        <div
+          style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)' }}
+        />
       )}
       <div
         style={{
@@ -291,7 +297,9 @@ function HeroImageBg({
         {(primaryAction || secondaryAction) && (
           <div style={{ display: 'flex', flexDirection: 'row', gap: 12, paddingTop: 8 }}>
             {primaryAction && <ActionButton action={primaryAction} variant="default" />}
-            {secondaryAction && <ActionButton action={secondaryAction} variant="outline" />}
+            {secondaryAction && (
+              <ActionButton action={secondaryAction} variant="outline" />
+            )}
           </div>
         )}
       </div>

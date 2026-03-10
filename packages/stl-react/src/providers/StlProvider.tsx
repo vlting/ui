@@ -1,6 +1,6 @@
-import type { ReactElement, ReactNode } from "react"
-import { createContext, useRef, useCallback, useEffect, useState } from "react"
-import { useMediaQuery } from "../hooks/useMediaQuery"
+import type { ReactElement, ReactNode } from 'react'
+import { createContext, useRef, useCallback, useEffect, useState } from 'react'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import {
   ColorMode,
   ConditionKeys,
@@ -10,15 +10,18 @@ import {
   ThemeOverrides,
   SemanticColorOverrides,
   tokenValue as baseTokenValue,
-} from "@vlting/stl"
-import { useThemeStyle } from "../hooks/useThemeStyle"
-import { useContextConditions } from "./StlProvider.utils"
+} from '@vlting/stl'
+import { useThemeStyle } from '../hooks/useThemeStyle'
+import { useContextConditions } from './StlProvider.utils'
 
 export const CssConditionsContext = createContext<Record<ConditionKeys, boolean>>(
-  Object.keys(conditionsMap).reduce((output, key) => {
-    output[key as ConditionKeys] = false
-    return output
-  }, {} as Record<ConditionKeys, boolean>)
+  Object.keys(conditionsMap).reduce(
+    (output, key) => {
+      output[key as ConditionKeys] = false
+      return output
+    },
+    {} as Record<ConditionKeys, boolean>,
+  ),
 )
 
 // GLOBAL STL PROVIDER /////////////////////////////////////////////////
@@ -61,15 +64,25 @@ export function StlProvider(props: StlProviderProps): ReactElement {
   const [colorMode, setColorMode] = useState<ColorMode>(defaultColorMode)
   const tokenValue = useThemeStyle(colorMode, themeOverrides, semanticColorOverrides)
 
-  const systemColorMode = useMediaQuery<ColorMode>("(prefers-color-scheme: dark)", defaultColorMode, "dark", "light")
-  const conditions = useContextConditions(colorMode, false, isDebugMode, breakpointOverrides)
+  const systemColorMode = useMediaQuery<ColorMode>(
+    '(prefers-color-scheme: dark)',
+    defaultColorMode,
+    'dark',
+    'light',
+  )
+  const conditions = useContextConditions(
+    colorMode,
+    false,
+    isDebugMode,
+    breakpointOverrides,
+  )
   const isTouchDevice = conditions.touch
 
   const systemColorTimer = useRef<ReturnType<typeof setTimeout>>()
 
   const toggleColorMode = useCallback(
-    () => setColorMode((mode: ColorMode) => (mode === "light" ? "dark" : "light")),
-    []
+    () => setColorMode((mode: ColorMode) => (mode === 'light' ? 'dark' : 'light')),
+    [],
   )
 
   // Change the color mode, when the user system's color mode changes
@@ -86,14 +99,16 @@ export function StlProvider(props: StlProviderProps): ReactElement {
     <StlContext.Provider
       value={{
         colorMode,
-        isDark: colorMode === "dark",
+        isDark: colorMode === 'dark',
         setColorMode,
         toggleColorMode,
         isTouchDevice,
         tokenValue,
       }}
     >
-      <CssConditionsContext.Provider value={conditions}>{children}</CssConditionsContext.Provider>
+      <CssConditionsContext.Provider value={conditions}>
+        {children}
+      </CssConditionsContext.Provider>
     </StlContext.Provider>
   )
 }

@@ -43,9 +43,25 @@
     "Sets role='region', aria-roledescription='carousel' on root; aria-roledescription='slide' on items"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
-    { "shadcn": "<CarouselContent>", "vlting": "<Carousel.Content>", "reason": "Compound component pattern" },
-    { "shadcn": "opts={{ loop: true }}", "vlting": "loop={true} (direct prop)", "reason": "Simplified API; no opts wrapper" },
-    { "shadcn": "Embla Carousel API", "vlting": "Custom API; not all Embla options available", "reason": "Different underlying implementation" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "<CarouselContent>",
+      "vlting": "<Carousel.Content>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "opts={{ loop: true }}",
+      "vlting": "loop={true} (direct prop)",
+      "reason": "Simplified API; no opts wrapper"
+    },
+    {
+      "shadcn": "Embla Carousel API",
+      "vlting": "Custom API; not all Embla options available",
+      "reason": "Different underlying implementation"
+    }
   ]
 }

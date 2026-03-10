@@ -2,75 +2,102 @@ import type React from 'react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
-const TriggerButton = styled("button", {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  width: "100%",
-  backgroundColor: "$background",
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "$borderColor",
-  borderRadius: "$4",
-  padding: "8px 12px",
-  fontFamily: "$body",
-  fontSize: "$p",
-  color: "$defaultBody",
-  cursor: "pointer",
-  outline: "none",
-  textAlign: "left",
-}, {
-  disabled: {
-    true: { cursor: "not-allowed", opacity: "0.5" },
+const TriggerButton = styled(
+  'button',
+  {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    backgroundColor: '$background',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    borderRadius: '$4',
+    padding: '8px 12px',
+    fontFamily: '$body',
+    fontSize: '$p',
+    color: '$defaultBody',
+    cursor: 'pointer',
+    outline: 'none',
+    textAlign: 'left',
   },
-}, "ComboboxTrigger")
+  {
+    disabled: {
+      true: { cursor: 'not-allowed', opacity: '0.5' },
+    },
+  },
+  'ComboboxTrigger',
+)
 
-const DropdownFrame = styled("div", {
-  position: "absolute",
-  top: "100%",
-  left: "0",
-  right: "0",
-  marginTop: "4px",
-  backgroundColor: "$background",
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "$borderColor",
-  borderRadius: "$4",
-  zIndex: "1000",
-  overflow: "hidden",
-}, "ComboboxDropdown")
+const DropdownFrame = styled(
+  'div',
+  {
+    position: 'absolute',
+    top: '100%',
+    left: '0',
+    right: '0',
+    marginTop: '4px',
+    backgroundColor: '$background',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    borderRadius: '$4',
+    zIndex: '1000',
+    overflow: 'hidden',
+  },
+  'ComboboxDropdown',
+)
 
-const SearchInput = styled("input", {
-  display: "flex",
-  width: "100%",
-  backgroundColor: "transparent",
-  fontSize: "$p",
-  fontFamily: "$body",
-  color: "$defaultBody",
-  outline: "none",
-  border: "none",
-  padding: "0",
-}, "ComboboxSearchInput")
+const SearchInput = styled(
+  'input',
+  {
+    display: 'flex',
+    width: '100%',
+    backgroundColor: 'transparent',
+    fontSize: '$p',
+    fontFamily: '$body',
+    color: '$defaultBody',
+    outline: 'none',
+    border: 'none',
+    padding: '0',
+  },
+  'ComboboxSearchInput',
+)
 
-const OptionButton = styled("button", {
-  display: "flex",
-  alignItems: "center",
-  width: "100%",
-  padding: "8px 12px",
-  fontFamily: "$body",
-  fontSize: "$p",
-  color: "$defaultBody",
-  cursor: "pointer",
-  border: "none",
-  backgroundColor: "transparent",
-  textAlign: "left",
-  outline: "none",
-  borderRadius: "$2",
-}, "ComboboxOption")
+const OptionButton = styled(
+  'button',
+  {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    padding: '8px 12px',
+    fontFamily: '$body',
+    fontSize: '$p',
+    color: '$defaultBody',
+    cursor: 'pointer',
+    border: 'none',
+    backgroundColor: 'transparent',
+    textAlign: 'left',
+    outline: 'none',
+    borderRadius: '$2',
+  },
+  'ComboboxOption',
+)
 
 function ChevronsUpDownSvg() {
   return (
-    <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
+    <svg
+      width={14}
+      height={14}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ opacity: 0.5 }}
+    >
       <path d="M7 15l5 5 5-5" />
       <path d="M7 9l5-5 5 5" />
     </svg>
@@ -79,7 +106,16 @@ function ChevronsUpDownSvg() {
 
 function CheckSvg() {
   return (
-    <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={14}
+      height={14}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M20 6L9 17l-5-5" />
     </svg>
   )
@@ -190,13 +226,17 @@ function Root({
       </TriggerButton>
 
       {open && (
-        <DropdownFrame style={{ boxShadow: '0 4px 12px var(--stl-maxAlpha8, rgba(0,0,0,0.15))' }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '8px 12px',
-            borderBottom: '1px solid var(--borderColor, var(--stl-surface3, #e5e7eb))',
-          }}>
+        <DropdownFrame
+          style={{ boxShadow: '0 4px 12px var(--stl-maxAlpha8, rgba(0,0,0,0.15))' }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '8px 12px',
+              borderBottom: '1px solid var(--borderColor, var(--stl-surface3, #e5e7eb))',
+            }}
+          >
             <SearchInput
               ref={inputRef}
               value={search}
@@ -210,7 +250,10 @@ function Root({
             />
           </div>
 
-          <div role="listbox" style={{ maxHeight: '240px', padding: '4px', overflowY: 'auto' }}>
+          <div
+            role="listbox"
+            style={{ maxHeight: '240px', padding: '4px', overflowY: 'auto' }}
+          >
             {filtered.length === 0 ? (
               <div style={{ padding: '8px', textAlign: 'center', opacity: 0.5 }}>
                 {emptyMessage}
@@ -227,11 +270,19 @@ function Root({
                     role="option"
                     aria-selected={isSelected}
                     style={{
-                      backgroundColor: isHighlighted ? 'var(--surface3, var(--stl-surface2, #f3f4f6))' : 'transparent',
+                      backgroundColor: isHighlighted
+                        ? 'var(--surface3, var(--stl-surface2, #f3f4f6))'
+                        : 'transparent',
                       fontWeight: isSelected ? 600 : 400,
                     }}
                   >
-                    <span style={{ width: '20px', display: 'inline-flex', alignItems: 'center' }}>
+                    <span
+                      style={{
+                        width: '20px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                      }}
+                    >
                       {isSelected && <CheckSvg />}
                     </span>
                     {option.label}

@@ -1,7 +1,7 @@
-import React, { forwardRef, useCallback, useState } from "react"
-import { View, Text as RNText, Pressable } from "react-native"
-import type { ViewStyle } from "react-native"
-import { styled } from "../../stl-native/src/config/styled"
+import React, { forwardRef, useCallback, useState } from 'react'
+import { View, Text as RNText, Pressable } from 'react-native'
+import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------
 // Styled frames
@@ -10,10 +10,10 @@ import { styled } from "../../stl-native/src/config/styled"
 const CheckboxBox = styled(
   View,
   {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 2,
-    borderRadius: "$2",
+    borderRadius: '$2',
   },
   {
     size: {
@@ -22,7 +22,7 @@ const CheckboxBox = styled(
       lg: { width: 24, height: 24 },
     },
   },
-  "CheckboxBox",
+  'CheckboxBox',
 )
 
 const ICON_SIZE_MAP: Record<string, number> = { sm: 10, md: 12, lg: 16 }
@@ -34,9 +34,16 @@ const ICON_SIZE_MAP: Record<string, number> = { sm: 10, md: 12, lg: 16 }
 function CheckmarkIcon({ size, color }: { size: number; color: string }) {
   // Simple "L" shape checkmark using Views
   return (
-    <View style={{ width: size, height: size, alignItems: "center", justifyContent: "center" }}>
-      <RNText style={{ fontSize: size, lineHeight: size + 2, color, fontWeight: "700" }}>
-        {"✓"}
+    <View
+      style={{
+        width: size,
+        height: size,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <RNText style={{ fontSize: size, lineHeight: size + 2, color, fontWeight: '700' }}>
+        {'✓'}
       </RNText>
     </View>
   )
@@ -61,11 +68,11 @@ function MinusIcon({ size, color }: { size: number; color: string }) {
 
 export interface CheckboxRootProps {
   children?: React.ReactNode
-  checked?: boolean | "indeterminate"
+  checked?: boolean | 'indeterminate'
   defaultChecked?: boolean
-  onCheckedChange?: (checked: boolean | "indeterminate") => void
+  onCheckedChange?: (checked: boolean | 'indeterminate') => void
   disabled?: boolean
-  size?: "sm" | "md" | "lg"
+  size?: 'sm' | 'md' | 'lg'
   style?: ViewStyle
 }
 
@@ -75,13 +82,13 @@ function Root({
   defaultChecked = false,
   onCheckedChange,
   disabled = false,
-  size = "md",
+  size = 'md',
   style,
 }: CheckboxRootProps) {
   const [internalChecked, setInternalChecked] = useState<boolean>(defaultChecked)
   const isControlled = checked !== undefined
   const isChecked = isControlled ? checked === true : internalChecked
-  const isIndeterminate = checked === "indeterminate"
+  const isIndeterminate = checked === 'indeterminate'
   const isActive = isChecked || isIndeterminate
 
   const handlePress = useCallback(() => {
@@ -103,13 +110,13 @@ function Root({
       disabled={disabled}
       accessibilityRole="checkbox"
       accessibilityState={{
-        checked: isIndeterminate ? "mixed" : isChecked,
+        checked: isIndeterminate ? 'mixed' : isChecked,
         disabled,
       }}
       style={[
         {
-          flexDirection: "row",
-          alignItems: "center",
+          flexDirection: 'row',
+          alignItems: 'center',
           gap: 8,
           opacity: disabled ? 0.5 : 1,
         },
@@ -119,8 +126,8 @@ function Root({
       <CheckboxBox
         size={size}
         style={{
-          borderColor: isActive ? "#007AFF" : "#999",
-          backgroundColor: isActive ? "#007AFF" : "transparent",
+          borderColor: isActive ? '#007AFF' : '#999',
+          backgroundColor: isActive ? '#007AFF' : 'transparent',
         }}
       >
         {isActive &&

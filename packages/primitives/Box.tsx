@@ -1,12 +1,12 @@
 import { styled } from '../stl-react/src/config'
 
 export const Box = styled(
-  "div",
+  'div',
   {},
   {
     centered: {
-      true: { display: "flex", alignItems: "center", justifyContent: "center" },
+      true: { display: 'flex', alignItems: 'center', justifyContent: 'center' },
     },
   },
-  "Box"
+  'Box',
 )

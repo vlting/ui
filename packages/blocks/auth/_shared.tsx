@@ -6,26 +6,34 @@ import { Separator } from '../../primitives/Separator'
 import { Text } from '../../primitives/Text'
 import type { SocialProvider } from '../_shared/types'
 
-const FooterLinkBtn = styled("button", {
-  display: "inline",
-  appearance: "none",
-  border: "none",
-  background: "none",
-  padding: "0",
-  margin: "0",
-  fontFamily: "inherit",
-  fontSize: "inherit",
-  color: "var(--color10, #0066ff)",
-  cursor: "pointer",
-  textDecoration: "underline",
-  outline: "none",
-}, "AuthFooterLinkButton")
+const FooterLinkBtn = styled(
+  'button',
+  {
+    display: 'inline',
+    appearance: 'none',
+    border: 'none',
+    background: 'none',
+    padding: '0',
+    margin: '0',
+    fontFamily: 'inherit',
+    fontSize: 'inherit',
+    color: 'var(--color10, #0066ff)',
+    cursor: 'pointer',
+    textDecoration: 'underline',
+    outline: 'none',
+  },
+  'AuthFooterLinkButton',
+)
 
-const FooterLinkA = styled("a", {
-  color: "var(--color10, #0066ff)",
-  textDecoration: "underline",
-  outline: "none",
-}, "AuthFooterLinkAnchor")
+const FooterLinkA = styled(
+  'a',
+  {
+    color: 'var(--color10, #0066ff)',
+    textDecoration: 'underline',
+    outline: 'none',
+  },
+  'AuthFooterLinkAnchor',
+)
 
 // -- AuthFormCard --
 
@@ -34,11 +42,7 @@ export interface AuthFormCardProps {
 }
 
 export function AuthFormCard({ children }: AuthFormCardProps) {
-  return (
-    <Card style={{ width: '100%', maxWidth: 400, padding: '24px' }}>
-      {children}
-    </Card>
-  )
+  return <Card style={{ width: '100%', maxWidth: 400, padding: '24px' }}>{children}</Card>
 }
 
 // -- AuthFormHeader --
@@ -51,7 +55,14 @@ export interface AuthFormHeaderProps {
 
 export function AuthFormHeader({ logo, title, description }: AuthFormHeaderProps) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '6px',
+      }}
+    >
       {logo}
       <Text style={{ fontSize: '18px', fontWeight: 600, textAlign: 'center' }}>
         {title}
@@ -76,7 +87,9 @@ export function AuthSocialButtons({ providers }: AuthSocialButtonsProps) {
 
   if (providers.length <= 2) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
+      <div
+        style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}
+      >
         {providers.map((provider) => (
           <Button
             key={provider.name}
@@ -121,9 +134,7 @@ export function AuthDivider({ text = 'or continue with' }: AuthDividerProps) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%' }}>
       <Separator style={{ flex: 1 }} />
-      <Text style={{ fontSize: '12px', opacity: 0.6 }}>
-        {text}
-      </Text>
+      <Text style={{ fontSize: '12px', opacity: 0.6 }}>{text}</Text>
       <Separator style={{ flex: 1 }} />
     </div>
   )

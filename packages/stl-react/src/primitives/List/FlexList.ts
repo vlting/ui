@@ -1,12 +1,12 @@
-import { styled } from "../../config"
+import { styled } from '../../config'
 
 export const FlexList = styled(
-  "ul",
+  'ul',
   {
-    display: "flex",
-    listStyle: "none",
-    m: "$0",
-    p: "$0",
+    display: 'flex',
+    listStyle: 'none',
+    m: '$0',
+    p: '$0',
   },
-  "FlexList"
+  'FlexList',
 )

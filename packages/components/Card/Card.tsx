@@ -3,88 +3,91 @@ import type { ComponentProps } from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const CardFrame = styled(
-  "article",
+  'article',
   {
-    display: "flex",
-    flexDirection: "column",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "$borderColor",
-    borderRadius: "$4",
-    overflow: "hidden",
-    backgroundColor: "$surface1",
+    display: 'flex',
+    flexDirection: 'column',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$borderColor',
+    borderRadius: '$4',
+    overflow: 'hidden',
+    backgroundColor: '$surface1',
   },
   {
     size: {
-      sm: { padding: "$2" },
-      md: { padding: "0px" },
-      lg: { padding: "0px" },
+      sm: { padding: '$2' },
+      md: { padding: '0px' },
+      lg: { padding: '0px' },
     },
     elevated: {
-      true: { borderWidth: "0px", boxShadow: "var(--stl-shadow-sm, 0 1px 3px rgba(0,0,0,0.08))" },
+      true: {
+        borderWidth: '0px',
+        boxShadow: 'var(--stl-shadow-sm, 0 1px 3px rgba(0,0,0,0.08))',
+      },
     },
     interactive: {
-      true: { cursor: "pointer" },
+      true: { cursor: 'pointer' },
     },
   },
-  "Card"
+  'Card',
 )
 
 const CardHeader = styled(
-  "header",
+  'header',
   {
-    display: "flex",
-    flexDirection: "column",
-    paddingLeft: "$4",
-    paddingRight: "$4",
-    paddingTop: "$4",
-    paddingBottom: "$2",
-    gap: "$1",
+    display: 'flex',
+    flexDirection: 'column',
+    paddingLeft: '$4',
+    paddingRight: '$4',
+    paddingTop: '$4',
+    paddingBottom: '$2',
+    gap: '$1',
     flexShrink: 0,
   },
-  "CardHeader"
+  'CardHeader',
 )
 
 const CardContent = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    flexDirection: "column",
-    paddingLeft: "$4",
-    paddingRight: "$4",
-    paddingTop: "$2",
-    paddingBottom: "$2",
+    display: 'flex',
+    flexDirection: 'column',
+    paddingLeft: '$4',
+    paddingRight: '$4',
+    paddingTop: '$2',
+    paddingBottom: '$2',
     flex: 1,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
-  "CardContent"
+  'CardContent',
 )
 
 const CardFooter = styled(
-  "div",
+  'div',
   {
-    display: "flex",
-    flexDirection: "column",
-    paddingLeft: "$4",
-    paddingRight: "$4",
-    paddingTop: "$2",
-    paddingBottom: "$4",
+    display: 'flex',
+    flexDirection: 'column',
+    paddingLeft: '$4',
+    paddingRight: '$4',
+    paddingTop: '$2',
+    paddingBottom: '$4',
     flexShrink: 0,
   },
-  "CardFooter"
+  'CardFooter',
 )
 
 const CardTitleText = styled(
-  "span",
-  { fontFamily: "$heading", fontWeight: "$600" },
+  'span',
+  { fontFamily: '$heading', fontWeight: '$600' },
   {
     size: {
-      sm: { fontSize: "$16" },
-      md: { fontSize: "$18" },
-      lg: { fontSize: "$21" },
+      sm: { fontSize: '$16' },
+      md: { fontSize: '$18' },
+      lg: { fontSize: '$21' },
     },
   },
-  "CardTitle"
+  'CardTitle',
 )
 
 function CardTitle({
@@ -99,16 +102,16 @@ function CardTitle({
 }
 
 const CardDescription = styled(
-  "p",
-  { fontFamily: "$body", color: "$secondaryText12", margin: "0px" },
+  'p',
+  { fontFamily: '$body', color: '$secondaryText12', margin: '0px' },
   {
     size: {
-      sm: { fontSize: "$12" },
-      md: { fontSize: "$14" },
-      lg: { fontSize: "$16" },
+      sm: { fontSize: '$12' },
+      md: { fontSize: '$14' },
+      lg: { fontSize: '$16' },
     },
   },
-  "CardDescription"
+  'CardDescription',
 )
 
 export interface CardProps extends ComponentProps<typeof CardFrame> {

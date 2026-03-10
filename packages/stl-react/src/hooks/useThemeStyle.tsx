@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from "react"
+import { useMemo, useEffect } from 'react'
 import {
   ColorMode,
   COLOR_MODE_ATTR,
@@ -6,24 +6,27 @@ import {
   SemanticColorOverrides,
   ThemeOverrides,
   tokenValue as baseTokenValue,
-} from "@vlting/stl"
-import { isSSR } from "../shared/utils"
+} from '@vlting/stl'
+import { isSSR } from '../shared/utils'
 
-const STYLE_TAG_ID = "stl-theme-overrides"
+const STYLE_TAG_ID = 'stl-theme-overrides'
 
 export function useThemeStyle(
-  colorMode: ColorMode = "light",
+  colorMode: ColorMode = 'light',
   userOverrides?: ThemeOverrides,
-  semanticColorOverrides?: SemanticColorOverrides
+  semanticColorOverrides?: SemanticColorOverrides,
 ) {
   const { tokenValue, styleString } = useMemo(() => {
-    const { style, overrides } = getThemeOverrides(colorMode, userOverrides, semanticColorOverrides)
+    const { style, overrides } = getThemeOverrides(
+      colorMode,
+      userOverrides,
+      semanticColorOverrides,
+    )
 
     // Build CSS string from user overrides only (dark vars now in build-time CSS)
     const entries = Object.entries(style)
-    const styleString = entries.length > 0
-      ? entries.map(([k, v]) => `${k}: ${v}`).join(";")
-      : ""
+    const styleString =
+      entries.length > 0 ? entries.map(([k, v]) => `${k}: ${v}`).join(';') : ''
 
     // Generate the up-to-date tokenValue
     const tokenValue = {
@@ -59,15 +62,15 @@ export function useThemeStyle(
     document.documentElement.setAttribute(COLOR_MODE_ATTR, colorMode)
 
     // Clean up any legacy inline style from previous version
-    if (document.documentElement.hasAttribute("style")) {
-      document.documentElement.removeAttribute("style")
+    if (document.documentElement.hasAttribute('style')) {
+      document.documentElement.removeAttribute('style')
     }
 
     // Manage <style> tag for user overrides
     if (styleString) {
       let tag = document.getElementById(STYLE_TAG_ID) as HTMLStyleElement | null
       if (!tag) {
-        tag = document.createElement("style")
+        tag = document.createElement('style')
         tag.id = STYLE_TAG_ID
         document.head.appendChild(tag)
       }

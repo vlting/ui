@@ -22,7 +22,11 @@
         "open": { "type": "boolean" },
         "defaultOpen": { "type": "boolean" },
         "onOpenChange": { "type": "function", "signature": "(open: boolean) => void" },
-        "placement": { "type": "string", "values": ["top", "bottom", "left", "right"], "default": "bottom" },
+        "placement": {
+          "type": "string",
+          "values": ["top", "bottom", "left", "right"],
+          "default": "bottom"
+        },
         "offset": { "type": "number", "default": 4 },
         "hoverable": { "type": "boolean" },
         "children": { "type": "ReactNode" }
@@ -50,9 +54,25 @@
     "Animations use Tamagui's animation system (medium animation with scale/opacity enter/exit)."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "<PopoverContent side='top'>", "vlting": "<Popover.Root placement='top'>", "reason": "Placement is on Root, not Content" },
-    { "shadcn": "sideOffset on Content", "vlting": "offset on Root", "reason": "Offset configured at Root level" },
-    { "shadcn": "<PopoverContent>", "vlting": "<Popover.Content>", "reason": "Dot-notation compound component API" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "<PopoverContent side='top'>",
+      "vlting": "<Popover.Root placement='top'>",
+      "reason": "Placement is on Root, not Content"
+    },
+    {
+      "shadcn": "sideOffset on Content",
+      "vlting": "offset on Root",
+      "reason": "Offset configured at Root level"
+    },
+    {
+      "shadcn": "<PopoverContent>",
+      "vlting": "<Popover.Content>",
+      "reason": "Dot-notation compound component API"
+    }
   ]
 }

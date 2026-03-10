@@ -37,9 +37,25 @@
     "shadcn has BreadcrumbList wrapper; vlting bakes list into Root"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform" },
-    { "shadcn": "<BreadcrumbItem>", "vlting": "<Breadcrumb.Item>", "reason": "Compound component pattern" },
-    { "shadcn": "<BreadcrumbList>", "vlting": "Not needed; list is built into Breadcrumb.Root", "reason": "Simplified structure" },
-    { "shadcn": "onClick handler", "vlting": "Use onPress prop on Breadcrumb.Link", "reason": "Cross-platform event naming" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "<BreadcrumbItem>",
+      "vlting": "<Breadcrumb.Item>",
+      "reason": "Compound component pattern"
+    },
+    {
+      "shadcn": "<BreadcrumbList>",
+      "vlting": "Not needed; list is built into Breadcrumb.Root",
+      "reason": "Simplified structure"
+    },
+    {
+      "shadcn": "onClick handler",
+      "vlting": "Use onPress prop on Breadcrumb.Link",
+      "reason": "Cross-platform event naming"
+    }
   ]
 }

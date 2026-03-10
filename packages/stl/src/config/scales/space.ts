@@ -1,6 +1,10 @@
-import { CharHash } from "../utils"
-import { BaseVars, ThemeScale } from "./scales.models"
-import { getCssMapFromVars, getPropsFromCssMap, getThemePropsFromCssMap } from "./scales.utils"
+import { CharHash } from '../utils'
+import { BaseVars, ThemeScale } from './scales.models'
+import {
+  getCssMapFromVars,
+  getPropsFromCssMap,
+  getThemePropsFromCssMap,
+} from './scales.utils'
 
 /** Generator function for `space` theme scale */
 export function getSpace<T extends BaseVars>(hash: CharHash, size: T) {
@@ -10,8 +14,8 @@ export function getSpace<T extends BaseVars>(hash: CharHash, size: T) {
   const size12 = { ...hash.var, value: `calc(${base.ref} * 3)` } as const
 
   const sharedVars = {
-    0: { ...hash.var, value: "0" },
-    1: { ...hash.var, value: "1rem" },
+    0: { ...hash.var, value: '0' },
+    1: { ...hash.var, value: '1rem' },
     2: { ...hash.var, value: `calc(${base.ref} / 2)` },
     4: size4,
     6: { ...hash.var, value: `calc(${base.ref} * 1.5)` },
@@ -45,20 +49,20 @@ export function getSpace<T extends BaseVars>(hash: CharHash, size: T) {
     3.5: { ...hash.var, value: `calc(${base.ref} * 6)` },
     4.5: { ...hash.var, value: `calc(${base.ref} * 8)` },
     // vlt-ui negative space aliases
-    "-0.25": { ...hash.var, value: `calc(${base.ref} / -2)` },
-    "-0.5": { ...hash.var, value: `calc(${base.ref} * -1)` },
-    "-0.75": { ...hash.var, value: `calc(${base.ref} * -2)` },
-    "-1": { ...hash.var, value: `calc(${base.ref} * -2.5)` },
-    "-1.5": { ...hash.var, value: `calc(${base.ref} * -3)` },
-    "-2": { ...hash.var, value: `calc(${base.ref} * -4)` },
-    "-2.5": { ...hash.var, value: `calc(${base.ref} * -4.5)` },
-    "-3": { ...hash.var, value: `calc(${base.ref} * -5)` },
-    "-3.5": { ...hash.var, value: `calc(${base.ref} * -6)` },
-    "-4": { ...hash.var, value: `calc(${base.ref} * -7)` },
-    "-5": { ...hash.var, value: `calc(${base.ref} * -9)` },
-    "-6": { ...hash.var, value: `calc(${base.ref} * -10)` },
-    "-7": { ...hash.var, value: `calc(${base.ref} * -12)` },
-    "-8": { ...hash.var, value: `calc(${base.ref} * -14)` },
+    '-0.25': { ...hash.var, value: `calc(${base.ref} / -2)` },
+    '-0.5': { ...hash.var, value: `calc(${base.ref} * -1)` },
+    '-0.75': { ...hash.var, value: `calc(${base.ref} * -2)` },
+    '-1': { ...hash.var, value: `calc(${base.ref} * -2.5)` },
+    '-1.5': { ...hash.var, value: `calc(${base.ref} * -3)` },
+    '-2': { ...hash.var, value: `calc(${base.ref} * -4)` },
+    '-2.5': { ...hash.var, value: `calc(${base.ref} * -4.5)` },
+    '-3': { ...hash.var, value: `calc(${base.ref} * -5)` },
+    '-3.5': { ...hash.var, value: `calc(${base.ref} * -6)` },
+    '-4': { ...hash.var, value: `calc(${base.ref} * -7)` },
+    '-5': { ...hash.var, value: `calc(${base.ref} * -9)` },
+    '-6': { ...hash.var, value: `calc(${base.ref} * -10)` },
+    '-7': { ...hash.var, value: `calc(${base.ref} * -12)` },
+    '-8': { ...hash.var, value: `calc(${base.ref} * -14)` },
     // Component
     buttonBasePx: { ...hash.var, value: size12.ref },
     buttonBasePy: { ...hash.var, value: size4.ref },

@@ -14,15 +14,30 @@
       "columns": { "type": "ColumnDef<TData, unknown>[]", "values": [] },
       "caption": { "type": "string", "values": [] },
       "sorting": { "type": "SortingState", "values": [] },
-      "onSortingChange": { "type": "function", "values": ["(sorting: SortingState) => void"] },
+      "onSortingChange": {
+        "type": "function",
+        "values": ["(sorting: SortingState) => void"]
+      },
       "columnFilters": { "type": "ColumnFiltersState", "values": [] },
-      "onColumnFiltersChange": { "type": "function", "values": ["(filters: ColumnFiltersState) => void"] },
+      "onColumnFiltersChange": {
+        "type": "function",
+        "values": ["(filters: ColumnFiltersState) => void"]
+      },
       "globalFilter": { "type": "string", "values": [] },
-      "onGlobalFilterChange": { "type": "function", "values": ["(filter: string) => void"] },
+      "onGlobalFilterChange": {
+        "type": "function",
+        "values": ["(filter: string) => void"]
+      },
       "pagination": { "type": "PaginationState", "values": [] },
-      "onPaginationChange": { "type": "function", "values": ["(pagination: PaginationState) => void"] },
+      "onPaginationChange": {
+        "type": "function",
+        "values": ["(pagination: PaginationState) => void"]
+      },
       "columnVisibility": { "type": "VisibilityState", "values": [] },
-      "onColumnVisibilityChange": { "type": "function", "values": ["(visibility: VisibilityState) => void"] },
+      "onColumnVisibilityChange": {
+        "type": "function",
+        "values": ["(visibility: VisibilityState) => void"]
+      },
       "enablePagination": { "type": "boolean", "values": ["true", "false"] },
       "pageSize": { "type": "number", "values": ["10"] }
     }
@@ -37,8 +52,20 @@
     "Default pageSize is 10; pagination is opt-in via enablePagination"
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props on wrapper", "reason": "Cross-platform" },
-    { "shadcn": "Manual useReactTable setup", "vlting": "Single <DataTable /> component with props", "reason": "Simplified API; no manual table hook setup" },
-    { "shadcn": "Custom pagination UI", "vlting": "Built-in pagination via enablePagination prop", "reason": "Integrated pagination" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props on wrapper",
+      "reason": "Cross-platform"
+    },
+    {
+      "shadcn": "Manual useReactTable setup",
+      "vlting": "Single <DataTable /> component with props",
+      "reason": "Simplified API; no manual table hook setup"
+    },
+    {
+      "shadcn": "Custom pagination UI",
+      "vlting": "Built-in pagination via enablePagination prop",
+      "reason": "Integrated pagination"
+    }
   ]
 }

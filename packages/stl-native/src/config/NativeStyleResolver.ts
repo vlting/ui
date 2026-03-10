@@ -1,12 +1,15 @@
-import type { ViewStyle, TextStyle } from "react-native"
+import type { ViewStyle, TextStyle } from 'react-native'
 
 /** Loose CSS descriptor type for native — replaces STL's CSS type */
-type CSS = Record<string, string | number | Record<string, string | number | Record<string, string | number>>>
-import { type ConditionMask, CondBit, maskMatches } from "./conditions"
-import { normalizeToRN } from "./propMap"
-import { nativeMappedProps, type NativeMappedPropKey } from "./mappedProps"
-import { resolveToken, isShadowProp, resolveShadowToken } from "./tokenResolver"
-import { getTheme, type NativeTokenMaps } from "./theme"
+type CSS = Record<
+  string,
+  string | number | Record<string, string | number | Record<string, string | number>>
+>
+import { type ConditionMask, CondBit, maskMatches } from './conditions'
+import { normalizeToRN } from './propMap'
+import { nativeMappedProps, type NativeMappedPropKey } from './mappedProps'
+import { resolveToken, isShadowProp, resolveShadowToken } from './tokenResolver'
+import { getTheme, type NativeTokenMaps } from './theme'
 
 type NativeStyle = Readonly<ViewStyle & TextStyle>
 type StyleEntry = [string, number | string]
@@ -15,13 +18,13 @@ type StyleEntry = [string, number | string]
 const LINE_HEIGHT_MULTIPLIER_THRESHOLD = 10
 
 /** nth-child condition keys */
-const NTH_CHILD_KEYS = new Set(["first", "last", "even", "odd"])
+const NTH_CHILD_KEYS = new Set(['first', 'last', 'even', 'odd'])
 
 interface PreResolvedBranch {
   conditionMask: ConditionMask
   lightEntries: StyleEntry[]
   darkEntries: StyleEntry[]
-  nthChild?: "first" | "last" | "even" | "odd"
+  nthChild?: 'first' | 'last' | 'even' | 'odd'
 }
 
 /**
@@ -62,9 +65,10 @@ export class NativeStyleResolver {
    * Cold cache: merges pre-resolved branches, freezes, caches.
    */
   resolve(conditionMask: ConditionMask, index?: number, length?: number): NativeStyle {
-    const cacheKey = this.hasNthChild && index !== undefined && length !== undefined
-      ? `${conditionMask}|${index}|${length}`
-      : String(conditionMask)
+    const cacheKey =
+      this.hasNthChild && index !== undefined && length !== undefined
+        ? `${conditionMask}|${index}|${length}`
+        : String(conditionMask)
 
     const cached = this.cache.get(cacheKey)
     if (cached !== undefined) return cached
@@ -75,16 +79,25 @@ export class NativeStyleResolver {
     const branches = this.ensureResolved()
     for (const branch of branches) {
       // Base branch (conditionMask === 0) always applies
-      if (branch.conditionMask !== 0 && !maskMatches(conditionMask, branch.conditionMask)) continue
+      if (branch.conditionMask !== 0 && !maskMatches(conditionMask, branch.conditionMask))
+        continue
 
       // Check nth-child conditions
       if (branch.nthChild) {
         if (index === undefined || length === undefined) continue
         switch (branch.nthChild) {
-          case "first": if (index !== 0) continue; break
-          case "last": if (index !== length - 1) continue; break
-          case "even": if (index % 2 !== 0) continue; break
-          case "odd": if (index % 2 === 0) continue; break
+          case 'first':
+            if (index !== 0) continue
+            break
+          case 'last':
+            if (index !== length - 1) continue
+            break
+          case 'even':
+            if (index % 2 !== 0) continue
+            break
+          case 'odd':
+            if (index % 2 === 0) continue
+            break
         }
       }
 
@@ -97,12 +110,13 @@ export class NativeStyleResolver {
     // RN lineHeight is absolute (px), not a CSS multiplier.
     // Convert small values (multipliers) to absolute by multiplying with fontSize.
     if (
-      typeof result.lineHeight === "number" &&
+      typeof result.lineHeight === 'number' &&
       result.lineHeight < LINE_HEIGHT_MULTIPLIER_THRESHOLD
     ) {
-      const fontSize = typeof result.fontSize === "number"
-        ? result.fontSize
-        : getTheme().light.fontSize.$p
+      const fontSize =
+        typeof result.fontSize === 'number'
+          ? result.fontSize
+          : getTheme().light.fontSize.$p
       result.lineHeight = Math.round(fontSize * result.lineHeight)
     }
 
@@ -137,34 +151,59 @@ function walkCss(
   branches: PreResolvedBranch[],
   lightTokens: NativeTokenMaps,
   darkTokens: NativeTokenMaps,
-  nthChild?: "first" | "last" | "even" | "odd",
+  nthChild?: 'first' | 'last' | 'even' | 'odd',
 ) {
   const lightEntries: StyleEntry[] = []
   const darkEntries: StyleEntry[] = []
 
   for (const [key, value] of Object.entries(css)) {
     // Check if key is an nth-child condition
-    if (NTH_CHILD_KEYS.has(key) && typeof value === "object" && value !== null && !Array.isArray(value)) {
+    if (
+      NTH_CHILD_KEYS.has(key) &&
+      typeof value === 'object' &&
+      value !== null &&
+      !Array.isArray(value)
+    ) {
       walkCss(value as CSS, currentMask, branches, lightTokens, darkTokens, key as any)
       continue
     }
 
     // Check if key is a condition
     const condBit = CondBit[key as keyof typeof CondBit]
-    if (condBit !== undefined && typeof value === "object" && value !== null && !Array.isArray(value)) {
+    if (
+      condBit !== undefined &&
+      typeof value === 'object' &&
+      value !== null &&
+      !Array.isArray(value)
+    ) {
       // Recurse into condition branch
-      walkCss(value as CSS, currentMask | condBit, branches, lightTokens, darkTokens, nthChild)
+      walkCss(
+        value as CSS,
+        currentMask | condBit,
+        branches,
+        lightTokens,
+        darkTokens,
+        nthChild,
+      )
       continue
     }
 
     // Check if value is an inline condition object (e.g., { base: "$4", md: "$8" })
-    if (typeof value === "object" && value !== null && !Array.isArray(value)) {
-      processInlineConditions(key, value as Record<string, string | number>, currentMask, branches, lightTokens, darkTokens, nthChild)
+    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+      processInlineConditions(
+        key,
+        value as Record<string, string | number>,
+        currentMask,
+        branches,
+        lightTokens,
+        darkTokens,
+        nthChild,
+      )
       continue
     }
 
     // Regular prop + value — resolve and add
-    if (typeof value === "string" || typeof value === "number") {
+    if (typeof value === 'string' || typeof value === 'number') {
       resolveAndPush(key, value, lightEntries, darkEntries, lightTokens, darkTokens)
     }
   }
@@ -181,14 +220,14 @@ function processInlineConditions(
   branches: PreResolvedBranch[],
   lightTokens: NativeTokenMaps,
   darkTokens: NativeTokenMaps,
-  nthChild?: "first" | "last" | "even" | "odd",
+  nthChild?: 'first' | 'last' | 'even' | 'odd',
 ) {
   for (const [condKey, condValue] of Object.entries(conditions)) {
-    if (typeof condValue !== "string" && typeof condValue !== "number") continue
+    if (typeof condValue !== 'string' && typeof condValue !== 'number') continue
 
     let mask = parentMask
     // "base" means no condition — use parent mask directly
-    if (condKey !== "base") {
+    if (condKey !== 'base') {
       const condBit = CondBit[condKey as keyof typeof CondBit]
       if (condBit === undefined) continue
       mask = parentMask | condBit
@@ -217,7 +256,7 @@ function resolveAndPush(
     const shadowExpansion = resolveShadowToken(value)
     if (shadowExpansion) {
       for (const [shadowProp, shadowValue] of Object.entries(shadowExpansion)) {
-        if (typeof shadowValue === "object") {
+        if (typeof shadowValue === 'object') {
           // shadowOffset is an object — push as-is
           lightEntries.push([shadowProp, shadowValue as any])
           darkEntries.push([shadowProp, shadowValue as any])
@@ -233,9 +272,18 @@ function resolveAndPush(
   // Check if it's a mapped prop (shorthand)
   const mapper = nativeMappedProps[prop as NativeMappedPropKey]
   if (mapper) {
-    const expanded = (mapper as (v: string | number) => Record<string, string | number>)(value)
+    const expanded = (mapper as (v: string | number) => Record<string, string | number>)(
+      value,
+    )
     for (const [expandedProp, expandedValue] of Object.entries(expanded)) {
-      pushResolved(expandedProp, expandedValue, lightEntries, darkEntries, lightTokens, darkTokens)
+      pushResolved(
+        expandedProp,
+        expandedValue,
+        lightEntries,
+        darkEntries,
+        lightTokens,
+        darkTokens,
+      )
     }
     return
   }

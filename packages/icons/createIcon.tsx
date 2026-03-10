@@ -9,11 +9,16 @@ export type IconFC = ComponentType<{ size?: number | string; color?: string }>
  * Used by the code generator to create individual icon components.
  */
 export function createIcon(pathData: string, displayName: string): IconFC {
-  const Icon = memo(({ size = 24, color = 'currentColor' }: { size?: number | string; color?: string }) => (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill={color}>
-      <Path d={pathData} />
-    </Svg>
-  ))
+  const Icon = memo(
+    ({
+      size = 24,
+      color = 'currentColor',
+    }: { size?: number | string; color?: string }) => (
+      <Svg width={size} height={size} viewBox="0 0 24 24" fill={color}>
+        <Path d={pathData} />
+      </Svg>
+    ),
+  )
   Icon.displayName = displayName
   return Icon as IconFC
 }

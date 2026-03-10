@@ -25,7 +25,15 @@
     "Size maps: sm=$0.5, md=$0.75, lg=$1 height."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "No size prop", "vlting": "size='sm' | 'md' | 'lg'", "reason": "vlting includes built-in size variants" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "No size prop",
+      "vlting": "size='sm' | 'md' | 'lg'",
+      "reason": "vlting includes built-in size variants"
+    }
   ]
 }

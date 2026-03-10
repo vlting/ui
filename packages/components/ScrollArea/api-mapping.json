@@ -21,7 +21,11 @@
         "children": { "type": "ReactNode" }
       },
       "ScrollArea.Viewport": {
-        "orientation": { "type": "string", "values": ["vertical", "horizontal", "both"], "default": "vertical" },
+        "orientation": {
+          "type": "string",
+          "values": ["vertical", "horizontal", "both"],
+          "default": "vertical"
+        },
         "children": { "type": "ReactNode" }
       },
       "ScrollArea.Scrollbar": {
@@ -39,8 +43,20 @@
     "Viewport's 'orientation' prop controls overflow direction."
   ],
   "breaking": [
-    { "shadcn": "className='...'", "vlting": "Use Tamagui style props", "reason": "Cross-platform compatibility" },
-    { "shadcn": "<ScrollArea><content /><ScrollBar /></ScrollArea>", "vlting": "<ScrollArea.Root><ScrollArea.Viewport><content /></ScrollArea.Viewport></ScrollArea.Root>", "reason": "Content must be inside Viewport sub-component" },
-    { "shadcn": "Custom rendered scrollbar tracks", "vlting": "CSS-based scrollbar styling", "reason": "Uses native scrollbar styling for performance and simplicity" }
+    {
+      "shadcn": "className='...'",
+      "vlting": "Use Tamagui style props",
+      "reason": "Cross-platform compatibility"
+    },
+    {
+      "shadcn": "<ScrollArea><content /><ScrollBar /></ScrollArea>",
+      "vlting": "<ScrollArea.Root><ScrollArea.Viewport><content /></ScrollArea.Viewport></ScrollArea.Root>",
+      "reason": "Content must be inside Viewport sub-component"
+    },
+    {
+      "shadcn": "Custom rendered scrollbar tracks",
+      "vlting": "CSS-based scrollbar styling",
+      "reason": "Uses native scrollbar styling for performance and simplicity"
+    }
   ]
 }

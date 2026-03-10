@@ -18,15 +18,20 @@ jest.mock('react-native-svg', () => {
     __esModule: true,
     default: Svg,
     Svg,
-    Path: (props: any) => R.createElement('path', { 'data-testid': 'svg-path', ...props }),
+    Path: (props: any) =>
+      R.createElement('path', { 'data-testid': 'svg-path', ...props }),
     G: (props: any) => R.createElement('g', null, props.children),
-    Circle: (props: any) => R.createElement('circle', { 'data-testid': 'svg-circle', ...props }),
-    Line: (props: any) => R.createElement('line', { 'data-testid': 'svg-line', ...props }),
+    Circle: (props: any) =>
+      R.createElement('circle', { 'data-testid': 'svg-circle', ...props }),
+    Line: (props: any) =>
+      R.createElement('line', { 'data-testid': 'svg-line', ...props }),
     Polygon: (props: any) => R.createElement('polygon', props),
-    Text: (props: any) => R.createElement('text', { 'data-testid': 'svg-text' }, props.children),
+    Text: (props: any) =>
+      R.createElement('text', { 'data-testid': 'svg-text' }, props.children),
     Rect: (props: any) => R.createElement('rect', props),
     Defs: (props: any) => R.createElement('defs', null, props.children),
-    LinearGradient: (props: any) => R.createElement('lineargradient', null, props.children),
+    LinearGradient: (props: any) =>
+      R.createElement('lineargradient', null, props.children),
     Stop: (props: any) => R.createElement('stop', props),
   }
 })
@@ -71,7 +76,9 @@ function chartWrapper(children: React.ReactNode) {
 
 describe('PieChart', () => {
   it('renders without crashing', () => {
-    const { container } = render(chartWrapper(<PieChart data={mockPieData} config={mockConfig} />))
+    const { container } = render(
+      chartWrapper(<PieChart data={mockPieData} config={mockConfig} />),
+    )
     expect(container).toBeTruthy()
   })
 
@@ -84,7 +91,9 @@ describe('PieChart', () => {
 
   it('renders donut-text variant with center text', () => {
     render(
-      chartWrapper(<PieChart data={mockPieData} config={mockConfig} variant="donut-text" />),
+      chartWrapper(
+        <PieChart data={mockPieData} config={mockConfig} variant="donut-text" />,
+      ),
     )
     const textElements = screen.getAllByTestId('svg-text')
     expect(textElements.length).toBeGreaterThan(0)
@@ -109,14 +118,18 @@ describe('PieChart', () => {
 
   it('renders separator variant', () => {
     const { container } = render(
-      chartWrapper(<PieChart data={mockPieData} config={mockConfig} variant="separator" />),
+      chartWrapper(
+        <PieChart data={mockPieData} config={mockConfig} variant="separator" />,
+      ),
     )
     expect(container).toBeTruthy()
   })
 
   it('renders interactive variant', () => {
     const { container } = render(
-      chartWrapper(<PieChart data={mockPieData} config={mockConfig} variant="interactive" />),
+      chartWrapper(
+        <PieChart data={mockPieData} config={mockConfig} variant="interactive" />,
+      ),
     )
     expect(container).toBeTruthy()
   })
@@ -158,9 +171,7 @@ describe('RadarChart', () => {
   })
 
   it('renders circle grid variant', () => {
-    render(
-      chartWrapper(<RadarChart data={mockRadarData} variant="grid-circle" />),
-    )
+    render(chartWrapper(<RadarChart data={mockRadarData} variant="grid-circle" />))
     const circles = screen.getAllByTestId('svg-circle')
     expect(circles.length).toBeGreaterThan(0)
   })
@@ -173,25 +184,19 @@ describe('RadarChart', () => {
   })
 
   it('renders with labels', () => {
-    render(
-      chartWrapper(<RadarChart data={mockRadarData} variant="label" />),
-    )
+    render(chartWrapper(<RadarChart data={mockRadarData} variant="label" />))
     const textElements = screen.getAllByTestId('svg-text')
     expect(textElements.length).toBeGreaterThan(0)
   })
 
   it('renders with legend', () => {
-    render(
-      chartWrapper(<RadarChart data={mockRadarData} variant="legend" />),
-    )
+    render(chartWrapper(<RadarChart data={mockRadarData} variant="legend" />))
     expect(screen.getByText('Revenue')).toBeTruthy()
     expect(screen.getByText('Expenses')).toBeTruthy()
   })
 
   it('renders radius-axis variant', () => {
-    render(
-      chartWrapper(<RadarChart data={mockRadarData} variant="radius-axis" />),
-    )
+    render(chartWrapper(<RadarChart data={mockRadarData} variant="radius-axis" />))
     const textElements = screen.getAllByTestId('svg-text')
     expect(textElements.length).toBeGreaterThan(0)
   })

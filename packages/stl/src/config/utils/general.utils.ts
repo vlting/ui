@@ -1,7 +1,7 @@
-import { STATIC_VALUE_PREFIX } from "../scales"
+import { STATIC_VALUE_PREFIX } from '../scales'
 
 /** Our theme object/token prefix */
-export const THEME_PREFIX = "$"
+export const THEME_PREFIX = '$'
 
 /** Adds a theme prefix to a string */
 export function addPrefix(value: string) {
