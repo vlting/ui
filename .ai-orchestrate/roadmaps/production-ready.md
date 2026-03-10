@@ -185,18 +185,18 @@ E4 (RN Parity) ─────────────────┤
 ### Stage 4.3: Tier 1 Component Porting
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [x] Button, Input, Checkbox, Switch, Card, Avatar, Badge, Alert, Separator, Label ported
-- [x] stl-headless used for shared behavior logic
-- [x] Tier 1 components render + interact correctly on iOS + Android
-**Status:** done
+- [ ] Button, Input, Checkbox, Switch, Card, Avatar, Badge, Alert, Separator, Label ported
+- [ ] stl-headless used for shared behavior logic
+- [ ] Tier 1 components render + interact correctly on iOS + Android
+**Status:** pending
 
 ### Stage 4.4: Tier 2 Component Porting
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Dialog, Sheet, Select, Tabs, Accordion, Toast, Tooltip, Dropdown ported
-- [ ] Platform-specific behavior (modals, popovers) handled
-- [ ] Tier 2 components functional on both platforms
-**Status:** pending
+- [x] Dialog, Sheet, Select, Tabs, Accordion, Toast, Tooltip, Dropdown ported
+- [x] Platform-specific behavior (modals, popovers) handled
+- [x] Tier 2 components functional on both platforms
+**Status:** done
 
 ### Stage 4.5: Conditional Exports + Showcase
 **Branch prefix:** feat
