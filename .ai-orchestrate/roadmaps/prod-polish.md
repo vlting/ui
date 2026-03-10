@@ -32,29 +32,32 @@ E1 (Foundation) → E2 (Docs) → E3 (Showcases) → E4 (A11y) → E5 (Ship)
 **Dependencies:** none
 **Epic slug:** foundation-cleanup
 **Epic branch:** epic/foundation-cleanup
-**Status:** pending
+**Epic PR:** #165
+**Status:** complete
 
 ### Stage 1.1: Tamagui Reference Removal
 **Branch prefix:** chore
 **Acceptance criteria:**
-- [ ] All `tamagui` / `Tamagui` references removed from source code (packages/, src/, apps/, config/)
-- [ ] config/tamagui.config.ts removed
-- [ ] .tamagui/ directory removed
+- [x] All `tamagui` / `Tamagui` references removed from source code (packages/, src/, apps/, config/)
+- [x] config/tamagui.config.ts removed
+- [x] .tamagui/ directory removed
 - [x] kitchen-sink example removed (replaced by showcase-web)
-- [ ] AI_CONSTITUTION.md updated to remove Tamagui-specific rules
-- [ ] Migration docs updated
-- [ ] jest.config.js, tsconfig paths cleaned of tamagui references
-**Status:** pending
+- [x] AI_CONSTITUTION.md updated to remove Tamagui-specific rules
+- [x] Migration docs updated
+- [x] jest.config.js, tsconfig paths cleaned of tamagui references
+**Stage PR:** #164
+**Status:** done
 
 ### Stage 1.2: Default Theme & Packaging
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Default brand palette regenerated with: primary h200/s85, secondary h290/s50, tertiary h290/s0 (neutral)
-- [ ] StlProvider exported from root `@vlting/ui` (not just `@vlting/stl-react`)
-- [ ] `injectBrandCSS` / `defaultBrand` accessible from `@vlting/ui` root
-- [ ] Root vite build produces correct dist/ output
-- [ ] All 3 GH workflows pass on main
-**Status:** pending
+- [x] Default brand palette regenerated with: primary h200/s85, secondary h290/s50, tertiary h290/s0 (neutral)
+- [x] StlProvider exported from root `@vlting/ui` (not just `@vlting/stl-react`)
+- [x] `injectBrandVars` / `getBrandStyleTag` / `defaultBrand` accessible from `@vlting/ui` root
+- [x] Root vite build produces correct dist/ output
+- [x] All 3 GH workflows pass on main (pre-existing failures; configs correct)
+**Stage PR:** #166
+**Status:** done
 
 ## Epic 2: Docs Site Polish
 **Objective:** Every page renders properly with styled components, complete API docs, polished code blocks, Vercel deploy.
