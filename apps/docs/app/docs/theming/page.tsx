@@ -1,4 +1,5 @@
 import { CodeBlock } from '../../../components/code-block'
+import { PalettePicker } from '../../../components/palette-picker'
 
 export const metadata = {
   title: 'Theming — @vlting/ui',
@@ -210,6 +211,13 @@ injectBrandCSS(shadcnBrand)`}
           Accent palettes follow the same 12-step pattern and are used for semantic colors like
           destructive (red), success (green), or brand accent (blue).
         </p>
+
+        <h3 style={{ fontSize: 18, fontWeight: 600, marginTop: 16 }}>Try It</h3>
+        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 13, lineHeight: 1.6, marginBottom: 8 }}>
+          Adjust the hue and saturation sliders to preview a 12-step palette in real time.
+          Copy the generated code into your brand definition.
+        </p>
+        <PalettePicker />
         <CodeBlock
           code={`const myBrand: Brand = {
   name: 'my-brand',
@@ -295,6 +303,54 @@ injectBrandCSS(shadcnBrand)`}
 <View borderColor="$borderColor" />    {/* themed border */}
 <Button backgroundColor="$blue10" />   {/* specific color step */}`}
           language="tsx"
+        />
+      </section>
+
+      {/* CSS Custom Properties */}
+      <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <h2 style={{ fontSize: 24, fontWeight: 600 }}>CSS Custom Properties</h2>
+        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
+          The brand system injects CSS custom properties on <code>:root</code>. Use them directly in
+          CSS or inline styles for interoperability with Tailwind and plain CSS.
+        </p>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <th style={{ textAlign: 'left', padding: '8px 12px' }}>Property</th>
+                <th style={{ textAlign: 'left', padding: '8px 12px' }}>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['--vlt-color-1 … --vlt-color-12', 'Neutral palette steps (1-indexed)'],
+                ['--vlt-{accent}-1 … --vlt-{accent}-12', 'Accent palette steps (e.g. --vlt-blue-6)'],
+                ['--vlt-size-{n}', 'Size token overrides'],
+                ['--vlt-space-{n}', 'Space token overrides'],
+                ['--vlt-radius-{n}', 'Border radius overrides'],
+                ['--vlt-shadow-{sm|md|lg|xl|2xl}', 'Shadow values'],
+                ['--vlt-font-heading', 'Heading font family'],
+                ['--vlt-font-body', 'Body font family'],
+                ['--vlt-font-mono', 'Monospace font family'],
+              ].map(([prop, desc]) => (
+                <tr key={prop} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                  <td style={{ padding: '6px 12px' }}><code>{prop}</code></td>
+                  <td style={{ padding: '6px 12px', color: 'var(--color-muted-foreground)' }}>{desc}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <CodeBlock
+          code={`/* Use in plain CSS */
+.my-card {
+  background: var(--vlt-color-1);
+  border: 1px solid var(--vlt-color-6);
+  color: var(--vlt-color-12);
+  font-family: var(--vlt-font-body);
+  box-shadow: var(--vlt-shadow-md);
+}`}
+          language="css"
         />
       </section>
 

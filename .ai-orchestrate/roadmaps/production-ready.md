@@ -211,32 +211,32 @@ E4 (RN Parity) ─────────────────┤
 **Dependencies:** Epic 3
 **Epic slug:** docs-overhaul
 **Epic branch:** epic/docs-overhaul
-**Status:** pending
+**Status:** done
 
 ### Stage 5.1: Fix Rendering + Empty Previews
 **Branch prefix:** fix
 **Acceptance criteria:**
-- [ ] NextJS docs app component rendering debugged (SSR/hydration with STL)
-- [ ] Every component page shows a live preview
-- [ ] Zero empty preview states across all component pages
-**Status:** pending
+- [x] NextJS docs app component rendering debugged (SSR/hydration with STL)
+- [x] Every component page shows a live preview
+- [x] Zero empty preview states across all component pages
+**Status:** done
 
 ### Stage 5.2: Interactive Examples + Copy-Paste Patterns
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Live code editor per component
-- [ ] shadcn/ui style: install command, usage code, variant examples, props table
-- [ ] Every component page has working interactive example
-**Status:** pending
+- [x] Live code editor per component
+- [x] shadcn/ui style: install command, usage code, variant examples, props table
+- [x] Every component page has working interactive example
+**Status:** done
 
 ### Stage 5.3: Theming + Block Docs
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Interactive hue picker showing palette generation
-- [ ] Dark mode toggle in docs
-- [ ] Block showcase with full-page previews
-- [ ] Theming docs demonstrate customization end-to-end
-**Status:** pending
+- [x] Interactive hue picker showing palette generation
+- [x] Dark mode toggle in docs
+- [x] Block showcase with full-page previews
+- [x] Theming docs demonstrate customization end-to-end
+**Status:** done
 
 ## Epic 6: AI-Native Tooling + Expansion
 **Objective:** AI agents produce production-quality UI on first attempt. Fill gaps.
