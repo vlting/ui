@@ -1,4 +1,4 @@
-import { forwardRef, useState, useCallback } from "react"
+import React, { forwardRef, useState, useCallback } from "react"
 import { View, Text as RNText, Pressable as RNPressable, Image as RNImage, ScrollView as RNScrollView, Linking } from "react-native"
 import type { LayoutChangeEvent, ViewStyle } from "react-native"
 import { styled } from "../config/styled"
@@ -96,3 +96,87 @@ export const OList = styled(View, { flexDirection: "column" }, "OList")
 export const ListItem = styled(View, {}, "ListItem")
 export const FlexList = styled(View, { flexDirection: "row", flexWrap: "wrap" }, "FlexList")
 export const FlexListItem = styled(View, {}, "FlexListItem")
+
+/** AspectRatio — constrains children to a given aspect ratio */
+export interface AspectRatioProps {
+  ratio?: number
+  children?: React.ReactNode
+  style?: ViewStyle
+}
+
+export const AspectRatio = forwardRef<View, AspectRatioProps>(
+  ({ ratio = 1, children, style, ...props }, ref) => (
+    <View ref={ref} style={[{ width: "100%" as any, aspectRatio: ratio }, style]} {...props}>
+      {children}
+    </View>
+  )
+)
+AspectRatio.displayName = "AspectRatio"
+
+/** Divider — horizontal or vertical line */
+export const Divider = styled(
+  View,
+  {
+    backgroundColor: "$borderColor",
+    height: 1,
+    width: "100%",
+  },
+  {
+    orientation: {
+      horizontal: { height: 1, width: "100%", marginTop: "$2", marginBottom: "$2" },
+      vertical: { width: 1, height: "100%", marginStart: "$2", marginEnd: "$2" },
+    },
+  },
+  "Divider"
+)
+
+/** Separator — accessible divider with separator role */
+export interface SeparatorProps {
+  orientation?: "horizontal" | "vertical"
+  decorative?: boolean
+  style?: ViewStyle
+}
+
+const SeparatorBase = styled(
+  View,
+  {
+    backgroundColor: "$borderColor",
+    height: 1,
+    width: "100%",
+  },
+  {
+    orientation: {
+      horizontal: { height: 1, width: "100%", marginTop: "$2", marginBottom: "$2" },
+      vertical: { width: 1, height: "100%", marginStart: "$2", marginEnd: "$2" },
+    },
+  },
+  "Separator"
+)
+
+export const Separator = forwardRef<View, SeparatorProps>(
+  ({ orientation = "horizontal", decorative = false, ...rest }, ref) => (
+    <SeparatorBase
+      ref={ref}
+      orientation={orientation}
+      accessibilityRole={decorative ? "none" : "separator" as any}
+      {...rest}
+    />
+  )
+)
+Separator.displayName = "Separator"
+
+/** Spacer — flexible space (flex: 1) or fixed size via variant */
+export const Spacer = styled(
+  View,
+  { flex: 1 },
+  {
+    size: {
+      xs: { flex: 0, width: 2, height: 2 },
+      sm: { flex: 0, width: 4, height: 4 },
+      md: { flex: 0, width: 8, height: 8 },
+      lg: { flex: 0, width: 16, height: 16 },
+      xl: { flex: 0, width: 24, height: 24 },
+    },
+  },
+  "Spacer"
+)
