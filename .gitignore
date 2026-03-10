@@ -1,6 +1,5 @@
 node_modules/
 dist/
-.tamagui/
 *.d.ts
 *.d.ts.map
 tsconfig.tsbuildinfo
