@@ -1,6 +1,8 @@
 // Infrastructure
 export { Provider } from './provider'
 export type { ProviderProps } from './provider'
+export { StlProvider } from '../packages/stl-react/src/providers/StlProvider'
+export type { StlProviderProps } from '../packages/stl-react/src/providers/StlProvider'
 
 // Layer 0 — Design Tokens
 export {
@@ -22,6 +24,10 @@ export {
   poshBrand,
   shadcnBrand,
   media,
+  injectBrandVars,
+  getBrandStyleTag,
+  generatePalette,
+  getTextColorStep,
 } from '../packages/design-tokens'
 export type {
   Brand,
