@@ -1,5 +1,5 @@
 import { Section, DemoCard, DemoRow } from '../components/Section'
-import { Card } from '@vlting/ui/components'
+import { Card as CardBase } from '@vlting/ui/components'
 import { Alert } from '@vlting/ui/components'
 import { Avatar } from '@vlting/ui/components'
 import { Button } from '@vlting/ui/components'
@@ -8,6 +8,11 @@ import { Typography } from '@vlting/ui/components'
 import { Empty } from '@vlting/ui/components'
 import { Progress } from '@vlting/ui/components'
 import { Loader } from '@vlting/ui/components'
+import type { ComponentType, ReactNode } from 'react'
+
+const Card = CardBase as unknown as ComponentType<
+  Parameters<typeof CardBase>[0] & { children?: ReactNode }
+> & typeof CardBase
 
 export function ComponentsPage() {
   return (
@@ -42,11 +47,11 @@ export function ComponentsPage() {
 
       <Section title="ButtonGroup">
         <DemoCard label="Grouped buttons">
-          <ButtonGroup>
+          <ButtonGroup.Root>
             <Button variant="outline">Left</Button>
             <Button variant="outline">Center</Button>
             <Button variant="outline">Right</Button>
-          </ButtonGroup>
+          </ButtonGroup.Root>
         </DemoCard>
       </Section>
 
@@ -73,14 +78,14 @@ export function ComponentsPage() {
       <Section title="Alert">
         <DemoCard label="Alert variants">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 500 }}>
-            <Alert>
+            <Alert.Root>
               <Alert.Title>Default Alert</Alert.Title>
               <Alert.Description>This is a default alert message.</Alert.Description>
-            </Alert>
-            <Alert variant="destructive">
+            </Alert.Root>
+            <Alert.Root variant="destructive">
               <Alert.Title>Destructive Alert</Alert.Title>
               <Alert.Description>Something went wrong.</Alert.Description>
-            </Alert>
+            </Alert.Root>
           </div>
         </DemoCard>
       </Section>
@@ -123,10 +128,10 @@ export function ComponentsPage() {
 
       <Section title="Empty">
         <DemoCard label="Empty state">
-          <Empty>
+          <Empty.Root>
             <Empty.Title>No results found</Empty.Title>
             <Empty.Description>Try adjusting your search or filter criteria.</Empty.Description>
-          </Empty>
+          </Empty.Root>
         </DemoCard>
       </Section>
 

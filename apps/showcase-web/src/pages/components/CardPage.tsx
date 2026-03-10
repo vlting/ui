@@ -1,5 +1,11 @@
 import { Section, DemoCard, DemoRow } from '../../components/Section'
-import { Card, Button } from '@vlting/ui/components'
+import { Card as CardBase, Button } from '@vlting/ui/components'
+import type { ComponentType, ReactNode } from 'react'
+
+// Card's styled() base doesn't expose children in its types
+const Card = CardBase as unknown as ComponentType<
+  Parameters<typeof CardBase>[0] & { children?: ReactNode }
+> & typeof CardBase
 
 export function CardPage() {
   return (
