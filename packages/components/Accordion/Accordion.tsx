@@ -145,6 +145,7 @@ function Trigger({ children }: AccordionTriggerProps) {
     >
       <span style={{ flex: 1 }}>{children}</span>
       <span
+        aria-hidden="true"
         style={{
           fontSize: '12px',
           opacity: 0.5,

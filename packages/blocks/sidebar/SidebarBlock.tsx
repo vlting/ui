@@ -74,6 +74,7 @@ export function SidebarBlock({
       onOpenChange={onOpenChange}
       width={width}
       collapsedWidth={collapsedWidth}
+      aria-label="Sidebar navigation"
     >
       {header && <Sidebar.Header>{header}</Sidebar.Header>}
 
@@ -92,6 +93,7 @@ export function SidebarBlock({
             onChange={(e: { target: { value: string } }) =>
               onSearchChange?.(e.target.value)
             }
+            aria-label={searchPlaceholder}
           />
         </div>
       )}

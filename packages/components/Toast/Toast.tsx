@@ -117,6 +117,9 @@ export interface ToastViewportProps {
 function Viewport(_props: ToastViewportProps) {
   return (
     <div
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
       style={{
         position: 'fixed',
         top: 0,

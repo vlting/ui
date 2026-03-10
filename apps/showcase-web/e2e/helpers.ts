@@ -77,7 +77,7 @@ export function componentTests(name: string, opts: ComponentTestOptions) {
         (v) =>
           (v.impact === 'critical' || v.impact === 'serious') &&
           // Known issues deferred to E3 (component quality audit)
-        !['color-contrast', 'target-size', 'button-name'].includes(v.id),
+        !['color-contrast', 'target-size'].includes(v.id),
       )
       expect(blocking).toEqual([])
     })
@@ -105,7 +105,7 @@ export function componentTests(name: string, opts: ComponentTestOptions) {
         (v) =>
           (v.impact === 'critical' || v.impact === 'serious') &&
           // Known issues deferred to E3 (component quality audit)
-        !['color-contrast', 'target-size', 'button-name'].includes(v.id),
+        !['color-contrast', 'target-size'].includes(v.id),
       )
       expect(blocking).toEqual([])
     })
