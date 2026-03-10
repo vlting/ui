@@ -710,3 +710,15 @@ globalStyle(":root", varMap)
 // Both selectors have specificity (0,1,0) — source order is the tiebreaker.
 // Moving this above :root will silently break dark mode.
 globalStyle(`[${COLOR_MODE_ATTR}="dark"]`, darkVarMap)
+
+// Reduced-motion: suppress animations/transitions for users who prefer it.
+// Uses 0.01s instead of 0s to avoid browser bugs with instant transitions.
+globalStyle("*", {
+  "@media": {
+    "(prefers-reduced-motion: reduce)": {
+      animationDuration: "0.01s !important" as any,
+      animationIterationCount: "1 !important" as any,
+      transitionDuration: "0.01s !important" as any,
+    },
+  },
+})
