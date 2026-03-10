@@ -6,6 +6,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: { ignoreBuildErrors: true },
+  outputFileTracingRoot: resolve(__dirname, '../../'),
   transpilePackages: ['react-native-web', 'react-native-svg-web'],
   webpack: (config) => {
     config.resolve.alias = {
