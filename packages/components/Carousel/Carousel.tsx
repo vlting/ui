@@ -158,6 +158,7 @@ const CarouselContent = React.forwardRef<HTMLDivElement, { children: React.React
     return (
       <div
         ref={ref}
+        aria-live="polite"
         style={{
           display: 'flex',
           flexDirection: isH ? 'row' : 'column',
@@ -171,12 +172,14 @@ const CarouselContent = React.forwardRef<HTMLDivElement, { children: React.React
   },
 )
 
-function CarouselItem({ children }: CarouselItemProps) {
+function CarouselItem({ children, index }: CarouselItemProps) {
+  const { totalItems } = React.useContext(CarouselContext)
   return (
     <div
       style={{ flexShrink: 0, width: '100%', height: '100%' }}
       role="group"
       aria-roledescription="slide"
+      aria-label={index != null ? `Slide ${index + 1} of ${totalItems}` : undefined}
     >
       {children}
     </div>

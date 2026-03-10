@@ -139,6 +139,38 @@ export function Slider({
     dragging.current = false
   }
 
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (disabled) return
+      let newValue = currentValue
+      switch (e.key) {
+        case 'ArrowRight':
+        case 'ArrowUp':
+          e.preventDefault()
+          newValue = Math.min(max, currentValue + step)
+          break
+        case 'ArrowLeft':
+        case 'ArrowDown':
+          e.preventDefault()
+          newValue = Math.max(min, currentValue - step)
+          break
+        case 'Home':
+          e.preventDefault()
+          newValue = min
+          break
+        case 'End':
+          e.preventDefault()
+          newValue = max
+          break
+        default:
+          return
+      }
+      if (!isControlled) setInternalValue(newValue)
+      onValueChange?.(newValue)
+    },
+    [disabled, currentValue, min, max, step, isControlled, onValueChange],
+  )
+
   return (
     <SliderRoot
       size={size}
@@ -152,6 +184,7 @@ export function Slider({
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
+      onKeyDown={handleKeyDown}
     >
       <SliderTrack ref={trackRef} size={size}>
         <SliderRange style={{ width: `${percentage}%` }} />

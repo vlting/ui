@@ -130,7 +130,41 @@ export interface TabsListProps {
 }
 
 function List({ children }: TabsListProps) {
-  return <TabsListFrame role="tablist">{children}</TabsListFrame>
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    const tabs = Array.from(
+      e.currentTarget.querySelectorAll<HTMLButtonElement>('[role="tab"]:not(:disabled)'),
+    )
+    if (!tabs.length) return
+
+    const currentIndex = tabs.indexOf(e.target as HTMLButtonElement)
+    if (currentIndex === -1) return
+
+    let nextIndex: number | undefined
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault()
+      nextIndex = (currentIndex + 1) % tabs.length
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault()
+      nextIndex = (currentIndex - 1 + tabs.length) % tabs.length
+    } else if (e.key === 'Home') {
+      e.preventDefault()
+      nextIndex = 0
+    } else if (e.key === 'End') {
+      e.preventDefault()
+      nextIndex = tabs.length - 1
+    }
+
+    if (nextIndex !== undefined) {
+      tabs[nextIndex].focus()
+      tabs[nextIndex].click()
+    }
+  }, [])
+
+  return (
+    <TabsListFrame role="tablist" onKeyDown={handleKeyDown}>
+      {children}
+    </TabsListFrame>
+  )
 }
 
 interface StyledTabsTriggerProps {
