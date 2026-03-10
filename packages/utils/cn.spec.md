@@ -6,7 +6,7 @@
 
 - Conditionally composes CSS class name strings, filtering out falsy values and joining the rest with spaces.
 - Use whenever class names need to be conditionally applied (e.g., `cn('base', isActive && 'active')`).
-- Do NOT use as a replacement for Tamagui's `styled()` system for token-based styling. Do NOT expect deduplication or class name conflict resolution.
+- Do NOT use as a replacement for STL's `styled()` system for token-based styling. Do NOT expect deduplication or class name conflict resolution.
 
 ---
 

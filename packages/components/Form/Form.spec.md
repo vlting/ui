@@ -20,7 +20,7 @@
 
 ## 3. Anatomy
 
-Compound component wrapping `@tamagui/form`:
+Compound component wrapping `STL`:
 - `Form` (Root) — renders `<form>`. Props: `onSubmit`.
 - `Form.Field` — field group with context for error/disabled state. Props: `error`, `disabled`.
 - `Form.Label` — renders semantic `<label>` with `htmlFor` association.

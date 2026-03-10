@@ -44,21 +44,21 @@
 ### Keyboard Interaction
 
 - **Enter/Space** on trigger — Toggles popover.
-- **Escape** — Closes the popover (Tamagui built-in).
-- **Tab** — Focus cycles through content (Tamagui manages focus).
+- **Escape** — Closes the popover (STL built-in).
+- **Tab** — Focus cycles through content (STL manages focus).
 - Follows the non-modal dialog pattern.
 
 ### Motion
 
-- Tamagui popover enter/exit animations (opacity, scale).
+- STL popover enter/exit animations (opacity, scale).
 - Should respect `prefers-reduced-motion`.
 
 ---
 
 ## 5. Accessibility
 
-- **Semantic element:** Tamagui Popover renders appropriate ARIA structure automatically.
-- **ARIA attributes:** Trigger gets `aria-expanded`, `aria-haspopup`; Content gets `role="dialog"` (Tamagui-managed).
+- **Semantic element:** STL Popover renders appropriate ARIA structure automatically.
+- **ARIA attributes:** Trigger gets `aria-expanded`, `aria-haspopup`; Content gets `role="dialog"` (STL-managed).
 - **Focus management:** Focus moves into content on open; returns to trigger on close.
 - **Screen reader announcements:** Popover content announced when opened.
 
@@ -67,7 +67,7 @@
 ## 6. Styling
 
 - **Design tokens used:** `$background`, `$borderColor` on content frame; `$4` border radius; `$4` padding; arrow uses `$background` fill with `$borderColor` border.
-- **Responsive behavior:** Placement adapts via Tamagui's floating positioning.
+- **Responsive behavior:** Placement adapts via STL's floating positioning.
 - **Dark mode:** Token-based; resolves automatically.
 
 ---

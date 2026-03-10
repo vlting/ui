@@ -4,7 +4,7 @@
 
 @vlting/ui currently has **22 modules** (8 primitives, 5 styled components, 3 headless, 3 hooks, 3 utilities). Industry-standard libraries typically ship 50-70+ components. Our biggest gaps are in **form controls** (Select, Radio, Switch, Slider), **overlays** (Popover, Tooltip, Dropdown Menu, Sheet/Drawer), **feedback** (Alert, Toast, Progress, Skeleton), and **data display** (Badge, Avatar, Table). The headless layer is also thin — only 3 headless components vs Radix's 28+ primitives.
 
-Tamagui v2 provides built-in equivalents for some of these (Sheet, Popover, Toast via @tamagui/toast), which should be leveraged where possible rather than building from scratch.
+STL provides built-in equivalents for some of these (Sheet, Popover, Toast), which should be leveraged where possible rather than building from scratch.
 
 ---
 
@@ -133,11 +133,11 @@ Components requiring a headless behavior layer + styled wrapper, often with posi
 | Radio Group | Yes | Single-choice group; Radix primitive available |
 | Switch | Yes | Toggle control; Radix primitive available |
 | Slider | Yes | Range input; Radix primitive available |
-| Popover | Yes | Anchored floating content; Tamagui has built-in Popover |
-| Tooltip | Yes | Hover info popup; Tamagui has built-in Tooltip |
+| Popover | Yes | Anchored floating content; STL has built-in Popover |
+| Tooltip | Yes | Hover info popup; STL has built-in Tooltip |
 | Dropdown Menu | Yes | Action menu; Radix primitive available |
-| Sheet/Drawer | Yes | Side panel overlay; Tamagui has built-in Sheet |
-| Toast | Yes | Timed notifications; @tamagui/toast exists |
+| Sheet/Drawer | Yes | Side panel overlay; STL has built-in Sheet |
+| Toast | Yes | Timed notifications; STL toast primitive exists |
 | Accordion | Yes | Expandable sections; Radix primitive available |
 | Alert Dialog | Yes | Confirmation modal; extends Dialog pattern |
 | Toggle Group | Yes | Multi-toggle selection; Radix primitive available |
@@ -153,28 +153,28 @@ Components requiring a headless behavior layer + styled wrapper, often with posi
 
 ---
 
-## Tamagui v2 Built-in Components
+## STL Built-in Primitives
 
-These Tamagui v2 packages can be leveraged instead of building from scratch:
+These STL primitives can be leveraged instead of building from scratch:
 
-| Tamagui Package | Equivalent | Notes |
+| STL Primitive | Equivalent | Notes |
 |---|---|---|
-| `@tamagui/popover` | Popover | Built-in positioning, portal support |
-| `@tamagui/tooltip` | Tooltip | Built-in hover detection, positioning |
-| `@tamagui/sheet` | Sheet/Drawer | Bottom sheet with snap points |
-| `@tamagui/toast` | Toast | Timed notifications |
-| `@tamagui/select` | Select | Styled select with portal |
-| `@tamagui/switch` | Switch | Toggle switch |
-| `@tamagui/slider` | Slider | Range input |
-| `@tamagui/radio-group` | Radio Group | Single-choice group |
-| `@tamagui/accordion` | Accordion | Expandable sections |
-| `@tamagui/scroll-view` | Scroll Area | Cross-platform scroll |
-| `@tamagui/toggle-group` | Toggle Group | Multi-toggle |
-| `@tamagui/avatar` | Avatar | Image + fallback |
-| `@tamagui/alert-dialog` | Alert Dialog | Confirmation modal |
-| `@tamagui/label` | Label | Form label |
-| `@tamagui/progress` | Progress | Progress bar |
-| `@tamagui/separator` | Separator | Divider with a11y |
+| `@vlting/stl` Popover | Popover | Built-in positioning, portal support |
+| `@vlting/stl` Tooltip | Tooltip | Built-in hover detection, positioning |
+| `@vlting/stl` Sheet | Sheet/Drawer | Bottom sheet with snap points |
+| `@vlting/stl` Toast | Toast | Timed notifications |
+| `@vlting/stl` Select | Select | Styled select with portal |
+| `@vlting/stl` Switch | Switch | Toggle switch |
+| `@vlting/stl` Slider | Slider | Range input |
+| `@vlting/stl` RadioGroup | Radio Group | Single-choice group |
+| `@vlting/stl` Accordion | Accordion | Expandable sections |
+| `@vlting/stl` ScrollView | Scroll Area | Cross-platform scroll |
+| `@vlting/stl` ToggleGroup | Toggle Group | Multi-toggle |
+| `@vlting/stl` Avatar | Avatar | Image + fallback |
+| `@vlting/stl` AlertDialog | Alert Dialog | Confirmation modal |
+| `@vlting/stl` Label | Label | Form label |
+| `@vlting/stl` Progress | Progress | Progress bar |
+| `@vlting/stl` Separator | Separator | Divider with a11y |
 
 ---
 
@@ -183,27 +183,27 @@ These Tamagui v2 packages can be leveraged instead of building from scratch:
 ### Phase 1 — Essential (High Priority)
 Core components missing from virtually every production app:
 
-1. **Select** (headless + styled) — Tamagui has @tamagui/select
-2. **Radio Group** (headless + styled) — Tamagui has @tamagui/radio-group
-3. **Switch** (headless + styled) — Tamagui has @tamagui/switch
+1. **Select** (headless + styled) — STL has built-in Select
+2. **Radio Group** (headless + styled) — STL has built-in RadioGroup
+3. **Switch** (headless + styled) — STL has built-in Switch
 4. **Badge** (styled only) — Simple; no headless needed
-5. **Avatar** (styled only) — Tamagui has @tamagui/avatar
+5. **Avatar** (styled only) — STL has built-in Avatar
 6. **Alert** (styled only) — Static feedback container
-7. **Toast** (headless + styled) — Tamagui has @tamagui/toast
-8. **Popover** (headless + styled) — Tamagui has @tamagui/popover
-9. **Tooltip** (headless + styled) — Tamagui has @tamagui/tooltip
-10. **Dropdown Menu** (headless + styled) — No Tamagui built-in; needs custom headless
-11. **Sheet/Drawer** (headless + styled) — Tamagui has @tamagui/sheet
-12. **Accordion** (headless + styled) — Tamagui has @tamagui/accordion
+7. **Toast** (headless + styled) — STL has built-in Toast
+8. **Popover** (headless + styled) — STL has built-in Popover
+9. **Tooltip** (headless + styled) — STL has built-in Tooltip
+10. **Dropdown Menu** (headless + styled) — No STL built-in; needs custom headless
+11. **Sheet/Drawer** (headless + styled) — STL has built-in Sheet
+12. **Accordion** (headless + styled) — STL has built-in Accordion
 
 ### Phase 2 — Common (Medium Priority)
 Frequently needed but not blocking:
 
-13. **Slider** (headless + styled) — Tamagui has @tamagui/slider
+13. **Slider** (headless + styled) — STL has built-in Slider
 14. **Textarea** (styled only) — Extends Input patterns
 15. **Checkbox** (styled) — Already have headless; need styled wrapper
-16. **Toggle / Toggle Group** (headless + styled) — Tamagui has @tamagui/toggle-group
-17. **Progress** (styled) — Tamagui has @tamagui/progress
+16. **Toggle / Toggle Group** (headless + styled) — STL has built-in ToggleGroup
+17. **Progress** (styled) — STL has built-in Progress
 18. **Skeleton** (styled only)
 19. **Spinner** (styled only) — Extract from Button
 20. **Table** (styled only) — Stateless layout
@@ -240,7 +240,7 @@ Frequently needed but not blocking:
 
 ## Key Recommendations
 
-1. **Leverage Tamagui v2 packages** for Tier 3 components where available. Build a headless wrapper + styled layer on top rather than implementing behavior from scratch.
+1. **Leverage STL primitives** for Tier 3 components where available. Build a headless wrapper + styled layer on top rather than implementing behavior from scratch.
 
 2. **Prioritize form controls** (Select, Radio, Switch, Slider) — these block real app development more than any other category.
 
@@ -248,4 +248,4 @@ Frequently needed but not blocking:
 
 4. **The headless layer needs significant expansion** — from 3 to ~15+ primitives to properly support the styled component tier.
 
-5. **Consider wrapping Radix primitives** for web-only headless components where Tamagui doesn't have a cross-platform equivalent (e.g., Dropdown Menu, Context Menu, Command).
+5. **Consider wrapping Radix primitives** for web-only headless components where STL doesn't have a cross-platform equivalent (e.g., Dropdown Menu, Context Menu, Command).

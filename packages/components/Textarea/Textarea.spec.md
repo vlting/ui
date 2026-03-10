@@ -25,7 +25,7 @@
 
 - **Textarea** — Single-component API containing:
   - Label text (when `label` prop provided).
-  - Tamagui TextArea (extended with error variant).
+  - STL TextArea (extended with error variant).
   - Helper text or error message below the input.
 
 Uses `useId` for accessibility linking between label, input, and description.
@@ -58,7 +58,7 @@ Uses `useId` for accessibility linking between label, input, and description.
 
 ## 5. Accessibility
 
-- **Semantic element:** Tamagui TextArea renders a native `<textarea>`.
+- **Semantic element:** STL TextArea renders a native `<textarea>`.
 - **ARIA attributes:** `aria-invalid="true"` when `error` prop is true; `aria-describedby` links to helper/error text; `aria-label` falls back to `placeholder` when no label provided.
 - **Focus management:** Standard focusable input.
 - **Screen reader announcements:** Label announced on focus; error message announced via `aria-describedby` linkage.

@@ -22,20 +22,17 @@ export default function MigrationPage() {
       {/* Installation */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Installation</h2>
-        <CodeBlock code={`npm install @vlting/ui tamagui`} language="bash" />
+        <CodeBlock code={`npm install @vlting/ui`} language="bash" />
         <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
           All components are exported from a single package — no per-component installs or
           copy-paste setup. Wrap your app in the Provider:
         </p>
         <CodeBlock
-          code={`import { Provider, createBrandConfig, defaultBrand } from '@vlting/ui'
-import { createTamagui } from 'tamagui'
-
-const config = createTamagui(createBrandConfig(defaultBrand))
+          code={`import { Provider } from '@vlting/ui'
 
 function App({ children }) {
   return (
-    <Provider config={config} defaultTheme="light">
+    <Provider defaultTheme="light">
       {children}
     </Provider>
   )
@@ -70,16 +67,16 @@ import { Button, Dialog } from '@vlting/ui'`}
 
         {/* className → style props */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <h3 style={{ fontSize: 18, fontWeight: 600 }}>className → Tamagui Style Props</h3>
+          <h3 style={{ fontSize: 18, fontWeight: 600 }}>className → STL Style Props</h3>
           <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
-            Tailwind CSS utility classes are replaced with Tamagui style props using design tokens
-            (prefixed with <code>$</code>). This enables cross-platform support (web + React Native).
+            Tailwind CSS utility classes are replaced with STL style props using design tokens
+            (CSS custom properties). This enables cross-platform support (web + React Native).
           </p>
           <CodeBlock
             code={`// Before (shadcn + Tailwind)
 <Button className="bg-red-500 p-4 rounded-lg">Click</Button>
 
-// After (@vlting/ui + Tamagui tokens)
+// After (@vlting/ui + STL tokens)
 <Button backgroundColor="$red10" padding="$4" borderRadius="$3">Click</Button>`}
             language="tsx"
           />

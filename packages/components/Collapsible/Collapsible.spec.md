@@ -19,7 +19,7 @@
 
 ## 3. Anatomy
 
-Compound component wrapping Tamagui Collapsible primitives:
+Compound component wrapping STL Collapsible primitives:
 - `Collapsible` (Root) — state management. Props: `open`, `defaultOpen`, `onOpenChange`.
 - `Collapsible.Trigger` — clickable element that toggles content (unstyled pass-through).
 - `Collapsible.Content` — expandable content panel. Width constrained to 100%.
@@ -37,24 +37,24 @@ Compound component wrapping Tamagui Collapsible primitives:
 
 ### Keyboard Interaction
 
-- **Space/Enter** — toggle the collapsible (delegated to Tamagui).
+- **Space/Enter** — toggle the collapsible (delegated to STL).
 
 ### Motion
 
-Tamagui handles expand/collapse animation. Must respect `prefers-reduced-motion`.
+STL handles expand/collapse animation. Must respect `prefers-reduced-motion`.
 
 ---
 
 ## 5. Accessibility
 
-- **ARIA attributes:** `role="region"` on content (delegated to Tamagui), `aria-expanded` on trigger.
+- **ARIA attributes:** `role="region"` on content (delegated to STL), `aria-expanded` on trigger.
 - **Focus management:** Trigger is focusable. Content enters the tab order when expanded.
 
 ---
 
 ## 6. Styling
 
-- **Design tokens used:** Minimal — resets Tamagui defaults. Content width: 100%.
+- **Design tokens used:** Minimal — resets STL defaults. Content width: 100%.
 - **Dark mode:** Inherits from parent context.
 
 ---

@@ -32,7 +32,7 @@
 - **Table.Cell** — `<td>` element.
 - **Table.Caption** — `<caption>` element.
 
-All sub-components render native HTML elements (not Tamagui styled components) to ensure correct table semantics.
+All sub-components render native HTML elements (not STL styled components) to ensure correct table semantics.
 
 > **TypeScript is the source of truth for props.** See the exported types in `Table.tsx` for the full typed API.
 
@@ -69,8 +69,8 @@ All sub-components render native HTML elements (not Tamagui styled components) t
 
 - **Design tokens used:** CSS custom properties mapped from design tokens: `--borderColor`, `--f-body` (font family), `--f-size-*` (font sizes). Row borders use `borderBottom`. Header text is left-aligned with bold weight.
 - **Responsive behavior:** Tables overflow horizontally when content exceeds container width; wrap in ScrollArea for horizontal scroll.
-- **Dark mode:** CSS custom properties resolve from Tamagui theme tokens.
-- **Note:** Uses native HTML elements with inline style objects (not Tamagui `styled()`) because the Tamagui `tag` prop does not change the rendered element.
+- **Dark mode:** CSS custom properties resolve from STL theme tokens.
+- **Note:** Uses native HTML elements with inline style objects (not STL `styled()`) because the STL `tag` prop does not change the rendered element.
 
 ---
 
@@ -85,7 +85,7 @@ All sub-components render native HTML elements (not Tamagui styled components) t
 ## 8. Breaking Change Criteria
 
 - Removing any sub-component (Header, Body, Footer, Row, Head, Cell, Caption).
-- Changing from native HTML elements to Tamagui styled components.
+- Changing from native HTML elements to STL styled components.
 - Removing the CSS custom property token mapping.
 - Changing the rendered HTML element for any sub-component.
 

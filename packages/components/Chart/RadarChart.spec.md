@@ -72,12 +72,12 @@ Renders radar/spider chart visualizations within a `<Chart>` container. Supports
 
 ## 6. Styling
 
-- **Colors:** From `resolvedColors` (Tamagui token resolution)
+- **Colors:** From `resolvedColors` (STL token resolution)
 - **Fill opacity:** Configurable (default 0.25) to allow overlapping series
 - **Grid:** Polygon or circle type, configurable levels
 - **Responsive:** Sizes to container dimensions
 - **Reduced motion:** Disables hover animations with `prefers-reduced-motion`
-- **Dark mode:** Adapts via Tamagui theme tokens
+- **Dark mode:** Adapts via STL theme tokens
 
 ## 7. Composition
 

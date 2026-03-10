@@ -55,12 +55,12 @@ Renders radial bar/progress chart visualizations within a `<Chart>` container. D
 
 ## 6. Styling
 
-- **Colors:** From `resolvedColors` (Tamagui token resolution)
+- **Colors:** From `resolvedColors` (STL token resolution)
 - **Arc width:** Configurable via `barWidth` prop
 - **Arc gap:** Configurable via `barGap` prop
 - **Responsive:** Sizes to container dimensions
 - **Reduced motion:** Disables arc animations with `prefers-reduced-motion`
-- **Dark mode:** Adapts via Tamagui theme tokens
+- **Dark mode:** Adapts via STL theme tokens
 
 ## 7. Composition
 

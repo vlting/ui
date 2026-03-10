@@ -22,12 +22,12 @@
 
 ## 3. Anatomy
 
-- **Slider** (Root) — Single-component API wrapping Tamagui Slider internals.
-  - Tamagui Slider.Track — Background track.
-  - Tamagui Slider.TrackActive — Filled portion of the track.
-  - Tamagui Slider.Thumb — Draggable circular handle.
+- **Slider** (Root) — Single-component API wrapping STL Slider internals.
+  - STL Slider.Track — Background track.
+  - STL Slider.TrackActive — Filled portion of the track.
+  - STL Slider.Thumb — Draggable circular handle.
 
-Single-prop API; Tamagui sub-components are used internally but not exposed.
+Single-prop API; STL sub-components are used internally but not exposed.
 
 > **TypeScript is the source of truth for props.** See `SliderProps` in `Slider.tsx` for the full typed API.
 
@@ -59,7 +59,7 @@ Single-prop API; Tamagui sub-components are used internally but not exposed.
 
 ## 5. Accessibility
 
-- **Semantic element:** Tamagui Slider provides `role="slider"` semantics.
+- **Semantic element:** STL Slider provides `role="slider"` semantics.
 - **ARIA attributes:** `aria-valuenow`, `aria-valuemin`, `aria-valuemax` on thumb; `aria-label` (consumer-provided).
 - **Focus management:** Thumb is focusable; keyboard adjusts value.
 - **Screen reader announcements:** Current value, min, max announced.
@@ -87,7 +87,7 @@ Single-prop API; Tamagui sub-components are used internally but not exposed.
 - Removing `value`, `onValueChange`, `min`, `max`, `step`, or `size` props.
 - Changing the ARIA slider role.
 - Removing keyboard interaction.
-- Changing the value-to-array conversion (internal Tamagui API bridge).
+- Changing the value-to-array conversion (internal STL API bridge).
 
 ---
 

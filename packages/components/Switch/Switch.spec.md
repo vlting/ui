@@ -23,9 +23,9 @@
 
 ## 3. Anatomy
 
-- **Switch** — Single-component API wrapping Tamagui Switch + Switch.Thumb.
+- **Switch** — Single-component API wrapping STL Switch + Switch.Thumb.
 
-Tamagui Switch.Thumb is used internally but not exposed as a sub-component.
+STL Switch.Thumb is used internally but not exposed as a sub-component.
 
 > **TypeScript is the source of truth for props.** See `SwitchProps` in `Switch.tsx` for the full typed API.
 
@@ -44,7 +44,7 @@ Tamagui Switch.Thumb is used internally but not exposed as a sub-component.
 ### Keyboard Interaction
 
 - **Space** — Toggles the switch.
-- **Enter** — Toggles the switch (Tamagui built-in).
+- **Enter** — Toggles the switch (STL built-in).
 - Follows the [WAI-ARIA Switch pattern](https://www.w3.org/WAI/ARIA/apg/patterns/switch/).
 
 ### Motion
@@ -56,7 +56,7 @@ Tamagui Switch.Thumb is used internally but not exposed as a sub-component.
 
 ## 5. Accessibility
 
-- **Semantic element:** Tamagui Switch provides `role="switch"` semantics.
+- **Semantic element:** STL Switch provides `role="switch"` semantics.
 - **ARIA attributes:** `aria-checked` (true/false); `aria-disabled` when disabled.
 - **Focus management:** Switch is focusable; standard tab order.
 - **Screen reader announcements:** Role, checked state, and label announced.

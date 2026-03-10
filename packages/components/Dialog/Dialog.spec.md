@@ -25,17 +25,17 @@
 
 ## 3. Anatomy
 
-Dialog is a compound component exported as a plain object with sub-components. It is built on `@tamagui/dialog`, which provides portal rendering, focus management, and ARIA semantics. The styled layer adds visual presentation only.
+Dialog is a compound component exported as a plain object with sub-components. It is built on `STL`, which provides portal rendering, focus management, and ARIA semantics. The styled layer adds visual presentation only.
 
-- **Dialog.Root** — Wraps `@tamagui/dialog` `Dialog`. Accepts controlled (`open` + `onOpenChange`) and uncontrolled (`defaultOpen`) patterns.
-- **Dialog.Trigger** — Wraps `@tamagui/dialog` `Dialog.Trigger` with `asChild`. Clones its child element and injects open behavior.
+- **Dialog.Root** — Wraps `STL` `Dialog`. Accepts controlled (`open` + `onOpenChange`) and uncontrolled (`defaultOpen`) patterns.
+- **Dialog.Trigger** — Wraps `STL` `Dialog.Trigger` with `asChild`. Clones its child element and injects open behavior.
 - **Dialog.Overlay** — Kept for API compatibility but currently renders `null` (the overlay is rendered inside the Content portal).
 - **Dialog.Content** — Portals content into the DOM. Renders both the overlay backdrop (`$overlayBackground` with opacity fade) and the centered content panel (`$background`, `$6` border radius, shadow). Size variant controls `maxWidth` (sm=400, md=500, lg=640) and padding (sm=`$4`, md=`$5`, lg=`$6`).
 - **Dialog.Header** — A vertical layout container (`View`) with `$1` gap for grouping Title and Description.
 - **Dialog.Footer** — A horizontal layout container (`XStack`) right-aligned with `$2` gap and `$3` top padding, for action buttons.
-- **Dialog.Title** — Wraps `@tamagui/dialog` `Dialog.Title` with styled text (`$heading` family, `$4` weight, `$6` font size, `$color`).
-- **Dialog.Description** — Wraps `@tamagui/dialog` `Dialog.Description` with styled text (`$body` family, `$4` font size, `$colorSubtitle`).
-- **Dialog.Close** — Wraps `@tamagui/dialog` `Dialog.Close` with `asChild`. Clones its child element and injects close behavior.
+- **Dialog.Title** — Wraps `STL` `Dialog.Title` with styled text (`$heading` family, `$4` weight, `$6` font size, `$color`).
+- **Dialog.Description** — Wraps `STL` `Dialog.Description` with styled text (`$body` family, `$4` font size, `$colorSubtitle`).
+- **Dialog.Close** — Wraps `STL` `Dialog.Close` with `asChild`. Clones its child element and injects close behavior.
 
 > **TypeScript is the source of truth for props.** See `DialogRootProps` and `DialogContentProps` in `Dialog.tsx` for the full typed API. Do not duplicate prop tables here.
 
@@ -52,7 +52,7 @@ Dialog is a compound component exported as a plain object with sub-components. I
 ### Keyboard Interaction
 
 - **Escape** closes the dialog.
-- **Tab/Shift+Tab** cycles focus within the dialog content (focus trap provided by `@tamagui/focus-scope`).
+- **Tab/Shift+Tab** cycles focus within the dialog content (focus trap provided by `STL`).
 - Focus does not escape the dialog while it is open.
 - Follows the WAI-ARIA APG [Dialog (Modal) pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/).
 
@@ -67,11 +67,11 @@ Dialog is a compound component exported as a plain object with sub-components. I
 
 ## 5. Accessibility
 
-- **Semantic element:** Content renders with `role="dialog"` and `aria-modal="true"` (provided by `@tamagui/dialog`).
+- **Semantic element:** Content renders with `role="dialog"` and `aria-modal="true"` (provided by `STL`).
 - **ARIA attributes:**
   - `aria-labelledby` links Content to the Title element's auto-generated ID.
   - `aria-describedby` links Content to the Description element's auto-generated ID.
-  - Trigger sets `aria-haspopup="dialog"` on its child (via `@tamagui/dialog`).
+  - Trigger sets `aria-haspopup="dialog"` on its child (via `STL`).
   - IDs are auto-generated via `React.useId()`.
 - **Focus management:**
   - Focus is trapped within the dialog content when open.
