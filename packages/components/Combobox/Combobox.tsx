@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const TriggerButton = styled("button", {
@@ -154,7 +154,7 @@ function Root({
   )
 
   // Close on outside click
-  React.useEffect(() => {
+  useEffect(() => {
     if (!open) return
     const handler = (e: MouseEvent) => {
       if (!rootRef.current?.contains(e.target as Node)) {
