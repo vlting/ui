@@ -1,16 +1,17 @@
 import {
+  Box,
   Heading,
   Input,
+  Text,
+  VStack,
   useControllableState,
   useFocusTrap,
   useKeyboardNavigation,
 } from '@vlting/ui'
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
-import { Text, View, YStack } from 'tamagui'
 import { DemoCard, Section } from '../components/Section'
 
-/** CSS reset for native <button> elements used for semantic HTML / keyboard accessibility. */
 const BUTTON_RESET: React.CSSProperties = {
   background: 'none',
   border: 'none',
@@ -29,34 +30,26 @@ function ControllableStateDemo() {
   })
 
   return (
-    <YStack gap="$4">
+    <VStack style={{ gap: 16 }}>
       <DemoCard label="Controlled (value managed externally)">
-        <YStack gap="$2">
+        <VStack style={{ gap: 8 }}>
           <Input
             value={controlled}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setControlled(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setControlled(e.target.value)}
           />
-          <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
-            Current value: "{controlled}"
-          </Text>
-        </YStack>
+          <Text size="xs" tone="muted">Current value: "{controlled}"</Text>
+        </VStack>
       </DemoCard>
       <DemoCard label="Uncontrolled (internal state with onChange callback)">
-        <YStack gap="$2">
+        <VStack style={{ gap: 8 }}>
           <Input
             value={uncontrolledValue}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setUncontrolledValue(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUncontrolledValue(e.target.value)}
           />
-          <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
-            Current value: "{uncontrolledValue}" (check console for onChange)
-          </Text>
-        </YStack>
+          <Text size="xs" tone="muted">Current value: "{uncontrolledValue}" (check console for onChange)</Text>
+        </VStack>
       </DemoCard>
-    </YStack>
+    </VStack>
   )
 }
 
@@ -66,60 +59,58 @@ function FocusTrapDemo() {
 
   return (
     <DemoCard label="Focus trap — Tab key cycles within the box when active">
-      <YStack gap="$3">
+      <VStack style={{ gap: 12 }}>
         <button
           type="button"
           onClick={() => setActive(!active)}
           style={{ ...BUTTON_RESET, alignSelf: 'flex-start' }}
         >
-          <View
-            backgroundColor={active ? '$color10' : '$color4'}
-            paddingHorizontal="$4"
-            paddingVertical="$2"
-            borderRadius="$3"
+          <Box
+            style={{
+              backgroundColor: active ? 'var(--vlt-color-10)' : 'var(--vlt-color-4)',
+              paddingInline: 16,
+              paddingBlock: 8,
+              borderRadius: 6,
+            }}
           >
-            <Text fontFamily="$body" fontSize="$3" color={active ? '$color1' : '$color'}>
+            <Text size="sm" style={{ color: active ? 'var(--vlt-color-1)' : 'var(--vlt-color-12)' }}>
               {active ? 'Deactivate Trap' : 'Activate Trap'}
             </Text>
-          </View>
+          </Box>
         </button>
-        <View
+        <div
           ref={trapRef}
-          borderWidth={2}
-          borderColor={active ? '$color10' : '$borderColor'}
-          borderRadius="$4"
-          padding="$4"
-          gap="$3"
-          borderStyle={active ? 'solid' : 'dashed'}
+          style={{
+            border: `2px ${active ? 'solid' : 'dashed'} ${active ? 'var(--vlt-color-10)' : 'var(--vlt-color-5)'}`,
+            borderRadius: 8,
+            padding: 16,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 12,
+          }}
         >
           <button type="button" style={BUTTON_RESET}>
-            <View backgroundColor="$color3" padding="$2" borderRadius="$2">
-              <Text fontFamily="$body" fontSize="$3">
-                Focusable 1
-              </Text>
-            </View>
+            <Box style={{ backgroundColor: 'var(--vlt-color-3)', padding: 8, borderRadius: 4 }}>
+              <Text size="sm">Focusable 1</Text>
+            </Box>
           </button>
           <button type="button" style={BUTTON_RESET}>
-            <View backgroundColor="$color3" padding="$2" borderRadius="$2">
-              <Text fontFamily="$body" fontSize="$3">
-                Focusable 2
-              </Text>
-            </View>
+            <Box style={{ backgroundColor: 'var(--vlt-color-3)', padding: 8, borderRadius: 4 }}>
+              <Text size="sm">Focusable 2</Text>
+            </Box>
           </button>
           <button type="button" style={BUTTON_RESET}>
-            <View backgroundColor="$color3" padding="$2" borderRadius="$2">
-              <Text fontFamily="$body" fontSize="$3">
-                Focusable 3
-              </Text>
-            </View>
+            <Box style={{ backgroundColor: 'var(--vlt-color-3)', padding: 8, borderRadius: 4 }}>
+              <Text size="sm">Focusable 3</Text>
+            </Box>
           </button>
-        </View>
-        <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
+        </div>
+        <Text size="xs" tone="muted">
           {active
             ? 'Trap is active — Tab and Shift+Tab cycle within the box.'
             : 'Trap is inactive — focus moves normally.'}
         </Text>
-      </YStack>
+      </VStack>
     </DemoCard>
   )
 }
@@ -144,11 +135,10 @@ function KeyboardNavDemo() {
 
   return (
     <DemoCard label="Arrow key navigation — click an item then use Up/Down arrows, Enter to select">
-      <View
+      <div
         onKeyDown={handleKeyDown}
         onFocus={() => setHasFocus(true)}
         onBlur={(e: any) => {
-          // Only blur if focus leaves the entire container
           if (!e.currentTarget.contains(e.relatedTarget)) {
             setHasFocus(false)
           }
@@ -156,39 +146,32 @@ function KeyboardNavDemo() {
         role="listbox"
         aria-label="Fruit list"
       >
-        <YStack gap="$1">
+        <VStack style={{ gap: 4 }}>
           {items.map((item, i) => (
-            <View
+            <div
               key={item}
-              ref={(el: HTMLElement | null) => {
-                itemRefs.current[i] = el
-              }}
+              ref={(el: HTMLElement | null) => { itemRefs.current[i] = el }}
               role="option"
               aria-selected={i === activeIndex}
               tabIndex={i === activeIndex ? 0 : -1}
-              backgroundColor={i === activeIndex ? '$color4' : 'transparent'}
-              paddingHorizontal="$3"
-              paddingVertical="$2"
-              borderRadius="$2"
-              cursor="pointer"
-              hoverStyle={{ backgroundColor: '$color3' }}
-              onPress={() => setActiveIndex(i)}
-              outlineStyle={hasFocus && i === activeIndex ? 'solid' : 'none'}
-              outlineWidth={hasFocus && i === activeIndex ? 2 : 0}
-              outlineColor="$color10"
+              onClick={() => setActiveIndex(i)}
+              style={{
+                backgroundColor: i === activeIndex ? 'var(--vlt-color-4)' : 'transparent',
+                paddingInline: 12,
+                paddingBlock: 8,
+                borderRadius: 4,
+                cursor: 'pointer',
+                outline: hasFocus && i === activeIndex ? '2px solid var(--vlt-color-10)' : 'none',
+              }}
             >
-              <Text
-                fontFamily="$body"
-                fontSize="$3"
-                fontWeight={i === activeIndex ? '$3' : '$2'}
-              >
+              <Text size="sm" weight={i === activeIndex ? 'medium' : 'normal'}>
                 {item}
               </Text>
-            </View>
+            </div>
           ))}
-        </YStack>
-      </View>
-      <Text fontFamily="$body" fontSize="$2" color="$colorSubtitle">
+        </VStack>
+      </div>
+      <Text size="xs" tone="muted">
         Active: {items[activeIndex]} (press Enter to "select")
       </Text>
     </DemoCard>
@@ -197,23 +180,15 @@ function KeyboardNavDemo() {
 
 export function HooksPage() {
   return (
-    <YStack padding="$6" gap="$2" maxWidth={900} marginHorizontal="auto" width="100%">
+    <VStack style={{ padding: 24, gap: 8, maxWidth: 900, marginInline: 'auto', width: '100%' }}>
       <Heading level={1}>Hooks</Heading>
-      <Text fontFamily="$body" fontSize="$4" color="$colorSubtitle" marginBottom="$4">
+      <Text tone="muted" style={{ marginBottom: 16 }}>
         Reusable behavioral hooks for building custom components.
       </Text>
 
-      <Section title="useControllableState">
-        <ControllableStateDemo />
-      </Section>
-
-      <Section title="useFocusTrap">
-        <FocusTrapDemo />
-      </Section>
-
-      <Section title="useKeyboardNavigation">
-        <KeyboardNavDemo />
-      </Section>
-    </YStack>
+      <Section title="useControllableState"><ControllableStateDemo /></Section>
+      <Section title="useFocusTrap"><FocusTrapDemo /></Section>
+      <Section title="useKeyboardNavigation"><KeyboardNavDemo /></Section>
+    </VStack>
   )
 }

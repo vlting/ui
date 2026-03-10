@@ -1,6 +1,5 @@
-import { Heading } from '@vlting/ui'
+import { Heading, HStack, Text, VStack } from '@vlting/ui'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Text, XStack, YStack } from 'tamagui'
 
 export function HomePage() {
   const navigate = useNavigate()
@@ -54,41 +53,43 @@ export function HomePage() {
   ]
 
   return (
-    <YStack padding="$6" gap="$5" maxWidth={900} marginHorizontal="auto" width="100%">
-      <YStack gap="$2">
+    <VStack style={{ padding: 24, gap: 20, maxWidth: 900, marginInline: 'auto', width: '100%' }}>
+      <VStack style={{ gap: 8 }}>
         <Heading level={1}>Kitchen Sink</Heading>
-        <Text fontFamily="$body" fontSize="$5" color="$colorSubtitle">
+        <Text size="lg" tone="muted">
           Every component in @vlting/ui, organized by layer.
         </Text>
-      </YStack>
+      </VStack>
 
-      <XStack flexWrap="wrap" gap="$4">
+      <HStack style={{ flexWrap: 'wrap', gap: 16 }}>
         {sections.map((s) => (
-          <YStack
+          <div
             key={s.path}
-            backgroundColor="$background"
-            borderRadius="$4"
-            borderWidth={1}
-            borderColor="$borderColor"
-            padding="$4"
-            gap="$2"
-            flex={1}
-            minWidth={260}
-            cursor="pointer"
-            hoverStyle={{ backgroundColor: '$backgroundHover' }}
-            pressStyle={{ backgroundColor: '$backgroundPress', scale: 0.99 }}
-            animation="fast"
-            onPress={() => navigate(`/${brand}/${s.path}`)}
+            onClick={() => navigate(`/${brand}/${s.path}`)}
+            className="home-card"
+            style={{
+              backgroundColor: 'var(--vlt-color-1)',
+              borderRadius: 8,
+              border: '1px solid var(--vlt-color-5)',
+              padding: 16,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+              flex: 1,
+              minWidth: 260,
+              cursor: 'pointer',
+              transition: 'background-color 0.15s',
+            }}
           >
-            <Text fontFamily="$heading" fontWeight="$4" fontSize="$5">
+            <Text weight="semibold" size="lg" style={{ fontFamily: 'var(--vlt-font-heading)' }}>
               {s.title}
             </Text>
-            <Text fontFamily="$body" fontSize="$3" color="$colorSubtitle">
+            <Text size="sm" tone="muted">
               {s.description}
             </Text>
-          </YStack>
+          </div>
         ))}
-      </XStack>
-    </YStack>
+      </HStack>
+    </VStack>
   )
 }

@@ -1,11 +1,10 @@
 import {
-  createBrandConfig,
   defaultBrand,
   funBrand,
+  injectBrandVars,
   poshBrand,
   shadcnBrand,
 } from '@vlting/ui'
-import { createTamagui } from 'tamagui'
 
 const brandDefinitions = {
   default: { label: 'Default', definition: defaultBrand },
@@ -16,9 +15,6 @@ const brandDefinitions = {
 
 export type BrandKey = keyof typeof brandDefinitions
 
-// Determine the active brand from the URL at page load time.
-// Only one createTamagui() call happens per page load — Tamagui uses
-// a module-level singleton, so calling it multiple times would overwrite.
 function getActiveBrandKey(): BrandKey {
   const segment = window.location.pathname.split('/')[1] || ''
   return segment in brandDefinitions ? (segment as BrandKey) : 'default'
@@ -26,7 +22,26 @@ function getActiveBrandKey(): BrandKey {
 
 const activeBrandKey = getActiveBrandKey()
 const activeDef = brandDefinitions[activeBrandKey].definition
-const activeConfig = createTamagui(createBrandConfig(activeDef))
+
+// Inject CSS variables for both light and dark modes
+function injectBrandStyles() {
+  const lightVars = injectBrandVars(activeDef, 'light')
+  const darkVars = injectBrandVars(activeDef, 'dark')
+
+  const style = document.createElement('style')
+  style.id = 'brand-vars'
+  style.textContent = [
+    ':root {',
+    ...Object.entries(lightVars).map(([k, v]) => `  ${k}: ${v};`),
+    '}',
+    '[data-color-mode="dark"] {',
+    ...Object.entries(darkVars).map(([k, v]) => `  ${k}: ${v};`),
+    '}',
+  ].join('\n')
+  document.head.appendChild(style)
+}
+
+injectBrandStyles()
 
 export const brands = Object.fromEntries(
   Object.entries(brandDefinitions).map(([key, val]) => [key, { label: val.label }]),
@@ -34,6 +49,5 @@ export const brands = Object.fromEntries(
 
 export const activeBrand = {
   key: activeBrandKey,
-  config: activeConfig,
   definition: activeDef,
 }

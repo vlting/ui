@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@vlting/ui": "*",
-    "@tamagui/lucide-icons": "2.0.0-rc.14",
     "react-router-dom": "^7.0.0"
   },
   "devDependencies": {

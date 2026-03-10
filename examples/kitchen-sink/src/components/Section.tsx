@@ -1,8 +1,6 @@
-import { Heading } from '@vlting/ui'
+import { Heading, Separator, Text, VStack } from '@vlting/ui'
 import type React from 'react'
-import { Separator, Text, YStack } from 'tamagui'
 
-/** Slugify a title string for use as an HTML id attribute */
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -15,15 +13,15 @@ export function Section({
   children,
 }: { title: string; children: React.ReactNode }) {
   return (
-    <YStack gap="$3" paddingVertical="$4">
+    <VStack style={{ gap: 12, paddingBlock: 16 }}>
       <Heading level={2} id={slugify(title)}>
         {title}
       </Heading>
       <Separator />
-      <YStack gap="$3" paddingTop="$2">
+      <VStack style={{ gap: 12, paddingTop: 8 }}>
         {children}
-      </YStack>
-    </YStack>
+      </VStack>
+    </VStack>
   )
 }
 
@@ -32,18 +30,19 @@ export function DemoCard({
   children,
 }: { label: string; children: React.ReactNode }) {
   return (
-    <YStack
-      backgroundColor="$background"
-      borderRadius="$4"
-      borderWidth={1}
-      borderColor="$borderColor"
-      padding="$4"
-      gap="$3"
+    <VStack
+      style={{
+        backgroundColor: 'var(--vlt-color-1)',
+        borderRadius: 8,
+        border: '1px solid var(--vlt-color-5)',
+        padding: 16,
+        gap: 12,
+      }}
     >
-      <Text fontFamily="$body" fontSize="$2" fontWeight="$3" color="$colorSubtitle">
+      <Text size="xs" tone="muted" weight="medium">
         {label}
       </Text>
       {children}
-    </YStack>
+    </VStack>
   )
 }
