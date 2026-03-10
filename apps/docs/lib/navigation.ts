@@ -112,6 +112,20 @@ export const navigation: NavSection[] = [
     items: [{ label: 'Icon Browser', href: '/docs/icons' }],
   },
   {
+    title: 'Utilities',
+    items: [
+      { label: 'cn', href: '/docs/utilities/cn' },
+      { label: 'mergeRefs', href: '/docs/utilities/merge-refs' },
+      { label: 'composeEventHandlers', href: '/docs/utilities/compose-event-handlers' },
+      { label: 'FontLoader', href: '/docs/utilities/font-loader' },
+      { label: 'getGoogleFontsUrl', href: '/docs/utilities/get-google-fonts-url' },
+      { label: 'useFontLoader', href: '/docs/utilities/use-font-loader' },
+      { label: 'isSystemFont', href: '/docs/utilities/is-system-font' },
+      { label: 'extractFamiliesFromConfig', href: '/docs/utilities/extract-families-from-config' },
+      { label: 'buildFaceMapsFromConfig', href: '/docs/utilities/build-face-maps-from-config' },
+    ],
+  },
+  {
     title: 'Guides',
     items: [
       { label: 'Theming', href: '/docs/theming' },
