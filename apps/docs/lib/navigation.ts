@@ -108,6 +108,19 @@ export const navigation: NavSection[] = [
     ],
   },
   {
+    title: 'Hooks',
+    items: [
+      { label: 'useClipboard', href: '/docs/hooks/use-clipboard' },
+      { label: 'useControllableState', href: '/docs/hooks/use-controllable-state' },
+      { label: 'useDebounce', href: '/docs/hooks/use-debounce' },
+      { label: 'useFocusTrap', href: '/docs/hooks/use-focus-trap' },
+      { label: 'useIntersectionObserver', href: '/docs/hooks/use-intersection-observer' },
+      { label: 'useKeyboardNavigation', href: '/docs/hooks/use-keyboard-navigation' },
+      { label: 'useMediaQuery', href: '/docs/hooks/use-media-query' },
+      { label: 'useReducedMotion', href: '/docs/hooks/use-reduced-motion' },
+    ],
+  },
+  {
     title: 'Icons',
     items: [{ label: 'Icon Browser', href: '/docs/icons' }],
   },
