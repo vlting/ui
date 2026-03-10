@@ -10,12 +10,14 @@ import {
   Button as _Button,
   Input as _Input,
   Card as _Card,
+  Dialog as _Dialog,
   Tabs as _Tabs,
   Tooltip as _Tooltip,
   Badge as _Badge,
   Switch as _Switch,
   Progress as _Progress,
   Checkbox as _Checkbox,
+  Select as _Select,
   Slider as _Slider,
   Alert as _Alert,
   Avatar as _Avatar,
@@ -32,6 +34,18 @@ const Card = _Card as AnyFC & {
   Title: AnyFC
   Description: AnyFC
 }
+const Dialog = _Dialog as unknown as {
+  Root: AnyFC
+  Trigger: AnyFC
+  Overlay: AnyFC
+  Content: AnyFC
+  Title: AnyFC
+  Description: AnyFC
+  Header: AnyFC
+  Footer: AnyFC
+  Close: AnyFC
+}
+const Select = _Select as AnyFC & { Item: AnyFC; Group: AnyFC; Label: AnyFC; Separator: AnyFC }
 const Tabs = _Tabs as unknown as {
   Root: AnyFC
   List: AnyFC
@@ -141,6 +155,20 @@ const playgroundConfigs: Record<string, PlaygroundConfig> = {
         label: 'Interactive',
         defaultValue: false,
       },
+    ],
+  },
+  dialog: {
+    component: 'Dialog',
+    controls: [
+      { prop: 'modal', type: 'boolean', label: 'Modal', defaultValue: true },
+    ],
+  },
+  select: {
+    component: 'Select',
+    controls: [
+      { prop: 'placeholder', type: 'string', label: 'Placeholder', defaultValue: 'Select an option' },
+      { prop: 'size', type: 'select', label: 'Size', options: ['sm', 'md', 'lg'], defaultValue: 'md' },
+      { prop: 'disabled', type: 'boolean', label: 'Disabled', defaultValue: false },
     ],
   },
   tabs: {
@@ -434,6 +462,35 @@ function renderPlayground(
           </Card.Content>
         </Card>
       )
+    case 'dialog':
+      return (
+        <Dialog.Root modal={props.modal as boolean}>
+          <Dialog.Trigger>
+            <Button><Button.Text>Open Dialog</Button.Text></Button>
+          </Dialog.Trigger>
+          <Dialog.Overlay>
+            <Dialog.Content>
+              <Dialog.Title>Dialog Title</Dialog.Title>
+              <Dialog.Description>This is a dialog description.</Dialog.Description>
+              <Dialog.Close>
+                <Button><Button.Text>Close</Button.Text></Button>
+              </Dialog.Close>
+            </Dialog.Content>
+          </Dialog.Overlay>
+        </Dialog.Root>
+      )
+    case 'select':
+      return (
+        <Select
+          placeholder={props.placeholder as string}
+          size={props.size as string}
+          disabled={props.disabled as boolean}
+        >
+          <Select.Item value="option-1">Option 1</Select.Item>
+          <Select.Item value="option-2">Option 2</Select.Item>
+          <Select.Item value="option-3">Option 3</Select.Item>
+        </Select>
+      )
     case 'tabs':
       return (
         <Tabs.Root defaultValue="tab1" orientation={props.orientation as string}>
@@ -563,6 +620,10 @@ function generateCode(
       return `<Input${propsDisplay} />`
     case 'card':
       return `<Card${propsDisplay}>\n  <Card.Header>\n    <Card.Title>Title</Card.Title>\n  </Card.Header>\n  <Card.Content>Content</Card.Content>\n</Card>`
+    case 'dialog':
+      return `<Dialog.Root${propsDisplay}>\n  <Dialog.Trigger>\n    <Button>Open Dialog</Button>\n  </Dialog.Trigger>\n  <Dialog.Content>\n    <Dialog.Title>Title</Dialog.Title>\n    <Dialog.Description>Description</Dialog.Description>\n  </Dialog.Content>\n</Dialog.Root>`
+    case 'select':
+      return `<Select${propsDisplay}>\n  <Select.Item value="option-1">Option 1</Select.Item>\n  <Select.Item value="option-2">Option 2</Select.Item>\n  <Select.Item value="option-3">Option 3</Select.Item>\n</Select>`
     case 'tabs':
       return `<Tabs.Root defaultValue="tab1"${propsDisplay}>\n  <Tabs.List>\n    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>\n    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>\n  </Tabs.List>\n  <Tabs.Content value="tab1">...</Tabs.Content>\n  <Tabs.Content value="tab2">...</Tabs.Content>\n</Tabs.Root>`
     case 'tooltip':
