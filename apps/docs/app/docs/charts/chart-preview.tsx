@@ -43,16 +43,16 @@ const chartDataMap: Record<string, Record<string, unknown>[]> = {
 }
 
 const defaultConfig = {
-  desktop: { label: 'Desktop', color: '$blue9' },
-  mobile: { label: 'Mobile', color: '$green9' },
+  desktop: { label: 'Desktop', color: '#3b8fdb' },
+  mobile: { label: 'Mobile', color: '#2d9d5e' },
 }
 
 const pieConfig = {
-  Chrome: { label: 'Chrome', color: '$blue9' },
-  Safari: { label: 'Safari', color: '$green9' },
-  Firefox: { label: 'Firefox', color: '$orange9' },
-  Edge: { label: 'Edge', color: '$purple9' },
-  Other: { label: 'Other', color: '$color7' },
+  Chrome: { label: 'Chrome', color: '#3b8fdb' },
+  Safari: { label: 'Safari', color: '#2d9d5e' },
+  Firefox: { label: 'Firefox', color: '#d98c2e' },
+  Edge: { label: 'Edge', color: '#8b5cf6' },
+  Other: { label: 'Other', color: '#888888' },
 }
 
 const chartConfigMap: Record<string, Record<string, { label: string; color: string }>> = {
@@ -61,7 +61,7 @@ const chartConfigMap: Record<string, Record<string, { label: string; color: stri
   line: defaultConfig,
   pie: pieConfig,
   radar: defaultConfig,
-  radial: { visitors: { label: 'Visitors', color: '$blue9' }, bounced: { label: 'Bounced', color: '$red9' } },
+  radial: { visitors: { label: 'Visitors', color: '#3b8fdb' }, bounced: { label: 'Bounced', color: '#dc4a4a' } },
 }
 
 interface ChartPreviewProps {
