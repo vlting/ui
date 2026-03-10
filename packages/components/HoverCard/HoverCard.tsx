@@ -70,6 +70,7 @@ function Trigger({ children }: { children: React.ReactNode }) {
     <div
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      aria-haspopup="true"
       style={{ display: 'inline-flex', position: 'relative' }}
     >
       {children}
