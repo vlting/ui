@@ -25,9 +25,9 @@ const InputFrame = styled("input", {
   transition: "border-color 150ms ease, outline 150ms ease",
 }, {
   fieldSize: {
-    sm: { borderRadius: "$2", paddingLeft: "6px", paddingRight: "6px", paddingTop: "4px", paddingBottom: "4px", fontSize: "$14" },
-    md: { borderRadius: "$4", paddingLeft: "8px", paddingRight: "8px", paddingTop: "6px", paddingBottom: "6px" },
-    lg: { borderRadius: "$4", paddingLeft: "10px", paddingRight: "10px", paddingTop: "8px", paddingBottom: "8px" },
+    sm: { height: "32px", borderRadius: "$2", paddingLeft: "6px", paddingRight: "6px", paddingTop: "4px", paddingBottom: "4px", fontSize: "$14" },
+    md: { height: "40px", borderRadius: "$4", paddingLeft: "8px", paddingRight: "8px", paddingTop: "6px", paddingBottom: "6px" },
+    lg: { height: "44px", borderRadius: "$4", paddingLeft: "10px", paddingRight: "10px", paddingTop: "8px", paddingBottom: "8px" },
   },
   error: {
     true: { borderColor: "var(--stl-color-error9, var(--red10, #ef4444))" },
