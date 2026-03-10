@@ -211,7 +211,7 @@ E4 (RN Parity) ─────────────────┤
 **Dependencies:** Epic 3
 **Epic slug:** docs-overhaul
 **Epic branch:** epic/docs-overhaul
-**Status:** in-progress
+**Status:** done
 
 ### Stage 5.1: Fix Rendering + Empty Previews
 **Branch prefix:** fix
