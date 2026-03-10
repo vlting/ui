@@ -334,7 +334,8 @@ function Calendar({
                 key={di}
                 type="button"
                 onClick={() => onSelectDate(date)}
-                aria-label={`${day}`}
+                aria-label={date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                disabled={disabled || undefined}
                 aria-selected={isSelected || undefined}
                 style={{
                   backgroundColor: showSelected
@@ -504,6 +505,7 @@ function DatePickerRoot({
       </div>
       {error && errorMessage && (
         <span
+          role="alert"
           style={{
             fontFamily: 'var(--font-body)',
             fontSize: 'var(--fontSize-1, 11px)',

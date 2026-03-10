@@ -49,6 +49,7 @@ function Viewport({ children, orientation = 'vertical' }: ScrollAreaViewportProp
   return (
     <ViewportFrame
       className="vlting-scroll-viewport"
+      tabIndex={0}
       style={{ width: '100%', height: '100%', ...OVERFLOW_STYLES[orientation] }}
     >
       {children}
