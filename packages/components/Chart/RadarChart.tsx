@@ -162,9 +162,9 @@ export function RadarChart({
 
   // Axis tick colors from theme
   const labelColor =
-    victoryTheme.axis.style.tickLabels.fill || '#666'
+    victoryTheme.axis.style.tickLabels.fill || 'var(--stl-color8, #666)'
   const gridColor =
-    victoryTheme.axis.style.grid.stroke || '#e0e0e0'
+    victoryTheme.axis.style.grid.stroke || 'var(--stl-surface3, #e0e0e0)'
 
   // -- Render grid --
   const gridElements = useMemo(() => {
@@ -195,7 +195,7 @@ export function RadarChart({
               cx={cx}
               cy={cy}
               r={rPrev}
-              fill={victoryTheme.tooltip.flyoutStyle.fill || '#fff'}
+              fill={victoryTheme.tooltip.flyoutStyle.fill || 'var(--stl-background, #fff)'}
             />,
           )
         } else {
@@ -226,7 +226,7 @@ export function RadarChart({
                   outerR,
                   catCount,
                 )}
-                fill={victoryTheme.tooltip.flyoutStyle.fill || '#fff'}
+                fill={victoryTheme.tooltip.flyoutStyle.fill || 'var(--stl-background, #fff)'}
               />,
             )
           }
@@ -287,7 +287,7 @@ export function RadarChart({
     return seriesKeys.map((key) => {
       const values = data.map((d) => Number(d[key]) || 0)
       const pathD = buildRadarPath(cx, cy, values, maxVal, outerR, catCount)
-      const color = resolvedColors[key] || '#999'
+      const color = resolvedColors[key] || 'var(--stl-color8, #999)'
 
       return (
         <G key={key}>
@@ -320,7 +320,7 @@ export function RadarChart({
                   cy={pos.y}
                   r={activeVertex === i ? ds + 2 : ds}
                   fill={color}
-                  stroke="#fff"
+                  stroke="var(--stl-background, #fff)"
                   strokeWidth={1.5}
                 />
               )
@@ -404,7 +404,7 @@ export function RadarChart({
     return seriesKeys.map((key) => ({
       name: config[key].label,
       value: Number(data[activeVertex]?.[key]) || 0,
-      color: resolvedColors[key] || '#999',
+      color: resolvedColors[key] || 'var(--stl-color8, #999)',
     }))
   }, [activeVertex, seriesKeys, config, data, resolvedColors])
 
