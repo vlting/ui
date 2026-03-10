@@ -28,7 +28,7 @@ const StyledTextArea = styled("textarea", {
     lg: { fontSize: "$p", padding: "12px 16px", borderRadius: "$4" },
   },
   error: {
-    true: { borderColor: "red" },
+    true: { borderColor: "var(--stl-error9, red)" },
   },
 }, "Textarea")
 
@@ -101,7 +101,7 @@ export function Textarea({
         aria-label={!label ? placeholder : undefined}
       />
       {displayHelper && (
-        <TextareaHelper id={helperId} style={error ? { color: 'red' } : undefined}>
+        <TextareaHelper id={helperId} style={error ? { color: 'var(--stl-error9, red)' } : undefined}>
           {displayHelper}
         </TextareaHelper>
       )}
