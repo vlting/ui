@@ -95,7 +95,8 @@
     "test:e2e": "yarn workspace @vlting/showcase-web test:e2e",
     "test:e2e:update": "yarn workspace @vlting/showcase-web test:e2e:update",
     "validate:tokens": "npx tsx scripts/validate-tokens.ts",
-    "validate:tokens:ci": "npx tsx scripts/validate-tokens.ts --ci --report-only"
+    "validate:tokens:ci": "npx tsx scripts/validate-tokens.ts --ci --report-only",
+    "validate:contrast": "npx tsx scripts/validate-contrast.ts"
   },
   "dependencies": {
     "victory": "^37.3.6"
