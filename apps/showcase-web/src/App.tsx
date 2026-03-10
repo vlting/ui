@@ -11,7 +11,20 @@ import { NavigationPage } from './pages/NavigationPage'
 import { HooksPage } from './pages/HooksPage'
 import { BlocksPage } from './pages/BlocksPage'
 import { IconsPage } from './pages/IconsPage'
+import { AccordionPage } from './pages/components/AccordionPage'
+import { AlertPage } from './pages/components/AlertPage'
+import { AvatarPage } from './pages/components/AvatarPage'
+import { BadgePage } from './pages/components/BadgePage'
 import { ButtonPage } from './pages/components/ButtonPage'
+import { CardPage } from './pages/components/CardPage'
+import { CheckboxPage } from './pages/components/CheckboxPage'
+import { DialogPage } from './pages/components/DialogPage'
+import { InputPage } from './pages/components/InputPage'
+import { ProgressPage } from './pages/components/ProgressPage'
+import { SelectPage } from './pages/components/SelectPage'
+import { SwitchPage } from './pages/components/SwitchPage'
+import { TablePage } from './pages/components/TablePage'
+import { TabsPage } from './pages/components/TabsPage'
 
 export function App() {
   return (
@@ -28,7 +41,20 @@ export function App() {
         <Route path="hooks" element={<HooksPage />} />
         <Route path="blocks" element={<BlocksPage />} />
         <Route path="icons" element={<IconsPage />} />
+        <Route path="components/accordion" element={<AccordionPage />} />
+        <Route path="components/alert" element={<AlertPage />} />
+        <Route path="components/avatar" element={<AvatarPage />} />
+        <Route path="components/badge" element={<BadgePage />} />
         <Route path="components/button" element={<ButtonPage />} />
+        <Route path="components/card" element={<CardPage />} />
+        <Route path="components/checkbox" element={<CheckboxPage />} />
+        <Route path="components/dialog" element={<DialogPage />} />
+        <Route path="components/input" element={<InputPage />} />
+        <Route path="components/progress" element={<ProgressPage />} />
+        <Route path="components/select" element={<SelectPage />} />
+        <Route path="components/switch" element={<SwitchPage />} />
+        <Route path="components/table" element={<TablePage />} />
+        <Route path="components/tabs" element={<TabsPage />} />
       </Route>
     </Routes>
   )
