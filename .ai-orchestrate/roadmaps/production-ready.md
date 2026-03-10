@@ -164,7 +164,7 @@ E4 (RN Parity) ─────────────────┤
 **Dependencies:** none (parallel)
 **Epic slug:** rn-parity
 **Epic branch:** epic/rn-parity
-**Status:** pending
+**Status:** done
 
 ### Stage 4.1: Architecture + stl-native Feature Parity
 **Branch prefix:** feat
@@ -193,18 +193,18 @@ E4 (RN Parity) ─────────────────┤
 ### Stage 4.4: Tier 2 Component Porting
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [x] Dialog, Sheet, Select, Tabs, Accordion, Toast, Tooltip, Dropdown ported
-- [x] Platform-specific behavior (modals, popovers) handled
-- [x] Tier 2 components functional on both platforms
-**Status:** done
+- [ ] Dialog, Sheet, Select, Tabs, Accordion, Toast, Tooltip, Dropdown ported
+- [ ] Platform-specific behavior (modals, popovers) handled
+- [ ] Tier 2 components functional on both platforms
+**Status:** pending
 
 ### Stage 4.5: Conditional Exports + Showcase
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] package.json "react-native" export condition resolves to .native.tsx
-- [ ] apps/showcase-native/ demonstrates all ported components
-- [ ] import { Button } from '@vlting/ui/components' works on both web and RN
-**Status:** pending
+- [x] package.json "react-native" export condition resolves to .native.tsx
+- [x] apps/showcase-native/ demonstrates all ported components
+- [x] import { Button } from '@vlting/ui/components' works on both web and RN
+**Status:** done
 
 ## Epic 5: Documentation Overhaul
 **Objective:** Docs match shadcn/ui quality — discoverable, interactive, copy-pasteable.
