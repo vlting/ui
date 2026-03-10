@@ -190,12 +190,12 @@ function Root({
       </TriggerButton>
 
       {open && (
-        <DropdownFrame style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
+        <DropdownFrame style={{ boxShadow: '0 4px 12px var(--stl-maxAlpha8, rgba(0,0,0,0.15))' }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
             padding: '8px 12px',
-            borderBottom: '1px solid var(--borderColor, #e5e7eb)',
+            borderBottom: '1px solid var(--borderColor, var(--stl-surface3, #e5e7eb))',
           }}>
             <SearchInput
               ref={inputRef}
@@ -227,7 +227,7 @@ function Root({
                     role="option"
                     aria-selected={isSelected}
                     style={{
-                      backgroundColor: isHighlighted ? 'var(--surface3, #f3f4f6)' : 'transparent',
+                      backgroundColor: isHighlighted ? 'var(--surface3, var(--stl-surface2, #f3f4f6))' : 'transparent',
                       fontWeight: isSelected ? 600 : 400,
                     }}
                   >
