@@ -26,6 +26,7 @@ export default defineConfig({
       { find: '@vlting/stl', replacement: path.resolve(__dirname, '../../packages/stl/src') },
       { find: '@vlting/stl-react', replacement: path.resolve(__dirname, '../../packages/stl-react/src') },
       { find: '@vlting/stl-headless', replacement: path.resolve(__dirname, '../../packages/stl-headless/src') },
+      { find: '@vlting/ui/design-tokens', replacement: path.resolve(__dirname, '../../packages/design-tokens') },
     ],
   },
 })

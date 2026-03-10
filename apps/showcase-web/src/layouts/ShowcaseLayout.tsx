@@ -1,7 +1,7 @@
-import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { StlProvider } from '@vlting/stl-react'
 import { useColorMode } from '@vlting/stl-react'
+import { BrandSwitcher } from '../components/BrandSwitcher'
 
 const navItems = [
   { to: '/', label: 'Home' },
@@ -100,7 +100,10 @@ function LayoutInner() {
           <h1 style={{ fontSize: 16, fontWeight: 600, margin: 0 }}>
             STL Showcase
           </h1>
-          <ThemeToggle />
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <BrandSwitcher />
+            <ThemeToggle />
+          </div>
         </header>
         <main style={{ padding: 24, maxWidth: 1200 }}>
           <Outlet />
