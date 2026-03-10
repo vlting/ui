@@ -43,7 +43,7 @@ export const StlContext = createContext<StlContextProps>({
   tokenValue: baseTokenValue,
 })
 
-interface StlProviderProps {
+export interface StlProviderProps {
   children: ReactNode
   defaultColorMode?: ColorMode
   isDebugMode?: boolean

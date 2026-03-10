@@ -19,6 +19,8 @@ export {
   media,
   injectBrandVars,
   getBrandStyleTag,
+  generatePalette,
+  getTextColorStep,
 } from './brands'
 export type { Brand } from './brands'
 
