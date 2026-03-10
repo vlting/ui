@@ -135,6 +135,7 @@ function Frame({ children }: SheetFrameProps) {
     <StyledFrame
       role="dialog"
       aria-modal="true"
+      aria-label="Sheet"
       style={{ transform: isOpen ? 'translateY(0)' : 'translateY(100%)' }}
     >
       {children}

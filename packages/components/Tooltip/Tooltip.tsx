@@ -110,7 +110,9 @@ export function Tooltip({
       onFocus={show}
       onBlur={hide}
     >
-      {children}
+      <span aria-describedby={visible ? `tooltip-${id}` : undefined}>
+        {children}
+      </span>
       {visible && (
         <TooltipContentFrame role="tooltip" id={`tooltip-${id}`} style={positionStyle}>
           <TooltipText>{content}</TooltipText>
