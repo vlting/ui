@@ -80,7 +80,7 @@ function getSliceData(
         key,
         value: Math.max(0, value),
         label: key,
-        color: resolvedColors[key] || resolvedColors[seriesKey] || '#888888',
+        color: resolvedColors[key] || resolvedColors[seriesKey] || 'var(--stl-color8, #888888)',
       })
     }
   } else {
@@ -95,7 +95,7 @@ function getSliceData(
         key: seriesKey,
         value: total,
         label: config[seriesKey]?.label ?? seriesKey,
-        color: resolvedColors[seriesKey] || '#888888',
+        color: resolvedColors[seriesKey] || 'var(--stl-color8, #888888)',
       })
     }
   }
@@ -297,7 +297,7 @@ export function PieChart({
           percentage: pct,
           startAngle: currentAngle,
           endAngle: currentAngle + sliceAngle,
-          color: resolvedColors[seriesKey] || '#888888',
+          color: resolvedColors[seriesKey] || 'var(--stl-color8, #888888)',
           label: v.key,
         })
         currentAngle += sliceAngle
@@ -366,7 +366,7 @@ export function PieChart({
                   d={describeArc(cx, cy, sliceOuterR, sliceInnerR, slice.startAngle, slice.endAngle)}
                   fill={slice.color}
                   fillOpacity={isInteractive && activeIndex != null && !isActive ? 0.5 : 1}
-                  stroke={hasSeparator ? victoryTheme.chart.padding ? '#ffffff' : '#ffffff' : 'none'}
+                  stroke={hasSeparator ? 'var(--stl-background, #ffffff)' : 'none'}
                   strokeWidth={hasSeparator ? 2 : 0}
                   onPress={() => handlePress(i)}
                 />
@@ -417,7 +417,7 @@ export function PieChart({
                   y={pos.y}
                   textAnchor="middle"
                   alignmentBaseline="central"
-                  fill="#ffffff"
+                  fill="var(--stl-background, #ffffff)"
                   fontSize={labelFontSize}
                   fontWeight="500"
                 >
