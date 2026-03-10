@@ -152,6 +152,8 @@ function LoginStandard({
             placeholder="m@example.com"
             value={email}
             onChangeText={setEmail}
+            required
+            aria-required="true"
           />
           <Input
             label="Password"
@@ -159,6 +161,8 @@ function LoginStandard({
             placeholder="Password"
             value={password}
             onChangeText={setPassword}
+            required
+            aria-required="true"
           />
           {(forgotPasswordHref || onForgotPassword) && (
             <AuthFooterLink
@@ -224,6 +228,8 @@ function LoginOtp({
             placeholder="m@example.com"
             value={email}
             onChangeText={setEmail}
+            required
+            aria-required="true"
           />
           <Input
             label="Verification code"
@@ -231,6 +237,8 @@ function LoginOtp({
             placeholder="Enter 6-digit code"
             value={code}
             onChangeText={setCode}
+            required
+            aria-required="true"
           />
           <Button
             variant="default"
@@ -294,6 +302,8 @@ function LoginMagic({
             placeholder="m@example.com"
             value={email}
             onChangeText={setEmail}
+            required
+            aria-required="true"
           />
           <Button
             variant="default"
@@ -392,6 +402,8 @@ function SignupStandard({
             placeholder="John Doe"
             value={name}
             onChangeText={setName}
+            required
+            aria-required="true"
           />
           <Input
             label="Email"
@@ -399,6 +411,8 @@ function SignupStandard({
             placeholder="m@example.com"
             value={email}
             onChangeText={setEmail}
+            required
+            aria-required="true"
           />
           <Input
             label="Password"
@@ -406,6 +420,8 @@ function SignupStandard({
             placeholder="Password"
             value={password}
             onChangeText={setPassword}
+            required
+            aria-required="true"
           />
           {(termsHref || privacyHref) && (
             <Checkbox.Root
@@ -495,6 +511,8 @@ function SignupSocial({
             placeholder="m@example.com"
             value={email}
             onChangeText={setEmail}
+            required
+            aria-required="true"
           />
           <Input
             label="Password"
@@ -502,6 +520,8 @@ function SignupSocial({
             placeholder="Password"
             value={password}
             onChangeText={setPassword}
+            required
+            aria-required="true"
           />
           <Button
             variant="default"

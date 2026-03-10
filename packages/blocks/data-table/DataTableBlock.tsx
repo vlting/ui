@@ -73,6 +73,7 @@ export function DataTableBlock({
               placeholder={searchPlaceholder}
               value={globalFilter}
               onChangeText={setGlobalFilter}
+              aria-label="Search table"
             />
           </div>
         )}

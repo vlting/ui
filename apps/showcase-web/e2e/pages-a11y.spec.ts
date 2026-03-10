@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 
-const KNOWN_ISSUES = ['color-contrast', 'target-size', 'button-name']
+const KNOWN_ISSUES = ['color-contrast', 'target-size']
 
 const pages = [
   { name: 'Home', path: '/' },
@@ -15,6 +15,8 @@ const pages = [
   { name: 'Hooks', path: '/hooks' },
   { name: 'Blocks', path: '/blocks' },
   { name: 'Icons', path: '/icons' },
+  { name: 'Charts', path: '/charts' },
+  { name: 'Utils', path: '/utils' },
 ]
 
 for (const pg of pages) {
