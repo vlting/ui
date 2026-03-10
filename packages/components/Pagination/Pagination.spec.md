@@ -40,7 +40,7 @@ All sub-components are required for a complete pagination UI; Ellipsis is auto-r
 ### States
 
 - **Idle** — Page buttons displayed; current page highlighted with active variant styling.
-- **Hover** — Individual page buttons show hover feedback via Tamagui Button hover styles.
+- **Hover** — Individual page buttons show hover feedback via STL Button hover styles.
 - **Focus** — Standard focus ring on each focusable button (see QUALITY_BASELINE.md).
 - **Disabled** — Previous button disabled on page 1; Next button disabled on last page (opacity reduction, no pointer events).
 

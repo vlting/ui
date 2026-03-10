@@ -22,24 +22,20 @@ Actionable checklist for producing high-quality "front of frontend" UI code in `
 - [ ] Use `<dialog>` for modals (provides native focus trapping, Escape handling, backdrop)
 - [ ] Use `<details>`/`<summary>` for simple disclosure widgets
 
-### Tamagui Semantic HTML Rules
+### STL Semantic HTML Rules
 
-The `tag` prop in Tamagui's `styled()` does NOT change the rendered HTML element. `styled(XStack, { tag: 'button' })` renders `<div tag="button">`, not `<button>`.
+Use `styled()` from @vlting/stl with the correct base element for semantic HTML rendering.
 
-**Correct pattern:** Use native HTML elements for semantics, wrap Tamagui styled components inside for visual styling:
+**Correct pattern:** Use native HTML elements for semantics, apply STL styles:
 
 ```tsx
 // CORRECT — renders actual <button>
-const ButtonFrame = styled(XStack, { /* visual styles only */ })
+const ButtonFrame = styled('button', { /* visual styles */ })
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => (
-  <button ref={ref} {...buttonProps}>
-    <ButtonFrame>{props.children}</ButtonFrame>
-  </button>
+  <ButtonFrame ref={ref} {...props} />
 ))
 ```
-
-**Alternative:** `styledHtml('button', { ... })` correctly sets the HTML element but loses Tamagui layout primitive features.
 
 **Verify:** Always inspect the rendered DOM to confirm the correct HTML element appears.
 
@@ -182,7 +178,7 @@ When fixing an accessibility issue, use **AccessLint MCP** `diff_html` with befo
 
 ## Common Mistakes to Avoid
 
-1. **Using `styled(View, { tag: 'button' })` for semantic elements** — the `tag` prop does not change the rendered HTML element in Tamagui v2 RC. Use native HTML elements.
+1. **Using generic containers for semantic elements** — use the correct native HTML element as the base for `styled()`. Use `styled('button', {...})` not `styled(Box, {...})` for interactive elements.
 
 2. **Adding ARIA without the interaction** — `role="button"` on a `<div>` without keyboard handling is worse than no ARIA. The role promises behavior the element doesn't deliver.
 
@@ -192,8 +188,8 @@ When fixing an accessibility issue, use **AccessLint MCP** `diff_html` with befo
 
 5. **Hardcoding visual values** — every color, spacing value, radius, font size, and font weight must come from design tokens. No hex codes, no `px` values, no numeric font weights.
 
-6. **Skipping verification** — always inspect the rendered DOM, not just the JSX source. Tamagui adds wrapper elements that may break semantic structure.
+6. **Skipping verification** — always inspect the rendered DOM, not just the JSX source. Styled components may add wrapper elements that break semantic structure.
 
 7. **Omitting `prefers-reduced-motion` support** — all animation must degrade gracefully. Test with the media query forced on.
 
-8. **Using `GetProps<>` from Tamagui** — the index signature bug causes all props to resolve as `undefined`. Define component props from scratch.
+8. **Over-relying on inferred prop types** — define component props explicitly from scratch for clarity and type safety.

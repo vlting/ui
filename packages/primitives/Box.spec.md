@@ -46,7 +46,7 @@ None.
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders `<div>` (Tamagui View default). Appropriate for generic grouping.
+- **Semantic element:** Renders `<div>` (STL View default). Appropriate for generic grouping.
 - **ARIA attributes:** None by default. Consumers must set `accessibilityRole` when the Box serves a semantic purpose (e.g., `region`, `group`).
 - **Focus management:** Not in the tab order unless the consumer explicitly makes it interactive.
 
@@ -54,8 +54,8 @@ None.
 
 ## 6. Styling
 
-- **Design tokens used:** Inherits all Tamagui View style props. All consumer-applied styles must use tokens (`$color`, `$space`, `$size`, `$radius`).
-- **Responsive behavior:** Standard Tamagui responsive props via media queries.
+- **Design tokens used:** Inherits all STL View style props. All consumer-applied styles must use tokens (`$color`, `$space`, `$size`, `$radius`).
+- **Responsive behavior:** Standard STL responsive props via media queries.
 - **Dark mode:** Fully compatible — no default colors applied; dark/light behavior determined by children and consumer-applied tokens.
 
 ---
@@ -72,7 +72,7 @@ None.
 
 - Removing the `centered` variant.
 - Changing the rendered element from `<div>`.
-- Removing inherited Tamagui View props.
+- Removing inherited STL View props.
 
 ---
 

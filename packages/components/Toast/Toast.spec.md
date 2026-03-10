@@ -64,8 +64,8 @@ Also exports `useToastController` (to programmatically show toasts) and `useToas
 
 ## 5. Accessibility
 
-- **Semantic element:** Tamagui Toast manages live region semantics.
-- **ARIA attributes:** Live region (`role="status"` or `aria-live="polite"`) for screen reader announcement (Tamagui-managed).
+- **Semantic element:** STL Toast manages live region semantics.
+- **ARIA attributes:** Live region (`role="status"` or `aria-live="polite"`) for screen reader announcement (STL-managed).
 - **Focus management:** Toast does not steal focus. Action/close buttons are keyboard-reachable.
 - **Screen reader announcements:** Title and description announced when toast appears.
 - **Important:** Auto-dismiss must pause on hover and focus (WCAG 2.2.1 — Timing Adjustable).

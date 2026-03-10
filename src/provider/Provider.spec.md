@@ -19,9 +19,9 @@
 
 ## 3. Anatomy
 
-Wraps `TamaguiProvider` from Tamagui. Renders no visible UI surface — passes children through without adding layout-affecting wrapper elements.
+Wraps `StlProvider` from @vlting/stl-react. Renders no visible UI surface — passes children through without adding layout-affecting wrapper elements.
 
-- `config`: optional Tamagui configuration object (defaults to the built-in `tamagui.config`).
+- `config`: optional STL configuration object (defaults to the built-in config).
 - `defaultTheme`: `'light' | 'dark'` — initial active theme.
 - `children`: the application tree.
 

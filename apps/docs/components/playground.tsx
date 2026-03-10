@@ -2,7 +2,7 @@
 
 import { useState, useMemo, type ReactNode, type ComponentType } from 'react'
 
-// Tamagui v2 RC GetFinalProps bug — cast for docs usage
+// Cast for docs usage
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyFC = ComponentType<any>
 

@@ -57,15 +57,15 @@ Trigger is rendered internally with a chevron icon.
 
 ### Motion
 
-- Tamagui Select open/close animations.
+- STL Select open/close animations.
 - Should respect `prefers-reduced-motion`.
 
 ---
 
 ## 5. Accessibility
 
-- **Semantic element:** Tamagui Select provides listbox semantics.
-- **ARIA attributes:** Trigger gets `aria-expanded`, `aria-haspopup="listbox"`; items get `role="option"` (Tamagui-managed).
+- **Semantic element:** STL Select provides listbox semantics.
+- **ARIA attributes:** Trigger gets `aria-expanded`, `aria-haspopup="listbox"`; items get `role="option"` (STL-managed).
 - **Focus management:** Focus moves to dropdown on open; returns to trigger on close.
 - **Screen reader announcements:** Selected value announced; options announced when navigating.
 
