@@ -1,27 +1,15 @@
-import { Provider } from '@vlting/ui'
+import { Box, HStack, Provider, Text, VStack } from '@vlting/ui'
 import type React from 'react'
-import type { ComponentType } from 'react'
 import { useEffect, useState } from 'react'
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom'
-import { Text, View, XStack, YStack } from 'tamagui'
-import { type BrandKey, activeBrand, brands } from '../brands'
+import { type BrandKey, brands } from '../brands'
 
-// Tamagui v2 RC GetFinalProps bug: all token-string props resolve as `undefined`.
-// Cast layout/text primitives to a permissive type so JSX usage type-checks.
-type AnyFC = ComponentType<Record<string, unknown>>
-const TYStack = YStack as unknown as AnyFC
-const TXStack = XStack as unknown as AnyFC
-const TText = Text as unknown as AnyFC
-const TView = View as unknown as AnyFC
-
-/** CSS reset for react-router <Link> and <a> elements */
 const LINK_RESET: React.CSSProperties = {
   textDecoration: 'none',
   color: 'inherit',
   display: 'block',
 }
 
-/** CSS reset for native <button> elements */
 const BUTTON_RESET: React.CSSProperties = {
   background: 'none',
   border: 'none',
@@ -202,7 +190,7 @@ function NavGroup({
   onNavClick: () => void
 }) {
   return (
-    <TYStack marginBottom="$0.75">
+    <div style={{ marginBottom: 6 }}>
       <h2
         style={{
           margin: 0,
@@ -211,8 +199,8 @@ function NavGroup({
           fontWeight: 500,
           textTransform: 'uppercase' as const,
           letterSpacing: 0.5,
-          color: 'var(--colorSubtitle)',
-          fontFamily: 'var(--f-body)',
+          color: 'var(--vlt-color-9)',
+          fontFamily: 'var(--vlt-font-body)',
         }}
       >
         {group.label}
@@ -222,71 +210,73 @@ function NavGroup({
           const isActive = currentSection === item.path
           return (
             <li key={item.path}>
-              <TXStack
-                asChild
-                paddingVertical={6}
-                paddingLeft={16}
-                paddingRight={8}
-                borderRightWidth={2}
-                borderRightColor={isActive ? '$color' : 'transparent'}
-                backgroundColor={isActive ? '$color3' : 'transparent'}
-                style={{ transition: 'all 0.1s' }}
+              <Link
+                to={`/${brandKey}/${item.path}`}
+                onClick={onNavClick}
+                style={{
+                  ...LINK_RESET,
+                  display: 'flex',
+                  alignItems: 'center',
+                  paddingBlock: 6,
+                  paddingLeft: 16,
+                  paddingRight: 8,
+                  borderRight: `2px solid ${isActive ? 'var(--vlt-color-12)' : 'transparent'}`,
+                  backgroundColor: isActive ? 'var(--vlt-color-3)' : 'transparent',
+                  transition: 'all 0.1s',
+                }}
               >
-                <Link
-                  to={`/${brandKey}/${item.path}`}
-                  onClick={onNavClick}
-                  style={LINK_RESET}
+                <span
+                  style={{
+                    fontSize: 14,
+                    fontFamily: 'var(--vlt-font-body)',
+                    color: isActive ? 'var(--vlt-color-12)' : 'var(--vlt-color-9)',
+                    fontWeight: isActive ? 500 : 400,
+                  }}
                 >
-                  <TText
-                    fontSize={14}
-                    fontFamily="$body"
-                    color={isActive ? '$color' : '$colorSubtitle'}
-                    fontWeight={isActive ? '500' : '400'}
-                  >
-                    {item.label}
-                  </TText>
-                </Link>
-              </TXStack>
+                  {item.label}
+                </span>
+              </Link>
               {item.subItems && isActive && (
                 <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                   {item.subItems.map((sub) => {
                     const isSubActive = currentHash === `#${sub.anchor}`
                     return (
                       <li key={sub.anchor}>
-                        <TXStack
-                          asChild
-                          paddingVertical={2}
-                          paddingLeft={36}
-                          paddingRight={16}
-                          style={{ transition: 'all 0.1s' }}
+                        <Link
+                          to={`/${brandKey}/${item.path}#${sub.anchor}`}
+                          onClick={(e) => {
+                            onNavClick()
+                            const el = document.getElementById(sub.anchor)
+                            if (el) {
+                              e.preventDefault()
+                              el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                              window.history.replaceState(
+                                null,
+                                '',
+                                `/${brandKey}/${item.path}#${sub.anchor}`,
+                              )
+                            }
+                          }}
+                          style={{
+                            ...LINK_RESET,
+                            display: 'flex',
+                            paddingBlock: 2,
+                            paddingLeft: 36,
+                            paddingRight: 16,
+                            transition: 'all 0.1s',
+                          }}
                         >
-                          <Link
-                            to={`/${brandKey}/${item.path}#${sub.anchor}`}
-                            onClick={(e) => {
-                              onNavClick()
-                              const el = document.getElementById(sub.anchor)
-                              if (el) {
-                                e.preventDefault()
-                                el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                                window.history.replaceState(
-                                  null,
-                                  '',
-                                  `/${brandKey}/${item.path}#${sub.anchor}`,
-                                )
-                              }
+                          <span
+                            style={{
+                              fontSize: 12,
+                              fontFamily: 'var(--vlt-font-body)',
+                              color: isSubActive ? 'var(--vlt-color-12)' : 'var(--vlt-color-9)',
+                              fontWeight: isSubActive ? 500 : 400,
                             }}
-                            style={LINK_RESET}
                           >
-                            <TText
-                              fontSize={12}
-                              fontFamily="$body"
-                              color={isSubActive ? '$color' : '$colorSubtitle'}
-                              fontWeight={isSubActive ? '500' : '400'}
-                            >
-                              {sub.label}
-                            </TText>
-                          </Link>
-                        </TXStack>
+                            {sub.label}
+                          </span>
+                        </Link>
                       </li>
                     )
                   })}
@@ -296,7 +286,7 @@ function NavGroup({
           )
         })}
       </ul>
-    </TYStack>
+    </div>
   )
 }
 
@@ -315,7 +305,7 @@ export function BrandLayout() {
   const currentSection = location.pathname.split('/').slice(2).join('/') || ''
   const currentHash = location.hash
 
-  // Sync body background with current theme so areas outside the React root match
+  // Sync body background with current theme
   useEffect(() => {
     requestAnimationFrame(() => {
       const root = document.querySelector('.brand-layout') as HTMLElement | null
@@ -331,11 +321,10 @@ export function BrandLayout() {
     localStorage.setItem('stl-color-mode', theme)
   }, [theme])
 
-  // Scroll to anchor when hash changes (React Router doesn't do this natively)
+  // Scroll to anchor when hash changes
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.slice(1)
-      // Delay slightly to allow the page to render after route change
       const timer = setTimeout(() => {
         const el = document.getElementById(id)
         if (el) {
@@ -347,117 +336,113 @@ export function BrandLayout() {
   }, [location.hash, location.pathname])
 
   return (
-    <Provider config={activeBrand.config} defaultTheme={theme}>
-      <TYStack
+    <Provider defaultColorMode={theme}>
+      <VStack
         className="brand-layout"
-        minHeight="100vh"
-        backgroundColor="$background"
-        color="$color"
-        fontFamily="$body"
-        overflow="visible"
-        style={{ overflow: 'visible' }}
+        data-color-mode={theme}
+        style={{
+          minHeight: '100vh',
+          backgroundColor: 'var(--vlt-color-1)',
+          color: 'var(--vlt-color-12)',
+          fontFamily: 'var(--vlt-font-body)',
+          overflow: 'visible',
+        }}
       >
-        {/* ─── Header ─── */}
-        <TXStack
+        {/* Header */}
+        <HStack
           role="banner"
-          position="sticky"
-          top={0}
-          zIndex={40}
-          alignItems="center"
-          justifyContent="space-between"
-          paddingHorizontal="$3.5"
-          height="$8"
-          borderBottomWidth={1}
-          borderBottomColor="$borderColor"
-          backgroundColor="$background"
-          /* backdropFilter is CSS-specific, not in Tamagui's prop system */
-          style={{ backdropFilter: 'blur(8px)' }}
+          style={{
+            position: 'sticky',
+            top: 0,
+            zIndex: 40,
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingInline: 14,
+            height: 48,
+            borderBottom: '1px solid var(--vlt-color-5)',
+            backgroundColor: 'var(--vlt-color-1)',
+            backdropFilter: 'blur(8px)',
+          }}
         >
-          <TXStack alignItems="center" gap="$3.5">
+          <HStack style={{ alignItems: 'center', gap: 14 }}>
             {/* Mobile hamburger */}
-            <TView asChild display="none">
-              <button
-                type="button"
-                onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="mobile-hamburger"
-                aria-label="Toggle sidebar navigation"
-                style={BUTTON_RESET}
-              >
-                <TText fontSize={20} color="$color">
-                  ☰
-                </TText>
-              </button>
-            </TView>
+            <button
+              type="button"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="mobile-hamburger"
+              aria-label="Toggle sidebar navigation"
+              style={{ ...BUTTON_RESET, display: 'none' }}
+            >
+              <span style={{ fontSize: 20, color: 'var(--vlt-color-12)' }}>
+                ☰
+              </span>
+            </button>
             <Link to={`/${brandKey}`} style={LINK_RESET}>
-              <TText fontWeight="700" fontSize={15} letterSpacing={-0.3}>
+              <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: -0.3 }}>
                 @vlting/ui
-              </TText>
+              </span>
             </Link>
-          </TXStack>
-          <TXStack alignItems="center" gap="$0.75">
+          </HStack>
+          <HStack style={{ alignItems: 'center', gap: 6 }}>
             {/* Brand selector */}
             {Object.entries(brands).map(([key, b]) => {
               const isCurrent = brandKey === key
               return (
-                <TXStack
-                  asChild
-                  paddingVertical="$0.5"
-                  paddingHorizontal="$1.5"
-                  borderRadius="$2"
-                  borderWidth={1}
-                  borderColor={isCurrent ? '$color10' : '$borderColor'}
-                  backgroundColor={isCurrent ? '$color3' : 'transparent'}
-                  alignItems="center"
-                  style={{ transition: 'all 0.15s' }}
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => {
+                    window.location.href = `/${key}/${currentSection}`
+                  }}
+                  style={{
+                    ...BUTTON_RESET,
+                    display: 'flex',
+                    alignItems: 'center',
+                    paddingBlock: 4,
+                    paddingInline: 10,
+                    borderRadius: 6,
+                    border: `1px solid ${isCurrent ? 'var(--vlt-color-10)' : 'var(--vlt-color-5)'}`,
+                    backgroundColor: isCurrent ? 'var(--vlt-color-3)' : 'transparent',
+                    transition: 'all 0.15s',
+                  }}
                 >
-                  <button
-                    key={key}
-                    type="button"
-                    onClick={() => {
-                      window.location.href = `/${key}/${currentSection}`
+                  <span
+                    style={{
+                      fontWeight: isCurrent ? 500 : 400,
+                      fontSize: 13,
+                      fontFamily: 'var(--vlt-font-body)',
+                      color: isCurrent ? 'var(--vlt-color-12)' : 'var(--vlt-color-9)',
                     }}
-                    style={BUTTON_RESET}
                   >
-                    <TText
-                      fontWeight={isCurrent ? '500' : '400'}
-                      fontSize={13}
-                      fontFamily="$body"
-                      color={isCurrent ? '$color' : '$colorSubtitle'}
-                    >
-                      {b.label}
-                    </TText>
-                  </button>
-                </TXStack>
+                    {b.label}
+                  </span>
+                </button>
               )
             })}
             {/* Theme toggle */}
-            <TXStack
-              asChild
-              paddingVertical="$0.5"
-              paddingHorizontal="$1.5"
-              borderRadius="$2"
-              borderWidth={1}
-              borderColor="$borderColor"
-              alignItems="center"
-              style={{ transition: 'all 0.15s' }}
+            <button
+              type="button"
+              onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+              style={{
+                ...BUTTON_RESET,
+                display: 'flex',
+                alignItems: 'center',
+                paddingBlock: 4,
+                paddingInline: 10,
+                borderRadius: 6,
+                border: '1px solid var(--vlt-color-5)',
+                transition: 'all 0.15s',
+              }}
             >
-              <button
-                type="button"
-                onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
-                aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
-                style={BUTTON_RESET}
-              >
-                <TText fontSize={13} fontFamily="$body" color="$colorSubtitle">
-                  {theme === 'light' ? '🌙' : '☀️'}
-                </TText>
-              </button>
-            </TXStack>
-          </TXStack>
-        </TXStack>
+              <span style={{ fontSize: 13, fontFamily: 'var(--vlt-font-body)', color: 'var(--vlt-color-9)' }}>
+                {theme === 'light' ? '🌙' : '☀️'}
+              </span>
+            </button>
+          </HStack>
+        </HStack>
 
-        {/* ─── Body: Sidebar + Content ─── */}
-        {/* Plain div avoids React Native Web's overflow:hidden default on Tamagui Views,
-            which breaks position:sticky on the sidebar nav. */}
+        {/* Body: Sidebar + Content */}
         <div style={{ display: 'flex', flex: 1, alignItems: 'stretch' }}>
           {/* Sidebar */}
           <nav
@@ -466,10 +451,10 @@ export function BrandLayout() {
             style={{
               width: 240,
               flexShrink: 0,
-              borderRight: '1px solid var(--borderColor)',
+              borderRight: '1px solid var(--vlt-color-5)',
               paddingTop: 16,
               paddingBottom: 16,
-              backgroundColor: 'var(--background)',
+              backgroundColor: 'var(--vlt-color-1)',
               position: 'sticky',
               top: 76,
               alignSelf: 'flex-start',
@@ -512,12 +497,14 @@ export function BrandLayout() {
           </div>
         </div>
 
-        {/* ─── Responsive styles (embedded CSS for class-based media queries) ─── */}
+        {/* Responsive styles */}
         <style>{`
+          /* Reset p margin for @vlting/ui Text (renders as <p>) */
+          .brand-layout p { margin: 0; }
           /* Focus-visible ring for all interactive elements */
           .brand-layout button:focus-visible,
           .brand-layout a:focus-visible {
-            outline: 2px solid var(--color10);
+            outline: 2px solid var(--vlt-color-10);
             outline-offset: 1px;
             border-radius: 4px;
           }
@@ -536,7 +523,7 @@ export function BrandLayout() {
             }
           }
         `}</style>
-      </TYStack>
+      </VStack>
     </Provider>
   )
 }
