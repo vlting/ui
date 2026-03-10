@@ -33,10 +33,18 @@
       "import": "./packages/design-tokens/index.ts"
     },
     "./primitives": {
+      "react-native": {
+        "types": "./packages/stl-native/src/primitives/index.tsx",
+        "import": "./packages/stl-native/src/primitives/index.tsx"
+      },
       "types": "./packages/primitives/index.ts",
       "import": "./packages/primitives/index.ts"
     },
     "./components": {
+      "react-native": {
+        "types": "./packages/components/index.native.ts",
+        "import": "./packages/components/index.native.ts"
+      },
       "types": "./packages/components/index.ts",
       "import": "./packages/components/index.ts"
     },
