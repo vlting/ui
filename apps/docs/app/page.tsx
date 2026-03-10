@@ -15,7 +15,7 @@ export default function HomePage() {
           @vlting/ui
         </h1>
         <p className="mx-auto mb-8 max-w-2xl text-lg text-foreground-secondary">
-          Cross-platform design system built on Tamagui v2. Works on web and React Native.
+          Cross-platform design system built on @vlting/stl. Works on web and React Native.
           Brand theming, accessibility-first, and fully tree-shakeable.
         </p>
         <div className="flex items-center justify-center gap-4">

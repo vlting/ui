@@ -23,7 +23,7 @@
 
 ## 3. Anatomy
 
-- **Tooltip** — Single-component API wrapping Tamagui Tooltip internals (Trigger, Content, Arrow).
+- **Tooltip** — Single-component API wrapping STL Tooltip internals (Trigger, Content, Arrow).
 - **TooltipProvider** — Groups multiple tooltips with shared delay configuration.
 
 > **TypeScript is the source of truth for props.** See the exported types in `Tooltip.tsx` for the full typed API.
@@ -48,15 +48,15 @@
 
 ### Motion
 
-- Tamagui enter/exit animations (opacity, scale).
+- STL enter/exit animations (opacity, scale).
 - Should respect `prefers-reduced-motion`.
 
 ---
 
 ## 5. Accessibility
 
-- **Semantic element:** Tamagui Tooltip provides `role="tooltip"` semantics.
-- **ARIA attributes:** `role="tooltip"` on content; `aria-describedby` on trigger pointing to tooltip (Tamagui-managed).
+- **Semantic element:** STL Tooltip provides `role="tooltip"` semantics.
+- **ARIA attributes:** `role="tooltip"` on content; `aria-describedby` on trigger pointing to tooltip (STL-managed).
 - **Focus management:** No focus trapping; tooltip appears on trigger focus and disappears on blur.
 - **Screen reader announcements:** Tooltip content announced as description of the trigger.
 - **Important:** Tooltip must never contain focusable elements. Must be triggered by both hover AND focus.
@@ -66,7 +66,7 @@
 ## 6. Styling
 
 - **Design tokens used:** Content uses `$color` background with `$background` text (inverted for contrast). `$2` padding, `$2` border radius. Arrow matches content background.
-- **Responsive behavior:** Positioning adapts via Tamagui floating logic; `side` and `align` props control placement.
+- **Responsive behavior:** Positioning adapts via STL floating logic; `side` and `align` props control placement.
 - **Dark mode:** Token-based; inverted color scheme resolves automatically.
 
 ---

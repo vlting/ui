@@ -40,8 +40,8 @@ None — Skeleton is not focusable and not announced as interactive.
 
 ### Motion
 
-- Uses Tamagui `animation: 'lazy'` with an opacity pulse (0.3 → 0.5).
-- **Reduced motion:** The `lazy` animation in Tamagui respects `prefers-reduced-motion`. When reduced motion is preferred, the skeleton renders static without animation.
+- Uses STL `animation: 'lazy'` with an opacity pulse (0.3 → 0.5).
+- **Reduced motion:** The `lazy` animation in STL respects `prefers-reduced-motion`. When reduced motion is preferred, the skeleton renders static without animation.
 
 ---
 

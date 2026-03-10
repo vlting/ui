@@ -43,7 +43,7 @@ None.
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders `<span>` (Tamagui Text default on web) or React Native `Text`.
+- **Semantic element:** Renders `<span>` (STL Text default on web) or React Native `Text`.
 - **ARIA attributes:** None by default. When `tone` conveys status meaning (success, warning, danger), the consumer must ensure the meaning is communicated non-visually (WCAG 1.4.1 — not through color alone).
 - **Contrast:** All tone color tokens must meet WCAG AA (4.5:1 for sizes xs–md; 3:1 for large text at lg–xl). The `muted` tone (`$colorSubtitle`) must still meet minimum contrast.
 
@@ -56,7 +56,7 @@ None.
   - Size variants (`xs`–`xl`): mapped to `fontSize`/`lineHeight` token pairs. Default: `md`.
   - Tone variants: `neutral` (`$color`), `muted` (`$colorSubtitle`), `primary` (`$color10`), `success` (`$green10`), `warning` (`$orange10`), `danger` (`$red10`)
   - Weight variants: `light` (`'300'`), `normal` (`'400'`), `medium` (`'500'`), `semibold` (`'600'`), `bold` (`'700'`)
-- **Responsive behavior:** Supports all Tamagui responsive and media-query props.
+- **Responsive behavior:** Supports all STL responsive and media-query props.
 - **Dark mode:** All color tokens resolve to appropriate dark theme values automatically.
 
 ---

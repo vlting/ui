@@ -61,7 +61,7 @@ None.
   - `color: '$color'`
   - Levels 1–2: `fontWeight: '$5'`; Levels 3–6: `fontWeight: '$4'`
   - Font size and line height scale with level (level 1 = largest)
-- **Responsive behavior:** Supports Tamagui media-query props. Consumers can change `level` at different breakpoints.
+- **Responsive behavior:** Supports STL media-query props. Consumers can change `level` at different breakpoints.
 - **Dark mode:** Text color switches via `$color` token automatically.
 
 ---

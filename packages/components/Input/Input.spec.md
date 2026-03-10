@@ -28,7 +28,7 @@
 Input is a function component that composes styled sub-components into a vertical layout (`YStack`). Sub-components are also exposed as static properties for custom composition.
 
 - **Input (root function)** — Composes Label, Frame (with optional leading/trailing slots and Field), and Helper into a vertical stack. Handles controlled/uncontrolled value, error/helper text logic, and ARIA wiring.
-- **Input.Frame** — A `styled(TamaguiInput)` that extends `@tamagui/input` with `error` and `fieldSize` variants. Provides `focusVisibleStyle` with a 2px outline ring (`$color10`). The `error` variant applies `$red10` border color. The `fieldSize` variant controls border radius and padding per size.
+- **Input.Frame** — A `styled(STLInput)` that extends `STL` with `error` and `fieldSize` variants. Provides `focusVisibleStyle` with a 2px outline ring (`$color10`). The `error` variant applies `$red10` border color. The `fieldSize` variant controls border radius and padding per size.
 - **Input.Label** — A `styled(Text)` rendered inside a native `<label>` element (with `htmlFor` linking to the input's `useId()`). Uses `$body` font family, `$3` weight, `$1` bottom margin, and size-responsive font sizes.
 - **Input.Helper** — A `styled(Text)` for helper or error text below the input. Has a `tone` variant: `neutral` uses `$colorSubtitle`, `error` uses `$red10`. Renders only when display content is available.
 
@@ -47,13 +47,13 @@ Helper text display logic: if `error` is `true` and `errorMessage` is provided, 
 - **Idle** — Field shows theme-default border and background. Field is editable.
 - **Focus** — Field shows `focusVisibleStyle`: 2px solid outline with `$color10` color and 1px offset.
 - **Error** — Field border changes to `$red10` (via `error` variant). Helper text displays `errorMessage` in `$red10` color. `aria-invalid` is set on the field.
-- **Disabled** — Passed as `disabled` prop to the underlying `@tamagui/input`, which handles native disabled behavior. No interaction possible.
-- **Hover** — Handled by the underlying Tamagui Input component's built-in hover styles.
+- **Disabled** — Passed as `disabled` prop to the underlying `STL`, which handles native disabled behavior. No interaction possible.
+- **Hover** — Handled by the underlying STL Input component's built-in hover styles.
 - **Loading** — Not applicable. Input does not have a loading state.
 
 ### Keyboard Interaction
 
-- Standard native input keyboard behavior. The field renders as an HTML `<input>` element (via `@tamagui/input`), inheriting all platform keyboard interactions (typing, selection, copy/paste).
+- Standard native input keyboard behavior. The field renders as an HTML `<input>` element (via `STL`), inheriting all platform keyboard interactions (typing, selection, copy/paste).
 
 ### Motion
 
@@ -63,7 +63,7 @@ Helper text display logic: if `error` is `true` and `errorMessage` is provided, 
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders a native `<input>` HTML element via `@tamagui/input`. A native `<label>` element is rendered with `htmlFor` pointing to the input's auto-generated ID (`useId()`).
+- **Semantic element:** Renders a native `<input>` HTML element via `STL`. A native `<label>` element is rendered with `htmlFor` pointing to the input's auto-generated ID (`useId()`).
 - **ARIA attributes:**
   - `aria-invalid` is set on the field when `error` is `true`; omitted otherwise.
   - `aria-describedby` links the field to the helper text element when helper text is displayed (via auto-generated ID).
@@ -79,10 +79,10 @@ Helper text display logic: if `error` is `true` and `errorMessage` is provided, 
 - **Design tokens used:**
   - Colors: `$borderColor`, `$color10` (focus outline), `$red10` (error), `$color`, `$colorSubtitle` (helper text), `$background`.
   - Font: `$body` family throughout, `$3` weight for label.
-  - Sizes map to Tamagui size tokens: `sm`=`$3`, `md`=`$4`, `lg`=`$5`.
+  - Sizes map to STL size tokens: `sm`=`$3`, `md`=`$4`, `lg`=`$5`.
   - Field size variant controls border radius (`$3`/`$4`/`$5`) and padding per size.
   - Spacing: `$1` margin for label-to-field and field-to-helper gaps, `$2` gap between slots.
-- **Responsive behavior:** Accepts Tamagui media query props on sub-components. The input fills its parent width by default (field uses `flex: 1`). Consumers control responsive layout via parent containers.
+- **Responsive behavior:** Accepts STL media query props on sub-components. The input fills its parent width by default (field uses `flex: 1`). Consumers control responsive layout via parent containers.
 - **Reduced motion:** Not applicable -- no animations are used.
 - **Dark mode:** All visual tokens must resolve correctly in both light and dark themes. The input border, background, text, placeholder, error, and helper colors must remain legible in both modes. No hardcoded values are used.
 

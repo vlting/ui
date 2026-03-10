@@ -19,7 +19,7 @@
 
 ## 3. Anatomy
 
-Thin wrapper around Tamagui's `Portal` component. No additional elements, styling, or behavior. Accepts `children: React.ReactNode` only.
+Thin wrapper around STL's `Portal` component. No additional elements, styling, or behavior. Accepts `children: React.ReactNode` only.
 
 > **TypeScript is the source of truth for props.** See `Portal.tsx` for the full typed API. Do not duplicate prop tables here.
 

@@ -23,9 +23,9 @@
 
 ## 3. Anatomy
 
-Card is a compound component created via `withStaticProperties`. It extends `@tamagui/card` `CardFrame` with custom variants. Sub-components stack vertically inside the root:
+Card is a compound component created via `withStaticProperties`. It extends `STL` `CardFrame` with custom variants. Sub-components stack vertically inside the root:
 
-- **Card (root)** — A styled `TamaguiCardFrame` with border, radius, overflow hidden, and variants for `size`, `elevated`, and `interactive`. When `interactive` is `true`, the root gains `cursor: pointer`, `tabIndex: 0`, `role: "button"`, hover/press/focus styles, and `animation: 'fast'`.
+- **Card (root)** — A styled `STLCardFrame` with border, radius, overflow hidden, and variants for `size`, `elevated`, and `interactive`. When `interactive` is `true`, the root gains `cursor: pointer`, `tabIndex: 0`, `role: "button"`, hover/press/focus styles, and `animation: 'fast'`.
 - **Card.Header** — A `styled(YStack)` for top-aligned content. Provides horizontal padding, top padding, and a gap between children.
 - **Card.Content** — A `styled(YStack)` for the main body. Uses `flex: 1` to fill available space and clips overflow.
 - **Card.Footer** — A `styled(YStack)` for bottom-aligned content. Provides horizontal and bottom padding.
@@ -40,7 +40,7 @@ Card is a compound component created via `withStaticProperties`. It extends `@ta
 
 ### States
 
-- **Idle** — Renders with `$borderColor` border (1px), `borderRadius: '$4'`, and `overflow: 'hidden'`. Background comes from the Tamagui Card theme defaults.
+- **Idle** — Renders with `$borderColor` border (1px), `borderRadius: '$4'`, and `overflow: 'hidden'`. Background comes from the STL Card theme defaults.
 - **Hover** (interactive only) — Background shifts to `$backgroundHover`.
 - **Active/Press** (interactive only) — Background shifts to `$backgroundPress` with `scale: 0.99`, animated with the `fast` token.
 - **Focus** (interactive only) — Visible 2px solid outline with `$outlineColor` and 2px offset.
@@ -61,7 +61,7 @@ Card is a compound component created via `withStaticProperties`. It extends `@ta
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders as a Tamagui Card frame (div-based). When `interactive` is `true`, `role="button"` and `tabIndex={0}` are set directly via the variant definition.
+- **Semantic element:** Renders as a STL Card frame (div-based). When `interactive` is `true`, `role="button"` and `tabIndex={0}` are set directly via the variant definition.
 - **ARIA attributes:** None by default. Card is a structural container, not a widget. When `interactive` is `true`, `role="button"` is automatically applied by the variant.
 - **Focus management:** Not focusable by default. When `interactive` is `true`, the focus style provides a visible outline ring.
 - **Screen reader announcements:** When interactive, announces as a button.
@@ -77,7 +77,7 @@ Card is a compound component created via `withStaticProperties`. It extends `@ta
   - Spacing: `$4` horizontal padding in Header/Content/Footer, `$2`-`$4` vertical padding, `$1` gap in Header.
   - Radius: `$4` on the root frame.
   - Size variant controls outer padding: `sm` = `$2`, `md`/`lg` = `$0`.
-- **Responsive behavior:** Accepts Tamagui media query props. The card does not enforce its own width; it fills its parent container. Consumers control responsive width and layout.
+- **Responsive behavior:** Accepts STL media query props. The card does not enforce its own width; it fills its parent container. Consumers control responsive width and layout.
 - **Reduced motion:** Interactive press scale animation must degrade gracefully when `prefers-reduced-motion: reduce` is active.
 - **Dark mode:** All visual tokens must resolve correctly in both light and dark themes. The card border, background, and text must remain legible and maintain contrast in both modes. No hardcoded values are used.
 
@@ -102,7 +102,7 @@ Card is a compound component created via `withStaticProperties`. It extends `@ta
 - Changing the variant value sets (e.g., removing `'lg'` from `size`).
 - Changing default variant values (currently `size: 'md'`).
 - Removing `overflow: 'hidden'` from the root frame.
-- Changing the root from `TamaguiCardFrame`-based to a different layout primitive.
+- Changing the root from `STLCardFrame`-based to a different layout primitive.
 - Changing the `CardProps` export type.
 
 ---

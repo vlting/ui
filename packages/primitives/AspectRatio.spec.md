@@ -19,7 +19,7 @@
 
 ## 3. Anatomy
 
-Plain React function component (not a Tamagui styled component). Renders two native `<div>` elements:
+Plain React function component (not a STL styled component). Renders two native `<div>` elements:
 - Outer div: `position: relative`, `width: 100%`, `paddingBottom` calculated from ratio.
 - Inner div: `position: absolute`, inset 0, contains children.
 
@@ -56,7 +56,7 @@ None.
 
 ## 6. Styling
 
-- **Design tokens used:** None — uses inline CSS styles, not Tamagui tokens. This is intentional: the padding-bottom technique requires percentage values that don't map to the token scale.
+- **Design tokens used:** None — uses inline CSS styles, not STL tokens. This is intentional: the padding-bottom technique requires percentage values that don't map to the token scale.
 - **Responsive behavior:** Width follows container (100%). Aspect ratio is constant unless `ratio` prop changes.
 - **Dark mode:** Not applicable — no visual appearance beyond children.
 - **Cross-platform note:** Uses native HTML `<div>` and CSS — web-only. A React Native alternative would need a different implementation.
@@ -75,7 +75,7 @@ None.
 
 - Changing the default ratio from 1.
 - Changing the rendered element structure (two-div technique).
-- Adding Tamagui styled system dependency (would change prop API).
+- Adding STL styled system dependency (would change prop API).
 
 ---
 

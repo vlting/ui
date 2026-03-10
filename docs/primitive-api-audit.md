@@ -21,10 +21,10 @@ All 7 primitives (Badge, Kbd, Label, Separator, Skeleton, Spinner, AspectRatio) 
 | `variant` prop | `default`, `secondary`, `destructive`, `outline` | `default`, `solid`, `secondary`, `destructive`, `outline`, `subtle` | Enhanced |
 | `tone` prop | Not available | `neutral`, `primary`, `success`, `warning`, `danger` | Novel |
 | `size` prop | Not available (use `className`) | `sm`, `md`, `lg` | Enhanced |
-| `className` | Supported | Not available (use Tamagui style props) | Breaking |
+| `className` | Supported | Not available (use STL style props) | Breaking |
 | Cross-platform | Web only | Web + React Native | Enhanced |
 
-**Implementation:** `styled(Text, {...})` with Tamagui v2 RC pattern. Extends shadcn with a semantic `tone` system for color variants and built-in size variants.
+**Implementation:** `styled(Text, {...})` with STL pattern. Extends shadcn with a semantic `tone` system for color variants and built-in size variants.
 
 **Migration:**
 ```diff
@@ -55,10 +55,10 @@ All 7 primitives (Badge, Kbd, Label, Separator, Skeleton, Spinner, AspectRatio) 
 | `htmlFor` prop | Supported | Supported | Parity |
 | `size` prop | Not available (use `className`) | `sm`, `md`, `lg` | Enhanced |
 | `required` indicator | Not available | `required` prop renders red asterisk | Enhanced |
-| `className` | Supported | Not available (use Tamagui style props) | Breaking |
-| Cross-platform | Web only (Radix Label) | Web + React Native (`@tamagui/label`) | Enhanced |
+| `className` | Supported | Not available (use STL style props) | Breaking |
+| Cross-platform | Web only (Radix Label) | Web + React Native (STL label primitive) | Enhanced |
 
-**Implementation:** Function component wrapping `@tamagui/label`. Built-in `required` prop renders a styled red asterisk after the label text — no manual `<span className="text-red-500">*</span>` needed.
+**Implementation:** Function component wrapping STL label primitive. Built-in `required` prop renders a styled red asterisk after the label text — no manual `<span className="text-red-500">*</span>` needed.
 
 **Migration:**
 ```diff
@@ -75,7 +75,7 @@ All 7 primitives (Badge, Kbd, Label, Separator, Skeleton, Spinner, AspectRatio) 
 | `orientation` prop | `horizontal`, `vertical` | `horizontal`, `vertical` | Parity |
 | `decorative` prop | Supported | Supported (sets `accessibilityRole: 'none'`) | Parity |
 | `asChild` prop | Supported (Radix) | Not available | Breaking |
-| `className` | Supported | Not available (use Tamagui style props) | Breaking |
+| `className` | Supported | Not available (use STL style props) | Breaking |
 | `aria-orientation` | Manual | Automatic via variants | Enhanced |
 | `role="separator"` | Radix-managed | Built-in | Parity |
 | Cross-platform | Web only (Radix) | Web + React Native (`styled(View)`) | Enhanced |
@@ -96,7 +96,7 @@ All 7 primitives (Badge, Kbd, Label, Separator, Skeleton, Spinner, AspectRatio) 
 | Rounded | `className="rounded-full"` | `circle` variant prop | Enhanced |
 | Animation | None (static `bg-muted`) | Built-in pulse (`animation: 'lazy'`, opacity 0.3→0.5) | Enhanced |
 | `aria-hidden` | Manual | Automatic | Enhanced |
-| `className` | Supported | Not available (use Tamagui style props) | Breaking |
+| `className` | Supported | Not available (use STL style props) | Breaking |
 | Cross-platform | Web only | Web + React Native | Enhanced |
 
 **Implementation:** `styled(View, {...})` with built-in `lazy` animation. The `circle` boolean variant applies `borderRadius: '$full'`, replacing the need for `className="rounded-full"`.
@@ -137,9 +137,9 @@ All 7 primitives (Badge, Kbd, Label, Separator, Skeleton, Spinner, AspectRatio) 
 | `asChild` prop | Supported (Radix) | Not available | Breaking |
 | `className` | Supported | Not available (use `style` prop) | Breaking |
 | Implementation | Radix AspectRatio | Pure CSS padding-bottom technique | Different |
-| Cross-platform | Web only (Radix) | Web (CSS-based, no Tamagui) | Parity |
+| Cross-platform | Web only (Radix) | Web (CSS-based, no STL dependency) | Parity |
 
-**Implementation:** Function component using the CSS padding-bottom technique: outer wrapper with `paddingBottom: (100 / ratio)%` and inner absolute-positioned content div. No Tamagui dependency — pure CSS for maximum compatibility.
+**Implementation:** Function component using the CSS padding-bottom technique: outer wrapper with `paddingBottom: (100 / ratio)%` and inner absolute-positioned content div. No STL dependency — pure CSS for maximum compatibility.
 
 **Migration:**
 ```diff
@@ -153,4 +153,4 @@ All 7 primitives (Badge, Kbd, Label, Separator, Skeleton, Spinner, AspectRatio) 
 
 ## Conclusion
 
-The @vlting/ui primitive layer provides full API coverage for all shadcn primitives. The primary breaking change across all primitives is the shift from `className`-based styling to Tamagui style props, which enables cross-platform support. Two novel primitives (Kbd, Spinner) fill gaps that shadcn does not address. Three primitives (Badge, Label, Skeleton) extend beyond shadcn with additional variants and built-in features.
+The @vlting/ui primitive layer provides full API coverage for all shadcn primitives. The primary breaking change across all primitives is the shift from `className`-based styling to STL style props, which enables cross-platform support. Two novel primitives (Kbd, Spinner) fill gaps that shadcn does not address. Three primitives (Badge, Label, Skeleton) extend beyond shadcn with additional variants and built-in features.

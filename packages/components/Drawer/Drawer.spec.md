@@ -19,7 +19,7 @@
 
 ## 3. Anatomy
 
-Compound component wrapping `@tamagui/dialog` with directional positioning:
+Compound component wrapping `STL` with directional positioning:
 - `Drawer` (Root) — state management with direction context. Props: `direction` (`'bottom'`/`'top'`/`'left'`/`'right'`), `open`, `onOpenChange`.
 - `Drawer.Trigger` — opens the drawer.
 - `Drawer.Content` — slide-in panel with max dimensions (90vw/90vh), direction-specific border radius.
@@ -55,7 +55,7 @@ Compound component wrapping `@tamagui/dialog` with directional positioning:
 
 ## 5. Accessibility
 
-- **Semantic element:** Built on Tamagui Dialog — provides `role="dialog"`.
+- **Semantic element:** Built on STL Dialog — provides `role="dialog"`.
 - **ARIA attributes:** `aria-modal="true"`, `aria-labelledby` (Title), `aria-describedby` (Description).
 - **Focus management:** Focus trapped within drawer. Returns to trigger on close.
 

@@ -46,7 +46,7 @@ const registry: ComponentEntry[] = [
   <Accordion.Item value="item-3">
     <Accordion.Trigger>Is it animated?</Accordion.Trigger>
     <Accordion.Content>
-      Yes. Smooth expand/collapse with Tamagui animations.
+      Yes. Smooth expand/collapse with STL animations.
     </Accordion.Content>
   </Accordion.Item>
 </Accordion.Root>`,
@@ -845,7 +845,7 @@ const registry: ComponentEntry[] = [
   </HoverCard.Trigger>
   <HoverCard.Content>
     <p>Open-source cross-platform design system.</p>
-    <p>Built with Tamagui.</p>
+    <p>Built with @vlting/stl.</p>
   </HoverCard.Content>
 </HoverCard.Root>`,
       },
