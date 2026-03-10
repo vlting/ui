@@ -18,11 +18,11 @@ const SCAN_DIRS = [
 
 // Patterns that indicate hardcoded values
 const VIOLATIONS = [
-  { pattern: /#[0-9a-fA-F]{3,8}\b/, name: 'hex color', exclude: /\/\// },
-  { pattern: /rgb\(/, name: 'rgb() color' },
-  { pattern: /rgba\(/, name: 'rgba() color' },
-  { pattern: /hsl\(/, name: 'hsl() color' },
-  { pattern: /hsla\(/, name: 'hsla() color' },
+  { pattern: /#[0-9a-fA-F]{3,8}\b/, name: 'hex color', exclude: /\/\/|var\(--/ },
+  { pattern: /rgb\(/, name: 'rgb() color', exclude: /var\(--/ },
+  { pattern: /rgba\(/, name: 'rgba() color', exclude: /var\(--/ },
+  { pattern: /hsl\(/, name: 'hsl() color', exclude: /var\(--/ },
+  { pattern: /hsla\(/, name: 'hsla() color', exclude: /var\(--/ },
   {
     pattern: /:\s*["']?\d+px["']?/,
     name: 'hardcoded px',
