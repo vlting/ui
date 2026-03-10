@@ -7,7 +7,6 @@ import { Drawer } from '@vlting/ui/components'
 import { Popover } from '@vlting/ui/components'
 import { Tooltip } from '@vlting/ui/components'
 import { HoverCard } from '@vlting/ui/components'
-import { Toast } from '@vlting/ui/components'
 import { Collapsible } from '@vlting/ui/components'
 import { Button } from '@vlting/ui/components'
 
@@ -25,7 +24,7 @@ export function OverlaysPage() {
       <Section title="Dialog">
         <DemoCard label="Modal dialog">
           <Button onClick={() => setDialogOpen(true)}>Open Dialog</Button>
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+          <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
             <Dialog.Content>
               <Dialog.Header>
                 <Dialog.Title>Edit Profile</Dialog.Title>
@@ -39,51 +38,48 @@ export function OverlaysPage() {
                 <Button onClick={() => setDialogOpen(false)}>Save</Button>
               </Dialog.Footer>
             </Dialog.Content>
-          </Dialog>
+          </Dialog.Root>
         </DemoCard>
       </Section>
 
       <Section title="AlertDialog">
         <DemoCard label="Confirmation dialog">
           <Button variant="destructive" onClick={() => setAlertOpen(true)}>Delete Item</Button>
-          <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>
+          <AlertDialog.Root open={alertOpen} onOpenChange={setAlertOpen}>
             <AlertDialog.Content>
-              <AlertDialog.Header>
-                <AlertDialog.Title>Are you sure?</AlertDialog.Title>
-                <AlertDialog.Description>
-                  This action cannot be undone. This will permanently delete the item.
-                </AlertDialog.Description>
-              </AlertDialog.Header>
+              <AlertDialog.Title>Are you sure?</AlertDialog.Title>
+              <AlertDialog.Description>
+                This action cannot be undone. This will permanently delete the item.
+              </AlertDialog.Description>
               <AlertDialog.Footer>
                 <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-                <AlertDialog.Action onClick={() => setAlertOpen(false)}>Delete</AlertDialog.Action>
+                <AlertDialog.Action>Delete</AlertDialog.Action>
               </AlertDialog.Footer>
             </AlertDialog.Content>
-          </AlertDialog>
+          </AlertDialog.Root>
         </DemoCard>
       </Section>
 
       <Section title="Sheet">
         <DemoCard label="Side panel">
           <Button onClick={() => setSheetOpen(true)}>Open Sheet</Button>
-          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-            <Sheet.Content side="right">
-              <Sheet.Header>
-                <Sheet.Title>Sheet Title</Sheet.Title>
-                <Sheet.Description>Sheet description goes here.</Sheet.Description>
-              </Sheet.Header>
+          <Sheet.Root open={sheetOpen} onOpenChange={setSheetOpen}>
+            <Sheet.Frame>
+              <Sheet.Handle />
               <div style={{ padding: 16 }}>
+                <h3 style={{ margin: '0 0 8px' }}>Sheet Title</h3>
+                <p style={{ color: '#666', margin: '0 0 16px' }}>Sheet description goes here.</p>
                 <p>Sheet body content. This slides in from the side.</p>
               </div>
-            </Sheet.Content>
-          </Sheet>
+            </Sheet.Frame>
+          </Sheet.Root>
         </DemoCard>
       </Section>
 
       <Section title="Drawer">
         <DemoCard label="Bottom drawer">
           <Button onClick={() => setDrawerOpen(true)}>Open Drawer</Button>
-          <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+          <Drawer.Root open={drawerOpen} onOpenChange={setDrawerOpen}>
             <Drawer.Content>
               <Drawer.Header>
                 <Drawer.Title>Drawer Title</Drawer.Title>
@@ -93,14 +89,14 @@ export function OverlaysPage() {
                 <p>Drawer content that slides up from the bottom.</p>
               </div>
             </Drawer.Content>
-          </Drawer>
+          </Drawer.Root>
         </DemoCard>
       </Section>
 
       <Section title="Popover">
         <DemoCard label="Popover panel">
-          <Popover>
-            <Popover.Trigger asChild>
+          <Popover.Root>
+            <Popover.Trigger>
               <Button variant="outline">Open Popover</Button>
             </Popover.Trigger>
             <Popover.Content>
@@ -109,18 +105,15 @@ export function OverlaysPage() {
                 <p style={{ fontSize: 14, color: '#666' }}>This is a popover with custom content.</p>
               </div>
             </Popover.Content>
-          </Popover>
+          </Popover.Root>
         </DemoCard>
       </Section>
 
       <Section title="Tooltip">
         <DemoCard label="Tooltip on hover">
           <DemoRow>
-            <Tooltip>
-              <Tooltip.Trigger asChild>
-                <Button variant="outline">Hover me</Button>
-              </Tooltip.Trigger>
-              <Tooltip.Content>This is a tooltip</Tooltip.Content>
+            <Tooltip content="This is a tooltip">
+              <Button variant="outline">Hover me</Button>
             </Tooltip>
           </DemoRow>
         </DemoCard>
@@ -128,8 +121,8 @@ export function OverlaysPage() {
 
       <Section title="HoverCard">
         <DemoCard label="Rich hover preview">
-          <HoverCard>
-            <HoverCard.Trigger asChild>
+          <HoverCard.Root>
+            <HoverCard.Trigger>
               <span style={{ textDecoration: 'underline', cursor: 'pointer' }}>@vlting</span>
             </HoverCard.Trigger>
             <HoverCard.Content>
@@ -138,14 +131,14 @@ export function OverlaysPage() {
                 <p style={{ fontSize: 14, color: '#666' }}>Open-source design system for React & React Native.</p>
               </div>
             </HoverCard.Content>
-          </HoverCard>
+          </HoverCard.Root>
         </DemoCard>
       </Section>
 
       <Section title="Collapsible">
         <DemoCard label="Expandable section">
-          <Collapsible open={collapsibleOpen} onOpenChange={setCollapsibleOpen}>
-            <Collapsible.Trigger asChild>
+          <Collapsible.Root open={collapsibleOpen} onOpenChange={setCollapsibleOpen}>
+            <Collapsible.Trigger>
               <Button variant="outline">
                 {collapsibleOpen ? 'Hide' : 'Show'} Content
               </Button>
@@ -155,16 +148,16 @@ export function OverlaysPage() {
                 <p>This content is collapsible. Click the button to toggle.</p>
               </div>
             </Collapsible.Content>
-          </Collapsible>
+          </Collapsible.Root>
         </DemoCard>
       </Section>
 
       <Section title="Toast">
         <DemoCard label="Toast notifications">
           <DemoRow>
-            <Button onClick={() => Toast.show?.({ title: 'Success!', description: 'Your changes have been saved.' })}>
-              Show Toast
-            </Button>
+            <p style={{ fontSize: 14, color: '#666' }}>
+              Use useToastController() hook to trigger toasts programmatically.
+            </p>
           </DemoRow>
         </DemoCard>
       </Section>
