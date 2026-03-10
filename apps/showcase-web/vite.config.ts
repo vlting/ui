@@ -16,6 +16,7 @@ export default defineConfig({
     alias: [
       { find: 'react-native-svg', replacement: 'react-native-svg-web' },
       { find: /^react-native$/, replacement: 'react-native-web' },
+      { find: '@vlting/ui/design-tokens', replacement: path.resolve(__dirname, '../../packages/design-tokens') },
       { find: '@vlting/ui/primitives', replacement: path.resolve(__dirname, '../../packages/primitives') },
       { find: '@vlting/ui/components', replacement: path.resolve(__dirname, '../../packages/components') },
       { find: '@vlting/ui/hooks', replacement: path.resolve(__dirname, '../../packages/hooks') },
@@ -23,10 +24,9 @@ export default defineConfig({
       { find: '@vlting/ui/icons', replacement: path.resolve(__dirname, '../../packages/icons') },
       { find: '@vlting/ui/utils', replacement: path.resolve(__dirname, '../../packages/utils') },
       { find: '@vlting/ui', replacement: path.resolve(__dirname, '../../src') },
-      { find: '@vlting/stl', replacement: path.resolve(__dirname, '../../packages/stl/src') },
       { find: '@vlting/stl-react', replacement: path.resolve(__dirname, '../../packages/stl-react/src') },
       { find: '@vlting/stl-headless', replacement: path.resolve(__dirname, '../../packages/stl-headless/src') },
-      { find: '@vlting/ui/design-tokens', replacement: path.resolve(__dirname, '../../packages/design-tokens') },
+      { find: '@vlting/stl', replacement: path.resolve(__dirname, '../../packages/stl/src') },
     ],
   },
 })
