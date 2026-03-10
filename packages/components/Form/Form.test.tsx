@@ -38,7 +38,7 @@ describe('Form', () => {
   })
 
   it.skip('error message has role="alert"', () => {
-    // TODO: Tamagui role rendering in JSDOM
+    // TODO: styled component role rendering in JSDOM
     render(
       <Form.Root onSubmit={() => {}}>
         <Form.Field error>

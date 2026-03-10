@@ -2,10 +2,10 @@ import type React from 'react'
 
 /**
  * Table component using native HTML elements for proper table display context.
- * Tamagui's styled(View, { tag: 'table' }) retains display:flex which breaks
- * table layout. Native elements get correct display:table/table-row/etc.
+ * Uses native HTML elements for proper table display context.
+ * styled(View, { tag: 'table' }) retains display:flex which breaks table layout.
  *
- * Styling uses CSS custom properties that map to Tamagui theme tokens
+ * Styling uses CSS custom properties that map to design tokens
  * via inline styles, keeping everything token-based.
  */
 
