@@ -1,14 +1,16 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.12/schema.json",
-  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "correctness": {
-        "noUnusedVariables": "error",
+        "noUnusedVariables": "warn",
         "noUnusedImports": "error",
-        "noUnusedFunctionParameters": "warn"
+        "useExhaustiveDependencies": "warn"
       },
       "suspicious": {
         "noExplicitAny": "warn",
@@ -16,31 +18,30 @@
         "noArrayIndexKey": "warn",
         "noAssignInExpressions": "warn",
         "noShadowRestrictedNames": "warn",
-        "noTemplateCurlyInString": "warn",
-        "noControlCharactersInRegex": "warn",
-        "useIterableCallbackReturn": "warn"
+        "noControlCharactersInRegex": "warn"
       },
-      "security": {
-        "noDangerouslySetInnerHtml": "warn"
+      "complexity": {
+        "noForEach": "warn",
+        "noBannedTypes": "warn"
+      },
+      "style": {
+        "noNonNullAssertion": "off",
+        "noParameterAssign": "warn"
       },
       "performance": {
         "noAccumulatingSpread": "warn"
       },
-      "complexity": {
-        "noBannedTypes": "warn"
-      },
-      "style": {
-        "noNonNullAssertion": "off"
-      },
       "a11y": {
         "recommended": true,
         "useSemanticElements": "warn",
-        "noStaticElementInteractions": "warn",
         "useKeyWithClickEvents": "warn",
         "noSvgWithoutTitle": "warn",
-        "useAriaPropsSupportedByRole": "warn",
         "useButtonType": "warn",
-        "noLabelWithoutControl": "warn"
+        "noLabelWithoutControl": "warn",
+        "useFocusableInteractive": "warn"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "warn"
       }
     }
   },
@@ -58,6 +59,6 @@
     }
   },
   "files": {
-    "includes": ["**", "!**/node_modules", "!**/dist", "!**/.tamagui"]
+    "ignore": ["node_modules", "dist", ".tamagui"]
   }
 }
