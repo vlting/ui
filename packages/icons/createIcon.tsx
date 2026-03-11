@@ -1,4 +1,4 @@
-import { memo, type ComponentType } from 'react'
+import { type ComponentType, memo } from 'react'
 import Svg, { Path } from 'react-native-svg'
 
 /** Icon component type — compatible with lucide-icons and the Icon primitive */
@@ -13,7 +13,10 @@ export function createIcon(pathData: string, displayName: string): IconFC {
     ({
       size = 24,
       color = 'currentColor',
-    }: { size?: number | string; color?: string }) => (
+    }: {
+      size?: number | string
+      color?: string
+    }) => (
       <Svg width={size} height={size} viewBox="0 0 24 24" fill={color}>
         <Path d={pathData} />
       </Svg>

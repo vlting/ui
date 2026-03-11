@@ -4,7 +4,7 @@ import { Card } from './Card'
 describe('Card', () => {
   it('renders children', () => {
     render(
-      <Card testID="card">
+      <Card data-testid="card">
         <div>Content</div>
       </Card>,
     )
@@ -14,7 +14,7 @@ describe('Card', () => {
   it('renders Card.Header', () => {
     render(
       <Card>
-        <Card.Header testID="header">Header</Card.Header>
+        <Card.Header data-testid="header">Header</Card.Header>
       </Card>,
     )
     expect(screen.getByTestId('header')).toBeTruthy()
@@ -23,7 +23,7 @@ describe('Card', () => {
   it('renders Card.Content', () => {
     render(
       <Card>
-        <Card.Content testID="content">Body</Card.Content>
+        <Card.Content data-testid="content">Body</Card.Content>
       </Card>,
     )
     expect(screen.getByTestId('content')).toBeTruthy()
@@ -32,7 +32,7 @@ describe('Card', () => {
   it('renders Card.Footer', () => {
     render(
       <Card>
-        <Card.Footer testID="footer">Footer</Card.Footer>
+        <Card.Footer data-testid="footer">Footer</Card.Footer>
       </Card>,
     )
     expect(screen.getByTestId('footer')).toBeTruthy()
@@ -64,7 +64,7 @@ describe('Card', () => {
     const sizes = ['sm', 'md', 'lg'] as const
     for (const size of sizes) {
       const { unmount } = render(
-        <Card size={size} testID="card">
+        <Card size={size} data-testid="card">
           Card
         </Card>,
       )
@@ -75,7 +75,7 @@ describe('Card', () => {
 
   it('renders with interactive variant', () => {
     render(
-      <Card interactive testID="card">
+      <Card interactive data-testid="card">
         Click
       </Card>,
     )
@@ -84,7 +84,7 @@ describe('Card', () => {
 
   it('renders with elevated variant', () => {
     render(
-      <Card elevated testID="card">
+      <Card elevated data-testid="card">
         Shadow
       </Card>,
     )

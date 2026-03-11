@@ -2,12 +2,12 @@
 
 import {
   Component,
+  type ComponentType,
   lazy,
+  type ReactNode,
   Suspense,
   useEffect,
   useState,
-  type ComponentType,
-  type ReactNode,
 } from 'react'
 import type { NavGroup } from '../../../packages/blocks/sidebar/_shared'
 
@@ -29,15 +29,36 @@ function lazyBlock(
 // Slug-to-component mapping. Each block is lazily loaded and code-split.
 const blockComponents: Record<string, React.LazyExoticComponent<AnyFC>> = {
   auth: lazyBlock(() => import('../../../packages/blocks/auth/AuthBlock'), 'AuthBlock'),
-  sidebar: lazyBlock(() => import('../../../packages/blocks/sidebar/SidebarBlock'), 'SidebarBlock'),
-  dashboard: lazyBlock(() => import('../../../packages/blocks/dashboard/DashboardBlock'), 'DashboardBlock'),
-  'data-table': lazyBlock(() => import('../../../packages/blocks/data-table/DataTableBlock'), 'DataTableBlock'),
-  settings: lazyBlock(() => import('../../../packages/blocks/settings/SettingsBlock'), 'SettingsBlock'),
-  pricing: lazyBlock(() => import('../../../packages/blocks/pricing/PricingBlock'), 'PricingBlock'),
+  sidebar: lazyBlock(
+    () => import('../../../packages/blocks/sidebar/SidebarBlock'),
+    'SidebarBlock',
+  ),
+  dashboard: lazyBlock(
+    () => import('../../../packages/blocks/dashboard/DashboardBlock'),
+    'DashboardBlock',
+  ),
+  'data-table': lazyBlock(
+    () => import('../../../packages/blocks/data-table/DataTableBlock'),
+    'DataTableBlock',
+  ),
+  settings: lazyBlock(
+    () => import('../../../packages/blocks/settings/SettingsBlock'),
+    'SettingsBlock',
+  ),
+  pricing: lazyBlock(
+    () => import('../../../packages/blocks/pricing/PricingBlock'),
+    'PricingBlock',
+  ),
   hero: lazyBlock(() => import('../../../packages/blocks/hero/HeroBlock'), 'HeroBlock'),
   feed: lazyBlock(() => import('../../../packages/blocks/feed/FeedBlock'), 'FeedBlock'),
-  'app-shell': lazyBlock(() => import('../../../packages/blocks/app-shell/AppShellBlock'), 'AppShellBlock'),
-  'empty-state': lazyBlock(() => import('../../../packages/blocks/empty-state/EmptyStateBlock'), 'EmptyStateBlock'),
+  'app-shell': lazyBlock(
+    () => import('../../../packages/blocks/app-shell/AppShellBlock'),
+    'AppShellBlock',
+  ),
+  'empty-state': lazyBlock(
+    () => import('../../../packages/blocks/empty-state/EmptyStateBlock'),
+    'EmptyStateBlock',
+  ),
 }
 
 interface ErrorBoundaryProps {
@@ -76,7 +97,10 @@ interface BlockPreviewProps {
 
 function PreviewSkeleton() {
   return (
-    <div className="bg-surface-muted flex items-center justify-center" style={{ height: 400 }}>
+    <div
+      className="bg-surface-muted flex items-center justify-center"
+      style={{ height: 400 }}
+    >
       <div className="flex flex-col items-center gap-3">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-muted-foreground border-t-transparent" />
         <p className="text-xs text-muted-foreground">Loading preview...</p>
@@ -106,7 +130,9 @@ function CodeFallback({ code, name }: { code?: string; name: string }) {
       <div className="text-center">
         <p className="text-sm font-medium text-foreground-secondary">{name}</p>
         <p className="text-xs text-muted-foreground mt-1">
-          {code ? 'Preview unavailable — see code example below' : 'Preview not available for this block'}
+          {code
+            ? 'Preview unavailable — see code example below'
+            : 'Preview not available for this block'}
         </p>
       </div>
     </div>
@@ -117,7 +143,16 @@ function CodeFallback({ code, name }: { code?: string; name: string }) {
 
 function HouseIcon() {
   return (
-    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
       <polyline points="9 22 9 12 15 12 15 22" />
     </svg>
@@ -126,7 +161,16 @@ function HouseIcon() {
 
 function FolderIcon() {
   return (
-    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
     </svg>
   )
@@ -134,7 +178,16 @@ function FolderIcon() {
 
 function GearIcon() {
   return (
-    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <circle cx={12} cy={12} r={3} />
       <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
     </svg>
@@ -143,7 +196,16 @@ function GearIcon() {
 
 function UserIcon() {
   return (
-    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
       <circle cx={12} cy={7} r={4} />
     </svg>
@@ -152,7 +214,16 @@ function UserIcon() {
 
 function LayoutIcon() {
   return (
-    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x={3} y={3} width={18} height={18} rx={2} ry={2} />
       <line x1={3} y1={9} x2={21} y2={9} />
       <line x1={9} y1={21} x2={9} y2={9} />
@@ -221,9 +292,28 @@ function getDefaultProps(slug: string, variant: string): Record<string, unknown>
       return {
         ...base,
         plans: [
-          { name: 'Free', price: '$0', interval: 'month' as const, features: ['1 project', '100MB storage'], onSelect: () => {} },
-          { name: 'Pro', price: '$19', interval: 'month' as const, features: ['Unlimited projects', '10GB storage', 'Priority support'], highlighted: true, onSelect: () => {} },
-          { name: 'Enterprise', price: '$99', interval: 'month' as const, features: ['Everything in Pro', 'SSO', 'Dedicated support'], onSelect: () => {} },
+          {
+            name: 'Free',
+            price: '$0',
+            interval: 'month' as const,
+            features: ['1 project', '100MB storage'],
+            onSelect: () => {},
+          },
+          {
+            name: 'Pro',
+            price: '$19',
+            interval: 'month' as const,
+            features: ['Unlimited projects', '10GB storage', 'Priority support'],
+            highlighted: true,
+            onSelect: () => {},
+          },
+          {
+            name: 'Enterprise',
+            price: '$99',
+            interval: 'month' as const,
+            features: ['Everything in Pro', 'SSO', 'Dedicated support'],
+            onSelect: () => {},
+          },
         ],
       }
     case 'hero':
@@ -250,16 +340,39 @@ function getDefaultProps(slug: string, variant: string): Record<string, unknown>
         return {
           ...base,
           notifications: [
-            { id: '1', title: 'New comment on your post', timestamp: '2 min ago', read: false },
-            { id: '2', title: 'Build completed', description: 'Production deploy succeeded', timestamp: '1 hour ago', read: true },
+            {
+              id: '1',
+              title: 'New comment on your post',
+              timestamp: '2 min ago',
+              read: false,
+            },
+            {
+              id: '2',
+              title: 'Build completed',
+              description: 'Production deploy succeeded',
+              timestamp: '1 hour ago',
+              read: true,
+            },
           ],
         }
       }
       return {
         ...base,
         comments: [
-          { id: '1', author: { name: 'Alice' }, text: 'Great work on this!', timestamp: '2 hours ago', likes: 3 },
-          { id: '2', author: { name: 'Bob' }, text: 'Thanks for the update.', timestamp: '1 hour ago', likes: 1 },
+          {
+            id: '1',
+            author: { name: 'Alice' },
+            text: 'Great work on this!',
+            timestamp: '2 hours ago',
+            likes: 3,
+          },
+          {
+            id: '2',
+            author: { name: 'Bob' },
+            text: 'Thanks for the update.',
+            timestamp: '1 hour ago',
+            likes: 1,
+          },
         ],
       }
     case 'app-shell':
@@ -299,9 +412,17 @@ function VariantSelector({
   )
 }
 
-export function BlockPreview({ name, slug, code, variants, defaultVariant }: BlockPreviewProps) {
+export function BlockPreview({
+  name,
+  slug,
+  code,
+  variants,
+  defaultVariant,
+}: BlockPreviewProps) {
   const [mounted, setMounted] = useState(false)
-  const [activeVariant, setActiveVariant] = useState(defaultVariant ?? variants?.[0] ?? '')
+  const [activeVariant, setActiveVariant] = useState(
+    defaultVariant ?? variants?.[0] ?? '',
+  )
   useEffect(() => setMounted(true), [])
 
   const BlockComponent = blockComponents[slug]
@@ -309,11 +430,7 @@ export function BlockPreview({ name, slug, code, variants, defaultVariant }: Blo
   if (!BlockComponent || !mounted) {
     return (
       <div className="border border-border rounded-lg overflow-hidden">
-        {!BlockComponent ? (
-          <CodeFallback code={code} name={name} />
-        ) : (
-          <PreviewSkeleton />
-        )}
+        {!BlockComponent ? <CodeFallback code={code} name={name} /> : <PreviewSkeleton />}
       </div>
     )
   }
@@ -333,10 +450,7 @@ export function BlockPreview({ name, slug, code, variants, defaultVariant }: Blo
       )}
       <BlockErrorBoundary fallback={<CodeFallback code={code} name={name} />}>
         <Suspense fallback={<PreviewSkeleton />}>
-          <div
-            className="relative overflow-hidden bg-background"
-            style={{ height: 400 }}
-          >
+          <div className="relative overflow-hidden bg-background" style={{ height: 400 }}>
             <div
               style={{
                 transform: 'scale(0.5)',

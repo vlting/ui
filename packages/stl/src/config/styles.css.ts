@@ -19,62 +19,68 @@
  *       E.g. `!lowMotion` matches when the user agent does NOT request reduced motion.
  *************************************************************************************************/
 
-import { globalStyle, globalKeyframes } from '@vanilla-extract/css'
-import { addPrefix, classHash, keyframeHash, removePrefix, varHash } from './utils'
-import {
-  getSize,
-  getSpace,
-  getRadius,
-  getColumn,
-  getRow,
-  getZIndex,
-  getLineHeight,
-  getTypoSpace,
-  getTypo,
-  getTextDecoration,
-  getShadow,
-  getFontSize,
-  getFontWeight,
-  getFontFamily,
-  getFont,
-  getColor,
-  getBorder,
-  getOutline,
-  getAnimation,
-  BaseVars,
-  ThemeProps,
-  PrefixedKey,
-  CssAliasMap,
-  SCALED_ALIAS,
-  borderCombos,
-  outlineCombos,
-  fontCombos,
-  typoCombos,
-  animationCombos,
-  textDecorationCombos,
-} from './scales'
-import {
-  CssPropKey,
-  CssRule,
-  FilterKeys,
-  generateCustomVarPropsCss,
-  generateScaledPropsCss,
-  generateStaticPropsCss,
-  generatePseudoClassCss,
-  PseudoClassesWithAliases,
-  NthChildKeys,
-} from './props'
-import { getSelector } from './utils'
-import {
-  CssFromMap,
-  CssFromCustomVars,
-  MergedCssProps,
-  ConditionKey,
-  InlineConditionCss,
-  BASE,
-} from './styles.models'
+import { globalKeyframes, globalStyle } from '@vanilla-extract/css'
 import { COLOR_MODE_ATTR, CoreColorName, STYLE_UNIT } from '../shared/models/'
 import { getTextColor } from '../shared/utils/'
+import {
+  type CssPropKey,
+  type CssRule,
+  type FilterKeys,
+  generateCustomVarPropsCss,
+  generatePseudoClassCss,
+  generateScaledPropsCss,
+  generateStaticPropsCss,
+  type NthChildKeys,
+  type PseudoClassesWithAliases,
+} from './props'
+import {
+  type animationCombos,
+  type BaseVars,
+  type borderCombos,
+  type CssAliasMap,
+  type fontCombos,
+  getAnimation,
+  getBorder,
+  getColor,
+  getColumn,
+  getFont,
+  getFontFamily,
+  getFontSize,
+  getFontWeight,
+  getLineHeight,
+  getOutline,
+  getRadius,
+  getRow,
+  getShadow,
+  getSize,
+  getSpace,
+  getTextDecoration,
+  getTypo,
+  getTypoSpace,
+  getZIndex,
+  type outlineCombos,
+  type PrefixedKey,
+  SCALED_ALIAS,
+  type ThemeProps,
+  type textDecorationCombos,
+  type typoCombos,
+} from './scales'
+import {
+  BASE,
+  type ConditionKey,
+  type CssFromCustomVars,
+  type CssFromMap,
+  type InlineConditionCss,
+  type MergedCssProps,
+} from './styles.models'
+import {
+  addPrefix,
+  classHash,
+  getSelector,
+  keyframeHash,
+  removePrefix,
+  varHash,
+} from './utils'
 
 /*************************************************************************************************
  * STYLING SYSTEM GENERATION
@@ -487,7 +493,8 @@ const staticPropsPC = generatePseudoClassCss<typeof staticProps>(
 )
 
 // PROP MAPS //////////////////////////////////////////////////////////////////////////////////////
-export const scaledPropMap = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const scaledPropMap: Record<string, any> = {
   ...scaledPropsPC,
   [BASE]: scaledProps,
 }

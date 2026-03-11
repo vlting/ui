@@ -11,18 +11,11 @@
       "layer": "primitive",
       "category": "layout",
       "import": "import { AspectRatio } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "ratio": {
           "type": "number",
-          "values": [
-            "16/9",
-            "4/3",
-            "1"
-          ]
+          "values": ["16/9", "4/3", "1"]
         }
       },
       "notes": [
@@ -48,39 +41,19 @@
       "layer": "primitive",
       "category": "data-display",
       "import": "import { Badge } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "variant": {
           "type": "string",
-          "values": [
-            "default",
-            "solid",
-            "secondary",
-            "destructive",
-            "outline",
-            "subtle"
-          ]
+          "values": ["default", "solid", "secondary", "destructive", "outline", "subtle"]
         },
         "tone": {
           "type": "string",
-          "values": [
-            "neutral",
-            "primary",
-            "success",
-            "warning",
-            "danger"
-          ]
+          "values": ["neutral", "primary", "success", "warning", "danger"]
         },
         "size": {
           "type": "string",
-          "values": [
-            "sm",
-            "md",
-            "lg"
-          ]
+          "values": ["sm", "md", "lg"]
         }
       },
       "whenToUse": "Status indicators, counts, labels",
@@ -109,16 +82,11 @@
       "layer": "primitive",
       "category": "layout",
       "import": "import { Box } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "centered": {
           "type": "boolean",
-          "values": [
-            "true"
-          ]
+          "values": ["true"]
         }
       },
       "notes": [
@@ -132,17 +100,11 @@
       "layer": "primitive",
       "category": "layout",
       "import": "import { Divider } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "orientation": {
           "type": "string",
-          "values": [
-            "horizontal",
-            "vertical"
-          ]
+          "values": ["horizontal", "vertical"]
         }
       },
       "notes": [
@@ -157,21 +119,11 @@
       "layer": "primitive",
       "category": "typography",
       "import": "import { Heading } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "level": {
           "type": "number",
-          "values": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6"
-          ]
+          "values": ["1", "2", "3", "4", "5", "6"]
         }
       },
       "notes": [
@@ -187,31 +139,21 @@
       "layer": "primitive",
       "category": "media",
       "import": "import { Icon } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "icon": {
           "type": "IconFC"
         },
         "size": {
           "type": "number | string",
-          "values": [
-            "$1",
-            "16",
-            "24"
-          ]
+          "values": ["$1", "16", "24"]
         },
         "color": {
           "type": "string"
         },
         "aria-hidden": {
           "type": "boolean",
-          "values": [
-            "true",
-            "false"
-          ]
+          "values": ["true", "false"]
         },
         "aria-label": {
           "type": "string"
@@ -229,17 +171,11 @@
       "layer": "primitive",
       "category": "typography",
       "import": "import { Kbd } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "size": {
           "type": "string",
-          "values": [
-            "sm",
-            "md"
-          ]
+          "values": ["sm", "md"]
         }
       },
       "notes": [
@@ -254,28 +190,18 @@
       "layer": "primitive",
       "category": "forms",
       "import": "import { Label } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "htmlFor": {
           "type": "string"
         },
         "size": {
           "type": "string",
-          "values": [
-            "sm",
-            "md",
-            "lg"
-          ]
+          "values": ["sm", "md", "lg"]
         },
         "required": {
           "type": "boolean",
-          "values": [
-            "true",
-            "false"
-          ]
+          "values": ["true", "false"]
         }
       },
       "notes": [
@@ -302,10 +228,7 @@
       "layer": "primitive",
       "category": "utility",
       "import": "import { Portal } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "notes": [
         "No direct shadcn equivalent; shadcn components use Radix portals internally",
         "Wraps Tamagui's Portal component for rendering children outside the parent DOM tree",
@@ -317,23 +240,15 @@
       "layer": "primitive",
       "category": "layout",
       "import": "import { Separator } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "orientation": {
           "type": "string",
-          "values": [
-            "horizontal",
-            "vertical"
-          ]
+          "values": ["horizontal", "vertical"]
         },
         "decorative": {
           "type": "boolean",
-          "values": [
-            "true"
-          ]
+          "values": ["true"]
         }
       },
       "notes": [
@@ -361,16 +276,11 @@
       "layer": "primitive",
       "category": "feedback",
       "import": "import { Skeleton } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "circle": {
           "type": "boolean",
-          "values": [
-            "true"
-          ]
+          "values": ["true"]
         },
         "width": {
           "type": "number | string"
@@ -406,20 +316,11 @@
       "layer": "primitive",
       "category": "layout",
       "import": "import { Spacer } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "size": {
           "type": "string",
-          "values": [
-            "xs",
-            "sm",
-            "md",
-            "lg",
-            "xl"
-          ]
+          "values": ["xs", "sm", "md", "lg", "xl"]
         }
       },
       "notes": [
@@ -434,18 +335,11 @@
       "layer": "primitive",
       "category": "feedback",
       "import": "import { Spinner } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "size": {
           "type": "string",
-          "values": [
-            "sm",
-            "md",
-            "lg"
-          ]
+          "values": ["sm", "md", "lg"]
         },
         "color": {
           "type": "string"
@@ -466,39 +360,22 @@
       "layer": "primitive",
       "category": "layout",
       "import": "import { Stack, VStack, HStack } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "gap": {
           "type": "number | string",
-          "values": [
-            "$1",
-            "$2",
-            "$4"
-          ]
+          "values": ["$1", "$2", "$4"]
         },
         "padding": {
           "type": "number | string"
         },
         "alignItems": {
           "type": "string",
-          "values": [
-            "center",
-            "flex-start",
-            "flex-end",
-            "stretch"
-          ]
+          "values": ["center", "flex-start", "flex-end", "stretch"]
         },
         "justifyContent": {
           "type": "string",
-          "values": [
-            "center",
-            "flex-start",
-            "flex-end",
-            "space-between"
-          ]
+          "values": ["center", "flex-start", "flex-end", "space-between"]
         }
       },
       "notes": [
@@ -514,41 +391,19 @@
       "layer": "primitive",
       "category": "typography",
       "import": "import { Text } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "size": {
           "type": "string",
-          "values": [
-            "xs",
-            "sm",
-            "md",
-            "lg",
-            "xl"
-          ]
+          "values": ["xs", "sm", "md", "lg", "xl"]
         },
         "tone": {
           "type": "string",
-          "values": [
-            "neutral",
-            "muted",
-            "primary",
-            "success",
-            "warning",
-            "danger"
-          ]
+          "values": ["neutral", "muted", "primary", "success", "warning", "danger"]
         },
         "weight": {
           "type": "string",
-          "values": [
-            "light",
-            "normal",
-            "medium",
-            "semibold",
-            "bold"
-          ]
+          "values": ["light", "normal", "medium", "semibold", "bold"]
         }
       },
       "notes": [
@@ -564,10 +419,7 @@
       "layer": "primitive",
       "category": "accessibility",
       "import": "import { VisuallyHidden } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "notes": [
         "No direct shadcn equivalent; shadcn uses Radix VisuallyHidden or sr-only utility class",
         "Uses standard screen-reader-only technique (clip, clipPath, overflow hidden, 1px size)",
@@ -580,18 +432,12 @@
       "layer": "component",
       "category": "disclosure",
       "import": "import { Accordion } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Accordion.Root": {
           "type": {
             "type": "string",
-            "values": [
-              "single",
-              "multiple"
-            ]
+            "values": ["single", "multiple"]
           }
         },
         "Accordion.Item": {},
@@ -602,11 +448,7 @@
       "whenNotToUse": "Tab-like switching — use Tabs",
       "accessibility": {
         "role": "region",
-        "keyboard": [
-          "Enter",
-          "Space",
-          "Arrow keys"
-        ]
+        "keyboard": ["Enter", "Space", "Arrow keys"]
       },
       "notes": [
         "shadcn uses flat exports (AccordionItem, AccordionTrigger); vlting uses compound pattern (Accordion.Item, Accordion.Trigger)",
@@ -638,10 +480,7 @@
       "layer": "component",
       "category": "feedback",
       "import": "import { Alert } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Alert.Root": {},
         "Alert.Title": {},
@@ -679,10 +518,7 @@
       "layer": "component",
       "category": "overlay",
       "import": "import { AlertDialog } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "AlertDialog.Root": {},
         "AlertDialog.Trigger": {},
@@ -698,10 +534,7 @@
       "whenNotToUse": "Complex content — use Dialog",
       "accessibility": {
         "role": "alertdialog",
-        "keyboard": [
-          "Escape",
-          "Tab (trapped)"
-        ]
+        "keyboard": ["Escape", "Tab (trapped)"]
       },
       "notes": [
         "shadcn uses flat exports; vlting uses compound pattern (AlertDialog.Root, AlertDialog.Content, etc.)",
@@ -738,10 +571,7 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { AreaChart } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "whenToUse": "Trends over time, cumulative data",
       "whenNotToUse": "Comparing categories — use BarChart",
       "props": {
@@ -776,10 +606,7 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { Avatar } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Avatar": {},
         "Avatar.Image": {},
@@ -815,10 +642,7 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { BarChart } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "whenToUse": "Comparing categories, discrete values",
       "whenNotToUse": "Continuous trends — use LineChart",
       "props": {
@@ -853,10 +677,7 @@
       "layer": "component",
       "category": "navigation",
       "import": "import { Breadcrumb } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Breadcrumb.Root": {},
         "Breadcrumb.Item": {},
@@ -868,9 +689,7 @@
       "whenNotToUse": "Linear step flow — use custom stepper",
       "accessibility": {
         "role": "navigation",
-        "keyboard": [
-          "Tab"
-        ]
+        "keyboard": ["Tab"]
       },
       "notes": [
         "shadcn uses flat exports (BreadcrumbItem, BreadcrumbLink); vlting uses compound pattern",
@@ -908,10 +727,7 @@
       "layer": "component",
       "category": "interactive",
       "import": "import { Button } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "variant": {
           "type": "string",
@@ -927,60 +743,34 @@
         },
         "tone": {
           "type": "string",
-          "values": [
-            "neutral",
-            "primary",
-            "success",
-            "warning",
-            "danger"
-          ]
+          "values": ["neutral", "primary", "success", "warning", "danger"]
         },
         "size": {
           "type": "string",
-          "values": [
-            "xs",
-            "sm",
-            "md",
-            "lg",
-            "icon"
-          ]
+          "values": ["xs", "sm", "md", "lg", "icon"]
         },
         "loading": {
           "type": "boolean",
-          "values": [
-            "true",
-            "false"
-          ]
+          "values": ["true", "false"]
         },
         "disabled": {
           "type": "boolean",
-          "values": [
-            "true",
-            "false"
-          ]
+          "values": ["true", "false"]
         },
         "onPress": {
           "type": "function",
-          "values": [
-            "() => void"
-          ]
+          "values": ["() => void"]
         },
         "asChild": {
           "type": "boolean",
-          "values": [
-            "true",
-            "false"
-          ]
+          "values": ["true", "false"]
         }
       },
       "whenToUse": "Triggering actions (submit, toggle, navigate)",
       "whenNotToUse": "Navigation-only links — use <a> or Link instead",
       "accessibility": {
         "role": "button",
-        "keyboard": [
-          "Enter",
-          "Space"
-        ]
+        "keyboard": ["Enter", "Space"]
       },
       "notes": [
         "vlting adds 'solid' variant as alias for 'default'",
@@ -1019,10 +809,7 @@
       "layer": "component",
       "category": "interactive",
       "import": "import { ButtonGroup } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "ButtonGroup.Root": {}
       },
@@ -1041,10 +828,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { Calendar } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Calendar.Root": {}
       },
@@ -1081,10 +865,7 @@
       "layer": "component",
       "category": "layout",
       "import": "import { Card } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Card": {},
         "Card.Header": {},
@@ -1126,9 +907,7 @@
       "layer": "component",
       "category": "interactive",
       "import": "import { Carousel } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "props": {
         "Carousel.Root": {},
         "Carousel.Content": {},
@@ -1176,10 +955,7 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { Chart } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "whenToUse": "Container for all chart types",
       "props": {
         "config": {
@@ -1199,10 +975,7 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { ChartDataTable } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "whenToUse": "Screen reader accessible chart data (hidden visually)",
       "props": {}
     },
@@ -1211,18 +984,12 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { ChartLegend } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "whenToUse": "Identifying chart data series",
       "props": {
         "layout": {
           "type": "LegendLayout",
-          "values": [
-            "horizontal",
-            "vertical"
-          ]
+          "values": ["horizontal", "vertical"]
         }
       }
     },
@@ -1231,10 +998,7 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { ChartTooltip } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "whenToUse": "Interactive data point details on hover",
       "props": {
         "variant": {
@@ -1258,10 +1022,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { Checkbox } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Checkbox.Root": {},
         "Checkbox.Indicator": {}
@@ -1270,9 +1031,7 @@
       "whenNotToUse": "Single toggle — use Switch",
       "accessibility": {
         "role": "checkbox",
-        "keyboard": [
-          "Space"
-        ]
+        "keyboard": ["Space"]
       },
       "notes": [
         "shadcn Checkbox wraps Radix Checkbox; vlting wraps @tamagui/checkbox",
@@ -1305,10 +1064,7 @@
       "layer": "component",
       "category": "disclosure",
       "import": "import { Collapsible } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Collapsible.Root": {},
         "Collapsible.Trigger": {},
@@ -1350,10 +1106,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { Combobox } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Combobox.Root": {}
       },
@@ -1361,11 +1114,7 @@
       "whenNotToUse": "Small fixed list — use Select",
       "accessibility": {
         "role": "combobox",
-        "keyboard": [
-          "Arrow keys",
-          "Enter",
-          "Escape"
-        ]
+        "keyboard": ["Arrow keys", "Enter", "Escape"]
       },
       "notes": [
         "shadcn Combobox is composed from Command + Popover; vlting is a single integrated component",
@@ -1397,10 +1146,7 @@
       "layer": "component",
       "category": "interactive",
       "import": "import { Command } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Command.Root": {},
         "Command.Input": {},
@@ -1415,11 +1161,7 @@
       "whenNotToUse": "Simple dropdown — use DropdownMenu",
       "accessibility": {
         "role": "listbox",
-        "keyboard": [
-          "Arrow keys",
-          "Enter",
-          "Escape"
-        ]
+        "keyboard": ["Arrow keys", "Enter", "Escape"]
       },
       "notes": [
         "shadcn wraps cmdk library; vlting is a custom implementation with Tamagui styling",
@@ -1457,9 +1199,7 @@
       "layer": "component",
       "category": "overlay",
       "import": "import { ContextMenu } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "props": {
         "ContextMenu.Root": {},
         "ContextMenu.Trigger": {},
@@ -1473,11 +1213,7 @@
       "whenNotToUse": "Mobile — no right-click; use DropdownMenu",
       "accessibility": {
         "role": "menu",
-        "keyboard": [
-          "Arrow keys",
-          "Enter",
-          "Escape"
-        ]
+        "keyboard": ["Arrow keys", "Enter", "Escape"]
       },
       "notes": [
         "shadcn wraps Radix ContextMenu; vlting is a custom implementation using native contextmenu event",
@@ -1514,9 +1250,7 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { DataTable } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "props": {
         "data": {
           "type": "TData[]"
@@ -1532,58 +1266,43 @@
         },
         "onSortingChange": {
           "type": "function",
-          "values": [
-            "(sorting: SortingState) => void"
-          ]
+          "values": ["(sorting: SortingState) => void"]
         },
         "columnFilters": {
           "type": "ColumnFiltersState"
         },
         "onColumnFiltersChange": {
           "type": "function",
-          "values": [
-            "(filters: ColumnFiltersState) => void"
-          ]
+          "values": ["(filters: ColumnFiltersState) => void"]
         },
         "globalFilter": {
           "type": "string"
         },
         "onGlobalFilterChange": {
           "type": "function",
-          "values": [
-            "(filter: string) => void"
-          ]
+          "values": ["(filter: string) => void"]
         },
         "pagination": {
           "type": "PaginationState"
         },
         "onPaginationChange": {
           "type": "function",
-          "values": [
-            "(pagination: PaginationState) => void"
-          ]
+          "values": ["(pagination: PaginationState) => void"]
         },
         "columnVisibility": {
           "type": "VisibilityState"
         },
         "onColumnVisibilityChange": {
           "type": "function",
-          "values": [
-            "(visibility: VisibilityState) => void"
-          ]
+          "values": ["(visibility: VisibilityState) => void"]
         },
         "enablePagination": {
           "type": "boolean",
-          "values": [
-            "true",
-            "false"
-          ]
+          "values": ["true", "false"]
         },
         "pageSize": {
           "type": "number",
-          "values": [
-            "10"
-          ]
+          "values": ["10"]
         }
       },
       "whenToUse": "Tables with sorting, filtering, pagination",
@@ -1620,10 +1339,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { DatePicker } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "value": {
           "type": "Date"
@@ -1633,15 +1349,11 @@
         },
         "onValueChange": {
           "type": "function",
-          "values": [
-            "(date: Date | undefined) => void"
-          ]
+          "values": ["(date: Date | undefined) => void"]
         },
         "placeholder": {
           "type": "string",
-          "values": [
-            "Select date..."
-          ]
+          "values": ["Select date..."]
         },
         "label": {
           "type": "string"
@@ -1660,11 +1372,7 @@
         },
         "size": {
           "type": "string",
-          "values": [
-            "sm",
-            "md",
-            "lg"
-          ]
+          "values": ["sm", "md", "lg"]
         },
         "minDate": {
           "type": "Date"
@@ -1674,9 +1382,7 @@
         },
         "locale": {
           "type": "string",
-          "values": [
-            "en-US"
-          ]
+          "values": ["en-US"]
         }
       },
       "whenToUse": "Date selection in a popup",
@@ -1713,10 +1419,7 @@
       "layer": "component",
       "category": "overlay",
       "import": "import { Dialog } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Dialog.Root": {},
         "Dialog.Trigger": {},
@@ -1732,10 +1435,7 @@
       "whenNotToUse": "Simple yes/no — use AlertDialog",
       "accessibility": {
         "role": "dialog",
-        "keyboard": [
-          "Escape",
-          "Tab (trapped)"
-        ]
+        "keyboard": ["Escape", "Tab (trapped)"]
       },
       "notes": [
         "shadcn uses flat exports; vlting uses compound pattern (Dialog.Root, Dialog.Content, etc.)",
@@ -1773,10 +1473,7 @@
       "layer": "component",
       "category": "utility",
       "import": "import { Direction, DirectionProvider, useDirection } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Direction.Provider (DirectionProvider)": {}
       },
@@ -1793,10 +1490,7 @@
       "layer": "component",
       "category": "overlay",
       "import": "import { Drawer } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Drawer.Root": {},
         "Drawer.Trigger": {},
@@ -1845,10 +1539,7 @@
       "layer": "component",
       "category": "overlay",
       "import": "import { DropdownMenu } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "DropdownMenu.Root": {},
         "DropdownMenu.Trigger": {},
@@ -1862,11 +1553,7 @@
       "whenNotToUse": "Form selection — use Select",
       "accessibility": {
         "role": "menu",
-        "keyboard": [
-          "Arrow keys",
-          "Enter",
-          "Escape"
-        ]
+        "keyboard": ["Arrow keys", "Enter", "Escape"]
       },
       "notes": [
         "shadcn wraps Radix DropdownMenu; vlting is a custom implementation with keyboard navigation",
@@ -1903,10 +1590,7 @@
       "layer": "component",
       "category": "feedback",
       "import": "import { Empty } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Empty.Root": {},
         "Empty.Media": {},
@@ -1930,10 +1614,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { Field } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Field.Root": {},
         "Field.Label": {},
@@ -1957,10 +1638,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { Form } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Form.Root": {},
         "Form.Field": {},
@@ -2006,10 +1684,7 @@
       "layer": "component",
       "category": "overlay",
       "import": "import { HoverCard } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "HoverCard.Root": {},
         "HoverCard.Trigger": {},
@@ -2052,18 +1727,11 @@
       "layer": "component",
       "category": "forms",
       "import": "import { Input } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "size": {
           "type": "string",
-          "values": [
-            "sm",
-            "md",
-            "lg"
-          ]
+          "values": ["sm", "md", "lg"]
         },
         "type": {
           "type": "string",
@@ -2090,9 +1758,7 @@
         },
         "onChangeText": {
           "type": "function",
-          "values": [
-            "(text: string) => void"
-          ]
+          "values": ["(text: string) => void"]
         },
         "label": {
           "type": "string"
@@ -2120,9 +1786,7 @@
       "whenNotToUse": "Multi-line text — use Textarea",
       "accessibility": {
         "role": "textbox",
-        "keyboard": [
-          "Tab"
-        ]
+        "keyboard": ["Tab"]
       },
       "notes": [
         "shadcn Input is a minimal styled input; vlting Input includes label, helper text, and error states",
@@ -2161,10 +1825,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { InputGroup } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "InputGroup (Root)": {},
         "InputGroup.Addon": {},
@@ -2188,10 +1849,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { InputOTP } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "InputOTP.Root": {},
         "InputOTP.Group": {},
@@ -2242,10 +1900,7 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { Item } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Item.Root": {},
         "Item.Leading": {},
@@ -2275,10 +1930,7 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { LineChart } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "whenToUse": "Trends, time series, comparisons",
       "whenNotToUse": "Part-of-whole — use PieChart",
       "props": {
@@ -2313,26 +1965,15 @@
       "layer": "component",
       "category": "feedback",
       "import": "import { Loader } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "size": {
           "type": "string",
-          "values": [
-            "sm",
-            "md",
-            "lg"
-          ]
+          "values": ["sm", "md", "lg"]
         },
         "variant": {
           "type": "string",
-          "values": [
-            "primary",
-            "light",
-            "dark"
-          ]
+          "values": ["primary", "light", "dark"]
         }
       },
       "whenToUse": "Full-area loading state",
@@ -2355,10 +1996,7 @@
       "layer": "component",
       "category": "other",
       "import": "import { Menu } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Menu.Root": {},
         "Menu.Trigger": {},
@@ -2399,9 +2037,7 @@
       "layer": "component",
       "category": "navigation",
       "import": "import { Menubar } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "props": {
         "Menubar.Root": {},
         "Menubar.Menu": {},
@@ -2413,11 +2049,7 @@
       },
       "accessibility": {
         "role": "menubar",
-        "keyboard": [
-          "Arrow keys",
-          "Enter",
-          "Escape"
-        ]
+        "keyboard": ["Arrow keys", "Enter", "Escape"]
       },
       "notes": [
         "shadcn Menubar uses Radix UI primitives; @vlting/ui uses a custom context-based implementation with native HTML buttons.",
@@ -2453,10 +2085,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { NativeSelect } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "NativeSelect.Root": {},
         "NativeSelect.Option": {}
@@ -2486,9 +2115,7 @@
       "layer": "component",
       "category": "navigation",
       "import": "import { NavigationMenu } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "props": {
         "NavigationMenu.Root": {},
         "NavigationMenu.List": {},
@@ -2503,10 +2130,7 @@
       "whenNotToUse": "Mobile nav — use Sheet or Drawer",
       "accessibility": {
         "role": "navigation",
-        "keyboard": [
-          "Arrow keys",
-          "Tab"
-        ]
+        "keyboard": ["Arrow keys", "Tab"]
       },
       "notes": [
         "shadcn uses Radix NavigationMenu; vlting uses a custom context-based implementation.",
@@ -2543,10 +2167,7 @@
       "layer": "component",
       "category": "navigation",
       "import": "import { Pagination } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Pagination.Root": {},
         "Pagination.Previous": {},
@@ -2558,9 +2179,7 @@
       "whenNotToUse": "Infinite scroll — use IntersectionObserver",
       "accessibility": {
         "role": "navigation",
-        "keyboard": [
-          "Tab"
-        ]
+        "keyboard": ["Tab"]
       },
       "notes": [
         "vlting Pagination.Root is a fully managed component: pass currentPage, totalPages, and onPageChange, and it auto-renders page buttons with ellipsis.",
@@ -2596,10 +2215,7 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { PieChart } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "whenToUse": "Part-of-whole relationships, distributions",
       "whenNotToUse": "Many categories — use BarChart",
       "props": {
@@ -2635,10 +2251,7 @@
       "layer": "component",
       "category": "overlay",
       "import": "import { Popover } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Popover.Root": {},
         "Popover.Trigger": {},
@@ -2684,10 +2297,7 @@
       "layer": "component",
       "category": "feedback",
       "import": "import { Progress } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "value": {
           "type": "number"
@@ -2697,11 +2307,7 @@
         },
         "size": {
           "type": "string",
-          "values": [
-            "sm",
-            "md",
-            "lg"
-          ]
+          "values": ["sm", "md", "lg"]
         },
         "aria-label": {
           "type": "string"
@@ -2732,10 +2338,7 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { RadarChart } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "whenToUse": "Multi-dimensional comparisons, skill charts",
       "whenNotToUse": "Simple comparisons — use BarChart",
       "props": {
@@ -2771,10 +2374,7 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { RadialChart } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "whenToUse": "Gauge-like displays, progress circles",
       "whenNotToUse": "Full pie — use PieChart",
       "props": {
@@ -2783,14 +2383,7 @@
         },
         "variant": {
           "type": "RadialChartVariant",
-          "values": [
-            "default",
-            "label",
-            "grid",
-            "text",
-            "shape",
-            "stacked"
-          ]
+          "values": ["default", "label", "grid", "text", "shape", "stacked"]
         },
         "dataKey": {
           "type": "string"
@@ -2802,10 +2395,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { RadioGroup } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "RadioGroup.Root": {},
         "RadioGroup.Item": {}
@@ -2814,9 +2404,7 @@
       "whenNotToUse": "Many options — use Select or Combobox",
       "accessibility": {
         "role": "radiogroup",
-        "keyboard": [
-          "Arrow keys"
-        ]
+        "keyboard": ["Arrow keys"]
       },
       "notes": [
         "Both use compound API with Root + Item pattern.",
@@ -2853,9 +2441,7 @@
       "layer": "component",
       "category": "layout",
       "import": "import { Resizable } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "props": {
         "Resizable.PanelGroup": {},
         "Resizable.Panel": {},
@@ -2893,20 +2479,12 @@
       "layer": "component",
       "category": "layout",
       "import": "import { ScrollArea } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "ScrollArea.Root": {
           "type": {
             "type": "string",
-            "values": [
-              "auto",
-              "always",
-              "scroll",
-              "hover"
-            ]
+            "values": ["auto", "always", "scroll", "hover"]
           }
         },
         "ScrollArea.Viewport": {},
@@ -2946,10 +2524,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { Select } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Select (Root)": {},
         "Select.Item": {},
@@ -2962,11 +2537,7 @@
       "whenNotToUse": "Few options (2-4) — use RadioGroup",
       "accessibility": {
         "role": "listbox",
-        "keyboard": [
-          "Arrow keys",
-          "Enter",
-          "Escape"
-        ]
+        "keyboard": ["Arrow keys", "Enter", "Escape"]
       },
       "notes": [
         "vlting Select is a simplified API: Root component renders the trigger, value display, and content all-in-one.",
@@ -2998,10 +2569,7 @@
       "layer": "component",
       "category": "overlay",
       "import": "import { Sheet } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Sheet.Root": {},
         "Sheet.Overlay": {},
@@ -3046,10 +2614,7 @@
       "layer": "component",
       "category": "navigation",
       "import": "import { Sidebar } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Sidebar.Root": {},
         "Sidebar.Header": {},
@@ -3069,10 +2634,7 @@
       "whenNotToUse": "Simple nav list — use VStack + links",
       "accessibility": {
         "role": "navigation",
-        "keyboard": [
-          "Arrow keys",
-          "Tab"
-        ]
+        "keyboard": ["Arrow keys", "Tab"]
       },
       "notes": [
         "No direct shadcn equivalent (shadcn/ui sidebar is an application layout recipe, not a primitive component).",
@@ -3101,10 +2663,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { Slider } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "value": {
           "type": "number"
@@ -3126,11 +2685,7 @@
         },
         "size": {
           "type": "string",
-          "values": [
-            "sm",
-            "md",
-            "lg"
-          ]
+          "values": ["sm", "md", "lg"]
         },
         "disabled": {
           "type": "boolean"
@@ -3141,9 +2696,7 @@
       },
       "accessibility": {
         "role": "slider",
-        "keyboard": [
-          "Arrow keys"
-        ]
+        "keyboard": ["Arrow keys"]
       },
       "notes": [
         "shadcn uses Radix Slider with value as number[]; vlting uses a single number value.",
@@ -3180,10 +2733,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { Switch } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "checked": {
           "type": "boolean"
@@ -3199,11 +2749,7 @@
         },
         "size": {
           "type": "string",
-          "values": [
-            "sm",
-            "md",
-            "lg"
-          ]
+          "values": ["sm", "md", "lg"]
         },
         "name": {
           "type": "string"
@@ -3213,9 +2759,7 @@
       "whenNotToUse": "Form submission boolean — use Checkbox",
       "accessibility": {
         "role": "switch",
-        "keyboard": [
-          "Space"
-        ]
+        "keyboard": ["Space"]
       },
       "notes": [
         "Very similar API between shadcn and vlting.",
@@ -3247,9 +2791,7 @@
       "layer": "component",
       "category": "data-display",
       "import": "import { Table } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "props": {
         "Table.Root": {},
         "Table.Header": {},
@@ -3264,9 +2806,7 @@
       "whenNotToUse": "Interactive features needed — use DataTable",
       "accessibility": {
         "role": "table",
-        "keyboard": [
-          "Tab"
-        ]
+        "keyboard": ["Tab"]
       },
       "notes": [
         "Both use native HTML table elements (table, thead, tbody, tr, th, td, caption).",
@@ -3294,10 +2834,7 @@
       "layer": "component",
       "category": "navigation",
       "import": "import { Tabs } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Tabs.Root": {},
         "Tabs.List": {},
@@ -3308,9 +2845,7 @@
       "whenNotToUse": "Multi-step wizard — use Stepper pattern",
       "accessibility": {
         "role": "tablist",
-        "keyboard": [
-          "Arrow keys"
-        ]
+        "keyboard": ["Arrow keys"]
       },
       "notes": [
         "Both use compound API with Root/List/Trigger/Content.",
@@ -3352,10 +2887,7 @@
       "layer": "component",
       "category": "forms",
       "import": "import { Textarea } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "value": {
           "type": "string"
@@ -3386,11 +2918,7 @@
         },
         "size": {
           "type": "string",
-          "values": [
-            "sm",
-            "md",
-            "lg"
-          ]
+          "values": ["sm", "md", "lg"]
         },
         "rows": {
           "type": "number"
@@ -3434,10 +2962,7 @@
       "layer": "component",
       "category": "feedback",
       "import": "import { Toast, toast } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "declarative_api": {},
         "imperative_api": {}
@@ -3482,19 +3007,13 @@
       "layer": "component",
       "category": "interactive",
       "import": "import { Toggle, ToggleGroup } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Toggle": {},
         "ToggleGroup": {
           "type": {
             "type": "string",
-            "values": [
-              "single",
-              "multiple"
-            ],
+            "values": ["single", "multiple"],
             "default": "single"
           }
         },
@@ -3504,10 +3023,7 @@
       "whenNotToUse": "Form boolean — use Checkbox or Switch",
       "accessibility": {
         "role": "button",
-        "keyboard": [
-          "Enter",
-          "Space"
-        ]
+        "keyboard": ["Enter", "Space"]
       },
       "notes": [
         "Very similar API between shadcn and vlting for standalone Toggle.",
@@ -3545,10 +3061,7 @@
       "layer": "component",
       "category": "overlay",
       "import": "import { Tooltip, TooltipProvider } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "Tooltip": {},
         "TooltipProvider": {}
@@ -3557,9 +3070,7 @@
       "whenNotToUse": "Interactive content — use Popover",
       "accessibility": {
         "role": "tooltip",
-        "keyboard": [
-          "Escape"
-        ]
+        "keyboard": ["Escape"]
       },
       "notes": [
         "vlting Tooltip is a simplified single-component API: <Tooltip content='text'><Button /></Tooltip>",
@@ -3597,10 +3108,7 @@
       "layer": "component",
       "category": "other",
       "import": "import { H1, H2, H3, H4, H5, H6, P, Lead, Large, Small, Muted, Blockquote, InlineCode, List, ListItem } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "props": {
         "H1": {},
         "H2": {},
@@ -3654,19 +3162,12 @@
       "layer": "block",
       "category": "composition",
       "import": "import { AppShellBlock } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "whenToUse": "Complete app shell with sidebar/header",
       "props": {
         "variant": {
           "type": "AppShellBlockVariant",
-          "values": [
-            "sidebar-header",
-            "sidebar-only",
-            "header-only",
-            "dashboard"
-          ]
+          "values": ["sidebar-header", "sidebar-only", "header-only", "dashboard"]
         }
       }
     },
@@ -3675,10 +3176,7 @@
       "layer": "block",
       "category": "composition",
       "import": "import { AuthBlock } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "whenToUse": "Login and signup forms",
       "whenNotToUse": "Custom auth flow — compose from Form + Input + Button",
       "props": {
@@ -3702,17 +3200,12 @@
       "layer": "block",
       "category": "composition",
       "import": "import { DashboardBlock } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "whenToUse": "Overview dashboards with metrics",
       "props": {
         "variant": {
           "type": "DashboardBlockVariant",
-          "values": [
-            "metrics-grid",
-            "metrics-chart"
-          ]
+          "values": ["metrics-grid", "metrics-chart"]
         },
         "metrics": {
           "type": "MetricCard[]"
@@ -3724,19 +3217,13 @@
       "layer": "block",
       "category": "composition",
       "import": "import { DataTableBlock } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "whenToUse": "Pre-composed data table layouts",
       "whenNotToUse": "Custom table — use DataTable directly",
       "props": {
         "variant": {
           "type": "DataTableBlockVariant",
-          "values": [
-            "default",
-            "with-filters",
-            "with-toolbar"
-          ]
+          "values": ["default", "with-filters", "with-toolbar"]
         }
       }
     },
@@ -3745,21 +3232,12 @@
       "layer": "block",
       "category": "composition",
       "import": "import { EmptyStateBlock } from '@vlting/ui'",
-      "platforms": [
-        "web",
-        "native"
-      ],
+      "platforms": ["web", "native"],
       "whenToUse": "Empty state pages with illustration and action",
       "props": {
         "variant": {
           "type": "EmptyStateBlockVariant",
-          "values": [
-            "simple",
-            "with-action",
-            "illustration",
-            "search",
-            "error"
-          ]
+          "values": ["simple", "with-action", "illustration", "search", "error"]
         }
       }
     },
@@ -3768,18 +3246,12 @@
       "layer": "block",
       "category": "composition",
       "import": "import { FeedBlock } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "whenToUse": "Activity feeds, timelines, notifications",
       "props": {
         "variant": {
           "type": "FeedBlockVariant",
-          "values": [
-            "timeline",
-            "notifications",
-            "comments"
-          ]
+          "values": ["timeline", "notifications", "comments"]
         }
       }
     },
@@ -3788,19 +3260,12 @@
       "layer": "block",
       "category": "composition",
       "import": "import { HeroBlock } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "whenToUse": "Landing page hero sections",
       "props": {
         "variant": {
           "type": "HeroBlockVariant",
-          "values": [
-            "centered",
-            "split",
-            "gradient",
-            "minimal"
-          ]
+          "values": ["centered", "split", "gradient", "minimal"]
         },
         "title": {
           "type": "string"
@@ -3818,18 +3283,12 @@
       "layer": "block",
       "category": "composition",
       "import": "import { PricingBlock } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "whenToUse": "Pricing display pages",
       "props": {
         "variant": {
           "type": "PricingBlockVariant",
-          "values": [
-            "cards",
-            "table",
-            "comparison"
-          ]
+          "values": ["cards", "table", "comparison"]
         }
       }
     },
@@ -3838,18 +3297,12 @@
       "layer": "block",
       "category": "composition",
       "import": "import { SettingsBlock } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "whenToUse": "Settings pages with form sections",
       "props": {
         "variant": {
           "type": "SettingsBlockVariant",
-          "values": [
-            "profile",
-            "notifications",
-            "appearance"
-          ]
+          "values": ["profile", "notifications", "appearance"]
         }
       }
     },
@@ -3858,9 +3311,7 @@
       "layer": "block",
       "category": "composition",
       "import": "import { SidebarBlock } from '@vlting/ui'",
-      "platforms": [
-        "web"
-      ],
+      "platforms": ["web"],
       "whenToUse": "App navigation sidebar with pre-built layouts",
       "whenNotToUse": "Simple nav — use Sidebar component directly",
       "props": {

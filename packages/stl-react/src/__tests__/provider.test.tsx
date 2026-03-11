@@ -1,9 +1,8 @@
-import { render, screen, renderHook } from '@testing-library/react'
-import { describe, it, expect, vi } from 'vitest'
+import { render, renderHook, screen } from '@testing-library/react'
 import type { ReactNode } from 'react'
 
 // Mock @vlting/stl
-vi.mock('@vlting/stl', () => {
+jest.mock('@vlting/stl', () => {
   const conditionsMap: Record<string, any> = {
     ltr: true,
     rtl: true,
@@ -119,8 +118,8 @@ vi.mock('@vlting/stl', () => {
   }
 })
 
-import { StlProvider, StlContext, CssConditionsContext } from '../providers/StlProvider'
 import { useContext } from 'react'
+import { CssConditionsContext, StlContext, StlProvider } from '../providers/StlProvider'
 
 describe('StlProvider', () => {
   it('renders children', () => {

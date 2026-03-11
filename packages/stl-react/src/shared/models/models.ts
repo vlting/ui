@@ -1,4 +1,4 @@
-import { FunctionComponent, JSXElementConstructor } from 'react'
+import type { FunctionComponent, JSXElementConstructor } from 'react'
 
 export type ComponentType<T = any> =
   | keyof JSX.IntrinsicElements

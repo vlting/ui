@@ -1,13 +1,14 @@
-import React, { createContext, useContext, useState, useCallback } from 'react'
-import {
-  View,
-  Text as RNText,
-  Pressable,
-  LayoutAnimation,
-  UIManager,
-  Platform,
-} from 'react-native'
+import type React from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
 import type { ViewStyle } from 'react-native'
+import {
+  LayoutAnimation,
+  Platform,
+  Pressable,
+  Text as RNText,
+  UIManager,
+  View,
+} from 'react-native'
 import { styled } from '../../stl-native/src/config/styled'
 
 // Enable LayoutAnimation on Android

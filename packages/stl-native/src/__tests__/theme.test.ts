@@ -1,5 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest'
-import { createNativeTheme, configureTheme, getTheme } from '../config/theme'
+import { configureTheme, createNativeTheme, getTheme } from '../config/theme'
 
 describe('createNativeTheme', () => {
   it('returns an object with light and dark token maps', () => {

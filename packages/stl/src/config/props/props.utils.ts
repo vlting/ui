@@ -1,4 +1,4 @@
-import { FilterKeys, PickKeys } from './props.models'
+import type { FilterKeys, PickKeys } from './props.models'
 
 export function omitKeys<
   P extends Record<string | number, unknown>,

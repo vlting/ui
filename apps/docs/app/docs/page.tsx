@@ -10,32 +10,38 @@ export const metadata: Metadata = {
 const sections = [
   {
     title: 'Components',
-    description: '38+ components with shadcn API compatibility, keyboard navigation, and brand theming.',
+    description:
+      '38+ components with shadcn API compatibility, keyboard navigation, and brand theming.',
     href: '/docs/components/button',
   },
   {
     title: 'Blocks',
-    description: '10 variant-driven blocks: auth, sidebar, dashboard, pricing, hero, and more.',
+    description:
+      '10 variant-driven blocks: auth, sidebar, dashboard, pricing, hero, and more.',
     href: '/docs/blocks/auth',
   },
   {
     title: 'Charts',
-    description: '6 chart types with 69 variants, responsive sizing, and accessible data tables.',
+    description:
+      '6 chart types with 69 variants, responsive sizing, and accessible data tables.',
     href: '/docs/charts/bar',
   },
   {
     title: 'Icons',
-    description: '3200+ Remix Icons with tree-shakeable imports, searchable browser, and category filters.',
+    description:
+      '3200+ Remix Icons with tree-shakeable imports, searchable browser, and category filters.',
     href: '/docs/icons',
   },
   {
     title: 'Theming',
-    description: 'Brand system with 4 built-in themes, dark/light mode, font config, and design tokens.',
+    description:
+      'Brand system with 4 built-in themes, dark/light mode, font config, and design tokens.',
     href: '/docs/theming',
   },
   {
     title: 'Migration',
-    description: 'Migrate from shadcn/ui with API mapping, import changes, and component equivalents.',
+    description:
+      'Migrate from shadcn/ui with API mapping, import changes, and component equivalents.',
     href: '/docs/migration',
   },
 ]
@@ -45,8 +51,8 @@ export default function DocsPage() {
     <div className="max-w-3xl">
       <h1 className="mb-4 text-3xl font-bold">Documentation</h1>
       <p className="mb-8 text-foreground-secondary">
-        Welcome to the @vlting/ui documentation. Choose a section below to get started, or browse
-        the sidebar for individual components.
+        Welcome to the @vlting/ui documentation. Choose a section below to get started, or
+        browse the sidebar for individual components.
       </p>
 
       <div className="grid gap-4 sm:grid-cols-2">

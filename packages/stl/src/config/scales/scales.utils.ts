@@ -1,16 +1,16 @@
-import { CssPropKey } from '../props'
+import type { CssPropKey } from '../props'
 import { addPrefix } from '../utils'
 import {
-  ThemePropValue,
-  ScaleEntry,
-  BaseVars,
-  CssValueMap,
-  PrefixedKey,
-  CssValueMapProps,
-  AliasMap,
+  type AliasMap,
+  type BaseVars,
+  type CssValueMap,
+  type CssValueMapProps,
+  type FlatMap,
+  type PrefixedKey,
   SCALED_ALIAS,
-  FlatMap,
+  type ScaleEntry,
   STATIC_VALUE_PREFIX,
+  type ThemePropValue,
 } from './scales.models'
 
 /** Converts a set of vars to CSS values (i.e., using the var set's `ref` as a value) */

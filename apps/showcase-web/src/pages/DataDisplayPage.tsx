@@ -1,11 +1,13 @@
-import { Section, DemoCard, DemoRow } from '../components/Section'
-import { Accordion } from '@vlting/ui/components'
-import { Table } from '@vlting/ui/components'
-import { Tabs } from '@vlting/ui/components'
-import { ScrollArea } from '@vlting/ui/components'
-import { Calendar } from '@vlting/ui/components'
-import { Carousel } from '@vlting/ui/components'
-import { Resizable } from '@vlting/ui/components'
+import {
+  Accordion,
+  Calendar,
+  Carousel,
+  Resizable,
+  ScrollArea,
+  Table,
+  Tabs,
+} from '@vlting/ui/components'
+import { DemoCard, Section } from '../components/Section'
 
 export function DataDisplayPage() {
   return (
@@ -19,20 +21,23 @@ export function DataDisplayPage() {
               <Accordion.Item value="item-1">
                 <Accordion.Trigger>What is STL?</Accordion.Trigger>
                 <Accordion.Content>
-                  STL (Style Token Layer) is a zero-runtime CSS engine built on Vanilla Extract.
+                  STL (Style Token Layer) is a zero-runtime CSS engine built on Vanilla
+                  Extract.
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="item-2">
                 <Accordion.Trigger>How does the styled() API work?</Accordion.Trigger>
                 <Accordion.Content>
-                  The styled() function creates components with pre-defined styles and variants,
-                  using CSS token references ($token) that resolve at build time.
+                  The styled() function creates components with pre-defined styles and
+                  variants, using CSS token references ($token) that resolve at build
+                  time.
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="item-3">
                 <Accordion.Trigger>Is it cross-platform?</Accordion.Trigger>
                 <Accordion.Content>
-                  Yes! STL supports both React (web) and React Native through separate bindings packages.
+                  Yes! STL supports both React (web) and React Native through separate
+                  bindings packages.
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion.Root>
@@ -74,10 +79,25 @@ export function DataDisplayPage() {
             </Table.Header>
             <Table.Body>
               {[
-                { name: 'Alice Johnson', status: 'Active', role: 'Admin', email: 'alice@example.com' },
-                { name: 'Bob Smith', status: 'Active', role: 'Editor', email: 'bob@example.com' },
-                { name: 'Carol Williams', status: 'Inactive', role: 'Viewer', email: 'carol@example.com' },
-              ].map(row => (
+                {
+                  name: 'Alice Johnson',
+                  status: 'Active',
+                  role: 'Admin',
+                  email: 'alice@example.com',
+                },
+                {
+                  name: 'Bob Smith',
+                  status: 'Active',
+                  role: 'Editor',
+                  email: 'bob@example.com',
+                },
+                {
+                  name: 'Carol Williams',
+                  status: 'Inactive',
+                  role: 'Viewer',
+                  email: 'carol@example.com',
+                },
+              ].map((row) => (
                 <Table.Row key={row.email}>
                   <Table.Cell>{row.name}</Table.Cell>
                   <Table.Cell>{row.status}</Table.Cell>
@@ -97,7 +117,9 @@ export function DataDisplayPage() {
               <ScrollArea.Viewport>
                 <div style={{ padding: 16 }}>
                   {Array.from({ length: 20 }, (_, i) => (
-                    <p key={i} style={{ marginBottom: 8 }}>Scroll item {i + 1} — Lorem ipsum dolor sit amet.</p>
+                    <p key={i} style={{ marginBottom: 8 }}>
+                      Scroll item {i + 1} — Lorem ipsum dolor sit amet.
+                    </p>
                   ))}
                 </div>
               </ScrollArea.Viewport>
@@ -117,18 +139,20 @@ export function DataDisplayPage() {
           <div style={{ maxWidth: 400 }}>
             <Carousel.Root>
               <Carousel.Content>
-                {[1, 2, 3, 4, 5].map(i => (
+                {[1, 2, 3, 4, 5].map((i) => (
                   <Carousel.Item key={i}>
-                    <div style={{
-                      height: 200,
-                      backgroundColor: `hsl(${i * 60}, 60%, 85%)`,
-                      borderRadius: 8,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: 24,
-                      fontWeight: 700,
-                    }}>
+                    <div
+                      style={{
+                        height: 200,
+                        backgroundColor: `hsl(${i * 60}, 60%, 85%)`,
+                        borderRadius: 8,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 24,
+                        fontWeight: 700,
+                      }}
+                    >
                       Slide {i}
                     </div>
                   </Carousel.Item>
@@ -143,18 +167,29 @@ export function DataDisplayPage() {
 
       <Section title="Resizable">
         <DemoCard label="Resizable panels">
-          <div style={{ height: 200, border: '1px solid #ddd', borderRadius: 8, overflow: 'hidden' }}>
+          <div
+            style={{
+              height: 200,
+              border: '1px solid #ddd',
+              borderRadius: 8,
+              overflow: 'hidden',
+            }}
+          >
             <Resizable.PanelGroup direction="horizontal">
               <Resizable.Panel defaultSize={50}>
-                <div style={{ padding: 16, height: '100%', background: 'var(--stl-surface1, #f8f8f8)' }}>
+                <div
+                  style={{
+                    padding: 16,
+                    height: '100%',
+                    background: 'var(--stl-surface1, #f8f8f8)',
+                  }}
+                >
                   Left Panel
                 </div>
               </Resizable.Panel>
               <Resizable.Handle />
               <Resizable.Panel defaultSize={50}>
-                <div style={{ padding: 16, height: '100%' }}>
-                  Right Panel
-                </div>
+                <div style={{ padding: 16, height: '100%' }}>Right Panel</div>
               </Resizable.Panel>
             </Resizable.PanelGroup>
           </div>

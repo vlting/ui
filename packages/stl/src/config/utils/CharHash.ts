@@ -135,7 +135,7 @@ export class CharHash {
       ? c
       : c
           .split('')
-          .map((a: string) => '\\u' + a.charCodeAt(0).toString(16).padStart(4, '0'))
+          .map((a: string) => `\\u${a.charCodeAt(0).toString(16).padStart(4, '0')}`)
           .join('')
   }
 }

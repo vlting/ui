@@ -1,8 +1,8 @@
-export { Empty } from './Empty'
 export type {
-  EmptyRootProps,
-  EmptyTitleProps,
+  EmptyActionProps,
   EmptyDescriptionProps,
   EmptyMediaProps,
-  EmptyActionProps,
+  EmptyRootProps,
+  EmptyTitleProps,
 } from './Empty'
+export { Empty } from './Empty'

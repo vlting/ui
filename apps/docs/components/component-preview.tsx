@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
+import { type ReactNode, useState } from 'react'
 import { CopyButton } from './copy-button'
 
 interface ComponentPreviewProps {
@@ -10,7 +10,12 @@ interface ComponentPreviewProps {
   title?: string
 }
 
-export function ComponentPreview({ children, code, codeHtml, title }: ComponentPreviewProps) {
+export function ComponentPreview({
+  children,
+  code,
+  codeHtml,
+  title,
+}: ComponentPreviewProps) {
   const [showCode, setShowCode] = useState(false)
 
   const hasCode = code || codeHtml

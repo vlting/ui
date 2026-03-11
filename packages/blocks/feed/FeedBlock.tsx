@@ -73,7 +73,11 @@ function TimelineFeed({ title, events = [] }: FeedBlockProps) {
     <Card style={{ width: '100%', maxWidth: 600, padding: '16px' }}>
       <div style={{ ...col, gap: '16px' }}>
         {title && <span style={{ fontSize: '18px', fontWeight: 600 }}>{title}</span>}
-        <div style={{ ...col, gap: '0', paddingLeft: '12px' }} role="feed" aria-label={title ?? 'Timeline'}>
+        <div
+          style={{ ...col, gap: '0', paddingLeft: '12px' }}
+          role="feed"
+          aria-label={title ?? 'Timeline'}
+        >
           {events.map((event, i) => {
             const isLast = i === events.length - 1
             const dotColor =
@@ -231,7 +235,11 @@ function CommentNode({
   comment,
   onLike,
   depth = 0,
-}: { comment: CommentItem; onLike?: (id: string) => void; depth?: number }) {
+}: {
+  comment: CommentItem
+  onLike?: (id: string) => void
+  depth?: number
+}) {
   const initials = comment.author.name
     .split(' ')
     .map((n) => n[0])

@@ -1,8 +1,8 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { search, type SearchItem, type SearchItemType } from '../lib/search-index'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { type SearchItem, type SearchItemType, search } from '../lib/search-index'
 
 const typeLabels: Record<SearchItemType, string> = {
   component: 'Component',
@@ -89,7 +89,7 @@ export function SearchDialog() {
   useEffect(() => {
     const activeEl = listRef.current?.querySelector('[data-active="true"]')
     activeEl?.scrollIntoView({ block: 'nearest' })
-  }, [activeIndex])
+  }, [])
 
   if (!open) return null
 
@@ -143,7 +143,9 @@ export function SearchDialog() {
             onKeyDown={handleKeyDown}
             aria-label="Search"
             aria-activedescendant={
-              results[activeIndex] ? `search-result-${results[activeIndex].id}` : undefined
+              results[activeIndex]
+                ? `search-result-${results[activeIndex].id}`
+                : undefined
             }
             role="combobox"
             aria-expanded={results.length > 0}
@@ -184,9 +186,7 @@ export function SearchDialog() {
                       aria-selected={isActive}
                       data-active={isActive}
                       className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-                        isActive
-                          ? 'bg-accent'
-                          : 'hover:bg-accent'
+                        isActive ? 'bg-accent' : 'hover:bg-accent'
                       }`}
                       onClick={() => navigate(item)}
                       onMouseEnter={() => setActiveIndex(idx)}
@@ -236,9 +236,7 @@ export function SearchTrigger() {
   return (
     <button
       onClick={() =>
-        document.dispatchEvent(
-          new KeyboardEvent('keydown', { key: 'k', metaKey: true }),
-        )
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))
       }
       className="flex h-8 items-center gap-2 rounded-md border border-border px-2 text-sm text-muted-foreground transition-colors hover:bg-accent"
       aria-label="Search documentation (Ctrl+K)"

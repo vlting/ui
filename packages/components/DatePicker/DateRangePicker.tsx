@@ -1,4 +1,3 @@
-import type React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 

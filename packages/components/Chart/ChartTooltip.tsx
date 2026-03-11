@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
-import type { TooltipVariant, TooltipIndicator } from './types'
+import type React from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useChartContext } from './Chart'
+import type { TooltipIndicator, TooltipVariant } from './types'
 
 function useResolvedTokens() {
   const ref = useRef<HTMLDivElement>(null)

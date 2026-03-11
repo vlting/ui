@@ -1,5 +1,5 @@
 import type { RefObject } from 'react'
-import { useMemo, useEffect, useCallback } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { getRefElement, isSSR } from '../shared/utils'
 
 export function useLayout(
@@ -28,8 +28,7 @@ export function useLayout(
     if (observer && element) {
       try {
         observer.observe(element, { box: 'content-box' })
-      } catch (error) {
-        console.warn('ResizeObserver Error', error)
+      } catch (_error) {
         return () => undefined
       }
       return () => observer.disconnect()

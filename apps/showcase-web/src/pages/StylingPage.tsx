@@ -1,26 +1,37 @@
-import { styled } from '@vlting/stl-react'
-import { useColorMode, useTokens } from '@vlting/stl-react'
-import { Section, DemoCard, DemoRow } from '../components/Section'
+import { styled, useColorMode } from '@vlting/stl-react'
+import { DemoCard, DemoRow, Section } from '../components/Section'
 
-const ColorSwatch = styled('div', {
-  width: '48px',
-  height: '48px',
-  borderRadius: '$2',
-  border: '1px solid rgba(0,0,0,0.1)',
-}, 'ColorSwatch')
+const ColorSwatch = styled(
+  'div',
+  {
+    width: '48px',
+    height: '48px',
+    borderRadius: '$2',
+    border: '1px solid rgba(0,0,0,0.1)',
+  },
+  'ColorSwatch',
+)
 
-const SpaceBox = styled('div', {
-  backgroundColor: '$primary6',
-  height: '24px',
-  borderRadius: '$1',
-}, 'SpaceBox')
+const SpaceBox = styled(
+  'div',
+  {
+    backgroundColor: '$primary6',
+    height: '24px',
+    borderRadius: '$1',
+  },
+  'SpaceBox',
+)
 
-const RadiusBox = styled('div', {
-  width: '64px',
-  height: '64px',
-  backgroundColor: '$surface2',
-  border: '1px solid $borderColor',
-}, 'RadiusBox')
+const RadiusBox = styled(
+  'div',
+  {
+    width: '64px',
+    height: '64px',
+    backgroundColor: '$surface2',
+    border: '1px solid $borderColor',
+  },
+  'RadiusBox',
+)
 
 const colorSteps = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
 const palettes = ['primary', 'red', 'green', 'blue', 'orange', 'purple', 'pink', 'yellow']
@@ -34,13 +45,25 @@ export function StylingPage() {
 
   return (
     <div>
-      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>Styling & Tokens</h1>
+      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>
+        Styling & Tokens
+      </h1>
 
       <Section title="Color Mode">
         <DemoCard label="Theme Toggle">
           <DemoRow>
-            <span>Current: <strong>{colorMode}</strong></span>
-            <button onClick={toggleColorMode} style={{ padding: '6px 12px', borderRadius: 6, border: '1px solid #ddd', cursor: 'pointer' }}>
+            <span>
+              Current: <strong>{colorMode}</strong>
+            </span>
+            <button
+              onClick={toggleColorMode}
+              style={{
+                padding: '6px 12px',
+                borderRadius: 6,
+                border: '1px solid #ddd',
+                cursor: 'pointer',
+              }}
+            >
               Toggle
             </button>
           </DemoRow>
@@ -48,10 +71,10 @@ export function StylingPage() {
       </Section>
 
       <Section title="Color Palettes">
-        {palettes.map(palette => (
+        {palettes.map((palette) => (
           <DemoCard key={palette} label={palette}>
             <DemoRow>
-              {colorSteps.map(step => (
+              {colorSteps.map((step) => (
                 <div key={step} style={{ textAlign: 'center' }}>
                   <ColorSwatch css={{ backgroundColor: `$${palette}${step}` }} />
                   <div style={{ fontSize: 10, marginTop: 4 }}>{step}</div>
@@ -65,7 +88,7 @@ export function StylingPage() {
       <Section title="Semantic Colors">
         <DemoCard label="Background & Surface">
           <DemoRow>
-            {['background', 'surface1', 'surface2', 'surface3'].map(name => (
+            {['background', 'surface1', 'surface2', 'surface3'].map((name) => (
               <div key={name} style={{ textAlign: 'center' }}>
                 <ColorSwatch css={{ backgroundColor: `$${name}` }} />
                 <div style={{ fontSize: 10, marginTop: 4 }}>{name}</div>
@@ -75,7 +98,7 @@ export function StylingPage() {
         </DemoCard>
         <DemoCard label="Text & Border">
           <DemoRow>
-            {['color', 'colorHover', 'borderColor', 'borderColorHover'].map(name => (
+            {['color', 'colorHover', 'borderColor', 'borderColorHover'].map((name) => (
               <div key={name} style={{ textAlign: 'center' }}>
                 <ColorSwatch css={{ backgroundColor: `$${name}` }} />
                 <div style={{ fontSize: 10, marginTop: 4 }}>{name}</div>
@@ -88,7 +111,7 @@ export function StylingPage() {
       <Section title="Space Scale">
         <DemoCard label="Space tokens ($1 through $10)">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {spaceSteps.map(step => (
+            {spaceSteps.map((step) => (
               <div key={step} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ width: 24, fontSize: 12 }}>${step}</span>
                 <SpaceBox css={{ width: `$space$${step}` }} />
@@ -101,7 +124,7 @@ export function StylingPage() {
       <Section title="Border Radius">
         <DemoCard label="Radius tokens">
           <DemoRow>
-            {radiusSteps.map(step => (
+            {radiusSteps.map((step) => (
               <div key={step} style={{ textAlign: 'center' }}>
                 {/* @ts-expect-error dynamic token reference */}
                 <RadiusBox css={{ borderRadius: `$${step}` }} />
@@ -115,8 +138,11 @@ export function StylingPage() {
       <Section title="Font Sizes">
         <DemoCard label="Typography scale">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {fontSizeSteps.map(step => (
-              <div key={step} style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
+            {fontSizeSteps.map((step) => (
+              <div
+                key={step}
+                style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}
+              >
                 <span style={{ width: 36, fontSize: 12, color: '#888' }}>${step}</span>
                 <span style={{ fontSize: `var(--stl-fontSize-${step}, ${step}px)` }}>
                   The quick brown fox
@@ -130,7 +156,7 @@ export function StylingPage() {
       <Section title="Shadows">
         <DemoCard label="Shadow tokens">
           <DemoRow>
-            {shadowSteps.map(step => (
+            {shadowSteps.map((step) => (
               <div
                 key={step}
                 style={{

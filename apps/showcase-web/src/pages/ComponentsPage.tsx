@@ -1,19 +1,22 @@
-import { Section, DemoCard, DemoRow } from '../components/Section'
-import { Card as CardBase } from '@vlting/ui/components'
-import { Alert } from '@vlting/ui/components'
-import { Avatar } from '@vlting/ui/components'
-import { Button } from '@vlting/ui/components'
-import { ButtonGroup } from '@vlting/ui/components'
-import { Typography } from '@vlting/ui/components'
-import { Empty } from '@vlting/ui/components'
-import { Progress } from '@vlting/ui/components'
-import { Loader } from '@vlting/ui/components'
-import { Item } from '@vlting/ui/components'
+import {
+  Alert,
+  Avatar,
+  Button,
+  ButtonGroup,
+  Card as CardBase,
+  Empty,
+  Item,
+  Loader,
+  Progress,
+  Typography,
+} from '@vlting/ui/components'
 import type { ComponentType, ReactNode } from 'react'
+import { DemoCard, DemoRow, Section } from '../components/Section'
 
 const Card = CardBase as unknown as ComponentType<
   Parameters<typeof CardBase>[0] & { children?: ReactNode }
-> & typeof CardBase
+> &
+  typeof CardBase
 
 export function ComponentsPage() {
   return (
@@ -62,13 +65,17 @@ export function ComponentsPage() {
             <Card>
               <Card.Header>
                 <Card.Title>Card Title</Card.Title>
-                <Card.Description>This is a description for the card component.</Card.Description>
+                <Card.Description>
+                  This is a description for the card component.
+                </Card.Description>
               </Card.Header>
               <Card.Content>
                 <p>Card content goes here. It can contain any elements.</p>
               </Card.Content>
               <Card.Footer>
-                <Button variant="outline" size="sm">Cancel</Button>
+                <Button variant="outline" size="sm">
+                  Cancel
+                </Button>
                 <Button size="sm">Save</Button>
               </Card.Footer>
             </Card>
@@ -78,7 +85,9 @@ export function ComponentsPage() {
 
       <Section title="Alert">
         <DemoCard label="Alert variants">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 500 }}>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 500 }}
+          >
             <Alert.Root>
               <Alert.Title>Default Alert</Alert.Title>
               <Alert.Description>This is a default alert message.</Alert.Description>
@@ -109,7 +118,9 @@ export function ComponentsPage() {
 
       <Section title="Progress">
         <DemoCard label="Progress bar">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 400 }}>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 400 }}
+          >
             <Progress value={25} />
             <Progress value={50} />
             <Progress value={75} />
@@ -131,7 +142,9 @@ export function ComponentsPage() {
         <DemoCard label="Empty state">
           <Empty.Root>
             <Empty.Title>No results found</Empty.Title>
-            <Empty.Description>Try adjusting your search or filter criteria.</Empty.Description>
+            <Empty.Description>
+              Try adjusting your search or filter criteria.
+            </Empty.Description>
           </Empty.Root>
         </DemoCard>
       </Section>
@@ -147,8 +160,12 @@ export function ComponentsPage() {
         </DemoCard>
         <DemoCard label="Body text variants">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <Typography.Lead>Lead text — slightly larger introductory text.</Typography.Lead>
-            <Typography.P>Paragraph text with normal line height and spacing.</Typography.P>
+            <Typography.Lead>
+              Lead text — slightly larger introductory text.
+            </Typography.Lead>
+            <Typography.P>
+              Paragraph text with normal line height and spacing.
+            </Typography.P>
             <Typography.Large>Large text</Typography.Large>
             <Typography.Small>Small text</Typography.Small>
             <Typography.Muted>Muted text for secondary content.</Typography.Muted>
@@ -158,29 +175,61 @@ export function ComponentsPage() {
 
       <Section title="Item">
         <DemoCard label="List item with leading, content, and trailing">
-          <div style={{ maxWidth: 500, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <div
+            style={{ maxWidth: 500, display: 'flex', flexDirection: 'column', gap: 4 }}
+          >
             <Item.Root>
               <Item.Leading>
-                <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#e0e7ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>A</div>
+                <div
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: '50%',
+                    background: '#e0e7ff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 14,
+                  }}
+                >
+                  A
+                </div>
               </Item.Leading>
               <Item.Content>
                 <Item.Title>Alice Johnson</Item.Title>
                 <Item.Description>alice@example.com</Item.Description>
               </Item.Content>
               <Item.Trailing>
-                <Button variant="ghost" size="sm">View</Button>
+                <Button variant="ghost" size="sm">
+                  View
+                </Button>
               </Item.Trailing>
             </Item.Root>
             <Item.Root>
               <Item.Leading>
-                <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>B</div>
+                <div
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: '50%',
+                    background: '#dcfce7',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 14,
+                  }}
+                >
+                  B
+                </div>
               </Item.Leading>
               <Item.Content>
                 <Item.Title>Bob Smith</Item.Title>
                 <Item.Description>bob@example.com</Item.Description>
               </Item.Content>
               <Item.Trailing>
-                <Button variant="ghost" size="sm">View</Button>
+                <Button variant="ghost" size="sm">
+                  View
+                </Button>
               </Item.Trailing>
             </Item.Root>
           </div>

@@ -212,8 +212,7 @@ const registry: BlockEntry[] = [
     name: 'Empty State Block',
     slug: 'empty-state',
     category: 'empty-state',
-    description:
-      'Placeholder states for empty data, errors, and coming-soon features.',
+    description: 'Placeholder states for empty data, errors, and coming-soon features.',
     variants: ['no-data', 'error', 'coming-soon'],
     defaultVariant: 'no-data',
     code: `import { EmptyStateBlock } from '@vlting/ui/blocks'
@@ -237,9 +236,7 @@ export function getAllBlocks(): BlockEntry[] {
   return registry
 }
 
-export function getBlocksByCategory(
-  category: BlockCategory,
-): BlockEntry[] {
+export function getBlocksByCategory(category: BlockCategory): BlockEntry[] {
   return registry.filter((entry) => entry.category === category)
 }
 

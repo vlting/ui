@@ -1,5 +1,5 @@
-import { readFile } from 'fs/promises'
-import { join } from 'path'
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 import { getComponent } from './registry'
 
 export interface PropDef {
@@ -28,9 +28,7 @@ export interface ApiMapping {
  * Load the api-mapping.json for a component by its slug.
  * Returns null if the component has no mapping file.
  */
-export async function loadApiMapping(
-  componentSlug: string,
-): Promise<ApiMapping | null> {
+export async function loadApiMapping(componentSlug: string): Promise<ApiMapping | null> {
   const entry = getComponent(componentSlug)
   if (!entry?.apiMappingPath) return null
 
@@ -46,9 +44,7 @@ export async function loadApiMapping(
 /**
  * Check if a value is a PropDef (leaf node) vs a nested sub-component map.
  */
-function isPropDef(
-  value: PropDef | Record<string, PropDef>,
-): value is PropDef {
+function isPropDef(value: PropDef | Record<string, PropDef>): value is PropDef {
   return typeof (value as PropDef).type === 'string'
 }
 

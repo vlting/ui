@@ -1,8 +1,8 @@
-export { FeedBlock } from './FeedBlock'
 export type {
+  CommentItem,
   FeedBlockProps,
   FeedBlockVariant,
-  TimelineEvent,
   NotificationItem,
-  CommentItem,
+  TimelineEvent,
 } from './FeedBlock'
+export { FeedBlock } from './FeedBlock'

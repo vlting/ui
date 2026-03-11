@@ -1,22 +1,37 @@
 import Link from 'next/link'
 
 const features = [
-  { title: '38+ Components', description: 'Full component library with shadcn API compatibility', href: '/docs/components/button' },
-  { title: '10 Blocks', description: 'Pre-composed layouts: auth, sidebar, dashboard, pricing, and more — each with multiple variants', href: '/docs/blocks/auth' },
-  { title: '6 Chart Types', description: 'Area, Bar, Line, Pie, Radar, and Radial charts with 69 variants', href: '/docs/charts/bar' },
-  { title: '3200+ Icons', description: 'Full Remix Icon set with tree-shakeable imports', href: '/docs/icons' },
+  {
+    title: '38+ Components',
+    description: 'Full component library with shadcn API compatibility',
+    href: '/docs/components/button',
+  },
+  {
+    title: '10 Blocks',
+    description:
+      'Pre-composed layouts: auth, sidebar, dashboard, pricing, and more — each with multiple variants',
+    href: '/docs/blocks/auth',
+  },
+  {
+    title: '6 Chart Types',
+    description: 'Area, Bar, Line, Pie, Radar, and Radial charts with 69 variants',
+    href: '/docs/charts/bar',
+  },
+  {
+    title: '3200+ Icons',
+    description: 'Full Remix Icon set with tree-shakeable imports',
+    href: '/docs/icons',
+  },
 ]
 
 export default function HomePage() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
       <section className="mb-16 text-center">
-        <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
-          @vlting/ui
-        </h1>
+        <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">@vlting/ui</h1>
         <p className="mx-auto mb-8 max-w-2xl text-lg text-foreground-secondary">
-          Cross-platform design system built on @vlting/stl. Works on web and React Native.
-          Brand theming, accessibility-first, and fully tree-shakeable.
+          Cross-platform design system built on @vlting/stl. Works on web and React
+          Native. Brand theming, accessibility-first, and fully tree-shakeable.
         </p>
         <div className="flex items-center justify-center gap-4">
           <Link
@@ -52,9 +67,7 @@ export default function HomePage() {
             <h2 className="mb-2 text-lg font-semibold group-hover:underline">
               {feature.title}
             </h2>
-            <p className="text-sm text-foreground-secondary">
-              {feature.description}
-            </p>
+            <p className="text-sm text-foreground-secondary">{feature.description}</p>
           </Link>
         ))}
       </section>

@@ -21,7 +21,7 @@ function NavigationFixture({
   })
 
   return (
-    <div onKeyDown={handleKeyDown} data-testid="container" tabIndex={0}>
+    <div onKeyDown={handleKeyDown} data-testid="container">
       {Array.from({ length: items }, (_, i) => (
         <div key={i} data-testid={`item-${i}`} data-active={i === activeIndex}>
           Item {i}

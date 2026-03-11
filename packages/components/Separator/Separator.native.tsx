@@ -1,6 +1,6 @@
-import React, { forwardRef } from 'react'
-import { View } from 'react-native'
+import { forwardRef } from 'react'
 import type { ViewStyle } from 'react-native'
+import { View } from 'react-native'
 import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------

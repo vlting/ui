@@ -1,35 +1,41 @@
-import React, { useState } from "react"
-import { ScrollView, View, Text as RNText, StyleSheet, Alert as RNAlert } from "react-native"
-
+import { useState } from 'react'
+import {
+  Alert as RNAlert,
+  Text as RNText,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native'
+import { Accordion } from '../../../../packages/components/Accordion/Accordion.native'
+import { Alert } from '../../../../packages/components/Alert/Alert.native'
+import { Avatar } from '../../../../packages/components/Avatar/Avatar.native'
+import { Badge } from '../../../../packages/components/Badge/Badge.native'
 // Tier 1
-import { Button } from "../../../../packages/components/Button/Button.native"
-import { Input } from "../../../../packages/components/Input/Input.native"
-import { Checkbox } from "../../../../packages/components/Checkbox/Checkbox.native"
-import { Switch } from "../../../../packages/components/Switch/Switch.native"
-import { Card } from "../../../../packages/components/Card/Card.native"
-import { Avatar } from "../../../../packages/components/Avatar/Avatar.native"
-import { Badge } from "../../../../packages/components/Badge/Badge.native"
-import { Alert } from "../../../../packages/components/Alert/Alert.native"
-import { Separator } from "../../../../packages/components/Separator/Separator.native"
-import { Label } from "../../../../packages/components/Label/Label.native"
-
+import { Button } from '../../../../packages/components/Button/Button.native'
+import { Card } from '../../../../packages/components/Card/Card.native'
+import { Checkbox } from '../../../../packages/components/Checkbox/Checkbox.native'
 // Tier 2
-import { Dialog } from "../../../../packages/components/Dialog/Dialog.native"
-import { Sheet } from "../../../../packages/components/Sheet/Sheet.native"
-import { Select } from "../../../../packages/components/Select/Select.native"
-import { Tabs } from "../../../../packages/components/Tabs/Tabs.native"
-import { Accordion } from "../../../../packages/components/Accordion/Accordion.native"
-import { Toast, useNativeToast } from "../../../../packages/components/Toast/Toast.native"
-import { Tooltip } from "../../../../packages/components/Tooltip/Tooltip.native"
-import { DropdownMenu } from "../../../../packages/components/DropdownMenu/DropdownMenu.native"
+import { Dialog } from '../../../../packages/components/Dialog/Dialog.native'
+import { DropdownMenu } from '../../../../packages/components/DropdownMenu/DropdownMenu.native'
+import { Input } from '../../../../packages/components/Input/Input.native'
+import { Label } from '../../../../packages/components/Label/Label.native'
+import { Select } from '../../../../packages/components/Select/Select.native'
+import { Separator } from '../../../../packages/components/Separator/Separator.native'
+import { Sheet } from '../../../../packages/components/Sheet/Sheet.native'
+import { Switch } from '../../../../packages/components/Switch/Switch.native'
+import { Tabs } from '../../../../packages/components/Tabs/Tabs.native'
+import { Toast, useNativeToast } from '../../../../packages/components/Toast/Toast.native'
+import { Tooltip } from '../../../../packages/components/Tooltip/Tooltip.native'
 
 // Primitives for layout
-import { Row, Column, Text, Spacer } from "../../../../packages/stl-native/src/primitives"
+import { Column, Row, Spacer, Text } from '../../../../packages/stl-native/src/primitives'
 
 function ToastDemo() {
   const { add } = useNativeToast()
   return (
-    <Button onPress={() => add({ message: `Hello at ${Date.now() % 1000}`, duration: 3000 })}>
+    <Button
+      onPress={() => add({ message: `Hello at ${Date.now() % 1000}`, duration: 3000 })}
+    >
       <Button.Text>Show Toast</Button.Text>
     </Button>
   )
@@ -40,7 +46,7 @@ export function ComponentsScreen() {
   const [switchOn, setSwitchOn] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [sheetOpen, setSheetOpen] = useState(false)
-  const [inputValue, setInputValue] = useState("")
+  const [inputValue, setInputValue] = useState('')
 
   return (
     <ScrollView style={styles.container}>
@@ -54,8 +60,8 @@ export function ComponentsScreen() {
 
       <View style={styles.section}>
         <RNText style={styles.sectionTitle}>Button</RNText>
-        <Row css={{ gap: 8, flexWrap: "wrap" }}>
-          <Button onPress={() => RNAlert.alert("Pressed!")}>
+        <Row css={{ gap: 8, flexWrap: 'wrap' }}>
+          <Button onPress={() => RNAlert.alert('Pressed!')}>
             <Button.Text>Default</Button.Text>
           </Button>
           <Button variant="secondary">
@@ -73,12 +79,20 @@ export function ComponentsScreen() {
         </Row>
         <Spacer size="sm" />
         <Row css={{ gap: 8 }}>
-          <Button size="sm"><Button.Text>Small</Button.Text></Button>
-          <Button size="md"><Button.Text>Medium</Button.Text></Button>
-          <Button size="lg"><Button.Text>Large</Button.Text></Button>
+          <Button size="sm">
+            <Button.Text>Small</Button.Text>
+          </Button>
+          <Button size="md">
+            <Button.Text>Medium</Button.Text>
+          </Button>
+          <Button size="lg">
+            <Button.Text>Large</Button.Text>
+          </Button>
         </Row>
         <Spacer size="sm" />
-        <Button loading><Button.Text>Loading</Button.Text></Button>
+        <Button loading>
+          <Button.Text>Loading</Button.Text>
+        </Button>
       </View>
 
       <View style={styles.section}>
@@ -107,9 +121,9 @@ export function ComponentsScreen() {
 
       <View style={styles.section}>
         <RNText style={styles.sectionTitle}>Switch</RNText>
-        <Row css={{ gap: 12, alignItems: "center" }}>
+        <Row css={{ gap: 12, alignItems: 'center' }}>
           <Switch checked={switchOn} onCheckedChange={setSwitchOn} />
-          <Text>Notifications {switchOn ? "on" : "off"}</Text>
+          <Text>Notifications {switchOn ? 'on' : 'off'}</Text>
         </Row>
       </View>
 
@@ -143,7 +157,7 @@ export function ComponentsScreen() {
 
       <View style={styles.section}>
         <RNText style={styles.sectionTitle}>Badge</RNText>
-        <Row css={{ gap: 8, flexWrap: "wrap" }}>
+        <Row css={{ gap: 8, flexWrap: 'wrap' }}>
           <Badge>Default</Badge>
           <Badge variant="secondary">Secondary</Badge>
           <Badge variant="destructive">Error</Badge>
@@ -214,11 +228,11 @@ export function ComponentsScreen() {
           </Sheet.Header>
           <Sheet.Content>
             <Column css={{ gap: 12 }}>
-              <Row css={{ justifyContent: "space-between", alignItems: "center" }}>
+              <Row css={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 <Text>Dark Mode</Text>
                 <Switch checked={false} onCheckedChange={() => {}} />
               </Row>
-              <Row css={{ justifyContent: "space-between", alignItems: "center" }}>
+              <Row css={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 <Text>Notifications</Text>
                 <Switch checked={true} onCheckedChange={() => {}} />
               </Row>
@@ -293,14 +307,14 @@ export function ComponentsScreen() {
           <DropdownMenu.Content>
             <DropdownMenu.Label>Actions</DropdownMenu.Label>
             <DropdownMenu.Separator />
-            <DropdownMenu.Item onPress={() => RNAlert.alert("Edit")}>
+            <DropdownMenu.Item onPress={() => RNAlert.alert('Edit')}>
               <Text>Edit</Text>
             </DropdownMenu.Item>
-            <DropdownMenu.Item onPress={() => RNAlert.alert("Duplicate")}>
+            <DropdownMenu.Item onPress={() => RNAlert.alert('Duplicate')}>
               <Text>Duplicate</Text>
             </DropdownMenu.Item>
             <DropdownMenu.Separator />
-            <DropdownMenu.Item onPress={() => RNAlert.alert("Delete")}>
+            <DropdownMenu.Item onPress={() => RNAlert.alert('Delete')}>
               <Text>Delete</Text>
             </DropdownMenu.Item>
           </DropdownMenu.Content>
@@ -323,10 +337,16 @@ export function ComponentsScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20 },
-  title: { fontSize: 24, fontWeight: "700", marginBottom: 4 },
-  subtitle: { fontSize: 14, color: "#888", marginBottom: 24 },
-  tierTitle: { fontSize: 20, fontWeight: "700", marginTop: 16, marginBottom: 12, color: "#0066ff" },
+  title: { fontSize: 24, fontWeight: '700', marginBottom: 4 },
+  subtitle: { fontSize: 14, color: '#888', marginBottom: 24 },
+  tierTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    marginTop: 16,
+    marginBottom: 12,
+    color: '#0066ff',
+  },
   section: { marginBottom: 28 },
-  sectionTitle: { fontSize: 16, fontWeight: "600", marginBottom: 10 },
-  label: { fontSize: 12, color: "#888", marginTop: 4 },
+  sectionTitle: { fontSize: 16, fontWeight: '600', marginBottom: 10 },
+  label: { fontSize: 12, color: '#888', marginTop: 4 },
 })

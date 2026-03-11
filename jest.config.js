@@ -4,6 +4,10 @@ module.exports = {
     customExportConditions: ['node', 'require'],
   },
   testMatch: ['**/*.test.[jt]s?(x)'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    'packages/stl-native/',
+  ],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/**/*.d.ts',

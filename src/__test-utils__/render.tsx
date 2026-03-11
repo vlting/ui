@@ -10,4 +10,4 @@ export function render(ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'
   return rtlRender(ui, { wrapper: AllProviders, ...options })
 }
 
-export { screen, fireEvent, waitFor } from '@testing-library/react'
+export { fireEvent, screen, waitFor } from '@testing-library/react'

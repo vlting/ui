@@ -1,17 +1,17 @@
+import {
+  type BreakpointOverrides,
+  type ColorMode,
+  type Direction,
+  mapConditions,
+  observerConditionsMap,
+  queryConditionsMap,
+} from '@vlting/stl'
 import type { Reducer } from 'react'
 import { useCallback, useReducer, useState } from 'react'
+import { useLayout } from '../hooks/useLayout'
 import { useMediaQuery } from '../hooks/useMediaQuery'
-import {
-  ColorMode,
-  mapConditions,
-  queryConditionsMap,
-  BreakpointOverrides,
-  Direction,
-  observerConditionsMap,
-} from '@vlting/stl'
 import { useMutationObserver } from '../hooks/useMutationObserver'
 import { isSSR } from '../shared/utils'
-import { useLayout } from '../hooks/useLayout'
 
 const DEFAULT_RESPONSIVE_CONDITIONS = {
   xs: false,
@@ -90,9 +90,12 @@ export function useContextConditions(
     Reducer<ResponsiveConditionsState, ResponsiveConditionAction>
   >(responsiveConditionsReducer, DEFAULT_RESPONSIVE_CONDITIONS)
 
-  const resizer = useCallback(({ width }: { width: number; height: number }) => {
-    setResponsiveConditions({ overrides, width })
-  }, [])
+  const resizer = useCallback(
+    ({ width }: { width: number; height: number }) => {
+      setResponsiveConditions({ overrides, width })
+    },
+    [overrides],
+  )
   useLayout(isSSR ? null : document.documentElement, resizer)
 
   // Track media queries

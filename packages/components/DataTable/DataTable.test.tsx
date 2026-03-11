@@ -47,7 +47,7 @@ describe('DataTable', () => {
   })
 
   it('clicking sortable header changes aria-sort', () => {
-    const { container } = render(<DataTable data={testData} columns={testColumns} />)
+    render(<DataTable data={testData} columns={testColumns} />)
     const nameHeader = screen.getByText('Name').closest('th')!
     expect(nameHeader.getAttribute('aria-sort')).toBeNull()
 

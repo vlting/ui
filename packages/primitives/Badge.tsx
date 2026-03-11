@@ -1,5 +1,5 @@
-import { styled } from '../stl-react/src/config'
 import type { ComponentProps } from 'react'
+import { styled } from '../stl-react/src/config'
 
 const BadgeFrame = styled(
   'span',

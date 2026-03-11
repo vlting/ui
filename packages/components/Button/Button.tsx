@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect } from 'react'
-import { styled } from '../../stl-react/src/config'
 import { VisuallyHidden } from '../../primitives'
+import { styled } from '../../stl-react/src/config'
 
 const BUTTON_INTERACTION_STYLE_ID = 'vlt-button-interaction'
 const BUTTON_INTERACTION_CSS = `

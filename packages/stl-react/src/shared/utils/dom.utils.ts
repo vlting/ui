@@ -15,7 +15,7 @@ export function mergeRefs<T extends HTMLElement | null = HTMLElement>(
         } else {
           try {
             ref.current = node
-          } catch (error) {
+          } catch (_error) {
             // We want this to fail silently
           }
         }

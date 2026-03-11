@@ -1,12 +1,10 @@
-import { Section, DemoCard } from '../../components/Section'
-import { Dialog, Button } from '@vlting/ui/components'
+import { Button, Dialog } from '@vlting/ui/components'
+import { DemoCard, Section } from '../../components/Section'
 
 export function DialogPage() {
   return (
     <div>
-      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>
-        Dialog
-      </h1>
+      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>Dialog</h1>
 
       <Section title="Default">
         <DemoCard label="Dialog with trigger" testId="dialog-trigger">
@@ -17,8 +15,8 @@ export function DialogPage() {
             <Dialog.Content>
               <Dialog.Title>Dialog Title</Dialog.Title>
               <Dialog.Description>
-                This is a dialog description. It provides context about the
-                action or information being presented.
+                This is a dialog description. It provides context about the action or
+                information being presented.
               </Dialog.Description>
               <Dialog.Footer>
                 <Dialog.Close>

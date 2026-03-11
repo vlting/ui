@@ -13,9 +13,16 @@ export default function MigrationPage() {
         <h1 style={{ fontSize: 32, fontWeight: 700, marginBottom: 8 }}>
           Migrating from shadcn/ui
         </h1>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 16, lineHeight: 1.6 }}>
-          A comprehensive guide to migrating your application from shadcn/ui to @vlting/ui.
-          All components are available from a single package with cross-platform support.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 16,
+            lineHeight: 1.6,
+          }}
+        >
+          A comprehensive guide to migrating your application from shadcn/ui to
+          @vlting/ui. All components are available from a single package with
+          cross-platform support.
         </p>
       </div>
 
@@ -23,7 +30,13 @@ export default function MigrationPage() {
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Installation</h2>
         <CodeBlock code={`npm install @vlting/ui`} language="bash" />
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
           All components are exported from a single package — no per-component installs or
           copy-paste setup. Wrap your app in the Provider:
         </p>
@@ -44,14 +57,27 @@ function App({ children }) {
       {/* Universal Changes */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Universal Changes</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          These changes apply to <strong>every</strong> component and should be addressed first.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          These changes apply to <strong>every</strong> component and should be addressed
+          first.
         </p>
 
         {/* Import paths */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <h3 style={{ fontSize: 18, fontWeight: 600 }}>Import Paths</h3>
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 14,
+              lineHeight: 1.6,
+            }}
+          >
             Replace per-component file imports with a single package import.
           </p>
           <CodeBlock
@@ -68,9 +94,16 @@ import { Button, Dialog } from '@vlting/ui'`}
         {/* className → style props */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <h3 style={{ fontSize: 18, fontWeight: 600 }}>className → STL Style Props</h3>
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
-            Tailwind CSS utility classes are replaced with STL style props using design tokens
-            (CSS custom properties). This enables cross-platform support (web + React Native).
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 14,
+              lineHeight: 1.6,
+            }}
+          >
+            Tailwind CSS utility classes are replaced with STL style props using design
+            tokens (CSS custom properties). This enables cross-platform support (web +
+            React Native).
           </p>
           <CodeBlock
             code={`// Before (shadcn + Tailwind)
@@ -84,9 +117,18 @@ import { Button, Dialog } from '@vlting/ui'`}
 
         {/* Compound components */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <h3 style={{ fontSize: 18, fontWeight: 600 }}>Compound Component Dot-Notation</h3>
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
-            shadcn exports flat named components. @vlting/ui uses dot-notation compound components.
+          <h3 style={{ fontSize: 18, fontWeight: 600 }}>
+            Compound Component Dot-Notation
+          </h3>
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 14,
+              lineHeight: 1.6,
+            }}
+          >
+            shadcn exports flat named components. @vlting/ui uses dot-notation compound
+            components.
           </p>
           <CodeBlock
             code={`// Before (shadcn)
@@ -106,20 +148,33 @@ import { Dialog } from '@vlting/ui'
 </Dialog.Root>`}
             language="tsx"
           />
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 13, lineHeight: 1.6 }}>
-            This pattern applies to: Accordion, Alert, AlertDialog, Avatar, Breadcrumb, Carousel,
-            Checkbox, Collapsible, Command, ContextMenu, Dialog, Drawer, DropdownMenu, Form,
-            HoverCard, InputOTP, Menubar, NavigationMenu, Popover, RadioGroup, Resizable,
-            ScrollArea, Select, Sheet, Tabs, Toast, and Toggle.
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 13,
+              lineHeight: 1.6,
+            }}
+          >
+            This pattern applies to: Accordion, Alert, AlertDialog, Avatar, Breadcrumb,
+            Carousel, Checkbox, Collapsible, Command, ContextMenu, Dialog, Drawer,
+            DropdownMenu, Form, HoverCard, InputOTP, Menubar, NavigationMenu, Popover,
+            RadioGroup, Resizable, ScrollArea, Select, Sheet, Tabs, Toast, and Toggle.
           </p>
         </div>
 
         {/* onClick → onPress */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <h3 style={{ fontSize: 18, fontWeight: 600 }}>onClick → onPress</h3>
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
-            React Native uses <code>onPress</code> instead of <code>onClick</code>. @vlting/ui
-            standardizes on <code>onPress</code> for cross-platform compatibility.
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 14,
+              lineHeight: 1.6,
+            }}
+          >
+            React Native uses <code>onPress</code> instead of <code>onClick</code>.
+            @vlting/ui standardizes on <code>onPress</code> for cross-platform
+            compatibility.
           </p>
           <CodeBlock
             code={`// Before
@@ -134,18 +189,31 @@ import { Dialog } from '@vlting/ui'
         {/* No asChild */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <h3 style={{ fontSize: 18, fontWeight: 600 }}>No asChild</h3>
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
-            shadcn uses Radix&apos;s <code>asChild</code> prop for component composition. @vlting/ui
-            does not support <code>asChild</code>. Pass children directly instead.
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 14,
+              lineHeight: 1.6,
+            }}
+          >
+            shadcn uses Radix&apos;s <code>asChild</code> prop for component composition.
+            @vlting/ui does not support <code>asChild</code>. Pass children directly
+            instead.
           </p>
         </div>
 
         {/* Size naming */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <h3 style={{ fontSize: 18, fontWeight: 600 }}>Size Naming</h3>
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
-            shadcn uses <code>&quot;default&quot;</code> as its default size. @vlting/ui uses{' '}
-            <code>&quot;md&quot;</code>. Available sizes are typically{' '}
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 14,
+              lineHeight: 1.6,
+            }}
+          >
+            shadcn uses <code>&quot;default&quot;</code> as its default size. @vlting/ui
+            uses <code>&quot;md&quot;</code>. Available sizes are typically{' '}
             <code>&quot;sm&quot; | &quot;md&quot; | &quot;lg&quot;</code>.
           </p>
           <CodeBlock
@@ -176,14 +244,39 @@ import { Dialog } from '@vlting/ui'
               {[
                 ['Button', 'onClick', 'onPress', 'Cross-platform'],
                 ['Button', 'size="default"', 'size="md"', 'Named sizing'],
-                ['Input', 'onChange={(e) => e.target.value}', 'onChangeText={(text) => text}', 'Direct string callback'],
-                ['Textarea', 'onChange={(e) => ...}', 'onChangeText={(text) => ...}', 'Direct string callback'],
-                ['NativeSelect', 'onChange', 'onValueChange', 'Value directly, not event'],
+                [
+                  'Input',
+                  'onChange={(e) => e.target.value}',
+                  'onChangeText={(text) => text}',
+                  'Direct string callback',
+                ],
+                [
+                  'Textarea',
+                  'onChange={(e) => ...}',
+                  'onChangeText={(text) => ...}',
+                  'Direct string callback',
+                ],
+                [
+                  'NativeSelect',
+                  'onChange',
+                  'onValueChange',
+                  'Value directly, not event',
+                ],
                 ['Slider', 'value={[50]}', 'value={50}', 'Single number, not array'],
-                ['Toast', 'variant="destructive"', 'variant="error"', 'Also "success", "warning"'],
+                [
+                  'Toast',
+                  'variant="destructive"',
+                  'variant="error"',
+                  'Also "success", "warning"',
+                ],
                 ['Toggle', 'size="default"', 'size="md"', 'Named sizing'],
                 ['Tooltip', 'delayDuration={200}', 'delay={200}', 'Shorter prop name'],
-                ['Popover', 'side on Content', 'placement on Root', 'Configured at Root level'],
+                [
+                  'Popover',
+                  'side on Content',
+                  'placement on Root',
+                  'Configured at Root level',
+                ],
                 ['Form', '<FormMessage>', '<Form.ErrorMessage>', 'Different naming'],
               ].map(([comp, shadcn, vlting, notes], i) => (
                 <tr key={i} style={{ borderBottom: '1px solid var(--color-border)' }}>
@@ -196,7 +289,12 @@ import { Dialog } from '@vlting/ui'
                   <td style={{ padding: '6px 12px' }}>
                     <code style={{ fontSize: 12 }}>{vlting}</code>
                   </td>
-                  <td style={{ padding: '6px 12px', color: 'var(--color-muted-foreground)' }}>
+                  <td
+                    style={{
+                      padding: '6px 12px',
+                      color: 'var(--color-muted-foreground)',
+                    }}
+                  >
                     {notes}
                   </td>
                 </tr>
@@ -213,10 +311,16 @@ import { Dialog } from '@vlting/ui'
         {/* Form Inputs */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <h3 style={{ fontSize: 18, fontWeight: 600 }}>Form Inputs</h3>
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 14,
+              lineHeight: 1.6,
+            }}
+          >
             @vlting/ui form inputs have built-in <code>label</code>, <code>error</code>,{' '}
-            <code>errorMessage</code>, and <code>helperText</code> props. No need for separate
-            Label and error display components.
+            <code>errorMessage</code>, and <code>helperText</code> props. No need for
+            separate Label and error display components.
           </p>
           <CodeBlock
             code={`// Before (shadcn)
@@ -240,9 +344,15 @@ import { Dialog } from '@vlting/ui'
         {/* Form Handling */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <h3 style={{ fontSize: 18, fontWeight: 600 }}>Form Handling</h3>
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
-            shadcn uses <code>react-hook-form</code> with <code>FormProvider</code>. @vlting/ui is
-            library-agnostic — use any form library or plain state.
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 14,
+              lineHeight: 1.6,
+            }}
+          >
+            shadcn uses <code>react-hook-form</code> with <code>FormProvider</code>.
+            @vlting/ui is library-agnostic — use any form library or plain state.
           </p>
           <CodeBlock
             code={`// Before (shadcn + react-hook-form)
@@ -266,8 +376,15 @@ import { Dialog } from '@vlting/ui'
         {/* Toast */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <h3 style={{ fontSize: 18, fontWeight: 600 }}>Toast / Notifications</h3>
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
-            @vlting/ui provides a Sonner-style imperative API instead of shadcn&apos;s hook-based approach.
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 14,
+              lineHeight: 1.6,
+            }}
+          >
+            @vlting/ui provides a Sonner-style imperative API instead of shadcn&apos;s
+            hook-based approach.
           </p>
           <CodeBlock
             code={`// Before (shadcn)
@@ -293,7 +410,13 @@ toast.dismiss()             // dismiss all`}
         {/* Tooltip */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <h3 style={{ fontSize: 18, fontWeight: 600 }}>Tooltip</h3>
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 14,
+              lineHeight: 1.6,
+            }}
+          >
             Simplified from a multi-component composition to a single wrapper component.
           </p>
           <CodeBlock
@@ -316,7 +439,13 @@ toast.dismiss()             // dismiss all`}
         {/* Select */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <h3 style={{ fontSize: 18, fontWeight: 600 }}>Select</h3>
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 14,
+              lineHeight: 1.6,
+            }}
+          >
             Simplified API — trigger and content are handled by the Root.
           </p>
           <CodeBlock
@@ -339,9 +468,15 @@ toast.dismiss()             // dismiss all`}
         {/* DataTable */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <h3 style={{ fontSize: 18, fontWeight: 600 }}>DataTable</h3>
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
-            Wraps <code>@tanstack/react-table</code> in a single component with built-in sorting,
-            filtering, and pagination.
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 14,
+              lineHeight: 1.6,
+            }}
+          >
+            Wraps <code>@tanstack/react-table</code> in a single component with built-in
+            sorting, filtering, and pagination.
           </p>
           <CodeBlock
             code={`// Before (shadcn — manual setup)
@@ -357,7 +492,13 @@ const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() 
         {/* Combobox */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <h3 style={{ fontSize: 18, fontWeight: 600 }}>Combobox</h3>
-          <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.6 }}>
+          <p
+            style={{
+              color: 'var(--color-muted-foreground)',
+              fontSize: 14,
+              lineHeight: 1.6,
+            }}
+          >
             Single component instead of manually composing Popover + Command.
           </p>
           <CodeBlock
@@ -388,7 +529,13 @@ const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() 
       {/* New Components */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>New Components</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
           Components available in @vlting/ui that don&apos;t exist in shadcn:
         </p>
         <div style={{ overflowX: 'auto' }}>
@@ -401,11 +548,26 @@ const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() 
             </thead>
             <tbody>
               {[
-                ['Direction', 'RTL/LTR context provider (DirectionProvider + useDirection hook)'],
-                ['Item', 'Generic list-item compound component (Root, Leading, Content, Title, Description, Trailing)'],
-                ['InputGroup', 'Input with prefix/suffix addons and border-radius collapsing'],
-                ['toast() API', 'Sonner-style imperative toast: toast(), toast.success(), toast.error(), toast.warning(), toast.promise()'],
-                ['DataTable', 'Single-component wrapper around @tanstack/react-table + Table'],
+                [
+                  'Direction',
+                  'RTL/LTR context provider (DirectionProvider + useDirection hook)',
+                ],
+                [
+                  'Item',
+                  'Generic list-item compound component (Root, Leading, Content, Title, Description, Trailing)',
+                ],
+                [
+                  'InputGroup',
+                  'Input with prefix/suffix addons and border-radius collapsing',
+                ],
+                [
+                  'toast() API',
+                  'Sonner-style imperative toast: toast(), toast.success(), toast.error(), toast.warning(), toast.promise()',
+                ],
+                [
+                  'DataTable',
+                  'Single-component wrapper around @tanstack/react-table + Table',
+                ],
                 ['Loader', 'Loading indicator with multiple variants'],
                 ['Empty', 'Empty state placeholder component'],
                 ['NativeSelect', 'Native HTML <select> with consistent styling'],
@@ -416,7 +578,12 @@ const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() 
                   <td style={{ padding: '6px 12px' }}>
                     <code>{name}</code>
                   </td>
-                  <td style={{ padding: '6px 12px', color: 'var(--color-muted-foreground)' }}>
+                  <td
+                    style={{
+                      padding: '6px 12px',
+                      color: 'var(--color-muted-foreground)',
+                    }}
+                  >
                     {desc}
                   </td>
                 </tr>
@@ -429,8 +596,15 @@ const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() 
       {/* Cross-Platform */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Cross-Platform Notes</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          @vlting/ui components work on both web and React Native. Some features are web-specific:
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          @vlting/ui components work on both web and React Native. Some features are
+          web-specific:
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
@@ -444,17 +618,34 @@ const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() 
             <tbody>
               {[
                 ['DataTable', 'Full support', 'Not available (uses HTML tables)'],
-                ['InputGroup / ButtonGroup border collapsing', 'Full support', 'Graceful degradation'],
+                [
+                  'InputGroup / ButtonGroup border collapsing',
+                  'Full support',
+                  'Graceful degradation',
+                ],
                 ['NavigationMenu', 'Full support', 'Simplified (no hover dropdowns)'],
                 ['Sheet snap points', 'Full support', 'Native sheet behavior'],
                 ['Resizable panels', 'Full support', 'Not available'],
               ].map(([feature, web, native]) => (
-                <tr key={feature} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <tr
+                  key={feature}
+                  style={{ borderBottom: '1px solid var(--color-border)' }}
+                >
                   <td style={{ padding: '6px 12px' }}>{feature}</td>
-                  <td style={{ padding: '6px 12px', color: 'var(--color-muted-foreground)' }}>
+                  <td
+                    style={{
+                      padding: '6px 12px',
+                      color: 'var(--color-muted-foreground)',
+                    }}
+                  >
                     {web}
                   </td>
-                  <td style={{ padding: '6px 12px', color: 'var(--color-muted-foreground)' }}>
+                  <td
+                    style={{
+                      padding: '6px 12px',
+                      color: 'var(--color-muted-foreground)',
+                    }}
+                  >
                     {native}
                   </td>
                 </tr>
@@ -467,11 +658,17 @@ const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() 
       {/* API Mappings */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>API Mapping Reference</h2>
-        <p style={{ color: 'var(--color-muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>
-          Every component has a machine-readable <code>api-mapping.json</code> file documenting the
-          exact prop-level differences between shadcn and @vlting/ui. Visit any component&apos;s
-          documentation page to see its detailed API table with prop mappings, breaking changes,
-          and migration notes.
+        <p
+          style={{
+            color: 'var(--color-muted-foreground)',
+            fontSize: 14,
+            lineHeight: 1.7,
+          }}
+        >
+          Every component has a machine-readable <code>api-mapping.json</code> file
+          documenting the exact prop-level differences between shadcn and @vlting/ui.
+          Visit any component&apos;s documentation page to see its detailed API table with
+          prop mappings, breaking changes, and migration notes.
         </p>
       </section>
     </div>

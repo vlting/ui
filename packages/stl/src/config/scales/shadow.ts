@@ -1,5 +1,5 @@
-import { CharHash } from '../utils'
-import { ColorVars, ThemeScale } from './scales.models'
+import type { CharHash } from '../utils'
+import type { ColorVars, ThemeScale } from './scales.models'
 import {
   getCssMapFromVars,
   getPropsFromCssMap,

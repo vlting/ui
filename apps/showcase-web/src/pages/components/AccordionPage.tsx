@@ -1,12 +1,10 @@
-import { Section, DemoCard } from '../../components/Section'
 import { Accordion } from '@vlting/ui/components'
+import { DemoCard, Section } from '../../components/Section'
 
 export function AccordionPage() {
   return (
     <div>
-      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>
-        Accordion
-      </h1>
+      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>Accordion</h1>
 
       <Section title="Default">
         <DemoCard label="Accordion with 3 items" testId="accordion-default">
@@ -14,7 +12,8 @@ export function AccordionPage() {
             <Accordion.Item value="item-1">
               <Accordion.Trigger>What is vlt?</Accordion.Trigger>
               <Accordion.Content>
-                vlt is a next-generation JavaScript package manager built for speed and security.
+                vlt is a next-generation JavaScript package manager built for speed and
+                security.
               </Accordion.Content>
             </Accordion.Item>
             <Accordion.Item value="item-2">

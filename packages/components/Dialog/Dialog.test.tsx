@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { Dialog } from './Dialog'
 
 describe('Dialog', () => {

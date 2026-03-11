@@ -1,3 +1,3 @@
+export type { FileTreeItem, NavGroup, NavItem } from './_shared'
+export type { SidebarBlockProps, SidebarBlockVariant } from './SidebarBlock'
 export { SidebarBlock } from './SidebarBlock'
-export type { SidebarBlockVariant, SidebarBlockProps } from './SidebarBlock'
-export type { NavItem, NavGroup, FileTreeItem } from './_shared'

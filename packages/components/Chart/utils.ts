@@ -1,5 +1,5 @@
-import type { ChartConfig } from './types'
 import { defaultChartColors } from './theme'
+import type { ChartConfig } from './types'
 
 /**
  * Resolves a design token reference to a hex color value.

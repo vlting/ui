@@ -1,15 +1,15 @@
-import { ColorMode, SemanticColors } from '../../shared/models'
+import type { ColorMode, SemanticColors } from '../../shared/models'
 import { generateThemeColors } from '../../shared/utils'
-import { Colors } from '../props'
-import { ScaleEntry, ColorPaletteEntry, PrefixedKey } from '../scales'
+import type { Colors } from '../props'
 import {
-  ThemeOverrides,
+  type Conditions,
   StyleManager,
-  Conditions,
-  StyleMangerProps,
+  type StyleMangerProps,
+  type ThemeOverrides,
 } from '../StyleManager'
-import { CSS, tokenToVarMap } from '../styles.css'
-import { VariantCSS } from '../styles.models'
+import type { ColorPaletteEntry, PrefixedKey, ScaleEntry } from '../scales'
+import { type CSS, tokenToVarMap } from '../styles.css'
+import type { VariantCSS } from '../styles.models'
 import { addPrefix } from './general.utils'
 
 export function getColorOverrides(

@@ -1,16 +1,3 @@
-import { useState } from 'react'
-import { Section, DemoCard, DemoRow } from '../components/Section'
-import { Button } from '@vlting/ui/components'
-
-// stl-react hooks
-import {
-  useColorMode,
-  useConditions,
-  useMediaQuery,
-  useRTL,
-  useTransition,
-} from '@vlting/stl-react'
-
 // stl-headless hooks
 import {
   useDisclosure,
@@ -19,17 +6,28 @@ import {
   useTabs,
   useToastQueue,
 } from '@vlting/stl-headless'
-
+// stl-react hooks
+import {
+  useColorMode,
+  useConditions,
+  useMediaQuery,
+  useRTL,
+  useTransition,
+} from '@vlting/stl-react'
+import { Button } from '@vlting/ui/components'
 // app-level hooks
-import { useControllableState } from '@vlting/ui/hooks'
-import { useReducedMotion } from '@vlting/ui/hooks'
+import { useControllableState, useReducedMotion } from '@vlting/ui/hooks'
+import { useState } from 'react'
+import { DemoCard, DemoRow, Section } from '../components/Section'
 
 export function HooksPage() {
   return (
     <div>
       <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 24 }}>Hooks</h1>
 
-      <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16, color: '#666' }}>stl-react Hooks</h2>
+      <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16, color: '#666' }}>
+        stl-react Hooks
+      </h2>
 
       <Section title="useColorMode">
         <DemoCard label="Color mode state">
@@ -61,7 +59,17 @@ export function HooksPage() {
         </DemoCard>
       </Section>
 
-      <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16, marginTop: 32, color: '#666' }}>stl-headless Hooks</h2>
+      <h2
+        style={{
+          fontSize: 20,
+          fontWeight: 600,
+          marginBottom: 16,
+          marginTop: 32,
+          color: '#666',
+        }}
+      >
+        stl-headless Hooks
+      </h2>
 
       <Section title="useDisclosure">
         <DemoCard label="Open/close state management">
@@ -93,7 +101,17 @@ export function HooksPage() {
         </DemoCard>
       </Section>
 
-      <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16, marginTop: 32, color: '#666' }}>App Hooks</h2>
+      <h2
+        style={{
+          fontSize: 20,
+          fontWeight: 600,
+          marginBottom: 16,
+          marginTop: 32,
+          color: '#666',
+        }}
+      >
+        App Hooks
+      </h2>
 
       <Section title="useControllableState">
         <DemoCard label="Controlled/uncontrolled state">
@@ -114,9 +132,15 @@ function UseColorModeDemo() {
   const { colorMode, isDark, toggleColorMode } = useColorMode()
   return (
     <DemoRow>
-      <span>Mode: <strong>{colorMode}</strong></span>
-      <span>isDark: <strong>{String(isDark)}</strong></span>
-      <Button variant="outline" size="sm" onClick={toggleColorMode}>Toggle</Button>
+      <span>
+        Mode: <strong>{colorMode}</strong>
+      </span>
+      <span>
+        isDark: <strong>{String(isDark)}</strong>
+      </span>
+      <Button variant="outline" size="sm" onClick={toggleColorMode}>
+        Toggle
+      </Button>
     </DemoRow>
   )
 }
@@ -125,7 +149,9 @@ function UseConditionsDemo() {
   const conditions = useConditions()
   return (
     <div style={{ fontSize: 14 }}>
-      <pre style={{ background: '#f5f5f5', padding: 12, borderRadius: 6, overflow: 'auto' }}>
+      <pre
+        style={{ background: '#f5f5f5', padding: 12, borderRadius: 6, overflow: 'auto' }}
+      >
         {JSON.stringify(conditions, null, 2)}
       </pre>
     </div>
@@ -137,15 +163,23 @@ function UseMediaQueryDemo() {
   const prefersDark = useMediaQuery('(prefers-color-scheme: dark)', false)
   return (
     <DemoRow>
-      <span>≥768px: <strong>{String(isWide)}</strong></span>
-      <span>prefers-dark: <strong>{String(prefersDark)}</strong></span>
+      <span>
+        ≥768px: <strong>{String(isWide)}</strong>
+      </span>
+      <span>
+        prefers-dark: <strong>{String(prefersDark)}</strong>
+      </span>
     </DemoRow>
   )
 }
 
 function UseRTLDemo() {
   const isRTL = useRTL()
-  return <span>isRTL: <strong>{String(isRTL)}</strong></span>
+  return (
+    <span>
+      isRTL: <strong>{String(isRTL)}</strong>
+    </span>
+  )
 }
 
 function UseTransitionDemo() {
@@ -153,11 +187,19 @@ function UseTransitionDemo() {
   const { style, mounted } = useTransition(visible, { enter: 300, exit: 300 })
   return (
     <div>
-      <Button variant="outline" size="sm" onClick={() => setVisible(v => !v)}>
+      <Button variant="outline" size="sm" onClick={() => setVisible((v) => !v)}>
         {visible ? 'Hide' : 'Show'}
       </Button>
       {mounted && (
-        <div style={{ ...style, marginTop: 12, padding: 16, background: '#f0f0ff', borderRadius: 8 }}>
+        <div
+          style={{
+            ...style,
+            marginTop: 12,
+            padding: 16,
+            background: '#f0f0ff',
+            borderRadius: 8,
+          }}
+        >
           Animated content
         </div>
       )}
@@ -170,13 +212,23 @@ function UseDisclosureDemo() {
   return (
     <div>
       <DemoRow>
-        <Button size="sm" onClick={onOpen}>Open</Button>
-        <Button size="sm" variant="outline" onClick={onClose}>Close</Button>
-        <Button size="sm" variant="outline" onClick={onToggle}>Toggle</Button>
-        <span>isOpen: <strong>{String(isOpen)}</strong></span>
+        <Button size="sm" onClick={onOpen}>
+          Open
+        </Button>
+        <Button size="sm" variant="outline" onClick={onClose}>
+          Close
+        </Button>
+        <Button size="sm" variant="outline" onClick={onToggle}>
+          Toggle
+        </Button>
+        <span>
+          isOpen: <strong>{String(isOpen)}</strong>
+        </span>
       </DemoRow>
       {isOpen && (
-        <div style={{ marginTop: 12, padding: 16, background: '#f0fff0', borderRadius: 8 }}>
+        <div
+          style={{ marginTop: 12, padding: 16, background: '#f0fff0', borderRadius: 8 }}
+        >
           Disclosed content
         </div>
       )}
@@ -196,7 +248,10 @@ function UseListStateDemo() {
         Highlighted: <strong>{items[highlightIndex] ?? 'none'}</strong>
       </p>
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-      <div onKeyDown={onKeyDown} tabIndex={0} style={{ display: 'flex', flexDirection: 'column', gap: 4, outline: 'none' }}>
+      <div
+        onKeyDown={onKeyDown}
+        style={{ display: 'flex', flexDirection: 'column', gap: 4, outline: 'none' }}
+      >
         {items.map((item, i) => {
           const itemProps = getItemProps(i)
           return (
@@ -220,7 +275,14 @@ function UseListStateDemo() {
 }
 
 function UseSearchDemo() {
-  const items = ['React', 'React Native', 'Next.js', 'Vite', 'TypeScript', 'Vanilla Extract']
+  const items = [
+    'React',
+    'React Native',
+    'Next.js',
+    'Vite',
+    'TypeScript',
+    'Vanilla Extract',
+  ]
   const { query, setQuery, filtered } = useSearch({
     items,
     filterFn: (item, q) => item.toLowerCase().includes(q.toLowerCase()),
@@ -229,13 +291,20 @@ function UseSearchDemo() {
     <div>
       <input
         value={query}
-        onChange={e => setQuery(e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
         placeholder="Search frameworks..."
-        style={{ padding: '8px 12px', borderRadius: 6, border: '1px solid #ddd', width: 300 }}
+        style={{
+          padding: '8px 12px',
+          borderRadius: 6,
+          border: '1px solid #ddd',
+          width: 300,
+        }}
       />
       <div style={{ marginTop: 8, fontSize: 14 }}>
-        {filtered.map(item => (
-          <div key={item} style={{ padding: '4px 0' }}>{item}</div>
+        {filtered.map((item) => (
+          <div key={item} style={{ padding: '4px 0' }}>
+            {item}
+          </div>
         ))}
       </div>
     </div>
@@ -244,11 +313,13 @@ function UseSearchDemo() {
 
 function UseTabsDemo() {
   const tabs = ['Overview', 'Features', 'Pricing']
-  const { activeValue, getTabProps, getTabPanelProps } = useTabs({ defaultValue: tabs[0] })
+  const { activeValue, getTabProps, getTabPanelProps } = useTabs({
+    defaultValue: tabs[0],
+  })
   return (
     <div>
       <DemoRow>
-        {tabs.map(tab => {
+        {tabs.map((tab) => {
           const tabProps = getTabProps(tab)
           return (
             <button
@@ -279,14 +350,32 @@ function UseToastQueueDemo() {
   const { toasts, add, remove } = useToastQueue()
   return (
     <div>
-      <Button size="sm" onClick={() => add({ message: `Toast ${Date.now() % 1000}`, duration: 3000 })}>
+      <Button
+        size="sm"
+        onClick={() => add({ message: `Toast ${Date.now() % 1000}`, duration: 3000 })}
+      >
         Add Toast
       </Button>
       <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 4 }}>
-        {toasts.map(toast => (
-          <div key={toast.id} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: 8, background: '#f0f0f0', borderRadius: 4 }}>
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            style={{
+              display: 'flex',
+              gap: 8,
+              alignItems: 'center',
+              padding: 8,
+              background: '#f0f0f0',
+              borderRadius: 4,
+            }}
+          >
             <span>{toast.message}</span>
-            <button onClick={() => remove(toast.id)} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>×</button>
+            <button
+              onClick={() => remove(toast.id)}
+              style={{ border: 'none', background: 'none', cursor: 'pointer' }}
+            >
+              ×
+            </button>
           </div>
         ))}
       </div>
@@ -300,15 +389,21 @@ function UseControllableStateDemo() {
     <DemoRow>
       <input
         value={value ?? ''}
-        onChange={e => setValue(e.target.value)}
+        onChange={(e) => setValue(e.target.value)}
         style={{ padding: '8px 12px', borderRadius: 6, border: '1px solid #ddd' }}
       />
-      <span>Value: <strong>{value}</strong></span>
+      <span>
+        Value: <strong>{value}</strong>
+      </span>
     </DemoRow>
   )
 }
 
 function UseReducedMotionDemo() {
   const prefersReduced = useReducedMotion()
-  return <span>prefers-reduced-motion: <strong>{String(prefersReduced)}</strong></span>
+  return (
+    <span>
+      prefers-reduced-motion: <strong>{String(prefersReduced)}</strong>
+    </span>
+  )
 }

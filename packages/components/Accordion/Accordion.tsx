@@ -1,7 +1,7 @@
 import type React from 'react'
 import { createContext, useCallback, useContext, useId, useRef, useState } from 'react'
-import { styled } from '../../stl-react/src/config'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
+import { styled } from '../../stl-react/src/config'
 
 const ItemFrame = styled(
   'div',

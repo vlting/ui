@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
-import { getBlock, getAllBlocks } from '@/lib/block-registry'
-import { CodeBlock } from '@/components/code-block'
 import { BlockPreview } from '@/components/block-preview'
+import { CodeBlock } from '@/components/code-block'
+import { getAllBlocks, getBlock } from '@/lib/block-registry'
 
 interface PageProps {
   params: Promise<{ name: string }>
@@ -36,15 +36,22 @@ const categoryLabels: Record<string, string> = {
 
 const categoryDescriptions: Record<string, string> = {
   auth: 'Authentication blocks provide login and signup forms with multiple UX patterns — standard, OTP, magic link, social-only, and combined flows.',
-  sidebar: 'Sidebar blocks provide navigation patterns from simple flat lists to complex nested trees, file browsers, and calendar views.',
-  dashboard: 'Dashboard blocks combine metrics, charts, and layout components into ready-made analytics views.',
-  'data-table': 'Data table blocks display structured data with search, sorting, pagination, and expandable row support.',
-  settings: 'Settings blocks provide profile editing, app preferences, and account management panels.',
-  pricing: 'Pricing blocks display subscription tiers, comparison tables, and billing options.',
+  sidebar:
+    'Sidebar blocks provide navigation patterns from simple flat lists to complex nested trees, file browsers, and calendar views.',
+  dashboard:
+    'Dashboard blocks combine metrics, charts, and layout components into ready-made analytics views.',
+  'data-table':
+    'Data table blocks display structured data with search, sorting, pagination, and expandable row support.',
+  settings:
+    'Settings blocks provide profile editing, app preferences, and account management panels.',
+  pricing:
+    'Pricing blocks display subscription tiers, comparison tables, and billing options.',
   hero: 'Hero blocks provide landing page sections with centered, split, and image background layouts.',
   feed: 'Feed blocks display activity timelines, notification lists, and threaded comment systems.',
-  'app-shell': 'App shell blocks provide full application layouts with sidebar, tab, and split-pane navigation.',
-  'empty-state': 'Empty state blocks display placeholder content for empty data, errors, and coming-soon features.',
+  'app-shell':
+    'App shell blocks provide full application layouts with sidebar, tab, and split-pane navigation.',
+  'empty-state':
+    'Empty state blocks display placeholder content for empty data, errors, and coming-soon features.',
 }
 
 export default async function BlockPage({ params }: PageProps) {

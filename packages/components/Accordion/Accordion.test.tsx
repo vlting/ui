@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { Accordion } from './Accordion'
 
 describe('Accordion', () => {

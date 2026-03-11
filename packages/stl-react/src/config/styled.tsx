@@ -1,17 +1,16 @@
+import { type CSS, type StyleManager, style, type VariantCSS } from '@vlting/stl'
 import {
-  ComponentPropsWithRef,
-  ForwardedRef,
+  type ComponentPropsWithRef,
+  type ForwardedRef,
+  type FunctionComponent,
   forwardRef,
-  FunctionComponent,
-  HTMLAttributes,
-  JSXElementConstructor,
-  useEffect,
+  type HTMLAttributes,
+  type JSXElementConstructor,
   useRef,
   useState,
 } from 'react'
 import { useConditions } from '../hooks'
-import { CSS, VariantCSS, style, StyleManager, capitalizeFirstLetter } from '@vlting/stl'
-import { ComponentType } from '../shared/models'
+import type { ComponentType } from '../shared/models'
 
 /** Used to style any React component of basic HTML element */
 export function styled<C extends ComponentType, V extends Variants | undefined>(
@@ -114,7 +113,7 @@ export function styled<C extends ComponentType, V extends Variants | undefined>(
   return outputComponent
 }
 
-// @ts-ignore
+// @ts-expect-error
 function Debug({ styles }: { styles: Record<string, any> }) {
   return null
 }

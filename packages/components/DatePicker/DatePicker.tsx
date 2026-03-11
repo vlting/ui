@@ -1,4 +1,3 @@
-import type React from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { styled } from '../../stl-react/src/config'
 
@@ -334,7 +333,11 @@ function Calendar({
                 key={di}
                 type="button"
                 onClick={() => onSelectDate(date)}
-                aria-label={date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                aria-label={date.toLocaleDateString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                })}
                 disabled={disabled || undefined}
                 aria-selected={isSelected || undefined}
                 style={{

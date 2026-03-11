@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
-import { getChart, getAllCharts } from '@/lib/chart-registry'
-import { CodeBlock } from '@/components/code-block'
 import { ChartVariantList } from '@/components/chart-variant-list'
+import { CodeBlock } from '@/components/code-block'
+import { getAllCharts, getChart } from '@/lib/chart-registry'
 import { ChartPreview } from '../chart-preview'
 
 interface PageProps {
@@ -86,18 +86,16 @@ export default async function ChartPage({ params }: PageProps) {
 
       {/* Variants */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">
-          Variants ({chart.variants.length})
-        </h2>
+        <h2 className="text-xl font-semibold mb-4">Variants ({chart.variants.length})</h2>
         <ChartVariantList variants={chart.variants} />
       </section>
 
       {/* Cross-platform note */}
       <section className="border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4">
         <p className="text-sm text-blue-800 dark:text-blue-300">
-          <strong>Cross-platform:</strong> Charts use Victory with react-native-svg
-          for cross-platform rendering. The same component code works on both web
-          and React Native.
+          <strong>Cross-platform:</strong> Charts use Victory with react-native-svg for
+          cross-platform rendering. The same component code works on both web and React
+          Native.
         </p>
       </section>
     </div>

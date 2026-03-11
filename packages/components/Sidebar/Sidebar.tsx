@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
-import { styled } from '../../stl-react/src/config'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
+import { styled } from '../../stl-react/src/config'
 
 const SidebarFrame = styled(
   'aside',

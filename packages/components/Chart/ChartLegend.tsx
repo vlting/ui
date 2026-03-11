@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ChartConfig, LegendLayout } from './types'
 import { getSeriesColors } from './utils'
 
@@ -51,7 +51,6 @@ export function ChartLegend({
       }}
     >
       <ul
-        role="list"
         style={{
           display: 'flex',
           flexDirection: layout === 'vertical' ? 'column' : 'row',

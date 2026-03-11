@@ -1,5 +1,16 @@
 'use client'
 
+import { ThemeProvider, useTheme } from 'next-themes'
+import {
+  createContext,
+  type ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
+import type { Brand } from '../../../packages/design-tokens'
 import {
   defaultBrand,
   funBrand,
@@ -7,19 +18,7 @@ import {
   poshBrand,
   shadcnBrand,
 } from '../../../packages/design-tokens'
-import type { Brand } from '../../../packages/design-tokens'
 import { StlProvider } from '../../../packages/stl-react/src/providers/StlProvider'
-import { useTheme } from 'next-themes'
-import { ThemeProvider } from 'next-themes'
-import {
-  type ReactNode,
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
 
 type BrandKey = 'default' | 'shadcn' | 'fun' | 'posh'
 
@@ -106,11 +105,7 @@ function BrandWrapper({ brand, children }: { brand: BrandKey; children: ReactNod
 
   const colorMode = resolvedTheme === 'dark' ? 'dark' : 'light'
 
-  return (
-    <StlProvider defaultColorMode={colorMode}>
-      {children}
-    </StlProvider>
-  )
+  return <StlProvider defaultColorMode={colorMode}>{children}</StlProvider>
 }
 
 function BrandProvider({ children }: { children: ReactNode }) {

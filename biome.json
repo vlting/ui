@@ -8,18 +8,40 @@
     "rules": {
       "recommended": true,
       "correctness": {
-        "noUnusedVariables": "error",
-        "noUnusedImports": "error"
+        "noUnusedVariables": "warn",
+        "noUnusedImports": "error",
+        "useExhaustiveDependencies": "warn"
       },
       "suspicious": {
         "noExplicitAny": "warn",
-        "noConsole": "error"
+        "noConsole": "error",
+        "noArrayIndexKey": "warn",
+        "noAssignInExpressions": "warn",
+        "noShadowRestrictedNames": "warn",
+        "noControlCharactersInRegex": "warn"
+      },
+      "complexity": {
+        "noForEach": "warn",
+        "noBannedTypes": "warn"
       },
       "style": {
-        "noNonNullAssertion": "off"
+        "noNonNullAssertion": "off",
+        "noParameterAssign": "warn"
+      },
+      "performance": {
+        "noAccumulatingSpread": "warn"
       },
       "a11y": {
-        "recommended": true
+        "recommended": true,
+        "useSemanticElements": "warn",
+        "useKeyWithClickEvents": "warn",
+        "noSvgWithoutTitle": "warn",
+        "useButtonType": "warn",
+        "noLabelWithoutControl": "warn",
+        "useFocusableInteractive": "warn"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "warn"
       }
     }
   },

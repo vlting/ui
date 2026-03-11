@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
-import { styled } from '../../stl-react/src/config'
 import { Button } from '../../components/Button'
 import { Card } from '../../components/Card'
 import { Separator } from '../../primitives/Separator'
 import { Text } from '../../primitives/Text'
+import { styled } from '../../stl-react/src/config'
 import type { SocialProvider } from '../_shared/types'
 
 const FooterLinkBtn = styled(
