@@ -75,9 +75,7 @@ function NotificationRow({
         cursor: notification.onPress ? 'pointer' : 'default',
         opacity: notification.read ? 0.7 : 1,
         borderRadius: 'var(--radius3)',
-        backgroundColor: notification.read
-          ? 'transparent'
-          : 'var(--background2)',
+        backgroundColor: notification.read ? 'transparent' : 'var(--background2)',
       }}
     >
       {(notification.avatar || notification.icon) && (
