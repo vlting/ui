@@ -10,9 +10,9 @@ const FormElement = styled(
   {
     display: 'flex',
     flexDirection: 'row',
-    gap: '8px',
+    gap: 8,
     width: '100%',
-    maxWidth: '360px',
+    maxWidth: 360,
   },
   'EmptyStateForm',
 )
@@ -55,9 +55,9 @@ const center = {
   flexDirection: 'column' as const,
   alignItems: 'center',
   justifyContent: 'center',
-  padding: '32px',
-  gap: '16px',
-  minHeight: '300px',
+  padding: 32,
+  gap: 16,
+  minHeight: 300,
 }
 
 // -- Main component --
@@ -80,12 +80,12 @@ export function EmptyStateBlock(props: EmptyStateBlockProps) {
 function NoDataState({ title, description, icon, action }: EmptyStateBlockProps) {
   return (
     <div style={center}>
-      {icon && <div style={{ opacity: 0.5, paddingBottom: '8px' }}>{icon}</div>}
-      <h2 style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center', margin: 0 }}>
+      {icon && <div style={{ opacity: 0.5, paddingBottom: 8 }}>{icon}</div>}
+      <h2 style={{ fontSize: 20, fontWeight: 600, textAlign: 'center', margin: 0 }}>
         {title}
       </h2>
       <span
-        style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}
+        style={{ fontSize: 16, opacity: 0.6, textAlign: 'center', maxWidth: 400 }}
       >
         {description}
       </span>
@@ -107,17 +107,17 @@ function ErrorState({
 }: EmptyStateBlockProps) {
   return (
     <div style={center}>
-      {icon && <div style={{ opacity: 0.5, paddingBottom: '8px' }}>{icon}</div>}
+      {icon && <div style={{ opacity: 0.5, paddingBottom: 8 }}>{icon}</div>}
       {errorCode && (
-        <span style={{ fontSize: '36px', fontWeight: 600, opacity: 0.3 }}>
+        <span style={{ fontSize: 36, fontWeight: 600, opacity: 0.3 }}>
           {errorCode}
         </span>
       )}
-      <h2 style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center', margin: 0 }}>
+      <h2 style={{ fontSize: 20, fontWeight: 600, textAlign: 'center', margin: 0 }}>
         {title}
       </h2>
       <span
-        style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}
+        style={{ fontSize: 16, opacity: 0.6, textAlign: 'center', maxWidth: 400 }}
       >
         {description}
       </span>
@@ -135,12 +135,12 @@ function ComingSoonState({ title, description, icon, onNotify }: EmptyStateBlock
 
   return (
     <div style={center}>
-      {icon && <div style={{ opacity: 0.5, paddingBottom: '8px' }}>{icon}</div>}
-      <h2 style={{ fontSize: '20px', fontWeight: 600, textAlign: 'center', margin: 0 }}>
+      {icon && <div style={{ opacity: 0.5, paddingBottom: 8 }}>{icon}</div>}
+      <h2 style={{ fontSize: 20, fontWeight: 600, textAlign: 'center', margin: 0 }}>
         {title}
       </h2>
       <span
-        style={{ fontSize: '16px', opacity: 0.6, textAlign: 'center', maxWidth: 400 }}
+        style={{ fontSize: 16, opacity: 0.6, textAlign: 'center', maxWidth: 400 }}
       >
         {description}
       </span>

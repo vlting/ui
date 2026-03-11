@@ -70,11 +70,11 @@ export function FeedBlock(props: FeedBlockProps) {
 
 function TimelineFeed({ title, events = [] }: FeedBlockProps) {
   return (
-    <Card style={{ width: '100%', maxWidth: 600, padding: '16px' }}>
-      <div style={{ ...col, gap: '16px' }}>
-        {title && <span style={{ fontSize: '18px', fontWeight: 600 }}>{title}</span>}
+    <Card style={{ width: '100%', maxWidth: 600, padding: 16 }}>
+      <div style={{ ...col, gap: 16 }}>
+        {title && <span style={{ fontSize: 18, fontWeight: 600 }}>{title}</span>}
         <div
-          style={{ ...col, gap: '0', paddingLeft: '12px' }}
+          style={{ ...col, gap: 0, paddingLeft: 12 }}
           role="feed"
           aria-label={title ?? 'Timeline'}
         >
@@ -82,21 +82,21 @@ function TimelineFeed({ title, events = [] }: FeedBlockProps) {
             const isLast = i === events.length - 1
             const dotColor =
               event.status === 'completed'
-                ? 'green'
+                ? 'var(--green10)'
                 : event.status === 'current'
-                  ? 'var(--color10, #0066ff)'
-                  : '#d1d5db'
+                  ? 'var(--color10)'
+                  : 'var(--borderColor)'
 
             return (
-              <div key={event.id} style={{ ...row, gap: '12px' }}>
-                <div style={{ ...col, alignItems: 'center', width: '24px' }}>
+              <div key={event.id} style={{ ...row, gap: 12 }}>
+                <div style={{ ...col, alignItems: 'center', width: 24 }}>
                   <div
                     style={{
-                      width: '10px',
-                      height: '10px',
+                      width: 10,
+                      height: 10,
                       borderRadius: '50%',
                       backgroundColor: dotColor,
-                      marginTop: '4px',
+                      marginTop: 4,
                       flexShrink: 0,
                     }}
                   />
@@ -104,21 +104,21 @@ function TimelineFeed({ title, events = [] }: FeedBlockProps) {
                     <div
                       style={{
                         flex: 1,
-                        width: '2px',
-                        backgroundColor: 'var(--borderColor, #e5e7eb)',
-                        minHeight: '40px',
+                        width: 2,
+                        backgroundColor: 'var(--borderColor)',
+                        minHeight: 40,
                       }}
                     />
                   )}
                 </div>
-                <div style={{ ...col, flex: 1, gap: '2px', paddingBottom: '16px' }}>
-                  <span style={{ fontSize: '16px', fontWeight: 500 }}>{event.title}</span>
+                <div style={{ ...col, flex: 1, gap: 2, paddingBottom: 16 }}>
+                  <span style={{ fontSize: 16, fontWeight: 500 }}>{event.title}</span>
                   {event.description && (
-                    <span style={{ fontSize: '14px', opacity: 0.6 }}>
+                    <span style={{ fontSize: 14, opacity: 0.6 }}>
                       {event.description}
                     </span>
                   )}
-                  <span style={{ fontSize: '12px', opacity: 0.5 }}>{event.date}</span>
+                  <span style={{ fontSize: 12, opacity: 0.5 }}>{event.date}</span>
                 </div>
               </div>
             )
@@ -138,10 +138,10 @@ function NotificationsFeed({
   onMarkAllRead,
 }: FeedBlockProps) {
   return (
-    <Card style={{ width: '100%', maxWidth: 500, padding: '16px' }}>
-      <div style={{ ...col, gap: '12px' }}>
+    <Card style={{ width: '100%', maxWidth: 500, padding: 16 }}>
+      <div style={{ ...col, gap: 12 }}>
         <div style={{ ...row, justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: '18px', fontWeight: 600 }}>{title}</span>
+          <span style={{ fontSize: 18, fontWeight: 600 }}>{title}</span>
           {onMarkAllRead && (
             <Button variant="ghost" size="sm" onClick={onMarkAllRead}>
               <Button.Text>Mark all read</Button.Text>
@@ -157,12 +157,12 @@ function NotificationsFeed({
                 aria-label={item.title}
                 style={{
                   ...row,
-                  gap: '12px',
-                  padding: '12px',
+                  gap: 12,
+                  padding: 12,
                   alignItems: 'flex-start',
                   opacity: item.read ? 0.6 : 1,
                   cursor: item.onPress ? 'pointer' : 'default',
-                  borderRadius: '4px',
+                  borderRadius: 4,
                 }}
                 onClick={() => {
                   item.onPress?.()
@@ -172,36 +172,36 @@ function NotificationsFeed({
                 {item.icon && (
                   <div
                     style={{
-                      width: '24px',
-                      height: '24px',
+                      width: 24,
+                      height: 24,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      marginTop: '2px',
+                      marginTop: 2,
                     }}
                   >
                     {item.icon}
                   </div>
                 )}
-                <div style={{ ...col, flex: 1, gap: '2px' }}>
-                  <span style={{ fontSize: '14px', fontWeight: item.read ? 400 : 500 }}>
+                <div style={{ ...col, flex: 1, gap: 2 }}>
+                  <span style={{ fontSize: 14, fontWeight: item.read ? 400 : 500 }}>
                     {item.title}
                   </span>
                   {item.description && (
-                    <span style={{ fontSize: '12px', opacity: 0.6 }}>
+                    <span style={{ fontSize: 12, opacity: 0.6 }}>
                       {item.description}
                     </span>
                   )}
-                  <span style={{ fontSize: '11px', opacity: 0.5 }}>{item.timestamp}</span>
+                  <span style={{ fontSize: 11, opacity: 0.5 }}>{item.timestamp}</span>
                 </div>
                 {!item.read && (
                   <div
                     style={{
-                      width: '8px',
-                      height: '8px',
+                      width: 8,
+                      height: 8,
                       borderRadius: '50%',
-                      backgroundColor: 'var(--color10, #0066ff)',
-                      marginTop: '4px',
+                      backgroundColor: 'var(--color10)',
+                      marginTop: 4,
                     }}
                   />
                 )}
@@ -218,10 +218,10 @@ function NotificationsFeed({
 
 function CommentsFeed({ title = 'Comments', comments = [], onLike }: FeedBlockProps) {
   return (
-    <Card style={{ width: '100%', maxWidth: 600, padding: '16px' }}>
-      <div style={{ ...col, gap: '16px' }}>
-        {title && <span style={{ fontSize: '18px', fontWeight: 600 }}>{title}</span>}
-        <div style={{ ...col, gap: '12px' }} role="feed" aria-label={title}>
+    <Card style={{ width: '100%', maxWidth: 600, padding: 16 }}>
+      <div style={{ ...col, gap: 16 }}>
+        {title && <span style={{ fontSize: 18, fontWeight: 600 }}>{title}</span>}
+        <div style={{ ...col, gap: 12 }} role="feed" aria-label={title}>
           {comments.map((comment) => (
             <CommentNode key={comment.id} comment={comment} onLike={onLike} />
           ))}
@@ -248,18 +248,18 @@ function CommentNode({
     .slice(0, 2)
 
   return (
-    <div style={{ ...col, gap: '8px', paddingLeft: depth > 0 ? '16px' : undefined }}>
-      <div style={{ ...row, gap: '10px', alignItems: 'flex-start' }}>
+    <div style={{ ...col, gap: 8, paddingLeft: depth > 0 ? 16 : undefined }}>
+      <div style={{ ...row, gap: 10, alignItems: 'flex-start' }}>
         <Avatar size="sm" src={comment.author.avatar} fallback={initials} />
-        <div style={{ ...col, flex: 1, gap: '4px' }}>
-          <div style={{ ...row, gap: '8px', alignItems: 'center' }}>
-            <span style={{ fontSize: '14px', fontWeight: 500 }}>
+        <div style={{ ...col, flex: 1, gap: 4 }}>
+          <div style={{ ...row, gap: 8, alignItems: 'center' }}>
+            <span style={{ fontSize: 14, fontWeight: 500 }}>
               {comment.author.name}
             </span>
-            <span style={{ fontSize: '12px', opacity: 0.5 }}>{comment.timestamp}</span>
+            <span style={{ fontSize: 12, opacity: 0.5 }}>{comment.timestamp}</span>
           </div>
-          <span style={{ fontSize: '14px' }}>{comment.text}</span>
-          <div style={{ ...row, gap: '12px', paddingTop: '2px' }}>
+          <span style={{ fontSize: 14 }}>{comment.text}</span>
+          <div style={{ ...row, gap: 12, paddingTop: 2 }}>
             {onLike && (
               <Button variant="ghost" size="sm" onClick={() => onLike(comment.id)}>
                 <Button.Text>
@@ -271,7 +271,7 @@ function CommentNode({
         </div>
       </div>
       {comment.replies && comment.replies.length > 0 && (
-        <div style={{ ...col, gap: '8px' }}>
+        <div style={{ ...col, gap: 8 }}>
           {comment.replies.map((reply) => (
             <CommentNode
               key={reply.id}

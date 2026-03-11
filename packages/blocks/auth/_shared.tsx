@@ -17,7 +17,7 @@ const FooterLinkBtn = styled(
     margin: '0',
     fontFamily: 'inherit',
     fontSize: 'inherit',
-    color: 'var(--color10, #0066ff)',
+    color: 'var(--color10)',
     cursor: 'pointer',
     textDecoration: 'underline',
     outline: 'none',
@@ -28,7 +28,7 @@ const FooterLinkBtn = styled(
 const FooterLinkA = styled(
   'a',
   {
-    color: 'var(--color10, #0066ff)',
+    color: 'var(--color10)',
     textDecoration: 'underline',
     outline: 'none',
   },
@@ -42,7 +42,7 @@ export interface AuthFormCardProps {
 }
 
 export function AuthFormCard({ children }: AuthFormCardProps) {
-  return <Card style={{ width: '100%', maxWidth: 400, padding: '24px' }}>{children}</Card>
+  return <Card style={{ width: '100%', maxWidth: 400, padding: 24 }}>{children}</Card>
 }
 
 // -- AuthFormHeader --
@@ -60,15 +60,15 @@ export function AuthFormHeader({ logo, title, description }: AuthFormHeaderProps
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '6px',
+        gap: 6,
       }}
     >
       {logo}
-      <Text style={{ fontSize: '18px', fontWeight: 600, textAlign: 'center' }}>
+      <Text style={{ fontSize: 18, fontWeight: 600, textAlign: 'center' }}>
         {title}
       </Text>
       {description ? (
-        <Text style={{ fontSize: '14px', opacity: 0.6, textAlign: 'center' }}>
+        <Text style={{ fontSize: 14, opacity: 0.6, textAlign: 'center' }}>
           {description}
         </Text>
       ) : null}
@@ -88,7 +88,7 @@ export function AuthSocialButtons({ providers }: AuthSocialButtonsProps) {
   if (providers.length <= 2) {
     return (
       <div
-        style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}
+        style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%' }}
       >
         {providers.map((provider) => (
           <Button
@@ -97,7 +97,7 @@ export function AuthSocialButtons({ providers }: AuthSocialButtonsProps) {
             onClick={provider.onPress}
             style={{ width: '100%' }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               {provider.icon}
               <Button.Text>Continue with {provider.name}</Button.Text>
             </div>
@@ -108,7 +108,7 @@ export function AuthSocialButtons({ providers }: AuthSocialButtonsProps) {
   }
 
   return (
-    <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', width: '100%' }}>
+    <div style={{ display: 'flex', gap: 8, justifyContent: 'center', width: '100%' }}>
       {providers.map((provider) => (
         <Button
           key={provider.name}
@@ -132,9 +132,9 @@ export interface AuthDividerProps {
 
 export function AuthDivider({ text = 'or continue with' }: AuthDividerProps) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>
       <Separator style={{ flex: 1 }} />
-      <Text style={{ fontSize: '12px', opacity: 0.6 }}>{text}</Text>
+      <Text style={{ fontSize: 12, opacity: 0.6 }}>{text}</Text>
       <Separator style={{ flex: 1 }} />
     </div>
   )
@@ -151,7 +151,7 @@ export interface AuthFooterLinkProps {
 
 export function AuthFooterLink({ text, linkText, href, onPress }: AuthFooterLinkProps) {
   return (
-    <Text style={{ fontSize: '12px', opacity: 0.6, textAlign: 'center' }}>
+    <Text style={{ fontSize: 12, opacity: 0.6, textAlign: 'center' }}>
       {text}{' '}
       {href ? (
         <FooterLinkA href={href}>{linkText}</FooterLinkA>
@@ -169,7 +169,7 @@ export function AuthFooterLink({ text, linkText, href, onPress }: AuthFooterLink
 export function AuthErrorMessage({ error }: { error?: string }) {
   if (!error) return null
   return (
-    <Text style={{ fontSize: '12px', color: 'red', textAlign: 'center' }} role="alert">
+    <Text style={{ fontSize: 12, color: 'var(--colorError)', textAlign: 'center' }} role="alert">
       {error}
     </Text>
   )
