@@ -1,27 +1,28 @@
 'use client'
 
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import { useColorMode } from '@vlting/stl-react'
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) {
-    return <button className="h-8 w-8" aria-label="Toggle theme" />
-  }
+  const { colorMode, toggleColorMode } = useColorMode()
 
   return (
     <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="flex h-8 w-8 items-center justify-center rounded-md border border-border transition-colors hover:bg-accent"
-      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+      onClick={toggleColorMode}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 32,
+        height: 32,
+        borderRadius: 6,
+        border: '1px solid var(--stl-borderColor)',
+        background: 'transparent',
+        cursor: 'pointer',
+        color: 'var(--stl-color)',
+      }}
+      aria-label={`Switch to ${colorMode === 'dark' ? 'light' : 'dark'} mode`}
     >
-      {theme === 'dark' ? (
+      {colorMode === 'dark' ? (
         <svg
           width="16"
           height="16"
