@@ -1,22 +1,48 @@
 // ---------------------------------------------------------------------------
-// New Brand API (simple data objects + CSS variable injection)
+// Theme generation API
 // ---------------------------------------------------------------------------
 
-export { generatePalette, getTextColorStep } from './generate-palette'
-export { getBrandStyleTag, injectBrandVars } from './inject'
+import { generateTheme as _generateTheme } from './generate-theme'
+import {
+  THEME_PRESET_DEFAULT as _DEFAULT,
+  THEME_PRESET_FUN as _FUN,
+  THEME_PRESET_POSH as _POSH,
+  THEME_PRESET_SHADCN as _SHADCN,
+} from './presets'
+
+export { generateTheme } from './generate-theme'
+export type { ColorInput, GenerateThemeOptions, SecondaryColorInput } from './generate-theme'
+export {
+  THEME_PRESET_DEFAULT,
+  THEME_PRESET_FUN,
+  THEME_PRESET_POSH,
+  THEME_PRESET_SHADCN,
+} from './presets'
+
+// ---------------------------------------------------------------------------
+// CSS variable injection
+// ---------------------------------------------------------------------------
+
+export { getBrandStyleTag, getThemeStyleTag, injectBrandVars, themeToVars } from './inject'
+
+// ---------------------------------------------------------------------------
+// Types & palette utilities
+// ---------------------------------------------------------------------------
+
 export type { Brand } from './types'
+export { generatePalette, getTextColorStep } from './generate-palette'
 
 // ---------------------------------------------------------------------------
-// Built-in brands
+// Built-in brands (generated from presets)
 // ---------------------------------------------------------------------------
 
-export { defaultBrand } from './default'
-export { funBrand } from './fun'
-export { poshBrand } from './posh'
-export { shadcnBrand } from './shadcn'
+export const defaultBrand = _generateTheme(_DEFAULT)
+export const funBrand = _generateTheme(_FUN)
+export const poshBrand = _generateTheme(_POSH)
+export const shadcnBrand = _generateTheme(_SHADCN)
 
 // ---------------------------------------------------------------------------
-// Media queries (framework-agnostic, kept as-is)
+// Media queries (framework-agnostic)
 // ---------------------------------------------------------------------------
 
 export const media = {
@@ -35,33 +61,3 @@ export const media = {
   gtXl: { minWidth: 1281 },
   pointerFine: { pointer: 'fine' },
 } as const
-
-// ---------------------------------------------------------------------------
-// Deprecated — old legacy types
-// ---------------------------------------------------------------------------
-
-/** @deprecated Use `Brand` instead. Will be removed in a future version. */
-export type BrandDefinition = import('./types').Brand
-
-/** @deprecated No longer needed — use `injectBrandVars()` instead. */
-export function createBrandConfig(_brand: import('./types').Brand): never {
-  throw new Error(
-    'createBrandConfig() has been removed. Use injectBrandVars() for CSS variable injection.',
-  )
-}
-
-/** @deprecated Use `Brand['tokens']` instead. */
-export type TokenOverrides = NonNullable<import('./types').Brand['tokens']>
-
-/** @deprecated No longer needed. */
-export type BorderConfig = Record<string, unknown>
-/** @deprecated No longer needed. */
-export type OutlineConfig = Record<string, unknown>
-/** @deprecated No longer needed. */
-export type AnimationConfig = Record<string, unknown>
-/** @deprecated No longer needed. */
-export type TypographyConfig = Record<string, unknown>
-/** @deprecated No longer needed. */
-export type FontOverrides = Record<string, unknown>
-/** @deprecated No longer needed. */
-export type BrandFontConfig = Record<string, unknown>
