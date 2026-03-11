@@ -39,53 +39,55 @@ export default async function HookPage({ params }: PageProps) {
   const usageHtml = await highlight(hook.usage)
 
   return (
-    <div className="max-w-4xl">
+    <div style={{ maxWidth: 896 }}>
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold font-mono mb-2">{hook.name}</h1>
-        <p className="text-lg text-foreground-secondary mb-4">{hook.description}</p>
-        <div className="rounded-lg border border-border overflow-hidden">
+      <div style={{ marginBottom: 32 }}>
+        <h1 style={{ fontSize: 30, fontWeight: 700, fontFamily: 'monospace', marginBottom: 8 }}>{hook.name}</h1>
+        <p style={{ fontSize: 18, color: 'var(--stl-colorSubtitle)', marginBottom: 16 }}>{hook.description}</p>
+        <div style={{ borderRadius: 8, border: '1px solid var(--stl-borderColor)', overflow: 'hidden' }}>
           <div
-            className="block dark:hidden overflow-x-auto p-4 text-sm [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
+            className="code-light"
+            style={{ overflowX: 'auto', padding: 16, fontSize: 14 }}
             dangerouslySetInnerHTML={{ __html: importHtml.light }}
           />
           <div
-            className="hidden dark:block overflow-x-auto p-4 text-sm bg-surface [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
+            className="code-dark"
+            style={{ overflowX: 'auto', padding: 16, fontSize: 14, background: 'var(--stl-surface)' }}
             dangerouslySetInnerHTML={{ __html: importHtml.dark }}
           />
         </div>
       </div>
 
       {/* Signature */}
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-3">Signature</h2>
-        <code className="block p-3 bg-surface-muted rounded-lg text-sm font-mono overflow-x-auto">
+      <section style={{ marginBottom: 32 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}>Signature</h2>
+        <code style={{ display: 'block', padding: 12, background: 'var(--stl-surface1)', borderRadius: 8, fontSize: 14, fontFamily: 'monospace', overflowX: 'auto' }}>
           {hook.signature}
         </code>
       </section>
 
       {/* Parameters */}
       {hook.parameters.length > 0 && (
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-3">Parameters</h2>
-          <div className="overflow-x-auto border border-border rounded-lg">
-            <table className="w-full text-sm">
+        <section style={{ marginBottom: 32 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}>Parameters</h2>
+          <div style={{ overflowX: 'auto', border: '1px solid var(--stl-borderColor)', borderRadius: 8 }}>
+            <table style={{ width: '100%', fontSize: 14, borderCollapse: 'collapse' }}>
               <thead>
-                <tr className="border-b border-border bg-surface-muted">
-                  <th className="text-left py-2 px-4 font-medium">Name</th>
-                  <th className="text-left py-2 px-4 font-medium">Type</th>
-                  <th className="text-left py-2 px-4 font-medium">Description</th>
+                <tr style={{ borderBottom: '1px solid var(--stl-borderColor)', background: 'var(--stl-surface1)' }}>
+                  <th style={{ textAlign: 'left', paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16, fontWeight: 500 }}>Name</th>
+                  <th style={{ textAlign: 'left', paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16, fontWeight: 500 }}>Type</th>
+                  <th style={{ textAlign: 'left', paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16, fontWeight: 500 }}>Description</th>
                 </tr>
               </thead>
               <tbody>
-                {hook.parameters.map((param) => (
+                {hook.parameters.map((param, i) => (
                   <tr
                     key={param.name}
-                    className="border-b border-border-muted last:border-0"
+                    style={{ borderBottom: i < hook.parameters.length - 1 ? '1px solid var(--stl-borderColor)' : 'none' }}
                   >
-                    <td className="py-2 px-4 font-mono text-xs">{param.name}</td>
-                    <td className="py-2 px-4 font-mono text-xs">{param.type}</td>
-                    <td className="py-2 px-4 text-foreground-secondary">
+                    <td style={{ paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16, fontFamily: 'monospace', fontSize: 12 }}>{param.name}</td>
+                    <td style={{ paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16, fontFamily: 'monospace', fontSize: 12 }}>{param.type}</td>
+                    <td style={{ paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16, color: 'var(--stl-colorSubtitle)' }}>
                       {param.description}
                     </td>
                   </tr>
@@ -97,25 +99,35 @@ export default async function HookPage({ params }: PageProps) {
       )}
 
       {/* Returns */}
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-3">Returns</h2>
-        <p className="text-foreground-secondary">{hook.returns}</p>
+      <section style={{ marginBottom: 32 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}>Returns</h2>
+        <p style={{ color: 'var(--stl-colorSubtitle)' }}>{hook.returns}</p>
       </section>
 
       {/* Usage */}
-      <section className="mb-12">
-        <h2 className="text-xl font-semibold mb-3">Usage</h2>
-        <div className="rounded-lg border border-border overflow-hidden">
+      <section style={{ marginBottom: 48 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}>Usage</h2>
+        <div style={{ borderRadius: 8, border: '1px solid var(--stl-borderColor)', overflow: 'hidden' }}>
           <div
-            className="block dark:hidden overflow-x-auto p-4 text-sm [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
+            className="code-light"
+            style={{ overflowX: 'auto', padding: 16, fontSize: 14 }}
             dangerouslySetInnerHTML={{ __html: usageHtml.light }}
           />
           <div
-            className="hidden dark:block overflow-x-auto p-4 text-sm bg-surface [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
+            className="code-dark"
+            style={{ overflowX: 'auto', padding: 16, fontSize: 14, background: 'var(--stl-surface)' }}
             dangerouslySetInnerHTML={{ __html: usageHtml.dark }}
           />
         </div>
       </section>
+
+      <style>{`
+        [data-color-mode="light"] .code-dark,
+        :root:not([data-color-mode]) .code-dark { display: none; }
+        [data-color-mode="dark"] .code-light { display: none; }
+        .code-light pre, .code-dark pre { background: transparent !important; margin: 0 !important; padding: 0 !important; }
+        .code-light code, .code-dark code { font-size: 14px !important; }
+      `}</style>
     </div>
   )
 }
