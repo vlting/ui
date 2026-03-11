@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { styled } from '../../../packages/stl-react/src'
 import { type SearchItem, type SearchItemType, search } from '../lib/search-index'
 
 const typeLabels: Record<SearchItemType, string> = {
@@ -12,13 +13,212 @@ const typeLabels: Record<SearchItemType, string> = {
   page: 'Page',
 }
 
-const typeColors: Record<SearchItemType, string> = {
-  component: 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300',
-  block: 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300',
-  chart: 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300',
-  icon: 'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300',
-  page: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
+const typeColorStyles: Record<SearchItemType, { background: string; color: string; darkBackground: string; darkColor: string }> = {
+  component: { background: '#dbeafe', color: '#1d4ed8', darkBackground: '#1e3a5f', darkColor: '#93c5fd' },
+  block: { background: '#f3e8ff', color: '#7e22ce', darkBackground: '#3b1f5e', darkColor: '#d8b4fe' },
+  chart: { background: '#dcfce7', color: '#15803d', darkBackground: '#14532d', darkColor: '#86efac' },
+  icon: { background: '#ffedd5', color: '#c2410c', darkBackground: '#431407', darkColor: '#fdba74' },
+  page: { background: '#f3f4f6', color: '#374151', darkBackground: '#1f2937', darkColor: '#d1d5db' },
 }
+
+const Overlay = styled('div', {
+  position: 'fixed',
+  inset: 0,
+  zIndex: '$10',
+  display: 'flex',
+  alignItems: 'flex-start',
+  justifyContent: 'center',
+  paddingTop: '15vh',
+})
+
+const Backdrop = styled('div', {
+  position: 'fixed',
+  inset: 0,
+  background: 'rgba(0,0,0,0.5)',
+  backdropFilter: 'blur(4px)',
+})
+
+const DialogBox = styled('div', {
+  position: 'relative',
+  width: '100%',
+  maxWidth: 512,
+  overflow: 'hidden',
+  borderRadius: '$5',
+  border: '$thin $borderColor',
+  background: '$background',
+  boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
+})
+
+const SearchBar = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  borderBottom: '$thin $borderColor',
+  px: '$2.5',
+})
+
+const SearchIcon = styled('svg', {
+  mr: '$1',
+  width: 16,
+  height: 16,
+  flexShrink: 0,
+  color: '$colorSubtitle',
+})
+
+const SearchInput = styled('input', {
+  height: 48,
+  width: '100%',
+  background: 'transparent',
+  fontSize: '$p',
+  color: '$color',
+  outline: 'none',
+  border: 'none',
+  '::placeholder': { color: '$colorSubtitle' },
+})
+
+const EscKbd = styled('kbd', {
+  ml: '$1',
+  display: 'none',
+  flexShrink: 0,
+  borderRadius: '$3',
+  border: '$thin $borderColor',
+  background: '$tertiary2',
+  px: 6,
+  py: 2,
+  fontSize: 10,
+  fontWeight: '$500',
+  color: '$colorSubtitle',
+  gtSm: { display: 'inline-block' },
+})
+
+const ResultsList = styled('div', {
+  maxHeight: 320,
+  overflowY: 'auto',
+  overscrollBehavior: 'contain',
+  padding: '$1',
+})
+
+const NoResults = styled('p', {
+  px: '$2.5',
+  py: '$4',
+  textAlign: 'center',
+  fontSize: '$p',
+  color: '$colorSubtitle',
+})
+
+const GroupLabel = styled('div', {
+  px: '$1',
+  pb: 4,
+  pt: '$1',
+  fontSize: '$small',
+  fontWeight: '$600',
+  color: '$colorSubtitle',
+})
+
+const ResultButton = styled('button', {
+  display: 'flex',
+  width: '100%',
+  alignItems: 'center',
+  gap: '$1.5',
+  borderRadius: '$4',
+  px: '$1.5',
+  py: '$1',
+  textAlign: 'left',
+  fontSize: '$p',
+  transition: 'background 150ms',
+  border: 'none',
+  cursor: 'pointer',
+  background: 'transparent',
+  ':hover': { background: '$tertiary2' },
+})
+
+const TypeBadge = styled('span', {
+  flexShrink: 0,
+  borderRadius: '$2',
+  px: 6,
+  py: 2,
+  fontSize: 10,
+  fontWeight: '$500',
+})
+
+const ResultName = styled('span', {
+  flex: 1,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  fontWeight: '$500',
+  color: '$color',
+})
+
+const ResultCategory = styled('span', {
+  flexShrink: 0,
+  fontSize: '$small',
+  color: '$colorSubtitle',
+})
+
+const FooterBar = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  borderTop: '$thin $borderColor',
+  px: '$2.5',
+  py: '$1',
+  fontSize: '$small',
+  color: '$colorSubtitle',
+})
+
+const FooterActions = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$1',
+})
+
+const FooterKbd = styled('kbd', {
+  borderRadius: '$3',
+  border: '$thin $borderColor',
+  background: '$tertiary2',
+  px: 4,
+  py: 2,
+  fontSize: 10,
+})
+
+// SearchTrigger styled components
+const TriggerButton = styled('button', {
+  display: 'flex',
+  height: 32,
+  alignItems: 'center',
+  gap: '$1',
+  borderRadius: '$3',
+  border: '$thin $borderColor',
+  px: '$1',
+  fontSize: '$p',
+  color: '$colorSubtitle',
+  background: 'transparent',
+  cursor: 'pointer',
+  transition: 'background 150ms',
+  ':hover': { background: '$tertiary2' },
+})
+
+const TriggerIcon = styled('svg', {
+  width: 14,
+  height: 14,
+})
+
+const TriggerLabel = styled('span', {
+  display: 'none',
+  gtSm: { display: 'inline' },
+})
+
+const TriggerKbd = styled('kbd', {
+  display: 'none',
+  borderRadius: '$3',
+  border: '$thin $borderColor',
+  background: '$tertiary2',
+  px: 4,
+  py: 2,
+  fontSize: 10,
+  fontWeight: '$500',
+  gtSm: { display: 'inline-block' },
+})
 
 export function SearchDialog() {
   const [open, setOpen] = useState(false)
@@ -106,21 +306,18 @@ export function SearchDialog() {
   let flatIndex = 0
 
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh]"
+    <Overlay
       onClick={() => setOpen(false)}
       role="presentation"
     >
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" aria-hidden="true" />
-      <div
-        className="relative w-full max-w-lg overflow-hidden rounded-xl border border-border bg-background shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
+      <Backdrop aria-hidden="true" />
+      <DialogBox
+        onClick={(e: React.MouseEvent) => e.stopPropagation()}
         role="dialog"
         aria-label="Search documentation"
       >
-        <div className="flex items-center border-b border-border px-4">
-          <svg
-            className="mr-2 h-4 w-4 shrink-0 text-muted-foreground"
+        <SearchBar>
+          <SearchIcon
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -132,14 +329,13 @@ export function SearchDialog() {
               strokeLinejoin="round"
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             />
-          </svg>
-          <input
+          </SearchIcon>
+          <SearchInput
             ref={inputRef}
             type="text"
-            className="h-12 w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
             placeholder="Search components, blocks, charts, icons..."
             value={query}
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
             onKeyDown={handleKeyDown}
             aria-label="Search"
             aria-activedescendant={
@@ -152,97 +348,98 @@ export function SearchDialog() {
             aria-controls="search-results"
             aria-autocomplete="list"
           />
-          <kbd className="ml-2 hidden shrink-0 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground sm:inline-block">
+          <EscKbd>
             ESC
-          </kbd>
-        </div>
+          </EscKbd>
+        </SearchBar>
 
-        <div
+        <ResultsList
           ref={listRef}
           id="search-results"
           role="listbox"
-          className="max-h-80 overflow-y-auto overscroll-contain p-2"
         >
           {query.trim().length >= 2 && results.length === 0 && (
-            <p className="px-4 py-8 text-center text-sm text-muted-foreground">
+            <NoResults>
               No results for &quot;{query}&quot;
-            </p>
+            </NoResults>
           )}
 
           {(Object.entries(grouped) as [SearchItemType, SearchItem[]][]).map(
             ([type, items]) => (
               <div key={type}>
-                <div className="px-2 pb-1 pt-2 text-xs font-semibold text-muted-foreground">
+                <GroupLabel>
                   {typeLabels[type]}s
-                </div>
+                </GroupLabel>
                 {items.map((item) => {
                   const idx = flatIndex++
                   const isActive = idx === activeIndex
+                  const colors = typeColorStyles[type]
                   return (
-                    <button
+                    <ResultButton
                       key={item.id}
                       id={`search-result-${item.id}`}
                       role="option"
                       aria-selected={isActive}
                       data-active={isActive}
-                      className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-                        isActive ? 'bg-accent' : 'hover:bg-accent'
-                      }`}
                       onClick={() => navigate(item)}
                       onMouseEnter={() => setActiveIndex(idx)}
+                      style={{
+                        background: isActive ? 'var(--stl-tertiary2, #f0f0f0)' : undefined,
+                      }}
                     >
-                      <span
-                        className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium ${typeColors[type]}`}
+                      <TypeBadge
+                        style={{
+                          background: colors.background,
+                          color: colors.color,
+                        }}
                       >
                         {typeLabels[type]}
-                      </span>
-                      <span className="flex-1 truncate font-medium text-foreground">
+                      </TypeBadge>
+                      <ResultName>
                         {item.name}
-                      </span>
+                      </ResultName>
                       {item.category && (
-                        <span className="shrink-0 text-xs text-muted-foreground">
+                        <ResultCategory>
                           {item.category}
-                        </span>
+                        </ResultCategory>
                       )}
-                    </button>
+                    </ResultButton>
                   )
                 })}
               </div>
             ),
           )}
-        </div>
+        </ResultsList>
 
         {results.length > 0 && (
-          <div className="flex items-center justify-between border-t border-border px-4 py-2 text-xs text-muted-foreground">
+          <FooterBar>
             <span>{results.length} results</span>
-            <div className="flex items-center gap-2">
-              <kbd className="rounded border border-border bg-muted px-1 py-0.5 text-[10px]">
+            <FooterActions>
+              <FooterKbd>
                 &uarr;&darr;
-              </kbd>
+              </FooterKbd>
               <span>navigate</span>
-              <kbd className="rounded border border-border bg-muted px-1 py-0.5 text-[10px]">
+              <FooterKbd>
                 &crarr;
-              </kbd>
+              </FooterKbd>
               <span>select</span>
-            </div>
-          </div>
+            </FooterActions>
+          </FooterBar>
         )}
-      </div>
-    </div>
+      </DialogBox>
+    </Overlay>
   )
 }
 
 export function SearchTrigger() {
   return (
-    <button
+    <TriggerButton
       onClick={() =>
         document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))
       }
-      className="flex h-8 items-center gap-2 rounded-md border border-border px-2 text-sm text-muted-foreground transition-colors hover:bg-accent"
       aria-label="Search documentation (Ctrl+K)"
     >
-      <svg
-        className="h-3.5 w-3.5"
+      <TriggerIcon
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -254,11 +451,11 @@ export function SearchTrigger() {
           strokeLinejoin="round"
           d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
         />
-      </svg>
-      <span className="hidden sm:inline">Search...</span>
-      <kbd className="hidden rounded border border-border bg-muted px-1 py-0.5 text-[10px] font-medium sm:inline-block">
+      </TriggerIcon>
+      <TriggerLabel>Search...</TriggerLabel>
+      <TriggerKbd>
         &thinsp;&#8984;K
-      </kbd>
-    </button>
+      </TriggerKbd>
+    </TriggerButton>
   )
 }

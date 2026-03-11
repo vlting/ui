@@ -1,6 +1,24 @@
 'use client'
 
 import { useState } from 'react'
+import { styled } from '../../../packages/stl-react/src'
+
+const StyledButton = styled('button', {
+  padding: 6,
+  borderRadius: '$3',
+  color: '$colorSubtitle',
+  background: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  transition: 'color 150ms, background 150ms',
+  ':hover': {
+    color: '$color',
+    background: '$tertiary2',
+  },
+})
 
 interface CopyButtonProps {
   text: string
@@ -16,9 +34,8 @@ export function CopyButton({ text }: CopyButtonProps) {
   }
 
   return (
-    <button
+    <StyledButton
       onClick={handleCopy}
-      className="p-1.5 rounded-md text-foreground-secondary hover:text-foreground hover:bg-surface-muted transition-colors"
       aria-label={copied ? 'Copied' : 'Copy code'}
     >
       {copied ? (
@@ -49,6 +66,6 @@ export function CopyButton({ text }: CopyButtonProps) {
           <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
         </svg>
       )}
-    </button>
+    </StyledButton>
   )
 }
