@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { styled } from '../../../packages/stl-react/src'
 
 interface TocItem {
   id: string
@@ -9,12 +10,24 @@ interface TocItem {
   level: number
 }
 
+const TocNav = styled('nav', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 4,
+  fontSize: '$p',
+})
+
+const TocTitle = styled('p', {
+  mb: '$1.5',
+  fontWeight: '$500',
+  color: '$color',
+})
+
 export function TableOfContents() {
   const [headings, setHeadings] = useState<TocItem[]>([])
   const [activeId, setActiveId] = useState<string>('')
   const _pathname = usePathname()
 
-  // Extract headings from the main content area on mount and pathname change
   useEffect(() => {
     const content = document.querySelector('[data-content]')
     if (!content) return
@@ -38,7 +51,6 @@ export function TableOfContents() {
     setHeadings(items)
   }, [])
 
-  // Track active heading with IntersectionObserver
   useEffect(() => {
     if (headings.length === 0) return
 
@@ -64,8 +76,8 @@ export function TableOfContents() {
   if (headings.length === 0) return null
 
   return (
-    <nav aria-label="Table of contents" className="space-y-1 text-sm">
-      <p className="mb-2 font-medium text-foreground">On this page</p>
+    <TocNav aria-label="Table of contents">
+      <TocTitle>On this page</TocTitle>
       {headings.map((heading) => (
         <a
           key={heading.id}
@@ -74,15 +86,23 @@ export function TableOfContents() {
             e.preventDefault()
             document.getElementById(heading.id)?.scrollIntoView({ behavior: 'smooth' })
           }}
-          className={`block py-1 transition-colors ${heading.level === 3 ? 'pl-4' : ''} ${
-            activeId === heading.id
-              ? 'font-medium text-primary'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
+          style={{
+            display: 'block',
+            paddingTop: 4,
+            paddingBottom: 4,
+            paddingLeft: heading.level === 3 ? 16 : 0,
+            transition: 'color 150ms',
+            fontWeight: activeId === heading.id ? 500 : 400,
+            color: activeId === heading.id
+              ? 'var(--stl-primary9, #2270c2)'
+              : 'var(--stl-colorSubtitle, #888)',
+            textDecoration: 'none',
+            fontSize: 14,
+          }}
         >
           {heading.text}
         </a>
       ))}
-    </nav>
+    </TocNav>
   )
 }
