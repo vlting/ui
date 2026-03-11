@@ -138,7 +138,7 @@
 ## 6. Conditions / Breakpoints
 
 Both platforms support the same condition keys:
-`xs`, `sm`, `md`, `lg`, `xl`, `!xs`..`!xl`, `dark`, `light`, `rtl`, `ltr`, `lowMotion`, `!lowMotion`, `touch`, `!touch`, `pointer`, `!pointer`, `tv`, `!tv`, `hightContrast`, `!hightContrast`, `lowData`, `!lowData`, `debug`
+`xs`, `sm`, `md`, `lg`, `xl`, `!xs`..`!xl`, `dark`, `light`, `rtl`, `ltr`, `lowMotion`, `!lowMotion`, `touch`, `!touch`, `pointer`, `!pointer`, `tv`, `!tv`, `highContrast`, `!highContrast`, `lowData`, `!lowData`, `debug`
 
 Native additionally supports interaction conditions in styled():
 `hovered`, `pressed`, `focused` (bits 27-29)

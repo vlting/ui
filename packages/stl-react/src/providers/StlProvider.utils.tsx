@@ -99,7 +99,7 @@ export function useContextConditions(
   useLayout(isSSR ? null : document.documentElement, resizer)
 
   // Track media queries
-  const hightContrast = useMediaQuery(queryConditionsMap.hightContrast, false)
+  const highContrast = useMediaQuery(queryConditionsMap.highContrast, false)
   const lowMotion = useMediaQuery(queryConditionsMap.lowMotion, false)
   const lowData = useMediaQuery(queryConditionsMap.lowData, false)
   const touch = useMediaQuery(queryConditionsMap.touch, isMobile)
@@ -128,7 +128,7 @@ export function useContextConditions(
       md: responsiveConditions.md,
       lg: responsiveConditions.lg,
       xl: responsiveConditions.xl,
-      hightContrast,
+      highContrast,
       lowMotion,
       lowData,
       touch,
