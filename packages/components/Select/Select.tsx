@@ -55,7 +55,7 @@ const DropdownFrame = styled(
     borderStyle: 'solid',
     borderColor: '$borderColor',
     borderRadius: '$4',
-    boxShadow: 'var(--stl-shadow-md, 0 4px 12px var(--shadowColor, rgba(0,0,0,0.1)))',
+    boxShadow: 'var(--stl-shadow-md)',
     zIndex: '1000',
     overflow: 'hidden',
   },

@@ -229,14 +229,14 @@ function Root({
 
       {open && (
         <DropdownFrame
-          style={{ boxShadow: '0 4px 12px var(--stl-maxAlpha8, rgba(0,0,0,0.15))' }}
+          style={{ boxShadow: 'var(--stl-shadow-md, 0 4px 12px rgba(0,0,0,0.15))' }}
         >
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               padding: '8px 12px',
-              borderBottom: '1px solid var(--borderColor, var(--stl-surface3, #e5e7eb))',
+              borderBottom: '1px solid var(--stl-border)',
             }}
           >
             <SearchInput
@@ -274,7 +274,7 @@ function Root({
                     aria-selected={isSelected}
                     style={{
                       backgroundColor: isHighlighted
-                        ? 'var(--surface3, var(--stl-surface2, #f3f4f6))'
+                        ? 'var(--stl-surface2)'
                         : 'transparent',
                       fontWeight: isSelected ? 600 : 400,
                     }}

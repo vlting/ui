@@ -39,8 +39,8 @@ const SwitchThumb = styled(
   {
     display: 'block',
     borderRadius: '9999px',
-    backgroundColor: 'var(--background, var(--stl-color-min, #fff))',
-    boxShadow: 'var(--stl-shadow-sm, 0 1px 2px var(--shadowColor, rgba(0,0,0,0.1)))',
+    backgroundColor: 'var(--stl-color-min)',
+    boxShadow: 'var(--stl-shadow-sm)',
     transition: 'transform 200ms ease',
   },
   {

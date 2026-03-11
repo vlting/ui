@@ -19,16 +19,16 @@ const ToastFrame = styled(
     variant: {
       default: { backgroundColor: '$background', borderColor: '$borderColor' },
       success: {
-        backgroundColor: 'var(--stl-successBg, #f0fdf4)',
-        borderColor: 'var(--stl-successBorder, #86efac)',
+        backgroundColor: 'var(--stl-successBg)',
+        borderColor: 'var(--stl-successBorder)',
       },
       error: {
-        backgroundColor: 'var(--stl-errorBg, #fef2f2)',
-        borderColor: 'var(--stl-errorBorder, #fca5a5)',
+        backgroundColor: 'var(--stl-errorBg)',
+        borderColor: 'var(--stl-errorBorder)',
       },
       warning: {
-        backgroundColor: 'var(--stl-warningBg, #fffbeb)',
-        borderColor: 'var(--stl-warningBorder, #fcd34d)',
+        backgroundColor: 'var(--stl-warningBg)',
+        borderColor: 'var(--stl-warningBorder)',
       },
     },
   },
@@ -68,8 +68,7 @@ function Root({ children, variant = 'default' }: ToastRootProps) {
       variant={variant}
       role="alert"
       style={{
-        boxShadow:
-          'var(--stl-shadow-md, 0 4px 12px var(--stl-maxAlpha8, rgba(0,0,0,0.15)))',
+        boxShadow: 'var(--stl-shadow-md)',
       }}
     >
       {children}
