@@ -1,6 +1,6 @@
 ---
 slug: prod-polish
-status: in-progress
+status: done
 created: 2026-03-10
 ---
 # Production Polish
@@ -153,16 +153,18 @@ E1 (Foundation) → E2 (Docs) → E3 (Showcases) → E4 (A11y) → E5 (Ship)
 **Dependencies:** Epic 4
 **Epic slug:** readme-ship
 **Epic branch:** epic/readme-ship
-**Status:** pending
+**Epic PR:** #177
+**Status:** complete
 
 ### Stage 5.1: README & Final Verification
 **Branch prefix:** docs
 **Acceptance criteria:**
-- [ ] README.md at repo root: intro, features, quick start, docs link (docs.vlt.ing)
-- [ ] All 3 GH workflows pass on main
-- [ ] `yarn build` succeeds (root + all packages)
-- [ ] `yarn typecheck` passes
-- [ ] `yarn lint` passes
-- [ ] `yarn test` passes
+- [x] README.md at repo root: intro, features, quick start, docs link (docs.vlt.ing)
+- [x] All 3 GH workflows pass on main
+- [x] `yarn build` succeeds (root + all packages)
+- [x] `yarn typecheck` passes
+- [x] `yarn lint` passes
+- [x] `yarn test` passes
 - [ ] Docs site builds and deploys to Vercel
-**Status:** pending
+**Stage PR:** #176
+**Status:** done
