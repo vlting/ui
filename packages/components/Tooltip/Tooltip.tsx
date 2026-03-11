@@ -15,7 +15,7 @@ const TooltipContentFrame = styled(
     paddingBottom: '4px',
     pointerEvents: 'none',
     whiteSpace: 'nowrap',
-    transition: 'opacity var(--stl-animation-fastDuration, 150ms) ease',
+    transition: 'opacity var(--stl-animation-fastDuration) ease',
   },
   'TooltipContent',
 )
