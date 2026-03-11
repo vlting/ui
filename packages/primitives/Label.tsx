@@ -26,7 +26,7 @@ export function Label({ children, htmlFor, size = 'md', required }: LabelProps) 
     <LabelFrame htmlFor={htmlFor} size={size}>
       {children}
       {required && (
-        <span style={{ color: 'var(--stl-color-error9, var(--red10, #ef4444))' }}>
+        <span style={{ color: 'var(--stl-color-error9)' }}>
           {' '}
           *
         </span>
