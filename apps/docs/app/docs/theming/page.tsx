@@ -4,7 +4,7 @@ import { PalettePicker } from '../../../components/palette-picker'
 export const metadata = {
   title: 'Theming — @vlting/ui',
   description:
-    'Learn how to customize the look and feel of @vlting/ui with the brand system, tokens, fonts, and themes.',
+    'Learn how to customize the look and feel of @vlting/ui with generateTheme(), presets, tokens, fonts, and themes.',
 }
 
 export default function ThemingPage() {
@@ -20,8 +20,8 @@ export default function ThemingPage() {
             lineHeight: 1.6,
           }}
         >
-          Customize the entire design system through a single brand configuration. Colors,
-          tokens, fonts, shadows, and animations — all controlled declaratively.
+          Customize the entire design system with a single function call. Colors,
+          tokens, fonts, shadows — all generated from minimal input.
         </p>
       </div>
 
@@ -35,13 +35,11 @@ export default function ThemingPage() {
             lineHeight: 1.7,
           }}
         >
-          The brand system uses plain data objects: you define a <code>Brand</code>{' '}
-          object, call <code>injectBrandCSS()</code> to set CSS variables, then wrap your
-          app in
-          <code>StlProvider</code>. Every component automatically picks up your
-          brand&apos;s colors, spacing, fonts, and more.
+          Call <code>generateTheme()</code> with a primary hue to produce a complete
+          theme. Use <code>themeToVars()</code> to convert it to CSS variables, then
+          wrap your app in <code>StlProvider</code>.
         </p>
-        <CodeBlock code={`Brand → injectBrandCSS() → StlProvider`} language="text" />
+        <CodeBlock code={`generateTheme({ primary: { hue: 220 } }) → themeToVars() → StlProvider`} language="text" />
       </section>
 
       {/* Quick Start */}
@@ -49,11 +47,12 @@ export default function ThemingPage() {
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Quick Start</h2>
         <CodeBlock
           code={`import { StlProvider } from '@vlting/stl-react'
-import { defaultBrand, injectBrandCSS } from '@vlting/ui'
+import { generateTheme, themeToVars } from '@vlting/ui'
 
-// Inject brand CSS variables
-injectBrandCSS(defaultBrand)
+const theme = generateTheme({ primary: { hue: 220 } })
+const vars = themeToVars(theme, 'light')
 
+// Inject vars into a <style> tag or apply to :root
 export function App({ children }) {
   return (
     <StlProvider defaultColorMode="light">
@@ -65,9 +64,9 @@ export function App({ children }) {
         />
       </section>
 
-      {/* Pre-built Brands */}
+      {/* Pre-built Presets */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <h2 style={{ fontSize: 24, fontWeight: 600 }}>Pre-built Brands</h2>
+        <h2 style={{ fontSize: 24, fontWeight: 600 }}>Pre-built Presets</h2>
         <p
           style={{
             color: 'var(--color-muted-foreground)',
@@ -75,7 +74,7 @@ export function App({ children }) {
             lineHeight: 1.7,
           }}
         >
-          Four brands ship out of the box. Use the brand switcher at the top of this site
+          Four presets ship out of the box. Use the theme switcher at the top of this site
           to preview them live.
         </p>
         <div
@@ -87,28 +86,28 @@ export function App({ children }) {
         >
           {[
             {
-              name: 'defaultBrand',
+              name: 'THEME_PRESET_DEFAULT',
               label: 'Default',
-              desc: 'Clean, trustworthy, minimalist. Cool-tinted blue neutrals with YInMn Blue accent.',
+              desc: 'Clean, trustworthy, minimalist. Achromatic neutrals with cyan-blue accent.',
             },
             {
-              name: 'shadcnBrand',
+              name: 'THEME_PRESET_SHADCN',
               label: 'shadcn',
               desc: 'Pixel-perfect shadcn/ui match. Pure neutral grays, 10px radius, 1px borders.',
             },
             {
-              name: 'funBrand',
+              name: 'THEME_PRESET_FUN',
               label: 'Fun',
-              desc: 'Playful and vibrant. Rounded corners, saturated colors, bouncy animations.',
+              desc: 'Playful and vibrant. Rounded corners, no borders, flat shadows.',
             },
             {
-              name: 'poshBrand',
+              name: 'THEME_PRESET_POSH',
               label: 'Posh',
-              desc: 'Premium and refined. Serif headings, subtle shadows, elegant spacing.',
+              desc: 'Premium and refined. Square corners, thin borders, diffused shadows.',
             },
-          ].map((brand) => (
+          ].map((preset) => (
             <div
-              key={brand.name}
+              key={preset.name}
               style={{
                 padding: 16,
                 borderRadius: 8,
@@ -118,9 +117,9 @@ export function App({ children }) {
                 gap: 4,
               }}
             >
-              <strong style={{ fontSize: 14 }}>{brand.label}</strong>
+              <strong style={{ fontSize: 14 }}>{preset.label}</strong>
               <code style={{ fontSize: 12, color: 'var(--color-muted-foreground)' }}>
-                {brand.name}
+                {preset.name}
               </code>
               <p
                 style={{
@@ -130,24 +129,24 @@ export function App({ children }) {
                   marginTop: 4,
                 }}
               >
-                {brand.desc}
+                {preset.desc}
               </p>
             </div>
           ))}
         </div>
         <CodeBlock
-          code={`import { defaultBrand, shadcnBrand, funBrand, poshBrand } from '@vlting/ui'
-import { injectBrandCSS } from '@vlting/ui'
+          code={`import { generateTheme, themeToVars, THEME_PRESET_SHADCN } from '@vlting/ui'
 
-// Switch brands by injecting different CSS variables
-injectBrandCSS(shadcnBrand)`}
+const theme = generateTheme(THEME_PRESET_SHADCN)
+const vars = themeToVars(theme, 'light')
+// Apply vars to DOM...`}
           language="tsx"
         />
       </section>
 
-      {/* Brand Definition */}
+      {/* generateTheme API */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <h2 style={{ fontSize: 24, fontWeight: 600 }}>Brand Definition</h2>
+        <h2 style={{ fontSize: 24, fontWeight: 600 }}>generateTheme() API</h2>
         <p
           style={{
             color: 'var(--color-muted-foreground)',
@@ -155,34 +154,33 @@ injectBrandCSS(shadcnBrand)`}
             lineHeight: 1.7,
           }}
         >
-          A brand is a plain data object conforming to the <code>Brand</code> interface.
-          Every field except <code>name</code> and <code>palettes</code> is optional —
-          sensible defaults are applied for anything you omit.
+          The minimal call only requires a primary hue. Everything else is derived
+          automatically or uses sensible defaults.
         </p>
         <CodeBlock
-          code={`interface Brand {
-  name: string
-  palettes: { light: string[]; dark: string[] }       // 12-step color scales
-  accentPalettes?: Record<string, {                    // Named accent palettes
-    light: string[]; dark: string[]
-  }>
-  tokens?: {                                           // Override spacing, sizing, etc.
-    size?: Record<string | number, number>
-    space?: Record<string | number, number>
-    radius?: Record<string | number, number>
-    zIndex?: Record<string | number, number>
-    borderWidth?: { none?: number; thin?: number; medium?: number; thick?: number }
+          code={`interface GenerateThemeOptions {
+  primary: ColorInput              // { hue: 0-360, saturation?: 0-100 }
+  secondary?: SecondaryColorInput  // auto-derived if omitted (complementary)
+  tertiary?: SecondaryColorInput   // auto-derived if omitted (analogous)
+  tokens?: Brand['tokens']         // override size, space, radius, etc.
+  shadows?: Brand['shadows']       // override shadow scales
+  fonts?: Brand['fonts']           // override font families
+  overrides?: {
+    palettes?: Partial<Brand['palettes']>  // deep merge
+    accentPalettes?: Brand['accentPalettes'] // full replace
   }
-  borders?: { widths?: { none?: number; thin?: number; medium?: number; thick?: number } }
-  outline?: { width?: number; offset?: number }
-  shadows?: { light?: ShadowScale; dark?: ShadowScale }
-  overlay?: { light?: string; dark?: string }
-  fonts?: FontOverrides                                // Low-level font overrides
-  fontConfig?: BrandFontConfig                         // High-level font configuration
-  typography?: TypographyConfig                        // Text transform, style overrides
-  animations?: AnimationConfig                         // Duration and easing settings
-  media?: Record<string, { maxWidth?: number; minWidth?: number }>  // Custom breakpoints
-}`}
+}
+
+// Minimal — just a hue
+const theme = generateTheme({ primary: { hue: 220 } })
+
+// With customization
+const theme = generateTheme({
+  primary: { hue: 260, saturation: 90 },
+  secondary: { hue: 30, saturation: 70 },
+  tokens: { radius: { true: 16 } },
+  fonts: { heading: "'Playfair Display', serif" },
+})`}
           language="tsx"
         />
       </section>
@@ -197,7 +195,7 @@ injectBrandCSS(shadcnBrand)`}
             lineHeight: 1.7,
           }}
         >
-          Each brand defines a <strong>12-step color palette</strong> for light and dark
+          Each theme has a <strong>12-step color palette</strong> for light and dark
           modes. The palette indices map to semantic roles:
         </p>
         <div style={{ overflowX: 'auto' }}>
@@ -240,16 +238,6 @@ injectBrandCSS(shadcnBrand)`}
             </tbody>
           </table>
         </div>
-        <p
-          style={{
-            color: 'var(--color-muted-foreground)',
-            fontSize: 14,
-            lineHeight: 1.7,
-          }}
-        >
-          Accent palettes follow the same 12-step pattern and are used for semantic colors
-          like destructive (red), success (green), or brand accent (blue).
-        </p>
 
         <h3 style={{ fontSize: 18, fontWeight: 600, marginTop: 16 }}>Try It</h3>
         <p
@@ -261,36 +249,8 @@ injectBrandCSS(shadcnBrand)`}
           }}
         >
           Adjust the hue and saturation sliders to preview a 12-step palette in real time.
-          Copy the generated code into your brand definition.
         </p>
         <PalettePicker />
-        <CodeBlock
-          code={`const myBrand: Brand = {
-  name: 'my-brand',
-  palettes: {
-    light: [
-      '#ffffff',  // 0 — background
-      '#f8f8f8',  // 1 — subtle background
-      '#f0f0f0',  // 2 — UI element bg
-      '#e8e8e8',  // 3 — hovered
-      '#e0e0e0',  // 4 — active
-      '#d0d0d0',  // 5 — subtle border
-      '#b0b0b0',  // 6 — border
-      '#808080',  // 7 — strong border
-      '#404040',  // 8 — solid bg
-      '#303030',  // 9 — solid bg hover
-      '#606060',  // 10 — low-contrast text
-      '#1a1a1a',  // 11 — foreground
-    ],
-    dark: [
-      '#0a0a0a',  // 0 — background
-      '#141414',  // 1 — subtle background
-      // ... 12 steps for dark mode
-    ],
-  },
-}`}
-          language="tsx"
-        />
       </section>
 
       {/* Token Reference */}
@@ -315,30 +275,20 @@ injectBrandCSS(shadcnBrand)`}
             lineHeight: 1.6,
           }}
         >
-          Numeric scale 0–16 plus semantic tokens for layout landmarks.
+          Numeric scale 0-16 plus semantic tokens for layout landmarks.
         </p>
         <CodeBlock
           code={`// Numeric scale: $0 (0px) through $16 (310px)
-<View width="$4" height="$4" />      {/* 44px × 44px */}
+<View width="$4" height="$4" />      {/* 44px x 44px */}
 <View padding="$2" />                 {/* 16px padding */}
 
 // Semantic tokens
 <View width="$sidebar" />             {/* 256px */}
-<View width="$sidebarCollapsed" />    {/* 48px */}
 <Dialog width="$dialogMd" />          {/* 500px */}`}
           language="tsx"
         />
 
         <h3 style={{ fontSize: 18, fontWeight: 600, marginTop: 8 }}>Space Tokens</h3>
-        <p
-          style={{
-            color: 'var(--color-muted-foreground)',
-            fontSize: 13,
-            lineHeight: 1.6,
-          }}
-        >
-          Spacing scale 0–16 for margins and padding. Negative values are also available.
-        </p>
         <CodeBlock
           code={`<View gap="$2" />                     {/* 16px gap */}
 <View marginTop="$4" />               {/* 28px margin */}
@@ -347,37 +297,10 @@ injectBrandCSS(shadcnBrand)`}
         />
 
         <h3 style={{ fontSize: 18, fontWeight: 600, marginTop: 8 }}>Radius Tokens</h3>
-        <p
-          style={{
-            color: 'var(--color-muted-foreground)',
-            fontSize: 13,
-            lineHeight: 1.6,
-          }}
-        >
-          Border radius scale 0–12 plus <code>$full</code> for pill shapes.
-        </p>
         <CodeBlock
           code={`<View borderRadius="$2" />             {/* small rounding */}
 <View borderRadius="$4" />             {/* medium rounding */}
-<View borderRadius="$full" />          {/* 9999px — pill shape */}`}
-          language="tsx"
-        />
-
-        <h3 style={{ fontSize: 18, fontWeight: 600, marginTop: 8 }}>Color Tokens</h3>
-        <p
-          style={{
-            color: 'var(--color-muted-foreground)',
-            fontSize: 13,
-            lineHeight: 1.6,
-          }}
-        >
-          Semantic color tokens adapt to light/dark mode automatically.
-        </p>
-        <CodeBlock
-          code={`<Text color="$color" />                {/* foreground text */}
-<View backgroundColor="$background" /> {/* page background */}
-<View borderColor="$borderColor" />    {/* themed border */}
-<Button backgroundColor="$blue10" />   {/* specific color step */}`}
+<View borderRadius="$full" />          {/* 9999px - pill shape */}`}
           language="tsx"
         />
       </section>
@@ -392,9 +315,8 @@ injectBrandCSS(shadcnBrand)`}
             lineHeight: 1.7,
           }}
         >
-          The brand system injects CSS custom properties on <code>:root</code>. Use them
-          directly in CSS or inline styles for interoperability with Tailwind and plain
-          CSS.
+          <code>themeToVars()</code> produces CSS custom properties. Inject them on{' '}
+          <code>:root</code> via a <code>&lt;style&gt;</code> tag.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
@@ -406,10 +328,10 @@ injectBrandCSS(shadcnBrand)`}
             </thead>
             <tbody>
               {[
-                ['--vlt-color-1 … --vlt-color-12', 'Neutral palette steps (1-indexed)'],
+                ['--vlt-color-1 ... --vlt-color-12', 'Neutral palette steps (1-indexed)'],
                 [
-                  '--vlt-{accent}-1 … --vlt-{accent}-12',
-                  'Accent palette steps (e.g. --vlt-blue-6)',
+                  '--vlt-{accent}-1 ... --vlt-{accent}-12',
+                  'Accent palette steps (e.g. --vlt-primary-6)',
                 ],
                 ['--vlt-size-{n}', 'Size token overrides'],
                 ['--vlt-space-{n}', 'Space token overrides'],
@@ -449,9 +371,9 @@ injectBrandCSS(shadcnBrand)`}
         />
       </section>
 
-      {/* Font Configuration */}
+      {/* Creating a Custom Theme */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <h2 style={{ fontSize: 24, fontWeight: 600 }}>Font Configuration</h2>
+        <h2 style={{ fontSize: 24, fontWeight: 600 }}>Creating a Custom Theme</h2>
         <p
           style={{
             color: 'var(--color-muted-foreground)',
@@ -459,63 +381,33 @@ injectBrandCSS(shadcnBrand)`}
             lineHeight: 1.7,
           }}
         >
-          Four font roles are available: <code>heading</code>, <code>body</code>,{' '}
-          <code>mono</code>, and <code>quote</code>. The heading font uses a weight
-          alternation pattern where odd heading levels (h1, h3, h5) use the heavy weight
-          and even levels (h2, h4, h6) use the light weight.
+          Start from a preset and override what you need, or build from a single hue.
         </p>
         <CodeBlock
-          code={`const myBrand: Brand = {
-  // ...palettes
-  fontConfig: {
-    heading: {
-      family: 'Playfair Display',
-      fallback: 'Georgia, serif',
-      weights: { heavy: 700, light: 400 },  // alternating per heading level
-    },
-    body: {
-      family: 'Inter',
-      fallback: 'system-ui, sans-serif',
-      weight: 400,
-    },
-    mono: {
-      family: 'JetBrains Mono',
-      fallback: 'monospace',
-      weight: 400,
-    },
-    quote: {
-      family: 'Georgia',
-      fallback: 'serif',
-      weight: 300,
-      style: 'italic',
-    },
+          code={`import { generateTheme, themeToVars } from '@vlting/ui'
+
+const theme = generateTheme({
+  primary: { hue: 260, saturation: 90 },
+  secondary: { hue: 30, saturation: 70 },
+  tokens: {
+    radius: { true: 16, 4: 16 },
   },
-  typography: {
-    heading: { transform: 'uppercase' },  // optional text-transform
+  fonts: {
+    heading: "'Cal Sans', system-ui, sans-serif",
+    body: 'Inter, system-ui, sans-serif',
   },
-}`}
-          language="tsx"
-        />
-        <p
-          style={{
-            color: 'var(--color-muted-foreground)',
-            fontSize: 14,
-            lineHeight: 1.7,
-          }}
-        >
-          Use font tokens in components via the <code>fontFamily</code> prop:
-        </p>
-        <CodeBlock
-          code={`<Text fontFamily="$heading" fontSize="$8">Title</Text>
-<Text fontFamily="$body" fontSize="$4">Body text</Text>
-<Text fontFamily="$mono" fontSize="$3">const x = 42</Text>`}
+})
+
+// Get CSS variables for the current color mode
+const lightVars = themeToVars(theme, 'light')
+const darkVars = themeToVars(theme, 'dark')`}
           language="tsx"
         />
       </section>
 
-      {/* Animations */}
+      {/* Dark Mode */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <h2 style={{ fontSize: 24, fontWeight: 600 }}>Animations</h2>
+        <h2 style={{ fontSize: 24, fontWeight: 600 }}>Dark Mode</h2>
         <p
           style={{
             color: 'var(--color-muted-foreground)',
@@ -523,27 +415,27 @@ injectBrandCSS(shadcnBrand)`}
             lineHeight: 1.7,
           }}
         >
-          Control animation durations and easing curves per brand. Defaults use CSS
-          transitions with standard durations.
+          <code>generateTheme()</code> produces both light and dark palettes. Use{' '}
+          <code>themeToVars(theme, &apos;dark&apos;)</code> to get dark mode variables.
+          For SSR, use <code>getColorModeScript()</code> in your{' '}
+          <code>&lt;head&gt;</code> to prevent FOUC.
         </p>
         <CodeBlock
-          code={`const myBrand: Brand = {
-  // ...other config
-  animations: {
-    driver: 'css',  // 'css' (web) or 'reanimated' (native)
-    durations: {
-      instant: 100,   // ms — micro-interactions
-      fast: 150,       // ms — hover, focus
-      medium: 250,     // ms — transitions, reveals
-      slow: 400,       // ms — page transitions
-    },
-    easings: {
-      standard: 'ease-in-out',
-      enter: 'ease-out',
-      exit: 'ease-in',
-      spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
-    },
-  },
+          code={`import { StlProvider, getColorModeScript } from '@vlting/stl-react'
+import { generateTheme, themeToVars } from '@vlting/ui'
+
+const theme = generateTheme({ primary: { hue: 220 } })
+
+// In your HTML <head> (SSR):
+// dangerouslySetInnerHTML={{ __html: getColorModeScript() }}
+
+// In your component:
+export function App({ children }) {
+  return (
+    <StlProvider defaultColorMode="light">
+      {children}
+    </StlProvider>
+  )
 }`}
           language="tsx"
         />
@@ -559,8 +451,7 @@ injectBrandCSS(shadcnBrand)`}
             lineHeight: 1.7,
           }}
         >
-          Default breakpoints are provided. Override them via the <code>media</code> field
-          in your brand definition.
+          Default breakpoints are provided via the <code>media</code> export.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
@@ -618,97 +509,6 @@ injectBrandCSS(shadcnBrand)`}
 
 // Conditional rendering
 <Text $sm={{ display: 'none' }}>Desktop only</Text>`}
-          language="tsx"
-        />
-      </section>
-
-      {/* Creating a Custom Brand */}
-      <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <h2 style={{ fontSize: 24, fontWeight: 600 }}>Creating a Custom Brand</h2>
-        <p
-          style={{
-            color: 'var(--color-muted-foreground)',
-            fontSize: 14,
-            lineHeight: 1.7,
-          }}
-        >
-          Start from an existing brand and override what you need, or build from scratch.
-        </p>
-        <CodeBlock
-          code={`import { injectBrandCSS, defaultBrand, type Brand } from '@vlting/ui'
-
-const myBrand: Brand = {
-  ...defaultBrand,
-  name: 'my-company',
-  palettes: {
-    light: [
-      '#ffffff', '#faf5ff', '#f3e8ff', '#e9d5ff', '#d8b4fe',
-      '#c084fc', '#a855f7', '#9333ea', '#7e22ce', '#6b21a8',
-      '#581c87', '#3b0764',
-    ],
-    dark: [
-      '#0c0015', '#1a0030', '#2d004d', '#3b0064', '#4c007a',
-      '#6b21a8', '#7e22ce', '#9333ea', '#a855f7', '#c084fc',
-      '#d8b4fe', '#f3e8ff',
-    ],
-  },
-  tokens: {
-    radius: { ...defaultBrand.tokens?.radius, 4: 16 },
-  },
-  fontConfig: {
-    heading: {
-      family: 'Cal Sans',
-      weights: { heavy: 600, light: 400 },
-    },
-    body: { family: 'Inter', weight: 400 },
-    mono: { family: 'Fira Code', weight: 400 },
-    quote: { family: 'Lora', weight: 400, style: 'italic' },
-  },
-}
-
-injectBrandCSS(myBrand)`}
-          language="tsx"
-        />
-      </section>
-
-      {/* Dark Mode */}
-      <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <h2 style={{ fontSize: 24, fontWeight: 600 }}>Dark Mode</h2>
-        <p
-          style={{
-            color: 'var(--color-muted-foreground)',
-            fontSize: 14,
-            lineHeight: 1.7,
-          }}
-        >
-          The theme system generates both light and dark themes from your brand palettes.
-          Set the active theme via the Provider&apos;s <code>defaultTheme</code> prop. For
-          Next.js apps, use <code>next-themes</code> to handle system preference detection
-          and persistence.
-        </p>
-        <CodeBlock
-          code={`import { StlProvider } from '@vlting/stl-react'
-import { injectBrandCSS, defaultBrand } from '@vlting/ui'
-import { ThemeProvider, useTheme } from 'next-themes'
-
-injectBrandCSS(defaultBrand)
-
-function Inner({ children }) {
-  const { resolvedTheme } = useTheme()
-  return (
-    <StlProvider defaultColorMode={resolvedTheme === 'dark' ? 'dark' : 'light'}>
-      {children}
-    </StlProvider>
-  )
-}
-
-export function App({ children }) {
-  return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <Inner>{children}</Inner>
-    </ThemeProvider>
-  )
-}`}
           language="tsx"
         />
       </section>

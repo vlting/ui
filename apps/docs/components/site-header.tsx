@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { BrandSwitcher } from './brand-switcher'
+import { ThemeSwitcher } from './brand-switcher'
 import { SearchDialog, SearchTrigger } from './search-dialog'
 import { ThemeToggle } from './theme-toggle'
 
@@ -42,7 +42,7 @@ export function SiteHeader() {
         </div>
         <div className="flex items-center gap-2">
           <SearchTrigger />
-          <BrandSwitcher />
+          <ThemeSwitcher />
           <ThemeToggle />
           <a
             href="https://github.com/vlting/ui"
