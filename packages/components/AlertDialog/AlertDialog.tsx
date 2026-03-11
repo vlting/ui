@@ -128,7 +128,7 @@ function Trigger({ children }: { children: React.ReactNode }) {
   )
 }
 
-function Overlay({ children }: { children?: React.ReactNode }) {
+function Overlay(_props: { children?: React.ReactNode }) {
   return null
 }
 
