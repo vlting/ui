@@ -43,14 +43,14 @@ Key decisions (from council):
 ## Stage 2: Docs Tailwind Removal
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Tailwind removed: tailwind.config.ts, postcss tailwind plugin, @import 'tailwindcss' and @theme from globals.css
-- [ ] globals.css replaced with minimal STL-var-based styles
-- [ ] next-themes removed; ThemeToggle wired to useColorMode() from @vlting/stl-react
-- [ ] Provider stack collapsed to StlProvider only (with theme demo mechanism via <style> tag swap)
-- [ ] All 29 docs files converted from Tailwind utilities to STL styled() + primitives
-- [ ] No inline style attributes for values that should be tokens
-- [ ] Docs app builds and renders correctly in light and dark modes
-**Status:** pending
+- [x] Tailwind removed: tailwind.config.ts, postcss tailwind plugin, @import 'tailwindcss' and @theme from globals.css
+- [x] globals.css replaced with minimal STL-var-based styles
+- [x] next-themes removed; ThemeToggle wired to useColorMode() from @vlting/stl-react
+- [x] Provider stack collapsed to StlProvider only (with theme demo mechanism via <style> tag swap)
+- [x] All 29 docs files converted from Tailwind utilities to STL styled() + primitives
+- [x] No inline style attributes for values that should be tokens
+- [x] Docs app builds and renders correctly in light and dark modes
+**Status:** done
 
 ## Stage 3: Hardcoded Value Audit
 **Branch prefix:** fix
