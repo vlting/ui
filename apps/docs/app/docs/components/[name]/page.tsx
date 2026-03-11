@@ -50,20 +50,20 @@ export default async function ComponentPage({ params }: PageProps) {
   )
 
   return (
-    <div className="max-w-4xl">
+    <div style={{ maxWidth: 896 }}>
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{component.name}</h1>
-        <p className="text-lg text-foreground-secondary mb-4">{component.description}</p>
-        <div className="inline-block">
+      <div style={{ marginBottom: 32 }}>
+        <h1 style={{ fontSize: 30, fontWeight: 700, marginBottom: 8 }}>{component.name}</h1>
+        <p style={{ fontSize: 18, color: 'var(--stl-colorSubtitle)', marginBottom: 16 }}>{component.description}</p>
+        <div style={{ display: 'inline-block' }}>
           <CodeBlock code={component.importPath} language="typescript" />
         </div>
       </div>
 
       {/* Examples */}
       {component.examples.length > 0 && (
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4">Examples</h2>
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>Examples</h2>
           <ComponentExamples
             componentSlug={component.slug}
             examples={highlightedExamples}
@@ -76,17 +76,17 @@ export default async function ComponentPage({ params }: PageProps) {
 
       {/* API Reference */}
       {propsMap && propsMap.size > 0 && (
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4">API Reference</h2>
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>API Reference</h2>
           <CompoundPropTables propsMap={propsMap} />
         </section>
       )}
 
       {/* Notes */}
       {apiMapping && apiMapping.notes.length > 0 && (
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4">Notes</h2>
-          <ul className="list-disc list-inside space-y-1 text-foreground-secondary">
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>Notes</h2>
+          <ul style={{ listStyleType: 'disc', listStylePosition: 'inside', display: 'flex', flexDirection: 'column', gap: 4, color: 'var(--stl-colorSubtitle)' }}>
             {apiMapping.notes.map((note, i) => (
               <li key={i}>{note}</li>
             ))}
@@ -96,23 +96,23 @@ export default async function ComponentPage({ params }: PageProps) {
 
       {/* Migration from shadcn */}
       {apiMapping && apiMapping.breaking.length > 0 && (
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4">Migration from shadcn</h2>
-          <div className="overflow-x-auto border border-border rounded-lg">
-            <table className="w-full text-sm">
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>Migration from shadcn</h2>
+          <div style={{ overflowX: 'auto', border: '1px solid var(--stl-borderColor)', borderRadius: 8 }}>
+            <table style={{ width: '100%', fontSize: 14, borderCollapse: 'collapse' }}>
               <thead>
-                <tr className="border-b border-border bg-surface-muted">
-                  <th className="text-left py-2 px-4 font-medium">shadcn</th>
-                  <th className="text-left py-2 px-4 font-medium">@vlting/ui</th>
-                  <th className="text-left py-2 px-4 font-medium">Reason</th>
+                <tr style={{ borderBottom: '1px solid var(--stl-borderColor)', background: 'var(--stl-surface1)' }}>
+                  <th style={{ textAlign: 'left', paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16, fontWeight: 500 }}>shadcn</th>
+                  <th style={{ textAlign: 'left', paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16, fontWeight: 500 }}>@vlting/ui</th>
+                  <th style={{ textAlign: 'left', paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16, fontWeight: 500 }}>Reason</th>
                 </tr>
               </thead>
               <tbody>
                 {apiMapping.breaking.map((b, i) => (
-                  <tr key={i} className="border-b border-border-muted last:border-0">
-                    <td className="py-2 px-4 font-mono text-xs">{b.shadcn}</td>
-                    <td className="py-2 px-4 font-mono text-xs">{b.vlting}</td>
-                    <td className="py-2 px-4 text-foreground-secondary">{b.reason}</td>
+                  <tr key={i} style={{ borderBottom: i < apiMapping.breaking.length - 1 ? '1px solid var(--stl-borderColor)' : 'none' }}>
+                    <td style={{ paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16, fontFamily: 'monospace', fontSize: 12 }}>{b.shadcn}</td>
+                    <td style={{ paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16, fontFamily: 'monospace', fontSize: 12 }}>{b.vlting}</td>
+                    <td style={{ paddingTop: 8, paddingBottom: 8, paddingLeft: 16, paddingRight: 16, color: 'var(--stl-colorSubtitle)' }}>{b.reason}</td>
                   </tr>
                 ))}
               </tbody>
@@ -123,13 +123,13 @@ export default async function ComponentPage({ params }: PageProps) {
 
       {/* When to use / not use */}
       {(component.whenToUse || component.whenNotToUse) && (
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4">Usage Guidelines</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>Usage Guidelines</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
             {component.whenToUse && (
               <div>
-                <h3 className="text-sm font-semibold text-success mb-2">When to use</h3>
-                <ul className="list-disc list-inside space-y-1 text-sm text-foreground-secondary">
+                <h3 style={{ fontSize: 14, fontWeight: 600, color: 'var(--stl-success)', marginBottom: 8 }}>When to use</h3>
+                <ul style={{ listStyleType: 'disc', listStylePosition: 'inside', display: 'flex', flexDirection: 'column', gap: 4, fontSize: 14, color: 'var(--stl-colorSubtitle)' }}>
                   {component.whenToUse.map((item, i) => (
                     <li key={i}>{item}</li>
                   ))}
@@ -138,10 +138,10 @@ export default async function ComponentPage({ params }: PageProps) {
             )}
             {component.whenNotToUse && (
               <div>
-                <h3 className="text-sm font-semibold text-destructive mb-2">
+                <h3 style={{ fontSize: 14, fontWeight: 600, color: 'var(--stl-destructive)', marginBottom: 8 }}>
                   When NOT to use
                 </h3>
-                <ul className="list-disc list-inside space-y-1 text-sm text-foreground-secondary">
+                <ul style={{ listStyleType: 'disc', listStylePosition: 'inside', display: 'flex', flexDirection: 'column', gap: 4, fontSize: 14, color: 'var(--stl-colorSubtitle)' }}>
                   {component.whenNotToUse.map((item, i) => (
                     <li key={i}>{item}</li>
                   ))}
@@ -154,9 +154,9 @@ export default async function ComponentPage({ params }: PageProps) {
 
       {/* Accessibility */}
       {component.a11yNotes && component.a11yNotes.length > 0 && (
-        <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4">Accessibility</h2>
-          <ul className="list-disc list-inside space-y-1 text-foreground-secondary">
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>Accessibility</h2>
+          <ul style={{ listStyleType: 'disc', listStylePosition: 'inside', display: 'flex', flexDirection: 'column', gap: 4, color: 'var(--stl-colorSubtitle)' }}>
             {component.a11yNotes.map((note, i) => (
               <li key={i}>{note}</li>
             ))}
