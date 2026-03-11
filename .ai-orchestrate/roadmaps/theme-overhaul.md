@@ -1,6 +1,6 @@
 ---
 slug: theme-overhaul
-status: in-progress
+status: done
 created: 2026-03-10
 ---
 # Theme Architecture Overhaul
@@ -55,9 +55,9 @@ Key decisions (from council):
 ## Stage 3: Hardcoded Value Audit
 **Branch prefix:** fix
 **Acceptance criteria:**
-- [ ] Chart components: hex colors replaced with STL accent token refs, hardcoded padding/fontSize replaced with tokens
-- [ ] Blocks: all hardcoded gap/padding/color values replaced with token references (AuthBlock gap: '16px' → '$8', etc.)
-- [ ] Components: audit of packages/components/ for remaining hardcoded hex/px/font-size — all replaced with tokens
-- [ ] No hex color literals remain in component/block source files (excluding .native.tsx)
-- [ ] Build succeeds, all tests pass across all 3 apps
-**Status:** pending
+- [x] Chart components: hex colors replaced with STL accent token refs, hardcoded padding/fontSize replaced with tokens
+- [x] Blocks: all hardcoded gap/padding/color values replaced with token references (AuthBlock gap: '16px' → '$8', etc.)
+- [x] Components: audit of packages/components/ for remaining hardcoded hex/px/font-size — all replaced with tokens
+- [x] No hex color literals remain in component/block source files (excluding .native.tsx)
+- [x] Build succeeds, all tests pass across all 3 apps
+**Status:** done
