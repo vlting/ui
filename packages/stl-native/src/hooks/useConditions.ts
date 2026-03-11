@@ -15,7 +15,7 @@ export function useConditions(): Record<string, boolean> {
     ltr: !!(mask & CondBit.ltr),
     touch: !!(mask & CondBit.touch),
     pointer: !!(mask & CondBit.pointer),
-    highContrast: !!(mask & CondBit.hightContrast),
+    highContrast: !!(mask & CondBit.highContrast),
     lowMotion: !!(mask & CondBit.lowMotion),
     lowData: !!(mask & CondBit.lowData),
     tv: !!(mask & CondBit.tv),

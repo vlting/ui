@@ -34,7 +34,7 @@ export type BreakpointOverrides = { [k in ResponsiveCondition]?: number }
 export const queryConditionsMap = {
   ...responsiveConditionsMap,
 
-  hightContrast: '(prefers-contrast: more)',
+  highContrast: '(prefers-contrast: more)',
   lowMotion: '(prefers-reduced-motion)',
   lowData: '(prefers-reduced-data)',
   touch: '(hover: none)',
@@ -81,7 +81,7 @@ export const conditionsMap = {
   '!sm': true,
   '!xs': true,
 
-  '!hightContrast': '(prefers-contrast: more)',
+  '!highContrast': '(prefers-contrast: more)',
   '!lowMotion': '(prefers-reduced-motion)',
   '!lowData': '(prefers-reduced-data)',
   '!touch': '(hover: none)',
@@ -110,7 +110,7 @@ export function mapConditions(
     ltr: direction === 'ltr',
     rtl: direction === 'rtl',
 
-    '!hightContrast': !conditions.hightContrast,
+    '!highContrast': !conditions.highContrast,
     '!lowMotion': !conditions.lowMotion,
     '!lowData': !conditions.lowData,
     '!touch': !conditions.touch,
@@ -146,10 +146,10 @@ export const ConditionCategories: { [k in ConditionKeys]: ConditionCategory } = 
   '!md': ConditionCategory.responsive,
   '!sm': ConditionCategory.responsive,
   '!xs': ConditionCategory.responsive,
-  hightContrast: ConditionCategory.preference,
+  highContrast: ConditionCategory.preference,
   lowMotion: ConditionCategory.preference,
   lowData: ConditionCategory.preference,
-  '!hightContrast': ConditionCategory.preference,
+  '!highContrast': ConditionCategory.preference,
   '!lowMotion': ConditionCategory.preference,
   '!lowData': ConditionCategory.preference,
   touch: ConditionCategory.device,
