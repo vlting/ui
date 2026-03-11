@@ -1,27 +1,22 @@
 export { borderWidth, color, radius, size, space, zIndex } from './base'
-export type {
-  AnimationConfig,
-  BorderConfig,
-  Brand,
-  BrandDefinition,
-  BrandFontConfig,
-  FontOverrides,
-  OutlineConfig,
-  TokenOverrides,
-  TypographyConfig,
-} from './brands'
-// Deprecated re-exports (backward compatibility)
+export type { Brand, ColorInput, GenerateThemeOptions, SecondaryColorInput } from './brands'
 export {
-  createBrandConfig,
   defaultBrand,
   funBrand,
   generatePalette,
+  generateTheme,
   getBrandStyleTag,
   getTextColorStep,
+  getThemeStyleTag,
   injectBrandVars,
   media,
   poshBrand,
   shadcnBrand,
+  THEME_PRESET_DEFAULT,
+  THEME_PRESET_FUN,
+  THEME_PRESET_POSH,
+  THEME_PRESET_SHADCN,
+  themeToVars,
 } from './brands'
 export { semanticColorMap } from './colors'
 export type { ShadowScale, ShadowToken } from './themes'
