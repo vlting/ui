@@ -61,17 +61,27 @@ export default async function BlockPage({ params }: PageProps) {
   if (!block) notFound()
 
   return (
-    <div className="space-y-8">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
       {/* Header */}
       <div>
-        <div className="flex items-center gap-3 mb-2">
-          <h1 className="text-3xl font-bold">{block.name}</h1>
-          <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+          <h1 style={{ fontSize: 30, fontWeight: 700 }}>{block.name}</h1>
+          <span style={{
+            paddingLeft: 8,
+            paddingRight: 8,
+            paddingTop: 2,
+            paddingBottom: 2,
+            fontSize: 12,
+            fontWeight: 500,
+            borderRadius: 9999,
+            background: 'var(--stl-primary2, #e0f0ff)',
+            color: 'var(--stl-primary9, #0066cc)',
+          }}>
             {categoryLabels[block.category] || block.category}
           </span>
         </div>
-        <p className="text-foreground-secondary">{block.description}</p>
-        <p className="text-sm text-muted-foreground mt-2">
+        <p style={{ color: 'var(--stl-colorSubtitle)' }}>{block.description}</p>
+        <p style={{ fontSize: 14, color: 'var(--stl-placeholderColor)', marginTop: 8 }}>
           {block.variants.length} variant{block.variants.length !== 1 ? 's' : ''}:{' '}
           {block.variants.join(', ')}
         </p>
@@ -79,7 +89,7 @@ export default async function BlockPage({ params }: PageProps) {
 
       {/* Preview */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">Preview</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>Preview</h2>
         <BlockPreview
           name={block.name}
           slug={block.slug}
@@ -91,16 +101,16 @@ export default async function BlockPage({ params }: PageProps) {
 
       {/* Code Example */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">Usage</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>Usage</h2>
         <CodeBlock code={block.code} language="tsx" title="Example" />
       </section>
 
       {/* Category Info */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">
+        <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>
           About {categoryLabels[block.category]} Blocks
         </h2>
-        <p className="text-foreground-secondary">
+        <p style={{ color: 'var(--stl-colorSubtitle)' }}>
           {categoryDescriptions[block.category]}
         </p>
       </section>
