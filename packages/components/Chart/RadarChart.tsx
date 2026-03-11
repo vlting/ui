@@ -170,8 +170,8 @@ export function RadarChart({
   )
 
   // Axis tick colors from theme
-  const labelColor = victoryTheme.axis.style.tickLabels.fill || 'var(--stl-color8, #666)'
-  const gridColor = victoryTheme.axis.style.grid.stroke || 'var(--stl-surface3, #e0e0e0)'
+  const labelColor = victoryTheme.axis.style.tickLabels.fill || 'var(--stl-color8, currentColor)'
+  const gridColor = victoryTheme.axis.style.grid.stroke || 'var(--stl-surface3, currentColor)'
 
   // -- Render grid --
   const gridElements = useMemo(() => {
@@ -203,7 +203,7 @@ export function RadarChart({
               cy={cy}
               r={rPrev}
               fill={
-                victoryTheme.tooltip.flyoutStyle.fill || 'var(--stl-background, #fff)'
+                victoryTheme.tooltip.flyoutStyle.fill || 'var(--stl-background, transparent)'
               }
             />,
           )
@@ -236,7 +236,7 @@ export function RadarChart({
                   catCount,
                 )}
                 fill={
-                  victoryTheme.tooltip.flyoutStyle.fill || 'var(--stl-background, #fff)'
+                  victoryTheme.tooltip.flyoutStyle.fill || 'var(--stl-background, transparent)'
                 }
               />,
             )
@@ -311,7 +311,7 @@ export function RadarChart({
     return seriesKeys.map((key) => {
       const values = data.map((d) => Number(d[key]) || 0)
       const pathD = buildRadarPath(cx, cy, values, maxVal, outerR, catCount)
-      const color = resolvedColors[key] || 'var(--stl-color8, #999)'
+      const color = resolvedColors[key] || 'var(--stl-color8, currentColor)'
 
       return (
         <G key={key}>
@@ -344,7 +344,7 @@ export function RadarChart({
                   cy={pos.y}
                   r={activeVertex === i ? ds + 2 : ds}
                   fill={color}
-                  stroke="var(--stl-background, #fff)"
+                  stroke="var(--stl-background, transparent)"
                   strokeWidth={1.5}
                 />
               )
@@ -444,7 +444,7 @@ export function RadarChart({
     return seriesKeys.map((key) => ({
       name: config[key].label,
       value: Number(data[activeVertex]?.[key]) || 0,
-      color: resolvedColors[key] || 'var(--stl-color8, #999)',
+      color: resolvedColors[key] || 'var(--stl-color8, currentColor)',
     }))
   }, [activeVertex, seriesKeys, config, data, resolvedColors])
 
