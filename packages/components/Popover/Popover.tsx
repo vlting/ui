@@ -140,7 +140,7 @@ function Content({ children }: { children: React.ReactNode }) {
       ref={contentRef}
       role="dialog"
       style={{
-        boxShadow: '0 4px 12px var(--stl-maxAlpha8, rgba(0,0,0,0.15))',
+        boxShadow: 'var(--stl-shadow-md, 0 4px 12px rgba(0,0,0,0.15))',
         ...PLACEMENT_STYLES[placement],
       }}
     >
