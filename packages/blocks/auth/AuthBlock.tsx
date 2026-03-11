@@ -180,7 +180,7 @@ function LoginStandard({
             }
             disabled={loading}
           >
-            <Button.Text>Sign in</Button.Text>
+            Sign in
           </Button>
         </FormElement>
         {(signupHref || onSignup) && (
@@ -248,7 +248,7 @@ function LoginOtp({
             }
             disabled={loading}
           >
-            <Button.Text>Verify</Button.Text>
+            Verify
           </Button>
         </FormElement>
         {(signupHref || onSignup) && (
@@ -313,7 +313,7 @@ function LoginMagic({
             }
             disabled={loading}
           >
-            <Button.Text>Send sign-in link</Button.Text>
+            Send sign-in link
           </Button>
         </FormElement>
         {(signupHref || onSignup) && (
@@ -456,7 +456,7 @@ function SignupStandard({
             }
             disabled={loading}
           >
-            <Button.Text>Create account</Button.Text>
+            Create account
           </Button>
         </FormElement>
         {(loginHref || onLogin) && (
@@ -531,7 +531,7 @@ function SignupSocial({
             }
             disabled={loading}
           >
-            <Button.Text>Create account</Button.Text>
+            Create account
           </Button>
         </FormElement>
         {(loginHref || onLogin) && (

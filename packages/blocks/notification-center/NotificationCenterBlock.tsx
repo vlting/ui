@@ -8,7 +8,6 @@ import type { BlockProps } from '../_shared/types'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ButtonJsx = Button as AnyFC
-const ButtonTextJsx = Button.Text as AnyFC
 const CardJsx = Card as AnyFC
 const BadgeJsx = Badge as AnyFC
 
@@ -137,7 +136,7 @@ function NotificationRow({
               onPress={notification.action.onPress}
               aria-label={notification.action.label}
             >
-              <ButtonTextJsx>{notification.action.label}</ButtonTextJsx>
+              {notification.action.label}
             </ButtonJsx>
           )}
         </div>
@@ -149,7 +148,7 @@ function NotificationRow({
           onPress={() => onDismiss(notification.id)}
           aria-label={`Dismiss ${notification.title}`}
         >
-          <ButtonTextJsx>x</ButtonTextJsx>
+          x
         </ButtonJsx>
       )}
     </div>
@@ -207,7 +206,7 @@ function PanelNotifications({
               onPress={onMarkAllRead}
               aria-label="Mark all as read"
             >
-              <ButtonTextJsx>Mark all read</ButtonTextJsx>
+              Mark all read
             </ButtonJsx>
           )}
         </div>
@@ -291,7 +290,7 @@ function DropdownNotifications({
               onPress={onMarkAllRead}
               aria-label="Mark all as read"
             >
-              <ButtonTextJsx>Mark all read</ButtonTextJsx>
+              Mark all read
             </ButtonJsx>
           )}
         </div>
@@ -332,7 +331,7 @@ function DropdownNotifications({
               onPress={onClearAll}
               aria-label="Clear all notifications"
             >
-              <ButtonTextJsx>Clear all</ButtonTextJsx>
+              Clear all
             </ButtonJsx>
           </div>
         )}
@@ -375,7 +374,7 @@ function GroupedNotifications({
               onPress={onMarkAllRead}
               aria-label="Mark all as read"
             >
-              <ButtonTextJsx>Mark all read</ButtonTextJsx>
+              Mark all read
             </ButtonJsx>
           )}
         </div>

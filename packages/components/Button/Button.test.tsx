@@ -48,12 +48,8 @@ describe('Button', () => {
     }
   })
 
-  it('renders Button.Text sub-component', () => {
-    render(
-      <Button>
-        <Button.Text>Label</Button.Text>
-      </Button>,
-    )
+  it('renders direct text children', () => {
+    render(<Button>Label</Button>)
     expect(screen.getByText('Label')).toBeTruthy()
   })
 

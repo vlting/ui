@@ -54,6 +54,10 @@ export default defineConfig({
         replacement: path.resolve(__dirname, '../../packages/stl-headless/src'),
       },
       {
+        find: '@vlting/stl/styles',
+        replacement: path.resolve(__dirname, '../../packages/stl/src/config/styles.css.ts'),
+      },
+      {
         find: '@vlting/stl',
         replacement: path.resolve(__dirname, '../../packages/stl/src'),
       },

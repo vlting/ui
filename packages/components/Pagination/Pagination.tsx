@@ -7,7 +7,6 @@ type ButtonVariant = NonNullable<ButtonProps['variant']>
 type AnyFC = ComponentType<Record<string, unknown>>
 
 const ButtonJsx = Button as AnyFC
-const ButtonTextJsx = Button.Text as AnyFC
 
 const PaginationFrame = styled(
   'nav',
@@ -178,7 +177,7 @@ function Previous({
       onPress={onPress}
       aria-label="Go to previous page"
     >
-      {children ?? <ButtonTextJsx>Previous</ButtonTextJsx>}
+      {children ?? 'Previous'}
     </ButtonJsx>
   )
 }
@@ -204,7 +203,7 @@ function Next({
       onPress={onPress}
       aria-label="Go to next page"
     >
-      {children ?? <ButtonTextJsx>Next</ButtonTextJsx>}
+      {children ?? 'Next'}
     </ButtonJsx>
   )
 }
@@ -232,7 +231,7 @@ function Item({
       aria-current={active ? 'page' : undefined}
       minWidth={PAGE_BUTTON_MIN_WIDTH[size]}
     >
-      <ButtonTextJsx>{page}</ButtonTextJsx>
+      {page}
     </ButtonJsx>
   )
 }

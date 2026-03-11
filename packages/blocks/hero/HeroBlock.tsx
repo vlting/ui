@@ -6,7 +6,6 @@ import type { BlockProps } from '../_shared/types'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ButtonJsx = Button as AnyFC
-const ButtonTextJsx = Button.Text as AnyFC
 const BadgeJsx = Badge as AnyFC
 
 const Anchor = styled('a', { textDecoration: 'none', color: 'inherit' }, 'HeroAnchor')
@@ -59,7 +58,7 @@ function ActionButton({
 }) {
   const btn = (
     <ButtonJsx variant={variant} onPress={action.onPress}>
-      <ButtonTextJsx>{action.label}</ButtonTextJsx>
+      {action.label}
     </ButtonJsx>
   )
   if (action.href) {

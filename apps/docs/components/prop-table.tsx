@@ -1,3 +1,5 @@
+'use client'
+
 import type { PropDef } from '@/lib/api-mapping'
 import { styled } from '../../../packages/stl-react/src'
 

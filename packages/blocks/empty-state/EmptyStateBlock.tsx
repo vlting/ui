@@ -91,7 +91,7 @@ function NoDataState({ title, description, icon, action }: EmptyStateBlockProps)
       </span>
       {action && (
         <Button variant="default" onClick={action.onPress}>
-          <Button.Text>{action.label}</Button.Text>
+          {action.label}
         </Button>
       )}
     </div>
@@ -123,7 +123,7 @@ function ErrorState({
       </span>
       {onRetry && (
         <Button variant="default" onClick={onRetry}>
-          <Button.Text>Try again</Button.Text>
+          Try again
         </Button>
       )}
     </div>
@@ -166,7 +166,7 @@ function ComingSoonState({ title, description, icon, onNotify }: EmptyStateBlock
               if (email) onNotify(email)
             }}
           >
-            <Button.Text>Notify me</Button.Text>
+            Notify me
           </Button>
         </FormElement>
       )}

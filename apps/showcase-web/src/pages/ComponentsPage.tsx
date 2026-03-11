@@ -178,7 +178,7 @@ export function ComponentsPage() {
           <div
             style={{ maxWidth: 500, display: 'flex', flexDirection: 'column', gap: 4 }}
           >
-            <Item.Root>
+            <Item>
               <Item.Leading>
                 <div
                   style={{
@@ -204,8 +204,8 @@ export function ComponentsPage() {
                   View
                 </Button>
               </Item.Trailing>
-            </Item.Root>
-            <Item.Root>
+            </Item>
+            <Item>
               <Item.Leading>
                 <div
                   style={{
@@ -231,7 +231,7 @@ export function ComponentsPage() {
                   View
                 </Button>
               </Item.Trailing>
-            </Item.Root>
+            </Item>
           </div>
         </DemoCard>
       </Section>

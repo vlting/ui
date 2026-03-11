@@ -24,11 +24,9 @@
 
 ## 3. Anatomy
 
-Button is a compound component created via `withStaticProperties`. It consists of:
+Button is a `forwardRef` wrapper around a styled `<button>` element (`ButtonFrame`). It handles variant resolution, size-to-token mapping, loading/disabled state, and focus/hover/active pseudo-class states via STL.
 
-- **Button (root)** — A `forwardRef` wrapper around a styled `STLButton.Frame` (`ButtonFrame`). Handles variant resolution, tone-to-theme mapping, size-to-token mapping, loading/disabled state, and context provisioning.
-- **Button.Text** — A styled `Text` sub-component for button label text. Reads the parent `ButtonContext` to resolve text color based on the active variant.
-- **Button.Icon** — A styled `XStack` sub-component for wrapping icon elements. Centered alignment.
+Children are passed directly — text, icons, or any ReactNode. CSS `color`, `fontFamily`, `fontWeight`, and `fontSize` cascade from ButtonFrame to child content naturally.
 
 When `loading` is `true`, children are replaced by a `Spinner` (with variant-appropriate color) plus a `VisuallyHidden` "Loading" label. The button becomes disabled.
 
@@ -92,7 +90,7 @@ When a `tone` other than `'neutral'` is set (or the variant is `'destructive'`),
 ## 7. Composition
 
 - **What can contain this component:** Any layout primitive (YStack, XStack, View). Form containers. Pressable wrappers should be avoided since Button already handles press.
-- **What this component can contain:** `Button.Text` for label text. `Button.Icon` for icon elements. A `Spinner` is rendered automatically when loading. Arbitrary children are allowed but discouraged beyond Text and Icon.
+- **What this component can contain:** Text, icons, or any ReactNode as direct children. A `Spinner` is rendered automatically when loading.
 - **Anti-patterns:**
   - Do not nest interactive elements (links, other buttons) inside Button.
   - Do not use Button as a layout container.
@@ -104,7 +102,6 @@ When a `tone` other than `'neutral'` is set (or the variant is `'destructive'`),
 ## 8. Breaking Change Criteria
 
 - Removing any prop from `ButtonProps` (`children`, `variant`, `tone`, `size`, `loading`, `disabled`, `onPress`, `asChild`).
-- Removing `Button.Text` or `Button.Icon` static sub-components.
 - Changing the variant value sets (e.g., removing `'ghost'` from `variant`).
 - Changing default variant values (currently `default`, `neutral`, `md`).
 - Removing `aria-busy` attribute when loading.

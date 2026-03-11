@@ -99,7 +99,7 @@ export function AuthSocialButtons({ providers }: AuthSocialButtonsProps) {
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               {provider.icon}
-              <Button.Text>Continue with {provider.name}</Button.Text>
+              Continue with {provider.name}
             </div>
           </Button>
         ))}

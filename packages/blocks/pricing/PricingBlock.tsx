@@ -14,7 +14,6 @@ const CardDescriptionJsx = Card.Description as AnyFC
 const CardContentJsx = Card.Content as AnyFC
 const CardFooterJsx = Card.Footer as AnyFC
 const ButtonJsx = Button as AnyFC
-const ButtonTextJsx = Button.Text as AnyFC
 const SeparatorJsx = Separator as AnyFC
 const BadgeJsx = Badge as AnyFC
 
@@ -301,7 +300,7 @@ function PricingCards({
                 width="100%"
                 onPress={() => onSelectPlan?.(plan.id)}
               >
-                <ButtonTextJsx>{plan.cta ?? 'Get started'}</ButtonTextJsx>
+                {plan.cta ?? 'Get started'}
               </ButtonJsx>
             </CardFooterJsx>
           </CardJsx>
@@ -400,7 +399,7 @@ function PricingComparison({
                   size="sm"
                   onPress={() => onSelectPlan?.(plan.id)}
                 >
-                  <ButtonTextJsx>{plan.cta ?? 'Select'}</ButtonTextJsx>
+                  {plan.cta ?? 'Select'}
                 </ButtonJsx>
               </Td>
             ))}
@@ -507,7 +506,7 @@ function PricingSimple({
         </div>
 
         <ButtonJsx variant="default" width="100%" onPress={() => onSelectPlan?.(plan.id)}>
-          <ButtonTextJsx>{plan.cta ?? 'Get started'}</ButtonTextJsx>
+          {plan.cta ?? 'Get started'}
         </ButtonJsx>
       </div>
     </CardJsx>

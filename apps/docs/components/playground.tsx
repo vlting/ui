@@ -27,7 +27,7 @@ import {
   Tooltip as _Tooltip,
 } from '@vlting/ui'
 
-const Button = _Button as AnyFC & { Text: AnyFC }
+const Button = _Button as AnyFC
 const Input = _Input as AnyFC
 const Card = _Card as AnyFC & {
   Header: AnyFC
@@ -569,7 +569,7 @@ function renderPlayground(
           loading={props.loading as boolean}
           disabled={props.disabled as boolean}
         >
-          <Button.Text>Button</Button.Text>
+          Button
         </Button>
       )
     case 'input':
@@ -601,7 +601,7 @@ function renderPlayground(
         <Dialog.Root modal={props.modal as boolean}>
           <Dialog.Trigger>
             <Button>
-              <Button.Text>Open Dialog</Button.Text>
+              Open Dialog
             </Button>
           </Dialog.Trigger>
           <Dialog.Overlay>
@@ -610,7 +610,7 @@ function renderPlayground(
               <Dialog.Description>This is a dialog description.</Dialog.Description>
               <Dialog.Close>
                 <Button>
-                  <Button.Text>Close</Button.Text>
+                  Close
                 </Button>
               </Dialog.Close>
             </Dialog.Content>
@@ -644,7 +644,7 @@ function renderPlayground(
       return (
         <Tooltip content={props.content as string} side={props.side as string}>
           <Button>
-            <Button.Text>Hover me</Button.Text>
+            Hover me
           </Button>
         </Tooltip>
       )
@@ -746,7 +746,7 @@ function generateCode(
 
   switch (slug) {
     case 'button':
-      return `<Button${propsDisplay}>\n  <Button.Text>Button</Button.Text>\n</Button>`
+      return `<Button${propsDisplay}>\n  Button\n</Button>`
     case 'input':
       return `<Input${propsDisplay} />`
     case 'card':
@@ -758,7 +758,7 @@ function generateCode(
     case 'tabs':
       return `<Tabs.Root defaultValue="tab1"${propsDisplay}>\n  <Tabs.List>\n    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>\n    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>\n  </Tabs.List>\n  <Tabs.Content value="tab1">...</Tabs.Content>\n  <Tabs.Content value="tab2">...</Tabs.Content>\n</Tabs.Root>`
     case 'tooltip':
-      return `<Tooltip${propsDisplay}>\n  <Button>\n    <Button.Text>Hover me</Button.Text>\n  </Button>\n</Tooltip>`
+      return `<Tooltip${propsDisplay}>\n  <Button>\n    Hover me\n  </Button>\n</Tooltip>`
     case 'badge':
       return `<Badge${propsDisplay}>Badge</Badge>`
     case 'switch':

@@ -19,7 +19,6 @@ const CardDescriptionJsx = Card.Description as AnyFC
 const CardContentJsx = Card.Content as AnyFC
 const CardFooterJsx = Card.Footer as AnyFC
 const ButtonJsx = Button as AnyFC
-const ButtonTextJsx = Button.Text as AnyFC
 const InputJsx = Input as AnyFC
 const TextareaJsx = Textarea as AnyFC
 const SeparatorJsx = Separator as AnyFC
@@ -151,7 +150,7 @@ function ProfileSettings({
             disabled={loading}
             loading={loading}
           >
-            <ButtonTextJsx>Save changes</ButtonTextJsx>
+            Save changes
           </ButtonJsx>
         </FormElement>
       </CardContentJsx>
@@ -301,7 +300,7 @@ function AccountSettings({
                 </span>
               </div>
               <ButtonJsx variant="outline" onPress={onChangePassword} disabled={loading}>
-                <ButtonTextJsx>Change password</ButtonTextJsx>
+                Change password
               </ButtonJsx>
             </div>
           </div>
@@ -329,7 +328,7 @@ function AccountSettings({
           </CardHeaderJsx>
           <CardFooterJsx>
             <ButtonJsx variant="destructive" onPress={onDeleteAccount} disabled={loading}>
-              <ButtonTextJsx>Delete account</ButtonTextJsx>
+              Delete account
             </ButtonJsx>
           </CardFooterJsx>
         </CardJsx>

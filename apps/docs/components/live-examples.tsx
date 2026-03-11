@@ -92,7 +92,7 @@ const Breadcrumb = _Breadcrumb as unknown as {
   Separator: AnyFC
   Page: AnyFC
 }
-const Button = _Button as AnyFC & { Text: AnyFC }
+const Button = _Button as AnyFC
 const ButtonGroup = _ButtonGroup as unknown as { Root: AnyFC }
 const Calendar = _Calendar as unknown as { Root: AnyFC }
 const Card = _Card as AnyFC & {
@@ -340,7 +340,7 @@ const liveExamples: ExampleMap = {
       <AlertDialog.Root>
         <AlertDialog.Trigger>
           <Button variant="destructive">
-            <Button.Text>Delete Account</Button.Text>
+            Delete Account
           </Button>
         </AlertDialog.Trigger>
         <AlertDialog.Overlay>
@@ -352,12 +352,12 @@ const liveExamples: ExampleMap = {
             <AlertDialog.Footer>
               <AlertDialog.Cancel>
                 <Button variant="outline">
-                  <Button.Text>Cancel</Button.Text>
+                  Cancel
                 </Button>
               </AlertDialog.Cancel>
               <AlertDialog.Action>
                 <Button variant="destructive">
-                  <Button.Text>Delete</Button.Text>
+                  Delete
                 </Button>
               </AlertDialog.Action>
             </AlertDialog.Footer>
@@ -440,50 +440,50 @@ const liveExamples: ExampleMap = {
   button: {
     Basic: (
       <Button>
-        <Button.Text>Click me</Button.Text>
+        Click me
       </Button>
     ),
     Variants: (
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
         <Button variant="default">
-          <Button.Text>Default</Button.Text>
+          Default
         </Button>
         <Button variant="secondary">
-          <Button.Text>Secondary</Button.Text>
+          Secondary
         </Button>
         <Button variant="destructive">
-          <Button.Text>Destructive</Button.Text>
+          Destructive
         </Button>
         <Button variant="outline">
-          <Button.Text>Outline</Button.Text>
+          Outline
         </Button>
         <Button variant="ghost">
-          <Button.Text>Ghost</Button.Text>
+          Ghost
         </Button>
         <Button variant="link">
-          <Button.Text>Link</Button.Text>
+          Link
         </Button>
       </div>
     ),
     Sizes: (
       <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
         <Button size="xs">
-          <Button.Text>Extra Small</Button.Text>
+          Extra Small
         </Button>
         <Button size="sm">
-          <Button.Text>Small</Button.Text>
+          Small
         </Button>
         <Button size="md">
-          <Button.Text>Medium</Button.Text>
+          Medium
         </Button>
         <Button size="lg">
-          <Button.Text>Large</Button.Text>
+          Large
         </Button>
       </div>
     ),
     Loading: (
       <Button loading>
-        <Button.Text>Loading</Button.Text>
+        Loading
       </Button>
     ),
   },
@@ -491,13 +491,13 @@ const liveExamples: ExampleMap = {
     Basic: (
       <ButtonGroup.Root>
         <Button variant="outline">
-          <Button.Text>Left</Button.Text>
+          Left
         </Button>
         <Button variant="outline">
-          <Button.Text>Center</Button.Text>
+          Center
         </Button>
         <Button variant="outline">
-          <Button.Text>Right</Button.Text>
+          Right
         </Button>
       </ButtonGroup.Root>
     ),
@@ -515,10 +515,10 @@ const liveExamples: ExampleMap = {
         </Card.Content>
         <Card.Footer>
           <Button variant="outline">
-            <Button.Text>Cancel</Button.Text>
+            Cancel
           </Button>
           <Button>
-            <Button.Text>Save</Button.Text>
+            Save
           </Button>
         </Card.Footer>
       </Card>
@@ -621,7 +621,7 @@ const liveExamples: ExampleMap = {
       <Collapsible.Root>
         <Collapsible.Trigger>
           <Button variant="outline">
-            <Button.Text>Toggle</Button.Text>
+            Toggle
           </Button>
         </Collapsible.Trigger>
         <Collapsible.Content>
@@ -716,7 +716,7 @@ const liveExamples: ExampleMap = {
       <Dialog.Root>
         <Dialog.Trigger>
           <Button>
-            <Button.Text>Open Dialog</Button.Text>
+            Open Dialog
           </Button>
         </Dialog.Trigger>
         <Dialog.Overlay>
@@ -736,7 +736,7 @@ const liveExamples: ExampleMap = {
             </div>
             <Dialog.Close>
               <Button>
-                <Button.Text>Save changes</Button.Text>
+                Save changes
               </Button>
             </Dialog.Close>
           </Dialog.Content>
@@ -747,7 +747,7 @@ const liveExamples: ExampleMap = {
       <Dialog.Root>
         <Dialog.Trigger>
           <Button variant="outline">
-            <Button.Text>Edit Settings</Button.Text>
+            Edit Settings
           </Button>
         </Dialog.Trigger>
         <Dialog.Overlay>
@@ -779,11 +779,11 @@ const liveExamples: ExampleMap = {
             <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
               <Dialog.Close>
                 <Button variant="outline">
-                  <Button.Text>Cancel</Button.Text>
+                  Cancel
                 </Button>
               </Dialog.Close>
               <Button>
-                <Button.Text>Save</Button.Text>
+                Save
               </Button>
             </div>
           </Dialog.Content>
@@ -796,7 +796,7 @@ const liveExamples: ExampleMap = {
       <Drawer.Root>
         <Drawer.Trigger>
           <Button variant="outline">
-            <Button.Text>Open Drawer</Button.Text>
+            Open Drawer
           </Button>
         </Drawer.Trigger>
         <Drawer.Content>
@@ -808,7 +808,7 @@ const liveExamples: ExampleMap = {
           <Drawer.Footer>
             <Drawer.Close>
               <Button variant="outline">
-                <Button.Text>Close</Button.Text>
+                Close
               </Button>
             </Drawer.Close>
           </Drawer.Footer>
@@ -821,7 +821,7 @@ const liveExamples: ExampleMap = {
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <Button variant="outline">
-            <Button.Text>Open Menu</Button.Text>
+            Open Menu
           </Button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content>
@@ -842,7 +842,7 @@ const liveExamples: ExampleMap = {
         <Empty.Description>Try adjusting your search or filters.</Empty.Description>
         <Empty.Action>
           <Button variant="outline">
-            <Button.Text>Clear filters</Button.Text>
+            Clear filters
           </Button>
         </Empty.Action>
       </Empty.Root>
@@ -875,7 +875,7 @@ const liveExamples: ExampleMap = {
       <HoverCard.Root>
         <HoverCard.Trigger>
           <Button variant="link">
-            <Button.Text>@vlting</Button.Text>
+            @vlting
           </Button>
         </HoverCard.Trigger>
         <HoverCard.Content>
@@ -1036,7 +1036,7 @@ const liveExamples: ExampleMap = {
       <Popover.Root>
         <Popover.Trigger>
           <Button variant="outline">
-            <Button.Text>Open Popover</Button.Text>
+            Open Popover
           </Button>
         </Popover.Trigger>
         <Popover.Content>
@@ -1176,7 +1176,7 @@ const liveExamples: ExampleMap = {
     Basic: (
       <Sheet.Root>
         <Button variant="outline" onClick={() => {}}>
-          <Button.Text>Open Sheet</Button.Text>
+          Open Sheet
         </Button>
       </Sheet.Root>
     ),
@@ -1314,7 +1314,7 @@ const liveExamples: ExampleMap = {
     Basic: (
       <Toast.Provider>
         <Button onClick={() => {}}>
-          <Button.Text>Show Toast</Button.Text>
+          Show Toast
         </Button>
         <Toast.Viewport />
       </Toast.Provider>
@@ -1335,7 +1335,7 @@ const liveExamples: ExampleMap = {
       <TooltipProvider>
         <Tooltip content="Add to library">
           <Button variant="outline">
-            <Button.Text>Hover me</Button.Text>
+            Hover me
           </Button>
         </Tooltip>
       </TooltipProvider>
