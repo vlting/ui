@@ -15,19 +15,19 @@ function useResolvedTokens() {
       background:
         cs.getPropertyValue('--stl-background').trim() ||
         cs.getPropertyValue('--background').trim() ||
-        '#ffffff',
+        'transparent',
       color:
         cs.getPropertyValue('--stl-foreground').trim() ||
         cs.getPropertyValue('--color').trim() ||
-        '#111111',
+        'currentColor',
       color8:
         cs.getPropertyValue('--stl-color8').trim() ||
         cs.getPropertyValue('--color8').trim() ||
-        '#6a6a6a',
+        'currentColor',
       borderColor:
         cs.getPropertyValue('--stl-border').trim() ||
         cs.getPropertyValue('--borderColor').trim() ||
-        '#e8e8e8',
+        'currentColor',
     })
   }, [])
 
@@ -105,18 +105,18 @@ export function ChartTooltip({
   }
 
   const containerStyle: React.CSSProperties = {
-    background: tokens.background || 'var(--stl-background, #ffffff)',
-    border: `1px solid ${tokens.borderColor || 'var(--stl-border, #e8e8e8)'}`,
-    borderRadius: 7,
+    background: tokens.background || 'var(--stl-background, transparent)',
+    border: `1px solid ${tokens.borderColor || 'var(--stl-border, currentColor)'}`,
+    borderRadius: 'var(--stl-radius3, 7px)',
     padding: 'var(--stl-space4, 8px) var(--stl-space5, 12px)',
     boxShadow: 'var(--stl-shadow-sm, 0 2px 8px rgba(0,0,0,0.08))',
     fontSize: 12,
-    color: tokens.color || 'var(--stl-foreground, #111111)',
+    color: tokens.color || 'var(--stl-foreground, currentColor)',
     minWidth: 120,
     pointerEvents: 'none',
   }
 
-  const subtitleColor = tokens.color8 || 'var(--stl-color8, #6a6a6a)'
+  const subtitleColor = tokens.color8 || 'var(--stl-color8, currentColor)'
 
   const formattedLabel = label != null && labelFormatter ? labelFormatter(label) : label
 
@@ -132,7 +132,7 @@ export function ChartTooltip({
         <div
           style={{
             color: subtitleColor,
-            marginBottom: 4,
+            marginBottom: 'var(--stl-space0.5, 4px)',
             fontWeight: 500,
           }}
         >

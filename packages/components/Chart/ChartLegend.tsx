@@ -14,7 +14,7 @@ function useResolvedTokens() {
       color:
         cs.getPropertyValue('--stl-foreground').trim() ||
         cs.getPropertyValue('--color').trim() ||
-        '#111111',
+        'currentColor',
     })
   }, [])
 
@@ -57,7 +57,7 @@ export function ChartLegend({
           listStyle: 'none',
           padding: 0,
           margin: 0,
-          gap: layout === 'vertical' ? 8 : 16,
+          gap: layout === 'vertical' ? 'var(--stl-space2, 8px)' : 'var(--stl-space3, 16px)',
         }}
       >
         {keys.map((key) => {
@@ -88,7 +88,7 @@ export function ChartLegend({
                   flexShrink: 0,
                 }}
               />
-              <span style={{ color: tokens.color || 'var(--stl-foreground, #111111)' }}>
+              <span style={{ color: tokens.color || 'var(--stl-foreground, currentColor)' }}>
                 {label}
               </span>
             </li>
