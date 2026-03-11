@@ -54,11 +54,11 @@ export function DashboardBlock(props: DashboardBlockProps) {
   } = props
 
   const content = (
-    <div style={{ ...col, flex: 1, padding: '16px', gap: '16px' }}>
-      <div style={{ ...col, gap: '4px' }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 600, margin: 0 }}>{title}</h1>
+    <div style={{ ...col, flex: 1, padding: 16, gap: 16 }}>
+      <div style={{ ...col, gap: 4 }}>
+        <h1 style={{ fontSize: 24, fontWeight: 600, margin: 0 }}>{title}</h1>
         {description && (
-          <p style={{ fontSize: '16px', opacity: 0.6, margin: 0 }}>{description}</p>
+          <p style={{ fontSize: 16, opacity: 0.6, margin: 0 }}>{description}</p>
         )}
       </div>
       {variant === 'analytics' ? (
@@ -143,18 +143,18 @@ function OverviewContent({ metrics }: DashboardBlockProps) {
 
 function MetricsGrid({ metrics }: { metrics: MetricCard[] }) {
   return (
-    <div style={{ ...row, flexWrap: 'wrap', gap: '12px', width: '100%' }}>
+    <div style={{ ...row, flexWrap: 'wrap', gap: 12, width: '100%' }}>
       {metrics.map((metric, i) => (
-        <Card key={`metric-${i}`} style={{ flex: 1, minWidth: 200, padding: '16px' }}>
+        <Card key={`metric-${i}`} style={{ flex: 1, minWidth: 200, padding: 16 }}>
           <div style={{ ...row, alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: '14px', opacity: 0.6 }}>{metric.title}</span>
+            <span style={{ fontSize: 14, opacity: 0.6 }}>{metric.title}</span>
             {metric.icon}
           </div>
           <span
             style={{
-              fontSize: '28px',
+              fontSize: 28,
               fontWeight: 600,
-              paddingTop: '4px',
+              paddingTop: 4,
               display: 'block',
             }}
           >
@@ -163,14 +163,14 @@ function MetricsGrid({ metrics }: { metrics: MetricCard[] }) {
           {metric.change && (
             <span
               style={{
-                fontSize: '12px',
-                paddingTop: '2px',
+                fontSize: 12,
+                paddingTop: 2,
                 display: 'block',
                 color:
                   metric.trend === 'up'
-                    ? 'green'
+                    ? 'var(--green10)'
                     : metric.trend === 'down'
-                      ? 'red'
+                      ? 'var(--red10)'
                       : undefined,
                 opacity: metric.trend === 'neutral' ? 0.6 : 1,
               }}

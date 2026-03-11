@@ -65,8 +65,8 @@ function FileItem({
         gap: 12,
         padding: 12,
         alignItems: 'center',
-        borderRadius: 'var(--radius3, 6px)',
-        backgroundColor: 'var(--background2, rgba(0,0,0,0.02))',
+        borderRadius: 'var(--radius3)',
+        backgroundColor: 'var(--background2)',
       }}
     >
       <div style={{ ...col, flex: 1, gap: 4 }}>
@@ -76,7 +76,7 @@ function FileItem({
         <span style={{ fontSize: 12, opacity: 0.6, fontFamily: 'var(--font-body)' }}>
           {formatBytes(file.size)}
           {file.error && (
-            <span style={{ color: 'var(--colorError, #ef4444)', marginLeft: 8 }}>
+            <span style={{ color: 'var(--colorError)', marginLeft: 8 }}>
               {file.error}
             </span>
           )}
@@ -172,8 +172,8 @@ function DropzoneUpload({
             justifyContent: 'center',
             gap: 12,
             padding: 32,
-            border: '2px dashed var(--borderColor, #e5e7eb)',
-            borderRadius: 'var(--radius4, 8px)',
+            border: '2px dashed var(--borderColor)',
+            borderRadius: 'var(--radius4)',
             cursor: 'pointer',
             minHeight: 160,
           }}
@@ -288,10 +288,10 @@ function GalleryUpload({
                 ...col,
                 width: 120,
                 height: 120,
-                borderRadius: 'var(--radius3, 6px)',
+                borderRadius: 'var(--radius3)',
                 overflow: 'hidden',
                 position: 'relative',
-                backgroundColor: 'var(--background2, rgba(0,0,0,0.02))',
+                backgroundColor: 'var(--background2)',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
@@ -317,7 +317,7 @@ function GalleryUpload({
                     left: 0,
                     right: 0,
                     padding: 4,
-                    backgroundColor: 'var(--background, rgba(255,255,255,0.9))',
+                    backgroundColor: 'var(--background)',
                   }}
                 >
                   <ProgressJsx
@@ -370,8 +370,8 @@ function GalleryUpload({
               ...col,
               width: 120,
               height: 120,
-              borderRadius: 'var(--radius3, 6px)',
-              border: '2px dashed var(--borderColor, #e5e7eb)',
+              borderRadius: 'var(--radius3)',
+              border: '2px dashed var(--borderColor)',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
