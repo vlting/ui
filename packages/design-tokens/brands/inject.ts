@@ -12,7 +12,7 @@ const VAR_PREFIX = '--vlt'
  * - Shadows → `--vlt-shadow-{sm|md|lg|xl|2xl}`
  * - Fonts → `--vlt-font-{heading|body|mono}`
  */
-export function injectBrandVars(
+export function themeToVars(
   brand: Brand,
   mode: 'light' | 'dark' = 'light',
 ): Record<string, string> {
@@ -68,13 +68,19 @@ export function injectBrandVars(
   return vars
 }
 
+/** @deprecated Use `themeToVars` instead. */
+export const injectBrandVars = themeToVars
+
 /**
  * Generate a `<style>` tag string with `:root` CSS variables for a brand.
  */
-export function getBrandStyleTag(brand: Brand, mode: 'light' | 'dark' = 'light'): string {
-  const vars = injectBrandVars(brand, mode)
+export function getThemeStyleTag(brand: Brand, mode: 'light' | 'dark' = 'light'): string {
+  const vars = themeToVars(brand, mode)
   const declarations = Object.entries(vars)
     .map(([name, value]) => `  ${name}: ${value};`)
     .join('\n')
   return `<style>:root {\n${declarations}\n}</style>`
 }
+
+/** @deprecated Use `getThemeStyleTag` instead. */
+export const getBrandStyleTag = getThemeStyleTag

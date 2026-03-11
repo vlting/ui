@@ -263,31 +263,27 @@ export {
   useToastState,
 } from '../packages/components'
 export type {
-  AnimationConfig,
-  BorderConfig,
   Brand,
-  BrandDefinition,
-  BrandFontConfig,
-  FontOverrides,
-  OutlineConfig,
+  ColorInput,
+  GenerateThemeOptions,
+  SecondaryColorInput,
   ShadowScale,
   ShadowToken,
-  TokenOverrides,
-  TypographyConfig,
 } from '../packages/design-tokens'
 // Layer 0 — Design Tokens
 export {
   accentPalettes,
   borderWidth,
   color,
-  createBrandConfig,
   darkPalette,
   darkShadows,
   defaultBrand,
   funBrand,
   generatePalette,
+  generateTheme,
   getBrandStyleTag,
   getTextColorStep,
+  getThemeStyleTag,
   injectBrandVars,
   lightPalette,
   lightShadows,
@@ -298,6 +294,11 @@ export {
   shadcnBrand,
   size,
   space,
+  THEME_PRESET_DEFAULT,
+  THEME_PRESET_FUN,
+  THEME_PRESET_POSH,
+  THEME_PRESET_SHADCN,
+  themeToVars,
   zIndex,
 } from '../packages/design-tokens'
 export type {
