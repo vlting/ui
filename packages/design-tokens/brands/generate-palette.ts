@@ -47,9 +47,9 @@ function relativeLuminance(h: number, s: number, l: number): number {
   const x = c * (1 - Math.abs(((h / 60) % 2) - 1))
   const m = lNorm - c / 2
 
-  let r = 0,
-    g = 0,
-    b = 0
+  let r = 0
+  let g = 0
+  let b = 0
   if (h < 60) {
     r = c
     g = x

@@ -1,4 +1,4 @@
-import { configureTheme, getTheme, type NativeTokenMaps } from '../config/theme'
+import { type NativeTokenMaps, configureTheme, getTheme } from '../config/theme'
 import { isShadowProp, resolveShadowToken, resolveToken } from '../config/tokenResolver'
 
 let lightTokens: NativeTokenMaps

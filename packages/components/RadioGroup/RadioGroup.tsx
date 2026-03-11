@@ -5,7 +5,7 @@ const RadioDot = styled(
   'div',
   {
     borderRadius: '9999px',
-    backgroundColor: 'var(--color10, #0066ff)',
+    backgroundColor: 'var(--color10)',
   },
   {
     size: {

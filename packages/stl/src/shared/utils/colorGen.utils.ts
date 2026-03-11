@@ -15,8 +15,8 @@ import {
   MAX_ALPHA_TEXT_COLOR_TARGETS,
   MAX_NEUTRAL_SATURATION,
   MIN_ALPHA_TEXT_COLOR_TARGETS,
-  type ScaleColorName,
   SEGMENT_SIZE,
+  type ScaleColorName,
   StaticColorName,
   TEXT_COLOR_TARGETS,
   type ThemeColor,
@@ -372,7 +372,7 @@ function interpolateSets(
  */
 function interpolatePair(fullValue: number, halfValue: number, multiplier: number) {
   const diff = fullValue - halfValue
-  const mod = parseFloat((diff * multiplier).toFixed(2))
+  const mod = Number.parseFloat((diff * multiplier).toFixed(2))
 
   return halfValue + mod
 }

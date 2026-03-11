@@ -1,8 +1,6 @@
 import {
   BodyFontFamily,
-  bodyFonts,
   CodeFontFamily,
-  codeFonts,
   DEFAULT_FONTS,
   type FontFamilyData,
   type FontFamilyKey,
@@ -11,6 +9,8 @@ import {
   type GetThemeFonts,
   HeadingFontFamily,
   type HtmlHeadLink,
+  bodyFonts,
+  codeFonts,
   headingFonts,
 } from '../models'
 

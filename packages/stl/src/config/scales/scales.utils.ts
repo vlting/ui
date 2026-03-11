@@ -8,8 +8,8 @@ import {
   type FlatMap,
   type PrefixedKey,
   SCALED_ALIAS,
-  type ScaleEntry,
   STATIC_VALUE_PREFIX,
+  type ScaleEntry,
   type ThemePropValue,
 } from './scales.models'
 

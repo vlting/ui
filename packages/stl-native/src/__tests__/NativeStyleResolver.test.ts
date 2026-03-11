@@ -1,5 +1,5 @@
-import { CondBit, computeConditionMask } from '../config/conditions'
 import { NativeStyleResolver } from '../config/NativeStyleResolver'
+import { CondBit, computeConditionMask } from '../config/conditions'
 import { configureTheme, getTheme } from '../config/theme'
 
 beforeAll(() => {

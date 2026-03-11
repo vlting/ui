@@ -22,24 +22,24 @@ const bodyStyles: React.CSSProperties = {}
 const footerStyles: React.CSSProperties = {}
 
 const rowStyles: React.CSSProperties = {
-  borderBottom: '1px solid var(--borderColor, #e8e8e8)',
+  borderBottom: '1px solid var(--borderColor)',
 }
 
 const headStyles: React.CSSProperties = {
   fontFamily: 'var(--f-body, inherit)',
   fontWeight: 'var(--f-weight-4, 600)' as React.CSSProperties['fontWeight'],
   fontSize: 'var(--f-size-3, 14px)',
-  color: 'var(--colorSubtitle, #6a6a6a)',
+  color: 'var(--colorSubtitle)',
   padding: '8px 12px',
   textAlign: 'left' as const,
   verticalAlign: 'middle',
-  backgroundColor: 'var(--color2, #f9f9f9)',
+  backgroundColor: 'var(--color2)',
 }
 
 const cellStyles: React.CSSProperties = {
   fontFamily: 'var(--f-body, inherit)',
   fontSize: 'var(--f-size-3, 14px)',
-  color: 'var(--color, #111)',
+  color: 'var(--color)',
   padding: '8px 12px',
   verticalAlign: 'middle',
 }
@@ -47,7 +47,7 @@ const cellStyles: React.CSSProperties = {
 const captionStyles: React.CSSProperties = {
   fontFamily: 'var(--f-body, inherit)',
   fontSize: 'var(--f-size-2, 12px)',
-  color: 'var(--colorSubtitle, #6a6a6a)',
+  color: 'var(--colorSubtitle)',
   padding: '8px 0',
   textAlign: 'left' as const,
   captionSide: 'bottom' as const,
