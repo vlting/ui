@@ -117,6 +117,12 @@ jest.mock('@vlting/stl', () => {
   }
 })
 
+beforeEach(() => {
+  try {
+    localStorage.removeItem('stl-color-mode')
+  } catch {}
+})
+
 import { useColorMode } from '../hooks/useColorMode'
 import { useConditions } from '../hooks/useConditions'
 import { useMediaQuery } from '../hooks/useMediaQuery'

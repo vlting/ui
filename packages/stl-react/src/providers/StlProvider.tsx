@@ -1,12 +1,12 @@
 import {
   type BreakpointOverrides,
-  tokenValue as baseTokenValue,
   type ColorMode,
   type ConditionKeys,
-  conditionsMap,
   DEFAULT_COLOR_MODE,
   type SemanticColorOverrides,
   type ThemeOverrides,
+  tokenValue as baseTokenValue,
+  conditionsMap,
 } from '@vlting/stl'
 import type { ReactElement, ReactNode } from 'react'
 import { createContext, useCallback, useEffect, useRef, useState } from 'react'
@@ -109,8 +109,13 @@ export function StlProvider(props: StlProviderProps): ReactElement {
     } catch {}
   }, [])
 
-  // Sync with system color mode changes via rAF
+  // Sync with system color mode changes via rAF (skip initial mount)
+  const isFirstRender = useRef(true)
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
     const rafId = requestAnimationFrame(() => {
       setColorMode(systemColorMode)
     })
