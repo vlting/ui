@@ -18,7 +18,7 @@ Key decisions (from council):
 ## Metadata
 - **Epic branch:** epic/theme-overhaul
 - **Epic issue:** #178
-- **PR:** (pending initial commit)
+- **PR:** #179
 - **Created:** 2026-03-10
 - **Auto-merge:** true
 - **Watch:** true
@@ -27,29 +27,30 @@ Key decisions (from council):
 ## Stage 1: Theme System Core
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] `generateTheme()` function in `packages/design-tokens/` — accepts `GenerateThemeOptions` (primary hue required, optional secondary/tertiary/tokens/shadows/fonts/overrides), returns `Readonly<Brand>`
-- [ ] Minimal call `generateTheme({ primary: { hue: 220 } })` produces fully functional WCAG-AA theme
-- [ ] 4 preset configs exported: `THEME_PRESET_DEFAULT`, `THEME_PRESET_FUN`, `THEME_PRESET_POSH`, `THEME_PRESET_SHADCN`
-- [ ] `injectBrandVars()` renamed to `themeToVars(theme, mode)` with backwards-compat re-export
-- [ ] Brand infrastructure deleted: 4 brand files, BrandProvider, BrandSwitcher, BrandContext, useBrand, useBrandCSSProperties
-- [ ] `getColorModeScript(defaultMode?)` export added to `@vlting/stl` for FOUC prevention
-- [ ] StlProvider: 50ms setTimeout replaced with requestAnimationFrame for system color mode sync
-- [ ] `hightContrast` typo fixed to `highContrast` in conditions.ts and all references
-- [ ] `Object.freeze()` applied to token/theme/tokenValue exports
-- [ ] Build succeeds, existing tests pass
-**Status:** pending
+- [x] `generateTheme()` function in `packages/design-tokens/` — accepts `GenerateThemeOptions` (primary hue required, optional secondary/tertiary/tokens/shadows/fonts/overrides), returns `Readonly<Brand>`
+- [x] Minimal call `generateTheme({ primary: { hue: 220 } })` produces fully functional WCAG-AA theme
+- [x] 4 preset configs exported: `THEME_PRESET_DEFAULT`, `THEME_PRESET_FUN`, `THEME_PRESET_POSH`, `THEME_PRESET_SHADCN`
+- [x] `injectBrandVars()` renamed to `themeToVars(theme, mode)` with backwards-compat re-export
+- [x] Brand infrastructure deleted: 4 brand files, BrandProvider, BrandSwitcher, BrandContext, useBrand, useBrandCSSProperties
+- [x] `getColorModeScript(defaultMode?)` export added to `@vlting/stl` for FOUC prevention
+- [x] StlProvider: 50ms setTimeout replaced with requestAnimationFrame for system color mode sync
+- [x] `hightContrast` typo fixed to `highContrast` in conditions.ts and all references
+- [x] `Object.freeze()` applied to token/theme/tokenValue exports
+- [x] Build succeeds, existing tests pass
+**Stage PR:** #180
+**Status:** done
 
 ## Stage 2: Docs Tailwind Removal
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Tailwind removed: tailwind.config.ts, postcss tailwind plugin, @import 'tailwindcss' and @theme from globals.css
-- [ ] globals.css replaced with minimal STL-var-based styles
-- [ ] next-themes removed; ThemeToggle wired to useColorMode() from @vlting/stl-react
-- [ ] Provider stack collapsed to StlProvider only (with theme demo mechanism via <style> tag swap)
-- [ ] All 29 docs files converted from Tailwind utilities to STL styled() + primitives
-- [ ] No inline style attributes for values that should be tokens
-- [ ] Docs app builds and renders correctly in light and dark modes
-**Status:** pending
+- [x] Tailwind removed: tailwind.config.ts, postcss tailwind plugin, @import 'tailwindcss' and @theme from globals.css
+- [x] globals.css replaced with minimal STL-var-based styles
+- [x] next-themes removed; ThemeToggle wired to useColorMode() from @vlting/stl-react
+- [x] Provider stack collapsed to StlProvider only (with theme demo mechanism via <style> tag swap)
+- [x] All 29 docs files converted from Tailwind utilities to STL styled() + primitives
+- [x] No inline style attributes for values that should be tokens
+- [x] Docs app builds and renders correctly in light and dark modes
+**Status:** done
 
 ## Stage 3: Hardcoded Value Audit
 **Branch prefix:** fix

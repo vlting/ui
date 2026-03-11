@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 
 export default function UtilitiesPage() {
   return (
-    <div className="max-w-4xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Utilities</h1>
-        <p className="text-lg text-foreground-secondary">
+    <div style={{ maxWidth: 896 }}>
+      <div style={{ marginBottom: 32 }}>
+        <h1 style={{ fontSize: 30, fontWeight: 700, marginBottom: 8 }}>Utilities</h1>
+        <p style={{ fontSize: 18, color: 'var(--stl-colorSubtitle)' }}>
           Helper functions and hooks for common patterns.
         </p>
       </div>
@@ -21,17 +21,25 @@ export default function UtilitiesPage() {
         const items = getUtilitiesByCategory(cat.key)
         if (items.length === 0) return null
         return (
-          <section key={cat.key} className="mb-10">
-            <h2 className="text-xl font-semibold mb-4">{cat.label}</h2>
-            <div className="grid gap-3">
+          <section key={cat.key} style={{ marginBottom: 40 }}>
+            <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>{cat.label}</h2>
+            <div style={{ display: 'grid', gap: 12 }}>
               {items.map((util) => (
                 <Link
                   key={util.slug}
                   href={`/docs/utilities/${util.slug}`}
-                  className="block p-4 border border-border rounded-lg hover:bg-surface-muted transition-colors"
+                  style={{
+                    display: 'block',
+                    padding: 16,
+                    border: '1px solid var(--stl-borderColor)',
+                    borderRadius: 8,
+                    transition: 'color 0.15s, background 0.15s',
+                    textDecoration: 'none',
+                    color: 'inherit',
+                  }}
                 >
-                  <span className="font-mono text-sm font-medium">{util.name}</span>
-                  <p className="text-sm text-foreground-secondary mt-1">
+                  <span style={{ fontFamily: 'monospace', fontSize: 14, fontWeight: 500 }}>{util.name}</span>
+                  <p style={{ fontSize: 14, color: 'var(--stl-colorSubtitle)', marginTop: 4 }}>
                     {util.description}
                   </p>
                 </Link>

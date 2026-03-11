@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { useTheme } from 'next-themes'
+import { useColorMode } from '@vlting/stl-react'
 import type { GenerateThemeOptions } from '../../../packages/design-tokens'
 import {
   generateTheme,
@@ -31,8 +31,7 @@ const presetLabels: Record<PresetKey, string> = {
 const STORAGE_KEY = 'vlting-docs-theme-preset'
 const STYLE_ID = 'stl-theme-demo'
 
-function applyThemeVars(presetKey: PresetKey, resolvedTheme: string | undefined) {
-  const mode = resolvedTheme === 'dark' ? 'dark' : 'light'
+function applyThemeVars(presetKey: PresetKey, mode: 'light' | 'dark') {
   const theme = generateTheme(presetMap[presetKey])
   const vars = themeToVars(theme, mode)
 
@@ -50,7 +49,7 @@ function applyThemeVars(presetKey: PresetKey, resolvedTheme: string | undefined)
 }
 
 export function ThemeSwitcher() {
-  const { resolvedTheme } = useTheme()
+  const { colorMode } = useColorMode()
   const [preset, setPreset] = useState<PresetKey>(() => {
     if (typeof window !== 'undefined') {
       return (localStorage.getItem(STORAGE_KEY) as PresetKey) || 'default'
@@ -59,8 +58,8 @@ export function ThemeSwitcher() {
   })
 
   useEffect(() => {
-    applyThemeVars(preset, resolvedTheme)
-  }, [preset, resolvedTheme])
+    applyThemeVars(preset, colorMode)
+  }, [preset, colorMode])
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     const key = e.target.value as PresetKey

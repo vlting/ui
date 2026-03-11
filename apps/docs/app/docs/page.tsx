@@ -48,24 +48,32 @@ const sections = [
 
 export default function DocsPage() {
   return (
-    <div className="max-w-3xl">
-      <h1 className="mb-4 text-3xl font-bold">Documentation</h1>
-      <p className="mb-8 text-foreground-secondary">
+    <div style={{ maxWidth: 768 }}>
+      <h1 style={{ marginBottom: 16, fontSize: 30, fontWeight: 700 }}>Documentation</h1>
+      <p style={{ marginBottom: 32, color: 'var(--stl-colorSubtitle)' }}>
         Welcome to the @vlting/ui documentation. Choose a section below to get started, or
         browse the sidebar for individual components.
       </p>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div style={{ display: 'grid', gap: 16, gridTemplateColumns: 'repeat(2, 1fr)' }}>
         {sections.map((section) => (
           <Link
             key={section.title}
             href={section.href}
-            className="group rounded-lg border border-border p-4 transition-colors hover:border-foreground-secondary/30 hover:bg-surface-muted"
+            style={{
+              display: 'block',
+              borderRadius: 8,
+              border: '1px solid var(--stl-borderColor)',
+              padding: 16,
+              transition: 'color 0.15s, background 0.15s',
+              textDecoration: 'none',
+              color: 'inherit',
+            }}
           >
-            <h2 className="mb-1 text-base font-semibold group-hover:underline">
+            <h2 style={{ marginBottom: 4, fontSize: 16, fontWeight: 600 }}>
               {section.title}
             </h2>
-            <p className="text-sm text-foreground-secondary">{section.description}</p>
+            <p style={{ fontSize: 14, color: 'var(--stl-colorSubtitle)' }}>{section.description}</p>
           </Link>
         ))}
       </div>

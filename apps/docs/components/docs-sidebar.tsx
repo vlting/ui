@@ -3,17 +3,53 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
+import { styled } from '../../../packages/stl-react/src'
 import { type NavSection, navigation } from '@/lib/navigation'
+
+const SectionContainer = styled('div', {
+  mb: '$3.5',
+})
+
+const SectionButton = styled('button', {
+  display: 'flex',
+  width: '100%',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  px: '$1.5',
+  py: '$0.75',
+  fontSize: '$p',
+  fontWeight: '$600',
+  color: '$color',
+  background: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+})
+
+const ItemList = styled('ul', {
+  mt: '$0.75',
+  listStyle: 'none',
+  padding: 0,
+  margin: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 2,
+})
+
+const SidebarAside = styled('aside', {
+  height: '100%',
+  overflowY: 'auto',
+  px: '$1.5',
+  py: '$3.5',
+})
 
 function SidebarSection({ section }: { section: NavSection }) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(true)
 
   return (
-    <div className="mb-4">
-      <button
+    <SectionContainer>
+      <SectionButton
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between px-2 py-1 text-sm font-semibold text-foreground"
         aria-expanded={isOpen}
       >
         {section.title}
@@ -24,34 +60,43 @@ function SidebarSection({ section }: { section: NavSection }) {
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
-          className={`transition-transform ${isOpen ? 'rotate-90' : ''}`}
+          style={{
+            transition: 'transform 150ms',
+            transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+          }}
         >
           <polyline points="9 18 15 12 9 6" />
         </svg>
-      </button>
+      </SectionButton>
       {isOpen && (
-        <ul className="mt-1 space-y-0.5">
+        <ItemList>
           {section.items.map((item) => {
             const isActive = pathname === item.href
             return (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`block rounded-md px-2 py-1 text-sm transition-colors ${
-                    isActive
-                      ? 'bg-accent font-medium text-foreground'
-                      : 'text-foreground-secondary hover:bg-accent hover:text-foreground'
-                  }`}
                   aria-current={isActive ? 'page' : undefined}
+                  style={{
+                    display: 'block',
+                    borderRadius: 6,
+                    padding: '4px 8px',
+                    fontSize: 14,
+                    transition: 'color 150ms, background 150ms',
+                    backgroundColor: isActive ? 'var(--stl-tertiary2, #f0f0f0)' : 'transparent',
+                    fontWeight: isActive ? 500 : 400,
+                    color: isActive ? 'var(--stl-color, #111)' : 'var(--stl-colorSubtitle, #666)',
+                    textDecoration: 'none',
+                  }}
                 >
                   {item.label}
                 </Link>
               </li>
             )
           })}
-        </ul>
+        </ItemList>
       )}
-    </div>
+    </SectionContainer>
   )
 }
 
@@ -60,12 +105,10 @@ export function DocsSidebar() {
   const savedScrollRef = useRef(0)
   const _pathname = usePathname()
 
-  // Save scroll position before pathname changes trigger re-render
   useEffect(() => {
     savedScrollRef.current = scrollRef.current?.scrollTop ?? 0
   })
 
-  // Restore scroll position after navigation
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = savedScrollRef.current
@@ -73,12 +116,12 @@ export function DocsSidebar() {
   }, [])
 
   return (
-    <aside ref={scrollRef} className="h-full overflow-y-auto px-2 py-4">
+    <SidebarAside ref={scrollRef as any}>
       <nav aria-label="Documentation">
         {navigation.map((section) => (
           <SidebarSection key={section.title} section={section} />
         ))}
       </nav>
-    </aside>
+    </SidebarAside>
   )
 }

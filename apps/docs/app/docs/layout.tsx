@@ -2,24 +2,124 @@
 
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { styled } from '../../../../packages/stl-react/src'
 import { DocsSidebar } from '@/components/docs-sidebar'
 import { TableOfContents } from '@/components/table-of-contents'
+
+const LayoutContainer = styled('div', {
+  display: 'flex',
+  minHeight: 'calc(100vh - 56px)',
+})
+
+const MobileMenuButton = styled('button', {
+  position: 'fixed',
+  bottom: 16,
+  right: 16,
+  zIndex: '$5',
+  display: 'flex',
+  width: 40,
+  height: 40,
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '$12',
+  background: '$color',
+  color: '$background',
+  border: 'none',
+  cursor: 'pointer',
+  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+  gtMd: { display: 'none' },
+})
+
+const Overlay = styled('div', {
+  position: 'fixed',
+  inset: 0,
+  zIndex: '$6',
+  gtMd: { display: 'none' },
+})
+
+const OverlayBackdrop = styled('div', {
+  position: 'fixed',
+  inset: 0,
+  background: 'rgba(0,0,0,0.5)',
+})
+
+const MobileSidebar = styled('div', {
+  position: 'fixed',
+  top: 0,
+  bottom: 0,
+  left: 0,
+  width: 288,
+  background: '$background',
+  boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+})
+
+const MobileSidebarHeader = styled('div', {
+  display: 'flex',
+  height: 56,
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  borderBottom: '$thin $borderColor',
+  px: '$3.5',
+})
+
+const CloseButton = styled('button', {
+  display: 'flex',
+  width: 32,
+  height: 32,
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '$4',
+  background: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+  ':hover': { background: '$tertiary2' },
+})
+
+const DesktopSidebar = styled('div', {
+  display: 'none',
+  width: 256,
+  flexShrink: 0,
+  borderRight: '$thin $borderColor',
+  position: 'sticky',
+  top: 56,
+  height: 'calc(100vh - 56px)',
+  gtMd: { display: 'block' },
+})
+
+const MainContent = styled('div', {
+  flex: 1,
+  minWidth: 0,
+  overflow: 'auto',
+  px: '$5',
+  py: '$6',
+})
+
+const TocSidebar = styled('div', {
+  display: 'none',
+  width: 208,
+  flexShrink: 0,
+  position: 'sticky',
+  top: 56,
+  height: 'calc(100vh - 56px)',
+  overflowY: 'auto',
+  borderLeft: '$thin $borderColor',
+  py: '$6',
+  px: '$3.5',
+  gtXl: { display: 'block' },
+})
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const _pathname = usePathname()
 
-  // Close sidebar on navigation
   useEffect(() => {
     setSidebarOpen(false)
   }, [])
 
   return (
-    <div className="flex min-h-[calc(100vh-3.5rem)]">
-      {/* Mobile sidebar toggle */}
-      <button
+    <LayoutContainer>
+      <MobileMenuButton
         onClick={() => setSidebarOpen(true)}
-        className="fixed bottom-4 right-4 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background shadow-lg md:hidden"
         aria-label="Open navigation"
       >
         <svg
@@ -33,25 +133,19 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         >
           <path d="M3 12h18M3 6h18M3 18h18" />
         </svg>
-      </button>
+      </MobileMenuButton>
 
-      {/* Mobile sidebar overlay */}
       {sidebarOpen && (
-        <div
-          className="fixed inset-0 z-50 md:hidden"
+        <Overlay
           role="presentation"
           onClick={() => setSidebarOpen(false)}
         >
-          <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
-          <div
-            className="fixed inset-y-0 left-0 w-72 bg-background shadow-xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex h-14 items-center justify-between border-b border-border px-4">
-              <span className="text-sm font-semibold">Navigation</span>
-              <button
+          <OverlayBackdrop aria-hidden="true" />
+          <MobileSidebar onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+            <MobileSidebarHeader>
+              <span style={{ fontSize: 14, fontWeight: 600 }}>Navigation</span>
+              <CloseButton
                 onClick={() => setSidebarOpen(false)}
-                className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-accent"
                 aria-label="Close navigation"
               >
                 <svg
@@ -65,27 +159,24 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
                 >
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
-              </button>
-            </div>
+              </CloseButton>
+            </MobileSidebarHeader>
             <DocsSidebar />
-          </div>
-        </div>
+          </MobileSidebar>
+        </Overlay>
       )}
 
-      {/* Desktop sidebar — sticky */}
-      <div className="hidden w-64 shrink-0 border-r border-border md:block sticky top-14 h-[calc(100vh-3.5rem)]">
+      <DesktopSidebar>
         <DocsSidebar />
-      </div>
+      </DesktopSidebar>
 
-      {/* Main content */}
-      <div className="flex-1 min-w-0 overflow-auto px-6 py-8 lg:px-8" data-content>
+      <MainContent data-content>
         {children}
-      </div>
+      </MainContent>
 
-      {/* Right-side table of contents — sticky, hidden below xl */}
-      <div className="hidden xl:block w-52 shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto border-l border-border py-8 px-4">
+      <TocSidebar>
         <TableOfContents />
-      </div>
-    </div>
+      </TocSidebar>
+    </LayoutContainer>
   )
 }
