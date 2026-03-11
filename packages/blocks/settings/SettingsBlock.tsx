@@ -33,7 +33,7 @@ const FormElement = styled(
   {
     display: 'flex',
     flexDirection: 'column',
-    gap: '16px',
+    gap: 16,
     width: '100%',
   },
   'SettingsForm',

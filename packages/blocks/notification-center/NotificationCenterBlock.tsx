@@ -74,10 +74,10 @@ function NotificationRow({
         alignItems: 'flex-start',
         cursor: notification.onPress ? 'pointer' : 'default',
         opacity: notification.read ? 0.7 : 1,
-        borderRadius: 'var(--radius3, 6px)',
+        borderRadius: 'var(--radius3)',
         backgroundColor: notification.read
           ? 'transparent'
-          : 'var(--background2, rgba(0,0,0,0.02))',
+          : 'var(--background2)',
       }}
     >
       {(notification.avatar || notification.icon) && (
@@ -117,7 +117,7 @@ function NotificationRow({
                 width: 8,
                 height: 8,
                 borderRadius: '50%',
-                backgroundColor: 'var(--color10, #0066ff)',
+                backgroundColor: 'var(--color10)',
                 flexShrink: 0,
               }}
             />
@@ -258,8 +258,8 @@ function DropdownNotifications({
         maxHeight: 480,
         overflow: 'auto',
         padding: 0,
-        borderRadius: 'var(--radius4, 8px)',
-        boxShadow: 'var(--shadow5, 0 4px 24px rgba(0,0,0,0.12))',
+        borderRadius: 'var(--radius4)',
+        boxShadow: 'var(--shadow5)',
       }}
     >
       <div style={{ ...col }}>
@@ -269,7 +269,7 @@ function DropdownNotifications({
             justifyContent: 'space-between',
             alignItems: 'center',
             padding: '12px 16px',
-            borderBottom: '1px solid var(--borderColor, #e5e7eb)',
+            borderBottom: '1px solid var(--borderColor)',
           }}
         >
           <div style={{ ...row, gap: 8, alignItems: 'center' }}>
@@ -324,7 +324,7 @@ function DropdownNotifications({
           <div
             style={{
               padding: '8px 16px',
-              borderTop: '1px solid var(--borderColor, #e5e7eb)',
+              borderTop: '1px solid var(--borderColor)',
               textAlign: 'center',
             }}
           >

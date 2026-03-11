@@ -20,7 +20,7 @@ const FormElement = styled(
   {
     display: 'flex',
     flexDirection: 'column',
-    gap: '16px',
+    gap: 16,
     width: '100%',
   },
   'AuthForm',
@@ -136,7 +136,7 @@ function LoginStandard({
 
   return (
     <AuthFormCard>
-      <div style={{ ...VStack, gap: '16px', width: '100%' }}>
+      <div style={{ ...VStack, gap: 16, width: '100%' }}>
         <AuthFormHeader logo={logo} title={title!} description={description} />
         <AuthErrorMessage error={error} />
         {socialProviders.length > 0 ? (
@@ -218,7 +218,7 @@ function LoginOtp({
 
   return (
     <AuthFormCard>
-      <div style={{ ...VStack, gap: '16px', width: '100%' }}>
+      <div style={{ ...VStack, gap: 16, width: '100%' }}>
         <AuthFormHeader logo={logo} title={title!} description={description} />
         <AuthErrorMessage error={error} />
         <FormElement onSubmit={handleSubmit}>
@@ -286,7 +286,7 @@ function LoginMagic({
 
   return (
     <AuthFormCard>
-      <div style={{ ...VStack, gap: '16px', width: '100%' }}>
+      <div style={{ ...VStack, gap: 16, width: '100%' }}>
         <AuthFormHeader logo={logo} title={title!} description={description} />
         <AuthErrorMessage error={error} />
         {socialProviders.length > 0 ? (
@@ -342,7 +342,7 @@ function LoginSocial({
 }: AuthBlockProps) {
   return (
     <AuthFormCard>
-      <div style={{ ...VStack, gap: '16px', width: '100%' }}>
+      <div style={{ ...VStack, gap: 16, width: '100%' }}>
         <AuthFormHeader logo={logo} title={title!} description={description} />
         <AuthErrorMessage error={error} />
         <AuthSocialButtons providers={socialProviders} />
@@ -386,7 +386,7 @@ function SignupStandard({
 
   return (
     <AuthFormCard>
-      <div style={{ ...VStack, gap: '16px', width: '100%' }}>
+      <div style={{ ...VStack, gap: 16, width: '100%' }}>
         <AuthFormHeader logo={logo} title={title!} description={description} />
         <AuthErrorMessage error={error} />
         {socialProviders.length > 0 ? (
@@ -495,7 +495,7 @@ function SignupSocial({
 
   return (
     <AuthFormCard>
-      <div style={{ ...VStack, gap: '16px', width: '100%' }}>
+      <div style={{ ...VStack, gap: 16, width: '100%' }}>
         <AuthFormHeader logo={logo} title={title!} description={description} />
         <AuthErrorMessage error={error} />
         {socialProviders.length > 0 ? (
