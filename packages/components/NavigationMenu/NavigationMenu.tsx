@@ -193,7 +193,7 @@ function Trigger({ children }: { children: React.ReactNode }) {
       onClick={() => setActiveItem(isOpen ? null : value)}
       aria-expanded={isOpen}
       onKeyDown={handleKeyDown}
-      style={{ backgroundColor: isOpen ? 'var(--surface2, #f3f4f6)' : 'transparent' }}
+      style={{ backgroundColor: isOpen ? 'var(--stl-surface2)' : 'transparent' }}
     >
       {children}
       <span style={{ fontSize: '10px', opacity: 0.5 }}>{isOpen ? '▲' : '▼'}</span>
@@ -246,8 +246,7 @@ function Content({ children }: { children: React.ReactNode }) {
       ref={contentRef}
       onKeyDown={handleKeyDown}
       style={{
-        boxShadow:
-          'var(--stl-shadow-md, 0 4px 12px var(--stl-maxAlpha8, rgba(0,0,0,0.15)))',
+        boxShadow: 'var(--stl-shadow-md)',
       }}
     >
       {children}
@@ -269,7 +268,7 @@ function Link({ children, href, active, onSelect }: NavigationMenuLinkProps) {
           : undefined
       }
       style={{
-        backgroundColor: active ? 'var(--surface2, #f3f4f6)' : 'transparent',
+        backgroundColor: active ? 'var(--stl-surface2)' : 'transparent',
         fontWeight: active ? 600 : 400,
       }}
     >
@@ -283,7 +282,7 @@ function Indicator() {
     <div
       style={{
         height: '2px',
-        backgroundColor: 'var(--color10, #0066ff)',
+        backgroundColor: 'var(--stl-color10)',
         borderRadius: '9999px',
         position: 'absolute',
         bottom: 0,

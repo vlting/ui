@@ -69,8 +69,8 @@ export function Toggle({
       onClick={handlePress}
       size={size}
       style={{
-        backgroundColor: isPressed ? 'var(--surface3, #e5e7eb)' : 'transparent',
-        borderColor: isPressed ? 'var(--color8, #9ca3af)' : undefined,
+        backgroundColor: isPressed ? 'var(--surface3)' : 'transparent',
+        borderColor: isPressed ? 'var(--color8)' : undefined,
       }}
     >
       {children}
@@ -192,8 +192,8 @@ function ToggleGroupItem({
       onClick={() => !isDisabled && toggle(value)}
       size={size}
       style={{
-        backgroundColor: isPressed ? 'var(--surface3, #e5e7eb)' : 'transparent',
-        borderColor: isPressed ? 'var(--color8, #9ca3af)' : undefined,
+        backgroundColor: isPressed ? 'var(--surface3)' : 'transparent',
+        borderColor: isPressed ? 'var(--color8)' : undefined,
       }}
     >
       {children}

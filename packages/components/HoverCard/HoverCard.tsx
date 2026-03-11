@@ -100,7 +100,7 @@ function Content({ children, side = 'bottom', align = 'center' }: HoverCardConte
       onMouseLeave={onMouseLeave}
       role="tooltip"
       style={{
-        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        boxShadow: 'var(--stl-shadow-md, 0 4px 12px rgba(0,0,0,0.15))',
         ...SIDE_STYLES[side],
         ...ALIGN_STYLES[align],
       }}

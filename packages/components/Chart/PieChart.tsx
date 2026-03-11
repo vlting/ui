@@ -87,7 +87,7 @@ function getSliceData(
         color:
           resolvedColors[key] ||
           resolvedColors[seriesKey] ||
-          'var(--stl-color8, #888888)',
+          'var(--stl-color8, currentColor)',
       })
     }
   } else {
@@ -103,7 +103,7 @@ function getSliceData(
         key: seriesKey,
         value: total,
         label: config[seriesKey]?.label ?? seriesKey,
-        color: resolvedColors[seriesKey] || 'var(--stl-color8, #888888)',
+        color: resolvedColors[seriesKey] || 'var(--stl-color8, currentColor)',
       })
     }
   }
@@ -249,9 +249,11 @@ export function PieChart({
 
   const cx = chartWidth / 2
   const cy = chartHeight / 2
+  // Inset by 20px to leave room for outside labels
   const maxRadius = Math.min(chartWidth, chartHeight) / 2 - 20
 
   const outerRadius = outerRadiusProp ?? maxRadius
+  // 60% inner radius creates a visually balanced donut ring
   const defaultInnerRadius = isDonut ? outerRadius * 0.6 : 0
   const innerRadius = innerRadiusProp ?? defaultInnerRadius
 
@@ -311,7 +313,7 @@ export function PieChart({
           percentage: pct,
           startAngle: currentAngle,
           endAngle: currentAngle + sliceAngle,
-          color: resolvedColors[seriesKey] || 'var(--stl-color8, #888888)',
+          color: resolvedColors[seriesKey] || 'var(--stl-color8, currentColor)',
           label: v.key,
         })
         currentAngle += sliceAngle
@@ -405,7 +407,7 @@ export function PieChart({
                   fillOpacity={
                     isInteractive && activeIndex != null && !isActive ? 0.5 : 1
                   }
-                  stroke={hasSeparator ? 'var(--stl-background, #ffffff)' : 'none'}
+                  stroke={hasSeparator ? 'var(--stl-background, transparent)' : 'none'}
                   strokeWidth={hasSeparator ? 2 : 0}
                   onPress={() => handlePress(i)}
                 />
@@ -457,7 +459,7 @@ export function PieChart({
                     y={pos.y}
                     textAnchor="middle"
                     alignmentBaseline="central"
-                    fill="var(--stl-background, #ffffff)"
+                    fill="var(--stl-background, transparent)"
                     fontSize={labelFontSize}
                     fontWeight="500"
                   >

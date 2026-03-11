@@ -1,6 +1,6 @@
 import {
-  createContext,
   type ReactNode,
+  createContext,
   useCallback,
   useEffect,
   useMemo,
@@ -130,8 +130,8 @@ export function StlProvider({
       '!pointer': true,
       tv: false,
       '!tv': true,
-      hightContrast: false,
-      '!hightContrast': true,
+      highContrast: false,
+      '!highContrast': true,
       lowData: false,
       '!lowData': true,
       debug: isDebugMode,

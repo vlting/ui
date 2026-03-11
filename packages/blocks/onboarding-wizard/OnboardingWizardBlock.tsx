@@ -120,12 +120,12 @@ function StepperWizard({
                   fontWeight: 500,
                   backgroundColor:
                     i <= currentStep
-                      ? 'var(--color10, #0066ff)'
-                      : 'var(--background2, rgba(0,0,0,0.05))',
+                      ? 'var(--color10)'
+                      : 'var(--background2)',
                   color:
                     i <= currentStep
-                      ? 'var(--colorOnAccent, #fff)'
-                      : 'var(--color, inherit)',
+                      ? 'var(--colorOnAccent)'
+                      : 'var(--color)',
                 }}
               >
                 {i < currentStep ? '✓' : i + 1}
@@ -257,8 +257,8 @@ function CardsWizard({
               borderRadius: 4,
               backgroundColor:
                 i === currentStep
-                  ? 'var(--color10, #0066ff)'
-                  : 'var(--borderColor, #e5e7eb)',
+                  ? 'var(--color10)'
+                  : 'var(--borderColor)',
               transition: 'width 0.2s',
             }}
           />

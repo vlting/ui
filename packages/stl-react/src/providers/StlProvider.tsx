@@ -1,12 +1,12 @@
 import {
   type BreakpointOverrides,
-  tokenValue as baseTokenValue,
   type ColorMode,
   type ConditionKeys,
-  conditionsMap,
   DEFAULT_COLOR_MODE,
   type SemanticColorOverrides,
   type ThemeOverrides,
+  tokenValue as baseTokenValue,
+  conditionsMap,
 } from '@vlting/stl'
 import type { ReactElement, ReactNode } from 'react'
 import { createContext, useCallback, useEffect, useRef, useState } from 'react'
@@ -78,21 +78,48 @@ export function StlProvider(props: StlProviderProps): ReactElement {
   )
   const isTouchDevice = conditions.touch
 
-  const systemColorTimer = useRef<ReturnType<typeof setTimeout>>()
-
   const toggleColorMode = useCallback(
-    () => setColorMode((mode: ColorMode) => (mode === 'light' ? 'dark' : 'light')),
+    () =>
+      setColorMode((mode: ColorMode) => {
+        const next = mode === 'light' ? 'dark' : 'light'
+        try {
+          localStorage.setItem('stl-color-mode', next)
+        } catch {}
+        return next
+      }),
     [],
   )
 
-  // Change the color mode, when the user system's color mode changes
+  // Persist color mode to localStorage on explicit set
+  const wrappedSetColorMode = useCallback((mode: ColorMode) => {
+    try {
+      localStorage.setItem('stl-color-mode', mode)
+    } catch {}
+    setColorMode(mode)
+  }, [])
+
+  // Read from localStorage on mount
   useEffect(() => {
-    systemColorTimer.current = setTimeout(() => {
-      setColorMode(systemColorMode)
-    }, 50)
-    return () => {
-      systemColorTimer.current && clearTimeout(systemColorTimer.current)
+    try {
+      const stored = localStorage.getItem('stl-color-mode') as ColorMode | null
+      if (stored === 'light' || stored === 'dark') {
+        setColorMode(stored)
+        return
+      }
+    } catch {}
+  }, [])
+
+  // Sync with system color mode changes via rAF (skip initial mount)
+  const isFirstRender = useRef(true)
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
     }
+    const rafId = requestAnimationFrame(() => {
+      setColorMode(systemColorMode)
+    })
+    return () => cancelAnimationFrame(rafId)
   }, [systemColorMode])
 
   return (
@@ -100,7 +127,7 @@ export function StlProvider(props: StlProviderProps): ReactElement {
       value={{
         colorMode,
         isDark: colorMode === 'dark',
-        setColorMode,
+        setColorMode: wrappedSetColorMode,
         toggleColorMode,
         isTouchDevice,
         tokenValue,

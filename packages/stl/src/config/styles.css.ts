@@ -26,18 +26,21 @@ import {
   type CssPropKey,
   type CssRule,
   type FilterKeys,
+  type NthChildKeys,
+  type PseudoClassesWithAliases,
   generateCustomVarPropsCss,
   generatePseudoClassCss,
   generateScaledPropsCss,
   generateStaticPropsCss,
-  type NthChildKeys,
-  type PseudoClassesWithAliases,
 } from './props'
 import {
-  type animationCombos,
   type BaseVars,
-  type borderCombos,
   type CssAliasMap,
+  type PrefixedKey,
+  SCALED_ALIAS,
+  type ThemeProps,
+  type animationCombos,
+  type borderCombos,
   type fontCombos,
   getAnimation,
   getBorder,
@@ -59,9 +62,6 @@ import {
   getTypoSpace,
   getZIndex,
   type outlineCombos,
-  type PrefixedKey,
-  SCALED_ALIAS,
-  type ThemeProps,
   type textDecorationCombos,
   type typoCombos,
 } from './scales'
@@ -647,8 +647,18 @@ function getThemeProps<T extends ThemeProps>(props: T) {
   )
 }
 
+function deepFreeze<T extends object>(obj: T): T {
+  Object.freeze(obj)
+  for (const val of Object.values(obj)) {
+    if (val && typeof val === 'object' && !Object.isFrozen(val)) {
+      deepFreeze(val)
+    }
+  }
+  return obj
+}
+
 /** Maps theme tokens to CSS variables that hold these token values */
-export const token = {
+export const token = deepFreeze({
   animation: getTokensFromVars(animation.vars),
   border: getTokensFromVars(border.vars),
   color: getTokensFromVars(color.vars),
@@ -668,10 +678,10 @@ export const token = {
   typoSpace: getTokensFromVars(typoSpace.vars),
   typo: getTokensFromVars(typo.vars),
   zIndex: getTokensFromVars(zIndex.vars),
-} as const
+})
 
 /** Alternative way to use theme tokens, instead of string values */
-export const theme = {
+export const theme = deepFreeze({
   animation: getThemeProps(animation.themeProps),
   border: getThemeProps(border.themeProps),
   color: getThemeProps(color.themeProps),
@@ -691,7 +701,7 @@ export const theme = {
   typoSpace: getThemeProps(typoSpace.themeProps),
   typo: getThemeProps(typo.themeProps),
   zIndex: getThemeProps(zIndex.themeProps),
-} as const
+})
 
 /**
  * Can be used to convert a theme token value (e.g., `$primary9` color), to a CSS var.
@@ -735,7 +745,7 @@ function getTokenToValuesMap<
   )
 }
 
-export const tokenValue = {
+export const tokenValue = deepFreeze({
   animation: getTokenToValuesMap('animation', tokenToVarMap.animation),
   border: getTokenToValuesMap('border', tokenToVarMap.border),
   color: getTokenToValuesMap('color', tokenToVarMap.color),
@@ -755,7 +765,7 @@ export const tokenValue = {
   typoSpace: getTokenToValuesMap('typoSpace', tokenToVarMap.typoSpace),
   typo: getTokenToValuesMap('typo', tokenToVarMap.typo),
   zIndex: getTokenToValuesMap('zIndex', tokenToVarMap.zIndex),
-} as const
+})
 
 getTokensFromVars(color.darkVars!, darkVarMap)
 getTokensFromVars(shadow.darkVars!, darkVarMap)

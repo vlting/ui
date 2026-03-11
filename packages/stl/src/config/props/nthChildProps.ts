@@ -100,24 +100,24 @@ export const nthChildCheckers = {
     const parts = nthValue.split('n')
 
     if (parts.length === 1) {
-      return index === parseInt(nthValue, 10) - 1
+      return index === Number.parseInt(nthValue, 10) - 1
     }
     if (parts[0] === '0') {
-      return index === parseInt(parts[1], 10) - 1
+      return index === Number.parseInt(parts[1], 10) - 1
     }
 
     let nMultiplier = 1
     if (parts[0] === '-') {
       nMultiplier = -1
     } else if (parts[0]) {
-      nMultiplier = parseInt(parts[0], 10)
+      nMultiplier = Number.parseInt(parts[0], 10)
     }
 
     if (!parts[1]) {
       return (index + 1) % nMultiplier === 0
     }
 
-    const nModifier = parseInt(parts[1], 10)
+    const nModifier = Number.parseInt(parts[1], 10)
     const base = index + 1 - nModifier
 
     return base > -1 && base % nMultiplier === 0

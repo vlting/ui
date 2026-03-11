@@ -11,7 +11,6 @@
     "@vlting/ui": "*",
     "flexsearch": "^0.8.212",
     "next": "^15.3.3",
-    "next-themes": "^0.4.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native-svg-web": "^1.0.9",
@@ -19,11 +18,9 @@
     "shiki": "^3.2.1"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.7",
     "@types/react": "~19.1.0",
     "@vanilla-extract/css": "^1.18.0",
     "@vanilla-extract/next-plugin": "^2.4.17",
-    "tailwindcss": "^4.1.7",
     "typescript": "~5.9.2"
   }
 }

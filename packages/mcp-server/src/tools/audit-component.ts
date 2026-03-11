@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -61,7 +61,7 @@ function auditFile(filePath: string): Violation[] {
         line: lineNum,
         type: 'hardcoded-color',
         severity: 'warning',
-        message: `Hardcoded rgba() — use a design token`,
+        message: 'Hardcoded rgba() — use a design token',
         match: match[0],
       })
     }
@@ -73,7 +73,7 @@ function auditFile(filePath: string): Violation[] {
         line: lineNum,
         type: 'hardcoded-color',
         severity: 'warning',
-        message: `Hardcoded hsla() — use a design token`,
+        message: 'Hardcoded hsla() — use a design token',
         match: match[0],
       })
     }

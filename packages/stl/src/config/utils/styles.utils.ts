@@ -1,12 +1,12 @@
 import type { ColorMode, SemanticColors } from '../../shared/models'
 import { generateThemeColors } from '../../shared/utils'
-import type { Colors } from '../props'
 import {
   type Conditions,
   StyleManager,
   type StyleMangerProps,
   type ThemeOverrides,
 } from '../StyleManager'
+import type { Colors } from '../props'
 import type { ColorPaletteEntry, PrefixedKey, ScaleEntry } from '../scales'
 import { type CSS, tokenToVarMap } from '../styles.css'
 import type { VariantCSS } from '../styles.models'

@@ -8,16 +8,16 @@ import {
   type ComplexShorthandProp,
   type CssPropKey,
   type CustomVarPropValue,
+  type NthChildKeys,
+  SCALED_PLACEHOLDER,
   combinedPseudoClasses,
   complexShorthandMappedProps,
   directionalProps,
   isCustomNthChild,
   mappedProps,
-  type NthChildKeys,
   nthChildCheckers,
   pseudoClassAliases,
   type pseudoClasses,
-  SCALED_PLACEHOLDER,
   scaledPropScale,
   sourcePropsIdMap,
   valueMappers,
@@ -550,7 +550,8 @@ export class StyleManager {
     const index = this.classDict[pseudo][propId]
     if (index === -1) {
       return
-    } else if (index !== undefined) {
+    }
+    if (index !== undefined) {
       this.classList.splice(index, 1)
     }
     this.classDict[pseudo][propId] = -1

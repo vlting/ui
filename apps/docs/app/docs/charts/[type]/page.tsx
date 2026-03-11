@@ -29,37 +29,37 @@ export default async function ChartPage({ params }: PageProps) {
   if (!chart) notFound()
 
   return (
-    <div className="space-y-8">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold mb-2">{chart.name}</h1>
-        <p className="text-foreground-secondary">{chart.description}</p>
+        <h1 style={{ fontSize: 30, fontWeight: 700, marginBottom: 8 }}>{chart.name}</h1>
+        <p style={{ color: 'var(--stl-colorSubtitle)' }}>{chart.description}</p>
       </div>
 
       {/* Live Preview */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">Preview</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>Preview</h2>
         <ChartPreview type={chart.slug} />
       </section>
 
       {/* Import */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">Import</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>Import</h2>
         <CodeBlock code={chart.importPath} language="tsx" />
       </section>
 
       {/* When to use */}
       {chart.whenToUse && chart.whenToUse.length > 0 && (
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
           <div>
-            <h2 className="text-xl font-semibold mb-3">When to use</h2>
-            <ul className="space-y-1">
+            <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}>When to use</h2>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               {chart.whenToUse.map((item) => (
                 <li
                   key={item}
-                  className="text-sm text-foreground-secondary flex items-start gap-2"
+                  style={{ fontSize: 14, color: 'var(--stl-colorSubtitle)', display: 'flex', alignItems: 'flex-start', gap: 8 }}
                 >
-                  <span className="text-success mt-0.5">+</span>
+                  <span style={{ color: 'var(--stl-success)', marginTop: 2 }}>+</span>
                   {item}
                 </li>
               ))}
@@ -67,14 +67,14 @@ export default async function ChartPage({ params }: PageProps) {
           </div>
           {chart.whenNotToUse && chart.whenNotToUse.length > 0 && (
             <div>
-              <h2 className="text-xl font-semibold mb-3">When NOT to use</h2>
-              <ul className="space-y-1">
+              <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 12 }}>When NOT to use</h2>
+              <ul style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 {chart.whenNotToUse.map((item) => (
                   <li
                     key={item}
-                    className="text-sm text-foreground-secondary flex items-start gap-2"
+                    style={{ fontSize: 14, color: 'var(--stl-colorSubtitle)', display: 'flex', alignItems: 'flex-start', gap: 8 }}
                   >
-                    <span className="text-destructive mt-0.5">-</span>
+                    <span style={{ color: 'var(--stl-destructive)', marginTop: 2 }}>-</span>
                     {item}
                   </li>
                 ))}
@@ -86,13 +86,18 @@ export default async function ChartPage({ params }: PageProps) {
 
       {/* Variants */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">Variants ({chart.variants.length})</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 16 }}>Variants ({chart.variants.length})</h2>
         <ChartVariantList variants={chart.variants} />
       </section>
 
       {/* Cross-platform note */}
-      <section className="border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4">
-        <p className="text-sm text-blue-800 dark:text-blue-300">
+      <section style={{
+        border: '1px solid var(--stl-primary3, #b3d4fc)',
+        background: 'var(--stl-primary1, #f0f7ff)',
+        borderRadius: 8,
+        padding: 16,
+      }}>
+        <p style={{ fontSize: 14, color: 'var(--stl-primary9, #0066cc)' }}>
           <strong>Cross-platform:</strong> Charts use Victory with react-native-svg for
           cross-platform rendering. The same component code works on both web and React
           Native.

@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { createIcon, type IconFC } from '../createIcon'
+import { type IconFC, createIcon } from '../createIcon'
 import { RiArrowRightLine } from '../generated/RiArrowRightLine'
 import { RiHomeFill } from '../generated/RiHomeFill'
 

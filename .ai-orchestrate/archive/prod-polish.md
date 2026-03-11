@@ -1,6 +1,6 @@
 ---
 slug: prod-polish
-status: done
+status: in-progress
 created: 2026-03-10
 ---
 # Production Polish
@@ -153,8 +153,7 @@ E1 (Foundation) → E2 (Docs) → E3 (Showcases) → E4 (A11y) → E5 (Ship)
 **Dependencies:** Epic 4
 **Epic slug:** readme-ship
 **Epic branch:** epic/readme-ship
-**Epic PR:** #177
-**Status:** complete
+**Status:** in-progress
 
 ### Stage 5.1: README & Final Verification
 **Branch prefix:** docs
@@ -166,5 +165,4 @@ E1 (Foundation) → E2 (Docs) → E3 (Showcases) → E4 (A11y) → E5 (Ship)
 - [x] `yarn lint` passes
 - [x] `yarn test` passes
 - [ ] Docs site builds and deploys to Vercel
-**Stage PR:** #176
-**Status:** done
+**Status:** pending

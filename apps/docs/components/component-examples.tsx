@@ -15,13 +15,13 @@ interface ComponentExamplesProps {
 
 export function ComponentExamples({ componentSlug, examples }: ComponentExamplesProps) {
   return (
-    <div className="space-y-6">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
       {examples.map((example) => {
         const livePreview = getLiveExample(componentSlug, example.name)
         return (
           <div key={example.name}>
             {example.description && (
-              <p className="text-sm text-foreground-secondary mb-2">
+              <p style={{ fontSize: 14, color: 'var(--stl-colorSubtitle)', marginBottom: 8 }}>
                 {example.description}
               </p>
             )}
@@ -31,7 +31,7 @@ export function ComponentExamples({ componentSlug, examples }: ComponentExamples
               title={example.name}
             >
               {livePreview ?? (
-                <p className="text-sm text-muted-foreground italic">
+                <p style={{ fontSize: 14, color: 'var(--stl-placeholderColor)', fontStyle: 'italic' }}>
                   Live preview coming soon.
                 </p>
               )}

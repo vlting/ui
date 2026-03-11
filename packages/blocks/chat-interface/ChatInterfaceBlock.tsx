@@ -58,10 +58,10 @@ function StatusIndicator({ status }: { status?: ChatMessage['status'] }) {
         fontSize: 11,
         color:
           status === 'read'
-            ? 'var(--color10, #0066ff)'
+            ? 'var(--color10)'
             : status === 'error'
-              ? 'var(--colorError, #ef4444)'
-              : 'var(--colorSubtitle, #999)',
+              ? 'var(--colorError)'
+              : 'var(--colorSubtitle)',
       }}
       aria-label={`Message ${status}`}
     >
@@ -87,7 +87,7 @@ function ChatInput({
         ...row,
         gap: 8,
         padding: 12,
-        borderTop: '1px solid var(--borderColor, #e5e7eb)',
+        borderTop: '1px solid var(--borderColor)',
         alignItems: 'center',
       }}
     >
@@ -153,7 +153,7 @@ function StandardChat({
             justifyContent: 'space-between',
             alignItems: 'center',
             padding: '12px 16px',
-            borderBottom: '1px solid var(--borderColor, #e5e7eb)',
+            borderBottom: '1px solid var(--borderColor)',
           }}
         >
           <div style={{ ...col, gap: 2 }}>
@@ -204,14 +204,14 @@ function StandardChat({
                 <div
                   style={{
                     padding: '8px 14px',
-                    borderRadius: 'var(--radius4, 8px)',
+                    borderRadius: 'var(--radius4)',
                     maxWidth: '75%',
                     backgroundColor: isUser
-                      ? 'var(--color10, #0066ff)'
-                      : 'var(--background2, rgba(0,0,0,0.05))',
+                      ? 'var(--color10)'
+                      : 'var(--background2)',
                     color: isUser
-                      ? 'var(--colorOnAccent, #fff)'
-                      : 'var(--color, inherit)',
+                      ? 'var(--colorOnAccent)'
+                      : 'var(--color)',
                   }}
                 >
                   <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>
@@ -234,8 +234,8 @@ function StandardChat({
               <div
                 style={{
                   padding: '8px 14px',
-                  borderRadius: 'var(--radius4, 8px)',
-                  backgroundColor: 'var(--background2, rgba(0,0,0,0.05))',
+                  borderRadius: 'var(--radius4)',
+                  backgroundColor: 'var(--background2)',
                 }}
               >
                 <span
@@ -280,7 +280,7 @@ function BubbleChat({
             ...row,
             alignItems: 'center',
             padding: '12px 16px',
-            borderBottom: '1px solid var(--borderColor, #e5e7eb)',
+            borderBottom: '1px solid var(--borderColor)',
             gap: 12,
           }}
         >
@@ -332,14 +332,14 @@ function BubbleChat({
                     style={{
                       padding: '10px 14px',
                       borderRadius: isUser
-                        ? 'var(--radius4, 8px) var(--radius4, 8px) var(--radius1, 2px) var(--radius4, 8px)'
-                        : 'var(--radius4, 8px) var(--radius4, 8px) var(--radius4, 8px) var(--radius1, 2px)',
+                        ? 'var(--radius4) var(--radius4) var(--radius1) var(--radius4)'
+                        : 'var(--radius4) var(--radius4) var(--radius4) var(--radius1)',
                       backgroundColor: isUser
-                        ? 'var(--color10, #0066ff)'
-                        : 'var(--background2, rgba(0,0,0,0.05))',
+                        ? 'var(--color10)'
+                        : 'var(--background2)',
                       color: isUser
-                        ? 'var(--colorOnAccent, #fff)'
-                        : 'var(--color, inherit)',
+                        ? 'var(--colorOnAccent)'
+                        : 'var(--color)',
                     }}
                   >
                     <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>
@@ -374,8 +374,8 @@ function BubbleChat({
                 style={{
                   padding: '10px 14px',
                   borderRadius:
-                    'var(--radius4, 8px) var(--radius4, 8px) var(--radius4, 8px) var(--radius1, 2px)',
-                  backgroundColor: 'var(--background2, rgba(0,0,0,0.05))',
+                    'var(--radius4) var(--radius4) var(--radius4) var(--radius1)',
+                  backgroundColor: 'var(--background2)',
                 }}
               >
                 <span style={{ fontSize: 14, opacity: 0.5 }}>...</span>
@@ -417,8 +417,8 @@ function SupportChat({
             ...col,
             padding: '16px 16px',
             gap: 8,
-            backgroundColor: 'var(--color10, #0066ff)',
-            color: 'var(--colorOnAccent, #fff)',
+            backgroundColor: 'var(--color10)',
+            color: 'var(--colorOnAccent)',
           }}
         >
           <div style={{ ...row, gap: 12, alignItems: 'center' }}>
@@ -476,14 +476,14 @@ function SupportChat({
                 <div
                   style={{
                     padding: '10px 14px',
-                    borderRadius: 'var(--radius4, 8px)',
+                    borderRadius: 'var(--radius4)',
                     maxWidth: '80%',
                     backgroundColor: isUser
-                      ? 'var(--color10, #0066ff)'
-                      : 'var(--background2, rgba(0,0,0,0.05))',
+                      ? 'var(--color10)'
+                      : 'var(--background2)',
                     color: isUser
-                      ? 'var(--colorOnAccent, #fff)'
-                      : 'var(--color, inherit)',
+                      ? 'var(--colorOnAccent)'
+                      : 'var(--color)',
                   }}
                 >
                   <span style={{ fontSize: 14, fontFamily: 'var(--font-body)' }}>
@@ -502,8 +502,8 @@ function SupportChat({
             <div
               style={{
                 padding: '10px 14px',
-                borderRadius: 'var(--radius4, 8px)',
-                backgroundColor: 'var(--background2, rgba(0,0,0,0.05))',
+                borderRadius: 'var(--radius4)',
+                backgroundColor: 'var(--background2)',
                 alignSelf: 'flex-start',
               }}
             >

@@ -17,10 +17,7 @@
     "dist": "dist",
     "test": "__tests__"
   },
-  "files": [
-    "dist",
-    "src"
-  ],
+  "files": ["dist", "src"],
   "exports": {
     ".": {
       "import": "./dist/stl-react.es.js",

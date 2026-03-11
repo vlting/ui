@@ -4,11 +4,11 @@ import { styled } from '../../stl-react/src/config'
 const CommandRoot = styled(
   'div',
   {
-    backgroundColor: 'var(--stl-background, #fff)',
+    backgroundColor: 'var(--stl-background)',
     borderWidth: '1px',
     borderStyle: 'solid',
     borderColor: 'var(--borderColor)',
-    borderRadius: 'var(--stl-radius4, 10px)',
+    borderRadius: 'var(--stl-radius4)',
     overflow: 'hidden',
   },
   'Command',
@@ -20,9 +20,9 @@ const CommandInputFrame = styled(
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 'var(--stl-space5, 12px)',
-    paddingRight: 'var(--stl-space5, 12px)',
-    height: 'var(--stl-space14, 48px)',
+    paddingLeft: 'var(--stl-space5)',
+    paddingRight: 'var(--stl-space5)',
+    height: 'var(--stl-space14)',
     borderBottomWidth: '1px',
     borderBottomStyle: 'solid',
     borderBottomColor: 'var(--borderColor)',
@@ -35,7 +35,7 @@ const CommandSearchIcon = styled(
   {
     fontSize: 'var(--fontSize-4, 16px)',
     color: 'var(--colorSubtitle)',
-    marginRight: 'var(--stl-space3, 6px)',
+    marginRight: 'var(--stl-space3)',
   },
   'CommandSearchIcon',
 )
@@ -43,9 +43,9 @@ const CommandSearchIcon = styled(
 const CommandListFrame = styled(
   'div',
   {
-    maxHeight: 'var(--stl-space-xl, 320px)',
+    maxHeight: 'var(--stl-space-xl)',
     overflowY: 'auto',
-    padding: 'var(--stl-space2, 4px)',
+    padding: 'var(--stl-space2)',
   },
   'CommandList',
 )
@@ -53,7 +53,7 @@ const CommandListFrame = styled(
 const CommandEmptyFrame = styled(
   'div',
   {
-    padding: 'var(--stl-space10, 28px)',
+    padding: 'var(--stl-space10)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -67,10 +67,10 @@ const CommandItemFrame = styled(
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    height: 'var(--stl-space12, 36px)',
-    paddingLeft: 'var(--stl-space3, 6px)',
-    paddingRight: 'var(--stl-space3, 6px)',
-    borderRadius: 'var(--stl-radius2, 6px)',
+    height: 'var(--stl-space12)',
+    paddingLeft: 'var(--stl-space3)',
+    paddingRight: 'var(--stl-space3)',
+    borderRadius: 'var(--stl-radius2)',
     cursor: 'pointer',
   },
   'CommandItem',
@@ -81,8 +81,8 @@ const CommandSeparator = styled(
   {
     height: '1px', // separator height — allowed
     backgroundColor: 'var(--borderColor)',
-    marginTop: 'var(--stl-space2, 4px)',
-    marginBottom: 'var(--stl-space2, 4px)',
+    marginTop: 'var(--stl-space2)',
+    marginBottom: 'var(--stl-space2)',
   },
   'CommandSeparator',
 )
@@ -101,7 +101,7 @@ const CommandGroupHeader = styled(
 const CommandLoadingFrame = styled(
   'div',
   {
-    padding: 'var(--stl-space5, 12px)',
+    padding: 'var(--stl-space5)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

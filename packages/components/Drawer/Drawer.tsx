@@ -11,7 +11,7 @@ const DrawerOverlay = styled(
     left: '0',
     right: '0',
     bottom: '0',
-    backgroundColor: 'var(--overlayBackground, rgba(0,0,0,0.5))',
+    backgroundColor: 'var(--stl-overlay, rgba(0,0,0,0.5))',
     zIndex: '40',
     transition: 'opacity 200ms ease',
   },
@@ -21,7 +21,7 @@ const DrawerOverlay = styled(
 const DrawerContentFrame = styled(
   'div',
   {
-    backgroundColor: 'var(--background, #fff)',
+    backgroundColor: 'var(--stl-background)',
     borderWidth: '1px',
     borderStyle: 'solid',
     borderColor: 'var(--borderColor)',

@@ -23,7 +23,7 @@ const CardFrame = styled(
     elevated: {
       true: {
         borderWidth: '0px',
-        boxShadow: 'var(--stl-shadow-sm, 0 1px 3px rgba(0,0,0,0.08))',
+        boxShadow: 'var(--stl-shadow-sm)',
       },
     },
     interactive: {

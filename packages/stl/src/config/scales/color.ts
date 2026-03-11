@@ -6,7 +6,7 @@ import {
   type ScaleColorName,
 } from '../../shared/models/colorGen.models'
 import { generateThemeColors, getTextColor } from '../../shared/utils/colorGen.utils'
-import { addPrefix, type CharHash } from '../utils'
+import { type CharHash, addPrefix } from '../utils'
 import type {
   ColorPaletteEntry,
   CssAliasMap,

@@ -23,18 +23,20 @@ export default function DarkModePage() {
       </div>
 
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <h2 style={{ fontSize: 24, fontWeight: 600 }}>Next.js (next-themes)</h2>
+        <h2 style={{ fontSize: 24, fontWeight: 600 }}>Next.js</h2>
         <CodeBlock
           code={`// app/layout.tsx
-import { ThemeProvider } from 'next-themes'
+import { getColorModeScript } from '@vlting/stl-react'
 
 export default function RootLayout({ children }) {
   return (
     <html suppressHydrationWarning>
+      <head>
+        {/* Prevent flash of wrong color mode */}
+        <script dangerouslySetInnerHTML={{ __html: getColorModeScript() }} />
+      </head>
       <body>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </ThemeProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
@@ -43,12 +45,10 @@ export default function RootLayout({ children }) {
 // app/providers.tsx
 'use client'
 import { StlProvider } from '@vlting/stl-react'
-import { useTheme } from 'next-themes'
 
-export function StlWrapper({ children }) {
-  const { resolvedTheme } = useTheme()
+export function Providers({ children }) {
   return (
-    <StlProvider defaultColorMode={resolvedTheme === 'dark' ? 'dark' : 'light'}>
+    <StlProvider defaultColorMode="light">
       {children}
     </StlProvider>
   )

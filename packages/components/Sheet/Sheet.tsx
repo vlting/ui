@@ -26,7 +26,7 @@ const StyledFrame = styled(
     bottom: '0',
     left: '0',
     right: '0',
-    backgroundColor: 'var(--background, #fff)',
+    backgroundColor: 'var(--background)',
     borderTopLeftRadius: '12px',
     borderTopRightRadius: '12px',
     padding: '16px',

@@ -30,7 +30,7 @@ const OTPSlotFrame = styled(
     borderStyle: 'solid',
     borderColor: 'var(--borderColor)',
     borderRadius: '8px',
-    backgroundColor: 'var(--background, #fff)',
+    backgroundColor: 'var(--background)',
     fontSize: 'var(--fontSize-7, 24px)',
     fontFamily: 'var(--font-body)',
     fontWeight: '500',

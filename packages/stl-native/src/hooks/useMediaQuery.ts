@@ -5,25 +5,25 @@ function evaluateQuery(query: string, width: number, height: number): boolean | 
   for (const rule of rules) {
     const minWidth = rule.match(/\(\s*min-width\s*:\s*(\d+(?:\.\d+)?)\s*px\s*\)/)
     if (minWidth) {
-      if (width < parseFloat(minWidth[1])) return false
+      if (width < Number.parseFloat(minWidth[1])) return false
       continue
     }
 
     const maxWidth = rule.match(/\(\s*max-width\s*:\s*(\d+(?:\.\d+)?)\s*px\s*\)/)
     if (maxWidth) {
-      if (width > parseFloat(maxWidth[1])) return false
+      if (width > Number.parseFloat(maxWidth[1])) return false
       continue
     }
 
     const minHeight = rule.match(/\(\s*min-height\s*:\s*(\d+(?:\.\d+)?)\s*px\s*\)/)
     if (minHeight) {
-      if (height < parseFloat(minHeight[1])) return false
+      if (height < Number.parseFloat(minHeight[1])) return false
       continue
     }
 
     const maxHeight = rule.match(/\(\s*max-height\s*:\s*(\d+(?:\.\d+)?)\s*px\s*\)/)
     if (maxHeight) {
-      if (height > parseFloat(maxHeight[1])) return false
+      if (height > Number.parseFloat(maxHeight[1])) return false
       continue
     }
 

@@ -28,23 +28,23 @@ function useResolvedTheme() {
       background:
         cs.getPropertyValue('--stl-background').trim() ||
         cs.getPropertyValue('--background').trim() ||
-        '#ffffff',
+        'transparent',
       color:
         cs.getPropertyValue('--stl-foreground').trim() ||
         cs.getPropertyValue('--color').trim() ||
-        '#111111',
+        'currentColor',
       color4:
         cs.getPropertyValue('--stl-surface2').trim() ||
         cs.getPropertyValue('--color4').trim() ||
-        '#ededed',
+        'currentColor',
       color8:
         cs.getPropertyValue('--stl-color8').trim() ||
         cs.getPropertyValue('--color8').trim() ||
-        '#6a6a6a',
+        'currentColor',
       borderColor:
         cs.getPropertyValue('--stl-border').trim() ||
         cs.getPropertyValue('--borderColor').trim() ||
-        '#e8e8e8',
+        'currentColor',
     })
   }, [])
 
@@ -124,11 +124,11 @@ export function Chart({
 
   const resolvedTokens = useMemo(
     () => ({
-      background: tokens.background || 'var(--stl-background, #ffffff)',
-      color: tokens.color || 'var(--stl-foreground, #111111)',
-      colorSubtitle: tokens.color8 || 'var(--stl-color8, #6a6a6a)',
-      borderColor: tokens.borderColor || 'var(--stl-border, #e8e8e8)',
-      color4: tokens.color4 || 'var(--stl-surface2, #ededed)',
+      background: tokens.background || 'var(--stl-background, transparent)',
+      color: tokens.color || 'var(--stl-foreground, currentColor)',
+      colorSubtitle: tokens.color8 || 'var(--stl-color8, currentColor)',
+      borderColor: tokens.borderColor || 'var(--stl-border, currentColor)',
+      color4: tokens.color4 || 'var(--stl-surface2, currentColor)',
     }),
     [tokens],
   )

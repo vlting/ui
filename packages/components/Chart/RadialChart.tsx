@@ -123,8 +123,8 @@ export function RadialChart({
   }, [data, seriesKeys, maxValueProp])
 
   // Colors from theme
-  const trackColor = victoryTheme.axis.style.grid.stroke || 'var(--stl-surface3, #e0e0e0)'
-  const labelColor = victoryTheme.axis.style.tickLabels.fill || 'var(--stl-color8, #666)'
+  const trackColor = victoryTheme.axis.style.grid.stroke || 'var(--stl-surface3, currentColor)'
+  const labelColor = victoryTheme.axis.style.tickLabels.fill || 'var(--stl-color8, currentColor)'
 
   // Compute total for stacked variant
   const stackTotal = useMemo(() => {
@@ -152,7 +152,7 @@ export function RadialChart({
           const val = Number(d[key]) || 0
           const arcSpan = (val / stackTotal) * (endAngle - startAngle)
           const arcEnd = currentAngle + arcSpan
-          const color = resolvedColors[key] || 'var(--stl-color8, #999)'
+          const color = resolvedColors[key] || 'var(--stl-color8, currentColor)'
 
           if (hasGrid) {
             elements.push(
@@ -195,7 +195,7 @@ export function RadialChart({
         }
         const arcSpan = (seriesVal / maxVal) * (endAngle - startAngle)
         const arcEnd = startAngle + arcSpan
-        const color = resolvedColors[key] || 'var(--stl-color8, #999)'
+        const color = resolvedColors[key] || 'var(--stl-color8, currentColor)'
 
         // Background track
         if (hasGrid) {

@@ -1,101 +1,80 @@
 import { useColorMode } from '@vlting/stl-react'
-import type { Brand } from '@vlting/ui/design-tokens'
+import type { GenerateThemeOptions } from '@vlting/ui/design-tokens'
 import {
-  defaultBrand,
-  funBrand,
-  injectBrandVars,
-  poshBrand,
-  shadcnBrand,
+  generateTheme,
+  themeToVars,
+  THEME_PRESET_DEFAULT,
+  THEME_PRESET_FUN,
+  THEME_PRESET_POSH,
+  THEME_PRESET_SHADCN,
 } from '@vlting/ui/design-tokens'
 import { useCallback, useEffect, useState } from 'react'
 
-type BrandKey = 'default' | 'shadcn' | 'fun' | 'posh'
+type PresetKey = 'default' | 'shadcn' | 'fun' | 'posh'
 
-const brandMap: Record<BrandKey, Brand> = {
-  default: defaultBrand,
-  shadcn: shadcnBrand,
-  fun: funBrand,
-  posh: poshBrand,
+const presetMap: Record<PresetKey, GenerateThemeOptions> = {
+  default: THEME_PRESET_DEFAULT,
+  shadcn: THEME_PRESET_SHADCN,
+  fun: THEME_PRESET_FUN,
+  posh: THEME_PRESET_POSH,
 }
 
-const brandLabels: Record<BrandKey, string> = {
+const presetLabels: Record<PresetKey, string> = {
   default: 'Default',
   shadcn: 'Shadcn',
   fun: 'Fun',
   posh: 'Posh',
 }
 
-const STORAGE_KEY = 'vlting-showcase-brand'
+const STORAGE_KEY = 'vlting-showcase-theme-preset'
+const STYLE_ID = 'stl-theme-demo'
 
-function applyBrandVars(brand: Brand, mode: 'light' | 'dark') {
-  const vars = injectBrandVars(brand, mode)
-  const root = document.documentElement
-  for (const [name, value] of Object.entries(vars)) {
-    root.style.setProperty(name, value)
+function applyThemeVars(presetKey: PresetKey, mode: 'light' | 'dark') {
+  const theme = generateTheme(presetMap[presetKey])
+  const vars = themeToVars(theme, mode)
+
+  let styleEl = document.getElementById(STYLE_ID)
+  if (!styleEl) {
+    styleEl = document.createElement('style')
+    styleEl.id = STYLE_ID
+    document.head.appendChild(styleEl)
   }
+
+  const declarations = Object.entries(vars)
+    .map(([name, value]) => `  ${name}: ${value};`)
+    .join('\n')
+  styleEl.textContent = `:root {\n${declarations}\n}`
 }
 
-function clearBrandVars(brand: Brand, mode: 'light' | 'dark') {
-  const vars = injectBrandVars(brand, mode)
-  const root = document.documentElement
-  for (const name of Object.keys(vars)) {
-    root.style.removeProperty(name)
-  }
-}
-
-export function useBrandSwitcher() {
+export function ThemeSwitcher() {
   const { colorMode } = useColorMode()
   const mode = colorMode === 'dark' ? 'dark' : 'light'
 
-  const [brandKey, setBrandKey] = useState<BrandKey>(() => {
+  const [preset, setPreset] = useState<PresetKey>(() => {
     try {
-      return (localStorage.getItem(STORAGE_KEY) as BrandKey) || 'default'
+      return (localStorage.getItem(STORAGE_KEY) as PresetKey) || 'default'
     } catch {
       return 'default'
     }
   })
 
-  // Apply CSS variables when brand or color mode changes
   useEffect(() => {
-    const brand = brandMap[brandKey]
-    applyBrandVars(brand, mode)
-    return () => clearBrandVars(brand, mode)
-  }, [brandKey, mode])
+    applyThemeVars(preset, mode)
+  }, [preset, mode])
 
-  const setBrand = useCallback(
-    (key: BrandKey) => {
-      // Clear old brand vars before applying new ones
-      setBrandKey((prev) => {
-        clearBrandVars(brandMap[prev], mode)
-        return key
-      })
-      try {
-        localStorage.setItem(STORAGE_KEY, key)
-      } catch {
-        // Storage unavailable
-      }
-    },
-    [mode],
-  )
-
-  return { brandKey, setBrand, brandOptions: Object.keys(brandMap) as BrandKey[] }
-}
-
-export function BrandSwitcher() {
-  const { brandKey, setBrand, brandOptions } = useBrandSwitcher()
-
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setBrand(e.target.value as BrandKey)
-    },
-    [setBrand],
-  )
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    const key = e.target.value as PresetKey
+    setPreset(key)
+    try {
+      localStorage.setItem(STORAGE_KEY, key)
+    } catch {}
+  }, [])
 
   return (
     <select
-      value={brandKey}
+      value={preset}
       onChange={handleChange}
-      aria-label="Select brand theme"
+      aria-label="Select theme preset"
       style={{
         padding: '6px 12px',
         borderRadius: 6,
@@ -106,9 +85,9 @@ export function BrandSwitcher() {
         fontSize: 14,
       }}
     >
-      {brandOptions.map((key) => (
+      {(Object.keys(presetMap) as PresetKey[]).map((key) => (
         <option key={key} value={key}>
-          {brandLabels[key]}
+          {presetLabels[key]}
         </option>
       ))}
     </select>

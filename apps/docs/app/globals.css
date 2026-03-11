@@ -1,88 +1,22 @@
-@import 'tailwindcss';
+/* STL global styles are imported via @vlting/stl/styles in layout.tsx */
 
-/* ─── Semantic Color Tokens ─────────────────────────────────────────────────
-   Registered with Tailwind v4 via @theme — generates utility classes like
-   bg-background, text-foreground, border-border, text-muted-foreground, etc.
-   Light mode defaults; overridden at runtime by :root and .dark selectors.
-   ──────────────────────────────────────────────────────────────────────────── */
-@theme {
-  /* Surfaces */
-  --color-background: #ffffff;
-  --color-surface: #ffffff;
-  --color-surface-muted: #f9fafb;
-
-  /* Text — all meet WCAG AA 4.5:1 on white */
-  --color-foreground: #0a0a0a;
-  --color-foreground-secondary: #374151;
-  --color-muted-foreground: #4b5563;
-
-  /* Borders */
-  --color-border: #e5e7eb;
-  --color-border-muted: #f3f4f6;
-
-  /* Accent (hover/active surfaces) */
-  --color-accent: #f3f4f6;
-  --color-accent-foreground: #0a0a0a;
-
-  /* Primary action */
-  --color-primary: #2563eb;
-  --color-primary-foreground: #ffffff;
-
-  /* Muted surface */
-  --color-muted: #f3f4f6;
-
-  /* Semantic status colors — meet WCAG AA 4.5:1 */
-  --color-destructive: #dc2626;
-  --color-success: #16a34a;
-}
-
-/* ─── Runtime Overrides ─────────────────────────────────────────────────────
-   These selectors override the @theme defaults at runtime. Brand-aware tokens
-   use var(--brand-*) from useBrandCSSProperties() with static fallbacks.
-   ──────────────────────────────────────────────────────────────────────────── */
+/* Base body styles using STL CSS variables */
 :root {
-  --color-background: var(--brand-bg, #ffffff);
-  --color-foreground: var(--brand-text-strong, #0a0a0a);
-  --color-foreground-secondary: #374151;
-  --color-muted-foreground: var(--brand-text-muted, #4b5563);
-  --color-border: var(--brand-border, #e5e7eb);
-  --color-border-muted: var(--brand-border-muted, #f3f4f6);
-  --color-accent: var(--brand-accent-subtle, #f3f4f6);
-  --color-primary: var(--brand-accent, #2563eb);
-
-  /* Legacy aliases for existing var(--background) / var(--foreground) usage */
-  --background: var(--color-background);
-  --foreground: var(--color-foreground);
-}
-
-.dark {
-  --color-background: var(--brand-bg, #0a0a0a);
-  --color-surface: #030712;
-  --color-surface-muted: #111827;
-  --color-foreground: var(--brand-text-strong, #ededed);
-  --color-foreground-secondary: #d1d5db;
-  --color-muted-foreground: var(--brand-text-muted, #9ca3af);
-  --color-border: var(--brand-border, #374151);
-  --color-border-muted: var(--brand-border-muted, #1f2937);
-  --color-accent: var(--brand-accent-subtle, #1f2937);
-  --color-accent-foreground: #ededed;
-  --color-primary: var(--brand-accent, #60a5fa);
-  --color-primary-foreground: #0a0a0a;
-  --color-muted: #1f2937;
-  --color-destructive: #f87171;
-  --color-success: #4ade80;
-
-  /* Legacy aliases */
-  --background: var(--color-background);
-  --foreground: var(--color-foreground);
+  color-scheme: light dark;
 }
 
 body {
-  color: var(--color-foreground);
-  background: var(--color-background);
-  font-family:
-    Inter,
-    system-ui,
-    -apple-system,
-    sans-serif;
+  color: var(--stl-color);
+  background: var(--stl-background);
+  font-family: var(--stl-fontFamily-body, system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--stl-surface3); border-radius: 3px; }
+
+/* Selection */
+::selection { background: var(--stl-primary4); color: var(--stl-color); }
