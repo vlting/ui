@@ -9,7 +9,7 @@ type CSS = Record<
 import { CondBit, type ConditionMask, maskMatches } from './conditions'
 import { type NativeMappedPropKey, nativeMappedProps } from './mappedProps'
 import { normalizeToRN } from './propMap'
-import { getTheme, type NativeTokenMaps } from './theme'
+import { type NativeTokenMaps, getTheme } from './theme'
 import { isShadowProp, resolveShadowToken, resolveToken } from './tokenResolver'
 
 type NativeStyle = Readonly<ViewStyle & TextStyle>

@@ -1,4 +1,4 @@
-import { type CSSProperties, forwardRef, type ReactNode } from 'react'
+import { type CSSProperties, type ReactNode, forwardRef } from 'react'
 
 export interface AspectRatioProps {
   ratio?: number

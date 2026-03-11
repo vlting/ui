@@ -61,7 +61,7 @@ const SliderThumb = styled(
     position: 'absolute',
     top: '50%',
     borderRadius: '9999px',
-    backgroundColor: 'var(--background, #fff)',
+    backgroundColor: 'var(--background)',
     borderWidth: '2px',
     borderStyle: 'solid',
     borderColor: 'var(--color10)',

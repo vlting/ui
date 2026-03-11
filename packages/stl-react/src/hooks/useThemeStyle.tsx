@@ -1,10 +1,10 @@
 import {
-  tokenValue as baseTokenValue,
   COLOR_MODE_ATTR,
   type ColorMode,
-  getThemeOverrides,
   type SemanticColorOverrides,
   type ThemeOverrides,
+  tokenValue as baseTokenValue,
+  getThemeOverrides,
 } from '@vlting/stl'
 import { useEffect, useMemo } from 'react'
 import { isSSR } from '../shared/utils'

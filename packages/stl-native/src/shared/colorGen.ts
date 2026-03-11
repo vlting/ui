@@ -434,7 +434,7 @@ function processSet(set: string, processor: Processor, isZeroSat = false) {
 
 function interpolatePair(fullValue: number, halfValue: number, multiplier: number) {
   const diff = fullValue - halfValue
-  const mod = parseFloat((diff * multiplier).toFixed(2))
+  const mod = Number.parseFloat((diff * multiplier).toFixed(2))
   return halfValue + mod
 }
 

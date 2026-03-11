@@ -1,4 +1,4 @@
-import { type ComponentType, type LazyExoticComponent, lazy, memo, Suspense } from 'react'
+import { type ComponentType, type LazyExoticComponent, Suspense, lazy, memo } from 'react'
 import type { IconFC } from './createIcon'
 
 export type { IconFC } from './createIcon'
@@ -11,7 +11,7 @@ export interface DynamicIconProps {
 }
 
 /** Convert name + variant to PascalCase component name with Ri prefix */
-function toComponentName(name: string, variant: string = 'line'): string {
+function toComponentName(name: string, variant = 'line'): string {
   const base = name
     .split('-')
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))

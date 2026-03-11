@@ -2,7 +2,8 @@ import React from 'react'
 import { styled } from '../../stl-react/src/config'
 
 const BREADCRUMB_FOCUS_STYLE_ID = 'vlt-breadcrumb-focus'
-const BREADCRUMB_FOCUS_CSS = `.vlt-breadcrumb-link:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; border-radius: 2px; }`
+const BREADCRUMB_FOCUS_CSS =
+  '.vlt-breadcrumb-link:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; border-radius: 2px; }'
 
 const BreadcrumbLinkText = styled(
   'span',

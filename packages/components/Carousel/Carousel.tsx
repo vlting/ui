@@ -245,7 +245,7 @@ function Dots() {
           aria-current={i === activeIndex ? 'true' : undefined}
           style={{
             backgroundColor:
-              i === activeIndex ? 'var(--color10, #0066ff)' : 'var(--surface3, #d1d5db)',
+              i === activeIndex ? 'var(--color10)' : 'var(--surface3)',
           }}
         />
       ))}

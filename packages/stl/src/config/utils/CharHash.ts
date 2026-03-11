@@ -90,16 +90,14 @@ export class CharHash {
         // If at least one index is bumpable, we don't need to add an new index
         addNewIndex = false
         break
-      } else {
-        this.key[index] = 0
       }
+      this.key[index] = 0
     }
     if (addNewIndex) {
       if (length === MAX_LENGTH) {
         throw new Error('Maximum number of possible hashes exceeded')
-      } else {
-        this.key.push(0)
       }
+      this.key.push(0)
     }
   }
 
