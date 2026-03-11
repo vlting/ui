@@ -25,25 +25,63 @@ export async function CodeBlock({
   })
 
   return (
-    <div className="relative rounded-lg border border-border overflow-hidden">
+    <div
+      style={{
+        position: 'relative',
+        borderRadius: 8,
+        border: '1px solid var(--stl-borderColor)',
+        overflow: 'hidden',
+      }}
+    >
       {title && (
-        <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-surface-muted">
-          <span className="text-sm text-foreground-secondary font-mono">{title}</span>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '8px 16px',
+            borderBottom: '1px solid var(--stl-borderColor)',
+            background: 'var(--stl-surface1)',
+          }}
+        >
+          <span
+            style={{
+              fontSize: 14,
+              color: 'var(--stl-colorSubtitle)',
+              fontFamily: 'var(--stl-fontFamily-mono, monospace)',
+            }}
+          >
+            {title}
+          </span>
         </div>
       )}
-      <div className="relative group">
-        <div className="absolute right-2 top-2 z-10">
+      <div style={{ position: 'relative' }}>
+        <div style={{ position: 'absolute', right: 8, top: 8, zIndex: 10 }}>
           <CopyButton text={code.trim()} />
         </div>
         <div
-          className="block dark:hidden overflow-x-auto p-4 pr-12 text-sm [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
+          className="code-light"
+          style={{ overflowX: 'auto', padding: '16px 48px 16px 16px', fontSize: 14 }}
           dangerouslySetInnerHTML={{ __html: lightHtml }}
         />
         <div
-          className="hidden dark:block overflow-x-auto p-4 pr-12 text-sm bg-surface [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
+          className="code-dark"
+          style={{
+            overflowX: 'auto',
+            padding: '16px 48px 16px 16px',
+            fontSize: 14,
+            background: 'var(--stl-surface)',
+          }}
           dangerouslySetInnerHTML={{ __html: darkHtml }}
         />
       </div>
+      <style>{`
+        [data-color-mode="light"] .code-dark,
+        :root:not([data-color-mode]) .code-dark { display: none; }
+        [data-color-mode="dark"] .code-light { display: none; }
+        .code-light pre, .code-dark pre { background: transparent !important; margin: 0 !important; padding: 0 !important; }
+        .code-light code, .code-dark code { font-size: 14px !important; }
+      `}</style>
     </div>
   )
 }

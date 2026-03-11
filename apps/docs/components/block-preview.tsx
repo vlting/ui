@@ -98,23 +98,59 @@ interface BlockPreviewProps {
 function PreviewSkeleton() {
   return (
     <div
-      className="bg-surface-muted flex items-center justify-center"
-      style={{ height: 400 }}
+      style={{
+        height: 400,
+        background: 'var(--stl-surface1)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
     >
-      <div className="flex flex-col items-center gap-3">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-muted-foreground border-t-transparent" />
-        <p className="text-xs text-muted-foreground">Loading preview...</p>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+        <div
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: '50%',
+            border: '2px solid var(--stl-colorSubtitle)',
+            borderTopColor: 'transparent',
+            animation: 'spin 1s linear infinite',
+          }}
+        />
+        <p style={{ fontSize: 12, color: 'var(--stl-colorSubtitle)' }}>Loading preview...</p>
       </div>
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   )
 }
 
 function CodeFallback({ code, name }: { code?: string; name: string }) {
   return (
-    <div className="bg-surface-muted p-8 flex flex-col items-center justify-center min-h-[300px] gap-4">
-      <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center">
+    <div
+      style={{
+        background: 'var(--stl-surface1)',
+        padding: 32,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: 300,
+        gap: 16,
+      }}
+    >
+      <div
+        style={{
+          width: 64,
+          height: 64,
+          borderRadius: 8,
+          background: 'var(--stl-surface2)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
         <svg
-          className="w-8 h-8 text-muted-foreground"
+          style={{ width: 32, height: 32, color: 'var(--stl-colorSubtitle)' }}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -127,9 +163,9 @@ function CodeFallback({ code, name }: { code?: string; name: string }) {
           />
         </svg>
       </div>
-      <div className="text-center">
-        <p className="text-sm font-medium text-foreground-secondary">{name}</p>
-        <p className="text-xs text-muted-foreground mt-1">
+      <div style={{ textAlign: 'center' }}>
+        <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--stl-colorSubtitle)' }}>{name}</p>
+        <p style={{ fontSize: 12, color: 'var(--stl-placeholderColor)', marginTop: 4 }}>
           {code
             ? 'Preview unavailable — see code example below'
             : 'Preview not available for this block'}
@@ -394,16 +430,40 @@ function VariantSelector({
   onChange: (v: string) => void
 }) {
   return (
-    <div className="flex gap-1 p-1 bg-muted rounded-lg overflow-x-auto">
+    <div
+      style={{
+        display: 'flex',
+        gap: 4,
+        padding: 4,
+        background: 'var(--stl-surface2)',
+        borderRadius: 8,
+        overflowX: 'auto',
+      }}
+    >
       {variants.map((v) => (
         <button
           key={v}
           onClick={() => onChange(v)}
-          className={`px-3 py-1.5 text-xs font-medium rounded-md whitespace-nowrap transition-colors ${
-            v === activeVariant
-              ? 'bg-background text-foreground shadow-sm'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
+          style={{
+            padding: '6px 12px',
+            fontSize: 12,
+            fontWeight: 500,
+            borderRadius: 6,
+            whiteSpace: 'nowrap',
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'background 0.15s, color 0.15s',
+            ...(v === activeVariant
+              ? {
+                  background: 'var(--stl-background)',
+                  color: 'var(--stl-color)',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                }
+              : {
+                  background: 'transparent',
+                  color: 'var(--stl-colorSubtitle)',
+                }),
+          }}
         >
           {v}
         </button>
@@ -427,9 +487,15 @@ export function BlockPreview({
 
   const BlockComponent = blockComponents[slug]
 
+  const containerStyle = {
+    border: '1px solid var(--stl-borderColor)',
+    borderRadius: 8,
+    overflow: 'hidden' as const,
+  }
+
   if (!BlockComponent || !mounted) {
     return (
-      <div className="border border-border rounded-lg overflow-hidden">
+      <div style={containerStyle}>
         {!BlockComponent ? <CodeFallback code={code} name={name} /> : <PreviewSkeleton />}
       </div>
     )
@@ -438,9 +504,14 @@ export function BlockPreview({
   const props = getDefaultProps(slug, activeVariant)
 
   return (
-    <div className="border border-border rounded-lg overflow-hidden">
+    <div style={containerStyle}>
       {variants && variants.length > 1 && (
-        <div className="border-b border-border px-4 py-3">
+        <div
+          style={{
+            borderBottom: '1px solid var(--stl-borderColor)',
+            padding: '12px 16px',
+          }}
+        >
           <VariantSelector
             variants={variants}
             activeVariant={activeVariant}
@@ -450,7 +521,14 @@ export function BlockPreview({
       )}
       <BlockErrorBoundary fallback={<CodeFallback code={code} name={name} />}>
         <Suspense fallback={<PreviewSkeleton />}>
-          <div className="relative overflow-hidden bg-background" style={{ height: 400 }}>
+          <div
+            style={{
+              position: 'relative',
+              overflow: 'hidden',
+              background: 'var(--stl-background)',
+              height: 400,
+            }}
+          >
             <div
               style={{
                 transform: 'scale(0.5)',

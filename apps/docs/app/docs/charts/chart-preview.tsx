@@ -103,8 +103,15 @@ export function ChartPreview({ type }: ChartPreviewProps) {
 
   if (error) {
     return (
-      <div className="border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 rounded-lg p-4">
-        <p className="text-sm text-amber-800 dark:text-amber-300">
+      <div
+        style={{
+          border: '1px solid #d97706',
+          background: '#fffbeb',
+          borderRadius: 8,
+          padding: 16,
+        }}
+      >
+        <p style={{ fontSize: 14, color: '#92400e' }}>
           <strong>Preview unavailable:</strong> {error}
         </p>
       </div>
@@ -113,8 +120,18 @@ export function ChartPreview({ type }: ChartPreviewProps) {
 
   if (!ChartComponent || !ChartContainer) {
     return (
-      <div className="border border-border rounded-lg p-8 flex items-center justify-center bg-surface-muted">
-        <p className="text-sm text-foreground-secondary">Loading chart preview...</p>
+      <div
+        style={{
+          border: '1px solid var(--stl-borderColor)',
+          borderRadius: 8,
+          padding: 32,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'var(--stl-surface1)',
+        }}
+      >
+        <p style={{ fontSize: 14, color: 'var(--stl-colorSubtitle)' }}>Loading chart preview...</p>
       </div>
     )
   }
@@ -123,7 +140,14 @@ export function ChartPreview({ type }: ChartPreviewProps) {
   const config = chartConfigMap[type] ?? defaultConfig
 
   return (
-    <div className="border border-border rounded-lg p-6 bg-background">
+    <div
+      style={{
+        border: '1px solid var(--stl-borderColor)',
+        borderRadius: 8,
+        padding: 24,
+        background: 'var(--stl-background)',
+      }}
+    >
       <ChartContainer
         config={config}
         accessibilityLabel={`${type} chart preview`}
