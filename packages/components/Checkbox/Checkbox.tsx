@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useRef } from 'react'
 
 const CHECKBOX_INTERACTION_STYLE_ID = 'vlt-checkbox-interaction'
 const CHECKBOX_INTERACTION_CSS = `
-.vlt-checkbox-label:hover:not([data-disabled]) .vlt-checkbox-box { border-color: var(--borderColorHover, var(--color8)); }
+.vlt-checkbox-label:hover:not([data-disabled]) .vlt-checkbox-box { border-color: var(--borderColorHover); }
 .vlt-checkbox-box { transition: border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease; }
-input:focus-visible + .vlt-checkbox-box { outline: 2px solid var(--stl-outline-primaryColorBase, currentColor); outline-offset: 2px; }
+input:focus-visible + .vlt-checkbox-box { outline: 2px solid var(--stl-outline-primaryColorBase); outline-offset: 2px; }
 input:active:not(:disabled) + .vlt-checkbox-box { transform: scale(0.95); }
 `
 
@@ -165,13 +165,13 @@ function Root({
         style={{
           borderColor:
             isChecked || isIndeterminate
-              ? 'var(--color10, var(--stl-color-primary9))'
+              ? 'var(--stl-color-primary9)'
               : 'var(--borderColor)',
           backgroundColor:
             isChecked || isIndeterminate
-              ? 'var(--color10, var(--stl-color-primary9))'
+              ? 'var(--stl-color-primary9)'
               : 'transparent',
-          color: isChecked || isIndeterminate ? 'var(--color1, #fff)' : 'inherit',
+          color: isChecked || isIndeterminate ? 'var(--color1)' : 'inherit',
         }}
       >
         {(isChecked || isIndeterminate) &&

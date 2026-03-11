@@ -4,8 +4,8 @@ import { styled } from '../../stl-react/src/config'
 
 const INPUT_INTERACTION_STYLE_ID = 'vlt-input-interaction'
 const INPUT_INTERACTION_CSS = `
-.vlt-input:hover:not(:disabled):not(:focus-visible) { border-color: var(--borderColorHover, var(--borderColor)); }
-.vlt-input:focus-visible { outline: 2px solid var(--stl-outline-primaryColorBase, currentColor); outline-offset: 2px; border-color: var(--borderColorPress, var(--borderColor)); }
+.vlt-input:hover:not(:disabled):not(:focus-visible) { border-color: var(--borderColorHover); }
+.vlt-input:focus-visible { outline: 2px solid var(--stl-outline-primaryColorBase); outline-offset: 2px; border-color: var(--borderColorPress); }
 .vlt-input:disabled { opacity: 0.5; cursor: not-allowed; }
 `
 
@@ -55,7 +55,7 @@ const InputFrame = styled(
       },
     },
     error: {
-      true: { borderColor: 'var(--stl-color-error9, var(--red10, #ef4444))' },
+      true: { borderColor: 'var(--stl-color-error9)' },
     },
   },
   'Input',
@@ -91,7 +91,7 @@ const InputHelper = styled(
   {
     tone: {
       neutral: { color: '$tertiary7' },
-      error: { color: 'var(--stl-color-error9, var(--red10, #ef4444))' },
+      error: { color: 'var(--stl-color-error9)' },
     },
   },
   'InputHelper',
