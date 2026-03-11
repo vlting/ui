@@ -7,11 +7,13 @@ interface ChartVariantListProps {
 
 export function ChartVariantList({ variants }: ChartVariantListProps) {
   return (
-    <div className="space-y-8">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
       {variants.map((variant) => (
         <div key={variant.name} id={variant.name.toLowerCase().replace(/\s+/g, '-')}>
-          <h3 className="text-lg font-semibold mb-1">{variant.name}</h3>
-          <p className="text-sm text-foreground-secondary mb-3">{variant.description}</p>
+          <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 4 }}>{variant.name}</h3>
+          <p style={{ fontSize: 14, color: 'var(--stl-colorSubtitle)', marginBottom: 12 }}>
+            {variant.description}
+          </p>
           <CodeBlock code={variant.code} language="tsx" title={variant.name} />
         </div>
       ))}

@@ -21,21 +21,58 @@ export function ComponentPreview({
   const hasCode = code || codeHtml
 
   return (
-    <div className="my-6 border border-border rounded-lg">
+    <div
+      style={{
+        margin: '24px 0',
+        border: '1px solid var(--stl-borderColor)',
+        borderRadius: 8,
+      }}
+    >
       {title && (
-        <div className="px-4 py-2 border-b border-border bg-surface-muted overflow-hidden rounded-t-lg">
-          <span className="text-sm font-medium">{title}</span>
+        <div
+          style={{
+            padding: '8px 16px',
+            borderBottom: '1px solid var(--stl-borderColor)',
+            background: 'var(--stl-surface1)',
+            overflow: 'hidden',
+            borderRadius: '8px 8px 0 0',
+          }}
+        >
+          <span style={{ fontSize: 14, fontWeight: 500 }}>{title}</span>
         </div>
       )}
-      <div className="p-8 flex items-center justify-center bg-background bg-[image:radial-gradient(circle,_rgb(0_0_0_/_0.05)_1px,_transparent_1px)] dark:bg-[image:radial-gradient(circle,_rgb(255_255_255_/_0.05)_1px,_transparent_1px)] bg-[size:16px_16px]">
-        <div className="w-full max-w-lg">{children}</div>
+      <div
+        style={{
+          padding: 32,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'var(--stl-background)',
+          backgroundImage:
+            'radial-gradient(circle, var(--stl-borderColor) 1px, transparent 1px)',
+          backgroundSize: '16px 16px',
+        }}
+      >
+        <div style={{ width: '100%', maxWidth: 512 }}>{children}</div>
       </div>
       {hasCode && (
         <>
-          <div className="border-t border-border">
+          <div style={{ borderTop: '1px solid var(--stl-borderColor)' }}>
             <button
               onClick={() => setShowCode(!showCode)}
-              className="w-full px-4 py-2 text-left text-sm text-foreground-secondary hover:bg-surface-muted transition-colors flex items-center gap-2"
+              style={{
+                width: '100%',
+                padding: '8px 16px',
+                textAlign: 'left',
+                fontSize: 14,
+                color: 'var(--stl-colorSubtitle)',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+              }}
             >
               <svg
                 width="14"
@@ -46,7 +83,10 @@ export function ComponentPreview({
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className={`transition-transform ${showCode ? 'rotate-90' : ''}`}
+                style={{
+                  transition: 'transform 0.2s',
+                  transform: showCode ? 'rotate(90deg)' : 'none',
+                }}
               >
                 <polyline points="9 18 15 12 9 6" />
               </svg>
@@ -54,26 +94,46 @@ export function ComponentPreview({
             </button>
           </div>
           {showCode && (
-            <div className="border-t border-border rounded-b-lg relative group">
+            <div
+              style={{
+                borderTop: '1px solid var(--stl-borderColor)',
+                borderRadius: '0 0 8px 8px',
+                position: 'relative',
+              }}
+            >
               {code && (
-                <div className="absolute right-2 top-2 z-10">
+                <div style={{ position: 'absolute', right: 8, top: 8, zIndex: 10 }}>
                   <CopyButton text={code} />
                 </div>
               )}
               {codeHtml ? (
                 <>
                   <div
-                    className="block dark:hidden overflow-x-auto p-4 pr-12 text-sm [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
+                    className="code-light"
+                    style={{ overflowX: 'auto', padding: '16px 48px 16px 16px', fontSize: 14 }}
                     dangerouslySetInnerHTML={{ __html: codeHtml.light }}
                   />
                   <div
-                    className="hidden dark:block overflow-x-auto p-4 pr-12 text-sm bg-surface [&_pre]:!bg-transparent [&_pre]:!m-0 [&_pre]:!p-0 [&_code]:!text-sm"
+                    className="code-dark"
+                    style={{
+                      overflowX: 'auto',
+                      padding: '16px 48px 16px 16px',
+                      fontSize: 14,
+                      background: 'var(--stl-surface)',
+                    }}
                     dangerouslySetInnerHTML={{ __html: codeHtml.dark }}
                   />
+                  <style>{`
+                    [data-color-mode="light"] .code-dark,
+                    :root:not([data-color-mode]) .code-dark { display: none; }
+                    [data-color-mode="dark"] .code-light { display: none; }
+                    .code-light pre, .code-dark pre { background: transparent !important; margin: 0 !important; padding: 0 !important; }
+                    .code-light code, .code-dark code { font-size: 14px !important; }
+                  `}</style>
                 </>
               ) : (
-                <div className="overflow-x-auto p-4 pr-12 bg-surface-muted">
-                  <pre className="text-sm font-mono whitespace-pre-wrap">{code}</pre>
+                <div style={{ overflowX: 'auto', padding: '16px 48px 16px 16px', background: 'var(--stl-surface1)' }}>
+                  <pre style={{ fontSize: 14, fontFamily: 'monospace', whiteSpace: 'pre-wrap' }}>{code}</pre>
                 </div>
               )}
             </div>
