@@ -1,4 +1,84 @@
 import type { PropDef } from '@/lib/api-mapping'
+import { styled } from '../../../packages/stl-react/src'
+
+const Wrapper = styled('div', {
+  my: '$3.5',
+})
+
+const Title = styled('h4', {
+  fontSize: '$p',
+  fontWeight: '$600',
+  mb: '$2',
+  fontFamily: '$mono',
+})
+
+const TableContainer = styled('div', {
+  overflowX: 'auto',
+  border: '$thin $borderColor',
+  borderRadius: '$4',
+})
+
+const Table = styled('table', {
+  width: '100%',
+  fontSize: '$p',
+  borderCollapse: 'collapse',
+})
+
+const Thead = styled('thead', {})
+
+const TheadRow = styled('tr', {
+  borderBottom: '$thin $borderColor',
+  background: '$tertiary1',
+})
+
+const Th = styled('th', {
+  textAlign: 'left',
+  py: '$1',
+  px: '$2.5',
+  fontWeight: '$500',
+})
+
+const Td = styled('td', {
+  py: '$1',
+  px: '$2.5',
+})
+
+const TdMono = styled('td', {
+  py: '$1',
+  px: '$2.5',
+  fontFamily: '$mono',
+  fontSize: '$p',
+})
+
+const TdMonoMuted = styled('td', {
+  py: '$1',
+  px: '$2.5',
+  fontFamily: '$mono',
+  fontSize: '$small',
+  color: '$colorSubtitle',
+})
+
+const TdSubtitle = styled('td', {
+  py: '$1',
+  px: '$2.5',
+  color: '$colorSubtitle',
+})
+
+const MonoSmall = styled('span', {
+  fontFamily: '$mono',
+  fontSize: '$small',
+})
+
+const MonoSmallSubtitle = styled('span', {
+  fontFamily: '$mono',
+  fontSize: '$small',
+  color: '$colorSubtitle',
+})
+
+const RequiredMark = styled('span', {
+  color: '$danger9',
+  ml: 2,
+})
 
 interface PropTableProps {
   props: Record<string, PropDef>
@@ -10,56 +90,60 @@ export function PropTable({ props, title }: PropTableProps) {
   if (entries.length === 0) return null
 
   return (
-    <div className="my-6">
-      {title && <h4 className="text-base font-semibold mb-3 font-mono">{title}</h4>}
-      <div className="overflow-x-auto border border-border rounded-lg">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-border bg-surface-muted">
-              <th className="text-left py-2 px-4 font-medium">Prop</th>
-              <th className="text-left py-2 px-4 font-medium">Type</th>
-              <th className="text-left py-2 px-4 font-medium">Default</th>
-              <th className="text-left py-2 px-4 font-medium">Description</th>
-            </tr>
-          </thead>
+    <Wrapper>
+      {title && <Title>{title}</Title>}
+      <TableContainer>
+        <Table>
+          <Thead>
+            <TheadRow>
+              <Th>Prop</Th>
+              <Th>Type</Th>
+              <Th>Default</Th>
+              <Th>Description</Th>
+            </TheadRow>
+          </Thead>
           <tbody>
             {entries.map(([name, def]) => (
-              <tr key={name} className="border-b border-border-muted last:border-0">
-                <td className="py-2 px-4 font-mono text-sm">
+              <tr
+                key={name}
+                style={{
+                  borderBottom: 'var(--stl-borderThin, 1px) solid var(--stl-borderColorMuted, #eee)',
+                }}
+              >
+                <TdMono>
                   {name}
                   {def.required && (
-                    <span
-                      className="text-destructive ml-0.5"
+                    <RequiredMark
                       title="Required"
                       aria-label="required"
                     >
                       *
-                    </span>
+                    </RequiredMark>
                   )}
-                </td>
-                <td className="py-2 px-4">
+                </TdMono>
+                <Td>
                   {def.values && def.values.length > 0 ? (
-                    <span className="font-mono text-xs">
+                    <MonoSmall>
                       {def.values.map((v) => `"${v}"`).join(' | ')}
-                    </span>
+                    </MonoSmall>
                   ) : (
-                    <span className="font-mono text-xs text-foreground-secondary">
+                    <MonoSmallSubtitle>
                       {def.type}
-                    </span>
+                    </MonoSmallSubtitle>
                   )}
-                </td>
-                <td className="py-2 px-4 font-mono text-xs text-muted-foreground">
+                </Td>
+                <TdMonoMuted>
                   {def.default || '—'}
-                </td>
-                <td className="py-2 px-4 text-foreground-secondary">
+                </TdMonoMuted>
+                <TdSubtitle>
                   {def.description || '—'}
-                </td>
+                </TdSubtitle>
               </tr>
             ))}
           </tbody>
-        </table>
-      </div>
-    </div>
+        </Table>
+      </TableContainer>
+    </Wrapper>
   )
 }
 

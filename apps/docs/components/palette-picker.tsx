@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { styled } from '../../../packages/stl-react/src'
 
 // Inline the palette generation to avoid SSR import issues
 const LIGHT_LIGHTNESS = [98, 95, 90, 83, 74, 64, 53, 42, 32, 23, 15, 8]
@@ -34,6 +35,138 @@ const STEP_LABELS = [
   'Foreground',
 ]
 
+const Container = styled('div', {
+  border: '$thin $borderColor',
+  borderRadius: '$4',
+  overflow: 'hidden',
+})
+
+const Header = styled('div', {
+  px: '$2.5',
+  py: '$1.5',
+  borderBottom: '$thin $borderColor',
+  background: '$tertiary1',
+})
+
+const HeaderText = styled('span', {
+  fontSize: '$p',
+  fontWeight: '$500',
+})
+
+const ControlsSection = styled('div', {
+  padding: '$2.5',
+  borderBottom: '$thin $borderColor',
+})
+
+const ControlsGrid = styled('div', {
+  display: 'grid',
+  gridTemplateColumns: '1fr',
+  gap: '$2.5',
+  gtSm: { gridTemplateColumns: 'repeat(3, 1fr)' },
+})
+
+const ControlLabel = styled('label', {
+  display: 'block',
+  fontSize: '$small',
+  fontWeight: '$500',
+  color: '$colorSubtitle',
+  mb: 4,
+})
+
+const RangeInput = styled('input', {
+  width: '100%',
+  accentColor: 'var(--stl-primary9)',
+})
+
+const ModeToggleGroup = styled('div', {
+  display: 'flex',
+  gap: 4,
+  padding: 4,
+  background: '$tertiary2',
+  borderRadius: '$4',
+})
+
+const ModeButton = styled('button', {
+  flex: 1,
+  px: '$1.5',
+  py: 4,
+  fontSize: '$small',
+  fontWeight: '$500',
+  borderRadius: '$3',
+  transition: 'color 150ms, background 150ms, box-shadow 150ms',
+  border: 'none',
+  cursor: 'pointer',
+  background: 'transparent',
+  color: '$colorSubtitle',
+})
+
+const SwatchesSection = styled('div', {
+  padding: '$2.5',
+  borderBottom: '$thin $borderColor',
+})
+
+const SwatchGrid = styled('div', {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(6, 1fr)',
+  gap: 4,
+  gtSm: { gridTemplateColumns: 'repeat(12, 1fr)' },
+})
+
+const SwatchColumn = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: 4,
+})
+
+const SwatchColor = styled('div', {
+  width: '100%',
+  aspectRatio: '1 / 1',
+  borderRadius: '$3',
+  border: '$thin $borderColorMuted',
+})
+
+const SwatchLabel = styled('span', {
+  fontSize: 10,
+  color: '$colorSubtitle',
+})
+
+const LegendGrid = styled('div', {
+  mt: '$1.5',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(2, 1fr)',
+  gap: '$1',
+  fontSize: '$small',
+  color: '$colorSubtitle',
+  gtSm: { gridTemplateColumns: 'repeat(4, 1fr)' },
+})
+
+const LegendItem = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$1',
+})
+
+const LegendSwatch = styled('div', {
+  width: 12,
+  height: 12,
+  borderRadius: '$2',
+  border: '$thin $borderColorMuted',
+})
+
+const CodeSection = styled('div', {
+  padding: '$2.5',
+  background: '$tertiary1',
+})
+
+const CodePre = styled('pre', {
+  fontSize: '$small',
+  fontFamily: '$mono',
+  whiteSpace: 'pre-wrap',
+  color: '$colorSubtitle',
+  overflowX: 'auto',
+})
+
 export function PalettePicker() {
   const [hue, setHue] = useState(220)
   const [saturation, setSaturation] = useState(50)
@@ -55,25 +188,24 @@ export function PalettePicker() {
   }, [palette, mode])
 
   return (
-    <div className="border border-border rounded-lg overflow-hidden">
-      <div className="px-4 py-3 border-b border-border bg-surface-muted">
-        <span className="text-sm font-medium">Palette Generator</span>
-      </div>
+    <Container>
+      <Header>
+        <HeaderText>Palette Generator</HeaderText>
+      </Header>
 
       {/* Controls */}
-      <div className="p-4 border-b border-border space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <ControlsSection>
+        <ControlsGrid>
           <div>
-            <label className="block text-xs font-medium text-foreground-secondary mb-1">
+            <ControlLabel>
               Hue ({hue})
-            </label>
-            <input
+            </ControlLabel>
+            <RangeInput
               type="range"
               min={0}
               max={360}
               value={hue}
               onChange={(e) => setHue(Number(e.target.value))}
-              className="w-full accent-primary"
               style={{
                 background: `linear-gradient(to right, ${Array.from({ length: 13 }, (_, i) => `hsl(${i * 30}, 80%, 50%)`).join(', ')})`,
                 height: 6,
@@ -82,88 +214,85 @@ export function PalettePicker() {
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-foreground-secondary mb-1">
+            <ControlLabel>
               Saturation ({saturation}%)
-            </label>
-            <input
+            </ControlLabel>
+            <RangeInput
               type="range"
               min={0}
               max={100}
               value={saturation}
               onChange={(e) => setSaturation(Number(e.target.value))}
-              className="w-full accent-primary"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-foreground-secondary mb-1">
+            <ControlLabel>
               Mode
-            </label>
-            <div className="flex gap-1 p-1 bg-muted rounded-lg">
-              <button
+            </ControlLabel>
+            <ModeToggleGroup>
+              <ModeButton
                 onClick={() => setMode('light')}
-                className={`flex-1 px-3 py-1 text-xs font-medium rounded-md transition-colors ${
-                  mode === 'light'
-                    ? 'bg-background text-foreground shadow-sm'
-                    : 'text-muted-foreground'
-                }`}
+                style={{
+                  background: mode === 'light' ? 'var(--stl-background, #fff)' : 'transparent',
+                  color: mode === 'light' ? 'var(--stl-color, #111)' : 'var(--stl-colorSubtitle, #888)',
+                  boxShadow: mode === 'light' ? '0 1px 2px rgba(0,0,0,0.05)' : 'none',
+                }}
               >
                 Light
-              </button>
-              <button
+              </ModeButton>
+              <ModeButton
                 onClick={() => setMode('dark')}
-                className={`flex-1 px-3 py-1 text-xs font-medium rounded-md transition-colors ${
-                  mode === 'dark'
-                    ? 'bg-background text-foreground shadow-sm'
-                    : 'text-muted-foreground'
-                }`}
+                style={{
+                  background: mode === 'dark' ? 'var(--stl-background, #fff)' : 'transparent',
+                  color: mode === 'dark' ? 'var(--stl-color, #111)' : 'var(--stl-colorSubtitle, #888)',
+                  boxShadow: mode === 'dark' ? '0 1px 2px rgba(0,0,0,0.05)' : 'none',
+                }}
               >
                 Dark
-              </button>
-            </div>
+              </ModeButton>
+            </ModeToggleGroup>
           </div>
-        </div>
-      </div>
+        </ControlsGrid>
+      </ControlsSection>
 
       {/* Palette Swatches */}
-      <div className="p-4 border-b border-border">
-        <div className="grid grid-cols-6 sm:grid-cols-12 gap-1">
+      <SwatchesSection>
+        <SwatchGrid>
           {palette.map((color, i) => (
-            <div key={i} className="flex flex-col items-center gap-1">
-              <div
-                className="w-full aspect-square rounded-md border border-border-muted"
+            <SwatchColumn key={i}>
+              <SwatchColor
                 style={{ backgroundColor: color }}
                 title={`Step ${i}: ${STEP_LABELS[i]}\n${color}`}
               />
-              <span className="text-[10px] text-muted-foreground">{i}</span>
-            </div>
+              <SwatchLabel>{i}</SwatchLabel>
+            </SwatchColumn>
           ))}
-        </div>
-        <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-muted-foreground">
+        </SwatchGrid>
+        <LegendGrid>
           {[
             [0, 'Background'],
             [6, 'Border'],
             [8, 'Solid bg'],
             [11, 'Foreground'],
           ].map(([step, label]) => (
-            <div key={String(step)} className="flex items-center gap-2">
-              <div
-                className="w-3 h-3 rounded-sm border border-border-muted"
+            <LegendItem key={String(step)}>
+              <LegendSwatch
                 style={{ backgroundColor: palette[step as number] }}
               />
               <span>
                 {step}: {label}
               </span>
-            </div>
+            </LegendItem>
           ))}
-        </div>
-      </div>
+        </LegendGrid>
+      </SwatchesSection>
 
       {/* Code Output */}
-      <div className="p-4 bg-surface-muted">
-        <pre className="text-xs font-mono whitespace-pre-wrap text-foreground-secondary overflow-x-auto">
+      <CodeSection>
+        <CodePre>
           {codeOutput}
-        </pre>
-      </div>
-    </div>
+        </CodePre>
+      </CodeSection>
+    </Container>
   )
 }
