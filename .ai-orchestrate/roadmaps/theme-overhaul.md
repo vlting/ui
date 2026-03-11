@@ -18,7 +18,7 @@ Key decisions (from council):
 ## Metadata
 - **Epic branch:** epic/theme-overhaul
 - **Epic issue:** #178
-- **PR:** #179
+- **PR:** (pending initial commit)
 - **Created:** 2026-03-10
 - **Auto-merge:** true
 - **Watch:** true
