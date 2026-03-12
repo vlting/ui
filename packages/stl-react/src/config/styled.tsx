@@ -6,8 +6,7 @@ import {
   type HTMLAttributes,
   type JSXElementConstructor,
   forwardRef,
-  useRef,
-  useState,
+  useMemo,
 } from 'react'
 import { useConditions } from '../hooks'
 import type { ComponentType } from '../shared/models'
@@ -18,6 +17,7 @@ export function styled<C extends ComponentType, V extends Variants | undefined>(
   css: CSS,
   variants?: string | V,
   styleName?: string,
+  defaultVariants?: V extends Variants ? DefaultVariants<V> : undefined,
 ) {
   styleName = typeof variants === 'string' ? variants : styleName
   const hasVariants = !!variants && typeof variants !== 'string'
@@ -59,6 +59,7 @@ export function styled<C extends ComponentType, V extends Variants | undefined>(
       hasVariants,
       variantKeys,
       variantsDefinition,
+      defaultVariants,
     )
 
     const isStyledComponent = !!(component as any).isStyledComponent
@@ -124,39 +125,31 @@ function useVariants<P extends Record<string, any>, V extends Variants>(
   hasVariants: boolean,
   variantKeys: string[],
   variantsDefinition?: NonNullable<V>,
-) {
-  const [variantCss, setVariantCss] = useState<VariantCSS>([])
-  const [cacheKey, setCacheKey] = useState('')
-  const prevDefinition = useRef(variantsDefinition)
-  const hasChanged = variantsDefinition !== prevDefinition.current
+  defaults?: Record<string, any>,
+): VariantCSS {
+  // Collect resolved variant values for the dependency array
+  // variantKeys is static per styled() call, so this array length is constant
+  const resolvedValues = variantKeys.map((k) => {
+    const propVal = props[k]
+    return propVal !== undefined ? propVal : defaults?.[k]
+  })
 
-  // Process new values
-  if (hasVariants && variantsDefinition) {
-    const newVariantCss: VariantCSS = []
-    let newCacheKey = ''
-    let i = 0
-    for (; i < variantKeys.length; i++) {
+  return useMemo(() => {
+    if (!hasVariants || !variantsDefinition) return []
+    const result: VariantCSS = []
+    for (let i = 0; i < variantKeys.length; i++) {
       const variant = variantsDefinition[variantKeys[i] as VariantKey]
-      const variantValue = props[variantKeys[i] as VariantKey]
-        ? String(props[variantKeys[i] as VariantKey])
-        : undefined
+      const resolved = resolvedValues[i]
+      const variantValue = resolved ? String(resolved) : undefined
       if (variantValue && variant[variantValue]) {
         const keyValue = variantValue === 'true' ? '' : `-${variantValue}`
         const key = `${variantKeys[i]}${keyValue}`
-        newCacheKey += key
-        newVariantCss.push({ key, css: variant[variantValue] })
+        result.push({ key, css: variant[variantValue] })
       }
     }
-
-    // Only update reference if variant values have changed
-    if (hasChanged || newCacheKey !== cacheKey) {
-      setVariantCss(newVariantCss)
-      setCacheKey(newCacheKey)
-      prevDefinition.current = variantsDefinition
-    }
-  }
-
-  return variantCss
+    return result
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasVariants, variantsDefinition, ...resolvedValues])
 }
 
 // TYPES //////////////////////////////////////////////////////////////////////////////////////////
@@ -175,6 +168,10 @@ type VariantProps<V extends Variants> = {
 type StylelessComponentProps<
   T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
 > = Omit<ComponentPropsWithRef<T>, 'css' | 'styleManager'>
+
+type DefaultVariants<V extends Variants> = {
+  [prop in keyof V]?: keyof V[prop] extends BooleanString ? boolean : keyof V[prop]
+}
 
 type BaseStyledProps<V extends Variants | undefined> = V extends Variants
   ? { css?: CSS; styleManager?: StyleManager } & VariantProps<V>
