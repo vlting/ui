@@ -2,37 +2,37 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { useColorMode } from '@vlting/stl-react'
-import type { GenerateThemeOptions } from '../../../packages/stl/src/theme'
+import type { CreateThemeOptions } from '../../../packages/stl/src/theme'
 import {
-  generateTheme,
+  createTheme,
   themeToVars,
   THEME_PRESET_DEFAULT,
-  THEME_PRESET_FUN,
-  THEME_PRESET_POSH,
-  THEME_PRESET_SHADCN,
+  THEME_PRESET_FLAT,
+  THEME_PRESET_SHARP,
+  THEME_PRESET_PRO,
 } from '../../../packages/stl/src/theme'
 
-type PresetKey = 'default' | 'shadcn' | 'fun' | 'posh'
+type PresetKey = 'default' | 'pro' | 'flat' | 'sharp'
 
-const presetMap: Record<PresetKey, GenerateThemeOptions> = {
+const presetMap: Record<PresetKey, CreateThemeOptions> = {
   default: THEME_PRESET_DEFAULT,
-  shadcn: THEME_PRESET_SHADCN,
-  fun: THEME_PRESET_FUN,
-  posh: THEME_PRESET_POSH,
+  pro: THEME_PRESET_PRO,
+  flat: THEME_PRESET_FLAT,
+  sharp: THEME_PRESET_SHARP,
 }
 
 const presetLabels: Record<PresetKey, string> = {
   default: 'Default',
-  shadcn: 'Shadcn',
-  fun: 'Fun',
-  posh: 'Posh',
+  pro: 'Pro',
+  flat: 'Flat',
+  sharp: 'Sharp',
 }
 
 const STORAGE_KEY = 'vlting-docs-theme-preset'
 const STYLE_ID = 'stl-theme-demo'
 
 function applyThemeVars(presetKey: PresetKey, mode: 'light' | 'dark') {
-  const theme = generateTheme(presetMap[presetKey])
+  const theme = createTheme(presetMap[presetKey])
   const vars = themeToVars(theme, mode)
 
   let styleEl = document.getElementById(STYLE_ID)

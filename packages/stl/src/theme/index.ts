@@ -2,21 +2,21 @@
 // Theme generation API
 // ---------------------------------------------------------------------------
 
-import { generateTheme as _generateTheme } from './generate-theme'
+import { createTheme as _createTheme } from './generate-theme'
 import {
   THEME_PRESET_DEFAULT as _DEFAULT,
-  THEME_PRESET_FUN as _FUN,
-  THEME_PRESET_POSH as _POSH,
-  THEME_PRESET_SHADCN as _SHADCN,
+  THEME_PRESET_FLAT as _FLAT,
+  THEME_PRESET_SHARP as _SHARP,
+  THEME_PRESET_PRO as _PRO,
 } from './presets'
 
-export { generateTheme } from './generate-theme'
-export type { ColorInput, GenerateThemeOptions, SecondaryColorInput } from './generate-theme'
+export { createTheme, applyTheme, getTheme } from './generate-theme'
+export type { ColorInput, CreateThemeOptions, SecondaryColorInput } from './generate-theme'
 export {
   THEME_PRESET_DEFAULT,
-  THEME_PRESET_FUN,
-  THEME_PRESET_POSH,
-  THEME_PRESET_SHADCN,
+  THEME_PRESET_FLAT,
+  THEME_PRESET_SHARP,
+  THEME_PRESET_PRO,
 } from './presets'
 
 // ---------------------------------------------------------------------------
@@ -36,10 +36,10 @@ export { generatePalette, getTextColorStep } from './generate-palette'
 // Built-in themes (generated from presets)
 // ---------------------------------------------------------------------------
 
-export const defaultTheme = _generateTheme(_DEFAULT)
-export const funTheme = _generateTheme(_FUN)
-export const poshTheme = _generateTheme(_POSH)
-export const shadcnTheme = _generateTheme(_SHADCN)
+export const defaultTheme = _createTheme(_DEFAULT)
+export const flatTheme = _createTheme(_FLAT)
+export const sharpTheme = _createTheme(_SHARP)
+export const proTheme = _createTheme(_PRO)
 
 // ---------------------------------------------------------------------------
 // Media queries (framework-agnostic)

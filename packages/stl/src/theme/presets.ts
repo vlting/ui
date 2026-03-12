@@ -1,4 +1,4 @@
-import type { GenerateThemeOptions } from './generate-theme'
+import type { CreateThemeOptions } from './generate-theme'
 
 /**
  * Default — Clean neutral grays + cyan-blue primary + muted purple secondary.
@@ -7,7 +7,7 @@ import type { GenerateThemeOptions } from './generate-theme'
  * Primary accent: hue 200, saturation 85 (rich cyan-blue)
  * Secondary accent: hue 290, saturation 50 (muted purple)
  */
-export const THEME_PRESET_DEFAULT: GenerateThemeOptions = {
+export const THEME_PRESET_DEFAULT: CreateThemeOptions = {
   primary: { hue: 290, saturation: 0 },
   secondary: { hue: 200, saturation: 85 },
   tertiary: { hue: 290, saturation: 50 },
@@ -19,12 +19,12 @@ export const THEME_PRESET_DEFAULT: GenerateThemeOptions = {
 }
 
 /**
- * Fun — Playful, expressive, dark-first.
+ * Flat — Playful, expressive, dark-first.
  *
  * Purple-tinted neutrals, pinkish-purple accent, generous rounding,
  * no borders, flat/no shadows.
  */
-export const THEME_PRESET_FUN: GenerateThemeOptions = {
+export const THEME_PRESET_FLAT: CreateThemeOptions = {
   primary: { hue: 300, saturation: 15 },
   secondary: { hue: 280, saturation: 85 },
   tertiary: { hue: 300, saturation: 30 },
@@ -67,39 +67,37 @@ export const THEME_PRESET_FUN: GenerateThemeOptions = {
     body: "'DM Sans', 'Nunito Sans', Inter, system-ui, sans-serif",
     mono: 'Fira Code, ui-monospace, monospace',
   },
-  overrides: {
-    palettes: {
+  palettes: {
+    light: [
+      '#fdfcfe', '#f8f6fb', '#f2eff7', '#ebe7f2', '#e3deed', '#d3cce0',
+      '#b3aac6', '#9489aa', '#766a90', '#5a4f74', '#3c3456', '#1f1a38',
+    ],
+    dark: [
+      '#1a1730', '#22203a', '#2b2844', '#34304e', '#3e3a5a', '#524d6e',
+      '#6d6788', '#8c86a2', '#aba6bc', '#cac6d6', '#e5e2ed', '#f6f5f9',
+    ],
+  },
+  accentPalettes: {
+    blue: {
       light: [
-        '#fdfcfe', '#f8f6fb', '#f2eff7', '#ebe7f2', '#e3deed', '#d3cce0',
-        '#b3aac6', '#9489aa', '#766a90', '#5a4f74', '#3c3456', '#1f1a38',
+        '#faf5ff', '#f3e8ff', '#e9d5ff', '#d8b4fe', '#c084fc', '#a855f7',
+        '#9333ea', '#7e22ce', '#6b21a8', '#581c87', '#3b1064', '#200840',
       ],
       dark: [
-        '#1a1730', '#22203a', '#2b2844', '#34304e', '#3e3a5a', '#524d6e',
-        '#6d6788', '#8c86a2', '#aba6bc', '#cac6d6', '#e5e2ed', '#f6f5f9',
+        '#200840', '#3b1064', '#581c87', '#6b21a8', '#7e22ce', '#9333ea',
+        '#a855f7', '#c084fc', '#d8b4fe', '#e9d5ff', '#f3e8ff', '#faf5ff',
       ],
-    },
-    accentPalettes: {
-      blue: {
-        light: [
-          '#faf5ff', '#f3e8ff', '#e9d5ff', '#d8b4fe', '#c084fc', '#a855f7',
-          '#9333ea', '#7e22ce', '#6b21a8', '#581c87', '#3b1064', '#200840',
-        ],
-        dark: [
-          '#200840', '#3b1064', '#581c87', '#6b21a8', '#7e22ce', '#9333ea',
-          '#a855f7', '#c084fc', '#d8b4fe', '#e9d5ff', '#f3e8ff', '#faf5ff',
-        ],
-      },
     },
   },
 }
 
 /**
- * Posh — Sophisticated, editorial, premium.
+ * Sharp — Sophisticated, editorial, premium.
  *
  * Pure black accent, true-gray neutrals, square corners,
  * very thin borders, soft diffused shadows.
  */
-export const THEME_PRESET_POSH: GenerateThemeOptions = {
+export const THEME_PRESET_SHARP: CreateThemeOptions = {
   primary: { hue: 0, saturation: 0 },
   secondary: { hue: 0, saturation: 0, isNeutral: true },
   tertiary: { hue: 0, saturation: 0, isNeutral: true },
@@ -142,39 +140,37 @@ export const THEME_PRESET_POSH: GenerateThemeOptions = {
     body: "'Karla', 'Source Sans 3', Inter, system-ui, sans-serif",
     mono: 'JetBrains Mono, ui-monospace, monospace',
   },
-  overrides: {
-    palettes: {
+  palettes: {
+    light: [
+      '#ffffff', '#f8f8f8', '#f1f1f1', '#eaeaea', '#e0e0e0', '#cccccc',
+      '#aaaaaa', '#888888', '#666666', '#484848', '#2a2a2a', '#111111',
+    ],
+    dark: [
+      '#111111', '#1a1a1a', '#232323', '#2c2c2c', '#363636', '#484848',
+      '#666666', '#888888', '#aaaaaa', '#cccccc', '#e6e6e6', '#f5f5f5',
+    ],
+  },
+  accentPalettes: {
+    blue: {
       light: [
-        '#ffffff', '#f8f8f8', '#f1f1f1', '#eaeaea', '#e0e0e0', '#cccccc',
-        '#aaaaaa', '#888888', '#666666', '#484848', '#2a2a2a', '#111111',
+        '#f5f5f5', '#e8e8e8', '#d4d4d4', '#b8b8b8', '#999999', '#777777',
+        '#555555', '#3a3a3a', '#262626', '#171717', '#0a0a0a', '#000000',
       ],
       dark: [
-        '#111111', '#1a1a1a', '#232323', '#2c2c2c', '#363636', '#484848',
-        '#666666', '#888888', '#aaaaaa', '#cccccc', '#e6e6e6', '#f5f5f5',
+        '#000000', '#0a0a0a', '#171717', '#262626', '#3a3a3a', '#555555',
+        '#777777', '#999999', '#b8b8b8', '#d4d4d4', '#e8e8e8', '#f5f5f5',
       ],
-    },
-    accentPalettes: {
-      blue: {
-        light: [
-          '#f5f5f5', '#e8e8e8', '#d4d4d4', '#b8b8b8', '#999999', '#777777',
-          '#555555', '#3a3a3a', '#262626', '#171717', '#0a0a0a', '#000000',
-        ],
-        dark: [
-          '#000000', '#0a0a0a', '#171717', '#262626', '#3a3a3a', '#555555',
-          '#777777', '#999999', '#b8b8b8', '#d4d4d4', '#e8e8e8', '#f5f5f5',
-        ],
-      },
     },
   },
 }
 
 /**
- * shadcn — Pixel-perfect match for shadcn/ui's default "Neutral" theme.
+ * Pro — Pixel-perfect match for shadcn/ui's default "Neutral" theme.
  *
  * Pure neutral grays, destructive red accent, 10px base radius,
  * 1px borders, subtle Tailwind-style shadows.
  */
-export const THEME_PRESET_SHADCN: GenerateThemeOptions = {
+export const THEME_PRESET_PRO: CreateThemeOptions = {
   primary: { hue: 0, saturation: 0 },
   secondary: { hue: 0, saturation: 85 },
   tertiary: { hue: 0, saturation: 0, isNeutral: true },
@@ -216,28 +212,26 @@ export const THEME_PRESET_SHADCN: GenerateThemeOptions = {
     body: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     mono: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace',
   },
-  overrides: {
-    palettes: {
+  palettes: {
+    light: [
+      '#ffffff', '#ffffff', '#f5f5f5', '#e5e5e5', '#d4d4d4', '#c4c4c4',
+      '#b3b3b3', '#737373', '#525252', '#404040', '#171717', '#0a0a0a',
+    ],
+    dark: [
+      '#0a0a0a', '#171717', '#262626', '#2e2e2e', '#3a3a3a', '#737373',
+      '#8a8a8a', '#b3b3b3', '#c4c4c4', '#d4d4d4', '#e5e5e5', '#fafafa',
+    ],
+  },
+  accentPalettes: {
+    red: {
       light: [
-        '#ffffff', '#ffffff', '#f5f5f5', '#e5e5e5', '#d4d4d4', '#c4c4c4',
-        '#b3b3b3', '#737373', '#525252', '#404040', '#171717', '#0a0a0a',
+        '#fef2f2', '#fee2e2', '#fecaca', '#fca5a5', '#f87171', '#ef4444',
+        '#dc2626', '#b91c1c', '#991b1b', '#7f1d1d', '#581111', '#300a0a',
       ],
       dark: [
-        '#0a0a0a', '#171717', '#262626', '#2e2e2e', '#3a3a3a', '#737373',
-        '#8a8a8a', '#b3b3b3', '#c4c4c4', '#d4d4d4', '#e5e5e5', '#fafafa',
+        '#300a0a', '#581111', '#7f1d1d', '#991b1b', '#b91c1c', '#dc2626',
+        '#ef4444', '#f87171', '#fca5a5', '#fecaca', '#fee2e2', '#fef2f2',
       ],
-    },
-    accentPalettes: {
-      red: {
-        light: [
-          '#fef2f2', '#fee2e2', '#fecaca', '#fca5a5', '#f87171', '#ef4444',
-          '#dc2626', '#b91c1c', '#991b1b', '#7f1d1d', '#581111', '#300a0a',
-        ],
-        dark: [
-          '#300a0a', '#581111', '#7f1d1d', '#991b1b', '#b91c1c', '#dc2626',
-          '#ef4444', '#f87171', '#fca5a5', '#fecaca', '#fee2e2', '#fef2f2',
-        ],
-      },
     },
   },
 }
