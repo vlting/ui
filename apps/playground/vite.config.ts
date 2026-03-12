@@ -9,10 +9,13 @@ export default defineConfig({
   },
   plugins: [vanillaExtractPlugin(), react()],
   optimizeDeps: {
+    exclude: ['react-native-svg'],
     entries: ['index.html'],
   },
   resolve: {
     alias: [
+      { find: 'react-native-svg', replacement: 'react-native-svg-web' },
+      { find: /^react-native$/, replacement: 'react-native-web' },
       {
         find: '@vlting/ui/primitives',
         replacement: path.resolve(__dirname, '../../packages/primitives'),
