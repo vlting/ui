@@ -15,9 +15,9 @@ Reset from trying to do the whole library at once. Build stl suite incrementally
 Key decisions (from council):
 - Package stays `@vlting/ui` (no rename)
 - "Brands" → "Themes" everywhere
-- Two-axis Button: theme × type (not flat variant)
-- Color contrast via STL's `$colorN` + `$colorTextN` pairing
-- defaultVariants as 5th positional arg to styled()
+- Two-axis Button: theme × variant (renamed from type to avoid HTML conflict)
+- Color contrast via STL's `$colorN` + `$colorTextN` pairing (global pattern, not Button-specific)
+- styled() refactored to options object + template support
 - Theme switch via CSS var injection only (zero re-renders)
 - Clean break — no backward compat on rebuild branch
 
@@ -99,7 +99,7 @@ Key decisions (from council):
 **Status:** done
 
 ## Epic 3: Playground & Button
-**Objective:** Visual proof — Button rebuilt with 2-axis variants, playground shows every permutation
+**Objective:** Refactor styled() API, rebuild Button with 2-axis variants, playground shows every permutation
 **Dependencies:** Epic 2
 **Epic slug:** playground-button
 **Epic branch:** epic/playground-button
@@ -108,37 +108,58 @@ Key decisions (from council):
 ### Stage 3.1: Component Stubs & Playground App
 **Branch prefix:** chore
 **Acceptance criteria:**
-- [ ] All components except Button stubbed (semantic root, ref + children, data-stub)
-- [ ] All *.spec.md and *.test.tsx preserved
-- [ ] Playground Vite app created at apps/playground
+- [ ] createStub() factory in packages/components/_stub.ts (forwardRef, semantic root, data-stub, compound component support)
+- [ ] All components except Button stubbed via createStub()
+- [ ] All *.spec.md and *.test.tsx preserved unchanged
+- [ ] Stubbed component tests skipped via jest config testPathIgnorePatterns
+- [ ] Barrel packages/components/index.ts compiles unchanged
+- [ ] Playground Vite app created at apps/playground (cloned showcase-web vite config)
 - [ ] Imports from @vlting/ui only (no relative paths)
 - [ ] Dev script added to root package.json
 - [ ] Basic page renders with StlProvider + styles
 **Status:** pending
 
-### Stage 3.2: Button Rebuild
+### Stage 3.2: styled() API Refactor
 **Branch prefix:** feat
 **Acceptance criteria:**
+- [ ] styled() signature changed: styled(component, options) where options = { css, variants, defaultVariants, template, styleName }
+- [ ] template support: (props) => ReactNode replaces children rendering inside the styled element
+- [ ] Generic extra props: styled<ExtraProps>(component, options) merges ExtraProps into component props
+- [ ] Positional args removed — no more variants?: string | V hack
+- [ ] All existing styled() call sites updated (Button is the only non-stub)
+- [ ] Type-safe: template props, variant props, and HTML props all correctly merged
+- [ ] Exported types updated in stl-react barrel
+- [ ] Build passes
+**Status:** pending
+
+### Stage 3.3: Button Rebuild
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] Button.spec.md updated first — documents theme × variant 2-axis model
 - [ ] theme: primary | secondary | neutral | destructive
-- [ ] type: solid | subtle | outline | ghost | link
+- [ ] variant: solid | subtle | outline | ghost | link (renamed from type to avoid HTML conflict)
 - [ ] size: xs | sm | md | lg | icon
 - [ ] disabled: boolean
-- [ ] defaultVariants: { theme: 'primary', type: 'solid', size: 'md' }
-- [ ] Colors via $colorN + $colorTextN token pairing
-- [ ] lowMotion: no transitions, no scale transform, reduced spinner
-- [ ] WCAG AA contrast verified for all theme×type combos (light + dark)
-- [ ] Button.spec.md updated
+- [ ] defaultVariants: { theme: 'primary', variant: 'solid', size: 'md' }
+- [ ] solid uses high N ($colorN/$colorTextN, steps 8-10); subtle uses low N (steps 2-4)
+- [ ] All variants have hover/focus state with background color + focus ring
+- [ ] template: handles isLoading (Spinner), prefix, suffix slots
+- [ ] lowMotion: no transitions, no scale transform, reduced spinner (via STL condition)
+- [ ] Focus ring: $outlineColor token, 2px solid, 2px offset
+- [ ] WCAG AA contrast verified for all theme×variant combos (light + dark)
+- [ ] ButtonTheme, ButtonVariant types exported alongside ButtonProps
 - [ ] Tests updated and passing
 **Status:** pending
 
-### Stage 3.3: Playground Permutation Grid & Theme Picker
+### Stage 3.4: Playground Permutation Grid & Theme Picker
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Button permutation grid: rows by theme, columns by type
+- [ ] Button permutation grid: rows by theme, columns by variant
 - [ ] Size/disabled/loading toggles
-- [ ] Theme picker in top nav bar: default + flat/pro/sharp
+- [ ] Theme picker in top nav bar: default + flat/pro/sharp + light/dark toggle
 - [ ] Each theme via createTheme(), passed to StlProvider
 - [ ] Theme switch = CSS var swap, no re-renders
+- [ ] Grid uses CSS grid with aria-labels for screen reader navigability
 - [ ] Minimal Icon component if Button icon size needs it
-- [ ] Build passes, icon tree-shaking verified
+- [ ] Build passes
 **Status:** pending
