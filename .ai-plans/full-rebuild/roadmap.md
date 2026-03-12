@@ -3,7 +3,7 @@ slug: full-rebuild
 status: in-progress
 scope: large
 created: 2026-03-11
-current_epic: 2
+current_epic: 3
 current_stage: 1
 phase: breakdown
 ---
@@ -62,41 +62,41 @@ Key decisions (from council):
 **Dependencies:** Epic 1
 **Epic slug:** stl-core
 **Epic branch:** epic/stl-core
-**Status:** pending
+**Status:** done
 
 ### Stage 2.1: Palette Rebase & Theme Presets
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] DEFAULT_HUE changed from 174 to 215
-- [ ] DEFAULT_SOURCE_COLORS saturations set to [90, 90, 0]
-- [ ] Secondary = complementary hue (sat 90)
-- [ ] Tertiary = hue 215, sat 0, isNeutral: true
-- [ ] Presets renamed: fun→flat, posh→sharp, shadcn→pro
-- [ ] Build + existing tests pass
-**Status:** pending
+- [x] DEFAULT_HUE changed from 174 to 215
+- [x] DEFAULT_SOURCE_COLORS saturations set to [90, 90, 5]
+- [x] Secondary = complementary hue (sat 90)
+- [x] Tertiary = hue 215, sat 5, isNeutral: true
+- [x] Presets renamed: fun→flat, posh→sharp, shadcn→pro
+- [x] Build + existing tests pass
+**Status:** done
 
 ### Stage 2.2: createTheme / applyTheme / getTheme API
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] createTheme() — merges overrides with defaults, returns frozen Theme object
-- [ ] applyTheme() — sets module-level singleton + produces CSS var map
-- [ ] getTheme() — returns current theme
-- [ ] All three are framework-agnostic (no React imports in stl)
-- [ ] Exported from @vlting/ui/stl
-- [ ] StlProvider updated to accept Theme object and call applyTheme internally
-- [ ] Theme switch = CSS var injection only, zero React re-renders
-**Status:** pending
+- [x] createTheme() — merges overrides with defaults, returns frozen Theme object
+- [x] applyTheme() — sets module-level singleton + produces CSS var map
+- [x] getTheme() — returns current theme
+- [x] All three are framework-agnostic (no React imports in stl)
+- [x] Exported from @vlting/ui/stl
+- [x] StlProvider updated to accept Theme object and call applyTheme internally
+- [x] Theme switch = CSS var injection only, zero React re-renders
+**Status:** done
 
 ### Stage 2.3: defaultVariants in styled() API
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] styled() accepts optional 5th arg: defaultVariants
-- [ ] useVariants merges defaults under props (explicit wins)
-- [ ] useVariants refactored from useState/setCacheKey to useMemo
-- [ ] Type-safe: keys constrained to variant names, values to variant options
-- [ ] Zero overhead when defaultVariants not provided
-- [ ] Existing styled() call sites unaffected (backward-compatible)
-**Status:** pending
+- [x] styled() accepts optional 5th arg: defaultVariants
+- [x] useVariants merges defaults under props (explicit wins)
+- [x] useVariants refactored from useState/setCacheKey to useMemo
+- [x] Type-safe: keys constrained to variant names, values to variant options
+- [x] Zero overhead when defaultVariants not provided
+- [x] Existing styled() call sites unaffected (backward-compatible)
+**Status:** done
 
 ## Epic 3: Playground & Button
 **Objective:** Visual proof — Button rebuilt with 2-axis variants, playground shows every permutation
