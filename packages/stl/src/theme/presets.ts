@@ -19,12 +19,12 @@ export const THEME_PRESET_DEFAULT: GenerateThemeOptions = {
 }
 
 /**
- * Fun — Playful, expressive, dark-first.
+ * Flat — Playful, expressive, dark-first.
  *
  * Purple-tinted neutrals, pinkish-purple accent, generous rounding,
  * no borders, flat/no shadows.
  */
-export const THEME_PRESET_FUN: GenerateThemeOptions = {
+export const THEME_PRESET_FLAT: GenerateThemeOptions = {
   primary: { hue: 300, saturation: 15 },
   secondary: { hue: 280, saturation: 85 },
   tertiary: { hue: 300, saturation: 30 },
@@ -94,12 +94,12 @@ export const THEME_PRESET_FUN: GenerateThemeOptions = {
 }
 
 /**
- * Posh — Sophisticated, editorial, premium.
+ * Sharp — Sophisticated, editorial, premium.
  *
  * Pure black accent, true-gray neutrals, square corners,
  * very thin borders, soft diffused shadows.
  */
-export const THEME_PRESET_POSH: GenerateThemeOptions = {
+export const THEME_PRESET_SHARP: GenerateThemeOptions = {
   primary: { hue: 0, saturation: 0 },
   secondary: { hue: 0, saturation: 0, isNeutral: true },
   tertiary: { hue: 0, saturation: 0, isNeutral: true },
@@ -169,12 +169,12 @@ export const THEME_PRESET_POSH: GenerateThemeOptions = {
 }
 
 /**
- * shadcn — Pixel-perfect match for shadcn/ui's default "Neutral" theme.
+ * Pro — Pixel-perfect match for shadcn/ui's default "Neutral" theme.
  *
  * Pure neutral grays, destructive red accent, 10px base radius,
  * 1px borders, subtle Tailwind-style shadows.
  */
-export const THEME_PRESET_SHADCN: GenerateThemeOptions = {
+export const THEME_PRESET_PRO: GenerateThemeOptions = {
   primary: { hue: 0, saturation: 0 },
   secondary: { hue: 0, saturation: 85 },
   tertiary: { hue: 0, saturation: 0, isNeutral: true },

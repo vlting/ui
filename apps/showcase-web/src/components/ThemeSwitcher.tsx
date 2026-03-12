@@ -4,26 +4,26 @@ import {
   generateTheme,
   themeToVars,
   THEME_PRESET_DEFAULT,
-  THEME_PRESET_FUN,
-  THEME_PRESET_POSH,
-  THEME_PRESET_SHADCN,
+  THEME_PRESET_FLAT,
+  THEME_PRESET_SHARP,
+  THEME_PRESET_PRO,
 } from '@vlting/stl/theme'
 import { useCallback, useEffect, useState } from 'react'
 
-type PresetKey = 'default' | 'shadcn' | 'fun' | 'posh'
+type PresetKey = 'default' | 'pro' | 'flat' | 'sharp'
 
 const presetMap: Record<PresetKey, GenerateThemeOptions> = {
   default: THEME_PRESET_DEFAULT,
-  shadcn: THEME_PRESET_SHADCN,
-  fun: THEME_PRESET_FUN,
-  posh: THEME_PRESET_POSH,
+  pro: THEME_PRESET_PRO,
+  flat: THEME_PRESET_FLAT,
+  sharp: THEME_PRESET_SHARP,
 }
 
 const presetLabels: Record<PresetKey, string> = {
   default: 'Default',
-  shadcn: 'Shadcn',
-  fun: 'Fun',
-  posh: 'Posh',
+  pro: 'Pro',
+  flat: 'Flat',
+  sharp: 'Sharp',
 }
 
 const STORAGE_KEY = 'vlting-showcase-theme-preset'

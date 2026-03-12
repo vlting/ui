@@ -91,18 +91,18 @@ export function App({ children }) {
               desc: 'Clean, trustworthy, minimalist. Achromatic neutrals with cyan-blue accent.',
             },
             {
-              name: 'THEME_PRESET_SHADCN',
-              label: 'shadcn',
+              name: 'THEME_PRESET_PRO',
+              label: 'Pro',
               desc: 'Pixel-perfect shadcn/ui match. Pure neutral grays, 10px radius, 1px borders.',
             },
             {
-              name: 'THEME_PRESET_FUN',
-              label: 'Fun',
+              name: 'THEME_PRESET_FLAT',
+              label: 'Flat',
               desc: 'Playful and vibrant. Rounded corners, no borders, flat shadows.',
             },
             {
-              name: 'THEME_PRESET_POSH',
-              label: 'Posh',
+              name: 'THEME_PRESET_SHARP',
+              label: 'Sharp',
               desc: 'Premium and refined. Square corners, thin borders, diffused shadows.',
             },
           ].map((preset) => (
@@ -135,9 +135,9 @@ export function App({ children }) {
           ))}
         </div>
         <CodeBlock
-          code={`import { generateTheme, themeToVars, THEME_PRESET_SHADCN } from '@vlting/ui'
+          code={`import { generateTheme, themeToVars, THEME_PRESET_PRO } from '@vlting/ui'
 
-const theme = generateTheme(THEME_PRESET_SHADCN)
+const theme = generateTheme(THEME_PRESET_PRO)
 const vars = themeToVars(theme, 'light')
 // Apply vars to DOM...`}
           language="tsx"

@@ -3,8 +3,8 @@
 export const DEFAULT_COLOR_MODE = 'light' as const
 export const COLOR_MODE_ATTR = 'data-color-mode' as const
 
-// Neutron Palette
-export const DEFAULT_HUE = 174
+// Default Palette (hue 215)
+export const DEFAULT_HUE = 215
 export const DEFAULT_PALETTE = 2
 // Launchfox Palette
 // export const DEFAULT_HUE = 217
@@ -13,7 +13,7 @@ export const DEFAULT_PALETTE = 2
 // export const DEFAULT_HUE = 224
 // export const DEFAULT_PALETTE = 2
 
-const DEFAULT_SATURATIONS: [number, number, number] = [87, 50, 5]
+const DEFAULT_SATURATIONS: [number, number, number] = [90, 90, 5]
 export const DEFAULT_NEUTRAL_SATURATION = 7
 export const MAX_NEUTRAL_SATURATION = 40
 
@@ -119,7 +119,7 @@ export const COLOR_KEYS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const
 
 export const DEFAULT_SOURCE_COLORS: ColorGenOptions = {
   // Core colors
-  ...generatePaletteFromHue(DEFAULT_HUE, DEFAULT_PALETTE, [85, 50, 0]),
+  ...generatePaletteFromHue(DEFAULT_HUE, DEFAULT_PALETTE, [90, 90, 5]),
   // Neutral colors
   min: { hue: 0, saturation: 0, contrast: 0 },
   max: { hue: 0, saturation: 0, contrast: 100 },
