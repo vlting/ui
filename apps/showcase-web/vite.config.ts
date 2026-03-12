@@ -16,11 +16,7 @@ export default defineConfig({
     alias: [
       { find: 'react-native-svg', replacement: 'react-native-svg-web' },
       { find: /^react-native$/, replacement: 'react-native-web' },
-      {
-        find: '@vlting/ui/design-tokens',
-        replacement: path.resolve(__dirname, '../../packages/design-tokens'),
-      },
-      {
+{
         find: '@vlting/ui/primitives',
         replacement: path.resolve(__dirname, '../../packages/primitives'),
       },

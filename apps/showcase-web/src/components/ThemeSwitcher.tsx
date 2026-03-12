@@ -1,5 +1,5 @@
 import { useColorMode } from '@vlting/stl-react'
-import type { GenerateThemeOptions } from '@vlting/ui/design-tokens'
+import type { GenerateThemeOptions } from '@vlting/ui'
 import {
   generateTheme,
   themeToVars,
@@ -7,7 +7,7 @@ import {
   THEME_PRESET_FUN,
   THEME_PRESET_POSH,
   THEME_PRESET_SHADCN,
-} from '@vlting/ui/design-tokens'
+} from '@vlting/ui'
 import { useCallback, useEffect, useState } from 'react'
 
 type PresetKey = 'default' | 'shadcn' | 'fun' | 'posh'
