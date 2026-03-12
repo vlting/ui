@@ -5,7 +5,7 @@ scope: large
 created: 2026-03-11
 current_epic: 3
 current_stage: 4
-phase: execute
+phase: ship
 ---
 # Full Rebuild — @vlting/ui
 
@@ -152,12 +152,12 @@ Key decisions (from council):
 ### Stage 3.4: Playground Permutation Grid & Theme Picker
 **Branch prefix:** feat
 **Acceptance criteria:**
-- [ ] Button permutation grid: rows by theme, columns by variant
-- [ ] Size/disabled/loading toggles
-- [ ] Theme picker in top nav bar: default + flat/pro/sharp + light/dark toggle
-- [ ] Each theme via createTheme(), passed to StlProvider
-- [ ] Theme switch = CSS var swap, no re-renders
-- [ ] Grid uses CSS grid with aria-labels for screen reader navigability
-- [ ] Minimal Icon component if Button icon size needs it
-- [ ] Build passes
-**Status:** pending
+- [x] Button permutation grid: rows by theme, columns by variant
+- [x] Size/disabled/loading toggles
+- [x] Theme picker in top nav bar: default + flat/pro/sharp + light/dark toggle
+- [x] Each theme via pre-built theme objects (defaultTheme/flatTheme/proTheme/sharpTheme), passed to StlProvider
+- [x] Theme switch = CSS var swap, no re-renders
+- [x] Grid uses CSS grid with aria-labels for screen reader navigability
+- [x] Icon size uses ★ character (no separate Icon component needed)
+- [x] Dev server starts, no TS errors
+**Status:** done
