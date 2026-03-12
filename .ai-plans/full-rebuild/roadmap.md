@@ -1,11 +1,11 @@
 ---
 slug: full-rebuild
-status: planning
+status: in-progress
 scope: large
 created: 2026-03-11
-current_epic: 1
-current_stage: 2
-phase: execute
+current_epic: 2
+current_stage: 1
+phase: breakdown
 ---
 # Full Rebuild — @vlting/ui
 
@@ -32,7 +32,7 @@ Key decisions (from council):
 **Dependencies:** none
 **Epic slug:** foundation-reset
 **Epic branch:** epic/foundation-reset
-**Status:** in-progress
+**Status:** done
 
 ### Stage 1.1: Branch Setup & Exports Cleanup
 **Branch prefix:** chore
