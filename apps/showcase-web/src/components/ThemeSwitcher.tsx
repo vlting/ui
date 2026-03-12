@@ -1,7 +1,7 @@
 import { useColorMode } from '@vlting/stl-react'
-import type { GenerateThemeOptions } from '@vlting/stl/theme'
+import type { CreateThemeOptions } from '@vlting/stl/theme'
 import {
-  generateTheme,
+  createTheme,
   themeToVars,
   THEME_PRESET_DEFAULT,
   THEME_PRESET_FLAT,
@@ -12,7 +12,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 type PresetKey = 'default' | 'pro' | 'flat' | 'sharp'
 
-const presetMap: Record<PresetKey, GenerateThemeOptions> = {
+const presetMap: Record<PresetKey, CreateThemeOptions> = {
   default: THEME_PRESET_DEFAULT,
   pro: THEME_PRESET_PRO,
   flat: THEME_PRESET_FLAT,
@@ -30,7 +30,7 @@ const STORAGE_KEY = 'vlting-showcase-theme-preset'
 const STYLE_ID = 'stl-theme-demo'
 
 function applyThemeVars(presetKey: PresetKey, mode: 'light' | 'dark') {
-  const theme = generateTheme(presetMap[presetKey])
+  const theme = createTheme(presetMap[presetKey])
   const vars = themeToVars(theme, mode)
 
   let styleEl = document.getElementById(STYLE_ID)

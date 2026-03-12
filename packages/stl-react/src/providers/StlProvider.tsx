@@ -4,7 +4,9 @@ import {
   type ConditionKeys,
   DEFAULT_COLOR_MODE,
   type SemanticColorOverrides,
+  type Theme,
   type ThemeOverrides,
+  applyTheme,
   tokenValue as baseTokenValue,
   conditionsMap,
 } from '@vlting/stl'
@@ -45,6 +47,8 @@ export const StlContext = createContext<StlContextProps>({
 
 export interface StlProviderProps {
   children: ReactNode
+  /** Full theme object from createTheme(). Takes precedence over themeOverrides. */
+  theme?: Readonly<Theme>
   defaultColorMode?: ColorMode
   isDebugMode?: boolean
   breakpointOverrides?: BreakpointOverrides
@@ -55,6 +59,7 @@ export interface StlProviderProps {
 export function StlProvider(props: StlProviderProps): ReactElement {
   const {
     children,
+    theme,
     defaultColorMode = DEFAULT_COLOR_MODE,
     isDebugMode = false,
     breakpointOverrides,
@@ -63,6 +68,13 @@ export function StlProvider(props: StlProviderProps): ReactElement {
   } = props
   const [colorMode, setColorMode] = useState<ColorMode>(defaultColorMode)
   const tokenValue = useThemeStyle(colorMode, themeOverrides, semanticColorOverrides)
+
+  // Apply full theme object when provided (CSS var injection)
+  useEffect(() => {
+    if (theme) {
+      applyTheme(theme, colorMode)
+    }
+  }, [theme, colorMode])
 
   const systemColorMode = useMediaQuery<ColorMode>(
     '(prefers-color-scheme: dark)',

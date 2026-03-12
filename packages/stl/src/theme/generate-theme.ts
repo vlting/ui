@@ -1,7 +1,10 @@
 import { size, space, radius, zIndex, borderWidth } from './base'
 import { lightShadows, darkShadows } from './themes'
 import { generatePalette } from './generate-palette'
+import { themeToVars } from './inject'
 import type { Theme } from './types'
+
+let _currentTheme: Readonly<Theme> | null = null
 
 export interface ColorInput {
   hue: number // 0-360, required
@@ -14,17 +17,15 @@ export interface SecondaryColorInput {
   isNeutral?: boolean // if true, very low saturation
 }
 
-export interface GenerateThemeOptions {
+export interface CreateThemeOptions {
   primary: ColorInput
   secondary?: SecondaryColorInput
   tertiary?: SecondaryColorInput
   tokens?: Theme['tokens']
   shadows?: Theme['shadows']
   fonts?: Theme['fonts']
-  overrides?: {
-    palettes?: Partial<Theme['palettes']>
-    accentPalettes?: Theme['accentPalettes']
-  }
+  palettes?: Partial<Theme['palettes']>
+  accentPalettes?: Theme['accentPalettes']
 }
 
 const DEFAULT_FONTS: NonNullable<Theme['fonts']> = {
@@ -86,13 +87,13 @@ function deepMergeTokens(
 }
 
 /**
- * Generate a complete theme from minimal color input.
+ * Create a complete theme from minimal color input.
  *
- * The minimal call `generateTheme({ primary: { hue: 220 } })` produces
+ * The minimal call `createTheme({ primary: { hue: 220 } })` produces
  * a complete, functional theme with derived secondary/tertiary colors.
  */
-export function generateTheme(options: GenerateThemeOptions): Readonly<Theme> {
-  const { primary, tokens, shadows, fonts, overrides } = options
+export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
+  const { primary, tokens, shadows, fonts, palettes: paletteOverrides, accentPalettes: accentOverrides } = options
 
   // Validate primary
   validateHue(primary.hue, 'primary')
@@ -111,12 +112,12 @@ export function generateTheme(options: GenerateThemeOptions): Readonly<Theme> {
 
   // Generate palettes — primary becomes the neutral palette
   const palettes: Theme['palettes'] = {
-    light: overrides?.palettes?.light ?? generatePalette(primary.hue, primarySat, 'light'),
-    dark: overrides?.palettes?.dark ?? generatePalette(primary.hue, primarySat, 'dark'),
+    light: paletteOverrides?.light ?? generatePalette(primary.hue, primarySat, 'light'),
+    dark: paletteOverrides?.dark ?? generatePalette(primary.hue, primarySat, 'dark'),
   }
 
   // Accent palettes — secondary → "primary", tertiary → "secondary"
-  const accentPalettes: Theme['accentPalettes'] = overrides?.accentPalettes ?? {
+  const accentPalettes: Theme['accentPalettes'] = accentOverrides ?? {
     primary: {
       light: generatePalette(secondary.hue, secondary.saturation, 'light'),
       dark: generatePalette(secondary.hue, secondary.saturation, 'dark'),
@@ -149,4 +150,32 @@ export function generateTheme(options: GenerateThemeOptions): Readonly<Theme> {
   }
 
   return Object.freeze(theme)
+}
+
+/**
+ * Set the active theme and inject CSS variables into the DOM.
+ * In non-browser environments (SSR), only sets the singleton.
+ */
+export function applyTheme(theme: Readonly<Theme>, mode: 'light' | 'dark' = 'light'): void {
+  _currentTheme = theme
+  if (typeof document !== 'undefined') {
+    const vars = themeToVars(theme, mode)
+    let styleEl = document.getElementById('stl-active-theme')
+    if (!styleEl) {
+      styleEl = document.createElement('style')
+      styleEl.id = 'stl-active-theme'
+      document.head.appendChild(styleEl)
+    }
+    const declarations = Object.entries(vars)
+      .map(([name, value]) => `  ${name}: ${value};`)
+      .join('\n')
+    styleEl.textContent = `:root {\n${declarations}\n}`
+  }
+}
+
+/**
+ * Get the currently active theme, or null if none has been applied.
+ */
+export function getTheme(): Readonly<Theme> | null {
+  return _currentTheme
 }

@@ -2,7 +2,7 @@
 // Theme generation API
 // ---------------------------------------------------------------------------
 
-import { generateTheme as _generateTheme } from './generate-theme'
+import { createTheme as _createTheme } from './generate-theme'
 import {
   THEME_PRESET_DEFAULT as _DEFAULT,
   THEME_PRESET_FLAT as _FLAT,
@@ -10,8 +10,8 @@ import {
   THEME_PRESET_PRO as _PRO,
 } from './presets'
 
-export { generateTheme } from './generate-theme'
-export type { ColorInput, GenerateThemeOptions, SecondaryColorInput } from './generate-theme'
+export { createTheme, applyTheme, getTheme } from './generate-theme'
+export type { ColorInput, CreateThemeOptions, SecondaryColorInput } from './generate-theme'
 export {
   THEME_PRESET_DEFAULT,
   THEME_PRESET_FLAT,
@@ -36,10 +36,10 @@ export { generatePalette, getTextColorStep } from './generate-palette'
 // Built-in themes (generated from presets)
 // ---------------------------------------------------------------------------
 
-export const defaultTheme = _generateTheme(_DEFAULT)
-export const flatTheme = _generateTheme(_FLAT)
-export const sharpTheme = _generateTheme(_SHARP)
-export const proTheme = _generateTheme(_PRO)
+export const defaultTheme = _createTheme(_DEFAULT)
+export const flatTheme = _createTheme(_FLAT)
+export const sharpTheme = _createTheme(_SHARP)
+export const proTheme = _createTheme(_PRO)
 
 // ---------------------------------------------------------------------------
 // Media queries (framework-agnostic)
