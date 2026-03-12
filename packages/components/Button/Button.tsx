@@ -2,20 +2,130 @@ import React from 'react'
 import { VisuallyHidden } from '../../primitives'
 import { styled } from '../../stl-react/src/config'
 
-const SpinnerFrame = styled(
-  'span',
-  {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    animation: '$spin',
-  },
-  'ButtonSpinner',
-)
+// ─── Types ───────────────────────────────────────────────────────────────────
 
-const ButtonFrame = styled(
-  'button',
-  {
+export type ButtonTheme = 'primary' | 'secondary' | 'neutral' | 'destructive'
+export type ButtonVariant = 'solid' | 'subtle' | 'outline' | 'ghost' | 'link'
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon'
+
+export interface ButtonProps {
+  children?: React.ReactNode
+  theme?: ButtonTheme
+  variant?: ButtonVariant
+  size?: ButtonSize
+  loading?: boolean
+  disabled?: boolean
+  prefix?: React.ReactNode
+  suffix?: React.ReactNode
+}
+
+// ─── Spinner ─────────────────────────────────────────────────────────────────
+
+function Spinner() {
+  return (
+    <span
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        animation: 'var(--spin) var(--spinDuration, 1.25s) linear infinite',
+      }}
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        aria-hidden="true"
+      >
+        <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="2" opacity="0.25" />
+        <path
+          d="M14 8a6 6 0 0 0-6-6"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    </span>
+  )
+}
+
+// ─── Compound variant generation ─────────────────────────────────────────────
+
+const THEME_PREFIX: Record<ButtonTheme, string> = {
+  primary: 'primary',
+  secondary: 'secondary',
+  neutral: 'color',
+  destructive: 'red',
+}
+
+type VariantGenerator = (p: string, tp: string) => Record<string, any>
+
+const VARIANT_CSS: Record<ButtonVariant, VariantGenerator> = {
+  solid: (p, tp) => ({
+    backgroundColor: `$${p}9`,
+    color: `$${tp}9`,
+    hovered: { backgroundColor: `$${p}10`, color: `$${tp}10` },
+    pressed: { backgroundColor: `$${p}10`, transform: 'scale(0.98)' },
+    focused: { backgroundColor: `$${p}10` },
+  }),
+  subtle: (p, tp) => ({
+    backgroundColor: `$${p}3`,
+    color: `$${tp}11`,
+    hovered: { backgroundColor: `$${p}4`, color: `$${tp}11` },
+    pressed: { backgroundColor: `$${p}4`, transform: 'scale(0.98)' },
+    focused: { backgroundColor: `$${p}4` },
+  }),
+  outline: (p, tp) => ({
+    backgroundColor: 'transparent',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: `$${p}7`,
+    color: `$${tp}11`,
+    hovered: { backgroundColor: `$${p}2` },
+    pressed: { backgroundColor: `$${p}2`, transform: 'scale(0.98)' },
+    focused: { backgroundColor: `$${p}2` },
+  }),
+  ghost: (p, _tp) => ({
+    backgroundColor: 'transparent',
+    color: `$${p}11`,
+    hovered: { backgroundColor: `$${p}3` },
+    pressed: { backgroundColor: `$${p}3`, transform: 'scale(0.98)' },
+    focused: { backgroundColor: `$${p}3` },
+  }),
+  link: (p, tp) => ({
+    backgroundColor: 'transparent',
+    color: `$${p}9`,
+    paddingLeft: '$0',
+    paddingRight: '$0',
+    textDecoration: 'underline',
+    hovered: { color: `$${tp}10` },
+    pressed: { color: `$${tp}10` },
+    focused: { color: `$${tp}10` },
+  }),
+}
+
+function generateComboVariants(): Record<string, Record<string, any>> {
+  const combos: Record<string, Record<string, any>> = {}
+  for (const [theme, prefix] of Object.entries(THEME_PREFIX)) {
+    const textPrefix = prefix === 'color' ? 'colorText' : `${prefix}Text`
+    for (const [variant, generator] of Object.entries(VARIANT_CSS)) {
+      combos[`${theme}_${variant}`] = generator(prefix, textPrefix)
+    }
+  }
+  return combos
+}
+
+// ─── ButtonFrame ─────────────────────────────────────────────────────────────
+
+interface ButtonTemplateProps {
+  loading?: boolean
+  prefix?: React.ReactNode
+  suffix?: React.ReactNode
+}
+
+const ButtonFrame = styled<ButtonTemplateProps>('button', {
+  css: {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -25,64 +135,22 @@ const ButtonFrame = styled(
     fontWeight: '$500',
     cursor: 'pointer',
     border: 'none',
-    transition:
-      'background-color 150ms ease, border-color 150ms ease, color 150ms ease',
     outline: 'none',
+    transition:
+      'background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 100ms ease',
     focused: {
       outlineWidth: '$widthBase',
       outlineStyle: 'solid',
-      outlineColor: '$primary12',
+      outlineColor: '$outlineColor',
       outlineOffset: '$offsetDefault',
     },
-  },
-  {
-    variant: {
-      default: {
-        backgroundColor: '$primary9',
-        color: '$primaryText9',
-        hovered: { backgroundColor: '$primary10', color: '$primaryText10' },
-        pressed: { backgroundColor: '$primary10', transform: 'scale(0.98)' },
-      },
-      solid: {
-        backgroundColor: '$primary9',
-        color: '$primaryText9',
-        hovered: { backgroundColor: '$primary10', color: '$primaryText10' },
-        pressed: { backgroundColor: '$primary10', transform: 'scale(0.98)' },
-      },
-      secondary: {
-        backgroundColor: '$tertiary2',
-        color: '$color',
-        hovered: { backgroundColor: '$tertiary3' },
-        pressed: { backgroundColor: '$tertiary3', transform: 'scale(0.98)' },
-      },
-      destructive: {
-        backgroundColor: '$red9',
-        color: '$redText9',
-        hovered: { backgroundColor: '$red10', color: '$redText10' },
-        pressed: { backgroundColor: '$red10', transform: 'scale(0.98)' },
-      },
-      outline: {
-        backgroundColor: 'transparent',
-        border: '$primaryMax',
-        color: '$color',
-        hovered: { backgroundColor: '$backgroundHover' },
-        pressed: { backgroundColor: '$backgroundHover', transform: 'scale(0.98)' },
-      },
-      ghost: {
-        backgroundColor: 'transparent',
-        color: '$color',
-        hovered: { backgroundColor: '$backgroundHover' },
-        pressed: { backgroundColor: '$backgroundHover', transform: 'scale(0.98)' },
-      },
-      link: {
-        backgroundColor: 'transparent',
-        color: '$primary9',
-        paddingLeft: '$0',
-        paddingRight: '$0',
-        textDecoration: 'underline',
-        hovered: { color: '$primary10' },
-      },
+    lowMotion: {
+      transition: 'none',
+      pressed: { transform: 'none' },
     },
+  },
+  variants: {
+    _combo: generateComboVariants(),
     size: {
       xs: {
         height: '$28',
@@ -123,75 +191,17 @@ const ButtonFrame = styled(
         fontSize: '$button',
       },
     },
-    disabled: {
+    _disabled: {
       true: { opacity: '0.5', cursor: 'not-allowed', pointerEvents: 'none' },
     },
   },
-  'Button',
-)
-
-type ButtonVariant =
-  | 'default'
-  | 'solid'
-  | 'secondary'
-  | 'destructive'
-  | 'outline'
-  | 'ghost'
-  | 'link'
-
-export interface ButtonProps {
-  children?: React.ReactNode
-  variant?: ButtonVariant
-  tone?: 'neutral' | 'primary' | 'success' | 'warning' | 'danger'
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon'
-  loading?: boolean
-  disabled?: boolean
-  onPress?: () => void
-  asChild?: boolean
-}
-
-function Spinner() {
-  return (
-    <SpinnerFrame>
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-        aria-hidden="true"
-      >
-        <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="2" opacity="0.25" />
-        <path
-          d="M14 8a6 6 0 0 0-6-6"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
-    </SpinnerFrame>
-  )
-}
-
-export const Button = React.forwardRef<
-  HTMLButtonElement,
-  ButtonProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof ButtonProps>
->(function Button(
-  { loading, children, disabled, variant = 'default', size = 'md', onPress, ...props },
-  ref,
-) {
-  const isDisabled = disabled ?? loading ?? false
-
-  return (
-    <ButtonFrame
-      ref={ref}
-      type="button"
-      disabled={isDisabled}
-      aria-busy={loading || undefined}
-      onClick={isDisabled ? undefined : onPress}
-      variant={variant}
-      size={size}
-      {...props}
-    >
+  defaultVariants: {
+    _combo: 'primary_solid',
+    size: 'md',
+  },
+  template: ({ children, loading, prefix: prefixSlot, suffix: suffixSlot }) => (
+    <>
+      {prefixSlot}
       {loading ? (
         <>
           <Spinner />
@@ -200,6 +210,52 @@ export const Button = React.forwardRef<
       ) : (
         children
       )}
+      {suffixSlot}
+    </>
+  ),
+  templateProps: ['loading', 'prefix', 'suffix'],
+  styleName: 'Button',
+})
+
+// ─── Button ──────────────────────────────────────────────────────────────────
+
+export const Button = React.forwardRef<
+  HTMLButtonElement,
+  ButtonProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof ButtonProps>
+>(function Button(
+  {
+    theme = 'primary',
+    variant = 'solid',
+    size = 'md',
+    loading,
+    disabled,
+    prefix,
+    suffix,
+    children,
+    onClick,
+    ...props
+  },
+  ref,
+) {
+  const isDisabled = disabled ?? loading ?? false
+  const combo = `${theme}_${variant}` as const
+
+  return (
+    <ButtonFrame
+      ref={ref}
+      type="button"
+      disabled={isDisabled}
+      aria-busy={loading || undefined}
+      onClick={isDisabled ? undefined : onClick}
+      _combo={combo}
+      _disabled={isDisabled || undefined}
+      size={size}
+      loading={loading}
+      prefix={prefix}
+      suffix={suffix}
+      {...props}
+    >
+      {children}
     </ButtonFrame>
   )
 })
