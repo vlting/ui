@@ -4,8 +4,8 @@ status: planning
 scope: large
 created: 2026-03-11
 current_epic: 1
-current_stage: 1
-phase: breakdown
+current_stage: 2
+phase: execute
 ---
 # Full Rebuild — @vlting/ui
 
@@ -32,16 +32,16 @@ Key decisions (from council):
 **Dependencies:** none
 **Epic slug:** foundation-reset
 **Epic branch:** epic/foundation-reset
-**Status:** pending
+**Status:** in-progress
 
 ### Stage 1.1: Branch Setup & Exports Cleanup
 **Branch prefix:** chore
 **Acceptance criteria:**
-- [ ] checkpoint-v2 branch created off main
-- [ ] full-rebuild branch created off main
-- [ ] Subpath exports (./stl, ./stl-react, ./primitives, ./components, ./hooks, ./icons) resolve with TS types
-- [ ] sideEffects: ["*.css"] in package.json
-**Status:** pending
+- [x] checkpoint-v2 branch created off main
+- [x] full-rebuild branch created off main
+- [x] Subpath exports (./stl, ./stl-react, ./primitives, ./components, ./hooks, ./icons) resolve with TS types
+- [x] sideEffects: ["*.css"] in package.json
+**Status:** done
 
 ### Stage 1.2: Design-Tokens → STL Migration
 **Branch prefix:** chore
@@ -55,7 +55,7 @@ Key decisions (from council):
 - [ ] ./design-tokens subpath export removed
 - [ ] Existing imports updated (apps, src/index.ts)
 - [ ] Build passes
-**Status:** pending
+**Status:** in-progress
 
 ## Epic 2: STL Core Enhancements
 **Objective:** Theme API, palette rebase, defaultVariants — stl becomes the single source of truth

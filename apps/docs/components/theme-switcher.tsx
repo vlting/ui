@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { useColorMode } from '@vlting/stl-react'
-import type { GenerateThemeOptions } from '../../../packages/design-tokens'
+import type { GenerateThemeOptions } from '../../../packages/stl/src/theme'
 import {
   generateTheme,
   themeToVars,
@@ -10,7 +10,7 @@ import {
   THEME_PRESET_FUN,
   THEME_PRESET_POSH,
   THEME_PRESET_SHADCN,
-} from '../../../packages/design-tokens'
+} from '../../../packages/stl/src/theme'
 
 type PresetKey = 'default' | 'shadcn' | 'fun' | 'posh'
 

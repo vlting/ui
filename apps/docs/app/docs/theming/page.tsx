@@ -162,12 +162,12 @@ const vars = themeToVars(theme, 'light')
   primary: ColorInput              // { hue: 0-360, saturation?: 0-100 }
   secondary?: SecondaryColorInput  // auto-derived if omitted (complementary)
   tertiary?: SecondaryColorInput   // auto-derived if omitted (analogous)
-  tokens?: Brand['tokens']         // override size, space, radius, etc.
-  shadows?: Brand['shadows']       // override shadow scales
-  fonts?: Brand['fonts']           // override font families
+  tokens?: Theme['tokens']         // override size, space, radius, etc.
+  shadows?: Theme['shadows']       // override shadow scales
+  fonts?: Theme['fonts']           // override font families
   overrides?: {
-    palettes?: Partial<Brand['palettes']>  // deep merge
-    accentPalettes?: Brand['accentPalettes'] // full replace
+    palettes?: Partial<Theme['palettes']>  // deep merge
+    accentPalettes?: Theme['accentPalettes'] // full replace
   }
 }
 

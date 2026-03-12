@@ -28,10 +28,6 @@
       "types": "./packages/stl-react/src/index.ts",
       "import": "./packages/stl-react/src/index.ts"
     },
-    "./design-tokens": {
-      "types": "./packages/design-tokens/index.ts",
-      "import": "./packages/design-tokens/index.ts"
-    },
     "./primitives": {
       "react-native": {
         "types": "./packages/stl-native/src/primitives/index.tsx",

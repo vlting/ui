@@ -4,8 +4,7 @@
 
 /**
  * High-level 4-slot font configuration.
- * Canonical type also lives in `packages/design-tokens/brands/index.ts`.
- * Duplicated here to avoid circular dependency between utils ↔ design-tokens.
+ * Theme generation references this type for font overrides.
  */
 export interface BrandFontConfig {
   heading: {

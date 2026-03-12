@@ -263,13 +263,13 @@ export {
   useToastState,
 } from '../packages/components'
 export type {
-  Brand,
+  Theme,
   ColorInput,
   GenerateThemeOptions,
   SecondaryColorInput,
   ShadowScale,
   ShadowToken,
-} from '../packages/design-tokens'
+} from '../packages/stl/src/theme'
 // Layer 0 — Design Tokens
 export {
   accentPalettes,
@@ -277,21 +277,19 @@ export {
   color,
   darkPalette,
   darkShadows,
-  defaultBrand,
-  funBrand,
+  defaultTheme,
+  funTheme,
   generatePalette,
   generateTheme,
-  getBrandStyleTag,
   getTextColorStep,
   getThemeStyleTag,
-  injectBrandVars,
   lightPalette,
   lightShadows,
   media,
-  poshBrand,
+  poshTheme,
   radius,
   semanticColorMap,
-  shadcnBrand,
+  shadcnTheme,
   size,
   space,
   THEME_PRESET_DEFAULT,
@@ -300,7 +298,7 @@ export {
   THEME_PRESET_SHADCN,
   themeToVars,
   zIndex,
-} from '../packages/design-tokens'
+} from '../packages/stl/src/theme'
 export type {
   UseClipboardReturn,
   UseIntersectionObserverOptions,
