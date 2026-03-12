@@ -46,16 +46,16 @@ Key decisions (from council):
 ### Stage 1.2: Design-Tokens → STL Migration
 **Branch prefix:** chore
 **Acceptance criteria:**
-- [ ] Palette generation (generate-palette, generate-theme) moved to packages/stl/src/theme/
-- [ ] Theme presets moved to packages/stl/src/theme/
-- [ ] inject utils + types moved to packages/stl/src/theme/
-- [ ] Token scales (base, colors, themes) moved to packages/stl/src/theme/
-- [ ] All "brand" terminology replaced with "theme" (types, functions, files)
-- [ ] packages/design-tokens/ deleted
-- [ ] ./design-tokens subpath export removed
-- [ ] Existing imports updated (apps, src/index.ts)
-- [ ] Build passes
-**Status:** in-progress
+- [x] Palette generation (generate-palette, generate-theme) moved to packages/stl/src/theme/
+- [x] Theme presets moved to packages/stl/src/theme/
+- [x] inject utils + types moved to packages/stl/src/theme/
+- [x] Token scales (base, colors, themes) moved to packages/stl/src/theme/
+- [x] All "brand" terminology replaced with "theme" (types, functions, files)
+- [x] packages/design-tokens/ deleted
+- [x] ./design-tokens subpath export removed
+- [x] Existing imports updated (apps, src/index.ts)
+- [x] Build passes
+**Status:** done
 
 ## Epic 2: STL Core Enhancements
 **Objective:** Theme API, palette rebase, defaultVariants — stl becomes the single source of truth
