@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { styled } from '../../../packages/stl-react/src'
-import { ThemeSwitcher } from './brand-switcher'
+import { ThemeSwitcher } from './theme-switcher'
 import { SearchDialog, SearchTrigger } from './search-dialog'
 import { ThemeToggle } from './theme-toggle'
 

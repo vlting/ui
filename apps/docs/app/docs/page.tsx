@@ -11,7 +11,7 @@ const sections = [
   {
     title: 'Components',
     description:
-      '38+ components with shadcn API compatibility, keyboard navigation, and brand theming.',
+      '38+ components with shadcn API compatibility, keyboard navigation, and theme system.',
     href: '/docs/components/button',
   },
   {
@@ -35,7 +35,7 @@ const sections = [
   {
     title: 'Theming',
     description:
-      'Brand system with 4 built-in themes, dark/light mode, font config, and design tokens.',
+      'Theme system with 4 built-in themes, dark/light mode, font config, and design tokens.',
     href: '/docs/theming',
   },
   {

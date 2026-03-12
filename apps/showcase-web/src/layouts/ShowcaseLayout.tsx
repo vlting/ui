@@ -1,6 +1,6 @@
 import { StlProvider, useColorMode } from '@vlting/stl-react'
 import { NavLink, Outlet } from 'react-router-dom'
-import { ThemeSwitcher } from '../components/BrandSwitcher'
+import { ThemeSwitcher } from '../components/ThemeSwitcher'
 
 const navItems = [
   { to: '/', label: 'Home' },

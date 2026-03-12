@@ -1,6 +1,6 @@
 import type { ColorMode } from '@vlting/stl'
 import type { ReactNode } from 'react'
-import type { BrandFontConfig } from '../../packages/design-tokens/brands'
+import type { BrandFontConfig } from '../../packages/utils/googleFontsUrl'
 import { StlProvider } from '../../packages/stl-react/src/providers/StlProvider'
 import { useFontLoader } from '../../packages/utils/useFontLoader'
 

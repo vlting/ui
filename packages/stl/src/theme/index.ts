@@ -23,23 +23,23 @@ export {
 // CSS variable injection
 // ---------------------------------------------------------------------------
 
-export { getBrandStyleTag, getThemeStyleTag, injectBrandVars, themeToVars } from './inject'
+export { getThemeStyleTag, themeToVars } from './inject'
 
 // ---------------------------------------------------------------------------
 // Types & palette utilities
 // ---------------------------------------------------------------------------
 
-export type { Brand } from './types'
+export type { Theme } from './types'
 export { generatePalette, getTextColorStep } from './generate-palette'
 
 // ---------------------------------------------------------------------------
-// Built-in brands (generated from presets)
+// Built-in themes (generated from presets)
 // ---------------------------------------------------------------------------
 
-export const defaultBrand = _generateTheme(_DEFAULT)
-export const funBrand = _generateTheme(_FUN)
-export const poshBrand = _generateTheme(_POSH)
-export const shadcnBrand = _generateTheme(_SHADCN)
+export const defaultTheme = _generateTheme(_DEFAULT)
+export const funTheme = _generateTheme(_FUN)
+export const poshTheme = _generateTheme(_POSH)
+export const shadcnTheme = _generateTheme(_SHADCN)
 
 // ---------------------------------------------------------------------------
 // Media queries (framework-agnostic)

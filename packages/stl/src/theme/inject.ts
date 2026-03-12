@@ -1,9 +1,9 @@
-import type { Brand } from './types'
+import type { Theme } from './types'
 
 const VAR_PREFIX = '--vlt'
 
 /**
- * Convert a Brand to a flat map of CSS variable name → value.
+ * Convert a Theme to a flat map of CSS variable name → value.
  *
  * Handles:
  * - Palette → `--vlt-color-{1..12}` (1-indexed for readability)
@@ -13,20 +13,20 @@ const VAR_PREFIX = '--vlt'
  * - Fonts → `--vlt-font-{heading|body|mono}`
  */
 export function themeToVars(
-  brand: Brand,
+  theme: Theme,
   mode: 'light' | 'dark' = 'light',
 ): Record<string, string> {
   const vars: Record<string, string> = {}
 
   // Palette colors (12-step)
-  const palette = brand.palettes[mode]
+  const palette = theme.palettes[mode]
   for (let i = 0; i < palette.length; i++) {
     vars[`${VAR_PREFIX}-color-${i + 1}`] = palette[i]
   }
 
   // Accent palettes
-  if (brand.accentPalettes) {
-    for (const [name, scales] of Object.entries(brand.accentPalettes)) {
+  if (theme.accentPalettes) {
+    for (const [name, scales] of Object.entries(theme.accentPalettes)) {
       const accentPalette = scales[mode]
       for (let i = 0; i < accentPalette.length; i++) {
         vars[`${VAR_PREFIX}-${name}-${i + 1}`] = accentPalette[i]
@@ -35,8 +35,8 @@ export function themeToVars(
   }
 
   // Token overrides
-  if (brand.tokens) {
-    for (const [scale, tokens] of Object.entries(brand.tokens)) {
+  if (theme.tokens) {
+    for (const [scale, tokens] of Object.entries(theme.tokens)) {
       if (!tokens) continue
       for (const [key, value] of Object.entries(tokens)) {
         vars[`${VAR_PREFIX}-${scale}-${key}`] = String(value)
@@ -45,8 +45,8 @@ export function themeToVars(
   }
 
   // Shadows
-  if (brand.shadows) {
-    const shadowScale = brand.shadows[mode]
+  if (theme.shadows) {
+    const shadowScale = theme.shadows[mode]
     if (shadowScale) {
       for (const [level, token] of Object.entries(shadowScale)) {
         if (!token) continue
@@ -57,8 +57,8 @@ export function themeToVars(
   }
 
   // Fonts
-  if (brand.fonts) {
-    for (const [role, family] of Object.entries(brand.fonts)) {
+  if (theme.fonts) {
+    for (const [role, family] of Object.entries(theme.fonts)) {
       if (family) {
         vars[`${VAR_PREFIX}-font-${role}`] = family
       }
@@ -68,19 +68,13 @@ export function themeToVars(
   return vars
 }
 
-/** @deprecated Use `themeToVars` instead. */
-export const injectBrandVars = themeToVars
-
 /**
- * Generate a `<style>` tag string with `:root` CSS variables for a brand.
+ * Generate a `<style>` tag string with `:root` CSS variables for a theme.
  */
-export function getThemeStyleTag(brand: Brand, mode: 'light' | 'dark' = 'light'): string {
-  const vars = themeToVars(brand, mode)
+export function getThemeStyleTag(theme: Theme, mode: 'light' | 'dark' = 'light'): string {
+  const vars = themeToVars(theme, mode)
   const declarations = Object.entries(vars)
     .map(([name, value]) => `  ${name}: ${value};`)
     .join('\n')
   return `<style>:root {\n${declarations}\n}</style>`
 }
-
-/** @deprecated Use `getThemeStyleTag` instead. */
-export const getBrandStyleTag = getThemeStyleTag

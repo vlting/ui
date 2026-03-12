@@ -68,7 +68,6 @@ export const THEME_PRESET_FUN: GenerateThemeOptions = {
     mono: 'Fira Code, ui-monospace, monospace',
   },
   overrides: {
-    // Fun uses hand-crafted hex palettes, not generated HSL
     palettes: {
       light: [
         '#fdfcfe', '#f8f6fb', '#f2eff7', '#ebe7f2', '#e3deed', '#d3cce0',
@@ -144,7 +143,6 @@ export const THEME_PRESET_POSH: GenerateThemeOptions = {
     mono: 'JetBrains Mono, ui-monospace, monospace',
   },
   overrides: {
-    // Posh uses hand-crafted hex palettes
     palettes: {
       light: [
         '#ffffff', '#f8f8f8', '#f1f1f1', '#eaeaea', '#e0e0e0', '#cccccc',
@@ -219,7 +217,6 @@ export const THEME_PRESET_SHADCN: GenerateThemeOptions = {
     mono: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace',
   },
   overrides: {
-    // shadcn uses hand-crafted OKLCH→hex palettes
     palettes: {
       light: [
         '#ffffff', '#ffffff', '#f5f5f5', '#e5e5e5', '#d4d4d4', '#c4c4c4',

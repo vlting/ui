@@ -1,7 +1,7 @@
-import { size, space, radius, zIndex, borderWidth } from '../base'
-import { lightShadows, darkShadows } from '../themes'
+import { size, space, radius, zIndex, borderWidth } from './base'
+import { lightShadows, darkShadows } from './themes'
 import { generatePalette } from './generate-palette'
-import type { Brand } from './types'
+import type { Theme } from './types'
 
 export interface ColorInput {
   hue: number // 0-360, required
@@ -18,22 +18,22 @@ export interface GenerateThemeOptions {
   primary: ColorInput
   secondary?: SecondaryColorInput
   tertiary?: SecondaryColorInput
-  tokens?: Brand['tokens']
-  shadows?: Brand['shadows']
-  fonts?: Brand['fonts']
+  tokens?: Theme['tokens']
+  shadows?: Theme['shadows']
+  fonts?: Theme['fonts']
   overrides?: {
-    palettes?: Partial<Brand['palettes']>
-    accentPalettes?: Brand['accentPalettes']
+    palettes?: Partial<Theme['palettes']>
+    accentPalettes?: Theme['accentPalettes']
   }
 }
 
-const DEFAULT_FONTS: NonNullable<Brand['fonts']> = {
+const DEFAULT_FONTS: NonNullable<Theme['fonts']> = {
   heading: 'Inter, system-ui, -apple-system, sans-serif',
   body: 'Inter, system-ui, -apple-system, sans-serif',
   mono: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace',
 }
 
-const DEFAULT_TOKENS: NonNullable<Brand['tokens']> = {
+const DEFAULT_TOKENS: NonNullable<Theme['tokens']> = {
   size: { ...size },
   space: { ...space },
   radius: { ...radius },
@@ -71,12 +71,12 @@ function resolveSecondary(
 }
 
 function deepMergeTokens(
-  base: NonNullable<Brand['tokens']>,
-  override: Brand['tokens'],
-): NonNullable<Brand['tokens']> {
+  base: NonNullable<Theme['tokens']>,
+  override: Theme['tokens'],
+): NonNullable<Theme['tokens']> {
   if (!override) return base
   const result = { ...base }
-  for (const key of Object.keys(override) as (keyof NonNullable<Brand['tokens']>)[]) {
+  for (const key of Object.keys(override) as (keyof NonNullable<Theme['tokens']>)[]) {
     const overrideValue = override[key]
     if (overrideValue) {
       result[key] = { ...(base[key] as Record<string, number>), ...overrideValue } as never
@@ -86,12 +86,12 @@ function deepMergeTokens(
 }
 
 /**
- * Generate a complete Brand theme from minimal color input.
+ * Generate a complete theme from minimal color input.
  *
  * The minimal call `generateTheme({ primary: { hue: 220 } })` produces
  * a complete, functional theme with derived secondary/tertiary colors.
  */
-export function generateTheme(options: GenerateThemeOptions): Readonly<Brand> {
+export function generateTheme(options: GenerateThemeOptions): Readonly<Theme> {
   const { primary, tokens, shadows, fonts, overrides } = options
 
   // Validate primary
@@ -110,13 +110,13 @@ export function generateTheme(options: GenerateThemeOptions): Readonly<Brand> {
   validateSaturation(tertiary.saturation, 'tertiary')
 
   // Generate palettes — primary becomes the neutral palette
-  const palettes: Brand['palettes'] = {
+  const palettes: Theme['palettes'] = {
     light: overrides?.palettes?.light ?? generatePalette(primary.hue, primarySat, 'light'),
     dark: overrides?.palettes?.dark ?? generatePalette(primary.hue, primarySat, 'dark'),
   }
 
   // Accent palettes — secondary → "primary", tertiary → "secondary"
-  const accentPalettes: Brand['accentPalettes'] = overrides?.accentPalettes ?? {
+  const accentPalettes: Theme['accentPalettes'] = overrides?.accentPalettes ?? {
     primary: {
       light: generatePalette(secondary.hue, secondary.saturation, 'light'),
       dark: generatePalette(secondary.hue, secondary.saturation, 'dark'),
@@ -131,15 +131,15 @@ export function generateTheme(options: GenerateThemeOptions): Readonly<Brand> {
   const mergedTokens = deepMergeTokens(DEFAULT_TOKENS, tokens)
 
   // Merge shadows
-  const mergedShadows: Brand['shadows'] = shadows ?? {
+  const mergedShadows: Theme['shadows'] = shadows ?? {
     light: lightShadows,
     dark: darkShadows,
   }
 
   // Merge fonts
-  const mergedFonts: Brand['fonts'] = fonts ? { ...DEFAULT_FONTS, ...fonts } : { ...DEFAULT_FONTS }
+  const mergedFonts: Theme['fonts'] = fonts ? { ...DEFAULT_FONTS, ...fonts } : { ...DEFAULT_FONTS }
 
-  const brand: Brand = {
+  const theme: Theme = {
     name: `theme-${primary.hue}`,
     palettes,
     accentPalettes,
@@ -148,5 +148,5 @@ export function generateTheme(options: GenerateThemeOptions): Readonly<Brand> {
     fonts: mergedFonts,
   }
 
-  return Object.freeze(brand)
+  return Object.freeze(theme)
 }

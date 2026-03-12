@@ -85,7 +85,7 @@ function buildIndex() {
     { name: 'Getting Started', description: 'Introduction to @vlting/ui', href: '/docs' },
     {
       name: 'Theming',
-      description: 'Brand system, palettes, tokens, and fonts',
+      description: 'Theme system, palettes, tokens, and fonts',
       href: '/docs/theming',
     },
     {

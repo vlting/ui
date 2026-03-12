@@ -1,12 +1,12 @@
-import type { ShadowScale } from '../themes'
+import type { ShadowScale } from './themes'
 
 /**
- * Brand — a simple data object describing visual identity.
+ * Theme — a simple data object describing visual identity.
  *
  * No factory pattern, no framework dependencies.
- * Consumed by `injectBrandVars()` to produce CSS custom properties.
+ * Consumed by `themeToVars()` to produce CSS custom properties.
  */
-export interface Brand {
+export interface Theme {
   name: string
   palettes: {
     light: string[] // 12-step palette
