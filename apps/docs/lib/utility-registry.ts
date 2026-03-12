@@ -103,7 +103,7 @@ const registry: UtilityEntry[] = [
     params: [
       {
         name: 'fontConfig',
-        type: 'BrandFontConfig | undefined',
+        type: 'ThemeFontConfig | undefined',
         description:
           'Font configuration object with heading, body, mono, and quote slots.',
       },
@@ -115,9 +115,9 @@ const registry: UtilityEntry[] = [
     slug: 'get-google-fonts-url',
     category: 'font-loading',
     description:
-      'Generate a Google Fonts CSS URL from a BrandFontConfig. Deduplicates families, handles italic variants, and skips system fonts.',
+      'Generate a Google Fonts CSS URL from a ThemeFontConfig. Deduplicates families, handles italic variants, and skips system fonts.',
     importPath: "import { getGoogleFontsUrl } from '@vlting/ui'",
-    signature: 'getGoogleFontsUrl(config: BrandFontConfig): string',
+    signature: 'getGoogleFontsUrl(config: ThemeFontConfig): string',
     usage: `const url = getGoogleFontsUrl({
   heading: { family: 'Inter', weights: { heavy: 700, light: 400 } },
   body: { family: 'Inter', weight: 400 },
@@ -128,7 +128,7 @@ const registry: UtilityEntry[] = [
     params: [
       {
         name: 'config',
-        type: 'BrandFontConfig',
+        type: 'ThemeFontConfig',
         description: 'Font configuration with heading, body, mono, and quote slots.',
       },
     ],
@@ -142,7 +142,7 @@ const registry: UtilityEntry[] = [
     description:
       'React hook that injects a Google Fonts stylesheet into the document head. Uses display=swap for seamless font loading.',
     importPath: "import { useFontLoader } from '@vlting/ui'",
-    signature: 'useFontLoader(fontConfig?: BrandFontConfig): FontLoadState',
+    signature: 'useFontLoader(fontConfig?: ThemeFontConfig): FontLoadState',
     usage: `function App() {
   const { loaded, error } = useFontLoader(brandConfig.fontConfig)
 
@@ -151,7 +151,7 @@ const registry: UtilityEntry[] = [
     params: [
       {
         name: 'fontConfig',
-        type: 'BrandFontConfig | undefined',
+        type: 'ThemeFontConfig | undefined',
         description: 'Font configuration. If undefined, no fonts are loaded.',
       },
     ],
@@ -178,9 +178,9 @@ isSystemFont('Inter')       // false`,
     name: 'extractFamiliesFromConfig',
     slug: 'extract-families-from-config',
     category: 'font-loading',
-    description: 'Extract unique non-system font families from a BrandFontConfig.',
+    description: 'Extract unique non-system font families from a ThemeFontConfig.',
     importPath: "import { extractFamiliesFromConfig } from '@vlting/ui'",
-    signature: 'extractFamiliesFromConfig(config: BrandFontConfig): string[]',
+    signature: 'extractFamiliesFromConfig(config: ThemeFontConfig): string[]',
     usage: `const families = extractFamiliesFromConfig({
   heading: { family: 'Inter', weights: { heavy: 700, light: 400 } },
   body: { family: 'Inter', weight: 400 },
@@ -191,7 +191,7 @@ isSystemFont('Inter')       // false`,
     params: [
       {
         name: 'config',
-        type: 'BrandFontConfig',
+        type: 'ThemeFontConfig',
         description: 'Font configuration to extract families from.',
       },
     ],
@@ -202,17 +202,17 @@ isSystemFont('Inter')       // false`,
     slug: 'build-face-maps-from-config',
     category: 'font-loading',
     description:
-      'Build font face maps from a BrandFontConfig. On web this is a no-op (returns undefined for each slot). On native, it builds platform-specific face maps.',
+      'Build font face maps from a ThemeFontConfig. On web this is a no-op (returns undefined for each slot). On native, it builds platform-specific face maps.',
     importPath: "import { buildFaceMapsFromConfig } from '@vlting/ui'",
     signature:
-      'buildFaceMapsFromConfig(config: BrandFontConfig): Record<string, FaceMap | undefined>',
+      'buildFaceMapsFromConfig(config: ThemeFontConfig): Record<string, FaceMap | undefined>',
     usage: `const faceMaps = buildFaceMapsFromConfig(fontConfig)
 // => { heading: undefined, body: undefined, mono: undefined, quote: undefined }
 // On native, returns actual face maps for font weight resolution`,
     params: [
       {
         name: 'config',
-        type: 'BrandFontConfig',
+        type: 'ThemeFontConfig',
         description: 'Font configuration to build face maps from.',
       },
     ],

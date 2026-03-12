@@ -23,7 +23,6 @@
     "paths": {
       "@vlting/ui": ["./src"],
       "@vlting/ui/*": ["./src/*"],
-      "@vlting/ui/design-tokens": ["./packages/design-tokens"],
       "@vlting/ui/primitives": ["./packages/primitives"],
       "@vlting/ui/components": ["./packages/components"],
       "@vlting/ui/hooks": ["./packages/hooks"],
@@ -41,7 +40,6 @@
     "config/**/*.ts",
     "packages/stl/**/*.ts",
     "packages/stl/**/*.tsx",
-    "packages/design-tokens/**/*.ts",
     "packages/hooks/**/*.ts",
     "packages/hooks/**/*.tsx",
     "packages/utils/**/*.ts",
