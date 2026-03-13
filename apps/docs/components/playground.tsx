@@ -27,7 +27,7 @@ import {
   Tooltip as _Tooltip,
 } from '@vlting/ui'
 
-const Button = _Button as AnyFC & { Text: AnyFC }
+const Button = _Button as AnyFC
 const Input = _Input as AnyFC
 const Card = _Card as AnyFC & {
   Header: AnyFC
@@ -443,31 +443,31 @@ export function getPlaygroundConfig(slug: string): PlaygroundConfig | undefined 
 }
 
 // Styled components
-const Container = styled('div', {
+const Container = styled('div', { stl: {
   border: '$thin $borderColor',
   borderRadius: '$4',
   overflow: 'hidden',
-})
+}})
 
-const TitleBar = styled('div', {
+const TitleBar = styled('div', { stl: {
   px: '$2.5',
   py: '$1',
   borderBottom: '$thin $borderColor',
   background: '$tertiary1',
-})
+}})
 
-const TitleText = styled('span', {
+const TitleText = styled('span', { stl: {
   fontSize: '$p',
   fontWeight: '$500',
-})
+}})
 
-const GridLayout = styled('div', {
+const GridLayout = styled('div', { stl: {
   display: 'grid',
   gridTemplateColumns: '1fr',
   gtMd: { gridTemplateColumns: '240px 1fr' },
-})
+}})
 
-const ControlsPanel = styled('div', {
+const ControlsPanel = styled('div', { stl: {
   padding: '$2.5',
   borderBottom: '$thin $borderColor',
   background: '$tertiary1',
@@ -475,22 +475,22 @@ const ControlsPanel = styled('div', {
     borderBottom: 'none',
     borderRight: '$thin $borderColor',
   },
-})
+}})
 
-const ControlGroup = styled('div', {
+const ControlGroup = styled('div', { stl: {
   mb: '$2.5',
   ':last-child': { mb: 0 },
-})
+}})
 
-const ControlLabel = styled('label', {
+const ControlLabel = styled('label', { stl: {
   display: 'block',
   fontSize: '$small',
   fontWeight: '$500',
   color: '$colorSubtitle',
   mb: 4,
-})
+}})
 
-const ControlSelect = styled('select', {
+const ControlSelect = styled('select', { stl: {
   width: '100%',
   borderRadius: '$3',
   border: '$thin $borderColor',
@@ -498,23 +498,23 @@ const ControlSelect = styled('select', {
   px: '$1',
   py: 4,
   fontSize: '$p',
-})
+}})
 
-const CheckboxLabel = styled('label', {
+const CheckboxLabel = styled('label', { stl: {
   display: 'flex',
   alignItems: 'center',
   gap: '$1',
-})
+}})
 
-const CheckboxInput = styled('input', {
+const CheckboxInput = styled('input', { stl: {
   borderRadius: '$2',
-})
+}})
 
-const CheckboxText = styled('span', {
+const CheckboxText = styled('span', { stl: {
   fontSize: '$p',
-})
+}})
 
-const TextInput = styled('input', {
+const TextInput = styled('input', { stl: {
   width: '100%',
   borderRadius: '$3',
   border: '$thin $borderColor',
@@ -522,9 +522,9 @@ const TextInput = styled('input', {
   px: '$1',
   py: 4,
   fontSize: '$p',
-})
+}})
 
-const PreviewArea = styled('div', {
+const PreviewArea = styled('div', { stl: {
   padding: '$4',
   display: 'flex',
   alignItems: 'center',
@@ -536,24 +536,24 @@ const PreviewArea = styled('div', {
   dark: {
     backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)',
   },
-})
+}})
 
-const CodeSection = styled('div', {
+const CodeSection = styled('div', { stl: {
   borderTop: '$thin $borderColor',
   padding: '$2.5',
   background: '$tertiary1',
-})
+}})
 
-const CodePre = styled('pre', {
+const CodePre = styled('pre', { stl: {
   fontSize: '$p',
   fontFamily: '$mono',
   whiteSpace: 'pre-wrap',
   color: '$colorSubtitle',
-})
+}})
 
-const FallbackText = styled('p', {
+const FallbackText = styled('p', { stl: {
   color: '$colorSubtitle',
-})
+}})
 
 // Component renderers for each playground
 function renderPlayground(
@@ -569,7 +569,7 @@ function renderPlayground(
           loading={props.loading as boolean}
           disabled={props.disabled as boolean}
         >
-          <Button.Text>Button</Button.Text>
+          Button
         </Button>
       )
     case 'input':
@@ -601,7 +601,7 @@ function renderPlayground(
         <Dialog.Root modal={props.modal as boolean}>
           <Dialog.Trigger>
             <Button>
-              <Button.Text>Open Dialog</Button.Text>
+              Open Dialog
             </Button>
           </Dialog.Trigger>
           <Dialog.Overlay>
@@ -610,7 +610,7 @@ function renderPlayground(
               <Dialog.Description>This is a dialog description.</Dialog.Description>
               <Dialog.Close>
                 <Button>
-                  <Button.Text>Close</Button.Text>
+                  Close
                 </Button>
               </Dialog.Close>
             </Dialog.Content>
@@ -644,7 +644,7 @@ function renderPlayground(
       return (
         <Tooltip content={props.content as string} side={props.side as string}>
           <Button>
-            <Button.Text>Hover me</Button.Text>
+            Hover me
           </Button>
         </Tooltip>
       )
@@ -746,7 +746,7 @@ function generateCode(
 
   switch (slug) {
     case 'button':
-      return `<Button${propsDisplay}>\n  <Button.Text>Button</Button.Text>\n</Button>`
+      return `<Button${propsDisplay}>\n  Button\n</Button>`
     case 'input':
       return `<Input${propsDisplay} />`
     case 'card':
@@ -758,7 +758,7 @@ function generateCode(
     case 'tabs':
       return `<Tabs.Root defaultValue="tab1"${propsDisplay}>\n  <Tabs.List>\n    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>\n    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>\n  </Tabs.List>\n  <Tabs.Content value="tab1">...</Tabs.Content>\n  <Tabs.Content value="tab2">...</Tabs.Content>\n</Tabs.Root>`
     case 'tooltip':
-      return `<Tooltip${propsDisplay}>\n  <Button>\n    <Button.Text>Hover me</Button.Text>\n  </Button>\n</Tooltip>`
+      return `<Tooltip${propsDisplay}>\n  <Button>\n    Hover me\n  </Button>\n</Tooltip>`
     case 'badge':
       return `<Badge${propsDisplay}>Badge</Badge>`
     case 'switch':

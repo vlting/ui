@@ -1,4 +1,4 @@
-/* STL global styles are imported via @vlting/stl/styles in layout.tsx */
+/* Requires `import '@vlting/stl/styles'` in layout.tsx (before this file) */
 
 /* Base body styles using STL CSS variables */
 :root {

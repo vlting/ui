@@ -4,10 +4,9 @@
 
 /**
  * High-level 4-slot font configuration.
- * Canonical type also lives in `packages/design-tokens/brands/index.ts`.
- * Duplicated here to avoid circular dependency between utils ↔ design-tokens.
+ * Theme generation references this type for font overrides.
  */
-export interface BrandFontConfig {
+export interface FontConfig {
   heading: {
     family: string
     fallback?: string
@@ -60,10 +59,10 @@ export function isSystemFont(family: string): boolean {
 }
 
 // ---------------------------------------------------------------------------
-// Extract unique non-system families from a BrandFontConfig
+// Extract unique non-system families from a FontConfig
 // ---------------------------------------------------------------------------
 
-export function extractFamiliesFromConfig(config: BrandFontConfig): string[] {
+export function extractFamiliesFromConfig(config: FontConfig): string[] {
   const families = new Set<string>()
   for (const family of [
     config.heading.family,
@@ -80,7 +79,7 @@ export function extractFamiliesFromConfig(config: BrandFontConfig): string[] {
 // Google Fonts URL builder
 // ---------------------------------------------------------------------------
 
-export function getGoogleFontsUrl(config: BrandFontConfig): string {
+export function getGoogleFontsUrl(config: FontConfig): string {
   const familyWeights = new Map<string, Set<number>>()
 
   const addFamily = (family: string, weights: number[]) => {

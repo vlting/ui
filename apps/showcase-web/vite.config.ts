@@ -17,10 +17,6 @@ export default defineConfig({
       { find: 'react-native-svg', replacement: 'react-native-svg-web' },
       { find: /^react-native$/, replacement: 'react-native-web' },
       {
-        find: '@vlting/ui/design-tokens',
-        replacement: path.resolve(__dirname, '../../packages/design-tokens'),
-      },
-      {
         find: '@vlting/ui/primitives',
         replacement: path.resolve(__dirname, '../../packages/primitives'),
       },
@@ -52,6 +48,14 @@ export default defineConfig({
       {
         find: '@vlting/stl-headless',
         replacement: path.resolve(__dirname, '../../packages/stl-headless/src'),
+      },
+      {
+        find: '@vlting/stl/styles',
+        replacement: path.resolve(__dirname, '../../packages/stl/src/config/styles.css.ts'),
+      },
+      {
+        find: '@vlting/stl/theme',
+        replacement: path.resolve(__dirname, '../../packages/stl/src/theme'),
       },
       {
         find: '@vlting/stl',

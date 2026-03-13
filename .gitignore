@@ -12,8 +12,10 @@ coverage/
 !.claude/settings.json
 !.claude/skills/
 .tamagui/
+# .ai-plans/ — tracked for roadmap persistence
 .ai-queue/
 .ai-relay/
+SCOPE.md
 .worktrees/
 .history/
 .playwright-mcp/

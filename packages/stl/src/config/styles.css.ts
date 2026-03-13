@@ -23,7 +23,7 @@ import { globalKeyframes, globalStyle } from '@vanilla-extract/css'
 import { COLOR_MODE_ATTR, CoreColorName, STYLE_UNIT } from '../shared/models/'
 import { getTextColor } from '../shared/utils/'
 import {
-  type CssPropKey,
+  type StlPropKey,
   type CssRule,
   type FilterKeys,
   type NthChildKeys,
@@ -68,9 +68,9 @@ import {
 import {
   BASE,
   type ConditionKey,
-  type CssFromCustomVars,
-  type CssFromMap,
-  type InlineConditionCss,
+  type StlFromCustomVars,
+  type StlFromMap,
+  type InlineConditionStl,
   type MergedCssProps,
 } from './styles.models'
 import {
@@ -231,6 +231,7 @@ export const managerScales = {
 globalStyle('html, body', {
   margin: 0,
   padding: 0,
+  vars: { '--stl-loaded': '1' },
 })
 globalStyle('html', { fontSize: '6.25%' })
 globalStyle('body', {
@@ -356,8 +357,11 @@ const titleSelectors = [
 globalStyle(titleSelectors.join(', '), {
   marginBlockStart: space.vars[0].ref,
 })
-globalStyle(mapSelectorsToTemplate('&, & > a, & > span', ...headings), {
+globalStyle(mapSelectorsToTemplate('&, & > a, & > span', 'h1', 'h2'), {
   fontFamily: fontFamily.vars.heading.ref,
+})
+globalStyle(mapSelectorsToTemplate('&, & > a, & > span', 'h3', 'h4', 'h5', 'h6'), {
+  fontFamily: fontFamily.vars.subheading.ref,
 })
 globalStyle('h1, h1 > a, h1 > span', {
   fontSize: fontSize.vars.h1.ref,
@@ -425,7 +429,7 @@ globalStyle('*', {
 // CUSTOM VAR PROPS ///////////////////////////////////////////////////////////////////////////////
 /** Generate vars and classes for custom props */
 const customVarProps = generateCustomVarPropsCss(
-  (prop: CssPropKey, template?: (value: string) => string) => {
+  (prop: StlPropKey, template?: (value: string) => string) => {
     const cssVar = varHash.var
     const className = classHash.name
     template = template ?? ((v: string) => v)
@@ -438,7 +442,7 @@ const customVarProps = generateCustomVarPropsCss(
 
 /** Generate CSS props that are _pseudo class based_, for custom var props */
 const pseudoClassCustomVarPropGenerator = (pseudoClass: string, keys: FilterKeys) =>
-  generateCustomVarPropsCss((prop: CssPropKey, template?: (value: string) => string) => {
+  generateCustomVarPropsCss((prop: StlPropKey, template?: (value: string) => string) => {
     const cssVar = varHash.var
     const className = classHash.name
     template = template ?? ((v: string) => v)
@@ -547,52 +551,52 @@ type C = typeof staticPropsPC
 
 // Inline-conditional, pseudo-class types
 type ICFocusVisible = {
-  ':focus-visible'?: InlineConditionCss<
+  ':focus-visible'?: InlineConditionStl<
     MergedCssProps<
-      CssFromMap<A[':focus-visible']>,
-      CssFromCustomVars<B[':focus-visible']>,
-      CssFromMap<C[':focus-visible']>
+      StlFromMap<A[':focus-visible']>,
+      StlFromCustomVars<B[':focus-visible']>,
+      StlFromMap<C[':focus-visible']>
     >
   >
 }
 type ICHover = {
-  ':hover'?: InlineConditionCss<
+  ':hover'?: InlineConditionStl<
     MergedCssProps<
-      CssFromMap<A[':hover']>,
-      CssFromCustomVars<B[':hover']>,
-      CssFromMap<C[':hover']>
+      StlFromMap<A[':hover']>,
+      StlFromCustomVars<B[':hover']>,
+      StlFromMap<C[':hover']>
     >
   >
 }
 type ICActive = {
-  ':active'?: InlineConditionCss<
+  ':active'?: InlineConditionStl<
     MergedCssProps<
-      CssFromMap<A[':active']>,
-      CssFromCustomVars<B[':active']>,
-      CssFromMap<C[':active']>
+      StlFromMap<A[':active']>,
+      StlFromCustomVars<B[':active']>,
+      StlFromMap<C[':active']>
     >
   >
 }
 type ICMergePCCssProps = ICFocusVisible & ICHover & ICActive
 
 // CSS types
-type ScaledProps = CssFromMap<typeof scaledProps>
-type CustomVarProps = CssFromCustomVars<typeof customVarProps>
-type StaticProps = CssFromMap<typeof staticProps>
+type ScaledProps = StlFromMap<typeof scaledProps>
+type CustomVarProps = StlFromCustomVars<typeof customVarProps>
+type StaticProps = StlFromMap<typeof staticProps>
 
 type CssProps = MergedCssProps<ScaledProps, CustomVarProps, StaticProps>
-type NthChildClasses = { [key in NthChildKeys]?: InlineConditionCss<CssProps> }
+type NthChildClasses = { [key in NthChildKeys]?: InlineConditionStl<CssProps> }
 
 /** Style object, including pseudo-classes and INLINE conditions, but excluding root-level conditions */
-export type BaseCSS = InlineConditionCss<CssProps> &
+export type BaseSTL = InlineConditionStl<CssProps> &
   PseudoClassesWithAliases<ICMergePCCssProps> &
   NthChildClasses
 
 /** Style object for root-level conditions, including pseudo-classes */
-export type ConditionalCSS = { [k in ConditionKey]?: BaseCSS & ConditionalCSS }
+export type ConditionalSTL = { [k in ConditionKey]?: BaseSTL & ConditionalSTL }
 
-/** Full type of Neutron UI style objects, including pseudo-classes and conditions */
-export type CSS = BaseCSS & ConditionalCSS
+/** Full type of STL style objects, including pseudo-classes and conditions */
+export type STL = BaseSTL & ConditionalSTL
 
 /*************************************************************************************************
  * THEME GENERATION

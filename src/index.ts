@@ -58,7 +58,6 @@ export type {
   BarChartVariant,
   BreadcrumbProps,
   ButtonGroupRootProps,
-  ButtonProps,
   CalendarDayProps,
   CalendarRootProps,
   CardProps,
@@ -263,44 +262,24 @@ export {
   useToastState,
 } from '../packages/components'
 export type {
-  Brand,
+  Theme,
   ColorInput,
-  GenerateThemeOptions,
+  CreateThemeOptions,
   SecondaryColorInput,
-  ShadowScale,
-  ShadowToken,
-} from '../packages/design-tokens'
+} from '../packages/stl/src/theme'
 // Layer 0 — Design Tokens
 export {
-  accentPalettes,
-  borderWidth,
-  color,
-  darkPalette,
-  darkShadows,
-  defaultBrand,
-  funBrand,
+  defaultTheme,
   generatePalette,
-  generateTheme,
-  getBrandStyleTag,
+  applyTheme,
+  createTheme,
   getTextColorStep,
+  getTheme,
   getThemeStyleTag,
-  injectBrandVars,
-  lightPalette,
-  lightShadows,
   media,
-  poshBrand,
-  radius,
-  semanticColorMap,
-  shadcnBrand,
-  size,
-  space,
   THEME_PRESET_DEFAULT,
-  THEME_PRESET_FUN,
-  THEME_PRESET_POSH,
-  THEME_PRESET_SHADCN,
   themeToVars,
-  zIndex,
-} from '../packages/design-tokens'
+} from '../packages/stl/src/theme'
 export type {
   UseClipboardReturn,
   UseIntersectionObserverOptions,
@@ -323,10 +302,7 @@ export { DynamicIcon } from '../packages/icons/Icon'
 export type {
   AspectRatioProps,
   BadgeProps,
-  BoxProps,
-  DividerProps,
   HeadingProps,
-  HStackProps,
   IconFC,
   IconProps,
   KbdProps,
@@ -334,12 +310,9 @@ export type {
   PortalProps,
   SeparatorProps,
   SkeletonProps,
-  SpacerProps,
   SpinnerProps,
-  StackProps,
   TextProps,
   VisuallyHiddenProps,
-  VStackProps,
 } from '../packages/primitives'
 // Layer 1 — Primitives
 export {

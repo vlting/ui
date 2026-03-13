@@ -1,9 +1,8 @@
 import { styled } from '../../config'
 
-export const ScrollView = styled(
-  'div',
-  {
+export const ScrollView = styled('div', {
+  stl: {
     overflow: 'auto',
   },
-  'ScrollView',
-)
+  styleName: 'ScrollView',
+})

@@ -6,7 +6,7 @@ import {
 } from './conditions'
 import {
   type ComplexShorthandProp,
-  type CssPropKey,
+  type StlPropKey,
   type CustomVarPropValue,
   type NthChildKeys,
   SCALED_PLACEHOLDER,
@@ -25,8 +25,8 @@ import {
 import { mapAliasToValue } from './scales'
 import { type CssAlias, SCALED_ALIAS } from './scales/scales.models'
 import {
-  type BaseCSS,
-  type CSS,
+  type BaseSTL,
+  type STL,
   customVarPropMap,
   managerScales,
   scaledPropMap,
@@ -39,7 +39,7 @@ import {
   type ConditionKey,
   type InlineConditionKey,
   type InlineConditionValue,
-  type VariantCSS,
+  type VariantSTL,
 } from './styles.models'
 import { THEME_PREFIX } from './utils'
 
@@ -161,7 +161,7 @@ export class StyleManager {
     this.setName(name)
   }
 
-  private getPropId(prop: CssPropKey) {
+  private getPropId(prop: StlPropKey) {
     const propId = sourcePropsIdMap[prop as keyof typeof sourcePropsIdMap]
     if (propId === undefined) {
       throw new Error(`Invalid prop "${prop}" passed into '${sourcePropsIdMap}'`)
@@ -170,7 +170,7 @@ export class StyleManager {
   }
 
   private getScaledProps<V extends string>(
-    prop: CssPropKey,
+    prop: StlPropKey,
     value: V,
     pseudo: PseudoCategoryKey = BASE,
   ) {
@@ -206,12 +206,12 @@ export class StyleManager {
 
   /** Add a style to the style set */
   private add(
-    prop: CssPropKey,
+    prop: StlPropKey,
     className: string,
     pseudoClass: PseudoCategoryKey = BASE,
     varName?: string,
     value?: string,
-    originalProp?: CssPropKey,
+    originalProp?: StlPropKey,
     originalValue?: string,
   ) {
     const propId = this.getPropId(prop)
@@ -297,24 +297,24 @@ export class StyleManager {
 
   // PROCESSING FUNCTIONS ///////////////////////////////////////////////////////////////////////////
   /** Process fully-nestable CSS, in an object keyed by variant name-value pairs */
-  processOverridesCss(overridesCss: CSS) {
-    this.overridesName = 'css'
-    this.processCss(overridesCss)
+  processOverridesStl(overridesStl: STL) {
+    this.overridesName = 'stl'
+    this.processStl(overridesStl)
     this.overridesName = ''
   }
 
   /** Process fully-nestable CSS, in an object keyed by variant name-value pairs */
-  processVariantCss(variantCss: VariantCSS) {
-    variantCss.forEach(({ key, css }) => {
+  processVariantStl(variantStl: VariantSTL) {
+    variantStl.forEach(({ key, stl }) => {
       this.setVariantName(key)
-      this.processCss(css)
+      this.processStl(stl)
     })
     this.setVariantName()
   }
 
   /** Process fully-nestable CSS, including conditions and pseudo-classes */
-  processCss(css: CSS, condition?: InlineConditionKey) {
-    const props = Object.entries(css)
+  processStl(stl: STL, condition?: InlineConditionKey) {
+    const props = Object.entries(stl)
     // Loop through each prop of css
     let index = 0
     for (; index < props.length; index++) {
@@ -328,15 +328,15 @@ export class StyleManager {
         if (!this.conditions[propName as ConditionKey]) continue
         // Otherwise, proceed
         this.conditionName = propName.replace('!', 'not-')
-        this.processCss(propValue as CSS, propName as InlineConditionKey)
+        this.processStl(propValue as STL, propName as InlineConditionKey)
         this.conditionName = ''
         continue
       }
 
       // If the prop is a pseudo-class, process its inner props
       if (combinedPseudoClasses[propName as CombinedPseudoClassKey]) {
-        this.processBaseCss(
-          propValue as BaseCSS,
+        this.processBaseStl(
+          propValue as BaseSTL,
           propName as CombinedPseudoClassKey,
           condition,
         )
@@ -359,14 +359,14 @@ export class StyleManager {
           this.length,
         )
         if (isMatchingNthChild) {
-          this.processCss(propValue as CSS)
+          this.processStl(propValue as STL)
         }
         continue
       }
 
       // Otherwise, process the prop's value
       this.processCssProp(
-        propName as CssPropKey,
+        propName as StlPropKey,
         propValue as InlineConditionValue,
         condition,
       )
@@ -374,17 +374,17 @@ export class StyleManager {
   }
 
   /** Process non-conditional CSS, including pseudo-classes */
-  processBaseCss(
-    baseCss: BaseCSS,
+  processBaseStl(
+    baseStl: BaseSTL,
     pseudo: CombinedPseudoClassKey,
     condition?: InlineConditionKey,
   ) {
-    const props = Object.entries(baseCss)
+    const props = Object.entries(baseStl)
     let index = 0
     for (; index < props.length; index++) {
       const [propName, propValue] = props[index]
       this.processCssProp(
-        propName as CssPropKey,
+        propName as StlPropKey,
         propValue as InlineConditionValue,
         condition,
         pseudo,
@@ -397,11 +397,11 @@ export class StyleManager {
    * and inline-conditional values, which need to be processed based on current conditions.
    */
   processCssProp(
-    prop: CssPropKey,
+    prop: StlPropKey,
     value: InlineConditionValue,
     condition?: InlineConditionKey,
     pseudo?: CombinedPseudoClassKey,
-    originalProp?: CssPropKey,
+    originalProp?: StlPropKey,
   ) {
     let index = 0
 
@@ -432,7 +432,7 @@ export class StyleManager {
       return
     }
 
-    let scaledOriginalProp: CssPropKey | undefined
+    let scaledOriginalProp: StlPropKey | undefined
 
     if (originalProp) {
       const { propScale } = this.getScaledProps(
@@ -469,7 +469,7 @@ export class StyleManager {
       const innerProps = Object.entries(mapper(value))
       index = 0
       for (; index < innerProps.length; index++) {
-        const [propName, propValue] = innerProps[index] as [CssPropKey, string]
+        const [propName, propValue] = innerProps[index] as [StlPropKey, string]
 
         // Check if this is a pre-generated value
         isPreGenValue = this.isPreGenValue(propName, propValue)
@@ -524,7 +524,7 @@ export class StyleManager {
     this.addStyle(prop, value, undefined, originalProp ?? prop)
   }
 
-  private isPreGenValue(prop: CssPropKey, value: InlineConditionValue) {
+  private isPreGenValue(prop: StlPropKey, value: InlineConditionValue) {
     // All theme tokens should be treated as pre-gen
     if (typeof value !== 'string' || value[0] === THEME_PREFIX) return true
 
@@ -534,7 +534,7 @@ export class StyleManager {
   }
 
   private removeComplexShorthandStyles(
-    complexShorthandMap: CssPropKey[],
+    complexShorthandMap: StlPropKey[],
     pseudo?: PseudoClassKey,
   ) {
     let index = 0
@@ -545,7 +545,7 @@ export class StyleManager {
   }
 
   /** Remove style from style manager */
-  private removeStyle(prop: CssPropKey, pseudo: PseudoCategoryKey = BASE) {
+  private removeStyle(prop: StlPropKey, pseudo: PseudoCategoryKey = BASE) {
     const propId = this.getPropId(prop)
     const index = this.classDict[pseudo][propId]
     if (index === -1) {
@@ -559,10 +559,10 @@ export class StyleManager {
 
   /** Adds style to style manager */
   private addStyle(
-    prop: CssPropKey,
+    prop: StlPropKey,
     originalValue: string,
     pseudo: PseudoCategoryKey = BASE,
-    originalProp?: CssPropKey,
+    originalProp?: StlPropKey,
   ) {
     const result = this.getStyle(prop, originalValue, pseudo)
     if (result) {
@@ -579,7 +579,7 @@ export class StyleManager {
   }
 
   private getStaticValue(
-    prop: CssPropKey,
+    prop: StlPropKey,
     value: string,
     pseudo: PseudoCategoryKey = BASE,
   ) {
@@ -591,7 +591,7 @@ export class StyleManager {
   }
 
   /** Returns a style from our utility class system, based on a prop, value, and (optional) CSS pseudo-class */
-  private getStyle(prop: CssPropKey, value: string, pseudo: PseudoCategoryKey = BASE) {
+  private getStyle(prop: StlPropKey, value: string, pseudo: PseudoCategoryKey = BASE) {
     const staticValue = this.getStaticValue(prop, value, pseudo)
     if (staticValue) {
       return { className: staticValue }

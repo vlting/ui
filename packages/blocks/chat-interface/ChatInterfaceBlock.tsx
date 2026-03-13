@@ -7,7 +7,6 @@ import type { BlockProps } from '../_shared/types'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ButtonJsx = Button as AnyFC
-const ButtonTextJsx = Button.Text as AnyFC
 const CardJsx = Card as AnyFC
 const InputJsx = Input as AnyFC
 
@@ -105,13 +104,13 @@ function ChatInput({
         />
       </div>
       <ButtonJsx
-        variant="default"
+        variant="solid"
         onPress={() => {
           if (inputValue?.trim()) onSend?.(inputValue.trim())
         }}
         aria-label="Send message"
       >
-        <ButtonTextJsx>Send</ButtonTextJsx>
+        Send
       </ButtonJsx>
     </div>
   )

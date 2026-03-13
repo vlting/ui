@@ -1,9 +1,8 @@
 import { styled } from '../../config'
 
-export const Spacer = styled(
-  'div',
-  { flex: 1 },
-  {
+export const Spacer = styled('div', {
+  stl: { flex: 1 },
+  variants: {
     size: {
       xs: { flex: '0 0 auto', width: '2px', height: '2px' },
       sm: { flex: '0 0 auto', width: '4px', height: '4px' },
@@ -12,5 +11,5 @@ export const Spacer = styled(
       xl: { flex: '0 0 auto', width: '24px', height: '24px' },
     },
   },
-  'Spacer',
-)
+  styleName: 'Spacer',
+})

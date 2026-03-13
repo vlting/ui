@@ -18,12 +18,14 @@ import {
 const FormElement = styled(
   'form',
   {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 16,
-    width: '100%',
+    stl: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 16,
+      width: '100%',
+    },
+    styleName: 'AuthForm',
   },
-  'AuthForm',
 )
 
 // -- Types --
@@ -173,14 +175,14 @@ function LoginStandard({
             />
           )}
           <Button
-            variant="default"
+            variant="solid"
             style={{ width: '100%' }}
             onClick={() =>
               handleSubmit(new Event('submit') as unknown as React.FormEvent)
             }
             disabled={loading}
           >
-            <Button.Text>Sign in</Button.Text>
+            Sign in
           </Button>
         </FormElement>
         {(signupHref || onSignup) && (
@@ -241,14 +243,14 @@ function LoginOtp({
             aria-required="true"
           />
           <Button
-            variant="default"
+            variant="solid"
             style={{ width: '100%' }}
             onClick={() =>
               handleSubmit(new Event('submit') as unknown as React.FormEvent)
             }
             disabled={loading}
           >
-            <Button.Text>Verify</Button.Text>
+            Verify
           </Button>
         </FormElement>
         {(signupHref || onSignup) && (
@@ -306,14 +308,14 @@ function LoginMagic({
             aria-required="true"
           />
           <Button
-            variant="default"
+            variant="solid"
             style={{ width: '100%' }}
             onClick={() =>
               handleSubmit(new Event('submit') as unknown as React.FormEvent)
             }
             disabled={loading}
           >
-            <Button.Text>Send sign-in link</Button.Text>
+            Send sign-in link
           </Button>
         </FormElement>
         {(signupHref || onSignup) && (
@@ -449,14 +451,14 @@ function SignupStandard({
             </Checkbox.Root>
           )}
           <Button
-            variant="default"
+            variant="solid"
             style={{ width: '100%' }}
             onClick={() =>
               handleSubmit(new Event('submit') as unknown as React.FormEvent)
             }
             disabled={loading}
           >
-            <Button.Text>Create account</Button.Text>
+            Create account
           </Button>
         </FormElement>
         {(loginHref || onLogin) && (
@@ -524,14 +526,14 @@ function SignupSocial({
             aria-required="true"
           />
           <Button
-            variant="default"
+            variant="solid"
             style={{ width: '100%' }}
             onClick={() =>
               handleSubmit(new Event('submit') as unknown as React.FormEvent)
             }
             disabled={loading}
           >
-            <Button.Text>Create account</Button.Text>
+            Create account
           </Button>
         </FormElement>
         {(loginHref || onLogin) && (

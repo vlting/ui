@@ -22,16 +22,17 @@ describe('Button', () => {
     expect(screen.getByRole('button')).toBeTruthy()
   })
 
+  it('renders each theme without errors', () => {
+    const themes = ['primary', 'secondary', 'neutral', 'destructive'] as const
+    for (const theme of themes) {
+      const { unmount } = render(<Button theme={theme}>Btn</Button>)
+      expect(screen.getByText('Btn')).toBeTruthy()
+      unmount()
+    }
+  })
+
   it('renders each variant without errors', () => {
-    const variants = [
-      'default',
-      'solid',
-      'secondary',
-      'destructive',
-      'outline',
-      'ghost',
-      'link',
-    ] as const
+    const variants = ['solid', 'subtle', 'outline', 'ghost', 'link'] as const
     for (const variant of variants) {
       const { unmount } = render(<Button variant={variant}>Btn</Button>)
       expect(screen.getByText('Btn')).toBeTruthy()
@@ -48,34 +49,63 @@ describe('Button', () => {
     }
   })
 
-  it('renders Button.Text sub-component', () => {
+  it('renders prefix and suffix alongside children', () => {
     render(
-      <Button>
-        <Button.Text>Label</Button.Text>
+      <Button prefix={<span>Pre</span>} suffix={<span>Suf</span>}>
+        Label
       </Button>,
     )
+    expect(screen.getByText('Pre')).toBeTruthy()
     expect(screen.getByText('Label')).toBeTruthy()
+    expect(screen.getByText('Suf')).toBeTruthy()
+  })
+
+  // -- Loading state --
+
+  it('renders spinner when loading', () => {
+    render(<Button loading>Submit</Button>)
+    // Children replaced by spinner — "Submit" should not be visible
+    expect(screen.queryByText('Submit')).toBeNull()
+  })
+
+  it('shows visually hidden "Loading" text when loading', () => {
+    render(<Button loading>Submit</Button>)
+    expect(screen.getByText('Loading')).toBeTruthy()
+  })
+
+  it('sets aria-busy when loading', () => {
+    render(<Button loading>Loading</Button>)
+    expect(screen.getByRole('button')).toHaveAttribute('aria-busy', 'true')
+  })
+
+  it('does not set aria-busy when not loading', () => {
+    render(<Button>Btn</Button>)
+    expect(screen.getByRole('button')).not.toHaveAttribute('aria-busy')
+  })
+
+  it('disables button when loading', () => {
+    render(<Button loading>Loading</Button>)
+    expect(screen.getByRole('button')).toBeDisabled()
   })
 
   // -- Keyboard navigation --
 
   it('activates on Enter key', () => {
-    const onPress = jest.fn()
-    render(<Button onPress={onPress}>Click</Button>)
+    const onClick = jest.fn()
+    render(<Button onClick={onClick}>Click</Button>)
     const btn = screen.getByRole('button')
     fireEvent.keyDown(btn, { key: 'Enter' })
-    // Native button responds to Enter via click
     fireEvent.click(btn)
-    expect(onPress).toHaveBeenCalled()
+    expect(onClick).toHaveBeenCalled()
   })
 
   it('activates on Space key', () => {
-    const onPress = jest.fn()
-    render(<Button onPress={onPress}>Click</Button>)
+    const onClick = jest.fn()
+    render(<Button onClick={onClick}>Click</Button>)
     const btn = screen.getByRole('button')
     fireEvent.keyUp(btn, { key: ' ' })
     fireEvent.click(btn)
-    expect(onPress).toHaveBeenCalled()
+    expect(onClick).toHaveBeenCalled()
   })
 
   it('is focusable via tab (has no tabIndex=-1)', () => {
@@ -91,51 +121,29 @@ describe('Button', () => {
     expect(screen.getByRole('button')).toHaveAttribute('type', 'button')
   })
 
-  it('sets aria-busy when loading', () => {
-    render(<Button loading>Loading</Button>)
-    expect(screen.getByRole('button')).toHaveAttribute('aria-busy', 'true')
-  })
-
-  it('does not set aria-busy when not loading', () => {
-    render(<Button>Btn</Button>)
-    expect(screen.getByRole('button')).not.toHaveAttribute('aria-busy')
-  })
-
-  it('shows visually hidden "Loading" text when loading', () => {
-    render(<Button loading>Submit</Button>)
-    expect(screen.getByText('Loading')).toBeTruthy()
-  })
-
   // -- Disabled state --
 
-  it('does not call onPress when disabled', () => {
-    const onPress = jest.fn()
+  it('does not call onClick when disabled', () => {
+    const onClick = jest.fn()
     render(
-      <Button disabled onPress={onPress}>
+      <Button disabled onClick={onClick}>
         Disabled
       </Button>,
     )
     const btn = screen.getByRole('button')
     fireEvent.click(btn)
-    expect(onPress).not.toHaveBeenCalled()
+    expect(onClick).not.toHaveBeenCalled()
   })
 
-  it('prevents interaction when loading', () => {
-    render(<Button loading>Loading</Button>)
-    const btn = screen.getByRole('button')
-    // Loading sets aria-busy and applies disabled styles
-    expect(btn).toHaveAttribute('aria-busy', 'true')
-  })
-
-  it('does not call onPress when loading', () => {
-    const onPress = jest.fn()
+  it('does not call onClick when loading', () => {
+    const onClick = jest.fn()
     render(
-      <Button loading onPress={onPress}>
+      <Button loading onClick={onClick}>
         Loading
       </Button>,
     )
     fireEvent.click(screen.getByRole('button'))
-    expect(onPress).not.toHaveBeenCalled()
+    expect(onClick).not.toHaveBeenCalled()
   })
 
   // -- Focus management --

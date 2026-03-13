@@ -1,10 +1,9 @@
 import { styled } from '../../config'
 
-export const Row = styled(
-  'section',
-  {
+export const Row = styled('section', {
+  stl: {
     display: 'flex',
     flexDirection: 'row',
   },
-  'Row',
-)
+  styleName: 'Row',
+})

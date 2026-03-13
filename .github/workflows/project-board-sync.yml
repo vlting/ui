@@ -1,0 +1,112 @@
+# Keeps the GitHub Projects board in sync with PR and issue lifecycle events.
+#
+# - When a PR is opened (or marked ready), linked issues (excluding epic/saga
+#   tickets) are moved to "In Review".
+# - When an issue is closed, it is moved to "Done" (safety net for all tickets).
+#
+# Requires a PAT with `project` read/write scope stored as the PROJECT_TOKEN
+# repository secret.
+name: Project Board Sync
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+  issues:
+    types: [closed]
+
+env:
+  PROJECT_NUMBER: "1"
+  PROJECT_OWNER: vlting
+
+jobs:
+  pr-to-in-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+    steps:
+      - name: Get linked issues (excluding epic/saga)
+        id: issues
+        run: |
+          ISSUES=$(gh api graphql -f query='
+            query($owner: String!, $repo: String!, $number: Int!) {
+              repository(owner: $owner, name: $repo) {
+                pullRequest(number: $number) {
+                  closingIssuesReferences(first: 10) {
+                    nodes {
+                      number
+                      labels(first: 10) {
+                        nodes { name }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ' -f owner="${{ github.repository_owner }}" \
+            -f repo="${{ github.event.repository.name }}" \
+            -F number=${{ github.event.pull_request.number }} \
+            --jq '.data.repository.pullRequest.closingIssuesReferences.nodes[]
+                   | select(.labels.nodes | map(.name) | (contains(["epic"]) or contains(["saga"])) | not)
+                   | .number')
+
+          echo "numbers<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$ISSUES" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Move issues to In Review
+        if: steps.issues.outputs.numbers != ''
+        run: |
+          PROJECT_ID=$(gh project list --owner "$PROJECT_OWNER" --format json \
+            | jq -r ".projects[] | select(.number == $PROJECT_NUMBER) | .id")
+          FIELD_JSON=$(gh project field-list "$PROJECT_NUMBER" --owner "$PROJECT_OWNER" --format json)
+          STATUS_FIELD_ID=$(echo "$FIELD_JSON" | jq -r '.fields[] | select(.name == "Status") | .id')
+          IN_REVIEW_ID=$(echo "$FIELD_JSON" | jq -r '.fields[] | select(.name == "Status") | .options[] | select(.name == "In Review") | .id')
+
+          echo "${{ steps.issues.outputs.numbers }}" | while read -r ISSUE_NUM; do
+            [ -z "$ISSUE_NUM" ] && continue
+
+            ITEM_ID=$(gh project item-list "$PROJECT_NUMBER" --owner "$PROJECT_OWNER" --format json \
+              | jq -r ".items[] | select(.content.number == $ISSUE_NUM and .content.type == \"Issue\") | .id")
+
+            if [ -n "$ITEM_ID" ] && [ "$ITEM_ID" != "null" ]; then
+              gh project item-edit \
+                --project-id "$PROJECT_ID" \
+                --id "$ITEM_ID" \
+                --field-id "$STATUS_FIELD_ID" \
+                --single-select-option-id "$IN_REVIEW_ID" || true
+              echo "Moved issue #$ISSUE_NUM to In Review"
+            else
+              echo "Issue #$ISSUE_NUM not found on project board — skipping"
+            fi
+          done
+
+  issue-to-done:
+    if: github.event_name == 'issues' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+    steps:
+      - name: Move issue to Done
+        run: |
+          ISSUE_NUM=${{ github.event.issue.number }}
+
+          PROJECT_ID=$(gh project list --owner "$PROJECT_OWNER" --format json \
+            | jq -r ".projects[] | select(.number == $PROJECT_NUMBER) | .id")
+          FIELD_JSON=$(gh project field-list "$PROJECT_NUMBER" --owner "$PROJECT_OWNER" --format json)
+          STATUS_FIELD_ID=$(echo "$FIELD_JSON" | jq -r '.fields[] | select(.name == "Status") | .id')
+          DONE_ID=$(echo "$FIELD_JSON" | jq -r '.fields[] | select(.name == "Status") | .options[] | select(.name == "Done") | .id')
+
+          ITEM_ID=$(gh project item-list "$PROJECT_NUMBER" --owner "$PROJECT_OWNER" --format json \
+            | jq -r ".items[] | select(.content.number == $ISSUE_NUM and .content.type == \"Issue\") | .id")
+
+          if [ -n "$ITEM_ID" ] && [ "$ITEM_ID" != "null" ]; then
+            gh project item-edit \
+              --project-id "$PROJECT_ID" \
+              --id "$ITEM_ID" \
+              --field-id "$STATUS_FIELD_ID" \
+              --single-select-option-id "$DONE_ID" || true
+            echo "Moved issue #$ISSUE_NUM to Done"
+          else
+            echo "Issue #$ISSUE_NUM not found on project board — skipping"
+          fi

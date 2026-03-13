@@ -6,7 +6,6 @@ import type { BlockProps } from '../_shared/types'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ButtonJsx = Button as AnyFC
-const ButtonTextJsx = Button.Text as AnyFC
 const CardJsx = Card as AnyFC
 const ProgressJsx = Progress as AnyFC
 
@@ -170,21 +169,21 @@ function StepperWizard({
                 onPress={onPrevious}
                 aria-label="Previous step"
               >
-                <ButtonTextJsx>Back</ButtonTextJsx>
+                Back
               </ButtonJsx>
             )}
             {step?.optional && onSkip && (
               <ButtonJsx variant="ghost" onPress={onSkip} aria-label="Skip this step">
-                <ButtonTextJsx>Skip</ButtonTextJsx>
+                Skip
               </ButtonJsx>
             )}
           </div>
           <ButtonJsx
-            variant="default"
+            variant="solid"
             onPress={isLast ? onComplete : onNext}
             aria-label={isLast ? 'Complete onboarding' : 'Next step'}
           >
-            <ButtonTextJsx>{isLast ? 'Complete' : 'Continue'}</ButtonTextJsx>
+            {isLast ? 'Complete' : 'Continue'}
           </ButtonJsx>
         </div>
       </div>
@@ -268,15 +267,15 @@ function CardsWizard({
       <div style={{ ...row, gap: 12 }}>
         {currentStep > 0 && (
           <ButtonJsx variant="outline" onPress={onPrevious} aria-label="Previous step">
-            <ButtonTextJsx>Back</ButtonTextJsx>
+            Back
           </ButtonJsx>
         )}
         <ButtonJsx
-          variant="default"
+          variant="solid"
           onPress={isLast ? onComplete : onNext}
           aria-label={isLast ? 'Complete' : 'Next'}
         >
-          <ButtonTextJsx>{isLast ? 'Get Started' : 'Next'}</ButtonTextJsx>
+          {isLast ? 'Get Started' : 'Next'}
         </ButtonJsx>
       </div>
     </div>
@@ -320,17 +319,17 @@ function MinimalWizard({
       <div style={{ ...row, justifyContent: 'space-between' }}>
         {currentStep > 0 ? (
           <ButtonJsx variant="ghost" onPress={onPrevious} aria-label="Previous step">
-            <ButtonTextJsx>Back</ButtonTextJsx>
+            Back
           </ButtonJsx>
         ) : (
           <div />
         )}
         <ButtonJsx
-          variant="default"
+          variant="solid"
           onPress={isLast ? onComplete : onNext}
           aria-label={isLast ? 'Complete' : 'Continue'}
         >
-          <ButtonTextJsx>{isLast ? 'Done' : 'Continue'}</ButtonTextJsx>
+          {isLast ? 'Done' : 'Continue'}
         </ButtonJsx>
       </div>
     </div>

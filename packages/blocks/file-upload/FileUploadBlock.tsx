@@ -6,7 +6,6 @@ import type { BlockProps } from '../_shared/types'
 
 type AnyFC = ComponentType<Record<string, unknown>>
 const ButtonJsx = Button as AnyFC
-const ButtonTextJsx = Button.Text as AnyFC
 const CardJsx = Card as AnyFC
 const ProgressJsx = Progress as AnyFC
 
@@ -93,7 +92,7 @@ function FileItem({
             onPress={() => onRetry(file.id)}
             aria-label={`Retry ${file.name}`}
           >
-            <ButtonTextJsx>Retry</ButtonTextJsx>
+            Retry
           </ButtonJsx>
         )}
         {onRemove && (
@@ -103,7 +102,7 @@ function FileItem({
             onPress={() => onRemove(file.id)}
             aria-label={`Remove ${file.name}`}
           >
-            <ButtonTextJsx>Remove</ButtonTextJsx>
+            Remove
           </ButtonJsx>
         )}
       </div>
@@ -237,7 +236,7 @@ function CompactUpload({
           }}
           aria-label={title}
         >
-          <ButtonTextJsx>{title}</ButtonTextJsx>
+          {title}
         </ButtonJsx>
         {files.length > 0 && (
           <span style={{ fontSize: 14, opacity: 0.6, fontFamily: 'var(--font-body)' }}>
@@ -334,7 +333,7 @@ function GalleryUpload({
                     onPress={() => onRemove(file.id)}
                     aria-label={`Remove ${file.name}`}
                   >
-                    <ButtonTextJsx>x</ButtonTextJsx>
+                    x
                   </ButtonJsx>
                 </div>
               )}

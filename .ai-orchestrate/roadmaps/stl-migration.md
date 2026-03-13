@@ -18,7 +18,7 @@ vlt-ui has 238+ components on Tamagui v2 RC (2.0.0-rc.14) with 208 `@ts-expect-e
 - Vite + Vanilla Extract build (replaces `tamagui-build`)
 - No backwards compat needed (not in production)
 
-**Source:** neutron-ui quarks packages at `/Users/lucas/Sites/neutron-ui/packages/`
+**Source:** vlt-ui quarks packages
 
 ## Metadata
 - **Saga issue:** #105
@@ -37,7 +37,7 @@ vlt-ui has 238+ components on Tamagui v2 RC (2.0.0-rc.14) with 208 `@ts-expect-e
 **Branch prefix:** chore
 **Acceptance criteria:**
 - [x] quarks source copied to packages/stl/, packages/stl-react/, packages/stl-native/
-- [x] All `@withneutron/quarks` references rebranded to `@vlting/stl`
+- [x] All legacy quarks references rebranded to `@vlting/stl`
 - [x] All `Quarks` identifiers renamed to `Stl` (QuarksProvider → StlProvider, etc.)
 - [x] Debug console.log statements removed from StyleManager
 - [x] package.json files updated with correct names, deps, and build outputs

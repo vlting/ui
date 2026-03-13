@@ -14,58 +14,65 @@ const CardDescriptionJsx = Card.Description as AnyFC
 const CardContentJsx = Card.Content as AnyFC
 const CardFooterJsx = Card.Footer as AnyFC
 const ButtonJsx = Button as AnyFC
-const ButtonTextJsx = Button.Text as AnyFC
 const SeparatorJsx = Separator as AnyFC
 const BadgeJsx = Badge as AnyFC
 
 const ToggleButton = styled(
   'button',
   {
-    appearance: 'none',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: '$borderColor',
-    background: 'none',
-    padding: '6px 16px',
-    cursor: 'pointer',
-    fontFamily: 'inherit',
-    fontSize: '$14',
-    color: '$color',
-    borderRadius: '6px',
+    stl: {
+      appearance: 'none',
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      borderColor: '$borderColor',
+      background: 'none',
+      padding: '6px 16px',
+      cursor: 'pointer',
+      fontFamily: 'inherit',
+      fontSize: '$14',
+      color: '$color',
+      borderRadius: '6px',
+    },
+    styleName: 'PricingToggle',
   },
-  'PricingToggle',
 )
 
 const PricingTable = styled(
   'table',
-  { width: '100%', borderCollapse: 'collapse', fontFamily: 'inherit' },
-  'PricingTable',
+  {
+    stl: { width: '100%', borderCollapse: 'collapse', fontFamily: 'inherit' },
+    styleName: 'PricingTable',
+  },
 )
 
 const Th = styled(
   'th',
   {
-    padding: '12px 16px',
-    textAlign: 'left',
-    fontWeight: '600',
-    fontSize: '$14',
-    borderBottomWidth: '1px',
-    borderBottomStyle: 'solid',
-    borderColor: '$borderColor',
+    stl: {
+      padding: '12px 16px',
+      textAlign: 'left',
+      fontWeight: '600',
+      fontSize: '$14',
+      borderBottomWidth: '1px',
+      borderBottomStyle: 'solid',
+      borderColor: '$borderColor',
+    },
+    styleName: 'PricingTh',
   },
-  'PricingTh',
 )
 
 const Td = styled(
   'td',
   {
-    padding: '10px 16px',
-    fontSize: '$14',
-    borderBottomWidth: '1px',
-    borderBottomStyle: 'solid',
-    borderColor: '$borderColor',
+    stl: {
+      padding: '10px 16px',
+      fontSize: '$14',
+      borderBottomWidth: '1px',
+      borderBottomStyle: 'solid',
+      borderColor: '$borderColor',
+    },
+    styleName: 'PricingTd',
   },
-  'PricingTd',
 )
 
 // -- Types --
@@ -297,11 +304,11 @@ function PricingCards({
 
             <CardFooterJsx>
               <ButtonJsx
-                variant={plan.highlighted ? 'default' : 'outline'}
+                variant={plan.highlighted ? 'solid' : 'outline'}
                 width="100%"
                 onPress={() => onSelectPlan?.(plan.id)}
               >
-                <ButtonTextJsx>{plan.cta ?? 'Get started'}</ButtonTextJsx>
+                {plan.cta ?? 'Get started'}
               </ButtonJsx>
             </CardFooterJsx>
           </CardJsx>
@@ -396,11 +403,11 @@ function PricingComparison({
             {plans.map((plan) => (
               <Td key={plan.id} style={{ textAlign: 'center' }}>
                 <ButtonJsx
-                  variant={plan.highlighted ? 'default' : 'outline'}
+                  variant={plan.highlighted ? 'solid' : 'outline'}
                   size="sm"
                   onPress={() => onSelectPlan?.(plan.id)}
                 >
-                  <ButtonTextJsx>{plan.cta ?? 'Select'}</ButtonTextJsx>
+                  {plan.cta ?? 'Select'}
                 </ButtonJsx>
               </Td>
             ))}
@@ -506,8 +513,8 @@ function PricingSimple({
           ))}
         </div>
 
-        <ButtonJsx variant="default" width="100%" onPress={() => onSelectPlan?.(plan.id)}>
-          <ButtonTextJsx>{plan.cta ?? 'Get started'}</ButtonTextJsx>
+        <ButtonJsx variant="solid" width="100%" onPress={() => onSelectPlan?.(plan.id)}>
+          {plan.cta ?? 'Get started'}
         </ButtonJsx>
       </div>
     </CardJsx>

@@ -1,54 +1,56 @@
-import type { CSSProperties } from 'react'
-import { useReducedMotion } from '../hooks/useReducedMotion'
+import type { ComponentPropsWithRef } from 'react'
+import { styled } from '../stl-react/src/config'
 
-const SIZE_MAP = { sm: 20, md: 20, lg: 28 } as const
-const DOT_SIZE_MAP = { sm: 4, md: 4, lg: 8 } as const
+export type SpinnerProps = ComponentPropsWithRef<typeof Spinner>
 
-export interface SpinnerProps {
-  size?: 'sm' | 'md' | 'lg'
-  color?: string
-}
-
-export function Spinner({ size = 'md', color }: SpinnerProps) {
-  const reducedMotion = useReducedMotion()
-  const dimension = SIZE_MAP[size]
-  const dotSize = DOT_SIZE_MAP[size]
-  const r = dimension / 2
-
-  const containerStyle: CSSProperties = {
-    position: 'relative',
-    width: dimension,
-    height: dimension,
-    ...(reducedMotion ? {} : { animation: 'vlting-spinner 1s linear infinite' }),
-  }
-
-  return (
-    <div role="status" aria-label="Loading" style={containerStyle}>
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
-        const angle = (i * 360) / 8
-        const rad = (angle * Math.PI) / 180
-        const x = r + (r - dotSize / 2) * Math.sin(rad) - dotSize / 2
-        const y = r - (r - dotSize / 2) * Math.cos(rad) - dotSize / 2
-
-        const dotStyle: CSSProperties = {
-          position: 'absolute',
-          borderRadius: '50%',
-          backgroundColor: color ?? 'currentColor',
-          opacity: 0.15 + (i / 8) * 0.85,
-          width: dotSize,
-          height: dotSize,
-          left: x,
-          top: y,
-        }
-
-        return <div key={i} style={dotStyle} />
-      })}
-      <style
-        dangerouslySetInnerHTML={{
-          __html:
-            '@keyframes vlting-spinner { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }',
-        }}
+export const Spinner = styled('span', {
+  stl: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    animation: '$spin',
+    lowMotion: {
+      animation: 'none',
+    },
+  },
+  variants: {
+    theme: {
+      primary: { color: '$primary9' },
+      secondary: { color: '$secondary9' },
+      neutralMin: { color: '$color8' },
+      neutralMax: { color: '$color12' },
+    },
+    size: {
+      sm: { width: '$16', height: '$16' },
+      md: { width: '$20', height: '$20' },
+      lg: { width: '$28', height: '$28' },
+    },
+  },
+  defaultVariants: {
+    theme: 'neutralMax',
+    size: 'md',
+  },
+  mapProps: (props) => ({
+    ...props,
+    role: 'status',
+    'aria-label': 'Loading',
+  }),
+  template: () => (
+    <svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="2" opacity="0.25" />
+      <path
+        d="M14 8a6 6 0 0 0-6-6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
       />
-    </div>
-  )
-}
+    </svg>
+  ),
+  styleName: 'Spinner',
+})

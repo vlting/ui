@@ -1,84 +1,86 @@
+'use client'
+
 import type { PropDef } from '@/lib/api-mapping'
 import { styled } from '../../../packages/stl-react/src'
 
-const Wrapper = styled('div', {
+const Wrapper = styled('div', { stl: {
   my: '$3.5',
-})
+}})
 
-const Title = styled('h4', {
+const Title = styled('h4', { stl: {
   fontSize: '$p',
   fontWeight: '$600',
   mb: '$2',
   fontFamily: '$mono',
-})
+}})
 
-const TableContainer = styled('div', {
+const TableContainer = styled('div', { stl: {
   overflowX: 'auto',
   border: '$thin $borderColor',
   borderRadius: '$4',
-})
+}})
 
-const Table = styled('table', {
+const Table = styled('table', { stl: {
   width: '100%',
   fontSize: '$p',
   borderCollapse: 'collapse',
-})
+}})
 
-const Thead = styled('thead', {})
+const Thead = styled('thead', { stl: {} })
 
-const TheadRow = styled('tr', {
+const TheadRow = styled('tr', { stl: {
   borderBottom: '$thin $borderColor',
   background: '$tertiary1',
-})
+}})
 
-const Th = styled('th', {
+const Th = styled('th', { stl: {
   textAlign: 'left',
   py: '$1',
   px: '$2.5',
   fontWeight: '$500',
-})
+}})
 
-const Td = styled('td', {
+const Td = styled('td', { stl: {
   py: '$1',
   px: '$2.5',
-})
+}})
 
-const TdMono = styled('td', {
+const TdMono = styled('td', { stl: {
   py: '$1',
   px: '$2.5',
   fontFamily: '$mono',
   fontSize: '$p',
-})
+}})
 
-const TdMonoMuted = styled('td', {
+const TdMonoMuted = styled('td', { stl: {
   py: '$1',
   px: '$2.5',
   fontFamily: '$mono',
   fontSize: '$small',
   color: '$colorSubtitle',
-})
+}})
 
-const TdSubtitle = styled('td', {
+const TdSubtitle = styled('td', { stl: {
   py: '$1',
   px: '$2.5',
   color: '$colorSubtitle',
-})
+}})
 
-const MonoSmall = styled('span', {
+const MonoSmall = styled('span', { stl: {
   fontFamily: '$mono',
   fontSize: '$small',
-})
+}})
 
-const MonoSmallSubtitle = styled('span', {
+const MonoSmallSubtitle = styled('span', { stl: {
   fontFamily: '$mono',
   fontSize: '$small',
   color: '$colorSubtitle',
-})
+}})
 
-const RequiredMark = styled('span', {
+const RequiredMark = styled('span', { stl: {
   color: '$danger9',
   ml: 2,
-})
+}})
 
 interface PropTableProps {
   props: Record<string, PropDef>

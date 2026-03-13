@@ -27,8 +27,12 @@ export function generatePalette(
   hue: number,
   saturation: number,
   mode: 'light' | 'dark',
+  highContrast?: boolean,
 ): string[] {
-  const lightness = mode === 'light' ? LIGHT_LIGHTNESS : DARK_LIGHTNESS
+  const lightness = [...(mode === 'light' ? LIGHT_LIGHTNESS : DARK_LIGHTNESS)]
+  if (highContrast) {
+    lightness[8] = mode === 'light' ? 0 : 100
+  }
   return lightness.map((l, i) => {
     const s = Math.round(saturation * SATURATION_CURVE[i])
     return `hsl(${hue}, ${s}%, ${l}%)`
@@ -108,8 +112,12 @@ export function getTextColorStep(
   hue: number,
   saturation: number,
   mode: 'light' | 'dark',
+  highContrast?: boolean,
 ): number {
-  const lightness = mode === 'light' ? LIGHT_LIGHTNESS : DARK_LIGHTNESS
+  const lightness = [...(mode === 'light' ? LIGHT_LIGHTNESS : DARK_LIGHTNESS)]
+  if (highContrast) {
+    lightness[8] = mode === 'light' ? 0 : 100
+  }
   const bgS = Math.round(saturation * SATURATION_CURVE[backgroundStep])
   const bgL = relativeLuminance(hue, bgS, lightness[backgroundStep])
 

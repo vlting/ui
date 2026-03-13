@@ -8,8 +8,8 @@ import {
 } from '../StyleManager'
 import type { Colors } from '../props'
 import type { ColorPaletteEntry, PrefixedKey, ScaleEntry } from '../scales'
-import { type CSS, tokenToVarMap } from '../styles.css'
-import type { VariantCSS } from '../styles.models'
+import { type STL, tokenToVarMap } from '../styles.css'
+import type { VariantSTL } from '../styles.models'
 import { addPrefix } from './general.utils'
 
 export function getColorOverrides(
@@ -63,17 +63,17 @@ export function getThemeOverrides(
 
 /** Converts a CSS style object into a set of pre-generated CSS class names, and possibly a style object */
 export function style(input: {
-  css: CSS
+  stl: STL
   conditions: Conditions
-  variantCss?: VariantCSS
-  overrides?: CSS | null
+  variantStl?: VariantSTL
+  overrides?: STL | null
   styleName?: string
   manager?: StyleManager
   props?: StyleMangerProps
   useClassName?: boolean
 }) {
   let { manager } = input
-  const { css, conditions, variantCss, overrides, styleName, props, useClassName } = input
+  const { stl, conditions, variantStl, overrides, styleName, props, useClassName } = input
 
   if (manager) {
     manager.setNewStyle(conditions, styleName, props)
@@ -82,27 +82,27 @@ export function style(input: {
   }
 
   // Process defined styles
-  manager.processCss(css)
+  manager.processStl(stl)
 
   // Process variants, if any.
-  if (variantCss && variantCss.length > 0) {
-    manager.processVariantCss(variantCss)
+  if (variantStl && variantStl.length > 0) {
+    manager.processVariantStl(variantStl)
   }
 
   // Process style overrides, if any. This is useful for runtime overrides
   if (overrides) {
-    manager.processOverridesCss(overrides)
+    manager.processOverridesStl(overrides)
   }
 
   return manager.compile(useClassName)
 }
 
 /** Keeps the order of merged CSS selectors & props, unlike a regular merge, if an object key is repeated */
-export const mergeCss = (...cssObject: MaybeCSS[]): CSS => {
+export const mergeStl = (...cssObject: MaybeSTL[]): STL => {
   const mergedObj = {} as Record<string, any>
 
   // Loop through each CSS object
-  cssObject.forEach((obj: MaybeCSS): void => {
+  cssObject.forEach((obj: MaybeSTL): void => {
     // Skip falsy values
     if (!obj) return
 
@@ -115,8 +115,8 @@ export const mergeCss = (...cssObject: MaybeCSS[]): CSS => {
       if (mergedObj[key] === undefined) {
         mergedObj[key] = newValue
       } else if (newValue && typeof newValue === 'object') {
-        const oldValue = mergedObj[key] ? (mergedObj[key] as CSS) : ({} as CSS)
-        mergedObj[key] = mergeCss(oldValue, newValue as CSS)
+        const oldValue = mergedObj[key] ? (mergedObj[key] as STL) : ({} as STL)
+        mergedObj[key] = mergeStl(oldValue, newValue as STL)
       } else {
         // For primitives, just replace the old value with the new one, after deleting
         // the old one to preserve the order of properties.
@@ -125,7 +125,7 @@ export const mergeCss = (...cssObject: MaybeCSS[]): CSS => {
       }
     })
   })
-  return mergedObj as CSS
+  return mergedObj as STL
 }
 
 /** Generates a CSS class name from a `className` string, plus an optional pseudo-class */
@@ -149,6 +149,6 @@ function flattenOverrides(overrides?: ThemeOverrides) {
       }, {} as any) as Record<string, string | number>)
 }
 
-type MaybeCSS = CSS | false | null | undefined
+type MaybeSTL = STL | false | null | undefined
 
 export type SemanticColorOverrides = Partial<SemanticColors>

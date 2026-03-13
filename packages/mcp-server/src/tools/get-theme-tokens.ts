@@ -76,13 +76,13 @@ export function handleGetThemeTokens(): TokenCategory[] {
   // CSS custom properties from brand injection
   try {
     const injectFile = readFileSync(
-      resolve(root, 'packages/design-tokens/brands/inject.ts'),
+      resolve(root, 'packages/stl/src/theme/inject.ts'),
       'utf8',
     )
     const varPrefix = injectFile.match(/VAR_PREFIX\s*=\s*'([^']+)'/)?.[1] || '--vlt'
     categories.push({
-      category: 'brand-vars',
-      description: `CSS custom properties injected by injectBrandVars() with prefix "${varPrefix}"`,
+      category: 'theme-vars',
+      description: `CSS custom properties injected by themeToVars() with prefix "${varPrefix}"`,
       tokens: [
         {
           name: 'color-1…12',

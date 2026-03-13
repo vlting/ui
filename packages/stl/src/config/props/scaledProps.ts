@@ -59,7 +59,7 @@ import {
 } from '../scales'
 import { addPrefix } from '../utils'
 import {
-  type CssPropKey,
+  type StlPropKey,
   type CssRule,
   type CssValueClassMap,
   type FilterKeys,
@@ -110,7 +110,7 @@ export function generateScaledPropsCss<S extends Scales, K extends FilterKeys>(
   keys?: K,
 ) {
   function entries<M extends CssValueMap, A extends CssAliasMap = CssAliasMap>(
-    prop: CssPropKey,
+    prop: StlPropKey,
     map: M,
     aliasMap?: A,
   ) {

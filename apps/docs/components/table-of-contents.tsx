@@ -10,18 +10,18 @@ interface TocItem {
   level: number
 }
 
-const TocNav = styled('nav', {
+const TocNav = styled('nav', { stl: {
   display: 'flex',
   flexDirection: 'column',
   gap: 4,
   fontSize: '$p',
-})
+}})
 
-const TocTitle = styled('p', {
+const TocTitle = styled('p', { stl: {
   mb: '$1.5',
   fontWeight: '$500',
   color: '$color',
-})
+}})
 
 export function TableOfContents() {
   const [headings, setHeadings] = useState<TocItem[]>([])

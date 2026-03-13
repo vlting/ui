@@ -2,44 +2,31 @@
 // Theme generation API
 // ---------------------------------------------------------------------------
 
-import { generateTheme as _generateTheme } from './generate-theme'
-import {
-  THEME_PRESET_DEFAULT as _DEFAULT,
-  THEME_PRESET_FUN as _FUN,
-  THEME_PRESET_POSH as _POSH,
-  THEME_PRESET_SHADCN as _SHADCN,
-} from './presets'
+import { createTheme as _createTheme } from './generate-theme'
+import { THEME_PRESET_DEFAULT as _DEFAULT } from './presets'
 
-export { generateTheme } from './generate-theme'
-export type { ColorInput, GenerateThemeOptions, SecondaryColorInput } from './generate-theme'
-export {
-  THEME_PRESET_DEFAULT,
-  THEME_PRESET_FUN,
-  THEME_PRESET_POSH,
-  THEME_PRESET_SHADCN,
-} from './presets'
+export { createTheme, applyTheme, getTheme } from './generate-theme'
+export type { ColorInput, CreateThemeOptions, SecondaryColorInput } from './generate-theme'
+export { THEME_PRESET_DEFAULT } from './presets'
 
 // ---------------------------------------------------------------------------
 // CSS variable injection
 // ---------------------------------------------------------------------------
 
-export { getBrandStyleTag, getThemeStyleTag, injectBrandVars, themeToVars } from './inject'
+export { getThemeStyleTag, themeToVars } from './inject'
 
 // ---------------------------------------------------------------------------
 // Types & palette utilities
 // ---------------------------------------------------------------------------
 
-export type { Brand } from './types'
+export type { Theme } from './types'
 export { generatePalette, getTextColorStep } from './generate-palette'
 
 // ---------------------------------------------------------------------------
-// Built-in brands (generated from presets)
+// Built-in themes (generated from presets)
 // ---------------------------------------------------------------------------
 
-export const defaultBrand = _generateTheme(_DEFAULT)
-export const funBrand = _generateTheme(_FUN)
-export const poshBrand = _generateTheme(_POSH)
-export const shadcnBrand = _generateTheme(_SHADCN)
+export const defaultTheme = _createTheme(_DEFAULT)
 
 // ---------------------------------------------------------------------------
 // Media queries (framework-agnostic)

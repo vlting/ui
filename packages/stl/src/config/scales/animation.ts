@@ -18,14 +18,14 @@ export function getAnimation(hash: CharHash, keyframeHash: CharHash) {
   const bounceLeft = keyframeHash.name
   const keyframes: Keyframes = {
     [spin]: {
-      '0%, 5.1%': { transform: 'rotate(0deg)' },
-      '20%, 80%': { transform: 'rotate(180deg)' },
-      '50%, to': { transform: 'rotate(360deg)' },
+      from: { transform: 'rotate(0deg)' },
+      to: { transform: 'rotate(360deg)' },
     },
     [spinAndPause]: {
-      '0%, 25.1%': { transform: 'rotate(0deg)' },
-      '10%, 40%': { transform: 'rotate(180deg)' },
-      '25%, 50%, to': { transform: 'rotate(360deg)' },
+      '0%': { transform: 'rotate(0deg)' },
+      '40%': { transform: 'rotate(360deg)' },
+      '60%': { transform: 'rotate(360deg)' },
+      to: { transform: 'rotate(720deg)' },
     },
     [flashSize]: {
       '0%, to': { transform: 'scale3d(1, 1, 1)' },
@@ -190,14 +190,14 @@ export function getAnimation(hash: CharHash, keyframeHash: CharHash) {
       animationName: 'spinName',
       animationDuration: 'spinDuration',
       animationIterationCount: addStaticValuePrefix('infinite'),
-      animationTimingFunction: addStaticValuePrefix('ease-in-out'),
+      animationTimingFunction: addStaticValuePrefix('linear'),
       animationFillMode: addStaticValuePrefix('both'),
     },
     spinAndPause: {
       animationName: 'spinAndPauseName',
       animationDuration: 'spinAndPauseDuration',
       animationIterationCount: addStaticValuePrefix('infinite'),
-      animationTimingFunction: addStaticValuePrefix('ease-in-out'),
+      animationTimingFunction: addStaticValuePrefix('linear'),
       animationFillMode: addStaticValuePrefix('both'),
     },
     flashSize: {

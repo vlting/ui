@@ -23,6 +23,18 @@ export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
   const tertiaryColorBase = { ...hash.var, value: color.tertiary9.ref } as const
   const tertiaryColorMin = { ...hash.var, value: color.tertiary7.ref } as const
   const tertiaryColorMax = { ...hash.var, value: color.tertiary10.ref } as const
+  const errorColorBase = { ...hash.var, value: color.error9.ref } as const
+  const errorColorMin = { ...hash.var, value: color.error7.ref } as const
+  const errorColorMax = { ...hash.var, value: color.error10.ref } as const
+  const infoColorBase = { ...hash.var, value: color.info9.ref } as const
+  const infoColorMin = { ...hash.var, value: color.info7.ref } as const
+  const infoColorMax = { ...hash.var, value: color.info10.ref } as const
+  const successColorBase = { ...hash.var, value: color.success9.ref } as const
+  const successColorMin = { ...hash.var, value: color.success7.ref } as const
+  const successColorMax = { ...hash.var, value: color.success10.ref } as const
+  const warningColorBase = { ...hash.var, value: color.warning9.ref } as const
+  const warningColorMin = { ...hash.var, value: color.warning7.ref } as const
+  const warningColorMax = { ...hash.var, value: color.warning10.ref } as const
 
   const offsetBase = { ...hash.var, value: widthBase.ref } as const
   const offsetMin = {
@@ -48,6 +60,18 @@ export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
     tertiaryColorBase,
     tertiaryColorMin,
     tertiaryColorMax,
+    errorColorBase,
+    errorColorMin,
+    errorColorMax,
+    infoColorBase,
+    infoColorMin,
+    infoColorMax,
+    successColorBase,
+    successColorMin,
+    successColorMax,
+    warningColorBase,
+    warningColorMin,
+    warningColorMax,
     offsetBase,
     offsetMin,
     offsetMax,
@@ -68,6 +92,18 @@ export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
     tertiary: 'tertiary',
     tertiaryMin: 'tertiaryMin',
     tertiaryMax: 'tertiaryMax',
+    error: 'error',
+    errorMin: 'errorMin',
+    errorMax: 'errorMax',
+    info: 'info',
+    infoMin: 'infoMin',
+    infoMax: 'infoMax',
+    success: 'success',
+    successMin: 'successMin',
+    successMax: 'successMax',
+    warning: 'warning',
+    warningMin: 'warningMin',
+    warningMax: 'warningMax',
   } as const
 
   const { aliasMap, cssAliases } = getAliasMap(
@@ -81,6 +117,18 @@ export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
       tertiary: { outlineColor: 'tertiaryColorBase' },
       tertiaryMin: { outlineColor: 'tertiaryColorMin' },
       tertiaryMax: { outlineColor: 'tertiaryColorMax' },
+      error: { outlineColor: 'errorColorBase' },
+      errorMin: { outlineColor: 'errorColorMin' },
+      errorMax: { outlineColor: 'errorColorMax' },
+      info: { outlineColor: 'infoColorBase' },
+      infoMin: { outlineColor: 'infoColorMin' },
+      infoMax: { outlineColor: 'infoColorMax' },
+      success: { outlineColor: 'successColorBase' },
+      successMin: { outlineColor: 'successColorMin' },
+      successMax: { outlineColor: 'successColorMax' },
+      warning: { outlineColor: 'warningColorBase' },
+      warningMin: { outlineColor: 'warningColorMin' },
+      warningMax: { outlineColor: 'warningColorMax' },
       [addStaticValuePrefix('none')]: {
         outlineColor: addStaticValuePrefix('transparent'),
       },
@@ -122,6 +170,18 @@ export const outlineCombos = {
   tertiary: true,
   tertiaryMin: true,
   tertiaryMax: true,
+  error: true,
+  errorMin: true,
+  errorMax: true,
+  info: true,
+  infoMin: true,
+  infoMax: true,
+  success: true,
+  successMin: true,
+  successMax: true,
+  warning: true,
+  warningMin: true,
+  warningMax: true,
 } as const
 
 export const hiddenOutlineWidths = { ...outlineCombos } as const
@@ -146,6 +206,22 @@ export const hiddenOutlineColors = {
   tertiaryColorBase: true,
   tertiaryColorMin: true,
   tertiaryColorMax: true,
+  errorColor: true,
+  errorColorBase: true,
+  errorColorMin: true,
+  errorColorMax: true,
+  infoColor: true,
+  infoColorBase: true,
+  infoColorMin: true,
+  infoColorMax: true,
+  successColor: true,
+  successColorBase: true,
+  successColorMin: true,
+  successColorMax: true,
+  warningColor: true,
+  warningColorBase: true,
+  warningColorMin: true,
+  warningColorMax: true,
 } as const
 export const outlineColors = { ...outlineCombos } as const
 

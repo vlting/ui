@@ -16,11 +16,13 @@ const SeparatorJsx = Separator as AnyFC
 const NavElement = styled(
   'nav',
   {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
+    stl: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+    },
+    styleName: 'AppShellNav',
   },
-  'AppShellNav',
 )
 
 // -- Types --

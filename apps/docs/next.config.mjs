@@ -13,6 +13,7 @@ const nextConfig = {
       ...config.resolve.alias,
       'react-native$': 'react-native-web',
       'react-native-svg': 'react-native-svg-web',
+      '@vlting/stl-react': resolve(__dirname, '../../packages/stl-react/src'),
     }
     return config
   },

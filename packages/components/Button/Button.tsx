@@ -1,270 +1,264 @@
-import React, { createContext, useContext, useEffect } from 'react'
+import type { ReactNode } from 'react'
 import { VisuallyHidden } from '../../primitives'
-import { styled } from '../../stl-react/src/config'
+import { Spinner } from '../../primitives/Spinner'
+import { styled, templateProps, options } from '../../stl-react/src/config'
 
-const BUTTON_INTERACTION_STYLE_ID = 'vlt-button-interaction'
-const BUTTON_INTERACTION_CSS = `
-.vlt-btn:hover:not(:disabled) { filter: brightness(1.1); }
-.vlt-btn:focus-visible { outline: 2px solid var(--stl-outline-primaryColorBase, currentColor); outline-offset: 2px; }
-.vlt-btn:active:not(:disabled) { filter: brightness(0.95); transform: scale(0.98); }
-`
+const ButtonSpinner = styled('span', {
+  stl: { position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+})
 
-const ButtonFrame = styled(
-  'button',
-  {
+const ButtonContent = styled('span', {
+  stl: { display: 'contents' },
+  variants: {
+    hidden: { true: { visibility: 'hidden' } },
+  },
+})
+
+// ─── Button ──────────────────────────────────────────────────────────────────
+export const Button = styled('button', {
+  stl: {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '8px',
-    borderRadius: '6px',
-    fontFamily: 'var(--font-body)',
-    fontWeight: '500',
+    gap: '$8',
+    borderRadius: '$button',
+    fontFamily: '$body',
+    fontWeight: '$500',
     cursor: 'pointer',
-    border: 'none',
-    transition:
-      'background-color 150ms ease, border-color 150ms ease, filter 150ms ease, transform 100ms ease',
     outline: 'none',
+    ':focus': {
+      outlineWidth: '$widthBase',
+      outlineStyle: 'solid',
+      outlineOffset: '$offsetDefault',
+    },
+    ':pressed': { transform: 'scale(0.98)' },
+    lowMotion: {
+      transition: 'none',
+      ':pressed': { transform: 'none' },
+    },
   },
-  {
+  variants: {
+    theme: options('primary', 'secondary', 'neutral', 'destructive'),
     variant: {
-      default: {
-        backgroundColor: 'var(--color10)',
-        color: 'var(--color1)',
-        borderWidth: '0',
-      },
-      solid: {
-        backgroundColor: 'var(--color10)',
-        color: 'var(--color1)',
-        borderWidth: '0',
-      },
-      secondary: {
-        backgroundColor: 'var(--color2)',
-        color: 'var(--color)',
-        borderWidth: '0',
-      },
-      destructive: {
-        backgroundColor: 'var(--color4)',
-        color: 'var(--color11)',
-        borderWidth: '0',
-      },
-      outline: {
-        backgroundColor: 'transparent',
-        borderWidth: '1px',
-        borderStyle: 'solid',
-        borderColor: 'var(--borderColor)',
-        color: 'var(--color)',
-      },
-      ghost: { backgroundColor: 'transparent', color: 'var(--color)', borderWidth: '0' },
-      link: {
-        backgroundColor: 'transparent',
-        color: 'var(--color10)',
-        borderWidth: '0',
-        paddingLeft: '0',
-        paddingRight: '0',
-        textDecoration: 'underline',
-      },
+      solid: { border: 'none' },
+      subtle: { border: 'none' },
+      outline: {},
+      ghost: { border: 'none' },
+      link: { border: 'none' },
     },
     size: {
-      xs: {
-        height: '28px',
-        paddingTop: '4px',
-        paddingBottom: '4px',
-        paddingLeft: '8px',
-        paddingRight: '8px',
-        fontSize: 'var(--fontSize-1, 11px)',
-      },
-      sm: {
-        height: '32px',
-        paddingTop: '8px',
-        paddingBottom: '8px',
-        paddingLeft: '12px',
-        paddingRight: '12px',
-        fontSize: 'var(--fontSize-2, 12px)',
-      },
-      md: {
-        height: '36px',
-        paddingTop: '8px',
-        paddingBottom: '8px',
-        paddingLeft: '16px',
-        paddingRight: '16px',
-        fontSize: 'var(--fontSize-4, 16px)',
-      },
-      lg: {
-        height: '40px',
-        paddingTop: '12px',
-        paddingBottom: '12px',
-        paddingLeft: '24px',
-        paddingRight: '24px',
-        fontSize: 'var(--fontSize-5, 18px)',
-      },
-      icon: {
-        height: '36px',
-        width: '36px',
-        padding: '0',
-        fontSize: 'var(--fontSize-4, 16px)',
-      },
+      xs: { height: '$28', py: '$4', px: '$8', fontSize: '$buttonTiny' },
+      sm: { height: '$32', py: '$8', px: '$12', fontSize: '$buttonSmall' },
+      md: { height: '$36', py: '$buttonBasePy', px: '$buttonBasePx', fontSize: '$button' },
+      lg: { height: '$40', py: '$12', px: '$24', fontSize: '$buttonLarge' },
+      icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button' },
     },
     disabled: {
       true: { opacity: '0.5', cursor: 'not-allowed', pointerEvents: 'none' },
     },
-  },
-  'Button',
-)
-
-const ButtonTextFrame = styled(
-  'span',
-  {
-    fontFamily: 'var(--font-body)',
-    fontWeight: '500',
-  },
-  {
-    textVariant: {
-      default: { color: 'var(--color1)' },
-      solid: { color: 'var(--color1)' },
-      secondary: { color: 'var(--color)' },
-      destructive: { color: 'var(--color11)' },
-      outline: { color: 'var(--color)' },
-      ghost: { color: 'var(--color)' },
-      link: { color: 'var(--color10)', textDecoration: 'underline' },
-    },
-    size: {
-      xs: { fontSize: 'var(--fontSize-1, 11px)' },
-      sm: { fontSize: 'var(--fontSize-2, 12px)' },
-      md: { fontSize: 'var(--fontSize-4, 16px)' },
-      lg: { fontSize: 'var(--fontSize-5, 18px)' },
+    loading: {
+      true: { cursor: 'wait', pointerEvents: 'none' },
     },
   },
-  'ButtonText',
-)
+  compoundVariants: [
+    // ── Primary ────────────────────────────────────────
+    {
+      when: { theme: 'primary', variant: 'solid' },
+      stl: {
+        bg: '$primary9', color: '$primaryText9',
+        ':interact': { bg: '$primary10', color: '$primaryText10' },
+        ':focus': { outline: '$primaryMax' },
+      },
+    },
+    {
+      when: { theme: 'primary', variant: 'subtle' },
+      stl: {
+        bg: '$primary3', color: '$primaryText3',
+        ':interact': { bg: '$primary9', color: '$primaryText9' },
+        ':focus': { outline: '$primary' },
+      },
+    },
+    {
+      when: { theme: 'primary', variant: 'outline' },
+      stl: {
+        bg: 'transparent', border: '$primary', color: '$primaryText1',
+        ':interact': { bg: '$primary9', color: '$primaryText9', borderColor: '$primary' },
+        ':focus': { outline: '$primary' },
+      },
+    },
+    {
+      when: { theme: 'primary', variant: 'ghost' },
+      stl: {
+        bg: 'transparent', color: '$primaryText1',
+        ':interact': { bg: '$primary9', color: '$primaryText9' },
+        ':focus': { outline: '$primary' },
+      },
+    },
+    {
+      when: { theme: 'primary', variant: 'link' },
+      stl: {
+        bg: 'transparent', color: '$primaryText1', px: '$0', textDecoration: 'underline',
+        ':interact': { bg: '$primary9', color: '$primaryText9' },
+        ':focus': { outline: '$primary' },
+      },
+    },
 
-const ButtonIconFrame = styled(
-  'span',
-  {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  'ButtonIcon',
-)
+    // ── Secondary ──────────────────────────────────────
+    {
+      when: { theme: 'secondary', variant: 'solid' },
+      stl: {
+        bg: '$secondary9', color: '$secondaryText9',
+        ':interact': { bg: '$secondary10', color: '$secondaryText10' },
+        ':focus': { outline: '$secondaryMax' },
+      },
+    },
+    {
+      when: { theme: 'secondary', variant: 'subtle' },
+      stl: {
+        bg: '$secondary3', color: '$secondaryText3',
+        ':interact': { bg: '$secondary9', color: '$secondaryText9' },
+        ':focus': { outline: '$secondary' },
+      },
+    },
+    {
+      when: { theme: 'secondary', variant: 'outline' },
+      stl: {
+        bg: 'transparent', border: '$secondary', color: '$secondaryText1',
+        ':interact': { bg: '$secondary9', color: '$secondaryText9', borderColor: '$secondary' },
+        ':focus': { outline: '$secondary' },
+      },
+    },
+    {
+      when: { theme: 'secondary', variant: 'ghost' },
+      stl: {
+        bg: 'transparent', color: '$secondaryText1',
+        ':interact': { bg: '$secondary9', color: '$secondaryText9' },
+        ':focus': { outline: '$secondary' },
+      },
+    },
+    {
+      when: { theme: 'secondary', variant: 'link' },
+      stl: {
+        bg: 'transparent', color: '$secondaryText1', px: '$0', textDecoration: 'underline',
+        ':interact': { bg: '$secondary9', color: '$secondaryText9' },
+        ':focus': { outline: '$secondary' },
+      },
+    },
 
-type ButtonVariant =
-  | 'default'
-  | 'solid'
-  | 'secondary'
-  | 'destructive'
-  | 'outline'
-  | 'ghost'
-  | 'link'
+    // ── Neutral ────────────────────────────────────────
+    {
+      when: { theme: 'neutral', variant: 'solid' },
+      stl: {
+        bg: '$tertiary9', color: '$tertiaryText9',
+        ':interact': { bg: '$tertiary10', color: '$tertiaryText10' },
+        ':focus': { outline: '$tertiaryMax' },
+      },
+    },
+    {
+      when: { theme: 'neutral', variant: 'subtle' },
+      stl: {
+        bg: '$tertiary3', color: '$tertiaryText3',
+        ':interact': { bg: '$tertiary9', color: '$tertiaryText9' },
+        ':focus': { outline: '$tertiary' },
+      },
+    },
+    {
+      when: { theme: 'neutral', variant: 'outline' },
+      stl: {
+        bg: 'transparent', border: '$tertiary', color: '$tertiaryText1',
+        ':interact': { bg: '$tertiary9', color: '$tertiaryText9', borderColor: '$tertiary' },
+        ':focus': { outline: '$tertiary' },
+      },
+    },
+    {
+      when: { theme: 'neutral', variant: 'ghost' },
+      stl: {
+        bg: 'transparent', color: '$tertiaryText1',
+        ':interact': { bg: '$tertiary9', color: '$tertiaryText9' },
+        ':focus': { outline: '$tertiary' },
+      },
+    },
+    {
+      when: { theme: 'neutral', variant: 'link' },
+      stl: {
+        bg: 'transparent', color: '$tertiaryText1', px: '$0', textDecoration: 'underline',
+        ':interact': { bg: '$tertiary9', color: '$tertiaryText9' },
+        ':focus': { outline: '$tertiary' },
+      },
+    },
 
-const ButtonContext = createContext<{ variant: ButtonVariant }>({ variant: 'default' })
+    // ── Destructive ────────────────────────────────────
+    {
+      when: { theme: 'destructive', variant: 'solid' },
+      stl: {
+        bg: '$error9', color: '$errorText9',
+        ':interact': { bg: '$error10', color: '$errorText10' },
+        ':focus': { outline: '$errorMax' },
+      },
+    },
+    {
+      when: { theme: 'destructive', variant: 'subtle' },
+      stl: {
+        bg: '$error3', color: '$errorText3',
+        ':interact': { bg: '$error9', color: '$errorText9' },
+        ':focus': { outline: '$error' },
+      },
+    },
+    {
+      when: { theme: 'destructive', variant: 'outline' },
+      stl: {
+        bg: 'transparent', border: '$error', color: '$errorText1',
+        ':interact': { bg: '$error9', color: '$errorText9', borderColor: '$error' },
+        ':focus': { outline: '$error' },
+      },
+    },
+    {
+      when: { theme: 'destructive', variant: 'ghost' },
+      stl: {
+        bg: 'transparent', color: '$errorText1',
+        ':interact': { bg: '$error9', color: '$errorText9' },
+        ':focus': { outline: '$error' },
+      },
+    },
+    {
+      when: { theme: 'destructive', variant: 'link' },
+      stl: {
+        bg: 'transparent', color: '$errorText1', px: '$0', textDecoration: 'underline',
+        ':interact': { bg: '$error9', color: '$errorText9' },
+        ':focus': { outline: '$error' },
+      },
+    },
 
-const SPINNER_COLOR_MAP: Record<ButtonVariant, string> = {
-  default: 'var(--color1)',
-  solid: 'var(--color1)',
-  destructive: 'var(--color11)',
-  secondary: 'var(--color)',
-  outline: 'var(--color)',
-  ghost: 'var(--color)',
-  link: 'var(--color10)',
-}
-
-function ButtonText(
-  props: React.HTMLAttributes<HTMLSpanElement> & { size?: 'xs' | 'sm' | 'md' | 'lg' },
-) {
-  const { variant } = useContext(ButtonContext)
-  return <ButtonTextFrame {...props} textVariant={variant} />
-}
-
-function ButtonIcon({ children, ...props }: React.HTMLAttributes<HTMLSpanElement>) {
-  return <ButtonIconFrame {...props}>{children}</ButtonIconFrame>
-}
-
-export interface ButtonProps {
-  children?: React.ReactNode
-  variant?: ButtonVariant
-  tone?: 'neutral' | 'primary' | 'success' | 'warning' | 'danger'
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon'
-  loading?: boolean
-  disabled?: boolean
-  onPress?: () => void
-  asChild?: boolean
-}
-
-const spinnerKeyframes = `
-@keyframes vlting-spin {
-  to { transform: rotate(360deg); }
-}
-`
-
-function Spinner({ color }: { color: string }) {
-  return (
+    // ── Loading overrides disabled opacity ─────────────
+    { when: { disabled: 'true', loading: 'true' }, stl: { opacity: '1', cursor: 'wait' } },
+  ],
+  defaultVariants: { theme: 'primary', variant: 'solid', size: 'md' },
+  mapProps: (props) => ({
+    ...props,
+    type: 'button',
+    disabled: props.disabled ?? props.loading ?? false,
+    'aria-busy': props.loading || undefined,
+    onClick: (props.disabled ?? props.loading) ? undefined : props.onClick,
+  }),
+  ...templateProps<{
+    loading?: boolean
+    prefix?: ReactNode
+    suffix?: ReactNode
+  }>('loading', 'prefix', 'suffix'),
+  template: ({ children, loading, prefix, suffix }) => (
     <>
-      <style dangerouslySetInnerHTML={{ __html: spinnerKeyframes }} />
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-        style={{ animation: 'vlting-spin 0.6s linear infinite' }}
-        aria-hidden="true"
-      >
-        <circle cx="8" cy="8" r="6" stroke={color} strokeWidth="2" opacity="0.25" />
-        <path
-          d="M14 8a6 6 0 0 0-6-6"
-          stroke={color}
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
+      {loading && (
+        <ButtonSpinner>
+          <Spinner size="sm" />
+          <VisuallyHidden>Loading</VisuallyHidden>
+        </ButtonSpinner>
+      )}
+      <ButtonContent hidden={loading}>
+        {prefix}
+        {children}
+        {suffix}
+      </ButtonContent>
     </>
-  )
-}
-
-const ButtonBase = React.forwardRef<
-  HTMLButtonElement,
-  ButtonProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof ButtonProps>
->(function ButtonBase(
-  { loading, children, disabled, variant = 'default', size = 'md', onPress, ...props },
-  ref,
-) {
-  const isDisabled = disabled ?? loading ?? false
-
-  useEffect(() => {
-    if (typeof document === 'undefined') return
-    if (document.getElementById(BUTTON_INTERACTION_STYLE_ID)) return
-    const el = document.createElement('style')
-    el.id = BUTTON_INTERACTION_STYLE_ID
-    el.textContent = BUTTON_INTERACTION_CSS
-    document.head.appendChild(el)
-  }, [])
-
-  return (
-    <ButtonContext.Provider value={{ variant }}>
-      <ButtonFrame
-        ref={ref}
-        type="button"
-        className="vlt-btn"
-        disabled={isDisabled}
-        aria-busy={loading || undefined}
-        onClick={isDisabled ? undefined : onPress}
-        variant={variant}
-        size={size}
-        {...props}
-      >
-        {loading ? (
-          <>
-            <Spinner color={SPINNER_COLOR_MAP[variant]} />
-            <VisuallyHidden>Loading</VisuallyHidden>
-          </>
-        ) : (
-          children
-        )}
-      </ButtonFrame>
-    </ButtonContext.Provider>
-  )
-})
-
-export const Button = Object.assign(ButtonBase, {
-  Text: ButtonText,
-  Icon: ButtonIcon,
+  ),
+  styleName: 'Button',
 })

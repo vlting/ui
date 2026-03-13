@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Providers } from '@/components/providers'
 import { SiteHeader } from '@/components/site-header'
+import '@vlting/stl/styles'
 import './globals.css'
 
 export const metadata: Metadata = {

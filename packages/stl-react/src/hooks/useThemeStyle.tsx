@@ -58,6 +58,18 @@ export function useThemeStyle(
   useEffect(() => {
     if (isSSR || !document?.documentElement) return
 
+    // Detect missing STL CSS — this is the #1 cause of broken first-page-load
+    if (process.env.NODE_ENV !== 'production') {
+      const testVal = getComputedStyle(document.documentElement).getPropertyValue('--stl-loaded')
+      if (!testVal) {
+        console.error(
+          '[@vlting/stl-react] STL CSS variables are not loaded. ' +
+            "Add `import '@vlting/stl/styles'` BEFORE your app renders. " +
+            'Without it, all var(--stl-*) references will be empty.',
+        )
+      }
+    }
+
     // Set color mode attribute (triggers CSS rule matching for dark vars)
     document.documentElement.setAttribute(COLOR_MODE_ATTR, colorMode)
 
