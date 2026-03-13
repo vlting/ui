@@ -15,6 +15,9 @@ const INCOMPATIBLE_TOKEN_SCALES = new Set(['size', 'space', 'borderWidth'])
 /** Theme font key → fontFamily scale key */
 const FONT_KEY_MAP: Record<string, string> = { mono: 'code' }
 
+/** Token scale keys that live as flat fields on Theme */
+const TOKEN_SCALE_KEYS = ['fontSize', 'size', 'space', 'radius', 'zIndex', 'borderWidth'] as const
+
 /**
  * Convert a Theme to a flat map of CSS variable name → value.
  *
@@ -22,8 +25,7 @@ const FONT_KEY_MAP: Record<string, string> = { mono: 'code' }
  * so runtime theme changes are reflected immediately via the cascade.
  *
  * Handles:
- * - Palette → tertiary1..12 (neutral palette)
- * - Accent palettes → {name}1..12 (primary, secondary, blue, red, etc.)
+ * - Palettes → primary1..12, secondary1..12, tertiary1..12
  * - Token overrides → radius, zIndex (scales with matching key semantics)
  * - Shadows → sm, md, lg, xl, 2xl
  * - Fonts → heading, body, mono
@@ -35,37 +37,27 @@ export function themeToVars(
   const vars: Record<string, string> = {}
   const colorMap = tokenToVarMap.color as Record<string, string>
 
-  // Palette → tertiary (neutral) scale
-  const palette = theme.palettes[mode]
-  for (let i = 0; i < palette.length; i++) {
-    const varName = colorMap[`$tertiary${i + 1}`]
-    if (varName) vars[varName] = palette[i]
-  }
-
-  // Accent palettes → named color scales
-  if (theme.accentPalettes) {
-    for (const [name, scales] of Object.entries(theme.accentPalettes)) {
-      const accentPalette = scales[mode]
-      for (let i = 0; i < accentPalette.length; i++) {
-        const varName = colorMap[`$${name}${i + 1}`]
-        if (varName) vars[varName] = accentPalette[i]
-      }
+  // All three palettes in one loop
+  for (const [name, scales] of Object.entries(theme.palettes)) {
+    const palette = scales[mode]
+    for (let i = 0; i < palette.length; i++) {
+      const varName = colorMap[`$${name}${i + 1}`]
+      if (varName) vars[varName] = palette[i]
     }
   }
 
-  // Token overrides (radius, zIndex — scales with matching key semantics)
-  if (theme.tokens) {
-    for (const [scale, tokens] of Object.entries(theme.tokens)) {
-      if (!tokens || INCOMPATIBLE_TOKEN_SCALES.has(scale)) continue
-      const scaleMap = tokenToVarMap[scale as keyof typeof tokenToVarMap] as
-        | Record<string, string>
-        | undefined
-      if (!scaleMap) continue
-      const unit = UNITLESS_SCALES.has(scale) ? '' : STYLE_UNIT
-      for (const [key, value] of Object.entries(tokens)) {
-        const varName = scaleMap[`$${key}`]
-        if (varName) vars[varName] = value === 0 ? '0' : `${value}${unit}`
-      }
+  // Token overrides (flat fields on Theme)
+  for (const scale of TOKEN_SCALE_KEYS) {
+    const tokens = theme[scale]
+    if (!tokens || INCOMPATIBLE_TOKEN_SCALES.has(scale)) continue
+    const scaleMap = tokenToVarMap[scale as keyof typeof tokenToVarMap] as
+      | Record<string, string>
+      | undefined
+    if (!scaleMap) continue
+    const unit = UNITLESS_SCALES.has(scale) ? '' : STYLE_UNIT
+    for (const [key, value] of Object.entries(tokens)) {
+      const varName = scaleMap[`$${key}`]
+      if (varName) vars[varName] = value === 0 ? '0' : `${value}${unit}`
     }
   }
 

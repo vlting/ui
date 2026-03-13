@@ -357,8 +357,11 @@ const titleSelectors = [
 globalStyle(titleSelectors.join(', '), {
   marginBlockStart: space.vars[0].ref,
 })
-globalStyle(mapSelectorsToTemplate('&, & > a, & > span', ...headings), {
+globalStyle(mapSelectorsToTemplate('&, & > a, & > span', 'h1', 'h2'), {
   fontFamily: fontFamily.vars.heading.ref,
+})
+globalStyle(mapSelectorsToTemplate('&, & > a, & > span', 'h3', 'h4', 'h5', 'h6'), {
+  fontFamily: fontFamily.vars.subheading.ref,
 })
 globalStyle('h1, h1 > a, h1 > span', {
   fontSize: fontSize.vars.h1.ref,

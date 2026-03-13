@@ -3,44 +3,54 @@ import { lightShadows, darkShadows } from './themes'
 import { generatePalette } from './generate-palette'
 import { themeToVars } from './inject'
 import type { Theme } from './types'
+import type { FontFamilySpec, HtmlHeadLink } from '../shared/models/theme.models'
+import { bodyFonts, headingFonts, codeFonts } from '../shared/models/theme.models'
+import { getFontLinks } from '../shared/utils/theme.utils'
 
 let _currentTheme: Readonly<Theme> | null = null
 
 export interface ColorInput {
   hue: number // 0-360, required
   saturation?: number // 0-100, defaults to 85
+  isNeutral?: boolean // if true, very low saturation
+  highContrast?: boolean // if true, step 9 uses 0%/100% lightness
 }
 
 export interface SecondaryColorInput {
   hue?: number // 0-360, auto-derived from primary if omitted
   saturation?: number // 0-100
   isNeutral?: boolean // if true, very low saturation
+  highContrast?: boolean // if true, step 9 uses 0%/100% lightness
 }
 
 export interface CreateThemeOptions {
   primary: ColorInput
   secondary?: SecondaryColorInput
   tertiary?: SecondaryColorInput
-  tokens?: Theme['tokens']
+  // Flattened token overrides
+  size?: Record<string | number, number>
+  space?: Record<string | number, number>
+  radius?: Record<string | number, number>
+  zIndex?: Record<string | number, number>
+  fontSize?: Record<string, number>
+  borderWidth?: Record<string, number>
   shadows?: Theme['shadows']
-  fonts?: Theme['fonts']
-  palettes?: Partial<Theme['palettes']>
-  accentPalettes?: Theme['accentPalettes']
+  fonts?: FontFamilySpec
 }
 
-const DEFAULT_FONTS: NonNullable<Theme['fonts']> = {
-  heading: 'Inter, system-ui, -apple-system, sans-serif',
-  body: 'Inter, system-ui, -apple-system, sans-serif',
-  mono: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace',
+/** Default font spec using registry keys */
+const DEFAULT_FONT_SPEC: FontFamilySpec = {
+  body: 'inter',
+  heading: 'montserrat',
+  code: 'firaCode',
 }
 
-const DEFAULT_TOKENS: NonNullable<Theme['tokens']> = {
-  size: { ...size },
-  space: { ...space },
-  radius: { ...radius },
-  zIndex: { ...zIndex },
-  borderWidth: { ...borderWidth },
-}
+/** Token scale defaults */
+const DEFAULT_SIZE = { ...size }
+const DEFAULT_SPACE = { ...space }
+const DEFAULT_RADIUS = { ...radius }
+const DEFAULT_ZINDEX = { ...zIndex }
+const DEFAULT_BORDER_WIDTH = { ...borderWidth }
 
 function validateHue(hue: number, label: string): void {
   if (hue < 0 || hue > 360 || !Number.isFinite(hue)) {
@@ -59,7 +69,7 @@ function resolveSecondary(
   input: SecondaryColorInput | undefined,
   defaultHueOffset: number,
   defaultSat: number,
-): { hue: number; saturation: number } {
+): { hue: number; saturation: number; highContrast?: boolean } {
   if (!input) {
     return {
       hue: (primary.hue + defaultHueOffset) % 360,
@@ -67,37 +77,65 @@ function resolveSecondary(
     }
   }
   const hue = input.hue ?? (primary.hue + defaultHueOffset) % 360
-  const saturation = input.isNeutral ? 5 : (input.saturation ?? defaultSat)
-  return { hue, saturation }
+  const rawSat = input.saturation ?? defaultSat
+  const saturation = input.isNeutral ? rawSat / 10 : rawSat
+  return { hue, saturation, highContrast: input.highContrast }
 }
 
-function deepMergeTokens(
-  base: NonNullable<Theme['tokens']>,
-  override: Theme['tokens'],
-): NonNullable<Theme['tokens']> {
+function mergeScale<T extends Record<string | number, number>>(
+  base: T,
+  override: Record<string | number, number> | undefined,
+): T {
   if (!override) return base
-  const result = { ...base }
-  for (const key of Object.keys(override) as (keyof NonNullable<Theme['tokens']>)[]) {
-    const overrideValue = override[key]
-    if (overrideValue) {
-      result[key] = { ...(base[key] as Record<string, number>), ...overrideValue } as never
-    }
+  return { ...base, ...override } as T
+}
+
+/** Resolve FontFamilySpec keys to CSS font-family strings + Google Fonts links */
+function resolveFontSpec(spec: FontFamilySpec): {
+  fonts: NonNullable<Theme['fonts']>
+  fontLinks: HtmlHeadLink[]
+} {
+  const bodyKey = spec.body ?? DEFAULT_FONT_SPEC.body!
+  const headingKey = spec.heading ?? DEFAULT_FONT_SPEC.heading!
+  const codeKey = spec.code ?? DEFAULT_FONT_SPEC.code!
+
+  const bodyFont = bodyFonts[bodyKey]
+  const headingFont = headingFonts[headingKey]
+  const codeFont = codeFonts[codeKey]
+
+  // Subheading: look up in both registries, fall back to heading
+  const subheadingKey = spec.subheading
+  let subheadingCss: string | undefined
+  if (subheadingKey) {
+    const fromBody = bodyFonts[subheadingKey as keyof typeof bodyFonts]
+    const fromHeading = headingFonts[subheadingKey as keyof typeof headingFonts]
+    const font = fromBody ?? fromHeading
+    if (font) subheadingCss = `${font.family}, ${font.fallback}`
   }
-  return result
+
+  return {
+    fonts: {
+      heading: `${headingFont.family}, ${headingFont.fallback}`,
+      ...(subheadingCss && { subheading: subheadingCss }),
+      body: `${bodyFont.family}, ${bodyFont.fallback}`,
+      mono: `${codeFont.family}, ${codeFont.fallback}`,
+    },
+    fontLinks: getFontLinks(spec),
+  }
 }
 
 /**
  * Create a complete theme from minimal color input.
  *
- * The minimal call `createTheme({ primary: { hue: 220 } })` produces
- * a complete, functional theme with derived secondary/tertiary colors.
+ * Direct mapping: options.primary → theme.palettes.primary → $primary1-12
  */
 export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
-  const { primary, tokens, shadows, fonts, palettes: paletteOverrides, accentPalettes: accentOverrides } = options
+  const { primary, shadows } = options
 
   // Validate primary
   validateHue(primary.hue, 'primary')
-  const primarySat = primary.saturation ?? 85
+  const rawPrimarySat = primary.saturation ?? 85
+  const primarySat = primary.isNeutral ? rawPrimarySat / 10 : rawPrimarySat
   validateSaturation(primarySat, 'primary')
 
   // Resolve secondary (complementary by default)
@@ -110,26 +148,25 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
   validateHue(tertiary.hue, 'tertiary')
   validateSaturation(tertiary.saturation, 'tertiary')
 
-  // Generate palettes — primary becomes the neutral palette
+  // Generate palettes — direct mapping
   const palettes: Theme['palettes'] = {
-    light: paletteOverrides?.light ?? generatePalette(primary.hue, primarySat, 'light'),
-    dark: paletteOverrides?.dark ?? generatePalette(primary.hue, primarySat, 'dark'),
-  }
-
-  // Accent palettes — secondary → "primary", tertiary → "secondary"
-  const accentPalettes: Theme['accentPalettes'] = accentOverrides ?? {
     primary: {
-      light: generatePalette(secondary.hue, secondary.saturation, 'light'),
-      dark: generatePalette(secondary.hue, secondary.saturation, 'dark'),
+      light: generatePalette(primary.hue, primarySat, 'light', primary.highContrast),
+      dark: generatePalette(primary.hue, primarySat, 'dark', primary.highContrast),
     },
     secondary: {
-      light: generatePalette(tertiary.hue, tertiary.saturation, 'light'),
-      dark: generatePalette(tertiary.hue, tertiary.saturation, 'dark'),
+      light: generatePalette(secondary.hue, secondary.saturation, 'light', secondary.highContrast),
+      dark: generatePalette(secondary.hue, secondary.saturation, 'dark', secondary.highContrast),
+    },
+    tertiary: {
+      light: generatePalette(tertiary.hue, tertiary.saturation, 'light', tertiary.highContrast),
+      dark: generatePalette(tertiary.hue, tertiary.saturation, 'dark', tertiary.highContrast),
     },
   }
 
-  // Merge tokens
-  const mergedTokens = deepMergeTokens(DEFAULT_TOKENS, tokens)
+  // Resolve fonts
+  const fontSpec = options.fonts ?? DEFAULT_FONT_SPEC
+  const { fonts, fontLinks } = resolveFontSpec(fontSpec)
 
   // Merge shadows
   const mergedShadows: Theme['shadows'] = shadows ?? {
@@ -137,16 +174,18 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
     dark: darkShadows,
   }
 
-  // Merge fonts
-  const mergedFonts: Theme['fonts'] = fonts ? { ...DEFAULT_FONTS, ...fonts } : { ...DEFAULT_FONTS }
-
   const theme: Theme = {
     name: `theme-${primary.hue}`,
     palettes,
-    accentPalettes,
-    tokens: mergedTokens,
+    fontSize: options.fontSize,
+    size: mergeScale(DEFAULT_SIZE, options.size),
+    space: mergeScale(DEFAULT_SPACE, options.space),
+    radius: mergeScale(DEFAULT_RADIUS, options.radius),
+    zIndex: mergeScale(DEFAULT_ZINDEX, options.zIndex),
+    borderWidth: mergeScale(DEFAULT_BORDER_WIDTH, options.borderWidth),
     shadows: mergedShadows,
-    fonts: mergedFonts,
+    fonts,
+    fontLinks,
   }
 
   return Object.freeze(theme)

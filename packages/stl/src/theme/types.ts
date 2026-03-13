@@ -1,3 +1,4 @@
+import type { HtmlHeadLink } from '../shared/models/theme.models'
 import type { ShadowScale } from './themes'
 
 /**
@@ -9,30 +10,26 @@ import type { ShadowScale } from './themes'
 export interface Theme {
   name: string
   palettes: {
-    light: string[] // 12-step palette
-    dark: string[] // 12-step palette
+    primary: { light: string[]; dark: string[] }
+    secondary: { light: string[]; dark: string[] }
+    tertiary: { light: string[]; dark: string[] }
   }
-  accentPalettes?: Record<
-    string,
-    {
-      light: string[]
-      dark: string[]
-    }
-  >
-  tokens?: {
-    size?: Record<string | number, number>
-    space?: Record<string | number, number>
-    radius?: Record<string | number, number>
-    zIndex?: Record<string | number, number>
-    borderWidth?: Record<string, number>
-  }
+  // Flattened token overrides (no nested `tokens` wrapper)
+  size?: Record<string | number, number>
+  space?: Record<string | number, number>
+  radius?: Record<string | number, number>
+  zIndex?: Record<string | number, number>
+  fontSize?: Record<string, number>
+  borderWidth?: Record<string, number>
   shadows?: {
     light?: ShadowScale
     dark?: ShadowScale
   }
   fonts?: {
     heading?: string
+    subheading?: string
     body?: string
     mono?: string
   }
+  fontLinks?: HtmlHeadLink[]
 }

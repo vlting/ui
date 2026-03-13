@@ -1,15 +1,14 @@
+import type { ComponentPropsWithRef } from 'react'
 import { styled } from '../stl-react/src/config'
 
-export interface SpinnerProps {
-  size?: 'sm' | 'md' | 'lg'
-  theme?: 'primary' | 'secondary' | 'neutralMin' | 'neutralMax'
-}
+export type SpinnerProps = ComponentPropsWithRef<typeof Spinner>
 
-const SpinnerFrame = styled('span', {
+export const Spinner = styled('span', {
   stl: {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
+    animation: '$spin',
     lowMotion: {
       animation: 'none',
     },
@@ -31,41 +30,27 @@ const SpinnerFrame = styled('span', {
     theme: 'neutralMax',
     size: 'md',
   },
+  mapProps: (props) => ({
+    ...props,
+    role: 'status',
+    'aria-label': 'Loading',
+  }),
+  template: () => (
+    <svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="2" opacity="0.25" />
+      <path
+        d="M14 8a6 6 0 0 0-6-6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  ),
   styleName: 'Spinner',
 })
-
-export function Spinner({ size = 'md', theme = 'neutralMax' }: SpinnerProps) {
-  return (
-    <SpinnerFrame
-      role="status"
-      aria-label="Loading"
-      theme={theme}
-      size={size}
-      style={{
-        animation: 'vlting-spinner 1.25s linear infinite',
-      }}
-    >
-      <svg
-        width="100%"
-        height="100%"
-        viewBox="0 0 16 16"
-        fill="none"
-        aria-hidden="true"
-      >
-        <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="2" opacity="0.25" />
-        <path
-          d="M14 8a6 6 0 0 0-6-6"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
-      <style
-        dangerouslySetInnerHTML={{
-          __html:
-            '@keyframes vlting-spinner { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @media (prefers-reduced-motion: reduce) { .Spinner { animation: none !important; } }',
-        }}
-      />
-    </SpinnerFrame>
-  )
-}
