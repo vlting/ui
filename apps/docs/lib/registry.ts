@@ -232,7 +232,7 @@ const registry: ComponentEntry[] = [
         name: 'Variants',
         description: 'Button in all available variants.',
         code: `<div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-  <Button variant="default"><Button.Text>Default</Button.Text></Button>
+  <Button variant="solid"><Button.Text>Default</Button.Text></Button>
   <Button variant="secondary"><Button.Text>Secondary</Button.Text></Button>
   <Button variant="destructive"><Button.Text>Destructive</Button.Text></Button>
   <Button variant="outline"><Button.Text>Outline</Button.Text></Button>

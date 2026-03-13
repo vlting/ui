@@ -304,7 +304,7 @@ function PricingCards({
 
             <CardFooterJsx>
               <ButtonJsx
-                variant={plan.highlighted ? 'default' : 'outline'}
+                variant={plan.highlighted ? 'solid' : 'outline'}
                 width="100%"
                 onPress={() => onSelectPlan?.(plan.id)}
               >
@@ -403,7 +403,7 @@ function PricingComparison({
             {plans.map((plan) => (
               <Td key={plan.id} style={{ textAlign: 'center' }}>
                 <ButtonJsx
-                  variant={plan.highlighted ? 'default' : 'outline'}
+                  variant={plan.highlighted ? 'solid' : 'outline'}
                   size="sm"
                   onPress={() => onSelectPlan?.(plan.id)}
                 >
@@ -513,7 +513,7 @@ function PricingSimple({
           ))}
         </div>
 
-        <ButtonJsx variant="default" width="100%" onPress={() => onSelectPlan?.(plan.id)}>
+        <ButtonJsx variant="solid" width="100%" onPress={() => onSelectPlan?.(plan.id)}>
           {plan.cta ?? 'Get started'}
         </ButtonJsx>
       </div>

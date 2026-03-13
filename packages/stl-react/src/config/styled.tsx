@@ -39,20 +39,16 @@ export interface StyledOptions<
   styleName?: string
 }
 
-// ─── Signature ────────────────────────────────────────────────────────────────
+// ─── Implementation ───────────────────────────────────────────────────────────
 
 export function styled<
   P = {},
   C extends ComponentType = ComponentType,
   V extends Variants | undefined = undefined,
->(component: C, options: StyledOptions<V, P>): StyledComponent<C, V, P>
-
-// ─── Implementation ───────────────────────────────────────────────────────────
-
-export function styled(
-  component: ComponentType,
-  opts: StyledOptions<any, any>,
-) {
+>(
+  component: C,
+  opts: StyledOptions<V, P>,
+): StyledComponent<C, V, P> {
   const css = opts.stl
   const variantsArg: Variants | undefined = opts.variants
   const styleName: string | undefined = opts.styleName
@@ -172,13 +168,12 @@ export function styled(
     )
   }
   styledComponent.displayName = styleName
-  const outputComponent = forwardRef(styledComponent) as any as typeof styledComponent
+  const outputComponent = forwardRef(styledComponent)
   ;(outputComponent as any).isStyledComponent = true
-  return outputComponent
+  return outputComponent as unknown as StyledComponent<C, V, P>
 }
 
-// @ts-expect-error
-function Debug({ styles }: { styles: Record<string, any> }) {
+function Debug({ styles: _styles }: { styles: Record<string, any> }) {
   return null
 }
 
@@ -243,7 +238,7 @@ function useVariants<P extends Record<string, any>, V extends Variants>(
 type BooleanString = 'true' | 'false'
 
 type Variants = {
-  [name: string]: { [value: string]: STL }
+  [name: string]: { [value: string]: any }
 }
 type VariantKey = keyof Variants
 
@@ -267,22 +262,11 @@ type StyledComponent<
   C extends ComponentType,
   V extends Variants | undefined,
   P = {},
-> = V extends Variants
-  ? ReturnType<
-      typeof forwardRef<
-        any,
-        HTMLAttributes<C> &
-          StylelessComponentProps<C> &
-          BaseStyledProps<V> &
-          P & { as?: ComponentType }
-      >
-    > & { isStyledComponent: true; displayName?: string }
-  : ReturnType<
-      typeof forwardRef<
-        any,
-        HTMLAttributes<C> &
-          StylelessComponentProps<C> &
-          BaseStyledProps<V> &
-          P & { as?: ComponentType }
-      >
-    > & { isStyledComponent: true; displayName?: string }
+> = ReturnType<
+  typeof forwardRef<
+    any,
+    StylelessComponentProps<C> &
+      BaseStyledProps<V> &
+      P & { as?: ComponentType }
+  >
+> & { isStyledComponent: true; displayName?: string }

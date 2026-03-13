@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react'
+import type React from 'react'
 import { styled } from '../stl-react/src/config'
 
 const BadgeFrame = styled(
@@ -57,11 +57,11 @@ const BadgeFrame = styled(
   },
 )
 
-export interface BadgeProps extends ComponentProps<typeof BadgeFrame> {
+export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?: 'default' | 'solid' | 'secondary' | 'destructive' | 'outline' | 'subtle'
   size?: 'sm' | 'md' | 'lg'
 }
 
 export function Badge({ variant = 'default', size = 'md', ...props }: BadgeProps) {
-  return <BadgeFrame variant={variant} size={size} {...props} />
+  return <BadgeFrame variant={variant} size={size} {...(props as any)} />
 }

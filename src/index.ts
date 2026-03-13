@@ -270,16 +270,9 @@ export type {
   ColorInput,
   CreateThemeOptions,
   SecondaryColorInput,
-  ShadowScale,
-  ShadowToken,
 } from '../packages/stl/src/theme'
 // Layer 0 — Design Tokens
 export {
-  accentPalettes,
-  borderWidth,
-  color,
-  darkPalette,
-  darkShadows,
   defaultTheme,
   generatePalette,
   applyTheme,
@@ -287,16 +280,9 @@ export {
   getTextColorStep,
   getTheme,
   getThemeStyleTag,
-  lightPalette,
-  lightShadows,
   media,
-  radius,
-  semanticColorMap,
-  size,
-  space,
   THEME_PRESET_DEFAULT,
   themeToVars,
-  zIndex,
 } from '../packages/stl/src/theme'
 export type {
   UseClipboardReturn,
@@ -320,10 +306,7 @@ export { DynamicIcon } from '../packages/icons/Icon'
 export type {
   AspectRatioProps,
   BadgeProps,
-  BoxProps,
-  DividerProps,
   HeadingProps,
-  HStackProps,
   IconFC,
   IconProps,
   KbdProps,
@@ -331,12 +314,9 @@ export type {
   PortalProps,
   SeparatorProps,
   SkeletonProps,
-  SpacerProps,
   SpinnerProps,
-  StackProps,
   TextProps,
   VisuallyHiddenProps,
-  VStackProps,
 } from '../packages/primitives'
 // Layer 1 — Primitives
 export {

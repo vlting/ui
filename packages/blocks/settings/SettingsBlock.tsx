@@ -146,7 +146,7 @@ function ProfileSettings({
           />
 
           <ButtonJsx
-            variant="default"
+            variant="solid"
             width="100%"
             onPress={() => onSave?.({ name, email, bio })}
             disabled={loading}

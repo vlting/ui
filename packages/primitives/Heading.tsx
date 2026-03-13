@@ -33,24 +33,22 @@ const H6Frame = styled(
 )
 
 type HeadingFrame = typeof H1Frame
-const LEVEL_MAP: Record<number, HeadingFrame> = {
+const LEVEL_MAP = {
   1: H1Frame,
   2: H2Frame,
   3: H3Frame,
   4: H4Frame,
   5: H5Frame,
   6: H6Frame,
-}
+} as Record<number, HeadingFrame>
 
-export interface HeadingProps {
+export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   level?: 1 | 2 | 3 | 4 | 5 | 6
-  children?: React.ReactNode
-  [key: string]: unknown
 }
 
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   function Heading({ level = 2, ...rest }, ref) {
     const Component = LEVEL_MAP[level] ?? LEVEL_MAP[2]
-    return <Component ref={ref} {...rest} />
+    return <Component {...({ ref, ...rest } as any)} />
   },
 )
