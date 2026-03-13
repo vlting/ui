@@ -63,9 +63,9 @@ export function getThemeOverrides(
 
 /** Converts a CSS style object into a set of pre-generated CSS class names, and possibly a style object */
 export function style(input: {
-  css: STL
+  stl: STL
   conditions: Conditions
-  variantCss?: VariantSTL
+  variantStl?: VariantSTL
   overrides?: STL | null
   styleName?: string
   manager?: StyleManager
@@ -73,7 +73,7 @@ export function style(input: {
   useClassName?: boolean
 }) {
   let { manager } = input
-  const { css, conditions, variantCss, overrides, styleName, props, useClassName } = input
+  const { stl, conditions, variantStl, overrides, styleName, props, useClassName } = input
 
   if (manager) {
     manager.setNewStyle(conditions, styleName, props)
@@ -82,11 +82,11 @@ export function style(input: {
   }
 
   // Process defined styles
-  manager.processStl(css)
+  manager.processStl(stl)
 
   // Process variants, if any.
-  if (variantCss && variantCss.length > 0) {
-    manager.processVariantStl(variantCss)
+  if (variantStl && variantStl.length > 0) {
+    manager.processVariantStl(variantStl)
   }
 
   // Process style overrides, if any. This is useful for runtime overrides

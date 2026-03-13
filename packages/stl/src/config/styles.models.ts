@@ -86,4 +86,4 @@ export type InlineConditionStl<T> = {
   [k in keyof T]: InlineCondition<T[k]>
 }
 
-export type VariantSTL = Array<{ key: string; css: STL }>
+export type VariantSTL = Array<{ key: string; stl: STL }>

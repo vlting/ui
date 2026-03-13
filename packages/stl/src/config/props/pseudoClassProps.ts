@@ -101,6 +101,7 @@ export const pseudoClassAliases = {
   ':hover, :focus': [':hover', ':focus-visible'],
   ':hover, :focus-visible': [':hover', ':focus-visible'],
   ':interact': [':hover', ':focus-visible'],
+  ':pressed': [':active'],
   hovered: [':hover'],
   pressed: [':active'],
   focused: [':focus-visible'],
@@ -130,6 +131,7 @@ type InnerPseudoInteract<T extends PseudoClassObject> = {
   ':interact'?: T[':hover'] & T[':focus-visible']
 }
 type InnerPseudoHovered<T extends PseudoClassObject> = { hovered?: T[':hover'] }
+type InnerPseudoColonPressed<T extends PseudoClassObject> = { ':pressed'?: T[':active'] }
 type InnerPseudoPressed<T extends PseudoClassObject> = { pressed?: T[':active'] }
 type InnerPseudoFocused<T extends PseudoClassObject> = { focused?: T[':focus-visible'] }
 
@@ -138,6 +140,7 @@ export type PseudoClassesWithAliases<T extends PseudoClassObject> = T &
   InnerPseudoHoverFocus<T> &
   InnerPseudoHoverFocusVisible<T> &
   InnerPseudoInteract<T> &
+  InnerPseudoColonPressed<T> &
   InnerPseudoHovered<T> &
   InnerPseudoPressed<T> &
   InnerPseudoFocused<T>

@@ -1,49 +1,10 @@
-import React from 'react'
+import type { ReactNode } from 'react'
 import { VisuallyHidden } from '../../primitives'
 import { Spinner } from '../../primitives/Spinner'
-import { styled, options } from '../../stl-react/src/config'
+import { styled, templateProps, options } from '../../stl-react/src/config'
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-
-export type ButtonTheme = 'primary' | 'secondary' | 'neutral' | 'destructive'
-export type ButtonVariant = 'solid' | 'subtle' | 'outline' | 'ghost' | 'link'
-export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon'
-
-export interface ButtonProps {
-  children?: React.ReactNode
-  theme?: ButtonTheme
-  variant?: ButtonVariant
-  size?: ButtonSize
-  loading?: boolean
-  disabled?: boolean
-  prefix?: React.ReactNode
-  suffix?: React.ReactNode
-}
-
-// ─── ButtonFrame ─────────────────────────────────────────────────────────────
-
-interface ButtonTemplateProps {
-  loading?: boolean
-  prefix?: React.ReactNode
-  suffix?: React.ReactNode
-}
-
-const buttonVariants = {
-  theme: options('primary', 'secondary', 'neutral', 'destructive'),
-  variant: options('solid', 'subtle', 'outline', 'ghost', 'link'),
-  size: {
-    xs: { height: '$28', py: '$4', px: '$8', fontSize: '$buttonTiny' },
-    sm: { height: '$32', py: '$8', px: '$12', fontSize: '$buttonSmall' },
-    md: { height: '$36', py: '$buttonBasePy', px: '$buttonBasePx', fontSize: '$button' },
-    lg: { height: '$40', py: '$12', px: '$24', fontSize: '$buttonLarge' },
-    icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button' },
-  },
-  disabled: {
-    true: { opacity: '0.5', cursor: 'not-allowed', pointerEvents: 'none' },
-  },
-}
-
-const ButtonFrame = styled<ButtonTemplateProps, 'button', typeof buttonVariants>('button', {
+// ─── Button ──────────────────────────────────────────────────────────────────
+export const Button = styled('button', {
   stl: {
     display: 'inline-flex',
     alignItems: 'center',
@@ -57,7 +18,7 @@ const ButtonFrame = styled<ButtonTemplateProps, 'button', typeof buttonVariants>
     outline: 'none',
     transition:
       'background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 100ms ease',
-    focused: {
+    ':focus': {
       outlineWidth: '$widthBase',
       outlineStyle: 'solid',
       outlineColor: '$outlineColor',
@@ -65,56 +26,67 @@ const ButtonFrame = styled<ButtonTemplateProps, 'button', typeof buttonVariants>
     },
     lowMotion: {
       transition: 'none',
-      pressed: { transform: 'none' },
+      ':pressed': { transform: 'none' },
     },
   },
-  variants: buttonVariants,
+  variants: {
+    theme: options('primary', 'secondary', 'neutral', 'destructive'),
+    variant: options('solid', 'subtle', 'outline', 'ghost', 'link'),
+    size: {
+      xs: { height: '$28', py: '$4', px: '$8', fontSize: '$buttonTiny' },
+      sm: { height: '$32', py: '$8', px: '$12', fontSize: '$buttonSmall' },
+      md: { height: '$36', py: '$buttonBasePy', px: '$buttonBasePx', fontSize: '$button' },
+      lg: { height: '$40', py: '$12', px: '$24', fontSize: '$buttonLarge' },
+      icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button' },
+    },
+    disabled: {
+      true: { opacity: '0.5', cursor: 'not-allowed', pointerEvents: 'none' },
+    },
+    loading: {
+      true: { cursor: 'wait', pointerEvents: 'none' },
+    },
+  },
   compoundVariants: [
     // ── Primary ────────────────────────────────────────
     {
       when: { theme: 'primary', variant: 'solid' },
       stl: {
         bg: '$primary9', color: '$primaryText9',
-        hovered: { bg: '$primary10', color: '$primaryText10' },
-        pressed: { bg: '$primary10', transform: 'scale(0.98)' },
-        focused: { bg: '$primary10' },
-      }
+        ':interact': { bg: '$primary10', color: '$primaryText10' },
+        ':pressed': { bg: '$primary10', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'primary', variant: 'subtle' },
       stl: {
-        bg: '$primary3', color: '$primaryText11',
-        hovered: { bg: '$primary4', color: '$primaryText11' },
-        pressed: { bg: '$primary4', transform: 'scale(0.98)' },
-        focused: { bg: '$primary4' },
-      }
+        bg: '$primary3', color: '$primaryText3',
+        ':interact': { bg: '$primary4', color: '$primaryText3' },
+        ':pressed': { bg: '$primary4', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'primary', variant: 'outline' },
       stl: {
-        bg: 'transparent', borderWidth: '$widthDefault', borderStyle: '$styleDefault', borderColor: 'currentcolor', color: '$primaryText11',
-        hovered: { bg: '$primary2' },
-        pressed: { bg: '$primary2', transform: 'scale(0.98)' },
-        focused: { bg: '$primary2' },
-      }
+        bg: 'transparent', borderWidth: '$widthDefault', borderStyle: '$styleDefault', borderColor: 'currentcolor', color: '$primaryText4',
+        ':interact': { bg: '$primary2' },
+        ':pressed': { bg: '$primary2', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'primary', variant: 'ghost' },
       stl: {
-        bg: 'transparent', color: '$primary11',
-        hovered: { bg: '$primary3' },
-        pressed: { bg: '$primary3', transform: 'scale(0.98)' },
-        focused: { bg: '$primary3' },
-      }
+        bg: 'transparent', color: '$primaryText4',
+        ':interact': { bg: '$primary3' },
+        ':pressed': { bg: '$primary3', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'primary', variant: 'link' },
       stl: {
-        bg: 'transparent', color: '$primary9', px: '$0', textDecoration: 'underline',
-        hovered: { color: '$primaryText10' },
-        pressed: { color: '$primaryText10' },
-        focused: { color: '$primaryText10' },
-      }
+        bg: 'transparent', color: '$primaryText4', px: '$0', textDecoration: 'underline',
+        ':interact': { color: '$primaryText10' },
+        ':pressed': { color: '$primaryText10' },
+      },
     },
 
     // ── Secondary ──────────────────────────────────────
@@ -122,146 +94,139 @@ const ButtonFrame = styled<ButtonTemplateProps, 'button', typeof buttonVariants>
       when: { theme: 'secondary', variant: 'solid' },
       stl: {
         bg: '$secondary9', color: '$secondaryText9',
-        hovered: { bg: '$secondary10', color: '$secondaryText10' },
-        pressed: { bg: '$secondary10', transform: 'scale(0.98)' },
-        focused: { bg: '$secondary10' },
-      }
+        ':interact': { bg: '$secondary10', color: '$secondaryText10' },
+        ':pressed': { bg: '$secondary10', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'secondary', variant: 'subtle' },
       stl: {
-        bg: '$secondary3', color: '$secondaryText11',
-        hovered: { bg: '$secondary4', color: '$secondaryText11' },
-        pressed: { bg: '$secondary4', transform: 'scale(0.98)' },
-        focused: { bg: '$secondary4' },
-      }
+        bg: '$secondary3', color: '$secondaryText3',
+        ':interact': { bg: '$secondary4', color: '$secondaryText4' },
+        ':pressed': { bg: '$secondary4', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'secondary', variant: 'outline' },
       stl: {
-        bg: 'transparent', borderWidth: '$widthDefault', borderStyle: '$styleDefault', borderColor: 'currentcolor', color: '$secondaryText11',
-        hovered: { bg: '$secondary2' },
-        pressed: { bg: '$secondary2', transform: 'scale(0.98)' },
-        focused: { bg: '$secondary2' },
-      }
+        bg: 'transparent', borderWidth: '$widthDefault', borderStyle: '$styleDefault', borderColor: 'currentcolor', color: '$secondaryText4',
+        ':interact': { bg: '$secondary2' },
+        ':pressed': { bg: '$secondary2', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'secondary', variant: 'ghost' },
       stl: {
-        bg: 'transparent', color: '$secondary11',
-        hovered: { bg: '$secondary3' },
-        pressed: { bg: '$secondary3', transform: 'scale(0.98)' },
-        focused: { bg: '$secondary3' },
-      }
+        bg: 'transparent', color: '$secondaryText4',
+        ':interact': { bg: '$secondary3' },
+        ':pressed': { bg: '$secondary3', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'secondary', variant: 'link' },
       stl: {
-        bg: 'transparent', color: '$secondary9', px: '$0', textDecoration: 'underline',
-        hovered: { color: '$secondaryText10' },
-        pressed: { color: '$secondaryText10' },
-        focused: { color: '$secondaryText10' },
-      }
+        bg: 'transparent', color: '$secondaryText4', px: '$0', textDecoration: 'underline',
+        ':interact': { color: '$secondaryText10' },
+        ':pressed': { color: '$secondaryText10' },
+      },
     },
 
     // ── Neutral ────────────────────────────────────────
     {
       when: { theme: 'neutral', variant: 'solid' },
       stl: {
-        bg: '$color9', color: '$colorText9',
-        hovered: { bg: '$color10', color: '$colorText10' },
-        pressed: { bg: '$color10', transform: 'scale(0.98)' },
-        focused: { bg: '$color10' },
-      }
+        bg: '$tertiary9', color: '$tertiaryText9',
+        ':interact': { bg: '$tertiary10', color: '$tertiaryText10' },
+        ':pressed': { bg: '$tertiary10', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'neutral', variant: 'subtle' },
       stl: {
-        bg: '$color3', color: '$colorText11',
-        hovered: { bg: '$color4', color: '$colorText11' },
-        pressed: { bg: '$color4', transform: 'scale(0.98)' },
-        focused: { bg: '$color4' },
-      }
+        bg: '$tertiary3', color: '$tertiaryText3',
+        ':interact': { bg: '$tertiary4', color: '$tertiaryText4' },
+        ':pressed': { bg: '$tertiary4', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'neutral', variant: 'outline' },
       stl: {
-        bg: 'transparent', borderWidth: '$widthDefault', borderStyle: '$styleDefault', borderColor: 'currentcolor', color: '$colorText11',
-        hovered: { bg: '$color2' },
-        pressed: { bg: '$color2', transform: 'scale(0.98)' },
-        focused: { bg: '$color2' },
-      }
+        bg: 'transparent', borderWidth: '$widthDefault', borderStyle: '$styleDefault', borderColor: 'currentcolor', color: '$tertiaryText4',
+        ':interact': { bg: '$tertiary2' },
+        ':pressed': { bg: '$tertiary2', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'neutral', variant: 'ghost' },
       stl: {
-        bg: 'transparent', color: '$color11',
-        hovered: { bg: '$color3' },
-        pressed: { bg: '$color3', transform: 'scale(0.98)' },
-        focused: { bg: '$color3' },
-      }
+        bg: 'transparent', color: '$tertiaryText4',
+        ':interact': { bg: '$tertiary3' },
+        ':pressed': { bg: '$tertiary3', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'neutral', variant: 'link' },
       stl: {
-        bg: 'transparent', color: '$color9', px: '$0', textDecoration: 'underline',
-        hovered: { color: '$colorText10' },
-        pressed: { color: '$colorText10' },
-        focused: { color: '$colorText10' },
-      }
+        bg: 'transparent', color: '$tertiaryText4', px: '$0', textDecoration: 'underline',
+        ':interact': { color: '$tertiaryText10' },
+        ':pressed': { color: '$tertiaryText10' },
+      },
     },
 
     // ── Destructive ────────────────────────────────────
     {
       when: { theme: 'destructive', variant: 'solid' },
       stl: {
-        bg: '$red9', color: '$redText9',
-        hovered: { bg: '$red10', color: '$redText10' },
-        pressed: { bg: '$red10', transform: 'scale(0.98)' },
-        focused: { bg: '$red10' },
-      }
+        bg: '$error9', color: '$errorText9',
+        ':interact': { bg: '$error10', color: '$errorText10' },
+        ':pressed': { bg: '$error10', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'destructive', variant: 'subtle' },
       stl: {
-        bg: '$red3', color: '$redText11',
-        hovered: { bg: '$red4', color: '$redText11' },
-        pressed: { bg: '$red4', transform: 'scale(0.98)' },
-        focused: { bg: '$red4' },
-      }
+        bg: '$error3', color: '$errorText3',
+        ':interact': { bg: '$error4', color: '$errorText4' },
+        ':pressed': { bg: '$error4', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'destructive', variant: 'outline' },
       stl: {
-        bg: 'transparent', borderWidth: '$widthDefault', borderStyle: '$styleDefault', borderColor: 'currentcolor', color: '$redText11',
-        hovered: { bg: '$red2' },
-        pressed: { bg: '$red2', transform: 'scale(0.98)' },
-        focused: { bg: '$red2' },
-      }
+        bg: 'transparent', borderWidth: '$widthDefault', borderStyle: '$styleDefault', borderColor: 'currentcolor', color: '$errorText4',
+        ':interact': { bg: '$error2' },
+        ':pressed': { bg: '$error2', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'destructive', variant: 'ghost' },
       stl: {
-        bg: 'transparent', color: '$red11',
-        hovered: { bg: '$red3' },
-        pressed: { bg: '$red3', transform: 'scale(0.98)' },
-        focused: { bg: '$red3' },
-      }
+        bg: 'transparent', color: '$errorText4',
+        ':interact': { bg: '$error3' },
+        ':pressed': { bg: '$error3', transform: 'scale(0.98)' },
+      },
     },
     {
       when: { theme: 'destructive', variant: 'link' },
       stl: {
-        bg: 'transparent', color: '$red9', px: '$0', textDecoration: 'underline',
-        hovered: { color: '$redText10' },
-        pressed: { color: '$redText10' },
-        focused: { color: '$redText10' },
-      }
+        bg: 'transparent', color: '$errorText4', px: '$0', textDecoration: 'underline',
+        ':interact': { color: '$errorText10' },
+        ':pressed': { color: '$errorText10' },
+      },
     },
+
+    // ── Loading overrides disabled opacity ─────────────
+    { when: { disabled: 'true', loading: 'true' }, stl: { opacity: '1', cursor: 'wait' } },
   ],
   defaultVariants: { theme: 'primary', variant: 'solid', size: 'md' },
-  template: ({ children, loading, prefix: prefixSlot, suffix: suffixSlot }) => (
+  ...templateProps<{
+    loading?: boolean
+    prefix?: ReactNode
+    suffix?: ReactNode
+  }>('loading', 'prefix', 'suffix'),
+  template: ({ children, loading, prefix, suffix }) => (
     <>
-      {prefixSlot}
+      {prefix}
       {loading ? (
         <>
           <Spinner size="sm" />
@@ -270,52 +235,15 @@ const ButtonFrame = styled<ButtonTemplateProps, 'button', typeof buttonVariants>
       ) : (
         children
       )}
-      {suffixSlot}
+      {suffix}
     </>
   ),
-  templateProps: ['loading', 'prefix', 'suffix'],
+  mapProps: (props) => ({
+    ...props,
+    type: 'button',
+    disabled: props.disabled ?? props.loading ?? false,
+    'aria-busy': props.loading || undefined,
+    onClick: (props.disabled ?? props.loading) ? undefined : props.onClick,
+  }),
   styleName: 'Button',
-})
-
-// ─── Button ──────────────────────────────────────────────────────────────────
-
-export const Button = React.forwardRef<
-  HTMLButtonElement,
-  ButtonProps & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof ButtonProps>
->(function Button(
-  {
-    theme = 'primary',
-    variant = 'solid',
-    size = 'md',
-    loading,
-    disabled,
-    prefix,
-    suffix,
-    children,
-    onClick,
-    ...props
-  },
-  ref,
-) {
-  const isDisabled = disabled ?? loading ?? false
-
-  return (
-    <ButtonFrame
-      {...({
-        ref,
-        type: 'button',
-        'aria-busy': loading || undefined,
-        onClick: isDisabled ? undefined : onClick,
-        theme,
-        variant,
-        disabled: isDisabled,
-        size,
-        loading,
-        prefix,
-        suffix,
-        children,
-        ...props,
-      } as any)}
-    />
-  )
 })

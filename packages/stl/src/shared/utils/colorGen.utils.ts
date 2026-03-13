@@ -192,12 +192,9 @@ export function generateThemeColors<T = string>(
       const fullSat = isNeutral ? MAX_NEUTRAL_SATURATION : 100
       const halfSat = fullSat / 2
 
-      // Get our starting index in the encoded matrix
+      // Get our base index in the encoded matrix
       const colorType = isNeutral ? 'neutral' : 'color'
       const baseIndex = MATRIX_INDICES[mode][colorType]
-      const hueIndex = baseIndex + SEGMENT_SIZE.hue * hue
-      // Only skip the half-saturation set if we are dealing with full saturation
-      const setIndex = saturation < fullSat ? hueIndex : hueIndex + SEGMENT_SIZE.set
 
       const zeroSatIndex = ZERO_SATURATION_INDICES[mode][colorType]
       const zeroSatSet = ZERO_SATURATION_LUMINANCE.substring(
@@ -214,7 +211,7 @@ export function generateThemeColors<T = string>(
         const isZeroSat = saturation === 0
         set = isZeroSat
           ? zeroSatSet
-          : COLOR_MATRIX[`${setIndex}, ${setIndex + SEGMENT_SIZE.set}`]
+          : lookupMatrix(baseIndex, hue, saturation >= fullSat)
         processSet(
           set,
           (setKey, setSaturation, setLuminance) => {
@@ -236,7 +233,7 @@ export function generateThemeColors<T = string>(
           // Interpolate using zero and half sets
           multiplier = saturation / halfSat
           startSet = zeroSatSet
-          endSet = COLOR_MATRIX[`${setIndex}, ${setIndex + SEGMENT_SIZE.set}`]
+          endSet = lookupMatrix(baseIndex, hue, false)
           interpolateSets(
             startSet,
             endSet,
@@ -253,11 +250,8 @@ export function generateThemeColors<T = string>(
           )
         } else {
           // Interpolate using half and full sets
-          startSet = COLOR_MATRIX[`${setIndex}, ${setIndex + SEGMENT_SIZE.set}`]
-          endSet =
-            COLOR_MATRIX[
-              `${setIndex + SEGMENT_SIZE.set}, ${setIndex + SEGMENT_SIZE.set * 2}`
-            ]
+          startSet = lookupMatrix(baseIndex, hue, false)
+          endSet = lookupMatrix(baseIndex, hue, true)
           interpolateSets(
             startSet,
             endSet,
@@ -301,6 +295,22 @@ export function generateThemeColors<T = string>(
 }
 
 // INTERNAL UTILS /////////////////////////////////////////////////////////////////////////////////
+
+/** Look up a matrix set for a hue, falling back to the nearest hue with an entry */
+function lookupMatrix(baseIndex: number, hue: number, isFullSat: boolean): string {
+  const offset = isFullSat ? SEGMENT_SIZE.set : 0
+  for (let delta = 0; delta <= 180; delta++) {
+    const dirs = delta === 0 ? [0] : [1, -1]
+    for (const dir of dirs) {
+      const h = ((hue + dir * delta) % 360 + 360) % 360
+      const idx = baseIndex + SEGMENT_SIZE.hue * h + offset
+      const key = `${idx}, ${idx + SEGMENT_SIZE.set}`
+      const entry = COLOR_MATRIX[key]
+      if (entry) return entry
+    }
+  }
+  throw new Error(`No COLOR_MATRIX entry near hue ${hue}`)
+}
 
 function getHSL(hue: number, saturation: number, luminance: number, alpha?: number) {
   const alphaText = alpha ? `,${String(alpha).replace('0.', '.')}` : ''

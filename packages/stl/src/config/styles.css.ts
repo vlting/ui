@@ -231,6 +231,7 @@ export const managerScales = {
 globalStyle('html, body', {
   margin: 0,
   padding: 0,
+  vars: { '--stl-loaded': '1' },
 })
 globalStyle('html', { fontSize: '6.25%' })
 globalStyle('body', {
@@ -591,7 +592,7 @@ export type BaseSTL = InlineConditionStl<CssProps> &
 /** Style object for root-level conditions, including pseudo-classes */
 export type ConditionalSTL = { [k in ConditionKey]?: BaseSTL & ConditionalSTL }
 
-/** Full type of Neutron UI style objects, including pseudo-classes and conditions */
+/** Full type of STL style objects, including pseudo-classes and conditions */
 export type STL = BaseSTL & ConditionalSTL
 
 /*************************************************************************************************

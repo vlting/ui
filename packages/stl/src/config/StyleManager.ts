@@ -305,9 +305,9 @@ export class StyleManager {
 
   /** Process fully-nestable CSS, in an object keyed by variant name-value pairs */
   processVariantStl(variantStl: VariantSTL) {
-    variantStl.forEach(({ key, css }) => {
+    variantStl.forEach(({ key, stl }) => {
       this.setVariantName(key)
-      this.processStl(css)
+      this.processStl(stl)
     })
     this.setVariantName()
   }
