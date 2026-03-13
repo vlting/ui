@@ -1,6 +1,7 @@
 import React from 'react'
 import { VisuallyHidden } from '../../primitives'
-import { styled } from '../../stl-react/src/config'
+import { Spinner } from '../../primitives/Spinner'
+import { styled, options } from '../../stl-react/src/config'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -19,103 +20,6 @@ export interface ButtonProps {
   suffix?: React.ReactNode
 }
 
-// ─── Spinner ─────────────────────────────────────────────────────────────────
-
-function Spinner() {
-  return (
-    <span
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        animation: 'var(--spin) var(--spinDuration, 1.25s) linear infinite',
-      }}
-    >
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-        aria-hidden="true"
-      >
-        <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="2" opacity="0.25" />
-        <path
-          d="M14 8a6 6 0 0 0-6-6"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
-    </span>
-  )
-}
-
-// ─── Compound variant generation ─────────────────────────────────────────────
-
-const THEME_PREFIX: Record<ButtonTheme, string> = {
-  primary: 'primary',
-  secondary: 'secondary',
-  neutral: 'color',
-  destructive: 'red',
-}
-
-type VariantGenerator = (p: string, tp: string) => Record<string, any>
-
-const VARIANT_CSS: Record<ButtonVariant, VariantGenerator> = {
-  solid: (p, tp) => ({
-    backgroundColor: `$${p}9`,
-    color: `$${tp}9`,
-    hovered: { backgroundColor: `$${p}10`, color: `$${tp}10` },
-    pressed: { backgroundColor: `$${p}10`, transform: 'scale(0.98)' },
-    focused: { backgroundColor: `$${p}10` },
-  }),
-  subtle: (p, tp) => ({
-    backgroundColor: `$${p}3`,
-    color: `$${tp}11`,
-    hovered: { backgroundColor: `$${p}4`, color: `$${tp}11` },
-    pressed: { backgroundColor: `$${p}4`, transform: 'scale(0.98)' },
-    focused: { backgroundColor: `$${p}4` },
-  }),
-  outline: (p, tp) => ({
-    backgroundColor: 'transparent',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: `$${p}7`,
-    color: `$${tp}11`,
-    hovered: { backgroundColor: `$${p}2` },
-    pressed: { backgroundColor: `$${p}2`, transform: 'scale(0.98)' },
-    focused: { backgroundColor: `$${p}2` },
-  }),
-  ghost: (p, _tp) => ({
-    backgroundColor: 'transparent',
-    color: `$${p}11`,
-    hovered: { backgroundColor: `$${p}3` },
-    pressed: { backgroundColor: `$${p}3`, transform: 'scale(0.98)' },
-    focused: { backgroundColor: `$${p}3` },
-  }),
-  link: (p, tp) => ({
-    backgroundColor: 'transparent',
-    color: `$${p}9`,
-    paddingLeft: '$0',
-    paddingRight: '$0',
-    textDecoration: 'underline',
-    hovered: { color: `$${tp}10` },
-    pressed: { color: `$${tp}10` },
-    focused: { color: `$${tp}10` },
-  }),
-}
-
-function generateComboVariants(): Record<string, Record<string, any>> {
-  const combos: Record<string, Record<string, any>> = {}
-  for (const [theme, prefix] of Object.entries(THEME_PREFIX)) {
-    const textPrefix = prefix === 'color' ? 'colorText' : `${prefix}Text`
-    for (const [variant, generator] of Object.entries(VARIANT_CSS)) {
-      combos[`${theme}_${variant}`] = generator(prefix, textPrefix)
-    }
-  }
-  return combos
-}
-
 // ─── ButtonFrame ─────────────────────────────────────────────────────────────
 
 interface ButtonTemplateProps {
@@ -125,7 +29,7 @@ interface ButtonTemplateProps {
 }
 
 const ButtonFrame = styled<ButtonTemplateProps>('button', {
-  css: {
+  stl: {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -150,61 +54,155 @@ const ButtonFrame = styled<ButtonTemplateProps>('button', {
     },
   },
   variants: {
-    _combo: generateComboVariants(),
+    theme: options('primary', 'secondary', 'neutral', 'destructive'),
+    variant: options('solid', 'subtle', 'outline', 'ghost', 'link'),
     size: {
-      xs: {
-        height: '$28',
-        paddingTop: '$4',
-        paddingBottom: '$4',
-        paddingLeft: '$8',
-        paddingRight: '$8',
-        fontSize: '$buttonTiny',
-      },
-      sm: {
-        height: '$32',
-        paddingTop: '$8',
-        paddingBottom: '$8',
-        paddingLeft: '$12',
-        paddingRight: '$12',
-        fontSize: '$buttonSmall',
-      },
-      md: {
-        height: '$36',
-        paddingTop: '$buttonBasePy',
-        paddingBottom: '$buttonBasePy',
-        paddingLeft: '$buttonBasePx',
-        paddingRight: '$buttonBasePx',
-        fontSize: '$button',
-      },
-      lg: {
-        height: '$40',
-        paddingTop: '$12',
-        paddingBottom: '$12',
-        paddingLeft: '$24',
-        paddingRight: '$24',
-        fontSize: '$buttonLarge',
-      },
-      icon: {
-        height: '$36',
-        width: '$36',
-        padding: '$0',
-        fontSize: '$button',
-      },
+      xs: { height: '$28', py: '$4', px: '$8', fontSize: '$buttonTiny' },
+      sm: { height: '$32', py: '$8', px: '$12', fontSize: '$buttonSmall' },
+      md: { height: '$36', py: '$buttonBasePy', px: '$buttonBasePx', fontSize: '$button' },
+      lg: { height: '$40', py: '$12', px: '$24', fontSize: '$buttonLarge' },
+      icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button' },
     },
-    _disabled: {
+    disabled: {
       true: { opacity: '0.5', cursor: 'not-allowed', pointerEvents: 'none' },
     },
   },
-  defaultVariants: {
-    _combo: 'primary_solid',
-    size: 'md',
-  },
+  compoundVariants: [
+    // ── Primary ────────────────────────────────────────
+    { when: { theme: 'primary', variant: 'solid' }, stl: {
+      bg: '$primary9', color: '$primaryText9',
+      hovered: { bg: '$primary10', color: '$primaryText10' },
+      pressed: { bg: '$primary10', transform: 'scale(0.98)' },
+      focused: { bg: '$primary10' },
+    }},
+    { when: { theme: 'primary', variant: 'subtle' }, stl: {
+      bg: '$primary3', color: '$primaryText11',
+      hovered: { bg: '$primary4', color: '$primaryText11' },
+      pressed: { bg: '$primary4', transform: 'scale(0.98)' },
+      focused: { bg: '$primary4' },
+    }},
+    { when: { theme: 'primary', variant: 'outline' }, stl: {
+      bg: 'transparent', borderWidth: '1px', borderStyle: 'solid', borderColor: '$primary7', color: '$primaryText11',
+      hovered: { bg: '$primary2' },
+      pressed: { bg: '$primary2', transform: 'scale(0.98)' },
+      focused: { bg: '$primary2' },
+    }},
+    { when: { theme: 'primary', variant: 'ghost' }, stl: {
+      bg: 'transparent', color: '$primary11',
+      hovered: { bg: '$primary3' },
+      pressed: { bg: '$primary3', transform: 'scale(0.98)' },
+      focused: { bg: '$primary3' },
+    }},
+    { when: { theme: 'primary', variant: 'link' }, stl: {
+      bg: 'transparent', color: '$primary9', px: '$0', textDecoration: 'underline',
+      hovered: { color: '$primaryText10' },
+      pressed: { color: '$primaryText10' },
+      focused: { color: '$primaryText10' },
+    }},
+
+    // ── Secondary ──────────────────────────────────────
+    { when: { theme: 'secondary', variant: 'solid' }, stl: {
+      bg: '$secondary9', color: '$secondaryText9',
+      hovered: { bg: '$secondary10', color: '$secondaryText10' },
+      pressed: { bg: '$secondary10', transform: 'scale(0.98)' },
+      focused: { bg: '$secondary10' },
+    }},
+    { when: { theme: 'secondary', variant: 'subtle' }, stl: {
+      bg: '$secondary3', color: '$secondaryText11',
+      hovered: { bg: '$secondary4', color: '$secondaryText11' },
+      pressed: { bg: '$secondary4', transform: 'scale(0.98)' },
+      focused: { bg: '$secondary4' },
+    }},
+    { when: { theme: 'secondary', variant: 'outline' }, stl: {
+      bg: 'transparent', borderWidth: '1px', borderStyle: 'solid', borderColor: '$secondary7', color: '$secondaryText11',
+      hovered: { bg: '$secondary2' },
+      pressed: { bg: '$secondary2', transform: 'scale(0.98)' },
+      focused: { bg: '$secondary2' },
+    }},
+    { when: { theme: 'secondary', variant: 'ghost' }, stl: {
+      bg: 'transparent', color: '$secondary11',
+      hovered: { bg: '$secondary3' },
+      pressed: { bg: '$secondary3', transform: 'scale(0.98)' },
+      focused: { bg: '$secondary3' },
+    }},
+    { when: { theme: 'secondary', variant: 'link' }, stl: {
+      bg: 'transparent', color: '$secondary9', px: '$0', textDecoration: 'underline',
+      hovered: { color: '$secondaryText10' },
+      pressed: { color: '$secondaryText10' },
+      focused: { color: '$secondaryText10' },
+    }},
+
+    // ── Neutral ────────────────────────────────────────
+    { when: { theme: 'neutral', variant: 'solid' }, stl: {
+      bg: '$color9', color: '$colorText9',
+      hovered: { bg: '$color10', color: '$colorText10' },
+      pressed: { bg: '$color10', transform: 'scale(0.98)' },
+      focused: { bg: '$color10' },
+    }},
+    { when: { theme: 'neutral', variant: 'subtle' }, stl: {
+      bg: '$color3', color: '$colorText11',
+      hovered: { bg: '$color4', color: '$colorText11' },
+      pressed: { bg: '$color4', transform: 'scale(0.98)' },
+      focused: { bg: '$color4' },
+    }},
+    { when: { theme: 'neutral', variant: 'outline' }, stl: {
+      bg: 'transparent', borderWidth: '1px', borderStyle: 'solid', borderColor: '$color7', color: '$colorText11',
+      hovered: { bg: '$color2' },
+      pressed: { bg: '$color2', transform: 'scale(0.98)' },
+      focused: { bg: '$color2' },
+    }},
+    { when: { theme: 'neutral', variant: 'ghost' }, stl: {
+      bg: 'transparent', color: '$color11',
+      hovered: { bg: '$color3' },
+      pressed: { bg: '$color3', transform: 'scale(0.98)' },
+      focused: { bg: '$color3' },
+    }},
+    { when: { theme: 'neutral', variant: 'link' }, stl: {
+      bg: 'transparent', color: '$color9', px: '$0', textDecoration: 'underline',
+      hovered: { color: '$colorText10' },
+      pressed: { color: '$colorText10' },
+      focused: { color: '$colorText10' },
+    }},
+
+    // ── Destructive ────────────────────────────────────
+    { when: { theme: 'destructive', variant: 'solid' }, stl: {
+      bg: '$red9', color: '$redText9',
+      hovered: { bg: '$red10', color: '$redText10' },
+      pressed: { bg: '$red10', transform: 'scale(0.98)' },
+      focused: { bg: '$red10' },
+    }},
+    { when: { theme: 'destructive', variant: 'subtle' }, stl: {
+      bg: '$red3', color: '$redText11',
+      hovered: { bg: '$red4', color: '$redText11' },
+      pressed: { bg: '$red4', transform: 'scale(0.98)' },
+      focused: { bg: '$red4' },
+    }},
+    { when: { theme: 'destructive', variant: 'outline' }, stl: {
+      bg: 'transparent', borderWidth: '1px', borderStyle: 'solid', borderColor: '$red7', color: '$redText11',
+      hovered: { bg: '$red2' },
+      pressed: { bg: '$red2', transform: 'scale(0.98)' },
+      focused: { bg: '$red2' },
+    }},
+    { when: { theme: 'destructive', variant: 'ghost' }, stl: {
+      bg: 'transparent', color: '$red11',
+      hovered: { bg: '$red3' },
+      pressed: { bg: '$red3', transform: 'scale(0.98)' },
+      focused: { bg: '$red3' },
+    }},
+    { when: { theme: 'destructive', variant: 'link' }, stl: {
+      bg: 'transparent', color: '$red9', px: '$0', textDecoration: 'underline',
+      hovered: { color: '$redText10' },
+      pressed: { color: '$redText10' },
+      focused: { color: '$redText10' },
+    }},
+  ],
+  defaultVariants: { theme: 'primary', variant: 'solid', size: 'md' },
   template: ({ children, loading, prefix: prefixSlot, suffix: suffixSlot }) => (
     <>
       {prefixSlot}
       {loading ? (
         <>
-          <Spinner />
+          <Spinner size="sm" />
           <VisuallyHidden>Loading</VisuallyHidden>
         </>
       ) : (
@@ -238,7 +236,6 @@ export const Button = React.forwardRef<
   ref,
 ) {
   const isDisabled = disabled ?? loading ?? false
-  const combo = `${theme}_${variant}` as const
 
   return (
     <ButtonFrame
@@ -247,8 +244,9 @@ export const Button = React.forwardRef<
       disabled={isDisabled}
       aria-busy={loading || undefined}
       onClick={isDisabled ? undefined : onClick}
-      _combo={combo}
-      _disabled={isDisabled || undefined}
+      theme={theme}
+      variant={variant}
+      {...(isDisabled ? { disabled: true } : {})}
       size={size}
       loading={loading}
       prefix={prefix}

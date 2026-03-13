@@ -1,28 +1,28 @@
 import type { CoreCustomValues, NotShared, Shared } from '../shared/models'
 import type { conditionsMap } from './conditions'
 import type {
-  CssPropKey,
+  StlPropKey,
   CustomVarPropHints,
   CustomVarPropValue,
   WithMappedProps,
 } from './props'
-import type { CSS } from './styles.css'
+import type { STL } from './styles.css'
 
 export const BASE = 'base'
 
 type MapObject = {
-  [key in CssPropKey]?: { [k: string | number]: unknown }
+  [key in StlPropKey]?: { [k: string | number]: unknown }
 }
 type CustomVarObject = {
-  [key in CssPropKey]?: CustomVarPropValue
+  [key in StlPropKey]?: CustomVarPropValue
 }
 
-export type CssFromMap<M extends MapObject> = WithMappedProps<{
+export type StlFromMap<M extends MapObject> = WithMappedProps<{
   [key in keyof M]?: keyof M[key]
 }>
 
 // prettier-ignore
-export type CssFromCustomVars<M extends CustomVarObject> = WithMappedProps<
+export type StlFromCustomVars<M extends CustomVarObject> = WithMappedProps<
   {
     [key in Shared<M, CustomVarPropHints>]?: CustomVarPropHints[key] | CoreCustomValues
   } & { [key in NotShared<M, CustomVarPropHints>]?: CoreCustomValues }
@@ -30,7 +30,7 @@ export type CssFromCustomVars<M extends CustomVarObject> = WithMappedProps<
 
 // Merge CSS //
 type MapProps = {
-  [key in CssPropKey]?: any
+  [key in StlPropKey]?: any
 }
 
 export type NestedShared<
@@ -82,8 +82,8 @@ export type InlineConditionKey = ConditionKey | typeof BASE
 export type InlineCondition<T> = T | { [k in InlineConditionKey]?: T }
 export type InlineConditionValue = string | { [k in InlineConditionKey]?: string }
 
-export type InlineConditionCss<T> = {
+export type InlineConditionStl<T> = {
   [k in keyof T]: InlineCondition<T[k]>
 }
 
-export type VariantCSS = Array<{ key: string; css: CSS }>
+export type VariantSTL = Array<{ key: string; css: STL }>

@@ -4,33 +4,39 @@ import { DemoCard, DemoRow, Section } from '../components/Section'
 const ColorSwatch = styled(
   'div',
   {
-    width: '48px',
-    height: '48px',
-    borderRadius: '$2',
-    border: '1px solid rgba(0,0,0,0.1)',
+    stl: {
+      width: '48px',
+      height: '48px',
+      borderRadius: '$2',
+      border: '1px solid rgba(0,0,0,0.1)',
+    },
+    styleName: 'ColorSwatch',
   },
-  'ColorSwatch',
 )
 
 const SpaceBox = styled(
   'div',
   {
-    backgroundColor: '$primary6',
-    height: '24px',
-    borderRadius: '$1',
+    stl: {
+      backgroundColor: '$primary6',
+      height: '24px',
+      borderRadius: '$1',
+    },
+    styleName: 'SpaceBox',
   },
-  'SpaceBox',
 )
 
 const RadiusBox = styled(
   'div',
   {
-    width: '64px',
-    height: '64px',
-    backgroundColor: '$surface2',
-    border: '1px solid $borderColor',
+    stl: {
+      width: '64px',
+      height: '64px',
+      backgroundColor: '$surface2',
+      border: '1px solid $borderColor',
+    },
+    styleName: 'RadiusBox',
   },
-  'RadiusBox',
 )
 
 const colorSteps = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
@@ -76,7 +82,7 @@ export function StylingPage() {
             <DemoRow>
               {colorSteps.map((step) => (
                 <div key={step} style={{ textAlign: 'center' }}>
-                  <ColorSwatch css={{ backgroundColor: `$${palette}${step}` }} />
+                  <ColorSwatch stl={{ backgroundColor: `$${palette}${step}` }} />
                   <div style={{ fontSize: 10, marginTop: 4 }}>{step}</div>
                 </div>
               ))}
@@ -90,7 +96,7 @@ export function StylingPage() {
           <DemoRow>
             {['background', 'surface1', 'surface2', 'surface3'].map((name) => (
               <div key={name} style={{ textAlign: 'center' }}>
-                <ColorSwatch css={{ backgroundColor: `$${name}` }} />
+                <ColorSwatch stl={{ backgroundColor: `$${name}` }} />
                 <div style={{ fontSize: 10, marginTop: 4 }}>{name}</div>
               </div>
             ))}
@@ -100,7 +106,7 @@ export function StylingPage() {
           <DemoRow>
             {['color', 'colorHover', 'borderColor', 'borderColorHover'].map((name) => (
               <div key={name} style={{ textAlign: 'center' }}>
-                <ColorSwatch css={{ backgroundColor: `$${name}` }} />
+                <ColorSwatch stl={{ backgroundColor: `$${name}` }} />
                 <div style={{ fontSize: 10, marginTop: 4 }}>{name}</div>
               </div>
             ))}
@@ -114,7 +120,7 @@ export function StylingPage() {
             {spaceSteps.map((step) => (
               <div key={step} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ width: 24, fontSize: 12 }}>${step}</span>
-                <SpaceBox css={{ width: `$space$${step}` }} />
+                <SpaceBox stl={{ width: `$space$${step}` }} />
               </div>
             ))}
           </div>
@@ -127,7 +133,7 @@ export function StylingPage() {
             {radiusSteps.map((step) => (
               <div key={step} style={{ textAlign: 'center' }}>
                 {/* @ts-expect-error dynamic token reference */}
-                <RadiusBox css={{ borderRadius: `$${step}` }} />
+                <RadiusBox stl={{ borderRadius: `$${step}` }} />
                 <div style={{ fontSize: 10, marginTop: 4 }}>${step}</div>
               </div>
             ))}

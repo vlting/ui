@@ -21,7 +21,7 @@ const typeColorStyles: Record<SearchItemType, { background: string; color: strin
   page: { background: '#f3f4f6', color: '#374151', darkBackground: '#1f2937', darkColor: '#d1d5db' },
 }
 
-const Overlay = styled('div', {
+const Overlay = styled('div', { stl: {
   position: 'fixed',
   inset: 0,
   zIndex: '$10',
@@ -29,16 +29,16 @@ const Overlay = styled('div', {
   alignItems: 'flex-start',
   justifyContent: 'center',
   paddingTop: '15vh',
-})
+}})
 
-const Backdrop = styled('div', {
+const Backdrop = styled('div', { stl: {
   position: 'fixed',
   inset: 0,
   background: 'rgba(0,0,0,0.5)',
   backdropFilter: 'blur(4px)',
-})
+}})
 
-const DialogBox = styled('div', {
+const DialogBox = styled('div', { stl: {
   position: 'relative',
   width: '100%',
   maxWidth: 512,
@@ -47,24 +47,24 @@ const DialogBox = styled('div', {
   border: '$thin $borderColor',
   background: '$background',
   boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
-})
+}})
 
-const SearchBar = styled('div', {
+const SearchBar = styled('div', { stl: {
   display: 'flex',
   alignItems: 'center',
   borderBottom: '$thin $borderColor',
   px: '$2.5',
-})
+}})
 
-const SearchIcon = styled('svg', {
+const SearchIcon = styled('svg', { stl: {
   mr: '$1',
   width: 16,
   height: 16,
   flexShrink: 0,
   color: '$colorSubtitle',
-})
+}})
 
-const SearchInput = styled('input', {
+const SearchInput = styled('input', { stl: {
   height: 48,
   width: '100%',
   background: 'transparent',
@@ -73,9 +73,9 @@ const SearchInput = styled('input', {
   outline: 'none',
   border: 'none',
   '::placeholder': { color: '$colorSubtitle' },
-})
+}})
 
-const EscKbd = styled('kbd', {
+const EscKbd = styled('kbd', { stl: {
   ml: '$1',
   display: 'none',
   flexShrink: 0,
@@ -88,33 +88,33 @@ const EscKbd = styled('kbd', {
   fontWeight: '$500',
   color: '$colorSubtitle',
   gtSm: { display: 'inline-block' },
-})
+}})
 
-const ResultsList = styled('div', {
+const ResultsList = styled('div', { stl: {
   maxHeight: 320,
   overflowY: 'auto',
   overscrollBehavior: 'contain',
   padding: '$1',
-})
+}})
 
-const NoResults = styled('p', {
+const NoResults = styled('p', { stl: {
   px: '$2.5',
   py: '$4',
   textAlign: 'center',
   fontSize: '$p',
   color: '$colorSubtitle',
-})
+}})
 
-const GroupLabel = styled('div', {
+const GroupLabel = styled('div', { stl: {
   px: '$1',
   pb: 4,
   pt: '$1',
   fontSize: '$small',
   fontWeight: '$600',
   color: '$colorSubtitle',
-})
+}})
 
-const ResultButton = styled('button', {
+const ResultButton = styled('button', { stl: {
   display: 'flex',
   width: '100%',
   alignItems: 'center',
@@ -129,33 +129,33 @@ const ResultButton = styled('button', {
   cursor: 'pointer',
   background: 'transparent',
   ':hover': { background: '$tertiary2' },
-})
+}})
 
-const TypeBadge = styled('span', {
+const TypeBadge = styled('span', { stl: {
   flexShrink: 0,
   borderRadius: '$2',
   px: 6,
   py: 2,
   fontSize: 10,
   fontWeight: '$500',
-})
+}})
 
-const ResultName = styled('span', {
+const ResultName = styled('span', { stl: {
   flex: 1,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
   fontWeight: '$500',
   color: '$color',
-})
+}})
 
-const ResultCategory = styled('span', {
+const ResultCategory = styled('span', { stl: {
   flexShrink: 0,
   fontSize: '$small',
   color: '$colorSubtitle',
-})
+}})
 
-const FooterBar = styled('div', {
+const FooterBar = styled('div', { stl: {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -164,25 +164,25 @@ const FooterBar = styled('div', {
   py: '$1',
   fontSize: '$small',
   color: '$colorSubtitle',
-})
+}})
 
-const FooterActions = styled('div', {
+const FooterActions = styled('div', { stl: {
   display: 'flex',
   alignItems: 'center',
   gap: '$1',
-})
+}})
 
-const FooterKbd = styled('kbd', {
+const FooterKbd = styled('kbd', { stl: {
   borderRadius: '$3',
   border: '$thin $borderColor',
   background: '$tertiary2',
   px: 4,
   py: 2,
   fontSize: 10,
-})
+}})
 
 // SearchTrigger styled components
-const TriggerButton = styled('button', {
+const TriggerButton = styled('button', { stl: {
   display: 'flex',
   height: 32,
   alignItems: 'center',
@@ -196,19 +196,19 @@ const TriggerButton = styled('button', {
   cursor: 'pointer',
   transition: 'background 150ms',
   ':hover': { background: '$tertiary2' },
-})
+}})
 
-const TriggerIcon = styled('svg', {
+const TriggerIcon = styled('svg', { stl: {
   width: 14,
   height: 14,
-})
+}})
 
-const TriggerLabel = styled('span', {
+const TriggerLabel = styled('span', { stl: {
   display: 'none',
   gtSm: { display: 'inline' },
-})
+}})
 
-const TriggerKbd = styled('kbd', {
+const TriggerKbd = styled('kbd', { stl: {
   display: 'none',
   borderRadius: '$3',
   border: '$thin $borderColor',
@@ -218,7 +218,7 @@ const TriggerKbd = styled('kbd', {
   fontSize: 10,
   fontWeight: '$500',
   gtSm: { display: 'inline-block' },
-})
+}})
 
 export function SearchDialog() {
   const [open, setOpen] = useState(false)

@@ -31,7 +31,7 @@ export function PrimitivesPage() {
         <DemoCard label="Basic Box with centered variant">
           <DemoRow>
             <Box
-              css={{
+              stl={{
                 width: '100px',
                 height: '100px',
                 backgroundColor: '$primary3',
@@ -40,7 +40,7 @@ export function PrimitivesPage() {
             />
             <Box
               centered
-              css={{
+              stl={{
                 width: '100px',
                 height: '100px',
                 backgroundColor: '$primary4',
@@ -55,9 +55,9 @@ export function PrimitivesPage() {
 
       <Section title="Row & Column">
         <DemoCard label="Flex layouts">
-          <Row css={{ gap: '$2' }}>
+          <Row stl={{ gap: '$2' }}>
             <Box
-              css={{
+              stl={{
                 width: '60px',
                 height: '60px',
                 backgroundColor: '$primary4',
@@ -65,7 +65,7 @@ export function PrimitivesPage() {
               }}
             />
             <Box
-              css={{
+              stl={{
                 width: '60px',
                 height: '60px',
                 backgroundColor: '$primary5',
@@ -73,7 +73,7 @@ export function PrimitivesPage() {
               }}
             />
             <Box
-              css={{
+              stl={{
                 width: '60px',
                 height: '60px',
                 backgroundColor: '$primary6',
@@ -82,9 +82,9 @@ export function PrimitivesPage() {
             />
           </Row>
           <div style={{ height: 16 }} />
-          <Column css={{ gap: '$2' }}>
+          <Column stl={{ gap: '$2' }}>
             <Box
-              css={{
+              stl={{
                 width: '200px',
                 height: '40px',
                 backgroundColor: '$green4',
@@ -92,7 +92,7 @@ export function PrimitivesPage() {
               }}
             />
             <Box
-              css={{
+              stl={{
                 width: '200px',
                 height: '40px',
                 backgroundColor: '$green5',
@@ -100,7 +100,7 @@ export function PrimitivesPage() {
               }}
             />
             <Box
-              css={{
+              stl={{
                 width: '200px',
                 height: '40px',
                 backgroundColor: '$green6',
@@ -113,11 +113,11 @@ export function PrimitivesPage() {
 
       <Section title="Grid">
         <DemoCard label="3-column grid">
-          <Grid css={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: '$3' }}>
+          <Grid stl={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: '$3' }}>
             {Array.from({ length: 6 }, (_, i) => (
               <Box
                 key={i}
-                css={{ height: '60px', backgroundColor: '$blue4', borderRadius: '$2' }}
+                stl={{ height: '60px', backgroundColor: '$blue4', borderRadius: '$2' }}
               />
             ))}
           </Grid>
@@ -129,7 +129,7 @@ export function PrimitivesPage() {
           <Heading>Heading Component</Heading>
           <SubHeading>SubHeading Component</SubHeading>
           <Text>Regular Text component for body copy.</Text>
-          <Text css={{ fontWeight: '$600', color: '$primary8' }}>Bold colored text</Text>
+          <Text stl={{ fontWeight: '$600', color: '$primary8' }}>Bold colored text</Text>
         </DemoCard>
       </Section>
 
@@ -137,7 +137,7 @@ export function PrimitivesPage() {
         <DemoCard label="Interactive element">
           <Pressable
             onClick={() => alert('Pressed!')}
-            css={{
+            stl={{
               padding: '$3',
               backgroundColor: '$primary6',
               color: '$white',
@@ -146,7 +146,7 @@ export function PrimitivesPage() {
               display: 'inline-flex',
             }}
           >
-            <Text css={{ color: '$white' }}>Press Me</Text>
+            <Text stl={{ color: '$white' }}>Press Me</Text>
           </Pressable>
         </DemoCard>
       </Section>
@@ -172,7 +172,7 @@ export function PrimitivesPage() {
 
       <Section title="Spacer">
         <DemoCard label="Flex spacer">
-          <Row css={{ border: '1px dashed $borderColor', padding: '$2' }}>
+          <Row stl={{ border: '1px dashed $borderColor', padding: '$2' }}>
             <Text>Left</Text>
             <Spacer />
             <Text>Right</Text>
@@ -196,7 +196,7 @@ export function PrimitivesPage() {
             <div style={{ width: 200 }}>
               <AspectRatio ratio={16 / 9}>
                 <Box
-                  css={{
+                  stl={{
                     width: '100%',
                     height: '100%',
                     backgroundColor: '$purple4',
@@ -213,7 +213,7 @@ export function PrimitivesPage() {
             <div style={{ width: 100 }}>
               <AspectRatio ratio={1}>
                 <Box
-                  css={{
+                  stl={{
                     width: '100%',
                     height: '100%',
                     backgroundColor: '$orange4',

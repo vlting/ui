@@ -6,7 +6,7 @@ import { ThemeSwitcher } from './theme-switcher'
 import { SearchDialog, SearchTrigger } from './search-dialog'
 import { ThemeToggle } from './theme-toggle'
 
-const Header = styled('header', {
+const Header = styled('header', { stl: {
   position: 'sticky',
   top: 0,
   zIndex: '$6',
@@ -18,39 +18,39 @@ const Header = styled('header', {
   background: '$tertiary1',
   px: '$3.5',
   backdropFilter: 'blur(8px)',
-})
+}})
 
-const NavGroup = styled('div', {
+const NavGroup = styled('div', { stl: {
   display: 'flex',
   alignItems: 'center',
   gap: '$3.5',
-})
+}})
 
-const LogoLink = styled('span', {
+const LogoLink = styled('span', { stl: {
   fontSize: '$h5',
   fontWeight: '$600',
-})
+}})
 
-const Nav = styled('nav', {
+const Nav = styled('nav', { stl: {
   display: 'none',
   alignItems: 'center',
   gap: '$3.5',
   fontSize: '$p',
   gtMd: { display: 'flex' },
-})
+}})
 
-const NavLink = styled('span', {
+const NavLink = styled('span', { stl: {
   color: '$colorSubtitle',
   ':hover': { color: '$color' },
-})
+}})
 
-const ActionGroup = styled('div', {
+const ActionGroup = styled('div', { stl: {
   display: 'flex',
   alignItems: 'center',
   gap: '$1.5',
-})
+}})
 
-const IconLink = styled('a', {
+const IconLink = styled('a', { stl: {
   display: 'flex',
   width: 32,
   height: 32,
@@ -59,7 +59,7 @@ const IconLink = styled('a', {
   borderRadius: '$4',
   border: '$thin $borderColor',
   ':hover': { background: '$tertiary2' },
-})
+}})
 
 export function SiteHeader() {
   return (

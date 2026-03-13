@@ -1,4 +1,4 @@
-import { type CSS, type StyleManager, type VariantCSS, style } from '@vlting/stl'
+import { type STL, type StyleManager, type VariantSTL, style } from '@vlting/stl'
 import {
   type ComponentPropsWithRef,
   type ForwardedRef,
@@ -12,75 +12,54 @@ import {
 import { useConditions } from '../hooks'
 import type { ComponentType } from '../shared/models'
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+/** Variant stub helper — produces { primary: {}, secondary: {}, ... } */
+export function options<T extends string>(...values: T[]): Record<T, Record<string, never>> {
+  return Object.fromEntries(values.map(v => [v, {}])) as Record<T, Record<string, never>>
+}
+
 // ─── Options API ──────────────────────────────────────────────────────────────
+
+export type CompoundVariant<V extends Variants> = {
+  when: { [K in keyof V]?: keyof V[K] }
+  stl: STL
+}
 
 export interface StyledOptions<
   V extends Variants | undefined = undefined,
   P = {},
 > {
-  css: CSS
+  stl: STL
   variants?: V
+  compoundVariants?: V extends Variants ? CompoundVariant<V>[] : undefined
   defaultVariants?: V extends Variants ? DefaultVariants<V> : undefined
   template?: (props: P & { children?: ReactNode }) => ReactNode
   templateProps?: (keyof P & string)[]
   styleName?: string
 }
 
-// ─── Public overloads ─────────────────────────────────────────────────────────
+// ─── Signature ────────────────────────────────────────────────────────────────
 
-/** Options API with template support */
 export function styled<
   P = {},
   C extends ComponentType = ComponentType,
   V extends Variants | undefined = undefined,
 >(component: C, options: StyledOptions<V, P>): StyledComponent<C, V, P>
 
-/** Legacy positional API (backward-compatible) */
-export function styled<C extends ComponentType, V extends Variants | undefined>(
-  component: C,
-  css: CSS,
-  variants?: string | V,
-  styleName?: string,
-  defaultVariants?: V extends Variants ? DefaultVariants<V> : undefined,
-): StyledComponent<C, V>
-
 // ─── Implementation ───────────────────────────────────────────────────────────
 
 export function styled(
   component: ComponentType,
-  optionsOrCss: StyledOptions<any, any> | CSS,
-  variantsOrNothing?: string | Variants,
-  styleNameLegacy?: string,
-  defaultVariantsLegacy?: Record<string, any>,
+  opts: StyledOptions<any, any>,
 ) {
-  // Detect API: options object has a `css` key
-  const isOptionsAPI = optionsOrCss && 'css' in optionsOrCss && !isCSSObject(optionsOrCss)
-
-  let css: CSS
-  let variantsArg: Variants | undefined
-  let styleName: string | undefined
-  let defaultVariants: Record<string, any> | undefined
-  let template: ((props: any) => ReactNode) | undefined
-  let templatePropKeys: string[] = []
-
-  if (isOptionsAPI) {
-    const opts = optionsOrCss as StyledOptions<any, any>
-    css = opts.css
-    variantsArg = opts.variants
-    styleName = opts.styleName
-    defaultVariants = opts.defaultVariants
-    template = opts.template
-    templatePropKeys = opts.templateProps ?? []
-  } else {
-    css = optionsOrCss as CSS
-    styleName =
-      typeof variantsOrNothing === 'string' ? variantsOrNothing : styleNameLegacy
-    variantsArg =
-      variantsOrNothing && typeof variantsOrNothing !== 'string'
-        ? variantsOrNothing
-        : undefined
-    defaultVariants = defaultVariantsLegacy
-  }
+  const css = opts.stl
+  const variantsArg: Variants | undefined = opts.variants
+  const styleName: string | undefined = opts.styleName
+  const defaultVariants: Record<string, any> | undefined = opts.defaultVariants
+  const template: ((props: any) => ReactNode) | undefined = opts.template
+  const templatePropKeys: string[] = opts.templateProps ?? []
+  const compoundVariantsArg: CompoundVariant<any>[] | undefined = opts.compoundVariants
 
   const hasVariants = !!variantsArg
   const variantsDefinition = hasVariants ? variantsArg : undefined
@@ -88,6 +67,7 @@ export function styled(
   const hasVariantKeys = variantKeys.length > 0
   const hasTemplate = !!template
   const hasTemplatePropKeys = templatePropKeys.length > 0
+  const hasCompoundVariants = !!compoundVariantsArg && compoundVariantsArg.length > 0
 
   function styledComponent<T extends ComponentType, R>(
     props: HTMLAttributes<any> &
@@ -108,7 +88,7 @@ export function styled(
     const conditions = useConditions()
     const {
       as: polyAs,
-      css: propsCss,
+      stl: propsStl,
       styleManager,
       isSemantic,
       className,
@@ -118,12 +98,14 @@ export function styled(
     } = props
 
     // Get any variants that are valid, based on our incoming mainProps
-    const variantCss = useVariants(
+    const variantStl = useVariants(
       mainProps,
       hasVariants,
+      hasCompoundVariants,
       variantKeys,
       variantsDefinition,
       defaultVariants,
+      compoundVariantsArg,
     )
 
     const isStyledComponent = !!(component as any).isStyledComponent
@@ -134,8 +116,8 @@ export function styled(
     const { debug, ...styleProps } = style({
       css,
       conditions,
-      variantCss,
-      overrides: propsCss,
+      variantCss: variantStl,
+      overrides: propsStl,
       styleName,
       manager: styleManager,
       props: {
@@ -195,17 +177,6 @@ export function styled(
   return outputComponent
 }
 
-/** Distinguish StyledOptions from a CSS object */
-function isCSSObject(obj: any): boolean {
-  // A CSS object has style properties (bg, color, display, etc.)
-  // A StyledOptions object has a `css` property that IS a CSS object
-  // If it has `css` AND (`variants` or `styleName` or `template` or `defaultVariants`), it's options
-  if ('variants' in obj || 'styleName' in obj || 'template' in obj || 'defaultVariants' in obj) {
-    return false
-  }
-  return true
-}
-
 // @ts-expect-error
 function Debug({ styles }: { styles: Record<string, any> }) {
   return null
@@ -215,10 +186,12 @@ function Debug({ styles }: { styles: Record<string, any> }) {
 function useVariants<P extends Record<string, any>, V extends Variants>(
   props: P,
   hasVariants: boolean,
+  hasCompoundVariants: boolean,
   variantKeys: string[],
   variantsDefinition?: NonNullable<V>,
   defaults?: Record<string, any>,
-): VariantCSS {
+  compoundVariants?: CompoundVariant<any>[],
+): VariantSTL {
   // Collect resolved variant values for the dependency array
   // variantKeys is static per styled() call, so this array length is constant
   const resolvedValues = variantKeys.map((k) => {
@@ -228,7 +201,9 @@ function useVariants<P extends Record<string, any>, V extends Variants>(
 
   return useMemo(() => {
     if (!hasVariants || !variantsDefinition) return []
-    const result: VariantCSS = []
+    const result: VariantSTL = []
+
+    // Flat variant resolution
     for (let i = 0; i < variantKeys.length; i++) {
       const variant = variantsDefinition[variantKeys[i] as VariantKey]
       const resolved = resolvedValues[i]
@@ -239,6 +214,25 @@ function useVariants<P extends Record<string, any>, V extends Variants>(
         result.push({ key, css: variant[variantValue] })
       }
     }
+
+    // Compound variant resolution — matching entries appended after flat variants
+    if (hasCompoundVariants && compoundVariants) {
+      for (const cv of compoundVariants) {
+        const matches = Object.entries(cv.when).every(([k, v]) => {
+          const idx = variantKeys.indexOf(k)
+          if (idx === -1) return false
+          const resolved = resolvedValues[idx]
+          return resolved !== undefined ? String(resolved) === String(v) : false
+        })
+        if (matches) {
+          const whenKey = Object.entries(cv.when)
+            .map(([k, v]) => `${k}-${String(v)}`)
+            .join('_')
+          result.push({ key: `compound-${whenKey}`, css: cv.stl })
+        }
+      }
+    }
+
     return result
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasVariants, variantsDefinition, ...resolvedValues])
@@ -249,7 +243,7 @@ function useVariants<P extends Record<string, any>, V extends Variants>(
 type BooleanString = 'true' | 'false'
 
 type Variants = {
-  [name: string]: { [value: string]: CSS }
+  [name: string]: { [value: string]: STL }
 }
 type VariantKey = keyof Variants
 
@@ -259,15 +253,15 @@ type VariantProps<V extends Variants> = {
 
 type StylelessComponentProps<
   T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
-> = Omit<ComponentPropsWithRef<T>, 'css' | 'styleManager'>
+> = Omit<ComponentPropsWithRef<T>, 'stl' | 'styleManager'>
 
 type DefaultVariants<V extends Variants> = {
   [prop in keyof V]?: keyof V[prop] extends BooleanString ? boolean : keyof V[prop]
 }
 
 type BaseStyledProps<V extends Variants | undefined> = V extends Variants
-  ? { css?: CSS; styleManager?: StyleManager } & VariantProps<V>
-  : { css?: CSS; styleManager?: StyleManager }
+  ? { stl?: STL; styleManager?: StyleManager } & VariantProps<V>
+  : { stl?: STL; styleManager?: StyleManager }
 
 type StyledComponent<
   C extends ComponentType,

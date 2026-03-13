@@ -7,10 +7,12 @@ import {
   createTheme,
   themeToVars,
   THEME_PRESET_DEFAULT,
+} from '../../../packages/stl/src/theme'
+import {
   THEME_PRESET_FLAT,
   THEME_PRESET_SHARP,
   THEME_PRESET_PRO,
-} from '../../../packages/stl/src/theme'
+} from '../../../config/themes'
 
 type PresetKey = 'default' | 'pro' | 'flat' | 'sharp'
 

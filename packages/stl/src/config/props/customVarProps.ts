@@ -1,6 +1,6 @@
 import type { getColor } from '../scales'
 import type {
-  CssPropKey,
+  StlPropKey,
   CustomVarPropValue,
   FilterKeys,
   KeysFromScale,
@@ -14,13 +14,13 @@ import { omitKeys } from './props.utils'
  */
 export function generateCustomVarPropsCss<K extends FilterKeys>(
   generateCss: (
-    prop: CssPropKey,
+    prop: StlPropKey,
     template?: (value: string) => string,
   ) => CustomVarPropValue,
   keys?: K,
 ) {
   function value(
-    prop: CssPropKey,
+    prop: StlPropKey,
     template?: (value: string) => string,
   ): CustomVarPropValue {
     return keys && !keys[prop]

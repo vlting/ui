@@ -20,51 +20,59 @@ const BadgeJsx = Badge as AnyFC
 const ToggleButton = styled(
   'button',
   {
-    appearance: 'none',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: '$borderColor',
-    background: 'none',
-    padding: '6px 16px',
-    cursor: 'pointer',
-    fontFamily: 'inherit',
-    fontSize: '$14',
-    color: '$color',
-    borderRadius: '6px',
+    stl: {
+      appearance: 'none',
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      borderColor: '$borderColor',
+      background: 'none',
+      padding: '6px 16px',
+      cursor: 'pointer',
+      fontFamily: 'inherit',
+      fontSize: '$14',
+      color: '$color',
+      borderRadius: '6px',
+    },
+    styleName: 'PricingToggle',
   },
-  'PricingToggle',
 )
 
 const PricingTable = styled(
   'table',
-  { width: '100%', borderCollapse: 'collapse', fontFamily: 'inherit' },
-  'PricingTable',
+  {
+    stl: { width: '100%', borderCollapse: 'collapse', fontFamily: 'inherit' },
+    styleName: 'PricingTable',
+  },
 )
 
 const Th = styled(
   'th',
   {
-    padding: '12px 16px',
-    textAlign: 'left',
-    fontWeight: '600',
-    fontSize: '$14',
-    borderBottomWidth: '1px',
-    borderBottomStyle: 'solid',
-    borderColor: '$borderColor',
+    stl: {
+      padding: '12px 16px',
+      textAlign: 'left',
+      fontWeight: '600',
+      fontSize: '$14',
+      borderBottomWidth: '1px',
+      borderBottomStyle: 'solid',
+      borderColor: '$borderColor',
+    },
+    styleName: 'PricingTh',
   },
-  'PricingTh',
 )
 
 const Td = styled(
   'td',
   {
-    padding: '10px 16px',
-    fontSize: '$14',
-    borderBottomWidth: '1px',
-    borderBottomStyle: 'solid',
-    borderColor: '$borderColor',
+    stl: {
+      padding: '10px 16px',
+      fontSize: '$14',
+      borderBottomWidth: '1px',
+      borderBottomStyle: 'solid',
+      borderColor: '$borderColor',
+    },
+    styleName: 'PricingTd',
   },
-  'PricingTd',
 )
 
 // -- Types --

@@ -8,13 +8,15 @@ import type { BlockProps } from '../_shared/types'
 const FormElement = styled(
   'form',
   {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 8,
-    width: '100%',
-    maxWidth: 360,
+    stl: {
+      display: 'flex',
+      flexDirection: 'row',
+      gap: 8,
+      width: '100%',
+      maxWidth: 360,
+    },
+    styleName: 'EmptyStateForm',
   },
-  'EmptyStateForm',
 )
 
 // -- Types --

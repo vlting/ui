@@ -120,20 +120,20 @@ import { styled } from '../config'
 
 describe('styled()', () => {
   it('creates a component from an HTML element string', () => {
-    const MyDiv = styled('div', {}, 'MyDiv')
+    const MyDiv = styled('div', { stl: {}, styleName: 'MyDiv' })
     render(<MyDiv>hello</MyDiv>)
     expect(screen.getByText('hello')).toBeInTheDocument()
   })
 
   it('renders the correct HTML element', () => {
-    const MySpan = styled('span', {}, 'MySpan')
+    const MySpan = styled('span', { stl: {}, styleName: 'MySpan' })
     render(<MySpan>span text</MySpan>)
     const el = screen.getByText('span text')
     expect(el.tagName).toBe('SPAN')
   })
 
   it('inner function has displayName from styleName', () => {
-    const Named = styled('div', {}, 'CustomName')
+    const Named = styled('div', { stl: {}, styleName: 'CustomName' })
     // forwardRef wraps the component; the render function inside has the displayName
     const inner = (Named as any).render ?? Named
     // The actual component function (pre-forwardRef) receives the displayName
@@ -144,12 +144,12 @@ describe('styled()', () => {
   })
 
   it('marks component with isStyledComponent', () => {
-    const Comp = styled('div', {}, 'Comp')
+    const Comp = styled('div', { stl: {}, styleName: 'Comp' })
     expect((Comp as any).isStyledComponent).toBe(true)
   })
 
   it('passes through standard HTML props', () => {
-    const MyDiv = styled('div', {}, 'MyDiv')
+    const MyDiv = styled('div', { stl: {}, styleName: 'MyDiv' })
     render(
       <MyDiv data-testid="test-div" id="my-div">
         content
@@ -159,14 +159,14 @@ describe('styled()', () => {
     expect(el).toHaveAttribute('id', 'my-div')
   })
 
-  it('supports css prop overrides', () => {
-    const MyDiv = styled('div', {}, 'MyDiv')
-    render(<MyDiv css={{ color: 'red' }}>overridden</MyDiv>)
+  it('supports stl prop overrides', () => {
+    const MyDiv = styled('div', { stl: {}, styleName: 'MyDiv' })
+    render(<MyDiv stl={{ color: 'red' }}>overridden</MyDiv>)
     expect(screen.getByText('overridden')).toBeInTheDocument()
   })
 
   it('supports as polymorphism', () => {
-    const MySection = styled('section', {}, 'MySection')
+    const MySection = styled('section', { stl: {}, styleName: 'MySection' })
     render(<MySection as="article">poly content</MySection>)
     const el = screen.getByText('poly content')
     expect(el.tagName).toBe('ARTICLE')
@@ -175,28 +175,30 @@ describe('styled()', () => {
   it('creates a component with variants', () => {
     const Button = styled(
       'button',
-      {},
       {
-        size: {
-          small: { fontSize: '12px' },
-          large: { fontSize: '24px' },
+        stl: {},
+        variants: {
+          size: {
+            small: { fontSize: '12px' },
+            large: { fontSize: '24px' },
+          },
         },
+        styleName: 'Button',
       },
-      'Button',
     )
     render(<Button size="large">big button</Button>)
     expect(screen.getByText('big button')).toBeInTheDocument()
   })
 
   it('composes styled components', () => {
-    const Base = styled('div', { display: 'flex' }, 'Base')
-    const Extended = styled(Base, { color: 'red' }, 'Extended')
+    const Base = styled('div', { stl: { display: 'flex' }, styleName: 'Base' })
+    const Extended = styled(Base, { stl: { color: 'red' }, styleName: 'Extended' })
     render(<Extended>composed</Extended>)
     expect(screen.getByText('composed')).toBeInTheDocument()
   })
 
   it('forwards refs', () => {
-    const MyInput = styled('input', {}, 'MyInput')
+    const MyInput = styled('input', { stl: {}, styleName: 'MyInput' })
     const ref = { current: null } as React.RefObject<HTMLInputElement>
     render(<MyInput ref={ref} data-testid="input" />)
     expect(ref.current).toBe(screen.getByTestId('input'))

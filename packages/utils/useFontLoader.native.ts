@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { BrandFontConfig } from './googleFontsUrl'
+import type { FontConfig } from './googleFontsUrl'
 import { extractFamiliesFromConfig, getGoogleFontsUrl } from './googleFontsUrl'
 
 // ---------------------------------------------------------------------------
@@ -90,7 +90,7 @@ const MOBILE_UA =
 
 const LOAD_TIMEOUT_MS = 5000
 
-export function useFontLoader(fontConfig?: BrandFontConfig): FontLoadState {
+export function useFontLoader(fontConfig?: FontConfig): FontLoadState {
   const [state, setState] = useState<FontLoadState>(() => {
     // If no config or all system fonts, loaded immediately
     if (!fontConfig || extractFamiliesFromConfig(fontConfig).length === 0) {

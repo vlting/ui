@@ -8,4 +8,4 @@ const TEXT_STYLES = {
 
 export const getTextStyles = () => TEXT_STYLES
 
-export const Text = styled('p', getTextStyles(), 'Text')
+export const Text = styled('p', { stl: getTextStyles(), styleName: 'Text' })

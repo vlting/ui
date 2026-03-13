@@ -9,33 +9,27 @@ const baseStyles = {
 
 const H1Frame = styled(
   'h1',
-  { ...baseStyles, fontSize: '$h1', lineHeight: '$heading', fontWeight: '$700' },
-  'H1',
+  { stl: { ...baseStyles, fontSize: '$h1', lineHeight: '$heading', fontWeight: '$700' }, styleName: 'H1' },
 )
 const H2Frame = styled(
   'h2',
-  { ...baseStyles, fontSize: '$h2', lineHeight: '$heading', fontWeight: '$700' },
-  'H2',
+  { stl: { ...baseStyles, fontSize: '$h2', lineHeight: '$heading', fontWeight: '$700' }, styleName: 'H2' },
 )
 const H3Frame = styled(
   'h3',
-  { ...baseStyles, fontSize: '$h3', lineHeight: '$heading', fontWeight: '$600' },
-  'H3',
+  { stl: { ...baseStyles, fontSize: '$h3', lineHeight: '$heading', fontWeight: '$600' }, styleName: 'H3' },
 )
 const H4Frame = styled(
   'h4',
-  { ...baseStyles, fontSize: '$h4', lineHeight: '$heading', fontWeight: '$600' },
-  'H4',
+  { stl: { ...baseStyles, fontSize: '$h4', lineHeight: '$heading', fontWeight: '$600' }, styleName: 'H4' },
 )
 const H5Frame = styled(
   'h5',
-  { ...baseStyles, fontSize: '$h5', lineHeight: '$heading', fontWeight: '$600' },
-  'H5',
+  { stl: { ...baseStyles, fontSize: '$h5', lineHeight: '$heading', fontWeight: '$600' }, styleName: 'H5' },
 )
 const H6Frame = styled(
   'h6',
-  { ...baseStyles, fontSize: '$h6', lineHeight: '$heading', fontWeight: '$600' },
-  'H6',
+  { stl: { ...baseStyles, fontSize: '$h6', lineHeight: '$heading', fontWeight: '$600' }, styleName: 'H6' },
 )
 
 type HeadingFrame = typeof H1Frame

@@ -18,12 +18,14 @@ import {
 const FormElement = styled(
   'form',
   {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 16,
-    width: '100%',
+    stl: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 16,
+      width: '100%',
+    },
+    styleName: 'AuthForm',
   },
-  'AuthForm',
 )
 
 // -- Types --

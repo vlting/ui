@@ -3,13 +3,14 @@ import { StlProvider } from '@vlting/ui'
 import { Button } from '@vlting/ui'
 import type { ButtonTheme, ButtonVariant, ButtonSize } from '@vlting/ui'
 import { useColorMode } from '@vlting/stl-react'
+import { styled, options } from '@vlting/stl-react'
+import { defaultTheme, createTheme } from '@vlting/stl'
+import type { Theme, CreateThemeOptions } from '@vlting/stl'
 import {
-  defaultTheme,
-  flatTheme,
-  proTheme,
-  sharpTheme,
-} from '@vlting/stl'
-import type { Theme } from '@vlting/stl'
+  THEME_PRESET_FLAT,
+  THEME_PRESET_SHARP,
+  THEME_PRESET_PRO,
+} from '../../../config/themes'
 import '@vlting/stl/styles'
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -18,6 +19,10 @@ const THEMES: ButtonTheme[] = ['primary', 'secondary', 'neutral', 'destructive']
 const VARIANTS: ButtonVariant[] = ['solid', 'subtle', 'outline', 'ghost', 'link']
 const SIZES: ButtonSize[] = ['xs', 'sm', 'md', 'lg', 'icon']
 
+const flatTheme = createTheme(THEME_PRESET_FLAT)
+const proTheme = createTheme(THEME_PRESET_PRO)
+const sharpTheme = createTheme(THEME_PRESET_SHARP)
+
 const THEME_PRESETS: Record<string, { label: string; theme: Readonly<Theme> }> = {
   default: { label: 'Default', theme: defaultTheme },
   flat: { label: 'Flat', theme: flatTheme },
@@ -25,122 +30,152 @@ const THEME_PRESETS: Record<string, { label: string; theme: Readonly<Theme> }> =
   sharp: { label: 'Sharp', theme: sharpTheme },
 }
 
-// ─── Styles ──────────────────────────────────────────────────────────────────
+// ─── Styled components ──────────────────────────────────────────────────────
 
-const styles = {
-  app: {
-    minHeight: '100vh',
-    fontFamily: 'system-ui, -apple-system, sans-serif',
-  },
-  nav: {
+const AppRoot = styled('div', {
+  stl: { minHeight: '100vh', fontFamily: '$body' },
+  styleName: 'AppRoot',
+})
+
+const Nav = styled('nav', {
+  stl: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '12px 24px',
-    borderBottom: '1px solid var(--stl-color5)',
-    background: 'var(--stl-background)',
-    position: 'sticky' as const,
-    top: 0,
-    zIndex: 10,
+    px: '$24',
+    py: '$12',
+    borderBottomWidth: '1px',
+    borderBottomStyle: 'solid',
+    borderBottomColor: '$color5',
+    bg: '$background',
+    position: 'sticky',
+    top: '0',
+    zIndex: '10',
   },
-  navTitle: {
-    fontSize: 14,
-    fontWeight: 600,
-    color: 'var(--stl-color12)',
-    margin: 0,
+  styleName: 'Nav',
+})
+
+const NavTitle = styled('h1', {
+  stl: {
+    fontSize: '$p',
+    fontWeight: '$600',
+    color: '$color12',
+    m: '$0',
   },
-  navControls: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 8,
-  },
-  presetBtn: (active: boolean) => ({
-    padding: '4px 12px',
-    fontSize: 12,
-    fontWeight: active ? 600 : 400,
-    border: active ? '1px solid var(--stl-primary9)' : '1px solid var(--stl-color6)',
-    borderRadius: 6,
-    background: active ? 'var(--stl-primary3)' : 'transparent',
-    color: active ? 'var(--stl-primary11)' : 'var(--stl-color11)',
+  styleName: 'NavTitle',
+})
+
+const NavControls = styled('div', {
+  stl: { display: 'flex', alignItems: 'center', gap: '$8' },
+  styleName: 'NavControls',
+})
+
+const ToggleBtn = styled('button', {
+  stl: {
+    py: '$4',
+    px: '$12',
+    fontSize: '$buttonTiny',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$color6',
+    borderRadius: '$2',
+    bg: 'transparent',
+    color: '$color11',
     cursor: 'pointer',
-  }),
-  modeBtn: {
-    padding: '4px 12px',
-    fontSize: 12,
-    border: '1px solid var(--stl-color6)',
-    borderRadius: 6,
-    background: 'transparent',
-    color: 'var(--stl-color11)',
-    cursor: 'pointer',
-    marginLeft: 8,
   },
-  main: {
-    padding: 24,
-    maxWidth: 1200,
-    margin: '0 auto',
+  variants: {
+    active: {
+      true: {
+        borderColor: '$primary9',
+        bg: '$primary3',
+        color: '$primary11',
+        fontWeight: '$600',
+      },
+    },
   },
-  section: {
-    marginBottom: 32,
-  },
-  sectionTitle: {
-    fontSize: 13,
-    fontWeight: 600,
-    color: 'var(--stl-color11)',
-    marginBottom: 12,
-    textTransform: 'uppercase' as const,
+  styleName: 'ToggleBtn',
+})
+
+const Main = styled('main', {
+  stl: { p: '$24', maxWidth: '1200px', mx: 'auto' },
+  styleName: 'Main',
+})
+
+const Section = styled('div', {
+  stl: { mb: '$32' },
+  styleName: 'Section',
+})
+
+const SectionTitle = styled('div', {
+  stl: {
+    fontSize: '$buttonTiny',
+    fontWeight: '$600',
+    color: '$color11',
+    mb: '$12',
+    textTransform: 'uppercase',
     letterSpacing: '0.05em',
   },
-  toggleRow: {
-    display: 'flex',
-    gap: 12,
-    marginBottom: 24,
-    flexWrap: 'wrap' as const,
-  },
-  toggleBtn: (active: boolean) => ({
-    padding: '4px 12px',
-    fontSize: 12,
-    border: active ? '1px solid var(--stl-primary9)' : '1px solid var(--stl-color6)',
-    borderRadius: 6,
-    background: active ? 'var(--stl-primary3)' : 'transparent',
-    color: active ? 'var(--stl-primary11)' : 'var(--stl-color11)',
-    cursor: 'pointer',
-  }),
-  grid: {
+  styleName: 'SectionTitle',
+})
+
+const ToggleRow = styled('div', {
+  stl: { display: 'flex', gap: '$12', mb: '$24', flexWrap: 'wrap' },
+  styleName: 'ToggleRow',
+})
+
+const GridContainer = styled('div', {
+  stl: {
     display: 'grid',
-    gridTemplateColumns: `120px repeat(${VARIANTS.length}, 1fr)`,
-    gap: 1,
-    background: 'var(--stl-color4)',
-    border: '1px solid var(--stl-color4)',
-    borderRadius: 8,
+    gap: '1px',
+    bg: '$color4',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '$color4',
+    borderRadius: '$3',
     overflow: 'hidden',
   },
-  headerCell: {
-    padding: '8px 12px',
-    fontSize: 11,
-    fontWeight: 600,
-    textTransform: 'uppercase' as const,
+  styleName: 'GridContainer',
+})
+
+const HeaderCell = styled('div', {
+  stl: {
+    py: '$8',
+    px: '$12',
+    fontSize: '$buttonTiny',
+    fontWeight: '$600',
+    textTransform: 'uppercase',
     letterSpacing: '0.05em',
-    color: 'var(--stl-color10)',
-    background: 'var(--stl-color2)',
-    textAlign: 'center' as const,
+    color: '$color10',
+    bg: '$color2',
+    textAlign: 'center',
   },
-  rowLabel: {
-    padding: '12px',
-    fontSize: 12,
-    fontWeight: 500,
-    color: 'var(--stl-color11)',
-    background: 'var(--stl-color2)',
+  styleName: 'HeaderCell',
+})
+
+const RowLabel = styled('div', {
+  stl: {
+    p: '$12',
+    fontSize: '$buttonTiny',
+    fontWeight: '$500',
+    color: '$color11',
+    bg: '$color2',
     display: 'flex',
     alignItems: 'center',
   },
-  cell: {
-    padding: '16px 12px',
+  styleName: 'RowLabel',
+})
+
+const Cell = styled('div', {
+  stl: {
+    py: '$16',
+    px: '$12',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'var(--stl-background)',
+    bg: '$background',
   },
-} as const
+  styleName: 'Cell',
+})
 
 // ─── Inner App (inside StlProvider) ──────────────────────────────────────────
 
@@ -157,90 +192,92 @@ function PlaygroundInner({
   const [isLoading, setLoading] = useState(false)
 
   return (
-    <div style={styles.app}>
+    <AppRoot>
       {/* ── Nav ── */}
-      <nav style={styles.nav}>
-        <h1 style={styles.navTitle}>@vlting/ui Playground</h1>
-        <div style={styles.navControls}>
+      <Nav>
+        <NavTitle>@vlting/ui Playground</NavTitle>
+        <NavControls>
           {Object.entries(THEME_PRESETS).map(([key, { label }]) => (
-            <button
+            <ToggleBtn
               key={key}
               type="button"
-              style={styles.presetBtn(activePreset === key)}
+              active={activePreset === key}
               onClick={() => onPresetChange(key)}
               aria-pressed={activePreset === key}
             >
               {label}
-            </button>
+            </ToggleBtn>
           ))}
-          <button
+          <ToggleBtn
             type="button"
-            style={styles.modeBtn}
             onClick={toggleColorMode}
           >
             {colorMode === 'light' ? 'Dark' : 'Light'}
-          </button>
-        </div>
-      </nav>
+          </ToggleBtn>
+        </NavControls>
+      </Nav>
 
       {/* ── Main ── */}
-      <main style={styles.main}>
+      <Main>
         {/* Toggles */}
-        <div style={styles.section}>
-          <div style={styles.sectionTitle}>Controls</div>
-          <div style={styles.toggleRow}>
+        <Section>
+          <SectionTitle>Controls</SectionTitle>
+          <ToggleRow>
             {SIZES.map((s) => (
-              <button
+              <ToggleBtn
                 key={s}
                 type="button"
-                style={styles.toggleBtn(size === s)}
+                active={size === s}
                 onClick={() => setSize(s)}
                 aria-pressed={size === s}
               >
                 {s}
-              </button>
+              </ToggleBtn>
             ))}
-            <button
+            <ToggleBtn
               type="button"
-              style={styles.toggleBtn(isDisabled)}
+              active={isDisabled}
               onClick={() => setDisabled((d) => !d)}
               aria-pressed={isDisabled}
             >
               disabled
-            </button>
-            <button
+            </ToggleBtn>
+            <ToggleBtn
               type="button"
-              style={styles.toggleBtn(isLoading)}
+              active={isLoading}
               onClick={() => setLoading((l) => !l)}
               aria-pressed={isLoading}
             >
               loading
-            </button>
-          </div>
-        </div>
+            </ToggleBtn>
+          </ToggleRow>
+        </Section>
 
         {/* Permutation Grid */}
-        <div style={styles.section}>
-          <div style={styles.sectionTitle}>Button · theme × variant</div>
-          <div style={styles.grid} role="grid" aria-label="Button permutation grid">
+        <Section>
+          <SectionTitle>Button · theme × variant</SectionTitle>
+          <GridContainer
+            role="grid"
+            aria-label="Button permutation grid"
+            style={{ gridTemplateColumns: `120px repeat(${VARIANTS.length}, 1fr)` }}
+          >
             {/* Header row */}
-            <div style={styles.headerCell} role="columnheader" />
+            <HeaderCell role="columnheader" />
             {VARIANTS.map((v) => (
-              <div key={v} style={styles.headerCell} role="columnheader">
+              <HeaderCell key={v} role="columnheader">
                 {v}
-              </div>
+              </HeaderCell>
             ))}
 
             {/* Data rows */}
             {THEMES.map((theme) => (
               <div key={theme} role="row" style={{ display: 'contents' }}>
-                <div style={styles.rowLabel} role="rowheader">
+                <RowLabel role="rowheader">
                   {theme}
-                </div>
+                </RowLabel>
                 {VARIANTS.map((variant) => (
-                  <div
+                  <Cell
                     key={variant}
-                    style={styles.cell}
                     role="gridcell"
                     aria-label={`${theme} ${variant}`}
                   >
@@ -253,14 +290,14 @@ function PlaygroundInner({
                     >
                       {size === 'icon' ? '★' : 'Button'}
                     </Button>
-                  </div>
+                  </Cell>
                 ))}
               </div>
             ))}
-          </div>
-        </div>
-      </main>
-    </div>
+          </GridContainer>
+        </Section>
+      </Main>
+    </AppRoot>
   )
 }
 

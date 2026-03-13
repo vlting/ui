@@ -35,58 +35,58 @@ const STEP_LABELS = [
   'Foreground',
 ]
 
-const Container = styled('div', {
+const Container = styled('div', { stl: {
   border: '$thin $borderColor',
   borderRadius: '$4',
   overflow: 'hidden',
-})
+}})
 
-const Header = styled('div', {
+const Header = styled('div', { stl: {
   px: '$2.5',
   py: '$1.5',
   borderBottom: '$thin $borderColor',
   background: '$tertiary1',
-})
+}})
 
-const HeaderText = styled('span', {
+const HeaderText = styled('span', { stl: {
   fontSize: '$p',
   fontWeight: '$500',
-})
+}})
 
-const ControlsSection = styled('div', {
+const ControlsSection = styled('div', { stl: {
   padding: '$2.5',
   borderBottom: '$thin $borderColor',
-})
+}})
 
-const ControlsGrid = styled('div', {
+const ControlsGrid = styled('div', { stl: {
   display: 'grid',
   gridTemplateColumns: '1fr',
   gap: '$2.5',
   gtSm: { gridTemplateColumns: 'repeat(3, 1fr)' },
-})
+}})
 
-const ControlLabel = styled('label', {
+const ControlLabel = styled('label', { stl: {
   display: 'block',
   fontSize: '$small',
   fontWeight: '$500',
   color: '$colorSubtitle',
   mb: 4,
-})
+}})
 
-const RangeInput = styled('input', {
+const RangeInput = styled('input', { stl: {
   width: '100%',
   accentColor: 'var(--stl-primary9)',
-})
+}})
 
-const ModeToggleGroup = styled('div', {
+const ModeToggleGroup = styled('div', { stl: {
   display: 'flex',
   gap: 4,
   padding: 4,
   background: '$tertiary2',
   borderRadius: '$4',
-})
+}})
 
-const ModeButton = styled('button', {
+const ModeButton = styled('button', { stl: {
   flex: 1,
   px: '$1.5',
   py: 4,
@@ -98,40 +98,40 @@ const ModeButton = styled('button', {
   cursor: 'pointer',
   background: 'transparent',
   color: '$colorSubtitle',
-})
+}})
 
-const SwatchesSection = styled('div', {
+const SwatchesSection = styled('div', { stl: {
   padding: '$2.5',
   borderBottom: '$thin $borderColor',
-})
+}})
 
-const SwatchGrid = styled('div', {
+const SwatchGrid = styled('div', { stl: {
   display: 'grid',
   gridTemplateColumns: 'repeat(6, 1fr)',
   gap: 4,
   gtSm: { gridTemplateColumns: 'repeat(12, 1fr)' },
-})
+}})
 
-const SwatchColumn = styled('div', {
+const SwatchColumn = styled('div', { stl: {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   gap: 4,
-})
+}})
 
-const SwatchColor = styled('div', {
+const SwatchColor = styled('div', { stl: {
   width: '100%',
   aspectRatio: '1 / 1',
   borderRadius: '$3',
   border: '$thin $borderColorMuted',
-})
+}})
 
-const SwatchLabel = styled('span', {
+const SwatchLabel = styled('span', { stl: {
   fontSize: 10,
   color: '$colorSubtitle',
-})
+}})
 
-const LegendGrid = styled('div', {
+const LegendGrid = styled('div', { stl: {
   mt: '$1.5',
   display: 'grid',
   gridTemplateColumns: 'repeat(2, 1fr)',
@@ -139,33 +139,33 @@ const LegendGrid = styled('div', {
   fontSize: '$small',
   color: '$colorSubtitle',
   gtSm: { gridTemplateColumns: 'repeat(4, 1fr)' },
-})
+}})
 
-const LegendItem = styled('div', {
+const LegendItem = styled('div', { stl: {
   display: 'flex',
   alignItems: 'center',
   gap: '$1',
-})
+}})
 
-const LegendSwatch = styled('div', {
+const LegendSwatch = styled('div', { stl: {
   width: 12,
   height: 12,
   borderRadius: '$2',
   border: '$thin $borderColorMuted',
-})
+}})
 
-const CodeSection = styled('div', {
+const CodeSection = styled('div', { stl: {
   padding: '$2.5',
   background: '$tertiary1',
-})
+}})
 
-const CodePre = styled('pre', {
+const CodePre = styled('pre', { stl: {
   fontSize: '$small',
   fontFamily: '$mono',
   whiteSpace: 'pre-wrap',
   color: '$colorSubtitle',
   overflowX: 'auto',
-})
+}})
 
 export function PalettePicker() {
   const [hue, setHue] = useState(220)

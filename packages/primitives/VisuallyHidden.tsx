@@ -10,15 +10,17 @@ const srOnlyStyle: React.CSSProperties = {
 const VisuallyHiddenFrame = styled(
   'span',
   {
-    position: 'absolute',
-    width: '1px',
-    height: '1px',
-    padding: '0',
-    margin: '-1px',
-    overflow: 'hidden',
-    borderWidth: '0',
+    stl: {
+      position: 'absolute',
+      width: '1px',
+      height: '1px',
+      padding: '0',
+      margin: '-1px',
+      overflow: 'hidden',
+      borderWidth: '0',
+    },
+    styleName: 'VisuallyHidden',
   },
-  'VisuallyHidden',
 )
 
 export interface VisuallyHiddenProps {

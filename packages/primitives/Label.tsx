@@ -3,15 +3,17 @@ import { styled } from '../stl-react/src/config'
 
 const LabelFrame = styled(
   'label',
-  { fontFamily: '$body', display: 'inline-flex', alignItems: 'center', gap: '$1' },
   {
-    size: {
-      sm: { fontSize: '$12' },
-      md: { fontSize: '$14' },
-      lg: { fontSize: '$16' },
+    stl: { fontFamily: '$body', display: 'inline-flex', alignItems: 'center', gap: '$1' },
+    variants: {
+      size: {
+        sm: { fontSize: '$12' },
+        md: { fontSize: '$14' },
+        lg: { fontSize: '$16' },
+      },
     },
+    styleName: 'Label',
   },
-  'Label',
 )
 
 export interface LabelProps {
