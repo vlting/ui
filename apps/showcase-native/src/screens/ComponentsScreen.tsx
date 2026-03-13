@@ -60,7 +60,7 @@ export function ComponentsScreen() {
 
       <View style={styles.section}>
         <RNText style={styles.sectionTitle}>Button</RNText>
-        <Row css={{ gap: 8, flexWrap: 'wrap' }}>
+        <Row stl={{ gap: 8, flexWrap: 'wrap' }}>
           <Button onPress={() => RNAlert.alert('Pressed!')}>
             <Button.Text>Default</Button.Text>
           </Button>
@@ -78,7 +78,7 @@ export function ComponentsScreen() {
           </Button>
         </Row>
         <Spacer size="sm" />
-        <Row css={{ gap: 8 }}>
+        <Row stl={{ gap: 8 }}>
           <Button size="sm">
             <Button.Text>Small</Button.Text>
           </Button>
@@ -121,7 +121,7 @@ export function ComponentsScreen() {
 
       <View style={styles.section}>
         <RNText style={styles.sectionTitle}>Switch</RNText>
-        <Row css={{ gap: 12, alignItems: 'center' }}>
+        <Row stl={{ gap: 12, alignItems: 'center' }}>
           <Switch checked={switchOn} onCheckedChange={setSwitchOn} />
           <Text>Notifications {switchOn ? 'on' : 'off'}</Text>
         </Row>
@@ -147,7 +147,7 @@ export function ComponentsScreen() {
 
       <View style={styles.section}>
         <RNText style={styles.sectionTitle}>Avatar</RNText>
-        <Row css={{ gap: 12 }}>
+        <Row stl={{ gap: 12 }}>
           <Avatar src="https://i.pravatar.cc/100?img=1" size="sm" fallback="JD" />
           <Avatar src="https://i.pravatar.cc/100?img=2" size="md" fallback="AB" />
           <Avatar src="https://invalid-url.test" size="lg" fallback="XY" />
@@ -157,7 +157,7 @@ export function ComponentsScreen() {
 
       <View style={styles.section}>
         <RNText style={styles.sectionTitle}>Badge</RNText>
-        <Row css={{ gap: 8, flexWrap: 'wrap' }}>
+        <Row stl={{ gap: 8, flexWrap: 'wrap' }}>
           <Badge>Default</Badge>
           <Badge variant="secondary">Secondary</Badge>
           <Badge variant="destructive">Error</Badge>
@@ -227,12 +227,12 @@ export function ComponentsScreen() {
             <Sheet.Description>Adjust your preferences</Sheet.Description>
           </Sheet.Header>
           <Sheet.Content>
-            <Column css={{ gap: 12 }}>
-              <Row css={{ justifyContent: 'space-between', alignItems: 'center' }}>
+            <Column stl={{ gap: 12 }}>
+              <Row stl={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 <Text>Dark Mode</Text>
                 <Switch checked={false} onCheckedChange={() => {}} />
               </Row>
-              <Row css={{ justifyContent: 'space-between', alignItems: 'center' }}>
+              <Row stl={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 <Text>Notifications</Text>
                 <Switch checked={true} onCheckedChange={() => {}} />
               </Row>

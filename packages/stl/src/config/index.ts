@@ -8,9 +8,9 @@ export {
   getMediumShadow,
 } from './scales'
 export {
-  type BaseCSS,
-  type ConditionalCSS,
-  type CSS,
+  type BaseSTL,
+  type ConditionalSTL,
+  type STL,
   type OverrideScaledProp,
   theme,
   token,
@@ -18,16 +18,16 @@ export {
 } from './styles.css'
 export type {
   ConditionKey,
-  CssFromCustomVars,
-  CssFromMap,
+  StlFromCustomVars,
+  StlFromMap,
   Exclusive,
   ExclusivelyShared,
   InlineCondition,
-  InlineConditionCss,
+  InlineConditionStl,
   InlineConditionKey,
   InlineConditionValue,
   MergedCssProps,
   NestedShared,
-  VariantCSS,
+  VariantSTL,
 } from './styles.models'
 export * from './utils/styles.utils'

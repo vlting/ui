@@ -1,3 +1,3 @@
 import { styled } from '../../config'
 
-export const FlexListItem = styled('li', {}, 'FlexListItem')
+export const FlexListItem = styled('li', { stl: {}, styleName: 'FlexListItem' })

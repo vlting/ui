@@ -16,9 +16,9 @@ export type CssValueRules<S extends Record<string | number, CssValue>> = Record<
   CssClassDef
 >
 
-export type CssPropKey = keyof typeof sourceProps
+export type StlPropKey = keyof typeof sourceProps
 
-export type FilterKeys = Partial<Record<CssPropKey, unknown>>
+export type FilterKeys = Partial<Record<StlPropKey, unknown>>
 
 export type PickKeys<
   T extends Record<string, unknown>,

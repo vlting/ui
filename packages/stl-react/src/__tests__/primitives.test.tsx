@@ -241,8 +241,8 @@ describe('Primitives', () => {
     expect(screen.getByText('flex list item')).toBeInTheDocument()
   })
 
-  it('primitives accept css prop without error', () => {
-    render(<Box css={{ padding: '10px' }}>styled box</Box>)
+  it('primitives accept stl prop without error', () => {
+    render(<Box stl={{ padding: '10px' }}>styled box</Box>)
     expect(screen.getByText('styled box')).toBeInTheDocument()
   })
 

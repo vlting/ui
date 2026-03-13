@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import type { BrandFontConfig } from './googleFontsUrl'
+import type { FontConfig } from './googleFontsUrl'
 import { getGoogleFontsUrl } from './googleFontsUrl'
 
 // ---------------------------------------------------------------------------
@@ -28,7 +28,7 @@ const cssEscape =
 // so text renders with fallback fonts until the web font arrives.
 // ---------------------------------------------------------------------------
 
-export function useFontLoader(fontConfig?: BrandFontConfig): FontLoadState {
+export function useFontLoader(fontConfig?: FontConfig): FontLoadState {
   const linkRef = useRef<HTMLLinkElement | null>(null)
 
   useEffect(() => {

@@ -104,7 +104,7 @@ function ChatInput({
         />
       </div>
       <ButtonJsx
-        variant="default"
+        variant="solid"
         onPress={() => {
           if (inputValue?.trim()) onSend?.(inputValue.trim())
         }}

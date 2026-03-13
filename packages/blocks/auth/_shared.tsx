@@ -9,30 +9,34 @@ import type { SocialProvider } from '../_shared/types'
 const FooterLinkBtn = styled(
   'button',
   {
-    display: 'inline',
-    appearance: 'none',
-    border: 'none',
-    background: 'none',
-    padding: '0',
-    margin: '0',
-    fontFamily: 'inherit',
-    fontSize: 'inherit',
-    color: 'var(--color10)',
-    cursor: 'pointer',
-    textDecoration: 'underline',
-    outline: 'none',
+    stl: {
+      display: 'inline',
+      appearance: 'none',
+      border: 'none',
+      background: 'none',
+      padding: '0',
+      margin: '0',
+      fontFamily: 'inherit',
+      fontSize: 'inherit',
+      color: 'var(--color10)',
+      cursor: 'pointer',
+      textDecoration: 'underline',
+      outline: 'none',
+    },
+    styleName: 'AuthFooterLinkButton',
   },
-  'AuthFooterLinkButton',
 )
 
 const FooterLinkA = styled(
   'a',
   {
-    color: 'var(--color10)',
-    textDecoration: 'underline',
-    outline: 'none',
+    stl: {
+      color: 'var(--color10)',
+      textDecoration: 'underline',
+      outline: 'none',
+    },
+    styleName: 'AuthFooterLinkAnchor',
   },
-  'AuthFooterLinkAnchor',
 )
 
 // -- AuthFormCard --

@@ -3,21 +3,11 @@
 // ---------------------------------------------------------------------------
 
 import { createTheme as _createTheme } from './generate-theme'
-import {
-  THEME_PRESET_DEFAULT as _DEFAULT,
-  THEME_PRESET_FLAT as _FLAT,
-  THEME_PRESET_SHARP as _SHARP,
-  THEME_PRESET_PRO as _PRO,
-} from './presets'
+import { THEME_PRESET_DEFAULT as _DEFAULT } from './presets'
 
 export { createTheme, applyTheme, getTheme } from './generate-theme'
 export type { ColorInput, CreateThemeOptions, SecondaryColorInput } from './generate-theme'
-export {
-  THEME_PRESET_DEFAULT,
-  THEME_PRESET_FLAT,
-  THEME_PRESET_SHARP,
-  THEME_PRESET_PRO,
-} from './presets'
+export { THEME_PRESET_DEFAULT } from './presets'
 
 // ---------------------------------------------------------------------------
 // CSS variable injection
@@ -37,9 +27,6 @@ export { generatePalette, getTextColorStep } from './generate-palette'
 // ---------------------------------------------------------------------------
 
 export const defaultTheme = _createTheme(_DEFAULT)
-export const flatTheme = _createTheme(_FLAT)
-export const sharpTheme = _createTheme(_SHARP)
-export const proTheme = _createTheme(_PRO)
 
 // ---------------------------------------------------------------------------
 // Media queries (framework-agnostic)

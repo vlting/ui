@@ -8,7 +8,7 @@ type AnyFC = ComponentType<Record<string, unknown>>
 const ButtonJsx = Button as AnyFC
 const BadgeJsx = Badge as AnyFC
 
-const Anchor = styled('a', { textDecoration: 'none', color: 'inherit' }, 'HeroAnchor')
+const Anchor = styled('a', { stl: { textDecoration: 'none', color: 'inherit' }, styleName: 'HeroAnchor' })
 
 // -- Types --
 
@@ -54,7 +54,7 @@ function ActionButton({
   variant,
 }: {
   action: HeroAction
-  variant: 'default' | 'outline'
+  variant: 'solid' | 'outline'
 }) {
   const btn = (
     <ButtonJsx variant={variant} onPress={action.onPress}>
@@ -124,7 +124,7 @@ function HeroCentered({
       )}
       {(primaryAction || secondaryAction) && (
         <div style={{ display: 'flex', flexDirection: 'row', gap: 12, paddingTop: 8 }}>
-          {primaryAction && <ActionButton action={primaryAction} variant="default" />}
+          {primaryAction && <ActionButton action={primaryAction} variant="solid" />}
           {secondaryAction && <ActionButton action={secondaryAction} variant="outline" />}
         </div>
       )}
@@ -188,7 +188,7 @@ function HeroSplit({
       )}
       {(primaryAction || secondaryAction) && (
         <div style={{ display: 'flex', flexDirection: 'row', gap: 12, paddingTop: 8 }}>
-          {primaryAction && <ActionButton action={primaryAction} variant="default" />}
+          {primaryAction && <ActionButton action={primaryAction} variant="solid" />}
           {secondaryAction && <ActionButton action={secondaryAction} variant="outline" />}
         </div>
       )}
@@ -301,7 +301,7 @@ function HeroImageBg({
         )}
         {(primaryAction || secondaryAction) && (
           <div style={{ display: 'flex', flexDirection: 'row', gap: 12, paddingTop: 8 }}>
-            {primaryAction && <ActionButton action={primaryAction} variant="default" />}
+            {primaryAction && <ActionButton action={primaryAction} variant="solid" />}
             {secondaryAction && (
               <ActionButton action={secondaryAction} variant="outline" />
             )}

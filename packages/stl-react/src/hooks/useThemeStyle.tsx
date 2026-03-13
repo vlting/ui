@@ -60,7 +60,7 @@ export function useThemeStyle(
 
     // Detect missing STL CSS — this is the #1 cause of broken first-page-load
     if (process.env.NODE_ENV !== 'production') {
-      const testVal = getComputedStyle(document.documentElement).getPropertyValue('--stl-background')
+      const testVal = getComputedStyle(document.documentElement).getPropertyValue('--stl-loaded')
       if (!testVal) {
         console.error(
           '[@vlting/stl-react] STL CSS variables are not loaded. ' +

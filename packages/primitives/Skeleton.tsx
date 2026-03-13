@@ -8,16 +8,18 @@ let keyframesInjected = false
 const SkeletonFrame = styled(
   'div',
   {
-    backgroundColor: '$surface3',
-    borderRadius: '$2',
-    overflow: 'hidden',
-  },
-  {
-    circle: {
-      true: { borderRadius: '$full' },
+    stl: {
+      backgroundColor: '$surface3',
+      borderRadius: '$2',
+      overflow: 'hidden',
     },
+    variants: {
+      circle: {
+        true: { borderRadius: '$full' },
+      },
+    },
+    styleName: 'Skeleton',
   },
-  'Skeleton',
 )
 
 export interface SkeletonProps extends ComponentProps<typeof SkeletonFrame> {

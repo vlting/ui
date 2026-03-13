@@ -1,4 +1,4 @@
-import type { CssPropKey } from '../props'
+import type { StlPropKey } from '../props'
 import { addPrefix } from '../utils'
 import {
   type AliasMap,
@@ -93,7 +93,7 @@ function addPrefixIfNotStatic(text: string) {
 /** Returns a CSS value from an alias map, using a CSS prop key and value */
 export function mapAliasToValue(
   aliasMap: AliasMap,
-  prop: CssPropKey,
+  prop: StlPropKey,
   value: string | number,
 ) {
   const propValue = aliasMap[prop as keyof typeof aliasMap]

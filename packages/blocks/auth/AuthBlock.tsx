@@ -18,12 +18,14 @@ import {
 const FormElement = styled(
   'form',
   {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 16,
-    width: '100%',
+    stl: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 16,
+      width: '100%',
+    },
+    styleName: 'AuthForm',
   },
-  'AuthForm',
 )
 
 // -- Types --
@@ -173,7 +175,7 @@ function LoginStandard({
             />
           )}
           <Button
-            variant="default"
+            variant="solid"
             style={{ width: '100%' }}
             onClick={() =>
               handleSubmit(new Event('submit') as unknown as React.FormEvent)
@@ -241,7 +243,7 @@ function LoginOtp({
             aria-required="true"
           />
           <Button
-            variant="default"
+            variant="solid"
             style={{ width: '100%' }}
             onClick={() =>
               handleSubmit(new Event('submit') as unknown as React.FormEvent)
@@ -306,7 +308,7 @@ function LoginMagic({
             aria-required="true"
           />
           <Button
-            variant="default"
+            variant="solid"
             style={{ width: '100%' }}
             onClick={() =>
               handleSubmit(new Event('submit') as unknown as React.FormEvent)
@@ -449,7 +451,7 @@ function SignupStandard({
             </Checkbox.Root>
           )}
           <Button
-            variant="default"
+            variant="solid"
             style={{ width: '100%' }}
             onClick={() =>
               handleSubmit(new Event('submit') as unknown as React.FormEvent)
@@ -524,7 +526,7 @@ function SignupSocial({
             aria-required="true"
           />
           <Button
-            variant="default"
+            variant="solid"
             style={{ width: '100%' }}
             onClick={() =>
               handleSubmit(new Event('submit') as unknown as React.FormEvent)

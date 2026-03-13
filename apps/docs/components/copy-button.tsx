@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { styled } from '../../../packages/stl-react/src'
 
-const StyledButton = styled('button', {
+const StyledButton = styled('button', { stl: {
   padding: 6,
   borderRadius: '$3',
   color: '$colorSubtitle',
@@ -18,7 +18,7 @@ const StyledButton = styled('button', {
     color: '$color',
     background: '$tertiary2',
   },
-})
+}})
 
 interface CopyButtonProps {
   text: string

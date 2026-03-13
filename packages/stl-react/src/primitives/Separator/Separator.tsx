@@ -1,23 +1,22 @@
 import { forwardRef } from 'react'
 import { styled } from '../../config'
 
-const SeparatorBase = styled(
-  'hr',
-  {
+const SeparatorBase = styled('hr', {
+  stl: {
     border: 'none',
     margin: '$0',
     height: '1px',
     width: '100%',
     backgroundColor: '$borderColor',
   },
-  {
+  variants: {
     orientation: {
       horizontal: { height: '1px', width: '100%', marginTop: '$2', marginBottom: '$2' },
       vertical: { width: '1px', height: '100%', marginLeft: '$2', marginRight: '$2' },
     },
   },
-  'Separator',
-)
+  styleName: 'Separator',
+})
 
 export interface SeparatorProps {
   orientation?: 'horizontal' | 'vertical'

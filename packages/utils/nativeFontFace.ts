@@ -1,4 +1,4 @@
-import type { BrandFontConfig } from './googleFontsUrl'
+import type { FontConfig } from './googleFontsUrl'
 
 // ---------------------------------------------------------------------------
 // nativeFontFace (web)
@@ -10,7 +10,7 @@ import type { BrandFontConfig } from './googleFontsUrl'
 export type FaceMap = Record<string, Record<string, string>>
 
 export function buildFaceMapsFromConfig(
-  _config: BrandFontConfig,
+  _config: FontConfig,
 ): Record<string, FaceMap | undefined> {
   return {
     heading: undefined,

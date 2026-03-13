@@ -1,8 +1,7 @@
 import { styled } from '../../config'
 
-export const Pressable = styled(
-  'button',
-  {
+export const Pressable = styled('button', {
+  stl: {
     appearance: 'none',
     background: 'none',
     border: 'none',
@@ -11,5 +10,5 @@ export const Pressable = styled(
     font: 'inherit',
     color: 'inherit',
   },
-  'Pressable',
-)
+  styleName: 'Pressable',
+})

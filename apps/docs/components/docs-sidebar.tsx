@@ -6,11 +6,11 @@ import { useEffect, useRef, useState } from 'react'
 import { styled } from '../../../packages/stl-react/src'
 import { type NavSection, navigation } from '@/lib/navigation'
 
-const SectionContainer = styled('div', {
+const SectionContainer = styled('div', { stl: {
   mb: '$3.5',
-})
+}})
 
-const SectionButton = styled('button', {
+const SectionButton = styled('button', { stl: {
   display: 'flex',
   width: '100%',
   alignItems: 'center',
@@ -23,9 +23,9 @@ const SectionButton = styled('button', {
   background: 'transparent',
   border: 'none',
   cursor: 'pointer',
-})
+}})
 
-const ItemList = styled('ul', {
+const ItemList = styled('ul', { stl: {
   mt: '$0.75',
   listStyle: 'none',
   padding: 0,
@@ -33,14 +33,14 @@ const ItemList = styled('ul', {
   display: 'flex',
   flexDirection: 'column',
   gap: 2,
-})
+}})
 
-const SidebarAside = styled('aside', {
+const SidebarAside = styled('aside', { stl: {
   height: '100%',
   overflowY: 'auto',
   px: '$1.5',
   py: '$3.5',
-})
+}})
 
 function SidebarSection({ section }: { section: NavSection }) {
   const pathname = usePathname()

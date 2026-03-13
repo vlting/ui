@@ -67,6 +67,10 @@ export function getFontFamily(hash: CharHash) {
       ...hash.var,
       value: `${baseVars[DEFAULT_FONTS.button].ref}, ${baseVars.systemMono.ref}`,
     },
+    subheading: {
+      ...hash.var,
+      value: heading.ref,
+    },
     code: {
       ...hash.var,
       value: `${baseVars[DEFAULT_FONTS.code].ref}, ${baseVars.systemMono.ref}`,

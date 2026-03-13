@@ -4,10 +4,12 @@ import {
   createTheme,
   themeToVars,
   THEME_PRESET_DEFAULT,
+} from '@vlting/stl/theme'
+import {
   THEME_PRESET_FLAT,
   THEME_PRESET_SHARP,
   THEME_PRESET_PRO,
-} from '@vlting/stl/theme'
+} from '../../../../config/themes'
 import { useCallback, useEffect, useState } from 'react'
 
 type PresetKey = 'default' | 'pro' | 'flat' | 'sharp'

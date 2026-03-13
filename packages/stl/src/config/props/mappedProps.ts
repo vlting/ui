@@ -1,12 +1,12 @@
 import type { CoreCustomValues, NotShared, Shared } from '../../shared/models'
 import type { OverrideScaledProp } from '../styles.css'
-import type { CssPropKey } from './props.models'
+import type { StlPropKey } from './props.models'
 import type { ComplexShorthandProp } from './sourceProps'
 
 type PropValue = string | number
 
 /** Map CSS value to one or more keys */
-function mapValue<V extends PropValue, K extends CssPropKey>(value: V, keys: K[]) {
+function mapValue<V extends PropValue, K extends StlPropKey>(value: V, keys: K[]) {
   return keys.reduce(
     (output, key) => {
       output[key] = value
@@ -17,7 +17,7 @@ function mapValue<V extends PropValue, K extends CssPropKey>(value: V, keys: K[]
 }
 
 /** Maps a value to one or more CSS props */
-function getPropMapper<K extends CssPropKey>(...keys: K[]) {
+function getPropMapper<K extends StlPropKey>(...keys: K[]) {
   return <V extends PropValue>(value: V) => mapValue(value, keys)
 }
 
@@ -301,7 +301,7 @@ export const mappedProps = {
 } as const
 
 /** Maps complex shorthand props to the base props that they replace */
-export const complexShorthandMappedProps: Record<ComplexShorthandProp, CssPropKey[]> = {
+export const complexShorthandMappedProps: Record<ComplexShorthandProp, StlPropKey[]> = {
   // NOTE: Commented out props are currently unsupported
   animation: [
     'animationName',
@@ -458,7 +458,7 @@ type MaybeCustomString<
 > = K extends ComplexShorthandProp ? T | CoreCustomValues : T
 
 // prettier-ignore
-export type WithMappedProps<T extends Partial<Record<CssPropKey, any>>> = T & {
+export type WithMappedProps<T extends Partial<Record<StlPropKey, any>>> = T & {
   [key in Shared<MapType, OverrideScaledProp>]?: MaybeCustomString<
     OverrideScaledProp[key],
     key
