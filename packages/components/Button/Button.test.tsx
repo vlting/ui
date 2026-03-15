@@ -105,10 +105,12 @@ describe('Button', () => {
   })
 
   describe('Disabled & Loading', () => {
-    // Note: children hidden via visibility:hidden, queryByText returns null due to STL mock
+    // Children remain in DOM with visibility:hidden for layout preservation.
+    // Spinner overlay renders on top.
     it('renders spinner when loading', () => {
       render(<Button loading>Submit</Button>)
-      expect(screen.queryByText('Submit')).toBeNull()
+      expect(screen.getByText('Loading')).toBeTruthy()
+      expect(screen.getByText('Submit')).toBeTruthy()
     })
 
     it('shows visually hidden "Loading" text when loading', () => {

@@ -128,11 +128,6 @@ export const mergeStl = (...cssObject: MaybeSTL[]): STL => {
   return mergedObj as STL
 }
 
-/** Generates a CSS class name from a `className` string, plus an optional pseudo-class */
-export function getSelector(className: string, pseudoClass = '') {
-  return `.${className}${pseudoClass}`
-}
-
 // INNER UTILS //
 
 /** Takes a nested (group-based) theme overrides object, and flattens it, without groupings */

@@ -160,10 +160,13 @@ export function styled<
       }
     }
 
-    // Strip variant keys from DOM forwarding
+    // Strip variant keys from DOM forwarding, but preserve HTML-native
+    // attributes (disabled, hidden) that may have been set by mapProps
     if (hasVariants && hasVariantKeys) {
       variantKeys.forEach((key) => {
-        delete mainProps[key as keyof typeof mainProps]
+        if (key !== 'disabled' && key !== 'hidden') {
+          delete mainProps[key as keyof typeof mainProps]
+        }
       })
     }
 
