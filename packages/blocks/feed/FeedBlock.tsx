@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { Avatar } from '../../components/Avatar'
 import { Button } from '../../components/Button'
 import { Card } from '../../components/Card'
-import { Separator } from '../../primitives/Separator'
+import { Separator } from '../../stl-react/src/primitives/Separator/Separator'
 import type { BlockProps } from '../_shared/types'
 
 // -- Types --

@@ -1,0 +1,97 @@
+import { useColorMode } from '@vlting/stl-react'
+import type { CreateThemeOptions } from '@vlting/stl/theme'
+import {
+  createTheme,
+  themeToVars,
+  THEME_PRESET_DEFAULT,
+} from '@vlting/stl/theme'
+import {
+  THEME_PRESET_FLAT,
+  THEME_PRESET_SHARP,
+  THEME_PRESET_PRO,
+} from '../../../../config/themes'
+import { useCallback, useEffect, useState } from 'react'
+
+type PresetKey = 'default' | 'pro' | 'flat' | 'sharp'
+
+const presetMap: Record<PresetKey, CreateThemeOptions> = {
+  default: THEME_PRESET_DEFAULT,
+  pro: THEME_PRESET_PRO,
+  flat: THEME_PRESET_FLAT,
+  sharp: THEME_PRESET_SHARP,
+}
+
+const presetLabels: Record<PresetKey, string> = {
+  default: 'Default',
+  pro: 'Pro',
+  flat: 'Flat',
+  sharp: 'Sharp',
+}
+
+const STORAGE_KEY = 'vlting-showcase-theme-preset'
+const STYLE_ID = 'stl-theme-demo'
+
+function applyThemeVars(presetKey: PresetKey, mode: 'light' | 'dark') {
+  const theme = createTheme(presetMap[presetKey])
+  const vars = themeToVars(theme, mode)
+
+  let styleEl = document.getElementById(STYLE_ID)
+  if (!styleEl) {
+    styleEl = document.createElement('style')
+    styleEl.id = STYLE_ID
+    document.head.appendChild(styleEl)
+  }
+
+  const declarations = Object.entries(vars)
+    .map(([name, value]) => `  ${name}: ${value};`)
+    .join('\n')
+  styleEl.textContent = `:root {\n${declarations}\n}`
+}
+
+export function ThemeSwitcher() {
+  const { colorMode } = useColorMode()
+  const mode = colorMode === 'dark' ? 'dark' : 'light'
+
+  const [preset, setPreset] = useState<PresetKey>(() => {
+    try {
+      return (localStorage.getItem(STORAGE_KEY) as PresetKey) || 'default'
+    } catch {
+      return 'default'
+    }
+  })
+
+  useEffect(() => {
+    applyThemeVars(preset, mode)
+  }, [preset, mode])
+
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    const key = e.target.value as PresetKey
+    setPreset(key)
+    try {
+      localStorage.setItem(STORAGE_KEY, key)
+    } catch {}
+  }, [])
+
+  return (
+    <select
+      value={preset}
+      onChange={handleChange}
+      aria-label="Select theme preset"
+      style={{
+        padding: '6px 12px',
+        borderRadius: 6,
+        border: '1px solid var(--stl-borderColor, #ddd)',
+        background: 'var(--stl-surface1, #f5f5f5)',
+        color: 'var(--stl-color, #111)',
+        cursor: 'pointer',
+        fontSize: 14,
+      }}
+    >
+      {(Object.keys(presetMap) as PresetKey[]).map((key) => (
+        <option key={key} value={key}>
+          {presetLabels[key]}
+        </option>
+      ))}
+    </select>
+  )
+}

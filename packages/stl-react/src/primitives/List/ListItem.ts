@@ -1,11 +1,10 @@
 import { styled } from '../../config'
 import { getTextStyles } from '../Text/Text'
 
-export const ListItem = styled(
-  'li',
-  {
+export const ListItem = styled('li', {
+  stl: {
     ...getTextStyles(),
     lineHeight: '$listItem',
   },
-  'ListItem',
-)
+  styleName: 'ListItem',
+})

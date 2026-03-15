@@ -34,22 +34,22 @@ export function getFont() {
       fontWeight: 'h2',
     },
     h3: {
-      fontFamily: 'heading',
+      fontFamily: 'subheading',
       fontSize: 'h3',
       fontWeight: 'h3',
     },
     h4: {
-      fontFamily: 'heading',
+      fontFamily: 'subheading',
       fontSize: 'h4',
       fontWeight: 'h4',
     },
     h5: {
-      fontFamily: 'heading',
+      fontFamily: 'subheading',
       fontSize: 'h5',
       fontWeight: 'h5',
     },
     h6: {
-      fontFamily: 'heading',
+      fontFamily: 'subheading',
       fontSize: 'h6',
       fontWeight: 'h6',
     },

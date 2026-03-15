@@ -7,7 +7,8 @@
       "@vlting/ui/*": ["../../packages/*"],
       "@vlting/stl": ["../../packages/stl/src"],
       "@vlting/stl-native": ["../../packages/stl-native/src"],
-      "@vlting/stl-headless": ["../../packages/stl-headless/src"]
+      "@vlting/headless": ["../../packages/headless/src"],
+      "@vlting/ui/headless": ["../../packages/headless/src"]
     }
   }
 }

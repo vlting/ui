@@ -70,7 +70,7 @@ export default function ChangelogPage() {
           >
             <li>Initial component library</li>
             <li>238 component stubs across 24 modules</li>
-            <li>Brand system with 4 pre-built brands</li>
+            <li>Theme system with 4 pre-built themes</li>
             <li>Icon generation from Remixicon</li>
           </ul>
         </div>

@@ -31,7 +31,7 @@ export default function HomePage() {
         <h1 style={{ marginBottom: 16, fontSize: 36, fontWeight: 700, letterSpacing: '-0.025em' }}>@vlting/ui</h1>
         <p style={{ marginLeft: 'auto', marginRight: 'auto', marginBottom: 32, maxWidth: 672, fontSize: 18, color: 'var(--stl-colorSubtitle)' }}>
           Cross-platform design system built on @vlting/stl. Works on web and React
-          Native. Brand theming, accessibility-first, and fully tree-shakeable.
+          Native. Theme system, accessibility-first, and fully tree-shakeable.
         </p>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
           <Link

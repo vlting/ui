@@ -445,7 +445,7 @@ const liveExamples: ExampleMap = {
     ),
     Variants: (
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        <Button variant="default">
+        <Button variant="solid">
           Default
         </Button>
         <Button variant="secondary">

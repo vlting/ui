@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Sidebar } from '../../components/Sidebar'
-import { Badge } from '../../primitives/Badge'
+import { Badge } from '../../stl-react/src/primitives/Badge/Badge'
 import { styled } from '../../stl-react/src/config'
 
 // --- Types ---
@@ -51,15 +51,17 @@ export interface SidebarBlockProps {
 const NavLink = styled(
   'a',
   {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
-    textDecoration: 'none',
-    color: 'inherit',
-    gap: '8px',
+    stl: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '100%',
+      textDecoration: 'none',
+      color: 'inherit',
+      gap: '8px',
+    },
+    styleName: 'SidebarNavLink',
   },
-  'SidebarNavLink',
 )
 
 // --- Helper Components ---

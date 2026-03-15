@@ -7,7 +7,7 @@ import { Input } from '../../components/Input'
 import { Select } from '../../components/Select'
 import { Switch } from '../../components/Switch'
 import { Textarea } from '../../components/Textarea'
-import { Separator } from '../../primitives/Separator'
+import { Separator } from '../../stl-react/src/primitives/Separator/Separator'
 import { styled } from '../../stl-react/src/config'
 import type { BlockProps } from '../_shared/types'
 
@@ -30,12 +30,14 @@ const SelectItemJsx = Select.Item as unknown as AnyFC
 const FormElement = styled(
   'form',
   {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 16,
-    width: '100%',
+    stl: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 16,
+      width: '100%',
+    },
+    styleName: 'SettingsForm',
   },
-  'SettingsForm',
 )
 
 // -- Types --
@@ -144,7 +146,7 @@ function ProfileSettings({
           />
 
           <ButtonJsx
-            variant="default"
+            variant="solid"
             width="100%"
             onPress={() => onSave?.({ name, email, bio })}
             disabled={loading}

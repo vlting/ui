@@ -1,4 +1,4 @@
-import type { BrandFontConfig } from './googleFontsUrl'
+import type { FontConfig } from './googleFontsUrl'
 import { isSystemFont } from './googleFontsUrl'
 import { buildFontKey } from './useFontLoader.native'
 
@@ -30,7 +30,7 @@ function buildFaceForSlot(
 }
 
 export function buildFaceMapsFromConfig(
-  config: BrandFontConfig,
+  config: FontConfig,
 ): Record<string, FaceMap | undefined> {
   return {
     heading: buildFaceForSlot(config.heading.family, [

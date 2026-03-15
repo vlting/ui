@@ -1,11 +1,11 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
-// stl-headless hooks
+// headless hooks
 import {
   useDisclosure,
   useListState,
   useTabs,
   useToastQueue,
-} from '../../../../packages/stl-headless/src'
+} from '../../../../packages/headless/src'
 // stl-native hooks
 import { useColorMode } from '../../../../packages/stl-native/src/hooks/useColorMode'
 import { useConditions } from '../../../../packages/stl-native/src/hooks/useConditions'

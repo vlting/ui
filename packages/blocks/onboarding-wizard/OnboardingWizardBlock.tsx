@@ -179,7 +179,7 @@ function StepperWizard({
             )}
           </div>
           <ButtonJsx
-            variant="default"
+            variant="solid"
             onPress={isLast ? onComplete : onNext}
             aria-label={isLast ? 'Complete onboarding' : 'Next step'}
           >
@@ -271,7 +271,7 @@ function CardsWizard({
           </ButtonJsx>
         )}
         <ButtonJsx
-          variant="default"
+          variant="solid"
           onPress={isLast ? onComplete : onNext}
           aria-label={isLast ? 'Complete' : 'Next'}
         >
@@ -325,7 +325,7 @@ function MinimalWizard({
           <div />
         )}
         <ButtonJsx
-          variant="default"
+          variant="solid"
           onPress={isLast ? onComplete : onNext}
           aria-label={isLast ? 'Complete' : 'Continue'}
         >

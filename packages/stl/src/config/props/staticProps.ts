@@ -1,4 +1,4 @@
-import type { CssPropKey, CssRule, FilterKeys } from './props.models'
+import type { StlPropKey, CssRule, FilterKeys } from './props.models'
 import { omitKeys } from './props.utils'
 
 const DEFAULT_VALUES = { initial: true } as const
@@ -73,7 +73,7 @@ export function generateStaticPropsCss<K extends FilterKeys>(
   keys?: K,
 ) {
   // Value getter
-  function values<P extends CssPropKey, V extends { [k: string]: unknown } = Placeholder>(
+  function values<P extends StlPropKey, V extends { [k: string]: unknown } = Placeholder>(
     prop: P,
     customValues?: V,
   ) {

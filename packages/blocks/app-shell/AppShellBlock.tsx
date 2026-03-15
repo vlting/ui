@@ -4,7 +4,7 @@ import { Button } from '../../components/Button'
 import { Sheet } from '../../components/Sheet'
 import { Sidebar } from '../../components/Sidebar'
 import { Tabs } from '../../components/Tabs'
-import { Separator } from '../../primitives/Separator'
+import { Separator } from '../../stl-react/src/primitives/Separator/Separator'
 import { styled } from '../../stl-react/src/config'
 import type { NavGroup } from '../sidebar/_shared'
 import { SidebarNavGroup } from '../sidebar/_shared'
@@ -16,11 +16,13 @@ const SeparatorJsx = Separator as AnyFC
 const NavElement = styled(
   'nav',
   {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
+    stl: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+    },
+    styleName: 'AppShellNav',
   },
-  'AppShellNav',
 )
 
 // -- Types --

@@ -8,13 +8,15 @@ import type { BlockProps } from '../_shared/types'
 const FormElement = styled(
   'form',
   {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 8,
-    width: '100%',
-    maxWidth: 360,
+    stl: {
+      display: 'flex',
+      flexDirection: 'row',
+      gap: 8,
+      width: '100%',
+      maxWidth: 360,
+    },
+    styleName: 'EmptyStateForm',
   },
-  'EmptyStateForm',
 )
 
 // -- Types --
@@ -90,7 +92,7 @@ function NoDataState({ title, description, icon, action }: EmptyStateBlockProps)
         {description}
       </span>
       {action && (
-        <Button variant="default" onClick={action.onPress}>
+        <Button variant="solid" onClick={action.onPress}>
           {action.label}
         </Button>
       )}
@@ -122,7 +124,7 @@ function ErrorState({
         {description}
       </span>
       {onRetry && (
-        <Button variant="default" onClick={onRetry}>
+        <Button variant="solid" onClick={onRetry}>
           Try again
         </Button>
       )}
@@ -161,7 +163,7 @@ function ComingSoonState({ title, description, icon, onNotify }: EmptyStateBlock
             />
           </div>
           <Button
-            variant="default"
+            variant="solid"
             onClick={() => {
               if (email) onNotify(email)
             }}

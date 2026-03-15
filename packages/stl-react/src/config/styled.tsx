@@ -1,50 +1,116 @@
-import { type CSS, type StyleManager, type VariantCSS, style } from '@vlting/stl'
+import { type STL, type StyleManager, style, type VariantSTL } from '@vlting/stl'
 import {
   type ComponentPropsWithRef,
+  type ElementType,
   type ForwardedRef,
   type FunctionComponent,
-  type HTMLAttributes,
-  type JSXElementConstructor,
   forwardRef,
-  useRef,
-  useState,
+  type HTMLAttributes,
+  type ReactNode,
+  useMemo,
 } from 'react'
 import { useConditions } from '../hooks'
 import type { ComponentType } from '../shared/models'
 
-/** Used to style any React component of basic HTML element */
-export function styled<C extends ComponentType, V extends Variants | undefined>(
-  component: C,
-  css: CSS,
-  variants?: string | V,
-  styleName?: string,
-) {
-  styleName = typeof variants === 'string' ? variants : styleName
-  const hasVariants = !!variants && typeof variants !== 'string'
-  const variantsDefinition = hasVariants ? variants : undefined
-  const variantKeys: string[] = hasVariants ? Object.keys(variants) : []
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+/** Variant stub helper — produces { primary: {}, secondary: {}, ... } */
+export function options<T extends string>(
+  ...values: T[]
+): Record<T, Record<string, never>> {
+  return Object.fromEntries(values.map((v) => [v, {}])) as Record<
+    T,
+    Record<string, never>
+  >
+}
+
+/** Branded array that carries P's full type through inference */
+type TemplatePropKeys<P> = (keyof P & string)[] & { _p?: P }
+
+/** Identity helper — validates template prop keys against P */
+export function templateProps<P extends {}>(...keys: (keyof P & string)[]) {
+  return { templateProps: keys as TemplatePropKeys<P> }
+}
+
+// ─── Options API ──────────────────────────────────────────────────────────────
+
+export type CompoundVariant<V extends Variants> = {
+  when: { [K in keyof V]?: keyof V[K] }
+  stl: STL
+}
+
+type AllProps<
+  C extends ComponentType,
+  V extends Variants | undefined,
+  P,
+> = HTMLAttributes<any> &
+  StylelessComponentProps<C> &
+  BaseStyledProps<V> &
+  P & { children?: ReactNode }
+
+export interface StyledOptions<
+  C extends ComponentType = ComponentType,
+  V extends Variants | undefined = undefined,
+  P extends {} = {},
+  M extends Record<string, any> = Partial<AllProps<C, V, P>>,
+> {
+  stl: STL
+  variants?: V
+  compoundVariants?: V extends Variants ? CompoundVariant<V>[] : never[]
+  defaultVariants?: V extends Variants ? DefaultVariants<V> : never
+  templateProps?: TemplatePropKeys<P>
+  template?: (props: AllProps<C, V, P>) => ReactNode
+  mapProps?: (props: AllProps<C, V, P>) => M
+  styleName?: string
+}
+
+// ─── Implementation ───────────────────────────────────────────────────────────
+
+export function styled<
+  P extends {} = {},
+  C extends ComponentType = ComponentType,
+  V extends Variants | undefined = undefined,
+  const M extends Record<string, any> = Partial<AllProps<C, V, P>>,
+>(component: C, opts: StyledOptions<C, V, P, M>): StyledComponent<C, V, P> {
+  const baseStl = opts.stl
+  const variantsArg: Variants | undefined = opts.variants
+  const styleName: string | undefined = opts.styleName
+  const defaultVariants: Record<string, any> | undefined = opts.defaultVariants
+  const template: ((props: any) => ReactNode) | undefined = opts.template
+  const templatePropKeys: string[] = (opts.templateProps ?? []) as string[]
+  const compoundVariantsArg: CompoundVariant<any>[] | undefined = opts.compoundVariants
+  const mapPropsTransform = opts.mapProps as ((props: any) => Partial<AllProps<C, V, P>>) | undefined
+
+  const hasVariants = !!variantsArg
+  const variantsDefinition = hasVariants ? variantsArg : undefined
+  const variantKeys: string[] = hasVariants ? Object.keys(variantsArg!) : []
   const hasVariantKeys = variantKeys.length > 0
+  const hasTemplate = !!template
+  const hasTemplatePropKeys = templatePropKeys.length > 0
+  const hasCompoundVariants = !!compoundVariantsArg && compoundVariantsArg.length > 0
+  const hasMapProps = !!mapPropsTransform
 
   function styledComponent<T extends ComponentType, R>(
-    props: HTMLAttributes<C> &
-      StylelessComponentProps<C> &
-      StylelessComponentProps<T> & { as?: T } & BaseStyledProps<V>,
+    props: HTMLAttributes<any> &
+      StylelessComponentProps<any> &
+      StylelessComponentProps<T> & { as?: T } & BaseStyledProps<any>,
     ref?: ForwardedRef<R>,
-  ): JSX.Element | null
+  ): ReactNode
   function styledComponent<R>(
-    props: HTMLAttributes<C> &
-      StylelessComponentProps<C> & { as?: ComponentType } & BaseStyledProps<V>,
+    props: HTMLAttributes<any> &
+      StylelessComponentProps<any> & { as?: ComponentType } & BaseStyledProps<any>,
     ref?: ForwardedRef<R>,
-  ): JSX.Element | null
+  ): ReactNode
   function styledComponent<R>(
-    props: HTMLAttributes<C> &
-      StylelessComponentProps<C> & { as?: ComponentType } & BaseStyledProps<V>,
+    rawProps: HTMLAttributes<any> &
+      StylelessComponentProps<any> & { as?: ComponentType } & BaseStyledProps<any>,
     ref?: ForwardedRef<R>,
   ) {
+    const props = hasMapProps ? mapPropsTransform!(rawProps) : rawProps
     const conditions = useConditions()
     const {
       as: polyAs,
-      css: propsCss,
+      stl: propsStl,
       styleManager,
       isSemantic,
       className,
@@ -54,11 +120,14 @@ export function styled<C extends ComponentType, V extends Variants | undefined>(
     } = props
 
     // Get any variants that are valid, based on our incoming mainProps
-    const variantCss = useVariants(
+    const variantStl = useVariants(
       mainProps,
       hasVariants,
+      hasCompoundVariants,
       variantKeys,
       variantsDefinition,
+      defaultVariants,
+      compoundVariantsArg,
     )
 
     const isStyledComponent = !!(component as any).isStyledComponent
@@ -67,10 +136,10 @@ export function styled<C extends ComponentType, V extends Variants | undefined>(
       : (component as FunctionComponent<any>)
 
     const { debug, ...styleProps } = style({
-      css,
+      stl: baseStl,
       conditions,
-      variantCss,
-      overrides: propsCss,
+      variantStl,
+      overrides: propsStl,
       styleName,
       manager: styleManager,
       props: {
@@ -82,6 +151,16 @@ export function styled<C extends ComponentType, V extends Variants | undefined>(
       useClassName: true,
     })
 
+    // Collect template-specific props BEFORE stripping variant keys
+    const extraProps: Record<string, any> = {}
+    if (hasTemplatePropKeys) {
+      for (const key of templatePropKeys) {
+        extraProps[key] = mainProps[key as keyof typeof mainProps]
+        delete mainProps[key as keyof typeof mainProps]
+      }
+    }
+
+    // Strip variant keys from DOM forwarding
     if (hasVariants && hasVariantKeys) {
       variantKeys.forEach((key) => {
         delete mainProps[key as keyof typeof mainProps]
@@ -89,10 +168,15 @@ export function styled<C extends ComponentType, V extends Variants | undefined>(
     }
 
     // Merge user's style prop into stl style output (user styles win)
-    const { style: userStyle, ...restProps } = mainProps
+    const { style: userStyle, children, ...restProps } = mainProps
     const mergedStyle = userStyle
       ? { ...styleProps.style, ...userStyle }
       : styleProps.style
+
+    // Render children: template replaces children if provided
+    const renderedChildren = hasTemplate
+      ? template!({ children, ...extraProps })
+      : children
 
     return (
       <>
@@ -103,18 +187,19 @@ export function styled<C extends ComponentType, V extends Variants | undefined>(
           {...restProps}
           {...styleProps}
           style={mergedStyle}
-        />
+        >
+          {renderedChildren}
+        </Element>
       </>
     )
   }
   styledComponent.displayName = styleName
-  const outputComponent = forwardRef(styledComponent) as any as typeof styledComponent
+  const outputComponent = forwardRef(styledComponent)
   ;(outputComponent as any).isStyledComponent = true
-  return outputComponent
+  return outputComponent as unknown as StyledComponent<C, V, P>
 }
 
-// @ts-expect-error
-function Debug({ styles }: { styles: Record<string, any> }) {
+function Debug({ styles: _styles }: { styles: Record<string, any> }) {
   return null
 }
 
@@ -122,41 +207,56 @@ function Debug({ styles }: { styles: Record<string, any> }) {
 function useVariants<P extends Record<string, any>, V extends Variants>(
   props: P,
   hasVariants: boolean,
+  hasCompoundVariants: boolean,
   variantKeys: string[],
   variantsDefinition?: NonNullable<V>,
-) {
-  const [variantCss, setVariantCss] = useState<VariantCSS>([])
-  const [cacheKey, setCacheKey] = useState('')
-  const prevDefinition = useRef(variantsDefinition)
-  const hasChanged = variantsDefinition !== prevDefinition.current
+  defaults?: Record<string, any>,
+  compoundVariants?: CompoundVariant<any>[],
+): VariantSTL {
+  // Collect resolved variant values for the dependency array
+  // variantKeys is static per styled() call, so this array length is constant
+  const resolvedValues = variantKeys.map((k) => {
+    const propVal = props[k]
+    return propVal !== undefined ? propVal : defaults?.[k]
+  })
 
-  // Process new values
-  if (hasVariants && variantsDefinition) {
-    const newVariantCss: VariantCSS = []
-    let newCacheKey = ''
-    let i = 0
-    for (; i < variantKeys.length; i++) {
+  return useMemo(() => {
+    if (!hasVariants || !variantsDefinition) return []
+    const result: VariantSTL = []
+
+    // Flat variant resolution
+    for (let i = 0; i < variantKeys.length; i++) {
       const variant = variantsDefinition[variantKeys[i] as VariantKey]
-      const variantValue = props[variantKeys[i] as VariantKey]
-        ? String(props[variantKeys[i] as VariantKey])
-        : undefined
+      const resolved = resolvedValues[i]
+      const variantValue = resolved ? String(resolved) : undefined
       if (variantValue && variant[variantValue]) {
         const keyValue = variantValue === 'true' ? '' : `-${variantValue}`
         const key = `${variantKeys[i]}${keyValue}`
-        newCacheKey += key
-        newVariantCss.push({ key, css: variant[variantValue] })
+        result.push({ key, stl: variant[variantValue] })
       }
     }
 
-    // Only update reference if variant values have changed
-    if (hasChanged || newCacheKey !== cacheKey) {
-      setVariantCss(newVariantCss)
-      setCacheKey(newCacheKey)
-      prevDefinition.current = variantsDefinition
+    // Compound variant resolution — matching entries appended after flat variants
+    if (hasCompoundVariants && compoundVariants) {
+      for (const cv of compoundVariants) {
+        const matches = Object.entries(cv.when).every(([k, v]) => {
+          const idx = variantKeys.indexOf(k)
+          if (idx === -1) return false
+          const resolved = resolvedValues[idx]
+          return resolved !== undefined ? String(resolved) === String(v) : false
+        })
+        if (matches) {
+          const whenKey = Object.entries(cv.when)
+            .map(([k, v]) => `${k}-${String(v)}`)
+            .join('_')
+          result.push({ key: `compound-${whenKey}`, stl: cv.stl })
+        }
+      }
     }
-  }
 
-  return variantCss
+    return result
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasVariants, variantsDefinition, ...resolvedValues])
 }
 
 // TYPES //////////////////////////////////////////////////////////////////////////////////////////
@@ -164,7 +264,7 @@ function useVariants<P extends Record<string, any>, V extends Variants>(
 type BooleanString = 'true' | 'false'
 
 type Variants = {
-  [name: string]: { [value: string]: CSS }
+  [name: string]: { [value: string]: any }
 }
 type VariantKey = keyof Variants
 
@@ -172,10 +272,26 @@ type VariantProps<V extends Variants> = {
   [prop in keyof V]?: keyof V[prop] extends BooleanString ? boolean : keyof V[prop]
 }
 
-type StylelessComponentProps<
-  T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
-> = Omit<ComponentPropsWithRef<T>, 'css' | 'styleManager'>
+type StylelessComponentProps<T extends ElementType> = Omit<
+  ComponentPropsWithRef<T>,
+  'stl' | 'styleManager'
+>
+
+type DefaultVariants<V extends Variants> = {
+  [prop in keyof V]?: keyof V[prop] extends BooleanString ? boolean : keyof V[prop]
+}
 
 type BaseStyledProps<V extends Variants | undefined> = V extends Variants
-  ? { css?: CSS; styleManager?: StyleManager } & VariantProps<V>
-  : { css?: CSS; styleManager?: StyleManager }
+  ? { stl?: STL; styleManager?: StyleManager } & VariantProps<V>
+  : { stl?: STL; styleManager?: StyleManager }
+
+type StyledComponent<
+  C extends ComponentType,
+  V extends Variants | undefined,
+  P = {},
+> = ReturnType<
+  typeof forwardRef<
+    any,
+    StylelessComponentProps<C> & BaseStyledProps<V> & P & { as?: ComponentType }
+  >
+> & { isStyledComponent: true; displayName?: string }

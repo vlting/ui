@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { Icon } from '../../primitives/Icon'
+import { Icon } from '../../stl-react/src/primitives/Icon/Icon'
 import { createIcon } from '../createIcon'
 
 // Create test icons using the actual createIcon factory (uses react-native-svg mock)

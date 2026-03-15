@@ -17,22 +17,46 @@
 - **UX laws applied:**
   - **Jakob's Law** — Button must follow standard platform button conventions (shape, feedback, disabled appearance).
   - **Fitts's Law** — Multiple size variants (`xs`, `sm`, `md`, `lg`, `icon`) ensure adequate touch/click target sizes. The `lg` variant must be preferred for primary or mobile-first contexts.
-  - **Hick's Law** — Variant and tone props must be used to visually distinguish primary actions from secondary ones, reducing decision time by establishing clear visual hierarchy.
+  - **Hick's Law** — `theme` and `variant` props establish clear visual hierarchy, reducing decision time.
   - **Doherty Threshold** — Press feedback and loading spinner must appear within a single animation frame to maintain perceived responsiveness.
 
 ---
 
 ## 3. Anatomy
 
-Button is a `forwardRef` wrapper around a styled `<button>` element (`ButtonFrame`). It handles variant resolution, size-to-token mapping, loading/disabled state, and focus/hover/active pseudo-class states via STL.
+Button is a `forwardRef` wrapper around a styled `<button>` element (`ButtonFrame`). It uses the `styled()` options API with a `template` for rendering children, loading spinner, prefix, and suffix slots.
 
-Children are passed directly — text, icons, or any ReactNode. CSS `color`, `fontFamily`, `fontWeight`, and `fontSize` cascade from ButtonFrame to child content naturally.
+### Two-axis variant model
 
-When `loading` is `true`, children are replaced by a `Spinner` (with variant-appropriate color) plus a `VisuallyHidden` "Loading" label. The button becomes disabled.
+- **`theme`** — Controls which color palette is used: `primary | secondary | neutral | destructive`.
+- **`variant`** — Controls how colors are applied: `solid | subtle | outline | ghost | link`.
+- **`size`** — Controls dimensions: `xs | sm | md | lg | icon`.
 
-When a `tone` other than `'neutral'` is set (or the variant is `'destructive'`), the root is wrapped in a STL `<Theme>` to apply the corresponding color scheme.
+Default: `{ theme: 'primary', variant: 'solid', size: 'md' }`.
 
-> **TypeScript is the source of truth for props.** See `ButtonProps` in `Button.tsx` for the full typed API. Do not duplicate prop tables here.
+### Color token pattern
+
+All colors use the `$colorN` + `$colorTextN` pairing pattern (global to `@vlting/ui`, not Button-specific):
+- **solid** — High N (step 9): filled background with contrast text.
+- **subtle** — Low N (step 3): tinted background with darker text (step 11).
+- **outline** — Transparent bg, border at step 7, text at step 11.
+- **ghost** — Transparent bg, text at step 11.
+- **link** — Transparent bg, text at step 9, underline, no padding.
+
+All variants have hover/focus states with a background color change. Focus also shows an outline ring.
+
+### Template slots
+
+The `template` function renders:
+- `prefix` — Optional leading content (icon, etc.)
+- `children` — Main label content (replaced by `Spinner` when loading)
+- `suffix` — Optional trailing content
+
+### Loading state
+
+When `loading` is `true`, children are replaced by a `Spinner` plus a `VisuallyHidden` "Loading" label. The button becomes disabled. `aria-busy` is set.
+
+> **TypeScript is the source of truth for props.** See `ButtonProps` in `Button.tsx` for the full typed API.
 
 ---
 
@@ -40,74 +64,67 @@ When a `tone` other than `'neutral'` is set (or the variant is `'destructive'`),
 
 ### States
 
-- **Idle** — Renders with variant-specific background and border. `default`/`solid` use `$color10` fill; `outline` has a `$borderColor` border; `ghost` is transparent; `secondary` uses `$color2`; `destructive` uses `$color10` with red theme; `link` is transparent with no padding.
-- **Hover** — Variant-specific hover backgrounds (e.g., `$color11` for solid/default, `$backgroundHover` for outline/ghost, `$color3` for secondary).
-- **Focus** — Visible focus ring via `focusVisibleStyle`: 2px solid outline with `$color10` color and 1px offset.
-- **Active (press)** — STL Button.Frame provides press feedback via its built-in press styles.
+- **Idle** — Renders with theme×variant-specific background, border, and text color.
+- **Hover** — Background shifts one step (e.g., step 9 → 10 for solid).
+- **Focus** — Visible focus ring: 2px solid `$outlineColor`, 2px offset. Plus background shift.
+- **Active (press)** — `transform: scale(0.98)` press feedback.
 - **Disabled** — Opacity 0.5, `cursor: not-allowed`, `pointerEvents: none`. No visual feedback on press or hover. Derived from `disabled ?? loading ?? false`.
-- **Loading** — Children are replaced by a `<Spinner size="small" />` with variant-appropriate color, plus a `<VisuallyHidden>Loading</VisuallyHidden>` announcement. Button becomes disabled. `aria-busy` is set.
-- **Error** — Not applicable. Buttons do not have an error state.
+- **Loading** — Children replaced by Spinner + VisuallyHidden "Loading". Button disabled. `aria-busy` set.
 
 ### Keyboard Interaction
 
-- Enter and Space must activate the button. This is provided by the underlying `STLButton.Frame` which renders a native `<button>` element.
+- Enter and Space activate the button (native `<button>` behavior).
 - Follows the WAI-ARIA APG [Button pattern](https://www.w3.org/WAI/ARIA/apg/patterns/button/).
 
 ### Motion
 
-- Hover and press transitions are handled by STL's built-in style animation.
-- Must honor `prefers-reduced-motion` — when reduced motion is preferred, transitions should be instant or omitted.
+- `lowMotion` STL condition: transitions set to `none`, no scale transform on press.
+- Spinner degrades to reduced animation under `prefers-reduced-motion`.
 
 ---
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders as a native `<button>` element via `STLButton.Frame`, which provides correct button semantics out of the box.
+- **Semantic element:** Native `<button>` with `type="button"`.
 - **ARIA attributes:**
-  - `aria-busy` is set to `true` when `loading` is `true`; omitted otherwise.
-  - `aria-disabled` is set by the underlying STL Button when the `disabled` prop is true.
-  - When loading, a `<VisuallyHidden>Loading</VisuallyHidden>` provides a screen reader announcement.
-- **Focus management:** The focus ring (`focusVisibleStyle`) is visible on keyboard focus. Focus must not be trapped inside the button.
-- **Screen reader announcements:** Announces as a button natively. Announces disabled state via `aria-disabled`. Announces busy state via `aria-busy`. Loading text is announced via visually hidden content.
-- **Contrast:** Button text and background combinations must meet WCAG 2.1 AA contrast ratios (4.5:1 for normal text, 3:1 for large text). This is enforced through theme token resolution.
+  - `aria-busy="true"` when loading; omitted otherwise.
+  - `disabled` attribute set when disabled or loading.
+  - VisuallyHidden "Loading" text for screen reader announcement.
+- **Focus ring:** 2px solid `$outlineColor`, 2px offset via `$widthBase` and `$offsetDefault` tokens.
+- **Contrast:** All theme×variant combinations meet WCAG 2.1 AA contrast ratios via `$colorN` + `$colorTextN` pairing.
 
 ---
 
 ## 6. Styling
 
-- **Design tokens used:**
-  - Colors: `$color10`, `$color11`, `$color1`, `$color2`, `$color3`, `$borderColor`, `$backgroundHover`, `$color` (text).
-  - Font: `$body` family, `$3` weight.
-  - Font sizes scale with size variant (`$1`, `$2`, `$4`, `$5`).
-  - Sizes map to STL size tokens via `SIZE_TOKEN_MAP`: `xs`=`$2`, `sm`=`$3`, `md`=`$4`, `lg`=`$5`, `icon`=`$4`.
-  - Focus: `$color10` for outline color.
-- **Responsive behavior:** The button accepts STL media query props on the root frame. Consumers may apply responsive size or layout overrides. The component itself does not impose breakpoint-specific rules.
-- **Reduced motion:** Hover and press transitions must degrade gracefully when `prefers-reduced-motion: reduce` is active.
-- **Dark mode:** All visual tokens (`$color10`, `$borderColor`, `$backgroundHover`, `$color`) must resolve correctly in both light and dark themes. The button must remain legible and maintain contrast ratios in both modes. No hardcoded hex colors or pixel values are used.
+- **Color tokens:** `$primaryN`, `$primaryTextN`, `$secondaryN`, `$colorN`, `$colorTextN`, `$redN`, `$redTextN` (N = palette step).
+- **Font:** `$body` family, `$500` weight.
+- **Font sizes:** Scale with size variant (`$buttonTiny`, `$buttonSmall`, `$button`, `$buttonLarge`).
+- **Focus:** `$outlineColor` for ring, `$widthBase` width, `$offsetDefault` offset.
+- **Reduced motion:** `lowMotion` condition zeroes transitions and transforms.
+- **Dark mode:** All tokens resolve per color mode. No hardcoded hex/pixel values.
 
 ---
 
 ## 7. Composition
 
-- **What can contain this component:** Any layout primitive (YStack, XStack, View). Form containers. Pressable wrappers should be avoided since Button already handles press.
-- **What this component can contain:** Text, icons, or any ReactNode as direct children. A `Spinner` is rendered automatically when loading.
+- **What can contain this component:** Any layout primitive, form containers.
+- **What this component can contain:** Text, icons, or any ReactNode via `children`, `prefix`, `suffix`.
 - **Anti-patterns:**
-  - Do not nest interactive elements (links, other buttons) inside Button.
+  - Do not nest interactive elements inside Button.
   - Do not use Button as a layout container.
-  - Do not combine `loading` and custom children that duplicate the spinner.
-  - Do not use `ghost` variant without sufficient surrounding context to indicate it is interactive.
+  - Do not combine `loading` with custom spinner children.
 
 ---
 
 ## 8. Breaking Change Criteria
 
-- Removing any prop from `ButtonProps` (`children`, `variant`, `tone`, `size`, `loading`, `disabled`, `onPress`, `asChild`).
-- Changing the variant value sets (e.g., removing `'ghost'` from `variant`).
-- Changing default variant values (currently `default`, `neutral`, `md`).
-- Removing `aria-busy` attribute when loading.
-- Changing the loading behavior from replacing children with Spinner to something else.
-- Removing ref forwarding support.
-- Changing the underlying element from `<button>` to a different element.
+- Removing any prop from `ButtonProps`.
+- Changing `theme` or `variant` value sets.
+- Changing default variant values (`primary`, `solid`, `md`).
+- Removing `aria-busy` when loading.
+- Changing loading behavior (replacing children with Spinner).
+- Removing ref forwarding or changing underlying element.
 
 ---
 
@@ -116,17 +133,17 @@ When a `tone` other than `'neutral'` is set (or the variant is `'destructive'`),
 - **Behavioral tests:**
   - Renders children when not loading.
   - Renders Spinner when `loading` is `true`.
-  - Applies disabled styles and attributes when `disabled` is `true`.
-  - Applies disabled behavior when `loading` is `true` (derived disabled).
-  - Each variant (`default`, `solid`, `secondary`, `destructive`, `outline`, `ghost`, `link`) renders without errors.
+  - Disabled styles/attributes when `disabled` is `true`.
+  - Disabled behavior when `loading` is `true` (derived disabled).
+  - Each theme (`primary`, `secondary`, `neutral`, `destructive`) renders without errors.
+  - Each variant (`solid`, `subtle`, `outline`, `ghost`, `link`) renders without errors.
   - Each size (`xs`, `sm`, `md`, `lg`, `icon`) renders without errors.
-  - Each tone (`neutral`, `primary`, `success`, `warning`, `danger`) renders without errors.
-  - Tone wraps the button in the correct `<Theme>`.
+  - `prefix` and `suffix` render alongside children.
 - **Accessibility tests:**
-  - Renders as a native `<button>` element.
-  - `aria-busy` is set when loading.
-  - `<VisuallyHidden>Loading</VisuallyHidden>` is rendered when loading.
-  - Focus ring is visible on keyboard focus.
+  - Renders as native `<button>` with `type="button"`.
+  - `aria-busy` set when loading.
+  - VisuallyHidden "Loading" rendered when loading.
+  - Focus ring visible on keyboard focus.
 - **Visual regression:**
-  - Each variant in idle, hover, focus, and disabled states.
+  - Each theme×variant combo in idle, hover, focus, disabled states.
   - Loading state with spinner.

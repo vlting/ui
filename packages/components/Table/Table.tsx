@@ -1,100 +1,13 @@
-import type React from 'react'
+import { createStub } from '../_stub'
 
-/**
- * Table component using native HTML elements for proper table display context.
- * Uses native HTML elements for proper table display context.
- * styled(View, { tag: 'table' }) retains display:flex which breaks table layout.
- *
- * Styling uses CSS custom properties that map to design tokens
- * via inline styles, keeping everything token-based.
- */
-
-const tableStyles: React.CSSProperties = {
-  width: '100%',
-  borderCollapse: 'collapse',
-  fontFamily: 'var(--f-body, inherit)',
-}
-
-const headerStyles: React.CSSProperties = {}
-
-const bodyStyles: React.CSSProperties = {}
-
-const footerStyles: React.CSSProperties = {}
-
-const rowStyles: React.CSSProperties = {
-  borderBottom: '1px solid var(--borderColor)',
-}
-
-const headStyles: React.CSSProperties = {
-  fontFamily: 'var(--f-body, inherit)',
-  fontWeight: 'var(--f-weight-4, 600)' as React.CSSProperties['fontWeight'],
-  fontSize: 'var(--f-size-3, 14px)',
-  color: 'var(--colorSubtitle)',
-  padding: '8px 12px',
-  textAlign: 'left' as const,
-  verticalAlign: 'middle',
-  backgroundColor: 'var(--color2)',
-}
-
-const cellStyles: React.CSSProperties = {
-  fontFamily: 'var(--f-body, inherit)',
-  fontSize: 'var(--f-size-3, 14px)',
-  color: 'var(--color)',
-  padding: '8px 12px',
-  verticalAlign: 'middle',
-}
-
-const captionStyles: React.CSSProperties = {
-  fontFamily: 'var(--f-body, inherit)',
-  fontSize: 'var(--f-size-2, 12px)',
-  color: 'var(--colorSubtitle)',
-  padding: '8px 0',
-  textAlign: 'left' as const,
-  captionSide: 'bottom' as const,
-}
-
-type HtmlProps<T extends keyof React.JSX.IntrinsicElements> =
-  React.JSX.IntrinsicElements[T]
-
-function Root(props: HtmlProps<'table'>) {
-  return <table {...props} style={{ ...tableStyles, ...props.style }} />
-}
-
-function Header(props: HtmlProps<'thead'>) {
-  return <thead {...props} style={{ ...headerStyles, ...props.style }} />
-}
-
-function Body(props: HtmlProps<'tbody'>) {
-  return <tbody {...props} style={{ ...bodyStyles, ...props.style }} />
-}
-
-function Footer(props: HtmlProps<'tfoot'>) {
-  return <tfoot {...props} style={{ ...footerStyles, ...props.style }} />
-}
-
-function Row(props: HtmlProps<'tr'>) {
-  return <tr {...props} style={{ ...rowStyles, ...props.style }} />
-}
-
-function Head({ scope = 'col', ...props }: HtmlProps<'th'>) {
-  return <th scope={scope} {...props} style={{ ...headStyles, ...props.style }} />
-}
-
-function Cell(props: HtmlProps<'td'>) {
-  return <td {...props} style={{ ...cellStyles, ...props.style }} />
-}
-
-function Caption(props: HtmlProps<'caption'>) {
-  return <caption {...props} style={{ ...captionStyles, ...props.style }} />
-}
 
 export const Table = {
-  Root,
-  Header,
-  Body,
-  Footer,
-  Row,
-  Head,
-  Cell,
-  Caption,
+  Root: createStub('Table.Root', 'table'),
+  Header: createStub('Table.Header', 'thead'),
+  Body: createStub('Table.Body', 'tbody'),
+  Footer: createStub('Table.Footer', 'tfoot'),
+  Row: createStub('Table.Row', 'tr'),
+  Head: createStub('Table.Head', 'th'),
+  Cell: createStub('Table.Cell', 'td'),
+  Caption: createStub('Table.Caption', 'caption'),
 }

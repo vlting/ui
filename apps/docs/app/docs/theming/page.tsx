@@ -4,7 +4,7 @@ import { PalettePicker } from '../../../components/palette-picker'
 export const metadata = {
   title: 'Theming — @vlting/ui',
   description:
-    'Learn how to customize the look and feel of @vlting/ui with generateTheme(), presets, tokens, fonts, and themes.',
+    'Learn how to customize the look and feel of @vlting/ui with createTheme(), presets, tokens, fonts, and themes.',
 }
 
 export default function ThemingPage() {
@@ -35,11 +35,11 @@ export default function ThemingPage() {
             lineHeight: 1.7,
           }}
         >
-          Call <code>generateTheme()</code> with a primary hue to produce a complete
+          Call <code>createTheme()</code> with a primary hue to produce a complete
           theme. Use <code>themeToVars()</code> to convert it to CSS variables, then
           wrap your app in <code>StlProvider</code>.
         </p>
-        <CodeBlock code={`generateTheme({ primary: { hue: 220 } }) → themeToVars() → StlProvider`} language="text" />
+        <CodeBlock code={`createTheme({ primary: { hue: 220 } }) → themeToVars() → StlProvider`} language="text" />
       </section>
 
       {/* Quick Start */}
@@ -47,9 +47,9 @@ export default function ThemingPage() {
         <h2 style={{ fontSize: 24, fontWeight: 600 }}>Quick Start</h2>
         <CodeBlock
           code={`import { StlProvider } from '@vlting/stl-react'
-import { generateTheme, themeToVars } from '@vlting/ui'
+import { createTheme, themeToVars } from '@vlting/ui'
 
-const theme = generateTheme({ primary: { hue: 220 } })
+const theme = createTheme({ primary: { hue: 220 } })
 const vars = themeToVars(theme, 'light')
 
 // Inject vars into a <style> tag or apply to :root
@@ -91,18 +91,18 @@ export function App({ children }) {
               desc: 'Clean, trustworthy, minimalist. Achromatic neutrals with cyan-blue accent.',
             },
             {
-              name: 'THEME_PRESET_SHADCN',
-              label: 'shadcn',
+              name: 'THEME_PRESET_PRO',
+              label: 'Pro',
               desc: 'Pixel-perfect shadcn/ui match. Pure neutral grays, 10px radius, 1px borders.',
             },
             {
-              name: 'THEME_PRESET_FUN',
-              label: 'Fun',
+              name: 'THEME_PRESET_FLAT',
+              label: 'Flat',
               desc: 'Playful and vibrant. Rounded corners, no borders, flat shadows.',
             },
             {
-              name: 'THEME_PRESET_POSH',
-              label: 'Posh',
+              name: 'THEME_PRESET_SHARP',
+              label: 'Sharp',
               desc: 'Premium and refined. Square corners, thin borders, diffused shadows.',
             },
           ].map((preset) => (
@@ -135,18 +135,18 @@ export function App({ children }) {
           ))}
         </div>
         <CodeBlock
-          code={`import { generateTheme, themeToVars, THEME_PRESET_SHADCN } from '@vlting/ui'
+          code={`import { createTheme, themeToVars, THEME_PRESET_PRO } from '@vlting/ui'
 
-const theme = generateTheme(THEME_PRESET_SHADCN)
+const theme = createTheme(THEME_PRESET_PRO)
 const vars = themeToVars(theme, 'light')
 // Apply vars to DOM...`}
           language="tsx"
         />
       </section>
 
-      {/* generateTheme API */}
+      {/* createTheme API */}
       <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <h2 style={{ fontSize: 24, fontWeight: 600 }}>generateTheme() API</h2>
+        <h2 style={{ fontSize: 24, fontWeight: 600 }}>createTheme() API</h2>
         <p
           style={{
             color: 'var(--color-muted-foreground)',
@@ -158,24 +158,24 @@ const vars = themeToVars(theme, 'light')
           automatically or uses sensible defaults.
         </p>
         <CodeBlock
-          code={`interface GenerateThemeOptions {
+          code={`interface CreateThemeOptions {
   primary: ColorInput              // { hue: 0-360, saturation?: 0-100 }
   secondary?: SecondaryColorInput  // auto-derived if omitted (complementary)
   tertiary?: SecondaryColorInput   // auto-derived if omitted (analogous)
-  tokens?: Brand['tokens']         // override size, space, radius, etc.
-  shadows?: Brand['shadows']       // override shadow scales
-  fonts?: Brand['fonts']           // override font families
+  tokens?: Theme['tokens']         // override size, space, radius, etc.
+  shadows?: Theme['shadows']       // override shadow scales
+  fonts?: Theme['fonts']           // override font families
   overrides?: {
-    palettes?: Partial<Brand['palettes']>  // deep merge
-    accentPalettes?: Brand['accentPalettes'] // full replace
+    palettes?: Partial<Theme['palettes']>  // deep merge
+    accentPalettes?: Theme['accentPalettes'] // full replace
   }
 }
 
 // Minimal — just a hue
-const theme = generateTheme({ primary: { hue: 220 } })
+const theme = createTheme({ primary: { hue: 220 } })
 
 // With customization
-const theme = generateTheme({
+const theme = createTheme({
   primary: { hue: 260, saturation: 90 },
   secondary: { hue: 30, saturation: 70 },
   tokens: { radius: { true: 16 } },
@@ -384,9 +384,9 @@ const theme = generateTheme({
           Start from a preset and override what you need, or build from a single hue.
         </p>
         <CodeBlock
-          code={`import { generateTheme, themeToVars } from '@vlting/ui'
+          code={`import { createTheme, themeToVars } from '@vlting/ui'
 
-const theme = generateTheme({
+const theme = createTheme({
   primary: { hue: 260, saturation: 90 },
   secondary: { hue: 30, saturation: 70 },
   tokens: {
@@ -415,16 +415,16 @@ const darkVars = themeToVars(theme, 'dark')`}
             lineHeight: 1.7,
           }}
         >
-          <code>generateTheme()</code> produces both light and dark palettes. Use{' '}
+          <code>createTheme()</code> produces both light and dark palettes. Use{' '}
           <code>themeToVars(theme, &apos;dark&apos;)</code> to get dark mode variables.
           For SSR, use <code>getColorModeScript()</code> in your{' '}
           <code>&lt;head&gt;</code> to prevent FOUC.
         </p>
         <CodeBlock
           code={`import { StlProvider, getColorModeScript } from '@vlting/stl-react'
-import { generateTheme, themeToVars } from '@vlting/ui'
+import { createTheme, themeToVars } from '@vlting/ui'
 
-const theme = generateTheme({ primary: { hue: 220 } })
+const theme = createTheme({ primary: { hue: 220 } })
 
 // In your HTML <head> (SSR):
 // dangerouslySetInnerHTML={{ __html: getColorModeScript() }}

@@ -2,8 +2,8 @@ import type React from 'react'
 import { createContext, useContext } from 'react'
 import type { ViewStyle } from 'react-native'
 import { Pressable, Text as RNText, ScrollView, View } from 'react-native'
-import type { UseTabsProps } from '../../stl-headless/src/useTabs'
-import { useTabs } from '../../stl-headless/src/useTabs'
+import type { UseTabsProps } from '../../headless/src/useTabs'
+import { useTabs } from '../../headless/src/useTabs'
 import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------

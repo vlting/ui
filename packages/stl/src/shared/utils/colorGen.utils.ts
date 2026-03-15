@@ -192,12 +192,9 @@ export function generateThemeColors<T = string>(
       const fullSat = isNeutral ? MAX_NEUTRAL_SATURATION : 100
       const halfSat = fullSat / 2
 
-      // Get our starting index in the encoded matrix
+      // Get our base index in the encoded matrix
       const colorType = isNeutral ? 'neutral' : 'color'
       const baseIndex = MATRIX_INDICES[mode][colorType]
-      const hueIndex = baseIndex + SEGMENT_SIZE.hue * hue
-      // Only skip the half-saturation set if we are dealing with full saturation
-      const setIndex = saturation < fullSat ? hueIndex : hueIndex + SEGMENT_SIZE.set
 
       const zeroSatIndex = ZERO_SATURATION_INDICES[mode][colorType]
       const zeroSatSet = ZERO_SATURATION_LUMINANCE.substring(
@@ -214,7 +211,7 @@ export function generateThemeColors<T = string>(
         const isZeroSat = saturation === 0
         set = isZeroSat
           ? zeroSatSet
-          : COLOR_MATRIX[`${setIndex}, ${setIndex + SEGMENT_SIZE.set}`]
+          : lookupMatrix(baseIndex, hue, saturation >= fullSat)
         processSet(
           set,
           (setKey, setSaturation, setLuminance) => {
@@ -236,7 +233,7 @@ export function generateThemeColors<T = string>(
           // Interpolate using zero and half sets
           multiplier = saturation / halfSat
           startSet = zeroSatSet
-          endSet = COLOR_MATRIX[`${setIndex}, ${setIndex + SEGMENT_SIZE.set}`]
+          endSet = lookupMatrix(baseIndex, hue, false)
           interpolateSets(
             startSet,
             endSet,
@@ -253,11 +250,8 @@ export function generateThemeColors<T = string>(
           )
         } else {
           // Interpolate using half and full sets
-          startSet = COLOR_MATRIX[`${setIndex}, ${setIndex + SEGMENT_SIZE.set}`]
-          endSet =
-            COLOR_MATRIX[
-              `${setIndex + SEGMENT_SIZE.set}, ${setIndex + SEGMENT_SIZE.set * 2}`
-            ]
+          startSet = lookupMatrix(baseIndex, hue, false)
+          endSet = lookupMatrix(baseIndex, hue, true)
           interpolateSets(
             startSet,
             endSet,
@@ -301,6 +295,94 @@ export function generateThemeColors<T = string>(
 }
 
 // INTERNAL UTILS /////////////////////////////////////////////////////////////////////////////////
+
+/** Find an exact matrix entry for a hue + offset */
+function findEntry(baseIndex: number, hue: number, offset: number): string | undefined {
+  const idx = baseIndex + SEGMENT_SIZE.hue * hue + offset
+  const key = `${idx}, ${idx + SEGMENT_SIZE.set}`
+  return COLOR_MATRIX[key]
+}
+
+/** Interpolate two encoded matrix sets character-by-character */
+function lerpEncodedSets(a: string, b: string, t: number): string {
+  let result = ''
+  const len = Math.min(a.length, b.length)
+  for (let i = 0; i < len; i++) {
+    const va = a.charCodeAt(i) + DECODE_DIFF
+    const vb = b.charCodeAt(i) + DECODE_DIFF
+    const v = Math.round(va + (vb - va) * t)
+    result += String.fromCharCode(Math.max(0, Math.min(100, v)) - DECODE_DIFF)
+  }
+  return result
+}
+
+/**
+ * Look up a matrix set for a hue, interpolating between the two nearest
+ * hue entries when no exact match exists.
+ *
+ * Fallback chain when no entry exists for the requested saturation band:
+ *   1. Interpolate between nearest hue neighbors
+ *   2. Snap to single nearest neighbor
+ *   3. Try the other saturation band (e.g. half-sat when full-sat is missing)
+ *   4. Return zero-saturation luminance encoded as pairs (never throws)
+ */
+function lookupMatrix(baseIndex: number, hue: number, isFullSat: boolean): string {
+  const offset = isFullSat ? SEGMENT_SIZE.set : 0
+
+  // Exact match
+  const exact = findEntry(baseIndex, hue, offset)
+  if (exact) return exact
+
+  // Find two nearest hue neighbors for interpolation
+  let belowDist = 0
+  let belowEntry: string | undefined
+  let aboveDist = 0
+  let aboveEntry: string | undefined
+
+  for (let d = 1; d <= 180; d++) {
+    if (!belowEntry) {
+      const e = findEntry(baseIndex, ((hue - d) % 360 + 360) % 360, offset)
+      if (e) { belowDist = d; belowEntry = e }
+    }
+    if (!aboveEntry) {
+      const e = findEntry(baseIndex, (hue + d) % 360, offset)
+      if (e) { aboveDist = d; aboveEntry = e }
+    }
+    if (belowEntry && aboveEntry) break
+  }
+
+  // Both neighbors → interpolate
+  if (belowEntry && aboveEntry) {
+    return lerpEncodedSets(belowEntry, aboveEntry, belowDist / (belowDist + aboveDist))
+  }
+  // Single neighbor → snap
+  if (belowEntry) return belowEntry
+  if (aboveEntry) return aboveEntry
+
+  // No entries in this saturation band — try the other band
+  const altOffset = isFullSat ? 0 : SEGMENT_SIZE.set
+  for (let d = 0; d <= 180; d++) {
+    const dirs = d === 0 ? [0] : [1, -1]
+    for (const dir of dirs) {
+      const e = findEntry(baseIndex, ((hue + dir * d) % 360 + 360) % 360, altOffset)
+      if (e) return e
+    }
+  }
+
+  // Ultimate fallback: zero-saturation luminance as sat+lum pairs
+  // (sat char = charCode for 0, lum char from ZERO_SATURATION_LUMINANCE)
+  const zeroChar = String.fromCharCode(-DECODE_DIFF)
+  const zeroIdx = ZERO_SATURATION_INDICES[baseIndex < 34560 ? 'light' : 'dark'][
+    baseIndex === MATRIX_INDICES.light.neutral || baseIndex === MATRIX_INDICES.dark.neutral
+      ? 'neutral'
+      : 'color'
+  ]
+  let fallback = ''
+  for (let i = 0; i < 12; i++) {
+    fallback += zeroChar + ZERO_SATURATION_LUMINANCE[zeroIdx + i]
+  }
+  return fallback
+}
 
 function getHSL(hue: number, saturation: number, luminance: number, alpha?: number) {
   const alphaText = alpha ? `,${String(alpha).replace('0.', '.')}` : ''

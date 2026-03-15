@@ -2,8 +2,8 @@ import type React from 'react'
 import { createContext, useContext } from 'react'
 import type { ViewStyle } from 'react-native'
 import { Modal, Pressable, Text as RNText, View } from 'react-native'
-import type { UseDisclosureProps } from '../../stl-headless/src/useDisclosure'
-import { useDisclosure } from '../../stl-headless/src/useDisclosure'
+import type { UseDisclosureProps } from '../../headless/src/useDisclosure'
+import { useDisclosure } from '../../headless/src/useDisclosure'
 import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------

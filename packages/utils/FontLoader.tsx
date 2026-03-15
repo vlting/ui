@@ -1,11 +1,11 @@
-import type { BrandFontConfig } from './googleFontsUrl'
+import type { FontConfig } from './googleFontsUrl'
 import { useFontLoader } from './useFontLoader'
 
-export type { BrandFontConfig } from './googleFontsUrl'
+export type { FontConfig } from './googleFontsUrl'
 export { getGoogleFontsUrl } from './googleFontsUrl'
 
 export interface FontLoaderProps {
-  fontConfig?: BrandFontConfig
+  fontConfig?: FontConfig
 }
 
 /**

@@ -462,6 +462,7 @@ export interface FontFamilySpec {
   body?: keyof typeof BodyFontFamily
   button?: keyof typeof BodyFontFamily | keyof typeof HeadingFontFamily
   heading?: keyof typeof HeadingFontFamily
+  subheading?: keyof typeof BodyFontFamily | keyof typeof HeadingFontFamily
   code?: keyof typeof CodeFontFamily
 }
 
