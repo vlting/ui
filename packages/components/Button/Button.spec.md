@@ -24,7 +24,12 @@
 
 ## 3. Anatomy
 
-Button is a `forwardRef` wrapper around a styled `<button>` element (`ButtonFrame`). It uses the `styled()` options API with a `template` for rendering children, loading spinner, prefix, and suffix slots.
+Button is created via `styled('button', opts)` directly — there is no `ButtonFrame` wrapper. The `styled()` call handles `forwardRef` implicitly. It uses the options API with a `template` for rendering children, loading spinner, prefix, and suffix slots.
+
+### Internal sub-elements
+
+- **`ButtonSpinner`** — `styled('span')` with `position: 'absolute'`, `display: 'flex'`, centered. Renders the `<Spinner>` overlay during loading.
+- **`ButtonContent`** — `styled('span')` with `display: 'contents'`. Wraps `prefix`, `children`, and `suffix`. Has a `hidden` variant that sets `visibility: 'hidden'` during loading (so layout is preserved while spinner shows).
 
 ### Two-axis variant model
 
@@ -36,12 +41,18 @@ Default: `{ theme: 'primary', variant: 'solid', size: 'md' }`.
 
 ### Color token pattern
 
-All colors use the `$colorN` + `$colorTextN` pairing pattern (global to `@vlting/ui`, not Button-specific):
-- **solid** — High N (step 9): filled background with contrast text.
-- **subtle** — Low N (step 3): tinted background with darker text (step 11).
-- **outline** — Transparent bg, border at step 7, text at step 11.
-- **ghost** — Transparent bg, text at step 11.
-- **link** — Transparent bg, text at step 9, underline, no padding.
+All colors use the `$colorN` + `$colorTextN` pairing pattern (global to `@vlting/ui`, not Button-specific). Theme→token mapping:
+- `primary` → `$primary*`
+- `secondary` → `$secondary*`
+- `neutral` → `$tertiary*`
+- `destructive` → `$error*`
+
+Compound variant step mapping:
+- **solid** — `$color9`/`$colorText9` idle, `$color10`/`$colorText10` on interact. Focus outline: `$colorMax`.
+- **subtle** — `$color3`/`$colorText3` idle, `$color9`/`$colorText9` on interact. Focus outline: `$color`.
+- **outline** — Transparent bg + `$color` border, `$colorText1` text. Interact: `$color9`/`$colorText9` bg. Focus outline: `$color`.
+- **ghost** — Transparent bg, `$colorText1` text. Interact: `$color9`/`$colorText9` bg. Focus outline: `$color`.
+- **link** — Transparent bg, `$colorText1` text, underline, `px: $0`. Interact: `$color9`/`$colorText9` bg. Focus outline: `$color`.
 
 All variants have hover/focus states with a background color change. Focus also shows an outline ring.
 
@@ -54,7 +65,7 @@ The `template` function renders:
 
 ### Loading state
 
-When `loading` is `true`, children are replaced by a `Spinner` plus a `VisuallyHidden` "Loading" label. The button becomes disabled. `aria-busy` is set.
+When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner>` and `<VisuallyHidden>Loading</VisuallyHidden>` is rendered above the content. The `ButtonContent` wrapper gets `hidden` (visibility: hidden) to preserve layout while hiding text. The button becomes disabled. `aria-busy` is set.
 
 > **TypeScript is the source of truth for props.** See `ButtonProps` in `Button.tsx` for the full typed API.
 
@@ -97,7 +108,7 @@ When `loading` is `true`, children are replaced by a `Spinner` plus a `VisuallyH
 
 ## 6. Styling
 
-- **Color tokens:** `$primaryN`, `$primaryTextN`, `$secondaryN`, `$colorN`, `$colorTextN`, `$redN`, `$redTextN` (N = palette step).
+- **Color tokens:** `$primaryN`, `$primaryTextN`, `$secondaryN`, `$secondaryTextN`, `$tertiaryN`, `$tertiaryTextN`, `$errorN`, `$errorTextN` (N = palette step).
 - **Font:** `$body` family, `$500` weight.
 - **Font sizes:** Scale with size variant (`$buttonTiny`, `$buttonSmall`, `$button`, `$buttonLarge`).
 - **Focus:** `$outlineColor` for ring, `$widthBase` width, `$offsetDefault` offset.
@@ -147,3 +158,19 @@ When `loading` is `true`, children are replaced by a `Spinner` plus a `VisuallyH
 - **Visual regression:**
   - Each theme×variant combo in idle, hover, focus, disabled states.
   - Loading state with spinner.
+
+---
+
+## 10. Cross-Platform Divergences
+
+Web and native implementations intentionally diverge. This is by design, not a bug.
+
+| Concern | Web (`Button.tsx`) | Native (`Button.native.tsx`) |
+|---|---|---|
+| **Click handler** | `onClick` | `onPress` |
+| **Content model** | `template` with `prefix`/`suffix` slots | Compound component: `Button.Text`, `Button.Icon` |
+| **Variant axes** | `theme` × `variant` (4×5 = 20 compound variants) | Single `variant` axis (7 collapsed variants: `default`, `solid`, `secondary`, `destructive`, `outline`, `ghost`, `link`) |
+| **Styled API** | `styled('button', opts)` with `compoundVariants`, `mapProps`, `template` | `styled(Pressable, baseStyle, variants)` — no `compoundVariants`/`mapProps`/`template` |
+| **Ref forwarding** | Implicit via `styled()` | Explicit `forwardRef` wrapper |
+| **Loading indicator** | `<Spinner>` + `<VisuallyHidden>` in `ButtonSpinner` overlay | `<ActivityIndicator>` replacing children |
+| **Sub-elements** | `ButtonSpinner`, `ButtonContent` (internal) | `ButtonFrame`, `ButtonTextFrame`, `ButtonIconFrame` (internal); `Button.Text`, `Button.Icon` (public) |
