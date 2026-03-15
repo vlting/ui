@@ -16,54 +16,78 @@
   "vlting": {
     "import": "import { Button } from '@vlting/ui'",
     "props": {
+      "theme": {
+        "type": "string",
+        "values": ["primary", "secondary", "neutral", "destructive"],
+        "default": "primary"
+      },
       "variant": {
         "type": "string",
-        "values": [
-          "default",
-          "solid",
-          "secondary",
-          "destructive",
-          "outline",
-          "ghost",
-          "link"
-        ]
+        "values": ["solid", "subtle", "outline", "ghost", "link"],
+        "default": "solid"
       },
-      "tone": {
+      "size": {
         "type": "string",
-        "values": ["neutral", "primary", "success", "warning", "danger"]
+        "values": ["xs", "sm", "md", "lg", "icon"],
+        "default": "md"
       },
-      "size": { "type": "string", "values": ["xs", "sm", "md", "lg", "icon"] },
       "loading": { "type": "boolean", "values": ["true", "false"] },
       "disabled": { "type": "boolean", "values": ["true", "false"] },
-      "onPress": { "type": "function", "values": ["() => void"] },
-      "asChild": { "type": "boolean", "values": ["true", "false"] },
+      "prefix": { "type": "ReactNode", "values": [], "platform": "web" },
+      "suffix": { "type": "ReactNode", "values": [], "platform": "web" },
+      "onClick": { "type": "function", "values": ["() => void"], "platform": "web" },
+      "onPress": { "type": "function", "values": ["() => void"], "platform": "native" },
       "children": { "type": "ReactNode", "values": [] }
+    },
+    "subComponents": {
+      "Button.Text": { "platform": "native", "description": "Text label sub-component (compound pattern)" },
+      "Button.Icon": { "platform": "native", "description": "Icon wrapper sub-component (compound pattern)" }
     }
   },
   "notes": [
-    "vlting adds 'solid' variant as alias for 'default'",
-    "vlting adds 'tone' prop for semantic color theming (neutral, primary, success, warning, danger)",
-    "vlting adds 'loading' prop with built-in spinner and aria-busy support",
+    "vlting uses two-axis model: theme (color palette) × variant (visual treatment)",
+    "shadcn collapses theme+variant into single 'variant' prop",
+    "vlting adds 'loading' prop with built-in spinner, aria-busy, and derived disabled",
     "vlting size uses named tokens (xs, sm, md, lg, icon); shadcn uses default/sm/lg/icon",
-    "vlting has Button.Text and Button.Icon sub-components for compound usage",
-    "Built on @tamagui/button with focus-visible outline styles",
-    "Destructive variant automatically applies red theme"
+    "Web uses styled('button') with compoundVariants, mapProps, and template",
+    "Native uses styled(Pressable) with compound component pattern (Button.Text, Button.Icon)",
+    "Web prefix/suffix slots replace shadcn's asChild pattern for icon placement",
+    "All styling via STL tokens — no className, no inline styles"
   ],
   "breaking": [
     {
-      "shadcn": "className='...'",
-      "vlting": "Use Tamagui style props",
-      "reason": "Cross-platform"
+      "shadcn": "variant='default'",
+      "vlting": "theme='primary' variant='solid'",
+      "reason": "Two-axis variant model replaces single variant"
     },
-    { "shadcn": "onClick", "vlting": "onPress", "reason": "Cross-platform event naming" },
+    {
+      "shadcn": "variant='destructive'",
+      "vlting": "theme='destructive' variant='solid'",
+      "reason": "Destructive is a theme, not a variant"
+    },
+    {
+      "shadcn": "className='...'",
+      "vlting": "stl={{ ... }} or styled() variants",
+      "reason": "Cross-platform — no CSS class support"
+    },
+    {
+      "shadcn": "onClick",
+      "vlting": "onClick (web) / onPress (native)",
+      "reason": "Platform-specific event naming"
+    },
     {
       "shadcn": "size='default'",
       "vlting": "size='md'",
       "reason": "Consistent named sizing"
     },
     {
+      "shadcn": "asChild",
+      "vlting": "Not supported — use prefix/suffix slots instead",
+      "reason": "Template-based composition replaces render delegation"
+    },
+    {
       "shadcn": "No loading state",
-      "vlting": "Use loading prop for built-in spinner",
+      "vlting": "loading prop with built-in Spinner + VisuallyHidden + aria-busy",
       "reason": "Built-in loading pattern"
     }
   ]
