@@ -1,11 +1,11 @@
 ---
 slug: full-rebuild
-status: in-progress
+status: done
 scope: large
 created: 2026-03-11
 current_epic: 4
 current_stage: 6
-phase: ship
+phase: done
 ---
 # Full Rebuild — @vlting/ui
 
