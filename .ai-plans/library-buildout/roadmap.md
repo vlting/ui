@@ -1,11 +1,11 @@
 ---
 slug: library-buildout
-status: scoping
+status: in-progress
 scope: large
 created: 2026-03-15
 current_epic: 5
 current_stage: 1
-phase: scope
+phase: execute
 ---
 # @vlting/ui Library Build-Out
 
@@ -37,12 +37,16 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 
 ### Stage 5.1: Button Spec & Test Audit
 **Branch prefix:** chore
+**Branch:** chore/library-buildout/button-spec-test-audit
+**Issue:** #199
 **Acceptance criteria:**
 - [ ] Button.spec.md reflects actual implemented API (theme×variant model, styled() options API)
 - [ ] Button.test.tsx covers all spec requirements with passing tests
 - [ ] Button established as canonical reference pattern
 - [ ] Document native parity considerations in spec
-**Status:** pending
+- [ ] renderWithConditions test helper created
+- [ ] api-mapping.json rewritten to match current API
+**Status:** in-progress
 
 ### Stage 5.2: Hook Testing & Spec Coverage
 **Branch prefix:** test
