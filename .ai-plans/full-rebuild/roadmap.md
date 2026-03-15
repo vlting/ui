@@ -3,8 +3,8 @@ slug: full-rebuild
 status: in-progress
 scope: large
 created: 2026-03-11
-current_epic: 3
-current_stage: 4
+current_epic: 4
+current_stage: 6
 phase: ship
 ---
 # Full Rebuild — @vlting/ui
@@ -103,7 +103,7 @@ Key decisions (from council):
 **Dependencies:** Epic 2
 **Epic slug:** playground-button
 **Epic branch:** epic/playground-button
-**Status:** in-progress
+**Status:** done
 
 ### Stage 3.1: Component Stubs & Playground App
 **Branch prefix:** chore
@@ -161,3 +161,53 @@ Key decisions (from council):
 - [x] Icon size uses ★ character (no separate Icon component needed)
 - [x] Dev server starts, no TS errors
 **Status:** done
+
+## Epic 4: Dissolve primitives — Restructure into stl-react + headless + utils
+**Objective:** Remove separate primitives package; move styling primitives to stl-react, behavioral hooks to headless, general-purpose hooks to utils
+**Dependencies:** Epic 3
+**Epic slug:** dissolve-primitives
+**Status:** done
+
+### Stage 4.1: Rename stl-headless → headless
+- [x] packages/stl-headless/ renamed to packages/headless/
+- [x] package.json name: @vlting/stl-headless → @vlting/headless
+- [x] All imports updated (components, showcase-web, showcase-native)
+
+### Stage 4.2: Move behavioral hooks → headless
+- [x] useFocusTrap, useKeyboardNavigation, useControllableState moved from hooks → headless/src/
+- [x] Tests and specs moved alongside
+- [x] headless barrel updated
+
+### Stage 4.3: Move general-purpose hooks → utils
+- [x] useClipboard, useDebounce, useIntersectionObserver, useMediaQuery, useReducedMotion moved to utils/
+- [x] utils barrel updated with new exports
+
+### Stage 4.4: Move styling primitives → stl-react
+- [x] Badge, Kbd, Label, VisuallyHidden — new stl-react primitives with styled()
+- [x] Box — merged centered variant into existing stl-react Box, changed element to div
+- [x] Heading — multi-level (h1-h6) via forwardRef + level prop, replaces simple h1
+- [x] Text — extended with size/tone/weight variants
+- [x] Stack — VStack/HStack/Stack aliases from Column/Row
+- [x] Spinner — moved with CSS-only animation ($spin token)
+- [x] Skeleton — rewritten: removed runtime keyframe injection hack, uses $pulse token
+- [x] Icon — wrapped with styled IconFrame for consistent sizing
+- [x] Portal — moved as-is (pure React, no styling)
+- [x] Tests and specs moved to new locations
+
+### Stage 4.5: Update exports & config
+- [x] ./primitives export → stl-react primitives barrel
+- [x] ./headless export added
+- [x] ./hooks export → utils (backward compat)
+- [x] tsconfig paths updated
+- [x] config/resolve.ts updated
+- [x] showcase-web vite.config.ts updated
+- [x] src/index.ts barrel updated
+- [x] mcp-server audit tool updated
+- [x] validate-tokens script updated
+
+### Stage 4.6: Delete packages/primitives/ and packages/hooks/
+- [x] packages/primitives/ deleted
+- [x] packages/hooks/ deleted
+- [x] packages/stl-headless/ deleted (renamed to headless)
+- [x] Zero new TypeScript errors introduced
+- [x] All pre-existing consumer imports preserved via export map

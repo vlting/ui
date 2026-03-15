@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
-import { VisuallyHidden } from '../../primitives'
-import { Spinner } from '../../primitives/Spinner'
+import { VisuallyHidden } from '../../stl-react/src/primitives/VisuallyHidden/VisuallyHidden'
+import { Spinner } from '../../stl-react/src/primitives/Spinner/Spinner'
 import { styled, templateProps, options } from '../../stl-react/src/config'
 
 const ButtonSpinner = styled('span', {

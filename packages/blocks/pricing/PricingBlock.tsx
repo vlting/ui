@@ -1,8 +1,8 @@
 import type { ComponentType } from 'react'
 import { Button } from '../../components/Button'
 import { Card } from '../../components/Card'
-import { Badge } from '../../primitives/Badge'
-import { Separator } from '../../primitives/Separator'
+import { Badge } from '../../stl-react/src/primitives/Badge/Badge'
+import { Separator } from '../../stl-react/src/primitives/Separator/Separator'
 import { styled } from '../../stl-react/src/config'
 import type { BlockProps } from '../_shared/types'
 

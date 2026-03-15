@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Sidebar } from '../../components/Sidebar'
-import { Badge } from '../../primitives/Badge'
+import { Badge } from '../../stl-react/src/primitives/Badge/Badge'
 import { styled } from '../../stl-react/src/config'
 
 // --- Types ---

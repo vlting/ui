@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 import { Button } from '../../components/Button'
 import { Card } from '../../components/Card'
-import { Separator } from '../../primitives/Separator'
-import { Text } from '../../primitives/Text'
+import { Separator } from '../../stl-react/src/primitives/Separator/Separator'
+import { Text } from '../../stl-react/src/primitives/Text/Text'
 import { styled } from '../../stl-react/src/config'
 import type { SocialProvider } from '../_shared/types'
 

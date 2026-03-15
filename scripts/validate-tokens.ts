@@ -11,7 +11,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
 const ROOT = join(__dirname, '..')
-const SCAN_DIRS = [join(ROOT, 'packages/components'), join(ROOT, 'packages/primitives')]
+const SCAN_DIRS = [join(ROOT, 'packages/components'), join(ROOT, 'packages/stl-react/src/primitives')]
 
 // Patterns that indicate hardcoded values
 const VIOLATIONS = [

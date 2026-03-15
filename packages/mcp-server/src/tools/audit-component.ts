@@ -85,7 +85,7 @@ export function handleAuditComponent(args: { name: string }): AuditResult {
   const name = args.name
   const dirs = [
     resolve(root, 'packages/components', name),
-    resolve(root, 'packages/primitives', name),
+    resolve(root, 'packages/stl-react/src/primitives', name),
     resolve(root, 'packages/blocks', name.toLowerCase()),
   ]
   const dir = dirs.find((d) => existsSync(d))

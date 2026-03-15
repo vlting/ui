@@ -1,6 +1,6 @@
 import type { ComponentType, ReactNode } from 'react'
 import { Button } from '../../components/Button'
-import { Badge } from '../../primitives/Badge'
+import { Badge } from '../../stl-react/src/primitives/Badge/Badge'
 import { styled } from '../../stl-react/src/config'
 import type { BlockProps } from '../_shared/types'
 

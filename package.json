@@ -33,8 +33,12 @@
         "types": "./packages/stl-native/src/primitives/index.tsx",
         "import": "./packages/stl-native/src/primitives/index.tsx"
       },
-      "types": "./packages/primitives/index.ts",
-      "import": "./packages/primitives/index.ts"
+      "types": "./packages/stl-react/src/primitives/index.ts",
+      "import": "./packages/stl-react/src/primitives/index.ts"
+    },
+    "./headless": {
+      "types": "./packages/headless/src/index.ts",
+      "import": "./packages/headless/src/index.ts"
     },
     "./components": {
       "react-native": {
@@ -45,8 +49,8 @@
       "import": "./packages/components/index.ts"
     },
     "./hooks": {
-      "types": "./packages/hooks/index.ts",
-      "import": "./packages/hooks/index.ts"
+      "types": "./packages/utils/index.ts",
+      "import": "./packages/utils/index.ts"
     },
     "./utils": {
       "types": "./packages/utils/index.ts",

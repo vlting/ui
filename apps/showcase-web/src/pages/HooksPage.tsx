@@ -1,12 +1,11 @@
-// stl-headless hooks
 import {
+  useControllableState,
   useDisclosure,
   useListState,
   useSearch,
   useTabs,
   useToastQueue,
-} from '@vlting/stl-headless'
-// stl-react hooks
+} from '@vlting/ui/headless'
 import {
   useColorMode,
   useConditions,
@@ -15,8 +14,7 @@ import {
   useTransition,
 } from '@vlting/stl-react'
 import { Button } from '@vlting/ui/components'
-// app-level hooks
-import { useControllableState, useReducedMotion } from '@vlting/ui/hooks'
+import { useReducedMotion } from '@vlting/ui/utils'
 import { useState } from 'react'
 import { DemoCard, DemoRow, Section } from '../components/Section'
 
@@ -68,7 +66,7 @@ export function HooksPage() {
           color: '#666',
         }}
       >
-        stl-headless Hooks
+        Headless Hooks
       </h2>
 
       <Section title="useDisclosure">
@@ -110,7 +108,7 @@ export function HooksPage() {
           color: '#666',
         }}
       >
-        App Hooks
+        Utility Hooks
       </h2>
 
       <Section title="useControllableState">

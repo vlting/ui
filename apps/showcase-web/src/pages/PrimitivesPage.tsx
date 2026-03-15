@@ -1,20 +1,22 @@
-// Import stl-react primitives
 import {
   AspectRatio,
+  Badge as BadgeBase,
   Box,
   Column,
   Divider,
   Grid,
   Heading,
+  Kbd,
+  Label,
   Pressable,
   Row,
   Separator,
+  Skeleton,
   Spacer,
+  Spinner,
   SubHeading,
   Text,
-} from '@vlting/stl-react'
-// Import primitives package components
-import { Badge as BadgeBase, Kbd, Label, Skeleton, Spinner } from '@vlting/ui/primitives'
+} from '@vlting/ui/primitives'
 import type { ComponentType, ReactNode } from 'react'
 import { DemoCard, DemoRow, Section } from '../components/Section'
 

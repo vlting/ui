@@ -4,8 +4,8 @@ import { Pressable, Text as RNText, View } from 'react-native'
 import type {
   Toast as ToastType,
   UseToastQueueReturn,
-} from '../../stl-headless/src/useToastQueue'
-import { useToastQueue } from '../../stl-headless/src/useToastQueue'
+} from '../../headless/src/useToastQueue'
+import { useToastQueue } from '../../headless/src/useToastQueue'
 import { styled } from '../../stl-native/src/config/styled'
 
 // ---------------------------------------------------------------------------

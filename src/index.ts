@@ -283,17 +283,21 @@ export {
 export type {
   UseClipboardReturn,
   UseIntersectionObserverOptions,
-} from '../packages/hooks'
-// Hooks
+} from '../packages/utils'
+// Hooks — general-purpose from utils
 export {
   useClipboard,
-  useControllableState,
   useDebounce,
-  useFocusTrap,
   useIntersectionObserver,
-  useKeyboardNavigation,
   useMediaQuery,
-} from '../packages/hooks'
+  useReducedMotion,
+} from '../packages/utils'
+// Hooks — behavioral from headless
+export {
+  useControllableState,
+  useFocusTrap,
+  useKeyboardNavigation,
+} from '../packages/headless/src'
 export type { IconFC as RemixIconFC } from '../packages/icons/createIcon'
 export { createIcon } from '../packages/icons/createIcon'
 export type { DynamicIconProps } from '../packages/icons/Icon'
@@ -313,7 +317,7 @@ export type {
   SpinnerProps,
   TextProps,
   VisuallyHiddenProps,
-} from '../packages/primitives'
+} from '../packages/stl-react/src/primitives'
 // Layer 1 — Primitives
 export {
   AspectRatio,
@@ -334,7 +338,7 @@ export {
   Text,
   VisuallyHidden,
   VStack,
-} from '../packages/primitives'
+} from '../packages/stl-react/src/primitives'
 export type { StlProviderProps } from '../packages/stl-react/src/providers/StlProvider'
 export { StlProvider } from '../packages/stl-react/src/providers/StlProvider'
 export type { FontLoaderProps, FontLoadState } from '../packages/utils'

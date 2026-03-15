@@ -7,7 +7,7 @@ import { Input } from '../../components/Input'
 import { Select } from '../../components/Select'
 import { Switch } from '../../components/Switch'
 import { Textarea } from '../../components/Textarea'
-import { Separator } from '../../primitives/Separator'
+import { Separator } from '../../stl-react/src/primitives/Separator/Separator'
 import { styled } from '../../stl-react/src/config'
 import type { BlockProps } from '../_shared/types'
 

@@ -7,14 +7,15 @@ import path from 'node:path'
 
 /** Map of package specifiers to their source directories relative to repo root. */
 export const vltPackagePaths: Record<string, string> = {
-  '@vlting/ui/primitives': 'packages/primitives',
+  '@vlting/ui/primitives': 'packages/stl-react/src/primitives',
   '@vlting/ui/components': 'packages/components',
-  '@vlting/ui/hooks': 'packages/hooks',
+  '@vlting/ui/headless': 'packages/headless/src',
+  '@vlting/ui/hooks': 'packages/utils',
   '@vlting/ui/icons': 'packages/icons',
   '@vlting/ui/utils': 'packages/utils',
   '@vlting/ui': 'src',
   '@vlting/stl-react': 'packages/stl-react/src',
-  '@vlting/stl-headless': 'packages/stl-headless/src',
+  '@vlting/headless': 'packages/headless/src',
   '@vlting/stl/styles': 'packages/stl/src/config/styles.css.ts',
   '@vlting/stl/theme': 'packages/stl/src/theme',
   '@vlting/stl': 'packages/stl/src',
