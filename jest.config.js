@@ -71,6 +71,9 @@ module.exports = {
   moduleNameMapper: {
     '^@vlting/ui$': '<rootDir>/src/index.ts',
     '^@vlting/ui/(.*)$': '<rootDir>/src/$1',
+    '^@vlting/stl$': '<rootDir>/packages/stl/src/index.ts',
+    '^@vlting/stl/(.*)$': '<rootDir>/packages/stl/src/$1',
+    '^@vanilla-extract/css$': '<rootDir>/src/__test-utils__/mocks/vanilla-extract-css.js',
     '^react-native-svg$': '<rootDir>/src/__test-utils__/mocks/react-native-svg.js',
     '^react-native-svg/(.*)$': '<rootDir>/src/__test-utils__/mocks/react-native-svg.js',
     '^react-native$': '<rootDir>/src/__test-utils__/mocks/react-native.js',

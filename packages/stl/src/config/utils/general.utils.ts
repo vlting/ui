@@ -20,3 +20,8 @@ export function removePrefix(value: string) {
   }
   return value
 }
+
+/** Generates a CSS class name from a `className` string, plus an optional pseudo-class */
+export function getSelector(className: string, pseudoClass = '') {
+  return `.${className}${pseudoClass}`
+}
