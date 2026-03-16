@@ -1,15 +1,58 @@
-import { createStub } from '../_stub'
+import type { ComponentPropsWithRef } from 'react'
+import { styled } from '../../stl-react/src/config'
 
-export type EmptyRootProps = Record<string, any>
-export type EmptyTitleProps = Record<string, any>
-export type EmptyDescriptionProps = Record<string, any>
-export type EmptyMediaProps = Record<string, any>
-export type EmptyActionProps = Record<string, any>
+// ─── Empty ──────────────────────────────────────────────────────────────────
+
+const EmptyRoot = styled('div', {
+  stl: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    gap: '$12',
+    p: '$24',
+    fontFamily: '$body',
+  },
+  mapProps: (props) => ({
+    ...props,
+    role: 'status',
+  }),
+  styleName: 'Empty',
+})
+
+const EmptyMedia = styled('div', {
+  stl: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: '0.6',
+    color: '$tertiaryText3',
+  },
+  styleName: 'EmptyMedia',
+})
+
+const EmptyTitle = styled('h3', {
+  stl: { fontWeight: '$600', fontSize: '$h4', m: '$0', color: '$color' },
+  styleName: 'EmptyTitle',
+})
+
+const EmptyDescription = styled('p', {
+  stl: { fontSize: '$p', m: '$0', maxWidth: '400px', color: '$tertiaryText4' },
+  styleName: 'EmptyDescription',
+})
+
+const EmptyAction = styled('div', {
+  stl: { display: 'flex', gap: '$8', mt: '$4' },
+  styleName: 'EmptyAction',
+})
 
 export const Empty = {
-  Root: createStub('Empty.Root', 'div'),
-  Media: createStub('Empty.Media', 'div'),
-  Title: createStub('Empty.Title', 'h3'),
-  Description: createStub('Empty.Description', 'p'),
-  Action: createStub('Empty.Action', 'div'),
+  Root: EmptyRoot,
+  Title: EmptyTitle,
+  Description: EmptyDescription,
+  Media: EmptyMedia,
+  Action: EmptyAction,
 }
+
+export type EmptyProps = ComponentPropsWithRef<typeof EmptyRoot>

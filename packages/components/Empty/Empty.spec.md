@@ -24,7 +24,7 @@
 
 - **Empty** (Root) — Centered flex container with `role="status"` for assistive technology.
 - **Empty.Media** — Slot for icon or illustration (muted opacity, centered).
-- **Empty.Title** — Heading text (`<h3>` via `styledHtml`), centered.
+- **Empty.Title** — Heading text (`<h3>` via `styled()`), centered.
 - **Empty.Description** — Body text (muted color, max-width 400px for readability), centered.
 - **Empty.Action** — Slot for CTA button or custom action content.
 
@@ -60,7 +60,7 @@
 
 ## 6. Styling
 
-- **Design tokens used:** `$color` for title text; `$colorSubtitle` for description text; `$body` font family. Spacing uses fixed pixel values from token-equivalent sizes.
+- **Design tokens used:** `$color` for title text; `$tertiaryText4` for description text; `$body` font family. Spacing uses token values (`$12`, `$24`).
 - **Responsive behavior:** Max-width 400px on Description ensures readability on wide containers. Content is always center-aligned.
 - **Dark mode:** Token-based; resolves automatically.
 
