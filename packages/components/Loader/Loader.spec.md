@@ -21,7 +21,7 @@
 Thin wrapper around the `Spinner` primitive. Maps `variant` to color tokens.
 
 - `size`: `'sm'` | `'md'` | `'lg'` (passed to Spinner).
-- `variant`: `'primary'` (`$color10`) | `'light'` (`$color4`) | `'dark'` (`$color11`).
+- `variant`: `'primary'` (Spinner `theme="primary"`, `$primary9`) | `'min'` (Spinner `theme="neutralMin"`, `$color8`) | `'max'` (Spinner `theme="neutralMax"`, `$color12`).
 
 > **TypeScript is the source of truth for props.** See `Loader.tsx` for the full typed API.
 
@@ -52,7 +52,7 @@ Inherits Spinner's rotation animation. Must respect `prefers-reduced-motion`.
 
 ## 6. Styling
 
-- **Design tokens used:** `$color10` (primary), `$color4` (light), `$color11` (dark).
+- **Design tokens used:** Maps to Spinner themes — `primary` (`$primary9`), `min` / `neutralMin` (`$color8`), `max` / `neutralMax` (`$color12`).
 - **Dark mode:** Token resolution handles automatically.
 
 ---

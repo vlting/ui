@@ -36,7 +36,6 @@ module.exports = {
     'packages/components/InputGroup/',
     'packages/components/InputOTP/',
     'packages/components/Item/',
-    'packages/components/Loader/',
     'packages/components/Menu/',
     'packages/components/Menubar/',
     'packages/components/NativeSelect/',
