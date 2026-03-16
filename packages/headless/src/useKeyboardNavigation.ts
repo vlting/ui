@@ -7,6 +7,9 @@ interface UseKeyboardNavigationOptions {
 }
 
 /**
+ * @deprecated Use useRovingTabIndex for composite widget keyboard navigation.
+ * This hook will be removed in a future version.
+ *
  * Keyboard navigation handler for lists/grids.
  * Returns a keyDown handler to attach to the container.
  */
