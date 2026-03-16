@@ -27,7 +27,7 @@ const VARIANTS = ['solid', 'outline', 'subtle', 'ghost', 'link'] as const
 const SIZES = ['xs', 'sm', 'md', 'lg', 'icon'] as const
 
 const ALERT_THEMES = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'error', 'info'] as const
-const ALERT_APPEARANCES = ['normal', 'subtle', 'borderless', 'high-contrast'] as const
+const ALERT_APPEARANCES = ['borderless', 'high-contrast', 'border', 'subtle-border'] as const
 const PROGRESS_SIZES = ['sm', 'md', 'lg'] as const
 const LOADER_VARIANTS = ['primary', 'min', 'max'] as const
 const LOADER_SIZES = ['sm', 'md', 'lg'] as const
@@ -85,7 +85,7 @@ const NavSpacer = styled('div', {
 })
 
 const Main = styled('main', {
-  stl: { p: '$24', maxWidth: '1400px', mx: 'auto' },
+  stl: { p: '$24', maxWidth: '1200px', mx: 'auto' },
   styleName: 'Main',
 })
 
@@ -168,6 +168,7 @@ function PlaygroundInner({
   onPresetChange: (key: string) => void
 }) {
   const { colorMode, setColorMode, toggleColorMode } = useColorMode()
+  const [alertAppearance, setAlertAppearance] = useState<typeof ALERT_APPEARANCES[number]>('borderless')
 
   // Flat theme defaults to dark; others follow system preference
   useEffect(() => {
@@ -266,21 +267,28 @@ function PlaygroundInner({
         {/* ── Alert ── */}
         <Card stl={{ mt: '$24' }}>
           <SectionHeading>Alert</SectionHeading>
-          <Grid stl={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: '$24', alignItems: 'start' }}>
+          <ButtonRow stl={{ mb: '$16' }}>
             {ALERT_APPEARANCES.map((appearance) => (
-              <Section key={appearance} stl={{ mb: '$0' }}>
-                <SectionTitle>{appearance}</SectionTitle>
-                <StackY>
-                  {ALERT_THEMES.map((theme) => (
-                    <Alert.Root key={theme} theme={theme} appearance={appearance}>
-                      <Alert.Title>{theme.charAt(0).toUpperCase() + theme.slice(1)}</Alert.Title>
-                      <Alert.Description>This is a {theme} alert — {appearance}.</Alert.Description>
-                    </Alert.Root>
-                  ))}
-                </StackY>
-              </Section>
+              <Button
+                key={appearance}
+                size="xs"
+                theme="neutral"
+                variant={alertAppearance === appearance ? 'subtle' : 'ghost'}
+                onClick={() => setAlertAppearance(appearance)}
+                aria-pressed={alertAppearance === appearance}
+              >
+                {appearance}
+              </Button>
             ))}
-          </Grid>
+          </ButtonRow>
+          <StackY>
+            {ALERT_THEMES.map((theme) => (
+              <Alert.Root key={theme} theme={theme} appearance={alertAppearance}>
+                <Alert.Title>{theme.charAt(0).toUpperCase() + theme.slice(1)}</Alert.Title>
+                <Alert.Description>This is a {theme} alert — {alertAppearance}.</Alert.Description>
+              </Alert.Root>
+            ))}
+          </StackY>
         </Card>
 
         {/* ── Progress ── */}

@@ -33,7 +33,7 @@ const EmptyMedia = styled('div', {
 })
 
 const EmptyTitle = styled('h3', {
-  stl: { fontWeight: '$600', fontSize: '$h4', m: '$0', color: '$color' },
+  stl: { fontWeight: '$600', fontSize: '$h4', m: '$0', color: '$tertiaryText3' },
   styleName: 'EmptyTitle',
 })
 
