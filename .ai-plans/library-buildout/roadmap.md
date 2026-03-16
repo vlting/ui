@@ -5,7 +5,7 @@ scope: large
 created: 2026-03-15
 current_epic: 5
 current_stage: 3
-phase: execute
+phase: advance
 ---
 # @vlting/ui Library Build-Out
 
@@ -68,18 +68,19 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Branch:** feat/library-buildout/react-aria-integration
 **Issue:** #204
 **Acceptance criteria:**
-- [ ] @react-aria/focus and @react-aria/live-announcer installed as optionalDependencies
-- [ ] Adapter module (_adapters/react-aria.ts) centralizes all react-aria imports
-- [ ] jest.config.js + vite.config.ts updated for react-aria
-- [ ] useFocusScope: prop-getter focus containment, replaces @deprecated useFocusTrap (no react-aria)
-- [ ] useTypeahead: character buffer with prefix matching + getTypeaheadProps() (no react-aria)
-- [ ] useRovingTabIndex: DOM focus + tabIndex management with getContainerProps() + getItemProps() (no react-aria)
-- [ ] useLiveRegion: announce() + getLiveRegionProps() via @react-aria/live-announcer adapter
-- [ ] Universal naming: onClick→onPress, onMouseEnter→onHoverIn across all existing hooks
-- [ ] Headless barrel updated with 4 new exports, useKeyboardNavigation @deprecated
-- [ ] All new hooks have spec.md and tests
-- [ ] All existing tests still pass after naming migration
-**Status:** in-progress
+- [x] @react-aria/focus and @react-aria/live-announcer installed as optionalDependencies
+- [x] Adapter module (_adapters/react-aria.ts) centralizes all react-aria imports
+- [x] jest.config.js + vite.config.ts updated for react-aria
+- [x] useFocusScope: prop-getter focus containment, replaces @deprecated useFocusTrap (no react-aria)
+- [x] useTypeahead: character buffer with prefix matching + getTypeaheadProps() (no react-aria)
+- [x] useRovingTabIndex: DOM focus + tabIndex management with getContainerProps() + getItemProps() (no react-aria)
+- [x] useLiveRegion: announce() + getLiveRegionProps() via @react-aria/live-announcer adapter
+- [x] Universal naming: onClick→onPress, onMouseEnter→onHoverIn across all existing hooks
+- [x] Headless barrel updated with 4 new exports, useKeyboardNavigation @deprecated
+- [x] All new hooks have spec.md and tests
+- [x] All existing tests still pass after naming migration — 205 tests, 15 suites
+**PR:** #205
+**Status:** done
 
 ## Epic 6: Display Components
 **Objective:** Pure styled components — no hooks needed. Exercises token system broadly (colors, spacing, typography, borders, shadows)
