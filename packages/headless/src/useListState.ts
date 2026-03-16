@@ -12,7 +12,12 @@ export interface UseListStateReturn<T> {
   highlightIndex: number
   highlightedItem: T | undefined
   setHighlightIndex: (index: number) => void
+  getListProps: () => {
+    role: 'listbox'
+    onKeyDown: (e: React.KeyboardEvent) => void
+  }
   getItemProps: (index: number) => {
+    role: 'option'
     'aria-selected': boolean
     onMouseEnter: () => void
     onClick: () => void
@@ -75,6 +80,7 @@ export function useListState<T>(props: UseListStateProps<T>): UseListStateReturn
 
   const getItemProps = useCallback(
     (index: number) => ({
+      role: 'option' as const,
       'aria-selected': index === highlightIndex,
       onMouseEnter: () => setHighlightIndex(index),
       onClick: () => {
@@ -87,10 +93,19 @@ export function useListState<T>(props: UseListStateProps<T>): UseListStateReturn
     [highlightIndex, items, onSelect],
   )
 
+  const getListProps = useCallback(
+    () => ({
+      role: 'listbox' as const,
+      onKeyDown,
+    }),
+    [onKeyDown],
+  )
+
   return {
     highlightIndex,
     highlightedItem,
     setHighlightIndex,
+    getListProps,
     getItemProps,
     onKeyDown,
   }
