@@ -4,9 +4,10 @@ import { useDisclosure, type UseDisclosureProps } from './useDisclosure'
 function DisclosureFixture(props: UseDisclosureProps) {
   const { isOpen, onOpen, onClose, onToggle, getToggleProps, getContentProps } =
     useDisclosure(props)
+  const toggleProps = getToggleProps()
   return (
     <div>
-      <button {...getToggleProps()} data-testid="toggle">
+      <button onClick={toggleProps.onPress} aria-expanded={toggleProps['aria-expanded']} aria-controls={toggleProps['aria-controls']} data-testid="toggle">
         Toggle
       </button>
       <div {...getContentProps()} data-testid="content">

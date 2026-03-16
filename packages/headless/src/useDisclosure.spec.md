@@ -21,7 +21,7 @@ Infrastructure hook enabling the WAI-ARIA disclosure pattern. Ensures toggles an
 
 - When `open` is provided, the hook operates in **controlled mode**: `isOpen` always reflects `open`, and state changes only fire `onOpenChange`.
 - When `open` is `undefined`, the hook operates in **uncontrolled mode**: `isOpen` reflects internal state, toggled by `onOpen`, `onClose`, `onToggle`.
-- `getToggleProps()` returns `{ onClick, 'aria-expanded': boolean, 'aria-controls': string }`.
+- `getToggleProps()` returns `{ onPress, 'aria-expanded': boolean, 'aria-controls': string }`.
 - `getContentProps()` returns `{ hidden: boolean, id: string }`. The `id` is generated via `useId()` and matches `aria-controls`.
 - `onOpenChange` is called in both modes whenever open state changes.
 
@@ -43,6 +43,7 @@ Infrastructure hook enabling the WAI-ARIA disclosure pattern. Ensures toggles an
 - Intended for use inside components that need show/hide behavior: Accordion, Collapsible, Dropdown, Popover.
 - Dependencies: React (`useState`, `useCallback`, `useId`). No external dependencies.
 - **Tech debt:** Should compose `useControllableState` for controlled/uncontrolled logic instead of hand-rolling.
+- **Universal naming:** `onPress` (not `onClick`) — follows React Native conventions for cross-platform compatibility.
 - **Anti-patterns:** Do not switch between controlled and uncontrolled mid-lifecycle.
 
 ---

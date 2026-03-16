@@ -17,7 +17,7 @@ export interface UseTabsReturn {
     'aria-selected': boolean
     'aria-controls': string
     tabIndex: number
-    onClick: () => void
+    onPress: () => void
     onKeyDown: (e: React.KeyboardEvent) => void
   }
   getTabPanelProps: (value: string) => {
@@ -73,7 +73,7 @@ export function useTabs({
         'aria-selected': activeValue === tabValue,
         'aria-controls': `${baseId}-panel-${tabValue}`,
         tabIndex: activeValue === tabValue ? 0 : -1,
-        onClick: () => setActiveValue(tabValue),
+        onPress: () => setActiveValue(tabValue),
         onKeyDown: (e: React.KeyboardEvent) => {
           const tabs = tabValuesRef.current
           const idx = tabs.indexOf(tabValue)

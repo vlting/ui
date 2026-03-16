@@ -28,9 +28,9 @@ Gives list-like components consistent keyboard and pointer interaction. Users ca
   - **Enter:** select the highlighted item (calls `onSelect(item, index)`)
 - All keyboard events call `e.preventDefault()`.
 - `loop` option (default `false`): when true, ArrowDown at last item wraps to first, ArrowUp at first wraps to last. When false, clamps at boundaries.
-- Mouse: `onMouseEnter` on an item highlights it. `onClick` selects it.
+- Mouse: `onHoverIn` on an item highlights it. `onPress` selects it.
 - `getListProps()` returns container props: `{ role: 'listbox', onKeyDown }`.
-- `getItemProps(index)` returns item props: `{ role: 'option', 'aria-selected', onMouseEnter, onClick }`.
+- `getItemProps(index)` returns item props: `{ role: 'option', 'aria-selected', onHoverIn, onPress }`.
 - Standalone `onKeyDown` is kept for backwards compatibility but `getListProps` is the preferred API.
 
 > **TypeScript is the source of truth for the API.** See `useListState.ts` for the full typed signature. Do not duplicate type tables here.
@@ -51,6 +51,7 @@ Gives list-like components consistent keyboard and pointer interaction. Users ca
 - Used by Select, Combobox, Menu components.
 - Dependencies: React (`useState`, `useCallback`). No external dependencies.
 - **DX Note / Tech Debt:** `onKeyDown` handler reimplements keyboard navigation logic that exists in `useKeyboardNavigation`. Should compose `useKeyboardNavigation` in a future refactor.
+- **Universal naming:** `onPress` (not `onClick`), `onHoverIn` (not `onMouseEnter`) — follows React Native conventions for cross-platform compatibility.
 - **Anti-patterns:** Do not mutate `items` array between renders without resetting highlight index. Do not use for multi-select (not yet supported).
 
 ---

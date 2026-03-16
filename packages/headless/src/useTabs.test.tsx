@@ -11,11 +11,14 @@ function TabsFixture(props: UseTabsProps & { tabs?: string[] }) {
   return (
     <div>
       <div {...getTabListProps()} data-testid="tablist">
-        {tabs.map((tab) => (
-          <button key={tab} {...getTabProps(tab)} data-testid={`tab-${tab}`}>
-            {tab}
-          </button>
-        ))}
+        {tabs.map((tab) => {
+          const { onPress, ...rest } = getTabProps(tab)
+          return (
+            <button key={tab} {...rest} onClick={onPress} data-testid={`tab-${tab}`}>
+              {tab}
+            </button>
+          )
+        })}
       </div>
       {tabs.map((tab) => (
         <div key={tab} {...getTabPanelProps(tab)} data-testid={`panel-${tab}`}>
