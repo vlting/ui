@@ -28,7 +28,6 @@ module.exports = {
     'packages/components/Direction/',
     'packages/components/Drawer/',
     'packages/components/DropdownMenu/',
-    'packages/components/Empty/',
     'packages/components/Field/',
     'packages/components/Form/',
     'packages/components/HoverCard/',

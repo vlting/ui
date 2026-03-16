@@ -1,7 +1,7 @@
 import type { Theme } from '@vlting/stl'
 import { defaultTheme } from '@vlting/stl'
 import { styled, useColorMode } from '@vlting/stl-react'
-import { Button, StlProvider } from '@vlting/ui'
+import { Alert, Button, Empty, Loader, Progress, StlProvider } from '@vlting/ui'
 import { useEffect, useMemo, useState } from 'react'
 
 import { flatTheme, proTheme, sharpTheme } from '../../../config/themes'
@@ -25,6 +25,11 @@ const MoonIcon = () => (
 const THEMES = ['primary', 'secondary', 'neutral', 'destructive'] as const
 const VARIANTS = ['solid', 'outline', 'subtle', 'ghost', 'link'] as const
 const SIZES = ['xs', 'sm', 'md', 'lg', 'icon'] as const
+
+const ALERT_THEMES = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'error', 'info'] as const
+const PROGRESS_SIZES = ['sm', 'md', 'lg'] as const
+const LOADER_VARIANTS = ['primary', 'min', 'max'] as const
+const LOADER_SIZES = ['sm', 'md', 'lg'] as const
 
 const THEME_PRESETS: Record<string, { label: string; theme?: Readonly<Theme> }> = {
   default: { label: 'Default' },
@@ -125,6 +130,26 @@ const Card = styled('div', {
 const ButtonRow = styled('div', {
   stl: { display: 'flex', gap: '$12', flexWrap: 'wrap' },
   styleName: 'ButtonRow',
+})
+
+const Grid = styled('div', {
+  stl: { display: 'grid', gap: '$16', gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))' },
+  styleName: 'Grid',
+})
+
+const GridLabel = styled('span', {
+  stl: { fontSize: '$buttonTiny', color: '$tertiaryText3', textAlign: 'center' },
+  styleName: 'GridLabel',
+})
+
+const GridCell = styled('div', {
+  stl: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '$8' },
+  styleName: 'GridCell',
+})
+
+const StackY = styled('div', {
+  stl: { display: 'flex', flexDirection: 'column', gap: '$12' },
+  styleName: 'StackY',
 })
 
 // ─── Inner App (inside StlProvider) ──────────────────────────────────────────
@@ -230,6 +255,69 @@ function PlaygroundInner({
               ))}
             </ButtonRow>
           </Section>
+        </Card>
+
+        {/* ── Alert ── */}
+        <Card stl={{ mt: '$24' }}>
+          <SectionHeading>Alert</SectionHeading>
+          <StackY>
+            {ALERT_THEMES.map((theme) => (
+              <Alert.Root key={theme} theme={theme}>
+                <Alert.Title>{theme.charAt(0).toUpperCase() + theme.slice(1)} Alert</Alert.Title>
+                <Alert.Description>This is a {theme} alert message.</Alert.Description>
+              </Alert.Root>
+            ))}
+          </StackY>
+        </Card>
+
+        {/* ── Progress ── */}
+        <Card stl={{ mt: '$24' }}>
+          <SectionHeading>Progress</SectionHeading>
+          {PROGRESS_SIZES.map((size) => (
+            <Section key={size}>
+              <SectionTitle>{size}</SectionTitle>
+              <StackY>
+                <Progress value={25} size={size} aria-label={`${size} 25%`} />
+                <Progress value={50} size={size} aria-label={`${size} 50%`} />
+                <Progress value={75} size={size} aria-label={`${size} 75%`} />
+                <Progress value={100} size={size} aria-label={`${size} 100%`} />
+              </StackY>
+            </Section>
+          ))}
+        </Card>
+
+        {/* ── Loader ── */}
+        <Card stl={{ mt: '$24' }}>
+          <SectionHeading>Loader</SectionHeading>
+          <Grid>
+            {LOADER_VARIANTS.map((variant) =>
+              LOADER_SIZES.map((size) => (
+                <GridCell key={`${variant}-${size}`}>
+                  <Loader variant={variant} size={size} />
+                  <GridLabel>{variant}/{size}</GridLabel>
+                </GridCell>
+              )),
+            )}
+          </Grid>
+        </Card>
+
+        {/* ── Empty ── */}
+        <Card stl={{ mt: '$24' }}>
+          <SectionHeading>Empty</SectionHeading>
+          <Empty.Root>
+            <Empty.Media>
+              <svg width={48} height={48} viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 15H13V17H11V15ZM11 7H13V13H11V7Z" />
+              </svg>
+            </Empty.Media>
+            <Empty.Title>No results found</Empty.Title>
+            <Empty.Description>
+              Try adjusting your search or filters to find what you are looking for.
+            </Empty.Description>
+            <Empty.Action>
+              <Button theme="primary" variant="solid" size="sm">Reset filters</Button>
+            </Empty.Action>
+          </Empty.Root>
         </Card>
       </Main>
     </AppRoot>
