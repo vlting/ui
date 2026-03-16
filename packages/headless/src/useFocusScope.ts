@@ -20,7 +20,7 @@ export interface UseFocusScopeProps {
 
 export interface UseFocusScopeReturn {
   getScopeProps: () => {
-    ref: React.RefObject<HTMLElement>
+    ref: React.RefObject<HTMLElement | null>
     onKeyDown: (e: React.KeyboardEvent) => void
   }
 }
