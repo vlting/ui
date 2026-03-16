@@ -19,8 +19,8 @@ export interface UseListStateReturn<T> {
   getItemProps: (index: number) => {
     role: 'option'
     'aria-selected': boolean
-    onMouseEnter: () => void
-    onClick: () => void
+    onHoverIn: () => void
+    onPress: () => void
   }
   onKeyDown: (e: React.KeyboardEvent) => void
 }
@@ -82,8 +82,8 @@ export function useListState<T>(props: UseListStateProps<T>): UseListStateReturn
     (index: number) => ({
       role: 'option' as const,
       'aria-selected': index === highlightIndex,
-      onMouseEnter: () => setHighlightIndex(index),
-      onClick: () => {
+      onHoverIn: () => setHighlightIndex(index),
+      onPress: () => {
         const item = items[index]
         if (item !== undefined) {
           onSelect?.(item, index)

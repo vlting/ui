@@ -9,11 +9,21 @@ function ListFixture<T>(props: UseListStateProps<T>) {
   const { highlightIndex, getListProps, getItemProps } = useListState(props)
   return (
     <ul {...getListProps()} data-testid="list">
-      {props.items.map((item, i) => (
-        <li key={i} {...getItemProps(i)} data-testid={`item-${i}`}>
-          {String(item)}
-        </li>
-      ))}
+      {props.items.map((item, i) => {
+        const itemProps = getItemProps(i)
+        return (
+          <li
+            key={i}
+            role={itemProps.role}
+            aria-selected={itemProps['aria-selected']}
+            onClick={itemProps.onPress}
+            onMouseEnter={itemProps.onHoverIn}
+            data-testid={`item-${i}`}
+          >
+            {String(item)}
+          </li>
+        )
+      })}
       <span data-testid="highlight">{highlightIndex}</span>
     </ul>
   )
@@ -159,8 +169,8 @@ describe('useListState', () => {
       const props1 = result.current.getItemProps(1)
       expect(props0.role).toBe('option')
       expect(props0['aria-selected']).toBe(true)
-      expect(typeof props0.onMouseEnter).toBe('function')
-      expect(typeof props0.onClick).toBe('function')
+      expect(typeof props0.onHoverIn).toBe('function')
+      expect(typeof props0.onPress).toBe('function')
       expect(props1['aria-selected']).toBe(false)
     })
   })
