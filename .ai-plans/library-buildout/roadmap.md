@@ -4,8 +4,8 @@ status: in-progress
 scope: large
 created: 2026-03-15
 current_epic: 5
-current_stage: 2
-phase: execute
+current_stage: 3
+phase: breakdown
 ---
 # @vlting/ui Library Build-Out
 
@@ -55,12 +55,13 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Branch:** test/library-buildout/hook-testing-spec-coverage
 **Issue:** #202
 **Acceptance criteria:**
-- [ ] spec.md created for 8 hooks missing them (useDisclosure, useAutoplay, useContextMenu, useListState, usePopoverPosition, useSearch, useTabs, useToastQueue)
-- [ ] Tests written for all 9 hooks (8 new + useControllableState audit)
-- [ ] All hook tests passing
-- [ ] Hook API normalized to prop-getter pattern where needed (useSearch inputProps→getInputProps, useListState +getListProps)
-- [ ] ARIA gaps fixed (useDisclosure aria-controls, useContextMenu aria-haspopup, useListState roles, useTabs id+aria-controls+aria-labelledby)
-**Status:** in-progress
+- [x] spec.md created for 8 hooks (useDisclosure, useAutoplay, useContextMenu, useListState, usePopoverPosition, useSearch, useTabs, useToastQueue)
+- [x] Tests written for all 9 hooks (8 new + useControllableState audit) — 153 tests, 152 pass, 1 todo
+- [x] All hook tests passing
+- [x] Hook API normalized (useSearch getInputProps, useListState getListProps)
+- [x] ARIA gaps fixed (useDisclosure aria-controls, useContextMenu aria-haspopup, useListState roles, useTabs id+aria-controls+aria-labelledby)
+**PR:** #203
+**Status:** done
 
 ### Stage 5.3: react-aria Selective Integration
 **Branch prefix:** feat
