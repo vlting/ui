@@ -5,7 +5,8 @@ scope: large
 created: 2026-03-15
 current_epic: 6
 current_stage: 1
-phase: breakdown
+phase: execute
+epic_issue: 206
 ---
 # @vlting/ui Library Build-Out
 
@@ -90,16 +91,17 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 
 ### Stage 6.1: Feedback (Alert, Progress, Loader, Empty)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/feedback-components
+**Issue:** #208
 **Acceptance criteria:**
+- [ ] Alert: compound (Root/Title/Description/Icon), theme (primary/secondary/tertiary/success/warning/error/info), role mapping
+- [ ] Progress: value/max/size, track+indicator, role="progressbar", ARIA values
+- [ ] Loader: Spinner wrapper, variant (primary/min/max), size (sm/md/lg)
+- [ ] Empty: compound (Root/Media/Title/Description/Action), role="status", surface tokens
 - [ ] Specs audited/rewritten for each component
-- [ ] Alert: theme-axis (primary/secondary/neutral/destructive), variant (solid/subtle/outline)
-- [ ] Progress: theme-axis, value/max/indeterminate, aria-valuenow/aria-valuemax
-- [ ] Loader: neutral, size variants, $spin animation token
-- [ ] Empty: surface, compound (Media/Title/Description/Action)
 - [ ] Tests passing, removed from testPathIgnorePatterns
 - [ ] Playground pages for each
-- [ ] Native parity documented in specs
-**Status:** pending
+**Status:** in-progress
 
 ### Stage 6.2: Content (Card, Avatar, Badge, Item)
 **Branch prefix:** feat
