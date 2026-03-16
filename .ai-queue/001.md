@@ -1,0 +1,69 @@
+<!-- auto-queue -->
+<!-- target-branch: feat/library-buildout/react-aria-integration -->
+# Task: Infrastructure — react-aria packages + adapter module
+
+**Issue:** #204
+**Files:**
+- `packages/headless/package.json` (modify — add optionalDependencies)
+- `jest.config.js` (modify — transformIgnorePatterns)
+- `vite.config.ts` (modify — rollupOptions.external)
+- `packages/headless/src/_adapters/react-aria.ts` (new)
+
+## Context
+Stage 5.3 introduces two react-aria packages. They must be installed as optionalDependencies (not peer deps — headless stays zero-required-dep). Jest and Vite configs need updating to handle ESM react-aria modules. An adapter module centralizes all react-aria imports so no hook imports react-aria directly.
+
+## Implementation
+
+### 1. Install packages
+```bash
+cd packages/headless
+npm install --save-optional @react-aria/focus @react-aria/live-announcer
+```
+
+### 2. Update jest.config.js (line 85-87)
+Add `@react-aria` to transformIgnorePatterns whitelist:
+```javascript
+transformIgnorePatterns: [
+  'node_modules/(?!(react-native|@react-native|react-native-web|@tiptap|invariant|scheduler|@react-aria)/)',
+],
+```
+
+### 3. Update vite.config.ts (lines 11-20)
+Add `@react-aria` to rollupOptions.external:
+```typescript
+external: [
+  /^react/,
+  /^react-dom/,
+  /^react-native/,
+  /^@vlting\//,
+  /^@tanstack\//,
+  /^@react-aria\//,
+  /^expo-/,
+  'victory',
+],
+```
+
+### 4. Create adapter module
+Create `packages/headless/src/_adapters/react-aria.ts`:
+```typescript
+/**
+ * Centralized react-aria adapter.
+ * All react-aria imports go through here — no hook imports react-aria directly.
+ * This decouples our headless API from react-aria internals.
+ */
+
+// @react-aria/focus
+export { FocusScope } from '@react-aria/focus'
+export type { FocusScopeProps } from '@react-aria/focus'
+
+// @react-aria/live-announcer
+export { announce, clearAnnouncer, destroyAnnouncer } from '@react-aria/live-announcer'
+```
+
+## Acceptance Criteria
+- [ ] @react-aria/focus and @react-aria/live-announcer in optionalDependencies
+- [ ] jest.config.js transforms @react-aria packages
+- [ ] vite.config.ts externalizes @react-aria packages
+- [ ] `_adapters/react-aria.ts` exists and re-exports needed APIs
+- [ ] `npm install` from repo root succeeds
+- [ ] Existing tests still pass

@@ -15,6 +15,7 @@ export default defineConfig({
         /^react-native/,
         /^@vlting\//,
         /^@tanstack\//,
+        /^@react-aria\//,
         /^expo-/,
         'victory',
       ],

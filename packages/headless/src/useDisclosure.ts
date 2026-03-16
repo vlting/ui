@@ -11,7 +11,7 @@ export interface UseDisclosureReturn {
   onOpen: () => void
   onClose: () => void
   onToggle: () => void
-  getToggleProps: () => { onClick: () => void; 'aria-expanded': boolean }
+  getToggleProps: () => { onPress: () => void; 'aria-expanded': boolean; 'aria-controls': string }
   getContentProps: () => { hidden: boolean; id: string }
 }
 
@@ -39,10 +39,11 @@ export function useDisclosure(props: UseDisclosureProps = {}): UseDisclosureRetu
 
   const getToggleProps = useCallback(
     () => ({
-      onClick: onToggle,
+      onPress: onToggle,
       'aria-expanded': isOpen,
+      'aria-controls': contentId,
     }),
-    [onToggle, isOpen],
+    [onToggle, isOpen, contentId],
   )
 
   const getContentProps = useCallback(

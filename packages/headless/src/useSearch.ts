@@ -10,9 +10,10 @@ export interface UseSearchReturn<T> {
   query: string
   setQuery: (q: string) => void
   filtered: T[]
-  inputProps: {
+  getInputProps: () => {
     value: string
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
+    type: 'search'
   }
 }
 
@@ -29,13 +30,14 @@ export function useSearch<T>(props: UseSearchProps<T>): UseSearchReturn<T> {
     setQuery(e.target.value)
   }, [])
 
-  const inputProps = useMemo(
+  const getInputProps = useCallback(
     () => ({
       value: query,
       onChange,
+      type: 'search' as const,
     }),
     [query, onChange],
   )
 
-  return { query, setQuery, filtered, inputProps }
+  return { query, setQuery, filtered, getInputProps }
 }

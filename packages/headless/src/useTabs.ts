@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useId, useRef, useState } from 'react'
 
 export interface UseTabsProps {
   defaultValue?: string
@@ -13,12 +13,20 @@ export interface UseTabsReturn {
   getTabListProps: () => { role: 'tablist'; 'aria-orientation': string }
   getTabProps: (value: string) => {
     role: 'tab'
+    id: string
     'aria-selected': boolean
+    'aria-controls': string
     tabIndex: number
-    onClick: () => void
+    onPress: () => void
     onKeyDown: (e: React.KeyboardEvent) => void
   }
-  getTabPanelProps: (value: string) => { role: 'tabpanel'; hidden: boolean; tabIndex: 0 }
+  getTabPanelProps: (value: string) => {
+    role: 'tabpanel'
+    id: string
+    'aria-labelledby': string
+    hidden: boolean
+    tabIndex: 0
+  }
 }
 
 export function useTabs({
@@ -31,6 +39,7 @@ export function useTabs({
   const isControlled = value !== undefined
   const activeValue = isControlled ? value : internal
   const tabValuesRef = useRef<string[]>([])
+  const baseId = useId()
 
   const setActiveValue = useCallback(
     (v: string) => {
@@ -60,9 +69,11 @@ export function useTabs({
 
       return {
         role: 'tab' as const,
+        id: `${baseId}-tab-${tabValue}`,
         'aria-selected': activeValue === tabValue,
+        'aria-controls': `${baseId}-panel-${tabValue}`,
         tabIndex: activeValue === tabValue ? 0 : -1,
-        onClick: () => setActiveValue(tabValue),
+        onPress: () => setActiveValue(tabValue),
         onKeyDown: (e: React.KeyboardEvent) => {
           const tabs = tabValuesRef.current
           const idx = tabs.indexOf(tabValue)
@@ -89,16 +100,18 @@ export function useTabs({
         },
       }
     },
-    [activeValue, setActiveValue, orientation, registerTab],
+    [activeValue, setActiveValue, orientation, registerTab, baseId],
   )
 
   const getTabPanelProps = useCallback(
     (tabValue: string) => ({
       role: 'tabpanel' as const,
+      id: `${baseId}-panel-${tabValue}`,
+      'aria-labelledby': `${baseId}-tab-${tabValue}`,
       hidden: activeValue !== tabValue,
       tabIndex: 0 as const,
     }),
-    [activeValue],
+    [activeValue, baseId],
   )
 
   return { activeValue, setActiveValue, getTabListProps, getTabProps, getTabPanelProps }
