@@ -43,7 +43,6 @@ module.exports = {
     'packages/components/NavigationMenu/',
     'packages/components/Pagination/',
     'packages/components/Popover/',
-    'packages/components/Progress/',
     'packages/components/RadioGroup/',
     'packages/components/Resizable/',
     'packages/components/ScrollArea/',
