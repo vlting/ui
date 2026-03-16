@@ -21,5 +21,9 @@
   },
   "peerDependencies": {
     "react": ">=18"
+  },
+  "optionalDependencies": {
+    "@react-aria/focus": "^3",
+    "@react-aria/live-announcer": "^3"
   }
 }
