@@ -44,6 +44,7 @@ Provides a context menu primitive that opens at the cursor position on right-cli
 - Used by ContextMenu component.
 - Dependencies: React (`useState`, `useEffect`, `useCallback`). No external dependencies.
 - Document listeners are registered only when open and cleaned up on close or unmount.
+- **Naming exception:** `onContextMenu` is retained (not renamed to `onPress`) — it's inherently web-specific (right-click has no React Native equivalent).
 - **Anti-patterns:** Do not nest context menus. Do not use for non-context-menu patterns.
 
 ---

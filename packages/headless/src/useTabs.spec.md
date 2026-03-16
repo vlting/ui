@@ -24,7 +24,7 @@ Provides a complete tabs primitive: selection, keyboard nav (arrows, Home/End), 
 - **Keyboard navigation:** Orientation-aware arrow keys (`ArrowLeft`/`ArrowRight` for horizontal, `ArrowUp`/`ArrowDown` for vertical). `Home` goes to first tab, `End` goes to last. Always wraps around.
 - `onValueChange` is called when selection changes (both modes).
 - `getTabListProps()` returns `role="tablist"` and `aria-orientation`.
-- `getTabProps(value)` returns `role="tab"`, `aria-selected`, `tabIndex`, `onClick`, `onKeyDown`, `id`, `aria-controls`.
+- `getTabProps(value)` returns `role="tab"`, `aria-selected`, `tabIndex`, `onPress`, `onKeyDown`, `id`, `aria-controls`.
 - `getTabPanelProps(value)` returns `role="tabpanel"`, `hidden`, `tabIndex=0`, `id`, `aria-labelledby`.
 
 > **TypeScript is the source of truth for the API.** See `useTabs.ts` for the full typed signature.
@@ -48,6 +48,7 @@ Provides a complete tabs primitive: selection, keyboard nav (arrows, Home/End), 
 - Used by Tabs component.
 - Dependencies: React (`useState`, `useCallback`, `useRef`, `useId`). No external dependencies.
 - DX Note: `getTabProps` has hidden `registerTab` side effect — tab values must be registered via render for keyboard nav to work.
+- **Universal naming:** `onPress` (not `onClick`) — follows React Native conventions for cross-platform compatibility.
 - Tech debt: Hand-rolls controlled/uncontrolled — should compose `useControllableState`.
 
 ---
