@@ -5,7 +5,7 @@ scope: large
 created: 2026-03-15
 current_epic: 5
 current_stage: 3
-phase: breakdown
+phase: execute
 ---
 # @vlting/ui Library Build-Out
 
@@ -65,14 +65,21 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 
 ### Stage 5.3: react-aria Selective Integration
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/react-aria-integration
+**Issue:** #204
 **Acceptance criteria:**
-- [ ] @react-aria/interactions, @react-aria/focus, @react-aria/dialog, @react-aria/listbox, @react-aria/combobox, @react-aria/menu installed
-- [ ] Wrapper hooks in headless: useFocusScope, useTypeahead, useRovingTabIndex, useLiveRegion
-- [ ] Each wrapper returns prop-getter pattern (getXProps()), never exposes react-aria types
-- [ ] Universal naming enforced: onPress, onPressIn/Out, onHoverIn/Out
-- [ ] Headless barrel updated with new exports
+- [ ] @react-aria/focus and @react-aria/live-announcer installed as optionalDependencies
+- [ ] Adapter module (_adapters/react-aria.ts) centralizes all react-aria imports
+- [ ] jest.config.js + vite.config.ts updated for react-aria
+- [ ] useFocusScope: prop-getter focus containment, replaces @deprecated useFocusTrap (no react-aria)
+- [ ] useTypeahead: character buffer with prefix matching + getTypeaheadProps() (no react-aria)
+- [ ] useRovingTabIndex: DOM focus + tabIndex management with getContainerProps() + getItemProps() (no react-aria)
+- [ ] useLiveRegion: announce() + getLiveRegionProps() via @react-aria/live-announcer adapter
+- [ ] Universal naming: onClick→onPress, onMouseEnter→onHoverIn across all existing hooks
+- [ ] Headless barrel updated with 4 new exports, useKeyboardNavigation @deprecated
 - [ ] All new hooks have spec.md and tests
-**Status:** pending
+- [ ] All existing tests still pass after naming migration
+**Status:** in-progress
 
 ## Epic 6: Display Components
 **Objective:** Pure styled components — no hooks needed. Exercises token system broadly (colors, spacing, typography, borders, shadows)
