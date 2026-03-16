@@ -35,6 +35,14 @@ describe('useControllableState', () => {
       const { result } = renderHook(() => useControllableState({}))
       expect(result.current[0]).toBeUndefined()
     })
+
+    it('supports updater function in setValue', () => {
+      const { result } = renderHook(() => useControllableState({ defaultProp: 5 }))
+      act(() => {
+        result.current[1]((prev) => (prev as number) + 1)
+      })
+      expect(result.current[0]).toBe(6)
+    })
   })
 
   describe('controlled mode', () => {
@@ -74,6 +82,17 @@ describe('useControllableState', () => {
       rerender({ prop: 'b' })
       expect(result.current[0]).toBe('b')
     })
+
+    it('supports updater function in setValue', () => {
+      const onChange = jest.fn()
+      const { result } = renderHook(() =>
+        useControllableState({ prop: 10, onChange }),
+      )
+      act(() => {
+        result.current[1]((prev) => (prev as number) + 1)
+      })
+      expect(onChange).toHaveBeenCalledWith(11)
+    })
   })
 
   describe('edge cases', () => {
@@ -95,6 +114,21 @@ describe('useControllableState', () => {
         result.current[1](true)
       })
       expect(result.current[0]).toBe(true)
+    })
+
+    it('uses latest onChange via ref (stale closure prevention)', () => {
+      const onChange1 = jest.fn()
+      const onChange2 = jest.fn()
+      const { result, rerender } = renderHook(
+        ({ onChange }) => useControllableState({ defaultProp: 'a', onChange }),
+        { initialProps: { onChange: onChange1 } },
+      )
+      rerender({ onChange: onChange2 })
+      act(() => {
+        result.current[1]('b')
+      })
+      expect(onChange1).not.toHaveBeenCalled()
+      expect(onChange2).toHaveBeenCalledWith('b')
     })
   })
 })
