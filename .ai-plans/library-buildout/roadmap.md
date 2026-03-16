@@ -3,9 +3,9 @@ slug: library-buildout
 status: in-progress
 scope: large
 created: 2026-03-15
-current_epic: 5
-current_stage: 3
-phase: advance
+current_epic: 6
+current_stage: 1
+phase: breakdown
 ---
 # @vlting/ui Library Build-Out
 
@@ -33,7 +33,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Objective:** Establish the behavioral layer — test existing hooks, add missing ones, selective react-aria integration, universal naming convention
 **Dependencies:** none
 **Epic slug:** headless-foundation
-**Status:** pending
+**Status:** done
 
 ### Stage 5.1: Button Spec & Test Audit
 **Branch prefix:** chore
