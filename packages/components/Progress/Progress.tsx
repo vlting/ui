@@ -1,12 +1,12 @@
 import type { ComponentPropsWithRef } from 'react'
-import { styled, templateProps } from '../../stl-react/src/config'
+import { styled, props } from '../../stl-react/src/config'
 
 // ─── Internal ───────────────────────────────────────────────────────────────
 
 const ProgressIndicator = styled('div', {
   stl: {
     height: '100%',
-    borderRadius: '$10',
+    borderRadius: '$field',
     bg: '$primary9',
     transition: 'width 150ms ease',
     lowMotion: { transition: 'none' },
@@ -21,7 +21,7 @@ export const Progress = styled('div', {
     display: 'block',
     width: '100%',
     bg: '$borderColor',
-    borderRadius: '$10',
+    borderRadius: '$field',
     overflow: 'hidden',
   },
   variants: {
@@ -44,7 +44,7 @@ export const Progress = styled('div', {
       'aria-label': props['aria-label'] ?? 'Progress',
     }
   },
-  ...templateProps<{ value?: number; max?: number }>('value', 'max'),
+  ...props<{ value?: number; max?: number }>('value', 'max'),
   template: ({ value, max }) => {
     const pct = Math.min(100, ((value ?? 0) / (max ?? 100)) * 100)
     return <ProgressIndicator stl={{ width: `${pct}%` }} />

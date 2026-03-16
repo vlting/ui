@@ -17,7 +17,7 @@ export const Spinner = styled('span', {
     theme: {
       primary: { color: '$primary9' },
       secondary: { color: '$secondary9' },
-      neutralMin: { color: '$color8' },
+      neutralMin: { color: '$min' },
       neutralMax: { color: '$color12' },
     },
     size: {

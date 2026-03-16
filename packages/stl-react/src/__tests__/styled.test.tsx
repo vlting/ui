@@ -116,7 +116,7 @@ jest.mock('@vlting/stl', () => {
   }
 })
 
-import { styled } from '../config'
+import { styled, props } from '../config'
 
 describe('styled()', () => {
   it('creates a component from an HTML element string', () => {
@@ -202,5 +202,39 @@ describe('styled()', () => {
     const ref = { current: null } as React.RefObject<HTMLInputElement>
     render(<MyInput ref={ref} data-testid="input" />)
     expect(ref.current).toBe(screen.getByTestId('input'))
+  })
+
+  it('passes useHooks state to template and mapProps', () => {
+    const hookSpy = jest.fn(() => ({ count: 42 }))
+    const templateSpy = jest.fn(
+      ({ children }: any, state: { count: number }) => (
+        <span data-testid="count">{state.count}</span>
+      ),
+    )
+    const mapPropsSpy = jest.fn((p: any, state: { count: number }) => ({
+      ...p,
+      'data-count': state.count,
+    }))
+
+    const Comp = styled('div', {
+      stl: {},
+      styleName: 'HooksComp',
+      useHooks: hookSpy,
+      ...props<{ label?: string }>('label'),
+      template: templateSpy,
+      mapProps: mapPropsSpy,
+    })
+
+    render(<Comp>hello</Comp>)
+    expect(hookSpy).toHaveBeenCalled()
+    expect(templateSpy).toHaveBeenCalledWith(
+      expect.objectContaining({ children: 'hello' }),
+      { count: 42 },
+    )
+    expect(mapPropsSpy).toHaveBeenCalledWith(
+      expect.anything(),
+      { count: 42 },
+    )
+    expect(screen.getByTestId('count')).toHaveTextContent('42')
   })
 })

@@ -27,6 +27,7 @@ const VARIANTS = ['solid', 'outline', 'subtle', 'ghost', 'link'] as const
 const SIZES = ['xs', 'sm', 'md', 'lg', 'icon'] as const
 
 const ALERT_THEMES = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'error', 'info'] as const
+const ALERT_APPEARANCES = ['normal', 'subtle', 'borderless', 'high-contrast'] as const
 const PROGRESS_SIZES = ['sm', 'md', 'lg'] as const
 const LOADER_VARIANTS = ['primary', 'min', 'max'] as const
 const LOADER_SIZES = ['sm', 'md', 'lg'] as const
@@ -84,7 +85,7 @@ const NavSpacer = styled('div', {
 })
 
 const Main = styled('main', {
-  stl: { p: '$24', maxWidth: '1200px', mx: 'auto' },
+  stl: { p: '$24', maxWidth: '1400px', mx: 'auto' },
   styleName: 'Main',
 })
 
@@ -133,7 +134,7 @@ const ButtonRow = styled('div', {
 })
 
 const Grid = styled('div', {
-  stl: { display: 'grid', gap: '$16', gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))' },
+  stl: { display: 'grid', gap: '$16', gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))', alignItems: 'baseline' },
   styleName: 'Grid',
 })
 
@@ -143,13 +144,18 @@ const GridLabel = styled('span', {
 })
 
 const GridCell = styled('div', {
-  stl: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '$8' },
+  stl: { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', gap: '$8', height: '100%' },
   styleName: 'GridCell',
 })
 
 const StackY = styled('div', {
   stl: { display: 'flex', flexDirection: 'column', gap: '$12' },
   styleName: 'StackY',
+})
+
+const DarkStage = styled('div', {
+  stl: { bg: '$primary10', radius: '$field', p: '$24' },
+  styleName: 'DarkStage',
 })
 
 // ─── Inner App (inside StlProvider) ──────────────────────────────────────────
@@ -260,14 +266,21 @@ function PlaygroundInner({
         {/* ── Alert ── */}
         <Card stl={{ mt: '$24' }}>
           <SectionHeading>Alert</SectionHeading>
-          <StackY>
-            {ALERT_THEMES.map((theme) => (
-              <Alert.Root key={theme} theme={theme}>
-                <Alert.Title>{theme.charAt(0).toUpperCase() + theme.slice(1)} Alert</Alert.Title>
-                <Alert.Description>This is a {theme} alert message.</Alert.Description>
-              </Alert.Root>
+          <Grid stl={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: '$24', alignItems: 'start' }}>
+            {ALERT_APPEARANCES.map((appearance) => (
+              <Section key={appearance} stl={{ mb: '$0' }}>
+                <SectionTitle>{appearance}</SectionTitle>
+                <StackY>
+                  {ALERT_THEMES.map((theme) => (
+                    <Alert.Root key={theme} theme={theme} appearance={appearance}>
+                      <Alert.Title>{theme.charAt(0).toUpperCase() + theme.slice(1)}</Alert.Title>
+                      <Alert.Description>This is a {theme} alert — {appearance}.</Alert.Description>
+                    </Alert.Root>
+                  ))}
+                </StackY>
+              </Section>
             ))}
-          </StackY>
+          </Grid>
         </Card>
 
         {/* ── Progress ── */}
@@ -290,7 +303,7 @@ function PlaygroundInner({
         <Card stl={{ mt: '$24' }}>
           <SectionHeading>Loader</SectionHeading>
           <Grid>
-            {LOADER_VARIANTS.map((variant) =>
+            {(['primary', 'max'] as const).map((variant) =>
               LOADER_SIZES.map((size) => (
                 <GridCell key={`${variant}-${size}`}>
                   <Loader variant={variant} size={size} />
@@ -299,6 +312,16 @@ function PlaygroundInner({
               )),
             )}
           </Grid>
+          <DarkStage stl={{ mt: '$32' }}>
+            <Grid>
+              {LOADER_SIZES.map((size) => (
+                <GridCell key={`min-${size}`}>
+                  <Loader variant="min" size={size} />
+                  <GridLabel stl={{ color: '$primaryText10' }}>min/{size}</GridLabel>
+                </GridCell>
+              ))}
+            </Grid>
+          </DarkStage>
         </Card>
 
         {/* ── Empty ── */}

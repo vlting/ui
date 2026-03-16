@@ -1,6 +1,6 @@
 import type { ComponentPropsWithRef } from 'react'
 import { Spinner } from '../../stl-react/src/primitives/Spinner/Spinner'
-import { styled, templateProps } from '../../stl-react/src/config'
+import { styled, props } from '../../stl-react/src/config'
 
 const VARIANT_MAP = { primary: 'primary', min: 'neutralMin', max: 'neutralMax' } as const
 
@@ -22,7 +22,7 @@ export const Loader = styled('div', {
     role: 'status',
     'aria-label': props['aria-label'] ?? 'Loading',
   }),
-  ...templateProps<{ variant?: keyof typeof VARIANT_MAP; size?: 'sm' | 'md' | 'lg' }>('variant', 'size'),
+  ...props<{ variant?: keyof typeof VARIANT_MAP; size?: 'sm' | 'md' | 'lg' }>('variant', 'size'),
   template: ({ variant = 'primary', size = 'md' }) => (
     <Spinner theme={VARIANT_MAP[variant]} size={size} aria-hidden="true" />
   ),

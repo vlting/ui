@@ -61,7 +61,7 @@ Single-component API; no compound sub-components are exposed.
 
 ## 6. Styling
 
-- **Design tokens used:** Track uses `$borderColor` background; indicator uses `$primary9`. Size variant maps: `sm` = `$4`, `md` = `$8`, `lg` = `$12` height. Border radius `$10` (pill shape). Dynamic width via `stl={{ width }}` on indicator.
+- **Design tokens used:** Track uses `$borderColor` background; indicator uses `$primary9`. Size variant maps: `sm` = `$4`, `md` = `$8`, `lg` = `$12` height. Border radius `$field` (theme-responsive). Dynamic width via `stl={{ width }}` on indicator.
 - **Responsive behavior:** Full-width by default; size can be changed per breakpoint.
 - **Dark mode:** Token-based; resolves automatically.
 

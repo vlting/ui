@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { VisuallyHidden } from '../../stl-react/src/primitives/VisuallyHidden/VisuallyHidden'
 import { Spinner } from '../../stl-react/src/primitives/Spinner/Spinner'
-import { styled, templateProps, options } from '../../stl-react/src/config'
+import { styled, props, options } from '../../stl-react/src/config'
 
 const ButtonSpinner = styled('span', {
   stl: { position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'center' },
@@ -240,7 +240,7 @@ export const Button = styled('button', {
     'aria-busy': props.loading || undefined,
     onClick: (props.disabled ?? props.loading) ? undefined : props.onClick,
   }),
-  ...templateProps<{
+  ...props<{
     loading?: boolean
     prefix?: ReactNode
     suffix?: ReactNode
