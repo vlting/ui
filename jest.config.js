@@ -9,7 +9,6 @@ module.exports = {
     'packages/stl-native/',
     // Stubbed components — re-enable as each is rebuilt
     'packages/components/Accordion/',
-    'packages/components/Alert/',
     'packages/components/AlertDialog/',
     'packages/components/Avatar/',
     'packages/components/Breadcrumb/',
