@@ -15,7 +15,7 @@ export interface UseRovingTabIndexProps {
 
 export interface UseRovingTabIndexReturn {
   getContainerProps: () => {
-    ref: React.RefObject<HTMLElement>
+    ref: React.RefObject<HTMLElement | null>
     onKeyDown: (e: React.KeyboardEvent) => void
   }
   getItemProps: (index: number) => {
