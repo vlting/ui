@@ -8,7 +8,10 @@ export interface UseContextMenuReturn {
   isOpen: boolean
   position: { x: number; y: number }
   close: () => void
-  getTargetProps: () => { onContextMenu: (e: React.MouseEvent) => void }
+  getTargetProps: () => {
+    onContextMenu: (e: React.MouseEvent) => void
+    'aria-haspopup': 'menu'
+  }
 }
 
 export function useContextMenu({
@@ -53,6 +56,7 @@ export function useContextMenu({
         e.preventDefault()
         open(e.clientX, e.clientY)
       },
+      'aria-haspopup': 'menu' as const,
     }),
     [open],
   )
