@@ -20,15 +20,15 @@ export interface UseTypeaheadReturn {
 export function useTypeahead(props: UseTypeaheadProps): UseTypeaheadReturn {
   const { items, onMatch, timeout = 500 } = props
   const bufferRef = useRef('')
-  const timerRef = useRef<ReturnType<typeof setTimeout>>()
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const onMatchRef = useRef(onMatch)
   onMatchRef.current = onMatch
 
   const clearBuffer = useCallback(() => {
     bufferRef.current = ''
-    if (timerRef.current) {
+    if (timerRef.current !== null) {
       clearTimeout(timerRef.current)
-      timerRef.current = undefined
+      timerRef.current = null
     }
   }, [])
 
@@ -37,7 +37,7 @@ export function useTypeahead(props: UseTypeaheadProps): UseTypeaheadReturn {
       if (e.ctrlKey || e.metaKey || e.altKey || e.key.length !== 1) return
 
       // Clear previous timer
-      if (timerRef.current) {
+      if (timerRef.current !== null) {
         clearTimeout(timerRef.current)
       }
 
@@ -52,7 +52,7 @@ export function useTypeahead(props: UseTypeaheadProps): UseTypeaheadReturn {
       // Reset timer
       timerRef.current = setTimeout(() => {
         bufferRef.current = ''
-        timerRef.current = undefined
+        timerRef.current = null
       }, timeout)
     },
     [items, timeout],
