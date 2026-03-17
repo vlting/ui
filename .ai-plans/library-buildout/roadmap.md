@@ -126,6 +126,21 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Playground pages for each
 **Status:** pending
 
+### Stage 6.4: Token Infrastructure (Shadow & Layering)
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] `$buttonShadow` + `$buttonShadowHover` added to shadow scale (default `none`)
+- [ ] `ShadowScale` type extended with optional buttonShadow/buttonShadowHover
+- [ ] Theme presets wired with `none` defaults (zero visual change)
+- [ ] Button base stl uses `$buttonShadow`, `:interact` uses `$buttonShadowHover`, transition gated on `lowMotion`
+- [ ] Playground theme presets (Flat/Pro/Sharp) demonstrate shadow variations
+- [ ] Button.spec.md updated with shadow behavior
+- [ ] Background color scale: dark-mode steps 0-3 use non-inverted luminance progression (lighter = higher layer, matching light mode mental model). Only the `background` palette — primary/secondary/neutral/semantic scales unchanged.
+- [ ] Surface tokens (`surface1`, `surface2`, `surface3`) reflect corrected background layering
+- [ ] Visual verification: layered surfaces (Card on Dialog on page) look elevated in both modes
+- [ ] All existing tests still pass
+**Status:** pending
+
 ## Epic 7: Form Controls
 **Objective:** Interactive form elements — headless hooks required, exercises focus ring, error states, disabled pattern, size scale
 **Dependencies:** Epic 6
