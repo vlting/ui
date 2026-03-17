@@ -5,7 +5,7 @@ scope: large
 created: 2026-03-15
 current_epic: 6
 current_stage: 2
-phase: breakdown
+phase: execute
 epic_issue: 206
 ---
 # @vlting/ui Library Build-Out
@@ -106,14 +106,16 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 
 ### Stage 6.2: Content (Card, Avatar, Badge, Item)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/content-components
+**Issue:** #211
 **Acceptance criteria:**
-- [ ] Card: surface, compound (Header/Body/Footer), shadow tokens
-- [ ] Avatar: neutral, image with fallback, size scale
-- [ ] Badge: theme-axis, variant (solid/subtle/outline), size scale
-- [ ] Item: surface, compound (Leading/Title/Description/Trailing)
+- [ ] Card: article root, compound (Header/Content/Footer/Title/Description), size/elevated/interactive, semantic HTML
+- [ ] Avatar: dual API (single-prop + compound), size scale (32/40/56/72), image fallback, circular
+- [ ] Badge: 7 themes × 3 variants (solid/subtle/outline), size scale (net-new with spec)
+- [ ] Item: compound (Leading/Content/Title/Description/Trailing), size/interactive
 - [ ] Tests passing, removed from testPathIgnorePatterns
 - [ ] Playground pages for each
-**Status:** pending
+**Status:** in-progress
 
 ### Stage 6.3: Layout & Typography (Typography, Separator, ButtonGroup, Direction)
 **Branch prefix:** feat
