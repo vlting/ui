@@ -90,4 +90,42 @@ describe('Card', () => {
     )
     expect(screen.getByTestId('card')).toBeTruthy()
   })
+
+  it('renders each theme variant', () => {
+    const themes = ['primary', 'secondary', 'neutralMin', 'neutralMax'] as const
+    for (const theme of themes) {
+      const { unmount } = render(
+        <Card theme={theme} data-testid="card">
+          Card
+        </Card>,
+      )
+      expect(screen.getByTestId('card')).toBeTruthy()
+      unmount()
+    }
+  })
+
+  it('renders with raised variant', () => {
+    render(
+      <Card raised data-testid="card">
+        Raised
+      </Card>,
+    )
+    expect(screen.getByTestId('card')).toBeTruthy()
+  })
+
+  it('renders interactive with each theme', () => {
+    const themes = ['primary', 'secondary', 'neutralMin', 'neutralMax'] as const
+    for (const theme of themes) {
+      const { unmount } = render(
+        <Card interactive theme={theme} data-testid="card">
+          Interactive
+        </Card>,
+      )
+      const card = screen.getByTestId('card')
+      expect(card).toBeTruthy()
+      expect(card.getAttribute('role')).toBe('button')
+      expect(card.getAttribute('tabindex')).toBe('0')
+      unmount()
+    }
+  })
 })
