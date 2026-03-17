@@ -10,6 +10,7 @@ import type { CreateThemeOptions } from './generate-theme'
 export const THEME_PRESET_DEFAULT: CreateThemeOptions = {
   primary: { hue: 215, saturation: 100 },
   secondary: { hue: 300, saturation: 80 },
-  tertiary: { hue: 215, saturation: 0, isNeutral: true },
+  neutral: { hue: 215, saturation: 0, isNeutral: true },
+  background: { hue: 215, saturation: 0 },
   fonts: { body: 'inter', heading: 'montserrat', code: 'firaCode' },
 }

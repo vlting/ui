@@ -7,30 +7,32 @@ import { createTheme, type CreateThemeOptions } from '@vlting/stl'
 /**
  * Flat — Playful, expressive.
  *
- * Pinkish-purple primary, blue secondary, purple-tinted neutral tertiary.
+ * Pinkish-purple primary, complementary lime-green secondary.
+ * Neutral: auto-dampened purple, high contrast. Background: tinted purple chrome.
  * Flat hard-edge shadows, generous rounding.
  */
 export const THEME_PRESET_FLAT: CreateThemeOptions = {
-  primary: { hue: 290, saturation: 85 },
-  secondary: { hue: 215, saturation: 0, isNeutral: true, highContrast: true },
-  tertiary: { hue: 290, saturation: 50 },
+  primary: { hue: 290, saturation: 65 },
+  secondary: { saturation: 50 },
+  neutral: { hue: 290, highContrast: true },
+  background: { hue: 290, saturation: 25 },
   fontSize: { base: 18, h1: 50, h2: 34 },
   radius: { base: 6 },
   borderWidth: { none: 0, thin: 0, medium: 0, thick: 0 },
   shadows: {
     light: {
-      sm: { boxShadow: '2px 4px 0 hsla(290, 15%, 25%, 0.15)', color: 'hsla(290, 15%, 25%, 0.15)' },
-      md: { boxShadow: '3px 6px 0 hsla(290, 15%, 25%, 0.15)', color: 'hsla(290, 15%, 25%, 0.15)' },
-      lg: { boxShadow: '5px 10px 0 hsla(290, 15%, 25%, 0.15)', color: 'hsla(290, 15%, 25%, 0.15)' },
-      xl: { boxShadow: '7px 14px 0 hsla(290, 15%, 25%, 0.15)', color: 'hsla(290, 15%, 25%, 0.15)' },
-      '2xl': { boxShadow: '10px 20px 0 hsla(290, 15%, 25%, 0.15)', color: 'hsla(290, 15%, 25%, 0.15)' },
+      sm: { boxShadow: '0 4px 0 hsla(290, 15%, 25%, 0.09)', color: 'hsla(290, 15%, 25%, 0.09)' },
+      md: { boxShadow: '0 6px 0 hsla(290, 15%, 25%, 0.09)', color: 'hsla(290, 15%, 25%, 0.09)' },
+      lg: { boxShadow: '0 10px 0 hsla(290, 15%, 25%, 0.09)', color: 'hsla(290, 15%, 25%, 0.09)' },
+      xl: { boxShadow: '0 14px 0 hsla(290, 15%, 25%, 0.09)', color: 'hsla(290, 15%, 25%, 0.09)' },
+      '2xl': { boxShadow: '0 20px 0 hsla(290, 15%, 25%, 0.09)', color: 'hsla(290, 15%, 25%, 0.09)' },
     },
     dark: {
-      sm: { boxShadow: '2px 4px 0 hsla(290, 10%, 10%, 0.3)', color: 'hsla(290, 10%, 10%, 0.3)' },
-      md: { boxShadow: '3px 6px 0 hsla(290, 10%, 10%, 0.3)', color: 'hsla(290, 10%, 10%, 0.3)' },
-      lg: { boxShadow: '5px 10px 0 hsla(290, 10%, 10%, 0.3)', color: 'hsla(290, 10%, 10%, 0.3)' },
-      xl: { boxShadow: '7px 14px 0 hsla(290, 10%, 10%, 0.3)', color: 'hsla(290, 10%, 10%, 0.3)' },
-      '2xl': { boxShadow: '10px 20px 0 hsla(290, 10%, 10%, 0.3)', color: 'hsla(290, 10%, 10%, 0.3)' },
+      sm: { boxShadow: '0 4px 0 hsla(290, 10%, 10%, 0.18)', color: 'hsla(290, 10%, 10%, 0.18)' },
+      md: { boxShadow: '0 6px 0 hsla(290, 10%, 10%, 0.18)', color: 'hsla(290, 10%, 10%, 0.18)' },
+      lg: { boxShadow: '0 10px 0 hsla(290, 10%, 10%, 0.18)', color: 'hsla(290, 10%, 10%, 0.18)' },
+      xl: { boxShadow: '0 14px 0 hsla(290, 10%, 10%, 0.18)', color: 'hsla(290, 10%, 10%, 0.18)' },
+      '2xl': { boxShadow: '0 20px 0 hsla(290, 10%, 10%, 0.18)', color: 'hsla(290, 10%, 10%, 0.18)' },
     },
   },
   fonts: { heading: 'playfairDisplay', subheading: 'raleway', body: 'raleway', code: 'firaCode' },
@@ -39,13 +41,15 @@ export const THEME_PRESET_FLAT: CreateThemeOptions = {
 /**
  * Pro — Clean, professional.
  *
- * Black primary, blue secondary, true neutral tertiary.
+ * Black primary, blue secondary.
+ * Neutral: true achromatic. Background: true achromatic.
  * Slightly rounded, standard Tailwind-style shadows.
  */
 export const THEME_PRESET_PRO: CreateThemeOptions = {
   primary: { hue: 0, saturation: 0, isNeutral: true, highContrast: true },
   secondary: { hue: 215, saturation: 80 },
-  tertiary: { hue: 0, saturation: 0, isNeutral: true },
+  neutral: { hue: 0, saturation: 0, isNeutral: true },
+  background: { hue: 0, saturation: 0 },
   radius: { base: 8 },
   shadows: {
     light: {
@@ -69,13 +73,15 @@ export const THEME_PRESET_PRO: CreateThemeOptions = {
 /**
  * Sharp — Sophisticated, editorial.
  *
- * Teal primary, complementary secondary (auto), teal-tinted neutral tertiary.
+ * Teal primary, complementary secondary (auto).
+ * Neutral: auto-dampened teal. Background: barely tinted teal.
  * Zero radius everywhere.
  */
 export const THEME_PRESET_SHARP: CreateThemeOptions = {
   primary: { hue: 159, saturation: 90 },
   secondary: { saturation: 50 },
-  tertiary: { hue: 159, saturation: 5, isNeutral: true },
+  neutral: { hue: 159 },
+  background: { hue: 159, saturation: 5 },
   fontSize: { base: 17, h1: 56, h2: 38, h3: 25, h4: 25, h5: 21, h6: 18 },
   radius: { base: 0 },
   borderWidth: { none: 0, thin: 0.5, medium: 1, thick: 1.5 },
@@ -95,7 +101,7 @@ export const THEME_PRESET_SHARP: CreateThemeOptions = {
       '2xl': { boxShadow: '0 24px 64px rgba(0,0,0,0.32)', color: 'rgba(0,0,0,0.32)', offset: { width: 0, height: 24 }, radius: 64, opacity: 0.32 },
     },
   },
-  fonts: { heading: 'cormorantInfant', subheading: 'firaSans', body: 'firaSans', code: 'inconsolata' },
+  fonts: { heading: 'ebGaramond', subheading: 'firaSans', body: 'firaSans', code: 'inconsolata' },
 }
 
 // ---------------------------------------------------------------------------

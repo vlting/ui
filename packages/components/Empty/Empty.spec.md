@@ -22,11 +22,11 @@
 
 ## 3. Anatomy
 
-- **Empty** (Root) — Centered flex container with `role="status"` for assistive technology.
-- **Empty.Media** — Slot for icon or illustration (muted opacity, centered).
-- **Empty.Title** — Heading text (`<h3>` via `styledHtml`), centered.
-- **Empty.Description** — Body text (muted color, max-width 400px for readability), centered.
-- **Empty.Action** — Slot for CTA button or custom action content.
+- **Empty** (Root) — `<section>` with `role="status"`. Centered flex container for assistive technology.
+- **Empty.Media** — `<figure>`. Slot for icon or illustration (muted opacity, centered).
+- **Empty.Title** — `<h3>`. Heading text, centered.
+- **Empty.Description** — `<p>`. Body text (muted color, max-width 400px for readability), centered.
+- **Empty.Action** — `<footer>`. Slot for CTA button or custom action content.
 
 > **TypeScript is the source of truth for props.** See the exported types in `Empty.tsx` for the full typed API.
 
@@ -51,7 +51,7 @@
 
 ## 5. Accessibility
 
-- **Semantic element:** Root renders `role="status"` so screen readers announce the empty state. Title renders `<h3>`.
+- **Semantic element:** Root renders `<section role="status">` so screen readers announce the empty state. Media renders `<figure>`. Title renders `<h3>`. Action renders `<footer>`.
 - **ARIA attributes:** `role="status"` on Root.
 - **Focus management:** Standard tab order for any interactive children.
 - **Screen reader announcements:** The `role="status"` landmark ensures the empty state content is announced.
@@ -60,7 +60,7 @@
 
 ## 6. Styling
 
-- **Design tokens used:** `$color` for title text; `$colorSubtitle` for description text; `$body` font family. Spacing uses fixed pixel values from token-equivalent sizes.
+- **Design tokens used:** `$color` for title text; `$neutralText4` for description text; `$body` font family. Spacing uses token values (`$12`, `$24`).
 - **Responsive behavior:** Max-width 400px on Description ensures readability on wide containers. Content is always center-aligned.
 - **Dark mode:** Token-based; resolves automatically.
 
@@ -86,5 +86,5 @@
 ## 9. Test Requirements
 
 - **Behavioral tests:** All sub-components render; Title and Description display text; Media and Action render children.
-- **Accessibility tests:** `role="status"` on Root; `<h3>` for Title.
+- **Accessibility tests:** `role="status"` on Root; `<section>` for Root; `<figure>` for Media; `<h3>` for Title; `<footer>` for Action.
 - **Visual regression:** Full empty state with all sub-components, minimal (title-only), with action button.

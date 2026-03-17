@@ -16,7 +16,7 @@ const StyledButton = styled('button', { stl: {
   transition: 'color 150ms, background 150ms',
   ':hover': {
     color: '$color',
-    background: '$tertiary2',
+    background: '$background2',
   },
 }})
 

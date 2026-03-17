@@ -317,9 +317,9 @@ function buildColorTokens(
   // Add special color tokens
   tokens.$shadowBase = '0 0% 0%'
   tokens.$shadowBlack = 'hsl(0,0%,0%)'
-  tokens.$defaultBody = tokens.$tertiaryText2 || tokens.$tertiary11 || '#333333'
-  tokens.$defaultHeading = tokens.$tertiary10 || '#111111'
-  tokens.$panel = isDark ? tokens.$tertiary3 || '#2a2a2a' : tokens.$min || '#ffffff'
+  tokens.$defaultBody = tokens.$neutralText2 || tokens.$neutral11 || '#333333'
+  tokens.$defaultHeading = tokens.$neutral10 || '#111111'
+  tokens.$panel = isDark ? tokens.$background3 || '#2a2a2a' : tokens.$min || '#ffffff'
   tokens.$shadowLight = isDark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.05)'
   tokens.$shadowHeavy = isDark ? 'rgba(0,0,0,0.35)' : 'rgba(0,0,0,0.15)'
   tokens.$shadowHeaviest = isDark ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.25)'

@@ -87,7 +87,9 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Objective:** Pure styled components — no hooks needed. Exercises token system broadly (colors, spacing, typography, borders, shadows)
 **Dependencies:** Epic 5
 **Epic slug:** display-components
-**Status:** pending
+**Epic branch:** epic/display-components
+**Epic issue:** #206
+**Status:** in-progress
 
 ### Stage 6.1: Feedback (Alert, Progress, Loader, Empty)
 **Branch prefix:** feat

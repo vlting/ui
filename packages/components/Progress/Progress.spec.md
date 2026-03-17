@@ -22,8 +22,8 @@
 
 ## 3. Anatomy
 
-- **Progress** (Root) — Track container wrapping STL's Progress primitive.
-- **Progress.Indicator** — Internal fill bar (rendered by STL, not directly exposed).
+- **Progress** (Root) — Track container with custom `styled()` implementation.
+- **ProgressIndicator** — Internal fill bar (not exported, rendered via template).
 
 Single-component API; no compound sub-components are exposed.
 
@@ -45,14 +45,14 @@ Single-component API; no compound sub-components are exposed.
 
 ### Motion
 
-- STL Progress.Indicator may animate width changes.
-- Should respect `prefers-reduced-motion`.
+- Indicator animates width changes (150ms ease transition).
+- Respects `prefers-reduced-motion` via STL `lowMotion` — disables transition.
 
 ---
 
 ## 5. Accessibility
 
-- **Semantic element:** STL Progress renders with `role="progressbar"` semantics.
+- **Semantic element:** Renders `div` with `role="progressbar"` via `mapProps`.
 - **ARIA attributes:** `aria-valuenow` (current value), `aria-valuemin` (0), `aria-valuemax` (max), `aria-label` (consumer-provided).
 - **Focus management:** Not focusable — purely informational.
 - **Screen reader announcements:** Value communicated via ARIA value attributes.
@@ -61,7 +61,7 @@ Single-component API; no compound sub-components are exposed.
 
 ## 6. Styling
 
-- **Design tokens used:** Track uses `$borderColor` background; indicator uses `$color` (theme foreground). Size variant maps: `sm` = `$1`, `md` = `$2`, `lg` = `$3` height. Border radius `$10` (pill shape).
+- **Design tokens used:** Track uses `$borderColor` background; indicator uses `$primary9`. Size variant maps: `sm` = `$4`, `md` = `$8`, `lg` = `$12` height. Border radius `$field` (theme-responsive). Dynamic width via `stl={{ width }}` on indicator.
 - **Responsive behavior:** Full-width by default; size can be changed per breakpoint.
 - **Dark mode:** Token-based; resolves automatically.
 

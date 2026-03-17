@@ -160,8 +160,9 @@ const vars = themeToVars(theme, 'light')
         <CodeBlock
           code={`interface CreateThemeOptions {
   primary: ColorInput              // { hue: 0-360, saturation?: 0-100 }
-  secondary?: SecondaryColorInput  // auto-derived if omitted (complementary)
-  tertiary?: SecondaryColorInput   // auto-derived if omitted (analogous)
+  secondary?: PaletteColorInput    // auto-derived if omitted (complementary)
+  neutral?: PaletteColorInput      // component internals: borders, text
+  background?: PaletteColorInput   // app chrome: page bg, cards, nav, surfaces
   tokens?: Theme['tokens']         // override size, space, radius, etc.
   shadows?: Theme['shadows']       // override shadow scales
   fonts?: Theme['fonts']           // override font families

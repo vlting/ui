@@ -44,7 +44,7 @@ Default: `{ theme: 'primary', variant: 'solid', size: 'md' }`.
 All colors use the `$colorN` + `$colorTextN` pairing pattern (global to `@vlting/ui`, not Button-specific). Theme→token mapping:
 - `primary` → `$primary*`
 - `secondary` → `$secondary*`
-- `neutral` → `$tertiary*`
+- `neutral` → `$neutral*`
 - `destructive` → `$error*`
 
 Compound variant step mapping:
@@ -108,7 +108,7 @@ When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner>` and `<Visua
 
 ## 6. Styling
 
-- **Color tokens:** `$primaryN`, `$primaryTextN`, `$secondaryN`, `$secondaryTextN`, `$tertiaryN`, `$tertiaryTextN`, `$errorN`, `$errorTextN` (N = palette step).
+- **Color tokens:** `$primaryN`, `$primaryTextN`, `$secondaryN`, `$secondaryTextN`, `$neutralN`, `$neutralTextN`, `$errorN`, `$errorTextN` (N = palette step).
 - **Font:** `$body` family, `$500` weight.
 - **Font sizes:** Scale with size variant (`$buttonTiny`, `$buttonSmall`, `$button`, `$buttonLarge`).
 - **Focus:** `$outlineColor` for ring, `$widthBase` width, `$offsetDefault` offset.

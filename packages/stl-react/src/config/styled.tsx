@@ -28,8 +28,8 @@ export function options<T extends string>(
 type TemplatePropKeys<P> = (keyof P & string)[] & { _p?: P }
 
 /** Identity helper — validates template prop keys against P */
-export function templateProps<P extends {}>(...keys: (keyof P & string)[]) {
-  return { templateProps: keys as TemplatePropKeys<P> }
+export function props<P extends {}>(...keys: (keyof P & string)[]) {
+  return { props: keys as TemplatePropKeys<P> }
 }
 
 // ─── Options API ──────────────────────────────────────────────────────────────
@@ -53,14 +53,16 @@ export interface StyledOptions<
   V extends Variants | undefined = undefined,
   P extends {} = {},
   M extends Record<string, any> = Partial<AllProps<C, V, P>>,
+  S = undefined,
 > {
   stl: STL
   variants?: V
   compoundVariants?: V extends Variants ? CompoundVariant<V>[] : never[]
   defaultVariants?: V extends Variants ? DefaultVariants<V> : never
-  templateProps?: TemplatePropKeys<P>
-  template?: (props: AllProps<C, V, P>) => ReactNode
-  mapProps?: (props: AllProps<C, V, P>) => M
+  props?: TemplatePropKeys<P>
+  useHooks?: (props: AllProps<C, V, P>) => S
+  template?: (props: AllProps<C, V, P>, state: S) => ReactNode
+  mapProps?: (props: AllProps<C, V, P>, state: S) => M
   styleName?: string
 }
 
@@ -71,15 +73,17 @@ export function styled<
   C extends ComponentType = ComponentType,
   V extends Variants | undefined = undefined,
   const M extends Record<string, any> = Partial<AllProps<C, V, P>>,
->(component: C, opts: StyledOptions<C, V, P, M>): StyledComponent<C, V, P> {
+  S = undefined,
+>(component: C, opts: StyledOptions<C, V, P, M, S>): StyledComponent<C, V, P> {
   const baseStl = opts.stl
   const variantsArg: Variants | undefined = opts.variants
   const styleName: string | undefined = opts.styleName
   const defaultVariants: Record<string, any> | undefined = opts.defaultVariants
-  const template: ((props: any) => ReactNode) | undefined = opts.template
-  const templatePropKeys: string[] = (opts.templateProps ?? []) as string[]
+  const template: ((props: any, state: any) => ReactNode) | undefined = opts.template
+  const templatePropKeys: string[] = (opts.props ?? []) as string[]
   const compoundVariantsArg: CompoundVariant<any>[] | undefined = opts.compoundVariants
-  const mapPropsTransform = opts.mapProps as ((props: any) => Partial<AllProps<C, V, P>>) | undefined
+  const mapPropsTransform = opts.mapProps as ((props: any, state: any) => Partial<AllProps<C, V, P>>) | undefined
+  const useHooksTransform = opts.useHooks as ((props: any) => any) | undefined
 
   const hasVariants = !!variantsArg
   const variantsDefinition = hasVariants ? variantsArg : undefined
@@ -89,6 +93,7 @@ export function styled<
   const hasTemplatePropKeys = templatePropKeys.length > 0
   const hasCompoundVariants = !!compoundVariantsArg && compoundVariantsArg.length > 0
   const hasMapProps = !!mapPropsTransform
+  const hasUseHooks = !!useHooksTransform
 
   function styledComponent<T extends ComponentType, R>(
     props: HTMLAttributes<any> &
@@ -106,7 +111,8 @@ export function styled<
       StylelessComponentProps<any> & { as?: ComponentType } & BaseStyledProps<any>,
     ref?: ForwardedRef<R>,
   ) {
-    const props = hasMapProps ? mapPropsTransform!(rawProps) : rawProps
+    const state = hasUseHooks ? useHooksTransform!(rawProps) : undefined
+    const props = hasMapProps ? mapPropsTransform!(rawProps, state) : rawProps
     const conditions = useConditions()
     const {
       as: polyAs,
@@ -178,7 +184,7 @@ export function styled<
 
     // Render children: template replaces children if provided
     const renderedChildren = hasTemplate
-      ? template!({ children, ...extraProps })
+      ? template!({ children, ...extraProps }, state)
       : children
 
     return (

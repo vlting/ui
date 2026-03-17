@@ -30,7 +30,7 @@ const Thead = styled('thead', { stl: {} })
 
 const TheadRow = styled('tr', { stl: {
   borderBottom: '$thin $borderColor',
-  background: '$tertiary1',
+  background: '$background1',
 }})
 
 const Th = styled('th', { stl: {

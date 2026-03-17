@@ -6,7 +6,7 @@ import { createTheme as _createTheme } from './generate-theme'
 import { THEME_PRESET_DEFAULT as _DEFAULT } from './presets'
 
 export { createTheme, applyTheme, getTheme } from './generate-theme'
-export type { ColorInput, CreateThemeOptions, SecondaryColorInput } from './generate-theme'
+export type { ColorInput, CreateThemeOptions, PaletteColorInput } from './generate-theme'
 export { THEME_PRESET_DEFAULT } from './presets'
 
 // ---------------------------------------------------------------------------

@@ -453,7 +453,7 @@ const TitleBar = styled('div', { stl: {
   px: '$2.5',
   py: '$1',
   borderBottom: '$thin $borderColor',
-  background: '$tertiary1',
+  background: '$background1',
 }})
 
 const TitleText = styled('span', { stl: {
@@ -470,7 +470,7 @@ const GridLayout = styled('div', { stl: {
 const ControlsPanel = styled('div', { stl: {
   padding: '$2.5',
   borderBottom: '$thin $borderColor',
-  background: '$tertiary1',
+  background: '$background1',
   gtMd: {
     borderBottom: 'none',
     borderRight: '$thin $borderColor',
@@ -541,7 +541,7 @@ const PreviewArea = styled('div', { stl: {
 const CodeSection = styled('div', { stl: {
   borderTop: '$thin $borderColor',
   padding: '$2.5',
-  background: '$tertiary1',
+  background: '$background1',
 }})
 
 const CodePre = styled('pre', { stl: {

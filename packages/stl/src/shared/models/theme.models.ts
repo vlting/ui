@@ -162,6 +162,8 @@ export enum HeadingFontFamily {
   lora = 'Lora',
   arvo = 'Arvo',
   cormorantInfant = 'Cormorant Infant',
+  cormorantGaramond = 'Cormorant Garamond',
+  ebGaramond = 'EB Garamond',
   playfairDisplay = 'Playfair Display',
   // Sans serif
   montserrat = 'Montserrat',
@@ -354,6 +356,22 @@ export const headingFonts: Record<
     fallbackKey: 'systemSerif',
     weights: [400, 500, 600, 700],
     italicWeights: [400, 500, 600, 700],
+  },
+  cormorantGaramond: {
+    source: FontSource.google,
+    family: HeadingFontFamily.cormorantGaramond,
+    fallback: SystemFontFamily.serif,
+    fallbackKey: 'systemSerif',
+    weights: [300, 400, 500, 600, 700],
+    italicWeights: [300, 400, 500, 600, 700],
+  },
+  ebGaramond: {
+    source: FontSource.google,
+    family: HeadingFontFamily.ebGaramond,
+    fallback: SystemFontFamily.serif,
+    fallbackKey: 'systemSerif',
+    weights: [400, 500, 600, 700, 800],
+    italicWeights: [400, 500, 600, 700, 800],
   },
   playfairDisplay: {
     source: FontSource.google,

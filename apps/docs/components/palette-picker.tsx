@@ -45,7 +45,7 @@ const Header = styled('div', { stl: {
   px: '$2.5',
   py: '$1.5',
   borderBottom: '$thin $borderColor',
-  background: '$tertiary1',
+  background: '$background1',
 }})
 
 const HeaderText = styled('span', { stl: {
@@ -82,7 +82,7 @@ const ModeToggleGroup = styled('div', { stl: {
   display: 'flex',
   gap: 4,
   padding: 4,
-  background: '$tertiary2',
+  background: '$background2',
   borderRadius: '$4',
 }})
 
@@ -156,7 +156,7 @@ const LegendSwatch = styled('div', { stl: {
 
 const CodeSection = styled('div', { stl: {
   padding: '$2.5',
-  background: '$tertiary1',
+  background: '$background1',
 }})
 
 const CodePre = styled('pre', { stl: {

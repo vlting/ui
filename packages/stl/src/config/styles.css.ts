@@ -235,7 +235,7 @@ globalStyle('html, body', {
 })
 globalStyle('html', { fontSize: '6.25%' })
 globalStyle('body', {
-  background: color.vars.tertiary2.ref,
+  background: color.vars.background2.ref,
   color: color.vars.defaultBody.ref,
   fontSize: '16em',
   fontWeight: fontWeight.vars.p.ref,
@@ -268,7 +268,7 @@ globalStyle('*', {
   boxSizing: 'border-box',
 })
 globalStyle('*::placeholder', {
-  color: color.vars[getTextColor(CoreColorName.tertiary, 9)].ref,
+  color: color.vars[getTextColor(CoreColorName.neutral, 9)].ref,
 })
 globalStyle('body, a, p, li, strong, em, b, i, button', {
   fontFamily: fontFamily.vars.body.ref,
@@ -330,8 +330,8 @@ globalStyle('li > a, nav a, button a, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a', {
   boxShadow: 'none',
 })
 globalStyle('blockquote, pre', {
-  background: color.vars.tertiary3.ref,
-  color: color.vars[getTextColor(CoreColorName.tertiary, 3)].ref,
+  background: color.vars.background3.ref,
+  color: color.vars[getTextColor(CoreColorName.background, 3)].ref,
   marginInline: 0,
   paddingInline: space.vars[32].ref,
   paddingBlock: space.vars[20].ref,

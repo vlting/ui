@@ -17,13 +17,16 @@ export const Spinner = styled('span', {
     theme: {
       primary: { color: '$primary9' },
       secondary: { color: '$secondary9' },
-      neutralMin: { color: '$color8' },
+      neutralMin: { color: '$min' },
       neutralMax: { color: '$color12' },
+      min: { color: '$min' },
+      max: { color: '$color12' },
     },
     size: {
       sm: { width: '$16', height: '$16' },
       md: { width: '$20', height: '$20' },
       lg: { width: '$28', height: '$28' },
+      xl: { width: '$40', height: '$40' },
     },
   },
   defaultVariants: {
@@ -33,7 +36,7 @@ export const Spinner = styled('span', {
   mapProps: (props) => ({
     ...props,
     role: 'status',
-    'aria-label': 'Loading',
+    'aria-label': props['aria-label'] ?? 'Loading',
   }),
   template: () => (
     <svg

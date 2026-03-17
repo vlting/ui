@@ -25,7 +25,7 @@ const TOKEN_SCALE_KEYS = ['fontSize', 'size', 'space', 'radius', 'zIndex', 'bord
  * so runtime theme changes are reflected immediately via the cascade.
  *
  * Handles:
- * - Palettes → primary1..12, secondary1..12, tertiary1..12
+ * - Palettes → primary1..12, secondary1..12, neutral1..12, background1..12
  * - Token overrides → radius, zIndex (scales with matching key semantics)
  * - Shadows → sm, md, lg, xl, 2xl
  * - Fonts → heading, body, mono

@@ -123,7 +123,8 @@ function generatePalette(mode: ColorMode): ColorPalette<string> {
 const COLOR_FAMILIES: ScaleColorName[] = [
   CoreColorName.primary,
   CoreColorName.secondary,
-  CoreColorName.tertiary,
+  CoreColorName.neutral,
+  CoreColorName.background,
   StatusColorName.info,
   StatusColorName.success,
   StatusColorName.warning,
