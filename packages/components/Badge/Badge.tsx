@@ -10,7 +10,7 @@ export const Badge = styled('span', {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: '9999',
+    radius: '$full',
     fontFamily: '$body',
     fontWeight: '$500',
     lineHeight: '1',

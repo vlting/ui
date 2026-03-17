@@ -10,7 +10,6 @@ module.exports = {
     // Stubbed components — re-enable as each is rebuilt
     'packages/components/Accordion/',
     'packages/components/AlertDialog/',
-    'packages/components/Avatar/',
     'packages/components/Breadcrumb/',
     'packages/components/ButtonGroup/',
     'packages/components/Calendar/',
@@ -33,7 +32,6 @@ module.exports = {
     'packages/components/Input/',
     'packages/components/InputGroup/',
     'packages/components/InputOTP/',
-    'packages/components/Item/',
     'packages/components/Menu/',
     'packages/components/Menubar/',
     'packages/components/NativeSelect/',
