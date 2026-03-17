@@ -18,6 +18,12 @@ const CardFrame = styled(
     backgroundColor: '$surface1',
   },
   {
+    theme: {
+      primary: {},
+      secondary: {},
+      neutralMin: {},
+      neutralMax: {},
+    },
     size: {
       sm: { padding: 8 },
       md: { padding: 0 },
@@ -31,6 +37,15 @@ const CardFrame = styled(
         shadowOpacity: 0.08,
         shadowRadius: 3,
         elevation: 2,
+      },
+    },
+    raised: {
+      true: {
+        shadowColor: '#000',
+        shadowOffset: 4,
+        shadowOpacity: 0.15,
+        shadowRadius: 12,
+        elevation: 8,
       },
     },
   },
@@ -190,14 +205,16 @@ function CardDescription({
 
 export interface CardProps {
   children?: React.ReactNode
+  theme?: 'primary' | 'secondary' | 'neutralMin' | 'neutralMax'
   size?: 'sm' | 'md' | 'lg'
   elevated?: boolean
+  raised?: boolean
   style?: ViewStyle
 }
 
-function CardRoot({ children, size = 'md', elevated, style, ...props }: CardProps) {
+function CardRoot({ children, theme = 'neutralMin', size = 'md', elevated, raised, style, ...props }: CardProps) {
   return (
-    <CardFrame size={size} elevated={elevated || undefined} style={style} {...props}>
+    <CardFrame theme={theme} size={size} elevated={elevated || undefined} raised={raised || undefined} style={style} {...props}>
       {children}
     </CardFrame>
   )
