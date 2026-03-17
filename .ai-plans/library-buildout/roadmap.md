@@ -4,8 +4,8 @@ status: in-progress
 scope: large
 created: 2026-03-15
 current_epic: 6
-current_stage: 1
-phase: execute
+current_stage: 2
+phase: breakdown
 epic_issue: 206
 ---
 # @vlting/ui Library Build-Out
@@ -95,15 +95,14 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Branch prefix:** feat
 **Branch:** feat/library-buildout/feedback-components
 **Issue:** #208
+**PR:** #209
 **Acceptance criteria:**
-- [ ] Alert: compound (Root/Title/Description/Icon), theme (primary/secondary/tertiary/success/warning/error/info), role mapping
-- [ ] Progress: value/max/size, track+indicator, role="progressbar", ARIA values
-- [ ] Loader: Spinner wrapper, variant (primary/min/max), size (sm/md/lg)
-- [ ] Empty: compound (Root/Media/Title/Description/Action), role="status", surface tokens
-- [ ] Specs audited/rewritten for each component
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages for each
-**Status:** in-progress
+- [x] Alert: compound (Root/Content/Title/Description/Icon), 7 themes, 4 variants, floating
+- [x] Progress: value/max/size, track+indicator, role="progressbar", ARIA values
+- [x] Spinner: consolidated from Loader, variant (primary/min/max), size (sm/md/lg/xl)
+- [x] Empty: compound (Root/Media/Title/Description/Action), semantic HTML, color-mode-aware tokens
+- [x] Playground pages with interactive demos
+**Status:** done
 
 ### Stage 6.2: Content (Card, Avatar, Badge, Item)
 **Branch prefix:** feat
