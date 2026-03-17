@@ -26,11 +26,7 @@ export const Button = styled('button', {
     fontWeight: '$500',
     cursor: 'pointer',
     outline: 'none',
-    ':focus': {
-      outlineWidth: '$widthBase',
-      outlineStyle: 'solid',
-      outlineOffset: '$offsetDefault',
-    },
+    ':focus': { outlineOffset: '$offsetDefault' },
     ':pressed': { transform: 'scale(0.98)' },
     lowMotion: {
       transition: 'none',
@@ -81,8 +77,8 @@ export const Button = styled('button', {
     {
       when: { theme: 'primary', variant: 'outline' },
       stl: {
-        bg: 'transparent', border: '$primary', color: '$primaryText1',
-        ':interact': { bg: '$primary9', color: '$primaryText9', borderColor: '$primary' },
+        bg: 'transparent', border: '$primary9', color: '$primaryText1',
+        ':interact': { bg: '$primary9', color: '$primaryText9', borderColor: '$primary9' },
         ':focus': { outline: '$primary' },
       },
     },
@@ -123,8 +119,8 @@ export const Button = styled('button', {
     {
       when: { theme: 'secondary', variant: 'outline' },
       stl: {
-        bg: 'transparent', border: '$secondary', color: '$secondaryText1',
-        ':interact': { bg: '$secondary9', color: '$secondaryText9', borderColor: '$secondary' },
+        bg: 'transparent', border: '$secondary9', color: '$secondaryText1',
+        ':interact': { bg: '$secondary9', color: '$secondaryText9', borderColor: '$secondary9' },
         ':focus': { outline: '$secondary' },
       },
     },
@@ -165,8 +161,8 @@ export const Button = styled('button', {
     {
       when: { theme: 'neutral', variant: 'outline' },
       stl: {
-        bg: 'transparent', border: '$neutral', color: '$neutralText1',
-        ':interact': { bg: '$neutral9', color: '$neutralText9', borderColor: '$neutral' },
+        bg: 'transparent', border: '$neutral9', color: '$neutralText1',
+        ':interact': { bg: '$neutral9', color: '$neutralText9', borderColor: '$neutral9' },
         ':focus': { outline: '$neutral' },
       },
     },
@@ -207,8 +203,8 @@ export const Button = styled('button', {
     {
       when: { theme: 'destructive', variant: 'outline' },
       stl: {
-        bg: 'transparent', border: '$error', color: '$errorText1',
-        ':interact': { bg: '$error9', color: '$errorText9', borderColor: '$error' },
+        bg: 'transparent', border: '$error9', color: '$errorText1',
+        ':interact': { bg: '$error9', color: '$errorText9', borderColor: '$error9' },
         ':focus': { outline: '$error' },
       },
     },
