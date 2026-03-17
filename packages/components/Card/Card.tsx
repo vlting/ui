@@ -5,26 +5,23 @@ import { styled, options } from '../../stl-react/src/config'
 
 const CardRoot = styled('article', {
   stl: {
-    border: '$borderColor',
-    borderWidth: '$widthMin',
     borderRadius: '$4',
     overflow: 'hidden',
     fontFamily: '$body',
-    bg: '$color1',
+    bg: '$background1',
     ':focus': { outlineOffset: '$offsetDefault' },
   },
   variants: {
-    theme: options('primary', 'secondary', 'neutralMin', 'neutralMax'),
+    theme: options('primary', 'secondary', 'neutral'),
     size: {
       sm: { p: '$8' },
       md: { p: '$16' },
       lg: { p: '$20' },
     },
-    elevated: {
-      true: { borderWidth: '0', boxShadow: '$md' },
-    },
-    raised: {
-      true: { boxShadow: '$xl' },
+    elevation: {
+      flat: { border: '$borderColor', borderWidth: '$widthMin' },
+      normal: { boxShadow: '$md' },
+      raised: { boxShadow: '$xl' },
     },
     interactive: {
       true: {
@@ -38,22 +35,17 @@ const CardRoot = styled('article', {
     },
   },
   compoundVariants: [
-    // ── neutralMin × interactive ─────────────────────────
+    // ── flat × theme borders ─────────────────────────────
+    { when: { elevation: 'flat', theme: 'neutral' }, stl: { border: '$neutral5', borderWidth: '$widthMin' } },
+    { when: { elevation: 'flat', theme: 'primary' }, stl: { border: '$primary5', borderWidth: '$widthMin' } },
+    { when: { elevation: 'flat', theme: 'secondary' }, stl: { border: '$secondary5', borderWidth: '$widthMin' } },
+    // ── neutral × interactive ────────────────────────────
     {
-      when: { theme: 'neutralMin', interactive: 'true' },
+      when: { theme: 'neutral', interactive: 'true' },
       stl: {
         ':interact': { bg: '$neutral3' },
         ':pressed': { bg: '$neutral4' },
         ':focus': { outline: '$neutral' },
-      },
-    },
-    // ── neutralMax × interactive ─────────────────────────
-    {
-      when: { theme: 'neutralMax', interactive: 'true' },
-      stl: {
-        ':interact': { bg: '$neutral5' },
-        ':pressed': { bg: '$neutral6' },
-        ':focus': { outline: '$neutralMax' },
       },
     },
     // ── primary × interactive ────────────────────────────
@@ -75,7 +67,7 @@ const CardRoot = styled('article', {
       },
     },
   ],
-  defaultVariants: { size: 'md', theme: 'neutralMin' },
+  defaultVariants: { size: 'md', elevation: 'normal', theme: 'neutral' },
   mapProps: (props) => ({
     ...props,
     ...(props.interactive && { role: 'button', tabIndex: 0 }),
