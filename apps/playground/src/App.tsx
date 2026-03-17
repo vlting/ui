@@ -1,7 +1,9 @@
 import type { Theme } from '@vlting/stl'
 import { defaultTheme } from '@vlting/stl'
 import { Spinner, styled, useColorMode } from '@vlting/stl-react'
-import { Alert, Button, Empty, Progress, StlProvider } from '@vlting/ui'
+import {
+  Alert, Avatar, Badge, Button, Card as UiCard, Empty, Item, Progress, StlProvider,
+} from '@vlting/ui'
 import { useEffect, useMemo, useState } from 'react'
 
 import { flatTheme, proTheme, sharpTheme } from '../../../config/themes'
@@ -141,14 +143,14 @@ const SectionTitle = styled('h3', {
   styleName: 'SectionTitle',
 })
 
-const Card = styled('div', {
+const DemoCard = styled('div', {
   stl: {
     bg: '$background2',
     radius: '$24',
     p: '$48',
     boxShadow: '$lg'
   },
-  styleName: 'Card',
+  styleName: 'DemoCard',
 })
 
 const ButtonRow = styled('div', {
@@ -244,7 +246,7 @@ function PlaygroundInner({
 
       {/* ── Main ── */}
       <Main>
-        <Card>
+        <DemoCard>
           {/* Themes */}
           <SectionHeading>Theme</SectionHeading>
           {THEMES.map((theme) => (
@@ -292,10 +294,10 @@ function PlaygroundInner({
               ))}
             </ButtonRow>
           </Section>
-        </Card>
+        </DemoCard>
 
         {/* ── Alert ── */}
-        <Card stl={{ mt: '$24' }}>
+        <DemoCard stl={{ mt: '$24' }}>
           <SectionHeading>Alert</SectionHeading>
           <ButtonRow stl={{ mb: '$16' }}>
             {ALERT_VARIANTS.map((v) => (
@@ -339,20 +341,20 @@ function PlaygroundInner({
               )
             })}
           </StackY>
-        </Card>
+        </DemoCard>
 
         {/* ── Progress ── */}
-        <Card stl={{ mt: '$24' }}>
+        <DemoCard stl={{ mt: '$24' }}>
           <SectionHeading>Progress</SectionHeading>
           <StackY>
             {PROGRESS_SIZES.map((size) => (
               <Progress key={size} value={progress} size={size} aria-label={`${size} ${progress}%`} />
             ))}
           </StackY>
-        </Card>
+        </DemoCard>
 
         {/* ── Spinner ── */}
-        <Card stl={{ mt: '$24' }}>
+        <DemoCard stl={{ mt: '$24' }}>
           <SectionHeading>Spinner</SectionHeading>
           <StackY stl={{ gap: '$16' }}>
             {/* Row 1: primary | secondary */}
@@ -406,10 +408,10 @@ function PlaygroundInner({
               </DarkStage>
             </ButtonRow>
           </StackY>
-        </Card>
+        </DemoCard>
 
         {/* ── Empty ── */}
-        <Card stl={{ mt: '$24' }}>
+        <DemoCard stl={{ mt: '$24' }}>
           <SectionHeading>Empty</SectionHeading>
           <Empty.Root>
             <Empty.Media>
@@ -425,7 +427,111 @@ function PlaygroundInner({
               <Button theme="primary" variant="solid" size="sm">Reset filters</Button>
             </Empty.Action>
           </Empty.Root>
-        </Card>
+        </DemoCard>
+
+        {/* ── Card ── */}
+        <DemoCard stl={{ mt: '$24' }}>
+          <SectionHeading>Card</SectionHeading>
+          <StackY>
+            <UiCard>
+              <UiCard.Header>
+                <UiCard.Title>Card Title</UiCard.Title>
+                <UiCard.Description>Card description text</UiCard.Description>
+              </UiCard.Header>
+              <UiCard.Content>
+                <p style={{ margin: 0 }}>Card content goes here.</p>
+              </UiCard.Content>
+              <UiCard.Footer>
+                <Button size="sm">Action</Button>
+              </UiCard.Footer>
+            </UiCard>
+            <SectionTitle>Elevated</SectionTitle>
+            <UiCard elevated>
+              <UiCard.Header><UiCard.Title>Elevated Card</UiCard.Title></UiCard.Header>
+              <UiCard.Content><p style={{ margin: 0 }}>Shadow instead of border.</p></UiCard.Content>
+            </UiCard>
+            <SectionTitle>Interactive</SectionTitle>
+            <UiCard interactive onPress={() => {}}>
+              <UiCard.Content><p style={{ margin: 0 }}>Click me</p></UiCard.Content>
+            </UiCard>
+            <SectionTitle>Sizes</SectionTitle>
+            {(['sm', 'md', 'lg'] as const).map(size => (
+              <UiCard key={size} size={size}>
+                <UiCard.Content><p style={{ margin: 0 }}>Size: {size}</p></UiCard.Content>
+              </UiCard>
+            ))}
+          </StackY>
+        </DemoCard>
+
+        {/* ── Avatar ── */}
+        <DemoCard stl={{ mt: '$24' }}>
+          <SectionHeading>Avatar</SectionHeading>
+          <SectionTitle>Sizes</SectionTitle>
+          <ButtonRow stl={{ alignItems: 'center' }}>
+            {(['sm', 'md', 'lg', 'xl'] as const).map(size => (
+              <Avatar key={size} size={size} fallback="JD" />
+            ))}
+          </ButtonRow>
+        </DemoCard>
+
+        {/* ── Badge ── */}
+        <DemoCard stl={{ mt: '$24' }}>
+          <SectionHeading>Badge</SectionHeading>
+          <StackY>
+            <SectionTitle>Solid</SectionTitle>
+            <ButtonRow>
+              {(['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info'] as const).map(theme => (
+                <Badge key={theme} theme={theme} variant="solid">{theme}</Badge>
+              ))}
+            </ButtonRow>
+            <SectionTitle>Subtle</SectionTitle>
+            <ButtonRow>
+              {(['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info'] as const).map(theme => (
+                <Badge key={theme} theme={theme} variant="subtle">{theme}</Badge>
+              ))}
+            </ButtonRow>
+            <SectionTitle>Outline</SectionTitle>
+            <ButtonRow>
+              {(['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info'] as const).map(theme => (
+                <Badge key={theme} theme={theme} variant="outline">{theme}</Badge>
+              ))}
+            </ButtonRow>
+            <SectionTitle>Sizes</SectionTitle>
+            <ButtonRow stl={{ alignItems: 'center' }}>
+              {(['sm', 'md', 'lg'] as const).map(size => (
+                <Badge key={size} size={size}>size: {size}</Badge>
+              ))}
+            </ButtonRow>
+          </StackY>
+        </DemoCard>
+
+        {/* ── Item ── */}
+        <DemoCard stl={{ mt: '$24' }}>
+          <SectionHeading>Item</SectionHeading>
+          <StackY>
+            <Item>
+              <Item.Leading>📄</Item.Leading>
+              <Item.Content>
+                <Item.Title>Item title</Item.Title>
+                <Item.Description>Description text here</Item.Description>
+              </Item.Content>
+              <Item.Trailing>→</Item.Trailing>
+            </Item>
+            <SectionTitle>Interactive</SectionTitle>
+            <Item interactive>
+              <Item.Content>
+                <Item.Title>Clickable item</Item.Title>
+                <Item.Description>With hover and focus states</Item.Description>
+              </Item.Content>
+            </Item>
+            <SectionTitle>Sizes</SectionTitle>
+            {(['sm', 'md', 'lg'] as const).map(size => (
+              <Item key={size} size={size}>
+                <Item.Content><Item.Title>Size: {size}</Item.Title></Item.Content>
+              </Item>
+            ))}
+          </StackY>
+        </DemoCard>
       </Main>
     </AppRoot>
   )
