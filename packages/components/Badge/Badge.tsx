@@ -46,7 +46,7 @@ export const Badge = styled('span', {
   compoundVariants: Object.entries(variantStyles).flatMap(([v, fn]) =>
     themes.map(t => ({ when: { variant: v as 'solid' | 'subtle' | 'outline', theme: t }, stl: fn(t) }))
   ),
-  defaultVariants: { theme: 'neutral', variant: 'solid', size: 'md' },
+  defaultVariants: { theme: 'neutral', variant: 'subtle', size: 'md' },
   styleName: 'Badge',
 })
 

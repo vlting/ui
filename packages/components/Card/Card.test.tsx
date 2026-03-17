@@ -73,6 +73,19 @@ describe('Card', () => {
     }
   })
 
+  it('renders each elevation variant', () => {
+    const elevations = ['flat', 'normal', 'raised'] as const
+    for (const elevation of elevations) {
+      const { unmount } = render(
+        <Card elevation={elevation} data-testid="card">
+          Card
+        </Card>,
+      )
+      expect(screen.getByTestId('card')).toBeTruthy()
+      unmount()
+    }
+  })
+
   it('renders with interactive variant', () => {
     render(
       <Card interactive data-testid="card">
@@ -82,17 +95,8 @@ describe('Card', () => {
     expect(screen.getByTestId('card')).toBeTruthy()
   })
 
-  it('renders with flat variant', () => {
-    render(
-      <Card variant="flat" data-testid="card">
-        Border
-      </Card>,
-    )
-    expect(screen.getByTestId('card')).toBeTruthy()
-  })
-
   it('renders each theme variant', () => {
-    const themes = ['primary', 'secondary', 'neutralMin', 'neutralMax'] as const
+    const themes = ['primary', 'secondary', 'neutral'] as const
     for (const theme of themes) {
       const { unmount } = render(
         <Card theme={theme} data-testid="card">
@@ -104,17 +108,8 @@ describe('Card', () => {
     }
   })
 
-  it('renders with raised variant', () => {
-    render(
-      <Card raised data-testid="card">
-        Raised
-      </Card>,
-    )
-    expect(screen.getByTestId('card')).toBeTruthy()
-  })
-
   it('renders interactive with each theme', () => {
-    const themes = ['primary', 'secondary', 'neutralMin', 'neutralMax'] as const
+    const themes = ['primary', 'secondary', 'neutral'] as const
     for (const theme of themes) {
       const { unmount } = render(
         <Card interactive theme={theme} data-testid="card">
