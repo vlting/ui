@@ -1,5 +1,5 @@
 import type { ComponentPropsWithRef } from 'react'
-import { styled } from '../../stl-react/src/config'
+import { styled, options } from '../../stl-react/src/config'
 
 // ─── Card ───────────────────────────────────────────────────────────────────
 
@@ -11,8 +11,10 @@ const CardRoot = styled('article', {
     overflow: 'hidden',
     fontFamily: '$body',
     bg: '$color1',
+    ':focus': { outlineOffset: '$offsetDefault' },
   },
   variants: {
+    theme: options('primary', 'secondary', 'neutralMin', 'neutralMax'),
     size: {
       sm: { p: '$8' },
       md: { p: '$16' },
@@ -21,17 +23,13 @@ const CardRoot = styled('article', {
     elevated: {
       true: { borderWidth: '0', boxShadow: '$md' },
     },
+    raised: {
+      true: { boxShadow: '$xl' },
+    },
     interactive: {
       true: {
         cursor: 'pointer',
-        ':interact': { bg: '$color3' },
-        ':pressed': { bg: '$color4', transform: 'scale(0.98)' },
-        ':focus': {
-          outlineWidth: '2px',
-          outlineStyle: 'solid',
-          outlineColor: '$outlineColor',
-          outlineOffset: '2px',
-        },
+        ':pressed': { transform: 'scale(0.98)' },
         lowMotion: {
           transition: 'none',
           ':pressed': { transform: 'none' },
@@ -39,7 +37,45 @@ const CardRoot = styled('article', {
       },
     },
   },
-  defaultVariants: { size: 'md' },
+  compoundVariants: [
+    // ── neutralMin × interactive ─────────────────────────
+    {
+      when: { theme: 'neutralMin', interactive: 'true' },
+      stl: {
+        ':interact': { bg: '$neutral3' },
+        ':pressed': { bg: '$neutral4' },
+        ':focus': { outline: '$neutral' },
+      },
+    },
+    // ── neutralMax × interactive ─────────────────────────
+    {
+      when: { theme: 'neutralMax', interactive: 'true' },
+      stl: {
+        ':interact': { bg: '$neutral5' },
+        ':pressed': { bg: '$neutral6' },
+        ':focus': { outline: '$neutralMax' },
+      },
+    },
+    // ── primary × interactive ────────────────────────────
+    {
+      when: { theme: 'primary', interactive: 'true' },
+      stl: {
+        ':interact': { bg: '$primary3' },
+        ':pressed': { bg: '$primary4' },
+        ':focus': { outline: '$primary' },
+      },
+    },
+    // ── secondary × interactive ──────────────────────────
+    {
+      when: { theme: 'secondary', interactive: 'true' },
+      stl: {
+        ':interact': { bg: '$secondary3' },
+        ':pressed': { bg: '$secondary4' },
+        ':focus': { outline: '$secondary' },
+      },
+    },
+  ],
+  defaultVariants: { size: 'md', theme: 'neutralMin' },
   mapProps: (props) => ({
     ...props,
     ...(props.interactive && { role: 'button', tabIndex: 0 }),

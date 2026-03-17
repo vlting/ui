@@ -25,7 +25,7 @@
 
 Card is a compound component created via `withStaticProperties`. It extends `STL` `CardFrame` with custom variants. Sub-components stack vertically inside the root:
 
-- **Card (root)** — A styled `STLCardFrame` with border, radius, overflow hidden, and variants for `size`, `elevated`, and `interactive`. When `interactive` is `true`, the root gains `cursor: pointer`, `tabIndex: 0`, `role: "button"`, hover/press/focus styles, and `animation: 'fast'`.
+- **Card (root)** — A styled `article` with border, radius, overflow hidden, and variants for `theme`, `size`, `elevated`, `raised`, and `interactive`. When `interactive` is `true`, the root gains `cursor: pointer`, `tabIndex: 0`, `role: "button"`, and theme-specific hover/press/focus styles.
 - **Card.Header** — A `styled(YStack)` for top-aligned content. Provides horizontal padding, top padding, and a gap between children.
 - **Card.Content** — A `styled(YStack)` for the main body. Uses `flex: 1` to fill available space and clips overflow.
 - **Card.Footer** — A `styled(YStack)` for bottom-aligned content. Provides horizontal and bottom padding.
@@ -41,10 +41,11 @@ Card is a compound component created via `withStaticProperties`. It extends `STL
 ### States
 
 - **Idle** — Renders with `$borderColor` border (1px), `borderRadius: '$4'`, and `overflow: 'hidden'`. Background comes from the STL Card theme defaults.
-- **Hover** (interactive only) — Background shifts to `$backgroundHover`.
-- **Active/Press** (interactive only) — Background shifts to `$backgroundPress` with `scale: 0.99`, animated with the `fast` token.
-- **Focus** (interactive only) — Visible 2px solid outline with `$outlineColor` and 2px offset.
-- **Elevated** — Border is removed (`borderWidth: 0`). Intended for cards styled with shadow elevation.
+- **Hover** (interactive only) — Background shifts to theme-specific hover token (e.g., `$neutral3` for neutralMin, `$primary3` for primary).
+- **Active/Press** (interactive only) — Background shifts to theme-specific press token (e.g., `$neutral4` for neutralMin) with `scale(0.98)`.
+- **Focus** (interactive only) — Visible outline ring using the outline scale shorthand (e.g., `outline: '$neutral'` for neutralMin, `outline: '$primary'` for primary). Uses `$offsetDefault` offset.
+- **Elevated** — Border is removed (`borderWidth: 0`), shadow `$md` applied.
+- **Raised** — Larger shadow (`$xl`) for higher Z-axis appearance. Can combine with `elevated`.
 - **Disabled** — Not applicable. Card does not have a disabled state.
 - **Loading/Error** — Not applicable. Card is a layout container.
 
@@ -72,11 +73,13 @@ Card is a compound component created via `withStaticProperties`. It extends `STL
 ## 6. Styling
 
 - **Design tokens used:**
-  - Colors: `$borderColor`, `$backgroundHover`, `$backgroundPress`, `$outlineColor`, `$colorSubtitle`.
-  - Font: `$heading` family for Title, `$body` family for Description.
-  - Spacing: `$4` horizontal padding in Header/Content/Footer, `$2`-`$4` vertical padding, `$1` gap in Header.
+  - Colors: `$borderColor`, `$color1` (background). Interactive states use theme-specific tokens: `$neutral3`/`$neutral4` (neutralMin), `$neutral5`/`$neutral6` (neutralMax), `$primary3`/`$primary4` (primary), `$secondary3`/`$secondary4` (secondary).
+  - Outline: Theme-specific outline scale tokens (`$neutral`, `$neutralMax`, `$primary`, `$secondary`) with `$offsetDefault` offset.
+  - Shadow: `$md` (elevated), `$xl` (raised).
+  - Font: `$body` family for body text, `$neutralText3` for Title, `$neutralText4` for Description.
+  - Spacing: `$16` padding in Header/Content/Footer, `$4` gap in Header.
   - Radius: `$4` on the root frame.
-  - Size variant controls outer padding: `sm` = `$2`, `md`/`lg` = `$0`.
+  - Size variant controls outer padding: `sm` = `$8`, `md` = `$16`, `lg` = `$20`.
 - **Responsive behavior:** Accepts STL media query props. The card does not enforce its own width; it fills its parent container. Consumers control responsive width and layout.
 - **Reduced motion:** Interactive press scale animation must degrade gracefully when `prefers-reduced-motion: reduce` is active.
 - **Dark mode:** All visual tokens must resolve correctly in both light and dark themes. The card border, background, and text must remain legible and maintain contrast in both modes. No hardcoded values are used.
@@ -97,10 +100,10 @@ Card is a compound component created via `withStaticProperties`. It extends `STL
 
 ## 8. Breaking Change Criteria
 
-- Removing any variant (`size`, `elevated`, `interactive`) from the root frame.
+- Removing any variant (`theme`, `size`, `elevated`, `raised`, `interactive`) from the root frame.
 - Removing any sub-component (`Card.Header`, `Card.Content`, `Card.Footer`, `Card.Title`, `Card.Description`).
 - Changing the variant value sets (e.g., removing `'lg'` from `size`).
-- Changing default variant values (currently `size: 'md'`).
+- Changing default variant values (currently `size: 'md'`, `theme: 'neutralMin'`).
 - Removing `overflow: 'hidden'` from the root frame.
 - Changing the root from `STLCardFrame`-based to a different layout primitive.
 - Changing the `CardProps` export type.
@@ -115,6 +118,9 @@ Card is a compound component created via `withStaticProperties`. It extends `STL
   - `elevated` variant removes the border.
   - `interactive` variant adds cursor pointer, hover, press, and focus styles.
   - Non-interactive variant does not respond to hover or press.
+  - Each `theme` variant (`primary`, `secondary`, `neutralMin`, `neutralMax`) renders without error.
+  - `raised` variant renders without error.
+  - Interactive + theme compound variant renders correctly.
   - All sub-components (`Header`, `Content`, `Footer`, `Title`, `Description`) render without errors.
   - `Card.Title` renders an `<h3>` element wrapping the styled text.
 - **Accessibility tests:**
@@ -122,6 +128,6 @@ Card is a compound component created via `withStaticProperties`. It extends `STL
   - When `interactive` is applied, `role="button"` and `tabIndex={0}` are set.
   - Text contrast within title and description meets AA ratios against the card background.
 - **Visual regression:**
-  - Default, elevated, and interactive states.
-  - Each size variant.
-  - Interactive hover and press states.
+  - Default, elevated, raised, and interactive states.
+  - Each size variant and theme variant.
+  - Interactive hover and press states per theme.
