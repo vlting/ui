@@ -154,7 +154,8 @@ export enum StaticColorName {
 export enum CoreColorName {
   primary = 'primary',
   secondary = 'secondary',
-  tertiary = 'tertiary',
+  neutral = 'neutral',
+  background = 'background',
 }
 
 export enum StatusColorName {
@@ -191,7 +192,8 @@ export enum AccentColorName {
 export enum AlphaColorName {
   primaryAlpha = 'primaryAlpha',
   secondaryAlpha = 'secondaryAlpha',
-  tertiaryAlpha = 'tertiaryAlpha',
+  neutralAlpha = 'neutralAlpha',
+  backgroundAlpha = 'backgroundAlpha',
   maxAlpha = 'maxAlpha',
   minAlpha = 'minAlpha',
 }
@@ -206,6 +208,7 @@ type ColorObject = {
   hue: number
   saturation?: number
   isNeutral?: boolean
+  isTinted?: boolean
 }
 
 /** Source color can either be a hue, or a hue + saturation object */
@@ -276,51 +279,32 @@ function getColorPalettes(
   const splitSecondaryVariant = shiftHue(hue, 210)
 
   // PALETTE 1: Pure Tetrad
+  const secHue1 = isTealish ? triadSecondaryVariant : tetradSecondary
   colors.push({
     primary: { hue, saturation: saturations[0] },
-    secondary: {
-      hue: isTealish ? triadSecondaryVariant : tetradSecondary,
-      saturation: saturations[1],
-    },
-    tertiary: {
-      hue: isTealish ? triadSecondaryVariant : tetradSecondary,
-      saturation: saturations[2],
-      isNeutral: true,
-    },
+    secondary: { hue: secHue1, saturation: saturations[1] },
+    neutral: { hue: secHue1, saturation: saturations[2], isNeutral: true },
+    background: { hue: secHue1, saturation: saturations[2] },
   } as SemanticColors)
   // PALETTE 2: Pure Triad
+  const secHue2 = isGreenish || isRedToned ? triadSecondary : tetradSecondaryVariant
   colors.push({
     primary: { hue, saturation: saturations[0] },
-    secondary: {
-      hue: isGreenish || isRedToned ? triadSecondary : tetradSecondaryVariant,
-      saturation: saturations[1],
-    },
-    tertiary: {
-      hue: isGreenish || isRedToned ? triadSecondary : tetradSecondaryVariant,
-      saturation: saturations[2],
-      isNeutral: true,
-    },
+    secondary: { hue: secHue2, saturation: saturations[1] },
+    neutral: { hue: secHue2, saturation: saturations[2], isNeutral: true },
+    background: { hue: secHue2, saturation: saturations[2] },
   } as SemanticColors)
   // PALETTE 3: Pure Split Complements
+  const secHue3 = isYellowish
+    ? splitSecondaryVariant
+    : isRedToned
+      ? triadSecondaryVariant
+      : splitSecondary
   colors.push({
     primary: { hue, saturation: saturations[0] },
-    secondary: {
-      hue: isYellowish
-        ? splitSecondaryVariant
-        : isRedToned
-          ? triadSecondaryVariant
-          : splitSecondary,
-      saturation: saturations[1],
-    },
-    tertiary: {
-      hue: isYellowish
-        ? splitSecondaryVariant
-        : isRedToned
-          ? triadSecondaryVariant
-          : splitSecondary,
-      saturation: saturations[2],
-      isNeutral: true,
-    },
+    secondary: { hue: secHue3, saturation: saturations[1] },
+    neutral: { hue: secHue3, saturation: saturations[2], isNeutral: true },
+    background: { hue: secHue3, saturation: saturations[2] },
   } as SemanticColors)
 
   return colors as [SemanticColors, SemanticColors, SemanticColors]

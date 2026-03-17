@@ -25,7 +25,7 @@ Compound component with custom styled sub-components:
 - `Alert.Description` — body text (`p`).
 - `Alert.Icon` — optional leading icon (`span`).
 
-Props: `theme: 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'error' | 'info'` (default `'primary'`).
+Props: `theme: 'primary' | 'secondary' | 'neutral' | 'success' | 'warning' | 'error' | 'info'` (default `'primary'`).
 
 No variant axis (no solid/subtle/outline). Single visual style per theme: tinted background + matching border + appropriate text color.
 

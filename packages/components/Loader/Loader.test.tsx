@@ -1,13 +1,13 @@
 import { render, screen } from '../../../src/__test-utils__/render'
 import { Loader } from './Loader'
 
-describe('Loader', () => {
+describe('Loader (deprecated)', () => {
   it('renders without crashing', () => {
     expect(() => render(<Loader />)).not.toThrow()
   })
 
   it('has role="status"', () => {
-    render(<Loader data-testid="loader" />)
+    render(<Loader />)
     expect(screen.getByRole('status')).toBeTruthy()
   })
 
@@ -42,5 +42,11 @@ describe('Loader', () => {
   it('renders Spinner internally (SVG present)', () => {
     const { container } = render(<Loader />)
     expect(container.querySelector('svg')).toBeTruthy()
+  })
+
+  it('does not produce double role="status"', () => {
+    const { container } = render(<Loader />)
+    const statusEls = container.querySelectorAll('[role="status"]')
+    expect(statusEls.length).toBe(1)
   })
 })

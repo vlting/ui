@@ -149,41 +149,41 @@ export const Button = styled('button', {
     {
       when: { theme: 'neutral', variant: 'solid' },
       stl: {
-        bg: '$tertiary9', color: '$tertiaryText9',
-        ':interact': { bg: '$tertiary10', color: '$tertiaryText10' },
-        ':focus': { outline: '$tertiaryMax' },
+        bg: '$neutral9', color: '$neutralText9',
+        ':interact': { bg: '$neutral10', color: '$neutralText10' },
+        ':focus': { outline: '$neutralMax' },
       },
     },
     {
       when: { theme: 'neutral', variant: 'subtle' },
       stl: {
-        bg: '$tertiary3', color: '$tertiaryText3',
-        ':interact': { bg: '$tertiary9', color: '$tertiaryText9' },
-        ':focus': { outline: '$tertiary' },
+        bg: '$neutral3', color: '$neutralText3',
+        ':interact': { bg: '$neutral9', color: '$neutralText9' },
+        ':focus': { outline: '$neutral' },
       },
     },
     {
       when: { theme: 'neutral', variant: 'outline' },
       stl: {
-        bg: 'transparent', border: '$tertiary', color: '$tertiaryText1',
-        ':interact': { bg: '$tertiary9', color: '$tertiaryText9', borderColor: '$tertiary' },
-        ':focus': { outline: '$tertiary' },
+        bg: 'transparent', border: '$neutral', color: '$neutralText1',
+        ':interact': { bg: '$neutral9', color: '$neutralText9', borderColor: '$neutral' },
+        ':focus': { outline: '$neutral' },
       },
     },
     {
       when: { theme: 'neutral', variant: 'ghost' },
       stl: {
-        bg: 'transparent', color: '$tertiaryText1',
-        ':interact': { bg: '$tertiary9', color: '$tertiaryText9' },
-        ':focus': { outline: '$tertiary' },
+        bg: 'transparent', color: '$neutralText1',
+        ':interact': { bg: '$neutral9', color: '$neutralText9' },
+        ':focus': { outline: '$neutral' },
       },
     },
     {
       when: { theme: 'neutral', variant: 'link' },
       stl: {
-        bg: 'transparent', color: '$tertiaryText1', px: '$0', textDecoration: 'underline',
-        ':interact': { bg: '$tertiary9', color: '$tertiaryText9' },
-        ':focus': { outline: '$tertiary' },
+        bg: 'transparent', color: '$neutralText1', px: '$0', textDecoration: 'underline',
+        ':interact': { bg: '$neutral9', color: '$neutralText9' },
+        ':focus': { outline: '$neutral' },
       },
     },
 

@@ -3,7 +3,7 @@ import { styled } from '../../stl-react/src/config'
 
 // ─── Empty ──────────────────────────────────────────────────────────────────
 
-const EmptyRoot = styled('div', {
+const EmptyRoot = styled('section', {
   stl: {
     display: 'flex',
     flexDirection: 'column',
@@ -21,28 +21,27 @@ const EmptyRoot = styled('div', {
   styleName: 'Empty',
 })
 
-const EmptyMedia = styled('div', {
+const EmptyMedia = styled('figure', {
   stl: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    opacity: '0.6',
-    color: '$tertiaryText3',
+    color: '$neutralText3',
   },
   styleName: 'EmptyMedia',
 })
 
 const EmptyTitle = styled('h3', {
-  stl: { fontWeight: '$600', fontSize: '$h4', m: '$0', color: '$tertiaryText3' },
+  stl: { fontWeight: '$600', fontSize: '$h4', m: '$0', color: '$neutralText3' },
   styleName: 'EmptyTitle',
 })
 
 const EmptyDescription = styled('p', {
-  stl: { fontSize: '$p', m: '$0', maxWidth: '400px', color: '$tertiaryText4' },
+  stl: { fontSize: '$p', m: '$0', maxWidth: '400px', color: '$neutralText4' },
   styleName: 'EmptyDescription',
 })
 
-const EmptyAction = styled('div', {
+const EmptyAction = styled('footer', {
   stl: { display: 'flex', gap: '$8', mt: '$4' },
   styleName: 'EmptyAction',
 })

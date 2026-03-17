@@ -8,7 +8,7 @@ const ProgressIndicator = styled('div', {
     height: '100%',
     borderRadius: '$field',
     bg: '$primary9',
-    transition: 'width 150ms ease',
+    transition: 'width 150ms linear',
     lowMotion: { transition: 'none' },
   },
   styleName: 'ProgressIndicator',
@@ -20,7 +20,7 @@ export const Progress = styled('div', {
   stl: {
     display: 'block',
     width: '100%',
-    bg: '$borderColor',
+    bg: '$maxAlpha4',
     borderRadius: '$field',
     overflow: 'hidden',
   },

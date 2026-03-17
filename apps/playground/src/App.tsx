@@ -1,7 +1,7 @@
 import type { Theme } from '@vlting/stl'
 import { defaultTheme } from '@vlting/stl'
-import { styled, useColorMode } from '@vlting/stl-react'
-import { Alert, Button, Empty, Loader, Progress, StlProvider } from '@vlting/ui'
+import { Spinner, styled, useColorMode } from '@vlting/stl-react'
+import { Alert, Button, Empty, Progress, StlProvider } from '@vlting/ui'
 import { useEffect, useMemo, useState } from 'react'
 
 import { flatTheme, proTheme, sharpTheme } from '../../../config/themes'
@@ -26,11 +26,10 @@ const THEMES = ['primary', 'secondary', 'neutral', 'destructive'] as const
 const VARIANTS = ['solid', 'outline', 'subtle', 'ghost', 'link'] as const
 const SIZES = ['xs', 'sm', 'md', 'lg', 'icon'] as const
 
-const ALERT_THEMES = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'error', 'info'] as const
-const ALERT_APPEARANCES = ['borderless', 'high-contrast', 'border', 'subtle-border'] as const
+const ALERT_THEMES = ['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info'] as const
+const ALERT_VARIANTS = ['borderless', 'high-contrast', 'border', 'subtle-border'] as const
 const PROGRESS_SIZES = ['sm', 'md', 'lg'] as const
-const LOADER_VARIANTS = ['primary', 'min', 'max'] as const
-const LOADER_SIZES = ['sm', 'md', 'lg'] as const
+const SPINNER_SIZES = ['sm', 'md', 'lg', 'xl'] as const
 
 const THEME_PRESETS: Record<string, { label: string; theme?: Readonly<Theme> }> = {
   default: { label: 'Default' },
@@ -42,7 +41,7 @@ const THEME_PRESETS: Record<string, { label: string; theme?: Readonly<Theme> }> 
 // ─── Styled components ──────────────────────────────────────────────────────
 
 const AppRoot = styled('div', {
-  stl: { minHeight: '100vh', fontFamily: '$body', bg: '$tertiary2' },
+  stl: { minHeight: '100vh', fontFamily: '$body', bg: '$background1' },
   styleName: 'AppRoot',
 })
 
@@ -55,8 +54,8 @@ const Nav = styled('nav', {
     py: '$12',
     borderBottomWidth: '$widthDefault',
     borderBottomStyle: '$styleDefault',
-    borderBottom: '$tertiary',
-    bg: '$tertiary1',
+    borderBottom: '$neutral',
+    bg: '$background2',
     position: 'sticky',
     top: '0',
     zIndex: '$10',
@@ -68,7 +67,7 @@ const NavTitle = styled('h1', {
   stl: {
     fontSize: '$p',
     fontWeight: '$600',
-    color: '$tertiaryText4',
+    color: '$neutralText4',
     m: '$0',
   },
   styleName: 'NavTitle',
@@ -109,7 +108,7 @@ const SectionTitle = styled('h3', {
   stl: {
     fontSize: '$buttonTiny',
     fontWeight: '$600',
-    color: '$tertiaryText3',
+    color: '$neutralText3',
     m: '$0',
     mb: '$10',
     textTransform: 'uppercase',
@@ -120,7 +119,7 @@ const SectionTitle = styled('h3', {
 
 const Card = styled('div', {
   stl: {
-    bg: '$tertiary1',
+    bg: '$background2',
     radius: '$24',
     p: '$48',
     boxShadow: '$lg'
@@ -139,7 +138,7 @@ const Grid = styled('div', {
 })
 
 const GridLabel = styled('span', {
-  stl: { fontSize: '$buttonTiny', color: '$tertiaryText3', textAlign: 'center' },
+  stl: { fontSize: '$buttonTiny', color: '$neutralText3', textAlign: 'center' },
   styleName: 'GridLabel',
 })
 
@@ -154,7 +153,7 @@ const StackY = styled('div', {
 })
 
 const DarkStage = styled('div', {
-  stl: { bg: '$primary10', radius: '$field', p: '$24' },
+  stl: { bg: '$background10', radius: '$field', p: '$24' },
   styleName: 'DarkStage',
 })
 
@@ -168,7 +167,13 @@ function PlaygroundInner({
   onPresetChange: (key: string) => void
 }) {
   const { colorMode, setColorMode, toggleColorMode } = useColorMode()
-  const [alertAppearance, setAlertAppearance] = useState<typeof ALERT_APPEARANCES[number]>('borderless')
+  const [alertVariant, setAlertVariant] = useState<typeof ALERT_VARIANTS[number]>('borderless')
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => setProgress((p) => (p >= 100 ? 0 : p + 10)), 2000)
+    return () => clearInterval(id)
+  }, [])
 
   // Flat theme defaults to dark; others follow system preference
   useEffect(() => {
@@ -268,24 +273,24 @@ function PlaygroundInner({
         <Card stl={{ mt: '$24' }}>
           <SectionHeading>Alert</SectionHeading>
           <ButtonRow stl={{ mb: '$16' }}>
-            {ALERT_APPEARANCES.map((appearance) => (
+            {ALERT_VARIANTS.map((v) => (
               <Button
-                key={appearance}
+                key={v}
                 size="xs"
                 theme="neutral"
-                variant={alertAppearance === appearance ? 'subtle' : 'ghost'}
-                onClick={() => setAlertAppearance(appearance)}
-                aria-pressed={alertAppearance === appearance}
+                variant={alertVariant === v ? 'subtle' : 'ghost'}
+                onClick={() => setAlertVariant(v)}
+                aria-pressed={alertVariant === v}
               >
-                {appearance}
+                {v}
               </Button>
             ))}
           </ButtonRow>
           <StackY>
             {ALERT_THEMES.map((theme) => (
-              <Alert.Root key={theme} theme={theme} appearance={alertAppearance}>
+              <Alert.Root key={theme} theme={theme} variant={alertVariant}>
                 <Alert.Title>{theme.charAt(0).toUpperCase() + theme.slice(1)}</Alert.Title>
-                <Alert.Description>This is a {theme} alert — {alertAppearance}.</Alert.Description>
+                <Alert.Description>This is a {theme} alert — {alertVariant}.</Alert.Description>
               </Alert.Root>
             ))}
           </StackY>
@@ -294,42 +299,68 @@ function PlaygroundInner({
         {/* ── Progress ── */}
         <Card stl={{ mt: '$24' }}>
           <SectionHeading>Progress</SectionHeading>
-          {PROGRESS_SIZES.map((size) => (
-            <Section key={size}>
-              <SectionTitle>{size}</SectionTitle>
-              <StackY>
-                <Progress value={25} size={size} aria-label={`${size} 25%`} />
-                <Progress value={50} size={size} aria-label={`${size} 50%`} />
-                <Progress value={75} size={size} aria-label={`${size} 75%`} />
-                <Progress value={100} size={size} aria-label={`${size} 100%`} />
-              </StackY>
-            </Section>
-          ))}
+          <StackY>
+            {PROGRESS_SIZES.map((size) => (
+              <Progress key={size} value={progress} size={size} aria-label={`${size} ${progress}%`} />
+            ))}
+          </StackY>
         </Card>
 
-        {/* ── Loader ── */}
+        {/* ── Spinner ── */}
         <Card stl={{ mt: '$24' }}>
-          <SectionHeading>Loader</SectionHeading>
-          <Grid>
-            {(['primary', 'max'] as const).map((variant) =>
-              LOADER_SIZES.map((size) => (
-                <GridCell key={`${variant}-${size}`}>
-                  <Loader variant={variant} size={size} />
-                  <GridLabel>{variant}/{size}</GridLabel>
-                </GridCell>
-              )),
-            )}
-          </Grid>
-          <DarkStage stl={{ mt: '$32' }}>
-            <Grid>
-              {LOADER_SIZES.map((size) => (
-                <GridCell key={`min-${size}`}>
-                  <Loader variant="min" size={size} />
-                  <GridLabel stl={{ color: '$primaryText10' }}>min/{size}</GridLabel>
-                </GridCell>
-              ))}
-            </Grid>
-          </DarkStage>
+          <SectionHeading>Spinner</SectionHeading>
+          <StackY stl={{ gap: '$16' }}>
+            {/* Row 1: primary | secondary */}
+            <ButtonRow stl={{ gap: '$16' }}>
+              <StackY stl={{ flex: '1', bg: '$background1', radius: '$field', p: '$24', gap: '$0' }}>
+                <SectionTitle stl={{ textTransform: 'none', mb: '$0' }}>primary</SectionTitle>
+                <ButtonRow stl={{ justifyContent: 'space-evenly', alignItems: 'baseline' }}>
+                  {SPINNER_SIZES.map((size) => (
+                    <GridCell key={size}>
+                      <Spinner theme="primary" size={size} />
+                      <GridLabel>{size}</GridLabel>
+                    </GridCell>
+                  ))}
+                </ButtonRow>
+              </StackY>
+              <StackY stl={{ flex: '1', bg: '$background1', radius: '$field', p: '$24', gap: '$0' }}>
+                <SectionTitle stl={{ textTransform: 'none', mb: '$0' }}>secondary</SectionTitle>
+                <ButtonRow stl={{ justifyContent: 'space-evenly', alignItems: 'baseline' }}>
+                  {SPINNER_SIZES.map((size) => (
+                    <GridCell key={size}>
+                      <Spinner theme="secondary" size={size} />
+                      <GridLabel>{size}</GridLabel>
+                    </GridCell>
+                  ))}
+                </ButtonRow>
+              </StackY>
+            </ButtonRow>
+            {/* Row 2: neutralMax | neutralMin */}
+            <ButtonRow stl={{ gap: '$16' }}>
+              <StackY stl={{ flex: '1', bg: '$background1', radius: '$field', p: '$24', gap: '$0' }}>
+                <SectionTitle stl={{ textTransform: 'none', mb: '$0' }}>neutralMax</SectionTitle>
+                <ButtonRow stl={{ justifyContent: 'space-evenly', alignItems: 'baseline' }}>
+                  {SPINNER_SIZES.map((size) => (
+                    <GridCell key={size}>
+                      <Spinner theme="neutralMax" size={size} />
+                      <GridLabel>{size}</GridLabel>
+                    </GridCell>
+                  ))}
+                </ButtonRow>
+              </StackY>
+              <DarkStage stl={{ flex: '1', gap: '$0' }}>
+                <SectionTitle stl={{ color: '$backgroundText10', textTransform: 'none', mb: '$0' }}>neutralMin</SectionTitle>
+                <ButtonRow stl={{ justifyContent: 'space-evenly', alignItems: 'baseline' }}>
+                  {SPINNER_SIZES.map((size) => (
+                    <GridCell key={size}>
+                      <Spinner theme="neutralMin" size={size} />
+                      <GridLabel stl={{ color: '$backgroundText10' }}>{size}</GridLabel>
+                    </GridCell>
+                  ))}
+                </ButtonRow>
+              </DarkStage>
+            </ButtonRow>
+          </StackY>
         </Card>
 
         {/* ── Empty ── */}

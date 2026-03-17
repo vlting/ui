@@ -15,13 +15,13 @@ const AlertRoot = styled('div', {
     theme: {
       primary: { bg: '$primary3', border: '$primary', color: '$primaryText3' },
       secondary: { bg: '$secondary3', border: '$secondary', color: '$secondaryText3' },
-      tertiary: { bg: '$tertiary3', border: '$tertiary', color: '$tertiaryText3' },
+      neutral: { bg: '$neutral3', border: '$neutral', color: '$neutralText3' },
       success: { bg: '$success3', border: '$success', color: '$successText3' },
       warning: { bg: '$warning3', border: '$warning', color: '$warningText3' },
       error: { bg: '$error3', border: '$error', color: '$errorText3' },
       info: { bg: '$info3', border: '$info', color: '$infoText3' },
     },
-    appearance: {
+    variant: {
       border: {
         borderBlockStartWidth: '$widthMin',
         borderBlockEndWidth: '$widthMin',
@@ -39,22 +39,22 @@ const AlertRoot = styled('div', {
     },
   },
   compoundVariants: [
-    { when: { appearance: 'subtle-border', theme: 'primary' }, stl: { border: '$primaryMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
-    { when: { appearance: 'subtle-border', theme: 'secondary' }, stl: { border: '$secondaryMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
-    { when: { appearance: 'subtle-border', theme: 'tertiary' }, stl: { border: '$tertiaryMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
-    { when: { appearance: 'subtle-border', theme: 'success' }, stl: { border: '$successMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
-    { when: { appearance: 'subtle-border', theme: 'warning' }, stl: { border: '$warningMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
-    { when: { appearance: 'subtle-border', theme: 'error' }, stl: { border: '$errorMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
-    { when: { appearance: 'subtle-border', theme: 'info' }, stl: { border: '$infoMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
-    { when: { appearance: 'high-contrast', theme: 'primary' }, stl: { bg: '$primary9', color: '$primaryText9' } },
-    { when: { appearance: 'high-contrast', theme: 'secondary' }, stl: { bg: '$secondary9', color: '$secondaryText9' } },
-    { when: { appearance: 'high-contrast', theme: 'tertiary' }, stl: { bg: '$tertiary9', color: '$tertiaryText9' } },
-    { when: { appearance: 'high-contrast', theme: 'success' }, stl: { bg: '$success9', color: '$successText9' } },
-    { when: { appearance: 'high-contrast', theme: 'warning' }, stl: { bg: '$warning9', color: '$warningText9' } },
-    { when: { appearance: 'high-contrast', theme: 'error' }, stl: { bg: '$error9', color: '$errorText9' } },
-    { when: { appearance: 'high-contrast', theme: 'info' }, stl: { bg: '$info9', color: '$infoText9' } },
+    { when: { variant: 'subtle-border', theme: 'primary' }, stl: { border: '$primaryMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
+    { when: { variant: 'subtle-border', theme: 'secondary' }, stl: { border: '$secondaryMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
+    { when: { variant: 'subtle-border', theme: 'neutral' }, stl: { border: '$neutralMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
+    { when: { variant: 'subtle-border', theme: 'success' }, stl: { border: '$successMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
+    { when: { variant: 'subtle-border', theme: 'warning' }, stl: { border: '$warningMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
+    { when: { variant: 'subtle-border', theme: 'error' }, stl: { border: '$errorMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
+    { when: { variant: 'subtle-border', theme: 'info' }, stl: { border: '$infoMin', borderBlockStartWidth: '$widthMin', borderBlockEndWidth: '$widthMin', borderInlineStartWidth: '$widthMin', borderInlineEndWidth: '$widthMin' } },
+    { when: { variant: 'high-contrast', theme: 'primary' }, stl: { bg: '$primary9', color: '$primaryText9' } },
+    { when: { variant: 'high-contrast', theme: 'secondary' }, stl: { bg: '$secondary9', color: '$secondaryText9' } },
+    { when: { variant: 'high-contrast', theme: 'neutral' }, stl: { bg: '$neutral9', color: '$neutralText9' } },
+    { when: { variant: 'high-contrast', theme: 'success' }, stl: { bg: '$success9', color: '$successText9' } },
+    { when: { variant: 'high-contrast', theme: 'warning' }, stl: { bg: '$warning9', color: '$warningText9' } },
+    { when: { variant: 'high-contrast', theme: 'error' }, stl: { bg: '$error9', color: '$errorText9' } },
+    { when: { variant: 'high-contrast', theme: 'info' }, stl: { bg: '$info9', color: '$infoText9' } },
   ],
-  defaultVariants: { theme: 'primary', appearance: 'borderless' },
+  defaultVariants: { theme: 'primary', variant: 'borderless' },
   mapProps: (props) => ({
     ...props,
     role: props.theme === 'error' ? 'alert' : 'status',
@@ -81,4 +81,4 @@ export const Alert = { Root: AlertRoot, Title: AlertTitle, Description: AlertDes
 
 export type AlertProps = ComponentPropsWithRef<typeof AlertRoot>
 export type AlertTheme = NonNullable<AlertProps['theme']>
-export type AlertAppearance = NonNullable<AlertProps['appearance']>
+export type AlertVariant = NonNullable<AlertProps['variant']>

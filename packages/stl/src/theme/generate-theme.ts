@@ -12,21 +12,24 @@ let _currentTheme: Readonly<Theme> | null = null
 export interface ColorInput {
   hue: number // 0-360, required
   saturation?: number // 0-100, defaults to 85
-  isNeutral?: boolean // if true, very low saturation
+  isNeutral?: boolean // if true, very low saturation (rawSat / 10)
+  isTinted?: boolean // if true, keep higher saturation (overrides isNeutral)
   highContrast?: boolean // if true, step 9 uses 0%/100% lightness
 }
 
-export interface SecondaryColorInput {
+export interface PaletteColorInput {
   hue?: number // 0-360, auto-derived from primary if omitted
   saturation?: number // 0-100
-  isNeutral?: boolean // if true, very low saturation
+  isNeutral?: boolean // if true, very low saturation (rawSat / 10)
+  isTinted?: boolean // if true, keep higher saturation (overrides isNeutral)
   highContrast?: boolean // if true, step 9 uses 0%/100% lightness
 }
 
 export interface CreateThemeOptions {
   primary: ColorInput
-  secondary?: SecondaryColorInput
-  tertiary?: SecondaryColorInput
+  secondary?: PaletteColorInput
+  neutral?: PaletteColorInput
+  background?: PaletteColorInput
   // Flattened token overrides
   size?: Record<string | number, number>
   space?: Record<string | number, number>
@@ -64,21 +67,23 @@ function validateSaturation(sat: number, label: string): void {
   }
 }
 
-function resolveSecondary(
+function resolvePalette(
   primary: ColorInput,
-  input: SecondaryColorInput | undefined,
+  input: PaletteColorInput | undefined,
   defaultHueOffset: number,
   defaultSat: number,
+  defaultIsNeutral = false,
 ): { hue: number; saturation: number; highContrast?: boolean } {
   if (!input) {
     return {
       hue: (primary.hue + defaultHueOffset) % 360,
-      saturation: defaultSat,
+      saturation: defaultIsNeutral ? defaultSat / 10 : defaultSat,
     }
   }
   const hue = input.hue ?? (primary.hue + defaultHueOffset) % 360
   const rawSat = input.saturation ?? defaultSat
-  const saturation = input.isNeutral ? rawSat / 10 : rawSat
+  const isNeutral = input.isTinted ? false : (input.isNeutral ?? defaultIsNeutral)
+  const saturation = isNeutral ? rawSat / 10 : rawSat
   return { hue, saturation, highContrast: input.highContrast }
 }
 
@@ -135,18 +140,24 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
   // Validate primary
   validateHue(primary.hue, 'primary')
   const rawPrimarySat = primary.saturation ?? 85
-  const primarySat = primary.isNeutral ? rawPrimarySat / 10 : rawPrimarySat
+  const primaryIsNeutral = primary.isTinted ? false : (primary.isNeutral ?? false)
+  const primarySat = primaryIsNeutral ? rawPrimarySat / 10 : rawPrimarySat
   validateSaturation(primarySat, 'primary')
 
   // Resolve secondary (complementary by default)
-  const secondary = resolveSecondary(primary, options.secondary, 180, 50)
+  const secondary = resolvePalette(primary, options.secondary, 180, 50)
   validateHue(secondary.hue, 'secondary')
   validateSaturation(secondary.saturation, 'secondary')
 
-  // Resolve tertiary (analogous by default)
-  const tertiary = resolveSecondary(primary, options.tertiary, 30, 30)
-  validateHue(tertiary.hue, 'tertiary')
-  validateSaturation(tertiary.saturation, 'tertiary')
+  // Resolve neutral (analogous by default, isNeutral defaults true)
+  const neutral = resolvePalette(primary, options.neutral, 30, 30, true)
+  validateHue(neutral.hue, 'neutral')
+  validateSaturation(neutral.saturation, 'neutral')
+
+  // Resolve background (analogous by default, chromatic)
+  const background = resolvePalette(primary, options.background, 30, 30)
+  validateHue(background.hue, 'background')
+  validateSaturation(background.saturation, 'background')
 
   // Generate palettes — direct mapping
   const palettes: Theme['palettes'] = {
@@ -158,9 +169,13 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
       light: generatePalette(secondary.hue, secondary.saturation, 'light', secondary.highContrast),
       dark: generatePalette(secondary.hue, secondary.saturation, 'dark', secondary.highContrast),
     },
-    tertiary: {
-      light: generatePalette(tertiary.hue, tertiary.saturation, 'light', tertiary.highContrast),
-      dark: generatePalette(tertiary.hue, tertiary.saturation, 'dark', tertiary.highContrast),
+    neutral: {
+      light: generatePalette(neutral.hue, neutral.saturation, 'light', neutral.highContrast),
+      dark: generatePalette(neutral.hue, neutral.saturation, 'dark', neutral.highContrast),
+    },
+    background: {
+      light: generatePalette(background.hue, background.saturation, 'light', background.highContrast),
+      dark: generatePalette(background.hue, background.saturation, 'dark', background.highContrast),
     },
   }
 

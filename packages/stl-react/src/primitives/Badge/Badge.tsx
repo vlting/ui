@@ -25,7 +25,7 @@ const BadgeFrame = styled('span', {
         borderColor: '$primaryMin',
         color: '$color',
       },
-      subtle: { bg: '$surface2', color: '$tertiary11' },
+      subtle: { bg: '$surface2', color: '$neutral11' },
     },
     size: {
       sm: { fontSize: '$12', px: '$1', py: '0px' },

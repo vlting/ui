@@ -12,14 +12,6 @@ describe('Spinner', () => {
     expect(getByRole('status').getAttribute('aria-label')).toBe('Loading')
   })
 
-  it.skip('renders 8 dot elements', () => {
-    // TODO: requires browser environment — style serialization differs in JSDOM
-    const { container } = render(<Spinner />)
-    const statusEl = container.querySelector('[role="status"]')
-    const dots = statusEl!.querySelectorAll('[style*="position: absolute"]')
-    expect(dots.length).toBe(8)
-  })
-
   it('accepts size="sm"', () => {
     const { getByRole } = render(<Spinner size="sm" />)
     expect(getByRole('status')).toBeTruthy()
@@ -35,8 +27,28 @@ describe('Spinner', () => {
     expect(getByRole('status')).toBeTruthy()
   })
 
+  it('accepts size="xl"', () => {
+    const { getByRole } = render(<Spinner size="xl" />)
+    expect(getByRole('status')).toBeTruthy()
+  })
+
+  it('accepts theme="min" alias', () => {
+    const { getByRole } = render(<Spinner theme="min" />)
+    expect(getByRole('status')).toBeTruthy()
+  })
+
+  it('accepts theme="max" alias', () => {
+    const { getByRole } = render(<Spinner theme="max" />)
+    expect(getByRole('status')).toBeTruthy()
+  })
+
   it('accepts custom color', () => {
     const { getByRole } = render(<Spinner color="red" />)
     expect(getByRole('status')).toBeTruthy()
+  })
+
+  it('renders SVG content', () => {
+    const { container } = render(<Spinner />)
+    expect(container.querySelector('svg')).toBeTruthy()
   })
 })

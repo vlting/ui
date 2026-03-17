@@ -83,7 +83,7 @@ function SidebarSection({ section }: { section: NavSection }) {
                     padding: '4px 8px',
                     fontSize: 14,
                     transition: 'color 150ms, background 150ms',
-                    backgroundColor: isActive ? 'var(--stl-tertiary2, #f0f0f0)' : 'transparent',
+                    backgroundColor: isActive ? 'var(--stl-background2, #f0f0f0)' : 'transparent',
                     fontWeight: isActive ? 500 : 400,
                     color: isActive ? 'var(--stl-color, #111)' : 'var(--stl-colorSubtitle, #666)',
                     textDecoration: 'none',

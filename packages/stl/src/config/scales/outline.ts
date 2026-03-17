@@ -20,9 +20,9 @@ export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
   const secondaryColorBase = { ...hash.var, value: color.secondary9.ref } as const
   const secondaryColorMin = { ...hash.var, value: color.secondary7.ref } as const
   const secondaryColorMax = { ...hash.var, value: color.secondary10.ref } as const
-  const tertiaryColorBase = { ...hash.var, value: color.tertiary9.ref } as const
-  const tertiaryColorMin = { ...hash.var, value: color.tertiary7.ref } as const
-  const tertiaryColorMax = { ...hash.var, value: color.tertiary10.ref } as const
+  const neutralColorBase = { ...hash.var, value: color.neutral9.ref } as const
+  const neutralColorMin = { ...hash.var, value: color.neutral7.ref } as const
+  const neutralColorMax = { ...hash.var, value: color.neutral10.ref } as const
   const errorColorBase = { ...hash.var, value: color.error9.ref } as const
   const errorColorMin = { ...hash.var, value: color.error7.ref } as const
   const errorColorMax = { ...hash.var, value: color.error10.ref } as const
@@ -57,9 +57,9 @@ export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
     secondaryColorBase,
     secondaryColorMin,
     secondaryColorMax,
-    tertiaryColorBase,
-    tertiaryColorMin,
-    tertiaryColorMax,
+    neutralColorBase,
+    neutralColorMin,
+    neutralColorMax,
     errorColorBase,
     errorColorMin,
     errorColorMax,
@@ -89,9 +89,9 @@ export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
     secondary: 'secondary',
     secondaryMin: 'secondaryMin',
     secondaryMax: 'secondaryMax',
-    tertiary: 'tertiary',
-    tertiaryMin: 'tertiaryMin',
-    tertiaryMax: 'tertiaryMax',
+    neutral: 'neutral',
+    neutralMin: 'neutralMin',
+    neutralMax: 'neutralMax',
     error: 'error',
     errorMin: 'errorMin',
     errorMax: 'errorMax',
@@ -114,9 +114,9 @@ export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
       secondary: { outlineColor: 'secondaryColorBase' },
       secondaryMin: { outlineColor: 'secondaryColorMin' },
       secondaryMax: { outlineColor: 'secondaryColorMax' },
-      tertiary: { outlineColor: 'tertiaryColorBase' },
-      tertiaryMin: { outlineColor: 'tertiaryColorMin' },
-      tertiaryMax: { outlineColor: 'tertiaryColorMax' },
+      neutral: { outlineColor: 'neutralColorBase' },
+      neutralMin: { outlineColor: 'neutralColorMin' },
+      neutralMax: { outlineColor: 'neutralColorMax' },
       error: { outlineColor: 'errorColorBase' },
       errorMin: { outlineColor: 'errorColorMin' },
       errorMax: { outlineColor: 'errorColorMax' },
@@ -167,9 +167,9 @@ export const outlineCombos = {
   secondary: true,
   secondaryMin: true,
   secondaryMax: true,
-  tertiary: true,
-  tertiaryMin: true,
-  tertiaryMax: true,
+  neutral: true,
+  neutralMin: true,
+  neutralMax: true,
   error: true,
   errorMin: true,
   errorMax: true,
@@ -202,10 +202,10 @@ export const hiddenOutlineColors = {
   secondaryColorBase: true,
   secondaryColorMin: true,
   secondaryColorMax: true,
-  tertiaryColor: true,
-  tertiaryColorBase: true,
-  tertiaryColorMin: true,
-  tertiaryColorMax: true,
+  neutralColor: true,
+  neutralColorBase: true,
+  neutralColorMin: true,
+  neutralColorMax: true,
   errorColor: true,
   errorColorBase: true,
   errorColorMin: true,

@@ -15,7 +15,7 @@ const Header = styled('header', { stl: {
   alignItems: 'center',
   justifyContent: 'space-between',
   borderBottom: '$thin $borderColor',
-  background: '$tertiary1',
+  background: '$background1',
   px: '$3.5',
   backdropFilter: 'blur(8px)',
 }})
@@ -58,7 +58,7 @@ const IconLink = styled('a', { stl: {
   justifyContent: 'center',
   borderRadius: '$4',
   border: '$thin $borderColor',
-  ':hover': { background: '$tertiary2' },
+  ':hover': { background: '$background2' },
 }})
 
 export function SiteHeader() {

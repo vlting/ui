@@ -12,7 +12,8 @@ export interface Theme {
   palettes: {
     primary: { light: string[]; dark: string[] }
     secondary: { light: string[]; dark: string[] }
-    tertiary: { light: string[]; dark: string[] }
+    neutral: { light: string[]; dark: string[] }
+    background: { light: string[]; dark: string[] }
   }
   // Flattened token overrides (no nested `tokens` wrapper)
   size?: Record<string | number, number>

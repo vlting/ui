@@ -72,7 +72,7 @@ const CloseButton = styled('button', {
   background: 'transparent',
   border: 'none',
   cursor: 'pointer',
-  ':hover': { background: '$tertiary2' },
+  ':hover': { background: '$background2' },
 })
 
 const DesktopSidebar = styled('div', {

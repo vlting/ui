@@ -42,7 +42,7 @@ describe('Alert', () => {
   })
 
   it('has role="status" for non-error themes', () => {
-    const themes = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'info'] as const
+    const themes = ['primary', 'secondary', 'neutral', 'success', 'warning', 'info'] as const
     themes.forEach((theme) => {
       const { unmount } = render(
         <Alert.Root theme={theme} data-testid="alert">
@@ -64,7 +64,7 @@ describe('Alert', () => {
   })
 
   it('renders with each theme without error', () => {
-    const themes = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'error', 'info'] as const
+    const themes = ['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info'] as const
     themes.forEach((theme) => {
       const { unmount } = render(
         <Alert.Root theme={theme}>

@@ -1,34 +1,27 @@
-import type { ComponentPropsWithRef } from 'react'
-import { Spinner } from '../../stl-react/src/primitives/Spinner/Spinner'
-import { styled, props } from '../../stl-react/src/config'
+import { forwardRef } from 'react'
+import { Spinner, type SpinnerProps } from '../../stl-react/src/primitives/Spinner/Spinner'
 
-const VARIANT_MAP = { primary: 'primary', min: 'neutralMin', max: 'neutralMax' } as const
+const VARIANT_TO_THEME = { primary: 'primary', min: 'min', max: 'max' } as const
 
-// ─── Loader ─────────────────────────────────────────────────────────────────
+type LoaderVariant = keyof typeof VARIANT_TO_THEME
+type LoaderSize = 'sm' | 'md' | 'lg'
 
-export const Loader = styled('div', {
-  stl: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  variants: {
-    variant: { primary: {}, min: {}, max: {} },
-    size: { sm: {}, md: {}, lg: {} },
-  },
-  defaultVariants: { variant: 'primary', size: 'md' },
-  mapProps: (props) => ({
-    ...props,
-    role: 'status',
-    'aria-label': props['aria-label'] ?? 'Loading',
-  }),
-  ...props<{ variant?: keyof typeof VARIANT_MAP; size?: 'sm' | 'md' | 'lg' }>('variant', 'size'),
-  template: ({ variant = 'primary', size = 'md' }) => (
-    <Spinner theme={VARIANT_MAP[variant]} size={size} aria-hidden="true" />
+export interface LoaderProps extends Omit<SpinnerProps, 'theme'> {
+  /** @deprecated Use Spinner `theme` prop instead */
+  variant?: LoaderVariant
+  size?: LoaderSize
+}
+
+/**
+ * @deprecated Use `Spinner` directly. Loader will be removed in a future major version.
+ *
+ * Migration: `<Loader variant="min" />` → `<Spinner theme="min" />`
+ */
+export const Loader = forwardRef<HTMLSpanElement, LoaderProps>(
+  ({ variant = 'primary', ...rest }, ref) => (
+    <Spinner ref={ref} theme={VARIANT_TO_THEME[variant]} {...rest} />
   ),
-  styleName: 'Loader',
-})
+)
+Loader.displayName = 'Loader'
 
-export type LoaderProps = ComponentPropsWithRef<typeof Loader>
-export type LoaderVariant = NonNullable<LoaderProps['variant']>
-export type LoaderSize = NonNullable<LoaderProps['size']>
+export type { LoaderVariant, LoaderSize }

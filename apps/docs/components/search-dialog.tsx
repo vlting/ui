@@ -81,7 +81,7 @@ const EscKbd = styled('kbd', { stl: {
   flexShrink: 0,
   borderRadius: '$3',
   border: '$thin $borderColor',
-  background: '$tertiary2',
+  background: '$background2',
   px: 6,
   py: 2,
   fontSize: 10,
@@ -128,7 +128,7 @@ const ResultButton = styled('button', { stl: {
   border: 'none',
   cursor: 'pointer',
   background: 'transparent',
-  ':hover': { background: '$tertiary2' },
+  ':hover': { background: '$background2' },
 }})
 
 const TypeBadge = styled('span', { stl: {
@@ -175,7 +175,7 @@ const FooterActions = styled('div', { stl: {
 const FooterKbd = styled('kbd', { stl: {
   borderRadius: '$3',
   border: '$thin $borderColor',
-  background: '$tertiary2',
+  background: '$background2',
   px: 4,
   py: 2,
   fontSize: 10,
@@ -195,7 +195,7 @@ const TriggerButton = styled('button', { stl: {
   background: 'transparent',
   cursor: 'pointer',
   transition: 'background 150ms',
-  ':hover': { background: '$tertiary2' },
+  ':hover': { background: '$background2' },
 }})
 
 const TriggerIcon = styled('svg', { stl: {
@@ -212,7 +212,7 @@ const TriggerKbd = styled('kbd', { stl: {
   display: 'none',
   borderRadius: '$3',
   border: '$thin $borderColor',
-  background: '$tertiary2',
+  background: '$background2',
   px: 4,
   py: 2,
   fontSize: 10,
@@ -384,7 +384,7 @@ export function SearchDialog() {
                       onClick={() => navigate(item)}
                       onMouseEnter={() => setActiveIndex(idx)}
                       style={{
-                        background: isActive ? 'var(--stl-tertiary2, #f0f0f0)' : undefined,
+                        background: isActive ? 'var(--stl-background2, #f0f0f0)' : undefined,
                       }}
                     >
                       <TypeBadge
