@@ -24,9 +24,9 @@ export const Text = styled('p', {
       neutral: { color: '$color' },
       muted: { color: '$secondaryText12' },
       primary: { color: '$primary10' },
-      success: { color: '$green10' },
-      warning: { color: '$orange10' },
-      danger: { color: '$red10' },
+      success: { color: '$forest10' },
+      warning: { color: '$amber10' },
+      danger: { color: '$tomato10' },
     },
     weight: {
       light: { fontWeight: '$300' },

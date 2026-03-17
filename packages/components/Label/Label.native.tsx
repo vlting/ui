@@ -30,7 +30,7 @@ const LabelText = styled(
 const RequiredIndicator = styled(
   RNText,
   {
-    color: '$red9',
+    color: '$tomato9',
     marginStart: 2,
   },
   'LabelRequired',

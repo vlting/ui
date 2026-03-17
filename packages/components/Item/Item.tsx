@@ -73,10 +73,10 @@ const ItemRoot = styled('div', {
         ':interact': { bg: '$color3' },
         ':pressed': { bg: '$color4' },
         ':focus': {
-          outlineWidth: '2px',
+          outlineWidth: '$widthBase',
           outlineStyle: 'solid',
           outlineColor: '$outlineColor',
-          outlineOffset: '2px',
+          outlineOffset: '$offsetDefault',
         },
         lowMotion: {
           ':pressed': { transition: 'none' },

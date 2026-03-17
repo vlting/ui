@@ -72,7 +72,7 @@ None.
 
 ## 6. Styling
 
-- **Design tokens used:** `$background` for trigger and dropdown, `$borderColor` for borders, `$color` for text, `$red10` for error state, `$color6`/`$color10` for selected dates, shadow for dropdown depth.
+- **Design tokens used:** `$background` for trigger and dropdown, `$borderColor` for borders, `$color` for text, `$tomato10` for error state, `$color6`/`$color10` for selected dates, shadow for dropdown depth.
 - **Size variants:** `sm`, `md`, `lg` — affect trigger dimensions and font size.
 - **Dark mode:** Token resolution handles automatically.
 

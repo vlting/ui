@@ -49,7 +49,7 @@ const DropdownMenuItemTextFrame = styled(
   },
   {
     destructive: {
-      true: { color: '$red9' },
+      true: { color: '$tomato9' },
       false: { color: '$defaultBody' },
     },
   },

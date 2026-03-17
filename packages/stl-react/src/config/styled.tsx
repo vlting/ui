@@ -1,4 +1,5 @@
 import { type STL, type StyleManager, style, type VariantSTL } from '@vlting/stl'
+export type { STL }
 import {
   type ComponentPropsWithRef,
   type ElementType,
@@ -273,7 +274,7 @@ function useVariants<P extends Record<string, any>, V extends Variants>(
 type BooleanString = 'true' | 'false'
 
 type Variants = {
-  [name: string]: { [value: string]: any }
+  [name: string]: { [value: string]: STL }
 }
 type VariantKey = keyof Variants
 

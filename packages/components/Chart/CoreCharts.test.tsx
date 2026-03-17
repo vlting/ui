@@ -52,8 +52,8 @@ jest.mock('victory', () => {
 // -- Test data --
 
 const mockConfig: ChartConfig = {
-  revenue: { label: 'Revenue', color: '$blue8' },
-  expenses: { label: 'Expenses', color: '$red8' },
+  revenue: { label: 'Revenue', color: '$aqua8' },
+  expenses: { label: 'Expenses', color: '$tomato8' },
 }
 
 const mockData: ChartDataPoint[] = [

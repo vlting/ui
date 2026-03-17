@@ -42,7 +42,7 @@ export default function IconsPage() {
 
 // Use in JSX — accepts size and color props
 <RiSearchLine size={24} color="$color" />
-<RiHomeFill size={20} color="$blue10" />`}
+<RiHomeFill size={20} color="$aqua10" />`}
           language="tsx"
         />
       </div>

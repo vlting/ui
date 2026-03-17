@@ -60,7 +60,7 @@ None.
 
 ## 6. Styling
 
-- **Design tokens used:** `$color` for labels, `$colorSubtitle` for descriptions, `$red10` for error messages. `fontFamily: '$heading'` for labels, `'$body'` for descriptions/errors. `$4` gap between fields, `$1.5` within fields.
+- **Design tokens used:** `$color` for labels, `$colorSubtitle` for descriptions, `$tomato10` for error messages. `fontFamily: '$heading'` for labels, `'$body'` for descriptions/errors. `$4` gap between fields, `$1.5` within fields.
 - **Dark mode:** Token resolution handles automatically.
 
 ---

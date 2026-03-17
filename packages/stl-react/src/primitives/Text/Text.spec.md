@@ -54,7 +54,7 @@ None.
 - **Design tokens used:**
   - `fontFamily: '$body'`, `color: '$color'`
   - Size variants (`xs`–`xl`): mapped to `fontSize`/`lineHeight` token pairs. Default: `md`.
-  - Tone variants: `neutral` (`$color`), `muted` (`$colorSubtitle`), `primary` (`$color10`), `success` (`$green10`), `warning` (`$orange10`), `danger` (`$red10`)
+  - Tone variants: `neutral` (`$color`), `muted` (`$colorSubtitle`), `primary` (`$color10`), `success` (`$forest10`), `warning` (`$amber10`), `danger` (`$tomato10`)
   - Weight variants: `light` (`'300'`), `normal` (`'400'`), `medium` (`'500'`), `semibold` (`'600'`), `bold` (`'700'`)
 - **Responsive behavior:** Supports all STL responsive and media-query props.
 - **Dark mode:** All color tokens resolve to appropriate dark theme values automatically.

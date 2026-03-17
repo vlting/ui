@@ -110,7 +110,7 @@ import { Button, Dialog } from '@vlting/ui'`}
 <Button className="bg-red-500 p-4 rounded-lg">Click</Button>
 
 // After (@vlting/ui + STL tokens)
-<Button backgroundColor="$red10" padding="$4" borderRadius="$3">Click</Button>`}
+<Button backgroundColor="$tomato10" padding="$4" borderRadius="$3">Click</Button>`}
             language="tsx"
           />
         </div>

@@ -74,7 +74,7 @@ Also exports `useToastController` (to programmatically show toasts) and `useToas
 
 ## 6. Styling
 
-- **Design tokens used:** Variant maps: `default` = `$gray2`/`$borderColor`, `success` = `$green2`/`$green8`, `error` = `$red2`/`$red8`, `warning` = `$yellow2`/`$yellow8`. `$4` border radius, `$4` padding. Title uses `$heading` font.
+- **Design tokens used:** Variant maps: `default` = `$gray2`/`$borderColor`, `success` = `$forest2`/`$forest8`, `error` = `$tomato2`/`$tomato8`, `warning` = `$amber2`/`$amber8`. `$4` border radius, `$4` padding. Title uses `$heading` font.
 - **Responsive behavior:** Viewport positioned fixed; typically bottom-right on desktop, bottom-center on mobile.
 - **Dark mode:** Token-based; variant colors resolve from theme.
 

@@ -40,7 +40,7 @@ Uses `useId` for accessibility linking between label, input, and description.
 
 - **Idle** — Default border, placeholder visible when empty.
 - **Focus** — Border color change; focus ring visible.
-- **Error** — Red border (`$red8`); error message displayed below.
+- **Error** — Red border (`$tomato8`); error message displayed below.
 - **Disabled** — Reduced opacity; no interaction.
 - **Filled** — User-entered text visible; placeholder hidden.
 
@@ -67,7 +67,7 @@ Uses `useId` for accessibility linking between label, input, and description.
 
 ## 6. Styling
 
-- **Design tokens used:** Size variant controls padding, font size, and border radius (`sm`/`md`/`lg`). `$borderColor` for default border; `$red8` for error border; `$colorSubtitle` for helper text; `$red10` for error text. `$body` font family.
+- **Design tokens used:** Size variant controls padding, font size, and border radius (`sm`/`md`/`lg`). `$borderColor` for default border; `$tomato8` for error border; `$colorSubtitle` for helper text; `$tomato10` for error text. `$body` font family.
 - **Responsive behavior:** Full-width by default; `rows` prop controls initial height.
 - **Dark mode:** Token-based; resolves automatically.
 

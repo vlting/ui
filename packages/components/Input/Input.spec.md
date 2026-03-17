@@ -28,9 +28,9 @@
 Input is a function component that composes styled sub-components into a vertical layout (`YStack`). Sub-components are also exposed as static properties for custom composition.
 
 - **Input (root function)** — Composes Label, Frame (with optional leading/trailing slots and Field), and Helper into a vertical stack. Handles controlled/uncontrolled value, error/helper text logic, and ARIA wiring.
-- **Input.Frame** — A `styled(STLInput)` that extends `STL` with `error` and `fieldSize` variants. Provides `focusVisibleStyle` with a 2px outline ring (`$color10`). The `error` variant applies `$red10` border color. The `fieldSize` variant controls border radius and padding per size.
+- **Input.Frame** — A `styled(STLInput)` that extends `STL` with `error` and `fieldSize` variants. Provides `focusVisibleStyle` with a 2px outline ring (`$color10`). The `error` variant applies `$tomato10` border color. The `fieldSize` variant controls border radius and padding per size.
 - **Input.Label** — A `styled(Text)` rendered inside a native `<label>` element (with `htmlFor` linking to the input's `useId()`). Uses `$body` font family, `$3` weight, `$1` bottom margin, and size-responsive font sizes.
-- **Input.Helper** — A `styled(Text)` for helper or error text below the input. Has a `tone` variant: `neutral` uses `$colorSubtitle`, `error` uses `$red10`. Renders only when display content is available.
+- **Input.Helper** — A `styled(Text)` for helper or error text below the input. Has a `tone` variant: `neutral` uses `$colorSubtitle`, `error` uses `$tomato10`. Renders only when display content is available.
 
 When `leadingSlot` or `trailingSlot` is provided, the input field is wrapped in an `XStack` with `SlotFrame` wrappers for each slot.
 
@@ -46,7 +46,7 @@ Helper text display logic: if `error` is `true` and `errorMessage` is provided, 
 
 - **Idle** — Field shows theme-default border and background. Field is editable.
 - **Focus** — Field shows `focusVisibleStyle`: 2px solid outline with `$color10` color and 1px offset.
-- **Error** — Field border changes to `$red10` (via `error` variant). Helper text displays `errorMessage` in `$red10` color. `aria-invalid` is set on the field.
+- **Error** — Field border changes to `$tomato10` (via `error` variant). Helper text displays `errorMessage` in `$tomato10` color. `aria-invalid` is set on the field.
 - **Disabled** — Passed as `disabled` prop to the underlying `STL`, which handles native disabled behavior. No interaction possible.
 - **Hover** — Handled by the underlying STL Input component's built-in hover styles.
 - **Loading** — Not applicable. Input does not have a loading state.
@@ -70,14 +70,14 @@ Helper text display logic: if `error` is `true` and `errorMessage` is provided, 
   - `aria-label` is set on the field to the `placeholder` value as a fallback when no `label` prop is provided.
 - **Focus management:** The `focusVisibleStyle` on the field provides a visible focus indicator (outline ring) when the field is focused. The field itself is focusable via native `<input>` behavior.
 - **Screen reader announcements:** The label is associated via the native `<label htmlFor>` pattern. Error and helper text are associated via `aria-describedby`.
-- **Contrast:** Input text (`$color`) must meet WCAG 2.1 AA contrast against the input background. Error text (`$red10`) must meet AA contrast against the page background. Label and helper text must meet AA contrast ratios.
+- **Contrast:** Input text (`$color`) must meet WCAG 2.1 AA contrast against the input background. Error text (`$tomato10`) must meet AA contrast against the page background. Label and helper text must meet AA contrast ratios.
 
 ---
 
 ## 6. Styling
 
 - **Design tokens used:**
-  - Colors: `$borderColor`, `$color10` (focus outline), `$red10` (error), `$color`, `$colorSubtitle` (helper text), `$background`.
+  - Colors: `$borderColor`, `$color10` (focus outline), `$tomato10` (error), `$color`, `$colorSubtitle` (helper text), `$background`.
   - Font: `$body` family throughout, `$3` weight for label.
   - Sizes map to STL size tokens: `sm`=`$3`, `md`=`$4`, `lg`=`$5`.
   - Field size variant controls border radius (`$3`/`$4`/`$5`) and padding per size.
@@ -122,7 +122,7 @@ Helper text display logic: if `error` is `true` and `errorMessage` is provided, 
   - Native `<label>` element has correct `htmlFor` attribute.
   - Helper text renders `helperText` when no error.
   - Helper text renders `errorMessage` when `error` is `true` and `errorMessage` is provided.
-  - Error state applies `$red10` border and error-toned helper text.
+  - Error state applies `$tomato10` border and error-toned helper text.
   - Disabled state passes `disabled` to the native input.
   - Each size variant (`sm`, `md`, `lg`) renders correctly.
   - Leading and trailing slots render when provided; omitted otherwise.

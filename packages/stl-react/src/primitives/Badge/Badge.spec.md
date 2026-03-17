@@ -19,11 +19,11 @@
 
 ## 3. Anatomy
 
-Single element — `styled(Text)` with variant, tone, and size variant groups.
+Single element — `styled('span')` with theme, variant, and size variant groups.
 
-- `variant`: `default` | `solid` (alias) | `secondary` | `destructive` | `outline` | `subtle`. Default: `default`.
-- `tone`: `neutral` | `primary` | `success` | `warning` | `danger` (currently empty — reserved for tone-based color overrides).
-- `size`: `sm` | `md` | `lg`. Default: `md`.
+- `theme` (15): `primary` | `secondary` | `neutral` | `success` | `warning` | `error` | `info` | `tomato` | `amber` | `grass` | `forest` | `aqua` | `indigo` | `plum` | `magenta`. Default: `neutral`.
+- `variant` (3): `solid` | `subtle` | `outline`. Default: `solid`.
+- `size` (3): `sm` | `md` | `lg`. Default: `md`.
 
 > **TypeScript is the source of truth for props.** See `BadgeProps` in `Badge.tsx` for the full typed API. Do not duplicate prop tables here.
 
@@ -47,20 +47,25 @@ None.
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders as text (STL Text → `<span>` on web).
+- **Semantic element:** Renders as `<span>` on web.
 - **ARIA attributes:** None by default. If the badge conveys status meaning, the consumer should ensure the status is also communicated through text context or `aria-label` on a parent.
-- **Contrast:** Each variant's foreground/background combination must meet WCAG 4.5:1 for text contrast. The `destructive` variant uses `$red10` on `$color1` — verify in both themes.
+- **Contrast:** Each variant's foreground/background combination must meet WCAG 4.5:1 for text contrast. The `$<theme>9` / `$<theme>Text9` pairing (solid) guarantees this via the color-gen contrast algorithm. Verify `$tomato10` on `$color1` in both themes.
 
 ---
 
 ## 6. Styling
 
 - **Design tokens used:**
-  - Text: `fontFamily: '$body'`, `fontSize: '$1'`/`'$2'`, `fontWeight: '$4'`
-  - Colors vary by variant (e.g., `default`: `$color6` bg / `$color1` text; `outline`: transparent bg / `$borderColor` border)
-  - Spacing: `paddingHorizontal`/`paddingVertical` from token scale
-  - Shape: `borderRadius: '$10'` (pill shape), `overflow: 'hidden'`
-  - Layout: `alignSelf: 'flex-start'` prevents stretching in flex containers
+  - Text: `fontFamily: '$body'`, `fontWeight: '$500'`
+  - fontSize by size: `sm` → `$buttonTiny`, `md` → `$buttonSmall`, `lg` → `$button`
+  - Colors: compound variants map `theme × variant` to `$<theme>` scale steps (see Color contract)
+  - Spacing: `sm` → px=$8/py=$4, `md` → px=$12/py=$4, `lg` → px=$16/py=$6
+  - Shape: `radius: '$full'` (pill shape)
+  - Layout: `display: 'inline-flex'`, `flexShrink: '0'`
+- **Color contract:**
+  - `solid`: `$<theme>9` bg + `$<theme>Text9` text
+  - `subtle`: `$<theme>3` bg + `$<theme>Text3` text
+  - `outline`: transparent bg + `$<theme>9` border + `$<theme>Text3` text
 - **Responsive behavior:** Inherits STL responsive props.
 - **Dark mode:** Color tokens resolve automatically.
 
@@ -70,21 +75,21 @@ None.
 
 - **What can contain this component:** Any layout context — cards, list items, table cells, headings, navigation.
 - **What this component can contain:** Short text content only. No nested interactive elements.
-- **Anti-patterns:** Do not wrap Badge in a button to make it clickable — use a proper Button with badge styling. Do not use `destructive` variant for non-error contexts.
+- **Anti-patterns:** Do not wrap Badge in a button to make it clickable — use a proper Button with badge styling.
 
 ---
 
 ## 8. Breaking Change Criteria
 
-- Removing a variant value.
-- Changing default variant from `default`.
+- Removing a theme or variant value.
+- Changing default theme from `neutral`.
+- Changing default variant from `solid`.
 - Changing default size from `md`.
-- Removing the `solid` alias.
-- Changing the pill shape (`borderRadius: '$10'`).
+- Changing the pill shape (`radius: '$full'`).
 
 ---
 
 ## 9. Test Requirements
 
-- **Behavioral tests:** Verify each variant applies correct background and text colors. Verify each size applies correct fontSize and padding. Verify default variant and size. Verify `solid` alias produces same output as `default`.
+- **Behavioral tests:** Verify each theme × variant applies correct compound styles. Verify each size applies correct fontSize and padding. Verify default theme, variant, and size.
 - **Accessibility tests:** Verify no implicit role. Verify text contrast for all variants in both light and dark themes.

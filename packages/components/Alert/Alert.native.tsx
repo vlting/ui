@@ -21,9 +21,9 @@ const AlertFrame = styled(
   {
     variant: {
       default: { backgroundColor: '$surface1' },
-      destructive: { borderColor: '$red8', backgroundColor: '$red2' },
-      warning: { borderColor: '$yellow8', backgroundColor: '$yellow2' },
-      info: { borderColor: '$blue8', backgroundColor: '$blue2' },
+      destructive: { borderColor: '$tomato8', backgroundColor: '$tomato2' },
+      warning: { borderColor: '$amber8', backgroundColor: '$amber2' },
+      info: { borderColor: '$aqua8', backgroundColor: '$aqua2' },
     },
   },
   'Alert',

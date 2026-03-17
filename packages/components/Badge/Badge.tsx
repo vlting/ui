@@ -1,9 +1,22 @@
 import type { ComponentPropsWithRef } from 'react'
-import { styled } from '../../stl-react/src/config'
+import { styled, type STL } from '../../stl-react/src/config'
 
 // ─── Badge ──────────────────────────────────────────────────────────────────
 
-const themes = ['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info'] as const
+const themes = [
+  // Core
+  'primary', 'secondary', 'neutral',
+  // Status
+  'success', 'warning', 'error', 'info',
+  // Flavor
+  'tomato', 'amber', 'grass', 'forest', 'aqua', 'indigo', 'plum', 'magenta',
+] as const
+
+const variantStyles = {
+  solid: (t: string) => ({ bg: `$${t}9`, color: `$${t}Text9` }) as STL,
+  subtle: (t: string) => ({ bg: `$${t}3`, color: `$${t}Text3` }) as STL,
+  outline: (t: string) => ({ bg: 'transparent', border: `$${t}9`, borderWidth: '$widthMin', color: `$${t}Text3` }) as STL,
+}
 
 export const Badge = styled('span', {
   stl: {
@@ -13,7 +26,7 @@ export const Badge = styled('span', {
     radius: '$full',
     fontFamily: '$body',
     fontWeight: '$500',
-    lineHeight: '1',
+    lineHeight: '$flat',
     whiteSpace: 'nowrap',
     flexShrink: '0',
   },
@@ -25,19 +38,14 @@ export const Badge = styled('span', {
       outline: {},
     },
     size: {
-      sm: { px: '$6', py: '$2', fontSize: '11px' },
-      md: { px: '$8', py: '$2', fontSize: '$small' },
-      lg: { px: '$12', py: '$4', fontSize: '$small' },
+      sm: { px: '$8', py: '$4', fontSize: '$buttonTiny' },
+      md: { px: '$12', py: '$4', fontSize: '$buttonSmall' },
+      lg: { px: '$16', py: '$6', fontSize: '$button' },
     },
   },
-  compoundVariants: [
-    // solid
-    ...themes.map(t => ({ when: { variant: 'solid' as const, theme: t }, stl: { bg: `$${t}9`, color: `$${t}Text9` } })),
-    // subtle
-    ...themes.map(t => ({ when: { variant: 'subtle' as const, theme: t }, stl: { bg: `$${t}3`, color: `$${t}Text3` } })),
-    // outline
-    ...themes.map(t => ({ when: { variant: 'outline' as const, theme: t }, stl: { bg: 'transparent', border: `$${t}`, borderWidth: '$widthMin', color: `$${t}Text3` } })),
-  ],
+  compoundVariants: Object.entries(variantStyles).flatMap(([v, fn]) =>
+    themes.map(t => ({ when: { variant: v as 'solid' | 'subtle' | 'outline', theme: t }, stl: fn(t) }))
+  ),
   defaultVariants: { theme: 'neutral', variant: 'solid', size: 'md' },
   styleName: 'Badge',
 })

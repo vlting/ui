@@ -23,7 +23,7 @@ const ButtonFrame = styled(
       default: { backgroundColor: '$primary9' },
       solid: { backgroundColor: '$primary9' },
       secondary: { backgroundColor: '$color3' },
-      destructive: { backgroundColor: '$red9' },
+      destructive: { backgroundColor: '$tomato9' },
       outline: {
         backgroundColor: 'transparent',
         borderWidth: 1,

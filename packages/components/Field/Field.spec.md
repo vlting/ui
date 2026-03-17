@@ -63,7 +63,7 @@ None.
 
 ## 6. Styling
 
-- **Design tokens used:** `$body` font family, `$color` for label, `$colorSubtitle` for description, `$red10` for error text.
+- **Design tokens used:** `$body` font family, `$color` for label, `$colorSubtitle` for description, `$tomato10` for error text.
 - **Responsive behavior:** Full-width by default.
 - **Dark mode:** Token resolution handles automatically.
 

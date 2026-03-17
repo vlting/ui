@@ -9,7 +9,7 @@ export const Kbd = styled('kbd', {
     bg: '$surface2',
     borderWidth: '$widthBase',
     borderStyle: '$styleDefault',
-    borderColor: '$primaryMin',
+    borderColor: '$primary1',
     borderBottomWidth: 'medium',
     color: '$color',
   },

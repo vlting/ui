@@ -125,7 +125,7 @@ All 7 primitives (Badge, Kbd, Label, Separator, Skeleton, Spinner, AspectRatio) 
 **Usage:**
 ```tsx
 <Spinner size="md" />
-<Spinner size="lg" color="$blue10" />
+<Spinner size="lg" color="$aqua10" />
 ```
 
 ## AspectRatio

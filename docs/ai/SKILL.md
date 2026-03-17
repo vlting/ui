@@ -359,7 +359,7 @@ const config = createBrandConfig(defaultBrand)
 
 ### Brand-agnostic code
 
-- Use semantic tokens (`$background`, `$color`), not palette tokens (`$color1`, `$blue5`)
+- Use semantic tokens (`$background`, `$color`), not palette tokens (`$color1`, `$aqua5`)
 - Use component variants, not custom colors
 - Test with at least `defaultBrand` and `shadcnBrand`
 
@@ -372,8 +372,8 @@ import { Chart, BarChart } from '@vlting/ui'
 import type { ChartConfig } from '@vlting/ui'
 
 const config: ChartConfig = {
-  revenue: { label: 'Revenue', color: '$blue9' },
-  expenses: { label: 'Expenses', color: '$red9' },
+  revenue: { label: 'Revenue', color: '$aqua9' },
+  expenses: { label: 'Expenses', color: '$tomato9' },
 }
 
 const data = [

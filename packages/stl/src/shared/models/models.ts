@@ -7,7 +7,7 @@ export type NotShared<
   B extends Record<string, any>,
 > = Exclude<keyof A, keyof B>
 
-export type CustomVarHint = '<Any valid CSS>'
+export type CustomVarHint = '<Any valid styles>'
 export type CoreStaticKeys = 'initial' | 'inherit' | 'unset' | 'revert' | 'revert-layer'
 
 // This is a hacky way to get a union-friendly string that doesn't wipe out static string values from a union
