@@ -6,8 +6,10 @@ import { styled } from '../../stl-react/src/config'
 const AlertRoot = styled('div', {
   stl: {
     display: 'flex',
-    gap: '$12',
-    p: '$16',
+    alignItems: 'start',
+    gap: '$16',
+    px: '$20',
+    py: '$16',
     borderRadius: '$field',
     fontFamily: '$body',
   },
@@ -36,6 +38,9 @@ const AlertRoot = styled('div', {
       },
       borderless: { border: 'none' },
       'high-contrast': { border: 'none' },
+    },
+    floating: {
+      true: { boxShadow: '$md' },
     },
   },
   compoundVariants: [
@@ -73,12 +78,15 @@ const AlertDescription = styled('p', {
 })
 
 const AlertIcon = styled('span', {
-  stl: { display: 'flex', alignItems: 'center', flexShrink: '0' },
+  stl: { display: 'flex', alignItems: 'center', flexShrink: '0', height: '$20' },
   styleName: 'AlertIcon',
 })
 
-export const Alert = { Root: AlertRoot, Title: AlertTitle, Description: AlertDescription, Icon: AlertIcon }
+const AlertContent = styled('div', {
+  stl: { display: 'flex', flexDirection: 'column', gap: '$4', flex: '1' },
+  styleName: 'AlertContent',
+})
+
+export const Alert = { Root: AlertRoot, Title: AlertTitle, Description: AlertDescription, Icon: AlertIcon, Content: AlertContent }
 
 export type AlertProps = ComponentPropsWithRef<typeof AlertRoot>
-export type AlertTheme = NonNullable<AlertProps['theme']>
-export type AlertVariant = NonNullable<AlertProps['variant']>

@@ -20,6 +20,30 @@ const MoonIcon = () => (
   </svg>
 )
 
+const CheckCircleIcon = () => (
+  <svg width={18} height={18} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z" />
+  </svg>
+)
+
+const AlertTriangleIcon = () => (
+  <svg width={18} height={18} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12.866 3L22.3923 19.5C22.5833 19.8094 22.5833 20.1906 22.3923 20.5C22.2013 20.8094 21.866 21 21.5263 21H2.47372C2.134 21 1.7987 20.8094 1.6077 20.5C1.4167 20.1906 1.4167 19.8094 1.6077 19.5L11.134 3C11.325 2.69064 11.6603 2.5 12 2.5C12.3397 2.5 12.675 2.69064 12.866 3ZM11 16V18H13V16H11ZM11 9V14H13V9H11Z" />
+  </svg>
+)
+
+const ErrorCircleIcon = () => (
+  <svg width={18} height={18} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 15V17H13V15H11ZM11 7V13H13V7H11Z" />
+  </svg>
+)
+
+const InfoCircleIcon = () => (
+  <svg width={18} height={18} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 11V17H13V11H11ZM11 7V9H13V7H11Z" />
+  </svg>
+)
+
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const THEMES = ['primary', 'secondary', 'neutral', 'destructive'] as const
@@ -168,6 +192,7 @@ function PlaygroundInner({
 }) {
   const { colorMode, setColorMode, toggleColorMode } = useColorMode()
   const [alertVariant, setAlertVariant] = useState<typeof ALERT_VARIANTS[number]>('borderless')
+  const [alertFloating, setAlertFloating] = useState(false)
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
@@ -285,14 +310,34 @@ function PlaygroundInner({
                 {v}
               </Button>
             ))}
+            <Button
+              size="xs"
+              theme="neutral"
+              variant={alertFloating ? 'subtle' : 'ghost'}
+              onClick={() => setAlertFloating((f) => !f)}
+              aria-pressed={alertFloating}
+            >
+              floating
+            </Button>
           </ButtonRow>
           <StackY>
-            {ALERT_THEMES.map((theme) => (
-              <Alert.Root key={theme} theme={theme} variant={alertVariant}>
-                <Alert.Title>{theme.charAt(0).toUpperCase() + theme.slice(1)}</Alert.Title>
-                <Alert.Description>This is a {theme} alert — {alertVariant}.</Alert.Description>
-              </Alert.Root>
-            ))}
+            {ALERT_THEMES.map((theme) => {
+              const icon =
+                theme === 'success' ? <CheckCircleIcon /> :
+                theme === 'warning' ? <AlertTriangleIcon /> :
+                theme === 'error' ? <ErrorCircleIcon /> :
+                theme === 'info' ? <InfoCircleIcon /> :
+                null
+              return (
+                <Alert.Root key={theme} theme={theme} variant={alertVariant} floating={alertFloating}>
+                  {icon && <Alert.Icon>{icon}</Alert.Icon>}
+                  <Alert.Content>
+                    <Alert.Title>{theme.charAt(0).toUpperCase() + theme.slice(1)}</Alert.Title>
+                    <Alert.Description>This is a {theme} alert — {alertVariant}.</Alert.Description>
+                  </Alert.Content>
+                </Alert.Root>
+              )
+            })}
           </StackY>
         </Card>
 
