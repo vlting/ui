@@ -14,7 +14,6 @@ module.exports = {
     'packages/components/Breadcrumb/',
     'packages/components/ButtonGroup/',
     'packages/components/Calendar/',
-    'packages/components/Card/',
     'packages/components/Carousel/',
     'packages/components/Chart/',
     'packages/components/Checkbox/',
