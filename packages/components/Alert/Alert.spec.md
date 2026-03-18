@@ -73,7 +73,7 @@ None.
 
 - **Theme tokens:** Each theme uses `$<scale>3` (bg), `$<scale>` (border), `$<scale>Text3` (text) from the STL token scale.
 - **Dark mode:** Token resolution handles automatically.
-- **Layout:** Flex row with `$16` gap, `px: $24` / `py: $16` padding, `$field` border-radius.
+- **Layout:** Flex row with `$16` gap, `px: $24` / `py: $16` padding, `$card` border-radius.
 
 ---
 

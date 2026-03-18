@@ -95,8 +95,8 @@ Compound component. Sub-components arrange horizontally inside the root:
 ### Color contract (theme × variant)
 
 - **ghost** — transparent bg, no border. Text uses `$<theme>Text3`.
-- **subtle** — `$<theme>3` bg, `$field` radius. Text uses `$<theme>Text3`.
-- **outline** — transparent bg, `$<theme>5` border, `$widthMin` border width, `$field` radius. Text uses `$<theme>Text3`.
+- **subtle** — `$<theme>3` bg, `$card` radius. Text uses `$<theme>Text3`.
+- **outline** — transparent bg, `$<theme>5` border, `$widthMin` border width, `$card` radius. Text uses `$<theme>Text3`.
 
 ### Interactive states (theme-aware, via compound variants)
 
@@ -113,9 +113,9 @@ const themes = ['primary', 'secondary', 'neutral'] as const
 
 const variantStyles = {
   ghost: (t: string) => ({ color: `$${t}Text3` }) as STL,
-  subtle: (t: string) => ({ bg: `$${t}3`, radius: '$field', color: `$${t}Text3` }) as STL,
+  subtle: (t: string) => ({ bg: `$${t}3`, radius: '$card', color: `$${t}Text3` }) as STL,
   outline: (t: string) => ({
-    bg: 'transparent', border: `$${t}5`, borderWidth: '$widthMin', radius: '$field'
+    bg: 'transparent', border: `$${t}5`, borderWidth: '$widthMin', radius: '$card'
   }) as STL,
 }
 
@@ -130,7 +130,7 @@ Generated compounds: ~12 total (9 theme×variant + 3 theme×interactive).
 
 ### Design tokens
 
-- **Radius:** `$field` — applied by `subtle` and `outline` variants.
+- **Radius:** `$card` — applied by `subtle` and `outline` variants.
 - **Font:** `$body` family. Title uses `$500` weight, `$p` size, `$listItem` line-height. Description uses `$small` size, `$400` weight.
 - **Alignment:** Leading and Trailing use `minHeight: '$20'` (matching title line-height) with internal centering, so media aligns with the title line when `align: 'top'`.
 - **Colors:** Title `$<theme>Text3` (inherited from root compound variants), Description `$<theme>Text4` (via own `theme` variant, defaults to `neutral`).
