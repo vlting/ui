@@ -15,13 +15,13 @@ const AlertRoot = styled('div', {
   },
   variants: {
     theme: {
-      primary: { bg: '$primary3', border: '$primary9', color: '$primaryText3' },
-      secondary: { bg: '$secondary3', border: '$secondary9', color: '$secondaryText3' },
-      neutral: { bg: '$neutral3', border: '$neutral9', color: '$neutralText3' },
-      success: { bg: '$success3', border: '$success9', color: '$successText3' },
-      warning: { bg: '$warning3', border: '$warning9', color: '$warningText3' },
-      error: { bg: '$error3', border: '$error9', color: '$errorText3' },
-      info: { bg: '$info3', border: '$info9', color: '$infoText3' },
+      primary: { bg: '$primary3', border: '$primary9' },
+      secondary: { bg: '$secondary3', border: '$secondary9' },
+      neutral: { bg: '$neutral3', border: '$neutral9' },
+      success: { bg: '$success3', border: '$success9' },
+      warning: { bg: '$warning3', border: '$warning9' },
+      error: { bg: '$error3', border: '$error9' },
+      info: { bg: '$info3', border: '$info9' },
     },
     variant: {
       outline: {
@@ -39,13 +39,23 @@ const AlertRoot = styled('div', {
     },
   },
   compoundVariants: [
-    { when: { variant: 'outline', theme: 'primary' }, stl: { border: '$primary5' } },
-    { when: { variant: 'outline', theme: 'secondary' }, stl: { border: '$secondary5' } },
-    { when: { variant: 'outline', theme: 'neutral' }, stl: { border: '$neutral5' } },
-    { when: { variant: 'outline', theme: 'success' }, stl: { border: '$success5' } },
-    { when: { variant: 'outline', theme: 'warning' }, stl: { border: '$warning5' } },
-    { when: { variant: 'outline', theme: 'error' }, stl: { border: '$error5' } },
-    { when: { variant: 'outline', theme: 'info' }, stl: { border: '$info5' } },
+    // ── Outline ──────────────────────────────────────────
+    { when: { variant: 'outline', theme: 'primary' }, stl: { border: '$primary5', color: '$primaryText3' } },
+    { when: { variant: 'outline', theme: 'secondary' }, stl: { border: '$secondary5', color: '$secondaryText3' } },
+    { when: { variant: 'outline', theme: 'neutral' }, stl: { border: '$neutral5', color: '$neutralText3' } },
+    { when: { variant: 'outline', theme: 'success' }, stl: { border: '$success5', color: '$successText3' } },
+    { when: { variant: 'outline', theme: 'warning' }, stl: { border: '$warning5', color: '$warningText3' } },
+    { when: { variant: 'outline', theme: 'error' }, stl: { border: '$error5', color: '$errorText3' } },
+    { when: { variant: 'outline', theme: 'info' }, stl: { border: '$info5', color: '$infoText3' } },
+    // ── Subtle ───────────────────────────────────────────
+    { when: { variant: 'subtle', theme: 'primary' }, stl: { color: '$primaryText3' } },
+    { when: { variant: 'subtle', theme: 'secondary' }, stl: { color: '$secondaryText3' } },
+    { when: { variant: 'subtle', theme: 'neutral' }, stl: { color: '$neutralText3' } },
+    { when: { variant: 'subtle', theme: 'success' }, stl: { color: '$successText3' } },
+    { when: { variant: 'subtle', theme: 'warning' }, stl: { color: '$warningText3' } },
+    { when: { variant: 'subtle', theme: 'error' }, stl: { color: '$errorText3' } },
+    { when: { variant: 'subtle', theme: 'info' }, stl: { color: '$infoText3' } },
+    // ── Solid ────────────────────────────────────────────
     { when: { variant: 'solid', theme: 'primary' }, stl: { bg: '$primary9', color: '$primaryText9' } },
     { when: { variant: 'solid', theme: 'secondary' }, stl: { bg: '$secondary9', color: '$secondaryText9' } },
     { when: { variant: 'solid', theme: 'neutral' }, stl: { bg: '$neutral9', color: '$neutralText9' } },
