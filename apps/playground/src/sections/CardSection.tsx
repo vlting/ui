@@ -18,7 +18,7 @@ export function CardSection({ sectionRef }: SectionProps) {
         <Button
           size="xs"
           theme="neutral"
-          variant={interactive ? 'solid' : 'outline'}
+          variant={interactive ? 'solid' : 'subtle'}
           onClick={() => setInteractive((i) => !i)}
           aria-pressed={interactive}
         >

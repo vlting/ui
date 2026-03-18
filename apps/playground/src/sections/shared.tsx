@@ -141,7 +141,7 @@ export function VariantToggle<T extends string>({
           key={o}
           size="xs"
           theme="neutral"
-          variant={value === o ? 'solid' : 'outline'}
+          variant={value === o ? 'solid' : 'subtle'}
           onClick={() => onChange(o)}
         >
           {o}
