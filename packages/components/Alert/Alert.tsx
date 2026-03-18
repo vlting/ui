@@ -54,7 +54,7 @@ const AlertRoot = styled('div', {
     { when: { variant: 'solid', theme: 'error' }, stl: { bg: '$error9', color: '$errorText9' } },
     { when: { variant: 'solid', theme: 'info' }, stl: { bg: '$info9', color: '$infoText9' } },
   ],
-  defaultVariants: { theme: 'primary', variant: 'subtle', elevation: 'flat' },
+  defaultVariants: { theme: 'primary', variant: 'outline', elevation: 'flat' },
   mapProps: (props) => ({
     ...props,
     role: props.theme === 'error' ? 'alert' : 'status',
