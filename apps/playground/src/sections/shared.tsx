@@ -70,6 +70,7 @@ export const SectionTitle = styled('h3', {
   color: '$neutralText3',
   m: '$0',
   mt: '$10',
+  mb: '$4',
   textTransform: 'uppercase',
   letterSpacing: '0.05em',
 }, { name: 'SectionTitle' })
