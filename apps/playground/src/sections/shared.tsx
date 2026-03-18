@@ -113,7 +113,7 @@ export const DarkStage = styled('div', {
 
 export const ToggleBar = styled('div', {
   display: 'flex',
-  gap: '$16',
+  gap: '$24',
   flexWrap: 'wrap',
   alignItems: 'center',
   mb: '$16',
