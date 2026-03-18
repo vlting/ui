@@ -2,7 +2,7 @@ import { type ReactNode, useState } from 'react'
 import { Avatar, Badge, Button, Item } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
-import { ButtonRow, DemoCard, SectionHeading, SectionTitle, StackY, type SectionProps } from './shared'
+import { DemoCard, SectionHeading, SectionTitle, StackY, ToggleBar, VariantToggle, type SectionProps } from './shared'
 
 const ITEM_VARIANTS = ['ghost', 'subtle', 'outline'] as const
 const ITEM_SIZES = ['sm', 'md', 'lg'] as const
@@ -70,80 +70,15 @@ export function ItemSection({ sectionRef }: SectionProps) {
   return (
     <DemoCard stl={{ mt: '$24' }} ref={sectionRef} data-section="Item">
       <SectionHeading>Item</SectionHeading>
-      <ButtonRow stl={{ mb: '$16' }}>
-        {ITEM_VARIANTS.map((v) => (
-          <Button
-            key={v}
-            size="xs"
-            theme="neutral"
-            variant={variant === v ? 'subtle' : 'ghost'}
-            onClick={() => setVariant(v)}
-            aria-pressed={variant === v}
-          >
-            {v}
-          </Button>
-        ))}
-        {ITEM_SIZES.map((s) => (
-          <Button
-            key={s}
-            size="xs"
-            theme="neutral"
-            variant={size === s ? 'subtle' : 'ghost'}
-            onClick={() => setSize(s)}
-            aria-pressed={size === s}
-          >
-            {s}
-          </Button>
-        ))}
-        {ITEM_ALIGNS.map((a) => (
-          <Button
-            key={a}
-            size="xs"
-            theme="neutral"
-            variant={align === a ? 'subtle' : 'ghost'}
-            onClick={() => setAlign(a)}
-            aria-pressed={align === a}
-          >
-            {a}
-          </Button>
-        ))}
-        <Button
-          size="xs"
-          theme="neutral"
-          variant={interactive ? 'subtle' : 'ghost'}
-          onClick={() => setInteractive((i) => !i)}
-          aria-pressed={interactive}
-        >
-          interactive
-        </Button>
-        <Button
-          size="xs"
-          theme="neutral"
-          variant={showMedia ? 'subtle' : 'ghost'}
-          onClick={() => setShowMedia((m) => !m)}
-          aria-pressed={showMedia}
-        >
-          media
-        </Button>
-        <Button
-          size="xs"
-          theme="neutral"
-          variant={showDescription ? 'subtle' : 'ghost'}
-          onClick={() => setShowDescription((d) => !d)}
-          aria-pressed={showDescription}
-        >
-          description
-        </Button>
-        <Button
-          size="xs"
-          theme="neutral"
-          variant={showActions ? 'subtle' : 'ghost'}
-          onClick={() => setShowActions((a) => !a)}
-          aria-pressed={showActions}
-        >
-          actions
-        </Button>
-      </ButtonRow>
+      <ToggleBar>
+        <VariantToggle options={ITEM_VARIANTS} value={variant} onChange={setVariant} />
+        <VariantToggle options={ITEM_SIZES} value={size} onChange={setSize} />
+        <VariantToggle options={ITEM_ALIGNS} value={align} onChange={setAlign} />
+        <Button size="xs" theme="neutral" variant={interactive ? 'solid' : 'outline'} onClick={() => setInteractive((i) => !i)}>interactive</Button>
+        <Button size="xs" theme="neutral" variant={showMedia ? 'solid' : 'outline'} onClick={() => setShowMedia((m) => !m)}>media</Button>
+        <Button size="xs" theme="neutral" variant={showDescription ? 'solid' : 'outline'} onClick={() => setShowDescription((d) => !d)}>description</Button>
+        <Button size="xs" theme="neutral" variant={showActions ? 'solid' : 'outline'} onClick={() => setShowActions((a) => !a)}>actions</Button>
+      </ToggleBar>
       <ThemeRow>
         {ITEM_THEMES.map((theme) => (
           <ThemeGroup key={theme}>

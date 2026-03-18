@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, Card as UiCard } from '@vlting/ui'
 
-import { ButtonRow, DemoCard, SectionHeading, StackY, type SectionProps } from './shared'
+import { DemoCard, SectionHeading, StackY, ToggleBar, VariantToggle, type SectionProps } from './shared'
 
 const CARD_ELEVATIONS = ['flat', 'normal', 'raised'] as const
 const CARD_THEMES = ['neutral', 'primary', 'secondary'] as const
@@ -13,29 +13,18 @@ export function CardSection({ sectionRef }: SectionProps) {
   return (
     <DemoCard surface="dark" stl={{ mt: '$24' }} ref={sectionRef} data-section="Card">
       <SectionHeading>Card</SectionHeading>
-      <ButtonRow stl={{ mb: '$16' }}>
-        {CARD_ELEVATIONS.map((e) => (
-          <Button
-            key={e}
-            size="xs"
-            theme="neutral"
-            variant={elevation === e ? 'subtle' : 'ghost'}
-            onClick={() => setElevation(e)}
-            aria-pressed={elevation === e}
-          >
-            {e}
-          </Button>
-        ))}
+      <ToggleBar>
+        <VariantToggle options={CARD_ELEVATIONS} value={elevation} onChange={setElevation} />
         <Button
           size="xs"
           theme="neutral"
-          variant={interactive ? 'subtle' : 'ghost'}
+          variant={interactive ? 'solid' : 'outline'}
           onClick={() => setInteractive((i) => !i)}
           aria-pressed={interactive}
         >
           interactive
         </Button>
-      </ButtonRow>
+      </ToggleBar>
       <StackY>
         {CARD_THEMES.map((theme) => (
           <UiCard key={theme} theme={theme} elevation={elevation} interactive={interactive || undefined}>

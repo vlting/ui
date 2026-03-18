@@ -1,10 +1,10 @@
-import { Alert, Button } from '@vlting/ui'
+import { Alert } from '@vlting/ui'
 import { useState } from 'react'
 
 import {
   ALERT_THEMES, ALERT_VARIANTS,
-  AlertTriangleIcon, ButtonRow, CheckCircleIcon, DemoCard, ErrorCircleIcon, InfoCircleIcon,
-  SectionHeading, StackY,
+  AlertTriangleIcon, CheckCircleIcon, DemoCard, ErrorCircleIcon, InfoCircleIcon,
+  SectionHeading, StackY, ToggleBar, VariantToggle,
   type SectionProps,
 } from './shared'
 
@@ -17,32 +17,10 @@ export function AlertSection({ sectionRef }: SectionProps) {
   return (
     <DemoCard stl={{ mt: '$24' }} ref={sectionRef} data-section="Alert">
       <SectionHeading>Alert</SectionHeading>
-      <ButtonRow stl={{ mb: '$16' }}>
-        {ALERT_VARIANTS.map((v) => (
-          <Button
-            key={v}
-            size="xs"
-            theme="neutral"
-            variant={alertVariant === v ? 'subtle' : 'ghost'}
-            onClick={() => setAlertVariant(v)}
-            aria-pressed={alertVariant === v}
-          >
-            {v}
-          </Button>
-        ))}
-        {ELEVATIONS.map((e) => (
-          <Button
-            key={e}
-            size="xs"
-            theme="neutral"
-            variant={alertElevation === e ? 'subtle' : 'ghost'}
-            onClick={() => setAlertElevation(e)}
-            aria-pressed={alertElevation === e}
-          >
-            {e}
-          </Button>
-        ))}
-      </ButtonRow>
+      <ToggleBar>
+        <VariantToggle options={ALERT_VARIANTS} value={alertVariant} onChange={setAlertVariant} />
+        <VariantToggle options={ELEVATIONS} value={alertElevation} onChange={setAlertElevation} />
+      </ToggleBar>
       <StackY>
         {ALERT_THEMES.map((theme) => {
           const icon =

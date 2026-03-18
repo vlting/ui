@@ -109,7 +109,21 @@ export const DarkStage = styled('div', {
   bg: '$background10', radius: '$3', p: '$24',
 }, { name: 'DarkStage' })
 
-// ─── VariantToggle ──────────────────────────────────────────────────────────
+// ─── ToggleBar ─────────────────────────────────────────────────────────────
+
+export const ToggleBar = styled('div', {
+  display: 'flex',
+  gap: '$16',
+  flexWrap: 'wrap',
+  alignItems: 'center',
+  mb: '$16',
+}, { name: 'ToggleBar' })
+
+const ToggleGroup = styled('div', {
+  display: 'flex',
+  gap: '$6',
+  flexWrap: 'wrap',
+}, { name: 'ToggleGroup' })
 
 export function VariantToggle<T extends string>({
   options,
@@ -121,11 +135,11 @@ export function VariantToggle<T extends string>({
   onChange: (v: T) => void
 }) {
   return (
-    <ButtonRow>
+    <ToggleGroup>
       {options.map(o => (
         <Button
           key={o}
-          size="sm"
+          size="xs"
           theme="neutral"
           variant={value === o ? 'solid' : 'outline'}
           onClick={() => onChange(o)}
@@ -133,7 +147,7 @@ export function VariantToggle<T extends string>({
           {o}
         </Button>
       ))}
-    </ButtonRow>
+    </ToggleGroup>
   )
 }
 

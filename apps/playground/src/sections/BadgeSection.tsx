@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Badge } from '@vlting/ui'
 
-import { ButtonRow, DemoCard, SectionHeading, SectionTitle, StackY, VariantToggle, type SectionProps } from './shared'
+import { ButtonRow, DemoCard, SectionHeading, SectionTitle, StackY, ToggleBar, VariantToggle, type SectionProps } from './shared'
 
 const coreThemes = ['primary', 'secondary', 'neutral'] as const
 const statusThemes = ['success', 'warning', 'error', 'info'] as const
@@ -17,7 +17,9 @@ export function BadgeSection({ sectionRef }: SectionProps) {
     <DemoCard stl={{ mt: '$24' }} ref={sectionRef} data-section="Badge">
       <SectionHeading>Badge</SectionHeading>
       <StackY>
-        <VariantToggle options={BADGE_VARIANTS} value={variant} onChange={setVariant} />
+        <ToggleBar>
+          <VariantToggle options={BADGE_VARIANTS} value={variant} onChange={setVariant} />
+        </ToggleBar>
 
         <SectionTitle>Core</SectionTitle>
         <ButtonRow>
