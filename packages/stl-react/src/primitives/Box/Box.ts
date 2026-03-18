@@ -1,11 +1,10 @@
 import { styled } from '../../config'
 
-export const Box = styled('div', {
-  stl: {},
+export const Box = styled('div', {}, {
+  name: 'Box',
   variants: {
     centered: {
       true: { display: 'flex', alignItems: 'center', justifyContent: 'center' },
     },
   },
-  styleName: 'Box',
 })
