@@ -67,7 +67,7 @@ function buildSpaceTokens(base: number): Record<string, number> {
     $56: base * 14,
     $80: base * 20,
     $120: base * 30,
-    $buttonBasePx: base * 4,
+    $buttonBasePx: base * 3,
     $buttonBasePy: base,
     $tooltipBaseP: base * 2,
   }

@@ -65,7 +65,7 @@ export function getSpace<T extends BaseVars>(hash: CharHash, size: T) {
     '-7': { ...hash.var, value: `calc(${base.ref} * -12)` },
     '-8': { ...hash.var, value: `calc(${base.ref} * -14)` },
     // Component
-    buttonBasePx: { ...hash.var, value: size16.ref },
+    buttonBasePx: { ...hash.var, value: size12.ref },
     buttonBasePy: { ...hash.var, value: size4.ref },
     tooltipBaseP: { ...hash.var, value: size8.ref },
   } as const
