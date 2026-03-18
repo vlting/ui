@@ -42,10 +42,10 @@ const ButtonBase = styled('button', {
       link: { border: 'none' },
     },
     size: {
-      xs: { height: '$28', py: '$4', px: '$16', fontSize: '$buttonTiny' },
-      sm: { height: '$32', py: '$8', px: '$20', fontSize: '$buttonSmall' },
-      md: { height: '$36', py: '$buttonBasePy', px: '$16', fontSize: '$button' },
-      lg: { height: '$40', py: '$12', px: '$28', fontSize: '$buttonLarge' },
+      xs: { height: '$28', py: '$4', px: '$20', fontSize: '$buttonTiny' },
+      sm: { height: '$32', py: '$8', px: '$24', fontSize: '$buttonSmall' },
+      md: { height: '$36', py: '$buttonBasePy', px: '$20', fontSize: '$button' },
+      lg: { height: '$40', py: '$12', px: '$32', fontSize: '$buttonLarge' },
       icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button', },
     },
     pill: {

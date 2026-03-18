@@ -47,7 +47,6 @@ export function ButtonSection({ sectionRef }: SectionProps) {
               theme="primary"
               variant="solid"
               size={s}
-              {...(s !== 'icon' && { stl: { minWidth: '$80' } })}
             >
               {s === 'icon' ? '★' : s}
             </Button>
