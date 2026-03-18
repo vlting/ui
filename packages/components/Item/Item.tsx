@@ -37,10 +37,20 @@ const ItemContent = styled('div', {
 
 const ItemTitle = styled('span', {
   fontWeight: '$600',
-  fontSize: 'inherit',
+  fontSize: '$14',
   lineHeight: '$listItem',
   color: 'inherit',
-}, { name: 'ItemTitle' })
+}, {
+  name: 'ItemTitle',
+  variants: {
+    size: {
+      sm: { fontSize: '$13' },
+      md: { fontSize: '$14' },
+      lg: { fontSize: '$p' },
+    },
+  },
+  defaultVariants: { size: 'md' },
+})
 
 const ItemDescription = styled('span', {
   fontSize: '$13',
@@ -87,9 +97,9 @@ const ItemRoot = styled('div', {
       outline: {},
     },
     size: {
-      sm: { minHeight: '$36', py: '$4', px: '$8', fontSize: '$13' },
-      md: { minHeight: '$44', py: '$8', px: '$12', fontSize: '$14' },
-      lg: { minHeight: '$52', py: '$12', px: '$16', fontSize: '$p' },
+      sm: { minHeight: '$36', py: '$4', px: '$8' },
+      md: { minHeight: '$44', py: '$8', px: '$12' },
+      lg: { minHeight: '$52', py: '$12', px: '$16' },
     },
     align: {
       top: { alignItems: 'start' },
