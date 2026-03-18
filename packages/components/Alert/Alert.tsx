@@ -7,7 +7,7 @@ const AlertRoot = styled('div', {
   display: 'flex',
   alignItems: 'start',
   gap: '$16',
-  px: '$24',
+  px: '$16',
   py: '$16',
   borderRadius: '$card',
   fontFamily: '$body',
