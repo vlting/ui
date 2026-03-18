@@ -169,6 +169,8 @@ export type { ScrollAreaRootProps, ScrollAreaViewportProps } from './ScrollArea'
 export { ScrollArea } from './ScrollArea'
 export type { SelectItemProps, SelectProps } from './Select'
 export { Select } from './Select'
+export type { SeparatorProps } from './Separator'
+export { Separator } from './Separator'
 export type { SheetRootProps } from './Sheet'
 export { Sheet } from './Sheet'
 export type { SidebarGroupProps, SidebarMenuItemProps, SidebarRootProps } from './Sidebar'
@@ -200,21 +202,3 @@ export type { ToggleGroupItemProps, ToggleGroupProps, ToggleProps } from './Togg
 export { Toggle, ToggleGroup } from './Toggle'
 export type { TooltipProps, TooltipProviderProps } from './Tooltip'
 export { Tooltip, TooltipProvider } from './Tooltip'
-export {
-  Blockquote,
-  H1,
-  H2,
-  H3,
-  H4,
-  H5,
-  H6,
-  InlineCode,
-  Large,
-  Lead,
-  List,
-  ListItem,
-  Muted,
-  P,
-  Small,
-  Typography,
-} from './Typography'
