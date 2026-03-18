@@ -7,7 +7,7 @@ import { DemoCard, SectionHeading, SectionTitle, StackY, ToggleBar, VariantToggl
 const ITEM_VARIANTS = ['ghost', 'subtle', 'outline'] as const
 const ITEM_SIZES = ['sm', 'md', 'lg'] as const
 const ITEM_THEMES = ['primary', 'secondary', 'neutral'] as const
-const ITEM_ALIGNS = ['center'] as const
+const ITEM_ALIGNS = ['center', 'title'] as const
 
 const TrailingLabel = styled('span', {
   fontSize: '$small',
