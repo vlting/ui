@@ -83,7 +83,7 @@ export function ItemSection({ sectionRef }: SectionProps) {
         {ITEM_THEMES.map((theme) => (
           <ThemeGroup key={theme}>
             <SectionTitle>{theme}</SectionTitle>
-            <StackY>
+            <StackY stl={{ gap: '$6' }}>
               {themeItems[theme].map((item) => (
                 <Item
                   key={item.title}
