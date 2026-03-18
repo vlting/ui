@@ -7,8 +7,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { auroraTheme, popsicleTheme, frostTheme, carbonTheme, mintTheme } from '../../../config/themes'
 import { MoonIcon, SunIcon } from './sections/shared'
 import {
-  AlertSection, AvatarSection, BadgeSection, ButtonSection,
-  CardSection, EmptySection, ItemSection, ProgressSection, SpinnerSection,
+  AlertSection, AvatarSection, BadgeSection, ButtonGroupSection, ButtonSection,
+  CardSection, EmptySection, HeadingSection, ItemSection, ProgressSection,
+  SeparatorSection, SpinnerSection,
 } from './sections'
 import { DemoSection } from './sections/DemoSection'
 
@@ -19,6 +20,7 @@ type Page = typeof PAGES[number]
 
 const SECTIONS = [
   'Button', 'Alert', 'Badge', 'Item', 'Card', 'Progress', 'Spinner', 'Empty', 'Avatar',
+  'Heading', 'Separator', 'ButtonGroup',
 ] as const
 
 const THEME_PRESETS: Record<string, { label: string; theme?: Readonly<Theme> }> = {
@@ -185,6 +187,9 @@ const SECTION_COMPONENTS: Record<string, React.ComponentType<{ sectionRef: (el: 
   Avatar: AvatarSection,
   Badge: BadgeSection,
   Item: ItemSection,
+  Heading: HeadingSection,
+  Separator: SeparatorSection,
+  ButtonGroup: ButtonGroupSection,
 }
 
 // ─── Inner App (inside StlProvider) ──────────────────────────────────────────
