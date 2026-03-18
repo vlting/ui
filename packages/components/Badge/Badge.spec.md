@@ -13,7 +13,7 @@ Inline label for status/category. Informational only — not interactive or focu
 ## Spacing
 | Size | px | py | fontSize |
 |------|----|----|----------|
-| sm | `$8` | `$4` | `$buttonTiny` |
+| sm | `$12` | `$4` | `$buttonTiny` |
 | md | `$12` | `$4` | `$buttonSmall` |
 | lg | `$16` | `$6` | `$button` |
 
