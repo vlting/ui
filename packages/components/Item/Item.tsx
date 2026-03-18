@@ -115,7 +115,7 @@ const ItemRoot = styled('div', {
     ...themes.flatMap(t => [
       { when: { theme: t, variant: 'ghost' as const, interactive: 'true' as const }, stl: interactiveStyles(t, 3) },
       { when: { theme: t, variant: 'outline' as const, interactive: 'true' as const }, stl: interactiveStyles(t, 3) },
-      { when: { theme: t, variant: 'subtle' as const, interactive: 'true' as const }, stl: interactiveStyles(t, 4) },
+      { when: { theme: t, variant: 'subtle' as const, interactive: 'true' as const }, stl: interactiveStyles(t, 3) },
     ]),
   ],
   defaultVariants: { theme: 'neutral', variant: 'outline', size: 'md', align: 'center' },
