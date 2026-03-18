@@ -36,81 +36,68 @@ const DARK_PRESETS = new Set(['popsicle', 'aurora', 'frost'])
 // ─── Styled components ──────────────────────────────────────────────────────
 
 const AppRoot = styled('div', {
-  stl: { display: 'flex', minHeight: '100vh', fontFamily: '$body', bg: '$background3' },
-  styleName: 'AppRoot',
-})
+  display: 'flex', minHeight: '100vh', fontFamily: '$body', bg: '$background3',
+}, { name: 'AppRoot' })
 
 const Sidebar = styled('aside', {
-  stl: {
-    position: 'fixed',
-    top: '0',
-    left: '0',
-    width: '220px',
-    height: '100vh',
-    bg: '$background1',
-    boxShadow: '$lg',
-    display: 'flex',
-    flexDirection: 'column',
-    zIndex: '$10',
-    overflowY: 'auto',
-  },
-  styleName: 'Sidebar',
-})
+  position: 'fixed',
+  top: '0',
+  left: '0',
+  width: '220px',
+  height: '100vh',
+  bg: '$background1',
+  boxShadow: '$lg',
+  display: 'flex',
+  flexDirection: 'column',
+  zIndex: '$10',
+  overflowY: 'auto',
+}, { name: 'Sidebar' })
 
 const SidebarHeader = styled('div', {
-  stl: {
-    px: '$16',
-    pt: '$16',
-    pb: '$12',
-    mb: '$4',
-    borderBottomWidth: '$widthMin',
-    borderBottomStyle: '$styleDefault',
-    borderBottomColor: '$neutralAlpha5',
-  },
-  styleName: 'SidebarHeader',
-})
+  px: '$16',
+  pt: '$16',
+  pb: '$12',
+  mb: '$4',
+  borderBottomWidth: '$widthMin',
+  borderBottomStyle: '$styleDefault',
+  borderBottomColor: '$neutralAlpha5',
+}, { name: 'SidebarHeader' })
 
 const SidebarTitle = styled('h1', {
-  stl: {
-    fontSize: '$small',
-    fontWeight: '$600',
-    color: '$neutralText4',
-    m: '$0',
-  },
-  styleName: 'SidebarTitle',
-})
+  fontSize: '$small',
+  fontWeight: '$600',
+  color: '$neutralText4',
+  m: '$0',
+}, { name: 'SidebarTitle' })
 
 const SidebarNav = styled('nav', {
-  stl: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '$2',
-    px: '$8',
-    py: '$8',
-    flex: '1',
-  },
-  styleName: 'SidebarNav',
-})
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$2',
+  px: '$8',
+  py: '$8',
+  flex: '1',
+}, { name: 'SidebarNav' })
 
 const SidebarPageLink = styled('button', {
-  stl: {
-    display: 'block',
-    width: '100%',
-    px: '$12',
-    py: '$8',
-    fontSize: '$small',
-    fontFamily: '$body',
-    fontWeight: '$600',
-    color: '$neutralText3',
-    bg: 'transparent',
-    border: 'none',
-    borderRadius: '$field',
-    cursor: 'pointer',
-    textAlign: 'start',
-    textTransform: 'uppercase',
-    letterSpacing: '0.04em',
-    ':interact': { bg: '$color3' },
-  },
+  display: 'block',
+  width: '100%',
+  px: '$12',
+  py: '$8',
+  fontSize: '$small',
+  fontFamily: '$body',
+  fontWeight: '$600',
+  color: '$neutralText3',
+  bg: 'transparent',
+  border: 'none',
+  borderRadius: '$field',
+  cursor: 'pointer',
+  textAlign: 'start',
+  textTransform: 'uppercase',
+  letterSpacing: '0.04em',
+  ':interact': { bg: '$color3' },
+}, {
+  name: 'SidebarPageLink',
   variants: {
     active: {
       true: {
@@ -118,27 +105,26 @@ const SidebarPageLink = styled('button', {
       },
     },
   },
-  styleName: 'SidebarPageLink',
 })
 
 const SidebarLink = styled('button', {
-  stl: {
-    display: 'block',
-    width: '100%',
-    px: '$12',
-    py: '$6',
-    pl: '$24',
-    fontSize: '$small',
-    fontFamily: '$body',
-    fontWeight: '$400',
-    color: '$neutralText4',
-    bg: 'transparent',
-    border: 'none',
-    borderRadius: '$field',
-    cursor: 'pointer',
-    textAlign: 'start',
-    ':interact': { bg: '$color3', color: '$neutralText3' },
-  },
+  display: 'block',
+  width: '100%',
+  px: '$12',
+  py: '$6',
+  pl: '$24',
+  fontSize: '$small',
+  fontFamily: '$body',
+  fontWeight: '$400',
+  color: '$neutralText4',
+  bg: 'transparent',
+  border: 'none',
+  borderRadius: '$field',
+  cursor: 'pointer',
+  textAlign: 'start',
+  ':interact': { bg: '$color3', color: '$neutralText3' },
+}, {
+  name: 'SidebarLink',
   variants: {
     active: {
       true: {
@@ -148,52 +134,44 @@ const SidebarLink = styled('button', {
       },
     },
   },
-  styleName: 'SidebarLink',
 })
 
 const SidebarFooter = styled('div', {
-  stl: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '$12',
-    px: '$12',
-    pt: '$16',
-    pb: '$16',
-    mt: '$8',
-    borderTopWidth: '$widthMin',
-    borderTopStyle: '$styleDefault',
-    borderTopColor: '$neutralAlpha5',
-  },
-  styleName: 'SidebarFooter',
-})
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$12',
+  px: '$12',
+  pt: '$16',
+  pb: '$16',
+  mt: '$8',
+  borderTopWidth: '$widthMin',
+  borderTopStyle: '$styleDefault',
+  borderTopColor: '$neutralAlpha5',
+}, { name: 'SidebarFooter' })
 
 const ThemePicker = styled('select', {
-  stl: {
-    flex: '1',
-    minWidth: '0',
-    px: '$8',
-    py: '$6',
-    fontSize: '$small',
-    fontFamily: '$body',
-    color: '$neutralText4',
-    bg: '$background1',
-    borderWidth: '$widthMin',
-    borderStyle: '$styleDefault',
-    border: '$maxAlpha4',
-    borderRadius: '$field',
-    cursor: 'pointer',
-    outline: 'none',
-    ':focus': {
-      border: '$primary',
-    },
+  flex: '1',
+  minWidth: '0',
+  px: '$8',
+  py: '$6',
+  fontSize: '$small',
+  fontFamily: '$body',
+  color: '$neutralText4',
+  bg: '$background1',
+  borderWidth: '$widthMin',
+  borderStyle: '$styleDefault',
+  border: '$maxAlpha4',
+  borderRadius: '$field',
+  cursor: 'pointer',
+  outline: 'none',
+  ':focus': {
+    border: '$primary',
   },
-  styleName: 'ThemePicker',
-})
+}, { name: 'ThemePicker' })
 
 const Main = styled('main', {
-  stl: { p: '$24', flex: '1', minWidth: '0', ml: '220px' },
-  styleName: 'Main',
-})
+  p: '$24', flex: '1', minWidth: '0', ml: '220px',
+}, { name: 'Main' })
 
 // ─── Section component map ──────────────────────────────────────────────────
 
