@@ -4,138 +4,113 @@ import { Badge, Button } from '@vlting/ui'
 // ─── Phone Shell ────────────────────────────────────────────────────────────
 
 const Showcase = styled('div', {
-  stl: {
-    display: 'flex',
-    gap: '$40',
-    justifyContent: 'center',
-    alignItems: 'center',
-    py: '$48',
-    px: '$24',
-    flexWrap: 'wrap',
-  },
-  styleName: 'DemoShowcase',
-})
+  display: 'flex',
+  gap: '$40',
+  justifyContent: 'center',
+  alignItems: 'center',
+  py: '$48',
+  px: '$24',
+  flexWrap: 'wrap',
+}, { name: 'DemoShowcase' })
 
 const Phone = styled('div', {
-  stl: {
-    width: '375px',
-    height: '812px',
-    overflow: 'hidden',
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    flexShrink: '0',
-    borderRadius: '48px',
-    borderWidth: '8px',
-    borderStyle: 'solid',
-    borderColor: '$neutralAlpha4',
-    bg: '$background1',
-    boxShadow: '$2xl',
-  },
-  styleName: 'DemoPhone',
-})
+  width: '375px',
+  height: '812px',
+  overflow: 'hidden',
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  flexShrink: '0',
+  borderRadius: '48px',
+  borderWidth: '8px',
+  borderStyle: 'solid',
+  borderColor: '$neutralAlpha4',
+  bg: '$background1',
+  boxShadow: '$2xl',
+}, { name: 'DemoPhone' })
 
 const Notch = styled('div', {
-  stl: {
-    position: 'absolute',
-    top: '$0',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    width: '120px',
-    height: '28px',
-    borderRadius: '0 0 16px 16px',
-    bg: '$neutralAlpha4',
-    zIndex: '10',
-  },
-  styleName: 'PhoneNotch',
-})
+  position: 'absolute',
+  top: '$0',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  width: '120px',
+  height: '28px',
+  borderRadius: '0 0 16px 16px',
+  bg: '$neutralAlpha4',
+  zIndex: '10',
+}, { name: 'PhoneNotch' })
 
 const StatusBar = styled('div', {
-  stl: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    px: '$20',
-    pt: '32px',
-    pb: '$4',
-    fontSize: '11px',
-    color: '$neutralText2',
-    fontWeight: '$600',
-    flexShrink: '0',
-  },
-  styleName: 'PhoneStatusBar',
-})
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  px: '$20',
+  pt: '32px',
+  pb: '$4',
+  fontSize: '11px',
+  color: '$neutralText2',
+  fontWeight: '$600',
+  flexShrink: '0',
+}, { name: 'PhoneStatusBar' })
 
 const PhoneBody = styled('div', {
-  stl: {
-    flex: '1',
-    display: 'flex',
-    flexDirection: 'column',
-    overflow: 'hidden',
-    position: 'relative',
-  },
-  styleName: 'PhoneBody',
-})
+  flex: '1',
+  display: 'flex',
+  flexDirection: 'column',
+  overflow: 'hidden',
+  position: 'relative',
+}, { name: 'PhoneBody' })
 
 const HomeIndicator = styled('div', {
-  stl: {
-    width: '120px',
-    height: '4px',
-    bg: '$neutralAlpha5',
-    borderRadius: '9999px',
-    mx: 'auto',
-    mt: 'auto',
-    mb: '$8',
-    flexShrink: '0',
-  },
-  styleName: 'HomeIndicator',
-})
+  width: '120px',
+  height: '4px',
+  bg: '$neutralAlpha5',
+  borderRadius: '9999px',
+  mx: 'auto',
+  mt: 'auto',
+  mb: '$8',
+  flexShrink: '0',
+}, { name: 'HomeIndicator' })
 
 // ─── Shared Inner Pieces ────────────────────────────────────────────────────
 
 const ScreenHeader = styled('div', {
-  stl: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    px: '$16',
-    py: '$10',
-    flexShrink: '0',
-  },
-  styleName: 'ScreenHeader',
-})
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  px: '$16',
+  py: '$10',
+  flexShrink: '0',
+}, { name: 'ScreenHeader' })
 
 const ScreenTitle = styled('h3', {
-  stl: {
-    fontSize: '$h4',
-    fontWeight: '$700',
-    fontFamily: '$heading',
-    color: '$color12',
-    m: '$0',
-  },
-  styleName: 'ScreenTitle',
-})
+  fontSize: '$h4',
+  fontWeight: '$700',
+  fontFamily: '$heading',
+  color: '$color12',
+  m: '$0',
+}, { name: 'ScreenTitle' })
 
 const NavIcon = styled('div', {
-  stl: {
-    width: '20px',
-    height: '20px',
-    borderRadius: '$4',
-    bg: '$neutralAlpha4',
-  },
+  width: '20px',
+  height: '20px',
+  borderRadius: '$4',
+  bg: '$neutralAlpha4',
+}, {
+  name: 'NavIcon',
   variants: {
     active: {
       true: { bg: '$primary9' },
     },
   },
-  styleName: 'NavIcon',
 })
 
 const AvatarCircle = styled('div', {
-  stl: {
-    borderRadius: '$full',
-    flexShrink: '0',
-  },
+  borderRadius: '$full',
+  flexShrink: '0',
+}, {
+  name: 'AvatarCircle',
   variants: {
     size: {
       sm: { width: '32px', height: '32px' },
@@ -144,80 +119,64 @@ const AvatarCircle = styled('div', {
       xl: { width: '100px', height: '100px' },
     },
   },
-  styleName: 'AvatarCircle',
 })
 
 // ─── Screen 1: Profile / Swipe ──────────────────────────────────────────────
 
 const ProfileHero = styled('div', {
-  stl: {
-    flex: '1',
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'end',
-    backgroundImage: 'var(--stl-gradient-primary, linear-gradient(135deg, var(--stl-color-primary5, hsl(320,85%,50%)), var(--stl-color-secondary6, hsl(345,80%,40%))))',
-    backgroundSize: 'cover',
-  },
-  styleName: 'ProfileHero',
-})
+  flex: '1',
+  position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'end',
+  backgroundImage: 'var(--stl-gradient-primary, linear-gradient(135deg, var(--stl-color-primary5, hsl(320,85%,50%)), var(--stl-color-secondary6, hsl(345,80%,40%))))',
+  backgroundSize: 'cover',
+}, { name: 'ProfileHero' })
 
 const ProfileOverlay = styled('div', {
-  stl: {
-    linearGradient: 'to top, hsla(0,0%,0%,0.85) 0%, hsla(0,0%,0%,0.3) 50%, transparent 100%',
-    p: '$16',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '$6',
-  },
-  styleName: 'ProfileOverlay',
-})
+  linearGradient: 'to top, hsla(0,0%,0%,0.85) 0%, hsla(0,0%,0%,0.3) 50%, transparent 100%',
+  p: '$16',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$6',
+}, { name: 'ProfileOverlay' })
 
 const ProfileName = styled('h2', {
-  stl: {
-    fontSize: '$h3',
-    fontWeight: '$700',
-    fontFamily: '$heading',
-    color: 'white',
-    m: '$0',
-  },
-  styleName: 'ProfileName',
-})
+  fontSize: '$h3',
+  fontWeight: '$700',
+  fontFamily: '$heading',
+  color: 'white',
+  m: '$0',
+}, { name: 'ProfileName' })
 
 const ProfileBio = styled('p', {
-  stl: {
-    fontSize: '$small',
-    color: 'hsla(0,0%,100%,0.7)',
-    m: '$0',
-    lineHeight: '$spaced',
-  },
-  styleName: 'ProfileBio',
-})
+  fontSize: '$small',
+  color: 'hsla(0,0%,100%,0.7)',
+  m: '$0',
+  lineHeight: '$spaced',
+}, { name: 'ProfileBio' })
 
 const ProfileActions = styled('div', {
-  stl: {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '$12',
-    py: '$12',
-    px: '$16',
-    flexShrink: '0',
-  },
-  styleName: 'ProfileActions',
-})
+  display: 'flex',
+  justifyContent: 'center',
+  gap: '$12',
+  py: '$12',
+  px: '$16',
+  flexShrink: '0',
+}, { name: 'ProfileActions' })
 
 const ActionCircle = styled('button', {
-  stl: {
-    width: '48px',
-    height: '48px',
-    borderRadius: '$full',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    border: 'none',
-    cursor: 'pointer',
-    fontSize: '18px',
-  },
+  width: '48px',
+  height: '48px',
+  borderRadius: '$full',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  border: 'none',
+  cursor: 'pointer',
+  fontSize: '18px',
+}, {
+  name: 'ActionCircle',
   variants: {
     kind: {
       muted: { bg: '$neutralAlpha4', color: '$neutralText3' },
@@ -225,22 +184,18 @@ const ActionCircle = styled('button', {
       accent: { bg: '$secondary9', color: 'white' },
     },
   },
-  styleName: 'ActionCircle',
 })
 
 const FloatingBadges = styled('div', {
-  stl: {
-    position: 'absolute',
-    top: '$16',
-    left: '$0',
-    right: '$0',
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '$8',
-    px: '$12',
-  },
-  styleName: 'FloatingBadges',
-})
+  position: 'absolute',
+  top: '$16',
+  left: '$0',
+  right: '$0',
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '$8',
+  px: '$12',
+}, { name: 'FloatingBadges' })
 
 function ProfileScreen() {
   return (
@@ -273,105 +228,79 @@ function ProfileScreen() {
 // ─── Screen 2: Chat List ────────────────────────────────────────────────────
 
 const ChatList = styled('div', {
-  stl: {
-    flex: '1',
-    display: 'flex',
-    flexDirection: 'column',
-    overflowY: 'auto',
-  },
-  styleName: 'ChatList',
-})
+  flex: '1',
+  display: 'flex',
+  flexDirection: 'column',
+  overflowY: 'auto',
+}, { name: 'ChatList' })
 
 const ChatItem = styled('div', {
-  stl: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '$12',
-    px: '$16',
-    py: '$10',
-    ':interact': { bg: '$neutralAlpha3' },
-    cursor: 'pointer',
-  },
-  styleName: 'ChatItem',
-})
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$12',
+  px: '$16',
+  py: '$10',
+  ':interact': { bg: '$neutralAlpha3' },
+  cursor: 'pointer',
+}, { name: 'ChatItem' })
 
 const ChatMeta = styled('div', {
-  stl: {
-    flex: '1',
-    minWidth: '0',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '$2',
-  },
-  styleName: 'ChatMeta',
-})
+  flex: '1',
+  minWidth: '0',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$2',
+}, { name: 'ChatMeta' })
 
 const ChatName = styled('span', {
-  stl: {
-    fontSize: '$p',
-    fontWeight: '$600',
-    color: '$color12',
-  },
-  styleName: 'ChatName',
-})
+  fontSize: '$p',
+  fontWeight: '$600',
+  color: '$color12',
+}, { name: 'ChatName' })
 
 const ChatPreview = styled('span', {
-  stl: {
-    fontSize: '$small',
-    color: '$neutralText4',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-  styleName: 'ChatPreview',
-})
+  fontSize: '$small',
+  color: '$neutralText4',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+}, { name: 'ChatPreview' })
 
 const ChatTime = styled('span', {
-  stl: {
-    fontSize: '11px',
-    color: '$neutralText4',
-    flexShrink: '0',
-  },
-  styleName: 'ChatTime',
-})
+  fontSize: '11px',
+  color: '$neutralText4',
+  flexShrink: '0',
+}, { name: 'ChatTime' })
 
 const UnreadDot = styled('div', {
-  stl: {
-    width: '18px',
-    height: '18px',
-    borderRadius: '$full',
-    bg: '$primary9',
-    color: 'white',
-    fontSize: '10px',
-    fontWeight: '$700',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: '0',
-  },
-  styleName: 'UnreadDot',
-})
+  width: '18px',
+  height: '18px',
+  borderRadius: '$full',
+  bg: '$primary9',
+  color: 'white',
+  fontSize: '10px',
+  fontWeight: '$700',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: '0',
+}, { name: 'UnreadDot' })
 
 const TabRow = styled('div', {
-  stl: {
-    display: 'flex',
-    gap: '$8',
-    px: '$16',
-    pb: '$10',
-    flexShrink: '0',
-  },
-  styleName: 'TabRow',
-})
+  display: 'flex',
+  gap: '$8',
+  px: '$16',
+  pb: '$10',
+  flexShrink: '0',
+}, { name: 'TabRow' })
 
 const InlineRow = styled('div', {
-  stl: { display: 'flex', gap: '$8', alignItems: 'center' },
-  styleName: 'InlineRow',
-})
+  display: 'flex', gap: '$8', alignItems: 'center',
+}, { name: 'InlineRow' })
 
 const ChatEndCol = styled('div', {
-  stl: { display: 'flex', flexDirection: 'column', alignItems: 'end', gap: '$4' },
-  styleName: 'ChatEndCol',
-})
+  display: 'flex', flexDirection: 'column', alignItems: 'end', gap: '$4',
+}, { name: 'ChatEndCol' })
 
 const CHATS: readonly { name: string; msg: string; time: string; unread?: number; typing?: boolean }[] = [
   { name: 'Alex Carter', msg: "Hey, how's today?", time: '12:20 AM', unread: 2 },
@@ -423,68 +352,50 @@ function ChatScreen() {
 // ─── Screen 3: Discover / Glass ─────────────────────────────────────────────
 
 const DiscoverGrid = styled('div', {
-  stl: {
-    flex: '1',
-    display: 'grid',
-    gap: '$12',
-    px: '$16',
-    py: '$8',
-    overflowY: 'auto',
-  },
-  styleName: 'DiscoverGrid',
-})
+  flex: '1',
+  display: 'grid',
+  gap: '$12',
+  px: '$16',
+  py: '$8',
+  overflowY: 'auto',
+}, { name: 'DiscoverGrid' })
 
 const GlassCard = styled('div', {
-  stl: {
-    bg: 'var(--stl-glass-tint, hsla(0,0%,100%,0.06))',
-    backdropFilter: 'blur(var(--stl-glass-blur, 8px))',
-    borderRadius: '$16',
-    p: '$12',
-    borderWidth: '$widthMin',
-    borderStyle: '$styleDefault',
-    borderColor: '$neutralAlpha4',
-    backgroundImage: 'var(--stl-glass-gradient, none)',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '$8',
-  },
-  styleName: 'GlassCard',
-})
+  bg: 'var(--stl-glass-tint, hsla(0,0%,100%,0.06))',
+  backdropFilter: 'blur(var(--stl-glass-blur, 8px))',
+  borderRadius: '$16',
+  p: '$12',
+  borderWidth: '$widthMin',
+  borderStyle: '$styleDefault',
+  borderColor: '$neutralAlpha4',
+  backgroundImage: 'var(--stl-glass-gradient, none)',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$8',
+}, { name: 'GlassCard' })
 
 const CardRow = styled('div', {
-  stl: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '$10',
-  },
-  styleName: 'CardRow',
-})
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$10',
+}, { name: 'CardRow' })
 
 const CardName = styled('span', {
-  stl: {
-    fontSize: '$p',
-    fontWeight: '$600',
-    color: '$color12',
-  },
-  styleName: 'CardName',
-})
+  fontSize: '$p',
+  fontWeight: '$600',
+  color: '$color12',
+}, { name: 'CardName' })
 
 const CardDetail = styled('span', {
-  stl: {
-    fontSize: '$small',
-    color: '$neutralText4',
-  },
-  styleName: 'CardDetail',
-})
+  fontSize: '$small',
+  color: '$neutralText4',
+}, { name: 'CardDetail' })
 
 const TagRow = styled('div', {
-  stl: {
-    display: 'flex',
-    gap: '$6',
-    flexWrap: 'wrap',
-  },
-  styleName: 'TagRow',
-})
+  display: 'flex',
+  gap: '$6',
+  flexWrap: 'wrap',
+}, { name: 'TagRow' })
 
 const PROFILES = [
   { name: 'Roxane, 21', location: 'Seattle, WA', tags: ['3.4 km', 'Student'] },
@@ -562,28 +473,22 @@ const BatteryIcon = () => (
 // ─── Export ─────────────────────────────────────────────────────────────────
 
 const SectionHeading = styled('h2', {
-  stl: {
-    fontSize: '$h3',
-    fontWeight: '$700',
-    fontFamily: '$heading',
-    color: '$color12',
-    m: '$0',
-    mb: '$8',
-    textAlign: 'center',
-  },
-  styleName: 'DemoSectionHeading',
-})
+  fontSize: '$h3',
+  fontWeight: '$700',
+  fontFamily: '$heading',
+  color: '$color12',
+  m: '$0',
+  mb: '$8',
+  textAlign: 'center',
+}, { name: 'DemoSectionHeading' })
 
 const SectionSub = styled('p', {
-  stl: {
-    fontSize: '$p',
-    color: '$neutralText4',
-    m: '$0',
-    mb: '$32',
-    textAlign: 'center',
-  },
-  styleName: 'DemoSectionSub',
-})
+  fontSize: '$p',
+  color: '$neutralText4',
+  m: '$0',
+  mb: '$32',
+  textAlign: 'center',
+}, { name: 'DemoSectionSub' })
 
 export function DemoSection() {
   return (
