@@ -10,7 +10,7 @@ const TEXT_STYLES = {
 
 export const getTextStyles = () => TEXT_STYLES
 
-export const Text = styled('p', getTextStyles(), {
+const TextBase = styled('p', getTextStyles(), {
   name: 'Text',
   variants: {
     size: {
@@ -37,6 +37,23 @@ export const Text = styled('p', getTextStyles(), {
     },
   },
 })
+
+const Small = styled('small', {
+  ...TEXT_STYLES,
+  fontSize: '$14',
+}, { name: 'Text.Small' })
+
+const Code = styled('code', {
+  ...TEXT_STYLES,
+  fontFamily: '$mono',
+  fontSize: '$14',
+  bg: '$neutral3',
+  px: '$4',
+  py: '$2',
+  radius: '$3',
+}, { name: 'Text.Code' })
+
+export const Text = Object.assign(TextBase, { Small, Code })
 
 export interface TextProps {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
