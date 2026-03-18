@@ -26,9 +26,11 @@ const Phone = styled('div', {
     flexDirection: 'column',
     flexShrink: '0',
     borderRadius: '48px',
-    border: '8px solid rgba(0,0,0,0.10)',
-    background: '#ffffff',
-    boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
+    borderWidth: '8px',
+    borderStyle: 'solid',
+    borderColor: '$neutralAlpha4',
+    bg: '$background1',
+    boxShadow: '$2xl',
   },
   styleName: 'DemoPhone',
 })
@@ -42,7 +44,7 @@ const Notch = styled('div', {
     width: '120px',
     height: '28px',
     borderRadius: '0 0 16px 16px',
-    background: 'rgba(0,0,0,0.10)',
+    bg: '$neutralAlpha4',
     zIndex: '10',
   },
   styleName: 'PhoneNotch',
@@ -57,7 +59,7 @@ const StatusBar = styled('div', {
     pt: '32px',
     pb: '$4',
     fontSize: '11px',
-    color: 'rgba(0,0,0,0.5)',
+    color: '$neutralText2',
     fontWeight: '$600',
     flexShrink: '0',
   },
@@ -79,7 +81,7 @@ const HomeIndicator = styled('div', {
   stl: {
     width: '120px',
     height: '4px',
-    background: 'rgba(0,0,0,0.2)',
+    bg: '$neutralAlpha5',
     borderRadius: '9999px',
     mx: 'auto',
     mt: 'auto',
@@ -112,21 +114,6 @@ const ScreenTitle = styled('h3', {
     m: '$0',
   },
   styleName: 'ScreenTitle',
-})
-
-const BottomNav = styled('nav', {
-  stl: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    px: '$8',
-    py: '$10',
-    borderTopWidth: '$widthMin',
-    borderTopStyle: '$styleDefault',
-    borderTopColor: '$neutralAlpha4',
-    flexShrink: '0',
-  },
-  styleName: 'BottomNav',
 })
 
 const NavIcon = styled('div', {
@@ -279,12 +266,6 @@ function ProfileScreen() {
           <ChatIcon />
         </ActionCircle>
       </ProfileActions>
-      <BottomNav>
-        <NavIcon active />
-        <NavIcon />
-        <NavIcon />
-        <NavIcon />
-      </BottomNav>
     </>
   )
 }
@@ -435,13 +416,6 @@ function ChatScreen() {
           </ChatItem>
         ))}
       </ChatList>
-
-      <BottomNav>
-        <NavIcon />
-        <NavIcon active />
-        <NavIcon />
-        <NavIcon />
-      </BottomNav>
     </>
   )
 }
@@ -544,13 +518,6 @@ function DiscoverScreen() {
           </GlassCard>
         ))}
       </DiscoverGrid>
-
-      <BottomNav>
-        <NavIcon />
-        <NavIcon />
-        <NavIcon active />
-        <NavIcon />
-      </BottomNav>
     </>
   )
 }
