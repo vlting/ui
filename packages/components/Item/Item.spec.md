@@ -78,6 +78,7 @@ Compound component. Sub-components arrange horizontally inside the root:
 - **`theme`** (3): `primary | secondary | neutral` — core themes only. Default: `neutral`.
 - **`variant`** (3): `default | subtle | outline`. Default: `default`.
 - **`size`** (3): `sm | md | lg`. Default: `md`.
+- **`align`** (2): `title | center` — controls cross-axis alignment of Leading/Trailing relative to Content. `title` aligns media with the title line; `center` vertically centers all children. Default: `title`.
 - **`interactive`**: boolean. Default: `false`.
 - **`divider`** [Planned]: boolean. Default: `false`.
 - **`disabled`** [Planned]: boolean. Default: `false`.
@@ -130,7 +131,8 @@ Generated compounds: ~12 total (9 theme×variant + 3 theme×interactive).
 ### Design tokens
 
 - **Radius:** `$field` — applied by `subtle` and `outline` variants.
-- **Font:** `$body` family. Title uses `$500` weight, `$p` size. Description uses `$small` size.
+- **Font:** `$body` family. Title uses `$500` weight, `$p` size, `$listItem` line-height. Description uses `$small` size.
+- **Alignment:** Leading and Trailing use `minHeight: '$20'` (matching title line-height) with internal centering, so media aligns with the title line when `align: 'title'`.
 - **Colors:** Title `$<theme>Text3`, Description `$<theme>Text4`.
 - **Divider** [Planned]**:** bottom border `$<theme>5`, `$widthMin` width.
 - **Dark mode:** Automatic via token system; no component-specific overrides needed.

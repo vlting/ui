@@ -29,6 +29,7 @@ const ItemLeading = styled('div', {
   alignItems: 'center',
   justifyContent: 'center',
   flexShrink: '0',
+  minHeight: '$20',
 }, { name: 'ItemLeading' })
 
 const ItemContent = styled('div', {
@@ -42,6 +43,7 @@ const ItemContent = styled('div', {
 const ItemTitle = styled('span', {
   fontWeight: '$500',
   fontSize: '$p',
+  lineHeight: '$listItem',
   color: 'inherit',
 }, { name: 'ItemTitle' })
 
@@ -56,13 +58,14 @@ const ItemTrailing = styled('div', {
   alignItems: 'center',
   justifyContent: 'center',
   flexShrink: '0',
+  minHeight: '$20',
 }, { name: 'ItemTrailing' })
 
 // ─── Item ───────────────────────────────────────────────────────────────────
 
 const ItemRoot = styled('div', {
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'start',
   gap: '$12',
   fontFamily: '$body',
 }, {
@@ -83,6 +86,10 @@ const ItemRoot = styled('div', {
       md: { minHeight: '44px', py: '$8', px: '$12' },
       lg: { minHeight: '52px', py: '$12', px: '$16' },
     },
+    align: {
+      title: {},
+      center: { alignItems: 'center' },
+    },
     interactive: {
       true: {
         cursor: 'pointer',
@@ -101,7 +108,7 @@ const ItemRoot = styled('div', {
     // ── theme × interactive ─────────────────────────────────
     ...themes.map(t => ({ when: { theme: t, interactive: 'true' as const }, stl: interactiveStyles(t) })),
   ],
-  defaultVariants: { theme: 'neutral', variant: 'outline', size: 'md' },
+  defaultVariants: { theme: 'neutral', variant: 'outline', size: 'md', align: 'title' },
   mapProps: (p: any) => ({
     ...p,
     tabIndex: p.interactive ? (p.tabIndex ?? 0) : p.tabIndex,

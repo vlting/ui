@@ -7,6 +7,7 @@ import { ButtonRow, DemoCard, SectionHeading, SectionTitle, StackY, type Section
 const ITEM_VARIANTS = ['ghost', 'subtle', 'outline'] as const
 const ITEM_SIZES = ['sm', 'md', 'lg'] as const
 const ITEM_THEMES = ['primary', 'secondary', 'neutral'] as const
+const ITEM_ALIGNS = ['title', 'center'] as const
 
 const TrailingLabel = styled('span', {
   fontSize: '$small',
@@ -46,6 +47,7 @@ const themeItems: Record<typeof ITEM_THEMES[number], { title: string; descriptio
 export function ItemSection({ sectionRef }: SectionProps) {
   const [variant, setVariant] = useState<typeof ITEM_VARIANTS[number]>('outline')
   const [size, setSize] = useState<typeof ITEM_SIZES[number]>('md')
+  const [align, setAlign] = useState<typeof ITEM_ALIGNS[number]>('title')
   const [interactive, setInteractive] = useState(false)
   const [showMedia, setShowMedia] = useState(true)
   const [showActions, setShowActions] = useState(true)
@@ -76,6 +78,18 @@ export function ItemSection({ sectionRef }: SectionProps) {
             aria-pressed={size === s}
           >
             {s}
+          </Button>
+        ))}
+        {ITEM_ALIGNS.map((a) => (
+          <Button
+            key={a}
+            size="xs"
+            theme="neutral"
+            variant={align === a ? 'subtle' : 'ghost'}
+            onClick={() => setAlign(a)}
+            aria-pressed={align === a}
+          >
+            {a}
           </Button>
         ))}
         <Button
@@ -117,6 +131,7 @@ export function ItemSection({ sectionRef }: SectionProps) {
                   theme={theme}
                   variant={variant}
                   size={size}
+                  align={align}
                   interactive={interactive || undefined}
                 >
                   {showMedia && <Item.Leading>{item.leading}</Item.Leading>}
