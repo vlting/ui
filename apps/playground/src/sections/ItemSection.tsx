@@ -74,12 +74,10 @@ export function ItemSection({ sectionRef }: SectionProps) {
         <VariantToggle options={ITEM_VARIANTS} value={variant} onChange={setVariant} />
         <VariantToggle options={ITEM_SIZES} value={size} onChange={setSize} />
         <VariantToggle options={ITEM_ALIGNS} value={align} onChange={setAlign} />
-        <ToggleGroup>
-          <Button size="xs" theme="neutral" variant={interactive ? 'solid' : 'subtle'} onClick={() => setInteractive((i) => !i)}>interactive</Button>
-          <Button size="xs" theme="neutral" variant={showMedia ? 'solid' : 'subtle'} onClick={() => setShowMedia((m) => !m)}>media</Button>
-          <Button size="xs" theme="neutral" variant={showDescription ? 'solid' : 'subtle'} onClick={() => setShowDescription((d) => !d)}>description</Button>
-          <Button size="xs" theme="neutral" variant={showActions ? 'solid' : 'subtle'} onClick={() => setShowActions((a) => !a)}>actions</Button>
-        </ToggleGroup>
+        <ToggleGroup><Button size="xs" theme="neutral" variant={interactive ? 'solid' : 'subtle'} onClick={() => setInteractive((i) => !i)}>interactive</Button></ToggleGroup>
+        <ToggleGroup><Button size="xs" theme="neutral" variant={showMedia ? 'solid' : 'subtle'} onClick={() => setShowMedia((m) => !m)}>media</Button></ToggleGroup>
+        <ToggleGroup><Button size="xs" theme="neutral" variant={showDescription ? 'solid' : 'subtle'} onClick={() => setShowDescription((d) => !d)}>description</Button></ToggleGroup>
+        <ToggleGroup><Button size="xs" theme="neutral" variant={showActions ? 'solid' : 'subtle'} onClick={() => setShowActions((a) => !a)}>actions</Button></ToggleGroup>
       </ToggleBar>
       <ThemeRow>
         {ITEM_THEMES.map((theme) => (
