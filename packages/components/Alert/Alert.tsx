@@ -4,15 +4,15 @@ import { styled } from '../../stl-react/src/config'
 // ─── Alert ──────────────────────────────────────────────────────────────────
 
 const AlertRoot = styled('div', {
-  stl: {
-    display: 'flex',
-    alignItems: 'start',
-    gap: '$16',
-    px: '$20',
-    py: '$16',
-    borderRadius: '$field',
-    fontFamily: '$body',
-  },
+  display: 'flex',
+  alignItems: 'start',
+  gap: '$16',
+  px: '$20',
+  py: '$16',
+  borderRadius: '$field',
+  fontFamily: '$body',
+}, {
+  name: 'Alert',
   variants: {
     theme: {
       primary: { bg: '$primary3', border: '$primary9' },
@@ -65,32 +65,19 @@ const AlertRoot = styled('div', {
     { when: { variant: 'solid', theme: 'info' }, stl: { bg: '$info9', color: '$infoText9' } },
   ],
   defaultVariants: { theme: 'primary', variant: 'outline', elevation: 'flat' },
-  mapProps: (props) => ({
+  mapProps: (props: any) => ({
     ...props,
     role: props.theme === 'error' ? 'alert' : 'status',
   }),
-  styleName: 'Alert',
 })
 
-const AlertTitle = styled('h5', {
-  stl: { fontWeight: '$600', fontSize: '$p', m: '$0' },
-  styleName: 'AlertTitle',
-})
+const AlertTitle = styled('h5', { fontWeight: '$600', fontSize: '$p', m: '$0' }, { name: 'AlertTitle' })
 
-const AlertDescription = styled('p', {
-  stl: { fontSize: '$small', m: '$0', opacity: '0.9' },
-  styleName: 'AlertDescription',
-})
+const AlertDescription = styled('p', { fontSize: '$small', m: '$0', opacity: '0.9' }, { name: 'AlertDescription' })
 
-const AlertIcon = styled('span', {
-  stl: { display: 'flex', alignItems: 'center', flexShrink: '0', height: '$20' },
-  styleName: 'AlertIcon',
-})
+const AlertIcon = styled('span', { display: 'flex', alignItems: 'center', flexShrink: '0', height: '$20' }, { name: 'AlertIcon' })
 
-const AlertContent = styled('div', {
-  stl: { display: 'flex', flexDirection: 'column', gap: '$4', flex: '1' },
-  styleName: 'AlertContent',
-})
+const AlertContent = styled('div', { display: 'flex', flexDirection: 'column', gap: '$4', flex: '1' }, { name: 'AlertContent' })
 
 export const Alert = { Root: AlertRoot, Title: AlertTitle, Description: AlertDescription, Icon: AlertIcon, Content: AlertContent }
 

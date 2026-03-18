@@ -1,43 +1,37 @@
 import { forwardRef, useEffect, useState } from 'react'
 import type { ComponentPropsWithRef, ReactNode } from 'react'
-import { styled, props } from '../../stl-react/src/config'
+import { styled } from '../../stl-react/src/config'
 
 // ─── Internal ───────────────────────────────────────────────────────────────
 
 const AvatarImage = styled('img', {
-  stl: {
-    width: '100%',
-    height: '100%',
-  },
-  styleName: 'AvatarImage',
-})
+  width: '100%',
+  height: '100%',
+}, { name: 'AvatarImage' })
 
 const AvatarFallback = styled('span', {
-  stl: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-  },
-  styleName: 'AvatarFallback',
-})
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '100%',
+  height: '100%',
+}, { name: 'AvatarFallback' })
 
 // ─── Base ───────────────────────────────────────────────────────────────────
 
 const AvatarBase = styled('span', {
-  stl: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    radius: '$full',
-    overflow: 'hidden',
-    bg: '$neutral4',
-    color: '$neutralText3',
-    fontWeight: '$500',
-    flexShrink: '0',
-    userSelect: 'none',
-  },
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  radius: '$full',
+  overflow: 'hidden',
+  bg: '$neutral4',
+  color: '$neutralText3',
+  fontWeight: '$500',
+  flexShrink: '0',
+  userSelect: 'none',
+}, {
+  name: 'Avatar',
   variants: {
     size: {
       sm: { width: '32px', height: '32px', fontSize: '$small' },
@@ -47,7 +41,6 @@ const AvatarBase = styled('span', {
     },
   },
   defaultVariants: { size: 'md' },
-  styleName: 'Avatar',
 })
 
 // ─── Avatar Root ────────────────────────────────────────────────────────────

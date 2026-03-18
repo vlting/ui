@@ -19,17 +19,17 @@ const variantStyles = {
 }
 
 export const Badge = styled('span', {
-  stl: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    radius: '$badge',
-    fontFamily: '$body',
-    fontWeight: '$500',
-    lineHeight: '$flat',
-    whiteSpace: 'nowrap',
-    flexShrink: '0',
-  },
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  radius: '$badge',
+  fontFamily: '$body',
+  fontWeight: '$500',
+  lineHeight: '$flat',
+  whiteSpace: 'nowrap',
+  flexShrink: '0',
+}, {
+  name: 'Badge',
   variants: {
     theme: Object.fromEntries(themes.map(t => [t, {}])) as Record<typeof themes[number], object>,
     variant: {
@@ -47,7 +47,6 @@ export const Badge = styled('span', {
     themes.map(t => ({ when: { variant: v as 'solid' | 'subtle' | 'outline', theme: t }, stl: fn(t) }))
   ),
   defaultVariants: { theme: 'neutral', variant: 'subtle', size: 'md' },
-  styleName: 'Badge',
 })
 
 export type BadgeProps = ComponentPropsWithRef<typeof Badge>

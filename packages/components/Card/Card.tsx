@@ -1,16 +1,16 @@
 import type { ComponentPropsWithRef } from 'react'
-import { styled, options } from '../../stl-react/src/config'
+import { styled } from '../../stl-react/src/config'
 
 // ─── Card ───────────────────────────────────────────────────────────────────
 
 const CardRoot = styled('article', {
-  stl: {
-    radius: '$card',
-    overflow: 'hidden',
-    fontFamily: '$body',
-    bg: '$background1',
-    ':focus': { outlineOffset: '$offsetDefault' },
-  },
+  radius: '$card',
+  overflow: 'hidden',
+  fontFamily: '$body',
+  bg: '$background1',
+  ':focus': { outlineOffset: '$offsetDefault' },
+}, {
+  name: 'Card',
   variants: {
     theme: {
       primary: { color: '$primaryText3' },
@@ -82,51 +82,35 @@ const CardRoot = styled('article', {
     },
   ],
   defaultVariants: { size: 'md', elevation: 'normal', theme: 'neutral' },
-  mapProps: (props) => ({
+  mapProps: (props: any) => ({
     ...props,
     ...(props.interactive && { role: 'button', tabIndex: 0 }),
   }),
-  styleName: 'Card',
 })
 
 const CardHeader = styled('header', {
-  stl: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '$4',
-    p: '$16',
-    borderBottom: '$borderColor',
-    borderBottomWidth: '$widthMin',
-  },
-  styleName: 'CardHeader',
-})
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$4',
+  p: '$16',
+  borderBottom: '$borderColor',
+  borderBottomWidth: '$widthMin',
+}, { name: 'CardHeader' })
 
-const CardContent = styled('section', {
-  stl: { p: '$16', flex: '1' },
-  styleName: 'CardContent',
-})
+const CardContent = styled('section', { p: '$16', flex: '1' }, { name: 'CardContent' })
 
 const CardFooter = styled('footer', {
-  stl: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '$8',
-    p: '$16',
-    borderTop: '$borderColor',
-    borderTopWidth: '$widthMin',
-  },
-  styleName: 'CardFooter',
-})
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$8',
+  p: '$16',
+  borderTop: '$borderColor',
+  borderTopWidth: '$widthMin',
+}, { name: 'CardFooter' })
 
-const CardTitle = styled('h3', {
-  stl: { fontWeight: '$600', fontSize: '$h4', m: '$0', color: 'inherit' },
-  styleName: 'CardTitle',
-})
+const CardTitle = styled('h3', { fontWeight: '$600', fontSize: '$h4', m: '$0', color: 'inherit' }, { name: 'CardTitle' })
 
-const CardDescription = styled('p', {
-  stl: { fontSize: '$small', m: '$0', color: '$neutralText4' },
-  styleName: 'CardDescription',
-})
+const CardDescription = styled('p', { fontSize: '$small', m: '$0', color: '$neutralText4' }, { name: 'CardDescription' })
 
 export const Card = Object.assign(CardRoot, {
   Header: CardHeader,
