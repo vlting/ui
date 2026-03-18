@@ -48,6 +48,9 @@ const ButtonBase = styled('button', {
       lg: { height: '$40', py: '$12', px: '$24', fontSize: '$buttonLarge' },
       icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button', },
     },
+    pill: {
+      true: { radius: '$pill' },
+    },
     disabled: {
       true: { opacity: '0.5', cursor: 'not-allowed', pointerEvents: 'none' },
     },
@@ -226,6 +229,9 @@ const ButtonBase = styled('button', {
         ':focus': { outline: '$error' },
       },
     },
+
+    // ── Pill + icon → circle ────────────────────────────
+    { when: { pill: 'true', size: 'icon' }, stl: { radius: '$round' } },
 
     // ── Loading overrides disabled opacity ─────────────
     { when: { disabled: 'true', loading: 'true' }, stl: { opacity: '1', cursor: 'wait' } },
