@@ -13,6 +13,7 @@ export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
   const widthMin = { ...hash.var, value: `calc(${widthBase.ref} - 1rem)` } as const
   const widthMax = { ...hash.var, value: `calc(${widthBase.ref} + 2rem)` } as const
   const widthDefault = { ...hash.var, value: widthBase.ref } as const
+  const widthFocus = { ...hash.var, value: '2rem' } as const
 
   const primaryColorBase = { ...hash.var, value: color.primary9.ref } as const
   const primaryColorMin = { ...hash.var, value: color.primary7.ref } as const
@@ -51,6 +52,7 @@ export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
     widthMin,
     widthMax,
     widthDefault,
+    widthFocus,
     primaryColorBase,
     primaryColorMin,
     primaryColorMax,
@@ -137,7 +139,7 @@ export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
       },
     },
     {
-      outlineWidth: 'widthDefault',
+      outlineWidth: 'widthFocus',
       outlineStyle: 'styleDefault',
       outlineOffset: 'offsetDefault',
     },
@@ -190,6 +192,7 @@ export const outlineWidths = {
   widthMin: true,
   widthMax: true,
   widthDefault: true,
+  widthFocus: true,
 } as const
 
 export const hiddenOutlineColors = {
