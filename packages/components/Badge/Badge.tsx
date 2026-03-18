@@ -38,9 +38,9 @@ export const Badge = styled('span', {
       outline: {},
     },
     size: {
-      sm: { px: '$8', py: '$4', fontSize: '$buttonTiny' },
-      md: { px: '$12', py: '$4', fontSize: '$buttonSmall' },
-      lg: { px: '$16', py: '$6', fontSize: '$button' },
+      sm: { px: '$12', py: '$4', fontSize: '$buttonTiny' },
+      md: { px: '$16', py: '$4', fontSize: '$buttonSmall' },
+      lg: { px: '$20', py: '$6', fontSize: '$button' },
     },
   },
   compoundVariants: Object.entries(variantStyles).flatMap(([v, fn]) =>
