@@ -11,7 +11,6 @@ module.exports = {
     'packages/components/Accordion/',
     'packages/components/AlertDialog/',
     'packages/components/Breadcrumb/',
-    'packages/components/ButtonGroup/',
     'packages/components/Calendar/',
     'packages/components/Carousel/',
     'packages/components/Chart/',
@@ -23,7 +22,6 @@ module.exports = {
     'packages/components/DataTable/',
     'packages/components/DatePicker/',
     'packages/components/Dialog/',
-    'packages/components/Direction/',
     'packages/components/Drawer/',
     'packages/components/DropdownMenu/',
     'packages/components/Field/',
@@ -52,7 +50,6 @@ module.exports = {
     'packages/components/Toast/',
     'packages/components/Toggle/',
     'packages/components/Tooltip/',
-    'packages/components/Typography/',
   ],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
