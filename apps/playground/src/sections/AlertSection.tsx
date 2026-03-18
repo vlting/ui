@@ -8,9 +8,11 @@ import {
   type SectionProps,
 } from './shared'
 
+const ELEVATIONS = ['flat', 'raised'] as const
+
 export function AlertSection({ sectionRef }: SectionProps) {
   const [alertVariant, setAlertVariant] = useState<typeof ALERT_VARIANTS[number]>('subtle')
-  const [alertFloating, setAlertFloating] = useState(false)
+  const [alertElevation, setAlertElevation] = useState<typeof ELEVATIONS[number]>('flat')
 
   return (
     <DemoCard stl={{ mt: '$24' }} ref={sectionRef} data-section="Alert">
@@ -28,15 +30,18 @@ export function AlertSection({ sectionRef }: SectionProps) {
             {v}
           </Button>
         ))}
-        <Button
-          size="xs"
-          theme="neutral"
-          variant={alertFloating ? 'subtle' : 'ghost'}
-          onClick={() => setAlertFloating((f) => !f)}
-          aria-pressed={alertFloating}
-        >
-          floating
-        </Button>
+        {ELEVATIONS.map((e) => (
+          <Button
+            key={e}
+            size="xs"
+            theme="neutral"
+            variant={alertElevation === e ? 'subtle' : 'ghost'}
+            onClick={() => setAlertElevation(e)}
+            aria-pressed={alertElevation === e}
+          >
+            {e}
+          </Button>
+        ))}
       </ButtonRow>
       <StackY>
         {ALERT_THEMES.map((theme) => {
@@ -47,7 +52,7 @@ export function AlertSection({ sectionRef }: SectionProps) {
             theme === 'info' ? <InfoCircleIcon /> :
             null
           return (
-            <Alert.Root key={theme} theme={theme} variant={alertVariant} floating={alertFloating}>
+            <Alert.Root key={theme} theme={theme} variant={alertVariant} elevation={alertElevation}>
               {icon && <Alert.Icon>{icon}</Alert.Icon>}
               <Alert.Content>
                 <Alert.Title>{theme.charAt(0).toUpperCase() + theme.slice(1)}</Alert.Title>
