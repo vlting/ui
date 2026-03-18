@@ -74,6 +74,17 @@ export function themeToVars(
     }
   }
 
+  // Gradients
+  if (theme.gradients?.primary) vars['--stl-gradient-primary'] = theme.gradients.primary
+  if (theme.gradients?.secondary) vars['--stl-gradient-secondary'] = theme.gradients.secondary
+  if (theme.gradients?.neutral) vars['--stl-gradient-neutral'] = theme.gradients.neutral
+
+  // Glass
+  if (theme.glass?.blur) vars['--stl-glass-blur'] = theme.glass.blur
+  if (theme.glass?.tint) vars['--stl-glass-tint'] = theme.glass.tint
+  if (theme.glass?.border) vars['--stl-glass-border'] = theme.glass.border
+  if (theme.glass?.gradient) vars['--stl-glass-gradient'] = theme.glass.gradient
+
   // Fonts
   if (theme.fonts) {
     const fontMap = tokenToVarMap.fontFamily as Record<string, string>

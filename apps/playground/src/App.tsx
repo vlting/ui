@@ -4,14 +4,18 @@ import { styled, useColorMode } from '@vlting/stl-react'
 import { Button, StlProvider } from '@vlting/ui'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-import { flatTheme, proTheme, sharpTheme } from '../../../config/themes'
+import { auroraTheme, popsicleTheme, frostTheme, carbonTheme, mintTheme } from '../../../config/themes'
 import { MoonIcon, SunIcon } from './sections/shared'
 import {
   AlertSection, AvatarSection, BadgeSection, ButtonSection,
   CardSection, EmptySection, ItemSection, ProgressSection, SpinnerSection,
 } from './sections'
+import { DemoSection } from './sections/DemoSection'
 
 // ─── Constants ───────────────────────────────────────────────────────────────
+
+const PAGES = ['Components', 'Demo'] as const
+type Page = typeof PAGES[number]
 
 const SECTIONS = [
   'Button', 'Alert', 'Progress', 'Spinner', 'Empty', 'Card', 'Avatar', 'Badge', 'Item',
@@ -19,10 +23,15 @@ const SECTIONS = [
 
 const THEME_PRESETS: Record<string, { label: string; theme?: Readonly<Theme> }> = {
   default: { label: 'Default' },
-  flat: { label: 'Flat', theme: flatTheme },
-  pro: { label: 'Pro', theme: proTheme },
-  sharp: { label: 'Sharp', theme: sharpTheme },
+  popsicle: { label: 'Popsicle', theme: popsicleTheme },
+  carbon: { label: 'Carbon', theme: carbonTheme },
+  mint: { label: 'Mint', theme: mintTheme },
+  aurora: { label: 'Aurora', theme: auroraTheme },
+  frost: { label: 'Frost', theme: frostTheme },
 }
+
+/** Themes that default to dark mode */
+const DARK_PRESETS = new Set(['popsicle', 'aurora', 'frost'])
 
 // ─── Styled components ──────────────────────────────────────────────────────
 
@@ -83,12 +92,42 @@ const SidebarNav = styled('nav', {
   styleName: 'SidebarNav',
 })
 
+const SidebarPageLink = styled('button', {
+  stl: {
+    display: 'block',
+    width: '100%',
+    px: '$12',
+    py: '$8',
+    fontSize: '$small',
+    fontFamily: '$body',
+    fontWeight: '$600',
+    color: '$neutralText3',
+    bg: 'transparent',
+    border: 'none',
+    borderRadius: '$field',
+    cursor: 'pointer',
+    textAlign: 'start',
+    textTransform: 'uppercase',
+    letterSpacing: '0.04em',
+    ':interact': { bg: '$color3' },
+  },
+  variants: {
+    active: {
+      true: {
+        color: '$primaryText3',
+      },
+    },
+  },
+  styleName: 'SidebarPageLink',
+})
+
 const SidebarLink = styled('button', {
   stl: {
     display: 'block',
     width: '100%',
     px: '$12',
     py: '$6',
+    pl: '$24',
     fontSize: '$small',
     fontFamily: '$body',
     fontWeight: '$400',
@@ -180,11 +219,13 @@ function PlaygroundInner({
   onPresetChange: (key: string) => void
 }) {
   const { colorMode, setColorMode, toggleColorMode } = useColorMode()
+  const [activePage, setActivePage] = useState<Page>('Components')
   const [activeSection, setActiveSection] = useState<string>(SECTIONS[0])
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
   // Intersection observer for active section tracking
   useEffect(() => {
+    if (activePage !== 'Components') return
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -199,18 +240,22 @@ function PlaygroundInner({
       if (el) observer.observe(el)
     }
     return () => observer.disconnect()
-  }, [])
+  }, [activePage])
 
   const scrollTo = useCallback((id: string) => {
-    const el = sectionRefs.current[id]
-    if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY - 24
-    window.scrollTo({ top, behavior: 'smooth' })
+    setActivePage('Components')
+    // Wait a tick so the Components page renders before scrolling
+    requestAnimationFrame(() => {
+      const el = sectionRefs.current[id]
+      if (!el) return
+      const top = el.getBoundingClientRect().top + window.scrollY - 24
+      window.scrollTo({ top, behavior: 'smooth' })
+    })
   }, [])
 
-  // Flat theme defaults to dark; others follow system preference
+  // Dark-default themes; others follow system preference
   useEffect(() => {
-    if (activePreset === 'flat') {
+    if (DARK_PRESETS.has(activePreset)) {
       setColorMode('dark')
     } else {
       const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -225,7 +270,14 @@ function PlaygroundInner({
           <SidebarTitle>@vlting/ui</SidebarTitle>
         </SidebarHeader>
         <SidebarNav>
-          {SECTIONS.map((s) => (
+          {/* Components page + sub-nav */}
+          <SidebarPageLink
+            active={activePage === 'Components'}
+            onClick={() => setActivePage('Components')}
+          >
+            Components
+          </SidebarPageLink>
+          {activePage === 'Components' && SECTIONS.map((s) => (
             <SidebarLink
               key={s}
               active={activeSection === s}
@@ -234,6 +286,14 @@ function PlaygroundInner({
               {s}
             </SidebarLink>
           ))}
+
+          {/* Demo page */}
+          <SidebarPageLink
+            active={activePage === 'Demo'}
+            onClick={() => { setActivePage('Demo'); window.scrollTo({ top: 0 }) }}
+          >
+            Demo
+          </SidebarPageLink>
         </SidebarNav>
         <SidebarFooter>
           <ThemePicker
@@ -257,7 +317,7 @@ function PlaygroundInner({
         </SidebarFooter>
       </Sidebar>
       <Main>
-        {SECTIONS.map((name) => {
+        {activePage === 'Components' && SECTIONS.map((name) => {
           const Component = SECTION_COMPONENTS[name]
           return (
             <Component
@@ -266,6 +326,7 @@ function PlaygroundInner({
             />
           )
         })}
+        {activePage === 'Demo' && <DemoSection />}
       </Main>
     </AppRoot>
   )

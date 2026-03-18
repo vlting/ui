@@ -1,6 +1,6 @@
 # Badge
 
-Inline pill for status/category labeling. Informational only — not interactive or focusable.
+Inline label for status/category. Informational only — not interactive or focusable. Uses `$badge` radius token (pill by default, theme-overridable).
 
 ## Semantic HTML
 - `<span>` — inline element

@@ -40,7 +40,7 @@ Card is a compound component. Sub-components stack vertically inside the root:
 
 ### States
 
-- **Idle** — Renders with `borderRadius: '$4'` and `overflow: 'hidden'`. Background is `$background1`.
+- **Idle** — Renders with `radius: '$card'` and `overflow: 'hidden'`. Background is `$background1`.
 - **Hover** (interactive only) — Background shifts to theme-specific hover token (e.g., `$neutral3` for neutral, `$primary3` for primary).
 - **Active/Press** (interactive only) — Background shifts to theme-specific press token (e.g., `$neutral4` for neutral) with `scale(0.98)`.
 - **Focus** (interactive only) — Visible outline ring using the outline scale shorthand (e.g., `outline: '$neutral'` for neutral, `outline: '$primary'` for primary). Uses `$offsetDefault` offset.
@@ -79,7 +79,7 @@ Card is a compound component. Sub-components stack vertically inside the root:
   - Shadow: `$md` (normal elevation), `$xl` (raised elevation).
   - Font: `$body` family for body text, `$neutralText3` for Title, `$neutralText4` for Description.
   - Spacing: `$16` padding in Header/Content/Footer, `$4` gap in Header.
-  - Radius: `$4` on the root frame.
+  - Radius: `$card` on the root frame.
   - Size variant controls outer padding: `sm` = `$8`, `md` = `$16`, `lg` = `$20`.
 - **Responsive behavior:** Accepts STL media query props. The card does not enforce its own width; it fills its parent container.
 - **Reduced motion:** Interactive press scale animation must degrade gracefully when `prefers-reduced-motion: reduce` is active.

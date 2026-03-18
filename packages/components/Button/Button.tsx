@@ -10,7 +10,7 @@ const ButtonSpinner = styled('span', {
 const ButtonContent = styled('span', {
   stl: { display: 'contents' },
   variants: {
-    hidden: { true: { visibility: 'hidden' } },
+    hidden: { true: { visibility: 'hidden', } },
   },
 })
 
@@ -47,7 +47,7 @@ export const Button = styled('button', {
       sm: { height: '$32', py: '$8', px: '$12', fontSize: '$buttonSmall' },
       md: { height: '$36', py: '$buttonBasePy', px: '$buttonBasePx', fontSize: '$button' },
       lg: { height: '$40', py: '$12', px: '$24', fontSize: '$buttonLarge' },
-      icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button' },
+      icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button', },
     },
     disabled: {
       true: { opacity: '0.5', cursor: 'not-allowed', pointerEvents: 'none' },
@@ -62,7 +62,8 @@ export const Button = styled('button', {
       when: { theme: 'primary', variant: 'solid' },
       stl: {
         bg: '$primary9', color: '$primaryText9',
-        ':interact': { bg: '$primary10', color: '$primaryText10' },
+        backgroundImage: 'var(--stl-gradient-primary, none)',
+        ':interact': { bg: '$primary10', color: '$primaryText10', filter: 'brightness(1.15)' },
         ':focus': { outline: '$primaryMax' },
       },
     },
@@ -104,7 +105,8 @@ export const Button = styled('button', {
       when: { theme: 'secondary', variant: 'solid' },
       stl: {
         bg: '$secondary9', color: '$secondaryText9',
-        ':interact': { bg: '$secondary10', color: '$secondaryText10' },
+        backgroundImage: 'var(--stl-gradient-secondary, none)',
+        ':interact': { bg: '$secondary10', color: '$secondaryText10', filter: 'brightness(1.15)' },
         ':focus': { outline: '$secondaryMax' },
       },
     },
@@ -146,7 +148,8 @@ export const Button = styled('button', {
       when: { theme: 'neutral', variant: 'solid' },
       stl: {
         bg: '$neutral9', color: '$neutralText9',
-        ':interact': { bg: '$neutral10', color: '$neutralText10' },
+        backgroundImage: 'var(--stl-gradient-neutral, none)',
+        ':interact': { bg: '$neutral10', color: '$neutralText10', filter: 'brightness(1.15)' },
         ':focus': { outline: '$neutralMax' },
       },
     },

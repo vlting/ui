@@ -5,7 +5,7 @@ import { styled, options } from '../../stl-react/src/config'
 
 const CardRoot = styled('article', {
   stl: {
-    borderRadius: '$4',
+    radius: '$card',
     overflow: 'hidden',
     fontFamily: '$body',
     bg: '$background1',
@@ -26,6 +26,16 @@ const CardRoot = styled('article', {
       flat: { border: '$borderColor', borderWidth: '$widthMin' },
       normal: { boxShadow: '$md' },
       raised: { boxShadow: '$xl' },
+      glass: {
+        backdropFilter: 'blur(var(--stl-glass-blur, 0))',
+        bg: 'var(--stl-glass-tint, transparent)',
+        border: 'var(--stl-glass-border, none)',
+        boxShadow: 'none',
+        lowMotion: {
+          backdropFilter: 'none',
+          bg: 'var(--stl-glass-tint, $neutral2)',
+        },
+      },
     },
     interactive: {
       true: {
