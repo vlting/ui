@@ -49,9 +49,19 @@ const ItemTitle = styled('span', {
 
 const ItemDescription = styled('span', {
   fontSize: '$small',
-  opacity: '0.65',
-  color: 'inherit',
-}, { name: 'ItemDescription' })
+  fontWeight: '$400',
+  color: '$neutralText4',
+}, {
+  name: 'ItemDescription',
+  variants: {
+    theme: {
+      primary: { color: '$primaryText4' },
+      secondary: { color: '$secondaryText4' },
+      neutral: { color: '$neutralText4' },
+    },
+  },
+  defaultVariants: { theme: 'neutral' },
+})
 
 const ItemTrailing = styled('div', {
   display: 'flex',
@@ -65,7 +75,7 @@ const ItemTrailing = styled('div', {
 
 const ItemRoot = styled('div', {
   display: 'flex',
-  alignItems: 'start',
+  alignItems: 'center',
   gap: '$12',
   fontFamily: '$body',
 }, {
@@ -82,13 +92,13 @@ const ItemRoot = styled('div', {
       outline: {},
     },
     size: {
-      sm: { minHeight: '36px', py: '$4', px: '$8' },
-      md: { minHeight: '44px', py: '$8', px: '$12' },
-      lg: { minHeight: '52px', py: '$12', px: '$16' },
+      sm: { minHeight: '$36', py: '$4', px: '$8' },
+      md: { minHeight: '$44', py: '$8', px: '$12' },
+      lg: { minHeight: '$52', py: '$12', px: '$16' },
     },
     align: {
-      title: {},
-      center: { alignItems: 'center' },
+      center: {},
+      title: { alignItems: 'start' },
     },
     interactive: {
       true: {
@@ -108,7 +118,7 @@ const ItemRoot = styled('div', {
     // ── theme × interactive ─────────────────────────────────
     ...themes.map(t => ({ when: { theme: t, interactive: 'true' as const }, stl: interactiveStyles(t) })),
   ],
-  defaultVariants: { theme: 'neutral', variant: 'outline', size: 'md', align: 'title' },
+  defaultVariants: { theme: 'neutral', variant: 'outline', size: 'md', align: 'center' },
   mapProps: (p: any) => ({
     ...p,
     tabIndex: p.interactive ? (p.tabIndex ?? 0) : p.tabIndex,
