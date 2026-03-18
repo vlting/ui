@@ -1,4 +1,5 @@
-import { Badge } from '@vlting/ui'
+import { useState } from 'react'
+import { Badge, Button } from '@vlting/ui'
 
 import { ButtonRow, DemoCard, SectionHeading, SectionTitle, StackY, type SectionProps } from './shared'
 
@@ -6,42 +7,43 @@ const coreThemes = ['primary', 'secondary', 'neutral'] as const
 const statusThemes = ['success', 'warning', 'error', 'info'] as const
 const flavorThemes = ['tomato', 'amber', 'grass', 'forest', 'aqua', 'indigo', 'plum', 'magenta'] as const
 
+const BADGE_VARIANTS = ['solid', 'subtle', 'outline'] as const
+type BadgeVariant = typeof BADGE_VARIANTS[number]
+
 export function BadgeSection({ sectionRef }: SectionProps) {
+  const [variant, setVariant] = useState<BadgeVariant>('solid')
+
   return (
     <DemoCard stl={{ mt: '$24' }} ref={sectionRef} data-section="Badge">
       <SectionHeading>Badge</SectionHeading>
       <StackY>
-        <SectionTitle>Solid</SectionTitle>
         <ButtonRow>
-          {coreThemes.map(t => <Badge key={t} theme={t} variant="solid">{t}</Badge>)}
-        </ButtonRow>
-        <ButtonRow>
-          {statusThemes.map(t => <Badge key={t} theme={t} variant="solid">{t}</Badge>)}
-        </ButtonRow>
-        <ButtonRow>
-          {flavorThemes.map(t => <Badge key={t} theme={t} variant="solid">{t}</Badge>)}
-        </ButtonRow>
-
-        <SectionTitle>Subtle</SectionTitle>
-        <ButtonRow>
-          {coreThemes.map(t => <Badge key={t} theme={t} variant="subtle">{t}</Badge>)}
-        </ButtonRow>
-        <ButtonRow>
-          {statusThemes.map(t => <Badge key={t} theme={t} variant="subtle">{t}</Badge>)}
-        </ButtonRow>
-        <ButtonRow>
-          {flavorThemes.map(t => <Badge key={t} theme={t} variant="subtle">{t}</Badge>)}
+          {BADGE_VARIANTS.map(v => (
+            <Button
+              key={v}
+              size="sm"
+              theme="neutral"
+              variant={variant === v ? 'solid' : 'ghost'}
+              onClick={() => setVariant(v)}
+            >
+              {v}
+            </Button>
+          ))}
         </ButtonRow>
 
-        <SectionTitle>Outline</SectionTitle>
+        <SectionTitle>Core</SectionTitle>
         <ButtonRow>
-          {coreThemes.map(t => <Badge key={t} theme={t} variant="outline">{t}</Badge>)}
+          {coreThemes.map(t => <Badge key={t} theme={t} variant={variant}>{t}</Badge>)}
         </ButtonRow>
+
+        <SectionTitle>Status</SectionTitle>
         <ButtonRow>
-          {statusThemes.map(t => <Badge key={t} theme={t} variant="outline">{t}</Badge>)}
+          {statusThemes.map(t => <Badge key={t} theme={t} variant={variant}>{t}</Badge>)}
         </ButtonRow>
+
+        <SectionTitle>Flavor</SectionTitle>
         <ButtonRow>
-          {flavorThemes.map(t => <Badge key={t} theme={t} variant="outline">{t}</Badge>)}
+          {flavorThemes.map(t => <Badge key={t} theme={t} variant={variant}>{t}</Badge>)}
         </ButtonRow>
 
         <SectionTitle>Sizes</SectionTitle>
