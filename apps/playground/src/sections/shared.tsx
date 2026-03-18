@@ -52,74 +52,61 @@ export const SPINNER_SIZES = ['sm', 'md', 'lg', 'xl'] as const
 // ─── Shared styled components ────────────────────────────────────────────────
 
 export const Section = styled('div', {
-  stl: { mb: '$32' },
-  styleName: 'Section',
-})
+  mb: '$32',
+}, { name: 'Section' })
 
 export const SectionHeading = styled('h2', {
-  stl: {
-    fontSize: '$h4',
-    fontWeight: '$700',
-    color: '$color12',
-    m: '$0',
-    mb: '$16',
-  },
-  styleName: 'SectionHeading',
-})
+  fontSize: '$h4',
+  fontWeight: '$700',
+  color: '$color12',
+  m: '$0',
+  mb: '$16',
+}, { name: 'SectionHeading' })
 
 export const SectionTitle = styled('h3', {
-  stl: {
-    fontSize: '$buttonTiny',
-    fontWeight: '$600',
-    color: '$neutralText3',
-    m: '$0',
-    mb: '$10',
-    textTransform: 'uppercase',
-    letterSpacing: '0.05em',
-  },
-  styleName: 'SectionTitle',
-})
+  fontSize: '$buttonTiny',
+  fontWeight: '$600',
+  color: '$neutralText3',
+  m: '$0',
+  mb: '$10',
+  textTransform: 'uppercase',
+  letterSpacing: '0.05em',
+}, { name: 'SectionTitle' })
 
 export const DemoCard = styled('div', {
-  stl: {
-    bg: '$background1',
-    radius: '$card',
-    p: '$48',
-    boxShadow: '$lg'
-  },
+  bg: '$background1',
+  radius: '$card',
+  p: '$48',
+  boxShadow: '$lg',
+}, {
+  name: 'DemoCard',
   variants: {
     surface: {
       default: {},
       dark: { bg: '$background2' },
     },
   },
-  styleName: 'DemoCard',
 })
 
 export const ButtonRow = styled('div', {
-  stl: { display: 'flex', gap: '$12', flexWrap: 'wrap' },
-  styleName: 'ButtonRow',
-})
+  display: 'flex', gap: '$12', flexWrap: 'wrap',
+}, { name: 'ButtonRow' })
 
 export const GridLabel = styled('span', {
-  stl: { fontSize: '$buttonTiny', color: '$neutralText3', textAlign: 'center' },
-  styleName: 'GridLabel',
-})
+  fontSize: '$buttonTiny', color: '$neutralText3', textAlign: 'center',
+}, { name: 'GridLabel' })
 
 export const GridCell = styled('div', {
-  stl: { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'end', gap: '$8', height: '100%' },
-  styleName: 'GridCell',
-})
+  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'end', gap: '$8', height: '100%',
+}, { name: 'GridCell' })
 
 export const StackY = styled('div', {
-  stl: { display: 'flex', flexDirection: 'column', gap: '$12' },
-  styleName: 'StackY',
-})
+  display: 'flex', flexDirection: 'column', gap: '$12',
+}, { name: 'StackY' })
 
 export const DarkStage = styled('div', {
-  stl: { bg: '$background10', radius: '$field', p: '$24' },
-  styleName: 'DarkStage',
-})
+  bg: '$background10', radius: '$field', p: '$24',
+}, { name: 'DarkStage' })
 
 // ─── Section component props ─────────────────────────────────────────────────
 
