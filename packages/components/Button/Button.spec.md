@@ -24,7 +24,7 @@
 
 ## 3. Anatomy
 
-Button is created via `styled('button', opts)` directly — there is no `ButtonFrame` wrapper. The `styled()` call handles `forwardRef` implicitly. It uses the options API with a `template` for rendering children, loading spinner, prefix, and suffix slots.
+Button uses a `styled('button', opts)` base (`ButtonBase`) wrapped in an explicit `forwardRef` component that handles `loading`, `prefix`, and `suffix` props.
 
 ### Internal sub-elements
 
@@ -51,22 +51,24 @@ All colors use the `$colorN` + `$colorTextN` pairing pattern (global to `@vlting
 Compound variant step mapping:
 - **solid** — `$color9`/`$colorText9` idle, `$color10`/`$colorText10` on interact. Focus outline: `$colorMax`.
 - **subtle** — `$color3`/`$colorText3` idle, `$color9`/`$colorText9` on interact. Focus outline: `$color`.
-- **outline** — Transparent bg + `$color` border, `$colorText1` text. Interact: `$color9`/`$colorText9` bg. Focus outline: `$color`.
+- **outline** — Transparent bg + `$color9` border (`$widthMin`), `$colorText1` text. Interact: `$color9`/`$colorText9` bg. Focus outline: `$color`.
 - **ghost** — Transparent bg, `$colorText1` text. Interact: `$color9`/`$colorText9` bg. Focus outline: `$color`.
 - **link** — Transparent bg, `$colorText1` text, underline, `px: $0`. Interact: `$color9`/`$colorText9` bg. Focus outline: `$color`.
 
 All variants have hover/focus states with a background color change. Focus also shows an outline ring.
 
-### Template slots
+### Content slots
 
-The `template` function renders:
+The `forwardRef` component renders:
 - `prefix` — Optional leading content (icon, etc.)
-- `children` — Main label content (replaced by `Spinner` when loading)
+- `children` — Main label content
 - `suffix` — Optional trailing content
+
+All wrapped in a `ButtonContent` span with `display: contents`.
 
 ### Loading state
 
-When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner>` and `<VisuallyHidden>Loading</VisuallyHidden>` is rendered above the content. The `ButtonContent` wrapper gets `hidden` (visibility: hidden) to preserve layout while hiding text. The button becomes disabled. `aria-busy` is set.
+When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner size="sm">` and `<VisuallyHidden>Loading</VisuallyHidden>` is rendered above the content. The `ButtonContent` wrapper gets `hidden` (visibility: hidden) to preserve layout while hiding text. The button becomes disabled (`disabled={disabled ?? loading ?? false}`). `aria-busy` is set.
 
 > **TypeScript is the source of truth for props.** See `ButtonProps` in `Button.tsx` for the full typed API.
 

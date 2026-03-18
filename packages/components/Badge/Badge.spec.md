@@ -20,7 +20,7 @@ Inline label for status/category. Informational only — not interactive or focu
 ## Color contract
 - **solid**: `$<theme>9` bg + `$<theme>Text9` text (high-contrast pair)
 - **subtle**: `$<theme>3` bg + `$<theme>Text3` text
-- **outline**: transparent bg + `$<theme>9` border + `$<theme>Text3` text
+- **outline**: transparent bg + `$<theme>9` border (`$widthMin`) + `$<theme>Text3` text
 
 ## Accessibility
 - Not interactive, not focusable

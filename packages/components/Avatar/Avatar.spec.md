@@ -63,7 +63,7 @@ None.
 
 ## 6. Styling
 
-- **Design tokens used:** `$color4` for fallback background, `$color` for fallback text, `borderRadius: 1000` (circle).
+- **Design tokens used:** `$neutral4` for fallback background, `$neutralText3` for fallback text, `radius: '$full'` (circle).
 - **Size variants:** `sm` (32px), `md` (40px), `lg` (56px), `xl` (72px).
 - **Dark mode:** Token resolution handles automatically.
 

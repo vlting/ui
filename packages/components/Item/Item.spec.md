@@ -25,11 +25,11 @@
 
 Compound component. Sub-components arrange horizontally inside the root:
 
-- **Item (root)** — A styled `<li>` with horizontal flex layout. Variants for `theme`, `variant`, `size`, `interactive`, `divider`, `disabled`, and `selected`.
+- **Item (root)** — A styled `<div>` with horizontal flex layout. Variants for `theme`, `variant`, `size`, `align`, and `interactive`. [Planned]: `divider`, `disabled`, `selected`.
 - **Item.Leading** — A styled `<div>` for leading visual content (icon, avatar, image). `flexShrink: 0`.
 - **Item.Content** — A styled `<div>` wrapping Title and Description in a vertical stack. `flex: 1`, `minWidth: 0`.
-- **Item.Title** — A styled `<h4>` for primary text.
-- **Item.Description** — A styled `<p>` for secondary text.
+- **Item.Title** — A styled `<span>` for primary text.
+- **Item.Description** — A styled `<span>` for secondary text.
 - **Item.Trailing** — A styled `<div>` for trailing interactive elements (buttons, badges, chevrons). `flexShrink: 0`.
 - All sub-components except Root are optional.
 
@@ -63,7 +63,7 @@ Compound component. Sub-components arrange horizontally inside the root:
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders as `<li>`. Expects a parent `<ul>` or `<ol>`.
+- **Semantic element:** Renders as `<div>`. Can be used inside `<ul>`/`<ol>` with element override, or standalone.
 - **ARIA attributes:** No auto role beyond semantic HTML. Consumers set `role` based on context (`option` in a listbox, `menuitem` in a menu, etc.).
 - **Focus management:** When `interactive` is set, `tabIndex: 0` is applied via `mapProps`. [Planned] When `disabled`, `tabIndex` is removed and `aria-disabled: true` is set.
 - **Screen reader announcements:** Title and Description text are announced naturally via heading and paragraph semantics.
@@ -76,7 +76,7 @@ Compound component. Sub-components arrange horizontally inside the root:
 ### Variant axes
 
 - **`theme`** (3): `primary | secondary | neutral` — core themes only. Default: `neutral`.
-- **`variant`** (3): `default | subtle | outline`. Default: `default`.
+- **`variant`** (3): `ghost | subtle | outline`. Default: `outline`.
 - **`size`** (3): `sm | md | lg`. Default: `md`.
 - **`align`** (2): `center | title` — controls cross-axis alignment of Leading/Trailing relative to Content. `center` vertically centers all children; `title` aligns media with the title line (useful when Description is present). Default: `center`.
 - **`interactive`**: boolean. Default: `false`.
@@ -88,13 +88,13 @@ Compound component. Sub-components arrange horizontally inside the root:
 
 | Size | py | px | gap | minHeight (floor) |
 |------|----|----|-----|-------------------|
-| `sm` | `$4` | `$8` | `$8` | `$36` |
+| `sm` | `$4` | `$8` | `$12` | `$36` |
 | `md` | `$8` | `$12` | `$12` | `$44` |
-| `lg` | `$12` | `$16` | `$16` | `$52` |
+| `lg` | `$12` | `$16` | `$12` | `$52` |
 
 ### Color contract (theme × variant)
 
-- **default** — transparent bg, no border. Text inherits theme color.
+- **ghost** — transparent bg, no border. Text uses `$<theme>Text3`.
 - **subtle** — `$<theme>3` bg, `$field` radius. Text uses `$<theme>Text3`.
 - **outline** — transparent bg, `$<theme>5` border, `$widthMin` border width, `$field` radius. Text uses `$<theme>Text3`.
 
@@ -112,8 +112,8 @@ Use Badge's programmatic generation pattern to avoid hand-written per-theme tabl
 const themes = ['primary', 'secondary', 'neutral'] as const
 
 const variantStyles = {
-  default: (t: string) => ({}) as STL,
-  subtle: (t: string) => ({ bg: `$${t}3`, radius: '$field' }) as STL,
+  ghost: (t: string) => ({ color: `$${t}Text3` }) as STL,
+  subtle: (t: string) => ({ bg: `$${t}3`, radius: '$field', color: `$${t}Text3` }) as STL,
   outline: (t: string) => ({
     bg: 'transparent', border: `$${t}5`, borderWidth: '$widthMin', radius: '$field'
   }) as STL,
@@ -154,7 +154,7 @@ mapProps: (p) => ({
 
 ## 7. Composition
 
-- **What can contain this component:** `<ul>`, `<ol>`, or any container with `role="list"`. Also usable in `ScrollView`, `FlatList`, etc.
+- **What can contain this component:** Any layout container, `<ul>`/`<ol>` (with element override), or `ScrollView`/`FlatList`.
 - **What this component can contain:**
   - `Item.Leading`: Avatar, Icon, Checkbox, RadioGroup.Item
   - `Item.Content`: Always contains `Item.Title`; `Item.Description` is optional
@@ -176,24 +176,24 @@ mapProps: (p) => ({
 ## 9. Test Requirements
 
 - **Behavioral tests:**
-  - Root renders as `<li>`.
-  - Title renders as `<h4>`, Description renders as `<p>`.
+  - Root renders as `<div>`.
+  - Title renders as `<span>`, Description renders as `<span>`.
   - All 5 sub-components render without errors.
   - Renders with only Content + Title (minimal usage).
   - Each theme (`primary`, `secondary`, `neutral`) renders without error.
-  - Each variant (`default`, `subtle`, `outline`) renders without error.
+  - Each variant (`ghost`, `subtle`, `outline`) renders without error.
   - Each size (`sm`, `md`, `lg`) applies correct padding.
   - `interactive` adds cursor pointer, hover, press, and focus styles.
   - [Planned] `divider` renders bottom border.
   - [Planned] `disabled` sets `opacity: 0.5`, `aria-disabled: true`, removes from tab order.
   - [Planned] `selected` applies background.
 - **Accessibility tests:**
-  - No ARIA roles set by default (semantic `<li>` suffices).
+  - No ARIA roles set by default (semantic `<div>`).
   - When `interactive`, `tabIndex: 0` is set.
   - [Planned] When `disabled`, `aria-disabled: true` is set and `tabIndex` is removed.
   - Text contrast meets AA ratios for Title and Description against each variant background.
 - **Visual regression:**
-  - Default, subtle, and outline variants across all themes.
+  - Ghost, subtle, and outline variants across all themes.
   - Interactive hover, focus, and press states per theme.
   - [Planned] Selected state per theme.
   - [Planned] Disabled state.

@@ -47,6 +47,7 @@ Card is a compound component. Sub-components stack vertically inside the root:
 - **Elevation: flat** — No shadow. Has a border — defaults to `$borderColor`, but with a theme-specific subtle color (`$<theme>5`) via compound variants.
 - **Elevation: normal** (default) — Shadow `$md` applied, no border.
 - **Elevation: raised** — Larger shadow `$xl` for higher Z-axis appearance.
+- **Elevation: glass** — Backdrop blur via `--stl-glass-blur`, tinted bg via `--stl-glass-tint`, custom border via `--stl-glass-border`. `lowMotion` disables blur and falls back to `$neutral2`.
 - **Disabled** — Not applicable. Card does not have a disabled state.
 - **Loading/Error** — Not applicable. Card is a layout container.
 
@@ -102,7 +103,7 @@ Card is a compound component. Sub-components stack vertically inside the root:
 
 - Removing any variant (`theme`, `size`, `elevation`, `interactive`) from the root frame.
 - Removing any sub-component (`Card.Header`, `Card.Content`, `Card.Footer`, `Card.Title`, `Card.Description`).
-- Changing the variant value sets (e.g., removing `'lg'` from `size`, removing `'raised'` from `elevation`).
+- Changing the variant value sets (e.g., removing `'lg'` from `size`, removing `'raised'` or `'glass'` from `elevation`).
 - Changing default variant values (currently `size: 'md'`, `elevation: 'normal'`, `theme: 'neutral'`).
 - Removing `overflow: 'hidden'` from the root frame.
 - Changing the `CardProps` export type.
@@ -114,7 +115,7 @@ Card is a compound component. Sub-components stack vertically inside the root:
 - **Behavioral tests:**
   - Root frame renders with correct base styles (radius, overflow hidden).
   - Each size variant (`sm`, `md`, `lg`) applies correct padding.
-  - Each elevation variant (`flat`, `normal`, `raised`) renders correctly.
+  - Each elevation variant (`flat`, `normal`, `raised`, `glass`) renders correctly.
   - `interactive` variant adds cursor pointer, hover, press, and focus styles.
   - Non-interactive variant does not respond to hover or press.
   - Each `theme` variant (`primary`, `secondary`, `neutral`) renders without error.
@@ -127,7 +128,7 @@ Card is a compound component. Sub-components stack vertically inside the root:
   - When `interactive` is applied, `role="button"` and `tabIndex={0}` are set.
   - Text contrast within title and description meets AA ratios against the card background.
 - **Visual regression:**
-  - Default, flat, raised, and interactive states.
+  - Default, flat, raised, glass, and interactive states.
   - Each size variant and theme variant.
   - Flat cards with each theme (themed borders).
   - Interactive hover and press states per theme.
