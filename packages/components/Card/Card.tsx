@@ -12,7 +12,11 @@ const CardRoot = styled('article', {
     ':focus': { outlineOffset: '$offsetDefault' },
   },
   variants: {
-    theme: options('primary', 'secondary', 'neutral'),
+    theme: {
+      primary: { color: '$primaryText3' },
+      secondary: { color: '$secondaryText3' },
+      neutral: { color: '$neutralText3' },
+    },
     size: {
       sm: { p: '$8' },
       md: { p: '$16' },
@@ -105,7 +109,7 @@ const CardFooter = styled('footer', {
 })
 
 const CardTitle = styled('h3', {
-  stl: { fontWeight: '$600', fontSize: '$h4', m: '$0', color: '$neutralText3' },
+  stl: { fontWeight: '$600', fontSize: '$h4', m: '$0', color: 'inherit' },
   styleName: 'CardTitle',
 })
 
