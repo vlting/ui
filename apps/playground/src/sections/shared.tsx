@@ -1,3 +1,4 @@
+import { Button } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
 // ─── Icons ───────────────────────────────────────────────────────────────────
@@ -107,6 +108,34 @@ export const StackY = styled('div', {
 export const DarkStage = styled('div', {
   bg: '$background10', radius: '$3', p: '$24',
 }, { name: 'DarkStage' })
+
+// ─── VariantToggle ──────────────────────────────────────────────────────────
+
+export function VariantToggle<T extends string>({
+  options,
+  value,
+  onChange,
+}: {
+  options: readonly T[]
+  value: T
+  onChange: (v: T) => void
+}) {
+  return (
+    <ButtonRow>
+      {options.map(o => (
+        <Button
+          key={o}
+          size="sm"
+          theme="neutral"
+          variant={value === o ? 'solid' : 'outline'}
+          onClick={() => onChange(o)}
+        >
+          {o}
+        </Button>
+      ))}
+    </ButtonRow>
+  )
+}
 
 // ─── Section component props ─────────────────────────────────────────────────
 
