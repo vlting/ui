@@ -307,7 +307,6 @@ export type { DynamicIconProps } from '../packages/icons/Icon'
 export { DynamicIcon } from '../packages/icons/Icon'
 export type {
   AspectRatioProps,
-  HeadingProps,
   IconFC,
   IconProps,
   KbdProps,
