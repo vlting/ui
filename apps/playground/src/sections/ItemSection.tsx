@@ -1,171 +1,106 @@
-import { Item } from '@vlting/ui'
+import { useState } from 'react'
+import { Button, Item } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
-import { DemoCard, SectionHeading, SectionTitle, StackY, type SectionProps } from './shared'
+import { ButtonRow, DemoCard, SectionHeading, SectionTitle, StackY, type SectionProps } from './shared'
 
-// ─── Local styled components ────────────────────────────────────────────────
-
-const ItemGroup = styled('div', {
-  border: '1px solid $color4',
-  borderRadius: '$card',
-  overflow: 'hidden',
-}, { name: 'ItemGroup' })
-
-const ItemDivider = styled('div', {
-  height: '1px',
-  bg: '$color3',
-}, { name: 'ItemDivider' })
+const ITEM_VARIANTS = ['default', 'subtle', 'outline'] as const
+const ITEM_SIZES = ['sm', 'md', 'lg'] as const
+const ITEM_THEMES = ['primary', 'secondary', 'neutral'] as const
 
 const TrailingLabel = styled('span', {
   fontSize: '$small',
-  color: '$neutralText4',
+  color: 'inherit',
+  opacity: '0.5',
 }, { name: 'TrailingLabel' })
 
-// ─── ItemSection ────────────────────────────────────────────────────────────
+const themeItems: Record<typeof ITEM_THEMES[number], { title: string; description: string; leading: string; trailing: string }[]> = {
+  primary: [
+    { title: 'Account settings', description: 'Manage your account preferences', leading: '⚙️', trailing: '→' },
+    { title: 'Notifications', description: 'Configure alerts and updates', leading: '🔔', trailing: '→' },
+    { title: 'Billing', description: 'View plans and payment methods', leading: '💳', trailing: '→' },
+  ],
+  secondary: [
+    { title: 'Two-factor authentication', description: 'Add an extra layer of security', leading: '🔒', trailing: '→' },
+    { title: 'Password', description: 'Last changed 3 months ago', leading: '🔑', trailing: '→' },
+    { title: 'Sessions', description: 'Manage active sessions', leading: '📱', trailing: '→' },
+  ],
+  neutral: [
+    { title: 'Deployment', description: 'Production — us-east-1', leading: '📦', trailing: 'Live' },
+    { title: 'Analytics', description: 'Monthly usage report', leading: '📊', trailing: '12.4k' },
+    { title: 'Last backup', description: 'Automated daily snapshot', leading: '🕐', trailing: '2h ago' },
+  ],
+}
 
 export function ItemSection({ sectionRef }: SectionProps) {
+  const [variant, setVariant] = useState<typeof ITEM_VARIANTS[number]>('subtle')
+  const [size, setSize] = useState<typeof ITEM_SIZES[number]>('md')
+  const [interactive, setInteractive] = useState(false)
+
   return (
     <DemoCard stl={{ mt: '$24' }} ref={sectionRef} data-section="Item">
       <SectionHeading>Item</SectionHeading>
-      <StackY stl={{ maxWidth: '480px' }}>
-
-        {/* Default */}
-        <SectionTitle>Default</SectionTitle>
-        <ItemGroup>
-          <Item>
-            <Item.Leading>🔒</Item.Leading>
-            <Item.Content>
-              <Item.Title>Two-factor authentication</Item.Title>
-              <Item.Description>Add an extra layer of security</Item.Description>
-            </Item.Content>
-            <Item.Trailing>
-              <TrailingLabel>→</TrailingLabel>
-            </Item.Trailing>
-          </Item>
-          <ItemDivider />
-          <Item>
-            <Item.Leading>🔑</Item.Leading>
-            <Item.Content>
-              <Item.Title>Password</Item.Title>
-              <Item.Description>Last changed 3 months ago</Item.Description>
-            </Item.Content>
-            <Item.Trailing>
-              <TrailingLabel>→</TrailingLabel>
-            </Item.Trailing>
-          </Item>
-          <ItemDivider />
-          <Item>
-            <Item.Leading>📱</Item.Leading>
-            <Item.Content>
-              <Item.Title>Sessions</Item.Title>
-              <Item.Description>Manage active sessions</Item.Description>
-            </Item.Content>
-            <Item.Trailing>
-              <TrailingLabel>→</TrailingLabel>
-            </Item.Trailing>
-          </Item>
-        </ItemGroup>
-
-        {/* Interactive */}
-        <SectionTitle>Interactive</SectionTitle>
-        <ItemGroup>
-          <Item interactive>
-            <Item.Leading>⚙️</Item.Leading>
-            <Item.Content>
-              <Item.Title>Account settings</Item.Title>
-              <Item.Description>Manage your account preferences</Item.Description>
-            </Item.Content>
-            <Item.Trailing>
-              <TrailingLabel>→</TrailingLabel>
-            </Item.Trailing>
-          </Item>
-          <ItemDivider />
-          <Item interactive>
-            <Item.Leading>🔔</Item.Leading>
-            <Item.Content>
-              <Item.Title>Notifications</Item.Title>
-              <Item.Description>Configure alerts and updates</Item.Description>
-            </Item.Content>
-            <Item.Trailing>
-              <TrailingLabel>→</TrailingLabel>
-            </Item.Trailing>
-          </Item>
-          <ItemDivider />
-          <Item interactive>
-            <Item.Leading>🛡️</Item.Leading>
-            <Item.Content>
-              <Item.Title>Privacy</Item.Title>
-              <Item.Description>Control your data and visibility</Item.Description>
-            </Item.Content>
-            <Item.Trailing>
-              <TrailingLabel>→</TrailingLabel>
-            </Item.Trailing>
-          </Item>
-        </ItemGroup>
-
-        {/* Sizes */}
-        <SectionTitle>Sizes</SectionTitle>
-        {(['sm', 'md', 'lg'] as const).map(size => (
-          <ItemGroup key={size}>
-            <Item size={size}>
-              <Item.Content>
-                <Item.Title>First item</Item.Title>
-                <Item.Description>Using size {size}</Item.Description>
-              </Item.Content>
-              <Item.Trailing>
-                <TrailingLabel>{size}</TrailingLabel>
-              </Item.Trailing>
-            </Item>
-            <ItemDivider />
-            <Item size={size}>
-              <Item.Content>
-                <Item.Title>Second item</Item.Title>
-                <Item.Description>Also size {size}</Item.Description>
-              </Item.Content>
-              <Item.Trailing>
-                <TrailingLabel>{size}</TrailingLabel>
-              </Item.Trailing>
-            </Item>
-          </ItemGroup>
+      <ButtonRow stl={{ mb: '$16' }}>
+        {ITEM_VARIANTS.map((v) => (
+          <Button
+            key={v}
+            size="xs"
+            theme="neutral"
+            variant={variant === v ? 'subtle' : 'ghost'}
+            onClick={() => setVariant(v)}
+            aria-pressed={variant === v}
+          >
+            {v}
+          </Button>
         ))}
-
-        {/* Leading & Trailing */}
-        <SectionTitle>Leading & Trailing</SectionTitle>
-        <ItemGroup>
-          <Item>
-            <Item.Leading>📦</Item.Leading>
-            <Item.Content>
-              <Item.Title>Deployment</Item.Title>
-              <Item.Description>Production — us-east-1</Item.Description>
-            </Item.Content>
-            <Item.Trailing>
-              <TrailingLabel>Live</TrailingLabel>
-            </Item.Trailing>
-          </Item>
-          <ItemDivider />
-          <Item>
-            <Item.Leading>📊</Item.Leading>
-            <Item.Content>
-              <Item.Title>Analytics</Item.Title>
-              <Item.Description>Monthly usage report</Item.Description>
-            </Item.Content>
-            <Item.Trailing>
-              <TrailingLabel>12.4k views</TrailingLabel>
-            </Item.Trailing>
-          </Item>
-          <ItemDivider />
-          <Item>
-            <Item.Leading>🕐</Item.Leading>
-            <Item.Content>
-              <Item.Title>Last backup</Item.Title>
-              <Item.Description>Automated daily snapshot</Item.Description>
-            </Item.Content>
-            <Item.Trailing>
-              <TrailingLabel>2 hours ago</TrailingLabel>
-            </Item.Trailing>
-          </Item>
-        </ItemGroup>
-
+        {ITEM_SIZES.map((s) => (
+          <Button
+            key={s}
+            size="xs"
+            theme="neutral"
+            variant={size === s ? 'subtle' : 'ghost'}
+            onClick={() => setSize(s)}
+            aria-pressed={size === s}
+          >
+            {s}
+          </Button>
+        ))}
+        <Button
+          size="xs"
+          theme="neutral"
+          variant={interactive ? 'subtle' : 'ghost'}
+          onClick={() => setInteractive((i) => !i)}
+          aria-pressed={interactive}
+        >
+          interactive
+        </Button>
+      </ButtonRow>
+      <StackY stl={{ maxWidth: '480px' }}>
+        {ITEM_THEMES.map((theme) => (
+          <div key={theme}>
+            <SectionTitle>{theme}</SectionTitle>
+            <StackY>
+              {themeItems[theme].map((item) => (
+                <Item
+                  key={item.title}
+                  theme={theme}
+                  variant={variant}
+                  size={size}
+                  interactive={interactive || undefined}
+                >
+                  <Item.Leading>{item.leading}</Item.Leading>
+                  <Item.Content>
+                    <Item.Title>{item.title}</Item.Title>
+                    <Item.Description>{item.description}</Item.Description>
+                  </Item.Content>
+                  <Item.Trailing>
+                    <TrailingLabel>{item.trailing}</TrailingLabel>
+                  </Item.Trailing>
+                </Item>
+              ))}
+            </StackY>
+          </div>
+        ))}
       </StackY>
     </DemoCard>
   )
