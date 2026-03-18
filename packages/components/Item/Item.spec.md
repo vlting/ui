@@ -1,11 +1,11 @@
 # Component Spec — Item
 
-> **Baseline**: This component must satisfy all requirements in [`QUALITY_BASELINE.md`](../QUALITY_BASELINE.md).
+> **Baseline**: This component must satisfy all requirements in [`QUALITY_BASELINE.md`](../../QUALITY_BASELINE.md).
 
 ## 1. Purpose
 
 - Generic list-item layout for menus, settings panels, contact lists, and any context requiring structured rows.
-- **When to use:** List items needing an icon/avatar + text + optional trailing action in a consistent layout.
+- **When to use:** List items needing a media element + text + optional trailing actions in a consistent layout.
 - **When NOT to use:** Simple text-only lists (use `Text`), complex card layouts (use `Card`), navigation items (use `NavigationMenu`).
 
 ---
@@ -13,22 +13,24 @@
 ## 2. UX Intent
 
 - **Primary interaction goal:** Scannable list with consistent structure across items.
-- **Expected user mental model:** Each item is a row with a leading visual, main content area, and trailing action.
+- **Expected user mental model:** Each item is a row with a leading visual, main content area, and trailing actions.
 - **UX laws applied:**
   - **Fitts's Law** — touch targets meet minimum sizing (44px default, 36px sm, 52px lg)
   - **Hick's Law** — each item presents a focused, limited set of information
-  - **Gestalt Principles** — proximity groups leading, content, and trailing into a cohesive row
+  - **Gestalt Principles** — proximity groups media, content, and actions into a cohesive row
 
 ---
 
 ## 3. Anatomy
 
-- `Item` (Root) — XStack container, full width, horizontal layout
-- `Item.Leading` — Left slot for avatar, icon, or checkbox (flexShrink: 0)
-- `Item.Content` — Main area containing title and optional description (flex: 1)
-- `Item.Title` — Primary text (medium weight)
-- `Item.Description` — Secondary text (muted color via `$colorSubtitle`)
-- `Item.Trailing` — Right slot for action button, badge, or chevron (flexShrink: 0)
+Compound component. Sub-components arrange horizontally inside the root:
+
+- **Item (root)** — A styled `<li>` with horizontal flex layout. Variants for `theme`, `variant`, `size`, `interactive`, `divider`, `disabled`, and `selected`.
+- **Item.Media** — A styled `<span>` for leading visual content (icon, avatar, image). `flexShrink: 0`.
+- **Item.Content** — A styled `<div>` wrapping Title and Description in a vertical stack. `flex: 1`, `minWidth: 0`.
+- **Item.Title** — A styled `<h4>` for primary text.
+- **Item.Description** — A styled `<p>` for secondary text.
+- **Item.Actions** — A styled `<div>` for trailing interactive elements (buttons, badges, chevrons). `flexShrink: 0`.
 - All sub-components except Root are optional.
 
 > **TypeScript is the source of truth for props.** See `ItemProps` in `Item.tsx` for the full typed API. Do not duplicate prop tables here.
@@ -39,64 +41,157 @@
 
 ### States
 
-- **Idle** — default appearance with no interaction styles
-- **Hover** — background shifts to `$color3` (interactive variant only)
-- **Focus** — visible focus indicator: 2px solid `$outlineColor`, 2px offset (interactive variant only)
-- **Active (press)** — background shifts to `$color4` (interactive variant only)
+- **Idle** — Renders with variant-specific appearance (transparent, tinted, or bordered).
+- **Hover** (interactive only) — Background shifts to theme-specific hover token (`$<theme>3`).
+- **Focus** (interactive only) — Visible outline ring using theme-specific outline token (e.g., `outline: '$neutral'`). Uses `$offsetDefault` offset.
+- **Active/Press** (interactive only) — Background shifts to theme-specific press token (`$<theme>4`).
+- **Selected** — Background `$<theme>4` (slightly stronger than hover). Visual only — consumer owns `aria-selected`.
+- **Disabled** — `opacity: 0.5`, `pointerEvents: none`, `aria-disabled: true`, removed from tab order.
 
 ### Keyboard Interaction
 
-- **Tab** — focuses the item (when `interactive` variant is set)
-- **Enter / Space** — activates the item (consumer must attach `onPress`/`onClick`)
+- **Tab** — focuses the item (when `interactive` is set)
+- **Enter / Space** — activates the item (consumer must attach `onClick`)
 - No arrow key navigation — consumers wrap items in a list and manage focus if needed.
 
 ### Motion
 
-- None. Hover and press feedback is immediate via STL style props.
+- None. Hover and press feedback is immediate via STL pseudo-class props.
+- `lowMotion`: transitions set to `none` on interactive states.
 
 ---
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders as a `div` (XStack). No implicit ARIA role.
-- **ARIA attributes:** Consumers add `role="listitem"` when inside a `role="list"` container, or `role="option"` inside a listbox.
-- **Focus management:** Interactive items receive focus via `tabIndex: 0` (set by consumer or via STL's focusable behavior).
-- **Screen reader announcements:** Title and description text are announced naturally as text content.
-- **Contrast:** Title uses `$color` (primary text), Description uses `$colorSubtitle` (muted) — both must meet 4.5:1 against background.
+- **Semantic element:** Renders as `<li>`. Expects a parent `<ul>` or `<ol>`.
+- **ARIA attributes:** No auto role beyond semantic HTML. Consumers set `role` based on context (`option` in a listbox, `menuitem` in a menu, etc.).
+- **Focus management:** When `interactive` is set, `tabIndex: 0` is applied via `mapProps`. When `disabled`, `tabIndex` is removed and `aria-disabled: true` is set.
+- **Screen reader announcements:** Title and Description text are announced naturally via heading and paragraph semantics.
+- **Contrast:** Title uses `$<theme>Text3` (primary text), Description uses `$<theme>Text4` (muted) — both must meet 4.5:1 against background.
 
 ---
 
 ## 6. Styling
 
-- **Design tokens used:** `$1`–`$4` (space), `$2.5` (gap), `$3`–`$5` (fontSize), `$color`, `$colorSubtitle`, `$color3`, `$color4`, `$outlineColor`, `$body` (fontFamily), `$3` (borderRadius).
-- **Responsive behavior:** Full width, adapts to container. No breakpoint-specific behavior.
-- **Reduced motion:** No animations to degrade.
+### Variant axes
+
+- **`theme`** (3): `primary | secondary | neutral` — core themes only. Default: `neutral`.
+- **`variant`** (3): `default | subtle | outline`. Default: `default`.
+- **`size`** (3): `sm | md | lg`. Default: `md`.
+- **`interactive`**: boolean. Default: `false`.
+- **`divider`**: boolean. Default: `false`.
+- **`disabled`**: boolean. Default: `false`.
+- **`selected`**: boolean. Default: `false`.
+
+### Size (padding density — height emerges from content)
+
+| Size | py | px | gap | minHeight (floor) |
+|------|----|----|-----|-------------------|
+| `sm` | `$4` | `$8` | `$8` | `36px` |
+| `md` | `$8` | `$12` | `$12` | `44px` |
+| `lg` | `$12` | `$16` | `$16` | `52px` |
+
+### Color contract (theme × variant)
+
+- **default** — transparent bg, no border. Text inherits theme color.
+- **subtle** — `$<theme>3` bg, `$item` radius. Text uses `$<theme>Text3`.
+- **outline** — transparent bg, `$<theme>5` border, `$widthMin` border width, `$item` radius. Text uses `$<theme>Text3`.
+
+### Interactive states (theme-aware, via compound variants)
+
+- **Hover** — `bg: $<theme>3`
+- **Press** — `bg: $<theme>4`
+- **Focus** — `outline: $<theme>` (theme-specific outline scale token), `outlineOffset: $offsetDefault`
+
+### Compound variant strategy
+
+Use Badge's programmatic generation pattern to avoid hand-written per-theme tables:
+
+```ts
+const themes = ['primary', 'secondary', 'neutral'] as const
+
+const variantStyles = {
+  default: (t: string) => ({}) as STL,
+  subtle: (t: string) => ({ bg: `$${t}3`, radius: '$item' }) as STL,
+  outline: (t: string) => ({
+    bg: 'transparent', border: `$${t}5`, borderWidth: '$widthMin', radius: '$item'
+  }) as STL,
+}
+
+const interactiveStyles = (t: string) => ({
+  ':interact': { bg: `$${t}3` },
+  ':pressed': { bg: `$${t}4` },
+  ':focus': { outline: `$${t}` },
+}) as STL
+```
+
+Generated compounds: ~12 total (9 theme×variant + 3 theme×interactive).
+
+### Design tokens
+
+- **Radius:** `$item` (aliases `$field`) — applied by `subtle` and `outline` variants.
+- **Font:** `$body` family. Title uses `$500` weight, `$p` size. Description uses `$small` size.
+- **Colors:** Title `$<theme>Text3`, Description `$<theme>Text4`.
+- **Divider:** bottom border `$<theme>5`, `$widthMin` width.
 - **Dark mode:** Automatic via token system; no component-specific overrides needed.
+- **Responsive behavior:** Full width, adapts to container. No breakpoint-specific behavior.
+- **Reduced motion:** `lowMotion` zeroes transitions on interactive states.
+
+### mapProps
+
+```ts
+mapProps: (p) => ({
+  ...p,
+  tabIndex: p.interactive && !p.disabled ? (p.tabIndex ?? 0) : undefined,
+  'aria-disabled': p.disabled || undefined,
+})
+```
 
 ---
 
 ## 7. Composition
 
-- **What can contain this component:** Any layout container (`YStack`, `ScrollView`, `FlatList`, etc.). Commonly wrapped in a `role="list"` container.
+- **What can contain this component:** `<ul>`, `<ol>`, or any container with `role="list"`. Also usable in `ScrollView`, `FlatList`, etc.
 - **What this component can contain:**
-  - `Item.Leading`: Avatar, Icon, Checkbox, RadioGroup.Item
+  - `Item.Media`: Avatar, Icon, Checkbox, RadioGroup.Item
   - `Item.Content`: Always contains `Item.Title`; `Item.Description` is optional
-  - `Item.Trailing`: Button, Badge, Icon, Switch
-- **Anti-patterns:** Do not nest `Item` inside `Item`. Do not place complex forms inside `Item`.
+  - `Item.Actions`: Button, Badge, Icon, Switch
+- **Anti-patterns:** Do not nest `Item` inside `Item`. Do not place complex forms inside `Item`. Do not use `Item` outside a list context without overriding the element.
 
 ---
 
 ## 8. Breaking Change Criteria
 
-- Removing or renaming any sub-component (`Leading`, `Content`, `Title`, `Description`, `Trailing`)
-- Changing size variant token values
-- Changing the interactive variant behavior (hover/press/focus)
+- Removing or renaming any sub-component (`Media`, `Content`, `Title`, `Description`, `Actions`)
+- Removing any variant axis (`theme`, `variant`, `size`, `interactive`, `divider`, `disabled`, `selected`)
+- Changing variant value sets or default values
 - Changing the rendered element type
+- Changing `mapProps` behavior (tabIndex, aria-disabled)
 
 ---
 
 ## 9. Test Requirements
 
-- **Behavioral tests:** Renders all 6 sub-components; renders with only required sub-components (Content + Title); size variants apply without errors; interactive variant renders without errors.
-- **Accessibility tests:** Focus indicator present on interactive variant (visual regression); contrast ratios meet AA standards.
-- **Visual regression:** Default, hover, focus, and pressed states for interactive variant across all sizes.
+- **Behavioral tests:**
+  - Root renders as `<li>`.
+  - Title renders as `<h4>`, Description renders as `<p>`.
+  - All 5 sub-components render without errors.
+  - Renders with only Content + Title (minimal usage).
+  - Each theme (`primary`, `secondary`, `neutral`) renders without error.
+  - Each variant (`default`, `subtle`, `outline`) renders without error.
+  - Each size (`sm`, `md`, `lg`) applies correct padding.
+  - `interactive` adds cursor pointer, hover, press, and focus styles.
+  - `divider` renders bottom border.
+  - `disabled` sets `opacity: 0.5`, `aria-disabled: true`, removes from tab order.
+  - `selected` applies background.
+- **Accessibility tests:**
+  - No ARIA roles set by default (semantic `<li>` suffices).
+  - When `interactive`, `tabIndex: 0` is set.
+  - When `disabled`, `aria-disabled: true` is set and `tabIndex` is removed.
+  - Text contrast meets AA ratios for Title and Description against each variant background.
+- **Visual regression:**
+  - Default, subtle, and outline variants across all themes.
+  - Interactive hover, focus, and press states per theme.
+  - Selected state per theme.
+  - Disabled state.
+  - Divider rendering.
