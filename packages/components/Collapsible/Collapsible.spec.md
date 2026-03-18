@@ -1,81 +1,90 @@
-# Component Spec — Collapsible
+<!-- spec-version: 2 -->
+<!-- AI: Fill this spec when this component is actively worked on. See Collapsible.spec.bak.md for prior design intent. -->
 
-> **Baseline**: This component must satisfy all requirements in [`QUALITY_BASELINE.md`](../../QUALITY_BASELINE.md).
+# Collapsible Specification
 
-## 1. Purpose
-
-- Single collapsible section with a trigger and expandable content.
-- Use for show/hide patterns, expandable details, and content that should be hidden by default.
-- Do NOT use when multiple sections need coordinated expand/collapse behavior (use Accordion).
+## Component Name
+Collapsible
 
 ---
 
-## 2. UX Intent
-
-- **Hick's Law** — hides secondary content to reduce initial visual complexity.
-- **Tesler's Law** — manages open/close state internally.
+## Purpose
 
 ---
 
-## 3. Anatomy
+## Supported Platforms
 
-Compound component wrapping STL Collapsible primitives:
-- `Collapsible` (Root) — state management. Props: `open`, `defaultOpen`, `onOpenChange`.
-- `Collapsible.Trigger` — clickable element that toggles content (unstyled pass-through).
-- `Collapsible.Content` — expandable content panel. Width constrained to 100%.
-
-> **TypeScript is the source of truth for props.** See source files in `Collapsible/` for the full typed API.
+- [ ] React (web)
+- [ ] React Native
 
 ---
 
-## 4. Behavior
-
-### States
-
-- **Collapsed** — content hidden.
-- **Expanded** — content visible.
-
-### Keyboard Interaction
-
-- **Space/Enter** — toggle the collapsible (delegated to STL).
-
-### Motion
-
-STL handles expand/collapse animation. Must respect `prefers-reduced-motion`.
+## Design System Constraints
 
 ---
 
-## 5. Accessibility
-
-- **ARIA attributes:** `role="region"` on content (delegated to STL), `aria-expanded` on trigger.
-- **Focus management:** Trigger is focusable. Content enters the tab order when expanded.
+## Component API
 
 ---
 
-## 6. Styling
-
-- **Design tokens used:** Minimal — resets STL defaults. Content width: 100%.
-- **Dark mode:** Inherits from parent context.
+## Composition Model
 
 ---
 
-## 7. Composition
-
-- **What can contain this component:** Settings panels, FAQ items, detail sections.
-- **What this component can contain:** Trigger and Content sub-components.
-- **Anti-patterns:** Do not use for multiple coordinated sections (use Accordion). Do not place critical content in collapsed state without clear indication it's expandable.
+## Layout Rules
 
 ---
 
-## 8. Breaking Change Criteria
-
-- Removing sub-components (Trigger, Content).
-- Removing controlled mode (`open`/`onOpenChange`).
-- Removing keyboard support.
+## Variants
 
 ---
 
-## 9. Test Requirements
+## Size Options
 
-- **Behavioral tests:** Verify toggle between collapsed and expanded. Verify `defaultOpen` renders expanded initially. Verify controlled mode (`open` prop). Verify `onOpenChange` callback fires.
-- **Accessibility tests:** Verify `aria-expanded` toggles on trigger. Verify content is hidden when collapsed. Verify keyboard activation (Space/Enter).
+---
+
+## States
+
+---
+
+## Interaction Model
+
+---
+
+## Accessibility
+
+---
+
+## Platform Implementation Notes
+
+### React (Web)
+
+### React Native
+
+---
+
+## Theming Behavior
+
+---
+
+## Edge Cases
+
+---
+
+## Stories / Preview Cases
+
+---
+
+## Test Requirements
+
+---
+
+## Implementation Constraints
+
+---
+
+## Open Questions
+
+---
+
+## Change Log

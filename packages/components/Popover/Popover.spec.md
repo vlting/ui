@@ -1,96 +1,90 @@
-> **Baseline**: This component must satisfy all requirements in [`QUALITY_BASELINE.md`](../../QUALITY_BASELINE.md).
+<!-- spec-version: 2 -->
+<!-- AI: Fill this spec when this component is actively worked on. See Popover.spec.bak.md for prior design intent. -->
 
-# Component Spec — Popover
+# Popover Specification
 
-## 1. Purpose
-
-- Displays floating content anchored to a trigger element.
-- Use for interactive popovers containing forms, menus, or rich content.
-- Do NOT use for simple text labels — use Tooltip instead. Do NOT use for confirmations — use AlertDialog.
+## Component Name
+Popover
 
 ---
 
-## 2. UX Intent
-
-- **Primary interaction goal:** Reveal contextual content without navigating away.
-- **Expected user mental model:** Clicking a trigger opens a floating panel near the trigger; clicking outside or pressing Escape closes it.
-- **UX laws applied:**
-  - **Gestalt Proximity** — popover appears adjacent to its trigger, indicating association.
-  - **Tesler's Law** — positioning, focus trapping, and dismiss behavior handled automatically.
+## Purpose
 
 ---
 
-## 3. Anatomy
+## Supported Platforms
 
-- **Popover** (Root) — State container managing open/close.
-- **Popover.Trigger** — Element that toggles the popover.
-- **Popover.Anchor** — Optional alternative anchor point for positioning.
-- **Popover.Content** — The floating panel with styled frame.
-- **Popover.Arrow** — Optional arrow pointing to the trigger.
-- **Popover.Close** — Button that closes the popover.
-
-> **TypeScript is the source of truth for props.** See `PopoverProps` in `Popover.tsx` for the full typed API.
+- [ ] React (web)
+- [ ] React Native
 
 ---
 
-## 4. Behavior
-
-### States
-
-- **Closed** — Content hidden; trigger in default state.
-- **Open** — Content visible; positioned relative to trigger/anchor.
-- **Hover** (when `hoverable` is true) — Opens on hover instead of click.
-
-### Keyboard Interaction
-
-- **Enter/Space** on trigger — Toggles popover.
-- **Escape** — Closes the popover (STL built-in).
-- **Tab** — Focus cycles through content (STL manages focus).
-- Follows the non-modal dialog pattern.
-
-### Motion
-
-- STL popover enter/exit animations (opacity, scale).
-- Should respect `prefers-reduced-motion`.
+## Design System Constraints
 
 ---
 
-## 5. Accessibility
-
-- **Semantic element:** STL Popover renders appropriate ARIA structure automatically.
-- **ARIA attributes:** Trigger gets `aria-expanded`, `aria-haspopup`; Content gets `role="dialog"` (STL-managed).
-- **Focus management:** Focus moves into content on open; returns to trigger on close.
-- **Screen reader announcements:** Popover content announced when opened.
+## Component API
 
 ---
 
-## 6. Styling
-
-- **Design tokens used:** `$background`, `$borderColor` on content frame; `$4` border radius; `$4` padding; arrow uses `$background` fill with `$borderColor` border.
-- **Responsive behavior:** Placement adapts via STL's floating positioning.
-- **Dark mode:** Token-based; resolves automatically.
+## Composition Model
 
 ---
 
-## 7. Composition
-
-- **What can contain this component:** Any layout context.
-- **What this component can contain:** Trigger accepts any single child; Content accepts arbitrary children including forms and interactive elements.
-- **Anti-patterns:** Do not put another Popover inside a Popover. Do not use for non-interactive tooltip content.
+## Layout Rules
 
 ---
 
-## 8. Breaking Change Criteria
-
-- Removing any sub-component (Trigger, Content, Arrow, Close, Anchor).
-- Removing `open`, `onOpenChange`, or `placement` props.
-- Changing the ARIA structure of the content panel.
-- Removing Escape-to-close behavior.
+## Variants
 
 ---
 
-## 9. Test Requirements
+## Size Options
 
-- **Behavioral tests:** Opens/closes on trigger click; `onOpenChange` callback fires; `hoverable` mode opens on hover; controlled mode respects `open` prop.
-- **Accessibility tests:** `aria-expanded` toggles on trigger; Escape closes; focus moves to content on open and returns on close.
-- **Visual regression:** Open state with arrow in each placement direction.
+---
+
+## States
+
+---
+
+## Interaction Model
+
+---
+
+## Accessibility
+
+---
+
+## Platform Implementation Notes
+
+### React (Web)
+
+### React Native
+
+---
+
+## Theming Behavior
+
+---
+
+## Edge Cases
+
+---
+
+## Stories / Preview Cases
+
+---
+
+## Test Requirements
+
+---
+
+## Implementation Constraints
+
+---
+
+## Open Questions
+
+---
+
+## Change Log
