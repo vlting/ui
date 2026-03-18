@@ -105,7 +105,7 @@ export const StackY = styled('div', {
 }, { name: 'StackY' })
 
 export const DarkStage = styled('div', {
-  bg: '$background10', radius: '$field', p: '$24',
+  bg: '$background10', radius: '$3', p: '$24',
 }, { name: 'DarkStage' })
 
 // ─── Section component props ─────────────────────────────────────────────────
