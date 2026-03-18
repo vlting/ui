@@ -83,7 +83,7 @@ export const SectionTitle = styled('h3', {
 export const DemoCard = styled('div', {
   stl: {
     bg: '$background1',
-    radius: '$24',
+    radius: '$card',
     p: '$48',
     boxShadow: '$lg'
   },

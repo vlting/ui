@@ -112,7 +112,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Acceptance criteria:**
 - [ ] Card: article root, compound (Header/Content/Footer/Title/Description), size/elevated/interactive, semantic HTML
 - [ ] Avatar: dual API (single-prop + compound), size scale (32/40/56/72), image fallback, circular
-- [ ] Badge: 7 themes × 3 variants (solid/subtle/outline), size scale (net-new with spec)
+- [ ] Badge: 15 themes × 3 variants (solid/subtle/outline), size scale, token-based spacing
 - [ ] Item: compound (Leading/Content/Title/Description/Trailing), size/interactive
 - [ ] Tests passing, removed from testPathIgnorePatterns
 - [ ] Playground pages for each

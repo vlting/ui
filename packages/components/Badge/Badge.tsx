@@ -23,7 +23,7 @@ export const Badge = styled('span', {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    radius: '$full',
+    radius: '$badge',
     fontFamily: '$body',
     fontWeight: '$500',
     lineHeight: '$flat',
