@@ -4,7 +4,7 @@ import { styled } from '@vlting/stl-react'
 
 import { ButtonRow, DemoCard, SectionHeading, SectionTitle, StackY, type SectionProps } from './shared'
 
-const ITEM_VARIANTS = ['default', 'subtle', 'outline'] as const
+const ITEM_VARIANTS = ['ghost', 'subtle', 'outline'] as const
 const ITEM_SIZES = ['sm', 'md', 'lg'] as const
 const ITEM_THEMES = ['primary', 'secondary', 'neutral'] as const
 
@@ -13,6 +13,17 @@ const TrailingLabel = styled('span', {
   color: 'inherit',
   opacity: '0.5',
 }, { name: 'TrailingLabel' })
+
+const ThemeRow = styled('div', {
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '$16',
+}, { name: 'ThemeRow' })
+
+const ThemeGroup = styled('div', {
+  flex: '1',
+  minWidth: '280px',
+}, { name: 'ThemeGroup' })
 
 const themeItems: Record<typeof ITEM_THEMES[number], { title: string; description: string; leading: string; trailing: string }[]> = {
   primary: [
@@ -33,9 +44,11 @@ const themeItems: Record<typeof ITEM_THEMES[number], { title: string; descriptio
 }
 
 export function ItemSection({ sectionRef }: SectionProps) {
-  const [variant, setVariant] = useState<typeof ITEM_VARIANTS[number]>('subtle')
+  const [variant, setVariant] = useState<typeof ITEM_VARIANTS[number]>('outline')
   const [size, setSize] = useState<typeof ITEM_SIZES[number]>('md')
   const [interactive, setInteractive] = useState(false)
+  const [showMedia, setShowMedia] = useState(true)
+  const [showActions, setShowActions] = useState(true)
 
   return (
     <DemoCard stl={{ mt: '$24' }} ref={sectionRef} data-section="Item">
@@ -74,10 +87,28 @@ export function ItemSection({ sectionRef }: SectionProps) {
         >
           interactive
         </Button>
+        <Button
+          size="xs"
+          theme="neutral"
+          variant={showMedia ? 'subtle' : 'ghost'}
+          onClick={() => setShowMedia((m) => !m)}
+          aria-pressed={showMedia}
+        >
+          media
+        </Button>
+        <Button
+          size="xs"
+          theme="neutral"
+          variant={showActions ? 'subtle' : 'ghost'}
+          onClick={() => setShowActions((a) => !a)}
+          aria-pressed={showActions}
+        >
+          actions
+        </Button>
       </ButtonRow>
-      <StackY stl={{ maxWidth: '480px' }}>
+      <ThemeRow>
         {ITEM_THEMES.map((theme) => (
-          <div key={theme}>
+          <ThemeGroup key={theme}>
             <SectionTitle>{theme}</SectionTitle>
             <StackY>
               {themeItems[theme].map((item) => (
@@ -88,20 +119,22 @@ export function ItemSection({ sectionRef }: SectionProps) {
                   size={size}
                   interactive={interactive || undefined}
                 >
-                  <Item.Leading>{item.leading}</Item.Leading>
+                  {showMedia && <Item.Leading>{item.leading}</Item.Leading>}
                   <Item.Content>
                     <Item.Title>{item.title}</Item.Title>
                     <Item.Description>{item.description}</Item.Description>
                   </Item.Content>
-                  <Item.Trailing>
-                    <TrailingLabel>{item.trailing}</TrailingLabel>
-                  </Item.Trailing>
+                  {showActions && (
+                    <Item.Trailing>
+                      <TrailingLabel>{item.trailing}</TrailingLabel>
+                    </Item.Trailing>
+                  )}
                 </Item>
               ))}
             </StackY>
-          </div>
+          </ThemeGroup>
         ))}
-      </StackY>
+      </ThemeRow>
     </DemoCard>
   )
 }
