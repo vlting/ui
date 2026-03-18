@@ -95,8 +95,8 @@ export function getColor(hash: CharHash) {
   const darkVars = {
     shadowBase,
     shadowBlack: lightScale.shadowBlack,
-    defaultBody: lightScale.defaultBody,
-    defaultHeading: lightScale.defaultHeading,
+    defaultBody: { ...lightScale.defaultBody, value: lightScale.min.ref },
+    defaultHeading: { ...lightScale.defaultHeading, value: lightScale.min.ref },
     // Unique to dark palette
     panel: { ...lightScale.panel, value: lightScale.background3.ref },
     shadowLight: { ...lightScale.shadowLight, value: `hsl(${shadowBase.ref} / .2)` },
