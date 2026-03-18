@@ -321,11 +321,13 @@ export type {
 // Layer 1 — Primitives
 export {
   AspectRatio,
+  Blockquote,
   Box,
   Divider,
   Heading,
   HStack,
   Icon,
+  InlineCode,
   Kbd,
   Label,
   Portal,
