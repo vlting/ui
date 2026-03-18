@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Button, Item } from '@vlting/ui'
+import { type ReactNode, useState } from 'react'
+import { Badge, Button, Item } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
 import { ButtonRow, DemoCard, SectionHeading, SectionTitle, StackY, type SectionProps } from './shared'
@@ -26,21 +26,49 @@ const ThemeGroup = styled('div', {
   minWidth: '280px',
 }, { name: 'ThemeGroup' })
 
-const themeItems: Record<typeof ITEM_THEMES[number], { title: string; description: string; leading: string; trailing: string }[]> = {
+const ColorDot = styled('span', {
+  display: 'inline-block',
+  width: '10px',
+  height: '10px',
+  radius: '$badge',
+}, { name: 'ColorDot' })
+
+const LetterAvatar = styled('span', {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '28px',
+  height: '28px',
+  radius: '$badge',
+  bg: '$neutral4',
+  color: '$neutralText3',
+  fontSize: '$buttonTiny',
+  fontWeight: '$600',
+  fontFamily: '$body',
+}, { name: 'LetterAvatar' })
+
+type DemoItem = {
+  title: string
+  description: string
+  media: ReactNode
+  action: ReactNode
+}
+
+const themeItems: Record<typeof ITEM_THEMES[number], DemoItem[]> = {
   primary: [
-    { title: 'Account settings', description: 'Manage your account preferences', leading: '⚙️', trailing: '→' },
-    { title: 'Notifications', description: 'Configure alerts and updates', leading: '🔔', trailing: '→' },
-    { title: 'Billing', description: 'View plans and payment methods', leading: '💳', trailing: '→' },
+    { title: 'Production', description: 'us-east-1 — 3 replicas', media: <ColorDot stl={{ bg: '$success9' }} />, action: <Badge theme="success" variant="subtle" size="sm">Live</Badge> },
+    { title: 'Staging', description: 'eu-west-1 — 1 replica', media: <ColorDot stl={{ bg: '$warning9' }} />, action: <Badge theme="warning" variant="subtle" size="sm">Deploying</Badge> },
+    { title: 'Preview', description: 'auto — on demand', media: <ColorDot stl={{ bg: '$neutral9' }} />, action: <Badge theme="neutral" variant="subtle" size="sm">Idle</Badge> },
   ],
   secondary: [
-    { title: 'Two-factor authentication', description: 'Add an extra layer of security', leading: '🔒', trailing: '→' },
-    { title: 'Password', description: 'Last changed 3 months ago', leading: '🔑', trailing: '→' },
-    { title: 'Sessions', description: 'Manage active sessions', leading: '📱', trailing: '→' },
+    { title: 'Alice Chen', description: 'Engineering lead', media: <LetterAvatar>AC</LetterAvatar>, action: <TrailingLabel>→</TrailingLabel> },
+    { title: 'Bob Martinez', description: 'Product designer', media: <LetterAvatar>BM</LetterAvatar>, action: <TrailingLabel>→</TrailingLabel> },
+    { title: 'Carol Singh', description: 'DevOps engineer', media: <LetterAvatar>CS</LetterAvatar>, action: <TrailingLabel>→</TrailingLabel> },
   ],
   neutral: [
-    { title: 'Deployment', description: 'Production — us-east-1', leading: '📦', trailing: 'Live' },
-    { title: 'Analytics', description: 'Monthly usage report', leading: '📊', trailing: '12.4k' },
-    { title: 'Last backup', description: 'Automated daily snapshot', leading: '🕐', trailing: '2h ago' },
+    { title: 'Account settings', description: 'Manage your account preferences', media: '⚙️', action: <Button size="xs" theme="neutral" variant="outline">Edit</Button> },
+    { title: 'Notifications', description: 'Configure alerts and updates', media: '🔔', action: <Button size="xs" theme="neutral" variant="outline">Configure</Button> },
+    { title: 'Billing', description: 'View plans and payment methods', media: '💳', action: <Button size="xs" theme="neutral" variant="outline">Manage</Button> },
   ],
 }
 
@@ -146,7 +174,7 @@ export function ItemSection({ sectionRef }: SectionProps) {
                 >
                   {showMedia && (
                     <Item.Leading stl={!showDescription ? { pt: '$4' } : undefined}>
-                      {item.leading}
+                      {item.media}
                     </Item.Leading>
                   )}
                   <Item.Content>
@@ -155,11 +183,7 @@ export function ItemSection({ sectionRef }: SectionProps) {
                       <Item.Description theme={theme}>{item.description}</Item.Description>
                     )}
                   </Item.Content>
-                  {showActions && (
-                    <Item.Trailing>
-                      <TrailingLabel>{item.trailing}</TrailingLabel>
-                    </Item.Trailing>
-                  )}
+                  {showActions && <Item.Trailing>{item.action}</Item.Trailing>}
                 </Item>
               ))}
             </StackY>

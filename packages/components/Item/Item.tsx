@@ -11,15 +11,10 @@ const variantStyles = {
   outline: (t: string) => ({ bg: 'transparent', border: `$${t}5`, borderWidth: '$widthMin', radius: '$field', color: `$${t}Text3` }) as STL,
 }
 
-const interactiveStyles = (t: string) => ({
-  ':interact': { bg: `$${t}3` },
-  ':pressed': { bg: `$${t}4` },
-  ':focus': {
-    outlineWidth: '$widthBase',
-    outlineStyle: 'solid',
-    outlineColor: `$${t}9`,
-    outlineOffset: '$offsetDefault',
-  },
+const interactiveStyles = (t: string, step = 3) => ({
+  ':interact': { bg: `$${t}${step}` },
+  ':pressed': { bg: `$${t}${step + 1}` },
+  ':focus': { outline: `$${t}` },
 }) as STL
 
 // ─── Sub-components ─────────────────────────────────────────────────────────
@@ -37,7 +32,7 @@ const ItemContent = styled('div', {
   flexDirection: 'column',
   gap: '$2',
   flex: '1',
-  minWidth: '0',
+  minWidth: '$0',
 }, { name: 'ItemContent' })
 
 const ItemTitle = styled('span', {
@@ -104,6 +99,7 @@ const ItemRoot = styled('div', {
       true: {
         cursor: 'pointer',
         radius: '$field',
+        ':focus': { outlineOffset: '$offsetDefault' },
         lowMotion: {
           ':pressed': { transition: 'none' },
         },
@@ -115,8 +111,12 @@ const ItemRoot = styled('div', {
     ...Object.entries(variantStyles).flatMap(([v, fn]) =>
       themes.map(t => ({ when: { variant: v as 'ghost' | 'subtle' | 'outline', theme: t }, stl: fn(t) }))
     ),
-    // ── theme × interactive ─────────────────────────────────
-    ...themes.map(t => ({ when: { theme: t, interactive: 'true' as const }, stl: interactiveStyles(t) })),
+    // ── theme × variant × interactive ─────────────────────────
+    ...themes.flatMap(t => [
+      { when: { theme: t, variant: 'ghost' as const, interactive: 'true' as const }, stl: interactiveStyles(t, 3) },
+      { when: { theme: t, variant: 'outline' as const, interactive: 'true' as const }, stl: interactiveStyles(t, 3) },
+      { when: { theme: t, variant: 'subtle' as const, interactive: 'true' as const }, stl: interactiveStyles(t, 4) },
+    ]),
   ],
   defaultVariants: { theme: 'neutral', variant: 'outline', size: 'md', align: 'center' },
   mapProps: (p: any) => ({

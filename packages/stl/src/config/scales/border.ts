@@ -33,8 +33,8 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
 
   const styleDefault = { ...hash.var, value: 'solid' } as const
 
-  const widthBase = { ...hash.var, value: '2rem' } as const
-  const widthMin = { ...hash.var, value: `calc(${widthBase.ref} - 1rem)` } as const
+  const widthBase = { ...hash.var, value: '1rem' } as const
+  const widthMin = { ...hash.var, value: widthBase.ref } as const
   const widthMax = { ...hash.var, value: `calc(${widthBase.ref} + 2rem)` } as const
   const widthDefault = { ...hash.var, value: widthBase.ref } as const
 
