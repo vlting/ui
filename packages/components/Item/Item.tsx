@@ -1,5 +1,26 @@
 import type { ComponentPropsWithRef } from 'react'
-import { styled } from '../../stl-react/src/config'
+import { styled, type STL } from '../../stl-react/src/config'
+
+// ─── Theme × Variant ────────────────────────────────────────────────────────
+
+const themes = ['primary', 'secondary', 'neutral'] as const
+
+const variantStyles = {
+  default: (t: string) => ({ color: `$${t}Text3` }) as STL,
+  subtle: (t: string) => ({ bg: `$${t}3`, radius: '$field', color: `$${t}Text3` }) as STL,
+  outline: (t: string) => ({ bg: 'transparent', border: `$${t}5`, borderWidth: '$widthMin', radius: '$field', color: `$${t}Text3` }) as STL,
+}
+
+const interactiveStyles = (t: string) => ({
+  ':interact': { bg: `$${t}3` },
+  ':pressed': { bg: `$${t}4` },
+  ':focus': {
+    outlineWidth: '$widthBase',
+    outlineStyle: 'solid',
+    outlineColor: `$${t}9`,
+    outlineOffset: '$offsetDefault',
+  },
+}) as STL
 
 // ─── Sub-components ─────────────────────────────────────────────────────────
 
@@ -21,12 +42,13 @@ const ItemContent = styled('div', {
 const ItemTitle = styled('span', {
   fontWeight: '$500',
   fontSize: '$p',
-  color: '$neutralText3',
+  color: 'inherit',
 }, { name: 'ItemTitle' })
 
 const ItemDescription = styled('span', {
   fontSize: '$small',
-  color: '$neutralText4',
+  opacity: '0.65',
+  color: 'inherit',
 }, { name: 'ItemDescription' })
 
 const ItemTrailing = styled('div', {
@@ -46,6 +68,16 @@ const ItemRoot = styled('div', {
 }, {
   name: 'Item',
   variants: {
+    theme: {
+      primary: {},
+      secondary: {},
+      neutral: {},
+    },
+    variant: {
+      default: {},
+      subtle: {},
+      outline: {},
+    },
     size: {
       sm: { minHeight: '36px', py: '$4', px: '$8' },
       md: { minHeight: '44px', py: '$8', px: '$12' },
@@ -54,23 +86,23 @@ const ItemRoot = styled('div', {
     interactive: {
       true: {
         cursor: 'pointer',
-        borderRadius: '$field',
-        ':interact': { bg: '$color3' },
-        ':pressed': { bg: '$color4' },
-        ':focus': {
-          outlineWidth: '$widthBase',
-          outlineStyle: 'solid',
-          outlineColor: '$outlineColor',
-          outlineOffset: '$offsetDefault',
-        },
+        radius: '$field',
         lowMotion: {
           ':pressed': { transition: 'none' },
         },
       },
     },
   },
-  defaultVariants: { size: 'md' },
-  mapProps: (p) => ({
+  compoundVariants: [
+    // ── theme × variant ─────────────────────────────────────
+    ...Object.entries(variantStyles).flatMap(([v, fn]) =>
+      themes.map(t => ({ when: { variant: v as 'default' | 'subtle' | 'outline', theme: t }, stl: fn(t) }))
+    ),
+    // ── theme × interactive ─────────────────────────────────
+    ...themes.map(t => ({ when: { theme: t, interactive: 'true' as const }, stl: interactiveStyles(t) })),
+  ],
+  defaultVariants: { theme: 'neutral', variant: 'default', size: 'md' },
+  mapProps: (p: any) => ({
     ...p,
     tabIndex: p.interactive ? (p.tabIndex ?? 0) : p.tabIndex,
   }),
