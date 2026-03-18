@@ -11,7 +11,7 @@ import {
 const ELEVATIONS = ['flat', 'raised'] as const
 
 export function AlertSection({ sectionRef }: SectionProps) {
-  const [alertVariant, setAlertVariant] = useState<typeof ALERT_VARIANTS[number]>('subtle')
+  const [alertVariant, setAlertVariant] = useState<typeof ALERT_VARIANTS[number]>('outline')
   const [alertElevation, setAlertElevation] = useState<typeof ELEVATIONS[number]>('flat')
 
   return (
