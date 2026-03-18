@@ -6,7 +6,7 @@ import { styled, type STL } from '../../stl-react/src/config'
 const themes = ['primary', 'secondary', 'neutral'] as const
 
 const variantStyles = {
-  default: (t: string) => ({ color: `$${t}Text3` }) as STL,
+  ghost: (t: string) => ({ color: `$${t}Text3` }) as STL,
   subtle: (t: string) => ({ bg: `$${t}3`, radius: '$field', color: `$${t}Text3` }) as STL,
   outline: (t: string) => ({ bg: 'transparent', border: `$${t}5`, borderWidth: '$widthMin', radius: '$field', color: `$${t}Text3` }) as STL,
 }
@@ -74,7 +74,7 @@ const ItemRoot = styled('div', {
       neutral: {},
     },
     variant: {
-      default: {},
+      ghost: {},
       subtle: {},
       outline: {},
     },
@@ -96,12 +96,12 @@ const ItemRoot = styled('div', {
   compoundVariants: [
     // ── theme × variant ─────────────────────────────────────
     ...Object.entries(variantStyles).flatMap(([v, fn]) =>
-      themes.map(t => ({ when: { variant: v as 'default' | 'subtle' | 'outline', theme: t }, stl: fn(t) }))
+      themes.map(t => ({ when: { variant: v as 'ghost' | 'subtle' | 'outline', theme: t }, stl: fn(t) }))
     ),
     // ── theme × interactive ─────────────────────────────────
     ...themes.map(t => ({ when: { theme: t, interactive: 'true' as const }, stl: interactiveStyles(t) })),
   ],
-  defaultVariants: { theme: 'neutral', variant: 'default', size: 'md' },
+  defaultVariants: { theme: 'neutral', variant: 'outline', size: 'md' },
   mapProps: (p: any) => ({
     ...p,
     tabIndex: p.interactive ? (p.tabIndex ?? 0) : p.tabIndex,
