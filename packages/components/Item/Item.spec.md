@@ -78,7 +78,7 @@ Compound component. Sub-components arrange horizontally inside the root:
 - **`theme`** (3): `primary | secondary | neutral` — core themes only. Default: `neutral`.
 - **`variant`** (3): `default | subtle | outline`. Default: `default`.
 - **`size`** (3): `sm | md | lg`. Default: `md`.
-- **`align`** (2): `title | center` — controls cross-axis alignment of Leading/Trailing relative to Content. `title` aligns media with the title line; `center` vertically centers all children. Default: `title`.
+- **`align`** (2): `center | title` — controls cross-axis alignment of Leading/Trailing relative to Content. `center` vertically centers all children; `title` aligns media with the title line (useful when Description is present). Default: `center`.
 - **`interactive`**: boolean. Default: `false`.
 - **`divider`** [Planned]: boolean. Default: `false`.
 - **`disabled`** [Planned]: boolean. Default: `false`.
@@ -88,9 +88,9 @@ Compound component. Sub-components arrange horizontally inside the root:
 
 | Size | py | px | gap | minHeight (floor) |
 |------|----|----|-----|-------------------|
-| `sm` | `$4` | `$8` | `$8` | `36px` |
-| `md` | `$8` | `$12` | `$12` | `44px` |
-| `lg` | `$12` | `$16` | `$16` | `52px` |
+| `sm` | `$4` | `$8` | `$8` | `$36` |
+| `md` | `$8` | `$12` | `$12` | `$44` |
+| `lg` | `$12` | `$16` | `$16` | `$52` |
 
 ### Color contract (theme × variant)
 
@@ -131,9 +131,9 @@ Generated compounds: ~12 total (9 theme×variant + 3 theme×interactive).
 ### Design tokens
 
 - **Radius:** `$field` — applied by `subtle` and `outline` variants.
-- **Font:** `$body` family. Title uses `$500` weight, `$p` size, `$listItem` line-height. Description uses `$small` size.
+- **Font:** `$body` family. Title uses `$500` weight, `$p` size, `$listItem` line-height. Description uses `$small` size, `$400` weight.
 - **Alignment:** Leading and Trailing use `minHeight: '$20'` (matching title line-height) with internal centering, so media aligns with the title line when `align: 'title'`.
-- **Colors:** Title `$<theme>Text3`, Description `$<theme>Text4`.
+- **Colors:** Title `$<theme>Text3` (inherited from root compound variants), Description `$<theme>Text4` (via own `theme` variant, defaults to `neutral`).
 - **Divider** [Planned]**:** bottom border `$<theme>5`, `$widthMin` width.
 - **Dark mode:** Automatic via token system; no component-specific overrides needed.
 - **Responsive behavior:** Full width, adapts to container. No breakpoint-specific behavior.
