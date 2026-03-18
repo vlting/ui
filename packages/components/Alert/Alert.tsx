@@ -75,7 +75,7 @@ const AlertTitle = styled('h5', { fontWeight: '$600', fontSize: '$p', m: '$0' },
 
 const AlertDescription = styled('p', { fontSize: '$small', m: '$0', opacity: '0.9' }, { name: 'AlertDescription' })
 
-const AlertIcon = styled('span', { display: 'flex', alignItems: 'center', flexShrink: '0', height: '$20' }, { name: 'AlertIcon' })
+const AlertIcon = styled('span', { display: 'flex', alignItems: 'center', flexShrink: '0', minHeight: '$20' }, { name: 'AlertIcon' })
 
 const AlertContent = styled('div', { display: 'flex', flexDirection: 'column', gap: '$4', flex: '1' }, { name: 'AlertContent' })
 

@@ -9,8 +9,8 @@ import {
 
 /** Generator function for `outline` theme scale */
 export function getOutline<T extends ColorVars>(hash: CharHash, color: T) {
-  const widthBase = { ...hash.var, value: '2rem' } as const
-  const widthMin = { ...hash.var, value: `calc(${widthBase.ref} - 1rem)` } as const
+  const widthBase = { ...hash.var, value: '1rem' } as const
+  const widthMin = { ...hash.var, value: widthBase.ref } as const
   const widthMax = { ...hash.var, value: `calc(${widthBase.ref} + 2rem)` } as const
   const widthDefault = { ...hash.var, value: widthBase.ref } as const
   const widthFocus = { ...hash.var, value: '2rem' } as const
