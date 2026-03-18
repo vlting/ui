@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 import { styled } from '../../config'
 import { Box } from '../Box/Box'
 
-const GridBase = styled(Box, { stl: { display: 'grid' }, styleName: 'Grid' })
+const GridBase = styled(Box, { display: 'grid' }, { name: 'Grid' })
 
 export const Grid = forwardRef<HTMLElement, any>(
   ({ columns, gap, stl, ...props }, ref) => {

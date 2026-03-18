@@ -10,8 +10,8 @@ const TEXT_STYLES = {
 
 export const getTextStyles = () => TEXT_STYLES
 
-export const Text = styled('p', {
-  stl: getTextStyles(),
+export const Text = styled('p', getTextStyles(), {
+  name: 'Text',
   variants: {
     size: {
       xs: { fontSize: '$12' },
@@ -36,7 +36,6 @@ export const Text = styled('p', {
       bold: { fontWeight: '$700' },
     },
   },
-  styleName: 'Text',
 })
 
 export interface TextProps {

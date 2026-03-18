@@ -2,12 +2,12 @@ import type React from 'react'
 import { styled } from '../../config'
 
 const LabelFrame = styled('label', {
-  stl: {
-    fontFamily: '$body',
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '$1',
-  },
+  fontFamily: '$body',
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '$1',
+}, {
+  name: 'Label',
   variants: {
     size: {
       sm: { fontSize: '$12' },
@@ -18,7 +18,6 @@ const LabelFrame = styled('label', {
   defaultVariants: {
     size: 'md',
   },
-  styleName: 'Label',
 })
 
 export interface LabelProps {
