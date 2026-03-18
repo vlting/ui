@@ -48,21 +48,15 @@ export interface SidebarBlockProps {
 
 // --- Styled Elements ---
 
-const NavLink = styled(
-  'a',
-  {
-    stl: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      width: '100%',
-      textDecoration: 'none',
-      color: 'inherit',
-      gap: '8px',
-    },
-    styleName: 'SidebarNavLink',
-  },
-)
+const NavLink = styled('a', {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  width: '100%',
+  textDecoration: 'none',
+  color: 'inherit',
+  gap: '8px',
+}, { name: 'SidebarNavLink' })
 
 // --- Helper Components ---
 

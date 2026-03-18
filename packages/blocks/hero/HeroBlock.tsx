@@ -8,7 +8,7 @@ type AnyFC = ComponentType<Record<string, unknown>>
 const ButtonJsx = Button as AnyFC
 const BadgeJsx = Badge as AnyFC
 
-const Anchor = styled('a', { stl: { textDecoration: 'none', color: 'inherit' }, styleName: 'HeroAnchor' })
+const Anchor = styled('a', { textDecoration: 'none', color: 'inherit' }, { name: 'HeroAnchor' })
 
 // -- Types --
 
