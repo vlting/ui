@@ -9,7 +9,7 @@ const AlertRoot = styled('div', {
   gap: '$16',
   px: '$24',
   py: '$16',
-  borderRadius: '$field',
+  borderRadius: '$card',
   fontFamily: '$body',
 }, {
   name: 'Alert',
