@@ -1,0 +1,73 @@
+<!-- LAT: 2026-03-16T05:31:15Z -->
+<!-- PID: 9023 -->
+<!-- auto-queue -->
+<!-- target-branch: feat/library-buildout/feedback-components -->
+# Task: Alert Component — Full Implementation
+
+## Context
+- Stage 6.1 of library-buildout. Stage issue: #208. Epic: #206.
+- Alert is a static feedback banner (non-interactive display component).
+- Currently a stub via `createStub()` in `packages/components/Alert/Alert.tsx`.
+- Button (`packages/components/Button/Button.tsx`) is the canonical `styled()` reference.
+
+## Requirements
+
+### 1. Rewrite `Alert.spec.md`
+Update the spec to reflect the new API:
+- **Theme prop** (not "variant"): `theme: 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'error' | 'info'`
+- Default theme: `'primary'`
+- No variant axis (no solid/subtle/outline). Single visual style per theme: tinted background + matching border + appropriate text color.
+- Compound: `Alert.Root`, `Alert.Title`, `Alert.Description`, `Alert.Icon`
+- Role mapping: `role="status"` for all themes except `error` which gets `role="alert"`
+- Non-interactive, non-focusable
+
+### 2. Implement `Alert.tsx`
+Replace the stub. Follow the Button pattern exactly for `styled()` usage.
+
+**Imports:**
+```tsx
+import type { ComponentPropsWithRef } from 'react'
+import { styled } from '../../stl-react/src/config'
+```
+
+**Sub-components (each a separate `styled()` call):**
+- `AlertRoot` = `styled('div', { ... })` — the container
+  - Base stl: `display: 'flex'`, `gap: '$12'`, `p: '$16'`, `borderRadius: '$12'`, `borderWidth: '$widthDefault'`, `borderStyle: '$styleDefault'`, `fontFamily: '$body'`
+  - `variants.theme` with 7 options, each setting `bg`, `border` (border color), and `color` using the matching STL token scale:
+    - `primary`: `bg: '$primary3'`, `border: '$primary'`, `color: '$primaryText3'`
+    - `secondary`: `bg: '$secondary3'`, `border: '$secondary'`, `color: '$secondaryText3'`
+    - `tertiary`: `bg: '$tertiary3'`, `border: '$tertiary'`, `color: '$tertiaryText3'`
+    - `success`: `bg: '$success3'`, `border: '$success'`, `color: '$successText3'`
+    - `warning`: `bg: '$warning3'`, `border: '$warning'`, `color: '$warningText3'`
+    - `error`: `bg: '$error3'`, `border: '$error'`, `color: '$errorText3'`
+    - `info`: `bg: '$info3'`, `border: '$info'`, `color: '$infoText3'`
+  - `defaultVariants: { theme: 'primary' }`
+  - `mapProps`: set `role: props.theme === 'error' ? 'alert' : 'status'`
+  - `styleName: 'Alert'`
+
+- `AlertTitle` = `styled('h5', { stl: { fontWeight: '$600', fontSize: '$p', m: '$0' }, styleName: 'AlertTitle' })`
+- `AlertDescription` = `styled('p', { stl: { fontSize: '$small', m: '$0', opacity: '0.9' }, styleName: 'AlertDescription' })`
+- `AlertIcon` = `styled('span', { stl: { display: 'flex', alignItems: 'center', flexShrink: '0' }, styleName: 'AlertIcon' })`
+
+**Export as namespace:**
+```tsx
+export const Alert = { Root: AlertRoot, Title: AlertTitle, Description: AlertDescription, Icon: AlertIcon }
+```
+
+**Export types:**
+```tsx
+export type AlertProps = ComponentPropsWithRef<typeof AlertRoot>
+export type AlertTheme = NonNullable<AlertProps['theme']>
+```
+
+### 3. Update `Alert.test.tsx`
+- Unskip the role tests (mapProps now injects role as a real DOM attribute)
+- Update `variant="destructive"` references to `theme="error"`
+- Add tests for each theme rendering
+- Add test verifying `role="alert"` only for `theme="error"`, all others get `role="status"`
+- Keep using `render` from `../../../src/__test-utils__/render` and `screen`
+
+### 4. Files touched
+- `packages/components/Alert/Alert.spec.md` (rewrite)
+- `packages/components/Alert/Alert.tsx` (rewrite)
+- `packages/components/Alert/Alert.test.tsx` (update)

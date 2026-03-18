@@ -4,7 +4,7 @@ status: in-progress
 scope: large
 created: 2026-03-15
 current_epic: 6
-current_stage: 2
+current_stage: 3
 phase: execute
 epic_issue: 206
 ---
@@ -118,16 +118,20 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Playground pages for each
 **Status:** in-progress
 
-### Stage 6.3: Layout & Typography (Typography, Separator, ButtonGroup, Direction)
+### Stage 6.3: Layout & Typography
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/layout-typography
+**Issue:** #214
 **Acceptance criteria:**
-- [ ] Typography: H1-H6, P, Lead, Large, Small, Muted, InlineCode, Blockquote — all using type scale tokens
-- [ ] Separator: neutral, horizontal/vertical orientation, decorative vs semantic
-- [ ] ButtonGroup: layout wrapper, spacing, connected variant
-- [ ] Direction: RTL provider, context-based
+- [ ] Heading: compound H1-H6 via Object.assign, drop level/forwardRef
+- [ ] Text: add Text.Small (<small>), Text.Code (<code>) sub-components
+- [ ] Blockquote + InlineCode as new standalone stl-react primitives
+- [ ] Layout semantic alternates on Row, Column, Box (.Div/.Nav/.Header/.Footer/.Main/.Aside/.Article/.Span)
+- [ ] Typed polymorphic `as` prop on StyledComponent
+- [ ] Delete Typography component, re-export Separator, implement ButtonGroup + Direction
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages for each
-**Status:** pending
+- [ ] Playground pages for Heading, Separator, ButtonGroup
+**Status:** in-progress
 
 ### Stage 6.4: Token Infrastructure (Shadow & Layering)
 **Branch prefix:** feat
