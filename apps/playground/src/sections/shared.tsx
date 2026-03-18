@@ -41,11 +41,11 @@ export const InfoCircleIcon = () => (
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 export const THEMES = ['primary', 'secondary', 'neutral', 'destructive'] as const
-export const VARIANTS = ['solid', 'outline', 'subtle', 'ghost', 'link'] as const
+export const VARIANTS = ['solid', 'subtle', 'outline', 'ghost', 'link'] as const
 export const SIZES = ['xs', 'sm', 'md', 'lg', 'icon'] as const
 
 export const ALERT_THEMES = ['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info'] as const
-export const ALERT_VARIANTS = ['subtle', 'solid', 'outline'] as const
+export const ALERT_VARIANTS = ['solid', 'subtle', 'outline'] as const
 export const PROGRESS_SIZES = ['sm', 'md', 'lg'] as const
 export const SPINNER_SIZES = ['sm', 'md', 'lg', 'xl'] as const
 
