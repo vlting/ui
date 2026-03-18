@@ -12,7 +12,7 @@ export function SpinnerSection({ sectionRef }: SectionProps) {
       <SectionHeading>Spinner</SectionHeading>
       <StackY stl={{ gap: '$16' }}>
         <ButtonRow stl={{ gap: '$16' }}>
-          <StackY stl={{ flex: '1', bg: '$background1', radius: '$field', p: '$24', gap: '$0' }}>
+          <StackY stl={{ flex: '1', bg: '$background1', radius: '$3', p: '$24', gap: '$0' }}>
             <SectionTitle stl={{ textTransform: 'none', mb: '$0' }}>primary</SectionTitle>
             <ButtonRow stl={{ justifyContent: 'space-evenly', alignItems: 'baseline' }}>
               {SPINNER_SIZES.map((size) => (
@@ -23,7 +23,7 @@ export function SpinnerSection({ sectionRef }: SectionProps) {
               ))}
             </ButtonRow>
           </StackY>
-          <StackY stl={{ flex: '1', bg: '$background1', radius: '$field', p: '$24', gap: '$0' }}>
+          <StackY stl={{ flex: '1', bg: '$background1', radius: '$3', p: '$24', gap: '$0' }}>
             <SectionTitle stl={{ textTransform: 'none', mb: '$0' }}>secondary</SectionTitle>
             <ButtonRow stl={{ justifyContent: 'space-evenly', alignItems: 'baseline' }}>
               {SPINNER_SIZES.map((size) => (
@@ -36,7 +36,7 @@ export function SpinnerSection({ sectionRef }: SectionProps) {
           </StackY>
         </ButtonRow>
         <ButtonRow stl={{ gap: '$16' }}>
-          <StackY stl={{ flex: '1', bg: '$background1', radius: '$field', p: '$24', gap: '$0' }}>
+          <StackY stl={{ flex: '1', bg: '$background1', radius: '$3', p: '$24', gap: '$0' }}>
             <SectionTitle stl={{ textTransform: 'none', mb: '$0' }}>neutralMax</SectionTitle>
             <ButtonRow stl={{ justifyContent: 'space-evenly', alignItems: 'baseline' }}>
               {SPINNER_SIZES.map((size) => (
