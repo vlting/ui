@@ -121,8 +121,11 @@ export const ToggleBar = styled('div', {
 
 const ToggleGroup = styled('div', {
   display: 'flex',
-  gap: '$6',
-  flexWrap: 'wrap',
+  gap: '$4',
+  p: '$4',
+  border: '$neutralAlpha5',
+  borderWidth: '$widthMin',
+  radius: '$button',
 }, { name: 'ToggleGroup' })
 
 export function VariantToggle<T extends string>({
