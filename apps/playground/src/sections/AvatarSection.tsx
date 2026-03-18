@@ -1,15 +1,32 @@
 import { Avatar } from '@vlting/ui'
+import { styled } from '@vlting/stl-react'
 
 import { ButtonRow, DemoCard, SectionHeading, SectionTitle, type SectionProps } from './shared'
+
+const SizeLabel = styled('span', {
+  fontSize: '$12',
+  color: '$neutralText4',
+  fontWeight: '$400',
+}, { name: 'SizeLabel' })
+
+const AvatarWithLabel = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '$4',
+}, { name: 'AvatarWithLabel' })
 
 export function AvatarSection({ sectionRef }: SectionProps) {
   return (
     <DemoCard stl={{ mt: '$24' }} ref={sectionRef} data-section="Avatar">
       <SectionHeading>Avatar</SectionHeading>
       <SectionTitle>Sizes</SectionTitle>
-      <ButtonRow stl={{ alignItems: 'center' }}>
-        {(['sm', 'md', 'lg', 'xl'] as const).map(size => (
-          <Avatar key={size} size={size} fallback="JD" />
+      <ButtonRow stl={{ alignItems: 'end' }}>
+        {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+          <AvatarWithLabel key={size}>
+            <Avatar size={size} fallback="JD" />
+            <SizeLabel>{size}</SizeLabel>
+          </AvatarWithLabel>
         ))}
       </ButtonRow>
     </DemoCard>

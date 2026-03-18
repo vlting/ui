@@ -34,10 +34,11 @@ const AvatarBase = styled('span', {
   name: 'Avatar',
   variants: {
     size: {
-      sm: { width: '32px', height: '32px', fontSize: '$small' },
-      md: { width: '40px', height: '40px', fontSize: '$p' },
-      lg: { width: '56px', height: '56px', fontSize: '$h5' },
-      xl: { width: '72px', height: '72px', fontSize: '$h4' },
+      xs: { width: '$24', height: '$24', fontSize: '$12' },
+      sm: { width: '$32', height: '$32', fontSize: '$small' },
+      md: { width: '$40', height: '$40', fontSize: '$p' },
+      lg: { width: '$56', height: '$56', fontSize: '$h5' },
+      xl: { width: '$72', height: '$72', fontSize: '$h4' },
     },
   },
   defaultVariants: { size: 'md' },
