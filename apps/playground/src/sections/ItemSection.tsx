@@ -42,9 +42,9 @@ type DemoItem = {
 
 const themeItems: Record<typeof ITEM_THEMES[number], DemoItem[]> = {
   primary: [
-    { title: 'Production', description: 'us-east-1 — 3 replicas', media: <ColorDot stl={{ bg: '$success9' }} />, action: <Badge theme="success" variant="subtle" size="sm">Live</Badge> },
-    { title: 'Staging', description: 'eu-west-1 — 1 replica', media: <ColorDot stl={{ bg: '$warning9' }} />, action: <Badge theme="warning" variant="subtle" size="sm">Deploying</Badge> },
-    { title: 'Preview', description: 'auto — on demand', media: <ColorDot stl={{ bg: '$neutral9' }} />, action: <Badge theme="neutral" variant="subtle" size="sm">Idle</Badge> },
+    { title: 'Account settings', description: 'Manage your account preferences', media: '⚙️', action: <Button size="xs" theme="primary" variant="outline">Edit</Button> },
+    { title: 'Notifications', description: 'Configure alerts and updates', media: '🔔', action: <Button size="xs" theme="primary" variant="outline">Configure</Button> },
+    { title: 'Billing', description: 'View plans and payment methods', media: '💳', action: <Button size="xs" theme="primary" variant="outline">Manage</Button> },
   ],
   secondary: [
     { title: 'Alice Chen', description: 'Engineering lead', media: <Avatar size="xs" fallback="AC" />, action: <TrailingLabel>→</TrailingLabel> },
@@ -52,9 +52,9 @@ const themeItems: Record<typeof ITEM_THEMES[number], DemoItem[]> = {
     { title: 'Carol Singh', description: 'DevOps engineer', media: <Avatar size="xs" fallback="CS" />, action: <TrailingLabel>→</TrailingLabel> },
   ],
   neutral: [
-    { title: 'Account settings', description: 'Manage your account preferences', media: '⚙️', action: <Button size="xs" theme="neutral" variant="outline">Edit</Button> },
-    { title: 'Notifications', description: 'Configure alerts and updates', media: '🔔', action: <Button size="xs" theme="neutral" variant="outline">Configure</Button> },
-    { title: 'Billing', description: 'View plans and payment methods', media: '💳', action: <Button size="xs" theme="neutral" variant="outline">Manage</Button> },
+    { title: 'Production', description: 'us-east-1 — 3 replicas', media: <ColorDot stl={{ bg: '$success9' }} />, action: <Badge theme="success" variant="subtle" size="sm">Live</Badge> },
+    { title: 'Staging', description: 'eu-west-1 — 1 replica', media: <ColorDot stl={{ bg: '$warning9' }} />, action: <Badge theme="warning" variant="subtle" size="sm">Deploying</Badge> },
+    { title: 'Preview', description: 'auto — on demand', media: <ColorDot stl={{ bg: '$neutral9' }} />, action: <Badge theme="neutral" variant="subtle" size="sm">Idle</Badge> },
   ],
 }
 
