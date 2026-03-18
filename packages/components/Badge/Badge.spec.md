@@ -7,7 +7,7 @@ Inline label for status/category. Informational only — not interactive or focu
 
 ## Variants
 - **theme** (15): primary, secondary, neutral, success, warning, error, info, tomato, amber, grass, forest, aqua, indigo, plum, magenta
-- **variant** (3): solid, subtle, outline
+- **variant** (3): solid, subtle, outline — default: `outline`
 - **size** (3): sm, md, lg
 
 ## Spacing
