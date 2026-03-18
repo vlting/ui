@@ -11,7 +11,7 @@ const BADGE_VARIANTS = ['solid', 'subtle', 'outline'] as const
 type BadgeVariant = typeof BADGE_VARIANTS[number]
 
 export function BadgeSection({ sectionRef }: SectionProps) {
-  const [variant, setVariant] = useState<BadgeVariant>('solid')
+  const [variant, setVariant] = useState<BadgeVariant>('outline')
 
   return (
     <DemoCard stl={{ mt: '$24' }} ref={sectionRef} data-section="Badge">
