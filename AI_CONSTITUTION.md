@@ -236,7 +236,8 @@ Not allowed:
 - The spec file is the **single source of behavioral truth** — there is no separate contract file.
 - Specs must NOT duplicate TypeScript type information — reference the TypeScript source instead (e.g., "See `ButtonProps` in `Button.tsx`").
 - All component specs must reference `packages/QUALITY_BASELINE.md` as their baseline.
-- A spec template is available at `packages/_templates/component.spec.template.md`.
+- The v2 spec template is at `packages/_templates/component.spec.template.md` (marked with `<!-- spec-version: 2 -->`).
+- When replacing an old spec with the v2 format, archive the original as `{ComponentName}.spec.bak.md` (use `git mv` to preserve history). The new `.spec.md` should include an AI note referencing the archive.
 
 ---
 
