@@ -92,8 +92,8 @@ const ItemRoot = styled('div', {
       lg: { minHeight: '$52', py: '$12', px: '$16' },
     },
     align: {
+      top: { alignItems: 'start' },
       center: {},
-      title: { alignItems: 'start' },
     },
     interactive: {
       true: {

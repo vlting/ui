@@ -78,7 +78,7 @@ Compound component. Sub-components arrange horizontally inside the root:
 - **`theme`** (3): `primary | secondary | neutral` — core themes only. Default: `neutral`.
 - **`variant`** (3): `ghost | subtle | outline`. Default: `outline`.
 - **`size`** (3): `sm | md | lg`. Default: `md`.
-- **`align`** (2): `center | title` — controls cross-axis alignment of Leading/Trailing relative to Content. `center` vertically centers all children; `title` aligns media with the title line (useful when Description is present). Default: `center`.
+- **`align`** (2): `top | center` — controls cross-axis alignment of Leading/Trailing relative to Content. `center` vertically centers all children; `top` aligns media with the title line (useful when Description is present). Default: `center`.
 - **`interactive`**: boolean. Default: `false`.
 - **`divider`** [Planned]: boolean. Default: `false`.
 - **`disabled`** [Planned]: boolean. Default: `false`.
@@ -132,7 +132,7 @@ Generated compounds: ~12 total (9 theme×variant + 3 theme×interactive).
 
 - **Radius:** `$field` — applied by `subtle` and `outline` variants.
 - **Font:** `$body` family. Title uses `$500` weight, `$p` size, `$listItem` line-height. Description uses `$small` size, `$400` weight.
-- **Alignment:** Leading and Trailing use `minHeight: '$20'` (matching title line-height) with internal centering, so media aligns with the title line when `align: 'title'`.
+- **Alignment:** Leading and Trailing use `minHeight: '$20'` (matching title line-height) with internal centering, so media aligns with the title line when `align: 'top'`.
 - **Colors:** Title `$<theme>Text3` (inherited from root compound variants), Description `$<theme>Text4` (via own `theme` variant, defaults to `neutral`).
 - **Divider** [Planned]**:** bottom border `$<theme>5`, `$widthMin` width.
 - **Dark mode:** Automatic via token system; no component-specific overrides needed.

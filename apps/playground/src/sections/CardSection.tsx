@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, Card as UiCard } from '@vlting/ui'
 
-import { DemoCard, SectionHeading, StackY, ToggleBar, VariantToggle, type SectionProps } from './shared'
+import { DemoCard, SectionHeading, StackY, ToggleBar, ToggleGroup, VariantToggle, type SectionProps } from './shared'
 
 const CARD_ELEVATIONS = ['flat', 'normal', 'raised'] as const
 const CARD_THEMES = ['neutral', 'primary', 'secondary'] as const
@@ -15,15 +15,17 @@ export function CardSection({ sectionRef }: SectionProps) {
       <SectionHeading>Card</SectionHeading>
       <ToggleBar>
         <VariantToggle options={CARD_ELEVATIONS} value={elevation} onChange={setElevation} />
-        <Button
-          size="xs"
-          theme="neutral"
-          variant={interactive ? 'solid' : 'subtle'}
-          onClick={() => setInteractive((i) => !i)}
-          aria-pressed={interactive}
-        >
-          interactive
-        </Button>
+        <ToggleGroup>
+          <Button
+            size="xs"
+            theme="neutral"
+            variant={interactive ? 'solid' : 'subtle'}
+            onClick={() => setInteractive((i) => !i)}
+            aria-pressed={interactive}
+          >
+            interactive
+          </Button>
+        </ToggleGroup>
       </ToggleBar>
       <StackY>
         {CARD_THEMES.map((theme) => (
