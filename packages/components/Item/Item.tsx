@@ -7,7 +7,7 @@ const themes = ['primary', 'secondary', 'neutral'] as const
 
 const variantStyles = {
   ghost: (t: string) => ({ color: `$${t}Text3` }) as STL,
-  subtle: (t: string) => ({ bg: `$${t}3`, radius: '$field', color: `$${t}Text3` }) as STL,
+  subtle: (t: string) => ({ bg: `$${t}2`, radius: '$field', color: `$${t}Text3` }) as STL,
   outline: (t: string) => ({ bg: 'transparent', border: `$${t}5`, borderWidth: '$widthMin', radius: '$field', color: `$${t}Text3` }) as STL,
 }
 
