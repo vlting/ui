@@ -21,13 +21,14 @@
 
 Compound component with custom styled sub-components:
 - `Alert.Root` — container. `role="status"` for all themes except `error` which gets `role="alert"`.
+- `Alert.Content` — flex column wrapper for Title and Description (`div`).
 - `Alert.Title` — bold heading text (`h5`).
 - `Alert.Description` — body text (`p`).
 - `Alert.Icon` — optional leading icon (`span`).
 
 Props:
 - `theme: 'primary' | 'secondary' | 'neutral' | 'success' | 'warning' | 'error' | 'info'` (default `'primary'`)
-- `variant: 'solid' | 'subtle' | 'outline'` (default `'subtle'`)
+- `variant: 'solid' | 'subtle' | 'outline'` (default `'outline'`)
 - `elevation: 'flat' | 'raised'` (default `'flat'`)
 
 Variant axis:
@@ -72,21 +73,21 @@ None.
 
 - **Theme tokens:** Each theme uses `$<scale>3` (bg), `$<scale>` (border), `$<scale>Text3` (text) from the STL token scale.
 - **Dark mode:** Token resolution handles automatically.
-- **Layout:** Flex row with `$12` gap, `$16` padding, `$field` border-radius.
+- **Layout:** Flex row with `$16` gap, `px: $24` / `py: $16` padding, `$field` border-radius.
 
 ---
 
 ## 7. Composition
 
 - **What can contain this component:** Page layouts, form containers, card sections.
-- **What this component can contain:** Alert.Title, Alert.Description, Alert.Icon in any order.
+- **What this component can contain:** Alert.Content (wrapping Title/Description), Alert.Icon in any order.
 - **Anti-patterns:** Do not use Alert for success confirmations that should disappear (use Toast). Do not make Alert dismissible without providing an alternative way to access the information.
 
 ---
 
 ## 8. Breaking Change Criteria
 
-- Removing sub-components (Title, Description, Icon).
+- Removing sub-components (Content, Title, Description, Icon).
 - Removing `theme`, `variant`, or `elevation` props or changing their values.
 - Removing `role="alert"` from error theme.
 - Changing role mapping logic.

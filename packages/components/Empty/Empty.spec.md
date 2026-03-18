@@ -60,7 +60,7 @@
 
 ## 6. Styling
 
-- **Design tokens used:** `$color` for title text; `$neutralText4` for description text; `$body` font family. Spacing uses token values (`$12`, `$24`).
+- **Design tokens used:** `$neutralText3` for title and media text; `$neutralText4` for description text; `$body` font family. Spacing uses token values (`$12` gap, `$24` padding).
 - **Responsive behavior:** Max-width 400px on Description ensures readability on wide containers. Content is always center-aligned.
 - **Dark mode:** Token-based; resolves automatically.
 
