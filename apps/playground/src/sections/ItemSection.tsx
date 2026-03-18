@@ -7,7 +7,7 @@ import { ButtonRow, DemoCard, SectionHeading, SectionTitle, StackY, type Section
 const ITEM_VARIANTS = ['ghost', 'subtle', 'outline'] as const
 const ITEM_SIZES = ['sm', 'md', 'lg'] as const
 const ITEM_THEMES = ['primary', 'secondary', 'neutral'] as const
-const ITEM_ALIGNS = ['title', 'center'] as const
+const ITEM_ALIGNS = ['center', 'title'] as const
 
 const TrailingLabel = styled('span', {
   fontSize: '$small',
@@ -47,9 +47,10 @@ const themeItems: Record<typeof ITEM_THEMES[number], { title: string; descriptio
 export function ItemSection({ sectionRef }: SectionProps) {
   const [variant, setVariant] = useState<typeof ITEM_VARIANTS[number]>('outline')
   const [size, setSize] = useState<typeof ITEM_SIZES[number]>('md')
-  const [align, setAlign] = useState<typeof ITEM_ALIGNS[number]>('title')
+  const [align, setAlign] = useState<typeof ITEM_ALIGNS[number]>('center')
   const [interactive, setInteractive] = useState(false)
   const [showMedia, setShowMedia] = useState(true)
+  const [showDescription, setShowDescription] = useState(true)
   const [showActions, setShowActions] = useState(true)
 
   return (
@@ -113,6 +114,15 @@ export function ItemSection({ sectionRef }: SectionProps) {
         <Button
           size="xs"
           theme="neutral"
+          variant={showDescription ? 'subtle' : 'ghost'}
+          onClick={() => setShowDescription((d) => !d)}
+          aria-pressed={showDescription}
+        >
+          description
+        </Button>
+        <Button
+          size="xs"
+          theme="neutral"
           variant={showActions ? 'subtle' : 'ghost'}
           onClick={() => setShowActions((a) => !a)}
           aria-pressed={showActions}
@@ -131,13 +141,19 @@ export function ItemSection({ sectionRef }: SectionProps) {
                   theme={theme}
                   variant={variant}
                   size={size}
-                  align={align}
+                  align={!showDescription ? 'title' : align}
                   interactive={interactive || undefined}
                 >
-                  {showMedia && <Item.Leading>{item.leading}</Item.Leading>}
+                  {showMedia && (
+                    <Item.Leading stl={!showDescription ? { pt: '$4' } : undefined}>
+                      {item.leading}
+                    </Item.Leading>
+                  )}
                   <Item.Content>
                     <Item.Title>{item.title}</Item.Title>
-                    <Item.Description>{item.description}</Item.Description>
+                    {showDescription && (
+                      <Item.Description theme={theme}>{item.description}</Item.Description>
+                    )}
                   </Item.Content>
                   {showActions && (
                     <Item.Trailing>
