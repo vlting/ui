@@ -7,7 +7,7 @@ import { ButtonRow, DemoCard, SectionHeading, SectionTitle, StackY, type Section
 const ITEM_VARIANTS = ['ghost', 'subtle', 'outline'] as const
 const ITEM_SIZES = ['sm', 'md', 'lg'] as const
 const ITEM_THEMES = ['primary', 'secondary', 'neutral'] as const
-const ITEM_ALIGNS = ['center', 'title'] as const
+const ITEM_ALIGNS = ['center'] as const
 
 const TrailingLabel = styled('span', {
   fontSize: '$small',
@@ -155,11 +155,11 @@ export function ItemSection({ sectionRef }: SectionProps) {
                   theme={theme}
                   variant={variant}
                   size={size}
-                  align={showDescription ? 'title' : align}
+                  align={align}
                   interactive={interactive || undefined}
                 >
                   {showMedia && (
-                    <Item.Leading stl={showDescription ? { pt: '$4' } : undefined}>
+                    <Item.Leading stl={showDescription ? { alignSelf: 'start' } : undefined}>
                       {item.media}
                     </Item.Leading>
                   )}
