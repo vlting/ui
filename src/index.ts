@@ -52,6 +52,7 @@ export type {
   AccordionTriggerProps,
   AlertProps,
   AreaChartProps,
+  BadgeProps,
   AreaChartVariant,
   AvatarProps,
   BarChartProps,
@@ -180,6 +181,7 @@ export {
   AlertDialog,
   AreaChart,
   Avatar,
+  Badge,
   BarChart,
   Blockquote,
   Breadcrumb,
@@ -305,7 +307,6 @@ export type { DynamicIconProps } from '../packages/icons/Icon'
 export { DynamicIcon } from '../packages/icons/Icon'
 export type {
   AspectRatioProps,
-  BadgeProps,
   HeadingProps,
   IconFC,
   IconProps,
@@ -321,7 +322,6 @@ export type {
 // Layer 1 — Primitives
 export {
   AspectRatio,
-  Badge,
   Box,
   Divider,
   Heading,

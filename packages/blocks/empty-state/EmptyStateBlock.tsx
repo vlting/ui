@@ -5,19 +5,13 @@ import { Input } from '../../components/Input'
 import { styled } from '../../stl-react/src/config'
 import type { BlockProps } from '../_shared/types'
 
-const FormElement = styled(
-  'form',
-  {
-    stl: {
-      display: 'flex',
-      flexDirection: 'row',
-      gap: 8,
-      width: '100%',
-      maxWidth: 360,
-    },
-    styleName: 'EmptyStateForm',
-  },
-)
+const FormElement = styled('form', {
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 8,
+  width: '100%',
+  maxWidth: 360,
+}, { name: 'EmptyStateForm' })
 
 // -- Types --
 

@@ -39,6 +39,8 @@ export interface CreateThemeOptions {
   borderWidth?: Record<string, number>
   shadows?: Theme['shadows']
   fonts?: FontFamilySpec
+  gradients?: Theme['gradients']
+  glass?: Theme['glass']
 }
 
 /** Default font spec using registry keys */
@@ -201,6 +203,8 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
     shadows: mergedShadows,
     fonts,
     fontLinks,
+    gradients: options.gradients,
+    glass: options.glass,
   }
 
   return Object.freeze(theme)

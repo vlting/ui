@@ -24,7 +24,7 @@ shadcn uses Tailwind CSS utility classes. @vlting/ui uses STL style props for cr
 
 ```diff
 - <Button className="bg-red-500 p-4 rounded-lg">Click</Button>
-+ <Button backgroundColor="$red10" padding="$4" borderRadius="$3">Click</Button>
++ <Button backgroundColor="$tomato10" padding="$4" borderRadius="$3">Click</Button>
 ```
 
 Token values (prefixed with `$`) reference the design system's token scales.

@@ -22,7 +22,7 @@
 
 Function component wrapping `STL`. Two rendered elements:
 - The STL Label component (renders `<label>` on web).
-- Optional required indicator: `<Text color="$red10"> *</Text>` when `required` is true.
+- Optional required indicator: `<Text color="$tomato10"> *</Text>` when `required` is true.
 
 - `htmlFor`: string — the `id` of the associated form control.
 - `size`: `'sm'` | `'md'` | `'lg'` (default: `md`). Mapped to STL size tokens (`$2`, `$3`, `$4`).
@@ -53,7 +53,7 @@ None.
 - **Semantic element:** Renders `<label>` via `STL`. This is a critical accessibility primitive.
 - **ARIA attributes:** None needed — `<label>` with `htmlFor` provides the accessible name for the associated control natively.
 - **Required indicator:** The `*` asterisk is visual-only. For screen readers, the associated input should have `aria-required="true"`.
-- **Contrast:** Text must meet 4.5:1. The red asterisk (`$red10`) must meet 3:1 against background.
+- **Contrast:** Text must meet 4.5:1. The red asterisk (`$tomato10`) must meet 3:1 against background.
 
 ---
 
@@ -61,7 +61,7 @@ None.
 
 - **Design tokens used:**
   - Size mapping: `sm` → `$2`, `md` → `$3`, `lg` → `$4` (STL size tokens)
-  - Required indicator: `color: '$red10'`
+  - Required indicator: `color: '$tomato10'`
 - **Responsive behavior:** Inherits STL responsive props via the underlying Label component.
 - **Dark mode:** Token resolution handles automatically.
 

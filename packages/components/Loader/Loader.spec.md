@@ -1,24 +1,90 @@
-# Component Spec — Loader (Deprecated)
+<!-- spec-version: 2 -->
+<!-- AI: Fill this spec when this component is actively worked on. See Loader.spec.bak.md for prior design intent. -->
 
-> **DEPRECATED:** Use `Spinner` directly. This component will be removed in a future major version.
->
-> Migration: `<Loader variant="min" />` → `<Spinner theme="min" />`
+# Loader Specification
+
+## Component Name
+Loader
+
+---
 
 ## Purpose
 
-Thin compatibility wrapper that forwards to `Spinner`. Exists only for backwards compatibility.
+---
 
-## Migration Guide
+## Supported Platforms
 
-| Loader prop | Spinner equivalent |
-|---|---|
-| `variant="primary"` | `theme="primary"` |
-| `variant="min"` | `theme="min"` |
-| `variant="max"` | `theme="max"` |
-| `size="sm\|md\|lg"` | `size="sm\|md\|lg"` (same) |
+- [ ] React (web)
+- [ ] React Native
+
+---
+
+## Design System Constraints
+
+---
+
+## Component API
+
+---
+
+## Composition Model
+
+---
+
+## Layout Rules
+
+---
+
+## Variants
+
+---
+
+## Size Options
+
+---
+
+## States
+
+---
+
+## Interaction Model
+
+---
+
+## Accessibility
+
+---
+
+## Platform Implementation Notes
+
+### React (Web)
+
+### React Native
+
+---
+
+## Theming Behavior
+
+---
+
+## Edge Cases
+
+---
+
+## Stories / Preview Cases
+
+---
 
 ## Test Requirements
 
-- Verify deprecated wrapper still renders correctly.
-- Verify no double `role="status"` in DOM.
-- Verify variant→theme mapping works for all variants.
+---
+
+## Implementation Constraints
+
+---
+
+## Open Questions
+
+---
+
+## Change Log

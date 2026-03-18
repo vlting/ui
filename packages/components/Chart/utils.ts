@@ -3,7 +3,7 @@ import type { ChartConfig } from './types'
 
 /**
  * Resolves a design token reference to a hex color value.
- * Token refs like "$blue8" or "$color9" are looked up in the theme object.
+ * Token refs like "$aqua8" or "$color9" are looked up in the theme object.
  * If the token starts with "$", strip the "$" and look up in the theme.
  * If it's already a hex value (starts with "#"), return as-is.
  */

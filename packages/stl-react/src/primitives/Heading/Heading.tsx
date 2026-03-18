@@ -7,12 +7,12 @@ const baseStl = {
   margin: '0',
 } as const
 
-const H1 = styled('h1', { stl: { ...baseStl, fontSize: '$h1', lineHeight: '$heading', fontWeight: '$700' }, styleName: 'H1' })
-const H2 = styled('h2', { stl: { ...baseStl, fontSize: '$h2', lineHeight: '$heading', fontWeight: '$700' }, styleName: 'H2' })
-const H3 = styled('h3', { stl: { ...baseStl, fontSize: '$h3', lineHeight: '$heading', fontWeight: '$600' }, styleName: 'H3' })
-const H4 = styled('h4', { stl: { ...baseStl, fontSize: '$h4', lineHeight: '$heading', fontWeight: '$600' }, styleName: 'H4' })
-const H5 = styled('h5', { stl: { ...baseStl, fontSize: '$h5', lineHeight: '$heading', fontWeight: '$600' }, styleName: 'H5' })
-const H6 = styled('h6', { stl: { ...baseStl, fontSize: '$h6', lineHeight: '$heading', fontWeight: '$600' }, styleName: 'H6' })
+const H1 = styled('h1', { ...baseStl, fontSize: '$h1', lineHeight: '$heading', fontWeight: '$700' }, { name: 'H1' })
+const H2 = styled('h2', { ...baseStl, fontSize: '$h2', lineHeight: '$heading', fontWeight: '$700' }, { name: 'H2' })
+const H3 = styled('h3', { ...baseStl, fontSize: '$h3', lineHeight: '$heading', fontWeight: '$600' }, { name: 'H3' })
+const H4 = styled('h4', { ...baseStl, fontSize: '$h4', lineHeight: '$heading', fontWeight: '$600' }, { name: 'H4' })
+const H5 = styled('h5', { ...baseStl, fontSize: '$h5', lineHeight: '$heading', fontWeight: '$600' }, { name: 'H5' })
+const H6 = styled('h6', { ...baseStl, fontSize: '$h6', lineHeight: '$heading', fontWeight: '$600' }, { name: 'H6' })
 
 type HeadingFrame = typeof H1
 const LEVEL_MAP: Record<number, HeadingFrame> = { 1: H1, 2: H2, 3: H3, 4: H4, 5: H5, 6: H6 }

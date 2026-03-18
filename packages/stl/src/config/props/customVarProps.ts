@@ -162,6 +162,7 @@ export function generateCustomVarPropsCss<K extends FilterKeys>(
     listStyleImage: value('listStyleImage'),
 
     filter: value('filter'),
+    backdropFilter: value('backdropFilter'),
 
     scrollMargin: value('scrollMargin'),
     scrollPadding: value('scrollPadding'),

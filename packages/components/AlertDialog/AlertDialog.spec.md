@@ -1,94 +1,90 @@
-# Component Spec — AlertDialog
+<!-- spec-version: 2 -->
+<!-- AI: Fill this spec when this component is actively worked on. See AlertDialog.spec.bak.md for prior design intent. -->
 
-> **Baseline**: This component must satisfy all requirements in [`QUALITY_BASELINE.md`](../../QUALITY_BASELINE.md).
+# AlertDialog Specification
 
-## 1. Purpose
-
-- Modal dialog for confirming destructive or irreversible actions.
-- Use for delete confirmations, unsaved changes warnings, and critical decision points.
-- Do NOT use for informational messages (use Dialog or Alert). Do NOT use for non-blocking notifications (use Toast).
+## Component Name
+AlertDialog
 
 ---
 
-## 2. UX Intent
-
-- **Peak-End Rule** — clear confirmation prevents accidental destructive actions, protecting the user's work.
-- **Doherty Threshold** — dialog appears immediately on trigger, providing instant feedback.
-- **WAI-ARIA pattern:** [Alert and Message Dialogs](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/)
+## Purpose
 
 ---
 
-## 3. Anatomy
+## Supported Platforms
 
-Compound component wrapping STL AlertDialog primitives with Portal:
-- `AlertDialog` (Root) — state management. Props: `open`, `defaultOpen`, `onOpenChange`.
-- `AlertDialog.Trigger` — opens the dialog.
-- `AlertDialog.Overlay` — backdrop overlay with opacity animation.
-- `AlertDialog.Content` — centered modal container with shadow and animation.
-- `AlertDialog.Title` — dialog heading.
-- `AlertDialog.Description` — explanatory text.
-- `AlertDialog.Footer` — action button container.
-- `AlertDialog.Cancel` — dismissal action.
-- `AlertDialog.Action` — confirmation/destructive action.
-
-> **TypeScript is the source of truth for props.** See source files in `AlertDialog/` for the full typed API.
+- [ ] React (web)
+- [ ] React Native
 
 ---
 
-## 4. Behavior
-
-### States
-
-- **Closed** — dialog and overlay hidden.
-- **Open** — overlay visible, content centered, focus trapped.
-
-### Keyboard Interaction
-
-- **Escape** — closes the dialog (delegated to STL).
-- **Tab/Shift+Tab** — cycles focus within the dialog (focus trap).
-- **Enter/Space** — activates focused button (Cancel or Action).
-
-### Motion
-
-- Enter: opacity 0→1, scale 0.95→1 (content). Overlay fades in.
-- Exit: opacity 1→0, scale 1→0.95.
-- Must respect `prefers-reduced-motion`.
+## Design System Constraints
 
 ---
 
-## 5. Accessibility
-
-- **Semantic element:** STL AlertDialog provides `role="alertdialog"`.
-- **ARIA attributes:** `aria-modal="true"`, `aria-labelledby` (Title), `aria-describedby` (Description).
-- **Focus management:** Focus is trapped within the dialog. On close, focus returns to the trigger element.
+## Component API
 
 ---
 
-## 6. Styling
-
-- **Design tokens used:** `$background` for content, `$borderColor` for border, shadow for depth, `$backgroundOverlay` for overlay. Z-index applied to overlay and content.
-- **Dark mode:** Token resolution handles automatically.
+## Composition Model
 
 ---
 
-## 7. Composition
-
-- **What can contain this component:** Any component that needs a confirmation step before a destructive action.
-- **What this component can contain:** Title, Description, Footer with Cancel and Action buttons.
-- **Anti-patterns:** Do not use without both Cancel and Action buttons. Do not use for non-critical confirmations. Do not nest dialogs.
+## Layout Rules
 
 ---
 
-## 8. Breaking Change Criteria
-
-- Removing sub-components (Trigger, Overlay, Content, Title, Description, Footer, Cancel, Action).
-- Removing focus trapping.
-- Removing Escape key dismissal.
-- Removing `role="alertdialog"`.
+## Variants
 
 ---
 
-## 9. Test Requirements
+## Size Options
 
-- **Behavioral tests:** Verify dialog opens on trigger click. Verify Escape closes. Verify Cancel closes. Verify Action fires callback and closes. Verify overlay renders. Verify enter/exit animations.
-- **Accessibility tests:** Verify `role="alertdialog"`. Verify focus is trapped. Verify focus returns to trigger on close. Verify `aria-labelledby` and `aria-describedby`.
+---
+
+## States
+
+---
+
+## Interaction Model
+
+---
+
+## Accessibility
+
+---
+
+## Platform Implementation Notes
+
+### React (Web)
+
+### React Native
+
+---
+
+## Theming Behavior
+
+---
+
+## Edge Cases
+
+---
+
+## Stories / Preview Cases
+
+---
+
+## Test Requirements
+
+---
+
+## Implementation Constraints
+
+---
+
+## Open Questions
+
+---
+
+## Change Log

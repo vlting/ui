@@ -158,10 +158,11 @@ const playgroundConfigs: Record<string, PlaygroundConfig> = {
         defaultValue: 'md',
       },
       {
-        prop: 'elevated',
-        type: 'boolean',
-        label: 'Elevated',
-        defaultValue: false,
+        prop: 'variant',
+        type: 'select',
+        label: 'Variant',
+        options: ['elevated', 'flat'],
+        defaultValue: 'elevated',
       },
       {
         prop: 'interactive',
@@ -584,7 +585,7 @@ function renderPlayground(
       return (
         <Card
           size={props.size as string}
-          elevated={props.elevated as boolean}
+          variant={props.variant as 'elevated' | 'flat'}
           interactive={props.interactive as boolean}
         >
           <Card.Header>

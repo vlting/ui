@@ -1,18 +1,18 @@
 import { styled } from '../../config'
 
 export const Kbd = styled('kbd', {
-  stl: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: '$code',
-    bg: '$surface2',
-    borderWidth: '$widthBase',
-    borderStyle: '$styleDefault',
-    borderColor: '$primaryMin',
-    borderBottomWidth: 'medium',
-    color: '$color',
-  },
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontFamily: '$code',
+  bg: '$surface2',
+  borderWidth: '$widthBase',
+  borderStyle: '$styleDefault',
+  borderColor: '$primary1',
+  borderBottomWidth: 'medium',
+  color: '$color',
+}, {
+  name: 'Kbd',
   variants: {
     size: {
       sm: {
@@ -34,7 +34,6 @@ export const Kbd = styled('kbd', {
   defaultVariants: {
     size: 'md',
   },
-  styleName: 'Kbd',
 })
 
 export type KbdProps = { children: string; size?: 'sm' | 'md' }

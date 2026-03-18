@@ -1,10 +1,10 @@
 import { styled } from '../../config'
 
 export const SubHeading = styled('h2', {
-  stl: {
-    color: '$defaultHeading',
-    typo: '$subHeading',
-  },
+  color: '$defaultHeading',
+  typo: '$subHeading',
+}, {
+  name: 'SubHeading',
   variants: {
     flat: {
       true: {
@@ -12,5 +12,4 @@ export const SubHeading = styled('h2', {
       },
     },
   },
-  styleName: 'SubHeading',
 })

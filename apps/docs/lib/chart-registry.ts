@@ -24,23 +24,23 @@ const sampleData = `const data = [
 ]
 
 const chartConfig = {
-  desktop: { label: "Desktop", color: "$blue9" },
-  mobile: { label: "Mobile", color: "$green9" },
+  desktop: { label: "Desktop", color: "$aqua9" },
+  mobile: { label: "Mobile", color: "$forest9" },
 }`
 
 const pieData = `const data = [
-  { browser: "Chrome", visitors: 275, fill: "$blue9" },
-  { browser: "Safari", visitors: 200, fill: "$green9" },
-  { browser: "Firefox", visitors: 187, fill: "$orange9" },
-  { browser: "Edge", visitors: 173, fill: "$purple9" },
+  { browser: "Chrome", visitors: 275, fill: "$aqua9" },
+  { browser: "Safari", visitors: 200, fill: "$forest9" },
+  { browser: "Firefox", visitors: 187, fill: "$amber9" },
+  { browser: "Edge", visitors: 173, fill: "$plum9" },
   { browser: "Other", visitors: 90, fill: "$gray9" },
 ]
 
 const chartConfig = {
-  Chrome: { label: "Chrome", color: "$blue9" },
-  Safari: { label: "Safari", color: "$green9" },
-  Firefox: { label: "Firefox", color: "$orange9" },
-  Edge: { label: "Edge", color: "$purple9" },
+  Chrome: { label: "Chrome", color: "$aqua9" },
+  Safari: { label: "Safari", color: "$forest9" },
+  Firefox: { label: "Firefox", color: "$amber9" },
+  Edge: { label: "Edge", color: "$plum9" },
   Other: { label: "Other", color: "$gray9" },
 }`
 
@@ -53,28 +53,28 @@ const radarData = `const data = [
 ]
 
 const chartConfig = {
-  desktop: { label: "Desktop Team", color: "$blue9" },
-  mobile: { label: "Mobile Team", color: "$green9" },
+  desktop: { label: "Desktop Team", color: "$aqua9" },
+  mobile: { label: "Mobile Team", color: "$forest9" },
 }`
 
 const radialData = `const data = [
-  { name: "Progress", value: 75, fill: "$blue9" },
+  { name: "Progress", value: 75, fill: "$aqua9" },
 ]
 
 const chartConfig = {
-  Progress: { label: "Progress", color: "$blue9" },
+  Progress: { label: "Progress", color: "$aqua9" },
 }`
 
 const radialStackedData = `const data = [
-  { name: "Chrome", value: 275, fill: "$blue9" },
-  { name: "Safari", value: 200, fill: "$green9" },
-  { name: "Firefox", value: 187, fill: "$orange9" },
+  { name: "Chrome", value: 275, fill: "$aqua9" },
+  { name: "Safari", value: 200, fill: "$forest9" },
+  { name: "Firefox", value: 187, fill: "$amber9" },
 ]
 
 const chartConfig = {
-  Chrome: { label: "Chrome", color: "$blue9" },
-  Safari: { label: "Safari", color: "$green9" },
-  Firefox: { label: "Firefox", color: "$orange9" },
+  Chrome: { label: "Chrome", color: "$aqua9" },
+  Safari: { label: "Safari", color: "$forest9" },
+  Firefox: { label: "Firefox", color: "$amber9" },
 }`
 
 const negativeData = `const data = [
@@ -87,7 +87,7 @@ const negativeData = `const data = [
 ]
 
 const chartConfig = {
-  value: { label: "Revenue", color: "$blue9" },
+  value: { label: "Revenue", color: "$aqua9" },
 }`
 
 const registry: ChartEntry[] = [

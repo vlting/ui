@@ -34,6 +34,7 @@ export const pseudoClassProps = {
   conicGradient: true,
 
   filter: true,
+  backdropFilter: true,
   mask: true,
   borderImage: true,
   borderSpacing: true,

@@ -1,42 +1,37 @@
-import type { ReactNode } from 'react'
+import { type ComponentPropsWithRef, type ReactNode, forwardRef } from 'react'
 import { VisuallyHidden } from '../../stl-react/src/primitives/VisuallyHidden/VisuallyHidden'
 import { Spinner } from '../../stl-react/src/primitives/Spinner/Spinner'
-import { styled, props, options } from '../../stl-react/src/config'
+import { styled, options } from '../../stl-react/src/config'
 
-const ButtonSpinner = styled('span', {
-  stl: { position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'center' },
-})
+const ButtonSpinner = styled('span', { position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'center' })
 
-const ButtonContent = styled('span', {
-  stl: { display: 'contents' },
+const ButtonContent = styled('span', { display: 'contents' }, {
+  name: 'ButtonContent',
   variants: {
-    hidden: { true: { visibility: 'hidden' } },
+    hidden: { true: { visibility: 'hidden', } },
   },
 })
 
 // ─── Button ──────────────────────────────────────────────────────────────────
-export const Button = styled('button', {
-  stl: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '$8',
-    borderRadius: '$button',
-    fontFamily: '$body',
-    fontWeight: '$500',
-    cursor: 'pointer',
-    outline: 'none',
-    ':focus': {
-      outlineWidth: '$widthBase',
-      outlineStyle: 'solid',
-      outlineOffset: '$offsetDefault',
-    },
-    ':pressed': { transform: 'scale(0.98)' },
-    lowMotion: {
-      transition: 'none',
-      ':pressed': { transform: 'none' },
-    },
+
+const ButtonBase = styled('button', {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '$8',
+  borderRadius: '$button',
+  fontFamily: '$body',
+  fontWeight: '$500',
+  cursor: 'pointer',
+  outline: 'none',
+  ':focus': { outlineOffset: '$offsetDefault' },
+  ':pressed': { transform: 'scale(0.98)' },
+  lowMotion: {
+    transition: 'none',
+    ':pressed': { transform: 'none' },
   },
+}, {
+  name: 'Button',
   variants: {
     theme: options('primary', 'secondary', 'neutral', 'destructive'),
     variant: {
@@ -47,11 +42,14 @@ export const Button = styled('button', {
       link: { border: 'none' },
     },
     size: {
-      xs: { height: '$28', py: '$4', px: '$8', fontSize: '$buttonTiny' },
-      sm: { height: '$32', py: '$8', px: '$12', fontSize: '$buttonSmall' },
+      xs: { height: '$28', py: '$4', px: '$12', fontSize: '$buttonTiny' },
+      sm: { height: '$32', py: '$8', px: '$16', fontSize: '$buttonSmall' },
       md: { height: '$36', py: '$buttonBasePy', px: '$buttonBasePx', fontSize: '$button' },
       lg: { height: '$40', py: '$12', px: '$24', fontSize: '$buttonLarge' },
-      icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button' },
+      icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button', },
+    },
+    pill: {
+      true: { radius: '$pill' },
     },
     disabled: {
       true: { opacity: '0.5', cursor: 'not-allowed', pointerEvents: 'none' },
@@ -66,7 +64,8 @@ export const Button = styled('button', {
       when: { theme: 'primary', variant: 'solid' },
       stl: {
         bg: '$primary9', color: '$primaryText9',
-        ':interact': { bg: '$primary10', color: '$primaryText10' },
+        backgroundImage: 'var(--stl-gradient-primary, none)',
+        ':interact': { bg: '$primary10', color: '$primaryText10', filter: 'brightness(1.15)' },
         ':focus': { outline: '$primaryMax' },
       },
     },
@@ -81,8 +80,8 @@ export const Button = styled('button', {
     {
       when: { theme: 'primary', variant: 'outline' },
       stl: {
-        bg: 'transparent', border: '$primary', color: '$primaryText1',
-        ':interact': { bg: '$primary9', color: '$primaryText9', borderColor: '$primary' },
+        bg: 'transparent', border: '$primary9', borderWidth: '$widthMin', color: '$primaryText1',
+        ':interact': { bg: '$primary9', color: '$primaryText9', borderColor: '$primary9' },
         ':focus': { outline: '$primary' },
       },
     },
@@ -108,7 +107,8 @@ export const Button = styled('button', {
       when: { theme: 'secondary', variant: 'solid' },
       stl: {
         bg: '$secondary9', color: '$secondaryText9',
-        ':interact': { bg: '$secondary10', color: '$secondaryText10' },
+        backgroundImage: 'var(--stl-gradient-secondary, none)',
+        ':interact': { bg: '$secondary10', color: '$secondaryText10', filter: 'brightness(1.15)' },
         ':focus': { outline: '$secondaryMax' },
       },
     },
@@ -123,8 +123,8 @@ export const Button = styled('button', {
     {
       when: { theme: 'secondary', variant: 'outline' },
       stl: {
-        bg: 'transparent', border: '$secondary', color: '$secondaryText1',
-        ':interact': { bg: '$secondary9', color: '$secondaryText9', borderColor: '$secondary' },
+        bg: 'transparent', border: '$secondary9', borderWidth: '$widthMin', color: '$secondaryText1',
+        ':interact': { bg: '$secondary9', color: '$secondaryText9', borderColor: '$secondary9' },
         ':focus': { outline: '$secondary' },
       },
     },
@@ -150,7 +150,8 @@ export const Button = styled('button', {
       when: { theme: 'neutral', variant: 'solid' },
       stl: {
         bg: '$neutral9', color: '$neutralText9',
-        ':interact': { bg: '$neutral10', color: '$neutralText10' },
+        backgroundImage: 'var(--stl-gradient-neutral, none)',
+        ':interact': { bg: '$neutral10', color: '$neutralText10', filter: 'brightness(1.15)' },
         ':focus': { outline: '$neutralMax' },
       },
     },
@@ -165,8 +166,8 @@ export const Button = styled('button', {
     {
       when: { theme: 'neutral', variant: 'outline' },
       stl: {
-        bg: 'transparent', border: '$neutral', color: '$neutralText1',
-        ':interact': { bg: '$neutral9', color: '$neutralText9', borderColor: '$neutral' },
+        bg: 'transparent', border: '$neutral9', borderWidth: '$widthMin', color: '$neutralText1',
+        ':interact': { bg: '$neutral9', color: '$neutralText9', borderColor: '$neutral9' },
         ':focus': { outline: '$neutral' },
       },
     },
@@ -207,8 +208,8 @@ export const Button = styled('button', {
     {
       when: { theme: 'destructive', variant: 'outline' },
       stl: {
-        bg: 'transparent', border: '$error', color: '$errorText1',
-        ':interact': { bg: '$error9', color: '$errorText9', borderColor: '$error' },
+        bg: 'transparent', border: '$error9', borderWidth: '$widthMin', color: '$errorText1',
+        ':interact': { bg: '$error9', color: '$errorText9', borderColor: '$error9' },
         ':focus': { outline: '$error' },
       },
     },
@@ -229,24 +230,32 @@ export const Button = styled('button', {
       },
     },
 
+    // ── Pill + icon → circle ────────────────────────────
+    { when: { pill: 'true', size: 'icon' }, stl: { radius: '$round' } },
+
     // ── Loading overrides disabled opacity ─────────────
     { when: { disabled: 'true', loading: 'true' }, stl: { opacity: '1', cursor: 'wait' } },
   ],
   defaultVariants: { theme: 'primary', variant: 'solid', size: 'md' },
-  mapProps: (props) => ({
-    ...props,
-    type: 'button',
-    disabled: props.disabled ?? props.loading ?? false,
-    'aria-busy': props.loading || undefined,
-    onClick: (props.disabled ?? props.loading) ? undefined : props.onClick,
-  }),
-  ...props<{
-    loading?: boolean
-    prefix?: ReactNode
-    suffix?: ReactNode
-  }>('loading', 'prefix', 'suffix'),
-  template: ({ children, loading, prefix, suffix }) => (
-    <>
+})
+
+export type ButtonProps = ComponentPropsWithRef<typeof ButtonBase> & {
+  loading?: boolean
+  prefix?: ReactNode
+  suffix?: ReactNode
+}
+
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ loading, prefix, suffix, children, disabled, onClick, ...rest }, ref) => (
+    <ButtonBase
+      ref={ref}
+      type="button"
+      disabled={disabled ?? loading ?? false}
+      loading={loading}
+      aria-busy={loading || undefined}
+      onClick={(disabled ?? loading) ? undefined : onClick}
+      {...rest}
+    >
       {loading && (
         <ButtonSpinner>
           <Spinner size="sm" />
@@ -258,7 +267,7 @@ export const Button = styled('button', {
         {children}
         {suffix}
       </ButtonContent>
-    </>
+    </ButtonBase>
   ),
-  styleName: 'Button',
-})
+)
+Button.displayName = 'Button'

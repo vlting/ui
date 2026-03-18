@@ -45,14 +45,14 @@ Single-component API; no compound sub-components are exposed.
 
 ### Motion
 
-- Indicator animates width changes (150ms ease transition).
+- Indicator animates width changes (150ms linear transition).
 - Respects `prefers-reduced-motion` via STL `lowMotion` — disables transition.
 
 ---
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders `div` with `role="progressbar"` via `mapProps`.
+- **Semantic element:** Renders `div` with `role="progressbar"` applied directly in the `forwardRef` component.
 - **ARIA attributes:** `aria-valuenow` (current value), `aria-valuemin` (0), `aria-valuemax` (max), `aria-label` (consumer-provided).
 - **Focus management:** Not focusable — purely informational.
 - **Screen reader announcements:** Value communicated via ARIA value attributes.
@@ -61,7 +61,7 @@ Single-component API; no compound sub-components are exposed.
 
 ## 6. Styling
 
-- **Design tokens used:** Track uses `$borderColor` background; indicator uses `$primary9`. Size variant maps: `sm` = `$4`, `md` = `$8`, `lg` = `$12` height. Border radius `$field` (theme-responsive). Dynamic width via `stl={{ width }}` on indicator.
+- **Design tokens used:** Track uses `$maxAlpha4` background; indicator uses `$primary9`. Size variant maps: `sm` = `$4`, `md` = `$8`, `lg` = `$12` height. Border radius `$field` (theme-responsive). Dynamic width via `stl={{ width }}` on indicator.
 - **Responsive behavior:** Full-width by default; size can be changed per breakpoint.
 - **Dark mode:** Token-based; resolves automatically.
 

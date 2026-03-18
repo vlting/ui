@@ -6,38 +6,26 @@ import { Text } from '../../stl-react/src/primitives/Text/Text'
 import { styled } from '../../stl-react/src/config'
 import type { SocialProvider } from '../_shared/types'
 
-const FooterLinkBtn = styled(
-  'button',
-  {
-    stl: {
-      display: 'inline',
-      appearance: 'none',
-      border: 'none',
-      background: 'none',
-      padding: '0',
-      margin: '0',
-      fontFamily: 'inherit',
-      fontSize: 'inherit',
-      color: 'var(--color10)',
-      cursor: 'pointer',
-      textDecoration: 'underline',
-      outline: 'none',
-    },
-    styleName: 'AuthFooterLinkButton',
-  },
-)
+const FooterLinkBtn = styled('button', {
+  display: 'inline',
+  appearance: 'none',
+  border: 'none',
+  background: 'none',
+  padding: '0',
+  margin: '0',
+  fontFamily: 'inherit',
+  fontSize: 'inherit',
+  color: 'var(--color10)',
+  cursor: 'pointer',
+  textDecoration: 'underline',
+  outline: 'none',
+}, { name: 'AuthFooterLinkButton' })
 
-const FooterLinkA = styled(
-  'a',
-  {
-    stl: {
-      color: 'var(--color10)',
-      textDecoration: 'underline',
-      outline: 'none',
-    },
-    styleName: 'AuthFooterLinkAnchor',
-  },
-)
+const FooterLinkA = styled('a', {
+  color: 'var(--color10)',
+  textDecoration: 'underline',
+  outline: 'none',
+}, { name: 'AuthFooterLinkAnchor' })
 
 // -- AuthFormCard --
 

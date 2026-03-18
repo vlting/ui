@@ -22,8 +22,8 @@ const monthlyData: ChartDataPoint[] = [
 ]
 
 const twoSeriesConfig: ChartConfig = {
-  desktop: { label: 'Desktop', color: '$blue8' },
-  mobile: { label: 'Mobile', color: '$green8' },
+  desktop: { label: 'Desktop', color: '$aqua8' },
+  mobile: { label: 'Mobile', color: '$forest8' },
 }
 
 const singleSeriesConfig: ChartConfig = {
@@ -39,11 +39,11 @@ const pieData: ChartDataPoint[] = [
 ]
 
 const pieConfig: ChartConfig = {
-  Chrome: { label: 'Chrome', color: '$blue8' },
-  Safari: { label: 'Safari', color: '$green8' },
-  Firefox: { label: 'Firefox', color: '$orange8' },
-  Edge: { label: 'Edge', color: '$purple8' },
-  Other: { label: 'Other', color: '$red8' },
+  Chrome: { label: 'Chrome', color: '$aqua8' },
+  Safari: { label: 'Safari', color: '$forest8' },
+  Firefox: { label: 'Firefox', color: '$amber8' },
+  Edge: { label: 'Edge', color: '$plum8' },
+  Other: { label: 'Other', color: '$tomato8' },
 }
 
 const radarData: ChartDataPoint[] = [
@@ -56,8 +56,8 @@ const radarData: ChartDataPoint[] = [
 ]
 
 const radarConfig: ChartConfig = {
-  y: { label: 'Our Product', color: '$blue8' },
-  competitor: { label: 'Competitor', color: '$red8' },
+  y: { label: 'Our Product', color: '$aqua8' },
+  competitor: { label: 'Competitor', color: '$tomato8' },
 }
 
 const radialData: ChartDataPoint[] = [{ x: 'Progress', y: 72 }]
@@ -246,7 +246,7 @@ import { Chart, BarChart } from '@vlting/ui/components'
 import type { ChartConfig, ChartDataPoint } from '@vlting/ui/components'
 
 const config: ChartConfig = {
-  revenue: { label: 'Revenue', color: '$blue8' },
+  revenue: { label: 'Revenue', color: '$aqua8' },
 }
 
 const data: ChartDataPoint[] = [

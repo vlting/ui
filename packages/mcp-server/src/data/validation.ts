@@ -38,7 +38,7 @@ const rules: ValidationRule[] = [
       /(?:color|backgroundColor)\s*[:=]\s*["'](?:red|blue|green|gray|grey|white|black|orange|yellow|purple|pink)["']/g,
     message: 'Named color used. Use semantic tokens for brand compatibility.',
     suggestion:
-      'Replace with "$color", "$colorSubtitle", or a palette token like "$blue9"',
+      'Replace with "$color", "$colorSubtitle", or a palette token like "$aqua9"',
   },
   // Hardcoded spacing
   {

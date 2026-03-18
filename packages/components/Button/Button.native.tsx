@@ -23,7 +23,7 @@ const ButtonFrame = styled(
       default: { backgroundColor: '$primary9' },
       solid: { backgroundColor: '$primary9' },
       secondary: { backgroundColor: '$color3' },
-      destructive: { backgroundColor: '$red9' },
+      destructive: { backgroundColor: '$tomato9' },
       outline: {
         backgroundColor: 'transparent',
         borderWidth: 1,
@@ -41,6 +41,9 @@ const ButtonFrame = styled(
     },
     disabled: {
       true: { opacity: 0.5 },
+    },
+    pill: {
+      true: { borderRadius: 9999 },
     },
   },
   'Button',
@@ -141,6 +144,7 @@ export interface ButtonProps {
   children?: React.ReactNode
   variant?: ButtonVariant
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon'
+  pill?: boolean
   loading?: boolean
   disabled?: boolean
   onPress?: () => void
@@ -148,7 +152,7 @@ export interface ButtonProps {
 }
 
 const ButtonBase = forwardRef<View, ButtonProps>(function ButtonBase(
-  { loading, children, disabled, variant = 'default', size = 'md', onPress, ...props },
+  { loading, children, disabled, pill, variant = 'default', size = 'md', onPress, ...props },
   ref,
 ) {
   const isDisabled = disabled ?? loading ?? false
@@ -161,6 +165,7 @@ const ButtonBase = forwardRef<View, ButtonProps>(function ButtonBase(
         onPress={isDisabled ? undefined : onPress}
         variant={variant}
         size={size}
+        pill={pill}
         accessibilityRole="button"
         accessibilityState={{ disabled: isDisabled, busy: loading || false }}
         {...props}

@@ -93,7 +93,7 @@ export const BREAKPOINT_KEYS = Object.keys(breakpoints)
 
 export type Breakpoints = keyof typeof breakpoints
 
-export const RADIUS_KEYS = ['px', 'base', 'none', 'round', 'pill', 'field', 'button']
+export const RADIUS_KEYS = ['px', 'base', 'none', 'round', 'pill', 'field', 'button', 'card', 'badge']
 
 // TYPOGRAPHY /////////////////////////////////////////////////////////////////
 export enum FontSource {
