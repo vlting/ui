@@ -119,7 +119,7 @@ export const ToggleBar = styled('div', {
   mb: '$16',
 }, { name: 'ToggleBar' })
 
-const ToggleGroup = styled('div', {
+export const ToggleGroup = styled('div', {
   display: 'flex',
   gap: '$4',
   p: '$4',

@@ -2,12 +2,12 @@ import { type ReactNode, useState } from 'react'
 import { Avatar, Badge, Button, Item } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
-import { DemoCard, SectionHeading, SectionTitle, StackY, ToggleBar, VariantToggle, type SectionProps } from './shared'
+import { DemoCard, SectionHeading, SectionTitle, StackY, ToggleBar, ToggleGroup, VariantToggle, type SectionProps } from './shared'
 
 const ITEM_VARIANTS = ['ghost', 'subtle', 'outline'] as const
 const ITEM_SIZES = ['sm', 'md', 'lg'] as const
 const ITEM_THEMES = ['primary', 'secondary', 'neutral'] as const
-const ITEM_ALIGNS = ['center', 'title'] as const
+const ITEM_ALIGNS = ['top', 'center'] as const
 
 const TrailingLabel = styled('span', {
   fontSize: '$small',
@@ -74,10 +74,12 @@ export function ItemSection({ sectionRef }: SectionProps) {
         <VariantToggle options={ITEM_VARIANTS} value={variant} onChange={setVariant} />
         <VariantToggle options={ITEM_SIZES} value={size} onChange={setSize} />
         <VariantToggle options={ITEM_ALIGNS} value={align} onChange={setAlign} />
-        <Button size="xs" theme="neutral" variant={interactive ? 'solid' : 'subtle'} onClick={() => setInteractive((i) => !i)}>interactive</Button>
-        <Button size="xs" theme="neutral" variant={showMedia ? 'solid' : 'subtle'} onClick={() => setShowMedia((m) => !m)}>media</Button>
-        <Button size="xs" theme="neutral" variant={showDescription ? 'solid' : 'subtle'} onClick={() => setShowDescription((d) => !d)}>description</Button>
-        <Button size="xs" theme="neutral" variant={showActions ? 'solid' : 'subtle'} onClick={() => setShowActions((a) => !a)}>actions</Button>
+        <ToggleGroup>
+          <Button size="xs" theme="neutral" variant={interactive ? 'solid' : 'subtle'} onClick={() => setInteractive((i) => !i)}>interactive</Button>
+          <Button size="xs" theme="neutral" variant={showMedia ? 'solid' : 'subtle'} onClick={() => setShowMedia((m) => !m)}>media</Button>
+          <Button size="xs" theme="neutral" variant={showDescription ? 'solid' : 'subtle'} onClick={() => setShowDescription((d) => !d)}>description</Button>
+          <Button size="xs" theme="neutral" variant={showActions ? 'solid' : 'subtle'} onClick={() => setShowActions((a) => !a)}>actions</Button>
+        </ToggleGroup>
       </ToggleBar>
       <ThemeRow>
         {ITEM_THEMES.map((theme) => (
