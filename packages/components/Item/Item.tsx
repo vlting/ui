@@ -36,15 +36,15 @@ const ItemContent = styled('div', {
 }, { name: 'ItemContent' })
 
 const ItemTitle = styled('span', {
-  fontWeight: '$500',
+  fontWeight: '$600',
   fontSize: '$p',
   lineHeight: '$listItem',
   color: 'inherit',
 }, { name: 'ItemTitle' })
 
 const ItemDescription = styled('span', {
-  fontSize: '$small',
-  fontWeight: '$400',
+  fontSize: '$13',
+  fontWeight: '$300',
   color: '$neutralText4',
 }, {
   name: 'ItemDescription',

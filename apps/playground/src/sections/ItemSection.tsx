@@ -1,5 +1,5 @@
 import { type ReactNode, useState } from 'react'
-import { Badge, Button, Item } from '@vlting/ui'
+import { Avatar, Badge, Button, Item } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
 import { ButtonRow, DemoCard, SectionHeading, SectionTitle, StackY, type SectionProps } from './shared'
@@ -28,24 +28,10 @@ const ThemeGroup = styled('div', {
 
 const ColorDot = styled('span', {
   display: 'inline-block',
-  width: '10px',
-  height: '10px',
+  width: '$8',
+  height: '$8',
   radius: '$badge',
 }, { name: 'ColorDot' })
-
-const LetterAvatar = styled('span', {
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '28px',
-  height: '28px',
-  radius: '$badge',
-  bg: '$neutral4',
-  color: '$neutralText3',
-  fontSize: '$buttonTiny',
-  fontWeight: '$600',
-  fontFamily: '$body',
-}, { name: 'LetterAvatar' })
 
 type DemoItem = {
   title: string
@@ -61,9 +47,9 @@ const themeItems: Record<typeof ITEM_THEMES[number], DemoItem[]> = {
     { title: 'Preview', description: 'auto — on demand', media: <ColorDot stl={{ bg: '$neutral9' }} />, action: <Badge theme="neutral" variant="subtle" size="sm">Idle</Badge> },
   ],
   secondary: [
-    { title: 'Alice Chen', description: 'Engineering lead', media: <LetterAvatar>AC</LetterAvatar>, action: <TrailingLabel>→</TrailingLabel> },
-    { title: 'Bob Martinez', description: 'Product designer', media: <LetterAvatar>BM</LetterAvatar>, action: <TrailingLabel>→</TrailingLabel> },
-    { title: 'Carol Singh', description: 'DevOps engineer', media: <LetterAvatar>CS</LetterAvatar>, action: <TrailingLabel>→</TrailingLabel> },
+    { title: 'Alice Chen', description: 'Engineering lead', media: <Avatar size="xs" fallback="AC" />, action: <TrailingLabel>→</TrailingLabel> },
+    { title: 'Bob Martinez', description: 'Product designer', media: <Avatar size="xs" fallback="BM" />, action: <TrailingLabel>→</TrailingLabel> },
+    { title: 'Carol Singh', description: 'DevOps engineer', media: <Avatar size="xs" fallback="CS" />, action: <TrailingLabel>→</TrailingLabel> },
   ],
   neutral: [
     { title: 'Account settings', description: 'Manage your account preferences', media: '⚙️', action: <Button size="xs" theme="neutral" variant="outline">Edit</Button> },
@@ -169,11 +155,11 @@ export function ItemSection({ sectionRef }: SectionProps) {
                   theme={theme}
                   variant={variant}
                   size={size}
-                  align={!showDescription ? 'title' : align}
+                  align={showDescription ? 'title' : align}
                   interactive={interactive || undefined}
                 >
                   {showMedia && (
-                    <Item.Leading stl={!showDescription ? { pt: '$4' } : undefined}>
+                    <Item.Leading stl={showDescription ? { pt: '$4' } : undefined}>
                       {item.media}
                     </Item.Leading>
                   )}
