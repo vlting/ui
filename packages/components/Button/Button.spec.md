@@ -31,13 +31,14 @@ Button is created via `styled('button', opts)` directly — there is no `ButtonF
 - **`ButtonSpinner`** — `styled('span')` with `position: 'absolute'`, `display: 'flex'`, centered. Renders the `<Spinner>` overlay during loading.
 - **`ButtonContent`** — `styled('span')` with `display: 'contents'`. Wraps `prefix`, `children`, and `suffix`. Has a `hidden` variant that sets `visibility: 'hidden'` during loading (so layout is preserved while spinner shows).
 
-### Two-axis variant model
+### Variant model
 
 - **`theme`** — Controls which color palette is used: `primary | secondary | neutral | destructive`.
 - **`variant`** — Controls how colors are applied: `solid | subtle | outline | ghost | link`.
 - **`size`** — Controls dimensions: `xs | sm | md | lg | icon`.
+- **`pill`** — Controls border shape. When `true`, applies `$pill` radius (fully-rounded ends). When combined with `size: 'icon'`, resolves to `$round` (circle). Default: `false`.
 
-Default: `{ theme: 'primary', variant: 'solid', size: 'md' }`.
+Default: `{ theme: 'primary', variant: 'solid', size: 'md', pill: false }`.
 
 ### Color token pattern
 
@@ -114,6 +115,7 @@ When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner>` and `<Visua
 - **Focus:** `$outlineColor` for ring, `$widthBase` width, `$offsetDefault` offset.
 - **Reduced motion:** `lowMotion` condition zeroes transitions and transforms.
 - **Dark mode:** All tokens resolve per color mode. No hardcoded hex/pixel values.
+- **Shape tokens:** `$pill` (400rem) for pill radius, `$round` (50%) for icon+pill circle. Both from the `radius` scale.
 
 ---
 
@@ -121,6 +123,7 @@ When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner>` and `<Visua
 
 - **What can contain this component:** Any layout primitive, form containers.
 - **What this component can contain:** Text, icons, or any ReactNode via `children`, `prefix`, `suffix`.
+- **Shape:** For pill-shaped buttons use the `pill` prop. For other radius overrides use `stl={{ radius: '$token' }}`.
 - **Anti-patterns:**
   - Do not nest interactive elements inside Button.
   - Do not use Button as a layout container.
@@ -136,6 +139,7 @@ When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner>` and `<Visua
 - Removing `aria-busy` when loading.
 - Changing loading behavior (replacing children with Spinner).
 - Removing ref forwarding or changing underlying element.
+- Removing `pill` prop from `ButtonProps`.
 
 ---
 
@@ -150,6 +154,8 @@ When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner>` and `<Visua
   - Each variant (`solid`, `subtle`, `outline`, `ghost`, `link`) renders without errors.
   - Each size (`xs`, `sm`, `md`, `lg`, `icon`) renders without errors.
   - `prefix` and `suffix` render alongside children.
+  - Renders with pill radius when `pill` is `true`.
+  - Renders as circle when `pill` and `size='icon'`.
 - **Accessibility tests:**
   - Renders as native `<button>` with `type="button"`.
   - `aria-busy` set when loading.
@@ -174,3 +180,4 @@ Web and native implementations intentionally diverge. This is by design, not a b
 | **Ref forwarding** | Implicit via `styled()` | Explicit `forwardRef` wrapper |
 | **Loading indicator** | `<Spinner>` + `<VisuallyHidden>` in `ButtonSpinner` overlay | `<ActivityIndicator>` replacing children |
 | **Sub-elements** | `ButtonSpinner`, `ButtonContent` (internal) | `ButtonFrame`, `ButtonTextFrame`, `ButtonIconFrame` (internal); `Button.Text`, `Button.Icon` (public) |
+| **Pill shape** | `$pill` (400rem) / `$round` (50%) tokens via STL | `borderRadius: 9999` (raw value, existing native pattern) |
