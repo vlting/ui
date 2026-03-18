@@ -15,7 +15,7 @@ const themes = [
 const variantStyles = {
   solid: (t: string) => ({ bg: `$${t}9`, color: `$${t}Text9` }) as STL,
   subtle: (t: string) => ({ bg: `$${t}3`, color: `$${t}Text3` }) as STL,
-  outline: (t: string) => ({ bg: 'transparent', border: `$${t}9`, borderWidth: '$widthMin', color: `$${t}Text3` }) as STL,
+  outline: (t: string) => ({ bg: `$${t}3`, border: `$${t}5`, borderWidth: '$widthMin', color: `$${t}Text3` }) as STL,
 }
 
 export const Badge = styled('span', {
