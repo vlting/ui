@@ -54,6 +54,25 @@ export function ButtonSection({ sectionRef }: SectionProps) {
           ))}
         </ButtonRow>
       </Section>
+
+      <Section>
+        <SectionTitle>Pill</SectionTitle>
+        <ButtonRow>
+          {VARIANTS.map((variant) => (
+            <Button
+              key={variant}
+              pill
+              theme="primary"
+              variant={variant}
+              size="md"
+              stl={{ minWidth: '$80' }}
+            >
+              {variant}
+            </Button>
+          ))}
+          <Button pill size="icon">★</Button>
+        </ButtonRow>
+      </Section>
     </DemoCard>
   )
 }
