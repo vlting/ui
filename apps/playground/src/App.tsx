@@ -18,7 +18,7 @@ const PAGES = ['Components', 'Demo'] as const
 type Page = typeof PAGES[number]
 
 const SECTIONS = [
-  'Button', 'Alert', 'Progress', 'Spinner', 'Empty', 'Card', 'Avatar', 'Badge', 'Item',
+  'Button', 'Alert', 'Card', 'Avatar', 'Badge', 'Item', 'Progress', 'Spinner', 'Empty',
 ] as const
 
 const THEME_PRESETS: Record<string, { label: string; theme?: Readonly<Theme> }> = {
