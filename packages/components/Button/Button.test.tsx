@@ -164,6 +164,36 @@ describe('Button', () => {
     })
   })
 
+  describe('Pill variant', () => {
+    it('renders with pill prop without errors', () => {
+      render(<Button pill>Pill</Button>)
+      expect(screen.getByRole('button')).toBeTruthy()
+    })
+
+    it('renders pill with each size without errors', () => {
+      const sizes = ['xs', 'sm', 'md', 'lg', 'icon'] as const
+      for (const size of sizes) {
+        const { unmount } = render(<Button pill size={size}>Btn</Button>)
+        expect(screen.getByRole('button')).toBeTruthy()
+        unmount()
+      }
+    })
+
+    it('renders pill with each variant without errors', () => {
+      const variants = ['solid', 'subtle', 'outline', 'ghost', 'link'] as const
+      for (const variant of variants) {
+        const { unmount } = render(<Button pill variant={variant}>Btn</Button>)
+        expect(screen.getByRole('button')).toBeTruthy()
+        unmount()
+      }
+    })
+
+    it('renders pill with icon size without errors', () => {
+      render(<Button pill size="icon">X</Button>)
+      expect(screen.getByRole('button')).toBeTruthy()
+    })
+  })
+
   describe('Focus', () => {
     it('can receive focus', () => {
       render(<Button>Focus</Button>)
