@@ -1,38 +1,37 @@
-import type { ReactNode } from 'react'
+import { type ComponentPropsWithRef, type ReactNode, forwardRef } from 'react'
 import { VisuallyHidden } from '../../stl-react/src/primitives/VisuallyHidden/VisuallyHidden'
 import { Spinner } from '../../stl-react/src/primitives/Spinner/Spinner'
-import { styled, props, options } from '../../stl-react/src/config'
+import { styled, options } from '../../stl-react/src/config'
 
-const ButtonSpinner = styled('span', {
-  stl: { position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'center' },
-})
+const ButtonSpinner = styled('span', { position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'center' })
 
-const ButtonContent = styled('span', {
-  stl: { display: 'contents' },
+const ButtonContent = styled('span', { display: 'contents' }, {
+  name: 'ButtonContent',
   variants: {
     hidden: { true: { visibility: 'hidden', } },
   },
 })
 
 // ─── Button ──────────────────────────────────────────────────────────────────
-export const Button = styled('button', {
-  stl: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '$8',
-    borderRadius: '$button',
-    fontFamily: '$body',
-    fontWeight: '$500',
-    cursor: 'pointer',
-    outline: 'none',
-    ':focus': { outlineOffset: '$offsetDefault' },
-    ':pressed': { transform: 'scale(0.98)' },
-    lowMotion: {
-      transition: 'none',
-      ':pressed': { transform: 'none' },
-    },
+
+const ButtonBase = styled('button', {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '$8',
+  borderRadius: '$button',
+  fontFamily: '$body',
+  fontWeight: '$500',
+  cursor: 'pointer',
+  outline: 'none',
+  ':focus': { outlineOffset: '$offsetDefault' },
+  ':pressed': { transform: 'scale(0.98)' },
+  lowMotion: {
+    transition: 'none',
+    ':pressed': { transform: 'none' },
   },
+}, {
+  name: 'Button',
   variants: {
     theme: options('primary', 'secondary', 'neutral', 'destructive'),
     variant: {
@@ -232,20 +231,25 @@ export const Button = styled('button', {
     { when: { disabled: 'true', loading: 'true' }, stl: { opacity: '1', cursor: 'wait' } },
   ],
   defaultVariants: { theme: 'primary', variant: 'solid', size: 'md' },
-  mapProps: (props) => ({
-    ...props,
-    type: 'button',
-    disabled: props.disabled ?? props.loading ?? false,
-    'aria-busy': props.loading || undefined,
-    onClick: (props.disabled ?? props.loading) ? undefined : props.onClick,
-  }),
-  ...props<{
-    loading?: boolean
-    prefix?: ReactNode
-    suffix?: ReactNode
-  }>('loading', 'prefix', 'suffix'),
-  template: ({ children, loading, prefix, suffix }) => (
-    <>
+})
+
+export type ButtonProps = ComponentPropsWithRef<typeof ButtonBase> & {
+  loading?: boolean
+  prefix?: ReactNode
+  suffix?: ReactNode
+}
+
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ loading, prefix, suffix, children, disabled, onClick, ...rest }, ref) => (
+    <ButtonBase
+      ref={ref}
+      type="button"
+      disabled={disabled ?? loading ?? false}
+      loading={loading}
+      aria-busy={loading || undefined}
+      onClick={(disabled ?? loading) ? undefined : onClick}
+      {...rest}
+    >
       {loading && (
         <ButtonSpinner>
           <Spinner size="sm" />
@@ -257,7 +261,7 @@ export const Button = styled('button', {
         {children}
         {suffix}
       </ButtonContent>
-    </>
+    </ButtonBase>
   ),
-  styleName: 'Button',
-})
+)
+Button.displayName = 'Button'

@@ -1,29 +1,26 @@
-import type { ComponentPropsWithRef } from 'react'
-import { styled, props } from '../../stl-react/src/config'
+import { type ComponentPropsWithRef, forwardRef } from 'react'
+import { styled } from '../../stl-react/src/config'
 
 // ─── Internal ───────────────────────────────────────────────────────────────
 
 const ProgressIndicator = styled('div', {
-  stl: {
-    height: '100%',
-    borderRadius: '$field',
-    bg: '$primary9',
-    transition: 'width 150ms linear',
-    lowMotion: { transition: 'none' },
-  },
-  styleName: 'ProgressIndicator',
-})
+  height: '100%',
+  borderRadius: '$field',
+  bg: '$primary9',
+  transition: 'width 150ms linear',
+  lowMotion: { transition: 'none' },
+}, { name: 'ProgressIndicator' })
 
 // ─── Progress ───────────────────────────────────────────────────────────────
 
-export const Progress = styled('div', {
-  stl: {
-    display: 'block',
-    width: '100%',
-    bg: '$maxAlpha4',
-    borderRadius: '$field',
-    overflow: 'hidden',
-  },
+const ProgressBase = styled('div', {
+  display: 'block',
+  width: '100%',
+  bg: '$maxAlpha4',
+  borderRadius: '$field',
+  overflow: 'hidden',
+}, {
+  name: 'Progress',
   variants: {
     size: {
       sm: { height: '$4' },
@@ -32,25 +29,31 @@ export const Progress = styled('div', {
     },
   },
   defaultVariants: { size: 'md' },
-  mapProps: (props) => {
-    const max = props.max ?? 100
-    const value = props.value ?? 0
-    return {
-      ...props,
-      role: 'progressbar',
-      'aria-valuenow': value,
-      'aria-valuemin': 0,
-      'aria-valuemax': max,
-      'aria-label': props['aria-label'] ?? 'Progress',
-    }
-  },
-  ...props<{ value?: number; max?: number }>('value', 'max'),
-  template: ({ value, max }) => {
-    const pct = Math.min(100, ((value ?? 0) / (max ?? 100)) * 100)
-    return <ProgressIndicator stl={{ width: `${pct}%` }} />
-  },
-  styleName: 'Progress',
 })
 
-export type ProgressProps = ComponentPropsWithRef<typeof Progress>
-export type ProgressSize = NonNullable<ProgressProps['size']>
+export type ProgressProps = ComponentPropsWithRef<typeof ProgressBase> & {
+  value?: number
+  max?: number
+}
+
+export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
+  ({ value = 0, max = 100, ...rest }, ref) => {
+    const pct = Math.min(100, (value / max) * 100)
+    return (
+      <ProgressBase
+        ref={ref}
+        role="progressbar"
+        aria-valuenow={value}
+        aria-valuemin={0}
+        aria-valuemax={max}
+        aria-label={rest['aria-label'] ?? 'Progress'}
+        {...rest}
+      >
+        <ProgressIndicator stl={{ width: `${pct}%` }} />
+      </ProgressBase>
+    )
+  },
+)
+Progress.displayName = 'Progress'
+
+export type ProgressSize = NonNullable<ComponentPropsWithRef<typeof ProgressBase>['size']>

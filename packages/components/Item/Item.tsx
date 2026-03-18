@@ -4,62 +4,47 @@ import { styled } from '../../stl-react/src/config'
 // ─── Sub-components ─────────────────────────────────────────────────────────
 
 const ItemLeading = styled('div', {
-  stl: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: '0',
-  },
-  styleName: 'ItemLeading',
-})
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: '0',
+}, { name: 'ItemLeading' })
 
 const ItemContent = styled('div', {
-  stl: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '$2',
-    flex: '1',
-    minWidth: '0',
-  },
-  styleName: 'ItemContent',
-})
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$2',
+  flex: '1',
+  minWidth: '0',
+}, { name: 'ItemContent' })
 
 const ItemTitle = styled('span', {
-  stl: {
-    fontWeight: '$500',
-    fontSize: '$p',
-    color: '$neutralText3',
-  },
-  styleName: 'ItemTitle',
-})
+  fontWeight: '$500',
+  fontSize: '$p',
+  color: '$neutralText3',
+}, { name: 'ItemTitle' })
 
 const ItemDescription = styled('span', {
-  stl: {
-    fontSize: '$small',
-    color: '$neutralText4',
-  },
-  styleName: 'ItemDescription',
-})
+  fontSize: '$small',
+  color: '$neutralText4',
+}, { name: 'ItemDescription' })
 
 const ItemTrailing = styled('div', {
-  stl: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: '0',
-  },
-  styleName: 'ItemTrailing',
-})
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: '0',
+}, { name: 'ItemTrailing' })
 
 // ─── Item ───────────────────────────────────────────────────────────────────
 
 const ItemRoot = styled('div', {
-  stl: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '$12',
-    fontFamily: '$body',
-  },
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$12',
+  fontFamily: '$body',
+}, {
+  name: 'Item',
   variants: {
     size: {
       sm: { minHeight: '36px', py: '$4', px: '$8' },
@@ -89,7 +74,6 @@ const ItemRoot = styled('div', {
     ...p,
     tabIndex: p.interactive ? (p.tabIndex ?? 0) : p.tabIndex,
   }),
-  styleName: 'Item',
 })
 
 // ─── Export ─────────────────────────────────────────────────────────────────
