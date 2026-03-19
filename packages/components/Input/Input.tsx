@@ -13,7 +13,6 @@ const InputBase = styled('input', {
   borderRadius: '$field',
   width: '100%',
   outline: 'none',
-  '::placeholder': { color: '$neutral8' },
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
 }, {
   name: 'Input',
