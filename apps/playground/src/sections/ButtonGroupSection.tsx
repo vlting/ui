@@ -15,19 +15,19 @@ const ToggleRow = styled('div', {
 // ─── Icons ──────────────────────────────────────────────────────────────────
 
 const PlusIcon = () => (
-  <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor">
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
     <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z" />
   </svg>
 )
 
 const MinusIcon = () => (
-  <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor">
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
     <path d="M5 11H19V13H5V11Z" />
   </svg>
 )
 
 const MuteIcon = () => (
-  <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor">
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
     <path d="M5.88889 16H2C1.44772 16 1 15.5523 1 15V9C1 8.44772 1.44772 8 2 8H5.88889L11.1834 3.66815C11.3971 3.49809 11.7121 3.53357 11.8822 3.74731C11.9596 3.84507 12 3.96726 12 4.09317V19.9068C12 20.183 11.7761 20.4068 11.5 20.4068C11.3741 20.4068 11.2519 20.3665 11.1541 20.2891L5.88889 16ZM20.4142 12L23.9497 15.5355L22.5355 16.9497L19 13.4142L15.4645 16.9497L14.0503 15.5355L17.5858 12L14.0503 8.46447L15.4645 7.05025L19 10.5858L22.5355 7.05025L23.9497 8.46447L20.4142 12Z" />
   </svg>
 )
@@ -119,9 +119,9 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
               onValueChange={setFormats}
               aria-label="Text formatting"
             >
-              <Button value="bold" variant="outline" size={size} stl={{ fontWeight: '$700' }}>B</Button>
-              <Button value="italic" variant="outline" size={size} stl={{ fontStyle: 'italic' }}>I</Button>
-              <Button value="underline" variant="outline" size={size} stl={{ textDecoration: 'underline' }}>U</Button>
+              <Button value="bold" variant="outline" size={size} square stl={{ fontWeight: '$700' }}>B</Button>
+              <Button value="italic" variant="outline" size={size} square stl={{ fontStyle: 'italic' }}>I</Button>
+              <Button value="underline" variant="outline" size={size} square stl={{ textDecoration: 'underline' }}>U</Button>
             </ButtonGroup>
             <StateLabel>{JSON.stringify(formats)}</StateLabel>
           </ButtonRow>
