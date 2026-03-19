@@ -13,7 +13,7 @@ const Column = styled('div', {
 
 export function TypographySection({ sectionRef }: SectionProps) {
   return (
-    <Card ref={sectionRef} data-section="Typography" stl={{ mt: '$24' }}>
+    <Card ref={sectionRef} data-section="Typography">
       <Card.Header>
         <Card.Title>Typography</Card.Title>
       </Card.Header>
