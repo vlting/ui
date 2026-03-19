@@ -1,7 +1,13 @@
 import { useState } from 'react'
 import { Button, Card, Input, NativeSelect, Textarea, ToggleGroup } from '@vlting/ui'
 
+import { styled } from '@vlting/stl-react'
+
 import { ControlRow, SectionTitle, StackY, type SectionProps } from './shared'
+
+const ContentWrap = styled('div', {
+  maxWidth: 480,
+}, { name: 'ContentWrap' })
 
 const SIZES = ['sm', 'md', 'lg'] as const
 type Size = (typeof SIZES)[number]
@@ -41,28 +47,30 @@ export function InputSection({ sectionRef }: SectionProps) {
         </ControlRow>
       </Card.Header>
       <Card.Content>
-        {/* Input */}
-        <SectionTitle>Input</SectionTitle>
-        <StackY>
-          <Input size={size} placeholder={`Size: ${size}`} error={error} disabled={disabled} />
-        </StackY>
+        <ContentWrap>
+          {/* Input */}
+          <SectionTitle>Input</SectionTitle>
+          <StackY>
+            <Input size={size} placeholder={`Size: ${size}`} error={error} disabled={disabled} />
+          </StackY>
 
-        {/* Textarea */}
-        <SectionTitle>Textarea</SectionTitle>
-        <StackY>
-          <Textarea size={size} placeholder={`Size: ${size}`} error={error} disabled={disabled} />
-          <Textarea size={size} rows={6} placeholder="rows=6" error={error} disabled={disabled} />
-        </StackY>
+          {/* Textarea */}
+          <SectionTitle>Textarea</SectionTitle>
+          <StackY>
+            <Textarea size={size} placeholder={`Size: ${size}`} error={error} disabled={disabled} />
+            <Textarea size={size} rows={6} placeholder="rows=6" error={error} disabled={disabled} />
+          </StackY>
 
-        {/* NativeSelect */}
-        <SectionTitle>NativeSelect</SectionTitle>
-        <StackY>
-          <NativeSelect.Root size={size} placeholder={`Size: ${size}`} error={error} disabled={disabled}>
-            <NativeSelect.Option value="apple">Apple</NativeSelect.Option>
-            <NativeSelect.Option value="banana">Banana</NativeSelect.Option>
-            <NativeSelect.Option value="cherry">Cherry</NativeSelect.Option>
-          </NativeSelect.Root>
-        </StackY>
+          {/* NativeSelect */}
+          <SectionTitle>NativeSelect</SectionTitle>
+          <StackY>
+            <NativeSelect.Root size={size} placeholder={`Size: ${size}`} error={error} disabled={disabled}>
+              <NativeSelect.Option value="apple">Apple</NativeSelect.Option>
+              <NativeSelect.Option value="banana">Banana</NativeSelect.Option>
+              <NativeSelect.Option value="cherry">Cherry</NativeSelect.Option>
+            </NativeSelect.Root>
+          </StackY>
+        </ContentWrap>
       </Card.Content>
     </Card>
   )
