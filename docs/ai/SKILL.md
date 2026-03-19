@@ -19,7 +19,7 @@ function App() {
         </Card.Header>
         <Card.Content>
           <Input placeholder="Enter text" />
-          <Button variant="default" size="md">Submit</Button>
+          <Button variant="default" size="lg">Submit</Button>
         </Card.Content>
       </Card>
     </Provider>
@@ -209,7 +209,7 @@ Most components use the `Component.Sub` pattern:
 
 Button uses `withStaticProperties` (not object literal):
 ```tsx
-<Button variant="default" size="md" tone="primary">
+<Button variant="default" size="lg" tone="primary">
   <Button.Icon><IconComponent /></Button.Icon>
   <Button.Text>Label</Button.Text>
 </Button>

@@ -33,10 +33,10 @@ const ButtonFrame = styled(
       link: { backgroundColor: 'transparent' },
     },
     size: {
-      xs: { height: 28, paddingHorizontal: 8, paddingVertical: 4 },
-      sm: { height: 32, paddingHorizontal: 12, paddingVertical: 8 },
-      md: { height: 36, paddingHorizontal: 16, paddingVertical: 8 },
-      lg: { height: 40, paddingHorizontal: 24, paddingVertical: 12 },
+      sm: { height: 28, paddingHorizontal: 8, paddingVertical: 4 },
+      md: { height: 32, paddingHorizontal: 12, paddingVertical: 8 },
+      lg: { height: 36, paddingHorizontal: 16, paddingVertical: 8 },
+      xl: { height: 40, paddingHorizontal: 24, paddingVertical: 12 },
       icon: { height: 36, width: 36, padding: 0 },
     },
     disabled: {
@@ -62,10 +62,10 @@ const ButtonTextFrame = styled(
       link: { color: '$primary9', textDecorationLine: 'underline' },
     },
     size: {
-      xs: { fontSize: 11 },
-      sm: { fontSize: 12 },
-      md: { fontSize: 16 },
-      lg: { fontSize: 18 },
+      sm: { fontSize: 11 },
+      md: { fontSize: 12 },
+      lg: { fontSize: 16 },
+      xl: { fontSize: 18 },
     },
   },
   'ButtonText',
@@ -118,7 +118,7 @@ function ButtonText({
   ...props
 }: {
   children?: React.ReactNode
-  size?: 'xs' | 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
   style?: ViewStyle
 }) {
   const { variant } = useContext(ButtonContext)
@@ -140,7 +140,7 @@ function ButtonIcon({ children, ...props }: { children?: React.ReactNode }) {
 export interface ButtonProps {
   children?: React.ReactNode
   variant?: ButtonVariant
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon'
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'icon'
   loading?: boolean
   disabled?: boolean
   onPress?: () => void

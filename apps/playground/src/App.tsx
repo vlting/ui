@@ -262,10 +262,10 @@ function PlaygroundInner({
                     {variant}
                   </Button>
                 ))}
-                <Button theme={theme} variant="solid" size="md" disabled stl={{ minWidth: '$80' }}>
+                <Button theme={theme} variant="solid" size="lg" disabled stl={{ minWidth: '$80' }}>
                   disabled
                 </Button>
-                <Button theme={theme} variant="solid" size="md" loading stl={{ minWidth: '$80' }}>
+                <Button theme={theme} variant="solid" size="lg" loading stl={{ minWidth: '$80' }}>
                   loading
                 </Button>
                 <Button theme={theme} variant="solid" size="icon">
@@ -422,7 +422,7 @@ function PlaygroundInner({
               Try adjusting your search or filters to find what you are looking for.
             </Empty.Description>
             <Empty.Action>
-              <Button theme="primary" variant="solid" size="sm">Reset filters</Button>
+              <Button theme="primary" variant="solid" size="md">Reset filters</Button>
             </Empty.Action>
           </Empty.Root>
         </Card>

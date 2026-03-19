@@ -47,10 +47,10 @@ export const Button = styled('button', {
       link: { border: 'none' },
     },
     size: {
-      xs: { height: '$28', py: '$4', px: '$8', fontSize: '$buttonTiny' },
-      sm: { height: '$32', py: '$8', px: '$12', fontSize: '$buttonSmall' },
-      md: { height: '$36', py: '$buttonBasePy', px: '$buttonBasePx', fontSize: '$button' },
-      lg: { height: '$40', py: '$12', px: '$24', fontSize: '$buttonLarge' },
+      sm: { height: '$28', py: '$4', px: '$8', fontSize: '$buttonTiny' },
+      md: { height: '$32', py: '$8', px: '$12', fontSize: '$buttonSmall' },
+      lg: { height: '$36', py: '$buttonBasePy', px: '$buttonBasePx', fontSize: '$button' },
+      xl: { height: '$40', py: '$12', px: '$24', fontSize: '$buttonLarge' },
       icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button' },
     },
     disabled: {
