@@ -1,4 +1,4 @@
-import { type ComponentPropsWithRef, forwardRef, useEffect, useRef } from 'react'
+import { type ComponentPropsWithRef, forwardRef, useEffect, useRef, useState } from 'react'
 import { useControllableState } from '../../headless/src/useControllableState'
 import { styled } from '../../stl-react/src/config'
 
@@ -43,6 +43,9 @@ const IndicatorBox = styled('span', {
         border: '$primary9',
       },
     },
+    focused: {
+      true: { outline: '$neutral', outlineOffset: '$offsetDefault' },
+    },
   },
   defaultVariants: { size: 'md' },
 })
@@ -59,8 +62,7 @@ const LabelRoot = styled('label', {
   radius: '$2',
   py: '$2',
   px: '$4',
-  ':interact': { bg: '$neutral3' },
-  ':focus-within': { outline: '$neutral', outlineOffset: '$offsetDefault' },
+  ':hover': { bg: '$neutral2' },
 }, {
   name: 'CheckboxRoot',
   variants: {
@@ -70,9 +72,7 @@ const LabelRoot = styled('label', {
       lg: { fontSize: '$button' },
     },
     error: {
-      true: {
-        ':focus-within': { outline: '$error' },
-      },
+      true: {},
     },
     disabled: {
       true: { opacity: '0.5', cursor: 'not-allowed' },
@@ -127,6 +127,7 @@ const Root = forwardRef<HTMLInputElement, CheckboxRootProps>(
       onChange: onCheckedChange,
     })
 
+    const [focused, setFocused] = useState(false)
     const inputRef = useRef<HTMLInputElement | null>(null)
 
     // Sync indeterminate property (no HTML attribute exists)
@@ -157,6 +158,8 @@ const Root = forwardRef<HTMLInputElement, CheckboxRootProps>(
           name={name}
           value={value}
           aria-invalid={error ? 'true' : undefined}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           onChange={() => {
             if (disabled) return
             if (isIndeterminate) {
@@ -166,7 +169,7 @@ const Root = forwardRef<HTMLInputElement, CheckboxRootProps>(
             }
           }}
         />
-        <IndicatorBox size={size} active={isActive}>
+        <IndicatorBox size={size} active={isActive} focused={focused || undefined}>
           {isActive && (
             <CheckIndicator indeterminate={isIndeterminate} size={size} />
           )}
