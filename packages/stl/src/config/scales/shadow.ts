@@ -46,8 +46,6 @@ export function getShadow<T extends ColorVars>(hash: CharHash, color: T) {
     lg,
     xl,
     '2xl': xxl,
-    buttonShadow: { ...hash.var, value: 'none' } as const,
-    buttonShadowHover: { ...hash.var, value: 'none' } as const,
   } as const
   const darkVars = {
     low: { ...low, value: `0px 1.5px 2.3px hsl(${color.shadowBase.ref} / .38)` },
@@ -99,8 +97,6 @@ export function getShadow<T extends ColorVars>(hash: CharHash, color: T) {
     0px 19.1px 50px hsl(${color.shadowBase.ref} / .35),
     0px 40.8px 100px hsl(${color.shadowBase.ref} / .5)`,
     },
-    buttonShadow: { ...vars.buttonShadow, value: 'none' } as const,
-    buttonShadowHover: { ...vars.buttonShadowHover, value: 'none' } as const,
   } as const
   const cssValueMap = { ...getCssMapFromVars(vars) } as const
   const themeProps = { ...getThemePropsFromCssMap(cssValueMap) } as const

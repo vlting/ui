@@ -24,10 +24,7 @@ const ButtonBase = styled('button', {
   fontWeight: '$500',
   cursor: 'pointer',
   outline: 'none',
-  boxShadow: '$buttonShadow',
-  transition: 'box-shadow 150ms ease',
   ':focus': { outlineOffset: '$offsetDefault' },
-  ':interact': { boxShadow: '$buttonShadowHover' },
   ':pressed': { transform: 'scale(0.98)' },
   lowMotion: {
     transition: 'none',
