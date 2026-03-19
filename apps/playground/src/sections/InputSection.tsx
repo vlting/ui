@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, Card, Input, NativeSelect, Textarea, ToggleGroup } from '@vlting/ui'
 
-import { SectionTitle, StackY, type SectionProps } from './shared'
+import { ControlRow, SectionTitle, StackY, type SectionProps } from './shared'
 
 const SIZES = ['sm', 'md', 'lg'] as const
 type Size = (typeof SIZES)[number]
@@ -13,9 +13,9 @@ export function InputSection({ sectionRef }: SectionProps) {
 
   return (
     <Card ref={sectionRef} data-section="Input">
-      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
+      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Card.Title>Input</Card.Title>
-        <div style={{ display: 'flex', gap: 8, maxWidth: 420, flexWrap: 'wrap' }}>
+        <ControlRow>
           <ToggleGroup
             type="exclusive"
             value={[size]}
@@ -38,7 +38,7 @@ export function InputSection({ sectionRef }: SectionProps) {
             <Button value="error" size="md" variant="outline" theme="neutral">error</Button>
             <Button value="disabled" size="md" variant="outline" theme="neutral">disabled</Button>
           </ToggleGroup>
-        </div>
+        </ControlRow>
       </Card.Header>
       <Card.Content>
         {/* Input */}
