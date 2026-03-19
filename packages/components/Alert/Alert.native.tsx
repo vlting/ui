@@ -13,7 +13,7 @@ const AlertFrame = styled(
     flexDirection: 'row',
     borderRadius: '$3',
     borderWidth: 1,
-    borderColor: '$borderColor',
+    borderColor: '$neutral4',
     padding: 12,
     gap: 8,
     alignItems: 'flex-start',

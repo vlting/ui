@@ -12,7 +12,7 @@ const CardFrame = styled(
   {
     flexDirection: 'column',
     borderWidth: 1,
-    borderColor: '$borderColor',
+    borderColor: '$neutral4',
     borderRadius: '$3',
     overflow: 'hidden',
     backgroundColor: '$surface1',

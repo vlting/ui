@@ -24,7 +24,7 @@ const AccordionFrame = styled(
   View,
   {
     borderWidth: 1,
-    borderColor: '$borderColor',
+    borderColor: '$neutral4',
     borderRadius: '$3',
     overflow: 'hidden',
   },
@@ -35,7 +35,7 @@ const AccordionItemFrame = styled(
   View,
   {
     borderBottomWidth: 1,
-    borderColor: '$borderColor',
+    borderColor: '$neutral4',
   },
   'AccordionItem',
 )
@@ -48,7 +48,7 @@ const AccordionTriggerFrame = styled(
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 14,
-    backgroundColor: '$background',
+    backgroundColor: '$min',
     pressed: { opacity: 0.85 },
   },
   'AccordionTrigger',

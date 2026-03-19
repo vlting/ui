@@ -14,9 +14,9 @@ const SelectTriggerFrame = styled(
     alignItems: 'center',
     justifyContent: 'space-between',
     borderWidth: 1,
-    borderColor: '$borderColor',
+    borderColor: '$neutral4',
     borderRadius: '$3',
-    backgroundColor: '$background',
+    backgroundColor: '$min',
     paddingHorizontal: 12,
     paddingVertical: 10,
     minHeight: 40,
@@ -39,7 +39,7 @@ const SelectOverlayFrame = styled(
 const SelectContentFrame = styled(
   View,
   {
-    backgroundColor: '$background',
+    backgroundColor: '$min',
     borderRadius: '$3',
     width: '85%',
     maxHeight: '60%',
@@ -85,7 +85,7 @@ const SelectSeparatorFrame = styled(
   View,
   {
     height: 1,
-    backgroundColor: '$borderColor',
+    backgroundColor: '$neutral4',
     marginVertical: 4,
     marginHorizontal: 16,
   },
