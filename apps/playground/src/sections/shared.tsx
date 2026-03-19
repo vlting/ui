@@ -82,6 +82,14 @@ export const StackY = styled('div', {
   display: 'flex', flexDirection: 'column', gap: '$12',
 }, { name: 'StackY' })
 
+export const ControlRow = styled('div', {
+  display: 'flex', gap: '$8',
+}, { name: 'ControlRow' })
+
+export const CardText = styled('p', {
+  m: '$0',
+}, { name: 'CardText' })
+
 export const DarkStage = styled('div', {
   bg: '$background10', radius: '$3', p: '$24',
 }, { name: 'DarkStage' })

@@ -3,7 +3,7 @@ import { Alert, Button, Card, ToggleGroup } from '@vlting/ui'
 
 import {
   ALERT_THEMES, ALERT_VARIANTS,
-  AlertTriangleIcon, CheckCircleIcon, ErrorCircleIcon, InfoCircleIcon,
+  AlertTriangleIcon, CheckCircleIcon, ControlRow, ErrorCircleIcon, InfoCircleIcon,
   StackY,
   type SectionProps,
 } from './shared'
@@ -16,9 +16,9 @@ export function AlertSection({ sectionRef }: SectionProps) {
 
   return (
     <Card ref={sectionRef} data-section="Alert">
-      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
+      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Card.Title>Alert</Card.Title>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <ControlRow>
           <ToggleGroup
             type="exclusive"
             value={[alertVariant]}
@@ -39,7 +39,7 @@ export function AlertSection({ sectionRef }: SectionProps) {
               <Button key={e} value={e} size="md" variant="outline" theme="neutral">{e}</Button>
             ))}
           </ToggleGroup>
-        </div>
+        </ControlRow>
       </Card.Header>
       <Card.Content>
         <StackY>

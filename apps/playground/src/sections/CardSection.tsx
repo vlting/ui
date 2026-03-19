@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, Card as UiCard, Toggle, ToggleGroup } from '@vlting/ui'
 
-import { StackY, type SectionProps } from './shared'
+import { CardText, ControlRow, StackY, type SectionProps } from './shared'
 
 const CARD_ELEVATIONS = ['flat', 'normal', 'raised'] as const
 const CARD_THEMES = ['neutral', 'primary', 'secondary'] as const
@@ -13,9 +13,9 @@ export function CardSection({ sectionRef }: SectionProps) {
 
   return (
     <UiCard ref={sectionRef} data-section="Card">
-      <UiCard.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
+      <UiCard.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <UiCard.Title>Card</UiCard.Title>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <ControlRow>
           <ToggleGroup
             type="exclusive"
             value={[elevation]}
@@ -32,7 +32,7 @@ export function CardSection({ sectionRef }: SectionProps) {
           <Toggle size="md" variant="outline" theme="neutral" pressed={flush} onPressedChange={setFlush}>
             flush
           </Toggle>
-        </div>
+        </ControlRow>
       </UiCard.Header>
       <UiCard.Content>
         <StackY>
@@ -43,7 +43,7 @@ export function CardSection({ sectionRef }: SectionProps) {
                 <UiCard.Description>{elevation} elevation{interactive ? ' · interactive' : ''}{flush ? ' · flush' : ''}</UiCard.Description>
               </UiCard.Header>
               <UiCard.Content>
-                <p style={{ margin: 0 }}>Card content here.</p>
+                <CardText>Card content here.</CardText>
               </UiCard.Content>
             </UiCard>
           ))}
