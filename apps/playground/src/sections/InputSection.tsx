@@ -10,7 +10,7 @@ export function InputSection({ sectionRef }: SectionProps) {
   const [disabled, setDisabled] = useState(false)
 
   return (
-    <Card ref={sectionRef} data-section="Input" stl={{ mt: '$24' }}>
+    <Card ref={sectionRef} data-section="Input">
       <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <Card.Title>Input</Card.Title>
         <ButtonRow>
