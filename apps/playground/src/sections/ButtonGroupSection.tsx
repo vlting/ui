@@ -25,7 +25,7 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
           </ButtonGroup>
         </Column>
 
-        <Column>
+        <Column stl={{ maxWidth: '$menuMin' }}>
           <SectionTitle>Vertical</SectionTitle>
           <ButtonGroup orientation="vertical" aria-label="Vertical actions">
             <Button>One</Button>
