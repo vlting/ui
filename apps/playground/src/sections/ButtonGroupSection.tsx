@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Button, ButtonGroup } from '@vlting/ui'
+import { Button, ButtonGroup, Card, Toggle, ToggleGroup } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
-import { ButtonRow, DemoCard, Section, SectionHeading, SectionTitle, type SectionProps } from './shared'
+import { ButtonRow, SectionTitle, type SectionProps } from './shared'
 
 const ColumnRow = styled('div', {
   display: 'flex', gap: '$24', overflowX: 'auto',
@@ -15,6 +15,10 @@ const Column = styled('div', {
 const StateLabel = styled('span', {
   fontSize: '$small', color: '$neutralText4', fontFamily: '$code',
 }, { name: 'StateLabel' })
+
+const ToggleRow = styled('div', {
+  display: 'flex', gap: '$8', alignItems: 'center',
+}, { name: 'ToggleRow' })
 
 // ─── Icons ──────────────────────────────────────────────────────────────────
 
@@ -36,124 +40,115 @@ const MuteIcon = () => (
   </svg>
 )
 
+const SIZES = ['xs', 'sm', 'md', 'lg'] as const
+type Size = typeof SIZES[number]
+
 export function ButtonGroupSection({ sectionRef }: SectionProps) {
+  const [attached, setAttached] = useState(true)
+  const [size, setSize] = useState<Size>('md')
   const [alignment, setAlignment] = useState<string[]>(['center'])
   const [formats, setFormats] = useState<string[]>([])
 
   return (
-    <DemoCard stl={{ mt: '$24' }} ref={sectionRef} data-section="ButtonGroup">
-      <SectionHeading>ButtonGroup</SectionHeading>
-
-      {/* ── Basic ────────────────────────────────────── */}
-      <ColumnRow>
-        <Column>
-          <SectionTitle>Horizontal</SectionTitle>
-          <ButtonGroup aria-label="Actions">
-            <Button>One</Button>
-            <Button>Two</Button>
-            <Button>Three</Button>
-          </ButtonGroup>
-        </Column>
-
-        <Column>
-          <SectionTitle>Vertical</SectionTitle>
-          <ButtonGroup orientation="vertical" aria-label="Vertical actions" stl={{ maxWidth: '$menuMin' }}>
-            <Button>One</Button>
-            <Button>Two</Button>
-            <Button>Three</Button>
-          </ButtonGroup>
-        </Column>
-
-        <Column>
-          <SectionTitle>Mixed variants</SectionTitle>
-          <ButtonGroup aria-label="Mixed">
-            <Button variant="solid">Save</Button>
-            <Button variant="outline">Cancel</Button>
-            <Button variant="ghost">Reset</Button>
-          </ButtonGroup>
-        </Column>
-      </ColumnRow>
-
-      {/* ── Attached ────────────────────────────────── */}
-      <Section stl={{ mt: '$32' }}>
-        <SectionTitle>Attached</SectionTitle>
-        <ColumnRow>
-          <Column>
-            <SectionTitle>Outline</SectionTitle>
-            <ButtonGroup attached aria-label="Outline attached">
-              <Button variant="outline">One</Button>
-              <Button variant="outline">Two</Button>
-              <Button variant="outline">Three</Button>
-            </ButtonGroup>
-          </Column>
-          <Column>
-            <SectionTitle>Solid</SectionTitle>
-            <ButtonGroup attached aria-label="Solid attached">
-              <Button variant="solid">One</Button>
-              <Button variant="solid">Two</Button>
-              <Button variant="solid">Three</Button>
-            </ButtonGroup>
-          </Column>
-          <Column>
-            <SectionTitle>Ghost</SectionTitle>
-            <ButtonGroup attached aria-label="Ghost attached">
-              <Button variant="ghost">One</Button>
-              <Button variant="ghost">Two</Button>
-              <Button variant="ghost">Three</Button>
-            </ButtonGroup>
-          </Column>
-        </ColumnRow>
-      </Section>
-
-      {/* ── Attached vertical ───────────────────────── */}
-      <Section>
-        <SectionTitle>Attached vertical</SectionTitle>
-        <ButtonRow>
-          <ButtonGroup attached orientation="vertical" aria-label="Vertical attached">
-            <Button variant="outline" size="icon"><PlusIcon /></Button>
-            <Button variant="outline" size="icon"><MuteIcon /></Button>
-            <Button variant="outline" size="icon"><MinusIcon /></Button>
-          </ButtonGroup>
-        </ButtonRow>
-      </Section>
-
-      {/* ── Exclusive toggle ────────────────────────── */}
-      <Section>
-        <SectionTitle>Exclusive toggle</SectionTitle>
-        <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
-          <ButtonGroup
-            attached
-            mode="exclusive"
-            value={alignment}
-            onValueChange={setAlignment}
-            aria-label="Text alignment"
+    <Card elevation="flat" flush ref={sectionRef} data-section="ButtonGroup" stl={{ mt: '$24' }}>
+      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Card.Title>ButtonGroup</Card.Title>
+        <ToggleRow>
+          <Toggle
+            size="sm"
+            variant="outline"
+            theme="neutral"
+            pressed={attached}
+            onPressedChange={setAttached}
           >
-            <Button value="left" variant="outline">Left</Button>
-            <Button value="center" variant="outline">Center</Button>
-            <Button value="right" variant="outline">Right</Button>
-          </ButtonGroup>
-          <StateLabel>{JSON.stringify(alignment)}</StateLabel>
-        </ButtonRow>
-      </Section>
-
-      {/* ── Multi-select toggle ─────────────────────── */}
-      <Section>
-        <SectionTitle>Multi-select toggle</SectionTitle>
-        <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
-          <ButtonGroup
-            attached
-            mode="toggle"
-            value={formats}
-            onValueChange={setFormats}
-            aria-label="Text formatting"
+            Attached
+          </Toggle>
+          <ToggleGroup
+            type="exclusive"
+            value={[size]}
+            onValueChange={v => v[0] && setSize(v[0] as Size)}
+            aria-label="Size"
           >
-            <Button value="bold" variant="outline" stl={{ fontWeight: '$700' }}>B</Button>
-            <Button value="italic" variant="outline" stl={{ fontStyle: 'italic' }}>I</Button>
-            <Button value="underline" variant="outline" stl={{ textDecoration: 'underline' }}>U</Button>
-          </ButtonGroup>
-          <StateLabel>{JSON.stringify(formats)}</StateLabel>
-        </ButtonRow>
-      </Section>
-    </DemoCard>
+            {SIZES.map(s => (
+              <Button key={s} value={s} size="sm" variant="outline" theme="neutral">{s}</Button>
+            ))}
+          </ToggleGroup>
+        </ToggleRow>
+      </Card.Header>
+
+      <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$32' }}>
+        {/* ── Variants ─────────────────────────────────── */}
+        <div>
+          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Variants</SectionTitle>
+          <ColumnRow>
+            {(['solid', 'outline', 'subtle', 'ghost'] as const).map(v => (
+              <Column key={v}>
+                <StateLabel>{v}</StateLabel>
+                <ButtonGroup attached={attached} aria-label={`${v} group`}>
+                  <Button variant={v} size={size}>One</Button>
+                  <Button variant={v} size={size}>Two</Button>
+                  <Button variant={v} size={size}>Three</Button>
+                </ButtonGroup>
+              </Column>
+            ))}
+          </ColumnRow>
+        </div>
+
+        {/* ── Vertical ─────────────────────────────────── */}
+        <div>
+          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Vertical</SectionTitle>
+          <ButtonRow>
+            <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical outline" stl={{ maxWidth: '$menuMin' }}>
+              <Button variant="outline" size={size}>One</Button>
+              <Button variant="outline" size={size}>Two</Button>
+              <Button variant="outline" size={size}>Three</Button>
+            </ButtonGroup>
+            <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical icons">
+              <Button variant="outline" size="icon"><PlusIcon /></Button>
+              <Button variant="outline" size="icon"><MuteIcon /></Button>
+              <Button variant="outline" size="icon"><MinusIcon /></Button>
+            </ButtonGroup>
+          </ButtonRow>
+        </div>
+
+        {/* ── Exclusive toggle ─────────────────────────── */}
+        <div>
+          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Exclusive toggle</SectionTitle>
+          <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
+            <ButtonGroup
+              attached={attached}
+              mode="exclusive"
+              value={alignment}
+              onValueChange={setAlignment}
+              aria-label="Text alignment"
+            >
+              <Button value="left" variant="outline" size={size}>Left</Button>
+              <Button value="center" variant="outline" size={size}>Center</Button>
+              <Button value="right" variant="outline" size={size}>Right</Button>
+            </ButtonGroup>
+            <StateLabel>{JSON.stringify(alignment)}</StateLabel>
+          </ButtonRow>
+        </div>
+
+        {/* ── Multi-select toggle ──────────────────────── */}
+        <div>
+          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Multi-select</SectionTitle>
+          <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
+            <ButtonGroup
+              attached={attached}
+              mode="toggle"
+              value={formats}
+              onValueChange={setFormats}
+              aria-label="Text formatting"
+            >
+              <Button value="bold" variant="outline" size={size} stl={{ fontWeight: '$700' }}>B</Button>
+              <Button value="italic" variant="outline" size={size} stl={{ fontStyle: 'italic' }}>I</Button>
+              <Button value="underline" variant="outline" size={size} stl={{ textDecoration: 'underline' }}>U</Button>
+            </ButtonGroup>
+            <StateLabel>{JSON.stringify(formats)}</StateLabel>
+          </ButtonRow>
+        </div>
+      </Card.Content>
+    </Card>
   )
 }
