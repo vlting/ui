@@ -48,7 +48,7 @@ const ButtonBase = styled('button', {
       lg: { height: '$40', py: '$12', px: '$32', fontSize: '$buttonLarge' },
     },
     square: {
-      true: { px: '$0', aspectRatio: '1' },
+      true: { px: '$0', justifyContent: 'center' },
     },
     pill: {
       true: { radius: '$pill' },
@@ -71,7 +71,7 @@ const ButtonBase = styled('button', {
         bg: '$primary9', color: '$primaryText9',
         backgroundImage: 'var(--stl-gradient-primary, none)',
         ':interact': { bg: '$primary10', color: '$primaryText10', filter: 'brightness(1.15)' },
-        ':focus': { outline: '$primaryMax' },
+        ':focus': { outline: '$primary' },
       },
     },
     {
@@ -114,7 +114,7 @@ const ButtonBase = styled('button', {
         bg: '$secondary9', color: '$secondaryText9',
         backgroundImage: 'var(--stl-gradient-secondary, none)',
         ':interact': { bg: '$secondary10', color: '$secondaryText10', filter: 'brightness(1.15)' },
-        ':focus': { outline: '$secondaryMax' },
+        ':focus': { outline: '$secondary' },
       },
     },
     {
@@ -157,7 +157,7 @@ const ButtonBase = styled('button', {
         bg: '$neutral9', color: '$neutralText9',
         backgroundImage: 'var(--stl-gradient-neutral, none)',
         ':interact': { bg: '$neutral10', color: '$neutralText10', filter: 'brightness(1.15)' },
-        ':focus': { outline: '$neutralMax' },
+        ':focus': { outline: '$neutral' },
       },
     },
     {
@@ -199,7 +199,7 @@ const ButtonBase = styled('button', {
       stl: {
         bg: '$error9', color: '$errorText9',
         ':interact': { bg: '$error10', color: '$errorText10' },
-        ':focus': { outline: '$errorMax' },
+        ':focus': { outline: '$error' },
       },
     },
     {
@@ -237,6 +237,12 @@ const ButtonBase = styled('button', {
 
     // ── Pill + icon → circle ────────────────────────────
     { when: { pill: 'true', square: 'true' }, stl: { radius: '$round' } },
+
+    // ── Square: width = height per size ───────────────
+    { when: { square: 'true', size: 'xs' }, stl: { width: '$28' } },
+    { when: { square: 'true', size: 'sm' }, stl: { width: '$32' } },
+    { when: { square: 'true', size: 'md' }, stl: { width: '$36' } },
+    { when: { square: 'true', size: 'lg' }, stl: { width: '$40' } },
 
     // ── Loading overrides disabled opacity ─────────────
     { when: { disabled: 'true', loading: 'true' }, stl: { opacity: '1', cursor: 'wait' } },
