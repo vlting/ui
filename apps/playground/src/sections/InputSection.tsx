@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Button, Card, Input, NativeSelect, Textarea } from '@vlting/ui'
+import { Button, Card, Input, NativeSelect, Textarea, ToggleGroup } from '@vlting/ui'
 
-import { ButtonRow, SectionTitle, StackY, type SectionProps } from './shared'
+import { SectionTitle, StackY, type SectionProps } from './shared'
 
 const SIZES = ['sm', 'md', 'lg'] as const
 type Size = (typeof SIZES)[number]
@@ -15,35 +15,30 @@ export function InputSection({ sectionRef }: SectionProps) {
     <Card ref={sectionRef} data-section="Input">
       <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <Card.Title>Input</Card.Title>
-        <ButtonRow>
-          {SIZES.map((s) => (
-            <Button
-              key={s}
-              size="sm"
-              variant={size === s ? 'solid' : 'outline'}
-              theme="primary"
-              onClick={() => setSize(s)}
-            >
-              {s}
-            </Button>
-          ))}
-          <Button
-            size="sm"
-            variant={error ? 'solid' : 'outline'}
-            theme="destructive"
-            onClick={() => setError(!error)}
+        <div style={{ display: 'flex', gap: 8 }}>
+          <ToggleGroup
+            type="exclusive"
+            value={[size]}
+            onValueChange={v => v[0] && setSize(v[0] as Size)}
+            aria-label="Size"
           >
-            error
-          </Button>
-          <Button
-            size="sm"
-            variant={disabled ? 'solid' : 'outline'}
-            theme="neutral"
-            onClick={() => setDisabled(!disabled)}
+            {SIZES.map(s => (
+              <Button key={s} value={s} size="md" variant="outline" theme="neutral">{s}</Button>
+            ))}
+          </ToggleGroup>
+          <ToggleGroup
+            type="multiple"
+            value={[...(error ? ['error'] : []), ...(disabled ? ['disabled'] : [])]}
+            onValueChange={v => {
+              setError(v.includes('error'))
+              setDisabled(v.includes('disabled'))
+            }}
+            aria-label="State"
           >
-            disabled
-          </Button>
-        </ButtonRow>
+            <Button value="error" size="md" variant="outline" theme="neutral">error</Button>
+            <Button value="disabled" size="md" variant="outline" theme="neutral">disabled</Button>
+          </ToggleGroup>
+        </div>
       </Card.Header>
       <Card.Content>
         {/* Input */}
