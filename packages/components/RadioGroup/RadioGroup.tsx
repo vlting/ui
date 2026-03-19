@@ -57,7 +57,6 @@ const RadioCircle = styled('span', {
   justifyContent: 'center',
   radius: '$round',
   border: '$neutralMin',
-  borderColor: '$neutral4',
   bg: 'transparent',
   flexShrink: '0',
 }, {
@@ -69,18 +68,18 @@ const RadioCircle = styled('span', {
       lg: { width: '$24', height: '$24' },
     },
     selected: {
-      true: { borderColor: '$primary9' },
+      true: { border: '$primary' },
     },
     focused: {
       true: { outline: '$primary', outlineOffset: '$offsetDefault' },
     },
     error: {
-      true: { borderColor: '$error9' },
+      true: { border: '$error' },
     },
   },
   compoundVariants: [
     { when: { error: 'true', focused: 'true' }, stl: { outline: '$error' } },
-    { when: { error: 'true', selected: 'true' }, stl: { borderColor: '$error9' } },
+    { when: { error: 'true', selected: 'true' }, stl: { border: '$error' } },
   ],
   defaultVariants: { size: 'md' },
 })

@@ -71,8 +71,7 @@ const SwitchTrack = styled('button', {
     },
     error: {
       true: {
-        borderWidth: '$widthMin',
-        borderColor: '$error9',
+        border: '$error',
         ':focus': { outline: '$error' },
       },
     },
