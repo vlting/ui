@@ -5,7 +5,7 @@ import { styled } from '@vlting/stl-react'
 import { ButtonRow, SectionTitle, type SectionProps } from './shared'
 
 const ColumnRow = styled('div', {
-  display: 'flex', gap: '$24', overflowX: 'auto',
+  display: 'flex', gap: '$24',
 }, { name: 'ColumnRow' })
 
 const Column = styled('div', {

@@ -6,7 +6,7 @@ import { SectionTitle, StackY, type SectionProps } from './shared'
 
 const ITEM_VARIANTS = ['ghost', 'subtle', 'outline'] as const
 const ITEM_SIZES = ['sm', 'md', 'lg'] as const
-const ITEM_THEMES = ['primary', 'secondary', 'neutral'] as const
+const ITEM_THEMES = ['neutral', 'primary', 'secondary'] as const
 const ITEM_ALIGNS = ['top', 'center'] as const
 
 const TrailingLabel = styled('span', {

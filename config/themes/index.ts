@@ -118,7 +118,7 @@ export const THEME_PRESET_AURORA: CreateThemeOptions = {
   background: { hue: 310, saturation: 5 },
   radius: { base: 14, button: 9999 },
   gradients: {
-    primary: createGradient(135, '$secondary9', '$primary8'),
+    primary: createGradient(170, '$secondary9', '$primary8'),
   },
   glass: null,
   fonts: { heading: 'lora', body: 'inter', code: 'firaCode' },
