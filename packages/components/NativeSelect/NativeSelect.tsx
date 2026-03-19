@@ -12,7 +12,6 @@ const SelectRoot = styled('select', {
   color: '$neutralText3',
   bg: '$neutral1',
   border: '$neutralMin',
-  borderColor: '$neutral4',
   borderRadius: '$field',
   width: '100%',
   outline: 'none',
