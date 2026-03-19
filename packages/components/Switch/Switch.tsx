@@ -46,6 +46,7 @@ const SwitchTrack = styled('button', {
   transitionProperty: 'background-color',
   transitionDuration: '$fastDuration',
   transitionTimingFunction: 'ease',
+  ':hover': { bg: '$neutral6' },
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
   lowMotion: {
     transitionDuration: '0.01s',
@@ -59,7 +60,11 @@ const SwitchTrack = styled('button', {
       lg: { width: '$52', height: '$28' },
     },
     checked: {
-      true: { bg: '$primary9' },
+      true: {
+        bg: '$primary9',
+        ':hover': { bg: '$primary10' },
+        ':focus': { outline: '$primary' },
+      },
       false: {},
     },
     disabled: {
