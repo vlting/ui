@@ -1,6 +1,7 @@
 import { size, space, radius, zIndex, borderWidth } from './base'
 import { lightShadows, darkShadows } from './themes'
 import { generatePalette } from './generate-palette'
+import { ALPHA_VALUES } from '../shared/models/colorGen.models'
 import { themeToVars } from './inject'
 import type { Theme } from './types'
 import type { FontFamilySpec, HtmlHeadLink } from '../shared/models/theme.models'
@@ -87,6 +88,14 @@ function resolvePalette(
   const isNeutral = input.isTinted ? false : (input.isNeutral ?? defaultIsNeutral)
   const saturation = isNeutral ? rawSat / 10 : rawSat
   return { hue, saturation, highContrast: input.highContrast }
+}
+
+/** Generate a 12-step alpha palette from hue + saturation */
+function generateAlphaPalette(hue: number, saturation: number, luminance: number): string[] {
+  return ALPHA_VALUES.map((alpha) => {
+    const a = String(alpha).replace('0.', '.')
+    return `hsl(${hue},${Math.round(saturation)}%,${luminance}%,${a})`
+  })
 }
 
 function mergeScale<T extends Record<string | number, number>>(
@@ -181,6 +190,34 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
     },
   }
 
+  // Generate alpha palettes — theme-aware translucent colors
+  const alphaPalettes: NonNullable<Theme['alphaPalettes']> = {
+    primary: {
+      light: generateAlphaPalette(primary.hue, primarySat, 50),
+      dark: generateAlphaPalette(primary.hue, primarySat, 50),
+    },
+    secondary: {
+      light: generateAlphaPalette(secondary.hue, secondary.saturation, 50),
+      dark: generateAlphaPalette(secondary.hue, secondary.saturation, 50),
+    },
+    neutral: {
+      light: generateAlphaPalette(neutral.hue, neutral.saturation, 50),
+      dark: generateAlphaPalette(neutral.hue, neutral.saturation, 50),
+    },
+    background: {
+      light: generateAlphaPalette(background.hue, background.saturation, 50),
+      dark: generateAlphaPalette(background.hue, background.saturation, 50),
+    },
+    min: {
+      light: generateAlphaPalette(0, 0, 100),
+      dark: generateAlphaPalette(0, 0, 0),
+    },
+    max: {
+      light: generateAlphaPalette(0, 0, 0),
+      dark: generateAlphaPalette(0, 0, 100),
+    },
+  }
+
   // Resolve fonts
   const fontSpec = options.fonts ?? DEFAULT_FONT_SPEC
   const { fonts, fontLinks } = resolveFontSpec(fontSpec)
@@ -194,6 +231,7 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
   const theme: Theme = {
     name: `theme-${primary.hue}`,
     palettes,
+    alphaPalettes,
     fontSize: options.fontSize,
     size: mergeScale(DEFAULT_SIZE, options.size),
     space: mergeScale(DEFAULT_SPACE, options.space),
