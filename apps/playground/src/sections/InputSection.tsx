@@ -4,16 +4,29 @@ import { Button, Card, Input, NativeSelect, Textarea } from '@vlting/ui'
 import { ButtonRow, SectionTitle, StackY, type SectionProps } from './shared'
 
 const SIZES = ['sm', 'md', 'lg'] as const
+type Size = (typeof SIZES)[number]
 
 export function InputSection({ sectionRef }: SectionProps) {
   const [error, setError] = useState(false)
   const [disabled, setDisabled] = useState(false)
+  const [size, setSize] = useState<Size>('md')
 
   return (
     <Card ref={sectionRef} data-section="Input">
       <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <Card.Title>Input</Card.Title>
         <ButtonRow>
+          {SIZES.map((s) => (
+            <Button
+              key={s}
+              size="sm"
+              variant={size === s ? 'solid' : 'outline'}
+              theme="primary"
+              onClick={() => setSize(s)}
+            >
+              {s}
+            </Button>
+          ))}
           <Button
             size="sm"
             variant={error ? 'solid' : 'outline'}
@@ -34,32 +47,26 @@ export function InputSection({ sectionRef }: SectionProps) {
       </Card.Header>
       <Card.Content>
         {/* Input */}
-        <SectionTitle>Input — Sizes</SectionTitle>
+        <SectionTitle>Input</SectionTitle>
         <StackY>
-          {SIZES.map((s) => (
-            <Input key={s} size={s} placeholder={`Size: ${s}`} error={error} disabled={disabled} />
-          ))}
+          <Input size={size} placeholder={`Size: ${size}`} error={error} disabled={disabled} />
         </StackY>
 
         {/* Textarea */}
-        <SectionTitle>Textarea — Sizes</SectionTitle>
+        <SectionTitle>Textarea</SectionTitle>
         <StackY>
-          {SIZES.map((s) => (
-            <Textarea key={s} size={s} placeholder={`Size: ${s}`} error={error} disabled={disabled} />
-          ))}
-          <Textarea rows={6} placeholder="rows=6" error={error} disabled={disabled} />
+          <Textarea size={size} placeholder={`Size: ${size}`} error={error} disabled={disabled} />
+          <Textarea size={size} rows={6} placeholder="rows=6" error={error} disabled={disabled} />
         </StackY>
 
         {/* NativeSelect */}
-        <SectionTitle>NativeSelect — Sizes</SectionTitle>
+        <SectionTitle>NativeSelect</SectionTitle>
         <StackY>
-          {SIZES.map((s) => (
-            <NativeSelect.Root key={s} size={s} placeholder={`Size: ${s}`} error={error} disabled={disabled}>
-              <NativeSelect.Option value="apple">Apple</NativeSelect.Option>
-              <NativeSelect.Option value="banana">Banana</NativeSelect.Option>
-              <NativeSelect.Option value="cherry">Cherry</NativeSelect.Option>
-            </NativeSelect.Root>
-          ))}
+          <NativeSelect.Root size={size} placeholder={`Size: ${size}`} error={error} disabled={disabled}>
+            <NativeSelect.Option value="apple">Apple</NativeSelect.Option>
+            <NativeSelect.Option value="banana">Banana</NativeSelect.Option>
+            <NativeSelect.Option value="cherry">Cherry</NativeSelect.Option>
+          </NativeSelect.Root>
         </StackY>
       </Card.Content>
     </Card>
