@@ -56,6 +56,10 @@ const LabelRoot = styled('label', {
   cursor: 'pointer',
   position: 'relative',
   userSelect: 'none',
+  radius: '$2',
+  py: '$2',
+  px: '$4',
+  ':interact': { bg: '$neutral3' },
   ':focus-within': { outline: '$neutral', outlineOffset: '$offsetDefault' },
 }, {
   name: 'CheckboxRoot',
