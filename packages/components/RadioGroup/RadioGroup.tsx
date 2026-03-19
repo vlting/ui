@@ -71,7 +71,7 @@ const RadioCircle = styled('span', {
       true: { border: '$primary9' },
     },
     focused: {
-      true: { outline: '$neutral', outlineOffset: '$offsetDefault' },
+      true: { outline: '$primary', outlineOffset: '$offsetDefault' },
     },
   },
   defaultVariants: { size: 'md' },
@@ -98,6 +98,7 @@ const RadioDot = styled('span', {
 const ItemLabel = styled('label', {
   display: 'inline-flex',
   alignItems: 'center',
+  alignSelf: 'flex-start',
   gap: '$8',
   cursor: 'pointer',
   position: 'relative',

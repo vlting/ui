@@ -47,6 +47,9 @@ const IndicatorBox = styled('span', {
       true: { outline: '$neutral', outlineOffset: '$offsetDefault' },
     },
   },
+  compoundVariants: [
+    { when: { active: 'true', focused: 'true' }, stl: { outline: '$primary' } },
+  ],
   defaultVariants: { size: 'md' },
 })
 
@@ -55,6 +58,7 @@ const IndicatorBox = styled('span', {
 const LabelRoot = styled('label', {
   display: 'inline-flex',
   alignItems: 'center',
+  alignSelf: 'flex-start',
   gap: '$8',
   cursor: 'pointer',
   position: 'relative',
