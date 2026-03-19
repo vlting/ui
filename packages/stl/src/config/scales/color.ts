@@ -75,10 +75,10 @@ export function getColor(hash: CharHash) {
     transparent: { ...hash.var, value: 'transparent' },
     shadowColor: { ...hash.var, value: `hsl(${shadowBase.ref} / .15)` },
     // Surface levels (background palette)
-    surface1: { ...hash.var, value: lightPalette.background1.ref },
-    surface2: { ...hash.var, value: lightPalette.background2.ref },
-    surface3: { ...hash.var, value: lightPalette.background3.ref },
-    surface4: { ...hash.var, value: lightPalette.background4.ref },
+    surface1: { ...hash.var, value: lightPalette.min.ref },
+    surface2: { ...hash.var, value: lightPalette.background1.ref },
+    surface3: { ...hash.var, value: lightPalette.background2.ref },
+    surface4: { ...hash.var, value: lightPalette.background3.ref },
     inverse: { ...hash.var, value: lightPalette.neutral12.ref },
     ...lightPalette,
   } as const
