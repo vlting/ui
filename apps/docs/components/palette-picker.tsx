@@ -42,8 +42,8 @@ const Container = styled('div', { stl: {
 }})
 
 const Header = styled('div', { stl: {
-  px: '$2.5',
-  py: '$1.5',
+  px: '$20',
+  py: '$12',
   borderBottom: '$neutralMin',
   background: '$background1',
 }})
@@ -54,14 +54,14 @@ const HeaderText = styled('span', { stl: {
 }})
 
 const ControlsSection = styled('div', { stl: {
-  padding: '$2.5',
+  padding: '$20',
   borderBottom: '$neutralMin',
 }})
 
 const ControlsGrid = styled('div', { stl: {
   display: 'grid',
   gridTemplateColumns: '1fr',
-  gap: '$2.5',
+  gap: '$20',
   gtSm: { gridTemplateColumns: 'repeat(3, 1fr)' },
 }})
 
@@ -88,7 +88,7 @@ const ModeToggleGroup = styled('div', { stl: {
 
 const ModeButton = styled('button', { stl: {
   flex: 1,
-  px: '$1.5',
+  px: '$12',
   py: 4,
   fontSize: '$small',
   fontWeight: '$500',
@@ -101,7 +101,7 @@ const ModeButton = styled('button', { stl: {
 }})
 
 const SwatchesSection = styled('div', { stl: {
-  padding: '$2.5',
+  padding: '$20',
   borderBottom: '$neutralMin',
 }})
 
@@ -132,7 +132,7 @@ const SwatchLabel = styled('span', { stl: {
 }})
 
 const LegendGrid = styled('div', { stl: {
-  mt: '$1.5',
+  mt: '$12',
   display: 'grid',
   gridTemplateColumns: 'repeat(2, 1fr)',
   gap: '$1',
@@ -155,7 +155,7 @@ const LegendSwatch = styled('div', { stl: {
 }})
 
 const CodeSection = styled('div', { stl: {
-  padding: '$2.5',
+  padding: '$20',
   background: '$background1',
 }})
 

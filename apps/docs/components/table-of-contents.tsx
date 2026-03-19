@@ -18,7 +18,7 @@ const TocNav = styled('nav', { stl: {
 }})
 
 const TocTitle = styled('p', { stl: {
-  mb: '$1.5',
+  mb: '$12',
   fontWeight: '$500',
   color: '$neutral12',
 }})

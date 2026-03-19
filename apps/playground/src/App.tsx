@@ -8,7 +8,7 @@ import { auroraTheme, popsicleTheme, frostTheme, carbonTheme, mintTheme } from '
 import { MoonIcon, SunIcon } from './sections/shared'
 import {
   AlertSection, AvatarSection, BadgeSection, ButtonGroupSection, ButtonSection,
-  CardSection, EmptySection, TypographySection, ItemSection, ProgressSection,
+  CardSection, EmptySection, InputSection, TypographySection, ItemSection, ProgressSection,
   SeparatorSection, SpinnerSection, ToggleSection,
 } from './sections'
 import { DemoSection } from './sections/DemoSection'
@@ -19,8 +19,8 @@ const PAGES = ['Components', 'Demo'] as const
 type Page = typeof PAGES[number]
 
 const SECTIONS = [
-  'Button', 'Alert', 'Badge', 'Item', 'Card', 'Progress', 'Spinner', 'Empty', 'Avatar',
-  'Typography', 'Separator', 'ButtonGroup', 'Toggle',
+  'Input', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
+  'Spinner', 'Empty', 'Avatar', 'Typography', 'Separator',
 ] as const
 
 const THEME_PRESETS: Record<string, { label: string; theme?: Readonly<Theme> }> = {
@@ -186,6 +186,7 @@ const SECTION_COMPONENTS: Record<string, React.ComponentType<{ sectionRef: (el: 
   Card: CardSection,
   Avatar: AvatarSection,
   Badge: BadgeSection,
+  Input: InputSection,
   Item: ItemSection,
   Typography: TypographySection,
   Separator: SeparatorSection,

@@ -1,16 +1,23 @@
-import { render } from '../../../src/__test-utils__/render'
+import { createRef } from 'react'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { NativeSelect } from './NativeSelect'
 
+beforeAll(() => {
+  global.ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  } as unknown as typeof ResizeObserver
+})
+
 describe('NativeSelect', () => {
-  it('renders a native select element', () => {
+  it('renders a select element', () => {
     const { container } = render(
-      <NativeSelect.Root placeholder="Choose">
-        <NativeSelect.Option value="a">Option A</NativeSelect.Option>
-        <NativeSelect.Option value="b">Option B</NativeSelect.Option>
+      <NativeSelect.Root>
+        <NativeSelect.Option value="a">A</NativeSelect.Option>
       </NativeSelect.Root>,
     )
-    const select = container.querySelector('select')
-    expect(select).toBeTruthy()
+    expect(container.querySelector('select')).toBeTruthy()
   })
 
   it('renders option elements', () => {
@@ -20,43 +27,19 @@ describe('NativeSelect', () => {
         <NativeSelect.Option value="b">B</NativeSelect.Option>
       </NativeSelect.Root>,
     )
-    const options = container.querySelectorAll('option')
-    expect(options.length).toBeGreaterThanOrEqual(2)
+    expect(container.querySelectorAll('option').length).toBe(2)
   })
 
   it('renders placeholder as disabled first option', () => {
     const { container } = render(
-      <NativeSelect.Root placeholder="Select one">
+      <NativeSelect.Root placeholder="Choose">
         <NativeSelect.Option value="a">A</NativeSelect.Option>
       </NativeSelect.Root>,
     )
     const options = container.querySelectorAll('option')
-    const placeholder = Array.from(options).find((o) => o.textContent === 'Select one')
-    expect(placeholder).toBeTruthy()
-  })
-
-  it('renders without crashing when disabled', () => {
-    const { container } = render(
-      <NativeSelect.Root disabled>
-        <NativeSelect.Option value="a">A</NativeSelect.Option>
-      </NativeSelect.Root>,
-    )
-    const select = container.querySelector('select')
-    expect(select).toBeTruthy()
-  })
-
-  it('calls onValueChange when selection changes', () => {
-    const onChange = jest.fn()
-    const { container } = render(
-      <NativeSelect.Root onValueChange={onChange}>
-        <NativeSelect.Option value="a">A</NativeSelect.Option>
-        <NativeSelect.Option value="b">B</NativeSelect.Option>
-      </NativeSelect.Root>,
-    )
-    const select = container.querySelector('select')!
-    select.value = 'b'
-    select.dispatchEvent(new Event('change', { bubbles: true }))
-    expect(onChange).toHaveBeenCalledWith('b')
+    expect(options[0].textContent).toBe('Choose')
+    expect(options[0]).toBeDisabled()
+    expect(options[0]).toHaveAttribute('hidden')
   })
 
   it('renders each size variant', () => {
@@ -70,5 +53,46 @@ describe('NativeSelect', () => {
       expect(container.querySelector('select')).toBeTruthy()
       unmount()
     }
+  })
+
+  it('calls onValueChange when selection changes', () => {
+    const onValueChange = jest.fn()
+    const { container } = render(
+      <NativeSelect.Root onValueChange={onValueChange}>
+        <NativeSelect.Option value="a">A</NativeSelect.Option>
+        <NativeSelect.Option value="b">B</NativeSelect.Option>
+      </NativeSelect.Root>,
+    )
+    const select = container.querySelector('select')!
+    fireEvent.change(select, { target: { value: 'b' } })
+    expect(onValueChange).toHaveBeenCalledWith('b')
+  })
+
+  it('sets aria-invalid when error prop is true', () => {
+    const { container } = render(
+      <NativeSelect.Root error>
+        <NativeSelect.Option value="a">A</NativeSelect.Option>
+      </NativeSelect.Root>,
+    )
+    expect(container.querySelector('select')).toHaveAttribute('aria-invalid', 'true')
+  })
+
+  it('is disabled when disabled prop is true', () => {
+    const { container } = render(
+      <NativeSelect.Root disabled>
+        <NativeSelect.Option value="a">A</NativeSelect.Option>
+      </NativeSelect.Root>,
+    )
+    expect(container.querySelector('select')).toBeDisabled()
+  })
+
+  it('forwards ref on Root', () => {
+    const ref = createRef<HTMLSelectElement>()
+    render(
+      <NativeSelect.Root ref={ref}>
+        <NativeSelect.Option value="a">A</NativeSelect.Option>
+      </NativeSelect.Root>,
+    )
+    expect(ref.current).toBeInstanceOf(HTMLSelectElement)
   })
 })

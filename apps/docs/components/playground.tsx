@@ -451,7 +451,7 @@ const Container = styled('div', { stl: {
 }})
 
 const TitleBar = styled('div', { stl: {
-  px: '$2.5',
+  px: '$20',
   py: '$1',
   borderBottom: '$neutralMin',
   background: '$background1',
@@ -469,7 +469,7 @@ const GridLayout = styled('div', { stl: {
 }})
 
 const ControlsPanel = styled('div', { stl: {
-  padding: '$2.5',
+  padding: '$20',
   borderBottom: '$neutralMin',
   background: '$background1',
   gtMd: {
@@ -479,7 +479,7 @@ const ControlsPanel = styled('div', { stl: {
 }})
 
 const ControlGroup = styled('div', { stl: {
-  mb: '$2.5',
+  mb: '$20',
   ':last-child': { mb: 0 },
 }})
 
@@ -541,7 +541,7 @@ const PreviewArea = styled('div', { stl: {
 
 const CodeSection = styled('div', { stl: {
   borderTop: '$neutralMin',
-  padding: '$2.5',
+  padding: '$20',
   background: '$background1',
 }})
 
