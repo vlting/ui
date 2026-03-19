@@ -271,18 +271,17 @@ export class StyleManager {
         ? undefined
         : `${this.baseClassName}${outputClass}`
     const output: {
-      style: StyleObj
+      style?: StyleObj
       className?: string
       class?: string
       styleManager?: StyleManager
       debug?: any
     } = {
-      style: {},
       [classNameKey]: className,
       debug: this.getDebugInfo(),
     }
 
-    // Generate inline styles
+    // Generate inline styles (omit style prop entirely when empty)
     if (this.styleCount > 0) {
       output.style = this.styleVars
     }

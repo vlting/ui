@@ -340,6 +340,11 @@ export const colorCore = {
   warning10: true,
   warning11: true,
   warning12: true,
+  // Semantic colors
+  surface1: true,
+  surface2: true,
+  surface3: true,
+  inverse: true,
   // Static constants
   white: true,
   black: true,
