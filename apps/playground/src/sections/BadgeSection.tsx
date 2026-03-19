@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Badge } from '@vlting/ui'
+import { Badge, Button, Card, ToggleGroup } from '@vlting/ui'
 
-import { ButtonRow, DemoCard, SectionHeading, SectionTitle, StackY, ToggleBar, VariantToggle, type SectionProps } from './shared'
+import { ButtonRow, SectionTitle, StackY, type SectionProps } from './shared'
 
 const coreThemes = ['primary', 'secondary', 'neutral'] as const
 const statusThemes = ['success', 'warning', 'error', 'info'] as const
@@ -14,35 +14,45 @@ export function BadgeSection({ sectionRef }: SectionProps) {
   const [variant, setVariant] = useState<BadgeVariant>('outline')
 
   return (
-    <DemoCard stl={{ mt: '$24' }} ref={sectionRef} data-section="Badge">
-      <SectionHeading>Badge</SectionHeading>
-      <StackY>
-        <ToggleBar>
-          <VariantToggle options={BADGE_VARIANTS} value={variant} onChange={setVariant} />
-        </ToggleBar>
-
-        <SectionTitle>Core</SectionTitle>
-        <ButtonRow>
-          {coreThemes.map(t => <Badge key={t} theme={t} variant={variant}>{t}</Badge>)}
-        </ButtonRow>
-
-        <SectionTitle>Status</SectionTitle>
-        <ButtonRow>
-          {statusThemes.map(t => <Badge key={t} theme={t} variant={variant}>{t}</Badge>)}
-        </ButtonRow>
-
-        <SectionTitle>Flavor</SectionTitle>
-        <ButtonRow>
-          {flavorThemes.map(t => <Badge key={t} theme={t} variant={variant}>{t}</Badge>)}
-        </ButtonRow>
-
-        <SectionTitle>Sizes</SectionTitle>
-        <ButtonRow stl={{ alignItems: 'center' }}>
-          {(['sm', 'md', 'lg'] as const).map(size => (
-            <Badge key={size} size={size}>size: {size}</Badge>
+    <Card elevation="flat" flush ref={sectionRef} data-section="Badge" stl={{ mt: '$24' }}>
+      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Card.Title>Badge</Card.Title>
+        <ToggleGroup
+          type="exclusive"
+          value={[variant]}
+          onValueChange={v => v[0] && setVariant(v[0] as BadgeVariant)}
+          aria-label="Variant"
+        >
+          {BADGE_VARIANTS.map(v => (
+            <Button key={v} value={v} size="sm" variant="outline" theme="neutral">{v}</Button>
           ))}
-        </ButtonRow>
-      </StackY>
-    </DemoCard>
+        </ToggleGroup>
+      </Card.Header>
+      <Card.Content>
+        <StackY>
+          <SectionTitle stl={{ mt: '$0' }}>Core</SectionTitle>
+          <ButtonRow>
+            {coreThemes.map(t => <Badge key={t} theme={t} variant={variant}>{t}</Badge>)}
+          </ButtonRow>
+
+          <SectionTitle>Status</SectionTitle>
+          <ButtonRow>
+            {statusThemes.map(t => <Badge key={t} theme={t} variant={variant}>{t}</Badge>)}
+          </ButtonRow>
+
+          <SectionTitle>Flavor</SectionTitle>
+          <ButtonRow>
+            {flavorThemes.map(t => <Badge key={t} theme={t} variant={variant}>{t}</Badge>)}
+          </ButtonRow>
+
+          <SectionTitle>Sizes</SectionTitle>
+          <ButtonRow stl={{ alignItems: 'center' }}>
+            {(['sm', 'md', 'lg'] as const).map(size => (
+              <Badge key={size} size={size}>size: {size}</Badge>
+            ))}
+          </ButtonRow>
+        </StackY>
+      </Card.Content>
+    </Card>
   )
 }
