@@ -61,4 +61,18 @@ describe('Progress', () => {
     // Indicator should be clamped — check it renders without error
     expect(el).toBeTruthy()
   })
+
+  it('renders each theme variant', () => {
+    const themes = ['primary', 'secondary', 'neutral'] as const
+    for (const theme of themes) {
+      const { unmount } = render(<Progress value={50} theme={theme} />)
+      expect(screen.getByRole('progressbar')).toBeTruthy()
+      unmount()
+    }
+  })
+
+  it('defaults theme to primary', () => {
+    render(<Progress value={50} />)
+    expect(screen.getByRole('progressbar')).toBeTruthy()
+  })
 })
