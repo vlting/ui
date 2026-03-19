@@ -5,7 +5,7 @@ export const Blockquote = styled('blockquote', {
   fontSize: '$p',
   lineHeight: '$body',
   fontStyle: 'italic',
-  color: '$color',
+  color: '$neutral12',
   margin: '0',
   bg: '$neutralAlpha2',
   radius: '$snippet',
@@ -14,5 +14,5 @@ export const Blockquote = styled('blockquote', {
   pr: '$16',
   borderLeftWidth: '$widthBase',
   borderLeftStyle: '$styleDefault',
-  borderLeftColor: '$borderColor',
+  borderLeftColor: '$neutral4',
 }, { name: 'Blockquote' })
