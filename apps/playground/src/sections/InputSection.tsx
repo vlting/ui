@@ -6,7 +6,7 @@ import { styled } from '@vlting/stl-react'
 import { ControlRow, SectionTitle, StackY, type SectionProps } from './shared'
 
 const ContentWrap = styled('div', {
-  maxWidth: 480,
+  maxWidth: '$480',
 }, { name: 'ContentWrap' })
 
 const SIZES = ['sm', 'md', 'lg'] as const
