@@ -123,15 +123,16 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Branch prefix:** feat
 **Branch:** feat/library-buildout/layout-typography
 **Issue:** #214
+**PR:** #215
 **Acceptance criteria:**
-- [ ] Heading: compound H1-H6 via Object.assign, drop level/forwardRef
-- [ ] Text: add Text.Small (<small>), Text.Code (<code>) sub-components
-- [ ] Blockquote + InlineCode as new standalone stl-react primitives
-- [ ] Layout semantic alternates on Row, Column, Box (.Div/.Nav/.Header/.Footer/.Main/.Aside/.Article/.Span)
-- [ ] Typed polymorphic `as` prop on StyledComponent
-- [ ] Delete Typography component, re-export Separator, implement ButtonGroup + Direction
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages for Heading, Separator, ButtonGroup
+- [x] Heading: compound H1-H6 via Object.assign, drop level/forwardRef
+- [x] Text: add Text.Small (<small>), Text.Code (<code>) sub-components
+- [x] Blockquote + InlineCode as new standalone stl-react primitives
+- [x] Layout semantic alternates on Row, Column, Box (.Div/.Nav/.Header/.Footer/.Main/.Aside/.Article/.Span)
+- [x] Typed polymorphic `as` prop on StyledComponent
+- [x] Delete Typography component, re-export Separator, implement ButtonGroup + Direction
+- [x] Tests passing, removed from testPathIgnorePatterns
+- [x] Playground pages for Heading, Separator, ButtonGroup
 **Status:** in-progress
 
 ### Stage 6.4: Token Infrastructure (Shadow & Layering)
