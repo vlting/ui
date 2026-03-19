@@ -198,7 +198,7 @@ export {
   useToastController,
   useToastState,
 } from './Toast'
-export type { ToggleGroupItemProps, ToggleGroupProps, ToggleProps } from './Toggle'
+export type { ToggleGroupProps, ToggleProps } from './Toggle'
 export { Toggle, ToggleGroup } from './Toggle'
 export type { TooltipProps, TooltipProviderProps } from './Tooltip'
 export { Tooltip, TooltipProvider } from './Tooltip'
