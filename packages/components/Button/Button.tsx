@@ -46,16 +46,16 @@ const ButtonBase = styled('button', {
       md: { height: '$32', py: '$8', px: '$12', fontSize: '$buttonSmall', minWidth: '$80' },
       lg: { height: '$36', py: '$buttonBasePy', px: '$16', fontSize: '$button', minWidth: '$96' },
       xl: { height: '$40', py: '$12', px: '$20', fontSize: '$buttonLarge', minWidth: '$120' },
-      icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button', minWidth: 'unset' },
+      icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button', minWidth: '$0' },
     },
     square: {
-      true: { px: '$0', justifyContent: 'center', minWidth: 'unset' },
+      true: { px: '$0', justifyContent: 'center', minWidth: '$0' },
     },
     pill: {
       true: { radius: '$pill' },
     },
     disabled: {
-      true: { opacity: '0.5', cursor: 'not-allowed', pointerEvents: 'none' },
+      true: { opacity: '$disabledOpacity', cursor: 'not-allowed', pointerEvents: 'none' },
     },
     loading: {
       true: { cursor: 'wait', pointerEvents: 'none' },
@@ -72,7 +72,7 @@ const ButtonBase = styled('button', {
         bg: '$primary9', color: '$primaryText9',
         backgroundImage: '$gradientPrimary',
         ':interact': { bg: '$primary10', color: '$primaryText10' },
-        ':focus': { outline: '$primary' },
+        ':focus': { outline: '$primaryMax' },
       },
     },
     {
@@ -87,7 +87,7 @@ const ButtonBase = styled('button', {
       when: { theme: 'primary', variant: 'outline' },
       stl: {
         bg: '$surface1', border: '$primaryMin', color: '$primaryText1',
-        ':interact': { bg: '$primary9', color: '$primaryText9', border: '$primaryMin' },
+        ':interact': { bg: '$primary9', color: '$primaryText9', border: '$primary' },
         ':focus': { outline: '$primary' },
       },
     },
@@ -102,7 +102,7 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'primary', variant: 'link' },
       stl: {
-        bg: 'transparent', color: '$primaryText1', px: '$0', textDecoration: 'underline',
+        bg: 'transparent', color: '$primaryText1', px: '$0', textDecoration: '$underlineDefault',
         ':interact': { bg: '$primary9', color: '$primaryText9' },
         ':focus': { outline: '$primary' },
       },
@@ -114,7 +114,7 @@ const ButtonBase = styled('button', {
       stl: {
         bg: '$secondary9', color: '$secondaryText9',
         ':interact': { bg: '$secondary10', color: '$secondaryText10' },
-        ':focus': { outline: '$secondary' },
+        ':focus': { outline: '$secondaryMax' },
       },
     },
     {
@@ -129,7 +129,7 @@ const ButtonBase = styled('button', {
       when: { theme: 'secondary', variant: 'outline' },
       stl: {
         bg: '$surface1', border: '$secondaryMin', color: '$secondaryText1',
-        ':interact': { bg: '$secondary9', color: '$secondaryText9', border: '$secondaryMin' },
+        ':interact': { bg: '$secondary9', color: '$secondaryText9', border: '$secondary' },
         ':focus': { outline: '$secondary' },
       },
     },
@@ -144,7 +144,7 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'secondary', variant: 'link' },
       stl: {
-        bg: 'transparent', color: '$secondaryText1', px: '$0', textDecoration: 'underline',
+        bg: 'transparent', color: '$secondaryText1', px: '$0', textDecoration: '$underlineDefault',
         ':interact': { bg: '$secondary9', color: '$secondaryText9' },
         ':focus': { outline: '$secondary' },
       },
@@ -156,7 +156,7 @@ const ButtonBase = styled('button', {
       stl: {
         bg: '$neutral9', color: '$neutralText9',
         ':interact': { bg: '$neutral10', color: '$neutralText10' },
-        ':focus': { outline: '$neutral' },
+        ':focus': { outline: '$neutralMax' },
       },
     },
     {
@@ -171,7 +171,7 @@ const ButtonBase = styled('button', {
       when: { theme: 'neutral', variant: 'outline' },
       stl: {
         bg: '$surface1', border: '$neutralMin', color: '$neutralText1',
-        ':interact': { bg: '$neutral9', color: '$neutralText9', border: '$neutralMin' },
+        ':interact': { bg: '$neutral9', color: '$neutralText9', border: '$neutral' },
         ':focus': { outline: '$neutral' },
       },
     },
@@ -186,7 +186,7 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'neutral', variant: 'link' },
       stl: {
-        bg: 'transparent', color: '$neutralText1', px: '$0', textDecoration: 'underline',
+        bg: 'transparent', color: '$neutralText1', px: '$0', textDecoration: '$underlineDefault',
         ':interact': { bg: '$neutral9', color: '$neutralText9' },
         ':focus': { outline: '$neutral' },
       },
@@ -198,7 +198,7 @@ const ButtonBase = styled('button', {
       stl: {
         bg: '$error9', color: '$errorText9',
         ':interact': { bg: '$error10', color: '$errorText10' },
-        ':focus': { outline: '$error' },
+        ':focus': { outline: '$errorMax' },
       },
     },
     {
@@ -213,7 +213,7 @@ const ButtonBase = styled('button', {
       when: { theme: 'destructive', variant: 'outline' },
       stl: {
         bg: '$surface1', border: '$errorMin', color: '$errorText1',
-        ':interact': { bg: '$error9', color: '$errorText9', border: '$errorMin' },
+        ':interact': { bg: '$error9', color: '$errorText9', border: '$error' },
         ':focus': { outline: '$error' },
       },
     },
@@ -228,7 +228,7 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'destructive', variant: 'link' },
       stl: {
-        bg: 'transparent', color: '$errorText1', px: '$0', textDecoration: 'underline',
+        bg: 'transparent', color: '$errorText1', px: '$0', textDecoration: '$underlineDefault',
         ':interact': { bg: '$error9', color: '$errorText9' },
         ':focus': { outline: '$error' },
       },
@@ -245,7 +245,7 @@ const ButtonBase = styled('button', {
     { when: { square: 'true', size: 'icon' }, stl: { width: '$36' } },
 
     // ── Loading overrides disabled opacity ─────────────
-    { when: { disabled: 'true', loading: 'true' }, stl: { opacity: '1', cursor: 'wait' } },
+    { when: { disabled: 'true', loading: 'true' }, stl: { opacity: '$fullOpacity', cursor: 'wait' } },
 
     // ── Pressed state (toggle active) ──────────────────
     // Primary
@@ -272,12 +272,12 @@ const ButtonBase = styled('button', {
     // ── Grouped: position × direction (border/radius) ─
     // Horizontal
     { when: { groupPosition: 'first', groupDirection: 'horizontal' }, stl: { radiusLeft: '$buttonGrouped', radiusRight: '$rectangular' } },
-    { when: { groupPosition: 'middle', groupDirection: 'horizontal' }, stl: { radius: '$rectangular', borderLeftWidth: '0' } },
-    { when: { groupPosition: 'last', groupDirection: 'horizontal' }, stl: { radiusRight: '$buttonGrouped', radiusLeft: '$rectangular', borderLeftWidth: '0' } },
+    { when: { groupPosition: 'middle', groupDirection: 'horizontal' }, stl: { radius: '$rectangular', borderLeftWidth: '$width0' } },
+    { when: { groupPosition: 'last', groupDirection: 'horizontal' }, stl: { radiusRight: '$buttonGrouped', radiusLeft: '$rectangular', borderLeftWidth: '$width0' } },
     // Vertical
     { when: { groupPosition: 'first', groupDirection: 'vertical' }, stl: { radiusTop: '$buttonGrouped', radiusBottom: '$rectangular' } },
-    { when: { groupPosition: 'middle', groupDirection: 'vertical' }, stl: { radius: '$rectangular', borderTopWidth: '0' } },
-    { when: { groupPosition: 'last', groupDirection: 'vertical' }, stl: { radiusBottom: '$buttonGrouped', radiusTop: '$rectangular', borderTopWidth: '0' } },
+    { when: { groupPosition: 'middle', groupDirection: 'vertical' }, stl: { radius: '$rectangular', borderTopWidth: '$width0' } },
+    { when: { groupPosition: 'last', groupDirection: 'vertical' }, stl: { radiusBottom: '$buttonGrouped', radiusTop: '$rectangular', borderTopWidth: '$width0' } },
 
     // ── Grouped: borderless variant spacing (solid/subtle/ghost get small gap) ─
     // Horizontal

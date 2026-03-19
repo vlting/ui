@@ -40,6 +40,7 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
 
   const styleDefault = { ...hash.var, value: 'solid' } as const
 
+  const width0 = { ...hash.var, value: '0' } as const
   const widthBase = { ...hash.var, value: '1rem' } as const
   const widthMin = { ...hash.var, value: widthBase.ref } as const
   const widthMax = { ...hash.var, value: `calc(${widthBase.ref} + 2rem)` } as const
@@ -74,6 +75,7 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
     infoColorMin,
     infoColorLow,
     infoColorMax,
+    width0,
     widthBase,
     widthMin,
     widthMax,
@@ -264,6 +266,11 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
     rightStyleDefault: { borderInlineEndStyle: styleDefault.ref },
 
     // WIDTHS //
+    topWidth0: { borderBlockStartWidth: width0.ref },
+    bottomWidth0: { borderBlockEndWidth: width0.ref },
+    leftWidth0: { borderInlineStartWidth: width0.ref },
+    rightWidth0: { borderInlineEndWidth: width0.ref },
+
     topWidthBase: { borderBlockStartWidth: widthBase.ref },
     bottomWidthBase: { borderBlockEndWidth: widthBase.ref },
     leftWidthBase: { borderInlineStartWidth: widthBase.ref },
@@ -775,6 +782,7 @@ export const hiddenBorderStyles = {
 } as const
 
 export const borderWidths = {
+  width0: true,
   widthBase: true,
   widthMin: true,
   widthMax: true,
@@ -783,6 +791,10 @@ export const borderWidths = {
 
 export const hiddenBorderWidths = {
   ...borderCombos,
+  topWidth0: true,
+  bottomWidth0: true,
+  leftWidth0: true,
+  rightWidth0: true,
   topWidthBase: true,
   bottomWidthBase: true,
   leftWidthBase: true,
