@@ -61,7 +61,8 @@ Single-component API; no compound sub-components are exposed.
 
 ## 6. Styling
 
-- **Design tokens used:** Track uses `$maxAlpha4` background; indicator uses `$primary9`. Size variant maps: `sm` = `$4`, `md` = `$8`, `lg` = `$12` height. Border radius `$field` (theme-responsive). Dynamic width via `stl={{ width }}` on indicator.
+- **Design tokens used:** Track uses `$maxAlpha4` background; indicator color resolved via `theme` variant (`$primary9`, `$secondary9`, `$neutral9`). Size variant maps: `sm` = `$4`, `md` = `$8`, `lg` = `$12` height. Border radius `$field` (theme-responsive). Dynamic width via `stl={{ width }}` on indicator.
+- **Theme variants:** `primary` (default), `secondary`, `neutral`.
 - **Responsive behavior:** Full-width by default; size can be changed per breakpoint.
 - **Dark mode:** Token-based; resolves automatically.
 
@@ -77,9 +78,9 @@ Single-component API; no compound sub-components are exposed.
 
 ## 8. Breaking Change Criteria
 
-- Removing `value`, `max`, or `size` props.
+- Removing `value`, `max`, `size`, or `theme` props.
 - Changing the ARIA role from `progressbar`.
-- Removing the size variant scale.
+- Removing the size or theme variant scale.
 - Changing the indicator fill direction.
 
 ---
