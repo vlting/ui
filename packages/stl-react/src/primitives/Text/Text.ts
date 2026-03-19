@@ -45,7 +45,7 @@ const Small = styled('small', {
 
 const Code = styled('code', {
   ...TEXT_STYLES,
-  fontFamily: '$mono',
+  fontFamily: '$code',
   fontSize: '$14',
   bg: '$neutralAlpha2',
   px: '$4',

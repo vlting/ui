@@ -1,7 +1,7 @@
 import { styled } from '../../config'
 
 export const InlineCode = styled('code', {
-  fontFamily: '$mono',
+  fontFamily: '$code',
   fontSize: '$14',
   color: '$color',
   bg: '$neutralAlpha2',
