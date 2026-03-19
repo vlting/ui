@@ -5,9 +5,11 @@ import {
   cloneElement,
   forwardRef,
   isValidElement,
+  useMemo,
 } from 'react'
 import { styled } from '../../stl-react/src/config'
 import { useToggleGroup } from '../../headless/src'
+import { mergeRefs } from '../../utils/mergeRefs'
 
 // ─── Styled root ────────────────────────────────────────────────────────────
 
@@ -47,17 +49,32 @@ export type ButtonGroupProps = ComponentPropsWithRef<typeof ButtonGroupRoot> & {
 
 export const ButtonGroup = Object.assign(
   forwardRef<HTMLDivElement, ButtonGroupProps>(
-    ({ attached, children, orientation = 'horizontal', mode = 'stateless', value, defaultValue, onValueChange, ...rest }, ref) => {
+    ({ attached, children, orientation = 'horizontal', mode = 'stateless', value, defaultValue, onValueChange, onKeyDown: consumerOnKeyDown, ...rest }, ref) => {
       const groupDirection: GroupDirection = orientation
       const isToggleMode = mode === 'toggle' || mode === 'exclusive'
 
+      // Pre-compute disabled indices from children before calling hooks
+      const validChildren = (attached || isToggleMode)
+        ? Children.toArray(children).filter(isValidElement)
+        : []
+
+      const disabledIndices = useMemo(() => {
+        if (!isToggleMode) return undefined
+        const disabled = new Set<number>()
+        validChildren.forEach((child, index) => {
+          if ((child as ReactElement<any>).props?.disabled) {
+            disabled.add(index)
+          }
+        })
+        return disabled.size > 0 ? disabled : undefined
+      }, [isToggleMode, validChildren])
+
       const toggleGroup = isToggleMode
-        ? useToggleGroup({ type: mode as 'toggle' | 'exclusive', value, defaultValue, onValueChange, orientation })
+        ? useToggleGroup({ type: mode as 'toggle' | 'exclusive', value, defaultValue, onValueChange, orientation, disabledIndices })
         : null
 
       let processedChildren = children
       if (attached || isToggleMode) {
-        const validChildren = Children.toArray(children).filter(isValidElement)
         const count = validChildren.length
 
         processedChildren = validChildren.map((child, index) => {
@@ -102,12 +119,19 @@ export const ButtonGroup = Object.assign(
         })
       }
 
-      const containerProps: Record<string, any> = {
-        role: 'group',
-      }
+      // Get group props (now includes ref + onKeyDown for exclusive mode)
+      const groupProps = toggleGroup ? toggleGroup.getGroupProps() : { role: 'group' as const }
+      const { ref: groupRef, onKeyDown: groupOnKeyDown, ...groupRest } = groupProps as any
 
-      if (toggleGroup) {
-        Object.assign(containerProps, toggleGroup.getGroupProps())
+      // Compose onKeyDown handlers
+      let composedOnKeyDown = groupOnKeyDown
+      if (groupOnKeyDown && consumerOnKeyDown) {
+        composedOnKeyDown = (e: React.KeyboardEvent) => {
+          groupOnKeyDown(e)
+          consumerOnKeyDown(e)
+        }
+      } else if (consumerOnKeyDown) {
+        composedOnKeyDown = consumerOnKeyDown
       }
 
       if (process.env.NODE_ENV !== 'production' && isToggleMode) {
@@ -120,10 +144,11 @@ export const ButtonGroup = Object.assign(
 
       return (
         <ButtonGroupRoot
-          ref={ref}
+          ref={groupRef ? mergeRefs(ref, groupRef) : ref}
           orientation={orientation}
           attached={attached}
-          {...containerProps}
+          onKeyDown={composedOnKeyDown}
+          {...groupRest}
           {...rest}
         >
           {processedChildren}
