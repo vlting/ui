@@ -37,6 +37,9 @@ const CardRoot = styled('article', {
         },
       },
     },
+    flush: {
+      true: { p: '$0' },
+    },
     interactive: {
       true: {
         cursor: 'pointer',
