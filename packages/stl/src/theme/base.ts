@@ -91,7 +91,6 @@ export const radius = {
   12: 50,
   true: 9,
   full: 9999,
-  button: 9,
   buttonGrouped: 9,
 } as const
 
