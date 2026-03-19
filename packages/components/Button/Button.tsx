@@ -86,8 +86,8 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'primary', variant: 'outline' },
       stl: {
-        bg: '$surface1', border: '$primary', color: '$primaryText1',
-        ':interact': { bg: '$primary9', color: '$primaryText9', border: '$primary' },
+        bg: '$surface1', border: '$primaryMin', color: '$primaryText1',
+        ':interact': { bg: '$primary9', color: '$primaryText9', border: '$primaryMin' },
         ':focus': { outline: '$primary' },
       },
     },
@@ -129,8 +129,8 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'secondary', variant: 'outline' },
       stl: {
-        bg: '$surface1', border: '$secondary', color: '$secondaryText1',
-        ':interact': { bg: '$secondary9', color: '$secondaryText9', border: '$secondary' },
+        bg: '$surface1', border: '$secondaryMin', color: '$secondaryText1',
+        ':interact': { bg: '$secondary9', color: '$secondaryText9', border: '$secondaryMin' },
         ':focus': { outline: '$secondary' },
       },
     },
@@ -172,8 +172,8 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'neutral', variant: 'outline' },
       stl: {
-        bg: '$surface1', border: '$neutral', color: '$neutralText1',
-        ':interact': { bg: '$neutral9', color: '$neutralText9', border: '$neutral' },
+        bg: '$surface1', border: '$neutralMin', color: '$neutralText1',
+        ':interact': { bg: '$neutral9', color: '$neutralText9', border: '$neutralMin' },
         ':focus': { outline: '$neutral' },
       },
     },
@@ -214,8 +214,8 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'destructive', variant: 'outline' },
       stl: {
-        bg: '$surface1', border: '$error', color: '$errorText1',
-        ':interact': { bg: '$error9', color: '$errorText9', border: '$error' },
+        bg: '$surface1', border: '$errorMin', color: '$errorText1',
+        ':interact': { bg: '$error9', color: '$errorText9', border: '$errorMin' },
         ':focus': { outline: '$error' },
       },
     },
