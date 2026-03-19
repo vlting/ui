@@ -1,8 +1,8 @@
 import { type ReactNode, useState } from 'react'
-import { Avatar, Badge, Button, Item } from '@vlting/ui'
+import { Avatar, Badge, Button, Card, Item, Toggle, ToggleGroup } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
-import { DemoCard, SectionHeading, SectionTitle, StackY, ToggleBar, ToggleGroup, VariantToggle, type SectionProps } from './shared'
+import { SectionTitle, StackY, type SectionProps } from './shared'
 
 const ITEM_VARIANTS = ['ghost', 'subtle', 'outline'] as const
 const ITEM_SIZES = ['sm', 'md', 'lg'] as const
@@ -32,6 +32,10 @@ const ColorDot = styled('span', {
   height: '$8',
   radius: '$badge',
 }, { name: 'ColorDot' })
+
+const ToggleRow = styled('div', {
+  display: 'flex', gap: '$8', alignItems: 'center', flexWrap: 'wrap',
+}, { name: 'ToggleRow' })
 
 type DemoItem = {
   title: string
@@ -68,49 +72,80 @@ export function ItemSection({ sectionRef }: SectionProps) {
   const [showActions, setShowActions] = useState(true)
 
   return (
-    <DemoCard stl={{ mt: '$24' }} ref={sectionRef} data-section="Item">
-      <SectionHeading>Item</SectionHeading>
-      <ToggleBar>
-        <VariantToggle options={ITEM_VARIANTS} value={variant} onChange={setVariant} />
-        <VariantToggle options={ITEM_SIZES} value={size} onChange={setSize} />
-        <VariantToggle options={ITEM_ALIGNS} value={align} onChange={setAlign} />
-        <ToggleGroup><Button size="xs" theme="neutral" variant={interactive ? 'solid' : 'subtle'} onClick={() => setInteractive((i) => !i)}>interactive</Button></ToggleGroup>
-        <ToggleGroup><Button size="xs" theme="neutral" variant={showMedia ? 'solid' : 'subtle'} onClick={() => setShowMedia((m) => !m)}>media</Button></ToggleGroup>
-        <ToggleGroup><Button size="xs" theme="neutral" variant={showDescription ? 'solid' : 'subtle'} onClick={() => setShowDescription((d) => !d)}>description</Button></ToggleGroup>
-        <ToggleGroup><Button size="xs" theme="neutral" variant={showActions ? 'solid' : 'subtle'} onClick={() => setShowActions((a) => !a)}>actions</Button></ToggleGroup>
-      </ToggleBar>
-      <ThemeRow>
-        {ITEM_THEMES.map((theme) => (
-          <ThemeGroup key={theme}>
-            <SectionTitle>{theme}</SectionTitle>
-            <StackY stl={{ gap: '$6' }}>
-              {themeItems[theme].map((item) => (
-                <Item
-                  key={item.title}
-                  theme={theme}
-                  variant={variant}
-                  size={size}
-                  align={align}
-                  interactive={interactive || undefined}
-                >
-                  {showMedia && (
-                    <Item.Leading stl={showDescription ? { alignSelf: 'start' } : undefined}>
-                      {item.media}
-                    </Item.Leading>
-                  )}
-                  <Item.Content>
-                    <Item.Title>{item.title}</Item.Title>
-                    {showDescription && (
-                      <Item.Description theme={theme}>{item.description}</Item.Description>
+    <Card elevation="flat" flush ref={sectionRef} data-section="Item" stl={{ mt: '$24' }}>
+      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
+        <Card.Title>Item</Card.Title>
+        <ToggleRow>
+          <ToggleGroup
+            type="exclusive"
+            value={[variant]}
+            onValueChange={v => v[0] && setVariant(v[0] as typeof variant)}
+            aria-label="Variant"
+          >
+            {ITEM_VARIANTS.map(v => (
+              <Button key={v} value={v} size="sm" variant="outline" theme="neutral">{v}</Button>
+            ))}
+          </ToggleGroup>
+          <ToggleGroup
+            type="exclusive"
+            value={[size]}
+            onValueChange={v => v[0] && setSize(v[0] as typeof size)}
+            aria-label="Size"
+          >
+            {ITEM_SIZES.map(s => (
+              <Button key={s} value={s} size="sm" variant="outline" theme="neutral">{s}</Button>
+            ))}
+          </ToggleGroup>
+          <ToggleGroup
+            type="exclusive"
+            value={[align]}
+            onValueChange={v => v[0] && setAlign(v[0] as typeof align)}
+            aria-label="Align"
+          >
+            {ITEM_ALIGNS.map(a => (
+              <Button key={a} value={a} size="sm" variant="outline" theme="neutral">{a}</Button>
+            ))}
+          </ToggleGroup>
+          <Toggle size="sm" variant="outline" theme="neutral" pressed={interactive} onPressedChange={setInteractive}>interactive</Toggle>
+          <Toggle size="sm" variant="outline" theme="neutral" pressed={showMedia} onPressedChange={setShowMedia}>media</Toggle>
+          <Toggle size="sm" variant="outline" theme="neutral" pressed={showDescription} onPressedChange={setShowDescription}>description</Toggle>
+          <Toggle size="sm" variant="outline" theme="neutral" pressed={showActions} onPressedChange={setShowActions}>actions</Toggle>
+        </ToggleRow>
+      </Card.Header>
+      <Card.Content>
+        <ThemeRow>
+          {ITEM_THEMES.map((theme) => (
+            <ThemeGroup key={theme}>
+              <SectionTitle>{theme}</SectionTitle>
+              <StackY stl={{ gap: '$6' }}>
+                {themeItems[theme].map((item) => (
+                  <Item
+                    key={item.title}
+                    theme={theme}
+                    variant={variant}
+                    size={size}
+                    align={align}
+                    interactive={interactive || undefined}
+                  >
+                    {showMedia && (
+                      <Item.Leading stl={showDescription ? { alignSelf: 'start' } : undefined}>
+                        {item.media}
+                      </Item.Leading>
                     )}
-                  </Item.Content>
-                  {showActions && <Item.Trailing>{item.action}</Item.Trailing>}
-                </Item>
-              ))}
-            </StackY>
-          </ThemeGroup>
-        ))}
-      </ThemeRow>
-    </DemoCard>
+                    <Item.Content>
+                      <Item.Title>{item.title}</Item.Title>
+                      {showDescription && (
+                        <Item.Description theme={theme}>{item.description}</Item.Description>
+                      )}
+                    </Item.Content>
+                    {showActions && <Item.Trailing>{item.action}</Item.Trailing>}
+                  </Item>
+                ))}
+              </StackY>
+            </ThemeGroup>
+          ))}
+        </ThemeRow>
+      </Card.Content>
+    </Card>
   )
 }

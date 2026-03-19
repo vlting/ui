@@ -1,8 +1,8 @@
-import { Progress } from '@vlting/ui'
+import { Card, Progress } from '@vlting/ui'
 import { useEffect, useState } from 'react'
 
 import {
-  DemoCard, PROGRESS_SIZES, SectionHeading, StackY,
+  PROGRESS_SIZES, StackY,
   type SectionProps,
 } from './shared'
 
@@ -15,13 +15,17 @@ export function ProgressSection({ sectionRef }: SectionProps) {
   }, [])
 
   return (
-    <DemoCard stl={{ mt: '$24' }} ref={sectionRef} data-section="Progress">
-      <SectionHeading>Progress</SectionHeading>
-      <StackY>
-        {PROGRESS_SIZES.map((size) => (
-          <Progress key={size} value={progress} size={size} aria-label={`${size} ${progress}%`} />
-        ))}
-      </StackY>
-    </DemoCard>
+    <Card elevation="flat" flush ref={sectionRef} data-section="Progress" stl={{ mt: '$24' }}>
+      <Card.Header>
+        <Card.Title>Progress</Card.Title>
+      </Card.Header>
+      <Card.Content>
+        <StackY>
+          {PROGRESS_SIZES.map((size) => (
+            <Progress key={size} value={progress} size={size} aria-label={`${size} ${progress}%`} />
+          ))}
+        </StackY>
+      </Card.Content>
+    </Card>
   )
 }
