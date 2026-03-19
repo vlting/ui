@@ -8,14 +8,6 @@ const StatusLabel = styled('span', {
   fontSize: '$small', color: '$neutralText4', fontFamily: '$code',
 }, { name: 'StatusLabel' })
 
-const ColumnRow = styled('div', {
-  display: 'flex', gap: '$24', overflowX: 'auto', flexWrap: 'wrap',
-}, { name: 'ColumnRow' })
-
-const Column = styled('div', {
-  display: 'flex', flexDirection: 'column', gap: '$12', flex: '1', minWidth: '200px',
-}, { name: 'Column' })
-
 const ToggleRow = styled('div', {
   display: 'flex', gap: '$8', alignItems: 'center',
 }, { name: 'ToggleRow' })
@@ -122,23 +114,6 @@ export function ToggleSection({ sectionRef }: SectionProps) {
             </ToggleGroup>
             <StatusLabel>{JSON.stringify(features)}</StatusLabel>
           </ButtonRow>
-        </div>
-
-        {/* ── All themes ───────────────────────────────── */}
-        <div>
-          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Themes</SectionTitle>
-          <ColumnRow>
-            {THEMES.map(t => (
-              <Column key={t}>
-                <StatusLabel>{t}</StatusLabel>
-                <ToggleGroup type="exclusive" defaultValue={['b']} aria-label={`${t} group`}>
-                  <Button value="a" variant="outline" theme={t} size={size}>A</Button>
-                  <Button value="b" variant="outline" theme={t} size={size}>B</Button>
-                  <Button value="c" variant="outline" theme={t} size={size}>C</Button>
-                </ToggleGroup>
-              </Column>
-            ))}
-          </ColumnRow>
         </div>
       </Card.Content>
     </Card>
