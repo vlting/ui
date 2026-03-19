@@ -2,7 +2,7 @@ import { styled } from '../../config'
 
 const TEXT_STYLES = {
   fontFamily: '$body',
-  color: '$color',
+  color: '$neutral12',
   fontSize: '$p',
   fontWeight: '$400',
   lineHeight: '$body',
@@ -21,7 +21,7 @@ const TextBase = styled('p', getTextStyles(), {
       xl: { fontSize: '$21' },
     },
     tone: {
-      neutral: { color: '$color' },
+      neutral: { color: '$neutral12' },
       muted: { color: '$neutralText12' },
       primary: { color: '$primary10' },
       success: { color: '$forest10' },

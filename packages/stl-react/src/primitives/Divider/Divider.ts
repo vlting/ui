@@ -5,7 +5,7 @@ export const Divider = styled('hr', {
   margin: '$0',
   height: '1px',
   width: '100%',
-  backgroundColor: '$borderColor',
+  backgroundColor: '$neutral4',
 }, {
   name: 'Divider',
   variants: {

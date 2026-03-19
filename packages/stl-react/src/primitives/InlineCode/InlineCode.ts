@@ -3,7 +3,7 @@ import { styled } from '../../config'
 export const InlineCode = styled('code', {
   fontFamily: '$code',
   fontSize: '$14',
-  color: '$color',
+  color: '$neutral12',
   bg: '$neutralAlpha2',
   px: '$4',
   py: '$2',
