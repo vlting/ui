@@ -23,7 +23,7 @@ const SheetOverlayFrame = styled(
 const SheetContentFrame = styled(
   View,
   {
-    backgroundColor: '$background',
+    backgroundColor: '$min',
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     paddingHorizontal: 20,

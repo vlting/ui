@@ -21,10 +21,11 @@
 
 ## 3. Anatomy
 
-Single element — per-level `styledHtml()` components (H1Frame through H6Frame) selected by `level` prop.
+Compound component — `Heading` is the base (`<h2>`), with sub-components `Heading.H1` through `Heading.H6` for explicit level selection.
 
-- `level` (1–6, default: 2) controls which HTML heading element is rendered and which typography tokens apply.
-- Uses `styledHtml()` to ensure correct HTML element rendering (not `styled(View, { tag: 'h1' })`).
+- Each sub-component (`Heading.H1`, `Heading.H2`, …, `Heading.H6`) is a `styled()` call on the corresponding HTML heading element.
+- `<Heading>` renders `<h2>` by default (backward-compatible).
+- Usage: `<Heading.H1>Page Title</Heading.H1>`, `<Heading.H3>Section</Heading.H3>`, etc.
 
 > **TypeScript is the source of truth for props.** See `Heading.tsx` for the full typed API. Do not duplicate prop tables here.
 
@@ -48,7 +49,7 @@ None.
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders `<h1>` through `<h6>` based on `level` prop. Native heading semantics — no `aria-level` needed.
+- **Semantic element:** Each sub-component renders its native heading element (`<h1>` through `<h6>`). No `aria-level` needed.
 - **Screen reader announcements:** Announced as heading with level, enabling document navigation.
 - **Contrast:** `$color` token must meet WCAG AA (4.5:1 for normal text, 3:1 for large text). Levels 1–2 typically qualify as large text.
 
@@ -61,7 +62,7 @@ None.
   - `color: '$color'`
   - Levels 1–2: `fontWeight: '$5'`; Levels 3–6: `fontWeight: '$4'`
   - Font size and line height scale with level (level 1 = largest)
-- **Responsive behavior:** Supports STL media-query props. Consumers can change `level` at different breakpoints.
+- **Responsive behavior:** Supports STL media-query props. Consumers select the appropriate sub-component for their heading level.
 - **Dark mode:** Text color switches via `$color` token automatically.
 
 ---
@@ -85,5 +86,5 @@ None.
 
 ## 9. Test Requirements
 
-- **Behavioral tests:** Verify each level (1–6) renders the correct HTML heading element. Verify default level is 2. Verify correct font size, line height, and weight tokens per level.
-- **Accessibility tests:** Verify rendered element matches `<h{level}>`. Verify text contrast (theme-level verification).
+- **Behavioral tests:** Verify each sub-component (H1–H6) renders the correct HTML heading element. Verify `<Heading>` renders `<h2>` by default.
+- **Accessibility tests:** Verify each sub-component renders its native heading element. Verify text contrast (theme-level verification).

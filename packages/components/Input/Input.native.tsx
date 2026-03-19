@@ -12,9 +12,9 @@ const InputFrame = styled(
   TextInput,
   {
     color: '$defaultBody',
-    backgroundColor: '$background',
+    backgroundColor: '$min',
     borderWidth: 1,
-    borderColor: '$borderColor',
+    borderColor: '$neutral4',
     borderRadius: '$3',
     paddingHorizontal: 12,
     paddingVertical: 8,

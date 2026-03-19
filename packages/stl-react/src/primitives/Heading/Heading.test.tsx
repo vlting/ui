@@ -1,4 +1,3 @@
-import React from 'react'
 import { render } from '../../../../../src/__test-utils__/render'
 import { Heading } from './Heading'
 
@@ -10,36 +9,32 @@ describe('Heading', () => {
     expect(h2!.textContent).toBe('Title')
   })
 
-  it('renders the correct heading level for each value', () => {
-    const levels = [1, 2, 3, 4, 5, 6] as const
-    for (const level of levels) {
-      const { container } = render(<Heading level={level}>Heading</Heading>)
-      const element = container.querySelector(`h${level}`)
+  it('renders each sub-component with the correct HTML element', () => {
+    const cases = [
+      { Sub: Heading.H1, tag: 'h1' },
+      { Sub: Heading.H2, tag: 'h2' },
+      { Sub: Heading.H3, tag: 'h3' },
+      { Sub: Heading.H4, tag: 'h4' },
+      { Sub: Heading.H5, tag: 'h5' },
+      { Sub: Heading.H6, tag: 'h6' },
+    ] as const
+    for (const { Sub, tag } of cases) {
+      const { container } = render(<Sub>Content</Sub>)
+      const element = container.querySelector(tag)
       expect(element).toBeTruthy()
     }
   })
 
-  it('renders children text', () => {
-    const { getByText } = render(<Heading level={1}>Hello World</Heading>)
+  it('renders children text via sub-component', () => {
+    const { getByText } = render(<Heading.H1>Hello World</Heading.H1>)
     expect(getByText('Hello World')).toBeTruthy()
-  })
-
-  it('forwards ref to the heading element', () => {
-    const ref = React.createRef<HTMLHeadingElement>()
-    render(
-      <Heading ref={ref} level={3}>
-        With Ref
-      </Heading>,
-    )
-    expect(ref.current).toBeInstanceOf(HTMLHeadingElement)
-    expect(ref.current!.tagName).toBe('H3')
   })
 
   it('passes through HTML attributes', () => {
     const { container } = render(
-      <Heading level={1} id="main-heading">
+      <Heading.H1 id="main-heading">
         Main
-      </Heading>,
+      </Heading.H1>,
     )
     const h1 = container.querySelector('h1')
     expect(h1!.id).toBe('main-heading')

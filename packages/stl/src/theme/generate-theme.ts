@@ -197,7 +197,14 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
     fontSize: options.fontSize,
     size: mergeScale(DEFAULT_SIZE, options.size),
     space: mergeScale(DEFAULT_SPACE, options.space),
-    radius: mergeScale(DEFAULT_RADIUS, options.radius),
+    radius: (() => {
+      const merged = mergeScale(DEFAULT_RADIUS, options.radius)
+      if (options.radius?.buttonGrouped === undefined) {
+        const buttonVal = (merged as any).button ?? (merged as any).true ?? 9
+        ;(merged as any).buttonGrouped = Math.min(buttonVal as number, 24)
+      }
+      return merged
+    })(),
     zIndex: mergeScale(DEFAULT_ZINDEX, options.zIndex),
     borderWidth: mergeScale(DEFAULT_BORDER_WIDTH, options.borderWidth),
     shadows: mergedShadows,

@@ -105,7 +105,7 @@ export function AuthSocialButtons({ providers }: AuthSocialButtonsProps) {
         <Button
           key={provider.name}
           variant="outline"
-          size="icon"
+          square
           onClick={provider.onPress}
           aria-label={`Continue with ${provider.name}`}
         >

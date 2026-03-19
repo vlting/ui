@@ -2,7 +2,7 @@ import { styled } from '../../config'
 
 const TEXT_STYLES = {
   fontFamily: '$body',
-  color: '$color',
+  color: '$neutral12',
   fontSize: '$p',
   fontWeight: '$400',
   lineHeight: '$body',
@@ -10,7 +10,7 @@ const TEXT_STYLES = {
 
 export const getTextStyles = () => TEXT_STYLES
 
-export const Text = styled('p', getTextStyles(), {
+const TextBase = styled('p', getTextStyles(), {
   name: 'Text',
   variants: {
     size: {
@@ -21,8 +21,8 @@ export const Text = styled('p', getTextStyles(), {
       xl: { fontSize: '$21' },
     },
     tone: {
-      neutral: { color: '$color' },
-      muted: { color: '$secondaryText12' },
+      neutral: { color: '$neutral12' },
+      muted: { color: '$neutralText12' },
       primary: { color: '$primary10' },
       success: { color: '$forest10' },
       warning: { color: '$amber10' },
@@ -37,6 +37,23 @@ export const Text = styled('p', getTextStyles(), {
     },
   },
 })
+
+const Small = styled('small', {
+  ...TEXT_STYLES,
+  fontSize: '$14',
+}, { name: 'Text.Small' })
+
+const Code = styled('code', {
+  ...TEXT_STYLES,
+  fontFamily: '$code',
+  fontSize: '$14',
+  bg: '$neutralAlpha2',
+  px: '$4',
+  py: '$2',
+  radius: '$snippet',
+}, { name: 'Text.Code' })
+
+export const Text = Object.assign(TextBase, { Small, Code })
 
 export interface TextProps {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'

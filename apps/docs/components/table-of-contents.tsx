@@ -20,7 +20,7 @@ const TocNav = styled('nav', { stl: {
 const TocTitle = styled('p', { stl: {
   mb: '$1.5',
   fontWeight: '$500',
-  color: '$color',
+  color: '$neutral12',
 }})
 
 export function TableOfContents() {

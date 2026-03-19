@@ -3,17 +3,21 @@
   "shadcn": null,
   "vlting": {
     "import": "import { Heading } from '@vlting/ui'",
+    "usage": "<Heading.H1>, <Heading.H2>, ..., <Heading.H6>",
+    "subComponents": ["Heading.H1", "Heading.H2", "Heading.H3", "Heading.H4", "Heading.H5", "Heading.H6"],
     "props": {
-      "level": { "type": "number", "values": ["1", "2", "3", "4", "5", "6"] },
       "children": { "type": "ReactNode", "values": [] }
     }
   },
   "notes": [
     "No direct shadcn equivalent; shadcn uses plain HTML headings or Typography patterns",
-    "Renders semantic HTML heading elements (h1-h6) using styledHtml",
-    "Default level is 2 (renders <h2>)",
-    "Each level has preset fontSize, lineHeight, and fontWeight from Tamagui tokens",
-    "Accepts a ref (forwardRef to HTMLHeadingElement)"
+    "Compound component — use Heading.H1 through Heading.H6 for explicit level",
+    "Base <Heading> renders <h2> (backward compat default)",
+    "Each sub-component renders its native HTML heading element with preset typography tokens"
   ],
-  "breaking": []
+  "breaking": [
+    "Removed `level` prop — use compound sub-components instead (e.g., <Heading.H1>)",
+    "Removed `HeadingProps` export",
+    "Removed forwardRef wrapper — each sub-component is a direct styled() call"
+  ]
 }

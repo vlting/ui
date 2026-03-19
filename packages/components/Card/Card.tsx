@@ -23,7 +23,7 @@ const CardRoot = styled('article', {
       lg: { p: '$20' },
     },
     elevation: {
-      flat: { border: '$borderColor', borderWidth: '$widthMin' },
+      flat: { border: '$neutralMin', borderWidth: '$widthMin' },
       normal: { boxShadow: '$md' },
       raised: { boxShadow: '$xl' },
       glass: {
@@ -36,6 +36,9 @@ const CardRoot = styled('article', {
           bg: 'var(--stl-glass-tint, $neutral2)',
         },
       },
+    },
+    flush: {
+      true: { p: '$0' },
     },
     interactive: {
       true: {
@@ -93,8 +96,6 @@ const CardHeader = styled('header', {
   flexDirection: 'column',
   gap: '$4',
   p: '$16',
-  borderBottom: '$borderColor',
-  borderBottomWidth: '$widthMin',
 }, { name: 'CardHeader' })
 
 const CardContent = styled('section', { p: '$16', flex: '1' }, { name: 'CardContent' })
@@ -104,8 +105,6 @@ const CardFooter = styled('footer', {
   alignItems: 'center',
   gap: '$8',
   p: '$16',
-  borderTop: '$borderColor',
-  borderTopWidth: '$widthMin',
 }, { name: 'CardFooter' })
 
 const CardTitle = styled('h3', { fontWeight: '$600', fontSize: '$h4', m: '$0', color: 'inherit' }, { name: 'CardTitle' })

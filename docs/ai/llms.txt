@@ -54,10 +54,10 @@ const config = createBrandConfig(shadcnBrand)
 
 ## Key Concepts
 
-- **Tokens**: Always use token values (`$4`, `$background`), never hardcode pixels or colors
+- **Tokens**: Always use token values (`$4`, `$min`, `$neutral12`), never hardcode pixels or colors
 - **Compound components**: Most components use `Component.Sub` pattern (e.g., `Card.Header`, `Dialog.Content`)
 - **Cross-platform**: Most components work on web + React Native; some (NavigationMenu, DataTable, ContextMenu) are web-only
-- **Theming**: Semantic color tokens (`$background`, `$color`, `$borderColor`) adapt to brand and light/dark mode
+- **Theming**: Palette color tokens (`$min`, `$neutral12`, `$neutral4`) adapt to brand and light/dark mode
 
 ## Resources
 

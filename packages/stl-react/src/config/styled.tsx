@@ -276,12 +276,15 @@ type BaseStyledProps<V extends Variants | undefined> = V extends Variants
   ? { stl?: STL; styleManager?: StyleManager } & VariantProps<V>
   : { stl?: STL; styleManager?: StyleManager }
 
-type StyledComponent<
+export interface StyledComponent<
   C extends ComponentType,
   V extends Variants | undefined,
-> = ReturnType<
-  typeof forwardRef<
-    any,
-    StylelessComponentProps<C> & BaseStyledProps<V> & { as?: ComponentType }
-  >
-> & { isStyledComponent: true; displayName?: string }
+> {
+  (props: StylelessComponentProps<C> & BaseStyledProps<V> & { ref?: any }): ReactNode
+  <As extends ElementType>(
+    props: Omit<ComponentPropsWithRef<As>, 'stl' | 'styleManager'> &
+      BaseStyledProps<V> & { as: As; ref?: any },
+  ): ReactNode
+  isStyledComponent: true
+  displayName?: string
+}

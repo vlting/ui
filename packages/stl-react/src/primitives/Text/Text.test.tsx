@@ -33,4 +33,18 @@ describe('Text', () => {
       unmount()
     }
   })
+
+  it('Text.Small renders a <small> element', () => {
+    const { container } = render(<Text.Small>Fine print</Text.Small>)
+    const el = container.querySelector('small')
+    expect(el).toBeTruthy()
+    expect(el!.textContent).toBe('Fine print')
+  })
+
+  it('Text.Code renders a <code> element', () => {
+    const { container } = render(<Text.Code>const x = 1</Text.Code>)
+    const el = container.querySelector('code')
+    expect(el).toBeTruthy()
+    expect(el!.textContent).toBe('const x = 1')
+  })
 })

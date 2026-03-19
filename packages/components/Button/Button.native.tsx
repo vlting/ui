@@ -27,7 +27,7 @@ const ButtonFrame = styled(
       outline: {
         backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: '$borderColor',
+        borderColor: '$neutral4',
       },
       ghost: { backgroundColor: 'transparent' },
       link: { backgroundColor: 'transparent' },
@@ -37,7 +37,9 @@ const ButtonFrame = styled(
       sm: { height: 32, paddingHorizontal: 12, paddingVertical: 8 },
       md: { height: 36, paddingHorizontal: 16, paddingVertical: 8 },
       lg: { height: 40, paddingHorizontal: 24, paddingVertical: 12 },
-      icon: { height: 36, width: 36, padding: 0 },
+    },
+    square: {
+      true: { paddingHorizontal: 0, aspectRatio: 1 },
     },
     disabled: {
       true: { opacity: 0.5 },
@@ -143,7 +145,8 @@ function ButtonIcon({ children, ...props }: { children?: React.ReactNode }) {
 export interface ButtonProps {
   children?: React.ReactNode
   variant?: ButtonVariant
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
+  square?: boolean
   pill?: boolean
   loading?: boolean
   disabled?: boolean
@@ -152,7 +155,7 @@ export interface ButtonProps {
 }
 
 const ButtonBase = forwardRef<View, ButtonProps>(function ButtonBase(
-  { loading, children, disabled, pill, variant = 'default', size = 'md', onPress, ...props },
+  { loading, children, disabled, pill, square, variant = 'default', size = 'md', onPress, ...props },
   ref,
 ) {
   const isDisabled = disabled ?? loading ?? false
@@ -165,6 +168,7 @@ const ButtonBase = forwardRef<View, ButtonProps>(function ButtonBase(
         onPress={isDisabled ? undefined : onPress}
         variant={variant}
         size={size}
+        square={square}
         pill={pill}
         accessibilityRole="button"
         accessibilityState={{ disabled: isDisabled, busy: loading || false }}

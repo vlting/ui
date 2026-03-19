@@ -169,7 +169,7 @@ AspectRatio.displayName = 'AspectRatio'
 export const Divider = styled(
   View,
   {
-    backgroundColor: '$borderColor',
+    backgroundColor: '$neutral4',
     height: 1,
     width: '100%',
   },
@@ -192,7 +192,7 @@ export interface SeparatorProps {
 const SeparatorBase = styled(
   View,
   {
-    backgroundColor: '$borderColor',
+    backgroundColor: '$neutral4',
     height: 1,
     width: '100%',
   },
@@ -314,7 +314,7 @@ export const Kbd = styled(
     paddingVertical: 2,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '$borderColor',
+    borderColor: '$neutral4',
     overflow: 'hidden',
   },
   {},
@@ -340,7 +340,7 @@ const BadgeContainer = styled(
       outline: {
         backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: '$borderColor',
+        borderColor: '$neutral4',
       },
     },
   },

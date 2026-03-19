@@ -1,4 +1,3 @@
-import { Button } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
 // ─── Icons ───────────────────────────────────────────────────────────────────
@@ -43,7 +42,7 @@ export const InfoCircleIcon = () => (
 
 export const THEMES = ['primary', 'secondary', 'neutral', 'destructive'] as const
 export const VARIANTS = ['solid', 'subtle', 'outline', 'ghost', 'link'] as const
-export const SIZES = ['xs', 'sm', 'md', 'lg', 'icon'] as const
+export const SIZES = ['xs', 'sm', 'md', 'lg'] as const
 
 export const ALERT_THEMES = ['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info'] as const
 export const ALERT_VARIANTS = ['solid', 'subtle', 'outline'] as const
@@ -56,14 +55,6 @@ export const Section = styled('div', {
   mb: '$32',
 }, { name: 'Section' })
 
-export const SectionHeading = styled('h2', {
-  fontSize: '$h4',
-  fontWeight: '$700',
-  color: '$color12',
-  m: '$0',
-  mb: '$16',
-}, { name: 'SectionHeading' })
-
 export const SectionTitle = styled('h3', {
   fontSize: '$buttonTiny',
   fontWeight: '$600',
@@ -74,21 +65,6 @@ export const SectionTitle = styled('h3', {
   textTransform: 'uppercase',
   letterSpacing: '0.05em',
 }, { name: 'SectionTitle' })
-
-export const DemoCard = styled('div', {
-  bg: '$background1',
-  radius: '$card',
-  p: '$48',
-  boxShadow: '$lg',
-}, {
-  name: 'DemoCard',
-  variants: {
-    surface: {
-      default: {},
-      dark: { bg: '$background2' },
-    },
-  },
-})
 
 export const ButtonRow = styled('div', {
   display: 'flex', gap: '$12', flexWrap: 'wrap',
@@ -109,51 +85,6 @@ export const StackY = styled('div', {
 export const DarkStage = styled('div', {
   bg: '$background10', radius: '$3', p: '$24',
 }, { name: 'DarkStage' })
-
-// ─── ToggleBar ─────────────────────────────────────────────────────────────
-
-export const ToggleBar = styled('div', {
-  display: 'flex',
-  gap: '$24',
-  flexWrap: 'wrap',
-  alignItems: 'center',
-  mb: '$16',
-}, { name: 'ToggleBar' })
-
-export const ToggleGroup = styled('div', {
-  display: 'flex',
-  gap: '$4',
-  p: '$4',
-  border: '$neutralAlpha5',
-  borderWidth: '$widthMin',
-  radius: '$button',
-}, { name: 'ToggleGroup' })
-
-export function VariantToggle<T extends string>({
-  options,
-  value,
-  onChange,
-}: {
-  options: readonly T[]
-  value: T
-  onChange: (v: T) => void
-}) {
-  return (
-    <ToggleGroup>
-      {options.map(o => (
-        <Button
-          key={o}
-          size="xs"
-          theme="neutral"
-          variant={value === o ? 'solid' : 'subtle'}
-          onClick={() => onChange(o)}
-        >
-          {o}
-        </Button>
-      ))}
-    </ToggleGroup>
-  )
-}
 
 // ─── Section component props ─────────────────────────────────────────────────
 

@@ -16,14 +16,14 @@ const BadgeFrame = styled('span', {
     variant: {
       default: { bg: '$primary6', color: '$white' },
       solid: { bg: '$primary6', color: '$white' },
-      secondary: { bg: '$surface2', color: '$color' },
+      secondary: { bg: '$surface2', color: '$neutral12' },
       destructive: { bg: '$tomato10', color: '$white' },
       outline: {
         bg: 'transparent',
         borderWidth: '$widthBase',
         borderStyle: '$styleDefault',
         borderColor: '$primary1',
-        color: '$color',
+        color: '$neutral12',
       },
       subtle: { bg: '$surface2', color: '$neutral11' },
     },

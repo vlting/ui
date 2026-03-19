@@ -4,7 +4,7 @@ status: in-progress
 scope: large
 created: 2026-03-15
 current_epic: 6
-current_stage: 2
+current_stage: 3
 phase: execute
 epic_issue: 206
 ---
@@ -109,25 +109,31 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Branch prefix:** feat
 **Branch:** feat/library-buildout/content-components
 **Issue:** #211
+**PR:** #213
 **Acceptance criteria:**
-- [ ] Card: article root, compound (Header/Content/Footer/Title/Description), size/elevated/interactive, semantic HTML
-- [ ] Avatar: dual API (single-prop + compound), size scale (32/40/56/72), image fallback, circular
-- [ ] Badge: 15 themes × 3 variants (solid/subtle/outline), size scale, token-based spacing
-- [ ] Item: compound (Leading/Content/Title/Description/Trailing), size/interactive
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages for each
-**Status:** in-progress
+- [x] Card: article root, compound (Header/Content/Footer/Title/Description), size/elevated/interactive, semantic HTML
+- [x] Avatar: dual API (single-prop + compound), size scale (32/40/56/72), image fallback, circular
+- [x] Badge: 15 themes × 3 variants (solid/subtle/outline), size scale, token-based spacing
+- [x] Item: compound (Leading/Content/Title/Description/Trailing), size/interactive
+- [x] Tests passing, removed from testPathIgnorePatterns
+- [x] Playground pages for each
+**Status:** done
 
-### Stage 6.3: Layout & Typography (Typography, Separator, ButtonGroup, Direction)
+### Stage 6.3: Layout & Typography
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/layout-typography
+**Issue:** #214
+**PR:** #215
 **Acceptance criteria:**
-- [ ] Typography: H1-H6, P, Lead, Large, Small, Muted, InlineCode, Blockquote — all using type scale tokens
-- [ ] Separator: neutral, horizontal/vertical orientation, decorative vs semantic
-- [ ] ButtonGroup: layout wrapper, spacing, connected variant
-- [ ] Direction: RTL provider, context-based
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages for each
-**Status:** pending
+- [x] Heading: compound H1-H6 via Object.assign, drop level/forwardRef
+- [x] Text: add Text.Small (<small>), Text.Code (<code>) sub-components
+- [x] Blockquote + InlineCode as new standalone stl-react primitives
+- [x] Layout semantic alternates on Row, Column, Box (.Div/.Nav/.Header/.Footer/.Main/.Aside/.Article/.Span)
+- [x] Typed polymorphic `as` prop on StyledComponent
+- [x] Delete Typography component, re-export Separator, implement ButtonGroup + Direction
+- [x] Tests passing, removed from testPathIgnorePatterns
+- [x] Playground pages for Heading, Separator, ButtonGroup
+**Status:** in-progress
 
 ### Stage 6.4: Token Infrastructure (Shadow & Layering)
 **Branch prefix:** feat
@@ -246,13 +252,43 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Playground page
 **Status:** pending
 
-## Epic 9: Menus & Navigation
+## Epic 9: React Native Parity (Core)
+**Objective:** .native.tsx for Epics 6-8 components — enough for real-world cross-platform apps. Remaining RN work done incrementally after later web epics.
+**Dependencies:** Epic 8
+**Epic slug:** react-native-core
+**Status:** pending
+
+### Stage 9.1: Primitive & Display Native Implementations
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] All stl-react primitives have working .native.tsx
+- [ ] All Epic 6 display components have .native.tsx
+- [ ] Expo playground pages for each
+**Status:** pending
+
+### Stage 9.2: Form Control Native Implementations
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] All Epic 7 form controls have .native.tsx
+- [ ] Platform-specific adaptations (native pickers, keyboard handling)
+- [ ] Expo playground pages
+**Status:** pending
+
+### Stage 9.3: Overlay Native Implementations
+**Branch prefix:** feat
+**Acceptance criteria:**
+- [ ] All Epic 8 overlay components have .native.tsx
+- [ ] Native modal/sheet patterns (react-native-reanimated, gesture-handler)
+- [ ] Expo playground pages
+**Status:** pending
+
+## Epic 10: Menus & Navigation
 **Objective:** Complex keyboard navigation, roving tabindex, typeahead. react-aria-backed where appropriate.
 **Dependencies:** Epic 8
 **Epic slug:** menus-navigation
 **Status:** pending
 
-### Stage 9.1: Menus (DropdownMenu, ContextMenu, Menu, Menubar)
+### Stage 10.1: Menus (DropdownMenu, ContextMenu, Menu, Menubar)
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] Menu: compound, roving tabindex, typeahead, nested submenus, aria-menu
@@ -264,7 +300,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Playground pages
 **Status:** pending
 
-### Stage 9.2: Selection (Select, Combobox, Command)
+### Stage 10.2: Selection (Select, Combobox, Command)
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] Select: compound, listbox pattern, typeahead, single/multi select, aria-listbox
@@ -275,7 +311,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Playground pages
 **Status:** pending
 
-### Stage 9.3: Navigation (Tabs, NavigationMenu, Breadcrumb, Pagination, Sidebar)
+### Stage 10.3: Navigation (Tabs, NavigationMenu, Breadcrumb, Pagination, Sidebar)
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] Tabs: compound, roving tabindex, aria-tablist/tab/tabpanel, controlled/uncontrolled
@@ -287,13 +323,13 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Playground pages
 **Status:** pending
 
-## Epic 10: Complex & Data
+## Epic 11: Complex & Data
 **Objective:** Data-heavy components with complex state management
-**Dependencies:** Epic 9
+**Dependencies:** Epic 10
 **Epic slug:** complex-data
 **Status:** pending
 
-### Stage 10.1: Tables (Table, DataTable)
+### Stage 11.1: Tables (Table, DataTable)
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] Table: compound (Head/Body/Row/Cell/Header/Footer), semantic HTML, sortable headers
@@ -303,7 +339,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Playground pages
 **Status:** pending
 
-### Stage 10.2: Dates (Calendar, DatePicker)
+### Stage 11.2: Dates (Calendar, DatePicker)
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] Calendar: grid navigation, keyboard (arrows, Page Up/Down, Home/End), aria-grid
@@ -313,7 +349,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Playground pages
 **Status:** pending
 
-### Stage 10.3: Advanced Interaction (Carousel, ScrollArea, Resizable)
+### Stage 11.3: Advanced Interaction (Carousel, ScrollArea, Resizable)
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] Carousel: compound, auto-play, keyboard, touch/swipe, aria-roledescription
@@ -323,13 +359,13 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Playground pages
 **Status:** pending
 
-## Epic 11: Blocks Rebuild
+## Epic 12: Blocks Rebuild
 **Objective:** Rebuild all 13 pre-composed blocks on top of real components
-**Dependencies:** Epic 10
+**Dependencies:** Epic 11
 **Epic slug:** blocks-rebuild
 **Status:** pending
 
-### Stage 11.1: Core Blocks (AppShell, Auth, Dashboard, Sidebar, Hero, EmptyState)
+### Stage 12.1: Core Blocks (AppShell, Auth, Dashboard, Sidebar, Hero, EmptyState)
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] Each block rebuilt using real components (no stubs)
@@ -338,7 +374,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Tests for composition and responsive behavior
 **Status:** pending
 
-### Stage 11.2: Interactive Blocks (ChatInterface, DataTable, Feed, FileUpload, NotificationCenter, OnboardingWizard, Pricing)
+### Stage 12.2: Interactive Blocks (ChatInterface, DataTable, Feed, FileUpload, NotificationCenter, OnboardingWizard, Pricing)
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] Each block rebuilt using real components
@@ -347,13 +383,13 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Tests
 **Status:** pending
 
-## Epic 12: Charts
+## Epic 13: Charts
 **Objective:** Wrap Victory with owned API contract — leverage cross-platform charting (victory-native) while owning the component surface
-**Dependencies:** Epic 10
+**Dependencies:** Epic 11
 **Epic slug:** charts
 **Status:** pending
 
-### Stage 12.1: Chart Infrastructure
+### Stage 13.1: Chart Infrastructure
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] ChartContainer: responsive wrapper, theme integration via STL tokens
@@ -365,7 +401,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Playground page for infrastructure components
 **Status:** pending
 
-### Stage 12.2: Core Charts (LineChart, BarChart, AreaChart)
+### Stage 13.2: Core Charts (LineChart, BarChart, AreaChart)
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] Each wraps Victory equivalent with owned props API
@@ -375,7 +411,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Playground pages with sample data
 **Status:** pending
 
-### Stage 12.3: Specialized Charts (PieChart, RadarChart, RadialChart)
+### Stage 13.3: Specialized Charts (PieChart, RadarChart, RadialChart)
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] Each wraps Victory equivalent
@@ -383,23 +419,23 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Tests and playground pages
 **Status:** pending
 
-## Epic 13: Playground & Docs
+## Epic 14: Playground & Docs
 **Objective:** Full playground with routing + Expo native playground + docs site rebuild
-**Dependencies:** Epic 10 (playground alongside components), Epic 12 (docs after charts)
+**Dependencies:** Epic 11 (playground alongside components), Epic 13 (docs after charts)
 **Epic slug:** playground-docs
 **Status:** pending
 
-### Stage 13.1: Playground Infrastructure
+### Stage 14.1: Playground Infrastructure
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] React Router added to playground app
 - [ ] Sidebar nav listing all components grouped by category
 - [ ] PermutationGrid utility component (auto-generates variant combinations)
 - [ ] Code toggle showing JSX for each rendered permutation
-- [ ] All component pages created (built alongside Epics 6-12)
+- [ ] All component pages created (built alongside Epics 6-13)
 **Status:** pending
 
-### Stage 13.2: Expo Native Playground
+### Stage 14.2: Expo Native Playground
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] Expo app at apps/playground-native
@@ -408,7 +444,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Connected to same theme system
 **Status:** pending
 
-### Stage 13.3: Docs Site Rebuild
+### Stage 14.3: Docs Site Rebuild
 **Branch prefix:** feat
 **Acceptance criteria:**
 - [ ] Auto-generated prop tables from TypeScript types
@@ -417,42 +453,4 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Copy-paste-ready import snippets for web and native
 - [ ] Search functionality
 - [ ] All component docs complete
-**Status:** pending
-
-## Epic 14: React Native Parity
-**Objective:** .native.tsx for all components, universal headless hooks validated, Expo tested
-**Dependencies:** Epic 13
-**Epic slug:** react-native-parity
-**Status:** pending
-
-### Stage 14.1: Primitive & Display Native Implementations
-**Branch prefix:** feat
-**Acceptance criteria:**
-- [ ] All stl-react primitives have working .native.tsx
-- [ ] All Epic 6 display components have .native.tsx
-- [ ] Expo playground pages for each
-**Status:** pending
-
-### Stage 14.2: Form Control Native Implementations
-**Branch prefix:** feat
-**Acceptance criteria:**
-- [ ] All Epic 7 form controls have .native.tsx
-- [ ] Platform-specific adaptations (native pickers, keyboard handling)
-- [ ] Expo playground pages
-**Status:** pending
-
-### Stage 14.3: Overlay & Navigation Native Implementations
-**Branch prefix:** feat
-**Acceptance criteria:**
-- [ ] All Epic 8-9 components have .native.tsx
-- [ ] Native modal/sheet patterns (react-native-reanimated, gesture-handler)
-- [ ] Expo playground pages
-**Status:** pending
-
-### Stage 14.4: Complex Component Native Implementations
-**Branch prefix:** feat
-**Acceptance criteria:**
-- [ ] All Epic 10 components have .native.tsx
-- [ ] Victory-native integration for charts
-- [ ] Full Expo validation pass
 **Status:** pending

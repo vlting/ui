@@ -36,7 +36,7 @@ const STEP_LABELS = [
 ]
 
 const Container = styled('div', { stl: {
-  border: '$thin $borderColor',
+  border: '$neutralMin',
   borderRadius: '$4',
   overflow: 'hidden',
 }})
@@ -44,7 +44,7 @@ const Container = styled('div', { stl: {
 const Header = styled('div', { stl: {
   px: '$2.5',
   py: '$1.5',
-  borderBottom: '$thin $borderColor',
+  borderBottom: '$neutralMin',
   background: '$background1',
 }})
 
@@ -55,7 +55,7 @@ const HeaderText = styled('span', { stl: {
 
 const ControlsSection = styled('div', { stl: {
   padding: '$2.5',
-  borderBottom: '$thin $borderColor',
+  borderBottom: '$neutralMin',
 }})
 
 const ControlsGrid = styled('div', { stl: {
@@ -102,7 +102,7 @@ const ModeButton = styled('button', { stl: {
 
 const SwatchesSection = styled('div', { stl: {
   padding: '$2.5',
-  borderBottom: '$thin $borderColor',
+  borderBottom: '$neutralMin',
 }})
 
 const SwatchGrid = styled('div', { stl: {
