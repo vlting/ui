@@ -26,6 +26,8 @@ export function CardSection({ sectionRef }: SectionProps) {
           >
             interactive
           </Button>
+        </ToggleGroup>
+        <ToggleGroup>
           <Button
             size="xs"
             theme="neutral"
