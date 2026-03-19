@@ -104,17 +104,18 @@ export function SelectionSection({ sectionRef }: SectionProps) {
             <SectionTitle>Switch</SectionTitle>
             <StackY>
               <Row>
-                <Switch size={size} disabled={disabled} aria-label="Uncontrolled" />
+                <Switch size={size} disabled={disabled} error={error} aria-label="Uncontrolled" />
                 <StatusLabel>Uncontrolled</StatusLabel>
               </Row>
               <Row>
-                <Switch size={size} disabled={disabled} defaultChecked aria-label="Default on" />
+                <Switch size={size} disabled={disabled} error={error} defaultChecked aria-label="Default on" />
                 <StatusLabel>Default on</StatusLabel>
               </Row>
               <Row>
                 <Switch
                   size={size}
                   disabled={disabled}
+                  error={error}
                   checked={swChecked}
                   onCheckedChange={setSwChecked}
                   aria-label="Controlled"
@@ -128,7 +129,7 @@ export function SelectionSection({ sectionRef }: SectionProps) {
           <SubSection>
             <SectionTitle>RadioGroup — Vertical</SectionTitle>
             <StackY>
-              <RadioGroup.Root size={size} disabled={disabled} defaultValue="banana" aria-label="Fruit">
+              <RadioGroup.Root size={size} disabled={disabled} error={error} defaultValue="banana" aria-label="Fruit">
                 <RadioGroup.Item value="apple">Apple</RadioGroup.Item>
                 <RadioGroup.Item value="banana">Banana</RadioGroup.Item>
                 <RadioGroup.Item value="cherry">Cherry</RadioGroup.Item>
@@ -142,6 +143,7 @@ export function SelectionSection({ sectionRef }: SectionProps) {
               <RadioGroup.Root
                 size={size}
                 disabled={disabled}
+                error={error}
                 orientation="horizontal"
                 defaultValue="sm"
                 aria-label="Plan"
@@ -160,6 +162,7 @@ export function SelectionSection({ sectionRef }: SectionProps) {
                 <RadioGroup.Root
                   size={size}
                   disabled={disabled}
+                  error={error}
                   orientation="horizontal"
                   value={radioValue}
                   onValueChange={setRadioValue}

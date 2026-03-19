@@ -46,9 +46,14 @@ const IndicatorBox = styled('span', {
     focused: {
       true: { outline: '$neutral', outlineOffset: '$offsetDefault' },
     },
+    error: {
+      true: { borderColor: '$error9' },
+    },
   },
   compoundVariants: [
     { when: { active: 'true', focused: 'true' }, stl: { outline: '$primary' } },
+    { when: { error: 'true', focused: 'true' }, stl: { outline: '$error' } },
+    { when: { error: 'true', active: 'true' }, stl: { bg: '$error9', borderColor: '$error9' } },
   ],
   defaultVariants: { size: 'md' },
 })
@@ -58,7 +63,7 @@ const IndicatorBox = styled('span', {
 const LabelRoot = styled('label', {
   display: 'inline-flex',
   alignItems: 'center',
-  alignSelf: 'flex-start',
+  alignSelf: 'start',
   gap: '$8',
   cursor: 'pointer',
   position: 'relative',
@@ -173,7 +178,7 @@ const Root = forwardRef<HTMLInputElement, CheckboxRootProps>(
             }
           }}
         />
-        <IndicatorBox size={size} active={isActive} focused={focused || undefined}>
+        <IndicatorBox size={size} active={isActive} focused={focused || undefined} error={error}>
           {isActive && (
             <CheckIndicator indeterminate={isIndeterminate} size={size} />
           )}
