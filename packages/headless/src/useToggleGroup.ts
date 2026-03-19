@@ -9,12 +9,17 @@ export interface UseToggleGroupProps {
   onValueChange?: (value: string[]) => void
   orientation?: 'horizontal' | 'vertical'
   loop?: boolean
+  /** Indices of disabled items to skip during keyboard navigation */
+  disabledIndices?: Set<number>
 }
 
 export interface UseToggleGroupReturn {
   value: string[]
   getGroupProps: () => {
     role: 'group' | 'radiogroup'
+    'aria-orientation'?: 'horizontal' | 'vertical'
+    ref?: React.RefObject<HTMLElement | null>
+    onKeyDown?: (e: React.KeyboardEvent) => void
   }
   getItemProps: (itemValue: string) => {
     'aria-pressed'?: boolean
@@ -28,7 +33,7 @@ export interface UseToggleGroupReturn {
 }
 
 export function useToggleGroup(props: UseToggleGroupProps): UseToggleGroupReturn {
-  const { type, value: valueProp, defaultValue = [], onValueChange, orientation = 'horizontal', loop = true } = props
+  const { type, value: valueProp, defaultValue = [], onValueChange, orientation = 'horizontal', loop = true, disabledIndices } = props
 
   const [value, setValue] = useControllableState({
     prop: valueProp,
@@ -56,6 +61,7 @@ export function useToggleGroup(props: UseToggleGroupProps): UseToggleGroupReturn
     onActiveIndexChange: setActiveIndex,
     orientation,
     loop,
+    disabledIndices,
   })
 
   const handleToggle = useCallback(
@@ -79,10 +85,20 @@ export function useToggleGroup(props: UseToggleGroupProps): UseToggleGroupReturn
   )
 
   const getGroupProps = useCallback(
-    () => ({
-      role: (type === 'exclusive' ? 'radiogroup' : 'group') as 'group' | 'radiogroup',
-    }),
-    [type],
+    () => {
+      if (type === 'exclusive') {
+        return {
+          role: 'radiogroup' as const,
+          'aria-orientation': orientation,
+          ...roving.getContainerProps(),
+        }
+      }
+      return {
+        role: 'group' as const,
+        'aria-orientation': orientation,
+      }
+    },
+    [type, orientation, roving],
   )
 
   const getItemProps = useCallback(
