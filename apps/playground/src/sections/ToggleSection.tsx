@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Toggle, ToggleGroup, Button, Card } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
-import { ButtonRow, SectionTitle, THEMES, type SectionProps } from './shared'
+import { ButtonRow, SectionTitle, SIZES, THEMES, type SectionProps } from './shared'
 
 const StatusLabel = styled('span', {
   fontSize: '$small', color: '$neutralText4', fontFamily: '$code',
@@ -50,7 +50,6 @@ const AirplaneIcon = () => (
   </svg>
 )
 
-const SIZES = ['xs', 'sm', 'md', 'lg'] as const
 type Size = typeof SIZES[number]
 type Theme = typeof THEMES[number]
 
