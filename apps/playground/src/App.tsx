@@ -289,7 +289,7 @@ function PlaygroundInner({
             ))}
           </ThemePicker>
           <Button
-            size="icon"
+            square
             theme="neutral"
             variant="subtle"
             onClick={toggleColorMode}

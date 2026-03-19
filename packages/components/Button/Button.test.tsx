@@ -188,8 +188,8 @@ describe('Button', () => {
       }
     })
 
-    it('renders pill with icon size without errors', () => {
-      render(<Button pill size="icon">X</Button>)
+    it('renders pill with square without errors', () => {
+      render(<Button pill square>X</Button>)
       expect(screen.getByRole('button')).toBeTruthy()
     })
   })
