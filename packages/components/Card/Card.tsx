@@ -23,7 +23,7 @@ const CardRoot = styled('article', {
       lg: { p: '$20' },
     },
     elevation: {
-      flat: { border: '$neutralMin', borderWidth: '$widthMin' },
+      flat: { border: '$neutralLow' },
       normal: { boxShadow: '$md' },
       raised: { boxShadow: '$xl' },
       glass: {
@@ -53,9 +53,9 @@ const CardRoot = styled('article', {
   },
   compoundVariants: [
     // ── flat × theme borders ─────────────────────────────
-    { when: { elevation: 'flat', theme: 'neutral' }, stl: { border: '$neutral5', borderWidth: '$widthMin' } },
-    { when: { elevation: 'flat', theme: 'primary' }, stl: { border: '$primary5', borderWidth: '$widthMin' } },
-    { when: { elevation: 'flat', theme: 'secondary' }, stl: { border: '$secondary5', borderWidth: '$widthMin' } },
+    { when: { elevation: 'flat', theme: 'neutral' }, stl: { border: '$neutralMin' } },
+    { when: { elevation: 'flat', theme: 'primary' }, stl: { border: '$primaryMin' } },
+    { when: { elevation: 'flat', theme: 'secondary' }, stl: { border: '$secondaryMin' } },
     // ── neutral × interactive ────────────────────────────
     {
       when: { theme: 'neutral', interactive: 'true' },
