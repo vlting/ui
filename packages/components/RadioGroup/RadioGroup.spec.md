@@ -37,39 +37,20 @@ RadioGroup
 
 ## Variants
 
-### Error
+### Error Variant
 
-- `error` boolean prop on `RadioGroup.Root` triggers the error variant
-- Error variant changes border color of each radio circle indicator (on `RadioGroup.Item`) to `$error9`
-- `mapProps` on the root sets `aria-invalid: 'true'` when `error` is true
-- Focus ring on each radio item changes from `$neutral` outline to `$error` outline when in error state
-- Error state propagates from Root to Items via context (items inherit the error visual without individual `error` props)
+- **Prop**: `error: boolean` on `RadioGroup.Root` (optional, default `false`)
+- Propagates to `RadioGroup.Item` children via context
+- Visual + ARIA only — does not affect selection behavior
+- When `error` is `true`:
+  - Each radio circle indicator border: `borderColor: '$error9'` (NEVER use `border` shorthand — it expands to 12 sub-properties and breaks with color tokens)
+  - Focus ring on each item: `outlineColor` changes from `$neutral` to `$error`
+- `mapProps` on Root sets `aria-invalid="true"` when `error` is `true`
 
-**Implementation pattern** (follows Input/Textarea/NativeSelect convention):
-```
-// RadioGroup.Item styled with error variant
-styled(RadioItemPrimitive, {
-  // ...base styles
-  variants: {
-    error: {
-      true: {
-        borderColor: '$error9',
-        ':focus': { outline: '$error' },
-      },
-    },
-  },
-} as const)
-
-// RadioGroup.Root uses mapProps for aria-invalid
-styled(RadioGroupPrimitive, {
-  // ...base styles
-} as const, {
-  mapProps: (props) => ({
-    ...props,
-    'aria-invalid': props.error ? 'true' : undefined,
-  }),
-})
-```
+**Implementation notes:**
+- Use `borderColor`, NOT `border` shorthand. The STL `border` shorthand expands to `borderColor` + `borderStyle` + `borderWidth` (x4 sides = 12 properties). Applying a color token to `borderStyle`/`borderWidth` produces invalid CSS.
+- Error state is purely presentational — the group remains fully functional for selection.
+- Error propagation: Root owns the `error` prop and passes it down via context so each Item can apply error styling independently.
 
 ---
 
@@ -79,6 +60,12 @@ styled(RadioGroupPrimitive, {
 
 ## States
 
+- **Default**: Standard circle border on items, no error indication
+- **Error**: `borderColor: '$error9'` on each item circle, focus ring uses `$error` outline, `aria-invalid="true"` on Root
+- **Selected**: Indicator dot visible on selected item (error styling persists if `error` is `true`)
+- **Unselected**: No indicator dot (error styling persists if `error` is `true`)
+- **Disabled**: Standard disabled styling (error styling should be visually muted)
+
 ---
 
 ## Interaction Model
@@ -87,9 +74,10 @@ styled(RadioGroupPrimitive, {
 
 ## Accessibility
 
-- When `error` is true, `aria-invalid="true"` is set on the radiogroup root element via `mapProps`
-- Error state must be communicated to screen readers through the `aria-invalid` attribute on the group
-- Focus indicator on each radio item must remain visible in error state (switches from `$neutral` to `$error` outline)
+- When `error` is `true`, `mapProps` on Root must set `aria-invalid="true"` on the root `radiogroup` element
+- Error state must not interfere with keyboard operability (Arrow keys to navigate, Space to select)
+- Error border color `$error9` must meet WCAG 1.4.11 (3:1 contrast for UI components)
+- Error context propagation ensures all items within the group reflect the error state consistently
 
 ---
 
@@ -115,11 +103,6 @@ styled(RadioGroupPrimitive, {
 
 ## Test Requirements
 
-- Error state applies `$error9` border color to each radio circle indicator
-- Error state sets `aria-invalid="true"` on the radiogroup root element
-- Error state changes focus outline on radio items from `$neutral` to `$error`
-- Error state is purely visual + ARIA — does not affect selection behavior
-
 ---
 
 ## Implementation Constraints
@@ -131,3 +114,5 @@ styled(RadioGroupPrimitive, {
 ---
 
 ## Change Log
+
+- 2026-03-19: Added error variant specification (boolean `error` prop on Root, context propagation to Items, `borderColor: '$error9'`, `aria-invalid`, focus ring override)
