@@ -14,7 +14,6 @@ const TextareaBase = styled('textarea', {
   width: '100%',
   outline: 'none',
   resize: 'vertical',
-  '::placeholder': { color: '$neutral8' },
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
 }, {
   name: 'Textarea',
