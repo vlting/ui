@@ -4,7 +4,7 @@ status: in-progress
 scope: large
 created: 2026-03-15
 current_epic: 7
-current_stage: 1
+current_stage: 2
 phase: execute
 epic_issue: 206
 ---
@@ -166,27 +166,30 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Branch prefix:** feat
 **Branch:** feat/library-buildout/text-inputs
 **Issue:** #220
+**PR:** #237
 **Acceptance criteria:**
-- [ ] Input: styled input, size scale (sm/md/lg), error/disabled variants, onChangeText, aria-invalid
-- [ ] Textarea: styled textarea, size scale, error/disabled, resize:vertical, rows prop
-- [ ] NativeSelect: compound Root+Option, custom SVG arrow, onValueChange, placeholder
-- [ ] Focus ring pattern matching Button (outline '$neutral'/'$error', $field radius)
-- [ ] Fresh specs written for all 3
-- [ ] Fresh tests passing, removed from testPathIgnorePatterns
-- [ ] Playground section with all states
-**Status:** in-progress
+- [x] Input: styled input, size scale (sm/md/lg), error/disabled variants, onChangeText, aria-invalid
+- [x] Textarea: styled textarea, size scale, error/disabled, resize:vertical, rows prop
+- [x] NativeSelect: compound Root+Option, custom SVG arrow, onValueChange, placeholder
+- [x] Focus ring pattern matching Button (outline '$neutral'/'$error', $field radius)
+- [x] Fresh specs written for all 3
+- [x] Fresh tests passing, removed from testPathIgnorePatterns
+- [x] Playground section with all states
+**Status:** done
 
 ### Stage 7.2: Selection Controls (Checkbox, Switch, RadioGroup, Toggle)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/selection-controls
+**Issue:** #221
 **Acceptance criteria:**
-- [ ] Checkbox: theme-axis, controlled/uncontrolled, indeterminate, group support
-- [ ] Switch: theme-axis, controlled/uncontrolled, aria-checked
-- [ ] RadioGroup: theme-axis, roving tabindex, aria-radiogroup
-- [ ] Toggle: theme-axis, pressed state, aria-pressed
+- [ ] Checkbox: compound Root+Indicator, useControllableState, indeterminate, size sm/md/lg, error/disabled
+- [ ] Switch: button role="switch" + thumb, useControllableState, thumb animation in STL core, lowMotion
+- [ ] RadioGroup: compound Root+Item, useControllableState+useRovingTabIndex, role="radiogroup", context
+- [ ] Toggle: spec filled from bak, test audit (aria-pressed, controlled mode, onPressedChange)
 - [ ] All use headless hooks from packages/headless
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
-**Status:** pending
+- [ ] Playground SelectionSection with all states
+**Status:** in-progress
 
 ### Stage 7.3: Range & Complex Inputs (Slider, InputOTP, InputGroup)
 **Branch prefix:** feat
