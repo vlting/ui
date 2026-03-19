@@ -86,8 +86,8 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'primary', variant: 'outline' },
       stl: {
-        bg: '$surface1', border: '$primary9', borderWidth: '$widthMin', color: '$primaryText1',
-        ':interact': { bg: '$primary9', color: '$primaryText9', borderColor: '$primary9' },
+        bg: '$surface1', border: '$primary', color: '$primaryText1',
+        ':interact': { bg: '$primary9', color: '$primaryText9', border: '$primary' },
         ':focus': { outline: '$primary' },
       },
     },
@@ -129,8 +129,8 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'secondary', variant: 'outline' },
       stl: {
-        bg: '$surface1', border: '$secondary9', borderWidth: '$widthMin', color: '$secondaryText1',
-        ':interact': { bg: '$secondary9', color: '$secondaryText9', borderColor: '$secondary9' },
+        bg: '$surface1', border: '$secondary', color: '$secondaryText1',
+        ':interact': { bg: '$secondary9', color: '$secondaryText9', border: '$secondary' },
         ':focus': { outline: '$secondary' },
       },
     },
@@ -172,8 +172,8 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'neutral', variant: 'outline' },
       stl: {
-        bg: '$surface1', border: '$neutral9', borderWidth: '$widthMin', color: '$neutralText1',
-        ':interact': { bg: '$neutral9', color: '$neutralText9', borderColor: '$neutral9' },
+        bg: '$surface1', border: '$neutral', color: '$neutralText1',
+        ':interact': { bg: '$neutral9', color: '$neutralText9', border: '$neutral' },
         ':focus': { outline: '$neutral' },
       },
     },
@@ -214,8 +214,8 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'destructive', variant: 'outline' },
       stl: {
-        bg: '$surface1', border: '$error9', borderWidth: '$widthMin', color: '$errorText1',
-        ':interact': { bg: '$error9', color: '$errorText9', borderColor: '$error9' },
+        bg: '$surface1', border: '$error', color: '$errorText1',
+        ':interact': { bg: '$error9', color: '$errorText9', border: '$error' },
         ':focus': { outline: '$error' },
       },
     },
