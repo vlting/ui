@@ -70,6 +70,9 @@ const RadioCircle = styled('span', {
     selected: {
       true: { border: '$primary9' },
     },
+    focused: {
+      true: { outline: '$neutral', outlineOffset: '$offsetDefault' },
+    },
   },
   defaultVariants: { size: 'md' },
 })
@@ -102,8 +105,7 @@ const ItemLabel = styled('label', {
   radius: '$2',
   py: '$2',
   px: '$4',
-  ':interact': { bg: '$neutral3' },
-  ':focus-within': { outline: '$neutral', outlineOffset: '$offsetDefault' },
+  ':hover': { bg: '$neutral2' },
 }, {
   name: 'RadioItem',
   variants: {
@@ -236,6 +238,7 @@ export interface RadioGroupItemProps {
 const Item = forwardRef<HTMLInputElement, RadioGroupItemProps>(
   ({ value: itemValue, disabled: itemDisabled, children }, ref) => {
     const ctx = useRadioGroup()
+    const [focused, setFocused] = useState(false)
     const isDisabled = ctx.disabled || itemDisabled
     const isSelected = ctx.value === itemValue
 
@@ -254,14 +257,18 @@ const Item = forwardRef<HTMLInputElement, RadioGroupItemProps>(
           disabled={isDisabled}
           tabIndex={rovingProps.tabIndex}
           data-roving-item={rovingProps['data-roving-item']}
-          onFocus={rovingProps.onFocus}
+          onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+            setFocused(true)
+            rovingProps.onFocus()
+          }}
+          onBlur={() => setFocused(false)}
           onChange={() => {
             if (!isDisabled) {
               ctx.onValueChange(itemValue)
             }
           }}
         />
-        <RadioCircle size={ctx.size} selected={isSelected}>
+        <RadioCircle size={ctx.size} selected={isSelected} focused={focused || undefined}>
           {isSelected && <RadioDot size={ctx.size} />}
         </RadioCircle>
         {children}
