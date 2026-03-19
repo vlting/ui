@@ -9,7 +9,7 @@ import { MoonIcon, SunIcon } from './sections/shared'
 import {
   AlertSection, AvatarSection, BadgeSection, ButtonGroupSection, ButtonSection,
   CardSection, EmptySection, TypographySection, ItemSection, ProgressSection,
-  SeparatorSection, SpinnerSection,
+  SeparatorSection, SpinnerSection, ToggleSection,
 } from './sections'
 import { DemoSection } from './sections/DemoSection'
 
@@ -20,7 +20,7 @@ type Page = typeof PAGES[number]
 
 const SECTIONS = [
   'Button', 'Alert', 'Badge', 'Item', 'Card', 'Progress', 'Spinner', 'Empty', 'Avatar',
-  'Typography', 'Separator', 'ButtonGroup',
+  'Typography', 'Separator', 'ButtonGroup', 'Toggle',
 ] as const
 
 const THEME_PRESETS: Record<string, { label: string; theme?: Readonly<Theme> }> = {
@@ -190,6 +190,7 @@ const SECTION_COMPONENTS: Record<string, React.ComponentType<{ sectionRef: (el: 
   Typography: TypographySection,
   Separator: SeparatorSection,
   ButtonGroup: ButtonGroupSection,
+  Toggle: ToggleSection,
 }
 
 // ─── Inner App (inside StlProvider) ──────────────────────────────────────────
