@@ -268,7 +268,7 @@ globalStyle('*', {
   boxSizing: 'border-box',
 })
 globalStyle('*::placeholder', {
-  color: color.vars[getTextColor(CoreColorName.neutral, 9)].ref,
+  color: color.vars.neutral8.ref,
 })
 globalStyle('body, a, p, li, strong, em, b, i, button', {
   fontFamily: fontFamily.vars.body.ref,
