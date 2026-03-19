@@ -11,6 +11,8 @@ export interface UseRovingTabIndexProps {
   orientation?: 'horizontal' | 'vertical' | 'both'
   /** Wrap around at boundaries */
   loop?: boolean
+  /** Indices of disabled items to skip during navigation */
+  disabledIndices?: Set<number>
 }
 
 export interface UseRovingTabIndexReturn {
@@ -26,7 +28,7 @@ export interface UseRovingTabIndexReturn {
 }
 
 export function useRovingTabIndex(props: UseRovingTabIndexProps): UseRovingTabIndexReturn {
-  const { count, activeIndex, onActiveIndexChange, orientation = 'vertical', loop = true } = props
+  const { count, activeIndex, onActiveIndexChange, orientation = 'vertical', loop = true, disabledIndices } = props
   const containerRef = useRef<HTMLElement>(null)
 
   const focusItem = useCallback(
@@ -46,6 +48,40 @@ export function useRovingTabIndex(props: UseRovingTabIndexProps): UseRovingTabIn
     [onActiveIndexChange, focusItem],
   )
 
+  const findNextEnabled = useCallback(
+    (start: number, direction: 1 | -1): number | null => {
+      const disabled = disabledIndices ?? new Set<number>()
+      let candidate = start
+      for (let i = 0; i < count; i++) {
+        candidate += direction
+        if (loop) {
+          candidate = ((candidate % count) + count) % count
+        } else if (candidate < 0 || candidate >= count) {
+          return null
+        }
+        if (!disabled.has(candidate)) return candidate
+      }
+      return null
+    },
+    [count, loop, disabledIndices],
+  )
+
+  const findFirstEnabled = useCallback((): number | null => {
+    const disabled = disabledIndices ?? new Set<number>()
+    for (let i = 0; i < count; i++) {
+      if (!disabled.has(i)) return i
+    }
+    return null
+  }, [count, disabledIndices])
+
+  const findLastEnabled = useCallback((): number | null => {
+    const disabled = disabledIndices ?? new Set<number>()
+    for (let i = count - 1; i >= 0; i--) {
+      if (!disabled.has(i)) return i
+    }
+    return null
+  }, [count, disabledIndices])
+
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       const isVertical = orientation === 'vertical' || orientation === 'both'
@@ -55,31 +91,23 @@ export function useRovingTabIndex(props: UseRovingTabIndexProps): UseRovingTabIn
 
       if ((e.key === 'ArrowDown' && isVertical) || (e.key === 'ArrowRight' && isHorizontal)) {
         e.preventDefault()
-        if (activeIndex < count - 1) {
-          nextIndex = activeIndex + 1
-        } else if (loop) {
-          nextIndex = 0
-        }
+        nextIndex = findNextEnabled(activeIndex, 1)
       } else if ((e.key === 'ArrowUp' && isVertical) || (e.key === 'ArrowLeft' && isHorizontal)) {
         e.preventDefault()
-        if (activeIndex > 0) {
-          nextIndex = activeIndex - 1
-        } else if (loop) {
-          nextIndex = count - 1
-        }
+        nextIndex = findNextEnabled(activeIndex, -1)
       } else if (e.key === 'Home') {
         e.preventDefault()
-        nextIndex = 0
+        nextIndex = findFirstEnabled()
       } else if (e.key === 'End') {
         e.preventDefault()
-        nextIndex = count - 1
+        nextIndex = findLastEnabled()
       }
 
       if (nextIndex !== null) {
         moveTo(nextIndex)
       }
     },
-    [activeIndex, count, orientation, loop, moveTo],
+    [activeIndex, orientation, moveTo, findNextEnabled, findFirstEnabled, findLastEnabled],
   )
 
   const getContainerProps = useCallback(
