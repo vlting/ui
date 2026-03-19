@@ -98,6 +98,25 @@ export function ToggleSection({ sectionRef }: SectionProps) {
           </ButtonRow>
         </div>
 
+        {/* ── Exclusive group (vertical) ─────────────── */}
+        <div>
+          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Exclusive group (vertical)</SectionTitle>
+          <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
+            <ToggleGroup
+              type="exclusive"
+              value={view}
+              onValueChange={setView}
+              orientation="vertical"
+              aria-label="View mode vertical"
+            >
+              <Button value="list" variant="outline" theme={theme} size={size}>List</Button>
+              <Button value="grid" variant="outline" theme={theme} size={size}>Grid</Button>
+              <Button value="gallery" variant="outline" theme={theme} size={size}>Gallery</Button>
+            </ToggleGroup>
+            <StatusLabel>{JSON.stringify(view)}</StatusLabel>
+          </ButtonRow>
+        </div>
+
         {/* ── Multi-select group ───────────────────────── */}
         <div>
           <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Multi-select</SectionTitle>
@@ -107,6 +126,24 @@ export function ToggleSection({ sectionRef }: SectionProps) {
               value={features}
               onValueChange={setFeatures}
               aria-label="Features"
+            >
+              <Button value="wifi" variant="outline" theme={theme} size={size}>WiFi</Button>
+              <Button value="bluetooth" variant="outline" theme={theme} size={size}>Bluetooth</Button>
+              <Button value="airplane" variant="outline" theme={theme} size={size}>Airplane</Button>
+            </ToggleGroup>
+            <StatusLabel>{JSON.stringify(features)}</StatusLabel>
+          </ButtonRow>
+        </div>
+        {/* ── Multi-select (vertical) ────────────────── */}
+        <div>
+          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Multi-select (vertical)</SectionTitle>
+          <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
+            <ToggleGroup
+              type="toggle"
+              value={features}
+              onValueChange={setFeatures}
+              orientation="vertical"
+              aria-label="Features vertical"
             >
               <Button value="wifi" variant="outline" theme={theme} size={size}>WiFi</Button>
               <Button value="bluetooth" variant="outline" theme={theme} size={size}>Bluetooth</Button>
