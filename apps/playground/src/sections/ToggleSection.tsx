@@ -50,6 +50,24 @@ const AirplaneIcon = () => (
   </svg>
 )
 
+const StarIcon = () => (
+  <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 1L15.09 7.26L22 8.27L17 13.14L18.18 20.02L12 16.77L5.82 20.02L7 13.14L2 8.27L8.91 7.26L12 1Z" />
+  </svg>
+)
+
+const MusicIcon = () => (
+  <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 3V13.55C11.41 13.21 10.73 13 10 13C7.79 13 6 14.79 6 17C6 19.21 7.79 21 10 21C12.21 21 14 19.21 14 17V7H18V3H12Z" />
+  </svg>
+)
+
+const CheckIcon = () => (
+  <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M9.55 18L3.85 12.3L5.275 10.875L9.55 15.15L18.725 5.975L20.15 7.4L9.55 18Z" />
+  </svg>
+)
+
 type Size = typeof SIZES[number]
 type Theme = typeof THEMES[number]
 
@@ -96,9 +114,9 @@ export function ToggleSection({ sectionRef }: SectionProps) {
             <Toggle theme={theme} variant="outline" size={size}>Favorite</Toggle>
             <Toggle theme={theme} variant="subtle" size={size}>Music</Toggle>
             <Toggle theme={theme} variant="ghost" size={size} defaultPressed>Active</Toggle>
-            <Toggle theme={theme} variant="outline" size={size} square>★</Toggle>
-            <Toggle theme={theme} variant="subtle" size={size} square>♫</Toggle>
-            <Toggle theme={theme} variant="ghost" size={size} square defaultPressed>✓</Toggle>
+            <Toggle theme={theme} variant="outline" size={size} square><StarIcon /></Toggle>
+            <Toggle theme={theme} variant="subtle" size={size} square><MusicIcon /></Toggle>
+            <Toggle theme={theme} variant="ghost" size={size} square defaultPressed><CheckIcon /></Toggle>
           </ButtonRow>
         </div>
 
