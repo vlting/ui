@@ -46,6 +46,17 @@ export function themeToVars(
     }
   }
 
+  // Alpha palettes (theme-aware translucent colors)
+  if (theme.alphaPalettes) {
+    for (const [name, scales] of Object.entries(theme.alphaPalettes)) {
+      const palette = scales[mode]
+      for (let i = 0; i < palette.length; i++) {
+        const varName = colorMap[`$${name}Alpha${i + 1}`]
+        if (varName) vars[varName] = palette[i]
+      }
+    }
+  }
+
   // Token overrides (flat fields on Theme)
   for (const scale of TOKEN_SCALE_KEYS) {
     const tokens = theme[scale]
