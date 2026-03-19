@@ -5,7 +5,7 @@ scope: large
 created: 2026-03-15
 current_epic: 7
 current_stage: 1
-phase: breakdown
+phase: execute
 epic_issue: 206
 ---
 # @vlting/ui Library Build-Out
@@ -161,15 +161,17 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 
 ### Stage 7.1: Text Inputs (Input, Textarea, NativeSelect)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/text-inputs
+**Issue:** #220
 **Acceptance criteria:**
-- [ ] Specs audited/rewritten
-- [ ] Input: neutral, size scale, error/disabled states, aria-invalid/aria-describedby, placeholder
-- [ ] Textarea: neutral, auto-resize option, character count
-- [ ] NativeSelect: neutral, native <select> wrapper, size scale
-- [ ] Focus ring pattern from Button ($outlineColor, 2px solid, 2px offset)
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages with all states
-**Status:** pending
+- [ ] Input: styled input, size scale (sm/md/lg), error/disabled variants, onChangeText, aria-invalid
+- [ ] Textarea: styled textarea, size scale, error/disabled, resize:vertical, rows prop
+- [ ] NativeSelect: compound Root+Option, custom SVG arrow, onValueChange, placeholder
+- [ ] Focus ring pattern matching Button (outline '$neutral'/'$error', $field radius)
+- [ ] Fresh specs written for all 3
+- [ ] Fresh tests passing, removed from testPathIgnorePatterns
+- [ ] Playground section with all states
+**Status:** in-progress
 
 ### Stage 7.2: Selection Controls (Checkbox, Switch, RadioGroup, Toggle)
 **Branch prefix:** feat
