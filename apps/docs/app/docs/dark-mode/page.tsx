@@ -110,10 +110,10 @@ function App() {
             lineHeight: 1.7,
           }}
         >
-          STL uses 12-step color palettes for both light and dark modes. When the color
-          mode changes, all <code>$color</code>, <code>$background</code>,{' '}
-          <code>$borderColor</code>, and other semantic tokens automatically resolve to
-          the correct palette.
+          STL uses 12-step color palettes for both light and dark modes. Palette tokens
+          like <code>$neutral12</code> (text), <code>$neutral4</code> (borders), and{' '}
+          <code>$min</code> (background) automatically resolve to the correct values for
+          each color mode.
         </p>
         <p
           style={{

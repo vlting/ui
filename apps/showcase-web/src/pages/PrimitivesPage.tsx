@@ -174,7 +174,7 @@ export function PrimitivesPage() {
 
       <Section title="Spacer">
         <DemoCard label="Flex spacer">
-          <Row stl={{ border: '1px dashed $borderColor', padding: '$2' }}>
+          <Row stl={{ border: '1px dashed $neutral4', padding: '$2' }}>
             <Text>Left</Text>
             <Spacer />
             <Text>Right</Text>
