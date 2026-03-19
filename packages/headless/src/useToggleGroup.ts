@@ -11,6 +11,8 @@ export interface UseToggleGroupProps {
   loop?: boolean
   /** Indices of disabled items to skip during keyboard navigation */
   disabledIndices?: Set<number>
+  /** Ordered list of item values (from children) for roving index mapping */
+  itemValues?: string[]
 }
 
 export interface UseToggleGroupReturn {
@@ -33,7 +35,7 @@ export interface UseToggleGroupReturn {
 }
 
 export function useToggleGroup(props: UseToggleGroupProps): UseToggleGroupReturn {
-  const { type, value: valueProp, defaultValue = [], onValueChange, orientation = 'horizontal', loop = true, disabledIndices } = props
+  const { type, value: valueProp, defaultValue = [], onValueChange, orientation = 'horizontal', loop = true, disabledIndices, itemValues = [] } = props
 
   const [value, setValue] = useControllableState({
     prop: valueProp,
@@ -43,11 +45,8 @@ export function useToggleGroup(props: UseToggleGroupProps): UseToggleGroupReturn
 
   const currentValue = value ?? []
 
-  // Track item values for roving index mapping
-  const [itemValues] = useState<string[]>(() => [])
-
   const [activeIndex, setActiveIndex] = useState(() => {
-    const firstSelected = currentValue[0]
+    const firstSelected = (valueProp ?? defaultValue)?.[0]
     if (firstSelected) {
       const idx = itemValues.indexOf(firstSelected)
       return idx >= 0 ? idx : 0
@@ -103,15 +102,11 @@ export function useToggleGroup(props: UseToggleGroupProps): UseToggleGroupReturn
 
   const getItemProps = useCallback(
     (itemValue: string) => {
-      // Register item value for roving index
-      if (!itemValues.includes(itemValue)) {
-        itemValues.push(itemValue)
-      }
       const itemIndex = itemValues.indexOf(itemValue)
       const isSelected = currentValue.includes(itemValue)
 
       if (type === 'exclusive') {
-        const rovingProps = roving.getItemProps(itemIndex)
+        const rovingProps = roving.getItemProps(itemIndex >= 0 ? itemIndex : 0)
         return {
           'aria-checked': isSelected,
           role: 'radio' as const,

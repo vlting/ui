@@ -58,19 +58,23 @@ export const ButtonGroup = Object.assign(
         ? Children.toArray(children).filter(isValidElement)
         : []
 
-      const disabledIndices = useMemo(() => {
-        if (!isToggleMode) return undefined
+      // Extract item values and disabled indices from children before calling hooks
+      const { childValues, disabledIndices } = useMemo(() => {
+        if (!isToggleMode) return { childValues: [] as string[], disabledIndices: undefined }
+        const values: string[] = []
         const disabled = new Set<number>()
         validChildren.forEach((child, index) => {
+          const v = (child as ReactElement<any>).props?.value
+          if (v) values.push(v)
           if ((child as ReactElement<any>).props?.disabled) {
             disabled.add(index)
           }
         })
-        return disabled.size > 0 ? disabled : undefined
+        return { childValues: values, disabledIndices: disabled.size > 0 ? disabled : undefined }
       }, [isToggleMode, validChildren])
 
       const toggleGroup = isToggleMode
-        ? useToggleGroup({ type: mode as 'toggle' | 'exclusive', value, defaultValue, onValueChange, orientation, disabledIndices })
+        ? useToggleGroup({ type: mode as 'toggle' | 'exclusive', value, defaultValue, onValueChange, orientation, disabledIndices, itemValues: childValues })
         : null
 
       let processedChildren = children
