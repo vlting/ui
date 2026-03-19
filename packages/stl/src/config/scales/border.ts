@@ -10,25 +10,32 @@ import {
 /** Generator function for `border` theme scale */
 export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
   const primaryColorBase = { ...hash.var, value: color.primary9.ref } as const
-  const primaryColorMin = { ...hash.var, value: color.primary7.ref } as const
+  const primaryColorMin = { ...hash.var, value: color.primary4.ref } as const
+  const primaryColorLow = { ...hash.var, value: color.primary7.ref } as const
   const primaryColorMax = { ...hash.var, value: color.primary10.ref } as const
   const secondaryColorBase = { ...hash.var, value: color.secondary9.ref } as const
-  const secondaryColorMin = { ...hash.var, value: color.secondary7.ref } as const
+  const secondaryColorMin = { ...hash.var, value: color.secondary4.ref } as const
+  const secondaryColorLow = { ...hash.var, value: color.secondary7.ref } as const
   const secondaryColorMax = { ...hash.var, value: color.secondary10.ref } as const
   const neutralColorBase = { ...hash.var, value: color.neutral9.ref } as const
-  const neutralColorMin = { ...hash.var, value: color.neutral7.ref } as const
+  const neutralColorMin = { ...hash.var, value: color.neutral4.ref } as const
+  const neutralColorLow = { ...hash.var, value: color.neutral7.ref } as const
   const neutralColorMax = { ...hash.var, value: color.neutral10.ref } as const
   const errorColorBase = { ...hash.var, value: color.error9.ref } as const
-  const errorColorMin = { ...hash.var, value: color.error7.ref } as const
+  const errorColorMin = { ...hash.var, value: color.error4.ref } as const
+  const errorColorLow = { ...hash.var, value: color.error7.ref } as const
   const errorColorMax = { ...hash.var, value: color.error10.ref } as const
   const warningColorBase = { ...hash.var, value: color.warning9.ref } as const
-  const warningColorMin = { ...hash.var, value: color.warning7.ref } as const
+  const warningColorMin = { ...hash.var, value: color.warning4.ref } as const
+  const warningColorLow = { ...hash.var, value: color.warning7.ref } as const
   const warningColorMax = { ...hash.var, value: color.warning10.ref } as const
   const successColorBase = { ...hash.var, value: color.success9.ref } as const
-  const successColorMin = { ...hash.var, value: color.success7.ref } as const
+  const successColorMin = { ...hash.var, value: color.success4.ref } as const
+  const successColorLow = { ...hash.var, value: color.success7.ref } as const
   const successColorMax = { ...hash.var, value: color.success10.ref } as const
   const infoColorBase = { ...hash.var, value: color.info9.ref } as const
-  const infoColorMin = { ...hash.var, value: color.info7.ref } as const
+  const infoColorMin = { ...hash.var, value: color.info4.ref } as const
+  const infoColorLow = { ...hash.var, value: color.info7.ref } as const
   const infoColorMax = { ...hash.var, value: color.info10.ref } as const
 
   const styleDefault = { ...hash.var, value: 'solid' } as const
@@ -41,24 +48,31 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
   const sharedVars = {
     primaryColorBase,
     primaryColorMin,
+    primaryColorLow,
     primaryColorMax,
     secondaryColorBase,
     secondaryColorMin,
+    secondaryColorLow,
     secondaryColorMax,
     neutralColorBase,
     neutralColorMin,
+    neutralColorLow,
     neutralColorMax,
     errorColorBase,
     errorColorMin,
+    errorColorLow,
     errorColorMax,
     warningColorBase,
     warningColorMin,
+    warningColorLow,
     warningColorMax,
     successColorBase,
     successColorMin,
+    successColorLow,
     successColorMax,
     infoColorBase,
     infoColorMin,
+    infoColorLow,
     infoColorMax,
     widthBase,
     widthMin,
@@ -75,24 +89,31 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
     // COMBO PLACEHOLDERS //
     primary: 'primary',
     primaryMin: 'primaryMin',
+    primaryLow: 'primaryLow',
     primaryMax: 'primaryMax',
     secondary: 'secondary',
     secondaryMin: 'secondaryMin',
+    secondaryLow: 'secondaryLow',
     secondaryMax: 'secondaryMax',
     neutral: 'neutral',
     neutralMin: 'neutralMin',
+    neutralLow: 'neutralLow',
     neutralMax: 'neutralMax',
     error: 'error',
     errorMin: 'errorMin',
+    errorLow: 'errorLow',
     errorMax: 'errorMax',
     warning: 'warning',
     warningMin: 'warningMin',
+    warningLow: 'warningLow',
     warningMax: 'warningMax',
     success: 'success',
     successMin: 'successMin',
+    successLow: 'successLow',
     successMax: 'successMax',
     info: 'info',
     infoMin: 'infoMin',
+    infoLow: 'infoLow',
     infoMax: 'infoMax',
 
     // COLORS //
@@ -105,6 +126,11 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
     bottomPrimaryColorMin: { borderBlockEndColor: primaryColorMin.ref },
     leftPrimaryColorMin: { borderInlineStartColor: primaryColorMin.ref },
     rightPrimaryColorMin: { borderInlineEndColor: primaryColorMin.ref },
+
+    topPrimaryColorLow: { borderBlockStartColor: primaryColorLow.ref },
+    bottomPrimaryColorLow: { borderBlockEndColor: primaryColorLow.ref },
+    leftPrimaryColorLow: { borderInlineStartColor: primaryColorLow.ref },
+    rightPrimaryColorLow: { borderInlineEndColor: primaryColorLow.ref },
 
     topPrimaryColorMax: { borderBlockStartColor: primaryColorMax.ref },
     bottomPrimaryColorMax: { borderBlockEndColor: primaryColorMax.ref },
@@ -121,6 +147,11 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
     leftSecondaryColorMin: { borderInlineStartColor: secondaryColorMin.ref },
     rightSecondaryColorMin: { borderInlineEndColor: secondaryColorMin.ref },
 
+    topSecondaryColorLow: { borderBlockStartColor: secondaryColorLow.ref },
+    bottomSecondaryColorLow: { borderBlockEndColor: secondaryColorLow.ref },
+    leftSecondaryColorLow: { borderInlineStartColor: secondaryColorLow.ref },
+    rightSecondaryColorLow: { borderInlineEndColor: secondaryColorLow.ref },
+
     topSecondaryColorMax: { borderBlockStartColor: secondaryColorMax.ref },
     bottomSecondaryColorMax: { borderBlockEndColor: secondaryColorMax.ref },
     leftSecondaryColorMax: { borderInlineStartColor: secondaryColorMax.ref },
@@ -135,6 +166,11 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
     bottomNeutralColorMin: { borderBlockEndColor: neutralColorMin.ref },
     leftNeutralColorMin: { borderInlineStartColor: neutralColorMin.ref },
     rightNeutralColorMin: { borderInlineEndColor: neutralColorMin.ref },
+
+    topNeutralColorLow: { borderBlockStartColor: neutralColorLow.ref },
+    bottomNeutralColorLow: { borderBlockEndColor: neutralColorLow.ref },
+    leftNeutralColorLow: { borderInlineStartColor: neutralColorLow.ref },
+    rightNeutralColorLow: { borderInlineEndColor: neutralColorLow.ref },
 
     topNeutralColorMax: { borderBlockStartColor: neutralColorMax.ref },
     bottomNeutralColorMax: { borderBlockEndColor: neutralColorMax.ref },
@@ -151,6 +187,11 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
     leftErrorColorMin: { borderInlineStartColor: errorColorMin.ref },
     rightErrorColorMin: { borderInlineEndColor: errorColorMin.ref },
 
+    topErrorColorLow: { borderBlockStartColor: errorColorLow.ref },
+    bottomErrorColorLow: { borderBlockEndColor: errorColorLow.ref },
+    leftErrorColorLow: { borderInlineStartColor: errorColorLow.ref },
+    rightErrorColorLow: { borderInlineEndColor: errorColorLow.ref },
+
     topErrorColorMax: { borderBlockStartColor: errorColorMax.ref },
     bottomErrorColorMax: { borderBlockEndColor: errorColorMax.ref },
     leftErrorColorMax: { borderInlineStartColor: errorColorMax.ref },
@@ -165,6 +206,11 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
     bottomWarningColorMin: { borderBlockEndColor: warningColorMin.ref },
     leftWarningColorMin: { borderInlineStartColor: warningColorMin.ref },
     rightWarningColorMin: { borderInlineEndColor: warningColorMin.ref },
+
+    topWarningColorLow: { borderBlockStartColor: warningColorLow.ref },
+    bottomWarningColorLow: { borderBlockEndColor: warningColorLow.ref },
+    leftWarningColorLow: { borderInlineStartColor: warningColorLow.ref },
+    rightWarningColorLow: { borderInlineEndColor: warningColorLow.ref },
 
     topWarningColorMax: { borderBlockStartColor: warningColorMax.ref },
     bottomWarningColorMax: { borderBlockEndColor: warningColorMax.ref },
@@ -181,6 +227,11 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
     leftSuccessColorMin: { borderInlineStartColor: successColorMin.ref },
     rightSuccessColorMin: { borderInlineEndColor: successColorMin.ref },
 
+    topSuccessColorLow: { borderBlockStartColor: successColorLow.ref },
+    bottomSuccessColorLow: { borderBlockEndColor: successColorLow.ref },
+    leftSuccessColorLow: { borderInlineStartColor: successColorLow.ref },
+    rightSuccessColorLow: { borderInlineEndColor: successColorLow.ref },
+
     topSuccessColorMax: { borderBlockStartColor: successColorMax.ref },
     bottomSuccessColorMax: { borderBlockEndColor: successColorMax.ref },
     leftSuccessColorMax: { borderInlineStartColor: successColorMax.ref },
@@ -195,6 +246,11 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
     bottomInfoColorMin: { borderBlockEndColor: infoColorMin.ref },
     leftInfoColorMin: { borderInlineStartColor: infoColorMin.ref },
     rightInfoColorMin: { borderInlineEndColor: infoColorMin.ref },
+
+    topInfoColorLow: { borderBlockStartColor: infoColorLow.ref },
+    bottomInfoColorLow: { borderBlockEndColor: infoColorLow.ref },
+    leftInfoColorLow: { borderInlineStartColor: infoColorLow.ref },
+    rightInfoColorLow: { borderInlineEndColor: infoColorLow.ref },
 
     topInfoColorMax: { borderBlockStartColor: infoColorMax.ref },
     bottomInfoColorMax: { borderBlockEndColor: infoColorMax.ref },
@@ -242,6 +298,16 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
         borderInlineEndWidth: 'rightWidthDefault',
       },
       primaryMin: {
+        borderBlockStartColor: 'primary4',
+        borderBlockEndColor: 'primary4',
+        borderInlineStartColor: 'primary4',
+        borderInlineEndColor: 'primary4',
+        borderBlockStartWidth: 'topWidthDefault',
+        borderBlockEndWidth: 'bottomWidthDefault',
+        borderInlineStartWidth: 'leftWidthDefault',
+        borderInlineEndWidth: 'rightWidthDefault',
+      },
+      primaryLow: {
         borderBlockStartColor: 'primary7',
         borderBlockEndColor: 'primary7',
         borderInlineStartColor: 'primary7',
@@ -272,6 +338,16 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
         borderInlineEndWidth: 'rightWidthDefault',
       },
       secondaryMin: {
+        borderBlockStartColor: 'secondary4',
+        borderBlockEndColor: 'secondary4',
+        borderInlineStartColor: 'secondary4',
+        borderInlineEndColor: 'secondary4',
+        borderBlockStartWidth: 'topWidthDefault',
+        borderBlockEndWidth: 'bottomWidthDefault',
+        borderInlineStartWidth: 'leftWidthDefault',
+        borderInlineEndWidth: 'rightWidthDefault',
+      },
+      secondaryLow: {
         borderBlockStartColor: 'secondary7',
         borderBlockEndColor: 'secondary7',
         borderInlineStartColor: 'secondary7',
@@ -302,6 +378,16 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
         borderInlineEndWidth: 'rightWidthDefault',
       },
       neutralMin: {
+        borderBlockStartColor: 'neutral4',
+        borderBlockEndColor: 'neutral4',
+        borderInlineStartColor: 'neutral4',
+        borderInlineEndColor: 'neutral4',
+        borderBlockStartWidth: 'topWidthDefault',
+        borderBlockEndWidth: 'bottomWidthDefault',
+        borderInlineStartWidth: 'leftWidthDefault',
+        borderInlineEndWidth: 'rightWidthDefault',
+      },
+      neutralLow: {
         borderBlockStartColor: 'neutral7',
         borderBlockEndColor: 'neutral7',
         borderInlineStartColor: 'neutral7',
@@ -332,6 +418,16 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
         borderInlineEndWidth: 'rightWidthDefault',
       },
       errorMin: {
+        borderBlockStartColor: 'error4',
+        borderBlockEndColor: 'error4',
+        borderInlineStartColor: 'error4',
+        borderInlineEndColor: 'error4',
+        borderBlockStartWidth: 'topWidthDefault',
+        borderBlockEndWidth: 'bottomWidthDefault',
+        borderInlineStartWidth: 'leftWidthDefault',
+        borderInlineEndWidth: 'rightWidthDefault',
+      },
+      errorLow: {
         borderBlockStartColor: 'error7',
         borderBlockEndColor: 'error7',
         borderInlineStartColor: 'error7',
@@ -362,6 +458,16 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
         borderInlineEndWidth: 'rightWidthDefault',
       },
       warningMin: {
+        borderBlockStartColor: 'warning4',
+        borderBlockEndColor: 'warning4',
+        borderInlineStartColor: 'warning4',
+        borderInlineEndColor: 'warning4',
+        borderBlockStartWidth: 'topWidthDefault',
+        borderBlockEndWidth: 'bottomWidthDefault',
+        borderInlineStartWidth: 'leftWidthDefault',
+        borderInlineEndWidth: 'rightWidthDefault',
+      },
+      warningLow: {
         borderBlockStartColor: 'warning7',
         borderBlockEndColor: 'warning7',
         borderInlineStartColor: 'warning7',
@@ -392,6 +498,16 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
         borderInlineEndWidth: 'rightWidthDefault',
       },
       successMin: {
+        borderBlockStartColor: 'success4',
+        borderBlockEndColor: 'success4',
+        borderInlineStartColor: 'success4',
+        borderInlineEndColor: 'success4',
+        borderBlockStartWidth: 'topWidthDefault',
+        borderBlockEndWidth: 'bottomWidthDefault',
+        borderInlineStartWidth: 'leftWidthDefault',
+        borderInlineEndWidth: 'rightWidthDefault',
+      },
+      successLow: {
         borderBlockStartColor: 'success7',
         borderBlockEndColor: 'success7',
         borderInlineStartColor: 'success7',
@@ -422,6 +538,16 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
         borderInlineEndWidth: 'rightWidthDefault',
       },
       infoMin: {
+        borderBlockStartColor: 'info4',
+        borderBlockEndColor: 'info4',
+        borderInlineStartColor: 'info4',
+        borderInlineEndColor: 'info4',
+        borderBlockStartWidth: 'topWidthDefault',
+        borderBlockEndWidth: 'bottomWidthDefault',
+        borderInlineStartWidth: 'leftWidthDefault',
+        borderInlineEndWidth: 'rightWidthDefault',
+      },
+      infoLow: {
         borderBlockStartColor: 'info7',
         borderBlockEndColor: 'info7',
         borderInlineStartColor: 'info7',
@@ -490,24 +616,31 @@ export function getBorder<T extends ColorVars>(hash: CharHash, color: T) {
 export const borderCombos = {
   primary: true,
   primaryMin: true,
+  primaryLow: true,
   primaryMax: true,
   secondary: true,
   secondaryMin: true,
+  secondaryLow: true,
   secondaryMax: true,
   neutral: true,
   neutralMin: true,
+  neutralLow: true,
   neutralMax: true,
   error: true,
   errorMin: true,
+  errorLow: true,
   errorMax: true,
   warning: true,
   warningMin: true,
+  warningLow: true,
   warningMax: true,
   success: true,
   successMin: true,
+  successLow: true,
   successMax: true,
   info: true,
   infoMin: true,
+  infoLow: true,
   infoMax: true,
 } as const
 
@@ -523,6 +656,10 @@ export const hiddenBorderColors = {
   bottomPrimaryColorMin: true,
   leftPrimaryColorMin: true,
   rightPrimaryColorMin: true,
+  topPrimaryColorLow: true,
+  bottomPrimaryColorLow: true,
+  leftPrimaryColorLow: true,
+  rightPrimaryColorLow: true,
   topPrimaryColorMax: true,
   bottomPrimaryColorMax: true,
   leftPrimaryColorMax: true,
@@ -535,6 +672,10 @@ export const hiddenBorderColors = {
   bottomSecondaryColorMin: true,
   leftSecondaryColorMin: true,
   rightSecondaryColorMin: true,
+  topSecondaryColorLow: true,
+  bottomSecondaryColorLow: true,
+  leftSecondaryColorLow: true,
+  rightSecondaryColorLow: true,
   topSecondaryColorMax: true,
   bottomSecondaryColorMax: true,
   leftSecondaryColorMax: true,
@@ -547,6 +688,10 @@ export const hiddenBorderColors = {
   bottomNeutralColorMin: true,
   leftNeutralColorMin: true,
   rightNeutralColorMin: true,
+  topNeutralColorLow: true,
+  bottomNeutralColorLow: true,
+  leftNeutralColorLow: true,
+  rightNeutralColorLow: true,
   topNeutralColorMax: true,
   bottomNeutralColorMax: true,
   leftNeutralColorMax: true,
@@ -559,6 +704,10 @@ export const hiddenBorderColors = {
   bottomErrorColorMin: true,
   leftErrorColorMin: true,
   rightErrorColorMin: true,
+  topErrorColorLow: true,
+  bottomErrorColorLow: true,
+  leftErrorColorLow: true,
+  rightErrorColorLow: true,
   topErrorColorMax: true,
   bottomErrorColorMax: true,
   leftErrorColorMax: true,
@@ -571,6 +720,10 @@ export const hiddenBorderColors = {
   bottomWarningColorMin: true,
   leftWarningColorMin: true,
   rightWarningColorMin: true,
+  topWarningColorLow: true,
+  bottomWarningColorLow: true,
+  leftWarningColorLow: true,
+  rightWarningColorLow: true,
   topWarningColorMax: true,
   bottomWarningColorMax: true,
   leftWarningColorMax: true,
@@ -583,6 +736,10 @@ export const hiddenBorderColors = {
   bottomSuccessColorMin: true,
   leftSuccessColorMin: true,
   rightSuccessColorMin: true,
+  topSuccessColorLow: true,
+  bottomSuccessColorLow: true,
+  leftSuccessColorLow: true,
+  rightSuccessColorLow: true,
   topSuccessColorMax: true,
   bottomSuccessColorMax: true,
   leftSuccessColorMax: true,
@@ -595,6 +752,10 @@ export const hiddenBorderColors = {
   bottomInfoColorMin: true,
   leftInfoColorMin: true,
   rightInfoColorMin: true,
+  topInfoColorLow: true,
+  bottomInfoColorLow: true,
+  leftInfoColorLow: true,
+  rightInfoColorLow: true,
   topInfoColorMax: true,
   bottomInfoColorMax: true,
   leftInfoColorMax: true,
