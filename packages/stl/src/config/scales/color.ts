@@ -101,9 +101,9 @@ export function getColor(hash: CharHash) {
     transparent: lightScale.transparent,
     shadowColor: { ...lightScale.shadowColor, value: `hsl(${shadowBase.ref} / .40)` },
     // Surface levels (dark mode — background palette)
-    surface1: { ...lightScale.surface1, value: lightScale.background11.ref },
-    surface2: { ...lightScale.surface2, value: lightScale.background10.ref },
-    surface3: { ...lightScale.surface3, value: lightScale.background9.ref },
+    surface1: { ...lightScale.surface1, value: lightScale.background3.ref },
+    surface2: { ...lightScale.surface2, value: lightScale.background2.ref },
+    surface3: { ...lightScale.surface3, value: lightScale.background1.ref },
     inverse: { ...lightScale.inverse, value: lightScale.max.ref },
     ...generateThemeColors<ScaleEntry>(
       DEFAULT_SOURCE_COLORS,
