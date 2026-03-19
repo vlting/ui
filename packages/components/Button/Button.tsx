@@ -24,6 +24,7 @@ const ButtonBase = styled('button', {
   fontWeight: '$500',
   cursor: 'pointer',
   outline: 'none',
+  minWidth: '$80',
   ':focus': { outlineOffset: '$offsetDefault' },
   ':pressed': { transform: 'scale(0.98)' },
   lowMotion: {
@@ -46,10 +47,10 @@ const ButtonBase = styled('button', {
       md: { height: '$32', py: '$8', px: '$12', fontSize: '$buttonSmall' },
       lg: { height: '$36', py: '$buttonBasePy', px: '$16', fontSize: '$button' },
       xl: { height: '$40', py: '$12', px: '$20', fontSize: '$buttonLarge' },
-      icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button' },
+      icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button', minWidth: 'unset' },
     },
     square: {
-      true: { px: '$0', justifyContent: 'center' },
+      true: { px: '$0', justifyContent: 'center', minWidth: 'unset' },
     },
     pill: {
       true: { radius: '$pill' },
