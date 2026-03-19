@@ -9,7 +9,7 @@ import { MoonIcon, SunIcon } from './sections/shared'
 import {
   AlertSection, AvatarSection, BadgeSection, ButtonGroupSection, ButtonSection,
   CardSection, EmptySection, InputSection, TypographySection, ItemSection, ProgressSection,
-  SeparatorSection, SpinnerSection, ToggleSection,
+  SelectionSection, SeparatorSection, SpinnerSection, ToggleSection,
 } from './sections'
 import { DemoSection } from './sections/DemoSection'
 
@@ -19,7 +19,7 @@ const PAGES = ['Components', 'Demo'] as const
 type Page = typeof PAGES[number]
 
 const SECTIONS = [
-  'Input', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
+  'Input', 'Selection', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
   'Spinner', 'Empty', 'Avatar', 'Typography', 'Separator',
 ] as const
 
@@ -191,6 +191,7 @@ const SECTION_COMPONENTS: Record<string, React.ComponentType<{ sectionRef: (el: 
   Typography: TypographySection,
   Separator: SeparatorSection,
   ButtonGroup: ButtonGroupSection,
+  Selection: SelectionSection,
   Toggle: ToggleSection,
 }
 
