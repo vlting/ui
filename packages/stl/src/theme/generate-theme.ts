@@ -200,7 +200,7 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
     radius: (() => {
       const merged = mergeScale(DEFAULT_RADIUS, options.radius)
       if (options.radius?.buttonGrouped === undefined) {
-        const buttonVal = (merged as any).true ?? 9
+        const buttonVal = (merged as any).button ?? (merged as any).true ?? 9
         ;(merged as any).buttonGrouped = Math.min(buttonVal as number, 24)
       }
       return merged
