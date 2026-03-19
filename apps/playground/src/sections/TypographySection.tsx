@@ -26,7 +26,7 @@ export function TypographySection({ sectionRef }: SectionProps) {
           <Heading.H6>Heading 6</Heading.H6>
         </Column>
 
-        <Column>
+        <Column stl={{ gap: '$6' }}>
           <SectionTitle>Text</SectionTitle>
           <Text>Default body text</Text>
           <Text size="xs">Extra small</Text>
