@@ -104,9 +104,9 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
               <Button variant="outline" size={size}>Three</Button>
             </ButtonGroup>
             <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical icons">
-              <Button variant="outline" size="icon"><PlusIcon /></Button>
-              <Button variant="outline" size="icon"><MuteIcon /></Button>
-              <Button variant="outline" size="icon"><MinusIcon /></Button>
+              <Button variant="outline" square size={size}><PlusIcon /></Button>
+              <Button variant="outline" square size={size}><MuteIcon /></Button>
+              <Button variant="outline" square size={size}><MinusIcon /></Button>
             </ButtonGroup>
           </ButtonRow>
         </div>

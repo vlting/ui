@@ -34,7 +34,7 @@ export function ButtonSection({ sectionRef }: SectionProps) {
               <Button theme={theme} variant="solid" size="md" loading stl={{ minWidth: '$80' }}>
                 loading
               </Button>
-              <Button theme={theme} variant="solid" size="icon">
+              <Button theme={theme} variant="solid" square>
                 ★
               </Button>
             </ButtonRow>
@@ -72,7 +72,7 @@ export function ButtonSection({ sectionRef }: SectionProps) {
                 {variant}
               </Button>
             ))}
-            <Button pill size="icon">★</Button>
+            <Button pill square>★</Button>
           </ButtonRow>
         </Section>
       </Card.Content>
