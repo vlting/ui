@@ -267,9 +267,9 @@ const ButtonBase = styled('button', {
     { when: { groupPosition: 'middle', groupDirection: 'horizontal' }, stl: { radius: '$rectangular', borderLeftWidth: '0' } },
     { when: { groupPosition: 'last', groupDirection: 'horizontal' }, stl: { radiusLeft: '$rectangular', borderLeftWidth: '0' } },
     // Vertical
-    { when: { groupPosition: 'first', groupDirection: 'vertical' }, stl: { radiusBottom: '$rectangular' } },
+    { when: { groupPosition: 'first', groupDirection: 'vertical' }, stl: { radiusTop: '$24', radiusBottom: '$rectangular' } },
     { when: { groupPosition: 'middle', groupDirection: 'vertical' }, stl: { radius: '$rectangular', borderTopWidth: '0' } },
-    { when: { groupPosition: 'last', groupDirection: 'vertical' }, stl: { radiusTop: '$rectangular', borderTopWidth: '0' } },
+    { when: { groupPosition: 'last', groupDirection: 'vertical' }, stl: { radiusBottom: '$24', radiusTop: '$rectangular', borderTopWidth: '0' } },
 
     // ── Grouped: borderless variant spacing (solid/subtle/ghost get small gap) ─
     // Horizontal
