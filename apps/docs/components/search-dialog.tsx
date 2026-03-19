@@ -53,7 +53,7 @@ const SearchBar = styled('div', { stl: {
   display: 'flex',
   alignItems: 'center',
   borderBottom: '$neutralMin',
-  px: '$2.5',
+  px: '$20',
 }})
 
 const SearchIcon = styled('svg', { stl: {
@@ -98,7 +98,7 @@ const ResultsList = styled('div', { stl: {
 }})
 
 const NoResults = styled('p', { stl: {
-  px: '$2.5',
+  px: '$20',
   py: '$4',
   textAlign: 'center',
   fontSize: '$p',
@@ -118,9 +118,9 @@ const ResultButton = styled('button', { stl: {
   display: 'flex',
   width: '100%',
   alignItems: 'center',
-  gap: '$1.5',
+  gap: '$12',
   borderRadius: '$4',
-  px: '$1.5',
+  px: '$12',
   py: '$1',
   textAlign: 'left',
   fontSize: '$p',
@@ -160,7 +160,7 @@ const FooterBar = styled('div', { stl: {
   alignItems: 'center',
   justifyContent: 'space-between',
   borderTop: '$neutralMin',
-  px: '$2.5',
+  px: '$20',
   py: '$1',
   fontSize: '$small',
   color: '$colorSubtitle',

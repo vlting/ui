@@ -4,7 +4,7 @@ import type { PropDef } from '@/lib/api-mapping'
 import { styled } from '../../../packages/stl-react/src'
 
 const Wrapper = styled('div', { stl: {
-  my: '$3.5',
+  my: '$28',
 }})
 
 const Title = styled('h4', { stl: {
@@ -36,25 +36,25 @@ const TheadRow = styled('tr', { stl: {
 const Th = styled('th', { stl: {
   textAlign: 'left',
   py: '$1',
-  px: '$2.5',
+  px: '$20',
   fontWeight: '$500',
 }})
 
 const Td = styled('td', { stl: {
   py: '$1',
-  px: '$2.5',
+  px: '$20',
 }})
 
 const TdMono = styled('td', { stl: {
   py: '$1',
-  px: '$2.5',
+  px: '$20',
   fontFamily: '$mono',
   fontSize: '$p',
 }})
 
 const TdMonoMuted = styled('td', { stl: {
   py: '$1',
-  px: '$2.5',
+  px: '$20',
   fontFamily: '$mono',
   fontSize: '$small',
   color: '$colorSubtitle',
@@ -62,7 +62,7 @@ const TdMonoMuted = styled('td', { stl: {
 
 const TdSubtitle = styled('td', { stl: {
   py: '$1',
-  px: '$2.5',
+  px: '$20',
   color: '$colorSubtitle',
 }})
 

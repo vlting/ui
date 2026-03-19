@@ -10,7 +10,7 @@ const Section = styled('section', { stl: {
 const SectionTitle = styled('h2', { stl: {
   fontSize: '$h4',
   fontWeight: '$600',
-  mb: '$2.5',
+  mb: '$20',
 }})
 
 interface PlaygroundSectionProps {

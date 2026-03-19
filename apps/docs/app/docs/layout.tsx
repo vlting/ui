@@ -59,7 +59,7 @@ const MobileSidebarHeader = styled('div', {
   alignItems: 'center',
   justifyContent: 'space-between',
   borderBottom: '$neutralMin',
-  px: '$3.5',
+  px: '$28',
 })
 
 const CloseButton = styled('button', {
@@ -104,7 +104,7 @@ const TocSidebar = styled('div', {
   overflowY: 'auto',
   borderLeft: '$neutralMin',
   py: '$6',
-  px: '$3.5',
+  px: '$28',
   gtXl: { display: 'block' },
 })
 
