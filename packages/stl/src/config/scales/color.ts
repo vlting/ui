@@ -78,7 +78,6 @@ export function getColor(hash: CharHash) {
     surface1: { ...hash.var, value: lightPalette.min.ref },
     surface2: { ...hash.var, value: lightPalette.background1.ref },
     surface3: { ...hash.var, value: lightPalette.background2.ref },
-    surface4: { ...hash.var, value: lightPalette.background3.ref },
     inverse: { ...hash.var, value: lightPalette.neutral12.ref },
     ...lightPalette,
   } as const
@@ -102,10 +101,9 @@ export function getColor(hash: CharHash) {
     transparent: lightScale.transparent,
     shadowColor: { ...lightScale.shadowColor, value: `hsl(${shadowBase.ref} / .40)` },
     // Surface levels (dark mode — background palette)
-    surface1: { ...lightScale.surface1, value: lightScale.background3.ref },
-    surface2: { ...lightScale.surface2, value: lightScale.background2.ref },
-    surface3: { ...lightScale.surface3, value: lightScale.background1.ref },
-    surface4: { ...lightScale.surface4, value: lightScale.min.ref },
+    surface1: { ...lightScale.surface1, value: lightScale.background2.ref },
+    surface2: { ...lightScale.surface2, value: lightScale.background1.ref },
+    surface3: { ...lightScale.surface3, value: lightScale.min.ref },
     inverse: { ...lightScale.inverse, value: lightScale.max.ref },
     ...generateThemeColors<ScaleEntry>(
       DEFAULT_SOURCE_COLORS,
@@ -453,7 +451,6 @@ export const colorText = {
   surface1: true,
   surface2: true,
   surface3: true,
-  surface4: true,
   inverse: true,
   white: true,
   black: true,
