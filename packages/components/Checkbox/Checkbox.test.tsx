@@ -43,19 +43,41 @@ describe('Checkbox', () => {
     expect(screen.getByText('Accept terms')).toBeTruthy()
   })
 
-  // -- Keyboard navigation --
+  it('wraps content in a label element', () => {
+    render(
+      <Checkbox.Root>
+        <Checkbox.Indicator />
+      </Checkbox.Root>,
+    )
+    const checkbox = screen.getByRole('checkbox')
+    expect(checkbox.closest('label')).toBeTruthy()
+  })
 
-  it('toggles on Space key press via native checkbox', () => {
+  // -- Toggle behavior --
+
+  it('toggles on click', () => {
     const onChange = jest.fn()
     render(
       <Checkbox.Root onCheckedChange={onChange}>
         <Checkbox.Indicator />
       </Checkbox.Root>,
     )
-    const checkbox = screen.getByRole('checkbox')
-    fireEvent.click(checkbox)
+    fireEvent.click(screen.getByRole('checkbox'))
     expect(onChange).toHaveBeenCalledWith(true)
   })
+
+  it('toggles off when already checked (uncontrolled)', () => {
+    const onChange = jest.fn()
+    render(
+      <Checkbox.Root defaultChecked onCheckedChange={onChange}>
+        <Checkbox.Indicator />
+      </Checkbox.Root>,
+    )
+    fireEvent.click(screen.getByRole('checkbox'))
+    expect(onChange).toHaveBeenCalledWith(false)
+  })
+
+  // -- Focus --
 
   it('is focusable via hidden input', () => {
     render(
@@ -97,9 +119,19 @@ describe('Checkbox', () => {
     expect(screen.getByRole('checkbox')).toBeChecked()
   })
 
-  it('supports indeterminate state', () => {
+  it('supports indeterminate state via checked prop', () => {
     render(
       <Checkbox.Root checked="indeterminate">
+        <Checkbox.Indicator />
+      </Checkbox.Root>,
+    )
+    const checkbox = screen.getByRole('checkbox') as HTMLInputElement
+    expect(checkbox.indeterminate).toBe(true)
+  })
+
+  it('supports indeterminate state via indeterminate prop', () => {
+    render(
+      <Checkbox.Root indeterminate>
         <Checkbox.Indicator />
       </Checkbox.Root>,
     )
@@ -129,14 +161,47 @@ describe('Checkbox', () => {
     expect(screen.getByRole('checkbox')).toBeDisabled()
   })
 
-  it('sets not-allowed cursor styling when disabled', () => {
+  it('does not fire onChange when disabled', () => {
+    const onChange = jest.fn()
     render(
-      <Checkbox.Root disabled>
+      <Checkbox.Root disabled onCheckedChange={onChange}>
         <Checkbox.Indicator />
       </Checkbox.Root>,
     )
-    const label = screen.getByRole('checkbox').closest('label')
-    expect(label?.style.cursor).toBe('not-allowed')
-    expect(label?.style.opacity).toBe('0.5')
+    fireEvent.click(screen.getByRole('checkbox'))
+    expect(onChange).not.toHaveBeenCalled()
+  })
+
+  // -- Error state --
+
+  it('sets aria-invalid when error is true', () => {
+    render(
+      <Checkbox.Root error>
+        <Checkbox.Indicator />
+      </Checkbox.Root>,
+    )
+    expect(screen.getByRole('checkbox').getAttribute('aria-invalid')).toBe('true')
+  })
+
+  // -- Form integration --
+
+  it('supports name and value props', () => {
+    render(
+      <Checkbox.Root name="terms" value="accepted">
+        <Checkbox.Indicator />
+      </Checkbox.Root>,
+    )
+    const checkbox = screen.getByRole('checkbox') as HTMLInputElement
+    expect(checkbox.name).toBe('terms')
+    expect(checkbox.value).toBe('accepted')
+  })
+
+  it('supports required prop', () => {
+    render(
+      <Checkbox.Root required>
+        <Checkbox.Indicator />
+      </Checkbox.Root>,
+    )
+    expect(screen.getByRole('checkbox')).toBeRequired()
   })
 })

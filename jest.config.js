@@ -14,7 +14,7 @@ module.exports = {
     'packages/components/Calendar/',
     'packages/components/Carousel/',
     'packages/components/Chart/',
-    'packages/components/Checkbox/',
+    // 'packages/components/Checkbox/', // re-enabled
     'packages/components/Collapsible/',
     'packages/components/Combobox/',
     'packages/components/Command/',
