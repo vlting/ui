@@ -23,7 +23,7 @@ const CardRoot = styled('article', {
       lg: { p: '$20' },
     },
     elevation: {
-      flat: { border: '$borderColor', borderWidth: '$widthMin' },
+      flat: { border: '$neutralMin', borderWidth: '$widthMin' },
       normal: { boxShadow: '$md' },
       raised: { boxShadow: '$xl' },
       glass: {
@@ -93,7 +93,7 @@ const CardHeader = styled('header', {
   flexDirection: 'column',
   gap: '$4',
   p: '$16',
-  borderBottom: '$borderColor',
+  borderBottom: '$neutralMin',
   borderBottomWidth: '$widthMin',
 }, { name: 'CardHeader' })
 
@@ -104,7 +104,7 @@ const CardFooter = styled('footer', {
   alignItems: 'center',
   gap: '$8',
   p: '$16',
-  borderTop: '$borderColor',
+  borderTop: '$neutralMin',
   borderTopWidth: '$widthMin',
 }, { name: 'CardFooter' })
 

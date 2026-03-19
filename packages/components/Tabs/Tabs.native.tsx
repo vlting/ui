@@ -15,7 +15,7 @@ const TabsListFrame = styled(
   {
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderColor: '$borderColor',
+    borderColor: '$neutral4',
   },
   'TabsList',
 )

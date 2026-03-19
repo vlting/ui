@@ -27,7 +27,7 @@ const ButtonFrame = styled(
       outline: {
         backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: '$borderColor',
+        borderColor: '$neutral4',
       },
       ghost: { backgroundColor: 'transparent' },
       link: { backgroundColor: 'transparent' },

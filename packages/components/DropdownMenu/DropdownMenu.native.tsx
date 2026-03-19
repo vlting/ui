@@ -10,10 +10,10 @@ import { styled } from '../../stl-native/src/config/styled'
 const DropdownMenuContentFrame = styled(
   View,
   {
-    backgroundColor: '$background',
+    backgroundColor: '$min',
     borderRadius: '$3',
     borderWidth: 1,
-    borderColor: '$borderColor',
+    borderColor: '$neutral4',
     paddingVertical: 4,
     minWidth: 180,
     shadowColor: '#000',
@@ -73,7 +73,7 @@ const DropdownMenuSeparatorFrame = styled(
   View,
   {
     height: 1,
-    backgroundColor: '$borderColor',
+    backgroundColor: '$neutral4',
     marginVertical: 4,
     marginHorizontal: 8,
   },

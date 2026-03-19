@@ -21,13 +21,13 @@ const ToggleButton = styled('button', {
   appearance: 'none',
   borderWidth: '1px',
   borderStyle: 'solid',
-  borderColor: '$borderColor',
+  borderColor: '$neutral4',
   background: 'none',
   padding: '6px 16px',
   cursor: 'pointer',
   fontFamily: 'inherit',
   fontSize: '$14',
-  color: '$color',
+  color: '$neutral12',
   borderRadius: '6px',
 }, { name: 'PricingToggle' })
 
@@ -44,7 +44,7 @@ const Th = styled('th', {
   fontSize: '$14',
   borderBottomWidth: '1px',
   borderBottomStyle: 'solid',
-  borderColor: '$borderColor',
+  borderColor: '$neutral4',
 }, { name: 'PricingTh' })
 
 const Td = styled('td', {
@@ -52,7 +52,7 @@ const Td = styled('td', {
   fontSize: '$14',
   borderBottomWidth: '1px',
   borderBottomStyle: 'solid',
-  borderColor: '$borderColor',
+  borderColor: '$neutral4',
 }, { name: 'PricingTd' })
 
 // -- Types --
