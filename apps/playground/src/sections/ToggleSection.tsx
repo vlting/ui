@@ -12,6 +12,44 @@ const ToggleRow = styled('div', {
   display: 'flex', gap: '$8', alignItems: 'center',
 }, { name: 'ToggleRow' })
 
+// ─── Icons ──────────────────────────────────────────────────────────────────
+
+const ListIcon = () => (
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z" />
+  </svg>
+)
+
+const GridIcon = () => (
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M3 3H11V11H3V3ZM13 3H21V11H13V3ZM3 13H11V21H3V13ZM13 13H21V21H13V13Z" />
+  </svg>
+)
+
+const GalleryIcon = () => (
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M22 3H2V21H22V3ZM4 5H20V15L16 11L13 14L9 10L4 15V5Z" />
+  </svg>
+)
+
+const WifiIcon = () => (
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 18L3.27 9.27C6.34 6.2 10.09 4.5 12 4.5C13.91 4.5 17.66 6.2 20.73 9.27L12 18Z" />
+  </svg>
+)
+
+const BluetoothIcon = () => (
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M13 2L18 7L14.41 10.59L18 14.17L13 19.17V13.41L9.41 17L8 15.59L12.59 11L8 6.41L9.41 5L13 8.59V2Z" />
+  </svg>
+)
+
+const AirplaneIcon = () => (
+  <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M21 16V14L13 9V3.5C13 2.67 12.33 2 11.5 2C10.67 2 10 2.67 10 3.5V9L2 14V16L10 13.5V19L8 20.5V22L11.5 21L15 22V20.5L13 19V13.5L21 16Z" />
+  </svg>
+)
+
 const SIZES = ['xs', 'sm', 'md', 'lg'] as const
 type Size = typeof SIZES[number]
 type Theme = typeof THEMES[number]
@@ -105,9 +143,9 @@ export function ToggleSection({ sectionRef }: SectionProps) {
                 orientation="vertical"
                 aria-label="View mode vertical"
               >
-                <Button value="list" variant="outline" theme={theme} size={size}>List</Button>
-                <Button value="grid" variant="outline" theme={theme} size={size}>Grid</Button>
-                <Button value="gallery" variant="outline" theme={theme} size={size}>Gallery</Button>
+                <Button value="list" variant="outline" theme={theme} size={size} square><ListIcon /></Button>
+                <Button value="grid" variant="outline" theme={theme} size={size} square><GridIcon /></Button>
+                <Button value="gallery" variant="outline" theme={theme} size={size} square><GalleryIcon /></Button>
               </ToggleGroup>
             </ToggleRow>
             <StatusLabel>{JSON.stringify(view)}</StatusLabel>
@@ -136,9 +174,9 @@ export function ToggleSection({ sectionRef }: SectionProps) {
                 orientation="vertical"
                 aria-label="Features vertical"
               >
-                <Button value="wifi" variant="outline" theme={theme} size={size}>WiFi</Button>
-                <Button value="bluetooth" variant="outline" theme={theme} size={size}>Bluetooth</Button>
-                <Button value="airplane" variant="outline" theme={theme} size={size}>Airplane</Button>
+                <Button value="wifi" variant="outline" theme={theme} size={size} square><WifiIcon /></Button>
+                <Button value="bluetooth" variant="outline" theme={theme} size={size} square><BluetoothIcon /></Button>
+                <Button value="airplane" variant="outline" theme={theme} size={size} square><AirplaneIcon /></Button>
               </ToggleGroup>
             </ToggleRow>
             <StatusLabel>{JSON.stringify(features)}</StatusLabel>
