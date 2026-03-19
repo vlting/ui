@@ -45,10 +45,10 @@ export function CardPage() {
                 <p>Card content goes here. It can contain any elements.</p>
               </Card.Content>
               <Card.Footer>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="md">
                   Cancel
                 </Button>
-                <Button size="sm">Save</Button>
+                <Button size="md">Save</Button>
               </Card.Footer>
             </Card>
           </div>

@@ -467,9 +467,6 @@ const liveExamples: ExampleMap = {
     ),
     Sizes: (
       <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-        <Button size="xs">
-          Extra Small
-        </Button>
         <Button size="sm">
           Small
         </Button>
@@ -478,6 +475,9 @@ const liveExamples: ExampleMap = {
         </Button>
         <Button size="lg">
           Large
+        </Button>
+        <Button size="xl">
+          Extra Large
         </Button>
       </div>
     ),

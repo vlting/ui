@@ -16,7 +16,7 @@
 - **Expected user mental model:** "I press this and something happens." The button should look and behave like every other button the user has encountered across the web and native platforms (Jakob's Law).
 - **UX laws applied:**
   - **Jakob's Law** — Button must follow standard platform button conventions (shape, feedback, disabled appearance).
-  - **Fitts's Law** — Multiple size variants (`xs`, `sm`, `md`, `lg`, `icon`) ensure adequate touch/click target sizes. The `lg` variant must be preferred for primary or mobile-first contexts.
+  - **Fitts's Law** — Multiple size variants (`sm`, `md`, `lg`, `xl`, `icon`) ensure adequate touch/click target sizes. The `xl` variant must be preferred for primary or mobile-first contexts.
   - **Hick's Law** — `theme` and `variant` props establish clear visual hierarchy, reducing decision time.
   - **Doherty Threshold** — Press feedback and loading spinner must appear within a single animation frame to maintain perceived responsiveness.
 
@@ -35,7 +35,7 @@ Button uses a `styled('button', opts)` base (`ButtonBase`) wrapped in an explici
 
 - **`theme`** — Controls which color palette is used: `primary | secondary | neutral | destructive`.
 - **`variant`** — Controls how colors are applied: `solid | subtle | outline | ghost | link`.
-- **`size`** — Controls dimensions: `xs | sm | md | lg | icon`.
+- **`size`** — Controls dimensions: `sm | md | lg | xl | icon`.
 - **`pill`** — Controls border shape. When `true`, applies `$pill` radius (fully-rounded ends). When combined with `size: 'icon'`, resolves to `$round` (circle). Default: `false`.
 
 Default: `{ theme: 'primary', variant: 'solid', size: 'md', pill: false }`.
@@ -154,7 +154,7 @@ When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner size="sm">` a
   - Disabled behavior when `loading` is `true` (derived disabled).
   - Each theme (`primary`, `secondary`, `neutral`, `destructive`) renders without errors.
   - Each variant (`solid`, `subtle`, `outline`, `ghost`, `link`) renders without errors.
-  - Each size (`xs`, `sm`, `md`, `lg`, `icon`) renders without errors.
+  - Each size (`sm`, `md`, `lg`, `xl`, `icon`) renders without errors.
   - `prefix` and `suffix` render alongside children.
   - Renders with pill radius when `pill` is `true`.
   - Renders as circle when `pill` and `size='icon'`.

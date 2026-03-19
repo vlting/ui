@@ -159,8 +159,8 @@ import { Portal } from '@vlting/ui'
 ```tsx
 import { Button } from '@vlting/ui'
 
-<Button variant="default" size="md">Click</Button>
-<Button variant="destructive" size="sm">Delete</Button>
+<Button variant="default" size="lg">Click</Button>
+<Button variant="destructive" size="md">Delete</Button>
 <Button variant="outline" loading>Saving...</Button>
 <Button variant="ghost" size="icon">
   <Button.Icon><RiCloseLine /></Button.Icon>

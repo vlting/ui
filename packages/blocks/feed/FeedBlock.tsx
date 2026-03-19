@@ -143,7 +143,7 @@ function NotificationsFeed({
         <div style={{ ...row, justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ fontSize: 18, fontWeight: 600 }}>{title}</span>
           {onMarkAllRead && (
-            <Button variant="ghost" size="sm" onClick={onMarkAllRead}>
+            <Button variant="ghost" size="md" onClick={onMarkAllRead}>
               Mark all read
             </Button>
           )}
@@ -261,7 +261,7 @@ function CommentNode({
           <span style={{ fontSize: 14 }}>{comment.text}</span>
           <div style={{ ...row, gap: 12, paddingTop: 2 }}>
             {onLike && (
-              <Button variant="ghost" size="sm" onClick={() => onLike(comment.id)}>
+              <Button variant="ghost" size="md" onClick={() => onLike(comment.id)}>
                 {comment.liked ? '❤' : '♡'} {comment.likes ?? 0}
               </Button>
             )}
