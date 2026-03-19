@@ -93,8 +93,6 @@ const CardHeader = styled('header', {
   flexDirection: 'column',
   gap: '$4',
   p: '$16',
-  borderBottom: '$neutralMin',
-  borderBottomWidth: '$widthMin',
 }, { name: 'CardHeader' })
 
 const CardContent = styled('section', { p: '$16', flex: '1' }, { name: 'CardContent' })
@@ -104,8 +102,6 @@ const CardFooter = styled('footer', {
   alignItems: 'center',
   gap: '$8',
   p: '$16',
-  borderTop: '$neutralMin',
-  borderTopWidth: '$widthMin',
 }, { name: 'CardFooter' })
 
 const CardTitle = styled('h3', { fontWeight: '$600', fontSize: '$h4', m: '$0', color: 'inherit' }, { name: 'CardTitle' })
