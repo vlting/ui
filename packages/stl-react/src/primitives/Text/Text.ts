@@ -22,7 +22,7 @@ const TextBase = styled('p', getTextStyles(), {
     },
     tone: {
       neutral: { color: '$color' },
-      muted: { color: '$secondaryText12' },
+      muted: { color: '$neutralText12' },
       primary: { color: '$primary10' },
       success: { color: '$forest10' },
       warning: { color: '$amber10' },
@@ -47,10 +47,10 @@ const Code = styled('code', {
   ...TEXT_STYLES,
   fontFamily: '$mono',
   fontSize: '$14',
-  bg: '$neutral3',
+  bg: '$neutralAlpha2',
   px: '$4',
   py: '$2',
-  radius: '$3',
+  radius: '$snippet',
 }, { name: 'Text.Code' })
 
 export const Text = Object.assign(TextBase, { Small, Code })
