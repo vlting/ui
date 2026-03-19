@@ -46,7 +46,9 @@ const ButtonBase = styled('button', {
       sm: { height: '$32', py: '$8', px: '$24', fontSize: '$buttonSmall' },
       md: { height: '$36', py: '$buttonBasePy', px: '$20', fontSize: '$button' },
       lg: { height: '$40', py: '$12', px: '$32', fontSize: '$buttonLarge' },
-      icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button', },
+    },
+    square: {
+      true: { px: '$0', aspectRatio: '1' },
     },
     pill: {
       true: { radius: '$pill' },
@@ -234,7 +236,7 @@ const ButtonBase = styled('button', {
     },
 
     // ── Pill + icon → circle ────────────────────────────
-    { when: { pill: 'true', size: 'icon' }, stl: { radius: '$round' } },
+    { when: { pill: 'true', square: 'true' }, stl: { radius: '$round' } },
 
     // ── Loading overrides disabled opacity ─────────────
     { when: { disabled: 'true', loading: 'true' }, stl: { opacity: '1', cursor: 'wait' } },
