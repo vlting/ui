@@ -16,7 +16,7 @@ const Title = styled('h4', { stl: {
 
 const TableContainer = styled('div', { stl: {
   overflowX: 'auto',
-  border: '$thin $borderColor',
+  border: '$neutralMin',
   borderRadius: '$4',
 }})
 
@@ -29,7 +29,7 @@ const Table = styled('table', { stl: {
 const Thead = styled('thead', { stl: {} })
 
 const TheadRow = styled('tr', { stl: {
-  borderBottom: '$thin $borderColor',
+  borderBottom: '$neutralMin',
   background: '$background1',
 }})
 

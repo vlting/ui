@@ -33,7 +33,7 @@ const RadiusBox = styled(
       width: '64px',
       height: '64px',
       backgroundColor: '$surface2',
-      border: '1px solid $borderColor',
+      border: '1px solid $neutral4',
     },
     styleName: 'RadiusBox',
   },

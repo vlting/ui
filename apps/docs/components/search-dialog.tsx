@@ -44,15 +44,15 @@ const DialogBox = styled('div', { stl: {
   maxWidth: 512,
   overflow: 'hidden',
   borderRadius: '$5',
-  border: '$thin $borderColor',
-  background: '$background',
+  border: '$neutralMin',
+  bg: '$min',
   boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
 }})
 
 const SearchBar = styled('div', { stl: {
   display: 'flex',
   alignItems: 'center',
-  borderBottom: '$thin $borderColor',
+  borderBottom: '$neutralMin',
   px: '$2.5',
 }})
 
@@ -69,7 +69,7 @@ const SearchInput = styled('input', { stl: {
   width: '100%',
   background: 'transparent',
   fontSize: '$p',
-  color: '$color',
+  color: '$neutral12',
   outline: 'none',
   border: 'none',
   '::placeholder': { color: '$colorSubtitle' },
@@ -80,7 +80,7 @@ const EscKbd = styled('kbd', { stl: {
   display: 'none',
   flexShrink: 0,
   borderRadius: '$3',
-  border: '$thin $borderColor',
+  border: '$neutralMin',
   background: '$background2',
   px: 6,
   py: 2,
@@ -146,7 +146,7 @@ const ResultName = styled('span', { stl: {
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
   fontWeight: '$500',
-  color: '$color',
+  color: '$neutral12',
 }})
 
 const ResultCategory = styled('span', { stl: {
@@ -159,7 +159,7 @@ const FooterBar = styled('div', { stl: {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  borderTop: '$thin $borderColor',
+  borderTop: '$neutralMin',
   px: '$2.5',
   py: '$1',
   fontSize: '$small',
@@ -174,7 +174,7 @@ const FooterActions = styled('div', { stl: {
 
 const FooterKbd = styled('kbd', { stl: {
   borderRadius: '$3',
-  border: '$thin $borderColor',
+  border: '$neutralMin',
   background: '$background2',
   px: 4,
   py: 2,
@@ -188,7 +188,7 @@ const TriggerButton = styled('button', { stl: {
   alignItems: 'center',
   gap: '$1',
   borderRadius: '$3',
-  border: '$thin $borderColor',
+  border: '$neutralMin',
   px: '$1',
   fontSize: '$p',
   color: '$colorSubtitle',
@@ -211,7 +211,7 @@ const TriggerLabel = styled('span', { stl: {
 const TriggerKbd = styled('kbd', { stl: {
   display: 'none',
   borderRadius: '$3',
-  border: '$thin $borderColor',
+  border: '$neutralMin',
   background: '$background2',
   px: 4,
   py: 2,

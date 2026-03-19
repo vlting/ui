@@ -22,8 +22,8 @@ const MobileMenuButton = styled('button', {
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '$12',
-  background: '$color',
-  color: '$background',
+  bg: '$neutral12',
+  color: '$min',
   border: 'none',
   cursor: 'pointer',
   boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
@@ -49,7 +49,7 @@ const MobileSidebar = styled('div', {
   bottom: 0,
   left: 0,
   width: 288,
-  background: '$background',
+  bg: '$min',
   boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
 })
 
@@ -58,7 +58,7 @@ const MobileSidebarHeader = styled('div', {
   height: 56,
   alignItems: 'center',
   justifyContent: 'space-between',
-  borderBottom: '$thin $borderColor',
+  borderBottom: '$neutralMin',
   px: '$3.5',
 })
 
@@ -79,7 +79,7 @@ const DesktopSidebar = styled('div', {
   display: 'none',
   width: 256,
   flexShrink: 0,
-  borderRight: '$thin $borderColor',
+  borderRight: '$neutralMin',
   position: 'sticky',
   top: 56,
   height: 'calc(100vh - 56px)',
@@ -102,7 +102,7 @@ const TocSidebar = styled('div', {
   top: 56,
   height: 'calc(100vh - 56px)',
   overflowY: 'auto',
-  borderLeft: '$thin $borderColor',
+  borderLeft: '$neutralMin',
   py: '$6',
   px: '$3.5',
   gtXl: { display: 'block' },
