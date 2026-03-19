@@ -13,7 +13,7 @@ import { useToggleGroup } from '../../headless/src'
 
 const ButtonGroupRoot = styled('div', {
   display: 'inline-flex',
-  gap: '$4',
+  gap: '$8',
   overflow: 'visible',
 }, {
   name: 'ButtonGroup',
