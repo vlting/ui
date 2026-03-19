@@ -16,6 +16,7 @@ interface RadioGroupContextValue {
   value: string | undefined
   onValueChange: (value: string) => void
   disabled?: boolean
+  error?: boolean
   size: 'sm' | 'md' | 'lg'
   name: string
   getItemProps: (index: number) => {
@@ -68,12 +69,19 @@ const RadioCircle = styled('span', {
       lg: { width: '$24', height: '$24' },
     },
     selected: {
-      true: { border: '$primary9' },
+      true: { borderColor: '$primary9' },
     },
     focused: {
       true: { outline: '$primary', outlineOffset: '$offsetDefault' },
     },
+    error: {
+      true: { borderColor: '$error9' },
+    },
   },
+  compoundVariants: [
+    { when: { error: 'true', focused: 'true' }, stl: { outline: '$error' } },
+    { when: { error: 'true', selected: 'true' }, stl: { borderColor: '$error9' } },
+  ],
   defaultVariants: { size: 'md' },
 })
 
@@ -89,6 +97,9 @@ const RadioDot = styled('span', {
       md: { width: '$8', height: '$8' },
       lg: { width: '$12', height: '$12' },
     },
+    error: {
+      true: { bg: '$error9' },
+    },
   },
   defaultVariants: { size: 'md' },
 })
@@ -98,7 +109,7 @@ const RadioDot = styled('span', {
 const ItemLabel = styled('label', {
   display: 'inline-flex',
   alignItems: 'center',
-  alignSelf: 'flex-start',
+  alignSelf: 'start',
   gap: '$8',
   cursor: 'pointer',
   position: 'relative',
@@ -146,6 +157,7 @@ export interface RadioGroupRootProps extends Omit<ComponentPropsWithRef<typeof R
   defaultValue?: string
   onValueChange?: (value: string) => void
   disabled?: boolean
+  error?: boolean
   size?: 'sm' | 'md' | 'lg'
   name?: string
   orientation?: 'vertical' | 'horizontal'
@@ -157,6 +169,7 @@ const Root = forwardRef<HTMLDivElement, RadioGroupRootProps>(
     defaultValue,
     onValueChange,
     disabled,
+    error,
     size = 'md',
     name: nameProp,
     orientation = 'vertical',
@@ -175,6 +188,9 @@ const Root = forwardRef<HTMLDivElement, RadioGroupRootProps>(
     // Track items for roving tabindex
     const [itemValues] = useState<string[]>(() => [])
     const [activeIndex, setActiveIndex] = useState(0)
+    // Sync activeIndex with selected value so focus follows selection
+    const selectedIndex = value !== undefined ? itemValues.indexOf(value) : -1
+    const resolvedActiveIndex = selectedIndex >= 0 ? selectedIndex : activeIndex
 
     const registerItem = (itemValue: string): number => {
       let idx = itemValues.indexOf(itemValue)
@@ -187,7 +203,7 @@ const Root = forwardRef<HTMLDivElement, RadioGroupRootProps>(
 
     const { getContainerProps, getItemProps } = useRovingTabIndex({
       count: itemValues.length || 1,
-      activeIndex,
+      activeIndex: resolvedActiveIndex,
       onActiveIndexChange: (idx) => {
         setActiveIndex(idx)
         // Select on arrow key navigation per WAI-ARIA radio pattern
@@ -204,7 +220,7 @@ const Root = forwardRef<HTMLDivElement, RadioGroupRootProps>(
 
     return (
       <RadioGroupContext.Provider
-        value={{ value, onValueChange: (v) => !disabled && setValue(v), disabled, size, name, getItemProps, registerItem }}
+        value={{ value, onValueChange: (v) => !disabled && setValue(v), disabled, error, size, name, getItemProps, registerItem }}
       >
         <RootContainer
           ref={(node: HTMLDivElement | null) => {
@@ -215,6 +231,7 @@ const Root = forwardRef<HTMLDivElement, RadioGroupRootProps>(
             else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node
           }}
           role="radiogroup"
+          aria-invalid={error ? 'true' : undefined}
           orientation={orientation}
           disabled={disabled}
           onKeyDown={containerProps.onKeyDown}
@@ -269,8 +286,8 @@ const Item = forwardRef<HTMLInputElement, RadioGroupItemProps>(
             }
           }}
         />
-        <RadioCircle size={ctx.size} selected={isSelected} focused={focused || undefined}>
-          {isSelected && <RadioDot size={ctx.size} />}
+        <RadioCircle size={ctx.size} selected={isSelected} focused={focused || undefined} error={ctx.error}>
+          {isSelected && <RadioDot size={ctx.size} error={ctx.error} />}
         </RadioCircle>
         {children}
       </ItemLabel>

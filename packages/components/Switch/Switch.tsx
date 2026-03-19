@@ -38,7 +38,9 @@ const SwitchTrack = styled('button', {
   display: 'inline-flex',
   alignItems: 'center',
   radius: '$pill',
-  border: 'none',
+  borderWidth: '0',
+  borderStyle: 'solid',
+  borderColor: 'transparent',
   cursor: 'pointer',
   p: '$2',
   outline: 'none',
@@ -67,10 +69,21 @@ const SwitchTrack = styled('button', {
       },
       false: {},
     },
+    error: {
+      true: {
+        borderWidth: '$widthMin',
+        borderColor: '$error9',
+        ':focus': { outline: '$error' },
+      },
+    },
     disabled: {
       true: { opacity: '0.5', cursor: 'not-allowed', pointerEvents: 'none' },
     },
   },
+  compoundVariants: [
+    { when: { error: 'true', checked: 'false' }, stl: { bg: '$error5', ':hover': { bg: '$error6' } } },
+    { when: { error: 'true', checked: 'true' }, stl: { bg: '$error9', ':hover': { bg: '$error10' } } },
+  ],
   defaultVariants: { size: 'md' },
 })
 
@@ -83,12 +96,13 @@ export type SwitchProps = Omit<TrackProps, 'checked' | 'onChange'> & {
   defaultChecked?: boolean
   onCheckedChange?: (checked: boolean) => void
   disabled?: boolean
+  error?: boolean
   size?: 'sm' | 'md' | 'lg'
   name?: string
 }
 
 export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
-  ({ checked: checkedProp, defaultChecked, onCheckedChange, disabled, size = 'md', name, ...rest }, ref) => {
+  ({ checked: checkedProp, defaultChecked, onCheckedChange, disabled, error, size = 'md', name, ...rest }, ref) => {
     const [checked, setChecked] = useControllableState({
       prop: checkedProp,
       defaultProp: defaultChecked ?? false,
@@ -104,8 +118,10 @@ export const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         role="switch"
         aria-checked={isChecked}
         aria-disabled={disabled || undefined}
+        aria-invalid={error ? 'true' : undefined}
         disabled={disabled}
         checked={isChecked}
+        error={error}
         size={size}
         onClick={disabled ? undefined : () => setChecked(!isChecked)}
         {...rest}
