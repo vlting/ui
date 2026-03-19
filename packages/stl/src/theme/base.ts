@@ -91,6 +91,7 @@ export const radius = {
   12: 50,
   true: 9,
   full: 9999,
+  buttonGrouped: 9,
 } as const
 
 export const zIndex = {
