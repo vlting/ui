@@ -6,7 +6,7 @@ const SeparatorBase = styled('hr', {
   margin: '$0',
   height: '1px',
   width: '100%',
-  backgroundColor: '$neutralAlpha3',
+  backgroundColor: '$neutralAlpha5',
 }, {
   name: 'Separator',
   variants: {
