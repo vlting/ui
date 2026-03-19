@@ -4,7 +4,7 @@ import { type SectionProps } from './shared'
 
 export function EmptySection({ sectionRef }: SectionProps) {
   return (
-    <Card elevation="flat" flush ref={sectionRef} data-section="Empty" stl={{ mt: '$24' }}>
+    <Card ref={sectionRef} data-section="Empty" stl={{ mt: '$24' }}>
       <Card.Header>
         <Card.Title>Empty</Card.Title>
       </Card.Header>

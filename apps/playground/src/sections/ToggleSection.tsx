@@ -32,7 +32,7 @@ export function ToggleSection({ sectionRef }: SectionProps) {
   const [features, setFeatures] = useState<string[]>([])
 
   return (
-    <Card elevation="flat" flush ref={sectionRef} data-section="Toggle" stl={{ mt: '$24' }}>
+    <Card ref={sectionRef} data-section="Toggle" stl={{ mt: '$24' }}>
       <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Card.Title>Toggle</Card.Title>
         <ToggleRow>

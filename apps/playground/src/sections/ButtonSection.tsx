@@ -8,7 +8,7 @@ import {
 
 export function ButtonSection({ sectionRef }: SectionProps) {
   return (
-    <Card elevation="flat" flush ref={sectionRef} data-section="Button">
+    <Card ref={sectionRef} data-section="Button">
       <Card.Header>
         <Card.Title>Button</Card.Title>
       </Card.Header>

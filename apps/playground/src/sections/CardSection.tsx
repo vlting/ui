@@ -12,7 +12,7 @@ export function CardSection({ sectionRef }: SectionProps) {
   const [flush, setFlush] = useState(false)
 
   return (
-    <UiCard elevation="flat" flush stl={{ mt: '$24', bg: '$background2' }} ref={sectionRef} data-section="Card">
+    <UiCard stl={{ mt: '$24', bg: '$background2' }} ref={sectionRef} data-section="Card">
       <UiCard.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <UiCard.Title>Card</UiCard.Title>
         <div style={{ display: 'flex', gap: 8 }}>

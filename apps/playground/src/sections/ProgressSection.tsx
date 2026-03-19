@@ -15,7 +15,7 @@ export function ProgressSection({ sectionRef }: SectionProps) {
   }, [])
 
   return (
-    <Card elevation="flat" flush ref={sectionRef} data-section="Progress" stl={{ mt: '$24' }}>
+    <Card ref={sectionRef} data-section="Progress" stl={{ mt: '$24' }}>
       <Card.Header>
         <Card.Title>Progress</Card.Title>
       </Card.Header>
