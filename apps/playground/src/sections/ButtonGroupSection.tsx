@@ -75,7 +75,7 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
             pressed={attached}
             onPressedChange={setAttached}
           >
-            Attached
+            attached
           </Toggle>
         </ToggleRow>
       </Card.Header>
