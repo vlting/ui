@@ -16,14 +16,14 @@ const Header = styled('header', { stl: {
   justifyContent: 'space-between',
   borderBottom: '$neutralMin',
   background: '$background1',
-  px: '$3.5',
+  px: '$28',
   backdropFilter: 'blur(8px)',
 }})
 
 const NavGroup = styled('div', { stl: {
   display: 'flex',
   alignItems: 'center',
-  gap: '$3.5',
+  gap: '$28',
 }})
 
 const LogoLink = styled('span', { stl: {
@@ -34,7 +34,7 @@ const LogoLink = styled('span', { stl: {
 const Nav = styled('nav', { stl: {
   display: 'none',
   alignItems: 'center',
-  gap: '$3.5',
+  gap: '$28',
   fontSize: '$p',
   gtMd: { display: 'flex' },
 }})
@@ -47,7 +47,7 @@ const NavLink = styled('span', { stl: {
 const ActionGroup = styled('div', { stl: {
   display: 'flex',
   alignItems: 'center',
-  gap: '$1.5',
+  gap: '$12',
 }})
 
 const IconLink = styled('a', { stl: {
