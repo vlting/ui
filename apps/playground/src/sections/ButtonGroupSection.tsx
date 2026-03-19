@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button, ButtonGroup, Card, Toggle, ToggleGroup } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
-import { ButtonRow, SectionTitle, type SectionProps } from './shared'
+import { ButtonRow, SectionTitle, THEMES, type SectionProps } from './shared'
 
 const StateLabel = styled('span', {
   fontSize: '$small', color: '$neutralText4', fontFamily: '$code',
@@ -34,10 +34,12 @@ const MuteIcon = () => (
 
 const SIZES = ['sm', 'md', 'lg', 'xl'] as const
 type Size = typeof SIZES[number]
+type Theme = typeof THEMES[number]
 
 export function ButtonGroupSection({ sectionRef }: SectionProps) {
   const [attached, setAttached] = useState(true)
   const [size, setSize] = useState<Size>('md')
+  const [theme, setTheme] = useState<Theme>('neutral')
   const [alignment, setAlignment] = useState<string[]>(['center'])
   const [formats, setFormats] = useState<string[]>([])
 
@@ -46,15 +48,16 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
       <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Card.Title>ButtonGroup</Card.Title>
         <ToggleRow>
-          <Toggle
-            size="md"
-            variant="outline"
-            theme="neutral"
-            pressed={attached}
-            onPressedChange={setAttached}
+          <ToggleGroup
+            type="exclusive"
+            value={[theme]}
+            onValueChange={v => v[0] && setTheme(v[0] as Theme)}
+            aria-label="Theme"
           >
-            Attached
-          </Toggle>
+            {THEMES.map(t => (
+              <Button key={t} value={t} size="md" variant="outline" theme="neutral">{t}</Button>
+            ))}
+          </ToggleGroup>
           <ToggleGroup
             type="exclusive"
             value={[size]}
@@ -65,6 +68,15 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
               <Button key={s} value={s} size="md" variant="outline" theme="neutral">{s}</Button>
             ))}
           </ToggleGroup>
+          <Toggle
+            size="md"
+            variant="outline"
+            theme="neutral"
+            pressed={attached}
+            onPressedChange={setAttached}
+          >
+            Attached
+          </Toggle>
         </ToggleRow>
       </Card.Header>
 
@@ -74,17 +86,17 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
           <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Vertical</SectionTitle>
           <ButtonRow>
             <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical solid">
-              <Button variant="solid" square size={size}><PlusIcon /></Button>
-              <Button variant="solid" square size={size}><MinusIcon /></Button>
+              <Button variant="solid" theme={theme} square size={size}><PlusIcon /></Button>
+              <Button variant="solid" theme={theme} square size={size}><MinusIcon /></Button>
             </ButtonGroup>
             <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical outline">
-              <Button variant="outline" square size={size}><PlusIcon /></Button>
-              <Button variant="outline" square size={size}><MuteIcon /></Button>
-              <Button variant="outline" square size={size}><MinusIcon /></Button>
+              <Button variant="outline" theme={theme} square size={size}><PlusIcon /></Button>
+              <Button variant="outline" theme={theme} square size={size}><MuteIcon /></Button>
+              <Button variant="outline" theme={theme} square size={size}><MinusIcon /></Button>
             </ButtonGroup>
             <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical ghost">
-              <Button variant="ghost" square size={size}><PlusIcon /></Button>
-              <Button variant="ghost" square size={size}><MinusIcon /></Button>
+              <Button variant="ghost" theme={theme} square size={size}><PlusIcon /></Button>
+              <Button variant="ghost" theme={theme} square size={size}><MinusIcon /></Button>
             </ButtonGroup>
           </ButtonRow>
         </div>
@@ -100,9 +112,9 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
               onValueChange={setAlignment}
               aria-label="Text alignment"
             >
-              <Button value="left" variant="outline" size={size}>Left</Button>
-              <Button value="center" variant="outline" size={size}>Center</Button>
-              <Button value="right" variant="outline" size={size}>Right</Button>
+              <Button value="left" variant="outline" theme={theme} size={size}>Left</Button>
+              <Button value="center" variant="outline" theme={theme} size={size}>Center</Button>
+              <Button value="right" variant="outline" theme={theme} size={size}>Right</Button>
             </ButtonGroup>
             <StateLabel>{JSON.stringify(alignment)}</StateLabel>
           </ButtonRow>
@@ -119,9 +131,9 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
               onValueChange={setFormats}
               aria-label="Text formatting"
             >
-              <Button value="bold" variant="outline" size={size} square stl={{ fontWeight: '$700' }}>B</Button>
-              <Button value="italic" variant="outline" size={size} square stl={{ fontStyle: 'italic' }}>I</Button>
-              <Button value="underline" variant="outline" size={size} square stl={{ textDecoration: 'underline' }}>U</Button>
+              <Button value="bold" variant="outline" theme={theme} size={size} square stl={{ fontWeight: '$700' }}>B</Button>
+              <Button value="italic" variant="outline" theme={theme} size={size} square stl={{ fontStyle: 'italic' }}>I</Button>
+              <Button value="underline" variant="outline" theme={theme} size={size} square stl={{ textDecoration: 'underline' }}>U</Button>
             </ButtonGroup>
             <StateLabel>{JSON.stringify(formats)}</StateLabel>
           </ButtonRow>
