@@ -43,7 +43,7 @@ module.exports = {
     'packages/components/Table/',
     'packages/components/Tabs/',
     'packages/components/Toast/',
-    'packages/components/Toggle/',
+    // 'packages/components/Toggle/', // re-enabled
     'packages/components/Tooltip/',
   ],
   collectCoverageFrom: [

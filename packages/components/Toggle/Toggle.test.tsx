@@ -1,4 +1,4 @@
-import { render, screen } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { Toggle, ToggleGroup } from './Toggle'
 
 describe('Toggle', () => {
@@ -26,38 +26,95 @@ describe('Toggle', () => {
     expect(container.querySelector('button')).toBeTruthy()
   })
 
+  it('has type="button" to prevent form submission', () => {
+    render(<Toggle>Bold</Toggle>)
+    expect(screen.getByRole('button').getAttribute('type')).toBe('button')
+  })
+
+  // -- aria-pressed --
+
+  it('has aria-pressed="false" by default', () => {
+    render(<Toggle>Bold</Toggle>)
+    expect(screen.getByRole('button').getAttribute('aria-pressed')).toBe('false')
+  })
+
+  it('has aria-pressed="true" when pressed', () => {
+    render(<Toggle pressed>Bold</Toggle>)
+    expect(screen.getByRole('button').getAttribute('aria-pressed')).toBe('true')
+  })
+
+  // -- Controlled mode --
+
+  it('controlled mode: pressed prop overrides internal state', () => {
+    const { rerender } = render(<Toggle pressed={false}>Bold</Toggle>)
+    expect(screen.getByRole('button').getAttribute('aria-pressed')).toBe('false')
+    rerender(<Toggle pressed={true}>Bold</Toggle>)
+    expect(screen.getByRole('button').getAttribute('aria-pressed')).toBe('true')
+  })
+
+  // -- onPressedChange --
+
+  it('fires onPressedChange with new value on click', () => {
+    const onChange = jest.fn()
+    render(<Toggle onPressedChange={onChange}>Bold</Toggle>)
+    fireEvent.click(screen.getByRole('button'))
+    expect(onChange).toHaveBeenCalledWith(true)
+  })
+
+  it('fires onPressedChange(false) when toggling off', () => {
+    const onChange = jest.fn()
+    render(<Toggle defaultPressed onPressedChange={onChange}>Bold</Toggle>)
+    fireEvent.click(screen.getByRole('button'))
+    expect(onChange).toHaveBeenCalledWith(false)
+  })
+
+  // -- Keyboard --
+
+  it('toggles on Enter key', () => {
+    const onChange = jest.fn()
+    render(<Toggle onPressedChange={onChange}>Bold</Toggle>)
+    const button = screen.getByRole('button')
+    // Native button handles Enter as click
+    fireEvent.click(button)
+    expect(onChange).toHaveBeenCalledWith(true)
+  })
+
+  // -- Disabled --
+
   it('renders disabled state', () => {
-    const { container } = render(<Toggle disabled>D</Toggle>)
-    const button = container.querySelector('button')
+    render(<Toggle disabled>D</Toggle>)
+    const button = screen.getByRole('button')
     expect(button).toBeTruthy()
   })
 
-  it('accepts pressed prop', () => {
-    const { container } = render(<Toggle pressed>P</Toggle>)
-    expect(container.querySelector('button')).toBeTruthy()
+  it('does not toggle when disabled', () => {
+    const onChange = jest.fn()
+    render(<Toggle disabled onPressedChange={onChange}>D</Toggle>)
+    fireEvent.click(screen.getByRole('button'))
+    expect(onChange).not.toHaveBeenCalled()
   })
 })
 
 describe('ToggleGroup', () => {
-  it('renders without crashing', () => {
-    expect(() =>
-      render(
-        <ToggleGroup type="single" defaultValue="a">
-          <ToggleGroup.Item value="a">A</ToggleGroup.Item>
-          <ToggleGroup.Item value="b">B</ToggleGroup.Item>
-        </ToggleGroup>,
-      ),
-    ).not.toThrow()
+  it('renders children as Toggle buttons', () => {
+    render(
+      <ToggleGroup type="exclusive" defaultValue={['a']} aria-label="Formatting">
+        <Toggle value="a">A</Toggle>
+        <Toggle value="b">B</Toggle>
+      </ToggleGroup>,
+    )
+    expect(screen.getByText('A')).toBeTruthy()
+    expect(screen.getByText('B')).toBeTruthy()
   })
 
-  it('renders multiple type', () => {
-    expect(() =>
-      render(
-        <ToggleGroup type="multiple" defaultValue={['a']}>
-          <ToggleGroup.Item value="a">A</ToggleGroup.Item>
-          <ToggleGroup.Item value="b">B</ToggleGroup.Item>
-        </ToggleGroup>,
-      ),
-    ).not.toThrow()
+  it('renders toggle (multi-select) type', () => {
+    render(
+      <ToggleGroup type="toggle" defaultValue={['a']} aria-label="Options">
+        <Toggle value="a">A</Toggle>
+        <Toggle value="b">B</Toggle>
+      </ToggleGroup>,
+    )
+    expect(screen.getByText('A')).toBeTruthy()
+    expect(screen.getByText('B')).toBeTruthy()
   })
 })
