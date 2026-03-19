@@ -17,7 +17,7 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
       <SectionHeading>ButtonGroup</SectionHeading>
       <ColumnRow>
         <Column>
-          <SectionTitle>Horizontal (default)</SectionTitle>
+          <SectionTitle>Horizontal</SectionTitle>
           <ButtonGroup aria-label="Actions">
             <Button>One</Button>
             <Button>Two</Button>
