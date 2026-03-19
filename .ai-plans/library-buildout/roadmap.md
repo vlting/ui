@@ -4,8 +4,8 @@ status: in-progress
 scope: large
 created: 2026-03-15
 current_epic: 6
-current_stage: 3
-phase: execute
+current_stage: 4
+phase: breakdown
 epic_issue: 206
 ---
 # @vlting/ui Library Build-Out
@@ -133,7 +133,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [x] Delete Typography component, re-export Separator, implement ButtonGroup + Direction
 - [x] Tests passing, removed from testPathIgnorePatterns
 - [x] Playground pages for Heading, Separator, ButtonGroup
-**Status:** in-progress
+**Status:** done
 
 ### Stage 6.4: Token Infrastructure (Shadow & Layering)
 **Branch prefix:** feat
