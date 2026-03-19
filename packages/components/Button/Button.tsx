@@ -57,6 +57,8 @@ const ButtonBase = styled('button', {
     loading: {
       true: { cursor: 'wait', pointerEvents: 'none' },
     },
+    groupPosition: options('first', 'middle', 'last', 'only'),
+    groupDirection: options('horizontal', 'vertical'),
   },
   compoundVariants: [
     // ── Primary ────────────────────────────────────────
@@ -235,11 +237,50 @@ const ButtonBase = styled('button', {
 
     // ── Loading overrides disabled opacity ─────────────
     { when: { disabled: 'true', loading: 'true' }, stl: { opacity: '1', cursor: 'wait' } },
+
+    // ── Grouped: position × direction (border/radius) ─
+    // Horizontal
+    { when: { groupPosition: 'first', groupDirection: 'horizontal' }, stl: { radiusRight: '$rectangular' } },
+    { when: { groupPosition: 'middle', groupDirection: 'horizontal' }, stl: { radius: '$rectangular', borderLeftWidth: '0' } },
+    { when: { groupPosition: 'last', groupDirection: 'horizontal' }, stl: { radiusLeft: '$rectangular', borderLeftWidth: '0' } },
+    // Vertical
+    { when: { groupPosition: 'first', groupDirection: 'vertical' }, stl: { radiusBottom: '$rectangular' } },
+    { when: { groupPosition: 'middle', groupDirection: 'vertical' }, stl: { radius: '$rectangular', borderTopWidth: '0' } },
+    { when: { groupPosition: 'last', groupDirection: 'vertical' }, stl: { radiusTop: '$rectangular', borderTopWidth: '0' } },
+
+    // ── Grouped: borderless variant spacing (solid/subtle/ghost get small gap) ─
+    // Horizontal
+    { when: { groupPosition: 'middle', groupDirection: 'horizontal', variant: 'solid' }, stl: { ml: '$1' } },
+    { when: { groupPosition: 'last', groupDirection: 'horizontal', variant: 'solid' }, stl: { ml: '$1' } },
+    { when: { groupPosition: 'middle', groupDirection: 'horizontal', variant: 'subtle' }, stl: { ml: '$1' } },
+    { when: { groupPosition: 'last', groupDirection: 'horizontal', variant: 'subtle' }, stl: { ml: '$1' } },
+    { when: { groupPosition: 'middle', groupDirection: 'horizontal', variant: 'ghost' }, stl: { ml: '$1' } },
+    { when: { groupPosition: 'last', groupDirection: 'horizontal', variant: 'ghost' }, stl: { ml: '$1' } },
+    // Vertical
+    { when: { groupPosition: 'middle', groupDirection: 'vertical', variant: 'solid' }, stl: { mt: '$1' } },
+    { when: { groupPosition: 'last', groupDirection: 'vertical', variant: 'solid' }, stl: { mt: '$1' } },
+    { when: { groupPosition: 'middle', groupDirection: 'vertical', variant: 'subtle' }, stl: { mt: '$1' } },
+    { when: { groupPosition: 'last', groupDirection: 'vertical', variant: 'subtle' }, stl: { mt: '$1' } },
+    { when: { groupPosition: 'middle', groupDirection: 'vertical', variant: 'ghost' }, stl: { mt: '$1' } },
+    { when: { groupPosition: 'last', groupDirection: 'vertical', variant: 'ghost' }, stl: { mt: '$1' } },
+
+    // ── Grouped: suppress press scale (prevents gaps between joined buttons) ─
+    { when: { groupPosition: 'first' }, stl: { ':pressed': { transform: 'none' } } },
+    { when: { groupPosition: 'middle' }, stl: { ':pressed': { transform: 'none' } } },
+    { when: { groupPosition: 'last' }, stl: { ':pressed': { transform: 'none' } } },
+
+    // ── Grouped: outline z-index lift on interact/focus ─
+    { when: { groupPosition: 'first', variant: 'outline' }, stl: { ':interact': { position: 'relative', zIndex: 1 }, ':focus': { position: 'relative', zIndex: 1 } } },
+    { when: { groupPosition: 'middle', variant: 'outline' }, stl: { ':interact': { position: 'relative', zIndex: 1 }, ':focus': { position: 'relative', zIndex: 1 } } },
+    { when: { groupPosition: 'last', variant: 'outline' }, stl: { ':interact': { position: 'relative', zIndex: 1 }, ':focus': { position: 'relative', zIndex: 1 } } },
   ],
   defaultVariants: { theme: 'primary', variant: 'solid', size: 'md' },
 })
 
-export type ButtonProps = ComponentPropsWithRef<typeof ButtonBase> & {
+export type ButtonProps = Omit<
+  ComponentPropsWithRef<typeof ButtonBase>,
+  'groupPosition' | 'groupDirection'
+> & {
   loading?: boolean
   prefix?: ReactNode
   suffix?: ReactNode
