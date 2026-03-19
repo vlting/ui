@@ -23,7 +23,6 @@ const IndicatorBox = styled('span', {
   alignItems: 'center',
   justifyContent: 'center',
   border: '$neutralMin',
-  borderColor: '$neutral4',
   radius: '$2',
   bg: 'transparent',
   color: '$primaryText9',
@@ -40,20 +39,20 @@ const IndicatorBox = styled('span', {
     active: {
       true: {
         bg: '$primary9',
-        border: '$primary9',
+        border: '$primary',
       },
     },
     focused: {
       true: { outline: '$neutral', outlineOffset: '$offsetDefault' },
     },
     error: {
-      true: { borderColor: '$error9' },
+      true: { border: '$error' },
     },
   },
   compoundVariants: [
     { when: { active: 'true', focused: 'true' }, stl: { outline: '$primary' } },
     { when: { error: 'true', focused: 'true' }, stl: { outline: '$error' } },
-    { when: { error: 'true', active: 'true' }, stl: { bg: '$error9', borderColor: '$error9' } },
+    { when: { error: 'true', active: 'true' }, stl: { bg: '$error9', border: '$error' } },
   ],
   defaultVariants: { size: 'md' },
 })
