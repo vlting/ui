@@ -157,7 +157,10 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Objective:** Interactive form elements — headless hooks required, exercises focus ring, error states, disabled pattern, size scale
 **Dependencies:** Epic 6
 **Epic slug:** form-controls
-**Status:** pending
+**Epic branch:** epic/form-controls
+**Epic issue:** #217
+**Epic PR:** #236
+**Status:** in-progress
 
 ### Stage 7.1: Text Inputs (Input, Textarea, NativeSelect)
 **Branch prefix:** feat
