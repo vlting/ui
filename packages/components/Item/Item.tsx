@@ -7,8 +7,8 @@ const themes = ['primary', 'secondary', 'neutral'] as const
 
 const variantStyles = {
   ghost: (t: string) => ({ color: `$${t}Text3` }) as STL,
-  subtle: (t: string) => ({ bg: `$${t}2`, radius: '$card', color: `$${t}Text3` }) as STL,
-  outline: (t: string) => ({ bg: `$${t}1`, border: `$${t}5`, borderWidth: '$widthMin', radius: '$card', color: `$${t}Text1` }) as STL,
+  subtle: (t: string) => ({ bg: `$${t}Alpha2`, radius: '$card', color: `$${t}Text3` }) as STL,
+  outline: (t: string) => ({ bg: `$surface1`, border: `$${t}5`, borderWidth: '$widthMin', radius: '$card', color: `$${t}Text1` }) as STL,
 }
 
 const interactiveStyles = (t: string, step = 3) => ({

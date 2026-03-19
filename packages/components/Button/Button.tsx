@@ -86,7 +86,7 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'primary', variant: 'outline' },
       stl: {
-        bg: '$primary1', border: '$primary9', borderWidth: '$widthMin', color: '$primaryText1',
+        bg: '$surface1', border: '$primary9', borderWidth: '$widthMin', color: '$primaryText1',
         ':interact': { bg: '$primary9', color: '$primaryText9', borderColor: '$primary9' },
         ':focus': { outline: '$primary' },
       },
@@ -129,7 +129,7 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'secondary', variant: 'outline' },
       stl: {
-        bg: '$secondary1', border: '$secondary9', borderWidth: '$widthMin', color: '$secondaryText1',
+        bg: '$surface1', border: '$secondary9', borderWidth: '$widthMin', color: '$secondaryText1',
         ':interact': { bg: '$secondary9', color: '$secondaryText9', borderColor: '$secondary9' },
         ':focus': { outline: '$secondary' },
       },
@@ -172,7 +172,7 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'neutral', variant: 'outline' },
       stl: {
-        bg: '$neutral1', border: '$neutral9', borderWidth: '$widthMin', color: '$neutralText1',
+        bg: '$surface1', border: '$neutral9', borderWidth: '$widthMin', color: '$neutralText1',
         ':interact': { bg: '$neutral9', color: '$neutralText9', borderColor: '$neutral9' },
         ':focus': { outline: '$neutral' },
       },
@@ -214,7 +214,7 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'destructive', variant: 'outline' },
       stl: {
-        bg: '$error1', border: '$error9', borderWidth: '$widthMin', color: '$errorText1',
+        bg: '$surface1', border: '$error9', borderWidth: '$widthMin', color: '$errorText1',
         ':interact': { bg: '$error9', color: '$errorText9', borderColor: '$error9' },
         ':focus': { outline: '$error' },
       },
