@@ -322,9 +322,9 @@ function ChatScreen() {
       </ScreenHeader>
 
       <TabRow>
-        <Button size="xs" theme="primary" variant="solid">All</Button>
-        <Button size="xs" theme="neutral" variant="ghost">Unread</Button>
-        <Button size="xs" theme="neutral" variant="ghost">Pinned</Button>
+        <Button size="sm" theme="primary" variant="solid">All</Button>
+        <Button size="sm" theme="neutral" variant="ghost">Unread</Button>
+        <Button size="sm" theme="neutral" variant="ghost">Pinned</Button>
       </TabRow>
 
       <ChatList>

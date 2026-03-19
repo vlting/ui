@@ -23,7 +23,7 @@ export function CardSection({ sectionRef }: SectionProps) {
             aria-label="Elevation"
           >
             {CARD_ELEVATIONS.map(e => (
-              <Button key={e} value={e} size="sm" variant="outline" theme="neutral">{e}</Button>
+              <Button key={e} value={e} size="md" variant="outline" theme="neutral">{e}</Button>
             ))}
           </ToggleGroup>
           <Toggle size="sm" variant="outline" theme="neutral" pressed={interactive} onPressedChange={setInteractive}>

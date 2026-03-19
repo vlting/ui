@@ -40,7 +40,7 @@ const MuteIcon = () => (
   </svg>
 )
 
-const SIZES = ['xs', 'sm', 'md', 'lg'] as const
+const SIZES = ['sm', 'md', 'lg', 'xl'] as const
 type Size = typeof SIZES[number]
 
 export function ButtonGroupSection({ sectionRef }: SectionProps) {
@@ -70,7 +70,7 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
             aria-label="Size"
           >
             {SIZES.map(s => (
-              <Button key={s} value={s} size="sm" variant="outline" theme="neutral">{s}</Button>
+              <Button key={s} value={s} size="md" variant="outline" theme="neutral">{s}</Button>
             ))}
           </ToggleGroup>
         </ToggleRow>

@@ -35,7 +35,7 @@ export function ToggleSection({ sectionRef }: SectionProps) {
             aria-label="Theme"
           >
             {THEMES.map(t => (
-              <Button key={t} value={t} size="sm" variant="outline" theme="neutral">{t}</Button>
+              <Button key={t} value={t} size="md" variant="outline" theme="neutral">{t}</Button>
             ))}
           </ToggleGroup>
           <ToggleGroup
@@ -45,7 +45,7 @@ export function ToggleSection({ sectionRef }: SectionProps) {
             aria-label="Size"
           >
             {SIZES.map(s => (
-              <Button key={s} value={s} size="sm" variant="outline" theme="neutral">{s}</Button>
+              <Button key={s} value={s} size="md" variant="outline" theme="neutral">{s}</Button>
             ))}
           </ToggleGroup>
         </ToggleRow>
@@ -87,7 +87,7 @@ export function ToggleSection({ sectionRef }: SectionProps) {
         <div>
           <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Exclusive Group</SectionTitle>
           <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
-            <ToggleRow stl={{ gap: '$24', alignItems: 'flex-start' }}>
+            <ToggleRow stl={{ gap: '$24', alignItems: 'start' }}>
               <ToggleGroup
                 type="exclusive"
                 value={view}
@@ -118,7 +118,7 @@ export function ToggleSection({ sectionRef }: SectionProps) {
         <div>
           <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Multi-Select</SectionTitle>
           <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
-            <ToggleRow stl={{ gap: '$24', alignItems: 'flex-start' }}>
+            <ToggleRow stl={{ gap: '$24', alignItems: 'start' }}>
               <ToggleGroup
                 type="toggle"
                 value={features}

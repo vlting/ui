@@ -243,10 +243,11 @@ const ButtonBase = styled('button', {
     { when: { pill: 'true', square: 'true' }, stl: { radius: '$round' } },
 
     // ── Square: width = height per size ───────────────
-    { when: { square: 'true', size: 'xs' }, stl: { width: '$28' } },
-    { when: { square: 'true', size: 'sm' }, stl: { width: '$32' } },
-    { when: { square: 'true', size: 'md' }, stl: { width: '$36' } },
-    { when: { square: 'true', size: 'lg' }, stl: { width: '$40' } },
+    { when: { square: 'true', size: 'sm' }, stl: { width: '$28' } },
+    { when: { square: 'true', size: 'md' }, stl: { width: '$32' } },
+    { when: { square: 'true', size: 'lg' }, stl: { width: '$36' } },
+    { when: { square: 'true', size: 'xl' }, stl: { width: '$40' } },
+    { when: { square: 'true', size: 'icon' }, stl: { width: '$36' } },
 
     // ── Loading overrides disabled opacity ─────────────
     { when: { disabled: 'true', loading: 'true' }, stl: { opacity: '1', cursor: 'wait' } },

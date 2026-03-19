@@ -46,9 +46,9 @@ type DemoItem = {
 
 const themeItems: Record<typeof ITEM_THEMES[number], DemoItem[]> = {
   primary: [
-    { title: 'Account settings', description: 'Manage your account preferences', media: '⚙️', action: <Button size="xs" theme="primary" variant="outline">Edit</Button> },
-    { title: 'Notifications', description: 'Configure alerts and updates', media: '🔔', action: <Button size="xs" theme="primary" variant="outline">Configure</Button> },
-    { title: 'Billing', description: 'View plans and payment methods', media: '💳', action: <Button size="xs" theme="primary" variant="outline">Manage</Button> },
+    { title: 'Account settings', description: 'Manage your account preferences', media: '⚙️', action: <Button size="sm" theme="primary" variant="outline">Edit</Button> },
+    { title: 'Notifications', description: 'Configure alerts and updates', media: '🔔', action: <Button size="sm" theme="primary" variant="outline">Configure</Button> },
+    { title: 'Billing', description: 'View plans and payment methods', media: '💳', action: <Button size="sm" theme="primary" variant="outline">Manage</Button> },
   ],
   secondary: [
     { title: 'Alice Chen', description: 'Engineering lead', media: <Avatar size="xs" fallback="AC" />, action: <TrailingLabel>→</TrailingLabel> },
@@ -83,7 +83,7 @@ export function ItemSection({ sectionRef }: SectionProps) {
             aria-label="Variant"
           >
             {ITEM_VARIANTS.map(v => (
-              <Button key={v} value={v} size="sm" variant="outline" theme="neutral">{v}</Button>
+              <Button key={v} value={v} size="md" variant="outline" theme="neutral">{v}</Button>
             ))}
           </ToggleGroup>
           <ToggleGroup
@@ -93,7 +93,7 @@ export function ItemSection({ sectionRef }: SectionProps) {
             aria-label="Size"
           >
             {ITEM_SIZES.map(s => (
-              <Button key={s} value={s} size="sm" variant="outline" theme="neutral">{s}</Button>
+              <Button key={s} value={s} size="md" variant="outline" theme="neutral">{s}</Button>
             ))}
           </ToggleGroup>
           <ToggleGroup
@@ -103,7 +103,7 @@ export function ItemSection({ sectionRef }: SectionProps) {
             aria-label="Align"
           >
             {ITEM_ALIGNS.map(a => (
-              <Button key={a} value={a} size="sm" variant="outline" theme="neutral">{a}</Button>
+              <Button key={a} value={a} size="md" variant="outline" theme="neutral">{a}</Button>
             ))}
           </ToggleGroup>
           <Toggle size="sm" variant="outline" theme="neutral" pressed={interactive} onPressedChange={setInteractive}>interactive</Toggle>
