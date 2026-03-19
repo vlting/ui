@@ -42,7 +42,7 @@ export const InfoCircleIcon = () => (
 
 export const THEMES = ['primary', 'secondary', 'neutral', 'destructive'] as const
 export const VARIANTS = ['solid', 'subtle', 'outline', 'ghost', 'link'] as const
-export const SIZES = ['xs', 'sm', 'md', 'lg', 'icon'] as const
+export const SIZES = ['xs', 'sm', 'md', 'lg'] as const
 
 export const ALERT_THEMES = ['primary', 'secondary', 'neutral', 'success', 'warning', 'error', 'info'] as const
 export const ALERT_VARIANTS = ['solid', 'subtle', 'outline'] as const

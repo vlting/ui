@@ -45,13 +45,13 @@ export function ButtonSection({ sectionRef }: SectionProps) {
           <SectionTitle>Size</SectionTitle>
           <ButtonRow>
             {SIZES.map((s) => (
-              <Button
-                key={s}
-                theme="primary"
-                variant="solid"
-                size={s}
-              >
-                {s === 'icon' ? '★' : s}
+              <Button key={s} theme="primary" variant="solid" size={s}>
+                {s}
+              </Button>
+            ))}
+            {SIZES.map((s) => (
+              <Button key={`sq-${s}`} theme="primary" variant="solid" size={s} square>
+                ★
               </Button>
             ))}
           </ButtonRow>

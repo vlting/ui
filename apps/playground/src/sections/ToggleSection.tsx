@@ -59,6 +59,9 @@ export function ToggleSection({ sectionRef }: SectionProps) {
             <Toggle theme={theme} variant="outline" size={size}>Favorite</Toggle>
             <Toggle theme={theme} variant="subtle" size={size}>Music</Toggle>
             <Toggle theme={theme} variant="ghost" size={size} defaultPressed>Active</Toggle>
+            <Toggle theme={theme} variant="outline" size={size} square>★</Toggle>
+            <Toggle theme={theme} variant="subtle" size={size} square>♫</Toggle>
+            <Toggle theme={theme} variant="ghost" size={size} square defaultPressed>✓</Toggle>
           </ButtonRow>
         </div>
 
