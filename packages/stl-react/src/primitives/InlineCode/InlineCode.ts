@@ -4,8 +4,8 @@ export const InlineCode = styled('code', {
   fontFamily: '$mono',
   fontSize: '$14',
   color: '$color',
-  bg: '$neutral3',
+  bg: '$neutralAlpha2',
   px: '$4',
   py: '$2',
-  radius: '$3',
+  radius: '$snippet',
 }, { name: 'InlineCode' })

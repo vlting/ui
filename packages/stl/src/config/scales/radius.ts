@@ -49,6 +49,7 @@ export function getRadius(hash: CharHash) {
     card: { ...hash.var, value: `calc(${base.ref} * 2)` },
     badge: { ...hash.var, value: '9999rem' },
     tooltip: { ...hash.var, value: rounded.ref },
+    snippet: { ...hash.var, value: '0' },
   } as const
 
   const vars = { ...sharedVars, base } as const
