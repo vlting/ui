@@ -7,6 +7,7 @@ export type ButtonGroupRootProps = {
 const ButtonGroupRoot = styled('div', {
   display: 'inline-flex',
   gap: '$4',
+  overflow: 'visible',
 }, {
   name: 'ButtonGroup',
   variants: {
