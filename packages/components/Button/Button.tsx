@@ -263,13 +263,13 @@ const ButtonBase = styled('button', {
 
     // ── Grouped: position × direction (border/radius) ─
     // Horizontal
-    { when: { groupPosition: 'first', groupDirection: 'horizontal' }, stl: { radiusRight: '$rectangular' } },
+    { when: { groupPosition: 'first', groupDirection: 'horizontal' }, stl: { radiusLeft: '$buttonGrouped', radiusRight: '$rectangular' } },
     { when: { groupPosition: 'middle', groupDirection: 'horizontal' }, stl: { radius: '$rectangular', borderLeftWidth: '0' } },
-    { when: { groupPosition: 'last', groupDirection: 'horizontal' }, stl: { radiusLeft: '$rectangular', borderLeftWidth: '0' } },
+    { when: { groupPosition: 'last', groupDirection: 'horizontal' }, stl: { radiusRight: '$buttonGrouped', radiusLeft: '$rectangular', borderLeftWidth: '0' } },
     // Vertical
-    { when: { groupPosition: 'first', groupDirection: 'vertical' }, stl: { radiusBottom: '$rectangular' } },
+    { when: { groupPosition: 'first', groupDirection: 'vertical' }, stl: { radiusTop: '$buttonGrouped', radiusBottom: '$rectangular' } },
     { when: { groupPosition: 'middle', groupDirection: 'vertical' }, stl: { radius: '$rectangular', borderTopWidth: '0' } },
-    { when: { groupPosition: 'last', groupDirection: 'vertical' }, stl: { radiusTop: '$rectangular', borderTopWidth: '0' } },
+    { when: { groupPosition: 'last', groupDirection: 'vertical' }, stl: { radiusBottom: '$buttonGrouped', radiusTop: '$rectangular', borderTopWidth: '0' } },
 
     // ── Grouped: borderless variant spacing (solid/subtle/ghost get small gap) ─
     // Horizontal
