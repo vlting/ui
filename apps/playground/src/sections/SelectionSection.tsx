@@ -6,7 +6,14 @@ import { ControlRow, SectionTitle, StackY, type SectionProps } from './shared'
 
 const ContentWrap = styled('div', {
   maxWidth: '$480',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$32',
 }, { name: 'ContentWrap' })
+
+const SubSection = styled('div', {
+  display: 'flex', flexDirection: 'column', gap: '$8',
+}, { name: 'SubSection' })
 
 const Row = styled('div', {
   display: 'flex', gap: '$16', alignItems: 'center', flexWrap: 'wrap',
@@ -65,97 +72,107 @@ export function SelectionSection({ sectionRef }: SectionProps) {
       <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$32' }}>
         <ContentWrap>
           {/* ── Checkbox ───────────────────────────────────── */}
-          <SectionTitle>Checkbox</SectionTitle>
-          <StackY>
-            <Checkbox.Root size={size} disabled={disabled} error={error}>
-              Uncontrolled
-            </Checkbox.Root>
-            <Checkbox.Root size={size} disabled={disabled} error={error} defaultChecked>
-              Default checked
-            </Checkbox.Root>
-            <Checkbox.Root size={size} disabled={disabled} error={error} indeterminate>
-              Indeterminate
-            </Checkbox.Root>
-            <Row>
-              <Checkbox.Root
-                size={size}
-                disabled={disabled}
-                error={error}
-                checked={cbChecked}
-                onCheckedChange={setCbChecked}
-              >
-                Controlled
+          <SubSection>
+            <SectionTitle>Checkbox</SectionTitle>
+            <StackY>
+              <Checkbox.Root size={size} disabled={disabled} error={error}>
+                Uncontrolled
               </Checkbox.Root>
-              <StatusLabel>{cbChecked ? 'ON' : 'OFF'}</StatusLabel>
-            </Row>
-          </StackY>
+              <Checkbox.Root size={size} disabled={disabled} error={error} defaultChecked>
+                Default checked
+              </Checkbox.Root>
+              <Checkbox.Root size={size} disabled={disabled} error={error} indeterminate>
+                Indeterminate
+              </Checkbox.Root>
+              <Row>
+                <Checkbox.Root
+                  size={size}
+                  disabled={disabled}
+                  error={error}
+                  checked={cbChecked}
+                  onCheckedChange={setCbChecked}
+                >
+                  Controlled
+                </Checkbox.Root>
+                <StatusLabel>{cbChecked ? 'ON' : 'OFF'}</StatusLabel>
+              </Row>
+            </StackY>
+          </SubSection>
 
           {/* ── Switch ─────────────────────────────────────── */}
-          <SectionTitle>Switch</SectionTitle>
-          <StackY>
-            <Row>
-              <Switch size={size} disabled={disabled} aria-label="Uncontrolled" />
-              <StatusLabel>Uncontrolled</StatusLabel>
-            </Row>
-            <Row>
-              <Switch size={size} disabled={disabled} defaultChecked aria-label="Default on" />
-              <StatusLabel>Default on</StatusLabel>
-            </Row>
-            <Row>
-              <Switch
-                size={size}
-                disabled={disabled}
-                checked={swChecked}
-                onCheckedChange={setSwChecked}
-                aria-label="Controlled"
-              />
-              <StatusLabel>{swChecked ? 'ON' : 'OFF'}</StatusLabel>
-            </Row>
-          </StackY>
+          <SubSection>
+            <SectionTitle>Switch</SectionTitle>
+            <StackY>
+              <Row>
+                <Switch size={size} disabled={disabled} aria-label="Uncontrolled" />
+                <StatusLabel>Uncontrolled</StatusLabel>
+              </Row>
+              <Row>
+                <Switch size={size} disabled={disabled} defaultChecked aria-label="Default on" />
+                <StatusLabel>Default on</StatusLabel>
+              </Row>
+              <Row>
+                <Switch
+                  size={size}
+                  disabled={disabled}
+                  checked={swChecked}
+                  onCheckedChange={setSwChecked}
+                  aria-label="Controlled"
+                />
+                <StatusLabel>{swChecked ? 'ON' : 'OFF'}</StatusLabel>
+              </Row>
+            </StackY>
+          </SubSection>
 
           {/* ── RadioGroup ─────────────────────────────────── */}
-          <SectionTitle>RadioGroup — Vertical</SectionTitle>
-          <StackY>
-            <RadioGroup.Root size={size} disabled={disabled} defaultValue="banana" aria-label="Fruit">
-              <RadioGroup.Item value="apple">Apple</RadioGroup.Item>
-              <RadioGroup.Item value="banana">Banana</RadioGroup.Item>
-              <RadioGroup.Item value="cherry">Cherry</RadioGroup.Item>
-            </RadioGroup.Root>
-          </StackY>
-
-          <SectionTitle>RadioGroup — Horizontal</SectionTitle>
-          <StackY>
-            <RadioGroup.Root
-              size={size}
-              disabled={disabled}
-              orientation="horizontal"
-              defaultValue="sm"
-              aria-label="Plan"
-            >
-              <RadioGroup.Item value="sm">Small</RadioGroup.Item>
-              <RadioGroup.Item value="md">Medium</RadioGroup.Item>
-              <RadioGroup.Item value="lg">Large</RadioGroup.Item>
-            </RadioGroup.Root>
-          </StackY>
-
-          <SectionTitle>RadioGroup — Controlled</SectionTitle>
-          <StackY>
-            <Row>
-              <RadioGroup.Root
-                size={size}
-                disabled={disabled}
-                orientation="horizontal"
-                value={radioValue}
-                onValueChange={setRadioValue}
-                aria-label="Controlled fruit"
-              >
+          <SubSection>
+            <SectionTitle>RadioGroup — Vertical</SectionTitle>
+            <StackY>
+              <RadioGroup.Root size={size} disabled={disabled} defaultValue="banana" aria-label="Fruit">
                 <RadioGroup.Item value="apple">Apple</RadioGroup.Item>
                 <RadioGroup.Item value="banana">Banana</RadioGroup.Item>
                 <RadioGroup.Item value="cherry">Cherry</RadioGroup.Item>
               </RadioGroup.Root>
-              <StatusLabel>{radioValue}</StatusLabel>
-            </Row>
-          </StackY>
+            </StackY>
+          </SubSection>
+
+          <SubSection>
+            <SectionTitle>RadioGroup — Horizontal</SectionTitle>
+            <StackY>
+              <RadioGroup.Root
+                size={size}
+                disabled={disabled}
+                orientation="horizontal"
+                defaultValue="sm"
+                aria-label="Plan"
+              >
+                <RadioGroup.Item value="sm">Small</RadioGroup.Item>
+                <RadioGroup.Item value="md">Medium</RadioGroup.Item>
+                <RadioGroup.Item value="lg">Large</RadioGroup.Item>
+              </RadioGroup.Root>
+            </StackY>
+          </SubSection>
+
+          <SubSection>
+            <SectionTitle>RadioGroup — Controlled</SectionTitle>
+            <StackY>
+              <Row>
+                <RadioGroup.Root
+                  size={size}
+                  disabled={disabled}
+                  orientation="horizontal"
+                  value={radioValue}
+                  onValueChange={setRadioValue}
+                  aria-label="Controlled fruit"
+                >
+                  <RadioGroup.Item value="apple">Apple</RadioGroup.Item>
+                  <RadioGroup.Item value="banana">Banana</RadioGroup.Item>
+                  <RadioGroup.Item value="cherry">Cherry</RadioGroup.Item>
+                </RadioGroup.Root>
+                <StatusLabel>{radioValue}</StatusLabel>
+              </Row>
+            </StackY>
+          </SubSection>
         </ContentWrap>
       </Card.Content>
     </Card>
