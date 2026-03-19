@@ -3,9 +3,9 @@ slug: library-buildout
 status: in-progress
 scope: large
 created: 2026-03-15
-current_epic: 6
-current_stage: 3
-phase: execute
+current_epic: 7
+current_stage: 1
+phase: breakdown
 epic_issue: 206
 ---
 # @vlting/ui Library Build-Out
@@ -90,7 +90,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Epic branch:** epic/display-components
 **Epic issue:** #206
 **Epic PR:** #212
-**Status:** in-progress
+**Status:** done
 
 ### Stage 6.1: Feedback (Alert, Progress, Loader, Empty)
 **Branch prefix:** feat
@@ -133,22 +133,25 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [x] Delete Typography component, re-export Separator, implement ButtonGroup + Direction
 - [x] Tests passing, removed from testPathIgnorePatterns
 - [x] Playground pages for Heading, Separator, ButtonGroup
-**Status:** in-progress
+**Status:** done
 
 ### Stage 6.4: Token Infrastructure (Shadow & Layering)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/token-infrastructure
+**Issue:** #216
+**PR:** #235
 **Acceptance criteria:**
-- [ ] `$buttonShadow` + `$buttonShadowHover` added to shadow scale (default `none`)
-- [ ] `ShadowScale` type extended with optional buttonShadow/buttonShadowHover
-- [ ] Theme presets wired with `none` defaults (zero visual change)
-- [ ] Button base stl uses `$buttonShadow`, `:interact` uses `$buttonShadowHover`, transition gated on `lowMotion`
-- [ ] Playground theme presets (Flat/Pro/Sharp) demonstrate shadow variations
-- [ ] Button.spec.md updated with shadow behavior
-- [ ] Background color scale: dark-mode steps 0-3 use non-inverted luminance progression (lighter = higher layer, matching light mode mental model). Only the `background` palette — primary/secondary/neutral/semantic scales unchanged.
-- [ ] Surface tokens (`surface1`, `surface2`, `surface3`) reflect corrected background layering
-- [ ] Visual verification: layered surfaces (Card on Dialog on page) look elevated in both modes
-- [ ] All existing tests still pass
-**Status:** pending
+- [x] `$buttonShadow` + `$buttonShadowHover` added to shadow scale (default `none`)
+- [x] `ShadowScale` type extended with optional buttonShadow/buttonShadowHover
+- [x] Theme presets wired with `none` defaults (zero visual change)
+- [x] Button base stl uses `$buttonShadow`, `:interact` uses `$buttonShadowHover`, transition gated on `lowMotion`
+- [x] Playground theme presets (Flat/Pro/Sharp) demonstrate shadow variations
+- [x] Button.spec.md updated with shadow behavior
+- [x] Background color scale: dark-mode steps 0-3 use non-inverted luminance progression (lighter = higher layer, matching light mode mental model). Only the `background` palette — primary/secondary/neutral/semantic scales unchanged.
+- [x] Surface tokens (`surface1`, `surface2`, `surface3`) reflect corrected background layering
+- [x] Visual verification: layered surfaces (Card on Dialog on page) look elevated in both modes
+- [x] All existing tests still pass
+**Status:** done
 
 ## Epic 7: Form Controls
 **Objective:** Interactive form elements — headless hooks required, exercises focus ring, error states, disabled pattern, size scale
