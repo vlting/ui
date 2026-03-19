@@ -199,9 +199,8 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
     space: mergeScale(DEFAULT_SPACE, options.space),
     radius: (() => {
       const merged = mergeScale(DEFAULT_RADIUS, options.radius)
-      if (options.radius?.buttonGrouped === undefined) {
-        const buttonVal = (merged as any).button ?? (merged as any).true ?? 9
-        ;(merged as any).buttonGrouped = Math.min(buttonVal as number, 24)
+      if (options.radius?.buttonGrouped === undefined && options.radius?.button !== undefined) {
+        ;(merged as any).buttonGrouped = Math.min(options.radius.button as number, 24)
       }
       return merged
     })(),
