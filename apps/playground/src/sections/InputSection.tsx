@@ -15,7 +15,7 @@ export function InputSection({ sectionRef }: SectionProps) {
     <Card ref={sectionRef} data-section="Input">
       <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <Card.Title>Input</Card.Title>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div style={{ display: 'flex', gap: 8, maxWidth: 420, flexWrap: 'wrap' }}>
           <ToggleGroup
             type="exclusive"
             value={[size]}
