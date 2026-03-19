@@ -3,10 +3,11 @@
 import { useMemo, useState } from 'react'
 import { styled } from '../../../packages/stl-react/src'
 
-// Inline the palette generation to avoid SSR import issues
-const LIGHT_LIGHTNESS = [98, 95, 90, 83, 74, 64, 53, 42, 32, 23, 15, 8]
-const DARK_LIGHTNESS = [8, 12, 18, 24, 32, 42, 53, 64, 74, 83, 90, 96]
-const SATURATION_CURVE = [0.15, 0.3, 0.5, 0.7, 0.85, 0.95, 1, 0.95, 0.9, 0.85, 0.75, 0.6]
+// Inline the palette generation to avoid SSR import issues (OKLCH)
+const LIGHT_LIGHTNESS = [0.98, 0.95, 0.90, 0.83, 0.74, 0.64, 0.53, 0.42, 0.32, 0.23, 0.15, 0.08]
+const DARK_LIGHTNESS = [0.08, 0.12, 0.18, 0.24, 0.32, 0.42, 0.53, 0.64, 0.74, 0.83, 0.90, 0.96]
+const CHROMA_CURVE = [0.15, 0.3, 0.5, 0.7, 0.85, 0.95, 1, 0.95, 0.9, 0.85, 0.75, 0.6]
+const MAX_CHROMA = 0.37
 
 function generatePalette(
   hue: number,
@@ -14,9 +15,10 @@ function generatePalette(
   mode: 'light' | 'dark',
 ): string[] {
   const lightness = mode === 'light' ? LIGHT_LIGHTNESS : DARK_LIGHTNESS
+  const maxChroma = (saturation / 100) * MAX_CHROMA
   return lightness.map((l, i) => {
-    const s = Math.round(saturation * SATURATION_CURVE[i])
-    return `hsl(${hue}, ${s}%, ${l}%)`
+    const c = +(maxChroma * CHROMA_CURVE[i]).toFixed(4)
+    return `oklch(${l} ${c} ${hue})`
   })
 }
 
