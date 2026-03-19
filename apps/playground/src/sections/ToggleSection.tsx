@@ -83,75 +83,64 @@ export function ToggleSection({ sectionRef }: SectionProps) {
           </ButtonRow>
         </div>
 
-        {/* ── Exclusive group ──────────────────────────── */}
+        {/* ── Exclusive Group ──────────────────────────── */}
         <div>
-          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Exclusive group</SectionTitle>
+          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Exclusive Group</SectionTitle>
           <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
-            <ToggleGroup
-              type="exclusive"
-              value={view}
-              onValueChange={setView}
-              aria-label="View mode"
-            >
-              <Button value="list" variant="outline" theme={theme} size={size}>List</Button>
-              <Button value="grid" variant="outline" theme={theme} size={size}>Grid</Button>
-              <Button value="gallery" variant="outline" theme={theme} size={size}>Gallery</Button>
-            </ToggleGroup>
+            <ToggleRow stl={{ gap: '$24', alignItems: 'flex-start' }}>
+              <ToggleGroup
+                type="exclusive"
+                value={view}
+                onValueChange={setView}
+                aria-label="View mode"
+              >
+                <Button value="list" variant="outline" theme={theme} size={size}>List</Button>
+                <Button value="grid" variant="outline" theme={theme} size={size}>Grid</Button>
+                <Button value="gallery" variant="outline" theme={theme} size={size}>Gallery</Button>
+              </ToggleGroup>
+              <ToggleGroup
+                type="exclusive"
+                value={view}
+                onValueChange={setView}
+                orientation="vertical"
+                aria-label="View mode vertical"
+              >
+                <Button value="list" variant="outline" theme={theme} size={size}>List</Button>
+                <Button value="grid" variant="outline" theme={theme} size={size}>Grid</Button>
+                <Button value="gallery" variant="outline" theme={theme} size={size}>Gallery</Button>
+              </ToggleGroup>
+            </ToggleRow>
             <StatusLabel>{JSON.stringify(view)}</StatusLabel>
           </ButtonRow>
         </div>
 
-        {/* ── Exclusive group (vertical) ─────────────── */}
+        {/* ── Multi-Select ─────────────────────────────── */}
         <div>
-          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Exclusive group (vertical)</SectionTitle>
+          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Multi-Select</SectionTitle>
           <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
-            <ToggleGroup
-              type="exclusive"
-              value={view}
-              onValueChange={setView}
-              orientation="vertical"
-              aria-label="View mode vertical"
-            >
-              <Button value="list" variant="outline" theme={theme} size={size}>List</Button>
-              <Button value="grid" variant="outline" theme={theme} size={size}>Grid</Button>
-              <Button value="gallery" variant="outline" theme={theme} size={size}>Gallery</Button>
-            </ToggleGroup>
-            <StatusLabel>{JSON.stringify(view)}</StatusLabel>
-          </ButtonRow>
-        </div>
-
-        {/* ── Multi-select group ───────────────────────── */}
-        <div>
-          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Multi-select</SectionTitle>
-          <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
-            <ToggleGroup
-              type="toggle"
-              value={features}
-              onValueChange={setFeatures}
-              aria-label="Features"
-            >
-              <Button value="wifi" variant="outline" theme={theme} size={size}>WiFi</Button>
-              <Button value="bluetooth" variant="outline" theme={theme} size={size}>Bluetooth</Button>
-              <Button value="airplane" variant="outline" theme={theme} size={size}>Airplane</Button>
-            </ToggleGroup>
-            <StatusLabel>{JSON.stringify(features)}</StatusLabel>
-          </ButtonRow>
-        </div>
-        {/* ── Multi-select (vertical) ────────────────── */}
-        <div>
-          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Multi-select (vertical)</SectionTitle>
-          <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
-            <ToggleGroup
-              type="toggle"
-              value={features}
-              onValueChange={setFeatures}
-              orientation="vertical"
-              aria-label="Features vertical"
-            >
-              <Button value="wifi" variant="outline" theme={theme} size={size}>WiFi</Button>
-              <Button value="bluetooth" variant="outline" theme={theme} size={size}>Bluetooth</Button>
-              <Button value="airplane" variant="outline" theme={theme} size={size}>Airplane</Button>
-            </ToggleGroup>
+            <ToggleRow stl={{ gap: '$24', alignItems: 'flex-start' }}>
+              <ToggleGroup
+                type="toggle"
+                value={features}
+                onValueChange={setFeatures}
+                aria-label="Features"
+              >
+                <Button value="wifi" variant="outline" theme={theme} size={size}>WiFi</Button>
+                <Button value="bluetooth" variant="outline" theme={theme} size={size}>Bluetooth</Button>
+                <Button value="airplane" variant="outline" theme={theme} size={size}>Airplane</Button>
+              </ToggleGroup>
+              <ToggleGroup
+                type="toggle"
+                value={features}
+                onValueChange={setFeatures}
+                orientation="vertical"
+                aria-label="Features vertical"
+              >
+                <Button value="wifi" variant="outline" theme={theme} size={size}>WiFi</Button>
+                <Button value="bluetooth" variant="outline" theme={theme} size={size}>Bluetooth</Button>
+                <Button value="airplane" variant="outline" theme={theme} size={size}>Airplane</Button>
+              </ToggleGroup>
+            </ToggleRow>
             <StatusLabel>{JSON.stringify(features)}</StatusLabel>
           </ButtonRow>
         </div>
