@@ -56,8 +56,8 @@ const RadioCircle = styled('span', {
   alignItems: 'center',
   justifyContent: 'center',
   radius: '$round',
-  border: '$neutral7',
-  borderWidth: '$widthMin',
+  border: '$neutralMin',
+  borderColor: '$neutral4',
   bg: 'transparent',
   flexShrink: '0',
 }, {

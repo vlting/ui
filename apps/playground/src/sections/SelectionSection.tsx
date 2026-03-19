@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Card, Checkbox, RadioGroup, Switch, ToggleGroup } from '@vlting/ui'
+import { Button, Card, Checkbox, RadioGroup, Switch, Toggle, ToggleGroup } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
 import { ControlRow, SectionTitle, StackY, type SectionProps } from './shared'
@@ -55,18 +55,8 @@ export function SelectionSection({ sectionRef }: SectionProps) {
               <Button key={s} value={s} size="md" variant="outline" theme="neutral">{s}</Button>
             ))}
           </ToggleGroup>
-          <ToggleGroup
-            type="multiple"
-            value={[...(error ? ['error'] : []), ...(disabled ? ['disabled'] : [])]}
-            onValueChange={v => {
-              setError(v.includes('error'))
-              setDisabled(v.includes('disabled'))
-            }}
-            aria-label="State"
-          >
-            <Button value="error" size="md" variant="outline" theme="neutral">error</Button>
-            <Button value="disabled" size="md" variant="outline" theme="neutral">disabled</Button>
-          </ToggleGroup>
+          <Toggle size="md" variant="outline" theme="neutral" pressed={error} onPressedChange={setError}>error</Toggle>
+          <Toggle size="md" variant="outline" theme="neutral" pressed={disabled} onPressedChange={setDisabled}>disabled</Toggle>
         </ControlRow>
       </Card.Header>
       <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$32' }}>
