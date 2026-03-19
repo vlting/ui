@@ -26,6 +26,8 @@ export const THEME_PRESET_POPSICLE: CreateThemeOptions = {
       lg: { boxShadow: 'none', color: 'transparent' },
       xl: { boxShadow: 'none', color: 'transparent' },
       '2xl': { boxShadow: 'none', color: 'transparent' },
+      buttonShadow: { boxShadow: 'none', color: 'transparent' },
+      buttonShadowHover: { boxShadow: 'none', color: 'transparent' },
     },
     dark: {
       sm: { boxShadow: '0 4px 0 hsla(290, 15%, 5%, 0.55)', color: 'hsla(290, 15%, 5%, 0.55)' },
@@ -33,6 +35,8 @@ export const THEME_PRESET_POPSICLE: CreateThemeOptions = {
       lg: { boxShadow: '0 10px 0 hsla(290, 15%, 5%, 0.55)', color: 'hsla(290, 15%, 5%, 0.55)' },
       xl: { boxShadow: '0 14px 0 hsla(290, 15%, 5%, 0.55)', color: 'hsla(290, 15%, 5%, 0.55)' },
       '2xl': { boxShadow: '0 20px 0 hsla(290, 15%, 5%, 0.55)', color: 'hsla(290, 15%, 5%, 0.55)' },
+      buttonShadow: { boxShadow: '0 3px 0 hsla(290, 15%, 5%, 0.55)', color: 'hsla(290, 15%, 5%, 0.55)' },
+      buttonShadowHover: { boxShadow: '0 5px 0 hsla(290, 15%, 5%, 0.55)', color: 'hsla(290, 15%, 5%, 0.55)' },
     },
   },
   fonts: { heading: 'playfairDisplay', subheading: 'raleway', body: 'raleway', code: 'firaCode' },
