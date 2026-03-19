@@ -41,7 +41,6 @@ module.exports = {
     'packages/components/Sheet/',
     'packages/components/Sidebar/',
     'packages/components/Slider/',
-    'packages/components/Switch/',
     'packages/components/Table/',
     'packages/components/Tabs/',
     'packages/components/Toast/',
