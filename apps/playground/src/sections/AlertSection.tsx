@@ -15,7 +15,7 @@ export function AlertSection({ sectionRef }: SectionProps) {
   const [alertElevation, setAlertElevation] = useState<typeof ELEVATIONS[number]>('flat')
 
   return (
-    <Card elevation="flat" flush ref={sectionRef} data-section="Alert" stl={{ mt: '$24' }}>
+    <Card ref={sectionRef} data-section="Alert" stl={{ mt: '$24' }}>
       <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <Card.Title>Alert</Card.Title>
         <div style={{ display: 'flex', gap: 8 }}>

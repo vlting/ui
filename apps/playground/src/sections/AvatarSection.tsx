@@ -18,7 +18,7 @@ const AvatarWithLabel = styled('div', {
 
 export function AvatarSection({ sectionRef }: SectionProps) {
   return (
-    <Card elevation="flat" flush ref={sectionRef} data-section="Avatar" stl={{ mt: '$24' }}>
+    <Card ref={sectionRef} data-section="Avatar" stl={{ mt: '$24' }}>
       <Card.Header>
         <Card.Title>Avatar</Card.Title>
       </Card.Header>

@@ -72,7 +72,7 @@ export function ItemSection({ sectionRef }: SectionProps) {
   const [showActions, setShowActions] = useState(true)
 
   return (
-    <Card elevation="flat" flush ref={sectionRef} data-section="Item" stl={{ mt: '$24' }}>
+    <Card ref={sectionRef} data-section="Item" stl={{ mt: '$24' }}>
       <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <Card.Title>Item</Card.Title>
         <ToggleRow>

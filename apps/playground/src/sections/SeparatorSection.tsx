@@ -9,7 +9,7 @@ const InlineRow = styled('div', {
 
 export function SeparatorSection({ sectionRef }: SectionProps) {
   return (
-    <Card elevation="flat" flush ref={sectionRef} data-section="Separator" stl={{ mt: '$24' }}>
+    <Card ref={sectionRef} data-section="Separator" stl={{ mt: '$24' }}>
       <Card.Header>
         <Card.Title>Separator</Card.Title>
       </Card.Header>
