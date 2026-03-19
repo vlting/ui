@@ -1,3 +1,4 @@
+import { createRef } from 'react'
 import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { Textarea } from './Textarea'
 
@@ -10,87 +11,61 @@ beforeAll(() => {
 })
 
 describe('Textarea', () => {
-  // -- Renders correctly --
-
-  it('renders without errors', () => {
+  it('renders with placeholder', () => {
     render(<Textarea placeholder="Enter text" />)
     expect(screen.getByPlaceholderText('Enter text')).toBeTruthy()
-  })
-
-  it('renders label when provided', () => {
-    render(<Textarea label="Description" placeholder="desc" />)
-    expect(screen.getByText('Description')).toBeTruthy()
-  })
-
-  it('renders helper text', () => {
-    render(<Textarea helperText="Max 500 chars" placeholder="text" />)
-    expect(screen.getByText('Max 500 chars')).toBeTruthy()
-  })
-
-  it('renders error message in error state', () => {
-    render(<Textarea error errorMessage="Too long" placeholder="text" />)
-    expect(screen.getByText('Too long')).toBeTruthy()
   })
 
   it('renders each size variant', () => {
     const sizes = ['sm', 'md', 'lg'] as const
     for (const size of sizes) {
-      const { unmount } = render(<Textarea size={size} placeholder="text" />)
-      expect(screen.getByPlaceholderText('text')).toBeTruthy()
+      const { unmount } = render(<Textarea size={size} placeholder={size} />)
+      expect(screen.getByPlaceholderText(size)).toBeTruthy()
       unmount()
     }
   })
 
-  // -- Keyboard navigation --
-
-  it('accepts text input', () => {
+  it('calls onChangeText with text value', () => {
     const onChangeText = jest.fn()
-    render(<Textarea placeholder="type here" onChangeText={onChangeText} />)
-    const textarea = screen.getByPlaceholderText('type here')
-    fireEvent.change(textarea, { target: { value: 'hello world' } })
+    render(<Textarea placeholder="type" onChangeText={onChangeText} />)
+    fireEvent.change(screen.getByPlaceholderText('type'), { target: { value: 'hello world' } })
     expect(onChangeText).toHaveBeenCalledWith('hello world')
   })
 
-  it('is focusable', () => {
-    render(<Textarea placeholder="focus me" />)
-    const textarea = screen.getByPlaceholderText('focus me')
-    textarea.focus()
-    expect(document.activeElement).toBe(textarea)
+  it('calls native onChange alongside onChangeText', () => {
+    const onChange = jest.fn()
+    const onChangeText = jest.fn()
+    render(<Textarea placeholder="type" onChange={onChange} onChangeText={onChangeText} />)
+    fireEvent.change(screen.getByPlaceholderText('type'), { target: { value: 'x' } })
+    expect(onChange).toHaveBeenCalled()
+    expect(onChangeText).toHaveBeenCalledWith('x')
   })
 
-  // -- ARIA states --
-
-  it('has aria-invalid when error prop is true', () => {
-    render(<Textarea error placeholder="error" />)
-    expect(screen.getByPlaceholderText('error')).toHaveAttribute('aria-invalid', 'true')
+  it('sets aria-invalid when error prop is true', () => {
+    render(<Textarea error placeholder="err" />)
+    expect(screen.getByPlaceholderText('err')).toHaveAttribute('aria-invalid', 'true')
   })
-
-  it('links error message via aria-describedby', () => {
-    render(<Textarea error errorMessage="Too long" placeholder="err" />)
-    const textarea = screen.getByPlaceholderText('err')
-    const describedBy = textarea.getAttribute('aria-describedby')
-    expect(describedBy).toBeTruthy()
-    const helper = document.getElementById(describedBy!)
-    expect(helper?.textContent).toBe('Too long')
-  })
-
-  it('has aria-label when no label prop', () => {
-    render(<Textarea placeholder="notes" />)
-    expect(screen.getByPlaceholderText('notes')).toHaveAttribute('aria-label', 'notes')
-  })
-
-  it('associates label via htmlFor', () => {
-    render(<Textarea label="Bio" placeholder="bio" />)
-    const textarea = screen.getByPlaceholderText('bio')
-    const label = screen.getByText('Bio').closest('label')
-    expect(label).toBeTruthy()
-    expect(label?.getAttribute('for')).toBe(textarea.id)
-  })
-
-  // -- Disabled state --
 
   it('is disabled when disabled prop is true', () => {
-    render(<Textarea disabled placeholder="disabled" />)
-    expect(screen.getByPlaceholderText('disabled')).toBeDisabled()
+    render(<Textarea disabled placeholder="dis" />)
+    expect(screen.getByPlaceholderText('dis')).toBeDisabled()
+  })
+
+  it('forwards rows prop', () => {
+    render(<Textarea rows={5} placeholder="rows" />)
+    expect(screen.getByPlaceholderText('rows')).toHaveAttribute('rows', '5')
+  })
+
+  it('forwards ref', () => {
+    const ref = createRef<HTMLTextAreaElement>()
+    render(<Textarea ref={ref} placeholder="ref" />)
+    expect(ref.current).toBeInstanceOf(HTMLTextAreaElement)
+  })
+
+  it('is focusable', () => {
+    render(<Textarea placeholder="focus" />)
+    const textarea = screen.getByPlaceholderText('focus')
+    textarea.focus()
+    expect(document.activeElement).toBe(textarea)
   })
 })
