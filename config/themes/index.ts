@@ -77,13 +77,13 @@ export const THEME_PRESET_CARBON: CreateThemeOptions = {
 /**
  * Mint — Sophisticated, editorial.
  *
- * Teal primary, complementary secondary (auto).
+ * Teal primary, blueish-purple (iris) secondary.
  * Neutral: auto-dampened teal. Background: barely tinted teal.
  * Zero radius everywhere.
  */
 export const THEME_PRESET_MINT: CreateThemeOptions = {
   primary: { hue: 159, saturation: 90 },
-  secondary: { saturation: 50 },
+  secondary: { hue: 245, saturation: 50 },
   neutral: { hue: 159 },
   background: { hue: 159, saturation: 5 },
   fontSize: { base: 17, h1: 56, h2: 38, h3: 25, h4: 25, h5: 21, h6: 18 },
