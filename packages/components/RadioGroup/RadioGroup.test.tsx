@@ -57,7 +57,7 @@ describe('RadioGroup', () => {
     ).not.toThrow()
   })
 
-  // -- Keyboard navigation --
+  // -- Selection --
 
   it('selects item on click', () => {
     const onChange = jest.fn()
@@ -85,13 +85,13 @@ describe('RadioGroup', () => {
 
   // -- ARIA states --
 
-  it('has group role on container', () => {
+  it('has radiogroup role on container', () => {
     render(
       <RadioGroup.Root>
         <RadioGroup.Item value="a">A</RadioGroup.Item>
       </RadioGroup.Root>,
     )
-    expect(screen.getByRole('group')).toBeTruthy()
+    expect(screen.getByRole('radiogroup')).toBeTruthy()
   })
 
   it('accepts aria-label on root', () => {
@@ -100,7 +100,7 @@ describe('RadioGroup', () => {
         <RadioGroup.Item value="a">A</RadioGroup.Item>
       </RadioGroup.Root>,
     )
-    expect(screen.getByRole('group')).toHaveAttribute('aria-label', 'Choose option')
+    expect(screen.getByRole('radiogroup')).toHaveAttribute('aria-label', 'Choose option')
   })
 
   it('has radio role on items', () => {
@@ -165,13 +165,31 @@ describe('RadioGroup', () => {
     expect(radios[1]).toBeDisabled()
   })
 
-  it('sets not-allowed cursor when disabled', () => {
+  it('does not call onValueChange when disabled', () => {
+    const onChange = jest.fn()
     render(
-      <RadioGroup.Root disabled>
+      <RadioGroup.Root disabled onValueChange={onChange}>
         <RadioGroup.Item value="a">A</RadioGroup.Item>
+        <RadioGroup.Item value="b">B</RadioGroup.Item>
       </RadioGroup.Root>,
     )
-    const label = screen.getByRole('radio').closest('label')
-    expect(label?.style.cursor).toBe('not-allowed')
+    fireEvent.click(screen.getAllByRole('radio')[1])
+    expect(onChange).not.toHaveBeenCalled()
+  })
+
+  // -- Auto name --
+
+  it('generates name automatically for grouping', () => {
+    render(
+      <RadioGroup.Root>
+        <RadioGroup.Item value="a">A</RadioGroup.Item>
+        <RadioGroup.Item value="b">B</RadioGroup.Item>
+      </RadioGroup.Root>,
+    )
+    const radios = screen.getAllByRole('radio')
+    const name0 = radios[0].getAttribute('name')
+    const name1 = radios[1].getAttribute('name')
+    expect(name0).toBeTruthy()
+    expect(name0).toBe(name1)
   })
 })
