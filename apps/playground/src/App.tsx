@@ -19,7 +19,7 @@ const PAGES = ['Components', 'Demo'] as const
 type Page = typeof PAGES[number]
 
 const SECTIONS = [
-  'Button', 'Alert', 'Badge', 'Input', 'Item', 'Card', 'Progress', 'Spinner', 'Empty', 'Avatar',
+  'Input', 'Button', 'Alert', 'Badge', 'Item', 'Card', 'Progress', 'Spinner', 'Empty', 'Avatar',
   'Typography', 'Separator', 'ButtonGroup', 'Toggle',
 ] as const
 
