@@ -109,14 +109,15 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Branch prefix:** feat
 **Branch:** feat/library-buildout/content-components
 **Issue:** #211
+**PR:** #213
 **Acceptance criteria:**
-- [ ] Card: article root, compound (Header/Content/Footer/Title/Description), size/elevated/interactive, semantic HTML
-- [ ] Avatar: dual API (single-prop + compound), size scale (32/40/56/72), image fallback, circular
-- [ ] Badge: 15 themes × 3 variants (solid/subtle/outline), size scale, token-based spacing
-- [ ] Item: compound (Leading/Content/Title/Description/Trailing), size/interactive
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages for each
-**Status:** in-progress
+- [x] Card: article root, compound (Header/Content/Footer/Title/Description), size/elevated/interactive, semantic HTML
+- [x] Avatar: dual API (single-prop + compound), size scale (32/40/56/72), image fallback, circular
+- [x] Badge: 15 themes × 3 variants (solid/subtle/outline), size scale, token-based spacing
+- [x] Item: compound (Leading/Content/Title/Description/Trailing), size/interactive
+- [x] Tests passing, removed from testPathIgnorePatterns
+- [x] Playground pages for each
+**Status:** done
 
 ### Stage 6.3: Layout & Typography
 **Branch prefix:** feat
