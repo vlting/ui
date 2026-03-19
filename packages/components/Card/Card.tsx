@@ -7,7 +7,7 @@ const CardRoot = styled('article', {
   radius: '$card',
   overflow: 'hidden',
   fontFamily: '$body',
-  bg: '$background1',
+  bg: '$surface1',
   ':focus': { outlineOffset: '$offsetDefault' },
 }, {
   name: 'Card',

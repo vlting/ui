@@ -15,7 +15,7 @@ export function ProgressSection({ sectionRef }: SectionProps) {
   }, [])
 
   return (
-    <Card ref={sectionRef} data-section="Progress" stl={{ mt: '$24' }}>
+    <Card ref={sectionRef} data-section="Progress">
       <Card.Header>
         <Card.Title>Progress</Card.Title>
       </Card.Header>

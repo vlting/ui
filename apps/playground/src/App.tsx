@@ -38,7 +38,7 @@ const DARK_PRESETS = new Set(['popsicle', 'aurora', 'frost'])
 // ─── Styled components ──────────────────────────────────────────────────────
 
 const AppRoot = styled('div', {
-  display: 'flex', minHeight: '100vh', fontFamily: '$body', bg: '$background3',
+  display: 'flex', minHeight: '100vh', fontFamily: '$body', bg: '$surface3',
 }, { name: 'AppRoot' })
 
 const Sidebar = styled('aside', {
@@ -47,7 +47,7 @@ const Sidebar = styled('aside', {
   left: '0',
   width: '220px',
   height: '100vh',
-  bg: '$background1',
+  bg: '$surface1',
   boxShadow: '$lg',
   display: 'flex',
   flexDirection: 'column',
@@ -159,7 +159,7 @@ const ThemePicker = styled('select', {
   fontSize: '$small',
   fontFamily: '$body',
   color: '$neutralText4',
-  bg: '$background1',
+  bg: '$surface1',
   borderWidth: '$widthMin',
   borderStyle: '$styleDefault',
   border: '$maxAlpha4',
@@ -172,7 +172,7 @@ const ThemePicker = styled('select', {
 }, { name: 'ThemePicker' })
 
 const Main = styled('main', {
-  p: '$24', flex: '1', minWidth: '0', ml: '220px',
+  p: '$24', flex: '1', minWidth: '0', ml: '220px', display: 'flex', flexDirection: 'column', gap: '$24',
 }, { name: 'Main' })
 
 // ─── Section component map ──────────────────────────────────────────────────

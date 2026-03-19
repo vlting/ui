@@ -25,7 +25,7 @@ const Phone = styled('div', {
   borderWidth: '8px',
   borderStyle: 'solid',
   borderColor: '$neutralAlpha4',
-  bg: '$background1',
+  bg: '$surface1',
   boxShadow: '$2xl',
 }, { name: 'DemoPhone' })
 
