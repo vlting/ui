@@ -59,6 +59,7 @@ const ButtonBase = styled('button', {
     },
     groupPosition: options('first', 'middle', 'last', 'only'),
     groupDirection: options('horizontal', 'vertical'),
+    pressed: { true: {} },
   },
   compoundVariants: [
     // ── Primary ────────────────────────────────────────
@@ -238,6 +239,28 @@ const ButtonBase = styled('button', {
     // ── Loading overrides disabled opacity ─────────────
     { when: { disabled: 'true', loading: 'true' }, stl: { opacity: '1', cursor: 'wait' } },
 
+    // ── Pressed state (toggle active) ──────────────────
+    // Primary
+    { when: { pressed: 'true', theme: 'primary', variant: 'solid' }, stl: { bg: '$primary10' } },
+    { when: { pressed: 'true', theme: 'primary', variant: 'subtle' }, stl: { bg: '$primary5' } },
+    { when: { pressed: 'true', theme: 'primary', variant: 'outline' }, stl: { bg: '$primary3' } },
+    { when: { pressed: 'true', theme: 'primary', variant: 'ghost' }, stl: { bg: '$primary3' } },
+    // Secondary
+    { when: { pressed: 'true', theme: 'secondary', variant: 'solid' }, stl: { bg: '$secondary10' } },
+    { when: { pressed: 'true', theme: 'secondary', variant: 'subtle' }, stl: { bg: '$secondary5' } },
+    { when: { pressed: 'true', theme: 'secondary', variant: 'outline' }, stl: { bg: '$secondary3' } },
+    { when: { pressed: 'true', theme: 'secondary', variant: 'ghost' }, stl: { bg: '$secondary3' } },
+    // Neutral
+    { when: { pressed: 'true', theme: 'neutral', variant: 'solid' }, stl: { bg: '$neutral10' } },
+    { when: { pressed: 'true', theme: 'neutral', variant: 'subtle' }, stl: { bg: '$neutral5' } },
+    { when: { pressed: 'true', theme: 'neutral', variant: 'outline' }, stl: { bg: '$neutral3' } },
+    { when: { pressed: 'true', theme: 'neutral', variant: 'ghost' }, stl: { bg: '$neutral3' } },
+    // Destructive
+    { when: { pressed: 'true', theme: 'destructive', variant: 'solid' }, stl: { bg: '$error10' } },
+    { when: { pressed: 'true', theme: 'destructive', variant: 'subtle' }, stl: { bg: '$error5' } },
+    { when: { pressed: 'true', theme: 'destructive', variant: 'outline' }, stl: { bg: '$error3' } },
+    { when: { pressed: 'true', theme: 'destructive', variant: 'ghost' }, stl: { bg: '$error3' } },
+
     // ── Grouped: position × direction (border/radius) ─
     // Horizontal
     { when: { groupPosition: 'first', groupDirection: 'horizontal' }, stl: { radiusRight: '$rectangular' } },
@@ -279,7 +302,7 @@ const ButtonBase = styled('button', {
 
 export type ButtonProps = Omit<
   ComponentPropsWithRef<typeof ButtonBase>,
-  'groupPosition' | 'groupDirection'
+  'groupPosition' | 'groupDirection' | 'pressed'
 > & {
   loading?: boolean
   prefix?: ReactNode
