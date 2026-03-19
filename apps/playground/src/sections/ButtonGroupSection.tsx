@@ -4,14 +4,6 @@ import { styled } from '@vlting/stl-react'
 
 import { ButtonRow, SectionTitle, type SectionProps } from './shared'
 
-const ColumnRow = styled('div', {
-  display: 'flex', gap: '$24',
-}, { name: 'ColumnRow' })
-
-const Column = styled('div', {
-  display: 'flex', flexDirection: 'column', gap: '$12', flex: '1',
-}, { name: 'Column' })
-
 const StateLabel = styled('span', {
   fontSize: '$small', color: '$neutralText4', fontFamily: '$code',
 }, { name: 'StateLabel' })
@@ -77,36 +69,22 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
       </Card.Header>
 
       <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$32' }}>
-        {/* ── Variants ─────────────────────────────────── */}
-        <div>
-          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Variants</SectionTitle>
-          <ColumnRow>
-            {(['solid', 'outline', 'subtle', 'ghost'] as const).map(v => (
-              <Column key={v}>
-                <StateLabel>{v}</StateLabel>
-                <ButtonGroup attached={attached} aria-label={`${v} group`}>
-                  <Button variant={v} size={size}>One</Button>
-                  <Button variant={v} size={size}>Two</Button>
-                  <Button variant={v} size={size}>Three</Button>
-                </ButtonGroup>
-              </Column>
-            ))}
-          </ColumnRow>
-        </div>
-
         {/* ── Vertical ─────────────────────────────────── */}
         <div>
           <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Vertical</SectionTitle>
           <ButtonRow>
-            <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical outline" stl={{ maxWidth: '$menuMin' }}>
-              <Button variant="outline" size={size}>One</Button>
-              <Button variant="outline" size={size}>Two</Button>
-              <Button variant="outline" size={size}>Three</Button>
+            <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical solid">
+              <Button variant="solid" square size={size}><PlusIcon /></Button>
+              <Button variant="solid" square size={size}><MinusIcon /></Button>
             </ButtonGroup>
-            <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical icons">
+            <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical outline">
               <Button variant="outline" square size={size}><PlusIcon /></Button>
               <Button variant="outline" square size={size}><MuteIcon /></Button>
               <Button variant="outline" square size={size}><MinusIcon /></Button>
+            </ButtonGroup>
+            <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical ghost">
+              <Button variant="ghost" square size={size}><PlusIcon /></Button>
+              <Button variant="ghost" square size={size}><MinusIcon /></Button>
             </ButtonGroup>
           </ButtonRow>
         </div>
