@@ -39,7 +39,7 @@ describe('Button', () => {
     })
 
     it('renders each size without errors', () => {
-      const sizes = ['xs', 'sm', 'md', 'lg', 'icon'] as const
+      const sizes = ['sm', 'md', 'lg', 'xl', 'icon'] as const
       for (const size of sizes) {
         const { unmount } = render(<Button size={size}>Btn</Button>)
         expect(screen.getByRole('button')).toBeTruthy()

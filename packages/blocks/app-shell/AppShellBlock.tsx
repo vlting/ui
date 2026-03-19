@@ -213,7 +213,7 @@ function SplitPane({
             }}
           >
             {onBack && (
-              <ButtonJsx variant="ghost" size="sm" onPress={onBack}>
+              <ButtonJsx variant="ghost" size="md" onPress={onBack}>
                 <span
                   style={{
                     fontSize: 14,

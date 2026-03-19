@@ -20,7 +20,7 @@ export function EmptySection({ sectionRef }: SectionProps) {
             Try adjusting your search or filters to find what you are looking for.
           </Empty.Description>
           <Empty.Action>
-            <Button theme="primary" variant="solid" size="sm">Reset filters</Button>
+            <Button theme="primary" variant="solid" size="md">Reset filters</Button>
           </Empty.Action>
         </Empty.Root>
       </Card.Content>

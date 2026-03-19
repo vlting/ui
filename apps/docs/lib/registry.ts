@@ -244,10 +244,10 @@ const registry: ComponentEntry[] = [
         name: 'Sizes',
         description: 'Button in all available sizes.',
         code: `<div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-  <Button size="xs"><Button.Text>Extra Small</Button.Text></Button>
   <Button size="sm"><Button.Text>Small</Button.Text></Button>
   <Button size="md"><Button.Text>Medium</Button.Text></Button>
   <Button size="lg"><Button.Text>Large</Button.Text></Button>
+  <Button size="xl"><Button.Text>Extra Large</Button.Text></Button>
 </div>`,
       },
       {

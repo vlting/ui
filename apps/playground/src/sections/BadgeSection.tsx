@@ -24,7 +24,7 @@ export function BadgeSection({ sectionRef }: SectionProps) {
           aria-label="Variant"
         >
           {BADGE_VARIANTS.map(v => (
-            <Button key={v} value={v} size="sm" variant="outline" theme="neutral">{v}</Button>
+            <Button key={v} value={v} size="md" variant="outline" theme="neutral">{v}</Button>
           ))}
         </ToggleGroup>
       </Card.Header>

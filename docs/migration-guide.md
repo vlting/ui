@@ -84,7 +84,7 @@ shadcn uses `'default'` as its default size name. @vlting/ui uses `'md'`.
 + <Button size="md">Click</Button>
 ```
 
-Available sizes are typically `'sm' | 'md' | 'lg'`.
+Available sizes are typically `'sm' | 'md' | 'lg' | 'xl'`.
 
 ## Import Path Changes
 

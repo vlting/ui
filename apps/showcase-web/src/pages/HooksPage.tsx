@@ -136,7 +136,7 @@ function UseColorModeDemo() {
       <span>
         isDark: <strong>{String(isDark)}</strong>
       </span>
-      <Button variant="outline" size="sm" onClick={toggleColorMode}>
+      <Button variant="outline" size="md" onClick={toggleColorMode}>
         Toggle
       </Button>
     </DemoRow>
@@ -185,7 +185,7 @@ function UseTransitionDemo() {
   const { style, mounted } = useTransition(visible, { enter: 300, exit: 300 })
   return (
     <div>
-      <Button variant="outline" size="sm" onClick={() => setVisible((v) => !v)}>
+      <Button variant="outline" size="md" onClick={() => setVisible((v) => !v)}>
         {visible ? 'Hide' : 'Show'}
       </Button>
       {mounted && (
@@ -210,13 +210,13 @@ function UseDisclosureDemo() {
   return (
     <div>
       <DemoRow>
-        <Button size="sm" onClick={onOpen}>
+        <Button size="md" onClick={onOpen}>
           Open
         </Button>
-        <Button size="sm" variant="outline" onClick={onClose}>
+        <Button size="md" variant="outline" onClick={onClose}>
           Close
         </Button>
-        <Button size="sm" variant="outline" onClick={onToggle}>
+        <Button size="md" variant="outline" onClick={onToggle}>
           Toggle
         </Button>
         <span>

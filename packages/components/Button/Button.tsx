@@ -42,10 +42,11 @@ const ButtonBase = styled('button', {
       link: { border: 'none' },
     },
     size: {
-      xs: { height: '$28', py: '$4', px: '$20', fontSize: '$buttonTiny' },
-      sm: { height: '$32', py: '$8', px: '$24', fontSize: '$buttonSmall' },
-      md: { height: '$36', py: '$buttonBasePy', px: '$20', fontSize: '$button' },
-      lg: { height: '$40', py: '$12', px: '$32', fontSize: '$buttonLarge' },
+      sm: { height: '$28', py: '$4', px: '$8', fontSize: '$buttonTiny' },
+      md: { height: '$32', py: '$8', px: '$12', fontSize: '$buttonSmall' },
+      lg: { height: '$36', py: '$buttonBasePy', px: '$16', fontSize: '$button' },
+      xl: { height: '$40', py: '$12', px: '$20', fontSize: '$buttonLarge' },
+      icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button' },
     },
     square: {
       true: { px: '$0', justifyContent: 'center' },
@@ -239,10 +240,11 @@ const ButtonBase = styled('button', {
     { when: { pill: 'true', square: 'true' }, stl: { radius: '$round' } },
 
     // ── Square: width = height per size ───────────────
-    { when: { square: 'true', size: 'xs' }, stl: { width: '$28' } },
-    { when: { square: 'true', size: 'sm' }, stl: { width: '$32' } },
-    { when: { square: 'true', size: 'md' }, stl: { width: '$36' } },
-    { when: { square: 'true', size: 'lg' }, stl: { width: '$40' } },
+    { when: { square: 'true', size: 'sm' }, stl: { width: '$28' } },
+    { when: { square: 'true', size: 'md' }, stl: { width: '$32' } },
+    { when: { square: 'true', size: 'lg' }, stl: { width: '$36' } },
+    { when: { square: 'true', size: 'xl' }, stl: { width: '$40' } },
+    { when: { square: 'true', size: 'icon' }, stl: { width: '$36' } },
 
     // ── Loading overrides disabled opacity ─────────────
     { when: { disabled: 'true', loading: 'true' }, stl: { opacity: '1', cursor: 'wait' } },

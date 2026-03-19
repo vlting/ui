@@ -22,16 +22,16 @@ export function ButtonSection({ sectionRef }: SectionProps) {
                   key={variant}
                   theme={theme}
                   variant={variant}
-                  size="md"
+
                   stl={{ minWidth: '$80' }}
                 >
                   {variant}
                 </Button>
               ))}
-              <Button theme={theme} variant="solid" size="md" disabled stl={{ minWidth: '$80' }}>
+              <Button theme={theme} variant="solid" disabled stl={{ minWidth: '$80' }}>
                 disabled
               </Button>
-              <Button theme={theme} variant="solid" size="md" loading stl={{ minWidth: '$80' }}>
+              <Button theme={theme} variant="solid" loading stl={{ minWidth: '$80' }}>
                 loading
               </Button>
               <Button theme={theme} variant="solid" square>
@@ -66,8 +66,7 @@ export function ButtonSection({ sectionRef }: SectionProps) {
                 pill
                 theme="primary"
                 variant={variant}
-                size="md"
-                stl={{ minWidth: '$80' }}
+                               stl={{ minWidth: '$80' }}
               >
                 {variant}
               </Button>

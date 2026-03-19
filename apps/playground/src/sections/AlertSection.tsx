@@ -26,7 +26,7 @@ export function AlertSection({ sectionRef }: SectionProps) {
             aria-label="Variant"
           >
             {ALERT_VARIANTS.map(v => (
-              <Button key={v} value={v} size="sm" variant="outline" theme="neutral">{v}</Button>
+              <Button key={v} value={v} size="md" variant="outline" theme="neutral">{v}</Button>
             ))}
           </ToggleGroup>
           <ToggleGroup
@@ -36,7 +36,7 @@ export function AlertSection({ sectionRef }: SectionProps) {
             aria-label="Elevation"
           >
             {ELEVATIONS.map(e => (
-              <Button key={e} value={e} size="sm" variant="outline" theme="neutral">{e}</Button>
+              <Button key={e} value={e} size="md" variant="outline" theme="neutral">{e}</Button>
             ))}
           </ToggleGroup>
         </div>

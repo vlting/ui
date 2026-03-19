@@ -28,7 +28,7 @@
       },
       "size": {
         "type": "string",
-        "values": ["xs", "sm", "md", "lg", "icon"],
+        "values": ["sm", "md", "lg", "xl", "icon"],
         "default": "md"
       },
       "loading": { "type": "boolean", "values": ["true", "false"] },
@@ -48,7 +48,7 @@
     "vlting uses two-axis model: theme (color palette) × variant (visual treatment)",
     "shadcn collapses theme+variant into single 'variant' prop",
     "vlting adds 'loading' prop with built-in spinner, aria-busy, and derived disabled",
-    "vlting size uses named tokens (xs, sm, md, lg, icon); shadcn uses default/sm/lg/icon",
+    "vlting size uses named tokens (sm, md, lg, xl, icon); shadcn uses default/sm/lg/icon",
     "Web uses styled('button') with compoundVariants, mapProps, and template",
     "Native uses styled(Pressable) with compound component pattern (Button.Text, Button.Icon)",
     "Web prefix/suffix slots replace shadcn's asChild pattern for icon placement",
