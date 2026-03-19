@@ -24,34 +24,57 @@ import {
   getTextColor,
 } from '../packages/stl/src/shared/utils/colorGen.utils'
 
-// OKLCH parsing and color math
+// HSL parsing and color math
 
-function parseOKLCH(color: string): { l: number; c: number; h: number } | null {
-  const m = color.match(/oklch\(([.\d]+)\s+([.\d]+)\s+([.\d]+)\)/)
+function parseHSL(hsl: string): { h: number; s: number; l: number } | null {
+  const m = hsl.match(/hsl\((\d+),(\d+)%,([.\d]+)%/)
   if (!m) return null
-  return { l: +m[1], c: +m[2], h: +m[3] }
+  return { h: +m[1], s: +m[2], l: +m[3] }
 }
 
-function oklchToLinearRgb(l: number, c: number, h: number): [number, number, number] {
-  const hRad = (h * Math.PI) / 180
-  const a = c * Math.cos(hRad)
-  const b = c * Math.sin(hRad)
-  const l_ = l + 0.3963377774 * a + 0.2158037573 * b
-  const m_ = l - 0.1055613458 * a - 0.0638541728 * b
-  const s_ = l - 0.0894841775 * a - 1.2914855480 * b
-  const lCubed = l_ * l_ * l_
-  const mCubed = m_ * m_ * m_
-  const sCubed = s_ * s_ * s_
-  const r = +4.0767416621 * lCubed - 3.3077115913 * mCubed + 0.2309699292 * sCubed
-  const g = -1.2684380046 * lCubed + 2.6097574011 * mCubed - 0.3413193965 * sCubed
-  const bl = -0.0041960863 * lCubed - 0.7034186147 * mCubed + 1.7076147010 * sCubed
-  return [r, g, bl]
+function sRGBtoLinear(c: number): number {
+  return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4
 }
 
-function oklchToLuminance(l: number, c: number, h: number): number {
-  const [r, g, b] = oklchToLinearRgb(l, c, h)
-  const clamp = (v: number) => Math.max(0, Math.min(1, v))
-  return 0.2126 * clamp(r) + 0.7152 * clamp(g) + 0.0722 * clamp(b)
+function hslToLuminance(h: number, s: number, l: number): number {
+  s /= 100
+  l /= 100
+  const c = (1 - Math.abs(2 * l - 1)) * s
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1))
+  const m = l - c / 2
+  let r = 0,
+    g = 0,
+    b = 0
+  if (h < 60) {
+    r = c
+    g = x
+    b = 0
+  } else if (h < 120) {
+    r = x
+    g = c
+    b = 0
+  } else if (h < 180) {
+    r = 0
+    g = c
+    b = x
+  } else if (h < 240) {
+    r = 0
+    g = x
+    b = c
+  } else if (h < 300) {
+    r = x
+    g = 0
+    b = c
+  } else {
+    r = c
+    g = 0
+    b = x
+  }
+  return (
+    0.2126 * sRGBtoLinear(r + m) +
+    0.7152 * sRGBtoLinear(g + m) +
+    0.0722 * sRGBtoLinear(b + m)
+  )
 }
 
 function contrastRatio(l1: number, l2: number): number {
@@ -60,7 +83,7 @@ function contrastRatio(l1: number, l2: number): number {
   return (lighter + 0.05) / (darker + 0.05)
 }
 
-// Generate palette as raw OKLCH strings
+// Generate palette as raw HSL strings
 
 function generatePalette(mode: ColorMode): ColorPalette<string> {
   const palette = generateThemeColors<string>(
@@ -76,10 +99,10 @@ function generatePalette(mode: ColorMode): ColorPalette<string> {
     },
   )
 
-  // Resolve mapped colors (stored as reference keys, not oklch)
+  // Resolve mapped colors (stored as reference keys, not HSL)
   for (const key of Object.keys(palette)) {
     const val = palette[key as ThemeColor]
-    if (val && !val.startsWith('oklch(')) {
+    if (val && !val.startsWith('hsl(')) {
       const resolved = palette[val as ThemeColor]
       if (resolved) palette[key as ThemeColor] = resolved
     }
@@ -87,10 +110,10 @@ function generatePalette(mode: ColorMode): ColorPalette<string> {
 
   // Static min/max
   if (!palette['min' as ThemeColor]) {
-    palette['min' as ThemeColor] = mode === 'light' ? 'oklch(1 0 0)' : 'oklch(0 0 0)'
+    palette['min' as ThemeColor] = mode === 'light' ? 'hsl(0,0%,100%)' : 'hsl(0,0%,0%)'
   }
   if (!palette['max' as ThemeColor]) {
-    palette['max' as ThemeColor] = mode === 'light' ? 'oklch(0 0 0)' : 'oklch(1 0 0)'
+    palette['max' as ThemeColor] = mode === 'light' ? 'hsl(0,0%,0%)' : 'hsl(0,0%,100%)'
   }
 
   return palette
@@ -142,12 +165,12 @@ for (const mode of modes) {
 
       if (!bgHSL || !fgHSL) continue
 
-      const bgParsed = parseOKLCH(bgHSL)
-      const fgParsed = parseOKLCH(fgHSL)
+      const bgParsed = parseHSL(bgHSL)
+      const fgParsed = parseHSL(fgHSL)
       if (!bgParsed || !fgParsed) continue
 
-      const bgLum = oklchToLuminance(bgParsed.l, bgParsed.c, bgParsed.h)
-      const fgLum = oklchToLuminance(fgParsed.l, fgParsed.c, fgParsed.h)
+      const bgLum = hslToLuminance(bgParsed.h, bgParsed.s, bgParsed.l)
+      const fgLum = hslToLuminance(fgParsed.h, fgParsed.s, fgParsed.l)
       const ratio = contrastRatio(bgLum, fgLum)
 
       // WCAG AA: 4.5:1 for normal text, 3:1 for large text/UI
