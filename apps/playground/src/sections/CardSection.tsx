@@ -12,7 +12,7 @@ export function CardSection({ sectionRef }: SectionProps) {
   const [flush, setFlush] = useState(false)
 
   return (
-    <UiCard stl={{ mt: '$24', bg: '$background2' }} ref={sectionRef} data-section="Card">
+    <UiCard ref={sectionRef} data-section="Card">
       <UiCard.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <UiCard.Title>Card</UiCard.Title>
         <div style={{ display: 'flex', gap: 8 }}>
@@ -26,10 +26,10 @@ export function CardSection({ sectionRef }: SectionProps) {
               <Button key={e} value={e} size="md" variant="outline" theme="neutral">{e}</Button>
             ))}
           </ToggleGroup>
-          <Toggle size="sm" variant="outline" theme="neutral" pressed={interactive} onPressedChange={setInteractive}>
+          <Toggle size="md" variant="outline" theme="neutral" pressed={interactive} onPressedChange={setInteractive}>
             interactive
           </Toggle>
-          <Toggle size="sm" variant="outline" theme="neutral" pressed={flush} onPressedChange={setFlush}>
+          <Toggle size="md" variant="outline" theme="neutral" pressed={flush} onPressedChange={setFlush}>
             flush
           </Toggle>
         </div>

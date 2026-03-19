@@ -72,7 +72,7 @@ export function ItemSection({ sectionRef }: SectionProps) {
   const [showActions, setShowActions] = useState(true)
 
   return (
-    <Card ref={sectionRef} data-section="Item" stl={{ mt: '$24' }}>
+    <Card ref={sectionRef} data-section="Item">
       <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <Card.Title>Item</Card.Title>
         <ToggleRow>
@@ -106,10 +106,10 @@ export function ItemSection({ sectionRef }: SectionProps) {
               <Button key={a} value={a} size="md" variant="outline" theme="neutral">{a}</Button>
             ))}
           </ToggleGroup>
-          <Toggle size="sm" variant="outline" theme="neutral" pressed={interactive} onPressedChange={setInteractive}>interactive</Toggle>
-          <Toggle size="sm" variant="outline" theme="neutral" pressed={showMedia} onPressedChange={setShowMedia}>media</Toggle>
-          <Toggle size="sm" variant="outline" theme="neutral" pressed={showDescription} onPressedChange={setShowDescription}>description</Toggle>
-          <Toggle size="sm" variant="outline" theme="neutral" pressed={showActions} onPressedChange={setShowActions}>actions</Toggle>
+          <Toggle size="md" variant="outline" theme="neutral" pressed={interactive} onPressedChange={setInteractive}>interactive</Toggle>
+          <Toggle size="md" variant="outline" theme="neutral" pressed={showMedia} onPressedChange={setShowMedia}>media</Toggle>
+          <Toggle size="md" variant="outline" theme="neutral" pressed={showDescription} onPressedChange={setShowDescription}>description</Toggle>
+          <Toggle size="md" variant="outline" theme="neutral" pressed={showActions} onPressedChange={setShowActions}>actions</Toggle>
         </ToggleRow>
       </Card.Header>
       <Card.Content>

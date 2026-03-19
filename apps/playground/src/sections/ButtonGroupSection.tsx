@@ -50,12 +50,12 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
   const [formats, setFormats] = useState<string[]>([])
 
   return (
-    <Card ref={sectionRef} data-section="ButtonGroup" stl={{ mt: '$24' }}>
+    <Card ref={sectionRef} data-section="ButtonGroup">
       <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Card.Title>ButtonGroup</Card.Title>
         <ToggleRow>
           <Toggle
-            size="sm"
+            size="md"
             variant="outline"
             theme="neutral"
             pressed={attached}
