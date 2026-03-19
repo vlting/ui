@@ -292,6 +292,14 @@ const ButtonBase = styled('button', {
     { when: { groupPosition: 'middle' }, stl: { ':pressed': { transform: 'none' } } },
     { when: { groupPosition: 'last' }, stl: { ':pressed': { transform: 'none' } } },
 
+    // ── Pill + grouped: keep pill radius on exposed side ─
+    // Horizontal
+    { when: { pill: 'true', groupPosition: 'first', groupDirection: 'horizontal' }, stl: { radiusLeft: '$pill' } },
+    { when: { pill: 'true', groupPosition: 'last', groupDirection: 'horizontal' }, stl: { radiusRight: '$pill' } },
+    // Vertical
+    { when: { pill: 'true', groupPosition: 'first', groupDirection: 'vertical' }, stl: { radiusTop: '$pill' } },
+    { when: { pill: 'true', groupPosition: 'last', groupDirection: 'vertical' }, stl: { radiusBottom: '$pill' } },
+
     // ── Grouped: outline z-index lift on interact/focus ─
     { when: { groupPosition: 'first', variant: 'outline' }, stl: { ':interact': { position: 'relative', zIndex: 1 }, ':focus': { position: 'relative', zIndex: 1 } } },
     { when: { groupPosition: 'middle', variant: 'outline' }, stl: { ':interact': { position: 'relative', zIndex: 1 }, ':focus': { position: 'relative', zIndex: 1 } } },
