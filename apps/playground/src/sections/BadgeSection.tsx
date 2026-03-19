@@ -14,7 +14,7 @@ export function BadgeSection({ sectionRef }: SectionProps) {
   const [variant, setVariant] = useState<BadgeVariant>('outline')
 
   return (
-    <Card ref={sectionRef} data-section="Badge" stl={{ mt: '$24' }}>
+    <Card ref={sectionRef} data-section="Badge">
       <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Card.Title>Badge</Card.Title>
         <ToggleGroup
