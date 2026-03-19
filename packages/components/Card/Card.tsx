@@ -23,7 +23,7 @@ const CardRoot = styled('article', {
       lg: { p: '$20' },
     },
     elevation: {
-      flat: { border: '$neutralLow' },
+      flat: { border: '$neutralMin' },
       normal: { boxShadow: '$md' },
       raised: { boxShadow: '$xl' },
       glass: {
