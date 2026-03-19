@@ -16,7 +16,7 @@
 - **Expected user mental model:** "I press this and something happens." The button should look and behave like every other button the user has encountered across the web and native platforms (Jakob's Law).
 - **UX laws applied:**
   - **Jakob's Law** — Button must follow standard platform button conventions (shape, feedback, disabled appearance).
-  - **Fitts's Law** — Multiple size variants (`xs`, `sm`, `md`, `lg`, `icon`) ensure adequate touch/click target sizes. The `lg` variant must be preferred for primary or mobile-first contexts.
+  - **Fitts's Law** — Multiple size variants (`sm`, `md`, `lg`, `xl`, `icon`) ensure adequate touch/click target sizes. The `xl` variant must be preferred for primary or mobile-first contexts.
   - **Hick's Law** — `theme` and `variant` props establish clear visual hierarchy, reducing decision time.
   - **Doherty Threshold** — Press feedback and loading spinner must appear within a single animation frame to maintain perceived responsiveness.
 
@@ -24,20 +24,21 @@
 
 ## 3. Anatomy
 
-Button is created via `styled('button', opts)` directly — there is no `ButtonFrame` wrapper. The `styled()` call handles `forwardRef` implicitly. It uses the options API with a `template` for rendering children, loading spinner, prefix, and suffix slots.
+Button uses a `styled('button', opts)` base (`ButtonBase`) wrapped in an explicit `forwardRef` component that handles `loading`, `prefix`, and `suffix` props.
 
 ### Internal sub-elements
 
 - **`ButtonSpinner`** — `styled('span')` with `position: 'absolute'`, `display: 'flex'`, centered. Renders the `<Spinner>` overlay during loading.
 - **`ButtonContent`** — `styled('span')` with `display: 'contents'`. Wraps `prefix`, `children`, and `suffix`. Has a `hidden` variant that sets `visibility: 'hidden'` during loading (so layout is preserved while spinner shows).
 
-### Two-axis variant model
+### Variant model
 
 - **`theme`** — Controls which color palette is used: `primary | secondary | neutral | destructive`.
 - **`variant`** — Controls how colors are applied: `solid | subtle | outline | ghost | link`.
-- **`size`** — Controls dimensions: `xs | sm | md | lg | icon`.
+- **`size`** — Controls dimensions: `sm | md | lg | xl | icon`.
+- **`pill`** — Controls border shape. When `true`, applies `$pill` radius (fully-rounded ends). When combined with `size: 'icon'`, resolves to `$round` (circle). Default: `false`.
 
-Default: `{ theme: 'primary', variant: 'solid', size: 'md' }`.
+Default: `{ theme: 'primary', variant: 'solid', size: 'md', pill: false }`.
 
 ### Color token pattern
 
@@ -50,22 +51,24 @@ All colors use the `$colorN` + `$colorTextN` pairing pattern (global to `@vlting
 Compound variant step mapping:
 - **solid** — `$color9`/`$colorText9` idle, `$color10`/`$colorText10` on interact. Focus outline: `$colorMax`.
 - **subtle** — `$color3`/`$colorText3` idle, `$color9`/`$colorText9` on interact. Focus outline: `$color`.
-- **outline** — Transparent bg + `$color` border, `$colorText1` text. Interact: `$color9`/`$colorText9` bg. Focus outline: `$color`.
+- **outline** — Transparent bg + `$color9` border (`$widthMin`), `$colorText1` text. Interact: `$color9`/`$colorText9` bg. Focus outline: `$color`.
 - **ghost** — Transparent bg, `$colorText1` text. Interact: `$color9`/`$colorText9` bg. Focus outline: `$color`.
 - **link** — Transparent bg, `$colorText1` text, underline, `px: $0`. Interact: `$color9`/`$colorText9` bg. Focus outline: `$color`.
 
 All variants have hover/focus states with a background color change. Focus also shows an outline ring.
 
-### Template slots
+### Content slots
 
-The `template` function renders:
+The `forwardRef` component renders:
 - `prefix` — Optional leading content (icon, etc.)
-- `children` — Main label content (replaced by `Spinner` when loading)
+- `children` — Main label content
 - `suffix` — Optional trailing content
+
+All wrapped in a `ButtonContent` span with `display: contents`.
 
 ### Loading state
 
-When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner>` and `<VisuallyHidden>Loading</VisuallyHidden>` is rendered above the content. The `ButtonContent` wrapper gets `hidden` (visibility: hidden) to preserve layout while hiding text. The button becomes disabled. `aria-busy` is set.
+When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner size="sm">` and `<VisuallyHidden>Loading</VisuallyHidden>` is rendered above the content. The `ButtonContent` wrapper gets `hidden` (visibility: hidden) to preserve layout while hiding text. The button becomes disabled (`disabled={disabled ?? loading ?? false}`). `aria-busy` is set.
 
 > **TypeScript is the source of truth for props.** See `ButtonProps` in `Button.tsx` for the full typed API.
 
@@ -114,6 +117,7 @@ When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner>` and `<Visua
 - **Focus:** `$outlineColor` for ring, `$widthBase` width, `$offsetDefault` offset.
 - **Reduced motion:** `lowMotion` condition zeroes transitions and transforms.
 - **Dark mode:** All tokens resolve per color mode. No hardcoded hex/pixel values.
+- **Shape tokens:** `$pill` (400rem) for pill radius, `$round` (50%) for icon+pill circle. Both from the `radius` scale.
 
 ---
 
@@ -121,6 +125,7 @@ When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner>` and `<Visua
 
 - **What can contain this component:** Any layout primitive, form containers.
 - **What this component can contain:** Text, icons, or any ReactNode via `children`, `prefix`, `suffix`.
+- **Shape:** For pill-shaped buttons use the `pill` prop. For other radius overrides use `stl={{ radius: '$token' }}`.
 - **Anti-patterns:**
   - Do not nest interactive elements inside Button.
   - Do not use Button as a layout container.
@@ -136,6 +141,7 @@ When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner>` and `<Visua
 - Removing `aria-busy` when loading.
 - Changing loading behavior (replacing children with Spinner).
 - Removing ref forwarding or changing underlying element.
+- Removing `pill` prop from `ButtonProps`.
 
 ---
 
@@ -148,8 +154,10 @@ When `loading` is `true`, a `ButtonSpinner` overlay with `<Spinner>` and `<Visua
   - Disabled behavior when `loading` is `true` (derived disabled).
   - Each theme (`primary`, `secondary`, `neutral`, `destructive`) renders without errors.
   - Each variant (`solid`, `subtle`, `outline`, `ghost`, `link`) renders without errors.
-  - Each size (`xs`, `sm`, `md`, `lg`, `icon`) renders without errors.
+  - Each size (`sm`, `md`, `lg`, `xl`, `icon`) renders without errors.
   - `prefix` and `suffix` render alongside children.
+  - Renders with pill radius when `pill` is `true`.
+  - Renders as circle when `pill` and `size='icon'`.
 - **Accessibility tests:**
   - Renders as native `<button>` with `type="button"`.
   - `aria-busy` set when loading.
@@ -174,3 +182,4 @@ Web and native implementations intentionally diverge. This is by design, not a b
 | **Ref forwarding** | Implicit via `styled()` | Explicit `forwardRef` wrapper |
 | **Loading indicator** | `<Spinner>` + `<VisuallyHidden>` in `ButtonSpinner` overlay | `<ActivityIndicator>` replacing children |
 | **Sub-elements** | `ButtonSpinner`, `ButtonContent` (internal) | `ButtonFrame`, `ButtonTextFrame`, `ButtonIconFrame` (internal); `Button.Text`, `Button.Icon` (public) |
+| **Pill shape** | `$pill` (400rem) / `$round` (50%) tokens via STL | `borderRadius: 9999` (raw value, existing native pattern) |

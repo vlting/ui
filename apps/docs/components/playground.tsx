@@ -158,10 +158,11 @@ const playgroundConfigs: Record<string, PlaygroundConfig> = {
         defaultValue: 'md',
       },
       {
-        prop: 'elevated',
-        type: 'boolean',
-        label: 'Elevated',
-        defaultValue: false,
+        prop: 'variant',
+        type: 'select',
+        label: 'Variant',
+        options: ['elevated', 'flat'],
+        defaultValue: 'elevated',
       },
       {
         prop: 'interactive',
@@ -444,7 +445,7 @@ export function getPlaygroundConfig(slug: string): PlaygroundConfig | undefined 
 
 // Styled components
 const Container = styled('div', { stl: {
-  border: '$thin $borderColor',
+  border: '$neutralMin',
   borderRadius: '$4',
   overflow: 'hidden',
 }})
@@ -452,7 +453,7 @@ const Container = styled('div', { stl: {
 const TitleBar = styled('div', { stl: {
   px: '$2.5',
   py: '$1',
-  borderBottom: '$thin $borderColor',
+  borderBottom: '$neutralMin',
   background: '$background1',
 }})
 
@@ -469,11 +470,11 @@ const GridLayout = styled('div', { stl: {
 
 const ControlsPanel = styled('div', { stl: {
   padding: '$2.5',
-  borderBottom: '$thin $borderColor',
+  borderBottom: '$neutralMin',
   background: '$background1',
   gtMd: {
     borderBottom: 'none',
-    borderRight: '$thin $borderColor',
+    borderRight: '$neutralMin',
   },
 }})
 
@@ -493,8 +494,8 @@ const ControlLabel = styled('label', { stl: {
 const ControlSelect = styled('select', { stl: {
   width: '100%',
   borderRadius: '$3',
-  border: '$thin $borderColor',
-  background: '$background',
+  border: '$neutralMin',
+  bg: '$min',
   px: '$1',
   py: 4,
   fontSize: '$p',
@@ -517,8 +518,8 @@ const CheckboxText = styled('span', { stl: {
 const TextInput = styled('input', { stl: {
   width: '100%',
   borderRadius: '$3',
-  border: '$thin $borderColor',
-  background: '$background',
+  border: '$neutralMin',
+  bg: '$min',
   px: '$1',
   py: 4,
   fontSize: '$p',
@@ -529,7 +530,7 @@ const PreviewArea = styled('div', { stl: {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  background: '$background',
+  bg: '$min',
   backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px)',
   backgroundSize: '16px 16px',
   minHeight: 200,
@@ -539,7 +540,7 @@ const PreviewArea = styled('div', { stl: {
 }})
 
 const CodeSection = styled('div', { stl: {
-  borderTop: '$thin $borderColor',
+  borderTop: '$neutralMin',
   padding: '$2.5',
   background: '$background1',
 }})
@@ -584,7 +585,7 @@ function renderPlayground(
       return (
         <Card
           size={props.size as string}
-          elevated={props.elevated as boolean}
+          variant={props.variant as 'elevated' | 'flat'}
           interactive={props.interactive as boolean}
         >
           <Card.Header>

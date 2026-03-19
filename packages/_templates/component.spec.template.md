@@ -1,110 +1,322 @@
-# Component Spec — {ComponentName}
+<!-- spec-version: 2 -->
 
-> **Baseline**: This component must satisfy all requirements in [`QUALITY_BASELINE.md`](../QUALITY_BASELINE.md).
+# Component Specification Template
 
-## 1. Purpose
-
-- What this component is for
-- When to use it (expected use cases)
-- When NOT to use it (anti-patterns, wrong tool for the job)
+## Component Name
+<ComponentName>
 
 ---
 
-## 2. UX Intent
+## Purpose
+Describe the role of this component in the design system.
 
-- **Primary interaction goal:** What the user is trying to accomplish
-- **Expected user mental model:** How the user thinks about this element
-- **UX laws applied:** Cite only those relevant to this component
-  - **Jakob's Law** — follows familiar patterns from similar products
-  - **Fitts's Law** — interactive targets are appropriately sized
-  - **Hick's Law** — choices are clear and limited
-  - **Gestalt Principles** — grouping, proximity, alignment
-  - **Miller's Law** — chunked information within working memory limits
-  - **Tesler's Law** — complexity is managed by the component, not the user
-  - **Doherty Threshold** — feedback appears within 400ms
-  - **Peak-End Rule** — completion and error states are handled well
+Constraints:
+- Must align with the existing design system.
+- Must use existing theme tokens.
+- Must not introduce arbitrary spacing, colors, typography, or radii.
 
 ---
 
-## 3. Anatomy
+## Supported Platforms
 
-- Sub-components and their roles (e.g., `Button.Text`, `Button.Icon`)
-- Required vs optional parts
-- Relationship between sub-components
+Indicate supported targets.
 
-> **TypeScript is the source of truth for props.** See `{ComponentName}Props` in `{ComponentName}.tsx` for the full typed API. Do not duplicate prop tables here.
+- [ ] React (web)
+- [ ] React Native
+- [ ] Other:
 
----
-
-## 4. Behavior
-
-### States
-
-List all states the component can be in and describe the visual + functional behavior for each:
-
-- **Idle** — default appearance
-- **Hover** — visual feedback on mouse over
-- **Focus** — visible focus indicator (see QUALITY_BASELINE.md for standard)
-- **Active (press)** — feedback during activation
-- **Disabled** — non-interactive appearance and behavior
-- **Loading** — in-progress state (if applicable)
-- **Error** — invalid or failed state (if applicable)
-
-### Keyboard Interaction
-
-- Which keys do what (Tab, Enter, Space, Escape, Arrow keys)
-- Reference WAI-ARIA APG pattern if applicable: https://www.w3.org/WAI/ARIA/apg/patterns/
-- Controlled vs uncontrolled behavior (if applicable)
-
-### Motion
-
-- What animates and why (state transitions, micro-interactions)
-- `prefers-reduced-motion` behavior
+Notes:
+- Platform differences must be explicitly documented.
+- Shared behavior should remain consistent across platforms.
 
 ---
 
-## 5. Accessibility
+## Design System Constraints
 
-- **Semantic element:** Which HTML element is rendered and why
-- **ARIA attributes:** Required attributes with rationale (only when native semantics are insufficient)
-- **Focus management:** Where focus goes on open/close/error, return focus behavior
-- **Screen reader announcements:** What is announced, in what order
-- **Contrast:** Reference QUALITY_BASELINE.md for standard ratios; note any component-specific contrast considerations
+The component **must adhere to the design system layer**.
 
----
+Rules:
 
-## 6. Styling
+1. Only use **existing design tokens**.
+2. Do not introduce raw values (colors, spacing, typography, radii).
+3. If a required token does not exist:
+   - Document it under **Required Token Additions**.
+   - Do not invent a value.
 
-- **Design tokens used:** Which token categories and specific tokens (color, space, radius, font)
-- **Responsive behavior:** How the component adapts across breakpoints
-- **Reduced motion:** How animations degrade with `prefers-reduced-motion`
-- **Dark mode:** Any dark-mode-specific considerations beyond standard token resolution
+Required Token Additions (if any):
 
----
-
-## 7. Composition
-
-- **What can contain this component:** Parent contexts where this component is valid
-- **What this component can contain:** Valid children and nested elements
-- **Anti-patterns:** Invalid or discouraged compositions
+```
+<token_name>
+<token_purpose>
+```
 
 ---
 
-## 8. Breaking Change Criteria
+## Component API
 
-What constitutes a breaking change for this component:
+Provide the public component interface.
 
-- Removing or renaming a prop
-- Changing a prop's type signature
-- Changing the rendered HTML element
-- Removing keyboard interaction
-- Changing ARIA semantics
-- Removing a sub-component
+```ts
+type <ComponentName>Props = {
+  /* props */
+}
+```
+
+Include:
+
+- optional vs required props
+- default values
+- controlled vs uncontrolled behavior if applicable
+
+Defaults:
+
+```
+<prop>: <default_value>
+```
 
 ---
 
-## 9. Test Requirements
+## Composition Model
 
-- **Behavioral tests:** What to assert about rendering, state changes, and callbacks
-- **Accessibility tests:** ARIA attributes, keyboard interaction, focus management
-- **Visual regression:** Key states to capture (if applicable)
+Describe how the component is intended to be composed.
+
+Examples:
+
+```
+<ComponentName>
+  ...
+</ComponentName>
+```
+
+If the component supports slots, subcomponents, or compound patterns, document them here.
+
+---
+
+## Layout Rules
+
+Describe layout behavior without inventing tokens.
+
+Topics to define if relevant:
+
+- internal spacing
+- alignment
+- icon placement
+- content flow
+- min/max dimensions
+- intrinsic vs container-driven sizing
+
+All layout decisions must use design tokens.
+
+---
+
+## Variants
+
+List supported variants if applicable.
+
+```
+variant:
+  - <variant_name>
+  - <variant_name>
+```
+
+Variant rules:
+
+- Each variant must map to design tokens.
+- Variants must not introduce new visual primitives.
+
+Variant behavior:
+
+```
+<variant_name>
+description:
+token usage:
+interaction differences:
+```
+
+---
+
+## Size Options
+
+Document size variants if applicable.
+
+```
+size:
+  - <size_name>
+  - <size_name>
+```
+
+Define how size affects:
+
+- padding
+- typography
+- icon size
+- layout
+
+All values must come from tokens.
+
+---
+
+## States
+
+Document all supported states.
+
+```
+states:
+  - default
+  - hover
+  - focus-visible
+  - active
+  - disabled
+  - loading
+  - pressed
+  - selected
+  - other:
+```
+
+For each state describe:
+
+```
+state:
+behavior:
+visual_changes:
+token_usage:
+interaction_rules:
+```
+
+---
+
+## Interaction Model
+
+Describe how users interact with the component.
+
+Topics:
+
+- pointer interaction
+- keyboard interaction
+- gesture interaction (mobile)
+- focus behavior
+- event triggers
+
+---
+
+## Accessibility
+
+Document accessibility requirements.
+
+Topics to specify:
+
+- semantic role
+- ARIA attributes
+- screen reader expectations
+- keyboard support
+- focus management
+
+---
+
+## Platform Implementation Notes
+
+### React (Web)
+
+Notes such as:
+
+- semantic elements
+- browser behavior constraints
+- focus handling
+- event propagation
+
+### React Native
+
+Notes such as:
+
+- gesture handling
+- platform parity differences
+- accessibility mapping
+
+---
+
+## Theming Behavior
+
+Describe how the component interacts with the theme system.
+
+Topics:
+
+- which tokens it consumes
+- which tokens may vary by theme
+- whether it supports contextual theming
+
+Do not define token values.
+
+---
+
+## Edge Cases
+
+Document unusual scenarios the component must handle.
+
+Examples:
+
+- long content
+- no content
+- icon-only usage
+- nested layouts
+- async states
+- dynamic resizing
+
+---
+
+## Stories / Preview Cases
+
+List preview cases for Storybook or similar tools.
+
+```
+<ComponentName> / Default
+<ComponentName> / Variants
+<ComponentName> / Sizes
+<ComponentName> / States
+<ComponentName> / Edge Cases
+```
+
+---
+
+## Test Requirements
+
+Define required tests.
+
+Examples:
+
+- state transitions
+- keyboard interaction
+- accessibility checks
+- layout stability
+- token usage verification
+
+---
+
+## Implementation Constraints
+
+Rules for implementation:
+
+- Must not hardcode visual values.
+- Must consume design tokens.
+- Must support theming infrastructure.
+- Must not introduce styling outside the system primitives.
+- Must follow existing component architecture patterns.
+
+---
+
+## Open Questions
+
+Document unresolved design or API decisions.
+
+```
+<Question>
+```
+
+---
+
+## Change Log
+
+```
+version:
+changes:
+reason:
+```

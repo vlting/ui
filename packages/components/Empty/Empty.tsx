@@ -4,47 +4,34 @@ import { styled } from '../../stl-react/src/config'
 // ─── Empty ──────────────────────────────────────────────────────────────────
 
 const EmptyRoot = styled('section', {
-  stl: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-    gap: '$12',
-    p: '$24',
-    fontFamily: '$body',
-  },
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  textAlign: 'center',
+  gap: '$12',
+  p: '$24',
+  fontFamily: '$body',
+}, {
+  name: 'Empty',
   mapProps: (props) => ({
     ...props,
     role: 'status',
   }),
-  styleName: 'Empty',
 })
 
 const EmptyMedia = styled('figure', {
-  stl: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '$neutralText3',
-  },
-  styleName: 'EmptyMedia',
-})
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: '$neutralText3',
+}, { name: 'EmptyMedia' })
 
-const EmptyTitle = styled('h3', {
-  stl: { fontWeight: '$600', fontSize: '$h4', m: '$0', color: '$neutralText3' },
-  styleName: 'EmptyTitle',
-})
+const EmptyTitle = styled('h3', { fontWeight: '$600', fontSize: '$h4', m: '$0', color: '$neutralText3' }, { name: 'EmptyTitle' })
 
-const EmptyDescription = styled('p', {
-  stl: { fontSize: '$p', m: '$0', maxWidth: '400px', color: '$neutralText4' },
-  styleName: 'EmptyDescription',
-})
+const EmptyDescription = styled('p', { fontSize: '$p', m: '$0', maxWidth: '400px', color: '$neutralText4' }, { name: 'EmptyDescription' })
 
-const EmptyAction = styled('footer', {
-  stl: { display: 'flex', gap: '$8', mt: '$4' },
-  styleName: 'EmptyAction',
-})
+const EmptyAction = styled('footer', { display: 'flex', gap: '$8', mt: '$4' }, { name: 'EmptyAction' })
 
 export const Empty = {
   Root: EmptyRoot,
@@ -55,3 +42,8 @@ export const Empty = {
 }
 
 export type EmptyProps = ComponentPropsWithRef<typeof EmptyRoot>
+export type EmptyRootProps = EmptyProps
+export type EmptyTitleProps = ComponentPropsWithRef<typeof EmptyTitle>
+export type EmptyDescriptionProps = ComponentPropsWithRef<typeof EmptyDescription>
+export type EmptyMediaProps = ComponentPropsWithRef<typeof EmptyMedia>
+export type EmptyActionProps = ComponentPropsWithRef<typeof EmptyAction>

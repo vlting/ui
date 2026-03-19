@@ -19,9 +19,13 @@
 
 ## 3. Anatomy
 
-Single element — `styled(TText)` with three independent variant groups: `size`, `tone`, and `weight`. All are composable (e.g., `size="lg" tone="danger" weight="bold"`).
+Compound component — base `Text` renders `<p>` with three independent variant groups: `size`, `tone`, and `weight`. All are composable (e.g., `size="lg" tone="danger" weight="bold"`).
 
-> **TypeScript is the source of truth for props.** See `Text.tsx` for the full typed API. Do not duplicate prop tables here.
+Sub-components are added **only when the HTML element changes**:
+- `Text.Small` — renders `<small>`, fixed styles (no variants)
+- `Text.Code` — renders `<code>`, mono font with subtle background (no variants)
+
+> **TypeScript is the source of truth for props.** See `Text.ts` for the full typed API. Do not duplicate prop tables here.
 
 ---
 
@@ -43,7 +47,7 @@ None.
 
 ## 5. Accessibility
 
-- **Semantic element:** Renders `<span>` (STL Text default on web) or React Native `Text`.
+- **Semantic element:** Base `Text` renders `<p>`. `Text.Small` renders `<small>`. `Text.Code` renders `<code>`.
 - **ARIA attributes:** None by default. When `tone` conveys status meaning (success, warning, danger), the consumer must ensure the meaning is communicated non-visually (WCAG 1.4.1 — not through color alone).
 - **Contrast:** All tone color tokens must meet WCAG AA (4.5:1 for sizes xs–md; 3:1 for large text at lg–xl). The `muted` tone (`$colorSubtitle`) must still meet minimum contrast.
 
@@ -54,7 +58,7 @@ None.
 - **Design tokens used:**
   - `fontFamily: '$body'`, `color: '$color'`
   - Size variants (`xs`–`xl`): mapped to `fontSize`/`lineHeight` token pairs. Default: `md`.
-  - Tone variants: `neutral` (`$color`), `muted` (`$colorSubtitle`), `primary` (`$color10`), `success` (`$green10`), `warning` (`$orange10`), `danger` (`$red10`)
+  - Tone variants: `neutral` (`$color`), `muted` (`$colorSubtitle`), `primary` (`$color10`), `success` (`$forest10`), `warning` (`$amber10`), `danger` (`$tomato10`)
   - Weight variants: `light` (`'300'`), `normal` (`'400'`), `medium` (`'500'`), `semibold` (`'600'`), `bold` (`'700'`)
 - **Responsive behavior:** Supports all STL responsive and media-query props.
 - **Dark mode:** All color tokens resolve to appropriate dark theme values automatically.
@@ -80,5 +84,5 @@ None.
 
 ## 9. Test Requirements
 
-- **Behavioral tests:** Verify default size is `md`. Verify each size variant applies correct `fontSize`/`lineHeight`. Verify each tone applies correct color token. Verify each weight applies correct `fontWeight`. Verify variants compose correctly.
+- **Behavioral tests:** Verify default size is `md`. Verify each size variant applies correct `fontSize`/`lineHeight`. Verify each tone applies correct color token. Verify each weight applies correct `fontWeight`. Verify variants compose correctly. Verify `Text.Small` renders `<small>`. Verify `Text.Code` renders `<code>`.
 - **Accessibility tests:** Verify no role is set by default. Verify `muted` tone meets contrast requirements (theme-level verification).

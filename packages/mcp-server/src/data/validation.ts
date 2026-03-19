@@ -23,14 +23,14 @@ const rules: ValidationRule[] = [
     pattern:
       /(?:color|backgroundColor|borderColor|background)\s*[:=]\s*["']#[0-9a-fA-F]{3,8}["']/g,
     message: 'Hardcoded color value detected. Use semantic tokens instead.',
-    suggestion: 'Replace with a token like "$color", "$background", "$borderColor"',
+    suggestion: 'Replace with a palette token like "$neutral12", "$min", "$neutral4"',
   },
   {
     name: 'no-hardcoded-rgb',
     pattern:
       /(?:color|backgroundColor|borderColor|background)\s*[:=]\s*["'](?:rgb|rgba|hsl)\(/g,
     message: 'Hardcoded color function detected. Use semantic tokens instead.',
-    suggestion: 'Replace with a token like "$color", "$background"',
+    suggestion: 'Replace with a palette token like "$neutral12", "$min"',
   },
   {
     name: 'no-named-colors',
@@ -38,7 +38,7 @@ const rules: ValidationRule[] = [
       /(?:color|backgroundColor)\s*[:=]\s*["'](?:red|blue|green|gray|grey|white|black|orange|yellow|purple|pink)["']/g,
     message: 'Named color used. Use semantic tokens for brand compatibility.',
     suggestion:
-      'Replace with "$color", "$colorSubtitle", or a palette token like "$blue9"',
+      'Replace with "$neutral12", "$colorSubtitle", or a palette token like "$aqua9"',
   },
   // Hardcoded spacing
   {
@@ -90,13 +90,13 @@ const rules: ValidationRule[] = [
       /(?:backgroundColor|background)\s*[:=]\s*["'](?:white|#fff(?:fff)?|#FFF(?:FFF)?)["']/g,
     message: 'Hardcoded white background breaks dark mode. Use semantic tokens.',
     suggestion:
-      'Replace with "$background" or "var(--background)" for automatic dark mode support',
+      'Replace with "$min" or a background palette token like "$background1" for dark mode support',
   },
   {
     name: 'no-hardcoded-text-black',
     pattern: /\bcolor\s*[:=]\s*["'](?:black|#000(?:000)?)["']/g,
     message: 'Hardcoded black text color breaks dark mode. Use semantic tokens.',
-    suggestion: 'Replace with "$color" or "var(--color)" for automatic dark mode support',
+    suggestion: 'Replace with "$neutral12" for automatic dark mode support',
   },
   {
     name: 'missing-aria-label-button',

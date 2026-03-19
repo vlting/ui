@@ -12,9 +12,9 @@ const InputFrame = styled(
   TextInput,
   {
     color: '$defaultBody',
-    backgroundColor: '$background',
+    backgroundColor: '$min',
     borderWidth: 1,
-    borderColor: '$borderColor',
+    borderColor: '$neutral4',
     borderRadius: '$3',
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -44,7 +44,7 @@ const InputFrame = styled(
       },
     },
     error: {
-      true: { borderColor: '$red9' },
+      true: { borderColor: '$tomato9' },
     },
   },
   'Input',
@@ -76,7 +76,7 @@ const HelperText = styled(
   {
     tone: {
       neutral: { color: '$secondaryText12' },
-      error: { color: '$red9' },
+      error: { color: '$tomato9' },
     },
   },
   'InputHelper',

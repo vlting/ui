@@ -15,18 +15,12 @@ import {
   AuthSocialButtons,
 } from './_shared'
 
-const FormElement = styled(
-  'form',
-  {
-    stl: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 16,
-      width: '100%',
-    },
-    styleName: 'AuthForm',
-  },
-)
+const FormElement = styled('form', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+  width: '100%',
+}, { name: 'AuthForm' })
 
 // -- Types --
 

@@ -23,24 +23,30 @@ const ButtonFrame = styled(
       default: { backgroundColor: '$primary9' },
       solid: { backgroundColor: '$primary9' },
       secondary: { backgroundColor: '$color3' },
-      destructive: { backgroundColor: '$red9' },
+      destructive: { backgroundColor: '$tomato9' },
       outline: {
         backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: '$borderColor',
+        borderColor: '$neutral4',
       },
       ghost: { backgroundColor: 'transparent' },
       link: { backgroundColor: 'transparent' },
     },
     size: {
-      xs: { height: 28, paddingHorizontal: 8, paddingVertical: 4 },
-      sm: { height: 32, paddingHorizontal: 12, paddingVertical: 8 },
-      md: { height: 36, paddingHorizontal: 16, paddingVertical: 8 },
-      lg: { height: 40, paddingHorizontal: 24, paddingVertical: 12 },
+      sm: { height: 28, paddingHorizontal: 8, paddingVertical: 4 },
+      md: { height: 32, paddingHorizontal: 12, paddingVertical: 8 },
+      lg: { height: 36, paddingHorizontal: 16, paddingVertical: 8 },
+      xl: { height: 40, paddingHorizontal: 24, paddingVertical: 12 },
       icon: { height: 36, width: 36, padding: 0 },
+    },
+    square: {
+      true: { paddingHorizontal: 0, aspectRatio: 1 },
     },
     disabled: {
       true: { opacity: 0.5 },
+    },
+    pill: {
+      true: { borderRadius: 9999 },
     },
   },
   'Button',
@@ -62,10 +68,10 @@ const ButtonTextFrame = styled(
       link: { color: '$primary9', textDecorationLine: 'underline' },
     },
     size: {
-      xs: { fontSize: 11 },
-      sm: { fontSize: 12 },
-      md: { fontSize: 16 },
-      lg: { fontSize: 18 },
+      sm: { fontSize: 11 },
+      md: { fontSize: 12 },
+      lg: { fontSize: 16 },
+      xl: { fontSize: 18 },
     },
   },
   'ButtonText',
@@ -118,7 +124,7 @@ function ButtonText({
   ...props
 }: {
   children?: React.ReactNode
-  size?: 'xs' | 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
   style?: ViewStyle
 }) {
   const { variant } = useContext(ButtonContext)
@@ -140,7 +146,9 @@ function ButtonIcon({ children, ...props }: { children?: React.ReactNode }) {
 export interface ButtonProps {
   children?: React.ReactNode
   variant?: ButtonVariant
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon'
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'icon'
+  square?: boolean
+  pill?: boolean
   loading?: boolean
   disabled?: boolean
   onPress?: () => void
@@ -148,7 +156,7 @@ export interface ButtonProps {
 }
 
 const ButtonBase = forwardRef<View, ButtonProps>(function ButtonBase(
-  { loading, children, disabled, variant = 'default', size = 'md', onPress, ...props },
+  { loading, children, disabled, pill, square, variant = 'default', size = 'md', onPress, ...props },
   ref,
 ) {
   const isDisabled = disabled ?? loading ?? false
@@ -161,6 +169,8 @@ const ButtonBase = forwardRef<View, ButtonProps>(function ButtonBase(
         onPress={isDisabled ? undefined : onPress}
         variant={variant}
         size={size}
+        square={square}
+        pill={pill}
         accessibilityRole="button"
         accessibilityState={{ disabled: isDisabled, busy: loading || false }}
         {...props}

@@ -36,9 +36,9 @@ export function ComponentsPage() {
         </DemoCard>
         <DemoCard label="Button sizes">
           <DemoRow>
-            <Button size="sm">Small</Button>
             <Button size="md">Medium</Button>
             <Button size="lg">Large</Button>
+            <Button size="xl">Extra Large</Button>
           </DemoRow>
         </DemoCard>
         <DemoCard label="Button states">
@@ -73,10 +73,10 @@ export function ComponentsPage() {
                 <p>Card content goes here. It can contain any elements.</p>
               </Card.Content>
               <Card.Footer>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="md">
                   Cancel
                 </Button>
-                <Button size="sm">Save</Button>
+                <Button size="md">Save</Button>
               </Card.Footer>
             </Card>
           </div>
@@ -200,7 +200,7 @@ export function ComponentsPage() {
                 <Item.Description>alice@example.com</Item.Description>
               </Item.Content>
               <Item.Trailing>
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="md">
                   View
                 </Button>
               </Item.Trailing>
@@ -227,7 +227,7 @@ export function ComponentsPage() {
                 <Item.Description>bob@example.com</Item.Description>
               </Item.Content>
               <Item.Trailing>
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="md">
                   View
                 </Button>
               </Item.Trailing>

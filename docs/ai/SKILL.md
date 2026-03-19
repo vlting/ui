@@ -19,7 +19,7 @@ function App() {
         </Card.Header>
         <Card.Content>
           <Input placeholder="Enter text" />
-          <Button variant="default" size="md">Submit</Button>
+          <Button variant="default" size="lg">Submit</Button>
         </Card.Content>
       </Card>
     </Provider>
@@ -209,7 +209,7 @@ Most components use the `Component.Sub` pattern:
 
 Button uses `withStaticProperties` (not object literal):
 ```tsx
-<Button variant="default" size="md" tone="primary">
+<Button variant="default" size="lg" tone="primary">
   <Button.Icon><IconComponent /></Button.Icon>
   <Button.Text>Label</Button.Text>
 </Button>
@@ -291,24 +291,15 @@ Use token values, never pixel values:
 
 // RIGHT — tokens
 <Text color="$colorSubtitle" fontSize="$3">
-<Box borderRadius="$4" backgroundColor="$background">
+<Box borderRadius="$4" backgroundColor="$min">
 ```
 
 ### Semantic colors
 
 | Token | Usage |
 |-------|-------|
-| `$background` | Page/card background |
-| `$backgroundHover` | Hover state |
-| `$backgroundPress` | Active/pressed state |
-| `$backgroundFocus` | Focus state |
-| `$color` | Primary text |
-| `$colorHover` | Text hover |
 | `$colorSubtitle` | Secondary text |
 | `$placeholderColor` | Input placeholder |
-| `$borderColor` | Default border |
-| `$borderColorHover` | Border hover |
-| `$borderColorFocus` | Border focus |
 | `$outlineColor` | Focus outline |
 | `$shadowColor` | Box shadow |
 
@@ -359,7 +350,7 @@ const config = createBrandConfig(defaultBrand)
 
 ### Brand-agnostic code
 
-- Use semantic tokens (`$background`, `$color`), not palette tokens (`$color1`, `$blue5`)
+- Use palette tokens (`$neutral12`, `$min`, `$neutral4`), not hardcoded colors
 - Use component variants, not custom colors
 - Test with at least `defaultBrand` and `shadcnBrand`
 
@@ -372,8 +363,8 @@ import { Chart, BarChart } from '@vlting/ui'
 import type { ChartConfig } from '@vlting/ui'
 
 const config: ChartConfig = {
-  revenue: { label: 'Revenue', color: '$blue9' },
-  expenses: { label: 'Expenses', color: '$red9' },
+  revenue: { label: 'Revenue', color: '$aqua9' },
+  expenses: { label: 'Expenses', color: '$tomato9' },
 }
 
 const data = [
@@ -443,7 +434,7 @@ import { RiHomeLine } from '@vlting/ui/icons'
 
 // Dynamic import (when icon name is runtime)
 import { DynamicIcon } from '@vlting/ui'
-<DynamicIcon name="ri-home-line" size={20} color="$color" />
+<DynamicIcon name="ri-home-line" size={20} color="$neutral12" />
 ```
 
 **Naming:** `Ri` + PascalCase name + `Line` (outline) or `Fill` (filled)
@@ -481,7 +472,7 @@ Examples: `RiHomeLine`, `RiHomeFill`, `RiSearchLine`, `RiSettingsLine`
 <Text color="gray" fontSize={14}>
 
 // RIGHT
-<Box backgroundColor="$background" padding="$4" borderRadius="$4">
+<Box backgroundColor="$min" padding="$4" borderRadius="$4">
 <Text color="$colorSubtitle" fontSize="$3">
 ```
 
@@ -542,9 +533,9 @@ Examples: `RiHomeLine`, `RiHomeFill`, `RiSearchLine`, `RiSettingsLine`
 const MyCard = styled(YStack, {
   padding: '$4',
   borderRadius: '$4',
-  backgroundColor: '$background',
+  bg: '$min',
   borderWidth: 1,
-  borderColor: '$borderColor',
+  borderColor: '$neutral4',
 })
 
 // RIGHT — use the Card component

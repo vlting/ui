@@ -1,92 +1,90 @@
-# Component Spec — Checkbox
+<!-- spec-version: 2 -->
+<!-- AI: Fill this spec when this component is actively worked on. See Checkbox.spec.bak.md for prior design intent. -->
 
-> **Baseline**: This component must satisfy all requirements in [`QUALITY_BASELINE.md`](../../QUALITY_BASELINE.md).
+# Checkbox Specification
 
-## 1. Purpose
-
-- Binary or tri-state toggle for form selections.
-- Use for boolean options, multi-select lists, and terms acceptance.
-- Do NOT use for mutually exclusive choices (use RadioGroup). Do NOT use for on/off settings (use Switch).
+## Component Name
+Checkbox
 
 ---
 
-## 2. UX Intent
-
-- **Jakob's Law** — checkboxes are a universally recognized form control.
-- **Fitts's Law** — label click area extends the target (native `<label>` wrapping).
-- **WAI-ARIA pattern:** [Checkbox](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/)
+## Purpose
 
 ---
 
-## 3. Anatomy
+## Supported Platforms
 
-Compound component wrapping STL Checkbox with native `<label>`:
-- `Checkbox` (Root) — native `<label>` wrapping STL Checkbox. Props: `checked`, `defaultChecked`, `onCheckedChange`, `disabled`, `size`, `required`, `name`, `value`, `children`.
-- `Checkbox.Indicator` — custom check icon (default: "✓" text).
-
-Size variants: `sm` (`$3`), `md` (`$4`), `lg` (`$5`).
-
-> **TypeScript is the source of truth for props.** See source files in `Checkbox/` for the full typed API.
+- [ ] React (web)
+- [ ] React Native
 
 ---
 
-## 4. Behavior
-
-### States
-
-- **Unchecked** — empty box.
-- **Checked** — box with check indicator.
-- **Indeterminate** — partial check (for "select all" patterns).
-- **Disabled** — reduced opacity, non-interactive.
-- **Focus** — 2px solid outline (custom focus style).
-
-### Keyboard Interaction
-
-- **Space** — toggles checked state (delegated to STL).
-- **Enter** — toggles checked state.
-- **Tab** — moves focus to/from the checkbox.
-
-### Motion
-
-None.
+## Design System Constraints
 
 ---
 
-## 5. Accessibility
-
-- **Semantic element:** STL Checkbox (renders checkbox semantics). Wrapped in native `<label>` for click association.
-- **ARIA attributes:** Built-in via STL — `role="checkbox"`, `aria-checked`.
-- **Focus management:** Standard tab focus with visible focus indicator.
-- **Screen reader announcements:** Announces label text, checkbox role, and checked state.
+## Component API
 
 ---
 
-## 6. Styling
-
-- **Design tokens used:** `$background` for unchecked, `$color6` for checked background, `$color1` for check icon. Focus: 2px solid `$outlineColor`. Disabled: `opacity: 0.5`.
-- **Size variants:** Maps to STL size tokens `$3`/`$4`/`$5`.
-- **Dark mode:** Token resolution handles automatically.
+## Composition Model
 
 ---
 
-## 7. Composition
-
-- **What can contain this component:** Form groups, settings panels, filter lists, table rows.
-- **What this component can contain:** Indicator sub-component and label text as children.
-- **Anti-patterns:** Do not use without a visible label. Do not use for mutually exclusive options.
+## Layout Rules
 
 ---
 
-## 8. Breaking Change Criteria
-
-- Removing checked/unchecked/indeterminate states.
-- Removing the `<label>` wrapper.
-- Removing keyboard support (Space/Enter).
-- Removing a size variant.
+## Variants
 
 ---
 
-## 9. Test Requirements
+## Size Options
 
-- **Behavioral tests:** Verify toggle between checked and unchecked. Verify `onCheckedChange` callback fires. Verify disabled state prevents interaction. Verify each size variant. Verify indeterminate state.
-- **Accessibility tests:** Verify `role="checkbox"` is present. Verify `aria-checked` toggles. Verify label click toggles checkbox. Verify keyboard activation (Space, Enter). Verify visible focus indicator.
+---
+
+## States
+
+---
+
+## Interaction Model
+
+---
+
+## Accessibility
+
+---
+
+## Platform Implementation Notes
+
+### React (Web)
+
+### React Native
+
+---
+
+## Theming Behavior
+
+---
+
+## Edge Cases
+
+---
+
+## Stories / Preview Cases
+
+---
+
+## Test Requirements
+
+---
+
+## Implementation Constraints
+
+---
+
+## Open Questions
+
+---
+
+## Change Log

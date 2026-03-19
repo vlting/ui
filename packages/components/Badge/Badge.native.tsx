@@ -22,11 +22,11 @@ const BadgeContainer = styled(
     variant: {
       default: { backgroundColor: '$primary6' },
       secondary: { backgroundColor: '$color4' },
-      destructive: { backgroundColor: '$red6' },
+      destructive: { backgroundColor: '$tomato6' },
       outline: {
         backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: '$borderColor',
+        borderColor: '$neutral4',
       },
     },
   },

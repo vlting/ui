@@ -12,6 +12,7 @@ export function getSpace<T extends BaseVars>(hash: CharHash, size: T) {
   const size4 = { ...hash.var, value: base.ref } as const
   const size8 = { ...hash.var, value: `calc(${base.ref} * 2)` } as const
   const size12 = { ...hash.var, value: `calc(${base.ref} * 3)` } as const
+  const size16 = { ...hash.var, value: `calc(${base.ref} * 4)` } as const
 
   const sharedVars = {
     0: { ...hash.var, value: '0' },

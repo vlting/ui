@@ -1,3 +1,3 @@
 import { styled } from '../../config'
 
-export const Link = styled('a', { stl: {}, styleName: 'Link' })
+export const Link = styled('a', {}, { name: 'Link' })

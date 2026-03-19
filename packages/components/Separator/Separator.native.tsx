@@ -10,7 +10,7 @@ import { styled } from '../../stl-native/src/config/styled'
 const SeparatorBase = styled(
   View,
   {
-    backgroundColor: '$borderColor',
+    backgroundColor: '$neutral4',
     height: 1,
     width: '100%',
   },

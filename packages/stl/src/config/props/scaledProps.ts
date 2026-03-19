@@ -291,23 +291,23 @@ export function generateScaledPropsCss<S extends Scales, K extends FilterKeys>(
 
     borderBlockStartColor: entries(
       'borderBlockStartColor',
-      map(scales, Scale.border, borderColors, hiddenBorderColors),
-      scales[Scale.border].cssAliasMap,
+      map(scales, Scale.color),
+      scales[Scale.color].cssAliasMap,
     ),
     borderBlockEndColor: entries(
       'borderBlockEndColor',
-      map(scales, Scale.border, borderColors, hiddenBorderColors),
-      scales[Scale.border].cssAliasMap,
+      map(scales, Scale.color),
+      scales[Scale.color].cssAliasMap,
     ),
     borderInlineStartColor: entries(
       'borderInlineStartColor',
-      map(scales, Scale.border, borderColors, hiddenBorderColors),
-      scales[Scale.border].cssAliasMap,
+      map(scales, Scale.color),
+      scales[Scale.color].cssAliasMap,
     ),
     borderInlineEndColor: entries(
       'borderInlineEndColor',
-      map(scales, Scale.border, borderColors, hiddenBorderColors),
-      scales[Scale.border].cssAliasMap,
+      map(scales, Scale.color),
+      scales[Scale.color].cssAliasMap,
     ),
 
     borderBlockStartStyle: entries(
@@ -617,10 +617,10 @@ export const scaledPropScale = {
   borderInlineStart: Scale.border,
   borderInlineEnd: Scale.border,
 
-  borderBlockStartColor: Scale.border,
-  borderBlockEndColor: Scale.border,
-  borderInlineStartColor: Scale.border,
-  borderInlineEndColor: Scale.border,
+  borderBlockStartColor: Scale.color,
+  borderBlockEndColor: Scale.color,
+  borderInlineStartColor: Scale.color,
+  borderInlineEndColor: Scale.color,
 
   borderBlockStartStyle: Scale.border,
   borderBlockEndStyle: Scale.border,

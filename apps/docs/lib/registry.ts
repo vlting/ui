@@ -244,10 +244,10 @@ const registry: ComponentEntry[] = [
         name: 'Sizes',
         description: 'Button in all available sizes.',
         code: `<div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-  <Button size="xs"><Button.Text>Extra Small</Button.Text></Button>
   <Button size="sm"><Button.Text>Small</Button.Text></Button>
   <Button size="md"><Button.Text>Medium</Button.Text></Button>
   <Button size="lg"><Button.Text>Large</Button.Text></Button>
+  <Button size="xl"><Button.Text>Extra Large</Button.Text></Button>
 </div>`,
       },
       {
@@ -336,15 +336,15 @@ const registry: ComponentEntry[] = [
 </Card>`,
       },
       {
-        name: 'Elevated',
-        description: 'A card with elevated shadow.',
-        code: `<Card elevated>
+        name: 'Flat',
+        description: 'A card with border instead of shadow.',
+        code: `<Card variant="flat">
   <Card.Header>
-    <Card.Title>Elevated Card</Card.Title>
-    <Card.Description>This card has an elevated shadow.</Card.Description>
+    <Card.Title>Flat Card</Card.Title>
+    <Card.Description>This card uses a border instead of shadow.</Card.Description>
   </Card.Header>
   <Card.Content>
-    <p>Elevated cards draw more attention on the page.</p>
+    <p>Flat cards have a subtler appearance.</p>
   </Card.Content>
 </Card>`,
       },

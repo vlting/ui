@@ -19,7 +19,7 @@ const SectionButton = styled('button', { stl: {
   py: '$0.75',
   fontSize: '$p',
   fontWeight: '$600',
-  color: '$color',
+  color: '$neutral12',
   background: 'transparent',
   border: 'none',
   cursor: 'pointer',

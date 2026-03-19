@@ -467,9 +467,6 @@ const liveExamples: ExampleMap = {
     ),
     Sizes: (
       <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-        <Button size="xs">
-          Extra Small
-        </Button>
         <Button size="sm">
           Small
         </Button>
@@ -478,6 +475,9 @@ const liveExamples: ExampleMap = {
         </Button>
         <Button size="lg">
           Large
+        </Button>
+        <Button size="xl">
+          Extra Large
         </Button>
       </div>
     ),
@@ -523,14 +523,14 @@ const liveExamples: ExampleMap = {
         </Card.Footer>
       </Card>
     ),
-    Elevated: (
-      <Card elevated>
+    Flat: (
+      <Card variant="flat">
         <Card.Header>
-          <Card.Title>Elevated Card</Card.Title>
-          <Card.Description>This card has a raised shadow.</Card.Description>
+          <Card.Title>Flat Card</Card.Title>
+          <Card.Description>This card uses a border instead of shadow.</Card.Description>
         </Card.Header>
         <Card.Content>
-          <p>Use elevated cards to draw attention.</p>
+          <p>Use flat cards for a subtler appearance.</p>
         </Card.Content>
       </Card>
     ),

@@ -39,6 +39,8 @@ export interface CreateThemeOptions {
   borderWidth?: Record<string, number>
   shadows?: Theme['shadows']
   fonts?: FontFamilySpec
+  gradients?: Theme['gradients']
+  glass?: Theme['glass']
 }
 
 /** Default font spec using registry keys */
@@ -195,12 +197,20 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
     fontSize: options.fontSize,
     size: mergeScale(DEFAULT_SIZE, options.size),
     space: mergeScale(DEFAULT_SPACE, options.space),
-    radius: mergeScale(DEFAULT_RADIUS, options.radius),
+    radius: (() => {
+      const merged = mergeScale(DEFAULT_RADIUS, options.radius)
+      if (options.radius?.buttonGrouped === undefined && options.radius?.button !== undefined) {
+        ;(merged as any).buttonGrouped = Math.min(options.radius.button as number, 24)
+      }
+      return merged
+    })(),
     zIndex: mergeScale(DEFAULT_ZINDEX, options.zIndex),
     borderWidth: mergeScale(DEFAULT_BORDER_WIDTH, options.borderWidth),
     shadows: mergedShadows,
     fonts,
     fontLinks,
+    gradients: options.gradients,
+    glass: options.glass,
   }
 
   return Object.freeze(theme)

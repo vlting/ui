@@ -1,34 +1,39 @@
 import { render, screen } from '../../../src/__test-utils__/render'
-import { Button } from '../Button/Button'
 import { ButtonGroup } from './ButtonGroup'
 
 describe('ButtonGroup', () => {
-  it('renders children buttons', () => {
+  it('renders with role="group"', () => {
+    render(<ButtonGroup.Root>Content</ButtonGroup.Root>)
+    expect(screen.getByRole('group')).toBeTruthy()
+  })
+
+  it('renders children', () => {
     render(
       <ButtonGroup.Root>
-        <Button>A</Button>
-        <Button>B</Button>
+        <button>A</button>
+        <button>B</button>
       </ButtonGroup.Root>,
     )
     expect(screen.getByText('A')).toBeTruthy()
     expect(screen.getByText('B')).toBeTruthy()
   })
 
-  it('renders with horizontal orientation', () => {
-    render(
-      <ButtonGroup.Root orientation="horizontal">
-        <Button>Horizontal</Button>
-      </ButtonGroup.Root>,
-    )
+  it('renders with horizontal orientation by default', () => {
+    render(<ButtonGroup.Root>Horizontal</ButtonGroup.Root>)
     expect(screen.getByText('Horizontal')).toBeTruthy()
   })
 
   it('renders with vertical orientation', () => {
     render(
       <ButtonGroup.Root orientation="vertical">
-        <Button>Vertical</Button>
+        Vertical
       </ButtonGroup.Root>,
     )
     expect(screen.getByText('Vertical')).toBeTruthy()
+  })
+
+  it('base ButtonGroup renders same as ButtonGroup.Root', () => {
+    render(<ButtonGroup>Base</ButtonGroup>)
+    expect(screen.getByRole('group')).toBeTruthy()
   })
 })

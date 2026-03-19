@@ -218,6 +218,7 @@ export const sourceClassedProps = {
   userSelect: true,
 
   filter: true,
+  backdropFilter: true,
 
   textShadow: true,
 

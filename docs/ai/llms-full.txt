@@ -32,7 +32,7 @@ Built-in brands: `defaultBrand` (YInMn Blue), `shadcnBrand` (neutral), `funBrand
 Generic container. Like `div` but cross-platform.
 ```tsx
 import { Box } from '@vlting/ui'
-<Box padding="$4" backgroundColor="$background" borderRadius="$4">
+<Box padding="$4" backgroundColor="$min" borderRadius="$4">
   {children}
 </Box>
 <Box centered>{children}</Box>  // centers content
@@ -50,7 +50,7 @@ import { VStack, HStack } from '@vlting/ui'
 Body text element.
 ```tsx
 import { Text } from '@vlting/ui'
-<Text color="$color" fontSize="$3">Hello</Text>
+<Text color="$neutral12" fontSize="$3">Hello</Text>
 <Text color="$colorSubtitle">Secondary text</Text>
 ```
 
@@ -67,7 +67,7 @@ Icon wrapper. Use with Remix Icons.
 ```tsx
 import { Icon } from '@vlting/ui'
 import { RiHomeLine } from '@vlting/ui/icons'
-<Icon icon={RiHomeLine} size={20} color="$color" />
+<Icon icon={RiHomeLine} size={20} color="$neutral12" />
 ```
 
 ### Badge
@@ -120,7 +120,7 @@ Inline loading indicator.
 ```tsx
 import { Spinner } from '@vlting/ui'
 <Spinner size="sm" />
-<Spinner size="lg" color="$color" />
+<Spinner size="lg" color="$neutral12" />
 ```
 
 ### AspectRatio
@@ -159,8 +159,8 @@ import { Portal } from '@vlting/ui'
 ```tsx
 import { Button } from '@vlting/ui'
 
-<Button variant="default" size="md">Click</Button>
-<Button variant="destructive" size="sm">Delete</Button>
+<Button variant="default" size="lg">Click</Button>
+<Button variant="destructive" size="md">Delete</Button>
 <Button variant="outline" loading>Saving...</Button>
 <Button variant="ghost" size="icon">
   <Button.Icon><RiCloseLine /></Button.Icon>
@@ -1039,7 +1039,7 @@ import { RiHomeFill } from '@vlting/ui/icons'
 ### Dynamic import
 ```tsx
 import { DynamicIcon } from '@vlting/ui'
-<DynamicIcon name="ri-home-line" size={20} color="$color" />
+<DynamicIcon name="ri-home-line" size={20} color="$neutral12" />
 ```
 
 ### Naming convention
@@ -1097,18 +1097,8 @@ import { DynamicIcon } from '@vlting/ui'
 ### Semantic Colors
 | Token | Use |
 |-------|-----|
-| `$background` | Page/card background |
-| `$backgroundHover` | Hover state background |
-| `$backgroundPress` | Pressed state background |
-| `$backgroundFocus` | Focus state background |
-| `$color` | Primary text |
-| `$colorHover` | Text on hover |
-| `$colorPress` | Text on press |
 | `$colorSubtitle` | Secondary text |
 | `$placeholderColor` | Input placeholder |
-| `$borderColor` | Default borders |
-| `$borderColorHover` | Border on hover |
-| `$borderColorFocus` | Border on focus |
 | `$outlineColor` | Focus outline |
 | `$shadowColor` | Box shadows |
 | `$color1` – `$color12` | Direct palette access |
@@ -1150,7 +1140,7 @@ Greater-than variants: `$gtXxs`, `$gtXs`, `$gtSm`, `$gtMd`, `$gtLg`, `$gtXl`
 <Text color="gray" fontSize={14}>
 
 // GOOD
-<Box backgroundColor="$background" padding="$4" borderRadius="$4">
+<Box backgroundColor="$min" padding="$4" borderRadius="$4">
 <Text color="$colorSubtitle" fontSize="$3">
 ```
 
@@ -1326,7 +1316,7 @@ const [value, setValue] = useControllableState({
 | `className="p-4"` | `padding="$4"` |
 | `className="text-sm"` | `fontSize="$2"` |
 | `className="rounded-lg"` | `borderRadius="$6"` |
-| `className="bg-muted"` | `backgroundColor="$background"` |
+| `className="bg-muted"` | `backgroundColor="$min"` |
 | `className="text-muted-foreground"` | `color="$colorSubtitle"` |
 | `onClick` | `onPress` |
 | `onChange` | `onChangeText` (Input) |

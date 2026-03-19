@@ -14,7 +14,7 @@ const Header = styled('header', { stl: {
   height: 56,
   alignItems: 'center',
   justifyContent: 'space-between',
-  borderBottom: '$thin $borderColor',
+  borderBottom: '$neutralMin',
   background: '$background1',
   px: '$3.5',
   backdropFilter: 'blur(8px)',
@@ -41,7 +41,7 @@ const Nav = styled('nav', { stl: {
 
 const NavLink = styled('span', { stl: {
   color: '$colorSubtitle',
-  ':hover': { color: '$color' },
+  ':hover': { color: '$neutral12' },
 }})
 
 const ActionGroup = styled('div', { stl: {
@@ -57,7 +57,7 @@ const IconLink = styled('a', { stl: {
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '$4',
-  border: '$thin $borderColor',
+  border: '$neutralMin',
   ':hover': { background: '$background2' },
 }})
 

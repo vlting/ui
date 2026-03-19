@@ -2,28 +2,28 @@ import type React from 'react'
 import { styled } from '../../config'
 
 const BadgeFrame = styled('span', {
-  stl: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    fontFamily: '$body',
-    fontSize: '$12',
-    fontWeight: '$600',
-    borderRadius: '$full',
-    overflow: 'hidden',
-    alignSelf: 'self-start',
-  },
+  display: 'inline-flex',
+  alignItems: 'center',
+  fontFamily: '$body',
+  fontSize: '$12',
+  fontWeight: '$600',
+  borderRadius: '$full',
+  overflow: 'hidden',
+  alignSelf: 'self-start',
+}, {
+  name: 'Badge',
   variants: {
     variant: {
       default: { bg: '$primary6', color: '$white' },
       solid: { bg: '$primary6', color: '$white' },
-      secondary: { bg: '$surface2', color: '$color' },
-      destructive: { bg: '$red10', color: '$white' },
+      secondary: { bg: '$surface2', color: '$neutral12' },
+      destructive: { bg: '$tomato10', color: '$white' },
       outline: {
         bg: 'transparent',
         borderWidth: '$widthBase',
         borderStyle: '$styleDefault',
-        borderColor: '$primaryMin',
-        color: '$color',
+        borderColor: '$primary1',
+        color: '$neutral12',
       },
       subtle: { bg: '$surface2', color: '$neutral11' },
     },
@@ -37,7 +37,6 @@ const BadgeFrame = styled('span', {
     variant: 'default',
     size: 'md',
   },
-  styleName: 'Badge',
 })
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {

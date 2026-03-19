@@ -48,16 +48,16 @@ export function PrimitivesScreen() {
         <RNText style={styles.sectionTitle}>Row</RNText>
         <Row stl={{ gap: 8 }}>
           <Box
-            stl={{ width: 50, height: 50, backgroundColor: '$green4', borderRadius: 4 }}
+            stl={{ width: 50, height: 50, backgroundColor: '$forest4', borderRadius: 4 }}
           />
           <Box
-            stl={{ width: 50, height: 50, backgroundColor: '$green5', borderRadius: 4 }}
+            stl={{ width: 50, height: 50, backgroundColor: '$forest5', borderRadius: 4 }}
           />
           <Box
-            stl={{ width: 50, height: 50, backgroundColor: '$green6', borderRadius: 4 }}
+            stl={{ width: 50, height: 50, backgroundColor: '$forest6', borderRadius: 4 }}
           />
           <Box
-            stl={{ width: 50, height: 50, backgroundColor: '$green7', borderRadius: 4 }}
+            stl={{ width: 50, height: 50, backgroundColor: '$forest7', borderRadius: 4 }}
           />
         </Row>
       </View>
@@ -66,13 +66,13 @@ export function PrimitivesScreen() {
         <RNText style={styles.sectionTitle}>Column</RNText>
         <Column stl={{ gap: 8 }}>
           <Box
-            stl={{ width: 200, height: 32, backgroundColor: '$blue4', borderRadius: 4 }}
+            stl={{ width: 200, height: 32, backgroundColor: '$aqua4', borderRadius: 4 }}
           />
           <Box
-            stl={{ width: 200, height: 32, backgroundColor: '$blue5', borderRadius: 4 }}
+            stl={{ width: 200, height: 32, backgroundColor: '$aqua5', borderRadius: 4 }}
           />
           <Box
-            stl={{ width: 200, height: 32, backgroundColor: '$blue6', borderRadius: 4 }}
+            stl={{ width: 200, height: 32, backgroundColor: '$aqua6', borderRadius: 4 }}
           />
         </Column>
       </View>
@@ -91,7 +91,7 @@ export function PrimitivesScreen() {
           {Array.from({ length: 6 }, (_, i) => (
             <Box
               key={i}
-              stl={{ height: 50, backgroundColor: '$purple4', borderRadius: 4 }}
+              stl={{ height: 50, backgroundColor: '$plum4', borderRadius: 4 }}
             />
           ))}
         </Grid>
@@ -154,19 +154,19 @@ export function PrimitivesScreen() {
         <RNText style={styles.label}>flex: 1 spacer between two boxes</RNText>
         <Row stl={{ gap: 4, marginTop: 8 }}>
           <Box
-            stl={{ width: 20, height: 20, backgroundColor: '$blue5', borderRadius: 2 }}
+            stl={{ width: 20, height: 20, backgroundColor: '$aqua5', borderRadius: 2 }}
           />
           <Spacer size="xs" />
           <Box
-            stl={{ width: 20, height: 20, backgroundColor: '$blue5', borderRadius: 2 }}
+            stl={{ width: 20, height: 20, backgroundColor: '$aqua5', borderRadius: 2 }}
           />
           <Spacer size="md" />
           <Box
-            stl={{ width: 20, height: 20, backgroundColor: '$blue5', borderRadius: 2 }}
+            stl={{ width: 20, height: 20, backgroundColor: '$aqua5', borderRadius: 2 }}
           />
           <Spacer size="xl" />
           <Box
-            stl={{ width: 20, height: 20, backgroundColor: '$blue5', borderRadius: 2 }}
+            stl={{ width: 20, height: 20, backgroundColor: '$aqua5', borderRadius: 2 }}
           />
         </Row>
         <RNText style={styles.label}>xs → md → xl fixed spacers</RNText>

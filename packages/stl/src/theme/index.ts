@@ -21,6 +21,7 @@ export { getThemeStyleTag, themeToVars } from './inject'
 
 export type { Theme } from './types'
 export { generatePalette, getTextColorStep } from './generate-palette'
+export { createGradient, createRadialGradient, createConicGradient } from './gradient'
 
 // ---------------------------------------------------------------------------
 // Built-in themes (generated from presets)

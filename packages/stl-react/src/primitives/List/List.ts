@@ -21,4 +21,4 @@ export const getListVariants = () =>
       },
     },
   }) as const
-export const List = styled('ul', { stl: getListStyles(), variants: getListVariants(), styleName: 'List' })
+export const List = styled('ul', getListStyles(), { name: 'List', variants: getListVariants() })

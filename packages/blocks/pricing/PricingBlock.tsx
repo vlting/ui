@@ -17,63 +17,43 @@ const ButtonJsx = Button as AnyFC
 const SeparatorJsx = Separator as AnyFC
 const BadgeJsx = Badge as AnyFC
 
-const ToggleButton = styled(
-  'button',
-  {
-    stl: {
-      appearance: 'none',
-      borderWidth: '1px',
-      borderStyle: 'solid',
-      borderColor: '$borderColor',
-      background: 'none',
-      padding: '6px 16px',
-      cursor: 'pointer',
-      fontFamily: 'inherit',
-      fontSize: '$14',
-      color: '$color',
-      borderRadius: '6px',
-    },
-    styleName: 'PricingToggle',
-  },
-)
+const ToggleButton = styled('button', {
+  appearance: 'none',
+  borderWidth: '1px',
+  borderStyle: 'solid',
+  borderColor: '$neutral4',
+  background: 'none',
+  padding: '6px 16px',
+  cursor: 'pointer',
+  fontFamily: 'inherit',
+  fontSize: '$14',
+  color: '$neutral12',
+  borderRadius: '6px',
+}, { name: 'PricingToggle' })
 
-const PricingTable = styled(
-  'table',
-  {
-    stl: { width: '100%', borderCollapse: 'collapse', fontFamily: 'inherit' },
-    styleName: 'PricingTable',
-  },
-)
+const PricingTable = styled('table', {
+  width: '100%',
+  borderCollapse: 'collapse',
+  fontFamily: 'inherit',
+}, { name: 'PricingTable' })
 
-const Th = styled(
-  'th',
-  {
-    stl: {
-      padding: '12px 16px',
-      textAlign: 'left',
-      fontWeight: '600',
-      fontSize: '$14',
-      borderBottomWidth: '1px',
-      borderBottomStyle: 'solid',
-      borderColor: '$borderColor',
-    },
-    styleName: 'PricingTh',
-  },
-)
+const Th = styled('th', {
+  padding: '12px 16px',
+  textAlign: 'left',
+  fontWeight: '600',
+  fontSize: '$14',
+  borderBottomWidth: '1px',
+  borderBottomStyle: 'solid',
+  borderColor: '$neutral4',
+}, { name: 'PricingTh' })
 
-const Td = styled(
-  'td',
-  {
-    stl: {
-      padding: '10px 16px',
-      fontSize: '$14',
-      borderBottomWidth: '1px',
-      borderBottomStyle: 'solid',
-      borderColor: '$borderColor',
-    },
-    styleName: 'PricingTd',
-  },
-)
+const Td = styled('td', {
+  padding: '10px 16px',
+  fontSize: '$14',
+  borderBottomWidth: '1px',
+  borderBottomStyle: 'solid',
+  borderColor: '$neutral4',
+}, { name: 'PricingTd' })
 
 // -- Types --
 

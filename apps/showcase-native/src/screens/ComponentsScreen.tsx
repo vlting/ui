@@ -79,14 +79,14 @@ export function ComponentsScreen() {
         </Row>
         <Spacer size="sm" />
         <Row stl={{ gap: 8 }}>
-          <Button size="sm">
-            <Button.Text>Small</Button.Text>
-          </Button>
           <Button size="md">
             <Button.Text>Medium</Button.Text>
           </Button>
           <Button size="lg">
             <Button.Text>Large</Button.Text>
+          </Button>
+          <Button size="xl">
+            <Button.Text>Extra Large</Button.Text>
           </Button>
         </Row>
         <Spacer size="sm" />
@@ -138,7 +138,7 @@ export function ComponentsScreen() {
             <Text>Card content goes here with any layout.</Text>
           </Card.Content>
           <Card.Footer>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="md">
               <Button.Text>View Details</Button.Text>
             </Button>
           </Card.Footer>

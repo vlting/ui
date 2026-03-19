@@ -24,7 +24,7 @@ const DialogOverlayFrame = styled(
 const DialogContentFrame = styled(
   View,
   {
-    backgroundColor: '$background',
+    backgroundColor: '$min',
     borderRadius: '$3',
     paddingHorizontal: 24,
     paddingVertical: 20,

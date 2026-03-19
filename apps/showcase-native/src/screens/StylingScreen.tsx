@@ -24,7 +24,7 @@ export function StylingScreen() {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Color Palettes</Text>
         <Text style={styles.note}>
-          Token references ($primary1-12, $red1-12, etc.) resolve at runtime via the style
+          Token references ($primary1-12, $tomato1-12, etc.) resolve at runtime via the style
           resolver.
         </Text>
         {palettes.map((palette) => (

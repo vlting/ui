@@ -89,7 +89,7 @@ export function PrimitivesPage() {
               stl={{
                 width: '200px',
                 height: '40px',
-                backgroundColor: '$green4',
+                backgroundColor: '$forest4',
                 borderRadius: '$2',
               }}
             />
@@ -97,7 +97,7 @@ export function PrimitivesPage() {
               stl={{
                 width: '200px',
                 height: '40px',
-                backgroundColor: '$green5',
+                backgroundColor: '$forest5',
                 borderRadius: '$2',
               }}
             />
@@ -105,7 +105,7 @@ export function PrimitivesPage() {
               stl={{
                 width: '200px',
                 height: '40px',
-                backgroundColor: '$green6',
+                backgroundColor: '$forest6',
                 borderRadius: '$2',
               }}
             />
@@ -119,7 +119,7 @@ export function PrimitivesPage() {
             {Array.from({ length: 6 }, (_, i) => (
               <Box
                 key={i}
-                stl={{ height: '60px', backgroundColor: '$blue4', borderRadius: '$2' }}
+                stl={{ height: '60px', backgroundColor: '$aqua4', borderRadius: '$2' }}
               />
             ))}
           </Grid>
@@ -174,7 +174,7 @@ export function PrimitivesPage() {
 
       <Section title="Spacer">
         <DemoCard label="Flex spacer">
-          <Row stl={{ border: '1px dashed $borderColor', padding: '$2' }}>
+          <Row stl={{ border: '1px dashed $neutral4', padding: '$2' }}>
             <Text>Left</Text>
             <Spacer />
             <Text>Right</Text>
@@ -201,7 +201,7 @@ export function PrimitivesPage() {
                   stl={{
                     width: '100%',
                     height: '100%',
-                    backgroundColor: '$purple4',
+                    backgroundColor: '$plum4',
                     borderRadius: '$2',
                     display: 'flex',
                     alignItems: 'center',
@@ -218,7 +218,7 @@ export function PrimitivesPage() {
                   stl={{
                     width: '100%',
                     height: '100%',
-                    backgroundColor: '$orange4',
+                    backgroundColor: '$amber4',
                     borderRadius: '$2',
                     display: 'flex',
                     alignItems: 'center',

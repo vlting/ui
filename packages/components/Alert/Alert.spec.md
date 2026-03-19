@@ -21,13 +21,24 @@
 
 Compound component with custom styled sub-components:
 - `Alert.Root` — container. `role="status"` for all themes except `error` which gets `role="alert"`.
+- `Alert.Content` — flex column wrapper for Title and Description (`div`).
 - `Alert.Title` — bold heading text (`h5`).
 - `Alert.Description` — body text (`p`).
 - `Alert.Icon` — optional leading icon (`span`).
 
-Props: `theme: 'primary' | 'secondary' | 'neutral' | 'success' | 'warning' | 'error' | 'info'` (default `'primary'`).
+Props:
+- `theme: 'primary' | 'secondary' | 'neutral' | 'success' | 'warning' | 'error' | 'info'` (default `'primary'`)
+- `variant: 'solid' | 'subtle' | 'outline'` (default `'outline'`)
+- `elevation: 'flat' | 'raised'` (default `'flat'`)
 
-No variant axis (no solid/subtle/outline). Single visual style per theme: tinted background + matching border + appropriate text color.
+Variant axis:
+- `solid` — full-strength palette background (`$<scale>9`) with contrasting text (`$<scale>Text9`)
+- `subtle` — tinted background (`$<scale>3`) with palette text, no border
+- `outline` — tinted background with muted border (`$<scale>5`)
+
+Elevation axis:
+- `flat` — no shadow (default)
+- `raised` — `$md` box shadow for floating alerts
 
 > **TypeScript is the source of truth for props.** See source files in `Alert/` for the full typed API.
 
@@ -62,22 +73,22 @@ None.
 
 - **Theme tokens:** Each theme uses `$<scale>3` (bg), `$<scale>` (border), `$<scale>Text3` (text) from the STL token scale.
 - **Dark mode:** Token resolution handles automatically.
-- **Layout:** Flex row with `$12` gap, `$16` padding, `$field` border-radius.
+- **Layout:** Flex row with `$16` gap, `px: $24` / `py: $16` padding, `$card` border-radius.
 
 ---
 
 ## 7. Composition
 
 - **What can contain this component:** Page layouts, form containers, card sections.
-- **What this component can contain:** Alert.Title, Alert.Description, Alert.Icon in any order.
+- **What this component can contain:** Alert.Content (wrapping Title/Description), Alert.Icon in any order.
 - **Anti-patterns:** Do not use Alert for success confirmations that should disappear (use Toast). Do not make Alert dismissible without providing an alternative way to access the information.
 
 ---
 
 ## 8. Breaking Change Criteria
 
-- Removing sub-components (Title, Description, Icon).
-- Removing `theme` prop or changing theme names.
+- Removing sub-components (Content, Title, Description, Icon).
+- Removing `theme`, `variant`, or `elevation` props or changing their values.
 - Removing `role="alert"` from error theme.
 - Changing role mapping logic.
 
@@ -88,4 +99,6 @@ None.
 - **Rendering:** Verify Title, Description, and Icon render correctly.
 - **Role mapping:** Verify `role="status"` for default (primary) theme. Verify `role="alert"` for error theme. Verify `role="status"` for all non-error themes.
 - **Themes:** Verify each theme value renders without error.
+- **Variants:** Verify `solid`, `subtle`, and `outline` render correctly.
+- **Elevation:** Verify `flat` (no shadow) and `raised` (shadow) render correctly.
 - **Accessibility:** Verify live region semantics. Verify not focusable.

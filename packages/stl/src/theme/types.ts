@@ -33,4 +33,15 @@ export interface Theme {
     mono?: string
   }
   fontLinks?: HtmlHeadLink[]
+  gradients?: {
+    primary?: string
+    secondary?: string
+    neutral?: string
+  }
+  glass?: {
+    blur?: string
+    tint?: string
+    border?: string
+    gradient?: string
+  } | null
 }

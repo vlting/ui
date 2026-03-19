@@ -39,9 +39,9 @@ jest.mock('react-native-svg', () => {
 // -- Test data --
 
 const mockConfig: ChartConfig = {
-  revenue: { label: 'Revenue', color: '$blue8' },
-  expenses: { label: 'Expenses', color: '$red8' },
-  profit: { label: 'Profit', color: '$green8' },
+  revenue: { label: 'Revenue', color: '$aqua8' },
+  expenses: { label: 'Expenses', color: '$tomato8' },
+  profit: { label: 'Profit', color: '$forest8' },
 }
 
 const mockPieData: ChartDataPoint[] = [

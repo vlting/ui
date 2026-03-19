@@ -13,17 +13,11 @@ type AnyFC = ComponentType<Record<string, unknown>>
 const ButtonJsx = Button as AnyFC
 const SeparatorJsx = Separator as AnyFC
 
-const NavElement = styled(
-  'nav',
-  {
-    stl: {
-      display: 'flex',
-      flexDirection: 'column',
-      width: '100%',
-    },
-    styleName: 'AppShellNav',
-  },
-)
+const NavElement = styled('nav', {
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+}, { name: 'AppShellNav' })
 
 // -- Types --
 
@@ -219,7 +213,7 @@ function SplitPane({
             }}
           >
             {onBack && (
-              <ButtonJsx variant="ghost" size="sm" onPress={onBack}>
+              <ButtonJsx variant="ghost" size="md" onPress={onBack}>
                 <span
                   style={{
                     fontSize: 14,

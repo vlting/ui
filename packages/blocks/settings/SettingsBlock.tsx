@@ -27,18 +27,12 @@ const AvatarJsx = Avatar as AnyFC
 const SelectJsx = Select as unknown as AnyFC
 const SelectItemJsx = Select.Item as unknown as AnyFC
 
-const FormElement = styled(
-  'form',
-  {
-    stl: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 16,
-      width: '100%',
-    },
-    styleName: 'SettingsForm',
-  },
-)
+const FormElement = styled('form', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+  width: '100%',
+}, { name: 'SettingsForm' })
 
 // -- Types --
 

@@ -13,13 +13,10 @@ export interface IconProps {
 }
 
 const IconFrame = styled('span', {
-  stl: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  styleName: 'Icon',
-})
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}, { name: 'Icon' })
 
 /**
  * Generic icon wrapper. Accepts any component that takes size + color props.
