@@ -82,7 +82,7 @@ export const THEME_PRESET_CARBON: CreateThemeOptions = {
  * Zero radius everywhere.
  */
 export const THEME_PRESET_MINT: CreateThemeOptions = {
-  primary: { hue: 159, saturation: 90 },
+  primary: { hue: 159, saturation: 75 },
   secondary: { hue: 245, saturation: 50 },
   neutral: { hue: 159 },
   background: { hue: 159, saturation: 5 },
