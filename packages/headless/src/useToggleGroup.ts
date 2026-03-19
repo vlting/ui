@@ -1,0 +1,119 @@
+import { useCallback, useState } from 'react'
+import { useControllableState } from './useControllableState'
+import { useRovingTabIndex } from './useRovingTabIndex'
+
+export interface UseToggleGroupProps {
+  type: 'toggle' | 'exclusive'
+  value?: string[]
+  defaultValue?: string[]
+  onValueChange?: (value: string[]) => void
+  orientation?: 'horizontal' | 'vertical'
+  loop?: boolean
+}
+
+export interface UseToggleGroupReturn {
+  value: string[]
+  getGroupProps: () => {
+    role: 'group' | 'radiogroup'
+  }
+  getItemProps: (itemValue: string) => {
+    'aria-pressed'?: boolean
+    'aria-checked'?: boolean
+    role?: 'radio'
+    onClick: () => void
+    tabIndex?: 0 | -1
+    onFocus?: () => void
+    'data-roving-item'?: ''
+  }
+}
+
+export function useToggleGroup(props: UseToggleGroupProps): UseToggleGroupReturn {
+  const { type, value: valueProp, defaultValue = [], onValueChange, orientation = 'horizontal', loop = true } = props
+
+  const [value, setValue] = useControllableState({
+    prop: valueProp,
+    defaultProp: defaultValue,
+    onChange: onValueChange,
+  })
+
+  const currentValue = value ?? []
+
+  // Track item values for roving index mapping
+  const [itemValues] = useState<string[]>(() => [])
+
+  const [activeIndex, setActiveIndex] = useState(() => {
+    const firstSelected = currentValue[0]
+    if (firstSelected) {
+      const idx = itemValues.indexOf(firstSelected)
+      return idx >= 0 ? idx : 0
+    }
+    return 0
+  })
+
+  const roving = useRovingTabIndex({
+    count: itemValues.length || 1,
+    activeIndex,
+    onActiveIndexChange: setActiveIndex,
+    orientation,
+    loop,
+  })
+
+  const handleToggle = useCallback(
+    (itemValue: string) => {
+      if (type === 'toggle') {
+        setValue((prev) => {
+          const current = prev ?? []
+          return current.includes(itemValue)
+            ? current.filter((v) => v !== itemValue)
+            : [...current, itemValue]
+        })
+      } else {
+        // exclusive: single select, toggle off if same
+        setValue((prev) => {
+          const current = prev ?? []
+          return current.includes(itemValue) ? [] : [itemValue]
+        })
+      }
+    },
+    [type, setValue],
+  )
+
+  const getGroupProps = useCallback(
+    () => ({
+      role: (type === 'exclusive' ? 'radiogroup' : 'group') as 'group' | 'radiogroup',
+    }),
+    [type],
+  )
+
+  const getItemProps = useCallback(
+    (itemValue: string) => {
+      // Register item value for roving index
+      if (!itemValues.includes(itemValue)) {
+        itemValues.push(itemValue)
+      }
+      const itemIndex = itemValues.indexOf(itemValue)
+      const isSelected = currentValue.includes(itemValue)
+
+      if (type === 'exclusive') {
+        const rovingProps = roving.getItemProps(itemIndex)
+        return {
+          'aria-checked': isSelected,
+          role: 'radio' as const,
+          onClick: () => handleToggle(itemValue),
+          tabIndex: rovingProps.tabIndex,
+          onFocus: rovingProps.onFocus,
+          'data-roving-item': rovingProps['data-roving-item'],
+        }
+      }
+
+      // toggle mode: each button independently tabbable
+      return {
+        'aria-pressed': isSelected,
+        onClick: () => handleToggle(itemValue),
+      }
+    },
+    [currentValue, type, itemValues, roving, handleToggle],
+  )
+
+  return { value: currentValue, getGroupProps, getItemProps }
+}
