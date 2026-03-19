@@ -48,6 +48,7 @@ import {
   getColumn,
   getFont,
   getFontFamily,
+  getGradient,
   getFontSize,
   getFontWeight,
   getLineHeight,
@@ -105,6 +106,7 @@ const typo = getTypo()
 const textDecoration = getTextDecoration(varHash, color.vars)
 const shadow = getShadow(varHash, color.vars)
 const animation = getAnimation(varHash, keyframeHash)
+const gradient = getGradient(varHash)
 
 const scales = {
   animation,
@@ -115,6 +117,7 @@ const scales = {
   fontFamily,
   fontSize,
   fontWeight,
+  gradient,
   lineHeight,
   outline,
   radius,
@@ -168,6 +171,11 @@ export const managerScales = {
     aliasMap: fontWeight.aliasMap,
     cssAliasMap: fontWeight.cssAliasMap,
     themeProps: fontWeight.themeProps,
+  },
+  gradient: {
+    aliasMap: gradient.aliasMap,
+    cssAliasMap: gradient.cssAliasMap,
+    themeProps: gradient.themeProps,
   },
   lineHeight: {
     aliasMap: lineHeight.aliasMap,
@@ -671,6 +679,7 @@ export const token = deepFreeze({
   fontFamily: getTokensFromVars(fontFamily.vars),
   fontSize: getTokensFromVars(fontSize.vars),
   fontWeight: getTokensFromVars(fontWeight.vars),
+  gradient: getTokensFromVars(gradient.vars),
   lineHeight: getTokensFromVars(lineHeight.vars),
   outline: getTokensFromVars(outline.vars),
   radius: getTokensFromVars(radius.vars),
@@ -694,6 +703,7 @@ export const theme = deepFreeze({
   fontFamily: getThemeProps(fontFamily.themeProps),
   fontSize: getThemeProps(fontSize.themeProps),
   fontWeight: getThemeProps(fontWeight.themeProps),
+  gradient: getThemeProps(gradient.themeProps),
   lineHeight: getThemeProps(lineHeight.themeProps),
   outline: getThemeProps(outline.themeProps),
   radius: getThemeProps(radius.themeProps),
@@ -723,6 +733,7 @@ export const tokenToVarMap = {
   fontFamily: getTokenToVarsMap(fontFamily.vars, fontFamily.cssAliasMap),
   fontSize: getTokenToVarsMap(fontSize.vars, fontSize.cssAliasMap),
   fontWeight: getTokenToVarsMap(fontWeight.vars, fontWeight.cssAliasMap),
+  gradient: getTokenToVarsMap(gradient.vars, gradient.cssAliasMap),
   lineHeight: getTokenToVarsMap(lineHeight.vars, lineHeight.cssAliasMap),
   outline: getTokenToVarsMap(outline.vars, outline.cssAliasMap),
   radius: getTokenToVarsMap(radius.vars, radius.cssAliasMap),

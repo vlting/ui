@@ -10,7 +10,7 @@ const SelectRoot = styled('select', {
   fontFamily: '$body',
   fontSize: '$field',
   color: '$neutralText3',
-  bg: '$neutral1',
+  bg: '$surface2',
   border: '$neutralMin',
   borderRadius: '$field',
   width: '100%',

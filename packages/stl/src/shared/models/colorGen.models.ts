@@ -121,7 +121,7 @@ export const DEFAULT_SOURCE_COLORS: ColorGenOptions = {
   info: { hue: 194, saturation: 95 },
   success: { hue: 123, saturation: 90 },
   warning: { hue: 33, saturation: 100 },
-  error: { hue: 350, saturation: 75 },
+  error: { hue: 347, saturation: 97 },
   // Flavor colors
   tomato: { hue: 8, saturation: 90 },
   amber: { hue: 45, saturation: 100 },

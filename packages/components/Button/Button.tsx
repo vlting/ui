@@ -25,7 +25,7 @@ const ButtonBase = styled('button', {
   cursor: 'pointer',
   outline: 'none',
   ':focus': { outlineOffset: '$offsetDefault' },
-  ':pressed': { transform: 'scale(0.98)' },
+  ':pressed': { transform: '$pressScale' },
   lowMotion: {
     transition: 'none',
     ':pressed': { transform: 'none' },
@@ -70,8 +70,8 @@ const ButtonBase = styled('button', {
       when: { theme: 'primary', variant: 'solid' },
       stl: {
         bg: '$primary9', color: '$primaryText9',
-        backgroundImage: 'var(--stl-gradient-primary, none)',
-        ':interact': { bg: '$primary10', color: '$primaryText10', filter: 'brightness(1.15)' },
+        backgroundImage: '$gradientPrimary',
+        ':interact': { bg: '$primary10', color: '$primaryText10' },
         ':focus': { outline: '$primary' },
       },
     },
@@ -113,8 +113,7 @@ const ButtonBase = styled('button', {
       when: { theme: 'secondary', variant: 'solid' },
       stl: {
         bg: '$secondary9', color: '$secondaryText9',
-        backgroundImage: 'var(--stl-gradient-secondary, none)',
-        ':interact': { bg: '$secondary10', color: '$secondaryText10', filter: 'brightness(1.15)' },
+        ':interact': { bg: '$secondary10', color: '$secondaryText10' },
         ':focus': { outline: '$secondary' },
       },
     },
@@ -156,8 +155,7 @@ const ButtonBase = styled('button', {
       when: { theme: 'neutral', variant: 'solid' },
       stl: {
         bg: '$neutral9', color: '$neutralText9',
-        backgroundImage: 'var(--stl-gradient-neutral, none)',
-        ':interact': { bg: '$neutral10', color: '$neutralText10', filter: 'brightness(1.15)' },
+        ':interact': { bg: '$neutral10', color: '$neutralText10' },
         ':focus': { outline: '$neutral' },
       },
     },

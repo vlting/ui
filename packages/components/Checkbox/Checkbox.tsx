@@ -70,7 +70,7 @@ const LabelRoot = styled('label', {
   radius: '$2',
   py: '$2',
   px: '$4',
-  ':hover': { bg: '$neutral2' },
+  ':hover': { bg: '$neutralAlpha3' },
 }, {
   name: 'CheckboxRoot',
   variants: {

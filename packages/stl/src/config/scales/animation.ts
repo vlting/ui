@@ -142,6 +142,8 @@ export function getAnimation(hash: CharHash, keyframeHash: CharHash) {
     transitionOpacity: { ...hash.var, value: 'opacity' },
     transitionShadow: { ...hash.var, value: 'box-shadow' },
     transitionTransform: { ...hash.var, value: 'transform' },
+    // Transform tokens
+    pressScale: { ...hash.var, value: 'scale(0.98)' },
   } as const
 
   const transition = {
@@ -372,7 +374,7 @@ export const hiddenAnimationTimingFunctions = { ...animationCombos } as const
 export const animationFillModes = {} as const
 export const hiddenAnimationFillModes = { ...animationCombos } as const
 
-export const transforms = {} as const
+export const transforms = { pressScale: true } as const
 export const hiddenTransforms = { ...animationCombos } as const
 
 export const transformOrigins = {} as const
