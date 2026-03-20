@@ -1,6 +1,10 @@
 import { render, screen } from '../../../src/__test-utils__/render'
 import { InputGroup } from './InputGroup'
 
+// Minimal Button stub for testing ButtonAddon injection
+const MockButton = (props: any) => <button {...props} />
+MockButton.displayName = 'Button'
+
 describe('InputGroup', () => {
   it('renders Root with children', () => {
     render(
@@ -92,5 +96,73 @@ describe('InputGroup', () => {
     const group = screen.getByRole('group')
     expect(group).toBeTruthy()
     expect(group.getAttribute('aria-label')).toBe('input group')
+  })
+
+  // ─── ButtonAddon tests ──────────────────────────────────────────────────
+
+  it('ButtonAddon renders a real <button> element', () => {
+    render(
+      <InputGroup>
+        <InputGroup.Input>
+          <input data-testid="input" />
+        </InputGroup.Input>
+        <InputGroup.ButtonAddon>
+          <MockButton data-testid="copy-btn">Copy</MockButton>
+        </InputGroup.ButtonAddon>
+      </InputGroup>,
+    )
+    const btn = screen.getByTestId('copy-btn')
+    expect(btn.tagName).toBe('BUTTON')
+    expect(btn.textContent).toBe('Copy')
+  })
+
+  it('ButtonAddon does not have aria-hidden', () => {
+    render(
+      <InputGroup>
+        <InputGroup.ButtonAddon data-testid="btn-addon">
+          <MockButton>Go</MockButton>
+        </InputGroup.ButtonAddon>
+      </InputGroup>,
+    )
+    const addon = screen.getByTestId('btn-addon')
+    expect(addon.getAttribute('aria-hidden')).toBeNull()
+  })
+
+  it('ButtonAddon propagates size from context to Button child', () => {
+    const SizeCapture = (props: any) => (
+      <button data-testid="sized-btn" data-size={props.size}>
+        {props.children}
+      </button>
+    )
+    SizeCapture.displayName = 'Button'
+
+    render(
+      <InputGroup size="lg">
+        <InputGroup.ButtonAddon>
+          <SizeCapture>Action</SizeCapture>
+        </InputGroup.ButtonAddon>
+      </InputGroup>,
+    )
+    const btn = screen.getByTestId('sized-btn')
+    expect(btn.getAttribute('data-size')).toBe('lg')
+  })
+
+  it('ButtonAddon respects explicit size override on Button child', () => {
+    const SizeCapture = (props: any) => (
+      <button data-testid="sized-btn" data-size={props.size}>
+        {props.children}
+      </button>
+    )
+    SizeCapture.displayName = 'Button'
+
+    render(
+      <InputGroup size="lg">
+        <InputGroup.ButtonAddon>
+          <SizeCapture size="sm">Small</SizeCapture>
+        </InputGroup.ButtonAddon>
+      </InputGroup>,
+    )
+    const btn = screen.getByTestId('sized-btn')
+    expect(btn.getAttribute('data-size')).toBe('sm')
   })
 })
