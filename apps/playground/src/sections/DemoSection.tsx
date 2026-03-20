@@ -488,7 +488,7 @@ const AlbumArt = styled('div', {
   maxWidth: '320px',
   height: '0',
   pb: '320px',
-  borderRadius: '$16',
+  borderRadius: '$card',
   overflow: 'hidden',
   position: 'relative',
   flexShrink: '0',
