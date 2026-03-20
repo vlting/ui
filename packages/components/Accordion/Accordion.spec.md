@@ -47,6 +47,10 @@ A vertically stacked set of interactive headings that each reveal an associated 
 ### Accordion.Trigger
 Renders as `<button>`. Receives aria props from hook.
 
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `indicator` | `boolean` | `true` | Show built-in chevron indicator |
+
 ### Accordion.Content
 Renders as `<div>` with `role="region"`. Hidden via `hidden` attribute.
 
@@ -62,9 +66,12 @@ Two context layers:
 ---
 
 ## Layout Rules
-- Root is a vertical stack
-- Items have bottom border
-- Trigger is full-width flex with space-between
+- Root is a vertical stack (`fontFamily: '$body'`)
+- Items have bottom border (`borderBottom: '$neutralMin'`)
+- Trigger is full-width flex with `justifyContent: 'space-between'`, `alignItems: 'center'`
+- Trigger padding: `py: '$8'`, `px: '$12'`, `radius: '$button'`
+- Content padding: `py: '$8'`, `px: '$12'`, `fontSize: '$p'`, `color: '$neutralText4'`
+- Built-in chevron indicator (inline SVG) positioned trailing, rotates 180deg when `data-state="open"`
 
 ---
 
@@ -84,6 +91,22 @@ None in v1.
 |-------|-----------|--------|
 | Open/Closed | `data-state` | `"open"` / `"closed"` (on Item, Trigger, Content) |
 | Disabled | `disabled` | on Trigger |
+
+### Interactive States (Trigger)
+| State | Tokens |
+|-------|--------|
+| `:interact` (hover/focus) | `bg: '$neutral3'` |
+| `:focus` | `outline: '$neutral'`, `outlineOffset: '$offsetDefault'` |
+| `:pressed` | `transform: '$pressScale'` |
+| Disabled | `opacity: '$disabledOpacity'`, `cursor: 'not-allowed'`, `pointerEvents: 'none'` |
+| `lowMotion` | `':pressed': { transform: 'none' }` |
+
+### Chevron Indicator
+- Inline SVG chevron-down, `aria-hidden="true"`
+- Rotation: `transform: 'rotate(180deg)'` when `data-state="open"`
+- Transition: `transitionDuration: '$fastDuration'`, `transitionTimingFunction: 'ease'`
+- `lowMotion: { transitionDuration: '0.01s' }`
+- Controlled by `indicator` prop on Trigger (default `true`)
 
 ---
 
@@ -107,7 +130,7 @@ None in v1.
 ### React (Web)
 - Uses `useAccordion` hook from headless
 - `registerItem`/`unregisterItem` for dynamic item tracking
-- `hidden` attribute for content visibility (no animation in v1)
+- `hidden` attribute for content visibility (no content height animation in v1; indicator rotation and lowMotion-gated transitions are allowed)
 - `forwardRef` on all sub-components
 
 ### React Native
@@ -116,7 +139,10 @@ Not yet implemented.
 ---
 
 ## Theming Behavior
-Item border uses `$neutralMin`. Trigger has transparent background. Consumers extend via `stl` prop.
+- Item border: `borderBottom: '$neutralMin'`
+- Trigger: ghost-neutral base (transparent bg, neutral hover), follows Button ghost pattern
+- Content: secondary text via `$neutralText4`
+- All values overridable via `stl` prop
 
 ---
 
@@ -145,13 +171,16 @@ Item border uses `$neutralMin`. Trigger has transparent background. Consumers ex
 - data-state updates
 - Disabled prevents toggle
 - Keyboard navigation
+- Chevron indicator renders by default
+- `indicator={false}` hides chevron
+- Chevron `data-state` matches item state
 
 ---
 
 ## Implementation Constraints
 - All logic in `useAccordion` hook — component is structure + styled only
 - `forwardRef` on all sub-components
-- No animation in v1
+- No content height animation in v1; indicator rotation and lowMotion-gated transitions allowed
 
 ---
 
@@ -162,3 +191,4 @@ None.
 
 ## Change Log
 - v1: Initial implementation with useAccordion, compound pattern, single/multiple modes
+- v1.1: UI overhaul — ghost-neutral trigger styling, chevron indicator, interactive states, content padding
