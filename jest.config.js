@@ -8,14 +8,14 @@ module.exports = {
     '/node_modules/',
     'packages/stl-native/',
     // Stubbed components — re-enable as each is rebuilt
-    'packages/components/Accordion/',
+    // 'packages/components/Accordion/', // re-enabled
     'packages/components/AlertDialog/',
     'packages/components/Breadcrumb/',
     'packages/components/Calendar/',
     'packages/components/Carousel/',
     'packages/components/Chart/',
     // 'packages/components/Checkbox/', // re-enabled
-    'packages/components/Collapsible/',
+    // 'packages/components/Collapsible/', // re-enabled
     'packages/components/Combobox/',
     'packages/components/Command/',
     'packages/components/ContextMenu/',

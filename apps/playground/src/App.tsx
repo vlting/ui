@@ -7,8 +7,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { auroraTheme, popsicleTheme, frostTheme, carbonTheme, mintTheme } from '../../../config/themes'
 import { MoonIcon, SunIcon } from './sections/shared'
 import {
-  AlertSection, AvatarSection, BadgeSection, ButtonGroupSection, ButtonSection,
-  CardSection, EmptySection, FieldFormSection, InputSection, InputGroupSection, InputOTPSection,
+  AccordionSection, AlertSection, AvatarSection, BadgeSection, ButtonGroupSection, ButtonSection,
+  CardSection, CollapsibleSection, EmptySection, FieldFormSection, InputSection, InputGroupSection, InputOTPSection,
   TypographySection, ItemSection, ProgressSection,
   SelectionSection, SeparatorSection, SliderSection, SpinnerSection, ToggleSection,
 } from './sections'
@@ -20,7 +20,7 @@ const PAGES = ['Components', 'Demo'] as const
 type Page = typeof PAGES[number]
 
 const SECTIONS = [
-  'Inputs', 'Slider', 'InputOTP', 'InputGroup', 'Field & Form', 'Selection', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
+  'Accordion', 'Collapsible', 'Inputs', 'Slider', 'InputOTP', 'InputGroup', 'Field & Form', 'Selection', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
   'Spinner', 'Empty', 'Avatar', 'Typography', 'Separator',
 ] as const
 
@@ -179,6 +179,8 @@ const Main = styled('main', {
 // ─── Section component map ──────────────────────────────────────────────────
 
 const SECTION_COMPONENTS: Record<string, React.ComponentType<{ sectionRef: (el: HTMLDivElement | null) => void }>> = {
+  Accordion: AccordionSection,
+  Collapsible: CollapsibleSection,
   Button: ButtonSection,
   Alert: AlertSection,
   Progress: ProgressSection,
