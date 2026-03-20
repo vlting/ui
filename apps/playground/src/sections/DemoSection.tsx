@@ -46,6 +46,7 @@ const Scene = styled('section', {
 const SceneInner = styled('div', {
   position: 'relative',
   zIndex: '1',
+  width: '100%',
   maxWidth: '800px',
   mx: 'auto',
   display: 'flex',
@@ -118,7 +119,7 @@ function SettingsScene() {
       <SceneInner>
         <div>
           <Heading stl={{ mb: '$8' }}>Settings</Heading>
-          <Text tone="muted">Manage your account preferences and notifications.</Text>
+          <Text>Manage your account preferences and notifications.</Text>
         </div>
 
         <Card>
@@ -231,7 +232,7 @@ function SettingsScene() {
 
 function ActivityScene() {
   return (
-    <Scene stl={{ bg: '$surface3' }}>
+    <Scene stl={{ bg: '$surface2' }}>
       <Orb
         aria-hidden="true"
         stl={{ width: '350px', height: '350px', top: '40px', left: '-80px', bg: '$secondaryAlpha3' }}
@@ -244,7 +245,7 @@ function ActivityScene() {
       <SceneInner>
         <div>
           <Heading stl={{ mb: '$8' }}>Activity</Heading>
-          <Text tone="muted">Recent updates and notifications from your team.</Text>
+          <Text>Recent updates and notifications from your team.</Text>
         </div>
 
         <Alert.Root theme="success" variant="subtle">
@@ -384,7 +385,7 @@ function DashboardScene() {
       <SceneInner>
         <div>
           <Heading stl={{ mb: '$8' }}>Dashboard</Heading>
-          <Text tone="muted">Team metrics and project overview at a glance.</Text>
+          <Text>Team metrics and project overview at a glance.</Text>
         </div>
 
         <Row stl={{ justifyContent: 'space-between' }}>
