@@ -8,21 +8,38 @@ import {
   isValidElement,
   useContext,
 } from 'react'
-import { styled } from '../../stl-react/src/config'
+import { styled, type STL } from '../../stl-react/src/config'
 
-// ─── Context ────────────────────────────────────────────────────────────────
+// ─── Types ──────────────────────────────────────────────────────────────────
+
+type GroupPosition = 'first' | 'middle' | 'last' | 'only'
 
 interface InputGroupContextValue {
   size: 'sm' | 'md' | 'lg'
   orientation: 'horizontal' | 'vertical'
 }
 
+// ─── Context ────────────────────────────────────────────────────────────────
+
 const InputGroupContext = createContext<InputGroupContextValue | null>(null)
 
 function useInputGroupContext() {
   const ctx = useContext(InputGroupContext)
-  if (!ctx) throw new Error('InputGroup.Addon must be used within InputGroup')
+  if (!ctx) throw new Error('InputGroup sub-components must be used within InputGroup')
   return ctx
+}
+
+// ─── Radius helper ──────────────────────────────────────────────────────────
+
+function getRadiusStl(position: GroupPosition, orientation: string): STL {
+  if (position === 'only') return {}
+  if (position === 'middle') return { borderRadius: '$0' }
+  if (orientation === 'horizontal') {
+    if (position === 'first') return { borderTopRightRadius: '$0', borderBottomRightRadius: '$0' }
+    return { borderTopLeftRadius: '$0', borderBottomLeftRadius: '$0' }
+  }
+  if (position === 'first') return { borderBottomLeftRadius: '$0', borderBottomRightRadius: '$0' }
+  return { borderTopLeftRadius: '$0', borderTopRightRadius: '$0' }
 }
 
 // ─── Root ───────────────────────────────────────────────────────────────────
@@ -31,27 +48,20 @@ const RootBase = styled('div', {
   display: 'flex',
   alignItems: 'stretch',
   width: '100%',
-  '> :not(:first-child):not(:last-child)': { borderRadius: '0' },
 }, {
   name: 'InputGroup',
   variants: {
     orientation: {
       horizontal: {
         flexDirection: 'row',
-        '> :first-child': { borderTopRightRadius: '0', borderBottomRightRadius: '0' },
-        '> :last-child': { borderTopLeftRadius: '0', borderBottomLeftRadius: '0' },
+        '> :not(:first-child)': { marginLeft: '-1px' },
       },
       vertical: {
         flexDirection: 'column',
-        '> :first-child': { borderBottomLeftRadius: '0', borderBottomRightRadius: '0' },
-        '> :last-child': { borderTopLeftRadius: '0', borderTopRightRadius: '0' },
+        '> :not(:first-child)': { marginTop: '-1px' },
       },
     },
-    size: {
-      sm: {},
-      md: {},
-      lg: {},
-    },
+    size: { sm: {}, md: {}, lg: {} },
   },
   defaultVariants: { orientation: 'horizontal', size: 'md' },
 })
@@ -62,19 +72,30 @@ export type InputGroupProps = ComponentPropsWithRef<typeof RootBase> & {
 }
 
 const Root = forwardRef<HTMLDivElement, InputGroupProps>(
-  ({ orientation = 'horizontal', size = 'md', children, ...rest }, ref) => (
-    <InputGroupContext.Provider value={{ size, orientation }}>
-      <RootBase
-        ref={ref}
-        role="group"
-        orientation={orientation}
-        size={size}
-        {...rest}
-      >
-        {children}
-      </RootBase>
-    </InputGroupContext.Provider>
-  ),
+  ({ orientation = 'horizontal', size = 'md', children, ...rest }, ref) => {
+    const validChildren = Children.toArray(children).filter(isValidElement)
+    const count = validChildren.length
+
+    const processed = validChildren.map((child, index) => {
+      const position: GroupPosition =
+        count === 1 ? 'only'
+          : index === 0 ? 'first'
+            : index === count - 1 ? 'last'
+              : 'middle'
+      return cloneElement(child as React.ReactElement<any>, {
+        _groupPosition: position,
+        _groupOrientation: orientation,
+      })
+    })
+
+    return (
+      <InputGroupContext.Provider value={{ size, orientation }}>
+        <RootBase ref={ref} role="group" orientation={orientation} size={size} {...rest}>
+          {processed}
+        </RootBase>
+      </InputGroupContext.Provider>
+    )
+  },
 )
 Root.displayName = 'InputGroup'
 
@@ -101,12 +122,16 @@ const AddonBase = styled('div', {
   defaultVariants: { size: 'md' },
 })
 
-export type InputGroupAddonProps = ComponentPropsWithRef<typeof AddonBase>
+export type InputGroupAddonProps = ComponentPropsWithRef<typeof AddonBase> & {
+  _groupPosition?: GroupPosition
+  _groupOrientation?: string
+}
 
 const Addon = forwardRef<HTMLDivElement, InputGroupAddonProps>(
-  (props, ref) => {
+  ({ _groupPosition = 'only', _groupOrientation = 'horizontal', ...props }, ref) => {
     const ctx = useInputGroupContext()
-    return <AddonBase ref={ref} aria-hidden="true" size={ctx.size} {...props} />
+    const radiusStl = getRadiusStl(_groupPosition, _groupOrientation)
+    return <AddonBase ref={ref} aria-hidden="true" size={ctx.size} stl={radiusStl} {...props} />
   },
 )
 Addon.displayName = 'InputGroup.Addon'
@@ -138,10 +163,12 @@ const ElementBase = styled('div', {
 
 export type InputGroupElementProps = ComponentPropsWithRef<typeof ElementBase> & {
   placement?: 'left' | 'right'
+  _groupPosition?: GroupPosition
+  _groupOrientation?: string
 }
 
 const Element = forwardRef<HTMLDivElement, InputGroupElementProps>(
-  ({ placement = 'right', children, ...rest }, ref) => {
+  ({ placement = 'right', children, _groupPosition, _groupOrientation, ...rest }, ref) => {
     const ctx = useInputGroupContext()
     return (
       <ElementBase ref={ref} placement={placement} size={ctx.size} {...rest}>
@@ -158,20 +185,29 @@ const InputWrapper = styled('div', {
   flex: '1',
   position: 'relative',
   display: 'flex',
+  ':focus-within': { zIndex: '1', position: 'relative' },
 }, { name: 'InputGroupInput' })
 
 export type InputGroupInputProps = {
   children?: ReactNode
+  _groupPosition?: GroupPosition
+  _groupOrientation?: string
 }
 
 const InputSlot = forwardRef<HTMLDivElement, InputGroupInputProps>(
-  ({ children }, ref) => {
+  ({ children, _groupPosition = 'only', _groupOrientation = 'horizontal' }, ref) => {
     const ctx = useInputGroupContext()
+    const radiusStl = getRadiusStl(_groupPosition, _groupOrientation)
+
     return (
       <InputWrapper ref={ref}>
         {Children.map(children, (child) => {
           if (isValidElement(child)) {
-            return cloneElement(child as React.ReactElement<any>, { size: ctx.size })
+            const childStl = (child.props as any).stl || {}
+            return cloneElement(child as React.ReactElement<any>, {
+              size: ctx.size,
+              stl: { ...radiusStl, width: '100%', ...childStl },
+            })
           }
           return child
         })}
