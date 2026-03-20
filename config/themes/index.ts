@@ -17,7 +17,7 @@ export const THEME_PRESET_POPSICLE: CreateThemeOptions = {
   neutral: { hue: 290, highContrast: true },
   background: { hue: 290, saturation: 25 },
   fontSize: { base: 18, h1: 50, h2: 34 },
-  radius: { base: 8, button: 9999, field: 14 },
+  radius: { base: 8, button: 9999, field: 20 },
   borderWidth: { none: 0, thin: 0, medium: 0, thick: 0 },
   shadows: {
     light: {
@@ -124,7 +124,7 @@ export const THEME_PRESET_AURORA: CreateThemeOptions = {
   secondary: { hue: 340, saturation: 100 },
   neutral: { hue: 295, highContrast: true },
   background: { hue: 310, saturation: 5 },
-  radius: { base: 14, button: 9999 },
+  radius: { base: 14, button: 9999, field: 20 },
   gradients: {
     primary: createGradient(170, '$secondary9', '$primary8'),
   },
