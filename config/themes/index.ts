@@ -17,7 +17,7 @@ export const THEME_PRESET_POPSICLE: CreateThemeOptions = {
   neutral: { hue: 290, highContrast: true },
   background: { hue: 290, saturation: 25 },
   fontSize: { base: 18, h1: 50, h2: 34 },
-  radius: { base: 8, button: 9999, field: 9999 },
+  radius: { base: 8, button: 9999, field: 20 },
   borderWidth: { none: 0, thin: 0, medium: 0, thick: 0 },
   shadows: {
     light: {
@@ -77,17 +77,21 @@ export const THEME_PRESET_CARBON: CreateThemeOptions = {
 /**
  * Mint — Sophisticated, editorial.
  *
- * Teal primary, complementary secondary (auto).
+ * Teal primary, blueish-purple (iris) secondary.
  * Neutral: auto-dampened teal. Background: barely tinted teal.
  * Zero radius everywhere.
  */
 export const THEME_PRESET_MINT: CreateThemeOptions = {
-  primary: { hue: 159, saturation: 90 },
-  secondary: { saturation: 50 },
+  primary: { hue: 159, saturation: 75 },
+  secondary: { hue: 245, saturation: 50 },
   neutral: { hue: 159 },
   background: { hue: 159, saturation: 5 },
   fontSize: { base: 17, h1: 56, h2: 38, h3: 25, h4: 25, h5: 21, h6: 18 },
-  radius: { base: 0, badge: 0 },
+  radius: {
+    base: 0, 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0,
+    true: 0, full: 0, pill: 0, rounded: 0,
+    field: 0, button: 0, buttonGrouped: 0, card: 0, badge: 0, tooltip: 0, snippet: 0,
+  },
   borderWidth: { none: 0, thin: 0.5, medium: 1, thick: 1.5 },
   shadows: {
     light: {
@@ -120,7 +124,7 @@ export const THEME_PRESET_AURORA: CreateThemeOptions = {
   secondary: { hue: 340, saturation: 100 },
   neutral: { hue: 295, highContrast: true },
   background: { hue: 310, saturation: 5 },
-  radius: { base: 14, button: 9999 },
+  radius: { base: 14, button: 9999, field: 20 },
   gradients: {
     primary: createGradient(170, '$secondary9', '$primary8'),
   },

@@ -14,7 +14,7 @@ module.exports = {
     'packages/components/Calendar/',
     'packages/components/Carousel/',
     'packages/components/Chart/',
-    'packages/components/Checkbox/',
+    // 'packages/components/Checkbox/', // re-enabled
     'packages/components/Collapsible/',
     'packages/components/Combobox/',
     'packages/components/Command/',
@@ -24,31 +24,26 @@ module.exports = {
     'packages/components/Dialog/',
     'packages/components/Drawer/',
     'packages/components/DropdownMenu/',
-    'packages/components/Field/',
-    'packages/components/Form/',
+    // 'packages/components/Field/', // re-enabled
+    // 'packages/components/Form/', // re-enabled
     'packages/components/HoverCard/',
-    'packages/components/Input/',
-    'packages/components/InputGroup/',
-    'packages/components/InputOTP/',
+    // 'packages/components/InputGroup/', // re-enabled
+    // 'packages/components/InputOTP/', // re-enabled
     'packages/components/Menu/',
     'packages/components/Menubar/',
-    'packages/components/NativeSelect/',
     'packages/components/NavigationMenu/',
     'packages/components/Pagination/',
     'packages/components/Popover/',
-    'packages/components/RadioGroup/',
     'packages/components/Resizable/',
     'packages/components/ScrollArea/',
     'packages/components/Select/',
     'packages/components/Sheet/',
     'packages/components/Sidebar/',
-    'packages/components/Slider/',
-    'packages/components/Switch/',
+    // 'packages/components/Slider/', // re-enabled
     'packages/components/Table/',
     'packages/components/Tabs/',
-    'packages/components/Textarea/',
     'packages/components/Toast/',
-    'packages/components/Toggle/',
+    // 'packages/components/Toggle/', // re-enabled
     'packages/components/Tooltip/',
   ],
   collectCoverageFrom: [

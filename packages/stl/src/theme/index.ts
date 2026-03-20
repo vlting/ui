@@ -13,7 +13,13 @@ export { THEME_PRESET_DEFAULT } from './presets'
 // CSS variable injection
 // ---------------------------------------------------------------------------
 
-export { getThemeStyleTag, themeToVars } from './inject'
+export { getThemeStyleTag, themeToVars, generateThemeCss, injectThemeIntoStylesheet } from './inject'
+
+// ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
+
+export { THEME_ATTR } from '../shared/models/colorGen.models'
 
 // ---------------------------------------------------------------------------
 // Types & palette utilities

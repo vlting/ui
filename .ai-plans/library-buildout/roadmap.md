@@ -4,8 +4,8 @@ status: in-progress
 scope: large
 created: 2026-03-15
 current_epic: 7
-current_stage: 1
-phase: breakdown
+current_stage: 2
+phase: execute
 epic_issue: 206
 ---
 # @vlting/ui Library Build-Out
@@ -157,51 +157,63 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Objective:** Interactive form elements — headless hooks required, exercises focus ring, error states, disabled pattern, size scale
 **Dependencies:** Epic 6
 **Epic slug:** form-controls
-**Status:** pending
+**Epic branch:** epic/form-controls
+**Epic issue:** #217
+**Epic PR:** #236
+**Status:** in-progress
 
 ### Stage 7.1: Text Inputs (Input, Textarea, NativeSelect)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/text-inputs
+**Issue:** #220
+**PR:** #237
 **Acceptance criteria:**
-- [ ] Specs audited/rewritten
-- [ ] Input: neutral, size scale, error/disabled states, aria-invalid/aria-describedby, placeholder
-- [ ] Textarea: neutral, auto-resize option, character count
-- [ ] NativeSelect: neutral, native <select> wrapper, size scale
-- [ ] Focus ring pattern from Button ($outlineColor, 2px solid, 2px offset)
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages with all states
-**Status:** pending
+- [x] Input: styled input, size scale (sm/md/lg), error/disabled variants, onChangeText, aria-invalid
+- [x] Textarea: styled textarea, size scale, error/disabled, resize:vertical, rows prop
+- [x] NativeSelect: compound Root+Option, custom SVG arrow, onValueChange, placeholder
+- [x] Focus ring pattern matching Button (outline '$neutral'/'$error', $field radius)
+- [x] Fresh specs written for all 3
+- [x] Fresh tests passing, removed from testPathIgnorePatterns
+- [x] Playground section with all states
+**Status:** done
 
 ### Stage 7.2: Selection Controls (Checkbox, Switch, RadioGroup, Toggle)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/selection-controls
+**Issue:** #221
 **Acceptance criteria:**
-- [ ] Checkbox: theme-axis, controlled/uncontrolled, indeterminate, group support
-- [ ] Switch: theme-axis, controlled/uncontrolled, aria-checked
-- [ ] RadioGroup: theme-axis, roving tabindex, aria-radiogroup
-- [ ] Toggle: theme-axis, pressed state, aria-pressed
+- [ ] Checkbox: compound Root+Indicator, useControllableState, indeterminate, size sm/md/lg, error/disabled
+- [ ] Switch: button role="switch" + thumb, useControllableState, thumb animation in STL core, lowMotion
+- [ ] RadioGroup: compound Root+Item, useControllableState+useRovingTabIndex, role="radiogroup", context
+- [ ] Toggle: spec filled from bak, test audit (aria-pressed, controlled mode, onPressedChange)
 - [ ] All use headless hooks from packages/headless
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
-**Status:** pending
+- [ ] Playground SelectionSection with all states
+**Status:** in-progress
 
 ### Stage 7.3: Range & Complex Inputs (Slider, InputOTP, InputGroup)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/range-complex-inputs
+**Issue:** #239
 **Acceptance criteria:**
-- [ ] Slider: theme-axis, range support, aria-valuemin/max/now, keyboard (arrows, Home/End)
-- [ ] InputOTP: neutral, auto-focus next, paste support, aria-label per field
-- [ ] InputGroup: neutral, prefix/suffix addons, integrated elements
+- [ ] Slider: theme-axis, single-thumb, role="slider", aria-valuemin/max/now, keyboard (arrows, Home/End), pointer drag, 44px touch target
+- [ ] InputOTP: compound (Root/Group/Slot/Separator), hidden input, auto-advance, paste, onComplete, inputMode="numeric"
+- [ ] InputGroup: compound, size context, role="group", border-radius collapsing, Addon aria-hidden, Element placement
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
-**Status:** pending
+- [ ] Playground sections + demo scene integration
+**Status:** in-progress
 
-### Stage 7.4: Form Infrastructure (Field, Form, Label)
+### Stage 7.4: Form Infrastructure (Field, Form)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/form-infrastructure
+**Issue:** #241
 **Acceptance criteria:**
-- [ ] Field: compound (Label/Control/Error/Description), auto-wires aria-describedby/aria-invalid
-- [ ] Form: root container, validation integration points
-- [ ] Label: associates with control, required indicator
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
-**Status:** pending
+- [ ] Field: compound (Root/Label/Control/Description/Error), context + useId + cloneElement, auto-wires aria
+- [ ] Form: styled <form> with onSubmit/preventDefault, noValidate
+- [ ] Label primitive in stl-react already done — Field.Label wraps it, no duplication
+- [ ] Tests rewritten to match actual implementation
+- [ ] Playground section + demo scene integration
+**Status:** in-progress
 
 ## Epic 8: Disclosure & Overlay
 **Objective:** Components with open/close state, focus management, portals. First real test of styled() for compound+portal patterns.
@@ -217,7 +229,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Both use useDisclosure from headless
 - [ ] Enter/exit animations using $normalDuration, gated on lowMotion
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 8.2: Dialogs (Dialog, AlertDialog, Sheet, Drawer)
@@ -230,7 +242,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] All use useFocusScope, Portal
 - [ ] Shadow tokens ($sm-$2xl), animation tokens (slideIn*/fadeIn)
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 8.3: Floating (Popover, Tooltip, HoverCard)
@@ -241,7 +253,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] HoverCard: hover-triggered popover, delay, pointer tracking
 - [ ] All use Portal, positioning logic
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 8.4: Feedback Overlay (Toast)
@@ -252,7 +264,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] aria-live announcements (useLiveRegion)
 - [ ] Enter/exit animations
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground page
+- [ ] Playground section (top of gallery) + demo scene integration
 **Status:** pending
 
 ## Epic 9: React Native Parity (Core)
@@ -300,7 +312,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Menubar: horizontal menu bar, nested menus, keyboard (arrows, Enter, Escape)
 - [ ] react-aria backed via headless wrappers
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 10.2: Selection (Select, Combobox, Command)
@@ -311,7 +323,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Command: command palette, search + action list, keyboard-first
 - [ ] react-aria backed for listbox/combobox patterns
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 10.3: Navigation (Tabs, NavigationMenu, Breadcrumb, Pagination, Sidebar)
@@ -323,7 +335,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Pagination: page navigation, aria-label, keyboard
 - [ ] Sidebar: collapsible navigation, responsive, compound
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ## Epic 11: Complex & Data
@@ -339,7 +351,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] DataTable: TanStack Table integration, sorting, filtering, pagination, column visibility
 - [ ] Responsive: horizontal scroll on small screens
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 11.2: Dates (Calendar, DatePicker)
@@ -349,7 +361,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] DatePicker: Calendar + Input, date formatting, range support
 - [ ] react-aria backed for calendar grid patterns
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 11.3: Advanced Interaction (Carousel, ScrollArea, Resizable)
@@ -359,7 +371,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] ScrollArea: custom scrollbar, overflow detection
 - [ ] Resizable: compound (PanelGroup/Panel/Handle), keyboard resize, min/max constraints
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ## Epic 12: Blocks Rebuild
@@ -373,7 +385,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Acceptance criteria:**
 - [ ] Each block rebuilt using real components (no stubs)
 - [ ] Responsive layout via STL tokens/conditions
-- [ ] Playground pages demonstrating each block
+- [ ] Playground sections (top of gallery) + demo scene integration
 - [ ] Tests for composition and responsive behavior
 **Status:** pending
 
@@ -382,7 +394,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Acceptance criteria:**
 - [ ] Each block rebuilt using real components
 - [ ] Interactive behaviors working (file upload, chat input, wizard steps)
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 - [ ] Tests
 **Status:** pending
 
@@ -401,7 +413,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] ChartDataTable: accessible data table alternative for screen readers
 - [ ] Victory wrapped behind owned API — consumers import from @vlting/ui, never from victory directly
 - [ ] Lazy-loaded via separate subpath export (@vlting/ui/charts)
-- [ ] Playground page for infrastructure components
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 13.2: Core Charts (LineChart, BarChart, AreaChart)
@@ -411,7 +423,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Theme-aware (uses STL color tokens)
 - [ ] Responsive sizing
 - [ ] Tests for rendering and data handling
-- [ ] Playground pages with sample data
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 13.3: Specialized Charts (PieChart, RadarChart, RadialChart)
@@ -419,7 +431,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Acceptance criteria:**
 - [ ] Each wraps Victory equivalent
 - [ ] Theme-aware
-- [ ] Tests and playground pages
+- [ ] Tests, playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ## Epic 14: Playground & Docs

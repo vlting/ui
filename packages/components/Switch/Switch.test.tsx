@@ -29,13 +29,20 @@ describe('Switch', () => {
     }
   })
 
-  // -- Keyboard navigation --
+  // -- Interaction --
 
   it('toggles on click', () => {
     const onChange = jest.fn()
     render(<Switch onCheckedChange={onChange} aria-label="Toggle" />)
     fireEvent.click(screen.getByRole('switch'))
-    expect(onChange).toHaveBeenCalled()
+    expect(onChange).toHaveBeenCalledWith(true)
+  })
+
+  it('fires onCheckedChange with correct value on toggle back', () => {
+    const onChange = jest.fn()
+    render(<Switch defaultChecked onCheckedChange={onChange} aria-label="Toggle" />)
+    fireEvent.click(screen.getByRole('switch'))
+    expect(onChange).toHaveBeenCalledWith(false)
   })
 
   it('is focusable', () => {
@@ -49,27 +56,17 @@ describe('Switch', () => {
 
   it('has unchecked state by default', () => {
     render(<Switch aria-label="Toggle" />)
-    expect(screen.getByRole('switch')).not.toBeChecked()
+    expect(screen.getByRole('switch')).toHaveAttribute('aria-checked', 'false')
   })
 
   it('has checked state when checked=true', () => {
     render(<Switch checked aria-label="Toggle" />)
-    expect(screen.getByRole('switch')).toBeChecked()
+    expect(screen.getByRole('switch')).toHaveAttribute('aria-checked', 'true')
   })
 
   it('supports defaultChecked', () => {
     render(<Switch defaultChecked aria-label="Toggle" />)
-    expect(screen.getByRole('switch')).toBeChecked()
-  })
-
-  it('has aria-checked="true" when checked', () => {
-    render(<Switch checked aria-label="Toggle" />)
     expect(screen.getByRole('switch')).toHaveAttribute('aria-checked', 'true')
-  })
-
-  it('has aria-checked="false" when unchecked', () => {
-    render(<Switch aria-label="Toggle" />)
-    expect(screen.getByRole('switch')).toHaveAttribute('aria-checked', 'false')
   })
 
   it('toggles aria-checked on click (uncontrolled)', () => {
@@ -82,19 +79,19 @@ describe('Switch', () => {
     expect(sw).toHaveAttribute('aria-checked', 'false')
   })
 
+  // -- Controlled mode --
+
+  it('respects controlled checked prop', () => {
+    const { rerender } = render(<Switch checked={false} aria-label="Toggle" />)
+    expect(screen.getByRole('switch')).toHaveAttribute('aria-checked', 'false')
+    rerender(<Switch checked={true} aria-label="Toggle" />)
+    expect(screen.getByRole('switch')).toHaveAttribute('aria-checked', 'true')
+  })
+
   // -- Disabled state --
 
   it('renders disabled state without crashing', () => {
     expect(() => render(<Switch disabled />)).not.toThrow()
-  })
-
-  it('applies disabled state when disabled prop is true', () => {
-    const onChange = jest.fn()
-    render(<Switch disabled onCheckedChange={onChange} aria-label="Toggle" />)
-    const sw = screen.getByRole('switch')
-    fireEvent.click(sw)
-    // Disabled switch should not toggle
-    expect(onChange).not.toHaveBeenCalled()
   })
 
   it('does not call onCheckedChange when disabled', () => {
@@ -102,5 +99,21 @@ describe('Switch', () => {
     render(<Switch disabled onCheckedChange={onChange} aria-label="Toggle" />)
     fireEvent.click(screen.getByRole('switch'))
     expect(onChange).not.toHaveBeenCalled()
+  })
+
+  // -- Form name --
+
+  it('renders hidden input with name when name prop provided', () => {
+    const { container } = render(<Switch name="notifications" aria-label="Toggle" />)
+    const hidden = container.querySelector('input[type="hidden"]')
+    expect(hidden).toBeTruthy()
+    expect(hidden).toHaveAttribute('name', 'notifications')
+    expect(hidden).toHaveAttribute('value', 'off')
+  })
+
+  it('hidden input value reflects checked state', () => {
+    const { container } = render(<Switch name="notifications" defaultChecked aria-label="Toggle" />)
+    const hidden = container.querySelector('input[type="hidden"]')
+    expect(hidden).toHaveAttribute('value', 'on')
   })
 })

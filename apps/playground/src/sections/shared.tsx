@@ -58,12 +58,12 @@ export const Section = styled('div', {
 export const SectionTitle = styled('h3', {
   fontSize: '$buttonTiny',
   fontWeight: '$600',
-  color: '$neutralText3',
+  color: '$backgroundText3',
   m: '$0',
   mt: '$10',
   mb: '$4',
   textTransform: 'uppercase',
-  letterSpacing: '0.05em',
+  // letterSpacing: '0.05em',
 }, { name: 'SectionTitle' })
 
 export const ButtonRow = styled('div', {
@@ -81,6 +81,27 @@ export const GridCell = styled('div', {
 export const StackY = styled('div', {
   display: 'flex', flexDirection: 'column', gap: '$12',
 }, { name: 'StackY' })
+
+export const ControlRow = styled('div', {
+  display: 'flex', gap: '$8', flexWrap: 'wrap',
+}, { name: 'ControlRow' })
+
+export const ToggleRow = styled('div', {
+  display: 'flex', gap: '$8', alignItems: 'center', flexWrap: 'wrap',
+}, { name: 'ToggleRow' })
+
+export const Columns = styled('div', {
+  display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '$24',
+}, { name: 'Columns' })
+
+export const Column = styled('div', {
+  display: 'flex', flexDirection: 'column', gap: '$12',
+}, { name: 'Column' })
+
+export const CardText = styled('p', {
+  color: '$backgroundText8',
+  m: '$0',
+}, { name: 'CardText' })
 
 export const DarkStage = styled('div', {
   bg: '$background10', radius: '$3', p: '$24',

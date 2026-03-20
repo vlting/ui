@@ -1,5 +1,6 @@
 import { tokenToVarMap } from '../config/styles.css'
 import { STYLE_UNIT } from '../shared/models/theme.models'
+import { createTheme, type CreateThemeOptions } from './generate-theme'
 import type { Theme } from './types'
 
 /** Scales where values are unitless (no rem suffix) */
@@ -43,6 +44,17 @@ export function themeToVars(
     for (let i = 0; i < palette.length; i++) {
       const varName = colorMap[`$${name}${i + 1}`]
       if (varName) vars[varName] = palette[i]
+    }
+  }
+
+  // Alpha palettes (theme-aware translucent colors)
+  if (theme.alphaPalettes) {
+    for (const [name, scales] of Object.entries(theme.alphaPalettes)) {
+      const palette = scales[mode]
+      for (let i = 0; i < palette.length; i++) {
+        const varName = colorMap[`$${name}Alpha${i + 1}`]
+        if (varName) vars[varName] = palette[i]
+      }
     }
   }
 
@@ -108,4 +120,67 @@ export function getThemeStyleTag(theme: Theme, mode: 'light' | 'dark' = 'light')
     .map(([name, value]) => `  ${name}: ${value};`)
     .join('\n')
   return `<style>:root {\n${declarations}\n}</style>`
+}
+
+// ---------------------------------------------------------------------------
+// Build-time theme CSS injection
+// ---------------------------------------------------------------------------
+
+const THEME_ID_RE = /^[a-z0-9-]+$/
+
+/**
+ * Generate a scoped CSS block for a theme, suitable for appending to stl.css.
+ *
+ * The output is wrapped in marker comments so it can be found and replaced
+ * on subsequent runs. Activate the theme by setting `data-stl-theme="{id}"`
+ * on `<html>`.
+ */
+export function generateThemeCss(options: CreateThemeOptions, id: string): string {
+  if (!THEME_ID_RE.test(id)) {
+    throw new Error(`Theme id must match /^[a-z0-9-]+$/, got: "${id}"`)
+  }
+
+  const theme = createTheme(options)
+  const lightVars = themeToVars(theme, 'light')
+  const darkVars = themeToVars(theme, 'dark')
+
+  const lightDecl = Object.entries(lightVars)
+    .map(([n, v]) => `  ${n}: ${v};`)
+    .join('\n')
+  const darkDecl = Object.entries(darkVars)
+    .map(([n, v]) => `  ${n}: ${v};`)
+    .join('\n')
+
+  return [
+    `/* --- stl-theme: ${id} --- */`,
+    `[data-stl-theme="${id}"] {`,
+    lightDecl,
+    `}`,
+    `[data-stl-theme="${id}"][data-color-mode="dark"] {`,
+    darkDecl,
+    `}`,
+    `/* --- /stl-theme: ${id} --- */`,
+  ].join('\n')
+}
+
+/**
+ * Inject or replace a theme block in a CSS stylesheet string.
+ *
+ * If a block with matching marker comments already exists it is replaced;
+ * otherwise the new block is appended to the end.
+ */
+export function injectThemeIntoStylesheet(
+  cssContent: string,
+  themeCss: string,
+  themeId: string,
+): string {
+  const escaped = themeId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const re = new RegExp(
+    `/\\* --- stl-theme: ${escaped} --- \\*/[\\s\\S]*?/\\* --- /stl-theme: ${escaped} --- \\*/`,
+  )
+
+  if (re.test(cssContent)) {
+    return cssContent.replace(re, themeCss)
+  }
+  return cssContent + '\n\n' + themeCss
 }

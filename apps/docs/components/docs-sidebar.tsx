@@ -7,7 +7,7 @@ import { styled } from '../../../packages/stl-react/src'
 import { type NavSection, navigation } from '@/lib/navigation'
 
 const SectionContainer = styled('div', { stl: {
-  mb: '$3.5',
+  mb: '$28',
 }})
 
 const SectionButton = styled('button', { stl: {
@@ -15,8 +15,8 @@ const SectionButton = styled('button', { stl: {
   width: '100%',
   alignItems: 'center',
   justifyContent: 'space-between',
-  px: '$1.5',
-  py: '$0.75',
+  px: '$12',
+  py: '$8',
   fontSize: '$p',
   fontWeight: '$600',
   color: '$neutral12',
@@ -26,7 +26,7 @@ const SectionButton = styled('button', { stl: {
 }})
 
 const ItemList = styled('ul', { stl: {
-  mt: '$0.75',
+  mt: '$8',
   listStyle: 'none',
   padding: 0,
   margin: 0,
@@ -38,8 +38,8 @@ const ItemList = styled('ul', { stl: {
 const SidebarAside = styled('aside', { stl: {
   height: '100%',
   overflowY: 'auto',
-  px: '$1.5',
-  py: '$3.5',
+  px: '$12',
+  py: '$28',
 }})
 
 function SidebarSection({ section }: { section: NavSection }) {
