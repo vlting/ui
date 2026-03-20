@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Accordion, Button, Card, Toggle, ToggleGroup } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
-import { ControlRow, type SectionProps } from './shared'
+import { CardText, ControlRow, SectionTitle, StackY, type SectionProps } from './shared'
 
 const StatusLabel = styled('span', {
   fontSize: '$small', color: '$neutralText4', fontFamily: '$code',
@@ -14,7 +14,7 @@ export function AccordionSection({ sectionRef }: SectionProps) {
   const [type, setType] = useState<AccordionType>('single')
   const [collapsible, setCollapsible] = useState(true)
   const [disabled, setDisabled] = useState(false)
-  const [value, setValue] = useState<string[]>(['item-1'])
+  const [value, setValue] = useState<string[]>(['getting-started'])
 
   return (
     <Card ref={sectionRef} data-section="Accordion">
@@ -37,33 +37,76 @@ export function AccordionSection({ sectionRef }: SectionProps) {
         </ControlRow>
       </Card.Header>
       <Card.Content>
-        <Accordion.Root
-          type={type}
-          collapsible={type === 'single' ? collapsible : undefined}
-          disabled={disabled}
-          value={value}
-          onValueChange={setValue}
-        >
-          <Accordion.Item value="item-1">
-            <Accordion.Trigger>What is this?</Accordion.Trigger>
-            <Accordion.Content>
-              A vertically stacked set of interactive headings that each reveal a section of content.
-            </Accordion.Content>
-          </Accordion.Item>
-          <Accordion.Item value="item-2">
-            <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
-            <Accordion.Content>
-              Yes. It follows the WAI-ARIA Accordion pattern with proper aria-expanded, aria-controls, and keyboard navigation.
-            </Accordion.Content>
-          </Accordion.Item>
-          <Accordion.Item value="item-3">
-            <Accordion.Trigger>Can I style it?</Accordion.Trigger>
-            <Accordion.Content>
-              Yes. All sub-components accept STL style props and can be themed with tokens.
-            </Accordion.Content>
-          </Accordion.Item>
-        </Accordion.Root>
-        <StatusLabel>value: [{value.map(v => `"${v}"`).join(', ')}]</StatusLabel>
+        <StackY>
+          <SectionTitle stl={{ mt: '$0' }}>Interactive</SectionTitle>
+          <Accordion.Root
+            type={type}
+            collapsible={type === 'single' ? collapsible : undefined}
+            disabled={disabled}
+            value={value}
+            onValueChange={setValue}
+          >
+            <Accordion.Item value="what-is-vlt">
+              <Accordion.Trigger>What is vlt?</Accordion.Trigger>
+              <Accordion.Content>
+                <CardText>
+                  vlt is a next-generation JavaScript package manager and serverless registry
+                  designed for speed, security, and simplicity. It provides a modern alternative
+                  to existing tools with first-class support for workspaces and monorepos.
+                </CardText>
+              </Accordion.Content>
+            </Accordion.Item>
+            <Accordion.Item value="getting-started">
+              <Accordion.Trigger>Getting started</Accordion.Trigger>
+              <Accordion.Content>
+                <CardText>
+                  Install vlt globally with your preferred package manager, then run vlt install
+                  in any project directory. Configuration is automatic — vlt reads your existing
+                  package.json and lockfile formats out of the box.
+                </CardText>
+              </Accordion.Content>
+            </Accordion.Item>
+            <Accordion.Item value="configuration">
+              <Accordion.Trigger>Configuration</Accordion.Trigger>
+              <Accordion.Content>
+                <CardText>
+                  vlt supports .vltrc files, environment variables, and package.json fields
+                  for configuration. Registry scopes, authentication tokens, and cache settings
+                  can all be managed through a unified config surface.
+                </CardText>
+              </Accordion.Content>
+            </Accordion.Item>
+            <Accordion.Item value="disabled-item" disabled>
+              <Accordion.Trigger>Deprecated options</Accordion.Trigger>
+              <Accordion.Content>
+                <CardText>This section is disabled and cannot be expanded.</CardText>
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
+          <StatusLabel>value: [{value.map(v => `"${v}"`).join(', ')}]</StatusLabel>
+
+          <SectionTitle>No indicator</SectionTitle>
+          <Accordion.Root type="single" defaultValue={['faq-1']}>
+            <Accordion.Item value="faq-1">
+              <Accordion.Trigger indicator={false}>Can I hide the chevron?</Accordion.Trigger>
+              <Accordion.Content>
+                <CardText>
+                  Yes. Set indicator=false on any Trigger to render without the built-in
+                  chevron icon. Useful when you want custom expand/collapse indicators.
+                </CardText>
+              </Accordion.Content>
+            </Accordion.Item>
+            <Accordion.Item value="faq-2">
+              <Accordion.Trigger indicator={false}>Is keyboard navigation supported?</Accordion.Trigger>
+              <Accordion.Content>
+                <CardText>
+                  Full keyboard support — Arrow keys move between triggers, Enter and Space
+                  toggle items, Home and End jump to first and last triggers.
+                </CardText>
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
+        </StackY>
       </Card.Content>
     </Card>
   )
