@@ -61,34 +61,68 @@ const SliderCustomTrack = styled('div', {
   pointerEvents: 'none',
 }, { name: 'SliderCustomTrack' })
 
+// Hit area — 36px invisible circle, shows alpha on hover/active
 const SliderThumb = styled('div', {
   position: 'absolute',
+  width: '$36',
+  height: '$36',
   radius: '$round',
-  bg: 'white',
-  border: '$neutral7',
-  boxShadow: '0 1px 3px rgba(0,0,0,0.12)',
+  bg: 'transparent',
   cursor: 'grab',
   outline: 'none',
-  transitionProperty: 'box-shadow, border-color',
+  transitionProperty: 'background-color',
   transitionDuration: '$fastDuration',
-  ':hover': { bg: '#f0f0f0' },
-  ':focus-visible': { bg: '#f0f0f0', outline: '$neutral', outlineOffset: '$offsetDefault' },
   ':active': { cursor: 'grabbing' },
   lowMotion: { transitionDuration: '0.01s' },
 }, {
   name: 'SliderThumb',
   variants: {
-    size: {
-      sm: { width: '$16', height: '$16' },
-      md: { width: '$20', height: '$20' },
-      lg: { width: '$24', height: '$24' },
-    },
     orientation: {
       horizontal: { top: '50%', transform: 'translate(-50%, -50%)' },
       vertical: { left: '50%', transform: 'translate(-50%, 50%)' },
     },
+    theme: {
+      primary: { ':hover': { bg: '$primaryAlpha4' }, ':active': { bg: '$primaryAlpha4' } },
+      secondary: { ':hover': { bg: '$secondaryAlpha4' }, ':active': { bg: '$secondaryAlpha4' } },
+      neutral: { ':hover': { bg: '$neutralAlpha4' }, ':active': { bg: '$neutralAlpha4' } },
+    },
   },
-  defaultVariants: { size: 'md', orientation: 'horizontal' },
+  defaultVariants: { orientation: 'horizontal', theme: 'neutral' },
+})
+
+// Visible dot inside the hit area
+const SliderDot = styled('div', {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  radius: '$round',
+  bg: 'white',
+  boxShadow: '0 1px 3px rgba(0,0,0,0.12)',
+  pointerEvents: 'none',
+}, {
+  name: 'SliderDot',
+  variants: {
+    size: {
+      sm: { width: '$12', height: '$12' },
+      md: { width: '$16', height: '$16' },
+      lg: { width: '$20', height: '$20' },
+    },
+    theme: {
+      primary: { border: '$primary' },
+      secondary: { border: '$secondary' },
+      neutral: { border: '$neutral' },
+    },
+    focused: {
+      true: {},
+    },
+  },
+  compoundVariants: [
+    { when: { focused: 'true', theme: 'primary' }, stl: { outline: '$primary', outlineOffset: '$offsetDefault' } },
+    { when: { focused: 'true', theme: 'secondary' }, stl: { outline: '$secondary', outlineOffset: '$offsetDefault' } },
+    { when: { focused: 'true', theme: 'neutral' }, stl: { outline: '$neutral', outlineOffset: '$offsetDefault' } },
+  ],
+  defaultVariants: { size: 'md', theme: 'neutral' },
 })
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -100,9 +134,6 @@ const snap = (v: number, step: number, min: number) =>
 
 const pct = (v: number, min: number, max: number) =>
   max > min ? ((v - min) / (max - min)) * 100 : 0
-
-// Touch target padding — ensures ≥44px interactive area
-const thumbPad: Record<string, number> = { sm: 14, md: 12, lg: 10 }
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -146,6 +177,7 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
   ) => {
     const isRange = Array.isArray(valueProp) || Array.isArray(defaultValue)
     const isHoriz = orientation === 'horizontal'
+    const [focused, setFocused] = useState<number | null>(null)
 
     const [internal, setInternal] = useState<[number, number]>(() => {
       const dv = defaultValue
@@ -296,29 +328,36 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
           aria-disabled={disabled || undefined}
           orientation={orientation}
           size={size}
+          theme={theme}
           onKeyDown={makeKeyDown(0)}
-          stl={{
-            ...(isHoriz ? { left: `${p0}%` } : { bottom: `${p0}%` }),
-            p: `${thumbPad[size]}rem`,
-          }}
-        />
+          onFocus={(e) => { if (e.currentTarget.matches(':focus-visible')) setFocused(0) }}
+          onPointerDown={() => setFocused(null)}
+          onBlur={() => setFocused(null)}
+          stl={isHoriz ? { left: `${p0}%` } : { bottom: `${p0}%` }}
+        >
+          <SliderDot size={size} theme={theme} focused={focused === 0 ? 'true' : undefined} />
+        </SliderThumb>
         {isRange && (
-          <SliderThumb
-            role="slider"
-            tabIndex={disabled ? -1 : 0}
-            aria-valuenow={values[1]}
-            aria-valuemin={min}
-            aria-valuemax={max}
-            aria-label={ariaLabel ? `${ariaLabel} maximum` : 'Maximum'}
-            aria-disabled={disabled || undefined}
-            orientation={orientation}
-            size={size}
-            onKeyDown={makeKeyDown(1)}
-            stl={{
-              ...(isHoriz ? { left: `${p1}%` } : { bottom: `${p1}%` }),
-              p: `${thumbPad[size]}rem`,
-            }}
-          />
+          <>
+            <SliderThumb
+              role="slider"
+              tabIndex={disabled ? -1 : 0}
+              aria-valuenow={values[1]}
+              aria-valuemin={min}
+              aria-valuemax={max}
+              aria-label={ariaLabel ? `${ariaLabel} maximum` : 'Maximum'}
+              aria-disabled={disabled || undefined}
+              orientation={orientation}
+              theme={theme}
+              onKeyDown={makeKeyDown(1)}
+              onFocus={(e) => { if (e.currentTarget.matches(':focus-visible')) setFocused(1) }}
+              onPointerDown={() => setFocused(null)}
+              onBlur={() => setFocused(null)}
+              stl={isHoriz ? { left: `${p1}%` } : { bottom: `${p1}%` }}
+            >
+              <SliderDot size={size} theme={theme} focused={focused === 1 ? 'true' : undefined} />
+            </SliderThumb>
+          </>
         )}
       </SliderTrack>
     )

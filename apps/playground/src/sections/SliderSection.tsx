@@ -168,7 +168,7 @@ export function SliderSection({ sectionRef }: SectionProps) {
           <Column>
             <SectionTitle stl={{ mt: '$0' }}>Hue Picker</SectionTitle>
             <StackY>
-              <Slider value={hue} onValueChange={v => setHue(v as number)} min={0} max={360} size={size} disabled={disabled} aria-label="Hue">
+              <Slider value={hue} onValueChange={v => setHue(v as number)} min={0} max={360} size={size} theme="neutral" disabled={disabled} aria-label="Hue">
                 <HueGradient stl={{ background: HUE_GRADIENT }} />
               </Slider>
               <HueRow>
