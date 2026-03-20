@@ -41,6 +41,7 @@ A disclosure widget that toggles the visibility of its content. Provides a trigg
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `children` | `ReactNode` | — | Button label |
+| `indicator` | `boolean` | `true` | Show built-in chevron indicator |
 
 ### Collapsible.Content
 | Prop | Type | Default | Description |
@@ -57,9 +58,11 @@ Context provides: `isOpen`, `toggle`, `disabled`, `contentId`, `triggerId`
 ---
 
 ## Layout Rules
-- Root is a plain `div` wrapper
-- Trigger renders as `button`
-- Content renders as `div` with `role="region"`
+- Root is a flex column container (`display: 'flex'`, `flexDirection: 'column'`)
+- Trigger renders as `button`, full-width flex with `justifyContent: 'space-between'`, `alignItems: 'center'`
+- Trigger padding: `py: '$8'`, `px: '$12'`, `radius: '$button'`
+- Content renders as `div` with `role="region"`, padding: `py: '$8'`, `px: '$12'`, `fontSize: '$p'`, `color: '$neutralText4'`
+- Built-in chevron indicator (inline SVG) positioned trailing, rotates 180deg when `data-state="open"`
 
 ---
 
@@ -78,6 +81,22 @@ None in v1.
 |-------|-----------|--------|
 | Open/Closed | `data-state` | `"open"` / `"closed"` |
 | Disabled | `disabled` | on Trigger |
+
+### Interactive States (Trigger)
+| State | Tokens |
+|-------|--------|
+| `:interact` (hover/focus) | `bg: '$neutral3'` |
+| `:focus` | `outline: '$neutral'`, `outlineOffset: '$offsetDefault'` |
+| `:pressed` | `transform: '$pressScale'` |
+| Disabled | `opacity: '$disabledOpacity'`, `cursor: 'not-allowed'`, `pointerEvents: 'none'` |
+| `lowMotion` | `':pressed': { transform: 'none' }` |
+
+### Chevron Indicator
+- Inline SVG chevron-down, `aria-hidden="true"`
+- Rotation: `transform: 'rotate(180deg)'` when `data-state="open"`
+- Transition: `transitionDuration: '$fastDuration'`, `transitionTimingFunction: 'ease'`
+- `lowMotion: { transitionDuration: '0.01s' }`
+- Controlled by `indicator` prop on Trigger (default `true`)
 
 ---
 
@@ -98,7 +117,7 @@ None in v1.
 
 ### React (Web)
 - Uses `useDisclosure` hook for controlled/uncontrolled state
-- `hidden` attribute for content visibility (no animation in v1)
+- `hidden` attribute for content visibility (no content height animation in v1; indicator rotation and lowMotion-gated transitions are allowed)
 - `forwardRef` on all sub-components
 
 ### React Native
@@ -107,7 +126,9 @@ Not yet implemented.
 ---
 
 ## Theming Behavior
-Trigger and Content are unstyled `styled()` wrappers — consumers apply tokens via `stl` prop.
+- Trigger: ghost-neutral base (transparent bg, neutral hover), follows Button ghost pattern
+- Content: secondary text via `$neutralText4`
+- All values overridable via `stl` prop
 
 ---
 
@@ -135,13 +156,16 @@ Trigger and Content are unstyled `styled()` wrappers — consumers apply tokens 
 - Controlled mode
 - Disabled prevents toggle
 - `data-state` updates
+- Chevron indicator renders by default
+- `indicator={false}` hides chevron
+- Chevron `data-state` matches open state
 
 ---
 
 ## Implementation Constraints
 - Must use `useDisclosure` from headless — no reinventing state management
 - `forwardRef` on all sub-components
-- No animation in v1
+- No content height animation in v1; indicator rotation and lowMotion-gated transitions allowed
 
 ---
 
