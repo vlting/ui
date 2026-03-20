@@ -212,7 +212,7 @@ const ButtonBase = styled('button', {
     {
       when: { theme: 'destructive', variant: 'outline' },
       stl: {
-        bg: '$minAlpha2', border: '$errorMin', color: '$errorText1',
+        bg: '$minAlpha2', border: '$errorLow', color: '$errorText1',
         ':interact': { bg: '$error9', color: '$errorText9', border: '$error' },
         ':focus': { outline: '$error' },
       },

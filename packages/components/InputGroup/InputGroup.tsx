@@ -99,10 +99,10 @@ Root.displayName = 'InputGroup'
 const AddonBase = styled('div', {
   display: 'inline-flex',
   alignItems: 'center',
-  bg: '$surface2',
+  bg: '$surface3',
   border: '$neutralMin',
   borderRadius: '$field',
-  color: '$neutralText2',
+  color: '$neutralText3',
   flexShrink: '0',
   whiteSpace: 'nowrap',
   fontFamily: '$body',
