@@ -49,7 +49,9 @@ function useAccordionItemContext() {
 
 // ─── Styled Elements ────────────────────────────────────────────────────────
 
-const StyledRoot = styled('div', {}, { name: 'AccordionRoot' })
+const StyledRoot = styled('div', {
+  fontFamily: '$body',
+}, { name: 'AccordionRoot' })
 
 const StyledItem = styled('div', {
   borderBottom: '$neutralMin',
@@ -62,20 +64,71 @@ const StyledTrigger = styled('button', {
   width: '100%',
   alignItems: 'center',
   justifyContent: 'space-between',
-  py: '$12',
-  px: '$0',
+  py: '$8',
+  px: '$12',
   bg: 'transparent',
   border: 'none',
   cursor: 'pointer',
-  fontSize: '$button',
+  fontSize: '$p',
+  fontWeight: '$500',
+  fontFamily: '$body',
   textAlign: 'left',
   color: 'inherit',
+  radius: '$button',
+  ':interact': { bg: '$neutral3' },
+  ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
+  ':pressed': { transform: '$pressScale' },
+  lowMotion: {
+    ':pressed': { transform: 'none' },
+  },
 }, {
   name: 'AccordionTrigger',
+  variants: {
+    disabled: {
+      true: { opacity: '$disabledOpacity', cursor: 'not-allowed', pointerEvents: 'none' },
+    },
+  },
 })
+
+const StyledChevron = styled('span', {
+  display: 'flex',
+  alignItems: 'center',
+  color: 'inherit',
+  transitionProperty: 'transform',
+  transitionDuration: '$fastDuration',
+  transitionTimingFunction: 'ease',
+  lowMotion: { transitionDuration: '0.01s' },
+}, {
+  name: 'AccordionChevron',
+  variants: {
+    open: {
+      true: { transform: 'rotate(180deg)' },
+    },
+  },
+})
+
+const ChevronIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M4 6l4 4 4-4" />
+  </svg>
+)
 
 const StyledContent = styled('div', {
   overflow: 'hidden',
+  py: '$8',
+  px: '$12',
+  fontSize: '$p',
+  color: '$neutralText4',
 }, {
   name: 'AccordionContent',
 })
@@ -172,13 +225,16 @@ AccordionItem.displayName = 'Accordion.Item'
 // ─── Trigger ────────────────────────────────────────────────────────────────
 
 export interface AccordionTriggerProps
-  extends ComponentPropsWithRef<typeof StyledTrigger> {}
+  extends ComponentPropsWithRef<typeof StyledTrigger> {
+  indicator?: boolean
+}
 
 const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
-  ({ children, ...rest }, ref) => {
+  ({ children, indicator = true, ...rest }, ref) => {
     const ctx = useAccordionContext()
     const item = useAccordionItemContext()
     const triggerProps = ctx.getTriggerProps(item.value, item.index)
+    const isDisabled = triggerProps.disabled || item.disabled
 
     return (
       <StyledTrigger
@@ -186,10 +242,15 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
         type="button"
         data-state={item.isOpen ? 'open' : 'closed'}
         {...triggerProps}
-        disabled={triggerProps.disabled || item.disabled}
+        disabled={isDisabled}
         {...rest}
       >
         {children}
+        {indicator && (
+          <StyledChevron open={item.isOpen} data-state={item.isOpen ? 'open' : 'closed'}>
+            <ChevronIcon />
+          </StyledChevron>
+        )}
       </StyledTrigger>
     )
   },
