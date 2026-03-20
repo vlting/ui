@@ -15,12 +15,7 @@ export function InputGroupSection({ sectionRef }: SectionProps) {
       <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <Card.Title>InputGroup</Card.Title>
         <ControlRow>
-          <ToggleGroup
-            type="exclusive"
-            value={[size]}
-            onValueChange={v => v[0] && setSize(v[0] as Size)}
-            aria-label="InputGroup size"
-          >
+          <ToggleGroup type="exclusive" value={[size]} onValueChange={v => v[0] && setSize(v[0] as Size)} aria-label="InputGroup size">
             {SIZES.map(s => (
               <Button key={s} value={s} size="md" variant="outline" theme="neutral">{s}</Button>
             ))}
@@ -31,7 +26,24 @@ export function InputGroupSection({ sectionRef }: SectionProps) {
       <Card.Content>
         <Columns>
           <Column>
-            <SectionTitle stl={{ mt: '$0' }}>With Addon</SectionTitle>
+            <SectionTitle stl={{ mt: '$0' }}>Lead / Trail Addon</SectionTitle>
+            <StackY>
+              <InputGroup size={size}>
+                <InputGroup.Addon>https://</InputGroup.Addon>
+                <InputGroup.Input>
+                  <Input placeholder="example.com" disabled={disabled} />
+                </InputGroup.Input>
+              </InputGroup>
+              <InputGroup size={size}>
+                <InputGroup.Input>
+                  <Input placeholder="Weight" type="number" disabled={disabled} />
+                </InputGroup.Input>
+                <InputGroup.Addon>kg</InputGroup.Addon>
+              </InputGroup>
+            </StackY>
+          </Column>
+          <Column>
+            <SectionTitle stl={{ mt: '$0' }}>Both Addons</SectionTitle>
             <InputGroup size={size}>
               <InputGroup.Addon>$</InputGroup.Addon>
               <InputGroup.Input>
@@ -39,19 +51,6 @@ export function InputGroupSection({ sectionRef }: SectionProps) {
               </InputGroup.Input>
               <InputGroup.Addon>.00</InputGroup.Addon>
             </InputGroup>
-          </Column>
-          <Column>
-            <SectionTitle stl={{ mt: '$0' }}>All sizes</SectionTitle>
-            <StackY>
-              {SIZES.map(s => (
-                <InputGroup key={s} size={s}>
-                  <InputGroup.Addon>https://</InputGroup.Addon>
-                  <InputGroup.Input>
-                    <Input placeholder={`Size: ${s}`} disabled={disabled} />
-                  </InputGroup.Input>
-                </InputGroup>
-              ))}
-            </StackY>
           </Column>
           <Column>
             <SectionTitle stl={{ mt: '$0' }}>Vertical</SectionTitle>
