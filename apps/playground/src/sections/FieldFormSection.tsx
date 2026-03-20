@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Card, Field, Form, Input, NativeSelect, Textarea, Toggle } from '@vlting/ui'
+import { Button, ButtonGroup, Card, Field, Form, Input, NativeSelect, Textarea, Toggle } from '@vlting/ui'
 
 import { Column, Columns, ControlRow, SectionTitle, StackY, type SectionProps } from './shared'
 
@@ -76,7 +76,10 @@ export function FieldFormSection({ sectionRef }: SectionProps) {
               <Field.Description>At least 8 characters.</Field.Description>
               <Field.Error>Password is too short.</Field.Error>
             </Field.Root>
-            <Button type="submit" theme="primary" disabled={disabled}>Sign up</Button>
+            <ButtonGroup stl={{ mt: '$8' }}>
+              <Button type="submit" theme="primary" disabled={disabled} stl={{ minWidth: '$120' }}>Sign up</Button>
+              <Button type="reset" theme="primary" variant="ghost" disabled={disabled}>Clear</Button>
+            </ButtonGroup>
           </StackY>
         </Form.Root>
       </Card.Content>
