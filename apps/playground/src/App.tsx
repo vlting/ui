@@ -11,7 +11,7 @@ import {
   CardSection, EmptySection, InputSection, TypographySection, ItemSection, ProgressSection,
   SelectionSection, SeparatorSection, SpinnerSection, ToggleSection,
 } from './sections'
-import { DemoSection } from './sections/DemoSection'
+import { DemoSection, DEMO_SCENES, type DemoScene } from './sections/DemoSection'
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -207,6 +207,7 @@ function PlaygroundInner({
   const { colorMode, setColorMode, toggleColorMode } = useColorMode()
   const [activePage, setActivePage] = useState<Page>('Components')
   const [activeSection, setActiveSection] = useState<string>(SECTIONS[0])
+  const [activeScene, setActiveScene] = useState<DemoScene>(DEMO_SCENES[0])
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
   // Intersection observer for active section tracking
@@ -280,6 +281,15 @@ function PlaygroundInner({
           >
             Demo
           </SidebarPageLink>
+          {activePage === 'Demo' && DEMO_SCENES.map((s) => (
+            <SidebarLink
+              key={s}
+              active={activeScene === s}
+              onClick={() => { setActiveScene(s); window.scrollTo({ top: 0 }) }}
+            >
+              {s}
+            </SidebarLink>
+          ))}
         </SidebarNav>
         <SidebarFooter>
           <ThemePicker
@@ -312,7 +322,7 @@ function PlaygroundInner({
             />
           )
         })}
-        {activePage === 'Demo' && <DemoSection />}
+        {activePage === 'Demo' && <DemoSection activeScene={activeScene} />}
       </Main>
     </AppRoot>
   )
