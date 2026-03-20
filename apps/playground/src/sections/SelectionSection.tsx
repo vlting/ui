@@ -2,26 +2,15 @@ import { useState } from 'react'
 import { Button, Card, Checkbox, RadioGroup, Switch, Toggle, ToggleGroup } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
-import { ControlRow, SectionTitle, StackY, type SectionProps } from './shared'
-
-const ContentWrap = styled('div', {
-  maxWidth: '$480',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$32',
-}, { name: 'ContentWrap' })
-
-const SubSection = styled('div', {
-  display: 'flex', flexDirection: 'column', gap: '$8',
-}, { name: 'SubSection' })
-
-const Row = styled('div', {
-  display: 'flex', gap: '$16', alignItems: 'center', flexWrap: 'wrap',
-}, { name: 'Row' })
+import { Column, Columns, ControlRow, SectionTitle, StackY, type SectionProps } from './shared'
 
 const StatusLabel = styled('span', {
   fontSize: '$small', color: '$neutralText4', fontFamily: '$code',
 }, { name: 'StatusLabel' })
+
+const Row = styled('div', {
+  display: 'flex', gap: '$16', alignItems: 'center', flexWrap: 'wrap',
+}, { name: 'Row' })
 
 const SIZES = ['sm', 'md', 'lg'] as const
 type Size = (typeof SIZES)[number]
@@ -31,25 +20,20 @@ export function SelectionSection({ sectionRef }: SectionProps) {
   const [disabled, setDisabled] = useState(false)
   const [error, setError] = useState(false)
 
-  // Checkbox controlled state
   const [cbChecked, setCbChecked] = useState(false)
-
-  // Switch controlled state
   const [swChecked, setSwChecked] = useState(false)
-
-  // RadioGroup controlled state
   const [radioValue, setRadioValue] = useState('apple')
 
   return (
     <Card ref={sectionRef} data-section="Selection">
-      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <Card.Title>Selection</Card.Title>
         <ControlRow>
           <ToggleGroup
             type="exclusive"
             value={[size]}
             onValueChange={v => v[0] && setSize(v[0] as Size)}
-            aria-label="Size"
+            aria-label="Selection size"
           >
             {SIZES.map(s => (
               <Button key={s} value={s} size="md" variant="outline" theme="neutral">{s}</Button>
@@ -59,11 +43,11 @@ export function SelectionSection({ sectionRef }: SectionProps) {
           <Toggle size="md" variant="outline" theme="neutral" pressed={disabled} onPressedChange={setDisabled}>disabled</Toggle>
         </ControlRow>
       </Card.Header>
-      <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$32' }}>
-        <ContentWrap>
+      <Card.Content>
+        <Columns>
           {/* ── Checkbox ───────────────────────────────────── */}
-          <SubSection>
-            <SectionTitle>Checkbox</SectionTitle>
+          <Column>
+            <SectionTitle stl={{ mt: '$0' }}>Checkbox</SectionTitle>
             <StackY>
               <Checkbox.Root size={size} disabled={disabled} error={error}>
                 Uncontrolled
@@ -87,11 +71,11 @@ export function SelectionSection({ sectionRef }: SectionProps) {
                 <StatusLabel>{cbChecked ? 'ON' : 'OFF'}</StatusLabel>
               </Row>
             </StackY>
-          </SubSection>
+          </Column>
 
           {/* ── Switch ─────────────────────────────────────── */}
-          <SubSection>
-            <SectionTitle>Switch</SectionTitle>
+          <Column>
+            <SectionTitle stl={{ mt: '$0' }}>Switch</SectionTitle>
             <StackY>
               <Row>
                 <Switch size={size} disabled={disabled} error={error} aria-label="Uncontrolled" />
@@ -113,23 +97,17 @@ export function SelectionSection({ sectionRef }: SectionProps) {
                 <StatusLabel>{swChecked ? 'ON' : 'OFF'}</StatusLabel>
               </Row>
             </StackY>
-          </SubSection>
+          </Column>
 
           {/* ── RadioGroup ─────────────────────────────────── */}
-          <SubSection>
-            <SectionTitle>RadioGroup — Vertical</SectionTitle>
-            <StackY>
+          <Column>
+            <SectionTitle stl={{ mt: '$0' }}>RadioGroup</SectionTitle>
+            <StackY stl={{ gap: '$24' }}>
               <RadioGroup.Root size={size} disabled={disabled} error={error} defaultValue="banana" aria-label="Fruit">
                 <RadioGroup.Item value="apple">Apple</RadioGroup.Item>
                 <RadioGroup.Item value="banana">Banana</RadioGroup.Item>
                 <RadioGroup.Item value="cherry">Cherry</RadioGroup.Item>
               </RadioGroup.Root>
-            </StackY>
-          </SubSection>
-
-          <SubSection>
-            <SectionTitle>RadioGroup — Horizontal</SectionTitle>
-            <StackY>
               <RadioGroup.Root
                 size={size}
                 disabled={disabled}
@@ -142,12 +120,6 @@ export function SelectionSection({ sectionRef }: SectionProps) {
                 <RadioGroup.Item value="md">Medium</RadioGroup.Item>
                 <RadioGroup.Item value="lg">Large</RadioGroup.Item>
               </RadioGroup.Root>
-            </StackY>
-          </SubSection>
-
-          <SubSection>
-            <SectionTitle>RadioGroup — Controlled</SectionTitle>
-            <StackY>
               <Row>
                 <RadioGroup.Root
                   size={size}
@@ -165,8 +137,8 @@ export function SelectionSection({ sectionRef }: SectionProps) {
                 <StatusLabel>{radioValue}</StatusLabel>
               </Row>
             </StackY>
-          </SubSection>
-        </ContentWrap>
+          </Column>
+        </Columns>
       </Card.Content>
     </Card>
   )
