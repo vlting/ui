@@ -15,6 +15,7 @@ export function getSize(hash: CharHash) {
     1: { ...hash.var, value: '1rem' },
     2: { ...hash.var, value: `calc(${base.ref} / 2)` },
     4: { ...hash.var, value: base.ref },
+    6: { ...hash.var, value: `calc(${base.ref} * 1.5)` },
     8: { ...hash.var, value: `calc(${base.ref} * 2)` },
     12: { ...hash.var, value: `calc(${base.ref} * 3)` },
     16: { ...hash.var, value: `calc(${base.ref} * 4)` },
