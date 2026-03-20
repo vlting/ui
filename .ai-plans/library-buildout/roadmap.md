@@ -203,15 +203,17 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Playground sections + demo scene integration
 **Status:** in-progress
 
-### Stage 7.4: Form Infrastructure (Field, Form, Label)
+### Stage 7.4: Form Infrastructure (Field, Form)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/form-infrastructure
+**Issue:** #241
 **Acceptance criteria:**
-- [ ] Field: compound (Label/Control/Error/Description), auto-wires aria-describedby/aria-invalid
-- [ ] Form: root container, validation integration points
-- [ ] Label: associates with control, required indicator
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground sections (top of gallery) + demo scene integration
-**Status:** pending
+- [ ] Field: compound (Root/Label/Control/Description/Error), context + useId + cloneElement, auto-wires aria
+- [ ] Form: styled <form> with onSubmit/preventDefault, noValidate
+- [ ] Label primitive in stl-react already done — Field.Label wraps it, no duplication
+- [ ] Tests rewritten to match actual implementation
+- [ ] Playground section + demo scene integration
+**Status:** in-progress
 
 ## Epic 8: Disclosure & Overlay
 **Objective:** Components with open/close state, focus management, portals. First real test of styled() for compound+portal patterns.
