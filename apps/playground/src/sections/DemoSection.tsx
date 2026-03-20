@@ -1,553 +1,468 @@
 import { styled } from '@vlting/stl-react'
-import { Badge, Button } from '@vlting/ui'
+import { StackY } from './shared'
+import {
+  Alert,
+  Avatar,
+  Badge,
+  Button,
+  ButtonGroup,
+  Card,
+  Checkbox,
+  Empty,
+  Heading,
+  Input,
+  Item,
+  Loader,
+  NativeSelect,
+  Progress,
+  RadioGroup,
+  Separator,
+  Switch,
+  Text,
+  Textarea,
+  Toggle,
+  ToggleGroup,
+} from '@vlting/ui'
 
-// ─── Phone Shell ────────────────────────────────────────────────────────────
+// ─── Scene Infrastructure ──────────────────────────────────────────────────
 
-const Showcase = styled('div', {
-  display: 'flex',
-  gap: '$40',
-  justifyContent: 'center',
-  alignItems: 'center',
+const SceneSection = styled('section', {
+  position: 'relative',
+  overflow: 'hidden',
   py: '$48',
   px: '$24',
-  flexWrap: 'wrap',
-}, { name: 'DemoShowcase' })
+}, { name: 'SceneSection' })
 
-const Phone = styled('div', {
-  width: '375px',
-  height: '812px',
-  overflow: 'hidden',
+const SceneHeader = styled('div', {
+  textAlign: 'center',
+  mb: '$32',
   position: 'relative',
-  display: 'flex',
-  flexDirection: 'column',
-  flexShrink: '0',
-  borderRadius: '48px',
-  borderWidth: '8px',
-  borderStyle: 'solid',
-  borderColor: '$neutralAlpha4',
-  bg: '$surface1',
-  boxShadow: '$2xl',
-}, { name: 'DemoPhone' })
+  zIndex: '$1',
+}, { name: 'SceneHeader' })
 
-const Notch = styled('div', {
+const GradientOrb = styled('div', {
   position: 'absolute',
-  top: '$0',
-  left: '50%',
-  transform: 'translateX(-50%)',
-  width: '120px',
-  height: '28px',
-  borderRadius: '0 0 16px 16px',
-  bg: '$neutralAlpha4',
-  zIndex: '10',
-}, { name: 'PhoneNotch' })
+  borderRadius: '$full',
+  filter: 'blur(80px)',
+  pointerEvents: 'none',
+}, { name: 'GradientOrb' })
 
-const StatusBar = styled('div', {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  px: '$20',
-  pt: '32px',
-  pb: '$4',
-  fontSize: '11px',
-  color: '$neutralText2',
-  fontWeight: '$600',
-  flexShrink: '0',
-}, { name: 'PhoneStatusBar' })
-
-const PhoneBody = styled('div', {
-  flex: '1',
-  display: 'flex',
-  flexDirection: 'column',
-  overflow: 'hidden',
+const SceneContent = styled('div', {
   position: 'relative',
-}, { name: 'PhoneBody' })
-
-const HomeIndicator = styled('div', {
-  width: '120px',
-  height: '4px',
-  bg: '$neutralAlpha5',
-  borderRadius: '9999px',
+  zIndex: '$1',
+  maxWidth: '720px',
   mx: 'auto',
-  mt: 'auto',
-  mb: '$8',
-  flexShrink: '0',
-}, { name: 'HomeIndicator' })
+}, { name: 'SceneContent' })
 
-// ─── Shared Inner Pieces ────────────────────────────────────────────────────
-
-const ScreenHeader = styled('div', {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  px: '$16',
-  py: '$10',
-  flexShrink: '0',
-}, { name: 'ScreenHeader' })
-
-const ScreenTitle = styled('h3', {
-  fontSize: '$h4',
-  fontWeight: '$700',
-  fontFamily: '$heading',
-  color: '$color12',
-  m: '$0',
-}, { name: 'ScreenTitle' })
-
-const NavIcon = styled('div', {
-  width: '20px',
-  height: '20px',
-  borderRadius: '$4',
-  bg: '$neutralAlpha4',
-}, {
-  name: 'NavIcon',
-  variants: {
-    active: {
-      true: { bg: '$primary9' },
-    },
-  },
-})
-
-const AvatarCircle = styled('div', {
-  borderRadius: '$full',
-  flexShrink: '0',
-}, {
-  name: 'AvatarCircle',
-  variants: {
-    size: {
-      sm: { width: '32px', height: '32px' },
-      md: { width: '44px', height: '44px' },
-      lg: { width: '64px', height: '64px' },
-      xl: { width: '100px', height: '100px' },
-    },
-  },
-})
-
-// ─── Screen 1: Profile / Swipe ──────────────────────────────────────────────
-
-const ProfileHero = styled('div', {
-  flex: '1',
-  position: 'relative',
+const FormGroup = styled('div', {
   display: 'flex',
   flexDirection: 'column',
+  gap: '$12',
+}, { name: 'FormGroup' })
+
+const FormRow = styled('div', {
+  display: 'flex',
+  gap: '$12',
+  alignItems: 'center',
   justifyContent: 'end',
-  backgroundImage: 'var(--stl-gradient-primary, linear-gradient(135deg, var(--stl-color-primary5, hsl(320,85%,50%)), var(--stl-color-secondary6, hsl(345,80%,40%))))',
-  backgroundSize: 'cover',
-}, { name: 'ProfileHero' })
+}, { name: 'FormRow' })
 
-const ProfileOverlay = styled('div', {
-  linearGradient: 'to top, hsla(0,0%,0%,0.85) 0%, hsla(0,0%,0%,0.3) 50%, transparent 100%',
-  p: '$16',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$6',
-}, { name: 'ProfileOverlay' })
-
-const ProfileName = styled('h2', {
-  fontSize: '$h3',
-  fontWeight: '$700',
-  fontFamily: '$heading',
-  color: 'white',
-  m: '$0',
-}, { name: 'ProfileName' })
-
-const ProfileBio = styled('p', {
-  fontSize: '$small',
-  color: 'hsla(0,0%,100%,0.7)',
-  m: '$0',
-  lineHeight: '$spaced',
-}, { name: 'ProfileBio' })
-
-const ProfileActions = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  gap: '$12',
-  py: '$12',
-  px: '$16',
-  flexShrink: '0',
-}, { name: 'ProfileActions' })
-
-const ActionCircle = styled('button', {
-  width: '48px',
-  height: '48px',
-  borderRadius: '$full',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  border: 'none',
-  cursor: 'pointer',
-  fontSize: '18px',
-}, {
-  name: 'ActionCircle',
-  variants: {
-    kind: {
-      muted: { bg: '$neutralAlpha4', color: '$neutralText3' },
-      primary: { bg: '$primary9', color: 'white' },
-      accent: { bg: '$secondary9', color: 'white' },
-    },
-  },
-})
-
-const FloatingBadges = styled('div', {
-  position: 'absolute',
-  top: '$16',
-  left: '$0',
-  right: '$0',
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: '$8',
-  px: '$12',
-}, { name: 'FloatingBadges' })
-
-function ProfileScreen() {
-  return (
-    <>
-      <ProfileHero>
-        <FloatingBadges>
-          <Badge size="sm" theme="primary" variant="solid">Nearby</Badge>
-          <Badge size="sm" theme="secondary" variant="solid">Active</Badge>
-        </FloatingBadges>
-        <ProfileOverlay>
-          <ProfileName>Maya, 24</ProfileName>
-          <ProfileBio>Coffee lover, part-time traveler exploring stories...</ProfileBio>
-        </ProfileOverlay>
-      </ProfileHero>
-      <ProfileActions>
-        <ActionCircle kind="muted" aria-label="Skip">
-          <XIcon />
-        </ActionCircle>
-        <ActionCircle kind="primary" aria-label="Like">
-          <HeartIcon />
-        </ActionCircle>
-        <ActionCircle kind="accent" aria-label="Message">
-          <ChatIcon />
-        </ActionCircle>
-      </ProfileActions>
-    </>
-  )
-}
-
-// ─── Screen 2: Chat List ────────────────────────────────────────────────────
-
-const ChatList = styled('div', {
-  flex: '1',
-  display: 'flex',
-  flexDirection: 'column',
-  overflowY: 'auto',
-}, { name: 'ChatList' })
-
-const ChatItem = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '$12',
-  px: '$16',
-  py: '$10',
-  ':interact': { bg: '$neutralAlpha3' },
-  cursor: 'pointer',
-}, { name: 'ChatItem' })
-
-const ChatMeta = styled('div', {
-  flex: '1',
-  minWidth: '0',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$2',
-}, { name: 'ChatMeta' })
-
-const ChatName = styled('span', {
-  fontSize: '$p',
-  fontWeight: '$600',
-  color: '$color12',
-}, { name: 'ChatName' })
-
-const ChatPreview = styled('span', {
-  fontSize: '$small',
-  color: '$neutralText4',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-}, { name: 'ChatPreview' })
-
-const ChatTime = styled('span', {
-  fontSize: '11px',
-  color: '$neutralText4',
-  flexShrink: '0',
-}, { name: 'ChatTime' })
-
-const UnreadDot = styled('div', {
-  width: '18px',
-  height: '18px',
-  borderRadius: '$full',
-  bg: '$primary9',
-  color: 'white',
-  fontSize: '10px',
-  fontWeight: '$700',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexShrink: '0',
-}, { name: 'UnreadDot' })
-
-const TabRow = styled('div', {
-  display: 'flex',
-  gap: '$8',
-  px: '$16',
-  pb: '$10',
-  flexShrink: '0',
-}, { name: 'TabRow' })
-
-const InlineRow = styled('div', {
-  display: 'flex', gap: '$8', alignItems: 'center',
-}, { name: 'InlineRow' })
-
-const ChatEndCol = styled('div', {
-  display: 'flex', flexDirection: 'column', alignItems: 'end', gap: '$4',
-}, { name: 'ChatEndCol' })
-
-const CHATS: readonly { name: string; msg: string; time: string; unread?: number; typing?: boolean }[] = [
-  { name: 'Alex Carter', msg: "Hey, how's today?", time: '12:20 AM', unread: 2 },
-  { name: 'Liam Brooks', msg: 'Coffee or travel?', time: '11:40 AM', unread: 1 },
-  { name: 'Sofia Lane', msg: 'Typing...', time: '1:40 PM', unread: 3, typing: true },
-  { name: 'Ethan Cole', msg: "What's your vibe?", time: '8:30 AM' },
-  { name: 'Aria Stone', msg: 'Just saying hi', time: '12:28 PM' },
-]
-
-function ChatScreen() {
-  return (
-    <>
-      <ScreenHeader>
-        <ScreenTitle>Messages</ScreenTitle>
-        <InlineRow>
-          <NavIcon />
-          <NavIcon />
-        </InlineRow>
-      </ScreenHeader>
-
-      <TabRow>
-        <Button size="sm" theme="primary" variant="solid">All</Button>
-        <Button size="sm" theme="neutral" variant="ghost">Unread</Button>
-        <Button size="sm" theme="neutral" variant="ghost">Pinned</Button>
-      </TabRow>
-
-      <ChatList>
-        {CHATS.map((c) => (
-          <ChatItem key={c.name}>
-            <AvatarCircle
-              size="md"
-              stl={{ bg: '$primary5' }}
-            />
-            <ChatMeta>
-              <ChatName>{c.name}</ChatName>
-              <ChatPreview stl={c.typing ? { color: '$primary9' } : undefined}>{c.msg}</ChatPreview>
-            </ChatMeta>
-            <ChatEndCol>
-              <ChatTime>{c.time}</ChatTime>
-              {c.unread && <UnreadDot>{c.unread}</UnreadDot>}
-            </ChatEndCol>
-          </ChatItem>
-        ))}
-      </ChatList>
-    </>
-  )
-}
-
-// ─── Screen 3: Discover / Glass ─────────────────────────────────────────────
-
-const DiscoverGrid = styled('div', {
-  flex: '1',
+const StatsRow = styled('div', {
   display: 'grid',
-  gap: '$12',
-  px: '$16',
-  py: '$8',
-  overflowY: 'auto',
-}, { name: 'DiscoverGrid' })
+  gridTemplateColumns: 'repeat(3, 1fr)',
+  gap: '$16',
+}, { name: 'StatsRow' })
 
-const GlassCard = styled('div', {
-  bg: 'var(--stl-glass-tint, hsla(0,0%,100%,0.06))',
-  backdropFilter: 'blur(var(--stl-glass-blur, 8px))',
-  borderRadius: '$16',
-  p: '$12',
-  borderWidth: '$widthMin',
-  borderStyle: '$styleDefault',
-  borderColor: '$neutralAlpha4',
-  backgroundImage: 'var(--stl-glass-gradient, none)',
+const ControlsRow = styled('div', {
   display: 'flex',
-  flexDirection: 'column',
-  gap: '$8',
-}, { name: 'GlassCard' })
-
-const CardRow = styled('div', {
-  display: 'flex',
+  gap: '$16',
   alignItems: 'center',
-  gap: '$10',
-}, { name: 'CardRow' })
-
-const CardName = styled('span', {
-  fontSize: '$p',
-  fontWeight: '$600',
-  color: '$color12',
-}, { name: 'CardName' })
-
-const CardDetail = styled('span', {
-  fontSize: '$small',
-  color: '$neutralText4',
-}, { name: 'CardDetail' })
-
-const TagRow = styled('div', {
-  display: 'flex',
-  gap: '$6',
+  justifyContent: 'space-between',
   flexWrap: 'wrap',
-}, { name: 'TagRow' })
+}, { name: 'ControlsRow' })
 
-const PROFILES = [
-  { name: 'Roxane, 21', location: 'Seattle, WA', tags: ['3.4 km', 'Student'] },
-  { name: 'Jordan, 26', location: 'Portland, OR', tags: ['1.2 km', 'Designer'] },
-  { name: 'Kai, 23', location: 'Vancouver, BC', tags: ['5.1 km', 'Musician'] },
-] as const
+const TeamRow = styled('div', {
+  display: 'flex',
+  gap: '$12',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+}, { name: 'TeamRow' })
 
-function DiscoverScreen() {
+const FilterRow = styled('div', {
+  display: 'flex',
+  gap: '$8',
+  flexWrap: 'wrap',
+}, { name: 'FilterRow' })
+
+// ─── Scene 1: Settings — Preferences Panel ─────────────────────────────────
+
+function SettingsScene() {
   return (
-    <>
-      <ScreenHeader>
-        <ScreenTitle>Discover</ScreenTitle>
-        <NavIcon />
-      </ScreenHeader>
+    <SceneSection stl={{ bg: '$surface2' }}>
+      <GradientOrb
+        aria-hidden="true"
+        stl={{
+          width: '400px',
+          height: '400px',
+          top: '-100px',
+          right: '-100px',
+          bg: 'radial-gradient(circle, $primaryAlpha3, transparent)',
+        }}
+      />
+      <GradientOrb
+        aria-hidden="true"
+        stl={{
+          width: '300px',
+          height: '300px',
+          bottom: '-80px',
+          left: '-60px',
+          bg: 'radial-gradient(circle, $secondaryAlpha4, transparent)',
+        }}
+      />
 
-      <DiscoverGrid>
-        {PROFILES.map((p) => (
-          <GlassCard key={p.name}>
-            <CardRow>
-              <AvatarCircle size="md" stl={{ bg: '$secondary5' }} />
-              <div>
-                <CardName>{p.name}</CardName>
-                <CardDetail>{p.location}</CardDetail>
-              </div>
-            </CardRow>
-            <TagRow>
-              {p.tags.map((t) => (
-                <Badge key={t} size="sm" theme="neutral" variant="outline">{t}</Badge>
-              ))}
-            </TagRow>
-          </GlassCard>
-        ))}
-      </DiscoverGrid>
-    </>
+      <SceneHeader>
+        <Heading as="h2" stl={{ mb: '$8' }}>Settings</Heading>
+        <Text stl={{ color: '$neutralText4' }}>Manage your account preferences and notifications</Text>
+      </SceneHeader>
+
+      <SceneContent>
+        <Card>
+          <Card.Content>
+            <StackY stl={{ gap: '$24' }}>
+              {/* Profile */}
+              <FormGroup>
+                <Heading as="h3" stl={{ fontSize: '$p', fontWeight: '$600' }}>Profile</Heading>
+                <Input placeholder="Display name" aria-label="Display name" />
+                <Textarea placeholder="Write a short bio..." aria-label="Bio" />
+              </FormGroup>
+
+              <Separator />
+
+              {/* Preferences */}
+              <FormGroup>
+                <Heading as="h3" stl={{ fontSize: '$p', fontWeight: '$600' }}>Preferences</Heading>
+                <Item theme="neutral" variant="ghost">
+                  <Item.Content>
+                    <Item.Title>Push notifications</Item.Title>
+                    <Item.Description>Receive alerts on your device</Item.Description>
+                  </Item.Content>
+                  <Item.Trailing>
+                    <Switch defaultChecked aria-label="Push notifications" />
+                  </Item.Trailing>
+                </Item>
+                <Item theme="neutral" variant="ghost">
+                  <Item.Content>
+                    <Item.Title>Auto-save drafts</Item.Title>
+                    <Item.Description>Save work automatically every minute</Item.Description>
+                  </Item.Content>
+                  <Item.Trailing>
+                    <Switch aria-label="Auto-save drafts" />
+                  </Item.Trailing>
+                </Item>
+                <Item theme="neutral" variant="ghost">
+                  <Item.Content>
+                    <Item.Title>Dark mode</Item.Title>
+                    <Item.Description>Use dark color scheme</Item.Description>
+                  </Item.Content>
+                  <Item.Trailing>
+                    <Switch aria-label="Dark mode" />
+                  </Item.Trailing>
+                </Item>
+              </FormGroup>
+
+              <Separator />
+
+              {/* Notification channels */}
+              <FormGroup>
+                <Heading as="h3" stl={{ fontSize: '$p', fontWeight: '$600' }}>Notification channels</Heading>
+                <Checkbox.Root defaultChecked>Email</Checkbox.Root>
+                <Checkbox.Root>Push</Checkbox.Root>
+                <Checkbox.Root>SMS</Checkbox.Root>
+              </FormGroup>
+
+              <Separator />
+
+              {/* Language */}
+              <FormGroup>
+                <Heading as="h3" stl={{ fontSize: '$p', fontWeight: '$600' }}>Language</Heading>
+                <RadioGroup.Root defaultValue="en" aria-label="Language">
+                  <RadioGroup.Item value="en">English</RadioGroup.Item>
+                  <RadioGroup.Item value="es">Spanish</RadioGroup.Item>
+                  <RadioGroup.Item value="fr">French</RadioGroup.Item>
+                </RadioGroup.Root>
+              </FormGroup>
+
+              <Separator />
+
+              {/* Timezone */}
+              <FormGroup>
+                <Heading as="h3" stl={{ fontSize: '$p', fontWeight: '$600' }}>Timezone</Heading>
+                <NativeSelect.Root aria-label="Timezone">
+                  <NativeSelect.Option value="utc-8">Pacific Time (UTC-8)</NativeSelect.Option>
+                  <NativeSelect.Option value="utc-5">Eastern Time (UTC-5)</NativeSelect.Option>
+                  <NativeSelect.Option value="utc+0">UTC</NativeSelect.Option>
+                  <NativeSelect.Option value="utc+1">Central European (UTC+1)</NativeSelect.Option>
+                </NativeSelect.Root>
+              </FormGroup>
+
+              <Separator />
+
+              {/* Actions */}
+              <FormRow>
+                <Button theme="neutral" variant="outline">Cancel</Button>
+                <Button theme="primary" variant="solid">Save changes</Button>
+              </FormRow>
+            </StackY>
+          </Card.Content>
+        </Card>
+      </SceneContent>
+    </SceneSection>
   )
 }
 
-// ─── Mini Icons ─────────────────────────────────────────────────────────────
+// ─── Scene 2: Activity — Feed ───────────────────────────────────────────────
 
-const HeartIcon = () => (
-  <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853Z" />
-  </svg>
-)
+function ActivityScene() {
+  return (
+    <SceneSection stl={{ bg: '$surface3' }}>
+      <GradientOrb
+        aria-hidden="true"
+        stl={{
+          width: '350px',
+          height: '350px',
+          top: '-80px',
+          left: '-80px',
+          bg: 'radial-gradient(circle, $secondaryAlpha4, transparent)',
+        }}
+      />
+      <GradientOrb
+        aria-hidden="true"
+        stl={{
+          width: '280px',
+          height: '280px',
+          bottom: '-60px',
+          right: '-40px',
+          bg: 'radial-gradient(circle, $primaryAlpha3, transparent)',
+        }}
+      />
 
-const XIcon = () => (
-  <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 10.586L16.95 5.636L18.364 7.05L13.414 12L18.364 16.95L16.95 18.364L12 13.414L7.05 18.364L5.636 16.95L10.586 12L5.636 7.05L7.05 5.636L12 10.586Z" />
-  </svg>
-)
+      <SceneHeader>
+        <Heading as="h2" stl={{ mb: '$8' }}>Activity</Heading>
+        <Text stl={{ color: '$neutralText4' }}>Recent notifications and task progress</Text>
+      </SceneHeader>
 
-const ChatIcon = () => (
-  <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M2 8.99374C2 5.68349 4.67 3 8 3H16C19.33 3 22 5.68 22 8.99V14.99C22 18.3 19.33 20.98 16 20.98H8L3.29 22.98C2.68 23.23 2 22.78 2 22.12V8.99374Z" />
-  </svg>
-)
+      <SceneContent>
+        <StackY stl={{ gap: '$24' }}>
+          {/* Feed items */}
+          <Card>
+            <Card.Content>
+              <StackY stl={{ gap: '$0' }}>
+                <Item theme="neutral" variant="ghost">
+                  <Item.Leading>
+                    <Avatar size="sm" fallback="DK" />
+                  </Item.Leading>
+                  <Item.Content>
+                    <Item.Title>Deploy failed on staging</Item.Title>
+                    <Item.Description>David Kim triggered a rollback</Item.Description>
+                  </Item.Content>
+                  <Item.Trailing>
+                    <Badge theme="tomato" variant="subtle" size="sm">Urgent</Badge>
+                  </Item.Trailing>
+                </Item>
 
-const SignalIcon = () => (
-  <svg width={14} height={10} viewBox="0 0 14 10" fill="currentColor" opacity={0.5}>
-    <rect x="0" y="7" width="2" height="3" rx="0.5" />
-    <rect x="4" y="4" width="2" height="6" rx="0.5" />
-    <rect x="8" y="2" width="2" height="8" rx="0.5" />
-    <rect x="12" y="0" width="2" height="10" rx="0.5" />
-  </svg>
-)
+                <Separator />
 
-const BatteryIcon = () => (
-  <svg width={18} height={10} viewBox="0 0 18 10" fill="currentColor" opacity={0.5}>
-    <rect x="0" y="0" width="15" height="10" rx="2" fill="none" stroke="currentColor" strokeWidth="1" />
-    <rect x="2" y="2" width="10" height="6" rx="1" />
-    <rect x="16" y="3" width="2" height="4" rx="0.5" />
-  </svg>
-)
+                <Item theme="neutral" variant="ghost">
+                  <Item.Leading>
+                    <Avatar size="sm" fallback="SL" />
+                  </Item.Leading>
+                  <Item.Content>
+                    <Item.Title>PR review requested</Item.Title>
+                    <Item.Description>Sara Lee needs approval on #482</Item.Description>
+                  </Item.Content>
+                  <Item.Trailing>
+                    <Badge theme="amber" variant="subtle" size="sm">Pending</Badge>
+                  </Item.Trailing>
+                </Item>
+
+                <Separator />
+
+                <Item theme="neutral" variant="ghost">
+                  <Item.Leading>
+                    <Avatar size="sm" fallback="MR" />
+                  </Item.Leading>
+                  <Item.Content>
+                    <Item.Title>Tests passing on main</Item.Title>
+                    <Item.Description>Marco Rivera merged the fix</Item.Description>
+                  </Item.Content>
+                  <Item.Trailing>
+                    <Badge theme="grass" variant="subtle" size="sm">Done</Badge>
+                  </Item.Trailing>
+                </Item>
+              </StackY>
+            </Card.Content>
+          </Card>
+
+          {/* Alerts */}
+          <Alert.Root theme="success">
+            <Alert.Title>Build complete</Alert.Title>
+            <Alert.Description>All 142 tests passed successfully.</Alert.Description>
+          </Alert.Root>
+
+          <Alert.Root theme="warning">
+            <Alert.Title>Disk usage high</Alert.Title>
+            <Alert.Description>Storage is at 87% capacity. Consider cleanup.</Alert.Description>
+          </Alert.Root>
+
+          <Alert.Root theme="info">
+            <Alert.Title>Scheduled maintenance</Alert.Title>
+            <Alert.Description>Downtime window: Saturday 2am–4am UTC.</Alert.Description>
+          </Alert.Root>
+
+          {/* Progress */}
+          <Card>
+            <Card.Content>
+              <FormGroup>
+                <Text stl={{ fontWeight: '$600' }}>Sprint progress — 3 of 5 tasks complete</Text>
+                <Progress value={60} aria-label="Sprint progress" />
+              </FormGroup>
+            </Card.Content>
+          </Card>
+
+          {/* Empty state */}
+          <Empty.Root>
+            <Empty.Title>All caught up</Empty.Title>
+            <Empty.Description>No new notifications. Check back later.</Empty.Description>
+          </Empty.Root>
+
+          {/* Loading indicator */}
+          <Loader aria-label="Loading activity" />
+        </StackY>
+      </SceneContent>
+    </SceneSection>
+  )
+}
+
+// ─── Scene 3: Dashboard — Overview ──────────────────────────────────────────
+
+function DashboardScene() {
+  return (
+    <SceneSection stl={{ bg: '$surface2' }}>
+      <GradientOrb
+        aria-hidden="true"
+        stl={{
+          width: '420px',
+          height: '420px',
+          top: '-120px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          bg: 'radial-gradient(circle, $primaryAlpha3, transparent)',
+        }}
+      />
+      <GradientOrb
+        aria-hidden="true"
+        stl={{
+          width: '300px',
+          height: '300px',
+          bottom: '-100px',
+          right: '-60px',
+          bg: 'radial-gradient(circle, $secondaryAlpha4, transparent)',
+        }}
+      />
+
+      <SceneHeader>
+        <Heading as="h2" stl={{ mb: '$8' }}>Dashboard</Heading>
+        <Text stl={{ color: '$neutralText4' }}>Team metrics and quick actions</Text>
+      </SceneHeader>
+
+      <SceneContent>
+        <StackY stl={{ gap: '$24' }}>
+          {/* Stats row */}
+          <StatsRow>
+            <Card elevation="raised">
+              <Card.Content>
+                <FormGroup stl={{ gap: '$8' }}>
+                  <Text stl={{ color: '$neutralText4', fontSize: '$small' }}>Revenue</Text>
+                  <Heading as="h3" stl={{ fontSize: '$h3' }}>$48.2k</Heading>
+                  <Progress value={72} aria-label="Revenue progress" />
+                </FormGroup>
+              </Card.Content>
+            </Card>
+
+            <Card elevation="raised">
+              <Card.Content>
+                <FormGroup stl={{ gap: '$8' }}>
+                  <Text stl={{ color: '$neutralText4', fontSize: '$small' }}>Users</Text>
+                  <Heading as="h3" stl={{ fontSize: '$h3' }}>1,204</Heading>
+                  <Progress value={45} aria-label="User growth" />
+                </FormGroup>
+              </Card.Content>
+            </Card>
+
+            <Card elevation="raised">
+              <Card.Content>
+                <FormGroup stl={{ gap: '$8' }}>
+                  <Text stl={{ color: '$neutralText4', fontSize: '$small' }}>Uptime</Text>
+                  <Heading as="h3" stl={{ fontSize: '$h3' }}>99.9%</Heading>
+                  <Progress value={99} aria-label="Uptime" />
+                </FormGroup>
+              </Card.Content>
+            </Card>
+          </StatsRow>
+
+          {/* Controls row */}
+          <ControlsRow>
+            <ButtonGroup.Root>
+              <Button theme="neutral" variant="outline">Export</Button>
+              <Button theme="neutral" variant="outline">Share</Button>
+            </ButtonGroup.Root>
+            <ToggleGroup type="exclusive" defaultValue={['week']} aria-label="Time range">
+              <Button value="day" theme="neutral" variant="outline">Day</Button>
+              <Button value="week" theme="neutral" variant="outline">Week</Button>
+              <Button value="month" theme="neutral" variant="outline">Month</Button>
+            </ToggleGroup>
+          </ControlsRow>
+
+          {/* Team row */}
+          <Card>
+            <Card.Content>
+              <FormGroup>
+                <Heading as="h3" stl={{ fontSize: '$p', fontWeight: '$600' }}>Team</Heading>
+                <TeamRow>
+                  <Avatar size="md" fallback="AW" />
+                  <Badge theme="grass" variant="subtle" size="sm">Online</Badge>
+                  <Avatar size="sm" fallback="JT" />
+                  <Badge theme="amber" variant="subtle" size="sm">Away</Badge>
+                  <Avatar size="lg" fallback="KP" />
+                  <Badge theme="grass" variant="subtle" size="sm">Online</Badge>
+                  <Avatar size="sm" fallback="LN" />
+                  <Badge theme="tomato" variant="subtle" size="sm">Busy</Badge>
+                </TeamRow>
+              </FormGroup>
+            </Card.Content>
+          </Card>
+
+          {/* Filters */}
+          <FilterRow>
+            <Toggle theme="neutral" variant="outline" aria-label="Active filter">Active</Toggle>
+            <Toggle theme="neutral" variant="outline" aria-label="Archived filter">Archived</Toggle>
+            <Toggle theme="neutral" variant="outline" pressed aria-label="Starred filter">Starred</Toggle>
+            <Toggle theme="neutral" variant="outline" aria-label="Draft filter">Draft</Toggle>
+          </FilterRow>
+        </StackY>
+      </SceneContent>
+    </SceneSection>
+  )
+}
 
 // ─── Export ─────────────────────────────────────────────────────────────────
-
-const SectionHeading = styled('h2', {
-  fontSize: '$h3',
-  fontWeight: '$700',
-  fontFamily: '$heading',
-  color: '$color12',
-  m: '$0',
-  mb: '$8',
-  textAlign: 'center',
-}, { name: 'DemoSectionHeading' })
-
-const SectionSub = styled('p', {
-  fontSize: '$p',
-  color: '$neutralText4',
-  m: '$0',
-  mb: '$32',
-  textAlign: 'center',
-}, { name: 'DemoSectionSub' })
 
 export function DemoSection() {
   return (
     <div>
-      <SectionHeading>Mobile App Demo</SectionHeading>
-      <SectionSub>Theme-aware mockups — switch themes to see gradient and glass effects</SectionSub>
-
-      <Showcase>
-        <div>
-          <Phone>
-            <Notch aria-hidden="true" />
-            <StatusBar>
-              <span>9:41</span>
-              <InlineRow>
-                <SignalIcon />
-                <BatteryIcon />
-              </InlineRow>
-            </StatusBar>
-            <PhoneBody>
-              <ProfileScreen />
-            </PhoneBody>
-            <HomeIndicator />
-          </Phone>
-        </div>
-
-        <div>
-          <Phone>
-            <Notch aria-hidden="true" />
-            <StatusBar>
-              <span>9:41</span>
-              <InlineRow>
-                <SignalIcon />
-                <BatteryIcon />
-              </InlineRow>
-            </StatusBar>
-            <PhoneBody>
-              <ChatScreen />
-            </PhoneBody>
-            <HomeIndicator />
-          </Phone>
-        </div>
-
-        <div>
-          <Phone>
-            <Notch aria-hidden="true" />
-            <StatusBar>
-              <span>9:41</span>
-              <InlineRow>
-                <SignalIcon />
-                <BatteryIcon />
-              </InlineRow>
-            </StatusBar>
-            <PhoneBody>
-              <DiscoverScreen />
-            </PhoneBody>
-            <HomeIndicator />
-          </Phone>
-        </div>
-      </Showcase>
+      <SettingsScene />
+      <ActivityScene />
+      <DashboardScene />
     </div>
   )
 }
