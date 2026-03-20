@@ -19,7 +19,7 @@ const PAGES = ['Components', 'Demo'] as const
 type Page = typeof PAGES[number]
 
 const SECTIONS = [
-  'Input', 'Selection', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
+  'Inputs', 'Selection', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
   'Spinner', 'Empty', 'Avatar', 'Typography', 'Separator',
 ] as const
 
@@ -186,7 +186,7 @@ const SECTION_COMPONENTS: Record<string, React.ComponentType<{ sectionRef: (el: 
   Card: CardSection,
   Avatar: AvatarSection,
   Badge: BadgeSection,
-  Input: InputSection,
+  Inputs: InputSection,
   Item: ItemSection,
   Typography: TypographySection,
   Separator: SeparatorSection,
