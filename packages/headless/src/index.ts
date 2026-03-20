@@ -1,3 +1,5 @@
+export type { UseAccordionProps, UseAccordionReturn } from './useAccordion'
+export { useAccordion } from './useAccordion'
 export type { UseAutoplayProps, UseAutoplayReturn } from './useAutoplay'
 export { useAutoplay } from './useAutoplay'
 export type { UseContextMenuProps, UseContextMenuReturn } from './useContextMenu'
