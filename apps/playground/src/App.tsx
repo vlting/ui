@@ -8,7 +8,7 @@ import { auroraTheme, popsicleTheme, frostTheme, carbonTheme, mintTheme } from '
 import { MoonIcon, SunIcon } from './sections/shared'
 import {
   AlertSection, AvatarSection, BadgeSection, ButtonGroupSection, ButtonSection,
-  CardSection, EmptySection, InputSection, InputGroupSection, InputOTPSection,
+  CardSection, EmptySection, FieldFormSection, InputSection, InputGroupSection, InputOTPSection,
   TypographySection, ItemSection, ProgressSection,
   SelectionSection, SeparatorSection, SliderSection, SpinnerSection, ToggleSection,
 } from './sections'
@@ -20,7 +20,7 @@ const PAGES = ['Components', 'Demo'] as const
 type Page = typeof PAGES[number]
 
 const SECTIONS = [
-  'Inputs', 'Slider', 'InputOTP', 'InputGroup', 'Selection', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
+  'Inputs', 'Slider', 'InputOTP', 'InputGroup', 'Field & Form', 'Selection', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
   'Spinner', 'Empty', 'Avatar', 'Typography', 'Separator',
 ] as const
 
@@ -191,6 +191,7 @@ const SECTION_COMPONENTS: Record<string, React.ComponentType<{ sectionRef: (el: 
   Slider: SliderSection,
   InputOTP: InputOTPSection,
   InputGroup: InputGroupSection,
+  'Field & Form': FieldFormSection,
   Item: ItemSection,
   Typography: TypographySection,
   Separator: SeparatorSection,
