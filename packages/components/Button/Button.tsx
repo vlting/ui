@@ -71,7 +71,7 @@ const ButtonBase = styled('button', {
       stl: {
         bg: '$primary9', color: '$primaryText9',
         backgroundImage: '$gradientPrimary',
-        ':interact': { bg: '$primary10', color: '$primaryText10' },
+        ':interact': { bg: '$primary10', color: '$primaryText10', backgroundImage: 'none' },
         ':focus': { outline: '$primaryMax' },
       },
     },
