@@ -85,12 +85,12 @@ export function StlProvider(props: StlProviderProps): ReactElement {
     }
   }, [themeName])
 
-  // Apply full theme object (themeName takes precedence)
+  // Apply full theme object (runtime CSS var injection)
   useEffect(() => {
-    if (theme && !themeName) {
+    if (theme) {
       applyTheme(theme, colorMode)
     }
-  }, [theme, themeName, colorMode])
+  }, [theme, colorMode])
 
   const systemColorMode = useMediaQuery<ColorMode>(
     '(prefers-color-scheme: dark)',

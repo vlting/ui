@@ -1,7 +1,8 @@
 import { size, space, radius, zIndex, borderWidth } from './base'
 import { lightShadows, darkShadows } from './themes'
 import { generatePalette } from './generate-palette'
-import { ALPHA_VALUES, THEME_ATTR } from '../shared/models/colorGen.models'
+import { ALPHA_VALUES } from '../shared/models/colorGen.models'
+import { themeToVars } from './inject'
 import type { Theme } from './types'
 import type { FontFamilySpec, HtmlHeadLink } from '../shared/models/theme.models'
 import { bodyFonts, headingFonts, codeFonts } from '../shared/models/theme.models'
@@ -261,16 +262,23 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
 // API surface, different internal mechanism (no CSS, no DOM attributes).
 
 /**
- * Set the active theme by name via the `data-stl-theme` attribute.
- *
- * The theme's CSS variables must already be present in the stylesheet
- * (injected at build time via `generateThemeCss` + `injectThemeIntoStylesheet`).
+ * Set the active theme and inject CSS variables into the DOM.
  * In non-browser environments (SSR), only sets the singleton.
  */
-export function applyTheme(theme: Readonly<Theme>, _mode?: 'light' | 'dark'): void {
+export function applyTheme(theme: Readonly<Theme>, mode: 'light' | 'dark' = 'light'): void {
   _currentTheme = theme
   if (typeof document !== 'undefined') {
-    document.documentElement.setAttribute(THEME_ATTR, theme.name)
+    const vars = themeToVars(theme, mode)
+    let styleEl = document.getElementById('stl-active-theme')
+    if (!styleEl) {
+      styleEl = document.createElement('style')
+      styleEl.id = 'stl-active-theme'
+      document.head.appendChild(styleEl)
+    }
+    const declarations = Object.entries(vars)
+      .map(([name, value]) => `  ${name}: ${value};`)
+      .join('\n')
+    styleEl.textContent = `:root {\n${declarations}\n}`
   }
 }
 
