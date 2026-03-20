@@ -193,13 +193,15 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 
 ### Stage 7.3: Range & Complex Inputs (Slider, InputOTP, InputGroup)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/range-complex-inputs
+**Issue:** #239
 **Acceptance criteria:**
-- [ ] Slider: theme-axis, range support, aria-valuemin/max/now, keyboard (arrows, Home/End)
-- [ ] InputOTP: neutral, auto-focus next, paste support, aria-label per field
-- [ ] InputGroup: neutral, prefix/suffix addons, integrated elements
+- [ ] Slider: theme-axis, single-thumb, role="slider", aria-valuemin/max/now, keyboard (arrows, Home/End), pointer drag, 44px touch target
+- [ ] InputOTP: compound (Root/Group/Slot/Separator), hidden input, auto-advance, paste, onComplete, inputMode="numeric"
+- [ ] InputGroup: compound, size context, role="group", border-radius collapsing, Addon aria-hidden, Element placement
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
-**Status:** pending
+- [ ] Playground sections + demo scene integration
+**Status:** in-progress
 
 ### Stage 7.4: Form Infrastructure (Field, Form, Label)
 **Branch prefix:** feat
