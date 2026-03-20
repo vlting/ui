@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import { Button, Card as UiCard, Toggle, ToggleGroup } from '@vlting/ui'
+import { styled } from '@vlting/stl-react'
 
-import { CardText, ControlRow, type SectionProps } from './shared'
+import { CardText, Columns, Column, ControlRow, SectionTitle, type SectionProps } from './shared'
 
 const CARD_ELEVATIONS = ['flat', 'normal', 'raised'] as const
 const CARD_THEMES = ['neutral', 'primary', 'secondary'] as const
 type CardTheme = typeof CARD_THEMES[number]
+
+const Footer = styled('div', {
+  display: 'flex', gap: '$8', pt: '$12',
+}, { name: 'Footer' })
 
 export function CardSection({ sectionRef }: SectionProps) {
   const [elevation, setElevation] = useState<typeof CARD_ELEVATIONS[number]>('normal')
@@ -52,11 +57,38 @@ export function CardSection({ sectionRef }: SectionProps) {
             </Toggle>
           </ControlRow>
         </UiCard.Header>
-        <UiCard.Content>
-          <CardText>
-            This card is the demo itself. Use the controls above to change its theme, elevation, and behavior.
-            The card surface, border, and shadow all respond to the selected options.
-          </CardText>
+        <UiCard.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$16', p: '$24' }}>
+          <Columns>
+            <Column>
+              <SectionTitle stl={{ mt: '$0' }}>Overview</SectionTitle>
+              <CardText>
+                This card is the demo itself. The surface, border, and shadow respond
+                to the controls above. Try switching between themes and elevations to
+                see how the card adapts.
+              </CardText>
+              <CardText>
+                Cards group related content and actions into a single contained unit,
+                making interfaces easier to scan and interact with.
+              </CardText>
+            </Column>
+            <Column>
+              <SectionTitle stl={{ mt: '$0' }}>Details</SectionTitle>
+              <CardText>
+                Flush mode removes internal padding for edge-to-edge content like
+                images or tables. Interactive mode adds hover and press feedback
+                for clickable card surfaces.
+              </CardText>
+              <CardText>
+                Elevation controls the visual depth — flat for inline use, normal
+                for standard grouping, raised for prominent call-outs.
+              </CardText>
+            </Column>
+          </Columns>
+          <Footer>
+            <Button size="md" theme={theme === 'neutral' ? 'primary' : theme} variant="solid">Save</Button>
+            <Button size="md" theme="neutral" variant="subtle">Cancel</Button>
+            <Button size="md" theme="neutral" variant="ghost">Edit</Button>
+          </Footer>
         </UiCard.Content>
       </UiCard>
     </div>

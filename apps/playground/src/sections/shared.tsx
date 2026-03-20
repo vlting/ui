@@ -91,7 +91,7 @@ export const ToggleRow = styled('div', {
 }, { name: 'ToggleRow' })
 
 export const Columns = styled('div', {
-  display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '$24',
+  display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '$24',
 }, { name: 'Columns' })
 
 export const Column = styled('div', {
