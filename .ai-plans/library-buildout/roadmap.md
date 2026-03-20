@@ -3,9 +3,9 @@ slug: library-buildout
 status: in-progress
 scope: large
 created: 2026-03-15
-current_epic: 7
-current_stage: 2
-phase: execute
+current_epic: 8
+current_stage: 1
+phase: breakdown
 epic_issue: 206
 ---
 # @vlting/ui Library Build-Out
@@ -160,7 +160,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Epic branch:** epic/form-controls
 **Epic issue:** #217
 **Epic PR:** #236
-**Status:** in-progress
+**Status:** done
 
 ### Stage 7.1: Text Inputs (Input, Textarea, NativeSelect)
 **Branch prefix:** feat
