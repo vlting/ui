@@ -13,11 +13,14 @@
     "access": "public"
   },
   "private": false,
+  "bin": {
+    "stl": "./bin/stl.mjs"
+  },
   "directories": {
     "dist": "dist",
     "test": "__tests__"
   },
-  "files": ["dist", "src"],
+  "files": ["dist", "src", "bin"],
   "exports": {
     ".": {
       "import": "./dist/stl.es.js",

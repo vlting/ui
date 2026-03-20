@@ -1,0 +1,94 @@
+import type { CreateThemeOptions } from '@vlting/stl'
+
+// ─── Config ──────────────────────────────────────────────────────────────────
+
+export const config = {
+  /** Output directory for the generated stl.css (relative to project root) */
+  outDir: 'public',
+}
+
+// ─── Themes ──────────────────────────────────────────────────────────────────
+//
+// Each key becomes a theme ID, activated via:
+//   <StlProvider themeName="brand">
+// or:
+//   document.documentElement.setAttribute('data-stl-theme', 'brand')
+//
+// ─── Color input format ──────────────────────────────────────────────────────
+//
+// Colors are defined by hue + saturation. STL generates a full 12-step
+// palette (light + dark) from these two values.
+//
+//   hue:          0–360 (color wheel position)
+//   saturation:   0–100 (color intensity, default: 85)
+//   isNeutral:    true → very low saturation (sat / 10), for grays
+//   isTinted:     true → keep higher saturation even when isNeutral
+//   highContrast: true → step 9 uses 0%/100% lightness for max contrast
+//
+
+export const themes: Record<string, CreateThemeOptions> = {
+  brand: {
+    // ── Source colors ──────────────────────────────────────────────────────
+    primary:    { hue: 215, saturation: 85 },
+    secondary:  { hue: 305, saturation: 70 },
+    neutral:    { hue: 215 },
+    background: { hue: 215, saturation: 5 },
+
+    // ── Radius ─────────────────────────────────────────────────────────────
+    radius: { base: 8 },
+
+    // ── Fonts ──────────────────────────────────────────────────────────────
+    // Keys: body, heading, subheading, code
+    // Values: font registry keys (inter, montserrat, firaCode, etc.)
+    fonts: {
+      heading: 'montserrat',
+      body: 'inter',
+      code: 'firaCode',
+    },
+
+    // ── Uncomment and customize as needed ──────────────────────────────────
+
+    // fontSize: {
+    //   base: 16,
+    //   h1: 42,
+    //   h2: 32,
+    //   h3: 24,
+    //   h4: 20,
+    //   h5: 18,
+    //   h6: 16,
+    // },
+
+    // size: {},
+    // space: {},
+    // zIndex: {},
+    // borderWidth: { none: 0, thin: 0.5, medium: 1, thick: 1.5 },
+
+    // shadows: {
+    //   light: {
+    //     sm:  { boxShadow: '0 1px 2px 0 rgba(0,0,0,0.05)' },
+    //     md:  { boxShadow: '0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1)' },
+    //     lg:  { boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)' },
+    //     xl:  { boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)' },
+    //     '2xl': { boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)' },
+    //   },
+    //   dark: {
+    //     sm:  { boxShadow: '0 1px 2px 0 rgba(0,0,0,0.2)' },
+    //     md:  { boxShadow: '0 1px 3px 0 rgba(0,0,0,0.3), 0 1px 2px -1px rgba(0,0,0,0.25)' },
+    //     lg:  { boxShadow: '0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -2px rgba(0,0,0,0.25)' },
+    //     xl:  { boxShadow: '0 10px 15px -3px rgba(0,0,0,0.35), 0 4px 6px -4px rgba(0,0,0,0.3)' },
+    //     '2xl': { boxShadow: '0 20px 25px -5px rgba(0,0,0,0.4), 0 8px 10px -6px rgba(0,0,0,0.35)' },
+    //   },
+    // },
+
+    // gradients: {
+    //   primary: 'linear-gradient(135deg, hsl(215, 85%, 50%), hsl(260, 85%, 55%))',
+    // },
+
+    // glass: {
+    //   blur: '12px',
+    //   tint: 'hsla(215, 10%, 15%, 0.55)',
+    //   border: '1px solid hsla(215, 20%, 40%, 0.2)',
+    //   gradient: 'linear-gradient(180deg, hsla(0,0%,100%,0.08), hsla(0,0%,100%,0.02))',
+    // },
+  },
+}
