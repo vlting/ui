@@ -2,6 +2,7 @@
 
 export const DEFAULT_COLOR_MODE = 'light' as const
 export const COLOR_MODE_ATTR = 'data-color-mode' as const
+export const THEME_ATTR = 'data-stl-theme' as const
 
 // Default Palette — uses nearest-hue fallback if hue is not in COLOR_MATRIX
 export const DEFAULT_HUE = 215
