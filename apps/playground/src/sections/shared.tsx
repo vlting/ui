@@ -58,12 +58,12 @@ export const Section = styled('div', {
 export const SectionTitle = styled('h3', {
   fontSize: '$buttonTiny',
   fontWeight: '$600',
-  color: '$neutralText3',
+  color: '$backgroundText3',
   m: '$0',
   mt: '$10',
   mb: '$4',
   textTransform: 'uppercase',
-  letterSpacing: '0.05em',
+  // letterSpacing: '0.05em',
 }, { name: 'SectionTitle' })
 
 export const ButtonRow = styled('div', {
@@ -99,6 +99,7 @@ export const Column = styled('div', {
 }, { name: 'Column' })
 
 export const CardText = styled('p', {
+  color: '$backgroundText8',
   m: '$0',
 }, { name: 'CardText' })
 

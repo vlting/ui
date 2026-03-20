@@ -8,12 +8,12 @@ const themes = ['primary', 'secondary', 'neutral'] as const
 const variantStyles = {
   ghost: (t: string) => ({ color: `$${t}Text3` }) as STL,
   subtle: (t: string) => ({ bg: `$${t}Alpha2`, radius: '$card', color: `$${t}Text3` }) as STL,
-  outline: (t: string) => ({ bg: `$surface1`, border: `$${t}Min`, radius: '$card', color: `$${t}Text1` }) as STL,
+  outline: (t: string) => ({ bg: `$minAlpha2`, border: `$${t}Min`, radius: '$card', color: `$${t}Text1` }) as STL,
 }
 
 const interactiveStyles = (t: string, step = 3) => ({
-  ':interact': { bg: `$${t}${step}` },
-  ':pressed': { bg: `$${t}${step + 1}` },
+  ':interact': { bg: `$${t}${step + 1}` },
+  ':pressed': { bg: `$${t}${step + 2}` },
   ':focus': { outline: `$${t}` },
 }) as STL
 

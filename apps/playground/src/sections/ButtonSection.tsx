@@ -43,7 +43,6 @@ export function ButtonSection({ sectionRef }: SectionProps) {
                   variant={variant}
                   size={size}
                   pill={pill || undefined}
-                  stl={{ minWidth: '$80' }}
                 >
                   {variant}
                 </Button>
