@@ -32,9 +32,87 @@ function useCollapsibleContext() {
 
 // ─── Styled Elements ────────────────────────────────────────────────────────
 
-const StyledRoot = styled('div', {}, { name: 'CollapsibleRoot' })
-const StyledTrigger = styled('button', {}, { name: 'CollapsibleTrigger' })
-const StyledContent = styled('div', {}, { name: 'CollapsibleContent' })
+const StyledRoot = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+}, { name: 'CollapsibleRoot' })
+
+const StyledTrigger = styled('button', {
+  display: 'flex',
+  width: '100%',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  bg: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+  py: '$8',
+  px: '$12',
+  fontSize: '$p',
+  fontWeight: '$500',
+  fontFamily: '$body',
+  color: 'inherit',
+  radius: '$button',
+  ':interact': { bg: '$neutral3' },
+  ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
+  ':pressed': { transform: '$pressScale' },
+  lowMotion: {
+    ':pressed': { transform: 'none' },
+  },
+}, {
+  name: 'CollapsibleTrigger',
+  variants: {
+    disabled: {
+      true: { opacity: '$disabledOpacity', cursor: 'not-allowed', pointerEvents: 'none' },
+    },
+  },
+})
+
+const StyledChevron = styled('span', {
+  display: 'flex',
+  alignItems: 'center',
+  transitionProperty: 'transform',
+  transitionDuration: '$fastDuration',
+  transitionTimingFunction: 'ease',
+  lowMotion: {
+    transitionDuration: '0.01s',
+  },
+}, {
+  name: 'CollapsibleChevron',
+  variants: {
+    open: {
+      true: { transform: 'rotate(180deg)' },
+      false: { transform: 'rotate(0deg)' },
+    },
+  },
+})
+
+const StyledContent = styled('div', {
+  py: '$8',
+  px: '$12',
+  fontSize: '$p',
+  color: '$neutralText4',
+  overflow: 'hidden',
+}, { name: 'CollapsibleContent' })
+
+// ─── Chevron Icon ────────────────────────────────────────────────────────────
+
+function ChevronDown() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M4 6l4 4 4-4" />
+    </svg>
+  )
+}
 
 // ─── Root ───────────────────────────────────────────────────────────────────
 
@@ -85,12 +163,14 @@ CollapsibleRoot.displayName = 'Collapsible.Root'
 // ─── Trigger ────────────────────────────────────────────────────────────────
 
 export interface CollapsibleTriggerProps
-  extends ComponentPropsWithRef<typeof StyledTrigger> {}
+  extends ComponentPropsWithRef<typeof StyledTrigger> {
+  indicator?: boolean
+}
 
 const CollapsibleTrigger = forwardRef<
   HTMLButtonElement,
   CollapsibleTriggerProps
->(({ onClick, ...rest }, ref) => {
+>(({ onClick, indicator = true, children, ...rest }, ref) => {
   const ctx = useCollapsibleContext()
 
   return (
@@ -109,7 +189,17 @@ const CollapsibleTrigger = forwardRef<
         onClick?.(e)
       }}
       {...rest}
-    />
+    >
+      {children}
+      {indicator && (
+        <StyledChevron
+          open={ctx.isOpen}
+          data-state={ctx.isOpen ? 'open' : 'closed'}
+        >
+          <ChevronDown />
+        </StyledChevron>
+      )}
+    </StyledTrigger>
   )
 })
 CollapsibleTrigger.displayName = 'Collapsible.Trigger'
