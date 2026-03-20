@@ -221,6 +221,7 @@ export enum Scale {
   textDecoration = 'textDecoration',
   typoSpace = 'typoSpace',
   typo = 'typo',
+  gradient = 'gradient',
   zIndex = 'zIndex',
 }
 

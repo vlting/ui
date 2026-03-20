@@ -39,6 +39,7 @@
 - **Hover** — Subtle background change on item row.
 - **Focus** — Blue outline ring on the radio circle (focus-visible).
 - **Disabled** — Reduced opacity, no interaction.
+- **Error** — radio circle border changes to `$error9` on each item; focus ring switches from `$neutral` outline to `$error` outline; `aria-invalid="true"` set on the radiogroup root via `mapProps`. Error propagates from Root to Items via context.
 
 ### Keyboard Interaction
 
@@ -64,7 +65,7 @@
 
 ## 6. Styling
 
-- **Design tokens used:** Size variant controls radio circle and indicator dimensions (`sm`/`md`/`lg`); `$borderColor` for radio border; `$color` for selected indicator; `$outlineColor` for focus ring; gap via `$2`.
+- **Design tokens used:** Size variant controls radio circle and indicator dimensions (`sm`/`md`/`lg`); `$borderColor` for radio border; `$color` for selected indicator; `$outlineColor` for focus ring; gap via `$2`. Error: `$error9` radio border, `$error` focus outline.
 - **Responsive behavior:** Orientation prop switches between vertical (YStack) and horizontal (XStack) layout.
 - **Dark mode:** Token-based; resolves automatically.
 
@@ -91,5 +92,5 @@
 ## 9. Test Requirements
 
 - **Behavioral tests:** Selecting an item deselects others; `onValueChange` fires with correct value; controlled and uncontrolled modes work; disabled items cannot be selected.
-- **Accessibility tests:** `role="radiogroup"` on root; `role="radio"` on items; `aria-checked` toggles correctly; arrow keys move selection; Tab enters/leaves group.
+- **Accessibility tests:** `role="radiogroup"` on root; `role="radio"` on items; `aria-checked` toggles correctly; arrow keys move selection; Tab enters/leaves group. `aria-invalid="true"` on radiogroup root when `error` is true.
 - **Visual regression:** Unselected, selected, disabled, horizontal orientation, each size.

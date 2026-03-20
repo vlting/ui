@@ -40,6 +40,7 @@ STL Switch.Thumb is used internally but not exposed as a sub-component.
 - **Hover** — Subtle background change.
 - **Focus** — Blue outline ring (focus-visible).
 - **Disabled** — 50% opacity; no interaction.
+- **Error** — switch track border changes to `$error9`; focus ring switches from `$neutral` outline to `$error` outline; `aria-invalid="true"` set via `mapProps`.
 
 ### Keyboard Interaction
 
@@ -65,7 +66,7 @@ STL Switch.Thumb is used internally but not exposed as a sub-component.
 
 ## 6. Styling
 
-- **Design tokens used:** Size variant maps width and thumb size (`sm`: 36/18, `md`: 44/22, `lg`: 52/26). Track uses `$gray5` when off, `$color` when on. Thumb uses `$background` with `$borderColor` border. Border radius `999` (pill). Focus ring uses `$outlineColor`.
+- **Design tokens used:** Size variant maps width and thumb size (`sm`: 36/18, `md`: 44/22, `lg`: 52/26). Track uses `$gray5` when off, `$color` when on. Thumb uses `$background` with `$borderColor` border. Border radius `999` (pill). Focus ring uses `$outlineColor`. Error: `$error9` track border, `$error` focus outline.
 - **Responsive behavior:** Fixed size per variant; does not stretch.
 - **Dark mode:** Token-based; resolves automatically.
 
@@ -91,5 +92,5 @@ STL Switch.Thumb is used internally but not exposed as a sub-component.
 ## 9. Test Requirements
 
 - **Behavioral tests:** Toggles on click; `onCheckedChange` fires with correct value; controlled and uncontrolled modes; disabled prevents toggle; `name` prop for form submission.
-- **Accessibility tests:** `role="switch"` present; `aria-checked` toggles; Space/Enter toggle; focus ring visible.
+- **Accessibility tests:** `role="switch"` present; `aria-checked` toggles; Space/Enter toggle; focus ring visible. `aria-invalid="true"` when `error` is true.
 - **Visual regression:** Off, on, disabled-off, disabled-on, each size variant.

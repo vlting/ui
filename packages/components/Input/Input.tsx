@@ -7,9 +7,8 @@ const InputBase = styled('input', {
   fontFamily: '$body',
   fontSize: '$field',
   color: '$neutralText3',
-  bg: '$neutral2',
-  border: '$neutral7',
-  borderWidth: '$widthMin',
+  bg: '$surface1',
+  border: '$neutralMin',
   borderRadius: '$field',
   width: '100%',
   outline: 'none',
@@ -24,7 +23,7 @@ const InputBase = styled('input', {
     },
     error: {
       true: {
-        border: '$error9',
+        border: '$error',
         ':focus': { outline: '$error' },
       },
     },

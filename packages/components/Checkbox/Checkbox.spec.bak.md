@@ -39,6 +39,7 @@ Size variants: `sm` (`$3`), `md` (`$4`), `lg` (`$5`).
 - **Indeterminate** — partial check (for "select all" patterns).
 - **Disabled** — reduced opacity, non-interactive.
 - **Focus** — 2px solid outline (custom focus style).
+- **Error** — checkbox box border changes to `$error9`; focus ring switches from `$neutral` outline to `$error` outline; `aria-invalid="true"` set via `mapProps`.
 
 ### Keyboard Interaction
 
@@ -63,7 +64,7 @@ None.
 
 ## 6. Styling
 
-- **Design tokens used:** `$background` for unchecked, `$color6` for checked background, `$color1` for check icon. Focus: 2px solid `$outlineColor`. Disabled: `opacity: 0.5`.
+- **Design tokens used:** `$background` for unchecked, `$color6` for checked background, `$color1` for check icon. Focus: 2px solid `$outlineColor`. Disabled: `opacity: 0.5`. Error: `$error9` border, `$error` focus outline.
 - **Size variants:** Maps to STL size tokens `$3`/`$4`/`$5`.
 - **Dark mode:** Token resolution handles automatically.
 
@@ -89,4 +90,4 @@ None.
 ## 9. Test Requirements
 
 - **Behavioral tests:** Verify toggle between checked and unchecked. Verify `onCheckedChange` callback fires. Verify disabled state prevents interaction. Verify each size variant. Verify indeterminate state.
-- **Accessibility tests:** Verify `role="checkbox"` is present. Verify `aria-checked` toggles. Verify label click toggles checkbox. Verify keyboard activation (Space, Enter). Verify visible focus indicator.
+- **Accessibility tests:** Verify `role="checkbox"` is present. Verify `aria-checked` toggles. Verify label click toggles checkbox. Verify keyboard activation (Space, Enter). Verify visible focus indicator. Verify `aria-invalid="true"` when `error` is true.

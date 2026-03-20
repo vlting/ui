@@ -2,15 +2,11 @@ import { useState } from 'react'
 import { Toggle, ToggleGroup, Button, Card } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
-import { ButtonRow, SectionTitle, SIZES, THEMES, type SectionProps } from './shared'
+import { ButtonRow, Column, Columns, SectionTitle, SIZES, THEMES, ToggleRow, type SectionProps } from './shared'
 
 const StatusLabel = styled('span', {
   fontSize: '$small', color: '$neutralText4', fontFamily: '$code',
 }, { name: 'StatusLabel' })
-
-const ToggleRow = styled('div', {
-  display: 'flex', gap: '$8', alignItems: 'center',
-}, { name: 'ToggleRow' })
 
 // ─── Icons ──────────────────────────────────────────────────────────────────
 
@@ -80,14 +76,14 @@ export function ToggleSection({ sectionRef }: SectionProps) {
 
   return (
     <Card ref={sectionRef} data-section="Toggle">
-      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <Card.Title>Toggle</Card.Title>
         <ToggleRow>
           <ToggleGroup
             type="exclusive"
             value={[theme]}
             onValueChange={v => v[0] && setTheme(v[0] as Theme)}
-            aria-label="Theme"
+            aria-label="Toggle theme"
           >
             {THEMES.map(t => (
               <Button key={t} value={t} size="md" variant="outline" theme="neutral">{t}</Button>
@@ -97,7 +93,7 @@ export function ToggleSection({ sectionRef }: SectionProps) {
             type="exclusive"
             value={[size]}
             onValueChange={v => v[0] && setSize(v[0] as Size)}
-            aria-label="Size"
+            aria-label="Toggle size"
           >
             {SIZES.map(s => (
               <Button key={s} value={s} size="md" variant="outline" theme="neutral">{s}</Button>
@@ -106,99 +102,90 @@ export function ToggleSection({ sectionRef }: SectionProps) {
         </ToggleRow>
       </Card.Header>
 
-      <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$32' }}>
-        {/* ── Single toggles ───────────────────────────── */}
-        <div>
-          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Single toggle</SectionTitle>
-          <ButtonRow>
-            <Toggle theme={theme} variant="outline" size={size}>Favorite</Toggle>
-            <Toggle theme={theme} variant="subtle" size={size}>Music</Toggle>
-            <Toggle theme={theme} variant="ghost" size={size} defaultPressed>Active</Toggle>
-            <Toggle theme={theme} variant="outline" size={size} square><StarIcon /></Toggle>
-            <Toggle theme={theme} variant="subtle" size={size} square><MusicIcon /></Toggle>
-            <Toggle theme={theme} variant="ghost" size={size} square defaultPressed><CheckIcon /></Toggle>
-          </ButtonRow>
-        </div>
+      <Card.Content>
+        <Columns>
+          {/* ── Single toggles ───────────────────────────── */}
+          <Column>
+            <SectionTitle stl={{ mt: '$0' }}>Single</SectionTitle>
+            <ButtonRow>
+              <Toggle theme={theme} variant="outline" size={size}>Favorite</Toggle>
+              <Toggle theme={theme} variant="subtle" size={size}>Music</Toggle>
+              <Toggle theme={theme} variant="ghost" size={size} defaultPressed>Active</Toggle>
+            </ButtonRow>
+            <ButtonRow>
+              <Toggle theme={theme} variant="outline" size={size} square><StarIcon /></Toggle>
+              <Toggle theme={theme} variant="subtle" size={size} square><MusicIcon /></Toggle>
+              <Toggle theme={theme} variant="ghost" size={size} square defaultPressed><CheckIcon /></Toggle>
+            </ButtonRow>
+            <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
+              <Toggle
+                variant="outline"
+                theme={theme}
+                size={size}
+                pressed={bold}
+                onPressedChange={setBold}
+                stl={{ fontWeight: '$700' }}
+              >
+                B
+              </Toggle>
+              <StatusLabel>{bold ? 'ON' : 'OFF'}</StatusLabel>
+            </ButtonRow>
+          </Column>
 
-        {/* ── Controlled ───────────────────────────────── */}
-        <div>
-          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Controlled</SectionTitle>
-          <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
-            <Toggle
-              variant="outline"
-              theme={theme}
-              size={size}
-              pressed={bold}
-              onPressedChange={setBold}
-              stl={{ fontWeight: '$700' }}
+          {/* ── Exclusive Group ──────────────────────────── */}
+          <Column>
+            <SectionTitle stl={{ mt: '$0' }}>Exclusive Group</SectionTitle>
+            <ToggleGroup
+              type="exclusive"
+              value={view}
+              onValueChange={setView}
+              aria-label="View mode"
             >
-              B
-            </Toggle>
-            <StatusLabel>{bold ? 'ON' : 'OFF'}</StatusLabel>
-          </ButtonRow>
-        </div>
-
-        {/* ── Exclusive Group ──────────────────────────── */}
-        <div>
-          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Exclusive Group</SectionTitle>
-          <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
-            <ToggleRow stl={{ gap: '$24', alignItems: 'start' }}>
-              <ToggleGroup
-                type="exclusive"
-                value={view}
-                onValueChange={setView}
-                aria-label="View mode"
-              >
-                <Button value="list" variant="outline" theme={theme} size={size}>List</Button>
-                <Button value="grid" variant="outline" theme={theme} size={size}>Grid</Button>
-                <Button value="gallery" variant="outline" theme={theme} size={size}>Gallery</Button>
-              </ToggleGroup>
-              <ToggleGroup
-                type="exclusive"
-                value={view}
-                onValueChange={setView}
-                orientation="vertical"
-                aria-label="View mode vertical"
-              >
-                <Button value="list" variant="outline" theme={theme} size={size} square><ListIcon /></Button>
-                <Button value="grid" variant="outline" theme={theme} size={size} square><GridIcon /></Button>
-                <Button value="gallery" variant="outline" theme={theme} size={size} square><GalleryIcon /></Button>
-              </ToggleGroup>
-            </ToggleRow>
+              <Button value="list" variant="outline" theme={theme} size={size}>List</Button>
+              <Button value="grid" variant="outline" theme={theme} size={size}>Grid</Button>
+              <Button value="gallery" variant="outline" theme={theme} size={size}>Gallery</Button>
+            </ToggleGroup>
+            <ToggleGroup
+              type="exclusive"
+              value={view}
+              onValueChange={setView}
+              orientation="vertical"
+              aria-label="View mode vertical"
+            >
+              <Button value="list" variant="outline" theme={theme} size={size} square><ListIcon /></Button>
+              <Button value="grid" variant="outline" theme={theme} size={size} square><GridIcon /></Button>
+              <Button value="gallery" variant="outline" theme={theme} size={size} square><GalleryIcon /></Button>
+            </ToggleGroup>
             <StatusLabel>{JSON.stringify(view)}</StatusLabel>
-          </ButtonRow>
-        </div>
+          </Column>
 
-        {/* ── Multi-Select ─────────────────────────────── */}
-        <div>
-          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Multi-Select</SectionTitle>
-          <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
-            <ToggleRow stl={{ gap: '$24', alignItems: 'start' }}>
-              <ToggleGroup
-                type="toggle"
-                value={features}
-                onValueChange={setFeatures}
-                aria-label="Features"
-              >
-                <Button value="wifi" variant="outline" theme={theme} size={size}>WiFi</Button>
-                <Button value="bluetooth" variant="outline" theme={theme} size={size}>Bluetooth</Button>
-                <Button value="airplane" variant="outline" theme={theme} size={size}>Airplane</Button>
-              </ToggleGroup>
-              <ToggleGroup
-                type="toggle"
-                value={features}
-                onValueChange={setFeatures}
-                orientation="vertical"
-                aria-label="Features vertical"
-              >
-                <Button value="wifi" variant="outline" theme={theme} size={size} square><WifiIcon /></Button>
-                <Button value="bluetooth" variant="outline" theme={theme} size={size} square><BluetoothIcon /></Button>
-                <Button value="airplane" variant="outline" theme={theme} size={size} square><AirplaneIcon /></Button>
-              </ToggleGroup>
-            </ToggleRow>
+          {/* ── Multi-Select ─────────────────────────────── */}
+          <Column>
+            <SectionTitle stl={{ mt: '$0' }}>Multi-Select</SectionTitle>
+            <ToggleGroup
+              type="toggle"
+              value={features}
+              onValueChange={setFeatures}
+              aria-label="Features"
+            >
+              <Button value="wifi" variant="outline" theme={theme} size={size}>WiFi</Button>
+              <Button value="bluetooth" variant="outline" theme={theme} size={size}>Bluetooth</Button>
+              <Button value="airplane" variant="outline" theme={theme} size={size}>Airplane</Button>
+            </ToggleGroup>
+            <ToggleGroup
+              type="toggle"
+              value={features}
+              onValueChange={setFeatures}
+              orientation="vertical"
+              aria-label="Features vertical"
+            >
+              <Button value="wifi" variant="outline" theme={theme} size={size} square><WifiIcon /></Button>
+              <Button value="bluetooth" variant="outline" theme={theme} size={size} square><BluetoothIcon /></Button>
+              <Button value="airplane" variant="outline" theme={theme} size={size} square><AirplaneIcon /></Button>
+            </ToggleGroup>
             <StatusLabel>{JSON.stringify(features)}</StatusLabel>
-          </ButtonRow>
-        </div>
+          </Column>
+        </Columns>
       </Card.Content>
     </Card>
   )

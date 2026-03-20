@@ -9,9 +9,9 @@ import { MoonIcon, SunIcon } from './sections/shared'
 import {
   AlertSection, AvatarSection, BadgeSection, ButtonGroupSection, ButtonSection,
   CardSection, EmptySection, InputSection, TypographySection, ItemSection, ProgressSection,
-  SeparatorSection, SpinnerSection, ToggleSection,
+  SelectionSection, SeparatorSection, SpinnerSection, ToggleSection,
 } from './sections'
-import { DemoSection } from './sections/DemoSection'
+import { DemoSection, DEMO_SCENES, type DemoScene } from './sections/DemoSection'
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -19,7 +19,7 @@ const PAGES = ['Components', 'Demo'] as const
 type Page = typeof PAGES[number]
 
 const SECTIONS = [
-  'Input', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
+  'Inputs', 'Selection', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
   'Spinner', 'Empty', 'Avatar', 'Typography', 'Separator',
 ] as const
 
@@ -47,8 +47,8 @@ const Sidebar = styled('aside', {
   left: '0',
   width: '220px',
   height: '100vh',
-  bg: '$surface1',
-  boxShadow: '$lg',
+  bg: '$surface2',
+  boxShadow: '$md',
   display: 'flex',
   flexDirection: 'column',
   zIndex: '$10',
@@ -186,11 +186,12 @@ const SECTION_COMPONENTS: Record<string, React.ComponentType<{ sectionRef: (el: 
   Card: CardSection,
   Avatar: AvatarSection,
   Badge: BadgeSection,
-  Input: InputSection,
+  Inputs: InputSection,
   Item: ItemSection,
   Typography: TypographySection,
   Separator: SeparatorSection,
   ButtonGroup: ButtonGroupSection,
+  Selection: SelectionSection,
   Toggle: ToggleSection,
 }
 
@@ -206,6 +207,7 @@ function PlaygroundInner({
   const { colorMode, setColorMode, toggleColorMode } = useColorMode()
   const [activePage, setActivePage] = useState<Page>('Components')
   const [activeSection, setActiveSection] = useState<string>(SECTIONS[0])
+  const [activeScene, setActiveScene] = useState<DemoScene>(DEMO_SCENES[0])
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
   // Intersection observer for active section tracking
@@ -279,6 +281,15 @@ function PlaygroundInner({
           >
             Demo
           </SidebarPageLink>
+          {activePage === 'Demo' && DEMO_SCENES.map((s) => (
+            <SidebarLink
+              key={s}
+              active={activeScene === s}
+              onClick={() => { setActiveScene(s); window.scrollTo({ top: 0 }) }}
+            >
+              {s}
+            </SidebarLink>
+          ))}
         </SidebarNav>
         <SidebarFooter>
           <ThemePicker
@@ -311,7 +322,7 @@ function PlaygroundInner({
             />
           )
         })}
-        {activePage === 'Demo' && <DemoSection />}
+        {activePage === 'Demo' && <DemoSection activeScene={activeScene} />}
       </Main>
     </AppRoot>
   )

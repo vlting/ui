@@ -13,11 +13,14 @@
     "access": "public"
   },
   "private": false,
+  "bin": {
+    "stl": "./bin/stl.mjs"
+  },
   "directories": {
     "dist": "dist",
     "test": "__tests__"
   },
-  "files": ["dist", "src"],
+  "files": ["dist", "src", "bin"],
   "exports": {
     ".": {
       "import": "./dist/stl.es.js",
@@ -27,7 +30,8 @@
     "./styles": {
       "import": "./dist/stl.css",
       "require": "./dist/stl.css"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
     "build:js": "vite build",

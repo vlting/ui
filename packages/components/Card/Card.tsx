@@ -23,8 +23,8 @@ const CardRoot = styled('article', {
       lg: { p: '$20' },
     },
     elevation: {
-      flat: { border: '$neutralMin', borderWidth: '$widthMin' },
-      normal: { boxShadow: '$md' },
+      flat: { border: '$neutralMin' },
+      normal: { boxShadow: '$md', bg: '$surface2' },
       raised: { boxShadow: '$xl' },
       glass: {
         backdropFilter: 'blur(var(--stl-glass-blur, 0))',
@@ -53,9 +53,9 @@ const CardRoot = styled('article', {
   },
   compoundVariants: [
     // ── flat × theme borders ─────────────────────────────
-    { when: { elevation: 'flat', theme: 'neutral' }, stl: { border: '$neutral5', borderWidth: '$widthMin' } },
-    { when: { elevation: 'flat', theme: 'primary' }, stl: { border: '$primary5', borderWidth: '$widthMin' } },
-    { when: { elevation: 'flat', theme: 'secondary' }, stl: { border: '$secondary5', borderWidth: '$widthMin' } },
+    { when: { elevation: 'flat', theme: 'neutral' }, stl: { border: '$neutralMin' } },
+    { when: { elevation: 'flat', theme: 'primary' }, stl: { border: '$primaryMin' } },
+    { when: { elevation: 'flat', theme: 'secondary' }, stl: { border: '$secondaryMin' } },
     // ── neutral × interactive ────────────────────────────
     {
       when: { theme: 'neutral', interactive: 'true' },
@@ -84,7 +84,7 @@ const CardRoot = styled('article', {
       },
     },
   ],
-  defaultVariants: { size: 'md', elevation: 'normal', theme: 'neutral' },
+  defaultVariants: { size: 'md', elevation: 'raised', theme: 'neutral' },
   mapProps: (props: any) => ({
     ...props,
     ...(props.interactive && { role: 'button', tabIndex: 0 }),

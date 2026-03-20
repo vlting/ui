@@ -17,6 +17,7 @@ import {
   colorCore,
   colorText,
   fontCombos,
+  gradients,
   hiddenAnimationDurations,
   hiddenAnimationFillModes,
   hiddenAnimationIterationCounts,
@@ -418,6 +419,11 @@ export function generateScaledPropsCss<S extends Scales, K extends FilterKeys>(
       scales[Scale.color].cssAliasMap,
     ),
 
+    backgroundImage: entries(
+      'backgroundImage',
+      map(scales, Scale.gradient, gradients),
+    ),
+
     font: entries(
       'font',
       map(scales, Scale.font, fontCombos),
@@ -651,6 +657,8 @@ export const scaledPropScale = {
   color: Scale.color,
   fill: Scale.color,
   stroke: Scale.color,
+
+  backgroundImage: Scale.gradient,
 
   font: Scale.font,
   fontFamily: Scale.fontFamily,

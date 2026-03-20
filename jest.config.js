@@ -14,7 +14,7 @@ module.exports = {
     'packages/components/Calendar/',
     'packages/components/Carousel/',
     'packages/components/Chart/',
-    'packages/components/Checkbox/',
+    // 'packages/components/Checkbox/', // re-enabled
     'packages/components/Collapsible/',
     'packages/components/Combobox/',
     'packages/components/Command/',
@@ -34,18 +34,16 @@ module.exports = {
     'packages/components/NavigationMenu/',
     'packages/components/Pagination/',
     'packages/components/Popover/',
-    'packages/components/RadioGroup/',
     'packages/components/Resizable/',
     'packages/components/ScrollArea/',
     'packages/components/Select/',
     'packages/components/Sheet/',
     'packages/components/Sidebar/',
     'packages/components/Slider/',
-    'packages/components/Switch/',
     'packages/components/Table/',
     'packages/components/Tabs/',
     'packages/components/Toast/',
-    'packages/components/Toggle/',
+    // 'packages/components/Toggle/', // re-enabled
     'packages/components/Tooltip/',
   ],
   collectCoverageFrom: [

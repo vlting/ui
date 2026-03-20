@@ -32,6 +32,7 @@ export function getFontSize(hash: CharHash) {
   const button = { ...hash.var, value: field.ref } as const
 
   const sharedVars = {
+    base,
     ...baseVars,
     // Typo elements
     h1: { ...hash.var, value: baseVars[44].ref },
@@ -54,7 +55,7 @@ export function getFontSize(hash: CharHash) {
     buttonLarge: { ...hash.var, value: `calc(${button.ref} * 1.25)` },
   } as const
 
-  const vars = { ...sharedVars, base } as const
+  const vars = { ...sharedVars } as const
   const cssValueMap = { ...getCssMapFromVars(sharedVars) } as const
   const themeProps = { ...getThemePropsFromCssMap(cssValueMap) } as const
 

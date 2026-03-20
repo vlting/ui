@@ -6,6 +6,7 @@ import {
   type SemanticColorOverrides,
   type Theme,
   type ThemeOverrides,
+  THEME_ATTR,
   applyTheme,
   tokenValue as baseTokenValue,
   conditionsMap,
@@ -49,6 +50,8 @@ export interface StlProviderProps {
   children: ReactNode
   /** Full theme object from createTheme(). Takes precedence over themeOverrides. */
   theme?: Readonly<Theme>
+  /** Build-time theme name. Sets data-stl-theme on <html>. Takes precedence over theme prop. */
+  themeName?: string
   defaultColorMode?: ColorMode
   isDebugMode?: boolean
   breakpointOverrides?: BreakpointOverrides
@@ -60,6 +63,7 @@ export function StlProvider(props: StlProviderProps): ReactElement {
   const {
     children,
     theme,
+    themeName,
     defaultColorMode = DEFAULT_COLOR_MODE,
     isDebugMode = false,
     breakpointOverrides,
@@ -69,7 +73,19 @@ export function StlProvider(props: StlProviderProps): ReactElement {
   const [colorMode, setColorMode] = useState<ColorMode>(defaultColorMode)
   const tokenValue = useThemeStyle(colorMode, themeOverrides, semanticColorOverrides)
 
-  // Apply full theme object when provided (CSS var injection)
+  // Build-time theme: set data-stl-theme attribute on <html>
+  useEffect(() => {
+    if (themeName) {
+      document.documentElement.setAttribute(THEME_ATTR, themeName)
+    } else {
+      document.documentElement.removeAttribute(THEME_ATTR)
+    }
+    return () => {
+      document.documentElement.removeAttribute(THEME_ATTR)
+    }
+  }, [themeName])
+
+  // Apply full theme object (runtime CSS var injection)
   useEffect(() => {
     if (theme) {
       applyTheme(theme, colorMode)

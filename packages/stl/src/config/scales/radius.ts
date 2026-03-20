@@ -13,6 +13,7 @@ export function getRadius(hash: CharHash) {
   const rounded = { ...hash.var, value: `max(${field.ref}, 4rem)` } as const
 
   const sharedVars = {
+    base,
     0: { ...hash.var, value: '0' },
     1: { ...hash.var, value: '1rem' },
     2: { ...hash.var, value: `calc(${base.ref} * .5)` },
@@ -53,7 +54,7 @@ export function getRadius(hash: CharHash) {
     snippet: { ...hash.var, value: '0' },
   } as const
 
-  const vars = { ...sharedVars, base } as const
+  const vars = { ...sharedVars } as const
   const cssValueMap = { ...getCssMapFromVars(sharedVars) } as const
   const themeProps = { ...getThemePropsFromCssMap(cssValueMap) } as const
 

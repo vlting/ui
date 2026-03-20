@@ -1,12 +1,19 @@
 import { type ComponentPropsWithRef, forwardRef } from 'react'
-import { styled } from '../../stl-react/src/config'
+import { styled, type STL } from '../../stl-react/src/config'
+
+// ─── Theme map ──────────────────────────────────────────────────────────────
+
+const themeIndicatorBg: Record<string, STL> = {
+  primary: { bg: '$primary9' },
+  secondary: { bg: '$secondary9' },
+  neutral: { bg: '$neutral9' },
+}
 
 // ─── Internal ───────────────────────────────────────────────────────────────
 
 const ProgressIndicator = styled('div', {
   height: '100%',
   borderRadius: '$field',
-  bg: '$primary9',
   transition: 'width 150ms linear',
   lowMotion: { transition: 'none' },
 }, { name: 'ProgressIndicator' })
@@ -27,8 +34,13 @@ const ProgressBase = styled('div', {
       md: { height: '$8' },
       lg: { height: '$12' },
     },
+    theme: {
+      primary: {},
+      secondary: {},
+      neutral: {},
+    },
   },
-  defaultVariants: { size: 'md' },
+  defaultVariants: { size: 'md', theme: 'primary' },
 })
 
 export type ProgressProps = ComponentPropsWithRef<typeof ProgressBase> & {
@@ -37,7 +49,7 @@ export type ProgressProps = ComponentPropsWithRef<typeof ProgressBase> & {
 }
 
 export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
-  ({ value = 0, max = 100, ...rest }, ref) => {
+  ({ value = 0, max = 100, theme = 'primary', ...rest }, ref) => {
     const pct = Math.min(100, (value / max) * 100)
     return (
       <ProgressBase
@@ -47,9 +59,10 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
         aria-valuemin={0}
         aria-valuemax={max}
         aria-label={rest['aria-label'] ?? 'Progress'}
+        theme={theme}
         {...rest}
       >
-        <ProgressIndicator stl={{ width: `${pct}%` }} />
+        <ProgressIndicator stl={{ width: `${pct}%`, ...themeIndicatorBg[theme] }} />
       </ProgressBase>
     )
   },
@@ -57,3 +70,4 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
 Progress.displayName = 'Progress'
 
 export type ProgressSize = NonNullable<ComponentPropsWithRef<typeof ProgressBase>['size']>
+export type ProgressTheme = NonNullable<ComponentPropsWithRef<typeof ProgressBase>['theme']>
