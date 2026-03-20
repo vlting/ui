@@ -6,9 +6,16 @@
  */
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
+import { createRequire } from 'module'
 import { resolve, join } from 'path'
-import { generateThemeCss, injectThemeIntoStylesheet } from '../theme/inject'
-import type { CreateThemeOptions } from '../theme/generate-theme'
+
+// Import from compiled dist — not source — to avoid Vanilla Extract fileScope errors.
+// Resolve the package dir, then load the CJS dist directly.
+const require_ = createRequire(resolve(process.cwd(), 'package.json'))
+const stlPkgJson = require_.resolve('@vlting/stl/package.json')
+const stlDir = stlPkgJson.replace(/\/package\.json$/, '')
+const stl = require_(join(stlDir, 'dist', 'stl.js'))
+const { generateThemeCss, injectThemeIntoStylesheet } = stl
 
 const args = process.argv.slice(2)
 const cwd = process.cwd()
@@ -22,8 +29,8 @@ if (!existsSync(configPath)) {
 }
 
 // tsx handles the TS import
-const userConfig = require(configPath)
-const themes: Record<string, CreateThemeOptions> = userConfig.themes
+const userConfig = require_(configPath)
+const themes: Record<string, any> = userConfig.themes
 const config: { outDir?: string } = userConfig.config ?? {}
 
 if (!themes || Object.keys(themes).length === 0) {
@@ -40,10 +47,10 @@ const outDir = outDirIdx !== -1 && args[outDirIdx + 1]
 
 // ─── Find base CSS ──────────────────────────────────────────────────────────
 
-const baseCssPath = resolve(cwd, 'node_modules/@vlting/stl/dist/stl.css')
+const baseCssPath = join(stlDir, 'dist', 'stl.css')
 if (!existsSync(baseCssPath)) {
   console.error(`Base CSS not found at ${baseCssPath}`)
-  console.error('Is @vlting/stl installed?')
+  console.error('Is @vlting/stl built? Run `yarn build` in the stl package first.')
   process.exit(1)
 }
 
