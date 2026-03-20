@@ -39,7 +39,7 @@ module.exports = {
     'packages/components/Select/',
     'packages/components/Sheet/',
     'packages/components/Sidebar/',
-    'packages/components/Slider/',
+    // 'packages/components/Slider/', // re-enabled
     'packages/components/Table/',
     'packages/components/Tabs/',
     'packages/components/Toast/',
