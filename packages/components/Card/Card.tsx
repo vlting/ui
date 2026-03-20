@@ -24,7 +24,7 @@ const CardRoot = styled('article', {
     },
     elevation: {
       flat: { border: '$neutralMin' },
-      normal: { boxShadow: '$md' },
+      normal: { boxShadow: '$md', bg: '$surface2' },
       raised: { boxShadow: '$xl' },
       glass: {
         backdropFilter: 'blur(var(--stl-glass-blur, 0))',
@@ -84,7 +84,7 @@ const CardRoot = styled('article', {
       },
     },
   ],
-  defaultVariants: { size: 'md', elevation: 'normal', theme: 'neutral' },
+  defaultVariants: { size: 'md', elevation: 'raised', theme: 'neutral' },
   mapProps: (props: any) => ({
     ...props,
     ...(props.interactive && { role: 'button', tabIndex: 0 }),

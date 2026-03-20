@@ -7,7 +7,7 @@ const InputBase = styled('input', {
   fontFamily: '$body',
   fontSize: '$field',
   color: '$neutralText3',
-  bg: '$surface2',
+  bg: '$surface1',
   border: '$neutralMin',
   borderRadius: '$field',
   width: '100%',

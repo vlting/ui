@@ -13,7 +13,7 @@ const Footer = styled('div', {
 }, { name: 'Footer' })
 
 export function CardSection({ sectionRef }: SectionProps) {
-  const [elevation, setElevation] = useState<typeof CARD_ELEVATIONS[number]>('normal')
+  const [elevation, setElevation] = useState<typeof CARD_ELEVATIONS[number]>('raised')
   const [theme, setTheme] = useState<CardTheme>('neutral')
   const [interactive, setInteractive] = useState(false)
   const [flush, setFlush] = useState(false)
