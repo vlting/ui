@@ -7,7 +7,7 @@ import { styled } from '../../stl-react/src/config'
 const SwitchThumb = styled('span', {
   display: 'block',
   bg: '$neutral1',
-  radius: '$round',
+  radius: '$pill',
   transitionProperty: 'transform',
   transitionDuration: '$fastDuration',
   transitionTimingFunction: 'ease',
