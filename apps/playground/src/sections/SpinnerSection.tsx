@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import { Button, Card, ToggleGroup } from '@vlting/ui'
-import { Spinner } from '@vlting/stl-react'
+import { styled, Spinner } from '@vlting/stl-react'
 
 import {
   ButtonRow, DarkStage, GridCell, GridLabel,
-  SPINNER_SIZES,
+  SectionTitle, SPINNER_SIZES,
   type SectionProps,
 } from './shared'
+
+const Stage = styled('div', {
+  bg: 'transparent', radius: '$3', p: '$24',
+}, { name: 'Stage' })
 
 const SPINNER_THEMES = ['primary', 'secondary', 'neutralMax', 'neutralMin'] as const
 type SpinnerTheme = typeof SPINNER_THEMES[number]
@@ -15,17 +19,8 @@ export function SpinnerSection({ sectionRef }: SectionProps) {
   const [theme, setTheme] = useState<SpinnerTheme>('primary')
 
   const isNeutralMin = theme === 'neutralMin'
-
-  const content = (
-    <ButtonRow stl={{ justifyContent: 'space-evenly', alignItems: 'baseline' }}>
-      {SPINNER_SIZES.map((size) => (
-        <GridCell key={size}>
-          <Spinner theme={theme} size={size} />
-          <GridLabel stl={isNeutralMin ? { color: '$backgroundText10' } : undefined}>{size}</GridLabel>
-        </GridCell>
-      ))}
-    </ButtonRow>
-  )
+  const Container = isNeutralMin ? DarkStage : Stage
+  const textStl = isNeutralMin ? { color: '$backgroundText10' } : undefined
 
   return (
     <Card ref={sectionRef} data-section="Spinner">
@@ -43,7 +38,17 @@ export function SpinnerSection({ sectionRef }: SectionProps) {
         </ToggleGroup>
       </Card.Header>
       <Card.Content>
-        {isNeutralMin ? <DarkStage>{content}</DarkStage> : content}
+        <Container>
+          <SectionTitle stl={{ textTransform: 'none', mt: '$0', mb: '$0', ...textStl }}>{theme}</SectionTitle>
+          <ButtonRow stl={{ justifyContent: 'space-evenly', alignItems: 'baseline' }}>
+            {SPINNER_SIZES.map((size) => (
+              <GridCell key={size}>
+                <Spinner theme={theme} size={size} />
+                <GridLabel stl={textStl}>{size}</GridLabel>
+              </GridCell>
+            ))}
+          </ButtonRow>
+        </Container>
       </Card.Content>
     </Card>
   )
