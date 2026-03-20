@@ -12,12 +12,15 @@ import {
   Empty,
   Heading,
   Input,
+  InputGroup,
+  InputOTP,
   Item,
   Loader,
   NativeSelect,
   Progress,
   RadioGroup,
   Separator,
+  Slider,
   Switch,
   Text,
   Textarea,
@@ -27,7 +30,7 @@ import {
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 
-export const DEMO_SCENES = ['Settings', 'Activity', 'Dashboard'] as const
+export const DEMO_SCENES = ['Settings', 'Activity', 'Dashboard', 'Media'] as const
 export type DemoScene = typeof DEMO_SCENES[number]
 
 // ─── Layout Primitives ──────────────────────────────────────────────────────
@@ -478,6 +481,205 @@ function DashboardScene() {
   )
 }
 
+// ─── Scene 4: Media Player ──────────────────────────────────────────────────
+
+const AlbumArt = styled('div', {
+  width: '100%',
+  maxWidth: '320px',
+  height: '0',
+  pb: '320px',
+  borderRadius: '$16',
+  overflow: 'hidden',
+  position: 'relative',
+  flexShrink: '0',
+  mx: 'auto',
+}, { name: 'DemoAlbumArt' })
+
+const TrackInfo = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '$4',
+}, { name: 'DemoTrackInfo' })
+
+const PlaybackControls = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '$24',
+}, { name: 'DemoPlaybackControls' })
+
+const ControlBtn = styled('button', {
+  bg: 'transparent',
+  border: 'none',
+  color: '$color12',
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  p: '$0',
+}, { name: 'DemoControlBtn' })
+
+const PlayBtn = styled('button', {
+  width: '56px',
+  height: '56px',
+  borderRadius: '$full',
+  bg: '$primary9',
+  color: 'white',
+  border: 'none',
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}, { name: 'DemoPlayBtn' })
+
+const VolumeRow = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$12',
+  maxWidth: '320px',
+  mx: 'auto',
+  width: '100%',
+}, { name: 'DemoVolumeRow' })
+
+function MediaScene() {
+  const [seek, setSeek] = useState([35])
+  const [volume, setVolume] = useState([72])
+
+  return (
+    <Scene stl={{ bg: '$surface2' }}>
+      <Orb
+        aria-hidden="true"
+        stl={{ width: '420px', height: '420px', top: '-120px', right: '-80px', bg: '$primaryAlpha3' }}
+      />
+      <Orb
+        aria-hidden="true"
+        stl={{ width: '300px', height: '300px', bottom: '-60px', left: '-60px', bg: '$secondaryAlpha3' }}
+      />
+
+      <SceneInner>
+        <div>
+          <Heading stl={{ mb: '$8' }}>Now Playing</Heading>
+          <Text>Your music, your way.</Text>
+        </div>
+
+        <Card>
+          <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$20', alignItems: 'center' }}>
+            {/* Album art */}
+            <AlbumArt>
+              <div
+                data-decorative="true"
+                style={{
+                  position: 'absolute', inset: 0,
+                  background: 'linear-gradient(135deg, var(--stl-color-primary5, hsl(320,85%,50%)), var(--stl-color-secondary6, hsl(345,80%,40%)))',
+                }}
+              />
+              <Badge
+                size="sm" theme="primary" variant="solid"
+                stl={{ position: 'absolute', bottom: '$12', left: '$12' }}
+              >
+                Lossless
+              </Badge>
+            </AlbumArt>
+
+            {/* Track info */}
+            <TrackInfo>
+              <Heading.H3>Midnight Drive</Heading.H3>
+              <Text tone="muted">Glass Echoes</Text>
+            </TrackInfo>
+
+            {/* Seek slider */}
+            <div>
+              <Slider
+                value={seek}
+                onValueChange={setSeek}
+                max={100}
+                step={1}
+                aria-label="Track progress"
+              />
+              <Row stl={{ justifyContent: 'space-between' }}>
+                <Text size="xs" tone="muted">1:12</Text>
+                <Text size="xs" tone="muted">3:27</Text>
+              </Row>
+            </div>
+
+            {/* Playback controls */}
+            <PlaybackControls>
+              <ControlBtn aria-label="Previous track"><PrevIcon /></ControlBtn>
+              <PlayBtn aria-label="Play"><PlayIcon /></PlayBtn>
+              <ControlBtn aria-label="Next track"><NextIcon /></ControlBtn>
+            </PlaybackControls>
+
+            {/* Volume */}
+            <VolumeRow>
+              <VolumeLowIcon />
+              <Slider
+                value={volume}
+                onValueChange={setVolume}
+                max={100}
+                step={1}
+                aria-label="Volume"
+                stl={{ flex: '1' }}
+              />
+              <VolumeHighIcon />
+            </VolumeRow>
+          </Card.Content>
+        </Card>
+
+        {/* Share link */}
+        <Card>
+          <Card.Header>
+            <Card.Title>Share track</Card.Title>
+          </Card.Header>
+          <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$16' }}>
+            <InputGroup size="md">
+              <InputGroup.Addon><LinkIcon /></InputGroup.Addon>
+              <InputGroup.Input>
+                <Input
+                  readOnly
+                  defaultValue="https://play.vlt/t/midnight-drive"
+                  aria-label="Share URL"
+                />
+              </InputGroup.Input>
+              <InputGroup.Addon>
+                <Button size="md" theme="primary" variant="ghost">Copy</Button>
+              </InputGroup.Addon>
+            </InputGroup>
+          </Card.Content>
+        </Card>
+
+        {/* Share code */}
+        <Card>
+          <Card.Header>
+            <Card.Title>Enter share code</Card.Title>
+          </Card.Header>
+          <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$8' }}>
+            <Text size="sm" tone="muted">Paste the 6-digit code to access a shared playlist</Text>
+            <InputOTP.Root maxLength={6} aria-label="Share code">
+              <InputOTP.Group>
+                <InputOTP.Slot index={0} />
+                <InputOTP.Slot index={1} />
+                <InputOTP.Slot index={2} />
+              </InputOTP.Group>
+              <InputOTP.Separator />
+              <InputOTP.Group>
+                <InputOTP.Slot index={3} />
+                <InputOTP.Slot index={4} />
+                <InputOTP.Slot index={5} />
+              </InputOTP.Group>
+            </InputOTP.Root>
+          </Card.Content>
+        </Card>
+
+        <Row>
+          <Button theme="primary" variant="solid">Join playlist</Button>
+          <Button theme="neutral" variant="outline">Share new link</Button>
+        </Row>
+      </SceneInner>
+    </Scene>
+  )
+}
+
 // ─── Icons ──────────────────────────────────────────────────────────────────
 
 const CheckCircle = () => (
@@ -504,12 +706,49 @@ const InboxIcon = () => (
   </svg>
 )
 
+const PlayIcon = () => (
+  <svg width={24} height={24} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M19.376 12.4161L8.77735 19.4818C8.54759 19.635 8.23715 19.5729 8.08397 19.3432C8.02922 19.261 8 19.1645 8 19.0658V4.93433C8 4.65818 8.22386 4.43433 8.5 4.43433C8.59871 4.43433 8.69522 4.46355 8.77735 4.5183L19.376 11.584C19.6057 11.7372 19.6678 12.0477 19.5146 12.2774C19.478 12.3323 19.4309 12.3795 19.376 12.4161Z" />
+  </svg>
+)
+
+const PrevIcon = () => (
+  <svg width={22} height={22} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M8 18V6L2 12L8 18ZM22 18L12 12L22 6V18Z" />
+  </svg>
+)
+
+const NextIcon = () => (
+  <svg width={22} height={22} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M16 6V18L22 12L16 6ZM2 6L12 12L2 18V6Z" />
+  </svg>
+)
+
+const VolumeLowIcon = () => (
+  <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" opacity={0.5}>
+    <path d="M8.88889 16H5C4.44772 16 4 15.5523 4 15V9C4 8.44772 4.44772 8 5 8H8.88889L14.1834 3.66815C14.3971 3.49329 14.7121 3.52479 14.887 3.73851C14.9601 3.82784 15 3.93971 15 4.05513V19.9449C15 20.2211 14.7761 20.4449 14.5 20.4449C14.3846 20.4449 14.2727 20.405 14.1834 20.3319L8.88889 16Z" />
+  </svg>
+)
+
+const VolumeHighIcon = () => (
+  <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" opacity={0.5}>
+    <path d="M8.88889 16H5C4.44772 16 4 15.5523 4 15V9C4 8.44772 4.44772 8 5 8H8.88889L14.1834 3.66815C14.3971 3.49329 14.7121 3.52479 14.887 3.73851C14.9601 3.82784 15 3.93971 15 4.05513V19.9449C15 20.2211 14.7761 20.4449 14.5 20.4449C14.3846 20.4449 14.2727 20.405 14.1834 20.3319L8.88889 16ZM18.8631 16.5911C20.0476 15.3966 20.7778 13.7835 20.7778 12C20.7778 10.2165 20.0476 8.60336 18.8631 7.40889L17.4411 8.83086C18.2841 9.68394 18.7778 10.8305 18.7778 12C18.7778 13.1695 18.2841 14.3161 17.4411 15.1691L18.8631 16.5911Z" />
+  </svg>
+)
+
+const LinkIcon = () => (
+  <svg width={14} height={14} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M18.3643 15.5353L16.9501 14.1211L18.3643 12.7069C20.3169 10.7543 20.3169 7.58847 18.3643 5.63585C16.4116 3.68323 13.2458 3.68323 11.2932 5.63585L9.87898 7.05007L8.46477 5.63585L9.87898 4.22164C12.6127 1.48797 17.0448 1.48797 19.7785 4.22164C22.5121 6.95531 22.5121 11.3874 19.7785 14.1211L18.3643 15.5353ZM15.5358 18.3638L14.1216 19.778C11.388 22.5117 6.9558 22.5117 4.22213 19.778C1.48846 17.0443 1.48846 12.6122 4.22213 9.87856L5.63634 8.46434L7.05055 9.87856L5.63634 11.2928C3.68372 13.2454 3.68372 16.4112 5.63634 18.3638C7.58896 20.3164 10.7548 20.3164 12.7074 18.3638L14.1216 16.9496L15.5358 18.3638ZM14.8287 7.75717L16.2429 9.17139L9.17187 16.2424L7.75765 14.8282L14.8287 7.75717Z" />
+  </svg>
+)
+
 // ─── Scene Map ──────────────────────────────────────────────────────────────
 
 const SCENE_COMPONENTS: Record<DemoScene, React.ComponentType> = {
   Settings: SettingsScene,
   Activity: ActivityScene,
   Dashboard: DashboardScene,
+  Media: MediaScene,
 }
 
 // ─── Export ─────────────────────────────────────────────────────────────────
