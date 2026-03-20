@@ -182,6 +182,53 @@ describe('Accordion', () => {
     })
   })
 
+  describe('chevron indicator', () => {
+    it('renders chevron SVG by default', () => {
+      render(
+        <Accordion.Root type="single">
+          <Accordion.Item value="a">
+            <Accordion.Trigger>Section</Accordion.Trigger>
+            <Accordion.Content>Content</Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>,
+      )
+      const trigger = screen.getByText('Section').closest('button')!
+      const svg = trigger.querySelector('svg')
+      expect(svg).toBeTruthy()
+      expect(svg?.getAttribute('aria-hidden')).toBe('true')
+    })
+
+    it('hides chevron when indicator={false}', () => {
+      render(
+        <Accordion.Root type="single">
+          <Accordion.Item value="a">
+            <Accordion.Trigger indicator={false}>Section</Accordion.Trigger>
+            <Accordion.Content>Content</Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>,
+      )
+      const trigger = screen.getByText('Section').closest('button')!
+      expect(trigger.querySelector('svg')).toBeNull()
+    })
+
+    it('chevron data-state toggles with item', () => {
+      render(
+        <Accordion.Root type="single" collapsible>
+          <Accordion.Item value="a">
+            <Accordion.Trigger>Section</Accordion.Trigger>
+            <Accordion.Content>Content</Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>,
+      )
+      const trigger = screen.getByText('Section').closest('button')!
+      const chevron = trigger.querySelector('[data-state]')!
+      expect(chevron.getAttribute('data-state')).toBe('closed')
+
+      fireEvent.click(trigger)
+      expect(chevron.getAttribute('data-state')).toBe('open')
+    })
+  })
+
   describe('keyboard', () => {
     it('trigger is a button element', () => {
       render(
