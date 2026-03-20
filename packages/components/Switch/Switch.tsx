@@ -20,15 +20,10 @@ const SwitchThumb = styled('span', {
       lg: { width: '$24', height: '$24' },
     },
     checked: {
-      true: {},
+      true: { transform: 'translateX(100%)' },
       false: {},
     },
   },
-  compoundVariants: [
-    { when: { checked: 'true', size: 'sm' }, stl: { transform: 'translateX(16rem)' } },
-    { when: { checked: 'true', size: 'md' }, stl: { transform: 'translateX(20rem)' } },
-    { when: { checked: 'true', size: 'lg' }, stl: { transform: 'translateX(24rem)' } },
-  ],
   defaultVariants: { size: 'md' },
 })
 
