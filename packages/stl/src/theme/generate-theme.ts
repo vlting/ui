@@ -1,8 +1,7 @@
 import { size, space, radius, zIndex, borderWidth } from './base'
 import { lightShadows, darkShadows } from './themes'
 import { generatePalette } from './generate-palette'
-import { ALPHA_VALUES } from '../shared/models/colorGen.models'
-import { themeToVars } from './inject'
+import { ALPHA_VALUES, THEME_ATTR } from '../shared/models/colorGen.models'
 import type { Theme } from './types'
 import type { FontFamilySpec, HtmlHeadLink } from '../shared/models/theme.models'
 import { bodyFonts, headingFonts, codeFonts } from '../shared/models/theme.models'
@@ -254,24 +253,24 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
   return Object.freeze(theme)
 }
 
+// TODO: Native parity
+// On native, applyTheme should store the theme in a singleton that
+// the native StlProvider reads for token resolution. The native
+// tokenResolver would look up values from the active theme's palettes
+// instead of the build-time defaults. Same createTheme + applyTheme
+// API surface, different internal mechanism (no CSS, no DOM attributes).
+
 /**
- * Set the active theme and inject CSS variables into the DOM.
+ * Set the active theme by name via the `data-stl-theme` attribute.
+ *
+ * The theme's CSS variables must already be present in the stylesheet
+ * (injected at build time via `generateThemeCss` + `injectThemeIntoStylesheet`).
  * In non-browser environments (SSR), only sets the singleton.
  */
-export function applyTheme(theme: Readonly<Theme>, mode: 'light' | 'dark' = 'light'): void {
+export function applyTheme(theme: Readonly<Theme>, _mode?: 'light' | 'dark'): void {
   _currentTheme = theme
   if (typeof document !== 'undefined') {
-    const vars = themeToVars(theme, mode)
-    let styleEl = document.getElementById('stl-active-theme')
-    if (!styleEl) {
-      styleEl = document.createElement('style')
-      styleEl.id = 'stl-active-theme'
-      document.head.appendChild(styleEl)
-    }
-    const declarations = Object.entries(vars)
-      .map(([name, value]) => `  ${name}: ${value};`)
-      .join('\n')
-    styleEl.textContent = `:root {\n${declarations}\n}`
+    document.documentElement.setAttribute(THEME_ATTR, theme.name)
   }
 }
 
