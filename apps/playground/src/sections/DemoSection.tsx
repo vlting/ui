@@ -1,3 +1,4 @@
+import type React from 'react'
 import { useState } from 'react'
 import { styled, Spinner } from '@vlting/stl-react'
 import {
@@ -24,6 +25,11 @@ import {
   ToggleGroup,
 } from '@vlting/ui'
 
+// ─── Constants ──────────────────────────────────────────────────────────────
+
+export const DEMO_SCENES = ['Settings', 'Activity', 'Dashboard'] as const
+export type DemoScene = typeof DEMO_SCENES[number]
+
 // ─── Layout Primitives ──────────────────────────────────────────────────────
 
 const Scene = styled('section', {
@@ -31,6 +37,10 @@ const Scene = styled('section', {
   overflow: 'hidden',
   py: '$48',
   px: '$24',
+  minHeight: 'calc(100vh - 48px)',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
 }, { name: 'DemoScene' })
 
 const SceneInner = styled('div', {
@@ -493,14 +503,17 @@ const InboxIcon = () => (
   </svg>
 )
 
+// ─── Scene Map ──────────────────────────────────────────────────────────────
+
+const SCENE_COMPONENTS: Record<DemoScene, React.ComponentType> = {
+  Settings: SettingsScene,
+  Activity: ActivityScene,
+  Dashboard: DashboardScene,
+}
+
 // ─── Export ─────────────────────────────────────────────────────────────────
 
-export function DemoSection() {
-  return (
-    <>
-      <SettingsScene />
-      <ActivityScene />
-      <DashboardScene />
-    </>
-  )
+export function DemoSection({ activeScene = 'Settings' }: { activeScene?: DemoScene }) {
+  const SceneComponent = SCENE_COMPONENTS[activeScene]
+  return <SceneComponent />
 }
