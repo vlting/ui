@@ -1,5 +1,4 @@
 <!-- spec-version: 2 -->
-<!-- AI: Fill this spec when this component is actively worked on. See Form.spec.bak.md for prior design intent. -->
 
 # Form Specification
 
@@ -9,82 +8,54 @@ Form
 ---
 
 ## Purpose
+Thin styled `<form>` wrapper with `preventDefault` built in. Field-level concerns are handled by `Field`, not Form.
 
 ---
 
 ## Supported Platforms
-
-- [ ] React (web)
+- [x] React (web)
 - [ ] React Native
-
----
-
-## Design System Constraints
 
 ---
 
 ## Component API
 
+### Form.Root
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `onSubmit` | `(e: FormEvent) => void` | — | Called after `preventDefault` |
+| `noValidate` | `boolean` | — | Disables browser validation |
+
+No sub-components. Use `<Field.Root>` inside `<Form.Root>` for field-level concerns.
+
 ---
 
 ## Composition Model
+```tsx
+<Form.Root onSubmit={handleSubmit}>
+  <Field.Root>
+    <Field.Label>Email</Field.Label>
+    <Field.Control><Input /></Field.Control>
+  </Field.Root>
+  <Button type="submit">Submit</Button>
+</Form.Root>
+```
 
 ---
 
 ## Layout Rules
-
----
-
-## Variants
-
----
-
-## Size Options
-
----
-
-## States
-
----
-
-## Interaction Model
-
----
-
-## Accessibility
-
----
-
-## Platform Implementation Notes
-
-### React (Web)
-
-### React Native
-
----
-
-## Theming Behavior
-
----
-
-## Edge Cases
-
----
-
-## Stories / Preview Cases
+Root: `flex`, `column`, `gap: $16`
 
 ---
 
 ## Test Requirements
-
----
-
-## Implementation Constraints
-
----
-
-## Open Questions
+- Renders as `<form>` element
+- `onSubmit` called with `preventDefault`
+- Children render inside form
+- `noValidate` forwarded
+- Composes with Field.Root
 
 ---
 
 ## Change Log
+- Initial implementation: thin form wrapper, no sub-components

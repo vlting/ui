@@ -1,51 +1,65 @@
-import { render, screen } from '../../../src/__test-utils__/render'
+import { render, screen, fireEvent } from '../../../src/__test-utils__/render'
 import { Form } from './Form'
+import { Field } from '../Field/Field'
 
 describe('Form', () => {
-  it('renders form element', () => {
-    render(
-      <Form.Root onSubmit={() => {}}>
-        <Form.Field>
-          <Form.Label>Name</Form.Label>
-        </Form.Field>
+  it('renders as a form element', () => {
+    const { container } = render(
+      <Form.Root>
+        <span>content</span>
       </Form.Root>,
     )
-    expect(screen.getByText('Name')).toBeTruthy()
+    expect(container.querySelector('form')).toBeTruthy()
   })
 
-  it('renders description text', () => {
-    render(
-      <Form.Root onSubmit={() => {}}>
-        <Form.Field>
-          <Form.Label>Email</Form.Label>
-          <Form.Description>Enter your email</Form.Description>
-        </Form.Field>
+  it('calls onSubmit with preventDefault', () => {
+    const handleSubmit = jest.fn()
+    const { container } = render(
+      <Form.Root onSubmit={handleSubmit}>
+        <button type="submit">Submit</button>
       </Form.Root>,
     )
-    expect(screen.getByText('Enter your email')).toBeTruthy()
+    const form = container.querySelector('form')!
+    fireEvent.submit(form)
+    expect(handleSubmit).toHaveBeenCalledTimes(1)
+    // preventDefault was called (event default prevented)
+    const event = handleSubmit.mock.calls[0]![0]
+    expect(event.defaultPrevented).toBe(true)
   })
 
-  it('renders error message', () => {
+  it('renders children inside form', () => {
     render(
-      <Form.Root onSubmit={() => {}}>
-        <Form.Field error>
-          <Form.Label>Name</Form.Label>
-          <Form.ErrorMessage>Required</Form.ErrorMessage>
-        </Form.Field>
+      <Form.Root>
+        <span>Child content</span>
       </Form.Root>,
     )
-    expect(screen.getByText('Required')).toBeTruthy()
+    expect(screen.getByText('Child content')).toBeTruthy()
   })
 
-  it.skip('error message has role="alert"', () => {
-    // TODO: styled component role rendering in JSDOM
-    render(
-      <Form.Root onSubmit={() => {}}>
-        <Form.Field error>
-          <Form.ErrorMessage>Error</Form.ErrorMessage>
-        </Form.Field>
+  it('forwards noValidate attribute', () => {
+    const { container } = render(
+      <Form.Root noValidate>
+        <span>content</span>
       </Form.Root>,
     )
-    expect(screen.getByRole('alert')).toBeTruthy()
+    const form = container.querySelector('form')!
+    expect(form.noValidate).toBe(true)
+  })
+
+  it('composes with Field.Root children', () => {
+    const { container } = render(
+      <Form.Root>
+        <Field.Root>
+          <Field.Label>Name</Field.Label>
+          <Field.Control>
+            <input />
+          </Field.Control>
+        </Field.Root>
+      </Form.Root>,
+    )
+    const form = container.querySelector('form')!
+    const label = form.querySelector('label')!
+    const input = form.querySelector('input')!
+    expect(label.htmlFor).toBe(input.id)
   })
 })
