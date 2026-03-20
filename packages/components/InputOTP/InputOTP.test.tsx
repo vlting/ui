@@ -1,4 +1,4 @@
-import { render } from '../../../src/__test-utils__/render'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
 import { InputOTP } from './InputOTP'
 
 describe('InputOTP', () => {
@@ -48,6 +48,33 @@ describe('InputOTP', () => {
     expect(true).toBe(true)
   })
 
+  it('renders hidden input with correct attributes', () => {
+    render(
+      <InputOTP.Root maxLength={4}>
+        <InputOTP.Group>
+          <InputOTP.Slot index={0} />
+        </InputOTP.Group>
+      </InputOTP.Root>,
+    )
+    const input = screen.getByLabelText('Enter 4-digit code')
+    expect(input).toHaveAttribute('type', 'text')
+    expect(input).toHaveAttribute('inputmode', 'numeric')
+    expect(input).toHaveAttribute('autocomplete', 'one-time-code')
+    expect(input).toHaveAttribute('maxlength', '4')
+  })
+
+  it('renders disabled state', () => {
+    render(
+      <InputOTP.Root maxLength={4} disabled>
+        <InputOTP.Group>
+          <InputOTP.Slot index={0} />
+        </InputOTP.Group>
+      </InputOTP.Root>,
+    )
+    const input = screen.getByLabelText('Enter 4-digit code')
+    expect(input).toBeDisabled()
+  })
+
   it.skip('calls onComplete when all slots are filled', () => {
     // TODO: Simulating input in hidden field is complex in JSDOM
     const onComplete = jest.fn()
@@ -59,5 +86,13 @@ describe('InputOTP', () => {
         </InputOTP.Group>
       </InputOTP.Root>,
     )
+  })
+
+  it('throws when Slot is used outside Root', () => {
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    expect(() => {
+      render(<InputOTP.Slot index={0} />)
+    }).toThrow('InputOTP.Slot must be used within InputOTP.Root')
+    consoleSpy.mockRestore()
   })
 })

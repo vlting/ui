@@ -1,5 +1,6 @@
 export type {
   InputGroupAddonProps,
+  InputGroupButtonAddonProps,
   InputGroupElementProps,
   InputGroupInputProps,
   InputGroupProps,

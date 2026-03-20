@@ -87,7 +87,11 @@ export const THEME_PRESET_MINT: CreateThemeOptions = {
   neutral: { hue: 159 },
   background: { hue: 159, saturation: 5 },
   fontSize: { base: 17, h1: 56, h2: 38, h3: 25, h4: 25, h5: 21, h6: 18 },
-  radius: { base: 0, badge: 0 },
+  radius: {
+    base: 0, 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0,
+    true: 0, full: 0, pill: 0, rounded: 0,
+    field: 0, button: 0, buttonGrouped: 0, card: 0, badge: 0, tooltip: 0, snippet: 0,
+  },
   borderWidth: { none: 0, thin: 0.5, medium: 1, thick: 1.5 },
   shadows: {
     light: {

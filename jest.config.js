@@ -27,8 +27,8 @@ module.exports = {
     'packages/components/Field/',
     'packages/components/Form/',
     'packages/components/HoverCard/',
-    'packages/components/InputGroup/',
-    'packages/components/InputOTP/',
+    // 'packages/components/InputGroup/', // re-enabled
+    // 'packages/components/InputOTP/', // re-enabled
     'packages/components/Menu/',
     'packages/components/Menubar/',
     'packages/components/NavigationMenu/',
@@ -39,7 +39,7 @@ module.exports = {
     'packages/components/Select/',
     'packages/components/Sheet/',
     'packages/components/Sidebar/',
-    'packages/components/Slider/',
+    // 'packages/components/Slider/', // re-enabled
     'packages/components/Table/',
     'packages/components/Tabs/',
     'packages/components/Toast/',

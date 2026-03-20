@@ -9,7 +9,6 @@ const InputBase = styled('input', {
   color: '$neutralText3',
   bg: '$surface1',
   border: '$neutralMin',
-  borderRadius: '$field',
   width: '100%',
   outline: 'none',
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
@@ -17,9 +16,9 @@ const InputBase = styled('input', {
   name: 'Input',
   variants: {
     size: {
-      sm: { height: '$28', px: '$8', fontSize: '$buttonSmall' },
-      md: { height: '$32', px: '$12', fontSize: '$button' },
-      lg: { height: '$40', px: '$16', fontSize: '$button' },
+      sm: { height: '$28', px: '$8', fontSize: '$buttonSmall', borderRadius: '$2' },
+      md: { height: '$32', px: '$12', fontSize: '$button', borderRadius: '$3' },
+      lg: { height: '$40', px: '$16', fontSize: '$button', borderRadius: '$4' },
     },
     error: {
       true: {

@@ -193,13 +193,15 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 
 ### Stage 7.3: Range & Complex Inputs (Slider, InputOTP, InputGroup)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/range-complex-inputs
+**Issue:** #239
 **Acceptance criteria:**
-- [ ] Slider: theme-axis, range support, aria-valuemin/max/now, keyboard (arrows, Home/End)
-- [ ] InputOTP: neutral, auto-focus next, paste support, aria-label per field
-- [ ] InputGroup: neutral, prefix/suffix addons, integrated elements
+- [ ] Slider: theme-axis, single-thumb, role="slider", aria-valuemin/max/now, keyboard (arrows, Home/End), pointer drag, 44px touch target
+- [ ] InputOTP: compound (Root/Group/Slot/Separator), hidden input, auto-advance, paste, onComplete, inputMode="numeric"
+- [ ] InputGroup: compound, size context, role="group", border-radius collapsing, Addon aria-hidden, Element placement
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
-**Status:** pending
+- [ ] Playground sections + demo scene integration
+**Status:** in-progress
 
 ### Stage 7.4: Form Infrastructure (Field, Form, Label)
 **Branch prefix:** feat
@@ -208,7 +210,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Form: root container, validation integration points
 - [ ] Label: associates with control, required indicator
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ## Epic 8: Disclosure & Overlay
@@ -225,7 +227,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Both use useDisclosure from headless
 - [ ] Enter/exit animations using $normalDuration, gated on lowMotion
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 8.2: Dialogs (Dialog, AlertDialog, Sheet, Drawer)
@@ -238,7 +240,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] All use useFocusScope, Portal
 - [ ] Shadow tokens ($sm-$2xl), animation tokens (slideIn*/fadeIn)
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 8.3: Floating (Popover, Tooltip, HoverCard)
@@ -249,7 +251,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] HoverCard: hover-triggered popover, delay, pointer tracking
 - [ ] All use Portal, positioning logic
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 8.4: Feedback Overlay (Toast)
@@ -260,7 +262,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] aria-live announcements (useLiveRegion)
 - [ ] Enter/exit animations
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground page
+- [ ] Playground section (top of gallery) + demo scene integration
 **Status:** pending
 
 ## Epic 9: React Native Parity (Core)
@@ -308,7 +310,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Menubar: horizontal menu bar, nested menus, keyboard (arrows, Enter, Escape)
 - [ ] react-aria backed via headless wrappers
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 10.2: Selection (Select, Combobox, Command)
@@ -319,7 +321,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Command: command palette, search + action list, keyboard-first
 - [ ] react-aria backed for listbox/combobox patterns
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 10.3: Navigation (Tabs, NavigationMenu, Breadcrumb, Pagination, Sidebar)
@@ -331,7 +333,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Pagination: page navigation, aria-label, keyboard
 - [ ] Sidebar: collapsible navigation, responsive, compound
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ## Epic 11: Complex & Data
@@ -347,7 +349,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] DataTable: TanStack Table integration, sorting, filtering, pagination, column visibility
 - [ ] Responsive: horizontal scroll on small screens
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 11.2: Dates (Calendar, DatePicker)
@@ -357,7 +359,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] DatePicker: Calendar + Input, date formatting, range support
 - [ ] react-aria backed for calendar grid patterns
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 11.3: Advanced Interaction (Carousel, ScrollArea, Resizable)
@@ -367,7 +369,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] ScrollArea: custom scrollbar, overflow detection
 - [ ] Resizable: compound (PanelGroup/Panel/Handle), keyboard resize, min/max constraints
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ## Epic 12: Blocks Rebuild
@@ -381,7 +383,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Acceptance criteria:**
 - [ ] Each block rebuilt using real components (no stubs)
 - [ ] Responsive layout via STL tokens/conditions
-- [ ] Playground pages demonstrating each block
+- [ ] Playground sections (top of gallery) + demo scene integration
 - [ ] Tests for composition and responsive behavior
 **Status:** pending
 
@@ -390,7 +392,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Acceptance criteria:**
 - [ ] Each block rebuilt using real components
 - [ ] Interactive behaviors working (file upload, chat input, wizard steps)
-- [ ] Playground pages
+- [ ] Playground sections (top of gallery) + demo scene integration
 - [ ] Tests
 **Status:** pending
 
@@ -409,7 +411,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] ChartDataTable: accessible data table alternative for screen readers
 - [ ] Victory wrapped behind owned API — consumers import from @vlting/ui, never from victory directly
 - [ ] Lazy-loaded via separate subpath export (@vlting/ui/charts)
-- [ ] Playground page for infrastructure components
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 13.2: Core Charts (LineChart, BarChart, AreaChart)
@@ -419,7 +421,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] Theme-aware (uses STL color tokens)
 - [ ] Responsive sizing
 - [ ] Tests for rendering and data handling
-- [ ] Playground pages with sample data
+- [ ] Playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ### Stage 13.3: Specialized Charts (PieChart, RadarChart, RadialChart)
@@ -427,7 +429,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Acceptance criteria:**
 - [ ] Each wraps Victory equivalent
 - [ ] Theme-aware
-- [ ] Tests and playground pages
+- [ ] Tests, playground sections (top of gallery) + demo scene integration
 **Status:** pending
 
 ## Epic 14: Playground & Docs

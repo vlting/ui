@@ -50,6 +50,15 @@ All colors, spacing, and typography must use design tokens. No hardcoded values.
 - v2 template: `packages/_templates/component.spec.template.md`
 - Replacing old spec → archive as `{Name}.spec.bak.md` (use `git mv`)
 
+### Playground Coverage
+
+Every new component MUST ship with:
+
+1. **Playground section** — added to the **top** of the components gallery (`SECTIONS` array in `App.tsx`) so it's immediately visible during review
+2. **Demo scene usage** — integrated into an existing demo scene or a new one (whichever is more appropriate), demonstrating the component in a realistic, composed context — not just an isolated showcase
+
+A component without both is not done.
+
 ### Component Boundaries
 
 - Local UI state only (open/closed, hover, focus)
