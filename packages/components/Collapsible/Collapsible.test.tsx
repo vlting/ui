@@ -134,4 +134,48 @@ describe('Collapsible', () => {
     expect(root).toHaveAttribute('data-state', 'open')
     expect(trigger).toHaveAttribute('data-state', 'open')
   })
+
+  // ─── Chevron / Indicator tests ──────────────────────────────────────────
+
+  it('renders chevron SVG by default', () => {
+    render(
+      <Collapsible.Root>
+        <Collapsible.Trigger>Toggle</Collapsible.Trigger>
+        <Collapsible.Content>Body</Collapsible.Content>
+      </Collapsible.Root>,
+    )
+    const trigger = screen.getByText('Toggle')
+    const svg = trigger.querySelector('svg')
+    expect(svg).toBeTruthy()
+    expect(svg).toHaveAttribute('aria-hidden', 'true')
+  })
+
+  it('hides chevron when indicator={false}', () => {
+    render(
+      <Collapsible.Root>
+        <Collapsible.Trigger indicator={false}>Toggle</Collapsible.Trigger>
+        <Collapsible.Content>Body</Collapsible.Content>
+      </Collapsible.Root>,
+    )
+    const trigger = screen.getByText('Toggle')
+    const svg = trigger.querySelector('svg')
+    expect(svg).toBeNull()
+  })
+
+  it('toggles data-state on chevron wrapper', () => {
+    render(
+      <Collapsible.Root>
+        <Collapsible.Trigger>Toggle</Collapsible.Trigger>
+        <Collapsible.Content>Body</Collapsible.Content>
+      </Collapsible.Root>,
+    )
+    const trigger = screen.getByText('Toggle')
+    const chevron = trigger.querySelector('span[data-state]')
+
+    expect(chevron).toHaveAttribute('data-state', 'closed')
+
+    fireEvent.click(trigger)
+
+    expect(chevron).toHaveAttribute('data-state', 'open')
+  })
 })
