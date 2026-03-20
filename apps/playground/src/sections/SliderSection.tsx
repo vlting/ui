@@ -51,7 +51,7 @@ const StepBtnCol = styled('div', {
 const StepBtn = styled('button', {
   flex: '1',
   display: 'flex', alignItems: 'center', justifyContent: 'center',
-  px: '$6',
+  px: '$8',
   bg: '$surface2',
   border: '$neutralMin',
   color: '$neutralText3',
@@ -146,14 +146,14 @@ export function SliderSection({ sectionRef }: SectionProps) {
               <Slider value={stepVal} onValueChange={v => setStepVal(v as number)} step={step} size={size} theme={theme} disabled={disabled} aria-label="Stepped" />
               <StepperWrap>
                 <StepInput
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   value={step}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     const v = Number(e.target.value)
                     if (v >= 1 && v <= 50) setStep(v)
                   }}
-                  min={1}
-                  max={50}
                   aria-label="Step size"
                 />
                 <StepBtnCol>
