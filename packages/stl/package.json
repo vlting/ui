@@ -31,8 +31,9 @@
   },
   "scripts": {
     "build:js": "vite build",
+    "build:themes": "npx tsx scripts/inject-themes.ts",
     "build:types": "tsc --declaration --declarationDir dist/types",
-    "build": "yarn build:js && yarn build:types",
+    "build": "yarn build:js && yarn build:themes && yarn build:types",
     "watch": "vite build --watch",
     "build:lib": "yarn build",
     "watch:lib": "yarn watch",
