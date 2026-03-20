@@ -1,16 +1,35 @@
-import { Button, Card } from '@vlting/ui'
+import { useState } from 'react'
+import { Button, Card, Toggle, ToggleGroup } from '@vlting/ui'
 
 import {
-  ButtonRow, Section, SectionTitle,
+  ButtonRow, ControlRow, Section, SectionTitle,
   SIZES, THEMES, VARIANTS,
   type SectionProps,
 } from './shared'
 
+type Size = typeof SIZES[number]
+
 export function ButtonSection({ sectionRef }: SectionProps) {
+  const [size, setSize] = useState<Size>('md')
+  const [pill, setPill] = useState(false)
+
   return (
     <Card ref={sectionRef} data-section="Button">
-      <Card.Header>
+      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <Card.Title>Button</Card.Title>
+        <ControlRow>
+          <ToggleGroup
+            type="exclusive"
+            value={[size]}
+            onValueChange={v => v[0] && setSize(v[0] as Size)}
+            aria-label="Button size"
+          >
+            {SIZES.map(s => (
+              <Button key={s} value={s} size="md" variant="outline" theme="neutral">{s}</Button>
+            ))}
+          </ToggleGroup>
+          <Toggle size="md" variant="outline" theme="neutral" pressed={pill} onPressedChange={setPill}>pill</Toggle>
+        </ControlRow>
       </Card.Header>
       <Card.Content>
         <SectionTitle stl={{ mt: '$0' }}>Themes</SectionTitle>
@@ -22,58 +41,25 @@ export function ButtonSection({ sectionRef }: SectionProps) {
                   key={variant}
                   theme={theme}
                   variant={variant}
-
+                  size={size}
+                  pill={pill || undefined}
                   stl={{ minWidth: '$80' }}
                 >
                   {variant}
                 </Button>
               ))}
-              <Button theme={theme} variant="solid" disabled stl={{ minWidth: '$80' }}>
+              <Button theme={theme} variant="solid" size={size} pill={pill || undefined} disabled stl={{ minWidth: '$80' }}>
                 disabled
               </Button>
-              <Button theme={theme} variant="solid" loading stl={{ minWidth: '$80' }}>
+              <Button theme={theme} variant="solid" size={size} pill={pill || undefined} loading stl={{ minWidth: '$80' }}>
                 loading
               </Button>
-              <Button theme={theme} variant="solid" square>
+              <Button theme={theme} variant="solid" size={size} pill={pill || undefined} square>
                 ★
               </Button>
             </ButtonRow>
           </Section>
         ))}
-
-        <Section>
-          <SectionTitle>Size</SectionTitle>
-          <ButtonRow>
-            {SIZES.map((s) => (
-              <Button key={s} theme="primary" variant="solid" size={s}>
-                {s}
-              </Button>
-            ))}
-            {SIZES.map((s) => (
-              <Button key={`sq-${s}`} theme="primary" variant="solid" size={s} square>
-                ★
-              </Button>
-            ))}
-          </ButtonRow>
-        </Section>
-
-        <Section>
-          <SectionTitle>Pill</SectionTitle>
-          <ButtonRow>
-            {VARIANTS.map((variant) => (
-              <Button
-                key={variant}
-                pill
-                theme="primary"
-                variant={variant}
-                               stl={{ minWidth: '$80' }}
-              >
-                {variant}
-              </Button>
-            ))}
-            <Button pill square>★</Button>
-          </ButtonRow>
-        </Section>
       </Card.Content>
     </Card>
   )
