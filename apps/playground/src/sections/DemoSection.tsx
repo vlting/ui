@@ -2,6 +2,7 @@ import type React from 'react'
 import { useState } from 'react'
 import { styled, Spinner } from '@vlting/stl-react'
 import {
+  Accordion,
   Alert,
   Avatar,
   Badge,
@@ -9,6 +10,7 @@ import {
   ButtonGroup,
   Card,
   Checkbox,
+  Collapsible,
   Empty,
   Field,
   Form,
@@ -222,6 +224,34 @@ function SettingsScene() {
                 </NativeSelect.Root>
               </Field.Control>
             </Field.Root>
+          </Card.Content>
+        </Card>
+
+        <Card>
+          <Card.Header>
+            <Card.Title>Help &amp; FAQ</Card.Title>
+          </Card.Header>
+          <Card.Content stl={{ px: '$0', py: '$0' }}>
+            <Accordion type="single" defaultValue={['data-export']}>
+              <Accordion.Item value="data-export">
+                <Accordion.Trigger>How do I export my data?</Accordion.Trigger>
+                <Accordion.Content>
+                  <Text>Go to Settings → Data &amp; Privacy → Export. You can download a full archive of your account data in JSON or CSV format. Exports typically complete within a few minutes.</Text>
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="two-factor">
+                <Accordion.Trigger>How do I enable two-factor authentication?</Accordion.Trigger>
+                <Accordion.Content>
+                  <Text>Navigate to Security → Two-Factor Auth and scan the QR code with your authenticator app. You'll need to verify with a one-time code before it's active.</Text>
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="delete-account">
+                <Accordion.Trigger>Can I delete my account?</Accordion.Trigger>
+                <Accordion.Content>
+                  <Text>Yes. Under Data &amp; Privacy → Danger Zone, select "Delete account." This action is irreversible and removes all associated data after a 30-day grace period.</Text>
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion>
           </Card.Content>
         </Card>
 
@@ -470,6 +500,30 @@ function DashboardScene() {
               <Text size="sm" tone="muted">Active reviewers this {period}</Text>
               <Loader size="sm" aria-label="Loading reviewers" />
             </Row>
+          </Card.Content>
+        </Card>
+
+        <Card>
+          <Card.Content>
+            <Collapsible.Root>
+              <Collapsible.Trigger>Advanced metrics</Collapsible.Trigger>
+              <Collapsible.Content>
+                <StatsGrid stl={{ mt: '$12' }}>
+                  <div>
+                    <Text size="sm" tone="muted">P50 latency</Text>
+                    <Heading.H3 stl={{ mt: '$4' }}>42ms</Heading.H3>
+                  </div>
+                  <div>
+                    <Text size="sm" tone="muted">P99 latency</Text>
+                    <Heading.H3 stl={{ mt: '$4' }}>380ms</Heading.H3>
+                  </div>
+                  <div>
+                    <Text size="sm" tone="muted">Error rate</Text>
+                    <Heading.H3 stl={{ mt: '$4' }}>0.03%</Heading.H3>
+                  </div>
+                </StatsGrid>
+              </Collapsible.Content>
+            </Collapsible.Root>
           </Card.Content>
         </Card>
 
