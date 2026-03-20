@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Card, Collapsible, Toggle } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
-import { ControlRow, type SectionProps } from './shared'
+import { CardText, ControlRow, SectionTitle, StackY, type SectionProps } from './shared'
 
 const StatusLabel = styled('span', {
   fontSize: '$small', color: '$neutralText4', fontFamily: '$code',
@@ -21,13 +21,46 @@ export function CollapsibleSection({ sectionRef }: SectionProps) {
         </ControlRow>
       </Card.Header>
       <Card.Content>
-        <Collapsible.Root disabled={disabled} open={open} onOpenChange={setOpen}>
-          <Collapsible.Trigger>Toggle content</Collapsible.Trigger>
-          <Collapsible.Content>
-            This content can be toggled open and closed. It uses the hidden attribute for visibility.
-          </Collapsible.Content>
-        </Collapsible.Root>
-        <StatusLabel>open: {String(open)}</StatusLabel>
+        <StackY>
+          <SectionTitle stl={{ mt: '$0' }}>Read more</SectionTitle>
+          <Collapsible.Root disabled={disabled} open={open} onOpenChange={setOpen}>
+            <Collapsible.Trigger>About the registry</Collapsible.Trigger>
+            <Collapsible.Content>
+              <CardText>
+                The vlt serverless registry is a next-generation package hosting solution
+                built on edge infrastructure. Packages are served from the nearest point of
+                presence, reducing install times by up to 10x compared to traditional registries.
+                It supports granular access controls, package signing, and real-time vulnerability
+                scanning out of the box.
+              </CardText>
+            </Collapsible.Content>
+          </Collapsible.Root>
+          <StatusLabel>open: {String(open)}</StatusLabel>
+
+          <SectionTitle>Default open</SectionTitle>
+          <Collapsible.Root defaultOpen>
+            <Collapsible.Trigger>Advanced settings</Collapsible.Trigger>
+            <Collapsible.Content>
+              <CardText>
+                Cache directory, registry mirrors, network timeouts, and retry policies
+                can be configured per-project or globally. These settings are rarely needed
+                but available when you need fine-grained control over package resolution.
+              </CardText>
+            </Collapsible.Content>
+          </Collapsible.Root>
+
+          <SectionTitle>No indicator</SectionTitle>
+          <Collapsible.Root>
+            <Collapsible.Trigger indicator={false}>Show release notes</Collapsible.Trigger>
+            <Collapsible.Content>
+              <CardText>
+                v2.0 introduces workspace-aware dependency deduplication, a new lockfile
+                format with content-addressable integrity, and native support for
+                conditional exports resolution.
+              </CardText>
+            </Collapsible.Content>
+          </Collapsible.Root>
+        </StackY>
       </Card.Content>
     </Card>
   )
