@@ -219,7 +219,9 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Objective:** Components with open/close state, focus management, portals. First real test of styled() for compound+portal patterns.
 **Dependencies:** Epic 7
 **Epic slug:** disclosure-overlay
-**Status:** pending
+**Epic branch:** epic/disclosure-overlay
+**Epic issue:** #243
+**Status:** in-progress
 
 ### Stage 8.1: Disclosure (Accordion, Collapsible)
 **Branch prefix:** feat
