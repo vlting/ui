@@ -24,8 +24,8 @@ module.exports = {
     'packages/components/Dialog/',
     'packages/components/Drawer/',
     'packages/components/DropdownMenu/',
-    'packages/components/Field/',
-    'packages/components/Form/',
+    // 'packages/components/Field/', // re-enabled
+    // 'packages/components/Form/', // re-enabled
     'packages/components/HoverCard/',
     // 'packages/components/InputGroup/', // re-enabled
     // 'packages/components/InputOTP/', // re-enabled
