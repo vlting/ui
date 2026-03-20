@@ -70,7 +70,7 @@ const SlotBox = styled('div', {
   width: '$40',
   height: '$44',
   border: '$neutralMin',
-  radius: '$4',
+  radius: '$field',
   bg: '$surface1',
   fontFamily: '$body',
   fontSize: '$fieldLarge',

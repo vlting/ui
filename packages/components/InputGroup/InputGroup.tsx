@@ -101,6 +101,7 @@ const AddonBase = styled('div', {
   alignItems: 'center',
   bg: '$surface2',
   border: '$neutralMin',
+  borderRadius: '$field',
   color: '$neutralText2',
   flexShrink: '0',
   whiteSpace: 'nowrap',
@@ -109,9 +110,9 @@ const AddonBase = styled('div', {
   name: 'InputGroupAddon',
   variants: {
     size: {
-      sm: { px: '$8', fontSize: '$buttonSmall', borderRadius: '$2' },
-      md: { px: '$12', fontSize: '$button', borderRadius: '$3' },
-      lg: { px: '$16', fontSize: '$button', borderRadius: '$4' },
+      sm: { px: '$8', fontSize: '$buttonSmall' },
+      md: { px: '$12', fontSize: '$button' },
+      lg: { px: '$16', fontSize: '$button' },
     },
   },
   defaultVariants: { size: 'md' },
