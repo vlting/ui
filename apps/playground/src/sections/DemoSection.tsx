@@ -631,7 +631,9 @@ function MediaScene() {
                   aria-label="Share URL"
                 />
               </InputGroup.Input>
-              <InputGroup.Addon>Copy</InputGroup.Addon>
+              <InputGroup.ButtonAddon>
+                <Button variant="outline" theme="neutral">Copy</Button>
+              </InputGroup.ButtonAddon>
             </InputGroup>
           </Card.Content>
         </Card>

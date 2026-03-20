@@ -131,6 +131,43 @@ const Addon = forwardRef<HTMLDivElement, InputGroupAddonProps>(
 )
 Addon.displayName = 'InputGroup.Addon'
 
+// ─── ButtonAddon ────────────────────────────────────────────────────────────
+
+const ButtonAddonBase = styled('div', {
+  display: 'inline-flex',
+  alignItems: 'stretch',
+  flexShrink: '0',
+}, { name: 'InputGroupButtonAddon' })
+
+export type InputGroupButtonAddonProps = ComponentPropsWithRef<typeof ButtonAddonBase> & {
+  _groupPosition?: GroupPosition
+  _groupOrientation?: string
+}
+
+const ButtonAddon = forwardRef<HTMLDivElement, InputGroupButtonAddonProps>(
+  ({ _groupPosition = 'only', _groupOrientation = 'horizontal', children, ...props }, ref) => {
+    const ctx = useInputGroupContext()
+
+    const processed = Children.map(children, (child) => {
+      if (isValidElement(child)) {
+        return cloneElement(child as React.ReactElement<any>, {
+          groupPosition: _groupPosition,
+          groupDirection: _groupOrientation,
+          size: (child.props as any).size ?? ctx.size,
+        })
+      }
+      return child
+    })
+
+    return (
+      <ButtonAddonBase ref={ref} {...props}>
+        {processed}
+      </ButtonAddonBase>
+    )
+  },
+)
+ButtonAddon.displayName = 'InputGroup.ButtonAddon'
+
 // ─── Element ────────────────────────────────────────────────────────────────
 
 const ElementBase = styled('div', {
@@ -217,6 +254,7 @@ InputSlot.displayName = 'InputGroup.Input'
 export const InputGroup = Object.assign(Root, {
   Root,
   Addon,
+  ButtonAddon,
   Element,
   Input: InputSlot,
 })
