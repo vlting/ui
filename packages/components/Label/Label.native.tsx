@@ -1,67 +1,13 @@
-import type React from 'react'
-import { forwardRef } from 'react'
-import type { TextStyle } from 'react-native'
-import { Text as RNText } from 'react-native'
-import { styled } from '../../stl-native/src/config/styled'
-
-// ---------------------------------------------------------------------------
-// Styled frames
-// ---------------------------------------------------------------------------
-
-const LabelText = styled(
-  RNText,
-  {
-    fontWeight: '500',
-    color: '$defaultBody',
-  },
-  {
-    size: {
-      sm: { fontSize: 12 },
-      md: { fontSize: 14 },
-      lg: { fontSize: 16 },
-    },
-    disabled: {
-      true: { opacity: 0.5 },
-    },
-  },
-  'Label',
-)
-
-const RequiredIndicator = styled(
-  RNText,
-  {
-    color: '$tomato9',
-    marginStart: 2,
-  },
-  'LabelRequired',
-)
-
-// ---------------------------------------------------------------------------
-// Label
-// ---------------------------------------------------------------------------
+import type { ReactNode } from 'react'
+import { createNativeStub } from '../_stub.native'
 
 export interface LabelProps {
-  children?: React.ReactNode
+  children?: ReactNode
   size?: 'sm' | 'md' | 'lg'
   required?: boolean
   disabled?: boolean
-  htmlFor?: string // ignored on native, kept for API parity
-  style?: TextStyle
+  htmlFor?: string
+  style?: any
 }
 
-export const Label = forwardRef<RNText, LabelProps>(
-  ({ children, size = 'md', required, disabled, style, ...props }, ref) => (
-    <LabelText
-      ref={ref}
-      size={size}
-      disabled={disabled || undefined}
-      style={style}
-      accessibilityRole="text"
-      {...props}
-    >
-      {children}
-      {required && <RequiredIndicator> *</RequiredIndicator>}
-    </LabelText>
-  ),
-)
-Label.displayName = 'Label'
+export const Label = createNativeStub('Label')
