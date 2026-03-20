@@ -7,8 +7,8 @@ const themes = ['primary', 'secondary', 'neutral'] as const
 
 const variantStyles = {
   ghost: (t: string) => ({ color: `$${t}Text3` }) as STL,
-  subtle: (t: string) => ({ bg: `$${t}Alpha2`, radius: '$card', color: `$${t}Text3` }) as STL,
-  outline: (t: string) => ({ bg: `$minAlpha2`, border: `$${t}Min`, radius: '$card', color: `$${t}Text1` }) as STL,
+  subtle: (t: string) => ({ bg: `$${t}Alpha2`, radius: '$button', color: `$${t}Text3` }) as STL,
+  outline: (t: string) => ({ bg: `$minAlpha2`, border: `$${t}Min`, radius: '$button', color: `$${t}Text1` }) as STL,
 }
 
 const interactiveStyles = (t: string, step = 3) => ({
@@ -98,7 +98,7 @@ const ItemRoot = styled('div', {
     interactive: {
       true: {
         cursor: 'pointer',
-        radius: '$card',
+        radius: '$button',
         ':focus': { outlineOffset: '$offsetDefault' },
         lowMotion: {
           ':pressed': { transition: 'none' },
