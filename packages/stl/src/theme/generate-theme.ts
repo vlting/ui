@@ -1,4 +1,4 @@
-import { size, space, radius, zIndex, borderWidth } from './base'
+import { radius, zIndex } from './base'
 import { lightShadows, darkShadows } from './themes'
 import { generatePalette } from './generate-palette'
 import { ALPHA_VALUES } from '../shared/models/colorGen.models'
@@ -52,11 +52,8 @@ const DEFAULT_FONT_SPEC: FontFamilySpec = {
 }
 
 /** Token scale defaults */
-const DEFAULT_SIZE = { ...size }
-const DEFAULT_SPACE = { ...space }
 const DEFAULT_RADIUS = { ...radius }
 const DEFAULT_ZINDEX = { ...zIndex }
-const DEFAULT_BORDER_WIDTH = { ...borderWidth }
 
 function validateHue(hue: number, label: string): void {
   if (hue < 0 || hue > 360 || !Number.isFinite(hue)) {
@@ -233,8 +230,8 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
     palettes,
     alphaPalettes,
     fontSize: options.fontSize,
-    size: mergeScale(DEFAULT_SIZE, options.size),
-    space: mergeScale(DEFAULT_SPACE, options.space),
+    size: options.size,
+    space: options.space,
     radius: (() => {
       const merged = mergeScale(DEFAULT_RADIUS, options.radius)
       if (options.radius?.buttonGrouped === undefined && options.radius?.button !== undefined) {
@@ -243,7 +240,7 @@ export function createTheme(options: CreateThemeOptions): Readonly<Theme> {
       return merged
     })(),
     zIndex: mergeScale(DEFAULT_ZINDEX, options.zIndex),
-    borderWidth: mergeScale(DEFAULT_BORDER_WIDTH, options.borderWidth),
+    borderWidth: options.borderWidth,
     shadows: mergedShadows,
     fonts,
     fontLinks,

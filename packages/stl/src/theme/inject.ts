@@ -6,12 +6,8 @@ import type { Theme } from './types'
 /** Scales where values are unitless (no rem suffix) */
 const UNITLESS_SCALES = new Set(['zIndex'])
 
-/**
- * Scales whose Theme token keys use different semantics than the build-time
- * CSS var keys (step indices vs pixel values). Skipped for var overrides
- * because the key collision would produce incorrect results.
- */
-const INCOMPATIBLE_TOKEN_SCALES = new Set(['size', 'space', 'borderWidth'])
+/** Map Theme scale field → tokenToVarMap key (when they differ) */
+const SCALE_VAR_MAP: Partial<Record<string, string>> = { borderWidth: 'border' }
 
 /** Theme font key → fontFamily scale key */
 const FONT_KEY_MAP: Record<string, string> = { mono: 'code' }
@@ -61,8 +57,9 @@ export function themeToVars(
   // Token overrides (flat fields on Theme)
   for (const scale of TOKEN_SCALE_KEYS) {
     const tokens = theme[scale]
-    if (!tokens || INCOMPATIBLE_TOKEN_SCALES.has(scale)) continue
-    const scaleMap = tokenToVarMap[scale as keyof typeof tokenToVarMap] as
+    if (!tokens) continue
+    const varMapKey = SCALE_VAR_MAP[scale] ?? scale
+    const scaleMap = tokenToVarMap[varMapKey as keyof typeof tokenToVarMap] as
       | Record<string, string>
       | undefined
     if (!scaleMap) continue

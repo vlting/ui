@@ -42,10 +42,10 @@ const ButtonBase = styled('button', {
       link: { border: 'none' },
     },
     size: {
-      sm: { height: '$28', py: '$4', px: '$8', fontSize: '$buttonTiny', minWidth: '$64' },
-      md: { height: '$32', py: '$8', px: '$12', fontSize: '$buttonSmall', minWidth: '$80' },
-      lg: { height: '$36', py: '$buttonBasePy', px: '$16', fontSize: '$button', minWidth: '$96' },
-      xl: { height: '$40', py: '$12', px: '$20', fontSize: '$buttonLarge', minWidth: '$120' },
+      sm: { height: '$28', py: '$4', px: '$12', fontSize: '$buttonTiny', minWidth: '$64' },
+      md: { height: '$32', py: '$8', px: '$20', fontSize: '$buttonSmall', minWidth: '$80' },
+      lg: { height: '$36', py: '$buttonBasePy', px: '$24', fontSize: '$button', minWidth: '$96' },
+      xl: { height: '$40', py: '$12', px: '$32', fontSize: '$buttonLarge', minWidth: '$120' },
       icon: { height: '$36', width: '$36', p: '$0', fontSize: '$button', minWidth: '$0' },
     },
     square: {

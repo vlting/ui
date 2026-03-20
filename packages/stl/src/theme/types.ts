@@ -23,7 +23,9 @@ export interface Theme {
     min: { light: string[]; dark: string[] }
     max: { light: string[]; dark: string[] }
   }
-  // Flattened token overrides (no nested `tokens` wrapper)
+  // Token overrides — keys must match CSS var token names in the scale
+  // size/space: 'base' (proportional), 0, 1, 2, 4, 6, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48...
+  // borderWidth: 'widthBase', 'widthMin', 'widthMax', 'widthDefault', 'width0'
   size?: Record<string | number, number>
   space?: Record<string | number, number>
   radius?: Record<string | number, number>

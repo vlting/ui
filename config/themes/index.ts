@@ -18,7 +18,7 @@ export const THEME_PRESET_POPSICLE: CreateThemeOptions = {
   background: { hue: 290, saturation: 25 },
   fontSize: { base: 18, h1: 50, h2: 34 },
   radius: { base: 8, button: 9999, field: 20 },
-  borderWidth: { none: 0, thin: 0, medium: 0, thick: 0 },
+  space: { base: 5 },
   shadows: {
     light: {
       sm: { boxShadow: '0 1px 3px 0 hsla(290, 20%, 20%, 0.04)', color: 'hsla(290, 20%, 20%, 0.04)' },
@@ -92,7 +92,7 @@ export const THEME_PRESET_MINT: CreateThemeOptions = {
     true: 0, full: 0, pill: 0, rounded: 0,
     field: 0, button: 0, buttonGrouped: 0, card: 0, badge: 0, tooltip: 0, snippet: 0,
   },
-  borderWidth: { none: 0, thin: 0.5, medium: 1, thick: 1.5 },
+  borderWidth: { widthBase: 0.5, widthMin: 0.5, widthMax: 1.5, widthDefault: 0.5 },
   shadows: {
     light: {
       sm: { boxShadow: '0 2px 8px rgba(0,0,0,0.03)', color: 'rgba(0,0,0,0.03)', offset: { width: 0, height: 2 }, radius: 8, opacity: 0.03 },
@@ -124,6 +124,8 @@ export const THEME_PRESET_AURORA: CreateThemeOptions = {
   secondary: { hue: 340, saturation: 100 },
   neutral: { hue: 295, highContrast: true },
   background: { hue: 310, saturation: 5 },
+  size: { base: 5 },
+  space: { base: 5 },
   radius: { base: 14, button: 9999, field: 20 },
   gradients: {
     primary: createGradient(170, '$secondary9', '$primary8'),
