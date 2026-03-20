@@ -27,7 +27,7 @@ module.exports = {
     'packages/components/Field/',
     'packages/components/Form/',
     'packages/components/HoverCard/',
-    'packages/components/InputGroup/',
+    // 'packages/components/InputGroup/', // re-enabled
     'packages/components/InputOTP/',
     'packages/components/Menu/',
     'packages/components/Menubar/',
