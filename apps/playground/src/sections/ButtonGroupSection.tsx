@@ -2,15 +2,11 @@ import { useState } from 'react'
 import { Button, ButtonGroup, Card, Toggle, ToggleGroup } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
-import { ButtonRow, SectionTitle, THEMES, type SectionProps } from './shared'
+import { ButtonRow, Column, Columns, SectionTitle, THEMES, ToggleRow, type SectionProps } from './shared'
 
 const StateLabel = styled('span', {
   fontSize: '$small', color: '$neutralText4', fontFamily: '$code',
 }, { name: 'StateLabel' })
-
-const ToggleRow = styled('div', {
-  display: 'flex', gap: '$8', alignItems: 'center',
-}, { name: 'ToggleRow' })
 
 // ─── Icons ──────────────────────────────────────────────────────────────────
 
@@ -45,14 +41,14 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
 
   return (
     <Card ref={sectionRef} data-section="ButtonGroup">
-      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Card.Header stl={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '$8' }}>
         <Card.Title>ButtonGroup</Card.Title>
         <ToggleRow>
           <ToggleGroup
             type="exclusive"
             value={[theme]}
             onValueChange={v => v[0] && setTheme(v[0] as Theme)}
-            aria-label="Theme"
+            aria-label="ButtonGroup theme"
           >
             {THEMES.map(t => (
               <Button key={t} value={t} size="md" variant="outline" theme="neutral">{t}</Button>
@@ -62,7 +58,7 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
             type="exclusive"
             value={[size]}
             onValueChange={v => v[0] && setSize(v[0] as Size)}
-            aria-label="Size"
+            aria-label="ButtonGroup size"
           >
             {SIZES.map(s => (
               <Button key={s} value={s} size="md" variant="outline" theme="neutral">{s}</Button>
@@ -80,64 +76,66 @@ export function ButtonGroupSection({ sectionRef }: SectionProps) {
         </ToggleRow>
       </Card.Header>
 
-      <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$32' }}>
-        {/* ── Vertical ─────────────────────────────────── */}
-        <div>
-          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Vertical</SectionTitle>
-          <ButtonRow>
-            <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical solid">
-              <Button variant="solid" theme={theme} square size={size}><PlusIcon /></Button>
-              <Button variant="solid" theme={theme} square size={size}><MinusIcon /></Button>
-            </ButtonGroup>
-            <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical outline">
-              <Button variant="outline" theme={theme} square size={size}><PlusIcon /></Button>
-              <Button variant="outline" theme={theme} square size={size}><MuteIcon /></Button>
-              <Button variant="outline" theme={theme} square size={size}><MinusIcon /></Button>
-            </ButtonGroup>
-            <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical ghost">
-              <Button variant="ghost" theme={theme} square size={size}><PlusIcon /></Button>
-              <Button variant="ghost" theme={theme} square size={size}><MinusIcon /></Button>
-            </ButtonGroup>
-          </ButtonRow>
-        </div>
+      <Card.Content>
+        <Columns>
+          {/* ── Vertical ─────────────────────────────────── */}
+          <Column>
+            <SectionTitle stl={{ mt: '$0' }}>Vertical</SectionTitle>
+            <ButtonRow>
+              <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical solid">
+                <Button variant="solid" theme={theme} square size={size}><PlusIcon /></Button>
+                <Button variant="solid" theme={theme} square size={size}><MinusIcon /></Button>
+              </ButtonGroup>
+              <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical outline">
+                <Button variant="outline" theme={theme} square size={size}><PlusIcon /></Button>
+                <Button variant="outline" theme={theme} square size={size}><MuteIcon /></Button>
+                <Button variant="outline" theme={theme} square size={size}><MinusIcon /></Button>
+              </ButtonGroup>
+              <ButtonGroup attached={attached} orientation="vertical" aria-label="Vertical ghost">
+                <Button variant="ghost" theme={theme} square size={size}><PlusIcon /></Button>
+                <Button variant="ghost" theme={theme} square size={size}><MinusIcon /></Button>
+              </ButtonGroup>
+            </ButtonRow>
+          </Column>
 
-        {/* ── Exclusive toggle ─────────────────────────── */}
-        <div>
-          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Exclusive toggle</SectionTitle>
-          <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
-            <ButtonGroup
-              attached={attached}
-              mode="exclusive"
-              value={alignment}
-              onValueChange={setAlignment}
-              aria-label="Text alignment"
-            >
-              <Button value="left" variant="outline" theme={theme} size={size}>Left</Button>
-              <Button value="center" variant="outline" theme={theme} size={size}>Center</Button>
-              <Button value="right" variant="outline" theme={theme} size={size}>Right</Button>
-            </ButtonGroup>
-            <StateLabel>{JSON.stringify(alignment)}</StateLabel>
-          </ButtonRow>
-        </div>
+          {/* ── Exclusive toggle ─────────────────────────── */}
+          <Column>
+            <SectionTitle stl={{ mt: '$0' }}>Exclusive</SectionTitle>
+            <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
+              <ButtonGroup
+                attached={attached}
+                mode="exclusive"
+                value={alignment}
+                onValueChange={setAlignment}
+                aria-label="Text alignment"
+              >
+                <Button value="left" variant="outline" theme={theme} size={size}>Left</Button>
+                <Button value="center" variant="outline" theme={theme} size={size}>Center</Button>
+                <Button value="right" variant="outline" theme={theme} size={size}>Right</Button>
+              </ButtonGroup>
+              <StateLabel>{JSON.stringify(alignment)}</StateLabel>
+            </ButtonRow>
+          </Column>
 
-        {/* ── Multi-select toggle ──────────────────────── */}
-        <div>
-          <SectionTitle stl={{ mt: '$0', mb: '$8' }}>Multi-select</SectionTitle>
-          <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
-            <ButtonGroup
-              attached={attached}
-              mode="toggle"
-              value={formats}
-              onValueChange={setFormats}
-              aria-label="Text formatting"
-            >
-              <Button value="bold" variant="outline" theme={theme} size={size} square stl={{ fontWeight: '$700' }}>B</Button>
-              <Button value="italic" variant="outline" theme={theme} size={size} square stl={{ fontStyle: 'italic' }}>I</Button>
-              <Button value="underline" variant="outline" theme={theme} size={size} square stl={{ textDecoration: 'underline' }}>U</Button>
-            </ButtonGroup>
-            <StateLabel>{JSON.stringify(formats)}</StateLabel>
-          </ButtonRow>
-        </div>
+          {/* ── Multi-select toggle ──────────────────────── */}
+          <Column>
+            <SectionTitle stl={{ mt: '$0' }}>Multi-select</SectionTitle>
+            <ButtonRow stl={{ alignItems: 'center', gap: '$16' }}>
+              <ButtonGroup
+                attached={attached}
+                mode="toggle"
+                value={formats}
+                onValueChange={setFormats}
+                aria-label="Text formatting"
+              >
+                <Button value="bold" variant="outline" theme={theme} size={size} square stl={{ fontWeight: '$700' }}>B</Button>
+                <Button value="italic" variant="outline" theme={theme} size={size} square stl={{ fontStyle: 'italic' }}>I</Button>
+                <Button value="underline" variant="outline" theme={theme} size={size} square stl={{ textDecoration: 'underline' }}>U</Button>
+              </ButtonGroup>
+              <StateLabel>{JSON.stringify(formats)}</StateLabel>
+            </ButtonRow>
+          </Column>
+        </Columns>
       </Card.Content>
     </Card>
   )
