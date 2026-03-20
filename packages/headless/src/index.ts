@@ -22,6 +22,8 @@ export type { UseRovingTabIndexProps, UseRovingTabIndexReturn } from './useRovin
 export { useRovingTabIndex } from './useRovingTabIndex'
 export type { UseSearchProps, UseSearchReturn } from './useSearch'
 export { useSearch } from './useSearch'
+export type { UseSliderProps, UseSliderReturn } from './useSlider'
+export { useSlider } from './useSlider'
 export type { UseTabsProps, UseTabsReturn } from './useTabs'
 export { useTabs } from './useTabs'
 export type { Toast, UseToastQueueReturn } from './useToastQueue'

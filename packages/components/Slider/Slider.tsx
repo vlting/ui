@@ -1,4 +1,5 @@
-import { type ComponentPropsWithRef, type ReactNode, forwardRef, useCallback, useRef, useState } from 'react'
+import { type ComponentPropsWithRef, type ReactNode, forwardRef } from 'react'
+import { useSlider } from '../../headless/src/useSlider'
 import { styled, type STL } from '../../stl-react/src/config'
 
 // ─── Theme map ──────────────────────────────────────────────────────────────
@@ -125,16 +126,6 @@ const SliderDot = styled('div', {
   defaultVariants: { size: 'md', theme: 'neutral' },
 })
 
-// ─── Helpers ────────────────────────────────────────────────────────────────
-
-const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
-
-const snap = (v: number, step: number, min: number) =>
-  Math.round((v - min) / step) * step + min
-
-const pct = (v: number, min: number, max: number) =>
-  max > min ? ((v - min) / (max - min)) * 100 : 0
-
 // ─── Types ──────────────────────────────────────────────────────────────────
 
 type TrackProps = ComponentPropsWithRef<typeof SliderTrack>
@@ -159,12 +150,12 @@ export type SliderProps = Omit<TrackProps, 'onChange' | 'value' | 'defaultValue'
 export const Slider = forwardRef<HTMLDivElement, SliderProps>(
   (
     {
-      value: valueProp,
-      defaultValue = 0,
+      value,
+      defaultValue,
       onValueChange,
-      min = 0,
-      max = 100,
-      step = 1,
+      min,
+      max,
+      step,
       disabled = false,
       size = 'md',
       theme = 'primary',
@@ -175,121 +166,19 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
     },
     ref,
   ) => {
-    const isRange = Array.isArray(valueProp) || Array.isArray(defaultValue)
     const isHoriz = orientation === 'horizontal'
-    const [focused, setFocused] = useState<number | null>(null)
 
-    const [internal, setInternal] = useState<[number, number]>(() => {
-      const dv = defaultValue
-      if (isRange) {
-        return Array.isArray(dv) ? [dv[0], dv[1]] : [dv, dv]
-      }
-      return [Array.isArray(dv) ? dv[0] : dv, 0]
-    })
+    const {
+      values,
+      isRange,
+      percentages: [p0, p1],
+      focusedThumb,
+      getTrackProps,
+      getThumbProps,
+    } = useSlider({ value, defaultValue, min, max, step, disabled, orientation, onValueChange })
 
-    const controlled = valueProp !== undefined
-    const values: [number, number] = controlled
-      ? (Array.isArray(valueProp) ? [valueProp[0], valueProp[1]] : [valueProp, 0])
-      : internal
-
-    const setValues = useCallback(
-      (next: [number, number]) => {
-        if (!controlled) setInternal(next)
-        if (onValueChange) {
-          onValueChange(isRange ? next : next[0])
-        }
-      },
-      [controlled, isRange, onValueChange],
-    )
-
-    const trackRef = useRef<HTMLDivElement>(null)
-    const dragging = useRef<number | null>(null)
-
-    const valFromPointer = useCallback(
-      (clientX: number, clientY: number) => {
-        const el = trackRef.current
-        if (!el) return min
-        const rect = el.getBoundingClientRect()
-        const ratio = isHoriz
-          ? (clientX - rect.left) / rect.width
-          : 1 - (clientY - rect.top) / rect.height
-        const raw = min + clamp(ratio, 0, 1) * (max - min)
-        return clamp(snap(raw, step, min), min, max)
-      },
-      [isHoriz, min, max, step],
-    )
-
-    const onPointerDown = useCallback(
-      (e: React.PointerEvent) => {
-        if (disabled) return
-        const val = valFromPointer(e.clientX, e.clientY)
-        if (isRange) {
-          const d0 = Math.abs(val - values[0])
-          const d1 = Math.abs(val - values[1])
-          const idx = d0 <= d1 ? 0 : 1
-          dragging.current = idx
-          const next: [number, number] = [...values]
-          next[idx] = val
-          if (next[0] > next[1]) next.reverse()
-          setValues(next)
-        } else {
-          dragging.current = 0
-          setValues([val, 0])
-        }
-        e.currentTarget.setPointerCapture(e.pointerId)
-      },
-      [disabled, valFromPointer, isRange, values, setValues],
-    )
-
-    const onPointerMove = useCallback(
-      (e: React.PointerEvent) => {
-        if (dragging.current === null) return
-        const val = valFromPointer(e.clientX, e.clientY)
-        if (isRange) {
-          const idx = dragging.current
-          const next: [number, number] = [...values]
-          next[idx] = val
-          if (next[0] > next[1]) {
-            next.reverse()
-            dragging.current = idx === 0 ? 1 : 0
-          }
-          setValues(next)
-        } else {
-          setValues([val, 0])
-        }
-      },
-      [valFromPointer, isRange, values, setValues],
-    )
-
-    const onPointerUp = useCallback(() => { dragging.current = null }, [])
-
-    const makeKeyDown = (idx: number) => (e: React.KeyboardEvent) => {
-      if (disabled) return
-      let delta = 0
-      switch (e.key) {
-        case 'ArrowRight': case 'ArrowUp': delta = step; break
-        case 'ArrowLeft': case 'ArrowDown': delta = -step; break
-        case 'Home': delta = min - values[idx]; break
-        case 'End': delta = max - values[idx]; break
-        case 'PageUp': delta = step * 10; break
-        case 'PageDown': delta = -step * 10; break
-        default: return
-      }
-      e.preventDefault()
-      const newVal = clamp(values[idx] + delta, min, max)
-      if (isRange) {
-        const next: [number, number] = [...values]
-        next[idx] = newVal
-        if (next[0] > next[1]) next.reverse()
-        setValues(next)
-      } else {
-        setValues([newVal, 0])
-      }
-    }
-
-    // Percentages
-    const p0 = pct(values[0], min, max)
-    const p1 = isRange ? pct(values[1], min, max) : p0
+    const trackProps = getTrackProps()
+    const thumb0Props = getThumbProps(0)
 
     const fillStl: STL = isHoriz
       ? isRange
@@ -302,16 +191,16 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
     return (
       <SliderTrack
         ref={(node) => {
-          (trackRef as React.MutableRefObject<HTMLDivElement | null>).current = node
+          trackProps.ref(node)
           if (typeof ref === 'function') ref(node)
           else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node
         }}
         orientation={orientation}
         size={size}
         disabled={disabled}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
+        onPointerDown={trackProps.onPointerDown}
+        onPointerMove={trackProps.onPointerMove}
+        onPointerUp={trackProps.onPointerUp}
         {...rest}
       >
         {children
@@ -319,43 +208,25 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
           : <SliderFill orientation={orientation} stl={{ ...fillStl, ...themeFill[theme] }} />
         }
         <SliderThumb
-          role="slider"
-          tabIndex={disabled ? -1 : 0}
-          aria-valuenow={values[0]}
-          aria-valuemin={min}
-          aria-valuemax={max}
+          {...thumb0Props}
           aria-label={isRange ? (ariaLabel ? `${ariaLabel} minimum` : 'Minimum') : ariaLabel}
-          aria-disabled={disabled || undefined}
           orientation={orientation}
           size={size}
           theme={theme}
-          onKeyDown={makeKeyDown(0)}
-          onFocus={(e) => { if (e.currentTarget.matches(':focus-visible')) setFocused(0) }}
-          onPointerDown={() => setFocused(null)}
-          onBlur={() => setFocused(null)}
           stl={isHoriz ? { left: `${p0}%` } : { bottom: `${p0}%` }}
         >
-          <SliderDot size={size} theme={theme} focused={focused === 0 ? 'true' : undefined} />
+          <SliderDot size={size} theme={theme} focused={focusedThumb === 0 ? 'true' : undefined} />
         </SliderThumb>
         {isRange && (
           <>
             <SliderThumb
-              role="slider"
-              tabIndex={disabled ? -1 : 0}
-              aria-valuenow={values[1]}
-              aria-valuemin={min}
-              aria-valuemax={max}
+              {...getThumbProps(1)}
               aria-label={ariaLabel ? `${ariaLabel} maximum` : 'Maximum'}
-              aria-disabled={disabled || undefined}
               orientation={orientation}
               theme={theme}
-              onKeyDown={makeKeyDown(1)}
-              onFocus={(e) => { if (e.currentTarget.matches(':focus-visible')) setFocused(1) }}
-              onPointerDown={() => setFocused(null)}
-              onBlur={() => setFocused(null)}
               stl={isHoriz ? { left: `${p1}%` } : { bottom: `${p1}%` }}
             >
-              <SliderDot size={size} theme={theme} focused={focused === 1 ? 'true' : undefined} />
+              <SliderDot size={size} theme={theme} focused={focusedThumb === 1 ? 'true' : undefined} />
             </SliderThumb>
           </>
         )}
