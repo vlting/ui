@@ -87,7 +87,7 @@ export function useAccordion(props: UseAccordionProps): UseAccordionReturn {
 
         // Single mode
         if (isOpen) {
-          const collapsible = 'collapsible' in props ? props.collapsible : true
+          const collapsible = 'collapsible' in props ? (props.collapsible ?? true) : true
           return collapsible ? [] : prev
         }
         return [itemValue]
