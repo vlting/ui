@@ -31,15 +31,16 @@ function useInputGroupContext() {
 
 // ─── Radius helper ──────────────────────────────────────────────────────────
 
-function getRadiusStl(position: GroupPosition, orientation: string): STL {
+function getGroupStl(position: GroupPosition, orientation: string): STL {
   if (position === 'only') return {}
-  if (position === 'middle') return { borderRadius: '$0' }
   if (orientation === 'horizontal') {
     if (position === 'first') return { borderTopRightRadius: '$0', borderBottomRightRadius: '$0' }
-    return { borderTopLeftRadius: '$0', borderBottomLeftRadius: '$0' }
+    if (position === 'middle') return { borderRadius: '$0', borderLeftWidth: '$width0' }
+    return { borderTopLeftRadius: '$0', borderBottomLeftRadius: '$0', borderLeftWidth: '$width0' }
   }
   if (position === 'first') return { borderBottomLeftRadius: '$0', borderBottomRightRadius: '$0' }
-  return { borderTopLeftRadius: '$0', borderTopRightRadius: '$0' }
+  if (position === 'middle') return { borderRadius: '$0', borderTopWidth: '$width0' }
+  return { borderTopLeftRadius: '$0', borderTopRightRadius: '$0', borderTopWidth: '$width0' }
 }
 
 // ─── Root ───────────────────────────────────────────────────────────────────
@@ -52,14 +53,8 @@ const RootBase = styled('div', {
   name: 'InputGroup',
   variants: {
     orientation: {
-      horizontal: {
-        flexDirection: 'row',
-        '> :not(:first-child)': { marginLeft: '-1px' },
-      },
-      vertical: {
-        flexDirection: 'column',
-        '> :not(:first-child)': { marginTop: '-1px' },
-      },
+      horizontal: { flexDirection: 'row' },
+      vertical: { flexDirection: 'column' },
     },
     size: { sm: {}, md: {}, lg: {} },
   },
@@ -130,7 +125,7 @@ export type InputGroupAddonProps = ComponentPropsWithRef<typeof AddonBase> & {
 const Addon = forwardRef<HTMLDivElement, InputGroupAddonProps>(
   ({ _groupPosition = 'only', _groupOrientation = 'horizontal', ...props }, ref) => {
     const ctx = useInputGroupContext()
-    const radiusStl = getRadiusStl(_groupPosition, _groupOrientation)
+    const radiusStl = getGroupStl(_groupPosition, _groupOrientation)
     return <AddonBase ref={ref} aria-hidden="true" size={ctx.size} stl={radiusStl} {...props} />
   },
 )
@@ -197,7 +192,7 @@ export type InputGroupInputProps = {
 const InputSlot = forwardRef<HTMLDivElement, InputGroupInputProps>(
   ({ children, _groupPosition = 'only', _groupOrientation = 'horizontal' }, ref) => {
     const ctx = useInputGroupContext()
-    const radiusStl = getRadiusStl(_groupPosition, _groupOrientation)
+    const radiusStl = getGroupStl(_groupPosition, _groupOrientation)
 
     return (
       <InputWrapper ref={ref}>
