@@ -509,29 +509,17 @@ const PlaybackControls = styled('div', {
   gap: '$24',
 }, { name: 'DemoPlaybackControls' })
 
-const ControlBtn = styled('button', {
-  bg: 'transparent',
-  border: 'none',
-  color: '$color12',
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  p: '$0',
-}, { name: 'DemoControlBtn' })
+const SeekArea = styled('div', {
+  width: '100%',
+  maxWidth: '320px',
+  mx: 'auto',
+}, { name: 'DemoSeekArea' })
 
-const PlayBtn = styled('button', {
-  width: '56px',
-  height: '56px',
-  borderRadius: '$full',
-  bg: '$primary9',
-  color: 'white',
-  border: 'none',
-  cursor: 'pointer',
+const SeekTimes = styled('div', {
   display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}, { name: 'DemoPlayBtn' })
+  justifyContent: 'space-between',
+  mt: '$8',
+}, { name: 'DemoSeekTimes' })
 
 const VolumeRow = styled('div', {
   display: 'flex',
@@ -542,9 +530,11 @@ const VolumeRow = styled('div', {
   width: '100%',
 }, { name: 'DemoVolumeRow' })
 
+const formatTime = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
+
 function MediaScene() {
-  const [seek, setSeek] = useState([35])
-  const [volume, setVolume] = useState([72])
+  const [seek, setSeek] = useState(35)
+  const [volume, setVolume] = useState(72)
 
   return (
     <Scene stl={{ bg: '$surface2' }}>
@@ -589,7 +579,7 @@ function MediaScene() {
             </TrackInfo>
 
             {/* Seek slider */}
-            <div>
+            <SeekArea>
               <Slider
                 value={seek}
                 onValueChange={setSeek}
@@ -597,22 +587,22 @@ function MediaScene() {
                 step={1}
                 aria-label="Track progress"
               />
-              <Row stl={{ justifyContent: 'space-between' }}>
-                <Text size="xs" tone="muted">1:12</Text>
-                <Text size="xs" tone="muted">3:27</Text>
-              </Row>
-            </div>
+              <SeekTimes>
+                <Text size="xs" tone="muted">{formatTime(Math.round(270 * seek / 100))}</Text>
+                <Text size="xs" tone="muted">{formatTime(270 - Math.round(270 * seek / 100))}</Text>
+              </SeekTimes>
+            </SeekArea>
 
             {/* Playback controls */}
             <PlaybackControls>
-              <ControlBtn aria-label="Previous track"><PrevIcon /></ControlBtn>
-              <PlayBtn aria-label="Play"><PlayIcon /></PlayBtn>
-              <ControlBtn aria-label="Next track"><NextIcon /></ControlBtn>
+              <Button pill square size="lg" theme="neutral" variant="ghost" aria-label="Previous track"><PrevIcon /></Button>
+              <Button pill square size="xl" theme="primary" variant="solid" aria-label="Play"><PlayIcon /></Button>
+              <Button pill square size="lg" theme="neutral" variant="ghost" aria-label="Next track"><NextIcon /></Button>
             </PlaybackControls>
 
             {/* Volume */}
             <VolumeRow>
-              <VolumeLowIcon />
+              <Button pill square size="sm" theme="neutral" variant="ghost" aria-label="Volume down" onClick={() => setVolume((v) => Math.max(0, v - 10))}><VolumeLowIcon /></Button>
               <Slider
                 value={volume}
                 onValueChange={setVolume}
@@ -621,7 +611,7 @@ function MediaScene() {
                 aria-label="Volume"
                 stl={{ flex: '1' }}
               />
-              <VolumeHighIcon />
+              <Button pill square size="sm" theme="neutral" variant="ghost" aria-label="Volume up" onClick={() => setVolume((v) => Math.min(100, v + 10))}><VolumeHighIcon /></Button>
             </VolumeRow>
           </Card.Content>
         </Card>
@@ -641,9 +631,7 @@ function MediaScene() {
                   aria-label="Share URL"
                 />
               </InputGroup.Input>
-              <InputGroup.Addon>
-                <Button size="md" theme="primary" variant="ghost">Copy</Button>
-              </InputGroup.Addon>
+              <InputGroup.Addon>Copy</InputGroup.Addon>
             </InputGroup>
           </Card.Content>
         </Card>
