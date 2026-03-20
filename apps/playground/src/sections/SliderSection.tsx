@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Button, ButtonGroup, Card, Slider, Toggle, ToggleGroup } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
@@ -70,43 +70,13 @@ const StepBtn = styled('button', {
   },
 })
 
-// ─── Hue Picker ─────────────────────────────────────────────────────────────
+// ─── Hue Picker helpers ─────────────────────────────────────────────────────
 
-const HUE_MAX = 360
 const HUE_GRADIENT = 'linear-gradient(to right, hsl(0,100%,50%), hsl(60,100%,50%), hsl(120,100%,50%), hsl(180,100%,50%), hsl(240,100%,50%), hsl(300,100%,50%), hsl(360,100%,50%))'
 
-const HueTrack = styled('div', {
-  position: 'relative', radius: '$pill', overflow: 'hidden', cursor: 'pointer',
-}, {
-  name: 'HueTrack',
-  variants: {
-    size: {
-      sm: { height: '$8' },
-      md: { height: '$12' },
-      lg: { height: '$16' },
-    },
-  },
-  defaultVariants: { size: 'md' },
-})
-
-const HueThumb = styled('div', {
-  position: 'absolute', top: '50%', radius: '$round', bg: 'white',
-  transform: 'translate(-50%, -50%)',
-  boxShadow: '0 0 0 2px rgba(0,0,0,0.25), 0 0 0 4px rgba(255,255,255,0.8)',
-  cursor: 'grab', outline: 'none',
-  ':focus-visible': { boxShadow: '0 0 0 2px rgba(0,0,0,0.4), 0 0 0 5px rgba(255,255,255,0.9)' },
-  ':active': { cursor: 'grabbing' },
-}, {
-  name: 'HueThumb',
-  variants: {
-    size: {
-      sm: { width: '$16', height: '$16' },
-      md: { width: '$20', height: '$20' },
-      lg: { width: '$24', height: '$24' },
-    },
-  },
-  defaultVariants: { size: 'md' },
-})
+const HueGradient = styled('div', {
+  width: '100%', height: '100%',
+}, { name: 'HueGradient' })
 
 const HueRow = styled('div', {
   display: 'flex', alignItems: 'center', gap: '$12',
@@ -115,78 +85,6 @@ const HueRow = styled('div', {
 const Swatch = styled('div', {
   width: '$24', height: '$24', radius: '$round', flexShrink: '0',
 }, { name: 'Swatch' })
-
-function HuePicker({ size }: { size: Size }) {
-  const [hue, setHue] = useState(200)
-  const trackRef = useRef<HTMLDivElement>(null)
-  const isDragging = useRef(false)
-
-  const getHue = useCallback((clientX: number) => {
-    const el = trackRef.current
-    if (!el) return 0
-    const rect = el.getBoundingClientRect()
-    return Math.round(Math.max(0, Math.min(1, (clientX - rect.left) / rect.width)) * HUE_MAX)
-  }, [])
-
-  const onPointerDown = useCallback((e: React.PointerEvent) => {
-    isDragging.current = true
-    setHue(getHue(e.clientX))
-    e.currentTarget.setPointerCapture(e.pointerId)
-  }, [getHue])
-
-  const onPointerMove = useCallback((e: React.PointerEvent) => {
-    if (!isDragging.current) return
-    setHue(getHue(e.clientX))
-  }, [getHue])
-
-  const onPointerUp = useCallback(() => { isDragging.current = false }, [])
-
-  const onKeyDown = useCallback((e: React.KeyboardEvent) => {
-    let delta = 0
-    switch (e.key) {
-      case 'ArrowRight': case 'ArrowUp': delta = 1; break
-      case 'ArrowLeft': case 'ArrowDown': delta = -1; break
-      case 'PageUp': delta = 10; break
-      case 'PageDown': delta = -10; break
-      case 'Home': delta = -hue; break
-      case 'End': delta = HUE_MAX - hue; break
-      default: return
-    }
-    e.preventDefault()
-    setHue(h => Math.max(0, Math.min(HUE_MAX, h + delta)))
-  }, [hue])
-
-  const p = (hue / HUE_MAX) * 100
-
-  return (
-    <StackY>
-      <HueTrack
-        ref={trackRef}
-        size={size}
-        stl={{ background: HUE_GRADIENT }}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-      >
-        <HueThumb
-          role="slider"
-          tabIndex={0}
-          aria-valuenow={hue}
-          aria-valuemin={0}
-          aria-valuemax={HUE_MAX}
-          aria-label="Hue"
-          size={size}
-          stl={{ left: `${p}%` }}
-          onKeyDown={onKeyDown}
-        />
-      </HueTrack>
-      <HueRow>
-        <StatusLabel>{hue}&deg;</StatusLabel>
-        <Swatch stl={{ bg: `hsl(${hue}, 100%, 50%)` }} />
-      </HueRow>
-    </StackY>
-  )
-}
 
 // ─── Vertical helpers ───────────────────────────────────────────────────────
 
@@ -207,6 +105,7 @@ export function SliderSection({ sectionRef }: SectionProps) {
   const [value, setValue] = useState(50)
   const [stepVal, setStepVal] = useState(50)
   const [step, setStep] = useState(10)
+  const [hue, setHue] = useState(200)
 
   return (
     <Card ref={sectionRef} data-section="Slider">
@@ -268,7 +167,15 @@ export function SliderSection({ sectionRef }: SectionProps) {
           {/* Hue Picker */}
           <Column>
             <SectionTitle stl={{ mt: '$0' }}>Hue Picker</SectionTitle>
-            <HuePicker size={size} />
+            <StackY>
+              <Slider value={hue} onValueChange={v => setHue(v as number)} min={0} max={360} size={size} disabled={disabled} aria-label="Hue">
+                <HueGradient stl={{ background: HUE_GRADIENT }} />
+              </Slider>
+              <HueRow>
+                <StatusLabel>{hue}&deg;</StatusLabel>
+                <Swatch stl={{ bg: `hsl(${hue}, 100%, 50%)` }} />
+              </HueRow>
+            </StackY>
           </Column>
         </Columns>
 

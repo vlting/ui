@@ -1,4 +1,4 @@
-import { type ComponentPropsWithRef, forwardRef, useCallback, useRef, useState } from 'react'
+import { type ComponentPropsWithRef, type ReactNode, forwardRef, useCallback, useRef, useState } from 'react'
 import { styled, type STL } from '../../stl-react/src/config'
 
 // ─── Theme map ──────────────────────────────────────────────────────────────
@@ -53,6 +53,14 @@ const SliderFill = styled('div', {
   defaultVariants: { orientation: 'horizontal' },
 })
 
+const SliderCustomTrack = styled('div', {
+  position: 'absolute',
+  top: '$0', left: '$0', right: '$0', bottom: '$0',
+  radius: 'inherit',
+  overflow: 'hidden',
+  pointerEvents: 'none',
+}, { name: 'SliderCustomTrack' })
+
 const SliderThumb = styled('div', {
   position: 'absolute',
   radius: '$round',
@@ -63,7 +71,8 @@ const SliderThumb = styled('div', {
   outline: 'none',
   transitionProperty: 'box-shadow, border-color',
   transitionDuration: '$fastDuration',
-  ':focus-visible': { outline: '$neutral', outlineOffset: '$offsetDefault' },
+  ':hover': { bg: '#f0f0f0' },
+  ':focus-visible': { bg: '#f0f0f0', outline: '$neutral', outlineOffset: '$offsetDefault' },
   ':active': { cursor: 'grabbing' },
   lowMotion: { transitionDuration: '0.01s' },
 }, {
@@ -110,6 +119,7 @@ export type SliderProps = Omit<TrackProps, 'onChange' | 'value' | 'defaultValue'
   size?: 'sm' | 'md' | 'lg'
   theme?: 'primary' | 'secondary' | 'neutral'
   orientation?: 'horizontal' | 'vertical'
+  children?: ReactNode
   'aria-label'?: string
 }
 
@@ -128,6 +138,7 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
       size = 'md',
       theme = 'primary',
       orientation = 'horizontal',
+      children,
       'aria-label': ariaLabel,
       ...rest
     },
@@ -271,7 +282,10 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
         onPointerUp={onPointerUp}
         {...rest}
       >
-        <SliderFill orientation={orientation} stl={{ ...fillStl, ...themeFill[theme] }} />
+        {children
+          ? <SliderCustomTrack>{children}</SliderCustomTrack>
+          : <SliderFill orientation={orientation} stl={{ ...fillStl, ...themeFill[theme] }} />
+        }
         <SliderThumb
           role="slider"
           tabIndex={disabled ? -1 : 0}
