@@ -83,8 +83,20 @@ export const StackY = styled('div', {
 }, { name: 'StackY' })
 
 export const ControlRow = styled('div', {
-  display: 'flex', gap: '$8',
+  display: 'flex', gap: '$8', flexWrap: 'wrap',
 }, { name: 'ControlRow' })
+
+export const ToggleRow = styled('div', {
+  display: 'flex', gap: '$8', alignItems: 'center', flexWrap: 'wrap',
+}, { name: 'ToggleRow' })
+
+export const Columns = styled('div', {
+  display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '$24',
+}, { name: 'Columns' })
+
+export const Column = styled('div', {
+  display: 'flex', flexDirection: 'column', gap: '$12',
+}, { name: 'Column' })
 
 export const CardText = styled('p', {
   m: '$0',
