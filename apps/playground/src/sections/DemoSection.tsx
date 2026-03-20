@@ -10,6 +10,8 @@ import {
   Card,
   Checkbox,
   Empty,
+  Field,
+  Form,
   Heading,
   Input,
   InputGroup,
@@ -72,18 +74,6 @@ const Row = styled('div', {
   flexWrap: 'wrap',
 }, { name: 'DemoRow' })
 
-const FormField = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$6',
-}, { name: 'DemoFormField' })
-
-const FormLabel = styled('label', {
-  fontSize: '$small',
-  fontWeight: '$600',
-  color: '$color12',
-}, { name: 'DemoFormLabel' })
-
 const StatsGrid = styled('div', {
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
@@ -105,6 +95,8 @@ function SettingsScene() {
   const [darkMode, setDarkMode] = useState(false)
   const [emailChecked, setEmailChecked] = useState(true)
   const [pushChecked, setPushChecked] = useState(true)
+  const [displayName, setDisplayName] = useState('Maya Chen')
+  const displayNameEmpty = displayName.trim() === ''
   const [smsChecked, setSmsChecked] = useState(false)
   const [language, setLanguage] = useState('en')
 
@@ -129,15 +121,24 @@ function SettingsScene() {
           <Card.Header>
             <Card.Title>Profile</Card.Title>
           </Card.Header>
-          <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$16' }}>
-            <FormField>
-              <FormLabel htmlFor="demo-name">Display name</FormLabel>
-              <Input id="demo-name" placeholder="Enter your name" defaultValue="Maya Chen" />
-            </FormField>
-            <FormField>
-              <FormLabel htmlFor="demo-bio">Bio</FormLabel>
-              <Textarea id="demo-bio" placeholder="Tell us about yourself" defaultValue="Coffee lover, part-time traveler exploring the world one city at a time." />
-            </FormField>
+          <Card.Content>
+            <Form.Root onSubmit={(e: React.FormEvent) => e.preventDefault()} stl={{ display: 'flex', flexDirection: 'column', gap: '$16' }}>
+              <Field.Root required error={displayNameEmpty}>
+                <Field.Label>Display name</Field.Label>
+                <Field.Control>
+                  <Input placeholder="Enter your name" value={displayName} onChangeText={setDisplayName} />
+                </Field.Control>
+                <Field.Description>Visible to other members.</Field.Description>
+                <Field.Error>Display name is required.</Field.Error>
+              </Field.Root>
+              <Field.Root>
+                <Field.Label>Bio</Field.Label>
+                <Field.Control>
+                  <Textarea placeholder="Tell us about yourself" defaultValue="Coffee lover, part-time traveler exploring the world one city at a time." />
+                </Field.Control>
+                <Field.Description>Max 280 characters.</Field.Description>
+              </Field.Root>
+            </Form.Root>
           </Card.Content>
         </Card>
 
@@ -210,21 +211,23 @@ function SettingsScene() {
               <RadioGroup.Item value="es">Español</RadioGroup.Item>
               <RadioGroup.Item value="fr">Français</RadioGroup.Item>
             </RadioGroup.Root>
-            <FormField>
-              <FormLabel htmlFor="demo-tz">Timezone</FormLabel>
-              <NativeSelect.Root id="demo-tz" defaultValue="utc-8">
-                <NativeSelect.Option value="utc-5">Eastern (UTC-5)</NativeSelect.Option>
-                <NativeSelect.Option value="utc-6">Central (UTC-6)</NativeSelect.Option>
-                <NativeSelect.Option value="utc-7">Mountain (UTC-7)</NativeSelect.Option>
-                <NativeSelect.Option value="utc-8">Pacific (UTC-8)</NativeSelect.Option>
-              </NativeSelect.Root>
-            </FormField>
+            <Field.Root>
+              <Field.Label>Timezone</Field.Label>
+              <Field.Control>
+                <NativeSelect.Root defaultValue="utc-8">
+                  <NativeSelect.Option value="utc-5">Eastern (UTC-5)</NativeSelect.Option>
+                  <NativeSelect.Option value="utc-6">Central (UTC-6)</NativeSelect.Option>
+                  <NativeSelect.Option value="utc-7">Mountain (UTC-7)</NativeSelect.Option>
+                  <NativeSelect.Option value="utc-8">Pacific (UTC-8)</NativeSelect.Option>
+                </NativeSelect.Root>
+              </Field.Control>
+            </Field.Root>
           </Card.Content>
         </Card>
 
         <Row>
           <Button theme="primary" variant="solid">Save changes</Button>
-          <Button theme="neutral" variant="outline">Cancel</Button>
+          <Button theme="primary" variant="outline">Cancel</Button>
         </Row>
       </SceneInner>
     </Scene>
