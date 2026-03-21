@@ -48,66 +48,71 @@ export function useRovingTabIndex(props: UseRovingTabIndexProps): UseRovingTabIn
     [onActiveIndexChange, focusItem],
   )
 
-  const findNextEnabled = useCallback(
-    (start: number, direction: 1 | -1): number | null => {
-      const disabled = disabledIndices ?? new Set<number>()
-      let candidate = start
-      for (let i = 0; i < count; i++) {
-        candidate += direction
-        if (loop) {
-          candidate = ((candidate % count) + count) % count
-        } else if (candidate < 0 || candidate >= count) {
-          return null
-        }
-        if (!disabled.has(candidate)) return candidate
-      }
-      return null
-    },
-    [count, loop, disabledIndices],
-  )
-
-  const findFirstEnabled = useCallback((): number | null => {
-    const disabled = disabledIndices ?? new Set<number>()
-    for (let i = 0; i < count; i++) {
-      if (!disabled.has(i)) return i
-    }
-    return null
-  }, [count, disabledIndices])
-
-  const findLastEnabled = useCallback((): number | null => {
-    const disabled = disabledIndices ?? new Set<number>()
-    for (let i = count - 1; i >= 0; i--) {
-      if (!disabled.has(i)) return i
-    }
-    return null
-  }, [count, disabledIndices])
-
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
+      if (!containerRef.current) return
       const isVertical = orientation === 'vertical' || orientation === 'both'
       const isHorizontal = orientation === 'horizontal' || orientation === 'both'
+
+      // Derive current index from DOM to avoid stale closure state
+      const items = containerRef.current.querySelectorAll<HTMLElement>('[data-roving-item]')
+      const itemCount = items.length
+      let currentIndex = activeIndex
+      for (let i = 0; i < itemCount; i++) {
+        if (items[i] === document.activeElement) { currentIndex = i; break }
+      }
+
+      const disabled = disabledIndices ?? new Set<number>()
+
+      const findNext = (start: number, dir: 1 | -1): number | null => {
+        let candidate = start
+        for (let i = 0; i < itemCount; i++) {
+          candidate += dir
+          if (loop) {
+            candidate = ((candidate % itemCount) + itemCount) % itemCount
+          } else if (candidate < 0 || candidate >= itemCount) {
+            return null
+          }
+          if (!disabled.has(candidate)) return candidate
+        }
+        return null
+      }
+
+      const findFirst = (): number | null => {
+        for (let i = 0; i < itemCount; i++) {
+          if (!disabled.has(i)) return i
+        }
+        return null
+      }
+
+      const findLast = (): number | null => {
+        for (let i = itemCount - 1; i >= 0; i--) {
+          if (!disabled.has(i)) return i
+        }
+        return null
+      }
 
       let nextIndex: number | null = null
 
       if ((e.key === 'ArrowDown' && isVertical) || (e.key === 'ArrowRight' && isHorizontal)) {
         e.preventDefault()
-        nextIndex = findNextEnabled(activeIndex, 1)
+        nextIndex = findNext(currentIndex, 1)
       } else if ((e.key === 'ArrowUp' && isVertical) || (e.key === 'ArrowLeft' && isHorizontal)) {
         e.preventDefault()
-        nextIndex = findNextEnabled(activeIndex, -1)
+        nextIndex = findNext(currentIndex, -1)
       } else if (e.key === 'Home') {
         e.preventDefault()
-        nextIndex = findFirstEnabled()
+        nextIndex = findFirst()
       } else if (e.key === 'End') {
         e.preventDefault()
-        nextIndex = findLastEnabled()
+        nextIndex = findLast()
       }
 
       if (nextIndex !== null) {
         moveTo(nextIndex)
       }
     },
-    [activeIndex, orientation, moveTo, findNextEnabled, findFirstEnabled, findLastEnabled],
+    [activeIndex, orientation, loop, disabledIndices, moveTo],
   )
 
   const getContainerProps = useCallback(

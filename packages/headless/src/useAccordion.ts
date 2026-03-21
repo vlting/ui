@@ -50,16 +50,16 @@ export function useAccordion(props: UseAccordionProps): UseAccordionReturn {
     onChange: onValueChange,
   })
 
-  // Item registration
+  // Item registration — use ref for count to avoid setState-during-render
   const itemsRef = useRef<string[]>([])
-  const [itemCount, setItemCount] = useState(0)
+  const itemCountRef = useRef(0)
 
   const registerItem = useCallback((itemValue: string): number => {
     const idx = itemsRef.current.indexOf(itemValue)
     if (idx !== -1) return idx
     const newIdx = itemsRef.current.length
     itemsRef.current.push(itemValue)
-    setItemCount(itemsRef.current.length)
+    itemCountRef.current = itemsRef.current.length
     return newIdx
   }, [])
 
@@ -67,7 +67,7 @@ export function useAccordion(props: UseAccordionProps): UseAccordionReturn {
     const idx = itemsRef.current.indexOf(itemValue)
     if (idx !== -1) {
       itemsRef.current.splice(idx, 1)
-      setItemCount(itemsRef.current.length)
+      itemCountRef.current = itemsRef.current.length
     }
   }, [])
 
@@ -104,7 +104,7 @@ export function useAccordion(props: UseAccordionProps): UseAccordionReturn {
   // Roving tabindex
   const [activeIndex, setActiveIndex] = useState(0)
   const { getContainerProps, getItemProps } = useRovingTabIndex({
-    count: itemCount || 1,
+    count: itemCountRef.current || 1,
     activeIndex,
     onActiveIndexChange: setActiveIndex,
     orientation: 'vertical',
