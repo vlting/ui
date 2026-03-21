@@ -101,7 +101,7 @@ const StyledContentGrid = styled('div', {
 const StyledContent = styled('div', {
   overflow: 'hidden',
   minHeight: '0',
-  px: '$16',
+  px: '$0',
   fontSize: '$p',
   color: '$neutralText4',
 }, {
