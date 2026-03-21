@@ -508,7 +508,7 @@ function DashboardScene() {
             <Collapsible.Root>
               <Collapsible.Trigger>Advanced metrics</Collapsible.Trigger>
               <Collapsible.Content>
-                <StatsGrid stl={{ mt: '$12' }}>
+                <StatsGrid>
                   <div>
                     <Text size="sm" tone="muted">P50 latency</Text>
                     <Heading.H3 stl={{ mt: '$4' }}>42ms</Heading.H3>
