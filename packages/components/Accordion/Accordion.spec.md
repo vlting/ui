@@ -69,8 +69,9 @@ Two context layers:
 - Root is a vertical stack (`fontFamily: '$body'`)
 - Items have bottom border (`borderBottom: '$neutralMin'`)
 - Trigger is full-width flex with `justifyContent: 'space-between'`, `alignItems: 'center'`
-- Trigger padding: `py: '$8'`, `px: '$12'`, `radius: '$button'`
-- Content padding: `py: '$8'`, `px: '$12'`, `fontSize: '$p'`, `color: '$neutralText4'`
+- Trigger padding: `py: '$8'`, `px: '$12'` — no radius (full-bleed rows, Item-inspired)
+- Content padding: `pt: '$0'`, `pb: '$12'`, `px: '$16'`, `fontSize: '$p'`, `color: '$neutralText4'`
+- Content wrapped in CSS grid container for smooth height animation (`gtRows: '0fr' → '1fr'`)
 - Built-in chevron indicator (inline SVG) positioned trailing, rotates 180deg when `data-state="open"`
 
 ---
@@ -92,14 +93,13 @@ None in v1.
 | Open/Closed | `data-state` | `"open"` / `"closed"` (on Item, Trigger, Content) |
 | Disabled | `disabled` | on Trigger |
 
-### Interactive States (Trigger)
+### Interactive States (Trigger — Item-inspired, not Button-inspired)
 | State | Tokens |
 |-------|--------|
-| `:interact` (hover/focus) | `bg: '$neutral3'` |
+| `:interact` (hover/focus) | `bg: '$neutral4'` (Item-aligned) |
 | `:focus` | `outline: '$neutral'`, `outlineOffset: '$offsetDefault'` |
-| `:pressed` | `transform: '$pressScale'` |
+| `:pressed` | `bg: '$neutral5'` (subtle bg shift, no transform) |
 | Disabled | `opacity: '$disabledOpacity'`, `cursor: 'not-allowed'`, `pointerEvents: 'none'` |
-| `lowMotion` | `':pressed': { transform: 'none' }` |
 
 ### Chevron Indicator
 - Inline SVG chevron-down, `aria-hidden="true"`
@@ -120,7 +120,7 @@ None in v1.
 
 ## Accessibility
 - Trigger: `aria-expanded`, `aria-controls`, roving `tabIndex`
-- Content: `role="region"`, `aria-labelledby`, `hidden`
+- Content: `role="region"`, `aria-labelledby`, grid-based visual hiding (`aria-hidden` when collapsed)
 - Keyboard: ArrowUp/Down between triggers, Home/End, Enter/Space toggle
 
 ---
@@ -130,7 +130,9 @@ None in v1.
 ### React (Web)
 - Uses `useAccordion` hook from headless
 - `registerItem`/`unregisterItem` for dynamic item tracking
-- `hidden` attribute for content visibility (no content height animation in v1; indicator rotation and lowMotion-gated transitions are allowed)
+- CSS grid height animation (`gtRows: '0fr' → '1fr'`) with `$fastDuration` transition and `lowMotion` gate
+- Content wrapped in grid container; inner content has `overflow: hidden`, `minHeight: 0`
+- `hidden` attribute replaced with grid-based visual hiding + `aria-hidden`
 - `forwardRef` on all sub-components
 
 ### React Native
@@ -140,14 +142,14 @@ Not yet implemented.
 
 ## Theming Behavior
 - Item border: `borderBottom: '$neutralMin'`
-- Trigger: ghost-neutral base (transparent bg, neutral hover), follows Button ghost pattern
+- Trigger: Item-inspired interactive pattern (transparent bg, `$neutral4` hover, `$neutral5` pressed, no radius)
 - Content: secondary text via `$neutralText4`
 - All values overridable via `stl` prop
 
 ---
 
 ## Edge Cases
-- Content always in DOM (uses `hidden` attribute)
+- Content always in DOM (uses CSS grid for visual hiding, not `hidden` attribute)
 - Compound components throw if used outside parent
 - `value` is always `string[]`, even for single mode
 
@@ -180,7 +182,8 @@ Not yet implemented.
 ## Implementation Constraints
 - All logic in `useAccordion` hook — component is structure + styled only
 - `forwardRef` on all sub-components
-- No content height animation in v1; indicator rotation and lowMotion-gated transitions allowed
+- CSS grid height animation via `gtRows: '0fr' → '1fr'`, gated by `lowMotion`
+- Ref merging via `mergeRefs` utility (not manual ref callbacks)
 
 ---
 
@@ -192,3 +195,4 @@ None.
 ## Change Log
 - v1: Initial implementation with useAccordion, compound pattern, single/multiple modes
 - v1.1: UI overhaul — ghost-neutral trigger styling, chevron indicator, interactive states, content padding
+- v2: Item-inspired redesign — remove button-like styling, CSS grid height animation, keyboard nav fix, content visual subordination

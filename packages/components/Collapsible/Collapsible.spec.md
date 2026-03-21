@@ -60,8 +60,10 @@ Context provides: `isOpen`, `toggle`, `disabled`, `contentId`, `triggerId`
 ## Layout Rules
 - Root is a flex column container (`display: 'flex'`, `flexDirection: 'column'`)
 - Trigger renders as `button`, full-width flex with `justifyContent: 'space-between'`, `alignItems: 'center'`
-- Trigger padding: `py: '$8'`, `px: '$12'`, `radius: '$button'`
-- Content renders as `div` with `role="region"`, padding: `py: '$8'`, `px: '$12'`, `fontSize: '$p'`, `color: '$neutralText4'`
+- Trigger padding: `py: '$8'`, `px: '$12'` — no radius (full-bleed rows, Item-inspired)
+- Content renders as `div` with `role="region"`, padding: `pt: '$0'`, `pb: '$12'`, `px: '$16'`, `fontSize: '$p'`, `color: '$neutralText4'`
+- Content wrapped in CSS grid container for smooth height animation (`gtRows: '0fr' → '1fr'`)
+- No default border (standalone widget, not stacked list)
 - Built-in chevron indicator (inline SVG) positioned trailing, rotates 180deg when `data-state="open"`
 
 ---
@@ -82,14 +84,13 @@ None in v1.
 | Open/Closed | `data-state` | `"open"` / `"closed"` |
 | Disabled | `disabled` | on Trigger |
 
-### Interactive States (Trigger)
+### Interactive States (Trigger — Item-inspired, not Button-inspired)
 | State | Tokens |
 |-------|--------|
-| `:interact` (hover/focus) | `bg: '$neutral3'` |
+| `:interact` (hover/focus) | `bg: '$neutral4'` (Item-aligned) |
 | `:focus` | `outline: '$neutral'`, `outlineOffset: '$offsetDefault'` |
-| `:pressed` | `transform: '$pressScale'` |
+| `:pressed` | `bg: '$neutral5'` (subtle bg shift, no transform) |
 | Disabled | `opacity: '$disabledOpacity'`, `cursor: 'not-allowed'`, `pointerEvents: 'none'` |
-| `lowMotion` | `':pressed': { transform: 'none' }` |
 
 ### Chevron Indicator
 - Inline SVG chevron-down, `aria-hidden="true"`
@@ -108,7 +109,7 @@ None in v1.
 
 ## Accessibility
 - Trigger: `aria-expanded`, `aria-controls` → content id
-- Content: `role="region"`, `aria-labelledby` → trigger id, `hidden` when closed
+- Content: `role="region"`, `aria-labelledby` → trigger id, grid-based visual hiding (`aria-hidden` when collapsed)
 - Trigger renders as `<button type="button">`
 
 ---
@@ -117,7 +118,8 @@ None in v1.
 
 ### React (Web)
 - Uses `useDisclosure` hook for controlled/uncontrolled state
-- `hidden` attribute for content visibility (no content height animation in v1; indicator rotation and lowMotion-gated transitions are allowed)
+- CSS grid height animation (`gtRows: '0fr' → '1fr'`) with `$fastDuration` transition and `lowMotion` gate
+- `hidden` attribute replaced with grid-based visual hiding + `aria-hidden`
 - `forwardRef` on all sub-components
 
 ### React Native
@@ -126,14 +128,14 @@ Not yet implemented.
 ---
 
 ## Theming Behavior
-- Trigger: ghost-neutral base (transparent bg, neutral hover), follows Button ghost pattern
+- Trigger: Item-inspired interactive pattern (transparent bg, `$neutral4` hover, `$neutral5` pressed, no radius)
 - Content: secondary text via `$neutralText4`
 - All values overridable via `stl` prop
 
 ---
 
 ## Edge Cases
-- Content always in DOM (uses `hidden` attribute, not conditional rendering)
+- Content always in DOM (uses CSS grid for visual hiding, not `hidden` attribute)
 - Compound components throw if used outside Root
 
 ---
@@ -165,7 +167,7 @@ Not yet implemented.
 ## Implementation Constraints
 - Must use `useDisclosure` from headless — no reinventing state management
 - `forwardRef` on all sub-components
-- No content height animation in v1; indicator rotation and lowMotion-gated transitions allowed
+- CSS grid height animation via `gtRows: '0fr' → '1fr'`, gated by `lowMotion`
 
 ---
 
@@ -176,3 +178,5 @@ None.
 
 ## Change Log
 - v1: Initial implementation with useDisclosure, compound pattern, hidden attribute toggle
+- v1.1: UI overhaul — ghost-neutral trigger styling, chevron indicator, interactive states, content padding
+- v2: Item-inspired redesign — remove button-like styling, CSS grid height animation, content visual subordination, no default border
