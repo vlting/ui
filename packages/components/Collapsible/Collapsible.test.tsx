@@ -13,14 +13,27 @@ describe('Collapsible', () => {
     expect(screen.getByText('Body')).toBeTruthy()
   })
 
-  it('hides content by default', () => {
+  it('hides content by default via aria-hidden on grid wrapper', () => {
     render(
       <Collapsible.Root>
         <Collapsible.Trigger>Toggle</Collapsible.Trigger>
         <Collapsible.Content>Body</Collapsible.Content>
       </Collapsible.Root>,
     )
-    expect(screen.getByText('Body').closest('[hidden]')).toBeTruthy()
+    const content = screen.getByText('Body')
+    const grid = content.closest('[aria-hidden]')
+    expect(grid).toHaveAttribute('aria-hidden', 'true')
+  })
+
+  it('does not use hidden attribute (grid handles visibility)', () => {
+    render(
+      <Collapsible.Root>
+        <Collapsible.Trigger>Toggle</Collapsible.Trigger>
+        <Collapsible.Content>Body</Collapsible.Content>
+      </Collapsible.Root>,
+    )
+    const content = screen.getByText('Body')
+    expect(content.closest('[hidden]')).toBeFalsy()
   })
 
   it('shows content when defaultOpen', () => {
@@ -32,6 +45,8 @@ describe('Collapsible', () => {
     )
     const content = screen.getByRole('region')
     expect(content).not.toHaveAttribute('hidden')
+    const grid = content.closest('[aria-hidden]')
+    expect(grid).toHaveAttribute('aria-hidden', 'false')
   })
 
   it('toggles content on trigger click', () => {
@@ -43,14 +58,15 @@ describe('Collapsible', () => {
     )
     const trigger = screen.getByText('Toggle')
     const content = screen.getByText('Body')
+    const grid = content.closest('[aria-hidden]')!
 
-    expect(content.closest('[hidden]')).toBeTruthy()
-
-    fireEvent.click(trigger)
-    expect(content.closest('[hidden]')).toBeFalsy()
+    expect(grid).toHaveAttribute('aria-hidden', 'true')
 
     fireEvent.click(trigger)
-    expect(content.closest('[hidden]')).toBeTruthy()
+    expect(grid).toHaveAttribute('aria-hidden', 'false')
+
+    fireEvent.click(trigger)
+    expect(grid).toHaveAttribute('aria-hidden', 'true')
   })
 
   it('sets aria-expanded on trigger', () => {
@@ -113,7 +129,9 @@ describe('Collapsible', () => {
     const trigger = screen.getByText('Toggle')
     fireEvent.click(trigger)
 
-    expect(screen.getByText('Body').closest('[hidden]')).toBeTruthy()
+    const content = screen.getByText('Body')
+    const grid = content.closest('[aria-hidden]')
+    expect(grid).toHaveAttribute('aria-hidden', 'true')
   })
 
   it('updates data-state attribute', () => {
@@ -133,6 +151,21 @@ describe('Collapsible', () => {
 
     expect(root).toHaveAttribute('data-state', 'open')
     expect(trigger).toHaveAttribute('data-state', 'open')
+  })
+
+  // ─── Grid animation wrapper ───────────────────────────────────────────
+
+  it('renders grid wrapper around content', () => {
+    render(
+      <Collapsible.Root>
+        <Collapsible.Trigger>Toggle</Collapsible.Trigger>
+        <Collapsible.Content>Body</Collapsible.Content>
+      </Collapsible.Root>,
+    )
+    const content = screen.getByText('Body')
+    const grid = content.parentElement!
+    expect(grid).toHaveAttribute('data-state', 'closed')
+    expect(grid).toHaveAttribute('aria-hidden', 'true')
   })
 
   // ─── Chevron / Indicator tests ──────────────────────────────────────────

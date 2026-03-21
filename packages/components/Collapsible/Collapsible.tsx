@@ -51,13 +51,9 @@ const StyledTrigger = styled('button', {
   fontWeight: '$500',
   fontFamily: '$body',
   color: 'inherit',
-  radius: '$button',
-  ':interact': { bg: '$neutral3' },
+  ':interact': { bg: '$neutral4' },
+  ':pressed': { bg: '$neutral5' },
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
-  ':pressed': { transform: '$pressScale' },
-  lowMotion: {
-    ':pressed': { transform: 'none' },
-  },
 }, {
   name: 'CollapsibleTrigger',
   variants: {
@@ -86,12 +82,30 @@ const StyledChevron = styled('span', {
   },
 })
 
+const StyledContentGrid = styled('div', {
+  display: 'grid',
+  gtRows: '0fr',
+  transitionProperty: 'grid-template-rows',
+  transitionDuration: '$fastDuration',
+  transitionTimingFunction: 'ease',
+  lowMotion: { transitionDuration: '0.01s' },
+}, {
+  name: 'CollapsibleContentGrid',
+  variants: {
+    open: {
+      true: { gtRows: '1fr' },
+    },
+  },
+})
+
 const StyledContent = styled('div', {
-  py: '$8',
-  px: '$12',
+  overflow: 'hidden',
+  minHeight: '0',
+  pt: '$0',
+  pb: '$12',
+  px: '$16',
   fontSize: '$p',
   color: '$neutralText4',
-  overflow: 'hidden',
 }, { name: 'CollapsibleContent' })
 
 // ─── Chevron Icon ────────────────────────────────────────────────────────────
@@ -214,15 +228,20 @@ const CollapsibleContent = forwardRef<HTMLDivElement, CollapsibleContentProps>(
     const ctx = useCollapsibleContext()
 
     return (
-      <StyledContent
-        ref={ref}
-        id={ctx.contentId}
-        role="region"
-        aria-labelledby={ctx.triggerId}
-        hidden={!ctx.isOpen}
+      <StyledContentGrid
+        open={ctx.isOpen}
         data-state={ctx.isOpen ? 'open' : 'closed'}
-        {...props}
-      />
+        aria-hidden={!ctx.isOpen}
+      >
+        <StyledContent
+          ref={ref}
+          id={ctx.contentId}
+          role="region"
+          aria-labelledby={ctx.triggerId}
+          data-state={ctx.isOpen ? 'open' : 'closed'}
+          {...props}
+        />
+      </StyledContentGrid>
     )
   },
 )
