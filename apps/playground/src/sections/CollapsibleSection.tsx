@@ -37,8 +37,8 @@ export function CollapsibleSection({ sectionRef }: SectionProps) {
           </Collapsible.Root>
           <StatusLabel>open: {String(open)}</StatusLabel>
 
-          <SectionTitle>Default open</SectionTitle>
-          <Collapsible.Root defaultOpen>
+          <SectionTitle stl={{ mt: '$24' }}>Default open</SectionTitle>
+          <Collapsible.Root disabled={disabled} defaultOpen>
             <Collapsible.Trigger>Advanced settings</Collapsible.Trigger>
             <Collapsible.Content>
               <CardText>
@@ -49,8 +49,8 @@ export function CollapsibleSection({ sectionRef }: SectionProps) {
             </Collapsible.Content>
           </Collapsible.Root>
 
-          <SectionTitle>No indicator</SectionTitle>
-          <Collapsible.Root>
+          <SectionTitle stl={{ mt: '$24' }}>No indicator</SectionTitle>
+          <Collapsible.Root disabled={disabled}>
             <Collapsible.Trigger indicator={false}>Show release notes</Collapsible.Trigger>
             <Collapsible.Content>
               <CardText>

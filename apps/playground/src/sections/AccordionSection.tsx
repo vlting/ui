@@ -85,7 +85,7 @@ export function AccordionSection({ sectionRef }: SectionProps) {
           </Accordion.Root>
           <StatusLabel>value: [{value.map(v => `"${v}"`).join(', ')}]</StatusLabel>
 
-          <SectionTitle>No indicator</SectionTitle>
+          <SectionTitle stl={{ mt: '$24' }}>No indicator</SectionTitle>
           <Accordion.Root type="single" defaultValue={['faq-1']}>
             <Accordion.Item value="faq-1">
               <Accordion.Trigger indicator={false}>Can I hide the chevron?</Accordion.Trigger>
