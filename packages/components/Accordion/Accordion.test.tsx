@@ -259,5 +259,123 @@ describe('Accordion', () => {
       fireEvent.click(trigger)
       expect(trigger.getAttribute('aria-expanded')).toBe('false')
     })
+
+    it('ArrowUp navigates between triggers', () => {
+      render(
+        <Accordion.Root type="single">
+          <Accordion.Item value="a">
+            <Accordion.Trigger>A</Accordion.Trigger>
+            <Accordion.Content>Content A</Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item value="b">
+            <Accordion.Trigger>B</Accordion.Trigger>
+            <Accordion.Content>Content B</Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item value="c">
+            <Accordion.Trigger>C</Accordion.Trigger>
+            <Accordion.Content>Content C</Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>,
+      )
+      const triggerA = screen.getByText('A').closest('button')!
+      const triggerB = screen.getByText('B').closest('button')!
+
+      // ArrowUp from C → B
+      screen.getByText('C').closest('button')!.focus()
+      fireEvent.keyDown(document.activeElement!, { key: 'ArrowUp' })
+      expect(document.activeElement).toBe(triggerB)
+    })
+
+    it('ArrowUp moves focus to previous trigger', () => {
+      render(
+        <Accordion.Root type="single">
+          <Accordion.Item value="a">
+            <Accordion.Trigger>A</Accordion.Trigger>
+            <Accordion.Content>Content A</Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item value="b">
+            <Accordion.Trigger>B</Accordion.Trigger>
+            <Accordion.Content>Content B</Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>,
+      )
+      const triggerA = screen.getByText('A').closest('button')!
+      const triggerB = screen.getByText('B').closest('button')!
+
+      triggerB.focus()
+      fireEvent.keyDown(triggerB, { key: 'ArrowUp' })
+      expect(document.activeElement).toBe(triggerA)
+    })
+
+    it('ArrowDown wraps from last to first', () => {
+      render(
+        <Accordion.Root type="single">
+          <Accordion.Item value="a">
+            <Accordion.Trigger>A</Accordion.Trigger>
+            <Accordion.Content>Content A</Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item value="b">
+            <Accordion.Trigger>B</Accordion.Trigger>
+            <Accordion.Content>Content B</Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>,
+      )
+      const triggerA = screen.getByText('A').closest('button')!
+      const triggerB = screen.getByText('B').closest('button')!
+
+      triggerB.focus()
+      fireEvent.keyDown(triggerB, { key: 'ArrowDown' })
+      expect(document.activeElement).toBe(triggerA)
+    })
+
+    it('Home moves focus to first trigger', () => {
+      render(
+        <Accordion.Root type="single">
+          <Accordion.Item value="a">
+            <Accordion.Trigger>A</Accordion.Trigger>
+            <Accordion.Content>Content A</Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item value="b">
+            <Accordion.Trigger>B</Accordion.Trigger>
+            <Accordion.Content>Content B</Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item value="c">
+            <Accordion.Trigger>C</Accordion.Trigger>
+            <Accordion.Content>Content C</Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>,
+      )
+      const triggerA = screen.getByText('A').closest('button')!
+      const triggerC = screen.getByText('C').closest('button')!
+
+      triggerC.focus()
+      fireEvent.keyDown(triggerC, { key: 'Home' })
+      expect(document.activeElement).toBe(triggerA)
+    })
+
+    it('End moves focus to last trigger', () => {
+      render(
+        <Accordion.Root type="single">
+          <Accordion.Item value="a">
+            <Accordion.Trigger>A</Accordion.Trigger>
+            <Accordion.Content>Content A</Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item value="b">
+            <Accordion.Trigger>B</Accordion.Trigger>
+            <Accordion.Content>Content B</Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item value="c">
+            <Accordion.Trigger>C</Accordion.Trigger>
+            <Accordion.Content>Content C</Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>,
+      )
+      const triggerB = screen.getByText('B').closest('button')!
+      const triggerC = screen.getByText('C').closest('button')!
+
+      triggerC.focus()
+      fireEvent.keyDown(triggerC, { key: 'Home' })
+      expect(document.activeElement).toBe(screen.getByText('A').closest('button')!)
+    })
   })
 })

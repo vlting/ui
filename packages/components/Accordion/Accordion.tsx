@@ -11,6 +11,7 @@ import {
   useAccordion,
 } from '../../headless/src/useAccordion'
 import { styled } from '../../stl-react/src/config'
+import { mergeRefs } from '../../utils/mergeRefs'
 
 // ─── Context ────────────────────────────────────────────────────────────────
 
@@ -74,13 +75,9 @@ const StyledTrigger = styled('button', {
   fontFamily: '$body',
   textAlign: 'left',
   color: 'inherit',
-  radius: '$button',
-  ':interact': { bg: '$neutral3' },
+  ':interact': { bg: '$neutral4' },
+  ':pressed': { bg: '$neutral5' },
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
-  ':pressed': { transform: '$pressScale' },
-  lowMotion: {
-    ':pressed': { transform: 'none' },
-  },
 }, {
   name: 'AccordionTrigger',
   variants: {
@@ -123,10 +120,28 @@ const ChevronIcon = () => (
   </svg>
 )
 
+const StyledContentGrid = styled('div', {
+  display: 'grid',
+  gtRows: '0fr',
+  transitionProperty: 'grid-template-rows',
+  transitionDuration: '$fastDuration',
+  transitionTimingFunction: 'ease',
+  lowMotion: { transitionDuration: '0.01s' },
+}, {
+  name: 'AccordionContentGrid',
+  variants: {
+    open: {
+      true: { gtRows: '1fr' },
+    },
+  },
+})
+
 const StyledContent = styled('div', {
   overflow: 'hidden',
-  py: '$8',
-  px: '$12',
+  minHeight: '0',
+  pt: '$0',
+  pb: '$12',
+  px: '$16',
   fontSize: '$p',
   color: '$neutralText4',
 }, {
@@ -170,12 +185,7 @@ const AccordionRoot = forwardRef<HTMLDivElement, AccordionRootProps>(
     return (
       <AccordionContext.Provider value={accordion}>
         <StyledRoot
-          ref={(node: HTMLDivElement | null) => {
-            const rovingRef = rootProps.ref as React.MutableRefObject<HTMLElement | null>
-            if (rovingRef) rovingRef.current = node
-            if (typeof ref === 'function') ref(node)
-            else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node
-          }}
+          ref={mergeRefs(ref, rootProps.ref)}
           onKeyDown={rootProps.onKeyDown}
           {...rest}
         >
@@ -266,15 +276,21 @@ const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
   (props, ref) => {
     const ctx = useAccordionContext()
     const item = useAccordionItemContext()
-    const contentProps = ctx.getContentProps(item.value)
+    const { hidden: _hidden, ...contentProps } = ctx.getContentProps(item.value)
 
     return (
-      <StyledContent
-        ref={ref}
+      <StyledContentGrid
+        open={item.isOpen}
         data-state={item.isOpen ? 'open' : 'closed'}
-        {...contentProps}
-        {...props}
-      />
+        aria-hidden={!item.isOpen}
+      >
+        <StyledContent
+          ref={ref}
+          data-state={item.isOpen ? 'open' : 'closed'}
+          {...contentProps}
+          {...props}
+        />
+      </StyledContentGrid>
     )
   },
 )
