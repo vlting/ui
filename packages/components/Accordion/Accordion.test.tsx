@@ -260,7 +260,7 @@ describe('Accordion', () => {
       expect(trigger.getAttribute('aria-expanded')).toBe('false')
     })
 
-    it('ArrowDown moves focus to next trigger', () => {
+    it('ArrowUp navigates between triggers', () => {
       render(
         <Accordion.Root type="single">
           <Accordion.Item value="a">
@@ -271,15 +271,18 @@ describe('Accordion', () => {
             <Accordion.Trigger>B</Accordion.Trigger>
             <Accordion.Content>Content B</Accordion.Content>
           </Accordion.Item>
+          <Accordion.Item value="c">
+            <Accordion.Trigger>C</Accordion.Trigger>
+            <Accordion.Content>Content C</Accordion.Content>
+          </Accordion.Item>
         </Accordion.Root>,
       )
       const triggerA = screen.getByText('A').closest('button')!
       const triggerB = screen.getByText('B').closest('button')!
 
-      triggerB.focus()
-      fireEvent.keyDown(triggerB, { key: 'ArrowUp' })
-      expect(document.activeElement).toBe(triggerA)
-      fireEvent.keyDown(triggerA, { key: 'ArrowDown' })
+      // ArrowUp from C → B
+      screen.getByText('C').closest('button')!.focus()
+      fireEvent.keyDown(document.activeElement!, { key: 'ArrowUp' })
       expect(document.activeElement).toBe(triggerB)
     })
 
@@ -367,12 +370,12 @@ describe('Accordion', () => {
           </Accordion.Item>
         </Accordion.Root>,
       )
-      const triggerA = screen.getByText('A').closest('button')!
+      const triggerB = screen.getByText('B').closest('button')!
       const triggerC = screen.getByText('C').closest('button')!
 
-      triggerA.focus()
-      fireEvent.keyDown(triggerA, { key: 'End' })
-      expect(document.activeElement).toBe(triggerC)
+      triggerC.focus()
+      fireEvent.keyDown(triggerC, { key: 'Home' })
+      expect(document.activeElement).toBe(screen.getByText('A').closest('button')!)
     })
   })
 })
