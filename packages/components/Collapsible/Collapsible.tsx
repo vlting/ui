@@ -101,12 +101,18 @@ const StyledContentGrid = styled('div', {
 const StyledContent = styled('div', {
   overflow: 'hidden',
   minHeight: '0',
-  pt: '$0',
-  pb: '$12',
   px: '$16',
   fontSize: '$p',
   color: '$neutralText4',
-}, { name: 'CollapsibleContent' })
+}, {
+  name: 'CollapsibleContent',
+  variants: {
+    open: {
+      true: { pb: '$12' },
+      false: { pb: '$0' },
+    },
+  },
+})
 
 // ─── Chevron Icon ────────────────────────────────────────────────────────────
 
@@ -235,6 +241,7 @@ const CollapsibleContent = forwardRef<HTMLDivElement, CollapsibleContentProps>(
       >
         <StyledContent
           ref={ref}
+          open={ctx.isOpen}
           id={ctx.contentId}
           role="region"
           aria-labelledby={ctx.triggerId}

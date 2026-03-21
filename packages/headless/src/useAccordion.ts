@@ -18,6 +18,7 @@ export interface UseAccordionReturn {
   toggleItem: (itemValue: string) => void
   registerItem: (itemValue: string) => number
   unregisterItem: (itemValue: string) => void
+  setItemDisabled: (index: number, isDisabled: boolean) => void
   getRootProps: () => {
     ref: React.RefObject<HTMLElement | null>
     onKeyDown: (e: React.KeyboardEvent) => void
@@ -53,6 +54,7 @@ export function useAccordion(props: UseAccordionProps): UseAccordionReturn {
   // Item registration — use ref for count to avoid setState-during-render
   const itemsRef = useRef<string[]>([])
   const itemCountRef = useRef(0)
+  const disabledIndicesRef = useRef<Set<number>>(new Set())
 
   const registerItem = useCallback((itemValue: string): number => {
     const idx = itemsRef.current.indexOf(itemValue)
@@ -61,6 +63,14 @@ export function useAccordion(props: UseAccordionProps): UseAccordionReturn {
     itemsRef.current.push(itemValue)
     itemCountRef.current = itemsRef.current.length
     return newIdx
+  }, [])
+
+  const setItemDisabled = useCallback((index: number, isDisabled: boolean) => {
+    if (isDisabled) {
+      disabledIndicesRef.current.add(index)
+    } else {
+      disabledIndicesRef.current.delete(index)
+    }
   }, [])
 
   const unregisterItem = useCallback((itemValue: string): void => {
@@ -109,6 +119,7 @@ export function useAccordion(props: UseAccordionProps): UseAccordionReturn {
     onActiveIndexChange: setActiveIndex,
     orientation: 'vertical',
     loop: true,
+    disabledIndices: disabledIndicesRef.current,
   })
 
   // Prop-getters
@@ -153,6 +164,7 @@ export function useAccordion(props: UseAccordionProps): UseAccordionReturn {
     toggleItem,
     registerItem,
     unregisterItem,
+    setItemDisabled,
     getRootProps,
     getTriggerProps,
     getContentProps,

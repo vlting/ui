@@ -139,13 +139,17 @@ const StyledContentGrid = styled('div', {
 const StyledContent = styled('div', {
   overflow: 'hidden',
   minHeight: '0',
-  pt: '$0',
-  pb: '$12',
   px: '$16',
   fontSize: '$p',
   color: '$neutralText4',
 }, {
   name: 'AccordionContent',
+  variants: {
+    open: {
+      true: { pb: '$12' },
+      false: { pb: '$0' },
+    },
+  },
 })
 
 // ─── Root ───────────────────────────────────────────────────────────────────
@@ -210,6 +214,8 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
     const ctx = useAccordionContext()
     const index = ctx.registerItem(itemValue)
     const isOpen = ctx.isExpanded(itemValue)
+
+    ctx.setItemDisabled(index, disabled)
 
     useEffect(() => {
       return () => ctx.unregisterItem(itemValue)
@@ -286,6 +292,7 @@ const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
       >
         <StyledContent
           ref={ref}
+          open={item.isOpen}
           data-state={item.isOpen ? 'open' : 'closed'}
           {...contentProps}
           {...props}
