@@ -4,6 +4,7 @@ import { styled, Spinner } from '@vlting/stl-react'
 import {
   Accordion,
   Alert,
+  AlertDialog,
   Avatar,
   Badge,
   Button,
@@ -11,6 +12,7 @@ import {
   Card,
   Checkbox,
   Collapsible,
+  Drawer,
   Empty,
   Field,
   Form,
@@ -89,6 +91,14 @@ const AvatarRow = styled('div', {
   flexWrap: 'wrap',
 }, { name: 'DemoAvatarRow' })
 
+const DrawerFilterList = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$8',
+  p: '$16',
+  flex: '1',
+}, { name: 'DemoDrawerFilterList' })
+
 // ─── Scene 1: Settings ──────────────────────────────────────────────────────
 
 function SettingsScene() {
@@ -101,6 +111,7 @@ function SettingsScene() {
   const displayNameEmpty = displayName.trim() === ''
   const [smsChecked, setSmsChecked] = useState(false)
   const [language, setLanguage] = useState('en')
+  const [deleteOpen, setDeleteOpen] = useState(false)
 
   return (
     <Scene stl={{ bg: '$surface2' }}>
@@ -258,6 +269,23 @@ function SettingsScene() {
         <Row>
           <Button theme="primary" variant="solid">Save changes</Button>
           <Button theme="primary" variant="outline">Cancel</Button>
+          <AlertDialog.Root open={deleteOpen} onOpenChange={setDeleteOpen}>
+            <Button theme="destructive" variant="outline" onClick={() => setDeleteOpen(true)}>Delete account</Button>
+            <AlertDialog.Content size="sm">
+              <AlertDialog.Title>Delete account?</AlertDialog.Title>
+              <AlertDialog.Description>
+                This will permanently remove your account, projects, and all associated data. This action cannot be undone.
+              </AlertDialog.Description>
+              <AlertDialog.Footer>
+                <AlertDialog.Cancel>
+                  <Button theme="neutral" variant="outline">Cancel</Button>
+                </AlertDialog.Cancel>
+                <AlertDialog.Action>
+                  <Button theme="destructive" variant="solid">Delete</Button>
+                </AlertDialog.Action>
+              </AlertDialog.Footer>
+            </AlertDialog.Content>
+          </AlertDialog.Root>
         </Row>
       </SceneInner>
     </Scene>
@@ -406,6 +434,7 @@ function ActivityScene() {
 function DashboardScene() {
   const [period, setPeriod] = useState('week')
   const [compactView, setCompactView] = useState(false)
+  const [filterOpen, setFilterOpen] = useState(false)
 
   return (
     <Scene stl={{ bg: '$surface2' }}>
@@ -445,6 +474,33 @@ function DashboardScene() {
             >
               Compact
             </Toggle>
+            <Drawer.Root direction="right" open={filterOpen} onOpenChange={setFilterOpen}>
+              <Button size="sm" theme="neutral" variant="outline" onClick={() => setFilterOpen(true)}>Filter</Button>
+              <Drawer.Content>
+                <Drawer.Close />
+                <Drawer.Header>
+                  <Drawer.Title>Filters</Drawer.Title>
+                  <Drawer.Description>Narrow down your dashboard view.</Drawer.Description>
+                </Drawer.Header>
+                <DrawerFilterList>
+                  <Item theme="neutral" variant="ghost">
+                    <Item.Content><Item.Title>Active</Item.Title></Item.Content>
+                  </Item>
+                  <Separator />
+                  <Item theme="neutral" variant="ghost">
+                    <Item.Content><Item.Title>Archived</Item.Title></Item.Content>
+                  </Item>
+                  <Separator />
+                  <Item theme="neutral" variant="ghost">
+                    <Item.Content><Item.Title>Critical only</Item.Title></Item.Content>
+                  </Item>
+                </DrawerFilterList>
+                <Drawer.Footer>
+                  <Button theme="neutral" variant="outline">Reset</Button>
+                  <Button theme="primary" variant="solid">Apply</Button>
+                </Drawer.Footer>
+              </Drawer.Content>
+            </Drawer.Root>
             <ButtonGroup.Root>
               <Button size="sm" theme="neutral" variant="outline">Export</Button>
               <Button size="sm" theme="neutral" variant="outline">Share</Button>

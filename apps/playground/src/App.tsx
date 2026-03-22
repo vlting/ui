@@ -8,7 +8,8 @@ import { auroraTheme, popsicleTheme, frostTheme, carbonTheme, mintTheme } from '
 import { MoonIcon, SunIcon } from './sections/shared'
 import {
   AccordionSection, AlertSection, AvatarSection, BadgeSection, ButtonGroupSection, ButtonSection,
-  CardSection, CollapsibleSection, EmptySection, FieldFormSection, InputSection, InputGroupSection, InputOTPSection,
+  CardSection, CollapsibleSection, DialogSection, DrawerSection, EmptySection, FieldFormSection,
+  InputSection, InputGroupSection, InputOTPSection, SheetSection,
   TypographySection, ItemSection, ProgressSection,
   SelectionSection, SeparatorSection, SliderSection, SpinnerSection, ToggleSection,
 } from './sections'
@@ -20,6 +21,7 @@ const PAGES = ['Components', 'Demo'] as const
 type Page = typeof PAGES[number]
 
 const SECTIONS = [
+  'Dialog', 'Sheet', 'Drawer',
   'Accordion', 'Collapsible', 'Inputs', 'Slider', 'InputOTP', 'InputGroup', 'Field & Form', 'Selection', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
   'Spinner', 'Empty', 'Avatar', 'Typography', 'Separator',
 ] as const
@@ -179,6 +181,9 @@ const Main = styled('main', {
 // ─── Section component map ──────────────────────────────────────────────────
 
 const SECTION_COMPONENTS: Record<string, React.ComponentType<{ sectionRef: (el: HTMLDivElement | null) => void }>> = {
+  Dialog: DialogSection,
+  Sheet: SheetSection,
+  Drawer: DrawerSection,
   Accordion: AccordionSection,
   Collapsible: CollapsibleSection,
   Button: ButtonSection,
