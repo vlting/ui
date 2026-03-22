@@ -13,6 +13,7 @@ import {
   Checkbox,
   Collapsible,
   Drawer,
+  DropdownMenu,
   Empty,
   Field,
   Form,
@@ -128,10 +129,27 @@ function SettingsScene() {
       />
 
       <SceneInner>
-        <div>
-          <Heading stl={{ mb: '$8' }}>Settings</Heading>
-          <Text>Manage your account preferences and notifications.</Text>
-        </div>
+        <Row stl={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <div>
+            <Heading stl={{ mb: '$8' }}>Settings</Heading>
+            <Text>Manage your account preferences and notifications.</Text>
+          </div>
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger>
+              <Button theme="neutral" variant="outline" size="sm">
+                <Avatar size="xs" fallback="MC" stl={{ mr: '$4' }} />
+                Maya Chen
+              </Button>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content>
+              <DropdownMenu.Label>Account</DropdownMenu.Label>
+              <DropdownMenu.Item>Profile</DropdownMenu.Item>
+              <DropdownMenu.Item>Billing</DropdownMenu.Item>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Item>Log out</DropdownMenu.Item>
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
+        </Row>
 
         <Card>
           <Card.Header>

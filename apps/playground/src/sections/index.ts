@@ -1,4 +1,5 @@
 export { AccordionSection } from './AccordionSection'
+export { MenuSection } from './MenuSection'
 export { AlertSection } from './AlertSection'
 export { DialogSection } from './DialogSection'
 export { SheetSection } from './SheetSection'
