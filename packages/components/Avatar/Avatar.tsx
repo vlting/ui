@@ -68,7 +68,7 @@ const AvatarRoot = forwardRef<HTMLSpanElement, AvatarRootProps>(
           src={src}
           alt={alt ?? ''}
           onError={() => setImgError(true)}
-          style={{ objectFit: 'cover' }}
+          stl={{ objectFit: 'cover' }}
         />
       )
     } else {
