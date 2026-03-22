@@ -10,7 +10,7 @@ module.exports = {
     // Stubbed components — re-enable as each is rebuilt
     // 'packages/components/Accordion/', // re-enabled
     // 'packages/components/AlertDialog/', // re-enabled
-    'packages/components/Breadcrumb/',
+    // 'packages/components/Breadcrumb/', // re-enabled
     'packages/components/Calendar/',
     'packages/components/Carousel/',
     'packages/components/Chart/',
@@ -31,17 +31,17 @@ module.exports = {
     // 'packages/components/InputOTP/', // re-enabled
     // 'packages/components/Menu/', // re-enabled
     // 'packages/components/Menubar/', // re-enabled
-    'packages/components/NavigationMenu/',
-    'packages/components/Pagination/',
+    // 'packages/components/NavigationMenu/', // re-enabled
+    // 'packages/components/Pagination/', // re-enabled
     // 'packages/components/Popover/', // re-enabled
     'packages/components/Resizable/',
     'packages/components/ScrollArea/',
     // 'packages/components/Select/', // re-enabled
     // 'packages/components/Sheet/', // re-enabled
-    'packages/components/Sidebar/',
+    // 'packages/components/Sidebar/', // re-enabled
     // 'packages/components/Slider/', // re-enabled
     'packages/components/Table/',
-    'packages/components/Tabs/',
+    // 'packages/components/Tabs/', // re-enabled
     // 'packages/components/Toast/', // re-enabled
     // 'packages/components/Toggle/', // re-enabled
     // 'packages/components/Tooltip/', // re-enabled
