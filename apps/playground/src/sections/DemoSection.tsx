@@ -52,7 +52,7 @@ const Scene = styled('section', {
 
 const SceneInner = styled('div', {
   position: 'relative',
-  zIndex: '1',
+  z: '$1',
   width: '100%',
   maxWidth: '800px',
   mx: 'auto',
@@ -231,24 +231,24 @@ function SettingsScene() {
           <Card.Header>
             <Card.Title>Help &amp; FAQ</Card.Title>
           </Card.Header>
-          <Card.Content stl={{ px: '$0', py: '$0' }}>
+          <Card.Content>
             <Accordion type="single" defaultValue={['data-export']}>
               <Accordion.Item value="data-export">
                 <Accordion.Trigger>How do I export my data?</Accordion.Trigger>
                 <Accordion.Content>
-                  <Text>Go to Settings → Data &amp; Privacy → Export. You can download a full archive of your account data in JSON or CSV format. Exports typically complete within a few minutes.</Text>
+                  Go to Settings → Data &amp; Privacy → Export. You can download a full archive of your account data in JSON or CSV format. Exports typically complete within a few minutes.
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="two-factor">
                 <Accordion.Trigger>How do I enable two-factor authentication?</Accordion.Trigger>
                 <Accordion.Content>
-                  <Text>Navigate to Security → Two-Factor Auth and scan the QR code with your authenticator app. You'll need to verify with a one-time code before it's active.</Text>
+                  Navigate to Security → Two-Factor Auth and scan the QR code with your authenticator app. You'll need to verify with a one-time code before it's active.
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="delete-account">
                 <Accordion.Trigger>Can I delete my account?</Accordion.Trigger>
                 <Accordion.Content>
-                  <Text>Yes. Under Data &amp; Privacy → Danger Zone, select "Delete account." This action is irreversible and removes all associated data after a 30-day grace period.</Text>
+                  Yes. Under Data &amp; Privacy → Danger Zone, select "Delete account." This action is irreversible and removes all associated data after a 30-day grace period.
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion>

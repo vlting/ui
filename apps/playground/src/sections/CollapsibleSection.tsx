@@ -26,13 +26,11 @@ export function CollapsibleSection({ sectionRef }: SectionProps) {
           <Collapsible.Root disabled={disabled} open={open} onOpenChange={setOpen}>
             <Collapsible.Trigger>About the registry</Collapsible.Trigger>
             <Collapsible.Content>
-              <CardText>
                 The vlt serverless registry is a next-generation package hosting solution
                 built on edge infrastructure. Packages are served from the nearest point of
                 presence, reducing install times by up to 10x compared to traditional registries.
                 It supports granular access controls, package signing, and real-time vulnerability
                 scanning out of the box.
-              </CardText>
             </Collapsible.Content>
           </Collapsible.Root>
           <StatusLabel>open: {String(open)}</StatusLabel>
@@ -41,11 +39,9 @@ export function CollapsibleSection({ sectionRef }: SectionProps) {
           <Collapsible.Root disabled={disabled} defaultOpen>
             <Collapsible.Trigger>Advanced settings</Collapsible.Trigger>
             <Collapsible.Content>
-              <CardText>
                 Cache directory, registry mirrors, network timeouts, and retry policies
                 can be configured per-project or globally. These settings are rarely needed
                 but available when you need fine-grained control over package resolution.
-              </CardText>
             </Collapsible.Content>
           </Collapsible.Root>
 
@@ -53,11 +49,9 @@ export function CollapsibleSection({ sectionRef }: SectionProps) {
           <Collapsible.Root disabled={disabled}>
             <Collapsible.Trigger indicator={false}>Show release notes</Collapsible.Trigger>
             <Collapsible.Content>
-              <CardText>
                 v2.0 introduces workspace-aware dependency deduplication, a new lockfile
                 format with content-addressable integrity, and native support for
                 conditional exports resolution.
-              </CardText>
             </Collapsible.Content>
           </Collapsible.Root>
         </StackY>

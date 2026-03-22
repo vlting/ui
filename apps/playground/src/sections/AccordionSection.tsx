@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Accordion, Button, Card, Toggle, ToggleGroup } from '@vlting/ui'
 import { styled } from '@vlting/stl-react'
 
-import { CardText, ControlRow, SectionTitle, StackY, type SectionProps } from './shared'
+import { ControlRow, SectionTitle, StackY, type SectionProps } from './shared'
 
 const StatusLabel = styled('span', {
   fontSize: '$small', color: '$neutralText4', fontFamily: '$code',
@@ -49,37 +49,30 @@ export function AccordionSection({ sectionRef }: SectionProps) {
             <Accordion.Item value="what-is-vlt">
               <Accordion.Trigger>What is vlt?</Accordion.Trigger>
               <Accordion.Content>
-                <CardText>
                   vlt is a next-generation JavaScript package manager and serverless registry
                   designed for speed, security, and simplicity. It provides a modern alternative
                   to existing tools with first-class support for workspaces and monorepos.
-                </CardText>
               </Accordion.Content>
             </Accordion.Item>
             <Accordion.Item value="getting-started">
               <Accordion.Trigger>Getting started</Accordion.Trigger>
               <Accordion.Content>
-                <CardText>
                   Install vlt globally with your preferred package manager, then run vlt install
                   in any project directory. Configuration is automatic — vlt reads your existing
                   package.json and lockfile formats out of the box.
-                </CardText>
               </Accordion.Content>
             </Accordion.Item>
             <Accordion.Item value="configuration">
               <Accordion.Trigger>Configuration</Accordion.Trigger>
               <Accordion.Content>
-                <CardText>
                   vlt supports .vltrc files, environment variables, and package.json fields
                   for configuration. Registry scopes, authentication tokens, and cache settings
                   can all be managed through a unified config surface.
-                </CardText>
               </Accordion.Content>
             </Accordion.Item>
             <Accordion.Item value="disabled-item" disabled>
               <Accordion.Trigger>Deprecated options</Accordion.Trigger>
               <Accordion.Content>
-                <CardText>This section is disabled and cannot be expanded.</CardText>
               </Accordion.Content>
             </Accordion.Item>
           </Accordion.Root>
@@ -90,19 +83,15 @@ export function AccordionSection({ sectionRef }: SectionProps) {
             <Accordion.Item value="faq-1">
               <Accordion.Trigger indicator={false}>Can I hide the chevron?</Accordion.Trigger>
               <Accordion.Content>
-                <CardText>
                   Yes. Set indicator=false on any Trigger to render without the built-in
                   chevron icon. Useful when you want custom expand/collapse indicators.
-                </CardText>
               </Accordion.Content>
             </Accordion.Item>
             <Accordion.Item value="faq-2">
               <Accordion.Trigger indicator={false}>Is keyboard navigation supported?</Accordion.Trigger>
               <Accordion.Content>
-                <CardText>
                   Full keyboard support — Arrow keys move between triggers, Enter and Space
                   toggle items, Home and End jump to first and last triggers.
-                </CardText>
               </Accordion.Content>
             </Accordion.Item>
           </Accordion.Root>

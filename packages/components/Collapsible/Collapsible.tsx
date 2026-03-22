@@ -39,20 +39,19 @@ const StyledRoot = styled('div', {
 
 const StyledTrigger = styled('button', {
   display: 'flex',
-  width: '100%',
   alignItems: 'center',
   justifyContent: 'space-between',
   bg: 'transparent',
   border: 'none',
   cursor: 'pointer',
-  py: '$8',
-  px: '$12',
+  py: '$12',
+  px: '$0',
   fontSize: '$p',
   fontWeight: '$500',
   fontFamily: '$body',
   color: 'inherit',
-  ':interact': { bg: '$neutral4' },
-  ':pressed': { bg: '$neutral5' },
+  ':interact': { bg: '$neutralAlpha2', textDecoration: 'underline' },
+  ':pressed': { bg: '$neutralAlpha3' },
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
 }, {
   name: 'CollapsibleTrigger',
@@ -66,6 +65,7 @@ const StyledTrigger = styled('button', {
 const StyledChevron = styled('span', {
   display: 'flex',
   alignItems: 'center',
+  color: '$neutral7',
   transitionProperty: 'transform',
   transitionDuration: '$fastDuration',
   transitionTimingFunction: 'ease',
@@ -102,14 +102,19 @@ const StyledContent = styled('div', {
   overflow: 'hidden',
   minHeight: '0',
   px: '$0',
-  fontSize: '$p',
-  color: '$neutralText4',
+  fontSize: '$15',
+  fontWeight: '$300',
+  color: '$neutral9',
+  transitionProperty: 'padding',
+  transitionDuration: '$fastDuration',
+  transitionTimingFunction: 'ease',
+  lowMotion: { transitionDuration: '0.01s' },
 }, {
   name: 'CollapsibleContent',
   variants: {
     open: {
-      true: { pb: '$12' },
-      false: { pb: '$0' },
+      true: { pt: '$4', pb: '$20' },
+      false: { py: '$0' },
     },
   },
 })
