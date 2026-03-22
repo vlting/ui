@@ -26,14 +26,14 @@ module.exports = {
     'packages/components/DropdownMenu/',
     // 'packages/components/Field/', // re-enabled
     // 'packages/components/Form/', // re-enabled
-    'packages/components/HoverCard/',
+    // 'packages/components/HoverCard/', // re-enabled
     // 'packages/components/InputGroup/', // re-enabled
     // 'packages/components/InputOTP/', // re-enabled
     'packages/components/Menu/',
     'packages/components/Menubar/',
     'packages/components/NavigationMenu/',
     'packages/components/Pagination/',
-    'packages/components/Popover/',
+    // 'packages/components/Popover/', // re-enabled
     'packages/components/Resizable/',
     'packages/components/ScrollArea/',
     'packages/components/Select/',
@@ -44,7 +44,7 @@ module.exports = {
     'packages/components/Tabs/',
     'packages/components/Toast/',
     // 'packages/components/Toggle/', // re-enabled
-    'packages/components/Tooltip/',
+    // 'packages/components/Tooltip/', // re-enabled
   ],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',

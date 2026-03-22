@@ -1,67 +1,143 @@
-import { render, screen } from '../../../src/__test-utils__/render'
-import { Tooltip, TooltipProvider } from './Tooltip'
+import { act } from 'react'
+import { fireEvent, render, screen } from '../../../src/__test-utils__/render'
+import { Tooltip } from './Tooltip'
 
 describe('Tooltip', () => {
-  it('renders without crashing', () => {
-    expect(() =>
+  beforeEach(() => {
+    jest.useFakeTimers()
+  })
+  afterEach(() => {
+    jest.useRealTimers()
+  })
+
+  describe('simple API', () => {
+    it('renders trigger', () => {
       render(
-        <TooltipProvider>
-          <Tooltip content="Help text">
-            <button type="button">Hover me</button>
-          </Tooltip>
-        </TooltipProvider>,
-      ),
-    ).not.toThrow()
-  })
-
-  it('renders trigger content', () => {
-    render(
-      <TooltipProvider>
-        <Tooltip content="Tooltip text">
-          <button type="button">Trigger</button>
-        </Tooltip>
-      </TooltipProvider>,
-    )
-    expect(screen.getByText('Trigger')).toBeTruthy()
-  })
-
-  it('renders with side prop', () => {
-    const sides = ['top', 'right', 'bottom', 'left'] as const
-    for (const side of sides) {
-      const { unmount } = render(
-        <TooltipProvider>
-          <Tooltip content="Tip" side={side}>
-            <button type="button">Btn</button>
-          </Tooltip>
-        </TooltipProvider>,
+        <Tooltip content="Help text">
+          <button type="button">Hover me</button>
+        </Tooltip>,
       )
-      unmount()
-    }
-  })
+      expect(screen.getByText('Hover me')).toBeTruthy()
+    })
 
-  it('renders with custom delay', () => {
-    expect(() =>
+    it('tooltip hidden by default', () => {
       render(
-        <TooltipProvider delay={500}>
-          <Tooltip content="Delayed" delay={300}>
-            <button type="button">Wait</button>
-          </Tooltip>
-        </TooltipProvider>,
-      ),
-    ).not.toThrow()
+        <Tooltip content="Help text">
+          <button type="button">Hover me</button>
+        </Tooltip>,
+      )
+      expect(screen.queryByRole('tooltip')).toBeNull()
+    })
+
+    it('hover shows tooltip after delay', () => {
+      render(
+        <Tooltip content="Help text">
+          <button type="button">Hover me</button>
+        </Tooltip>,
+      )
+      fireEvent.mouseEnter(screen.getByText('Hover me'))
+      expect(screen.queryByRole('tooltip')).toBeNull()
+      act(() => { jest.advanceTimersByTime(200) })
+      expect(screen.getByRole('tooltip')).toBeTruthy()
+      expect(screen.getByText('Help text')).toBeTruthy()
+    })
+
+    it('mouseleave hides tooltip after delay', () => {
+      render(
+        <Tooltip content="Help text">
+          <button type="button">Hover me</button>
+        </Tooltip>,
+      )
+      fireEvent.mouseEnter(screen.getByText('Hover me'))
+      act(() => { jest.advanceTimersByTime(200) })
+      expect(screen.getByRole('tooltip')).toBeTruthy()
+      fireEvent.mouseLeave(screen.getByText('Hover me'))
+      act(() => { jest.advanceTimersByTime(100) })
+      expect(screen.queryByRole('tooltip')).toBeNull()
+    })
+
+    it('has role="tooltip"', () => {
+      render(
+        <Tooltip content="Help text">
+          <button type="button">Hover me</button>
+        </Tooltip>,
+      )
+      fireEvent.mouseEnter(screen.getByText('Hover me'))
+      act(() => { jest.advanceTimersByTime(200) })
+      expect(screen.getByRole('tooltip')).toBeTruthy()
+    })
+
+    it('sets aria-describedby on trigger when open', () => {
+      render(
+        <Tooltip content="Help text">
+          <button type="button">Hover me</button>
+        </Tooltip>,
+      )
+      const trigger = screen.getByText('Hover me')
+      expect(trigger.getAttribute('aria-describedby')).toBeNull()
+      fireEvent.mouseEnter(trigger)
+      act(() => { jest.advanceTimersByTime(200) })
+      expect(trigger.getAttribute('aria-describedby')).toBeTruthy()
+      const tooltipEl = document.getElementById(trigger.getAttribute('aria-describedby')!)
+      expect(tooltipEl?.textContent).toBe('Help text')
+    })
+
+    it('focus shows tooltip', () => {
+      render(
+        <Tooltip content="Help text">
+          <button type="button">Focus me</button>
+        </Tooltip>,
+      )
+      fireEvent.focus(screen.getByText('Focus me'))
+      act(() => { jest.advanceTimersByTime(200) })
+      expect(screen.getByRole('tooltip')).toBeTruthy()
+    })
+
+    it('blur hides tooltip', () => {
+      render(
+        <Tooltip content="Help text">
+          <button type="button">Focus me</button>
+        </Tooltip>,
+      )
+      fireEvent.focus(screen.getByText('Focus me'))
+      act(() => { jest.advanceTimersByTime(200) })
+      expect(screen.getByRole('tooltip')).toBeTruthy()
+      fireEvent.blur(screen.getByText('Focus me'))
+      act(() => { jest.advanceTimersByTime(100) })
+      expect(screen.queryByRole('tooltip')).toBeNull()
+    })
   })
 
-  it('renders with align prop', () => {
-    const aligns = ['start', 'center', 'end'] as const
-    for (const align of aligns) {
-      const { unmount } = render(
-        <TooltipProvider>
-          <Tooltip content="Aligned" align={align}>
-            <button type="button">Btn</button>
-          </Tooltip>
-        </TooltipProvider>,
+  describe('compound API', () => {
+    it('works with Root/Trigger/Content', () => {
+      render(
+        <Tooltip.Root>
+          <Tooltip.Trigger>
+            <button type="button">Compound</button>
+          </Tooltip.Trigger>
+          <Tooltip.Content>Compound tip</Tooltip.Content>
+        </Tooltip.Root>,
       )
-      unmount()
-    }
+      fireEvent.mouseEnter(screen.getByText('Compound'))
+      act(() => { jest.advanceTimersByTime(200) })
+      expect(screen.getByRole('tooltip')).toBeTruthy()
+      expect(screen.getByText('Compound tip')).toBeTruthy()
+    })
+
+    it('supports custom delays', () => {
+      render(
+        <Tooltip.Root showDelay={500} hideDelay={300}>
+          <Tooltip.Trigger>
+            <button type="button">Slow</button>
+          </Tooltip.Trigger>
+          <Tooltip.Content>Slow tip</Tooltip.Content>
+        </Tooltip.Root>,
+      )
+      fireEvent.mouseEnter(screen.getByText('Slow'))
+      act(() => { jest.advanceTimersByTime(200) })
+      expect(screen.queryByRole('tooltip')).toBeNull()
+      act(() => { jest.advanceTimersByTime(300) })
+      expect(screen.getByRole('tooltip')).toBeTruthy()
+    })
   })
 })
