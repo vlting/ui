@@ -36,6 +36,7 @@ export function getSize(hash: CharHash) {
     120: { ...hash.var, value: `calc(${base.ref} * 30)` },
     200: { ...hash.var, value: `calc(${base.ref} * 50)` },
     320: { ...hash.var, value: `calc(${base.ref} * 80)` },
+    400: { ...hash.var, value: `calc(${base.ref} * 100)` },
     480: { ...hash.var, value: `calc(${base.ref} * 120)` },
     640: { ...hash.var, value: `calc(${base.ref} * 160)` },
   } as const

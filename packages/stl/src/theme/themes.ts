@@ -263,6 +263,8 @@ export type ShadowScale = {
   lg?: ShadowToken
   xl?: ShadowToken
   '2xl'?: ShadowToken
+  buttonShadow?: ShadowToken
+  buttonShadowHover?: ShadowToken
 }
 
 export function shadowScaleToThemeValues(scale: ShadowScale): Record<string, string> {
@@ -272,6 +274,8 @@ export function shadowScaleToThemeValues(scale: ShadowScale): Record<string, str
     lg: 'shadowLg',
     xl: 'shadowXl',
     '2xl': 'shadow2xl',
+    buttonShadow: 'buttonShadow',
+    buttonShadowHover: 'buttonShadowHover',
   }
   const values: Record<string, string> = {}
   for (const [level, varName] of Object.entries(SHADOW_VAR_NAMES) as [
