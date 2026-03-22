@@ -5,18 +5,19 @@ import { styled } from '../../stl-native/src/config'
 
 // ─── Styled ─────────────────────────────────────────────────────────────────
 
-const InputBase = styled(TextInput, {
+const TextareaBase = styled(TextInput, {
   borderWidth: 1,
   borderColor: '$neutral6',
   borderRadius: 6,
   backgroundColor: '$surface1',
   color: '$defaultBody',
+  textAlignVertical: 'top',
   width: '100%' as any,
 }, {
   size: {
-    sm: { height: 28, paddingHorizontal: 8, fontSize: 13 },
-    md: { height: 32, paddingHorizontal: 12, fontSize: 14 },
-    lg: { height: 40, paddingHorizontal: 16, fontSize: 15 },
+    sm: { minHeight: 56, paddingHorizontal: 8, paddingVertical: 6, fontSize: 13 },
+    md: { minHeight: 72, paddingHorizontal: 12, paddingVertical: 8, fontSize: 14 },
+    lg: { minHeight: 96, paddingHorizontal: 16, paddingVertical: 12, fontSize: 15 },
   },
   error: {
     true: { borderColor: '$error9' },
@@ -27,11 +28,11 @@ const InputBase = styled(TextInput, {
   focused: {
     true: { borderColor: '$neutral9', borderWidth: 2 },
   },
-}, 'Input')
+}, 'Textarea')
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
-export interface InputProps {
+export interface TextareaProps {
   size?: 'sm' | 'md' | 'lg'
   placeholder?: string
   value?: string
@@ -39,28 +40,29 @@ export interface InputProps {
   onChangeText?: (text: string) => void
   error?: boolean
   disabled?: boolean
-  secureTextEntry?: boolean
-  keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad' | 'url'
-  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters'
-  autoComplete?: string
+  maxLength?: number
+  numberOfLines?: number
   style?: TextStyle
 }
 
-// ─── Input ──────────────────────────────────────────────────────────────────
+// ─── Textarea ───────────────────────────────────────────────────────────────
 
-export const Input = forwardRef<TextInput, InputProps>(
+export const Textarea = forwardRef<TextInput, TextareaProps>(
   ({
     size = 'md',
     error,
     disabled,
+    numberOfLines = 4,
     onChangeText,
     ...rest
   }, ref) => {
     const [focused, setFocused] = useState(false)
 
     return (
-      <InputBase
+      <TextareaBase
         ref={ref}
+        multiline
+        numberOfLines={numberOfLines}
         size={size}
         error={error}
         disabled={disabled}
@@ -69,11 +71,10 @@ export const Input = forwardRef<TextInput, InputProps>(
         onChangeText={onChangeText}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        placeholderTextColor="$neutral7" as any
         accessibilityState={{ disabled }}
         {...rest}
       />
     )
   },
 )
-Input.displayName = 'Input'
+Textarea.displayName = 'Textarea'
