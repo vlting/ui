@@ -9,7 +9,7 @@ module.exports = {
     'packages/stl-native/',
     // Stubbed components — re-enable as each is rebuilt
     // 'packages/components/Accordion/', // re-enabled
-    'packages/components/AlertDialog/',
+    // 'packages/components/AlertDialog/', // re-enabled
     'packages/components/Breadcrumb/',
     'packages/components/Calendar/',
     'packages/components/Carousel/',
@@ -21,8 +21,8 @@ module.exports = {
     'packages/components/ContextMenu/',
     'packages/components/DataTable/',
     'packages/components/DatePicker/',
-    'packages/components/Dialog/',
-    'packages/components/Drawer/',
+    // 'packages/components/Dialog/', // re-enabled
+    // 'packages/components/Drawer/', // re-enabled
     'packages/components/DropdownMenu/',
     // 'packages/components/Field/', // re-enabled
     // 'packages/components/Form/', // re-enabled
@@ -37,7 +37,7 @@ module.exports = {
     'packages/components/Resizable/',
     'packages/components/ScrollArea/',
     'packages/components/Select/',
-    'packages/components/Sheet/',
+    // 'packages/components/Sheet/', // re-enabled
     'packages/components/Sidebar/',
     // 'packages/components/Slider/', // re-enabled
     'packages/components/Table/',

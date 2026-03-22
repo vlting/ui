@@ -1,5 +1,8 @@
 export { AccordionSection } from './AccordionSection'
 export { AlertSection } from './AlertSection'
+export { DialogSection } from './DialogSection'
+export { SheetSection } from './SheetSection'
+export { DrawerSection } from './DrawerSection'
 export { AvatarSection } from './AvatarSection'
 export { BadgeSection } from './BadgeSection'
 export { ButtonGroupSection } from './ButtonGroupSection'
