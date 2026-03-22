@@ -4,7 +4,7 @@ status: in-progress
 scope: large
 created: 2026-03-15
 current_epic: 8
-current_stage: 1
+current_stage: 2
 phase: breakdown
 epic_issue: 206
 ---
@@ -228,14 +228,15 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Branch:** feat/library-buildout/disclosure
 **Issue:** #245
 **Acceptance criteria:**
-- [ ] useSlider extracted to packages/headless/, Slider component refactored to pure structure
-- [ ] Collapsible: compound (Root/Trigger/Content), uses useDisclosure, controlled/uncontrolled
-- [ ] useAccordion hook in packages/headless/ (state coordination, roving tabindex, prop-getters)
-- [ ] Accordion: compound (Root/Item/Trigger/Content), consumes useAccordion, single/multiple mode
-- [ ] data-state="open"|"closed" on disclosure elements for future CSS animation
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground sections
-**Status:** in-progress
+- [x] useSlider extracted to packages/headless/, Slider component refactored to pure structure
+- [x] Collapsible: compound (Root/Trigger/Content), uses useDisclosure, controlled/uncontrolled
+- [x] useAccordion hook in packages/headless/ (state coordination, roving tabindex, prop-getters)
+- [x] Accordion: compound (Root/Item/Trigger/Content), consumes useAccordion, single/multiple mode
+- [x] data-state="open"|"closed" on disclosure elements for future CSS animation
+- [x] Tests passing, removed from testPathIgnorePatterns
+- [x] Playground sections
+**PR:** #246
+**Status:** done
 
 ### Stage 8.2: Dialogs (Dialog, AlertDialog, Sheet, Drawer)
 **Branch prefix:** feat
