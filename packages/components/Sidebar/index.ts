@@ -1,6 +1,12 @@
 export type {
-  SidebarGroupProps,
-  SidebarMenuItemProps,
   SidebarRootProps,
+  SidebarHeaderProps,
+  SidebarContentProps,
+  SidebarFooterProps,
+  SidebarGroupProps,
+  SidebarGroupLabelProps,
+  SidebarMenuItemProps,
+  SidebarMenuProps,
+  SidebarTriggerProps,
 } from './Sidebar'
 export { Sidebar } from './Sidebar'

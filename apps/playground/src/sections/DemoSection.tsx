@@ -31,6 +31,7 @@ import {
   Separator,
   Slider,
   Switch,
+  Tabs,
   Text,
   Textarea,
   toast,
@@ -154,138 +155,131 @@ function SettingsScene() {
         </Row>
 
         <Card>
-          <Card.Header>
-            <Card.Title>Profile</Card.Title>
-          </Card.Header>
           <Card.Content>
-            <Form.Root onSubmit={(e: React.FormEvent) => e.preventDefault()} stl={{ display: 'flex', flexDirection: 'column', gap: '$16' }}>
-              <Field.Root required error={displayNameEmpty}>
-                <Field.Label>Display name</Field.Label>
-                <Field.Control>
-                  <Input placeholder="Enter your name" value={displayName} onChangeText={setDisplayName} />
-                </Field.Control>
-                <Field.Description>Visible to other members.</Field.Description>
-                <Field.Error>Display name is required.</Field.Error>
-              </Field.Root>
-              <Field.Root>
-                <Field.Label>Bio</Field.Label>
-                <Field.Control>
-                  <Textarea placeholder="Tell us about yourself" defaultValue="Coffee lover, part-time traveler exploring the world one city at a time." />
-                </Field.Control>
-                <Field.Description>Max 280 characters.</Field.Description>
-              </Field.Root>
-            </Form.Root>
-          </Card.Content>
-        </Card>
+            <Tabs.Root defaultValue="profile">
+              <Tabs.List>
+                <Tabs.Trigger value="profile">Profile</Tabs.Trigger>
+                <Tabs.Trigger value="preferences">Preferences</Tabs.Trigger>
+                <Tabs.Trigger value="notifications">Notifications</Tabs.Trigger>
+                <Tabs.Trigger value="language">Language</Tabs.Trigger>
+                <Tabs.Trigger value="faq">FAQ</Tabs.Trigger>
+              </Tabs.List>
 
-        <Card>
-          <Card.Header>
-            <Card.Title>Preferences</Card.Title>
-          </Card.Header>
-          <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$0' }}>
-            <Item theme="neutral" variant="ghost">
-              <Item.Content>
-                <Item.Title>Push notifications</Item.Title>
-                <Item.Description>Receive alerts on your device</Item.Description>
-              </Item.Content>
-              <Item.Trailing>
-                <Switch checked={notifications} onCheckedChange={setNotifications} aria-label="Push notifications" />
-              </Item.Trailing>
-            </Item>
-            <Separator />
-            <Item theme="neutral" variant="ghost">
-              <Item.Content>
-                <Item.Title>Auto-save drafts</Item.Title>
-                <Item.Description>Save work automatically every minute</Item.Description>
-              </Item.Content>
-              <Item.Trailing>
-                <Switch checked={autoSave} onCheckedChange={setAutoSave} aria-label="Auto-save drafts" />
-              </Item.Trailing>
-            </Item>
-            <Separator />
-            <Item theme="neutral" variant="ghost">
-              <Item.Content>
-                <Item.Title>Dark mode</Item.Title>
-                <Item.Description>Use dark color scheme</Item.Description>
-              </Item.Content>
-              <Item.Trailing>
-                <Switch checked={darkMode} onCheckedChange={setDarkMode} aria-label="Dark mode" />
-              </Item.Trailing>
-            </Item>
-          </Card.Content>
-        </Card>
+              <Tabs.Content value="profile">
+                <Form.Root onSubmit={(e: React.FormEvent) => e.preventDefault()} stl={{ display: 'flex', flexDirection: 'column', gap: '$16' }}>
+                  <Field.Root required error={displayNameEmpty}>
+                    <Field.Label>Display name</Field.Label>
+                    <Field.Control>
+                      <Input placeholder="Enter your name" value={displayName} onChangeText={setDisplayName} />
+                    </Field.Control>
+                    <Field.Description>Visible to other members.</Field.Description>
+                    <Field.Error>Display name is required.</Field.Error>
+                  </Field.Root>
+                  <Field.Root>
+                    <Field.Label>Bio</Field.Label>
+                    <Field.Control>
+                      <Textarea placeholder="Tell us about yourself" defaultValue="Coffee lover, part-time traveler exploring the world one city at a time." />
+                    </Field.Control>
+                    <Field.Description>Max 280 characters.</Field.Description>
+                  </Field.Root>
+                </Form.Root>
+              </Tabs.Content>
 
-        <Card>
-          <Card.Header>
-            <Card.Title>Notification channels</Card.Title>
-          </Card.Header>
-          <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$12' }}>
-            <Checkbox.Root checked={emailChecked} onCheckedChange={setEmailChecked}>
-              Email notifications
-            </Checkbox.Root>
-            <Checkbox.Root checked={pushChecked} onCheckedChange={setPushChecked}>
-              Push notifications
-            </Checkbox.Root>
-            <Checkbox.Root checked={smsChecked} onCheckedChange={setSmsChecked}>
-              SMS notifications
-            </Checkbox.Root>
-          </Card.Content>
-        </Card>
+              <Tabs.Content value="preferences">
+                <Item theme="neutral" variant="ghost">
+                  <Item.Content>
+                    <Item.Title>Push notifications</Item.Title>
+                    <Item.Description>Receive alerts on your device</Item.Description>
+                  </Item.Content>
+                  <Item.Trailing>
+                    <Switch checked={notifications} onCheckedChange={setNotifications} aria-label="Push notifications" />
+                  </Item.Trailing>
+                </Item>
+                <Separator />
+                <Item theme="neutral" variant="ghost">
+                  <Item.Content>
+                    <Item.Title>Auto-save drafts</Item.Title>
+                    <Item.Description>Save work automatically every minute</Item.Description>
+                  </Item.Content>
+                  <Item.Trailing>
+                    <Switch checked={autoSave} onCheckedChange={setAutoSave} aria-label="Auto-save drafts" />
+                  </Item.Trailing>
+                </Item>
+                <Separator />
+                <Item theme="neutral" variant="ghost">
+                  <Item.Content>
+                    <Item.Title>Dark mode</Item.Title>
+                    <Item.Description>Use dark color scheme</Item.Description>
+                  </Item.Content>
+                  <Item.Trailing>
+                    <Switch checked={darkMode} onCheckedChange={setDarkMode} aria-label="Dark mode" />
+                  </Item.Trailing>
+                </Item>
+              </Tabs.Content>
 
-        <Card>
-          <Card.Header>
-            <Card.Title>Language &amp; region</Card.Title>
-          </Card.Header>
-          <Card.Content stl={{ display: 'flex', flexDirection: 'column', gap: '$16' }}>
-            <RadioGroup.Root
-              value={language}
-              onValueChange={setLanguage}
-              orientation="horizontal"
-              aria-label="Language"
-            >
-              <RadioGroup.Item value="en">English</RadioGroup.Item>
-              <RadioGroup.Item value="es">Español</RadioGroup.Item>
-              <RadioGroup.Item value="fr">Français</RadioGroup.Item>
-            </RadioGroup.Root>
-            <Field.Root>
-              <Field.Label>Timezone</Field.Label>
-              <Field.Control>
-                <NativeSelect.Root defaultValue="utc-8">
-                  <NativeSelect.Option value="utc-5">Eastern (UTC-5)</NativeSelect.Option>
-                  <NativeSelect.Option value="utc-6">Central (UTC-6)</NativeSelect.Option>
-                  <NativeSelect.Option value="utc-7">Mountain (UTC-7)</NativeSelect.Option>
-                  <NativeSelect.Option value="utc-8">Pacific (UTC-8)</NativeSelect.Option>
-                </NativeSelect.Root>
-              </Field.Control>
-            </Field.Root>
-          </Card.Content>
-        </Card>
+              <Tabs.Content value="notifications">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <Checkbox.Root checked={emailChecked} onCheckedChange={setEmailChecked}>
+                    Email notifications
+                  </Checkbox.Root>
+                  <Checkbox.Root checked={pushChecked} onCheckedChange={setPushChecked}>
+                    Push notifications
+                  </Checkbox.Root>
+                  <Checkbox.Root checked={smsChecked} onCheckedChange={setSmsChecked}>
+                    SMS notifications
+                  </Checkbox.Root>
+                </div>
+              </Tabs.Content>
 
-        <Card>
-          <Card.Header>
-            <Card.Title>Help &amp; FAQ</Card.Title>
-          </Card.Header>
-          <Card.Content>
-            <Accordion type="single" defaultValue={['data-export']}>
-              <Accordion.Item value="data-export">
-                <Accordion.Trigger>How do I export my data?</Accordion.Trigger>
-                <Accordion.Content>
-                  Go to Settings → Data &amp; Privacy → Export. You can download a full archive of your account data in JSON or CSV format. Exports typically complete within a few minutes.
-                </Accordion.Content>
-              </Accordion.Item>
-              <Accordion.Item value="two-factor">
-                <Accordion.Trigger>How do I enable two-factor authentication?</Accordion.Trigger>
-                <Accordion.Content>
-                  Navigate to Security → Two-Factor Auth and scan the QR code with your authenticator app. You'll need to verify with a one-time code before it's active.
-                </Accordion.Content>
-              </Accordion.Item>
-              <Accordion.Item value="delete-account">
-                <Accordion.Trigger>Can I delete my account?</Accordion.Trigger>
-                <Accordion.Content>
-                  Yes. Under Data &amp; Privacy → Danger Zone, select "Delete account." This action is irreversible and removes all associated data after a 30-day grace period.
-                </Accordion.Content>
-              </Accordion.Item>
-            </Accordion>
+              <Tabs.Content value="language">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <RadioGroup.Root
+                    value={language}
+                    onValueChange={setLanguage}
+                    orientation="horizontal"
+                    aria-label="Language"
+                  >
+                    <RadioGroup.Item value="en">English</RadioGroup.Item>
+                    <RadioGroup.Item value="es">Español</RadioGroup.Item>
+                    <RadioGroup.Item value="fr">Français</RadioGroup.Item>
+                  </RadioGroup.Root>
+                  <Field.Root>
+                    <Field.Label>Timezone</Field.Label>
+                    <Field.Control>
+                      <NativeSelect.Root defaultValue="utc-8">
+                        <NativeSelect.Option value="utc-5">Eastern (UTC-5)</NativeSelect.Option>
+                        <NativeSelect.Option value="utc-6">Central (UTC-6)</NativeSelect.Option>
+                        <NativeSelect.Option value="utc-7">Mountain (UTC-7)</NativeSelect.Option>
+                        <NativeSelect.Option value="utc-8">Pacific (UTC-8)</NativeSelect.Option>
+                      </NativeSelect.Root>
+                    </Field.Control>
+                  </Field.Root>
+                </div>
+              </Tabs.Content>
+
+              <Tabs.Content value="faq">
+                <Accordion type="single" defaultValue={['data-export']}>
+                  <Accordion.Item value="data-export">
+                    <Accordion.Trigger>How do I export my data?</Accordion.Trigger>
+                    <Accordion.Content>
+                      Go to Settings, Data and Privacy, Export. You can download a full archive of your account data in JSON or CSV format.
+                    </Accordion.Content>
+                  </Accordion.Item>
+                  <Accordion.Item value="two-factor">
+                    <Accordion.Trigger>How do I enable two-factor authentication?</Accordion.Trigger>
+                    <Accordion.Content>
+                      Navigate to Security, Two-Factor Auth and scan the QR code with your authenticator app.
+                    </Accordion.Content>
+                  </Accordion.Item>
+                  <Accordion.Item value="delete-account">
+                    <Accordion.Trigger>Can I delete my account?</Accordion.Trigger>
+                    <Accordion.Content>
+                      Yes. Under Data and Privacy, Danger Zone, select "Delete account." This is irreversible.
+                    </Accordion.Content>
+                  </Accordion.Item>
+                </Accordion>
+              </Tabs.Content>
+            </Tabs.Root>
           </Card.Content>
         </Card>
 
