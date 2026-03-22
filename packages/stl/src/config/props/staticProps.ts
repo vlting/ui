@@ -321,13 +321,14 @@ export function generateStaticPropsCss<K extends FilterKeys>(
       options('row', 'column', 'dense', 'row dense', 'column dense'),
     ),
 
-    // Strip `flex-`.
     alignContent: values(
       'alignContent',
       options(
         'center',
         'start',
         'end',
+        'flex-start',
+        'flex-end',
         'normal',
         'baseline',
         'space-between',
@@ -336,12 +337,10 @@ export function generateStaticPropsCss<K extends FilterKeys>(
         'stretch',
       ),
     ),
-    // Strip `flex-`.
     alignItems: values(
       'alignItems',
-      options('normal', 'stretch', 'center', 'start', 'end', 'baseline'),
+      options('normal', 'stretch', 'center', 'start', 'end', 'flex-start', 'flex-end', 'baseline'),
     ),
-    // Strip `flex-`.
     alignSelf: values(
       'alignSelf',
       options(
@@ -350,19 +349,22 @@ export function generateStaticPropsCss<K extends FilterKeys>(
         'center',
         'start',
         'end',
+        'flex-start',
+        'flex-end',
         'self-start',
         'self-end',
         'baseline',
         'stretch',
       ),
     ),
-    // Don't include `left`/`right` in type def; convert to `start`/`end`; strip `flex-`.
     justifyContent: values(
       'justifyContent',
       options(
         'center',
         'start',
         'end',
+        'flex-start',
+        'flex-end',
         'normal',
         'space-between',
         'space-around',
