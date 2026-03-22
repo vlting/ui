@@ -32,6 +32,7 @@ import {
   Textarea,
   Toggle,
   ToggleGroup,
+  Tooltip,
 } from '@vlting/ui'
 
 // ─── Constants ──────────────────────────────────────────────────────────────
@@ -351,7 +352,9 @@ function ActivityScene() {
                 <Item.Description>David Kim triggered a rollback</Item.Description>
               </Item.Content>
               <Item.Trailing>
-                <Badge theme="tomato" variant="subtle" size="sm">urgent</Badge>
+                <Tooltip content="Requires immediate attention">
+                  <Badge theme="tomato" variant="subtle" size="sm">urgent</Badge>
+                </Tooltip>
               </Item.Trailing>
             </Item>
             <Separator />
@@ -364,7 +367,9 @@ function ActivityScene() {
                 <Item.Description>Sara Lee needs approval on #482</Item.Description>
               </Item.Content>
               <Item.Trailing>
-                <Badge theme="amber" variant="subtle" size="sm">pending</Badge>
+                <Tooltip content="Awaiting code review">
+                  <Badge theme="amber" variant="subtle" size="sm">pending</Badge>
+                </Tooltip>
               </Item.Trailing>
             </Item>
             <Separator />
@@ -377,7 +382,9 @@ function ActivityScene() {
                 <Item.Description>Marco Rivera merged the fix</Item.Description>
               </Item.Content>
               <Item.Trailing>
-                <Badge theme="grass" variant="subtle" size="sm">done</Badge>
+                <Tooltip content="Merged and deployed">
+                  <Badge theme="grass" variant="subtle" size="sm">done</Badge>
+                </Tooltip>
               </Item.Trailing>
             </Item>
             <Separator />
@@ -390,7 +397,9 @@ function ActivityScene() {
                 <Item.Description>Alice Chen published DatePicker v1</Item.Description>
               </Item.Content>
               <Item.Trailing>
-                <Badge theme="iris" variant="subtle" size="sm">shipped</Badge>
+                <Tooltip content="Published to npm registry">
+                  <Badge theme="iris" variant="subtle" size="sm">shipped</Badge>
+                </Tooltip>
               </Item.Trailing>
             </Item>
           </Card.Content>
