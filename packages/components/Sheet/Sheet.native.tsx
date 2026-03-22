@@ -17,6 +17,7 @@ import {
   View,
 } from 'react-native'
 import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config'
 import { useDisclosure } from '../../headless/src/useDisclosure'
 
 // ─── Context ────────────────────────────────────────────────────────────────
@@ -202,17 +203,13 @@ SheetDescription.displayName = 'Sheet.Description'
 
 // ─── Footer ─────────────────────────────────────────────────────────────────
 
-const SheetFooter = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
-  (props, ref) => (
-    <View
-      ref={ref}
-      style={[{ flexDirection: 'row', gap: 8, padding: 16, paddingTop: 8, justifyContent: 'flex-end' }, props.style]}
-    >
-      {props.children}
-    </View>
-  ),
-)
-SheetFooter.displayName = 'Sheet.Footer'
+const SheetFooter = styled(View, {
+  flexDirection: 'row',
+  gap: 8,
+  padding: 16,
+  paddingTop: 8,
+  justifyContent: 'flex-end',
+}, 'SheetFooter')
 
 // ─── Overlay (no-op — Modal provides) ───────────────────────────────────────
 

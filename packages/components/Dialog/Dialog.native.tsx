@@ -14,6 +14,7 @@ import {
 } from 'react-native'
 import type { ViewStyle } from 'react-native'
 import { useDisclosure } from '../../headless/src/useDisclosure'
+import { styled } from '../../stl-native/src/config'
 
 // ─── Context ────────────────────────────────────────────────────────────────
 
@@ -141,14 +142,10 @@ DialogContent.displayName = 'Dialog.Content'
 
 // ─── Header ─────────────────────────────────────────────────────────────────
 
-const DialogHeader = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
-  (props, ref) => (
-    <View ref={ref} style={[{ gap: 4, paddingBottom: 16 }, props.style]}>
-      {props.children}
-    </View>
-  ),
-)
-DialogHeader.displayName = 'Dialog.Header'
+const DialogHeader = styled(View, {
+  gap: 4,
+  paddingBottom: 16,
+}, 'DialogHeader')
 
 // ─── Title ──────────────────────────────────────────────────────────────────
 
@@ -163,28 +160,20 @@ DialogTitle.displayName = 'Dialog.Title'
 
 // ─── Description ────────────────────────────────────────────────────────────
 
-const DialogDescription = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
-  (props, ref) => (
-    <RNText ref={ref as any} style={[{ fontSize: 14, color: '#666', marginTop: 4 }, props.style]}>
-      {props.children}
-    </RNText>
-  ),
-)
-DialogDescription.displayName = 'Dialog.Description'
+const DialogDescription = styled(RNText, {
+  fontSize: 14,
+  color: '#666',
+  marginTop: 4,
+}, 'DialogDescription')
 
 // ─── Footer ─────────────────────────────────────────────────────────────────
 
-const DialogFooter = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
-  (props, ref) => (
-    <View
-      ref={ref}
-      style={[{ flexDirection: 'row', gap: 8, paddingTop: 16, justifyContent: 'flex-end' }, props.style]}
-    >
-      {props.children}
-    </View>
-  ),
-)
-DialogFooter.displayName = 'Dialog.Footer'
+const DialogFooter = styled(View, {
+  flexDirection: 'row',
+  gap: 8,
+  paddingTop: 16,
+  justifyContent: 'flex-end',
+}, 'DialogFooter')
 
 // ─── Close ──────────────────────────────────────────────────────────────────
 

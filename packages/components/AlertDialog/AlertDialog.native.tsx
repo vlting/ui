@@ -14,6 +14,7 @@ import {
 } from 'react-native'
 import type { ViewStyle } from 'react-native'
 import { useDisclosure } from '../../headless/src/useDisclosure'
+import { styled } from '../../stl-native/src/config'
 
 // ─── Context ────────────────────────────────────────────────────────────────
 
@@ -145,28 +146,20 @@ AlertDialogTitle.displayName = 'AlertDialog.Title'
 
 // ─── Description ────────────────────────────────────────────────────────────
 
-const AlertDialogDescription = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
-  (props, ref) => (
-    <RNText ref={ref as any} style={[{ fontSize: 14, color: '#666', marginTop: 4 }, props.style]}>
-      {props.children}
-    </RNText>
-  ),
-)
-AlertDialogDescription.displayName = 'AlertDialog.Description'
+const AlertDialogDescription = styled(RNText, {
+  fontSize: 14,
+  color: '#666',
+  marginTop: 4,
+}, 'AlertDialogDescription')
 
 // ─── Footer ─────────────────────────────────────────────────────────────────
 
-const AlertDialogFooter = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
-  (props, ref) => (
-    <View
-      ref={ref}
-      style={[{ flexDirection: 'row', gap: 8, paddingTop: 16, justifyContent: 'flex-end' }, props.style]}
-    >
-      {props.children}
-    </View>
-  ),
-)
-AlertDialogFooter.displayName = 'AlertDialog.Footer'
+const AlertDialogFooter = styled(View, {
+  flexDirection: 'row',
+  gap: 8,
+  paddingTop: 16,
+  justifyContent: 'flex-end',
+}, 'AlertDialogFooter')
 
 // ─── Cancel ─────────────────────────────────────────────────────────────────
 
