@@ -17,29 +17,29 @@ import { useDisclosure } from '../../headless/src/useDisclosure'
 
 // ─── Context ────────────────────────────────────────────────────────────────
 
-interface DialogContextValue {
+interface AlertDialogContextValue {
   isOpen: boolean
   onOpenChange: (open: boolean) => void
 }
 
-const DialogContext = createContext<DialogContextValue | null>(null)
+const AlertDialogContext = createContext<AlertDialogContextValue | null>(null)
 
-function useDialogContext() {
-  const ctx = useContext(DialogContext)
-  if (!ctx) throw new Error('Dialog compounds must be used within Dialog.Root')
+function useAlertDialogContext() {
+  const ctx = useContext(AlertDialogContext)
+  if (!ctx) throw new Error('AlertDialog compounds must be used within AlertDialog.Root')
   return ctx
 }
 
 // ─── Root ───────────────────────────────────────────────────────────────────
 
-export interface DialogRootProps {
+export interface AlertDialogRootProps {
   children: ReactNode
   open?: boolean
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
 }
 
-const DialogRoot = forwardRef<View, DialogRootProps>(
+const AlertDialogRoot = forwardRef<View, AlertDialogRootProps>(
   ({ children, open, defaultOpen, onOpenChange: onOpenChangeProp }, _ref) => {
     const disclosure = useDisclosure({ open, defaultOpen, onOpenChange: onOpenChangeProp })
 
@@ -52,24 +52,19 @@ const DialogRoot = forwardRef<View, DialogRootProps>(
     )
 
     return (
-      <DialogContext.Provider value={{ isOpen: disclosure.isOpen, onOpenChange }}>
+      <AlertDialogContext.Provider value={{ isOpen: disclosure.isOpen, onOpenChange }}>
         {children}
-      </DialogContext.Provider>
+      </AlertDialogContext.Provider>
     )
   },
 )
-DialogRoot.displayName = 'Dialog.Root'
+AlertDialogRoot.displayName = 'AlertDialog.Root'
 
 // ─── Trigger ────────────────────────────────────────────────────────────────
 
-export interface DialogTriggerProps {
-  children: ReactNode
-  style?: ViewStyle
-}
-
-const DialogTrigger = forwardRef<View, DialogTriggerProps>(
+const AlertDialogTrigger = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
   ({ children, ...rest }, ref) => {
-    const { onOpenChange } = useDialogContext()
+    const { onOpenChange } = useAlertDialogContext()
 
     return (
       <Pressable ref={ref} onPress={() => onOpenChange(true)} accessibilityRole="button" {...rest}>
@@ -78,11 +73,11 @@ const DialogTrigger = forwardRef<View, DialogTriggerProps>(
     )
   },
 )
-DialogTrigger.displayName = 'Dialog.Trigger'
+AlertDialogTrigger.displayName = 'AlertDialog.Trigger'
 
 // ─── Content ────────────────────────────────────────────────────────────────
 
-export interface DialogContentProps {
+export interface AlertDialogContentProps {
   children: ReactNode
   size?: 'sm' | 'md' | 'lg'
   style?: ViewStyle
@@ -90,9 +85,9 @@ export interface DialogContentProps {
 
 const SIZE_MAP = { sm: 340, md: 420, lg: 540 }
 
-const DialogContent = forwardRef<View, DialogContentProps>(
+const AlertDialogContent = forwardRef<View, AlertDialogContentProps>(
   ({ children, size = 'md', style, ...rest }, ref) => {
-    const { isOpen, onOpenChange } = useDialogContext()
+    const { isOpen, onOpenChange } = useAlertDialogContext()
     const maxW = Math.min(SIZE_MAP[size], Dimensions.get('window').width - 32)
 
     return (
@@ -102,7 +97,7 @@ const DialogContent = forwardRef<View, DialogContentProps>(
         animationType="fade"
         onRequestClose={() => onOpenChange(false)}
       >
-        <Pressable
+        <View
           style={{
             flex: 1,
             backgroundColor: 'rgba(0,0,0,0.5)',
@@ -110,71 +105,58 @@ const DialogContent = forwardRef<View, DialogContentProps>(
             alignItems: 'center',
             padding: 16,
           }}
-          onPress={() => onOpenChange(false)}
         >
-          <Pressable onPress={() => {}} style={{ maxWidth: maxW, width: '100%' }}>
-            <View
-              ref={ref}
-              accessibilityRole="none"
-              accessibilityViewIsModal
-              style={[
-                {
-                  backgroundColor: '#fff',
-                  borderRadius: 12,
-                  padding: 24,
-                  width: '100%',
-                  maxHeight: '85%',
-                },
-                style,
-              ]}
-              {...rest}
-            >
-              {children}
-            </View>
-          </Pressable>
-        </Pressable>
+          <View
+            ref={ref}
+            accessibilityRole="alert"
+            accessibilityViewIsModal
+            style={[
+              {
+                backgroundColor: '#fff',
+                borderRadius: 12,
+                padding: 24,
+                width: '100%',
+                maxWidth: maxW,
+                maxHeight: '85%',
+              },
+              style,
+            ]}
+            {...rest}
+          >
+            {children}
+          </View>
+        </View>
       </Modal>
     )
   },
 )
-DialogContent.displayName = 'Dialog.Content'
-
-// ─── Header ─────────────────────────────────────────────────────────────────
-
-const DialogHeader = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
-  (props, ref) => (
-    <View ref={ref} style={[{ gap: 4, paddingBottom: 16 }, props.style]}>
-      {props.children}
-    </View>
-  ),
-)
-DialogHeader.displayName = 'Dialog.Header'
+AlertDialogContent.displayName = 'AlertDialog.Content'
 
 // ─── Title ──────────────────────────────────────────────────────────────────
 
-const DialogTitle = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
+const AlertDialogTitle = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
   (props, ref) => (
     <RNText ref={ref as any} accessibilityRole="header" style={[{ fontSize: 20, fontWeight: '600' }, props.style]}>
       {props.children}
     </RNText>
   ),
 )
-DialogTitle.displayName = 'Dialog.Title'
+AlertDialogTitle.displayName = 'AlertDialog.Title'
 
 // ─── Description ────────────────────────────────────────────────────────────
 
-const DialogDescription = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
+const AlertDialogDescription = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
   (props, ref) => (
     <RNText ref={ref as any} style={[{ fontSize: 14, color: '#666', marginTop: 4 }, props.style]}>
       {props.children}
     </RNText>
   ),
 )
-DialogDescription.displayName = 'Dialog.Description'
+AlertDialogDescription.displayName = 'AlertDialog.Description'
 
 // ─── Footer ─────────────────────────────────────────────────────────────────
 
-const DialogFooter = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
+const AlertDialogFooter = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
   (props, ref) => (
     <View
       ref={ref}
@@ -184,13 +166,13 @@ const DialogFooter = forwardRef<View, { children: ReactNode; style?: ViewStyle }
     </View>
   ),
 )
-DialogFooter.displayName = 'Dialog.Footer'
+AlertDialogFooter.displayName = 'AlertDialog.Footer'
 
-// ─── Close ──────────────────────────────────────────────────────────────────
+// ─── Cancel ─────────────────────────────────────────────────────────────────
 
-const DialogClose = forwardRef<View, { children?: ReactNode; style?: ViewStyle; onPress?: () => void }>(
+const AlertDialogCancel = forwardRef<View, { children: ReactNode; onPress?: () => void; style?: ViewStyle }>(
   ({ children, onPress, ...rest }, ref) => {
-    const { onOpenChange } = useDialogContext()
+    const { onOpenChange } = useAlertDialogContext()
 
     return (
       <Pressable
@@ -200,40 +182,53 @@ const DialogClose = forwardRef<View, { children?: ReactNode; style?: ViewStyle; 
           onPress?.()
         }}
         accessibilityRole="button"
-        accessibilityLabel="Close dialog"
-        style={[
-          {
-            position: 'absolute',
-            top: 12,
-            right: 12,
-            padding: 4,
-            borderRadius: 4,
-          },
-          rest.style,
-        ]}
+        {...rest}
       >
-        {children || <RNText style={{ fontSize: 16, color: '#666' }}>✕</RNText>}
+        {children}
       </Pressable>
     )
   },
 )
-DialogClose.displayName = 'Dialog.Close'
+AlertDialogCancel.displayName = 'AlertDialog.Cancel'
 
-// ─── Overlay (no-op on native — Modal provides it) ─────────────────────────
+// ─── Action ─────────────────────────────────────────────────────────────────
 
-const DialogOverlay = forwardRef<View, { children?: ReactNode }>(() => null)
-DialogOverlay.displayName = 'Dialog.Overlay'
+const AlertDialogAction = forwardRef<View, { children: ReactNode; onPress?: () => void; style?: ViewStyle }>(
+  ({ children, onPress, ...rest }, ref) => {
+    const { onOpenChange } = useAlertDialogContext()
+
+    return (
+      <Pressable
+        ref={ref}
+        onPress={() => {
+          onOpenChange(false)
+          onPress?.()
+        }}
+        accessibilityRole="button"
+        {...rest}
+      >
+        {children}
+      </Pressable>
+    )
+  },
+)
+AlertDialogAction.displayName = 'AlertDialog.Action'
+
+// ─── Overlay (no-op on native) ──────────────────────────────────────────────
+
+const AlertDialogOverlay = forwardRef<View, { children?: ReactNode }>(() => null)
+AlertDialogOverlay.displayName = 'AlertDialog.Overlay'
 
 // ─── Export ─────────────────────────────────────────────────────────────────
 
-export const Dialog = Object.assign(DialogRoot, {
-  Root: DialogRoot,
-  Trigger: DialogTrigger,
-  Overlay: DialogOverlay,
-  Content: DialogContent,
-  Header: DialogHeader,
-  Title: DialogTitle,
-  Description: DialogDescription,
-  Footer: DialogFooter,
-  Close: DialogClose,
+export const AlertDialog = Object.assign(AlertDialogRoot, {
+  Root: AlertDialogRoot,
+  Trigger: AlertDialogTrigger,
+  Overlay: AlertDialogOverlay,
+  Content: AlertDialogContent,
+  Title: AlertDialogTitle,
+  Description: AlertDialogDescription,
+  Footer: AlertDialogFooter,
+  Cancel: AlertDialogCancel,
+  Action: AlertDialogAction,
 })
