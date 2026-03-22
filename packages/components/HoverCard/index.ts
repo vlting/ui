@@ -1,2 +1,2 @@
-export type { HoverCardContentProps, HoverCardRootProps } from './HoverCard'
+export type { HoverCardRootProps, HoverCardContentProps, HoverCardTriggerProps } from './HoverCard'
 export { HoverCard } from './HoverCard'

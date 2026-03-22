@@ -2,13 +2,17 @@ import type React from 'react'
 import { useState } from 'react'
 import { styled, Spinner } from '@vlting/stl-react'
 import {
+  Accordion,
   Alert,
+  AlertDialog,
   Avatar,
   Badge,
   Button,
   ButtonGroup,
   Card,
   Checkbox,
+  Collapsible,
+  Drawer,
   Empty,
   Field,
   Form,
@@ -26,8 +30,11 @@ import {
   Switch,
   Text,
   Textarea,
+  toast,
+  Toaster,
   Toggle,
   ToggleGroup,
+  Tooltip,
 } from '@vlting/ui'
 
 // ─── Constants ──────────────────────────────────────────────────────────────
@@ -50,7 +57,7 @@ const Scene = styled('section', {
 
 const SceneInner = styled('div', {
   position: 'relative',
-  zIndex: '1',
+  z: '$1',
   width: '100%',
   maxWidth: '800px',
   mx: 'auto',
@@ -87,6 +94,14 @@ const AvatarRow = styled('div', {
   flexWrap: 'wrap',
 }, { name: 'DemoAvatarRow' })
 
+const DrawerFilterList = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$8',
+  p: '$16',
+  flex: '1',
+}, { name: 'DemoDrawerFilterList' })
+
 // ─── Scene 1: Settings ──────────────────────────────────────────────────────
 
 function SettingsScene() {
@@ -99,6 +114,7 @@ function SettingsScene() {
   const displayNameEmpty = displayName.trim() === ''
   const [smsChecked, setSmsChecked] = useState(false)
   const [language, setLanguage] = useState('en')
+  const [deleteOpen, setDeleteOpen] = useState(false)
 
   return (
     <Scene stl={{ bg: '$surface2' }}>
@@ -225,9 +241,54 @@ function SettingsScene() {
           </Card.Content>
         </Card>
 
+        <Card>
+          <Card.Header>
+            <Card.Title>Help &amp; FAQ</Card.Title>
+          </Card.Header>
+          <Card.Content>
+            <Accordion type="single" defaultValue={['data-export']}>
+              <Accordion.Item value="data-export">
+                <Accordion.Trigger>How do I export my data?</Accordion.Trigger>
+                <Accordion.Content>
+                  Go to Settings → Data &amp; Privacy → Export. You can download a full archive of your account data in JSON or CSV format. Exports typically complete within a few minutes.
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="two-factor">
+                <Accordion.Trigger>How do I enable two-factor authentication?</Accordion.Trigger>
+                <Accordion.Content>
+                  Navigate to Security → Two-Factor Auth and scan the QR code with your authenticator app. You'll need to verify with a one-time code before it's active.
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="delete-account">
+                <Accordion.Trigger>Can I delete my account?</Accordion.Trigger>
+                <Accordion.Content>
+                  Yes. Under Data &amp; Privacy → Danger Zone, select "Delete account." This action is irreversible and removes all associated data after a 30-day grace period.
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion>
+          </Card.Content>
+        </Card>
+
         <Row>
           <Button theme="primary" variant="solid">Save changes</Button>
           <Button theme="primary" variant="outline">Cancel</Button>
+          <AlertDialog.Root open={deleteOpen} onOpenChange={setDeleteOpen}>
+            <Button theme="destructive" variant="outline" onClick={() => setDeleteOpen(true)}>Delete account</Button>
+            <AlertDialog.Content size="sm">
+              <AlertDialog.Title>Delete account?</AlertDialog.Title>
+              <AlertDialog.Description>
+                This will permanently remove your account, projects, and all associated data. This action cannot be undone.
+              </AlertDialog.Description>
+              <AlertDialog.Footer>
+                <AlertDialog.Cancel>
+                  <Button theme="neutral" variant="outline">Cancel</Button>
+                </AlertDialog.Cancel>
+                <AlertDialog.Action>
+                  <Button theme="destructive" variant="solid">Delete</Button>
+                </AlertDialog.Action>
+              </AlertDialog.Footer>
+            </AlertDialog.Content>
+          </AlertDialog.Root>
         </Row>
       </SceneInner>
     </Scene>
@@ -293,7 +354,9 @@ function ActivityScene() {
                 <Item.Description>David Kim triggered a rollback</Item.Description>
               </Item.Content>
               <Item.Trailing>
-                <Badge theme="tomato" variant="subtle" size="sm">urgent</Badge>
+                <Tooltip content="Requires immediate attention">
+                  <Badge theme="tomato" variant="subtle" size="sm">urgent</Badge>
+                </Tooltip>
               </Item.Trailing>
             </Item>
             <Separator />
@@ -306,7 +369,9 @@ function ActivityScene() {
                 <Item.Description>Sara Lee needs approval on #482</Item.Description>
               </Item.Content>
               <Item.Trailing>
-                <Badge theme="amber" variant="subtle" size="sm">pending</Badge>
+                <Tooltip content="Awaiting code review">
+                  <Badge theme="amber" variant="subtle" size="sm">pending</Badge>
+                </Tooltip>
               </Item.Trailing>
             </Item>
             <Separator />
@@ -319,7 +384,9 @@ function ActivityScene() {
                 <Item.Description>Marco Rivera merged the fix</Item.Description>
               </Item.Content>
               <Item.Trailing>
-                <Badge theme="grass" variant="subtle" size="sm">done</Badge>
+                <Tooltip content="Merged and deployed">
+                  <Badge theme="grass" variant="subtle" size="sm">done</Badge>
+                </Tooltip>
               </Item.Trailing>
             </Item>
             <Separator />
@@ -332,7 +399,9 @@ function ActivityScene() {
                 <Item.Description>Alice Chen published DatePicker v1</Item.Description>
               </Item.Content>
               <Item.Trailing>
-                <Badge theme="iris" variant="subtle" size="sm">shipped</Badge>
+                <Tooltip content="Published to npm registry">
+                  <Badge theme="iris" variant="subtle" size="sm">shipped</Badge>
+                </Tooltip>
               </Item.Trailing>
             </Item>
           </Card.Content>
@@ -376,6 +445,7 @@ function ActivityScene() {
 function DashboardScene() {
   const [period, setPeriod] = useState('week')
   const [compactView, setCompactView] = useState(false)
+  const [filterOpen, setFilterOpen] = useState(false)
 
   return (
     <Scene stl={{ bg: '$surface2' }}>
@@ -415,6 +485,33 @@ function DashboardScene() {
             >
               Compact
             </Toggle>
+            <Drawer.Root direction="right" open={filterOpen} onOpenChange={setFilterOpen}>
+              <Button size="sm" theme="neutral" variant="outline" onClick={() => setFilterOpen(true)}>Filter</Button>
+              <Drawer.Content>
+                <Drawer.Close />
+                <Drawer.Header>
+                  <Drawer.Title>Filters</Drawer.Title>
+                  <Drawer.Description>Narrow down your dashboard view.</Drawer.Description>
+                </Drawer.Header>
+                <DrawerFilterList>
+                  <Item theme="neutral" variant="ghost">
+                    <Item.Content><Item.Title>Active</Item.Title></Item.Content>
+                  </Item>
+                  <Separator />
+                  <Item theme="neutral" variant="ghost">
+                    <Item.Content><Item.Title>Archived</Item.Title></Item.Content>
+                  </Item>
+                  <Separator />
+                  <Item theme="neutral" variant="ghost">
+                    <Item.Content><Item.Title>Critical only</Item.Title></Item.Content>
+                  </Item>
+                </DrawerFilterList>
+                <Drawer.Footer>
+                  <Button theme="neutral" variant="outline">Reset</Button>
+                  <Button theme="primary" variant="solid">Apply</Button>
+                </Drawer.Footer>
+              </Drawer.Content>
+            </Drawer.Root>
             <ButtonGroup.Root>
               <Button size="sm" theme="neutral" variant="outline">Export</Button>
               <Button size="sm" theme="neutral" variant="outline">Share</Button>
@@ -470,6 +567,30 @@ function DashboardScene() {
               <Text size="sm" tone="muted">Active reviewers this {period}</Text>
               <Loader size="sm" aria-label="Loading reviewers" />
             </Row>
+          </Card.Content>
+        </Card>
+
+        <Card>
+          <Card.Content>
+            <Collapsible.Root>
+              <Collapsible.Trigger>Advanced metrics</Collapsible.Trigger>
+              <Collapsible.Content>
+                <StatsGrid>
+                  <div>
+                    <Text size="sm" tone="muted">P50 latency</Text>
+                    <Heading.H3 stl={{ mt: '$4' }}>42ms</Heading.H3>
+                  </div>
+                  <div>
+                    <Text size="sm" tone="muted">P99 latency</Text>
+                    <Heading.H3 stl={{ mt: '$4' }}>380ms</Heading.H3>
+                  </div>
+                  <div>
+                    <Text size="sm" tone="muted">Error rate</Text>
+                    <Heading.H3 stl={{ mt: '$4' }}>0.03%</Heading.H3>
+                  </div>
+                </StatsGrid>
+              </Collapsible.Content>
+            </Collapsible.Root>
           </Card.Content>
         </Card>
 
@@ -635,7 +756,7 @@ function MediaScene() {
                 />
               </InputGroup.Input>
               <InputGroup.ButtonAddon>
-                <Button variant="outline" theme="neutral">Copy</Button>
+                <Button variant="outline" theme="neutral" onClick={() => toast.success('Link copied!')}>Copy</Button>
               </InputGroup.ButtonAddon>
             </InputGroup>
           </Card.Content>
@@ -748,5 +869,10 @@ const SCENE_COMPONENTS: Record<DemoScene, React.ComponentType> = {
 
 export function DemoSection({ activeScene = 'Settings' }: { activeScene?: DemoScene }) {
   const SceneComponent = SCENE_COMPONENTS[activeScene]
-  return <SceneComponent />
+  return (
+    <>
+      <SceneComponent />
+      <Toaster />
+    </>
+  )
 }

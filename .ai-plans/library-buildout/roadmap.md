@@ -4,7 +4,7 @@ status: in-progress
 scope: large
 created: 2026-03-15
 current_epic: 8
-current_stage: 1
+current_stage: 2
 phase: breakdown
 epic_issue: 206
 ---
@@ -219,18 +219,24 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Objective:** Components with open/close state, focus management, portals. First real test of styled() for compound+portal patterns.
 **Dependencies:** Epic 7
 **Epic slug:** disclosure-overlay
-**Status:** pending
+**Epic branch:** epic/disclosure-overlay
+**Epic issue:** #243
+**Status:** in-progress
 
-### Stage 8.1: Disclosure (Accordion, Collapsible)
+### Stage 8.1: Disclosure (Accordion, Collapsible) + Slider cleanup
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/disclosure
+**Issue:** #245
 **Acceptance criteria:**
-- [ ] Accordion: compound (Root/Item/Trigger/Content), single/multiple mode, keyboard (Enter/Space, arrows)
-- [ ] Collapsible: compound (Root/Trigger/Content), controlled/uncontrolled
-- [ ] Both use useDisclosure from headless
-- [ ] Enter/exit animations using $normalDuration, gated on lowMotion
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground sections (top of gallery) + demo scene integration
-**Status:** pending
+- [x] useSlider extracted to packages/headless/, Slider component refactored to pure structure
+- [x] Collapsible: compound (Root/Trigger/Content), uses useDisclosure, controlled/uncontrolled
+- [x] useAccordion hook in packages/headless/ (state coordination, roving tabindex, prop-getters)
+- [x] Accordion: compound (Root/Item/Trigger/Content), consumes useAccordion, single/multiple mode
+- [x] data-state="open"|"closed" on disclosure elements for future CSS animation
+- [x] Tests passing, removed from testPathIgnorePatterns
+- [x] Playground sections
+**PR:** #246
+**Status:** done
 
 ### Stage 8.2: Dialogs (Dialog, AlertDialog, Sheet, Drawer)
 **Branch prefix:** feat
