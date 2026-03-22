@@ -10,7 +10,7 @@ import {
   AccordionSection, AlertSection, AvatarSection, BadgeSection, ButtonGroupSection, ButtonSection,
   CardSection, CollapsibleSection, DialogSection, DrawerSection, EmptySection, FieldFormSection,
   HoverCardSection, InputSection, InputGroupSection, InputOTPSection, PopoverSection, SheetSection,
-  TooltipSection, TypographySection, ItemSection, ProgressSection,
+  ToastSection, TooltipSection, TypographySection, ItemSection, ProgressSection,
   SelectionSection, SeparatorSection, SliderSection, SpinnerSection, ToggleSection,
 } from './sections'
 import { DemoSection, DEMO_SCENES, type DemoScene } from './sections/DemoSection'
@@ -21,7 +21,7 @@ const PAGES = ['Components', 'Demo'] as const
 type Page = typeof PAGES[number]
 
 const SECTIONS = [
-  'Popover', 'Tooltip', 'HoverCard',
+  'Toast', 'Popover', 'Tooltip', 'HoverCard',
   'Dialog', 'Sheet', 'Drawer',
   'Accordion', 'Collapsible', 'Inputs', 'Slider', 'InputOTP', 'InputGroup', 'Field & Form', 'Selection', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
   'Spinner', 'Empty', 'Avatar', 'Typography', 'Separator',
@@ -208,6 +208,7 @@ const SECTION_COMPONENTS: Record<string, React.ComponentType<{ sectionRef: (el: 
   Separator: SeparatorSection,
   ButtonGroup: ButtonGroupSection,
   Selection: SelectionSection,
+  Toast: ToastSection,
   Toggle: ToggleSection,
 }
 
