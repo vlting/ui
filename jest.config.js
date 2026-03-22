@@ -16,8 +16,8 @@ module.exports = {
     'packages/components/Chart/',
     // 'packages/components/Checkbox/', // re-enabled
     // 'packages/components/Collapsible/', // re-enabled
-    'packages/components/Combobox/',
-    'packages/components/Command/',
+    // 'packages/components/Combobox/', // re-enabled
+    // 'packages/components/Command/', // re-enabled
     // 'packages/components/ContextMenu/', // re-enabled
     'packages/components/DataTable/',
     'packages/components/DatePicker/',
@@ -36,7 +36,7 @@ module.exports = {
     // 'packages/components/Popover/', // re-enabled
     'packages/components/Resizable/',
     'packages/components/ScrollArea/',
-    'packages/components/Select/',
+    // 'packages/components/Select/', // re-enabled
     // 'packages/components/Sheet/', // re-enabled
     'packages/components/Sidebar/',
     // 'packages/components/Slider/', // re-enabled

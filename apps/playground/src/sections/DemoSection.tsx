@@ -12,6 +12,8 @@ import {
   Card,
   Checkbox,
   Collapsible,
+  Command,
+  Dialog,
   Drawer,
   DropdownMenu,
   Empty,
@@ -464,6 +466,7 @@ function DashboardScene() {
   const [period, setPeriod] = useState('week')
   const [compactView, setCompactView] = useState(false)
   const [filterOpen, setFilterOpen] = useState(false)
+  const [cmdOpen, setCmdOpen] = useState(false)
 
   return (
     <Scene stl={{ bg: '$surface2' }}>
@@ -530,6 +533,27 @@ function DashboardScene() {
                 </Drawer.Footer>
               </Drawer.Content>
             </Drawer.Root>
+            <Dialog.Root open={cmdOpen} onOpenChange={setCmdOpen}>
+              <Button size="sm" theme="neutral" variant="outline" onClick={() => setCmdOpen(true)}>Command</Button>
+              <Dialog.Content size="md">
+                <Command.Root>
+                  <Command.Input placeholder="Type a command..." />
+                  <Command.List>
+                    <Command.Group heading="Actions">
+                      <Command.Item onSelect={() => setCmdOpen(false)}>Deploy to production</Command.Item>
+                      <Command.Item onSelect={() => setCmdOpen(false)}>Run tests</Command.Item>
+                      <Command.Item onSelect={() => setCmdOpen(false)}>View logs</Command.Item>
+                    </Command.Group>
+                    <Command.Separator />
+                    <Command.Group heading="Navigation">
+                      <Command.Item onSelect={() => setCmdOpen(false)}>Settings</Command.Item>
+                      <Command.Item onSelect={() => setCmdOpen(false)}>Team members</Command.Item>
+                    </Command.Group>
+                  </Command.List>
+                  <Command.Empty>No results found.</Command.Empty>
+                </Command.Root>
+              </Dialog.Content>
+            </Dialog.Root>
             <ButtonGroup.Root>
               <Button size="sm" theme="neutral" variant="outline">Export</Button>
               <Button size="sm" theme="neutral" variant="outline">Share</Button>
