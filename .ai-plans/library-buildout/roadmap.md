@@ -380,73 +380,92 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Status:** done
 
 ## Epic 11: Complex & Data
-**Objective:** Data-heavy components with complex state management
+**Objective:** Data-heavy components with complex state management. Full RN parity at every stage.
 **Dependencies:** Epic 10
 **Epic slug:** complex-data
+**Epic issue:** #258
 **Status:** pending
 
 ### Stage 11.1: Tables (Table, DataTable)
 **Branch prefix:** feat
+**Issue:** #259
 **Acceptance criteria:**
 - [ ] Table: compound (Head/Body/Row/Cell/Header/Footer), semantic HTML, sortable headers
 - [ ] DataTable: TanStack Table integration, sorting, filtering, pagination, column visibility
 - [ ] Responsive: horizontal scroll on small screens
+- [ ] .native.tsx implementations with API parity (Table, DataTable)
 - [ ] Tests passing, removed from testPathIgnorePatterns
 - [ ] Playground sections (top of gallery) + demo scene integration
+- [ ] Expo showcase screen updated
 **Status:** pending
 
 ### Stage 11.2: Dates (Calendar, DatePicker)
 **Branch prefix:** feat
+**Issue:** #260
 **Acceptance criteria:**
 - [ ] Calendar: grid navigation, keyboard (arrows, Page Up/Down, Home/End), aria-grid
 - [ ] DatePicker: Calendar + Input, date formatting, range support
 - [ ] react-aria backed for calendar grid patterns
+- [ ] .native.tsx implementations with API parity (Calendar, DatePicker)
 - [ ] Tests passing, removed from testPathIgnorePatterns
 - [ ] Playground sections (top of gallery) + demo scene integration
+- [ ] Expo showcase screen updated
 **Status:** pending
 
 ### Stage 11.3: Advanced Interaction (Carousel, ScrollArea, Resizable)
 **Branch prefix:** feat
+**Issue:** #261
 **Acceptance criteria:**
 - [ ] Carousel: compound, auto-play, keyboard, touch/swipe, aria-roledescription
 - [ ] ScrollArea: custom scrollbar, overflow detection
 - [ ] Resizable: compound (PanelGroup/Panel/Handle), keyboard resize, min/max constraints
+- [ ] .native.tsx implementations with API parity (Carousel, ScrollArea, Resizable)
 - [ ] Tests passing, removed from testPathIgnorePatterns
 - [ ] Playground sections (top of gallery) + demo scene integration
+- [ ] Expo showcase screen updated
 **Status:** pending
 
 ## Epic 12: Blocks Rebuild
-**Objective:** Rebuild all 13 pre-composed blocks on top of real components
+**Objective:** Rebuild all 13 pre-composed blocks on top of real components. Full RN parity at every stage.
 **Dependencies:** Epic 11
 **Epic slug:** blocks-rebuild
+**Epic issue:** #262
 **Status:** pending
 
 ### Stage 12.1: Core Blocks (AppShell, Auth, Dashboard, Sidebar, Hero, EmptyState)
 **Branch prefix:** feat
+**Issue:** #263
 **Acceptance criteria:**
 - [ ] Each block rebuilt using real components (no stubs)
 - [ ] Responsive layout via STL tokens/conditions
+- [ ] .native.tsx block compositions with API parity
 - [ ] Playground sections (top of gallery) + demo scene integration
+- [ ] Expo showcase screen updated
 - [ ] Tests for composition and responsive behavior
 **Status:** pending
 
 ### Stage 12.2: Interactive Blocks (ChatInterface, DataTable, Feed, FileUpload, NotificationCenter, OnboardingWizard, Pricing)
 **Branch prefix:** feat
+**Issue:** #264
 **Acceptance criteria:**
 - [ ] Each block rebuilt using real components
 - [ ] Interactive behaviors working (file upload, chat input, wizard steps)
+- [ ] .native.tsx block compositions with API parity
 - [ ] Playground sections (top of gallery) + demo scene integration
+- [ ] Expo showcase screen updated
 - [ ] Tests
 **Status:** pending
 
 ## Epic 13: Charts
-**Objective:** Wrap Victory with owned API contract — leverage cross-platform charting (victory-native) while owning the component surface
+**Objective:** Wrap Victory with owned API contract — leverage cross-platform charting (victory-native) while owning the component surface. Full RN parity at every stage.
 **Dependencies:** Epic 11
 **Epic slug:** charts
+**Epic issue:** #265
 **Status:** pending
 
 ### Stage 13.1: Chart Infrastructure
 **Branch prefix:** feat
+**Issue:** #266
 **Acceptance criteria:**
 - [ ] ChartContainer: responsive wrapper, theme integration via STL tokens
 - [ ] ChartTooltip: styled tooltip overlay
@@ -454,35 +473,45 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 - [ ] ChartDataTable: accessible data table alternative for screen readers
 - [ ] Victory wrapped behind owned API — consumers import from @vlting/ui, never from victory directly
 - [ ] Lazy-loaded via separate subpath export (@vlting/ui/charts)
+- [ ] .native.tsx implementations via victory-native (ChartContainer, ChartTooltip, ChartLegend)
 - [ ] Playground sections (top of gallery) + demo scene integration
+- [ ] Expo showcase screen updated
 **Status:** pending
 
 ### Stage 13.2: Core Charts (LineChart, BarChart, AreaChart)
 **Branch prefix:** feat
+**Issue:** #267
 **Acceptance criteria:**
 - [ ] Each wraps Victory equivalent with owned props API
 - [ ] Theme-aware (uses STL color tokens)
 - [ ] Responsive sizing
+- [ ] .native.tsx implementations via victory-native with API parity
 - [ ] Tests for rendering and data handling
 - [ ] Playground sections (top of gallery) + demo scene integration
+- [ ] Expo showcase screen updated
 **Status:** pending
 
 ### Stage 13.3: Specialized Charts (PieChart, RadarChart, RadialChart)
 **Branch prefix:** feat
+**Issue:** #268
 **Acceptance criteria:**
 - [ ] Each wraps Victory equivalent
 - [ ] Theme-aware
+- [ ] .native.tsx implementations via victory-native with API parity
 - [ ] Tests, playground sections (top of gallery) + demo scene integration
+- [ ] Expo showcase screen updated
 **Status:** pending
 
 ## Epic 14: Playground & Docs
-**Objective:** Full playground with routing + Expo native playground + docs site rebuild
+**Objective:** Full playground with routing + Expo native playground + docs site rebuild. RN parity verified across all platforms.
 **Dependencies:** Epic 11 (playground alongside components), Epic 13 (docs after charts)
 **Epic slug:** playground-docs
+**Epic issue:** #269
 **Status:** pending
 
 ### Stage 14.1: Playground Infrastructure
 **Branch prefix:** feat
+**Issue:** #270
 **Acceptance criteria:**
 - [ ] React Router added to playground app
 - [ ] Sidebar nav listing all components grouped by category
@@ -493,20 +522,24 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 
 ### Stage 14.2: Expo Native Playground
 **Branch prefix:** feat
+**Issue:** #271
 **Acceptance criteria:**
-- [ ] Expo app at apps/playground-native
-- [ ] Mirrors web playground structure
+- [ ] Full Expo playground app at apps/playground-native
+- [ ] Mirrors web playground structure — every component has a native demo page
 - [ ] Tests native-specific behavior (touch, gestures, platform differences)
 - [ ] Connected to same theme system
+- [ ] Visual parity audit: web vs native for all components
 **Status:** pending
 
 ### Stage 14.3: Docs Site Rebuild
 **Branch prefix:** feat
+**Issue:** #272
 **Acceptance criteria:**
 - [ ] Auto-generated prop tables from TypeScript types
 - [ ] Live editable code examples
 - [ ] Per-component pages (Purpose, Anatomy, Behavior, Accessibility, Styling, Composition)
-- [ ] Copy-paste-ready import snippets for web and native
+- [ ] Copy-paste-ready import snippets for web AND native
+- [ ] Platform toggle showing web/native code side-by-side
 - [ ] Search functionality
 - [ ] All component docs complete
 **Status:** pending
