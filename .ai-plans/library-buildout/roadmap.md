@@ -223,16 +223,19 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Epic issue:** #243
 **Status:** in-progress
 
-### Stage 8.1: Disclosure (Accordion, Collapsible)
+### Stage 8.1: Disclosure (Accordion, Collapsible) + Slider cleanup
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/disclosure
+**Issue:** #245
 **Acceptance criteria:**
-- [ ] Accordion: compound (Root/Item/Trigger/Content), single/multiple mode, keyboard (Enter/Space, arrows)
-- [ ] Collapsible: compound (Root/Trigger/Content), controlled/uncontrolled
-- [ ] Both use useDisclosure from headless
-- [ ] Enter/exit animations using $normalDuration, gated on lowMotion
+- [ ] useSlider extracted to packages/headless/, Slider component refactored to pure structure
+- [ ] Collapsible: compound (Root/Trigger/Content), uses useDisclosure, controlled/uncontrolled
+- [ ] useAccordion hook in packages/headless/ (state coordination, roving tabindex, prop-getters)
+- [ ] Accordion: compound (Root/Item/Trigger/Content), consumes useAccordion, single/multiple mode
+- [ ] data-state="open"|"closed" on disclosure elements for future CSS animation
 - [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground sections (top of gallery) + demo scene integration
-**Status:** pending
+- [ ] Playground sections
+**Status:** in-progress
 
 ### Stage 8.2: Dialogs (Dialog, AlertDialog, Sheet, Drawer)
 **Branch prefix:** feat
