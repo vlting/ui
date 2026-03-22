@@ -1,4 +1,3 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 // headless hooks
 import {
   useDisclosure,
@@ -12,12 +11,15 @@ import { useConditions } from '../../../../packages/stl-native/src/hooks/useCond
 import { useMediaQuery } from '../../../../packages/stl-native/src/hooks/useMediaQuery'
 import { useRTL } from '../../../../packages/stl-native/src/hooks/useRTL'
 import { useTokens } from '../../../../packages/stl-native/src/hooks/useTokens'
+import { Box, Heading, Pressable, Row, ScrollView, Text } from '../../../../packages/stl-native/src/primitives'
 
 export function HooksScreen() {
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Hooks</Text>
-      <Text style={styles.subtitle}>Native and headless hooks.</Text>
+    <ScrollView stl={{ flex: 1, p: 20 }}>
+      <Heading stl={{ fontSize: 24, fontWeight: '$700', mb: 4 }}>
+        Hooks
+      </Heading>
+      <Text stl={{ fontSize: 14, color: '$neutral6', mb: 24 }}>Native and headless hooks.</Text>
 
       <Section title="useColorMode">
         <UseColorModeDemo />
@@ -60,47 +62,47 @@ export function HooksScreen() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <View style={styles.section}>
-      <Text style={styles.sectionTitle}>{title}</Text>
+    <Box stl={{ mb: 28 }}>
+      <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 8 }}>{title}</Text>
       {children}
-    </View>
+    </Box>
   )
 }
 
 function UseColorModeDemo() {
   const { colorMode, toggleColorMode } = useColorMode()
   return (
-    <View style={styles.row}>
+    <Row stl={{ flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
       <Text>Mode: {colorMode}</Text>
-      <Pressable onPress={toggleColorMode} style={styles.button}>
-        <Text style={styles.buttonText}>Toggle</Text>
+      <Pressable onPress={toggleColorMode} stl={{ px: 12, py: 6, radius: 6, bg: '$primary9' }}>
+        <Text stl={{ color: '$panel', fontWeight: '$600', fontSize: 13 }}>Toggle</Text>
       </Pressable>
-    </View>
+    </Row>
   )
 }
 
 function UseConditionsDemo() {
   const conditions = useConditions()
   return (
-    <View style={styles.codeBox}>
-      <Text style={styles.code}>{JSON.stringify(conditions, null, 2)}</Text>
-    </View>
+    <Box stl={{ bg: '$neutral2', p: 12, radius: 8 }}>
+      <Text stl={{ fontSize: 11, fontFamily: 'monospace' }}>{JSON.stringify(conditions, null, 2)}</Text>
+    </Box>
   )
 }
 
 function UseMediaQueryDemo() {
   const isTablet = useMediaQuery('(min-width: 768px)', false, true)
-  return <Text>isTablet (≥768px): {String(isTablet)}</Text>
+  return <Text>isTablet (>=768px): {String(isTablet)}</Text>
 }
 
 function UseTokensDemo() {
   const { tokenValue } = useTokens()
   return (
-    <View style={styles.codeBox}>
-      <Text style={styles.code}>
+    <Box stl={{ bg: '$neutral2', p: 12, radius: 8 }}>
+      <Text stl={{ fontSize: 11, fontFamily: 'monospace' }}>
         {tokenValue ? 'Theme tokens resolved' : 'No tokens available'}
       </Text>
-    </View>
+    </Box>
   )
 }
 
@@ -112,22 +114,22 @@ function UseRTLDemo() {
 function UseDisclosureDemo() {
   const { isOpen, onOpen, onClose, onToggle } = useDisclosure()
   return (
-    <View>
-      <View style={styles.row}>
-        <Pressable onPress={onOpen} style={styles.button}>
-          <Text style={styles.buttonText}>Open</Text>
+    <Box>
+      <Row stl={{ flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+        <Pressable onPress={onOpen} stl={{ px: 12, py: 6, radius: 6, bg: '$primary9' }}>
+          <Text stl={{ color: '$panel', fontWeight: '$600', fontSize: 13 }}>Open</Text>
         </Pressable>
-        <Pressable onPress={onClose} style={[styles.button, { backgroundColor: '#888' }]}>
-          <Text style={styles.buttonText}>Close</Text>
+        <Pressable onPress={onClose} stl={{ px: 12, py: 6, radius: 6, bg: '$neutral6' }}>
+          <Text stl={{ color: '$panel', fontWeight: '$600', fontSize: 13 }}>Close</Text>
         </Pressable>
         <Text>isOpen: {String(isOpen)}</Text>
-      </View>
+      </Row>
       {isOpen && (
-        <View style={styles.disclosedBox}>
+        <Box stl={{ mt: 8, p: 12, bg: '$grass2', radius: 8 }}>
           <Text>Disclosed content</Text>
-        </View>
+        </Box>
       )}
-    </View>
+    </Box>
   )
 }
 
@@ -135,7 +137,7 @@ function UseListStateDemo() {
   const items = ['Apple', 'Banana', 'Cherry', 'Date']
   const { highlightIndex, highlightedItem, setHighlightIndex } = useListState({ items })
   return (
-    <View>
+    <Box>
       <Text>
         Highlighted: {highlightedItem ?? 'none'} (index {highlightIndex})
       </Text>
@@ -143,14 +145,14 @@ function UseListStateDemo() {
         <Pressable
           key={item}
           onPress={() => setHighlightIndex(i)}
-          style={styles.listItem}
+          stl={{ py: 6 }}
         >
           <Text>
-            {highlightIndex === i ? '▸' : '  '} {item}
+            {highlightIndex === i ? '>' : '  '} {item}
           </Text>
         </Pressable>
       ))}
-    </View>
+    </Box>
   )
 }
 
@@ -158,89 +160,57 @@ function UseTabsDemo() {
   const tabs = ['Overview', 'Features', 'Pricing']
   const { activeValue, setActiveValue } = useTabs({ defaultValue: 'Overview' })
   return (
-    <View>
-      <View style={styles.row}>
+    <Box>
+      <Row stl={{ flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
         {tabs.map((tab) => (
           <Pressable
             key={tab}
             onPress={() => setActiveValue(tab)}
-            style={[styles.tabButton, activeValue === tab && styles.tabActive]}
+            stl={{
+              px: 12,
+              py: 6,
+              radius: 6,
+              bg: activeValue === tab ? '$primary9' : '$neutral4',
+            }}
           >
-            <Text style={activeValue === tab ? styles.tabTextActive : styles.tabText}>
+            <Text
+              stl={{
+                fontSize: 13,
+                ...(activeValue === tab
+                  ? { color: '$panel', fontWeight: '$600' }
+                  : { color: '$neutral6' }),
+              }}
+            >
               {tab}
             </Text>
           </Pressable>
         ))}
-      </View>
-      <View style={styles.tabContent}>
+      </Row>
+      <Box stl={{ mt: 8, p: 12, bg: '$neutral2', radius: 6 }}>
         <Text>Active: {activeValue}</Text>
-      </View>
-    </View>
+      </Box>
+    </Box>
   )
 }
 
 function UseToastQueueDemo() {
   const { toasts, add, remove } = useToastQueue()
   return (
-    <View>
+    <Box>
       <Pressable
         onPress={() => add({ message: `Toast ${Date.now() % 1000}`, duration: 3000 })}
-        style={styles.button}
+        stl={{ px: 12, py: 6, radius: 6, bg: '$primary9', alignSelf: 'flex-start' }}
       >
-        <Text style={styles.buttonText}>Add Toast</Text>
+        <Text stl={{ color: '$panel', fontWeight: '$600', fontSize: 13 }}>Add Toast</Text>
       </Pressable>
       {toasts.map((toast) => (
-        <View key={toast.id} style={styles.toastItem}>
+        <Row key={toast.id} stl={{ justifyContent: 'space-between', alignItems: 'center', p: 8, bg: '$neutral2', radius: 4, mt: 4 }}>
           <Text>{toast.message}</Text>
           <Pressable onPress={() => remove(toast.id)}>
-            <Text style={{ fontSize: 18 }}>×</Text>
+            <Text stl={{ fontSize: 18 }}>x</Text>
           </Pressable>
-        </View>
+        </Row>
       ))}
-    </View>
+    </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
-  title: { fontSize: 24, fontWeight: '700', marginBottom: 4 },
-  subtitle: { fontSize: 14, color: '#888', marginBottom: 24 },
-  section: { marginBottom: 28 },
-  sectionTitle: { fontSize: 16, fontWeight: '600', marginBottom: 8 },
-  row: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, alignItems: 'center' },
-  button: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-    backgroundColor: '#0066ff',
-  },
-  buttonText: { color: '#fff', fontWeight: '600', fontSize: 13 },
-  codeBox: { backgroundColor: '#f5f5f5', padding: 12, borderRadius: 8 },
-  code: { fontSize: 11, fontFamily: 'monospace' },
-  disclosedBox: {
-    marginTop: 8,
-    padding: 12,
-    backgroundColor: '#f0fff0',
-    borderRadius: 8,
-  },
-  listItem: { paddingVertical: 6 },
-  tabButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-    backgroundColor: '#eee',
-  },
-  tabActive: { backgroundColor: '#0066ff' },
-  tabText: { color: '#333', fontSize: 13 },
-  tabTextActive: { color: '#fff', fontSize: 13, fontWeight: '600' },
-  tabContent: { marginTop: 8, padding: 12, backgroundColor: '#f5f5f5', borderRadius: 6 },
-  toastItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 8,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 4,
-    marginTop: 4,
-  },
-})

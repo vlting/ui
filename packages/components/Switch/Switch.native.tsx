@@ -2,6 +2,7 @@ import { forwardRef } from 'react'
 import { Switch as RNSwitch, View } from 'react-native'
 import type { ViewStyle } from 'react-native'
 import { useControllableState } from '../../headless/src/useControllableState'
+import { useTokens } from '../../stl-native/src/hooks/useTokens'
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -41,6 +42,11 @@ export const Switch = forwardRef<View, SwitchProps>(
       onChange: onCheckedChange,
     })
 
+    const { tokenValue } = useTokens()
+    const tomato9 = tokenValue.color.$tomato9
+    const neutral7 = tokenValue.color.$neutral7
+    const primary9 = tokenValue.color.$primary9
+
     const isChecked = !!checked
     const scale = SIZE_SCALE[size] ?? 1
 
@@ -61,8 +67,8 @@ export const Switch = forwardRef<View, SwitchProps>(
           onValueChange={disabled ? undefined : (v) => setChecked(v)}
           disabled={disabled}
           trackColor={{
-            false: error ? '#ef4444' : '#a1a1aa',
-            true: error ? '#ef4444' : '#6366f1',
+            false: error ? tomato9 : neutral7,
+            true: error ? tomato9 : primary9,
           }}
         />
       </View>

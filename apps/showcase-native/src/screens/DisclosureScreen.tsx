@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { ScrollView, StyleSheet, Text as RNText, View } from 'react-native'
 import { Accordion } from '../../../../packages/components/Accordion/Accordion.native'
 import { Button } from '../../../../packages/components/Button/Button.native'
 import { Collapsible } from '../../../../packages/components/Collapsible/Collapsible.native'
@@ -8,7 +7,7 @@ import { Drawer } from '../../../../packages/components/Drawer/Drawer.native'
 import { Sheet } from '../../../../packages/components/Sheet/Sheet.native'
 import { Toaster, toast } from '../../../../packages/components/Toast/Toast.native'
 import { Switch } from '../../../../packages/components/Switch/Switch.native'
-import { Text, Row, Column, Spacer } from '../../../../packages/stl-native/src/primitives'
+import { Box, Column, Heading, Row, ScrollView, Spacer, Text } from '../../../../packages/stl-native/src/primitives'
 
 export function DisclosureScreen() {
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -16,15 +15,17 @@ export function DisclosureScreen() {
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView style={styles.container}>
-        <RNText style={styles.title}>Disclosure Components</RNText>
-        <RNText style={styles.subtitle}>
+    <Box stl={{ flex: 1 }}>
+      <ScrollView stl={{ flex: 1, p: 20 }}>
+        <Heading stl={{ fontSize: 24, fontWeight: '$700', mb: 4 }}>
+          Disclosure Components
+        </Heading>
+        <Text stl={{ fontSize: 14, color: '$neutral6', mb: 24 }}>
           Accordion, Collapsible, Dialog, Sheet, Drawer, Toast
-        </RNText>
+        </Text>
 
-        <View style={styles.section}>
-          <RNText style={styles.sectionTitle}>Accordion</RNText>
+        <Box stl={{ mb: 28 }}>
+          <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Accordion</Text>
           <Accordion type="single">
             <Accordion.Item value="item-1">
               <Accordion.Trigger>What is @vlting/ui?</Accordion.Trigger>
@@ -45,10 +46,10 @@ export function DisclosureScreen() {
               </Accordion.Content>
             </Accordion.Item>
           </Accordion>
-        </View>
+        </Box>
 
-        <View style={styles.section}>
-          <RNText style={styles.sectionTitle}>Collapsible</RNText>
+        <Box stl={{ mb: 28 }}>
+          <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Collapsible</Text>
           <Collapsible>
             <Collapsible.Trigger>Toggle details</Collapsible.Trigger>
             <Collapsible.Content>
@@ -57,10 +58,10 @@ export function DisclosureScreen() {
               <Text>It uses animated height transitions for smooth expand/collapse.</Text>
             </Collapsible.Content>
           </Collapsible>
-        </View>
+        </Box>
 
-        <View style={styles.section}>
-          <RNText style={styles.sectionTitle}>Dialog</RNText>
+        <Box stl={{ mb: 28 }}>
+          <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Dialog</Text>
           <Button onPress={() => setDialogOpen(true)}>
             <Button.Text>Open Dialog</Button.Text>
           </Button>
@@ -81,10 +82,10 @@ export function DisclosureScreen() {
               <Dialog.Close />
             </Dialog.Content>
           </Dialog>
-        </View>
+        </Box>
 
-        <View style={styles.section}>
-          <RNText style={styles.sectionTitle}>Sheet</RNText>
+        <Box stl={{ mb: 28 }}>
+          <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Sheet</Text>
           <Button onPress={() => setSheetOpen(true)}>
             <Button.Text>Open Sheet</Button.Text>
           </Button>
@@ -95,7 +96,7 @@ export function DisclosureScreen() {
                 <Sheet.Title>Settings</Sheet.Title>
                 <Sheet.Description>Adjust your preferences</Sheet.Description>
               </Sheet.Header>
-              <Column stl={{ gap: 12, padding: 16 }}>
+              <Column stl={{ gap: 12, p: 16 }}>
                 <Row stl={{ justifyContent: 'space-between', alignItems: 'center' }}>
                   <Text>Dark Mode</Text>
                   <Switch checked={false} onCheckedChange={() => {}} />
@@ -112,10 +113,10 @@ export function DisclosureScreen() {
               </Sheet.Footer>
             </Sheet.Content>
           </Sheet>
-        </View>
+        </Box>
 
-        <View style={styles.section}>
-          <RNText style={styles.sectionTitle}>Drawer</RNText>
+        <Box stl={{ mb: 28 }}>
+          <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Drawer</Text>
           <Row stl={{ gap: 8, flexWrap: 'wrap' }}>
             <Button variant="outline" onPress={() => setDrawerOpen(true)}>
               <Button.Text>Open Drawer</Button.Text>
@@ -127,7 +128,7 @@ export function DisclosureScreen() {
                 <Drawer.Title>Navigation</Drawer.Title>
                 <Drawer.Description>Main menu</Drawer.Description>
               </Drawer.Header>
-              <Column stl={{ padding: 16, gap: 16 }}>
+              <Column stl={{ p: 16, gap: 16 }}>
                 <Text>Home</Text>
                 <Text>Settings</Text>
                 <Text>Profile</Text>
@@ -136,10 +137,10 @@ export function DisclosureScreen() {
               <Drawer.Close />
             </Drawer.Content>
           </Drawer>
-        </View>
+        </Box>
 
-        <View style={styles.section}>
-          <RNText style={styles.sectionTitle}>Toast</RNText>
+        <Box stl={{ mb: 28 }}>
+          <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Toast</Text>
           <Row stl={{ gap: 8, flexWrap: 'wrap' }}>
             <Button onPress={() => toast('Default toast')}>
               <Button.Text>Default</Button.Text>
@@ -157,20 +158,12 @@ export function DisclosureScreen() {
               <Button.Text>Error</Button.Text>
             </Button>
           </Row>
-        </View>
+        </Box>
 
         <Spacer size="xl" />
       </ScrollView>
 
       <Toaster position="bottom" />
-    </View>
+    </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
-  title: { fontSize: 24, fontWeight: '700', marginBottom: 4 },
-  subtitle: { fontSize: 14, color: '#888', marginBottom: 24 },
-  section: { marginBottom: 28 },
-  sectionTitle: { fontSize: 16, fontWeight: '600', marginBottom: 10 },
-})

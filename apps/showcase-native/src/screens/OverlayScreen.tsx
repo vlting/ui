@@ -1,24 +1,25 @@
 import { useState } from 'react'
-import { ScrollView, StyleSheet, Text as RNText, View } from 'react-native'
 import { AlertDialog } from '../../../../packages/components/AlertDialog/AlertDialog.native'
 import { Button } from '../../../../packages/components/Button/Button.native'
 import { HoverCard } from '../../../../packages/components/HoverCard/HoverCard.native'
 import { Popover } from '../../../../packages/components/Popover/Popover.native'
 import { Tooltip } from '../../../../packages/components/Tooltip/Tooltip.native'
-import { Text, Row, Spacer } from '../../../../packages/stl-native/src/primitives'
+import { Box, Heading, Row, ScrollView, Spacer, Text } from '../../../../packages/stl-native/src/primitives'
 
 export function OverlayScreen() {
   const [alertOpen, setAlertOpen] = useState(false)
 
   return (
-    <ScrollView style={styles.container}>
-      <RNText style={styles.title}>Overlay Components</RNText>
-      <RNText style={styles.subtitle}>
+    <ScrollView stl={{ flex: 1, p: 20 }}>
+      <Heading stl={{ fontSize: 24, fontWeight: '$700', mb: 4 }}>
+        Overlay Components
+      </Heading>
+      <Text stl={{ fontSize: 14, color: '$neutral6', mb: 24 }}>
         Popover, Tooltip, HoverCard, AlertDialog
-      </RNText>
+      </Text>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Popover</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Popover</Text>
         <Popover>
           <Popover.Trigger>
             <Button variant="outline">
@@ -26,9 +27,9 @@ export function OverlayScreen() {
             </Button>
           </Popover.Trigger>
           <Popover.Content>
-            <RNText style={{ fontWeight: '600', fontSize: 14, marginBottom: 8 }}>
+            <Text stl={{ fontWeight: '$600', fontSize: 14, mb: 8 }}>
               Popover Title
-            </RNText>
+            </Text>
             <Text>This popover appears below the trigger with positioning.</Text>
             <Spacer size="sm" />
             <Button size="md" variant="outline" onPress={() => {}}>
@@ -36,11 +37,11 @@ export function OverlayScreen() {
             </Button>
           </Popover.Content>
         </Popover>
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Tooltip</RNText>
-        <RNText style={styles.label}>Long press to see tooltip</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Tooltip</Text>
+        <Text stl={{ fontSize: 12, color: '$neutral6' }}>Long press to see tooltip</Text>
         <Spacer size="sm" />
         <Row stl={{ gap: 12 }}>
           <Tooltip content="This is helpful information" placement="bottom">
@@ -54,11 +55,11 @@ export function OverlayScreen() {
             </Button>
           </Tooltip>
         </Row>
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>HoverCard</RNText>
-        <RNText style={styles.label}>Long press to see card</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>HoverCard</Text>
+        <Text stl={{ fontSize: 12, color: '$neutral6' }}>Long press to see card</Text>
         <Spacer size="sm" />
         <HoverCard>
           <HoverCard.Trigger>
@@ -67,7 +68,7 @@ export function OverlayScreen() {
             </Button>
           </HoverCard.Trigger>
           <HoverCard.Content>
-            <RNText style={{ fontWeight: '600', fontSize: 15 }}>@vlting</RNText>
+            <Text stl={{ fontWeight: '$600', fontSize: 15 }}>@vlting</Text>
             <Spacer size="xs" />
             <Text>Open-source design system for cross-platform React applications.</Text>
             <Spacer size="sm" />
@@ -77,10 +78,10 @@ export function OverlayScreen() {
             </Row>
           </HoverCard.Content>
         </HoverCard>
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>AlertDialog</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>AlertDialog</Text>
         <Button theme="destructive" onPress={() => setAlertOpen(true)}>
           <Button.Text>Delete Account</Button.Text>
         </Button>
@@ -105,18 +106,9 @@ export function OverlayScreen() {
             </AlertDialog.Footer>
           </AlertDialog.Content>
         </AlertDialog>
-      </View>
+      </Box>
 
       <Spacer size="xl" />
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
-  title: { fontSize: 24, fontWeight: '700', marginBottom: 4 },
-  subtitle: { fontSize: 14, color: '#888', marginBottom: 24 },
-  section: { marginBottom: 28 },
-  sectionTitle: { fontSize: 16, fontWeight: '600', marginBottom: 10 },
-  label: { fontSize: 12, color: '#888' },
-})

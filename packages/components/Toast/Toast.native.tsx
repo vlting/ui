@@ -12,18 +12,69 @@ import {
   View,
 } from 'react-native'
 import type { ViewStyle } from 'react-native'
+import { styled } from '../../stl-native/src/config'
+import { useTokens } from '../../stl-native/src/hooks/useTokens'
 import { useImperativeToasts, toast as toastApi } from './toast-imperative'
 import type { ToastData, ToastVariant } from './toast-imperative'
 
-// ─── Variant colors ─────────────────────────────────────────────────────────
+// ─── Variant border token keys ──────────────────────────────────────────────
 
-const VARIANT_BORDER: Record<ToastVariant, string> = {
+const VARIANT_BORDER_TOKEN: Record<ToastVariant, string> = {
   neutral: 'transparent',
-  success: '#30a46c',
-  error: '#e5484d',
-  warning: '#f5a623',
-  info: '#6e56cf',
+  success: '$grass9',
+  error: '$tomato9',
+  warning: '$amber9',
+  info: '$info9',
 }
+
+// ─── Styled ─────────────────────────────────────────────────────────────────
+
+const RootBase = styled(View, {
+  flexDirection: 'row',
+  alignItems: 'flex-start',
+  gap: 12,
+  backgroundColor: '$min',
+  borderRadius: 8,
+  padding: 16,
+  borderWidth: 1,
+  borderColor: '$neutralAlpha3',
+  shadowColor: '$max',
+  shadowOpacity: 0.1,
+  shadowRadius: 8,
+  elevation: 4,
+  maxWidth: 420,
+  width: '100%',
+}, {}, 'ToastRoot')
+
+const TitleText = styled(RNText, {
+  fontWeight: '$semiBold',
+  fontSize: '$14',
+}, {}, 'ToastTitle')
+
+const DescriptionText = styled(RNText, {
+  fontSize: '$13',
+  color: '$neutral7',
+  marginTop: 2,
+}, {}, 'ToastDescription')
+
+const ActionBase = styled(Pressable, {
+  marginTop: 8,
+}, {}, 'ToastAction')
+
+const ActionText = styled(RNText, {
+  fontSize: '$13',
+  fontWeight: '$medium',
+  color: '$primary9',
+}, {}, 'ToastActionText')
+
+const CloseBase = styled(Pressable, {
+  padding: 4,
+}, {}, 'ToastClose')
+
+const CloseText = styled(RNText, {
+  fontSize: '$14',
+  color: '$neutral7',
+}, {}, 'ToastCloseText')
 
 // ─── Toast Root ─────────────────────────────────────────────────────────────
 
@@ -34,37 +85,31 @@ export interface ToastRootProps {
 }
 
 const Root = forwardRef<View, ToastRootProps>(
-  ({ children, theme = 'neutral', style, ...rest }, ref) => (
-    <View
-      ref={ref}
-      accessibilityRole="alert"
-      style={[
-        {
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-          gap: 12,
-          backgroundColor: '#fff',
-          borderRadius: 8,
-          padding: 16,
-          borderWidth: 1,
-          borderColor: 'rgba(0,0,0,0.1)',
-          shadowColor: '#000',
-          shadowOpacity: 0.1,
-          shadowRadius: 8,
-          shadowOffset: { width: 0, height: 4 },
-          elevation: 4,
-          maxWidth: 420,
-          width: '100%',
+  ({ children, theme = 'neutral', style, ...rest }, ref) => {
+    const { tokenValue } = useTokens()
+    const borderToken = VARIANT_BORDER_TOKEN[theme]
+    const borderLeftColor = borderToken === 'transparent'
+      ? 'transparent'
+      : tokenValue.color[borderToken as keyof typeof tokenValue.color] ?? borderToken
+
+    return (
+      <RootBase
+        ref={ref}
+        accessibilityRole="alert"
+        css={{
           borderLeftWidth: theme !== 'neutral' ? 4 : 1,
-          borderLeftColor: VARIANT_BORDER[theme],
-        },
-        style,
-      ]}
-      {...rest}
-    >
-      {children}
-    </View>
-  ),
+          shadowOffset: { width: 0, height: 4 },
+        }}
+        style={[
+          { borderLeftColor },
+          style,
+        ]}
+        {...rest}
+      >
+        {children}
+      </RootBase>
+    )
+  },
 )
 Root.displayName = 'Toast.Root'
 
@@ -72,9 +117,9 @@ Root.displayName = 'Toast.Root'
 
 const Title = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
   (props, ref) => (
-    <RNText ref={ref as any} style={[{ fontWeight: '600', fontSize: 14 }, props.style]}>
+    <TitleText ref={ref as any} style={props.style}>
       {props.children}
-    </RNText>
+    </TitleText>
   ),
 )
 Title.displayName = 'Toast.Title'
@@ -83,9 +128,9 @@ Title.displayName = 'Toast.Title'
 
 const Description = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
   (props, ref) => (
-    <RNText ref={ref as any} style={[{ fontSize: 13, color: '#666', marginTop: 2 }, props.style]}>
+    <DescriptionText ref={ref as any} style={props.style}>
       {props.children}
-    </RNText>
+    </DescriptionText>
   ),
 )
 Description.displayName = 'Toast.Description'
@@ -94,13 +139,13 @@ Description.displayName = 'Toast.Description'
 
 const Action = forwardRef<View, { children: ReactNode; onPress?: () => void; style?: ViewStyle }>(
   ({ children, onPress, style, ...rest }, ref) => (
-    <Pressable ref={ref} onPress={onPress} style={[{ marginTop: 8 }, style]} {...rest}>
+    <ActionBase ref={ref} onPress={onPress} style={style} {...rest}>
       {typeof children === 'string' ? (
-        <RNText style={{ fontSize: 13, fontWeight: '500', color: '#0066ff' }}>{children}</RNText>
+        <ActionText>{children}</ActionText>
       ) : (
         children
       )}
-    </Pressable>
+    </ActionBase>
   ),
 )
 Action.displayName = 'Toast.Action'
@@ -109,15 +154,15 @@ Action.displayName = 'Toast.Action'
 
 const Close = forwardRef<View, { onClose?: () => void; style?: ViewStyle }>(
   ({ onClose, style }, ref) => (
-    <Pressable
+    <CloseBase
       ref={ref}
       onPress={onClose}
       accessibilityRole="button"
       accessibilityLabel="Dismiss"
-      style={[{ padding: 4 }, style]}
+      style={style}
     >
-      <RNText style={{ fontSize: 14, color: '#666' }}>✕</RNText>
-    </Pressable>
+      <CloseText>✕</CloseText>
+    </CloseBase>
   ),
 )
 Close.displayName = 'Toast.Close'

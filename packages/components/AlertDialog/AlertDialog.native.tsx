@@ -101,7 +101,7 @@ const AlertDialogContent = forwardRef<View, AlertDialogContentProps>(
         <View
           style={{
             flex: 1,
-            backgroundColor: 'rgba(0,0,0,0.5)',
+            backgroundColor: '$overlayBackground',
             justifyContent: 'center',
             alignItems: 'center',
             padding: 16,
@@ -113,7 +113,7 @@ const AlertDialogContent = forwardRef<View, AlertDialogContentProps>(
             accessibilityViewIsModal
             style={[
               {
-                backgroundColor: '#fff',
+                backgroundColor: '$surface1',
                 borderRadius: 12,
                 padding: 24,
                 width: '100%',
@@ -148,7 +148,7 @@ AlertDialogTitle.displayName = 'AlertDialog.Title'
 
 const AlertDialogDescription = styled(RNText, {
   fontSize: 14,
-  color: '#666',
+  color: '$neutral7',
   marginTop: 4,
 }, 'AlertDialogDescription')
 

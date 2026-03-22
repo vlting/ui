@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Alert as RNAlert, ScrollView, StyleSheet, Text as RNText, View } from 'react-native'
+import { Alert as RNAlert } from 'react-native'
 import { Button } from '../../../../packages/components/Button/Button.native'
 import { Checkbox } from '../../../../packages/components/Checkbox/Checkbox.native'
 import { Field } from '../../../../packages/components/Field/Field.native'
@@ -8,7 +8,7 @@ import { Slider } from '../../../../packages/components/Slider/Slider.native'
 import { Switch } from '../../../../packages/components/Switch/Switch.native'
 import { Textarea } from '../../../../packages/components/Textarea/Textarea.native'
 import { Toggle } from '../../../../packages/components/Toggle/Toggle.native'
-import { Text, Row, Spacer } from '../../../../packages/stl-native/src/primitives'
+import { Box, Heading, Row, ScrollView, Spacer, Text } from '../../../../packages/stl-native/src/primitives'
 
 export function FormScreen() {
   const [inputValue, setInputValue] = useState('')
@@ -17,14 +17,16 @@ export function FormScreen() {
   const [sliderVal, setSliderVal] = useState(50)
 
   return (
-    <ScrollView style={styles.container}>
-      <RNText style={styles.title}>Form Components</RNText>
-      <RNText style={styles.subtitle}>
+    <ScrollView stl={{ flex: 1, p: 20 }}>
+      <Heading stl={{ fontSize: 24, fontWeight: '$700', mb: 4 }}>
+        Form Components
+      </Heading>
+      <Text stl={{ fontSize: 14, color: '$neutral6', mb: 24 }}>
         Button, Input, Textarea, Checkbox, Switch, Toggle, Slider, Field
-      </RNText>
+      </Text>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Button</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Button</Text>
         <Row stl={{ gap: 8, flexWrap: 'wrap' }}>
           <Button onPress={() => RNAlert.alert('Pressed!')}>
             <Button.Text>Default</Button.Text>
@@ -49,10 +51,10 @@ export function FormScreen() {
         <Button loading>
           <Button.Text>Loading</Button.Text>
         </Button>
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Input</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Input</Text>
         <Input
           placeholder="Type something..."
           value={inputValue}
@@ -60,69 +62,60 @@ export function FormScreen() {
         />
         <Spacer size="sm" />
         <Input placeholder="Disabled" disabled />
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Textarea</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Textarea</Text>
         <Textarea placeholder="Write your message..." />
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Checkbox</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Checkbox</Text>
         <Checkbox.Root
           checked={checked}
           onCheckedChange={(v: boolean | 'indeterminate') => setChecked(v === true)}
         >
           <Text>Accept terms and conditions</Text>
         </Checkbox.Root>
-        <RNText style={styles.label}>Checked: {String(checked)}</RNText>
-      </View>
+        <Text stl={{ fontSize: 12, color: '$neutral6', mt: 4 }}>Checked: {String(checked)}</Text>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Switch</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Switch</Text>
         <Row stl={{ gap: 12, alignItems: 'center' }}>
           <Switch checked={switchOn} onCheckedChange={setSwitchOn} />
           <Text>Notifications {switchOn ? 'on' : 'off'}</Text>
         </Row>
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Toggle</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Toggle</Text>
         <Toggle>
           <Text>Bold</Text>
         </Toggle>
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Slider</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Slider</Text>
         <Slider
           value={sliderVal}
           onValueChange={(v: number | [number, number]) => setSliderVal(typeof v === 'number' ? v : v[0])}
           min={0}
           max={100}
         />
-        <RNText style={styles.label}>Value: {sliderVal}</RNText>
-      </View>
+        <Text stl={{ fontSize: 12, color: '$neutral6', mt: 4 }}>Value: {sliderVal}</Text>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Field</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Field</Text>
         <Field>
           <Field.Label>Email</Field.Label>
           <Input placeholder="email@example.com" />
           <Field.Description>We will never share your email.</Field.Description>
         </Field>
-      </View>
+      </Box>
 
       <Spacer size="xl" />
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
-  title: { fontSize: 24, fontWeight: '700', marginBottom: 4 },
-  subtitle: { fontSize: 14, color: '#888', marginBottom: 24 },
-  section: { marginBottom: 28 },
-  sectionTitle: { fontSize: 16, fontWeight: '600', marginBottom: 10 },
-  label: { fontSize: 12, color: '#888', marginTop: 4 },
-})

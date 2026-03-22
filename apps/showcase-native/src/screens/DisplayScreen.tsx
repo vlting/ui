@@ -1,4 +1,3 @@
-import { ScrollView, StyleSheet, Text as RNText, View } from 'react-native'
 import { Alert } from '../../../../packages/components/Alert/Alert.native'
 import { Avatar } from '../../../../packages/components/Avatar/Avatar.native'
 import { Badge } from '../../../../packages/components/Badge/Badge.native'
@@ -7,18 +6,20 @@ import { Empty } from '../../../../packages/components/Empty/Empty.native'
 import { Item } from '../../../../packages/components/Item/Item.native'
 import { Progress } from '../../../../packages/components/Progress/Progress.native'
 import { Separator } from '../../../../packages/components/Separator/Separator.native'
-import { Text, Row, Spacer } from '../../../../packages/stl-native/src/primitives'
+import { Box, Heading, Row, ScrollView, Spacer, Text } from '../../../../packages/stl-native/src/primitives'
 
 export function DisplayScreen() {
   return (
-    <ScrollView style={styles.container}>
-      <RNText style={styles.title}>Display Components</RNText>
-      <RNText style={styles.subtitle}>
+    <ScrollView stl={{ flex: 1, p: 20 }}>
+      <Heading stl={{ fontSize: 24, fontWeight: '$700', mb: 4 }}>
+        Display Components
+      </Heading>
+      <Text stl={{ fontSize: 14, color: '$neutral6', mb: 24 }}>
         Alert, Avatar, Badge, Card, Empty, Item, Progress, Separator
-      </RNText>
+      </Text>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Alert</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Alert</Text>
         <Alert.Root>
           <Alert.Title>Info</Alert.Title>
           <Alert.Description>This is a default alert message.</Alert.Description>
@@ -28,29 +29,29 @@ export function DisplayScreen() {
           <Alert.Title>Warning</Alert.Title>
           <Alert.Description>Please check your settings.</Alert.Description>
         </Alert.Root>
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Avatar</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Avatar</Text>
         <Row stl={{ gap: 12 }}>
           <Avatar src="https://i.pravatar.cc/100?img=1" size="sm" fallback="JD" />
           <Avatar src="https://i.pravatar.cc/100?img=2" size="md" fallback="AB" />
           <Avatar src="https://invalid-url.test" size="lg" fallback="XY" />
         </Row>
-        <RNText style={styles.label}>sm / md / lg (last shows fallback)</RNText>
-      </View>
+        <Text stl={{ fontSize: 12, color: '$neutral6', mt: 4 }}>sm / md / lg (last shows fallback)</Text>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Badge</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Badge</Text>
         <Row stl={{ gap: 8, flexWrap: 'wrap' }}>
           <Badge>Default</Badge>
           <Badge variant="subtle">Subtle</Badge>
           <Badge variant="outline">Outline</Badge>
         </Row>
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Card</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Card</Text>
         <Card>
           <Card.Header>
             <Card.Title>Project Update</Card.Title>
@@ -63,32 +64,32 @@ export function DisplayScreen() {
             <Text>Footer content</Text>
           </Card.Footer>
         </Card>
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Progress</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Progress</Text>
         <Progress value={65} />
         <Spacer size="sm" />
         <Progress value={30} />
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Separator</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Separator</Text>
         <Text>Above</Text>
         <Separator />
         <Text>Below</Text>
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Empty</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Empty</Text>
         <Empty.Root>
           <Empty.Title>No items</Empty.Title>
           <Empty.Description>There are no items to display.</Empty.Description>
         </Empty.Root>
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <RNText style={styles.sectionTitle}>Item</RNText>
+      <Box stl={{ mb: 28 }}>
+        <Text stl={{ fontSize: 16, fontWeight: '$600', mb: 10 }}>Item</Text>
         <Item>
           <Item.Content>
             <Item.Title>Account Settings</Item.Title>
@@ -104,18 +105,9 @@ export function DisplayScreen() {
             <Item.Title>Privacy</Item.Title>
           </Item.Content>
         </Item>
-      </View>
+      </Box>
 
       <Spacer size="xl" />
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
-  title: { fontSize: 24, fontWeight: '700', marginBottom: 4 },
-  subtitle: { fontSize: 14, color: '#888', marginBottom: 24 },
-  section: { marginBottom: 28 },
-  sectionTitle: { fontSize: 16, fontWeight: '600', marginBottom: 10 },
-  label: { fontSize: 12, color: '#888', marginTop: 4 },
-})

@@ -163,13 +163,13 @@ const HoverCardContent = forwardRef<View, HoverCardContentProps>(
           style={[
             {
               position: 'absolute',
-              backgroundColor: '#fff',
+              backgroundColor: '$surface1',
               borderRadius: 8,
               padding: 16,
               maxWidth: 320,
               borderWidth: 1,
-              borderColor: 'rgba(0,0,0,0.1)',
-              shadowColor: '#000',
+              borderColor: '$neutralAlpha3',
+              shadowColor: '$min',
               shadowOpacity: 0.15,
               shadowRadius: 8,
               shadowOffset: { width: 0, height: 4 },

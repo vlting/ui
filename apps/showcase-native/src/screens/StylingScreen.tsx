@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Box, Heading, Pressable, Row, ScrollView, Text } from '../../../../packages/stl-native/src/primitives'
 import { useColorMode } from '../../../../packages/stl-native/src/hooks/useColorMode'
 
 const palettes = ['primary', 'red', 'green', 'blue', 'orange', 'purple']
@@ -8,110 +8,103 @@ export function StylingScreen() {
   const { colorMode, toggleColorMode } = useColorMode()
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Styling & Tokens</Text>
+    <ScrollView stl={{ flex: 1, p: 20 }}>
+      <Heading stl={{ fontSize: 24, fontWeight: '$700', mb: 20 }}>
+        Styling & Tokens
+      </Heading>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Color Mode</Text>
-        <View style={styles.row}>
+      <Box stl={{ mb: 32 }}>
+        <Text stl={{ fontSize: 18, fontWeight: '$600', mb: 12 }}>Color Mode</Text>
+        <Row stl={{ gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
           <Text>Current: {colorMode}</Text>
-          <Pressable onPress={toggleColorMode} style={styles.button}>
-            <Text style={styles.buttonText}>Toggle</Text>
+          <Pressable
+            onPress={toggleColorMode}
+            stl={{
+              px: 12,
+              py: 6,
+              borderRadius: 6,
+              backgroundColor: '$primary9',
+            }}
+          >
+            <Text stl={{ color: '$panel', fontWeight: '600', fontSize: 14 }}>Toggle</Text>
           </Pressable>
-        </View>
-      </View>
+        </Row>
+      </Box>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Color Palettes</Text>
-        <Text style={styles.note}>
+      <Box stl={{ mb: 32 }}>
+        <Text stl={{ fontSize: 18, fontWeight: '$600', mb: 12 }}>Color Palettes</Text>
+        <Text stl={{ fontSize: 13, color: '$neutral6', mb: 12 }}>
           Token references ($primary1-12, $tomato1-12, etc.) resolve at runtime via the style
           resolver.
         </Text>
         {palettes.map((palette) => (
-          <View key={palette} style={styles.paletteRow}>
-            <Text style={styles.paletteLabel}>{palette}</Text>
-            <View style={styles.swatchRow}>
+          <Box key={palette} stl={{ mb: 12 }}>
+            <Text stl={{ fontSize: 13, fontWeight: '600', mb: 4, textTransform: 'capitalize' }}>
+              {palette}
+            </Text>
+            <Row stl={{ gap: 4 }}>
               {steps.slice(0, 6).map((step) => (
-                <View
+                <Box
                   key={step}
-                  style={[
-                    styles.swatch,
-                    {
-                      backgroundColor: `hsl(${palette === 'red' ? 0 : palette === 'green' ? 120 : palette === 'blue' ? 220 : palette === 'orange' ? 30 : palette === 'purple' ? 280 : 210}, ${40 + Number(step) * 5}%, ${95 - Number(step) * 7}%)`,
-                    },
-                  ]}
+                  stl={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 4,
+                    backgroundColor: `$${palette}${step}` as any,
+                  }}
                 />
               ))}
-            </View>
-          </View>
+            </Row>
+          </Box>
         ))}
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Space Scale</Text>
+      <Box stl={{ mb: 32 }}>
+        <Text stl={{ fontSize: 18, fontWeight: '$600', mb: 12 }}>Space Scale</Text>
         {['1', '2', '3', '4', '5', '6', '7', '8'].map((step) => (
-          <View key={step} style={styles.spaceItem}>
-            <Text style={styles.spaceLabel}>${step}</Text>
-            <View style={[styles.spaceBar, { width: Number(step) * 20 }]} />
-          </View>
+          <Row key={step} stl={{ alignItems: 'center', mb: 8, gap: 8 }}>
+            <Text stl={{ width: 30, fontSize: 12 }}>${step}</Text>
+            <Box
+              stl={{
+                height: 20,
+                backgroundColor: '$primary9',
+                borderRadius: 4,
+                width: Number(step) * 20,
+              }}
+            />
+          </Row>
         ))}
-      </View>
+      </Box>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Border Radius</Text>
-        <View style={styles.row}>
+      <Box stl={{ mb: 32 }}>
+        <Text stl={{ fontSize: 18, fontWeight: '$600', mb: 12 }}>Border Radius</Text>
+        <Row stl={{ gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
           {['0', '4', '8', '12', '16', '9999'].map((r) => (
-            <View key={r} style={[styles.radiusBox, { borderRadius: Number(r) }]}>
-              <Text style={styles.radiusLabel}>{r}</Text>
-            </View>
+            <Box
+              key={r}
+              stl={{
+                width: 48,
+                height: 48,
+                backgroundColor: '$neutral4',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: Number(r),
+              }}
+            >
+              <Text stl={{ fontSize: 10 }}>{r}</Text>
+            </Box>
           ))}
-        </View>
-      </View>
+        </Row>
+      </Box>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Font Sizes</Text>
+      <Box stl={{ mb: 32 }}>
+        <Text stl={{ fontSize: 18, fontWeight: '$600', mb: 12 }}>Font Sizes</Text>
         {[12, 14, 16, 18, 20, 24, 32].map((size) => (
-          <Text key={size} style={{ fontSize: size, marginBottom: 8 }}>
+          <Text key={size} stl={{ fontSize: size, mb: 8 }}>
             ${size} — The quick brown fox
           </Text>
         ))}
-      </View>
+      </Box>
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
-  title: { fontSize: 24, fontWeight: '700', marginBottom: 20 },
-  section: { marginBottom: 32 },
-  sectionTitle: { fontSize: 18, fontWeight: '600', marginBottom: 12 },
-  note: { fontSize: 13, color: '#888', marginBottom: 12 },
-  row: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, alignItems: 'center' },
-  button: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-    backgroundColor: '#0066ff',
-  },
-  buttonText: { color: '#fff', fontWeight: '600', fontSize: 14 },
-  paletteRow: { marginBottom: 12 },
-  paletteLabel: {
-    fontSize: 13,
-    fontWeight: '600',
-    marginBottom: 4,
-    textTransform: 'capitalize',
-  },
-  swatchRow: { flexDirection: 'row', gap: 4 },
-  swatch: { width: 40, height: 40, borderRadius: 4 },
-  spaceItem: { flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 8 },
-  spaceLabel: { width: 30, fontSize: 12 },
-  spaceBar: { height: 20, backgroundColor: '#0066ff', borderRadius: 4 },
-  radiusBox: {
-    width: 48,
-    height: 48,
-    backgroundColor: '#e0e0e0',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  radiusLabel: { fontSize: 10 },
-})

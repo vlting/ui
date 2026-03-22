@@ -153,12 +153,12 @@ const PopoverContent = forwardRef<View, PopoverContentProps>(
           style={[
             {
               position: 'absolute',
-              backgroundColor: '#fff',
+              backgroundColor: '$surface1',
               borderRadius: 8,
               padding: 16,
               borderWidth: 1,
-              borderColor: 'rgba(0,0,0,0.1)',
-              shadowColor: '#000',
+              borderColor: '$neutralAlpha3',
+              shadowColor: '$min',
               shadowOpacity: 0.15,
               shadowRadius: 8,
               shadowOffset: { width: 0, height: 4 },
@@ -195,7 +195,7 @@ const PopoverClose = forwardRef<View, { children?: ReactNode; onPress?: () => vo
         accessibilityLabel="Close popover"
         style={[{ position: 'absolute', top: 8, right: 8, padding: 4 }, rest.style]}
       >
-        {children || <RNText style={{ fontSize: 14, color: '#666' }}>✕</RNText>}
+        {children || <RNText style={{ fontSize: 14, color: '$neutral7' }}>✕</RNText>}
       </Pressable>
     )
   },

@@ -103,7 +103,7 @@ const AccordionItem = forwardRef<View, AccordionItemProps>(
       <AccordionItemContext.Provider value={{ value: itemValue, disabled, isOpen, index }}>
         <View
           ref={ref}
-          style={[{ borderBottomWidth: 1, borderBottomColor: 'rgba(0,0,0,0.1)' }, style]}
+          style={[{ borderBottomWidth: 1, borderBottomColor: '$neutralAlpha3' }, style]}
           {...rest}
         >
           {children}
@@ -169,7 +169,7 @@ const AccordionTrigger = forwardRef<View, AccordionTriggerProps>(
         )}
         {indicator && (
           <Animated.View style={{ transform: [{ rotate }] }}>
-            <RNText style={{ fontSize: 14, color: '#666' }}>▼</RNText>
+            <RNText style={{ fontSize: 14, color: '$neutral7' }}>▼</RNText>
           </Animated.View>
         )}
       </Pressable>
@@ -226,7 +226,7 @@ const AccordionContent = forwardRef<View, AccordionContentProps>(
           style={[{ paddingTop: 4, paddingBottom: 16 }, style]}
         >
           {typeof children === 'string' ? (
-            <RNText style={{ fontSize: 14, color: '#666' }}>{children}</RNText>
+            <RNText style={{ fontSize: 14, color: '$neutral7' }}>{children}</RNText>
           ) : (
             children
           )}

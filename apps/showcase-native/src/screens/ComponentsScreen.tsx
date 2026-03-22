@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Box, Heading, Pressable, ScrollView, Text } from '../../../../packages/stl-native/src/primitives'
 
 const SCREENS = [
   { name: 'Display', desc: 'Alert, Avatar, Badge, Card, Empty, Item, Progress, Separator' },
@@ -12,40 +12,26 @@ export function ComponentsScreen() {
   const navigation = useNavigation<any>()
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Components</Text>
-      <Text style={styles.subtitle}>
+    <ScrollView stl={{ flex: 1, p: 20 }}>
+      <Heading stl={{ fontSize: 24, fontWeight: '$700', mb: 4 }}>
+        Components
+      </Heading>
+      <Text stl={{ fontSize: 14, color: '$neutral6', mb: 24 }}>
         Native @vlting/ui components organized by category.
       </Text>
 
-      <View style={styles.grid}>
+      <Box stl={{ gap: 12 }}>
         {SCREENS.map((s) => (
           <Pressable
             key={s.name}
-            style={styles.card}
+            stl={{ p: 20, radius: 8, borderWidth: 1, borderColor: '$neutral4', bg: '$panel' }}
             onPress={() => navigation.navigate(s.name)}
           >
-            <Text style={styles.cardTitle}>{s.name}</Text>
-            <Text style={styles.cardDesc}>{s.desc}</Text>
+            <Text stl={{ fontWeight: '$600', fontSize: 16, mb: 4 }}>{s.name}</Text>
+            <Text stl={{ fontSize: 13, color: '$neutral6' }}>{s.desc}</Text>
           </Pressable>
         ))}
-      </View>
+      </Box>
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
-  title: { fontSize: 24, fontWeight: '700', marginBottom: 4 },
-  subtitle: { fontSize: 14, color: '#888', marginBottom: 24 },
-  grid: { gap: 12 },
-  card: {
-    padding: 20,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#e5e5e5',
-    backgroundColor: '#fff',
-  },
-  cardTitle: { fontWeight: '600', fontSize: 16, marginBottom: 4 },
-  cardDesc: { fontSize: 13, color: '#888' },
-})

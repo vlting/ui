@@ -47,7 +47,7 @@ const ThumbBase = styled(View, {
   width: 20,
   height: 20,
   borderRadius: 10,
-  backgroundColor: 'white',
+  backgroundColor: '$min',
   borderWidth: 2,
   top: -7,
 }, {

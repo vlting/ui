@@ -125,7 +125,7 @@ const SheetContent = forwardRef<View, SheetContentProps>(
         onRequestClose={() => onOpenChange(false)}
       >
         <Pressable
-          style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}
+          style={{ flex: 1, backgroundColor: '$overlayBackground' }}
           onPress={() => onOpenChange(false)}
         >
           <View style={{ flex: 1 }} />
@@ -139,7 +139,7 @@ const SheetContent = forwardRef<View, SheetContentProps>(
               bottom: 0,
               left: 0,
               right: 0,
-              backgroundColor: '#fff',
+              backgroundColor: '$surface1',
               borderTopLeftRadius: 16,
               borderTopRightRadius: 16,
               maxHeight: SCREEN_HEIGHT * 0.85,
@@ -162,7 +162,7 @@ SheetContent.displayName = 'Sheet.Content'
 const SheetHandle = forwardRef<View, { style?: ViewStyle }>(
   (props, ref) => (
     <View ref={ref} style={[{ alignItems: 'center', paddingVertical: 8 }, props.style]}>
-      <View style={{ width: 36, height: 4, backgroundColor: '#ccc', borderRadius: 2 }} />
+      <View style={{ width: 36, height: 4, backgroundColor: '$neutral5', borderRadius: 2 }} />
     </View>
   ),
 )
@@ -194,7 +194,7 @@ SheetTitle.displayName = 'Sheet.Title'
 
 const SheetDescription = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
   (props, ref) => (
-    <RNText ref={ref as any} style={[{ fontSize: 14, color: '#666' }, props.style]}>
+    <RNText ref={ref as any} style={[{ fontSize: 14, color: '$neutral7' }, props.style]}>
       {props.children}
     </RNText>
   ),

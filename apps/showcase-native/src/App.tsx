@@ -2,6 +2,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StatusBar } from 'expo-status-bar'
+import { getTheme } from '../../../packages/stl-native/src/config/theme'
+import { useColorMode } from '../../../packages/stl-native/src/hooks/useColorMode'
 import { StlProvider } from '../../../packages/stl-native/src/providers/StlProvider'
 import { ComponentsScreen } from './screens/ComponentsScreen'
 import { DisclosureScreen } from './screens/DisclosureScreen'
@@ -28,29 +30,39 @@ function ComponentsStack() {
   )
 }
 
+function AppContent() {
+  const { colorMode } = useColorMode()
+  const theme = getTheme()
+  const colors = theme[colorMode].color
+
+  return (
+    <NavigationContainer>
+      <StatusBar style="auto" />
+      <Tab.Navigator
+        screenOptions={{
+          headerStyle: { backgroundColor: colors.$panel },
+          headerTitleStyle: { fontWeight: '700' },
+          tabBarActiveTintColor: colors.$primary9,
+        }}
+      >
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Styling" component={StylingScreen} />
+        <Tab.Screen name="Primitives" component={PrimitivesScreen} />
+        <Tab.Screen
+          name="Components"
+          component={ComponentsStack}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen name="Hooks" component={HooksScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  )
+}
+
 export default function App() {
   return (
     <StlProvider defaultColorMode="light">
-      <NavigationContainer>
-        <StatusBar style="auto" />
-        <Tab.Navigator
-          screenOptions={{
-            headerStyle: { backgroundColor: '#fff' },
-            headerTitleStyle: { fontWeight: '700' },
-            tabBarActiveTintColor: '#0066ff',
-          }}
-        >
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Styling" component={StylingScreen} />
-          <Tab.Screen name="Primitives" component={PrimitivesScreen} />
-          <Tab.Screen
-            name="Components"
-            component={ComponentsStack}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen name="Hooks" component={HooksScreen} />
-        </Tab.Navigator>
-      </NavigationContainer>
+      <AppContent />
     </StlProvider>
   )
 }

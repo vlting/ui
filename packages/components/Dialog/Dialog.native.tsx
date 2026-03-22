@@ -106,7 +106,7 @@ const DialogContent = forwardRef<View, DialogContentProps>(
         <Pressable
           style={{
             flex: 1,
-            backgroundColor: 'rgba(0,0,0,0.5)',
+            backgroundColor: '$overlayBackground',
             justifyContent: 'center',
             alignItems: 'center',
             padding: 16,
@@ -120,7 +120,7 @@ const DialogContent = forwardRef<View, DialogContentProps>(
               accessibilityViewIsModal
               style={[
                 {
-                  backgroundColor: '#fff',
+                  backgroundColor: '$surface1',
                   borderRadius: 12,
                   padding: 24,
                   width: '100%',
@@ -162,7 +162,7 @@ DialogTitle.displayName = 'Dialog.Title'
 
 const DialogDescription = styled(RNText, {
   fontSize: 14,
-  color: '#666',
+  color: '$neutral7',
   marginTop: 4,
 }, 'DialogDescription')
 
@@ -201,7 +201,7 @@ const DialogClose = forwardRef<View, { children?: ReactNode; style?: ViewStyle; 
           rest.style,
         ]}
       >
-        {children || <RNText style={{ fontSize: 16, color: '#666' }}>✕</RNText>}
+        {children || <RNText style={{ fontSize: 16, color: '$neutral7' }}>✕</RNText>}
       </Pressable>
     )
   },

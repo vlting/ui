@@ -111,7 +111,7 @@ export const Tooltip = forwardRef<View, TooltipProps>(
               style={[
                 {
                   position: 'absolute',
-                  backgroundColor: 'rgba(0,0,0,0.85)',
+                  backgroundColor: '$neutral12',
                   paddingHorizontal: 12,
                   paddingVertical: 6,
                   borderRadius: 6,
@@ -121,7 +121,7 @@ export const Tooltip = forwardRef<View, TooltipProps>(
                 posStyle,
               ]}
             >
-              <RNText style={{ color: '#fff', fontSize: 13 }}>{content}</RNText>
+              <RNText style={{ color: '$surface1', fontSize: 13 }}>{content}</RNText>
             </Animated.View>
           </Modal>
         )}

@@ -57,7 +57,7 @@ function getSlideFrom(dir: DrawerDirection): { start: Record<string, number>; en
 }
 
 function getPositionStyle(dir: DrawerDirection): ViewStyle {
-  const base: ViewStyle = { position: 'absolute', backgroundColor: '#fff' }
+  const base: ViewStyle = { position: 'absolute', backgroundColor: '$surface1' }
   switch (dir) {
     case 'left':
       return { ...base, top: 0, left: 0, bottom: 0, width: Math.min(SW * 0.85, 400), borderTopRightRadius: 12, borderBottomRightRadius: 12 }
@@ -154,7 +154,7 @@ const DrawerContent = forwardRef<View, DrawerContentProps>(
         onRequestClose={() => onOpenChange(false)}
       >
         <Pressable
-          style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}
+          style={{ flex: 1, backgroundColor: '$overlayBackground' }}
           onPress={() => onOpenChange(false)}
         >
           <View style={{ flex: 1 }} />
@@ -194,7 +194,7 @@ DrawerTitle.displayName = 'Drawer.Title'
 
 const DrawerDescription = styled(RNText, {
   fontSize: 14,
-  color: '#666',
+  color: '$neutral7',
 }, 'DrawerDescription')
 
 // ─── Footer ─────────────────────────────────────────────────────────────────
@@ -224,7 +224,7 @@ const DrawerClose = forwardRef<View, { children?: ReactNode; onPress?: () => voi
         accessibilityLabel="Close drawer"
         style={[{ position: 'absolute', top: 12, right: 12, padding: 8, borderRadius: 4 }, rest.style]}
       >
-        {children ?? <RNText style={{ fontSize: 16, color: '#666' }}>✕</RNText>}
+        {children ?? <RNText style={{ fontSize: 16, color: '$neutral7' }}>✕</RNText>}
       </Pressable>
     )
   },
