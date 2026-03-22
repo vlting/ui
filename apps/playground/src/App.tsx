@@ -9,8 +9,8 @@ import { MoonIcon, SunIcon } from './sections/shared'
 import {
   AccordionSection, AlertSection, AvatarSection, BadgeSection, ButtonGroupSection, ButtonSection,
   CardSection, CollapsibleSection, DialogSection, DrawerSection, EmptySection, FieldFormSection,
-  HoverCardSection, InputSection, InputGroupSection, InputOTPSection, PopoverSection, SheetSection,
-  ToastSection, TooltipSection, TypographySection, ItemSection, ProgressSection,
+  HoverCardSection, InputSection, InputGroupSection, InputOTPSection, MenuSection, PopoverSection,
+  SheetSection, ToastSection, TooltipSection, TypographySection, ItemSection, ProgressSection,
   SelectionSection, SeparatorSection, SliderSection, SpinnerSection, ToggleSection,
 } from './sections'
 import { DemoSection, DEMO_SCENES, type DemoScene } from './sections/DemoSection'
@@ -21,6 +21,7 @@ const PAGES = ['Components', 'Demo'] as const
 type Page = typeof PAGES[number]
 
 const SECTIONS = [
+  'Menu',
   'Toast', 'Popover', 'Tooltip', 'HoverCard',
   'Dialog', 'Sheet', 'Drawer',
   'Accordion', 'Collapsible', 'Inputs', 'Slider', 'InputOTP', 'InputGroup', 'Field & Form', 'Selection', 'Button', 'ButtonGroup', 'Toggle', 'Alert', 'Badge', 'Item', 'Card', 'Progress',
@@ -182,6 +183,7 @@ const Main = styled('main', {
 // ─── Section component map ──────────────────────────────────────────────────
 
 const SECTION_COMPONENTS: Record<string, React.ComponentType<{ sectionRef: (el: HTMLDivElement | null) => void }>> = {
+  Menu: MenuSection,
   Popover: PopoverSection,
   Tooltip: TooltipSection,
   HoverCard: HoverCardSection,

@@ -18,19 +18,19 @@ module.exports = {
     // 'packages/components/Collapsible/', // re-enabled
     'packages/components/Combobox/',
     'packages/components/Command/',
-    'packages/components/ContextMenu/',
+    // 'packages/components/ContextMenu/', // re-enabled
     'packages/components/DataTable/',
     'packages/components/DatePicker/',
     // 'packages/components/Dialog/', // re-enabled
     // 'packages/components/Drawer/', // re-enabled
-    'packages/components/DropdownMenu/',
+    // 'packages/components/DropdownMenu/', // re-enabled
     // 'packages/components/Field/', // re-enabled
     // 'packages/components/Form/', // re-enabled
     // 'packages/components/HoverCard/', // re-enabled
     // 'packages/components/InputGroup/', // re-enabled
     // 'packages/components/InputOTP/', // re-enabled
-    'packages/components/Menu/',
-    'packages/components/Menubar/',
+    // 'packages/components/Menu/', // re-enabled
+    // 'packages/components/Menubar/', // re-enabled
     'packages/components/NavigationMenu/',
     'packages/components/Pagination/',
     // 'packages/components/Popover/', // re-enabled

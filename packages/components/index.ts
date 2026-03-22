@@ -74,8 +74,10 @@ export type { CommandGroupProps, CommandItemProps, CommandRootProps } from './Co
 export { Command } from './Command'
 export type {
   ContextMenuCheckboxItemProps,
+  ContextMenuContentProps,
   ContextMenuItemProps,
   ContextMenuRootProps,
+  ContextMenuTriggerProps,
 } from './ContextMenu'
 export { ContextMenu } from './ContextMenu'
 export type {
@@ -96,8 +98,12 @@ export type { DrawerContentProps, DrawerRootProps } from './Drawer'
 export { Drawer } from './Drawer'
 export type {
   DropdownMenuCheckboxItemProps,
+  DropdownMenuContentProps,
   DropdownMenuItemProps,
+  DropdownMenuRadioGroupProps,
+  DropdownMenuRadioItemProps,
   DropdownMenuRootProps,
+  DropdownMenuTriggerProps,
 } from './DropdownMenu'
 export { DropdownMenu } from './DropdownMenu'
 export type {
@@ -142,7 +148,24 @@ export type {
 export { Item } from './Item'
 export type { LoaderProps } from './Loader'
 export { Loader } from './Loader'
-export type { MenubarItemProps, MenubarMenuProps, MenubarRootProps } from './Menubar'
+export type {
+  MenuCheckboxItemProps,
+  MenuContentProps,
+  MenuGroupProps,
+  MenuItemProps,
+  MenuLabelProps,
+  MenuRadioGroupProps,
+  MenuRadioItemProps,
+  MenuRootProps,
+  MenuSeparatorProps,
+  MenuShortcutProps,
+  MenuSubContentProps,
+  MenuSubProps,
+  MenuSubTriggerProps,
+  MenuTriggerProps,
+} from './Menu'
+export { Menu } from './Menu'
+export type { MenubarCheckboxItemProps, MenubarContentProps, MenubarItemProps, MenubarMenuProps, MenubarRootProps, MenubarTriggerProps } from './Menubar'
 export { Menubar } from './Menubar'
 export type { NativeSelectOptionProps, NativeSelectRootProps } from './NativeSelect'
 export { NativeSelect } from './NativeSelect'

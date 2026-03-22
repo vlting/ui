@@ -66,8 +66,9 @@ describe('ContextMenu', () => {
     })
 
     it('closes when clicking outside', () => {
+      const onOpenChange = jest.fn()
       render(
-        <ContextMenu.Root>
+        <ContextMenu.Root onOpenChange={onOpenChange}>
           <ContextMenu.Trigger>
             <div>Area</div>
           </ContextMenu.Trigger>
@@ -79,8 +80,9 @@ describe('ContextMenu', () => {
       fireEvent.contextMenu(screen.getByText('Area'))
       expect(screen.getByRole('menu')).toBeTruthy()
 
-      // Click the overlay backdrop to close
-      const overlay = document.querySelector('[style*="position: fixed"]')
+      // The overlay is the sibling before the menu content in the portal
+      const menu = screen.getByRole('menu')
+      const overlay = menu.previousElementSibling
       if (overlay) fireEvent.click(overlay)
       expect(screen.queryByRole('menu')).toBeNull()
     })
