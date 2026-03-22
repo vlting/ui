@@ -29,7 +29,7 @@ const EmptyMedia = styled('figure', {
 
 const EmptyTitle = styled('h3', { fontWeight: '$600', fontSize: '$h4', m: '$0', color: '$neutralText3' }, { name: 'EmptyTitle' })
 
-const EmptyDescription = styled('p', { fontSize: '$p', m: '$0', maxWidth: '400px', color: '$neutralText4' }, { name: 'EmptyDescription' })
+const EmptyDescription = styled('p', { fontSize: '$p', m: '$0', maxWidth: '$400', color: '$neutralText4' }, { name: 'EmptyDescription' })
 
 const EmptyAction = styled('footer', { display: 'flex', gap: '$8', mt: '$4' }, { name: 'EmptyAction' })
 

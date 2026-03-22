@@ -58,7 +58,7 @@ const StyledContent = styled('div', {
   borderTopLeftRadius: '$6',
   borderTopRightRadius: '$6',
   boxShadow: '$lg',
-  maxHeight: '85vh',
+  maxHeight: '85%',
   width: '100%',
   overflow: 'auto',
   zIndex: '50',
@@ -99,7 +99,7 @@ const StyledFooter = styled('footer', {
   display: 'flex',
   flexDirection: 'row',
   gap: '$8',
-  justifyContent: 'flex-end',
+  justifyContent: 'end',
   p: '$16',
   pt: '$8',
 }, { name: 'SheetFooter' })

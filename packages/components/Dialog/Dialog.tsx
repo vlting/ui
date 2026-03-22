@@ -63,7 +63,7 @@ const StyledContent = styled('div', {
   boxShadow: '$lg',
   p: '$24',
   width: '100%',
-  maxHeight: '85vh',
+  maxHeight: '85%',
   overflow: 'auto',
   transitionProperty: 'opacity, transform',
   transitionDuration: '$fastDuration',
@@ -72,9 +72,9 @@ const StyledContent = styled('div', {
   name: 'DialogContent',
   variants: {
     size: {
-      sm: { maxWidth: '400px' },
-      md: { maxWidth: '500px' },
-      lg: { maxWidth: '640px' },
+      sm: { maxWidth: '$400' },
+      md: { maxWidth: '$480' },
+      lg: { maxWidth: '$640' },
     },
   },
   defaultVariants: {
@@ -107,7 +107,7 @@ const StyledFooter = styled('div', {
   flexDirection: 'row',
   gap: '$8',
   pt: '$16',
-  justifyContent: 'flex-end',
+  justifyContent: 'end',
 }, { name: 'DialogFooter' })
 
 const StyledClose = styled('button', {
