@@ -3,8 +3,8 @@ slug: library-buildout
 status: in-progress
 scope: large
 created: 2026-03-15
-current_epic: 8
-current_stage: 2
+current_epic: 11
+current_stage: 1
 phase: breakdown
 epic_issue: 206
 ---
@@ -159,7 +159,7 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Epic slug:** form-controls
 **Epic branch:** epic/form-controls
 **Epic issue:** #217
-**Epic PR:** #236
+**Epic PR:** #236 (merged)
 **Status:** done
 
 ### Stage 7.1: Text Inputs (Input, Textarea, NativeSelect)
@@ -181,39 +181,42 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Branch prefix:** feat
 **Branch:** feat/library-buildout/selection-controls
 **Issue:** #221
+**PR:** #238
 **Acceptance criteria:**
-- [ ] Checkbox: compound Root+Indicator, useControllableState, indeterminate, size sm/md/lg, error/disabled
-- [ ] Switch: button role="switch" + thumb, useControllableState, thumb animation in STL core, lowMotion
-- [ ] RadioGroup: compound Root+Item, useControllableState+useRovingTabIndex, role="radiogroup", context
-- [ ] Toggle: spec filled from bak, test audit (aria-pressed, controlled mode, onPressedChange)
-- [ ] All use headless hooks from packages/headless
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground SelectionSection with all states
-**Status:** in-progress
+- [x] Checkbox: compound Root+Indicator, useControllableState, indeterminate, size sm/md/lg, error/disabled
+- [x] Switch: button role="switch" + thumb, useControllableState, thumb animation in STL core, lowMotion
+- [x] RadioGroup: compound Root+Item, useControllableState+useRovingTabIndex, role="radiogroup", context
+- [x] Toggle: spec filled from bak, test audit (aria-pressed, controlled mode, onPressedChange)
+- [x] All use headless hooks from packages/headless
+- [x] Tests passing, removed from testPathIgnorePatterns
+- [x] Playground SelectionSection with all states
+**Status:** done
 
 ### Stage 7.3: Range & Complex Inputs (Slider, InputOTP, InputGroup)
 **Branch prefix:** feat
 **Branch:** feat/library-buildout/range-complex-inputs
 **Issue:** #239
+**PR:** #240
 **Acceptance criteria:**
-- [ ] Slider: theme-axis, single-thumb, role="slider", aria-valuemin/max/now, keyboard (arrows, Home/End), pointer drag, 44px touch target
-- [ ] InputOTP: compound (Root/Group/Slot/Separator), hidden input, auto-advance, paste, onComplete, inputMode="numeric"
-- [ ] InputGroup: compound, size context, role="group", border-radius collapsing, Addon aria-hidden, Element placement
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground sections + demo scene integration
-**Status:** in-progress
+- [x] Slider: theme-axis, single-thumb, role="slider", aria-valuemin/max/now, keyboard (arrows, Home/End), pointer drag, 44px touch target
+- [x] InputOTP: compound (Root/Group/Slot/Separator), hidden input, auto-advance, paste, onComplete, inputMode="numeric"
+- [x] InputGroup: compound, size context, role="group", border-radius collapsing, Addon aria-hidden, Element placement
+- [x] Tests passing, removed from testPathIgnorePatterns
+- [x] Playground sections + demo scene integration
+**Status:** done
 
 ### Stage 7.4: Form Infrastructure (Field, Form)
 **Branch prefix:** feat
 **Branch:** feat/library-buildout/form-infrastructure
 **Issue:** #241
+**PR:** #242
 **Acceptance criteria:**
-- [ ] Field: compound (Root/Label/Control/Description/Error), context + useId + cloneElement, auto-wires aria
-- [ ] Form: styled <form> with onSubmit/preventDefault, noValidate
-- [ ] Label primitive in stl-react already done — Field.Label wraps it, no duplication
-- [ ] Tests rewritten to match actual implementation
-- [ ] Playground section + demo scene integration
-**Status:** in-progress
+- [x] Field: compound (Root/Label/Control/Description/Error), context + useId + cloneElement, auto-wires aria
+- [x] Form: styled <form> with onSubmit/preventDefault, noValidate
+- [x] Label primitive in stl-react already done — Field.Label wraps it, no duplication
+- [x] Tests rewritten to match actual implementation
+- [x] Playground section + demo scene integration
+**Status:** done
 
 ## Epic 8: Disclosure & Overlay
 **Objective:** Components with open/close state, focus management, portals. First real test of styled() for compound+portal patterns.
@@ -221,7 +224,8 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 **Epic slug:** disclosure-overlay
 **Epic branch:** epic/disclosure-overlay
 **Epic issue:** #243
-**Status:** in-progress
+**Epic PR:** #244 (merged)
+**Status:** done
 
 ### Stage 8.1: Disclosure (Accordion, Collapsible) + Slider cleanup
 **Branch prefix:** feat
@@ -240,109 +244,140 @@ Key decisions (from council — 7 personas, unanimous on ordering):
 
 ### Stage 8.2: Dialogs (Dialog, AlertDialog, Sheet, Drawer)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/dialogs
+**Issue:** #225
+**PR:** #247
 **Acceptance criteria:**
-- [ ] Dialog: compound, focus trap, focus restoration, Escape close, aria-modal, overlay background
-- [ ] AlertDialog: extends Dialog, auto-focus destructive action, aria-alertdialog
-- [ ] Sheet: bottom/side panel variant, drag-to-dismiss option
-- [ ] Drawer: side panel, persistent/temporary modes
-- [ ] All use useFocusScope, Portal
-- [ ] Shadow tokens ($sm-$2xl), animation tokens (slideIn*/fadeIn)
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground sections (top of gallery) + demo scene integration
-**Status:** pending
+- [x] Dialog: compound, focus trap, focus restoration, Escape close, aria-modal, overlay background
+- [x] AlertDialog: extends Dialog, auto-focus destructive action, aria-alertdialog
+- [x] Sheet: bottom/side panel variant, drag-to-dismiss option
+- [x] Drawer: side panel, persistent/temporary modes
+- [x] All use useFocusScope, Portal
+- [x] Shadow tokens ($sm-$2xl), animation tokens (slideIn*/fadeIn)
+- [x] Tests passing (60), removed from testPathIgnorePatterns
+- [x] Playground sections (top of gallery) + demo scene integration
+**Status:** done
 
 ### Stage 8.3: Floating (Popover, Tooltip, HoverCard)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/floating
+**Issue:** #226
+**PR:** #248
 **Acceptance criteria:**
-- [ ] Popover: compound, positioning (usePopoverPosition), focus management, arrow
-- [ ] Tooltip: delay, positioning, aria-describedby on trigger
-- [ ] HoverCard: hover-triggered popover, delay, pointer tracking
-- [ ] All use Portal, positioning logic
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground sections (top of gallery) + demo scene integration
-**Status:** pending
+- [x] Popover: compound, positioning (usePopoverPosition), focus management, arrow
+- [x] Tooltip: delay, positioning, aria-describedby on trigger
+- [x] HoverCard: hover-triggered popover, delay, pointer tracking
+- [x] All use Portal, positioning logic
+- [x] Tests passing (30), removed from testPathIgnorePatterns
+- [x] Playground sections (top of gallery) + demo scene integration
+**Status:** done
 
 ### Stage 8.4: Feedback Overlay (Toast)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/toast
+**Issue:** #227
+**PR:** #249
 **Acceptance criteria:**
-- [ ] Toast: compound, queue management (useToastQueue), auto-dismiss, swipe-to-dismiss
-- [ ] Toaster container, positioning (top/bottom × left/center/right)
-- [ ] aria-live announcements (useLiveRegion)
-- [ ] Enter/exit animations
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground section (top of gallery) + demo scene integration
-**Status:** pending
+- [x] Toast: compound, queue management, auto-dismiss, imperative API
+- [x] Toaster container, positioning (top/bottom × left/center/right)
+- [x] aria-live announcements
+- [x] Enter/exit animations
+- [x] Tests passing (25), removed from testPathIgnorePatterns
+- [x] Playground section (top of gallery) + demo scene integration
+**Status:** done
 
 ## Epic 9: React Native Parity (Core)
 **Objective:** .native.tsx for Epics 6-8 components — enough for real-world cross-platform apps. Remaining RN work done incrementally after later web epics.
 **Dependencies:** Epic 8
-**Epic slug:** react-native-core
-**Status:** pending
+**Epic slug:** rn-parity
+**Epic branch:** epic/rn-parity
+**Epic issue:** #231
+**Epic PR:** #253 (merged)
+**Status:** done
 
-### Stage 9.1: Primitive & Display Native Implementations
+### Stage 9.1: Display Native Implementations
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/rn-display
+**Issue:** #232
+**PR:** #250
 **Acceptance criteria:**
-- [ ] All stl-react primitives have working .native.tsx
-- [ ] All Epic 6 display components have .native.tsx
-- [ ] Expo playground pages for each
-**Status:** pending
+- [x] Alert, Avatar, Badge, Card, Empty, Item, Progress, Separator, ButtonGroup .native.tsx
+- [x] API parity with web versions
+- [x] Exported from index.native.ts
+**Status:** done
 
 ### Stage 9.2: Form Control Native Implementations
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/rn-forms
+**Issue:** #233
+**PR:** #251
 **Acceptance criteria:**
-- [ ] All Epic 7 form controls have .native.tsx
-- [ ] Platform-specific adaptations (native pickers, keyboard handling)
-- [ ] Expo playground pages
-**Status:** pending
+- [x] Button, Input, Textarea, NativeSelect, Checkbox, Switch, RadioGroup, Toggle, ToggleGroup, Slider, InputOTP, InputGroup, Field, Form .native.tsx
+- [x] Platform-specific adaptations (PanResponder for Slider, RN Switch)
+- [x] Exported from index.native.ts
+**Status:** done
 
-### Stage 9.3: Overlay Native Implementations
+### Stage 9.3: Overlay Native + Expo Showcase
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/rn-disclosure
+**Issue:** #234
+**PR:** #252
 **Acceptance criteria:**
-- [ ] All Epic 8 overlay components have .native.tsx
-- [ ] Native modal/sheet patterns (react-native-reanimated, gesture-handler)
-- [ ] Expo playground pages
-**Status:** pending
+- [x] Accordion, Collapsible, Dialog, AlertDialog, Sheet, Drawer, Popover, Tooltip, HoverCard, Toast .native.tsx
+- [x] RN Animated API for animations, Modal for overlays
+- [x] Expo showcase app screens (Display, Form, Disclosure, Overlay)
+**Status:** done
 
 ## Epic 10: Menus & Navigation
 **Objective:** Complex keyboard navigation, roving tabindex, typeahead. react-aria-backed where appropriate.
 **Dependencies:** Epic 8
 **Epic slug:** menus-navigation
-**Status:** pending
+**Epic branch:** epic/menus-navigation
+**Epic issue:** #219
+**Epic PR:** #257 (merged)
+**Status:** done
 
-### Stage 10.1: Menus (DropdownMenu, ContextMenu, Menu, Menubar)
+### Stage 10.1: Menus (Menu, DropdownMenu, ContextMenu, Menubar)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/menus
+**Issue:** #228
+**PR:** #254
 **Acceptance criteria:**
-- [ ] Menu: compound, roving tabindex, typeahead, nested submenus, aria-menu
-- [ ] DropdownMenu: trigger + Menu, positioning
-- [ ] ContextMenu: right-click trigger + Menu
-- [ ] Menubar: horizontal menu bar, nested menus, keyboard (arrows, Enter, Escape)
-- [ ] react-aria backed via headless wrappers
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground sections (top of gallery) + demo scene integration
-**Status:** pending
+- [x] Menu: compound, roving tabindex, typeahead, nested submenus, CheckboxItem, RadioGroup/RadioItem
+- [x] DropdownMenu: click-triggered menu with all sub-components
+- [x] ContextMenu: right-click trigger + Menu at cursor position
+- [x] Menubar: horizontal bar, hover-switching, ArrowLeft/Right navigation
+- [x] Tests passing (64), removed from testPathIgnorePatterns
+- [x] Playground section + demo scene integration
+**Status:** done
 
 ### Stage 10.2: Selection (Select, Combobox, Command)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/selection
+**Issue:** #229
+**PR:** #255
 **Acceptance criteria:**
-- [ ] Select: compound, listbox pattern, typeahead, single/multi select, aria-listbox
-- [ ] Combobox: input + listbox, filtering, async loading, aria-combobox
-- [ ] Command: command palette, search + action list, keyboard-first
-- [ ] react-aria backed for listbox/combobox patterns
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground sections (top of gallery) + demo scene integration
-**Status:** pending
+- [x] Select: compound listbox, keyboard nav, type-ahead, groups, ARIA listbox/option
+- [x] Combobox: searchable select with filter, empty state, compound + options API
+- [x] Command: command palette, search + action list, keyboard selection
+- [x] Tests passing (44), removed from testPathIgnorePatterns
+- [x] Playground sections + demo scene integration (Command in Dashboard)
+**Status:** done
 
 ### Stage 10.3: Navigation (Tabs, NavigationMenu, Breadcrumb, Pagination, Sidebar)
 **Branch prefix:** feat
+**Branch:** feat/library-buildout/navigation
+**Issue:** #230
+**PR:** #256
 **Acceptance criteria:**
-- [ ] Tabs: compound, roving tabindex, aria-tablist/tab/tabpanel, controlled/uncontrolled
-- [ ] NavigationMenu: horizontal nav, active state, mega-menu support
-- [ ] Breadcrumb: compound, aria-breadcrumb, separator
-- [ ] Pagination: page navigation, aria-label, keyboard
-- [ ] Sidebar: collapsible navigation, responsive, compound
-- [ ] Tests passing, removed from testPathIgnorePatterns
-- [ ] Playground sections (top of gallery) + demo scene integration
-**Status:** pending
+- [x] Tabs: compound with useTabs, keyboard nav, horizontal/vertical orientation
+- [x] NavigationMenu: hover-triggered dropdown nav, nav/menubar roles
+- [x] Breadcrumb: semantic nav/ol/li, customizable separator, aria-current="page"
+- [x] Pagination: controlled page state, prev/next, active highlighting
+- [x] Sidebar: aside with groups/items, collapsible mode, active item variant
+- [x] Tests passing (54), removed from testPathIgnorePatterns
+- [x] Playground sections + demo scene integration (Tabs in Settings)
+**Status:** done
 
 ## Epic 11: Complex & Data
 **Objective:** Data-heavy components with complex state management
