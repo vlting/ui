@@ -1,5 +1,4 @@
 <!-- spec-version: 2 -->
-<!-- AI: Fill this spec when this component is actively worked on. See ContextMenu.spec.bak.md for prior design intent. -->
 
 # ContextMenu Specification
 
@@ -9,82 +8,48 @@ ContextMenu
 ---
 
 ## Purpose
+Right-click triggered context menu. Positions at mouse coordinates.
 
 ---
 
 ## Supported Platforms
-
-- [ ] React (web)
+- [x] React (web)
 - [ ] React Native
 
 ---
 
-## Design System Constraints
-
----
-
-## Component API
-
----
-
-## Composition Model
-
----
-
-## Layout Rules
-
----
-
-## Variants
-
----
-
-## Size Options
-
----
-
-## States
+## Compound Components
+- `Root` — Context provider (open state, position)
+- `Trigger` — Wraps children, listens for contextmenu event
+- `Content` — Portal-rendered menu at cursor position
+- `Item` — Menu option (role="menuitem")
+- `CheckboxItem` — Toggle item (role="menuitemcheckbox")
+- `Group` / `Label` — Visual grouping
+- `Separator` — Divider
+- `Shortcut` — Keyboard hint
 
 ---
 
 ## Interaction Model
+- Right-click (contextmenu event) opens at cursor {x, y}
+- Click outside (overlay) closes
+- Click item: fires onSelect, closes
+- Escape closes
 
 ---
 
 ## Accessibility
-
----
-
-## Platform Implementation Notes
-
-### React (Web)
-
-### React Native
-
----
-
-## Theming Behavior
-
----
-
-## Edge Cases
-
----
-
-## Stories / Preview Cases
+- `role="menu"` on Content
+- `aria-haspopup="menu"` on Trigger span
+- Standard menuitem/menuitemcheckbox roles
 
 ---
 
 ## Test Requirements
-
----
-
-## Implementation Constraints
-
----
-
-## Open Questions
-
----
-
-## Change Log
+- Opens on contextmenu event
+- Positions at mouse coordinates
+- Overlay click closes
+- onOpenChange callback fires
+- ARIA roles on items
+- Disabled items get aria-disabled
+- Item click fires onSelect and closes

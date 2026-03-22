@@ -12,7 +12,16 @@ export type { AvatarProps } from './Avatar'
 export { Avatar } from './Avatar'
 export type { BadgeProps } from './Badge'
 export { Badge } from './Badge'
-export type { BreadcrumbProps } from './Breadcrumb'
+export type {
+  BreadcrumbProps,
+  BreadcrumbRootProps,
+  BreadcrumbListProps,
+  BreadcrumbItemProps,
+  BreadcrumbLinkProps,
+  BreadcrumbSeparatorProps,
+  BreadcrumbPageProps,
+  BreadcrumbEllipsisProps,
+} from './Breadcrumb'
 export { Breadcrumb } from './Breadcrumb'
 export type { ButtonProps } from './Button'
 export { Button } from './Button'
@@ -68,14 +77,16 @@ export type {
   CollapsibleTriggerProps,
 } from './Collapsible'
 export { Collapsible } from './Collapsible'
-export type { ComboboxItemProps, ComboboxOption, ComboboxRootProps } from './Combobox'
+export type { ComboboxContentProps, ComboboxInputProps, ComboboxItemProps, ComboboxOption, ComboboxRootProps } from './Combobox'
 export { Combobox } from './Combobox'
-export type { CommandGroupProps, CommandItemProps, CommandRootProps } from './Command'
+export type { CommandGroupProps, CommandInputProps, CommandItemProps, CommandRootProps } from './Command'
 export { Command } from './Command'
 export type {
   ContextMenuCheckboxItemProps,
+  ContextMenuContentProps,
   ContextMenuItemProps,
   ContextMenuRootProps,
+  ContextMenuTriggerProps,
 } from './ContextMenu'
 export { ContextMenu } from './ContextMenu'
 export type {
@@ -96,8 +107,12 @@ export type { DrawerContentProps, DrawerRootProps } from './Drawer'
 export { Drawer } from './Drawer'
 export type {
   DropdownMenuCheckboxItemProps,
+  DropdownMenuContentProps,
   DropdownMenuItemProps,
+  DropdownMenuRadioGroupProps,
+  DropdownMenuRadioItemProps,
   DropdownMenuRootProps,
+  DropdownMenuTriggerProps,
 } from './DropdownMenu'
 export { DropdownMenu } from './DropdownMenu'
 export type {
@@ -142,17 +157,46 @@ export type {
 export { Item } from './Item'
 export type { LoaderProps } from './Loader'
 export { Loader } from './Loader'
-export type { MenubarItemProps, MenubarMenuProps, MenubarRootProps } from './Menubar'
+export type {
+  MenuCheckboxItemProps,
+  MenuContentProps,
+  MenuGroupProps,
+  MenuItemProps,
+  MenuLabelProps,
+  MenuRadioGroupProps,
+  MenuRadioItemProps,
+  MenuRootProps,
+  MenuSeparatorProps,
+  MenuShortcutProps,
+  MenuSubContentProps,
+  MenuSubProps,
+  MenuSubTriggerProps,
+  MenuTriggerProps,
+} from './Menu'
+export { Menu } from './Menu'
+export type { MenubarCheckboxItemProps, MenubarContentProps, MenubarItemProps, MenubarMenuProps, MenubarRootProps, MenubarTriggerProps } from './Menubar'
 export { Menubar } from './Menubar'
 export type { NativeSelectOptionProps, NativeSelectRootProps } from './NativeSelect'
 export { NativeSelect } from './NativeSelect'
 export type {
+  NavigationMenuRootProps,
   NavigationMenuItemProps,
   NavigationMenuLinkProps,
-  NavigationMenuRootProps,
+  NavigationMenuListProps,
+  NavigationMenuTriggerProps,
+  NavigationMenuContentProps,
 } from './NavigationMenu'
 export { NavigationMenu } from './NavigationMenu'
-export type { PaginationProps } from './Pagination'
+export type {
+  PaginationProps,
+  PaginationRootProps,
+  PaginationContentProps,
+  PaginationItemProps,
+  PaginationPreviousProps,
+  PaginationNextProps,
+  PaginationEllipsisProps,
+  PaginationState,
+} from './Pagination'
 export { Pagination } from './Pagination'
 export type { PopoverRootProps } from './Popover'
 export { Popover } from './Popover'
@@ -168,19 +212,35 @@ export type {
 export { Resizable } from './Resizable'
 export type { ScrollAreaRootProps, ScrollAreaViewportProps } from './ScrollArea'
 export { ScrollArea } from './ScrollArea'
-export type { SelectItemProps, SelectProps } from './Select'
+export type { SelectContentProps, SelectItemProps, SelectProps, SelectValueProps } from './Select'
 export { Select } from './Select'
 export type { SeparatorProps } from './Separator'
 export { Separator } from './Separator'
 export type { SheetRootProps } from './Sheet'
 export { Sheet } from './Sheet'
-export type { SidebarGroupProps, SidebarMenuItemProps, SidebarRootProps } from './Sidebar'
+export type {
+  SidebarRootProps,
+  SidebarHeaderProps,
+  SidebarContentProps,
+  SidebarFooterProps,
+  SidebarGroupProps,
+  SidebarGroupLabelProps,
+  SidebarMenuItemProps,
+  SidebarMenuProps,
+  SidebarTriggerProps,
+} from './Sidebar'
 export { Sidebar } from './Sidebar'
 export type { SliderProps } from './Slider'
 export { Slider } from './Slider'
 export type { SwitchProps } from './Switch'
 export { Switch } from './Switch'
 export { Table } from './Table'
+export type {
+  TabsRootProps,
+  TabsListProps,
+  TabsTriggerProps,
+  TabsContentProps,
+} from './Tabs'
 export { Tabs } from './Tabs'
 export type { TextareaProps } from './Textarea'
 export { Textarea } from './Textarea'
