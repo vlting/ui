@@ -14,7 +14,6 @@ describe('toast store', () => {
 
   it('toast.success() creates a toast with success variant', () => {
     toast.success('Saved')
-    // Verify via hook
     let toasts: ReturnType<typeof useImperativeToasts> = []
     function Spy() {
       toasts = useImperativeToasts()

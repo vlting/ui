@@ -42,7 +42,7 @@ module.exports = {
     // 'packages/components/Slider/', // re-enabled
     'packages/components/Table/',
     'packages/components/Tabs/',
-    'packages/components/Toast/',
+    // 'packages/components/Toast/', // re-enabled
     // 'packages/components/Toggle/', // re-enabled
     // 'packages/components/Tooltip/', // re-enabled
   ],

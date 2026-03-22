@@ -30,6 +30,8 @@ import {
   Switch,
   Text,
   Textarea,
+  toast,
+  Toaster,
   Toggle,
   ToggleGroup,
   Tooltip,
@@ -754,7 +756,7 @@ function MediaScene() {
                 />
               </InputGroup.Input>
               <InputGroup.ButtonAddon>
-                <Button variant="outline" theme="neutral">Copy</Button>
+                <Button variant="outline" theme="neutral" onClick={() => toast.success('Link copied!')}>Copy</Button>
               </InputGroup.ButtonAddon>
             </InputGroup>
           </Card.Content>
@@ -867,5 +869,10 @@ const SCENE_COMPONENTS: Record<DemoScene, React.ComponentType> = {
 
 export function DemoSection({ activeScene = 'Settings' }: { activeScene?: DemoScene }) {
   const SceneComponent = SCENE_COMPONENTS[activeScene]
-  return <SceneComponent />
+  return (
+    <>
+      <SceneComponent />
+      <Toaster />
+    </>
+  )
 }

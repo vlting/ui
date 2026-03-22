@@ -189,11 +189,14 @@ export type {
   ToastData,
   ToastProviderProps,
   ToastRootProps,
+  ToastVariant,
   ToastViewportProps,
+  ToasterProps,
 } from './Toast'
 export {
   ImperativeToastViewport,
   Toast,
+  Toaster,
   toast,
   useImperativeToasts,
   useToastController,
