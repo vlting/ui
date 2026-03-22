@@ -1,4 +1,7 @@
 export { AccordionSection } from './AccordionSection'
+export { CommandSection } from './CommandSection'
+export { ComboboxSection } from './ComboboxSection'
+export { SelectSection } from './SelectSection'
 export { MenuSection } from './MenuSection'
 export { AlertSection } from './AlertSection'
 export { DialogSection } from './DialogSection'

@@ -68,9 +68,9 @@ export type {
   CollapsibleTriggerProps,
 } from './Collapsible'
 export { Collapsible } from './Collapsible'
-export type { ComboboxItemProps, ComboboxOption, ComboboxRootProps } from './Combobox'
+export type { ComboboxContentProps, ComboboxInputProps, ComboboxItemProps, ComboboxOption, ComboboxRootProps } from './Combobox'
 export { Combobox } from './Combobox'
-export type { CommandGroupProps, CommandItemProps, CommandRootProps } from './Command'
+export type { CommandGroupProps, CommandInputProps, CommandItemProps, CommandRootProps } from './Command'
 export { Command } from './Command'
 export type {
   ContextMenuCheckboxItemProps,
@@ -191,7 +191,7 @@ export type {
 export { Resizable } from './Resizable'
 export type { ScrollAreaRootProps, ScrollAreaViewportProps } from './ScrollArea'
 export { ScrollArea } from './ScrollArea'
-export type { SelectItemProps, SelectProps } from './Select'
+export type { SelectContentProps, SelectItemProps, SelectProps, SelectValueProps } from './Select'
 export { Select } from './Select'
 export type { SeparatorProps } from './Separator'
 export { Separator } from './Separator'

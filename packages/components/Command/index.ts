@@ -1,2 +1,2 @@
-export type { CommandGroupProps, CommandItemProps, CommandRootProps } from './Command'
+export type { CommandGroupProps, CommandInputProps, CommandItemProps, CommandRootProps } from './Command'
 export { Command } from './Command'
