@@ -171,6 +171,10 @@ ButtonAddon.displayName = 'InputGroup.ButtonAddon'
 
 // ─── Element ────────────────────────────────────────────────────────────────
 
+const ElementInner = styled('div', {
+  pointerEvents: 'auto',
+}, { name: 'InputGroupElementInner' })
+
 const ElementBase = styled('div', {
   position: 'absolute',
   top: '0',
@@ -205,7 +209,7 @@ const Element = forwardRef<HTMLDivElement, InputGroupElementProps>(
     const ctx = useInputGroupContext()
     return (
       <ElementBase ref={ref} placement={placement} size={ctx.size} {...rest}>
-        <div style={{ pointerEvents: 'auto' }}>{children}</div>
+        <ElementInner>{children}</ElementInner>
       </ElementBase>
     )
   },

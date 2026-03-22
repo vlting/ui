@@ -15,7 +15,7 @@ import type { ToastData, ToastVariant } from './toast-imperative'
 
 const StyledRoot = styled('div', {
   display: 'flex',
-  alignItems: 'flex-start',
+  alignItems: 'start',
   gap: '$12',
   bg: '$surface1',
   radius: '$4',
@@ -106,12 +106,12 @@ export type ToasterPosition =
   | 'bottom-right'
 
 const POSITION_STL: Record<ToasterPosition, Record<string, string>> = {
-  'top-left': { top: '$16', left: '$16', alignItems: 'flex-start' },
+  'top-left': { top: '$16', left: '$16', alignItems: 'start' },
   'top-center': { top: '$16', left: '50%', transform: 'translateX(-50%)', alignItems: 'center' },
-  'top-right': { top: '$16', right: '$16', alignItems: 'flex-end' },
-  'bottom-left': { bottom: '$16', left: '$16', alignItems: 'flex-start' },
+  'top-right': { top: '$16', right: '$16', alignItems: 'end' },
+  'bottom-left': { bottom: '$16', left: '$16', alignItems: 'start' },
   'bottom-center': { bottom: '$16', left: '50%', transform: 'translateX(-50%)', alignItems: 'center' },
-  'bottom-right': { bottom: '$16', right: '$16', alignItems: 'flex-end' },
+  'bottom-right': { bottom: '$16', right: '$16', alignItems: 'end' },
 }
 
 const StyledViewport = styled('div', {

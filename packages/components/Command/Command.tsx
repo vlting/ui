@@ -123,11 +123,16 @@ const StyledSeparator = styled('div', {
 
 // ─── Icons ──────────────────────────────────────────────────────────────────
 
+const StyledSearchIcon = styled('svg', {
+  opacity: '0.5',
+  flexShrink: '0',
+}, { name: 'CommandSearchIcon' })
+
 const SearchIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ opacity: 0.5, flexShrink: 0 }}>
+  <StyledSearchIcon width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <circle cx="7" cy="7" r="4.5" />
     <path d="M10.5 10.5L14 14" />
-  </svg>
+  </StyledSearchIcon>
 )
 
 // ─── Root ───────────────────────────────────────────────────────────────────
