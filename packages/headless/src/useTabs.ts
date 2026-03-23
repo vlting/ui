@@ -5,6 +5,8 @@ export interface UseTabsProps {
   value?: string
   onValueChange?: (value: string) => void
   orientation?: 'horizontal' | 'vertical'
+  /** Optional custom focus handler for platform-agnostic usage (e.g. React Native) */
+  focusTab?: (value: string) => void
 }
 
 export interface UseTabsReturn {
@@ -33,6 +35,7 @@ export function useTabs({
   value,
   onValueChange,
   orientation = 'horizontal',
+  focusTab,
 }: UseTabsProps = {}): UseTabsReturn {
   const [internal, setInternal] = useState(defaultValue)
   const isControlled = value !== undefined
@@ -112,12 +115,16 @@ export function useTabs({
           if (nextIdx !== undefined) {
             e.preventDefault()
             setActiveValue(tabs[nextIdx])
-            document.getElementById(`${baseId}-tab-${tabs[nextIdx]}`)?.focus()
+            if (focusTab) {
+              focusTab(tabs[nextIdx])
+            } else {
+              document.getElementById(`${baseId}-tab-${tabs[nextIdx]}`)?.focus()
+            }
           }
         },
       }
     },
-    [activeValue, setActiveValue, orientation, registerTab, baseId],
+    [activeValue, setActiveValue, orientation, registerTab, baseId, focusTab],
   )
 
   const getTabPanelProps = useCallback(
