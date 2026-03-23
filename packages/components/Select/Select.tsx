@@ -59,19 +59,17 @@ const StyledTrigger = styled('button', {
   gap: '$8',
   width: '100%',
   bg: '$surface1',
-  borderWidth: '$widthMin',
-  borderStyle: '$styleDefault',
-  borderColor: '$neutralMin',
+  border: '$neutralMin',
   radius: '$button',
   px: '$12',
   py: '$8',
   fontSize: '$p',
   fontFamily: '$body',
-  color: 'inherit',
+  color: '$neutralText3',
   cursor: 'pointer',
   outline: 'none',
   ':interact': { bg: '$neutral3' },
-  ':focus': { outlineWidth: '2px', outlineStyle: 'solid', outlineColor: '$neutral7', outlineOffset: '1px' },
+  ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
 }, {
   name: 'SelectTrigger',
   variants: {
@@ -88,16 +86,15 @@ const StyledTrigger = styled('button', {
 
 const StyledContent = styled('div', {
   bg: '$surface1',
-  radius: '$4',
+  radius: '$card',
   boxShadow: '$md',
   py: '$4',
   minWidth: '220px',
   zIndex: '$max',
   position: 'fixed',
-  borderWidth: '$widthMin',
-  borderStyle: '$styleDefault',
-  borderColor: '$neutralMin',
+  border: '$neutralMin',
   outline: 'none',
+  color: '$neutralText3',
 }, { name: 'SelectContent' })
 
 const StyledItem = styled('div', {
@@ -131,7 +128,7 @@ const StyledLabel = styled('div', {
   fontSize: '$small',
   fontWeight: '$600',
   fontFamily: '$body',
-  color: '$neutral9',
+  color: '$neutralText4',
 }, { name: 'SelectLabel' })
 
 const StyledSeparator = styled('div', {
@@ -141,7 +138,7 @@ const StyledSeparator = styled('div', {
 }, { name: 'SelectSeparator' })
 
 const StyledPlaceholder = styled('span', {
-  color: '$neutral7',
+  color: '$neutralText4',
 }, { name: 'SelectPlaceholder' })
 
 const StyledCheckIndicator = styled('span', {

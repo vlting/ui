@@ -50,14 +50,13 @@ function useHoverCardContext() {
 const StyledContent = styled('div', {
   position: 'fixed',
   bg: '$surface1',
-  radius: '$4',
+  radius: '$card',
   boxShadow: '$lg',
   p: '$16',
   zIndex: '$max',
   maxWidth: '320px',
-  borderWidth: '$widthMin',
-  borderStyle: '$styleDefault',
-  borderColor: '$neutralMin',
+  border: '$neutralMin',
+  color: '$neutralText3',
 }, { name: 'HoverCardContent' })
 
 // ─── Root ───────────────────────────────────────────────────────────────────

@@ -47,14 +47,13 @@ function usePopoverContext() {
 const StyledContent = styled('div', {
   position: 'fixed',
   bg: '$surface1',
-  radius: '$4',
+  radius: '$card',
   boxShadow: '$md',
   p: '$16',
   zIndex: '$max',
   maxWidth: '320px',
-  borderWidth: '$widthMin',
-  borderStyle: '$styleDefault',
-  borderColor: '$neutralMin',
+  border: '$neutralMin',
+  color: '$neutralText3',
 }, { name: 'PopoverContent' })
 
 const StyledArrow = styled('div', {
@@ -62,9 +61,7 @@ const StyledArrow = styled('div', {
   width: '12px',
   height: '12px',
   bg: '$surface1',
-  borderWidth: '$widthMin',
-  borderStyle: '$styleDefault',
-  borderColor: '$neutralMin',
+  border: '$neutralMin',
   transform: 'rotate(45deg)',
   zIndex: '-1',
 }, { name: 'PopoverArrow' })
@@ -81,7 +78,7 @@ const StyledClose = styled('button', {
   cursor: 'pointer',
   p: '$4',
   radius: '$4',
-  color: '$neutral9',
+  color: '$neutralText4',
   ':interact': { bg: '$neutralAlpha2' },
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
 }, { name: 'PopoverClose' })

@@ -59,12 +59,13 @@ const StyledContentWrapper = styled('div', {
 const StyledContent = styled('div', {
   position: 'relative',
   bg: '$surface1',
-  radius: '$6',
+  radius: '$card',
   boxShadow: '$lg',
   p: '$24',
   width: '100%',
   maxHeight: '85%',
   overflow: 'auto',
+  color: '$neutralText3',
   transitionProperty: 'opacity, transform',
   transitionDuration: '$fastDuration',
   lowMotion: { transitionDuration: '0.01s' },
@@ -98,7 +99,7 @@ const StyledTitle = styled('h2', {
 
 const StyledDescription = styled('p', {
   fontSize: '$p',
-  color: '$neutral9',
+  color: '$neutralText4',
   m: '$0',
 }, { name: 'DialogDescription' })
 
@@ -122,7 +123,7 @@ const StyledClose = styled('button', {
   cursor: 'pointer',
   p: '$4',
   radius: '$4',
-  color: '$neutral9',
+  color: '$neutralText4',
   ':interact': { bg: '$neutralAlpha2' },
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
 }, { name: 'DialogClose' })

@@ -83,16 +83,15 @@ function useSubMenuContext() {
 
 const StyledContent = styled('div', {
   bg: '$surface1',
-  radius: '$4',
+  radius: '$card',
   boxShadow: '$md',
   py: '$4',
   minWidth: '220px',
   zIndex: '$max',
   position: 'fixed',
-  borderWidth: '$widthMin',
-  borderStyle: '$styleDefault',
-  borderColor: '$neutralMin',
+  border: '$neutralMin',
   outline: 'none',
+  color: '$neutralText3',
 }, { name: 'MenuContent' })
 
 const StyledItem = styled('div', {
@@ -135,7 +134,7 @@ const StyledLabel = styled('div', {
   fontSize: '$small',
   fontWeight: '$600',
   fontFamily: '$body',
-  color: '$neutral9',
+  color: '$neutralText4',
 }, { name: 'MenuLabel' })
 
 const StyledSeparator = styled('div', {
@@ -147,7 +146,7 @@ const StyledSeparator = styled('div', {
 const StyledShortcut = styled('span', {
   ml: 'auto',
   fontSize: '$small',
-  color: '$neutral7',
+  color: '$neutralText4',
   fontFamily: '$code',
 }, { name: 'MenuShortcut' })
 
@@ -155,7 +154,7 @@ const StyledSubTriggerChevron = styled('span', {
   ml: 'auto',
   display: 'flex',
   alignItems: 'center',
-  color: '$neutral7',
+  color: '$neutralText4',
 }, { name: 'MenuSubChevron' })
 
 // ─── Helpers ────────────────────────────────────────────────────────────────

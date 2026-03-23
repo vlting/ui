@@ -109,11 +109,12 @@ const StyledContent = styled('div', {
   top: '100%',
   left: '$0',
   bg: '$surface1',
-  radius: '$4',
+  radius: '$card',
   boxShadow: '$md',
   border: '$neutralMin',
   minWidth: '320px',
   zIndex: '$max',
+  color: '$neutralText3',
 }, {
   name: 'NavigationMenuContent',
   variants: {

@@ -60,6 +60,7 @@ const StyledContent = styled('div', {
   overflow: 'auto',
   display: 'flex',
   flexDirection: 'column',
+  color: '$neutralText3',
   lowMotion: { animationDuration: '0.01s' },
 }, {
   name: 'DrawerContent',
@@ -71,8 +72,8 @@ const StyledContent = styled('div', {
         bottom: '0',
         width: '85%',
         maxWidth: '$400',
-        borderTopLeftRadius: '$6',
-        borderBottomLeftRadius: '$6',
+        borderTopLeftRadius: '$card',
+        borderBottomLeftRadius: '$card',
         animation: '$slideInRight',
       },
       left: {
@@ -81,8 +82,8 @@ const StyledContent = styled('div', {
         bottom: '0',
         width: '85%',
         maxWidth: '$400',
-        borderTopRightRadius: '$6',
-        borderBottomRightRadius: '$6',
+        borderTopRightRadius: '$card',
+        borderBottomRightRadius: '$card',
         animation: '$slideInLeft',
       },
       top: {
@@ -91,8 +92,8 @@ const StyledContent = styled('div', {
         right: '0',
         height: '85%',
         maxHeight: '$400',
-        borderBottomLeftRadius: '$6',
-        borderBottomRightRadius: '$6',
+        borderBottomLeftRadius: '$card',
+        borderBottomRightRadius: '$card',
         animation: '$slideInTop',
       },
       bottom: {
@@ -101,8 +102,8 @@ const StyledContent = styled('div', {
         right: '0',
         height: '85%',
         maxHeight: '$400',
-        borderTopLeftRadius: '$6',
-        borderTopRightRadius: '$6',
+        borderTopLeftRadius: '$card',
+        borderTopRightRadius: '$card',
         animation: '$slideInBottom',
       },
     },
@@ -122,7 +123,7 @@ const StyledTitle = styled('h2', {
 
 const StyledDescription = styled('p', {
   fontSize: '$p',
-  color: '$neutral9',
+  color: '$neutralText4',
 }, { name: 'DrawerDescription' })
 
 const StyledFooter = styled('footer', {
@@ -143,7 +144,7 @@ const StyledClose = styled('button', {
   border: 'none',
   cursor: 'pointer',
   p: '$8',
-  color: '$neutral9',
+  color: '$neutralText4',
   radius: '$4',
   ':interact': { bg: '$neutralAlpha2' },
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
