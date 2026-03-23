@@ -7,7 +7,6 @@ import { styled } from '../../stl-native/src/config'
 
 const CardRoot = styled(View, {
   borderRadius: 12,
-  overflow: 'hidden',
   backgroundColor: '$surface1',
 }, {
   theme: {
@@ -26,7 +25,7 @@ const CardRoot = styled(View, {
     raised: {},
   },
   flush: {
-    true: { padding: 0 },
+    true: { padding: 0, overflow: 'hidden' },
   },
 }, 'Card')
 
