@@ -183,27 +183,27 @@ const StyledTrigger = styled('button', {
     // ── Tab: active gets subtle-button styling ──────────
     {
       when: { variant: 'tab', theme: 'primary' },
-      stl: { ':interact': { bg: '$primary2', color: '$primaryText2' } },
+      stl: { ':interact': { bg: '$primary5', color: '$primaryText5' } },
     },
     {
       when: { variant: 'tab', theme: 'secondary' },
-      stl: { ':interact': { bg: '$secondary2', color: '$secondaryText2' } },
+      stl: { ':interact': { bg: '$secondary5', color: '$secondaryText5' } },
     },
     {
       when: { variant: 'tab', theme: 'neutral' },
-      stl: { ':interact': { bg: '$neutral2', color: '$neutralText2' } },
+      stl: { ':interact': { bg: '$neutral5', color: '$neutralText5' } },
     },
     {
       when: { variant: 'tab', active: 'true', theme: 'primary' },
-      stl: { bg: '$primary1', color: '$primaryText1', ':interact': { bg: '$primary2', color: '$primaryText2' } },
+      stl: { bg: '$primary1', color: '$primaryText1', ':interact': { bg: '$primary5', color: '$primaryText5' } },
     },
     {
       when: { variant: 'tab', active: 'true', theme: 'secondary' },
-      stl: { bg: '$secondary1', color: '$secondaryText1', ':interact': { bg: '$secondary2', color: '$secondaryText2' } },
+      stl: { bg: '$secondary1', color: '$secondaryText1', ':interact': { bg: '$secondary5', color: '$secondaryText5' } },
     },
     {
       when: { variant: 'tab', active: 'true', theme: 'neutral' },
-      stl: { bg: '$neutral1', color: '$neutralText1', ':interact': { bg: '$neutral2', color: '$neutralText2' } },
+      stl: { bg: '$neutral1', color: '$neutralText1', ':interact': { bg: '$neutral5', color: '$neutralText5' } },
     },
 
     // ── Subtle: neutral ghost default, themed when active ─
