@@ -289,6 +289,26 @@ export function generateScaledPropsCss<S extends Scales, K extends FilterKeys>(
       map(scales, Scale.border, borderCombos),
       scales[Scale.border].cssAliasMap,
     ),
+    borderTop: entries(
+      'borderTop',
+      map(scales, Scale.border, borderCombos),
+      scales[Scale.border].cssAliasMap,
+    ),
+    borderBottom: entries(
+      'borderBottom',
+      map(scales, Scale.border, borderCombos),
+      scales[Scale.border].cssAliasMap,
+    ),
+    borderLeft: entries(
+      'borderLeft',
+      map(scales, Scale.border, borderCombos),
+      scales[Scale.border].cssAliasMap,
+    ),
+    borderRight: entries(
+      'borderRight',
+      map(scales, Scale.border, borderCombos),
+      scales[Scale.border].cssAliasMap,
+    ),
 
     borderBlockStartColor: entries(
       'borderBlockStartColor',
@@ -622,6 +642,10 @@ export const scaledPropScale = {
   borderBlockEnd: Scale.border,
   borderInlineStart: Scale.border,
   borderInlineEnd: Scale.border,
+  borderTop: Scale.border,
+  borderBottom: Scale.border,
+  borderLeft: Scale.border,
+  borderRight: Scale.border,
 
   borderBlockStartColor: Scale.color,
   borderBlockEndColor: Scale.color,

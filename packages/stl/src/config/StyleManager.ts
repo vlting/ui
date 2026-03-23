@@ -470,8 +470,16 @@ export class StyleManager {
       for (; index < innerProps.length; index++) {
         const [propName, propValue] = innerProps[index] as [StlPropKey, string]
 
-        // Check if this is a pre-generated value
+        // Check if this is a pre-generated value, or resolvable via the parent's alias map
         isPreGenValue = this.isPreGenValue(propName, propValue)
+        const parentScale = scaledOriginalProp ?? originalProp ?? prop
+        if (!isPreGenValue && complexShorthandMap) {
+          const { propScale: ps } = this.getScaledProps(parentScale, propValue as string)
+          if (ps?.aliasMap) {
+            const resolved = mapAliasToValue(ps.aliasMap, propName, propValue as string)
+            if (resolved) isPreGenValue = true
+          }
+        }
 
         // Only remap if this is a pre-generated value, or it's not a complex shorthand prop!
         if (isPreGenValue || !complexShorthandMap) {

@@ -72,8 +72,6 @@ const StyledTrigger = styled('button', {
   border: 'none',
   cursor: 'pointer',
   color: '$neutral9',
-  ':interact': { color: '$neutral12' },
-  ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
 }, {
   name: 'TabsTrigger',
   variants: {
@@ -83,7 +81,7 @@ const StyledTrigger = styled('button', {
     },
     variant: {
       line: {},
-      tab: {},
+      tab: { radius: '$3', },
       subtle: { radius: '$button' },
     },
     theme: options('primary', 'secondary', 'neutral'),
@@ -93,57 +91,137 @@ const StyledTrigger = styled('button', {
     // ── Line: transparent border by default ──────────────
     {
       when: { variant: 'line', orientation: 'horizontal' },
-      stl: { borderBottom: '$primaryMax', borderBottomColor: 'transparent' },
+      stl: { borderBottom: '$neutral', borderBottomColor: 'transparent' },
     },
     {
       when: { variant: 'line', orientation: 'vertical' },
-      stl: { borderRight: '$primaryMax', borderRightColor: 'transparent' },
+      stl: { borderRight: '$neutral', borderRightColor: 'transparent' },
+    },
+    // Line ALL × theme (horizontal)
+    {
+      when: { variant: 'line', orientation: 'horizontal', theme: 'primary' },
+      stl: {
+          ':interact': { bg: '$primary2', color: '$primary11' },
+          ':focus': { bg: '$primary4', color: '$primaryText4' },
+      },
+    },
+    {
+      when: { variant: 'line', orientation: 'horizontal', theme: 'secondary' },
+      stl: {
+          ':interact': { bg: '$secondary2', color: '$secondary11' },
+          ':focus': { bg: '$secondary4', color: '$secondaryText4' },
+      },
+    },
+    {
+      when: { variant: 'line', orientation: 'horizontal', theme: 'neutral' },
+      stl: {
+          ':interact': { bg: '$neutral2', color: '$neutral11' },
+          ':focus': { bg: '$neutral4', color: '$neutralText4' },
+      },
+    },
+    // Line ALL × theme (vertical)
+    {
+      when: { variant: 'line', orientation: 'vertical', theme: 'primary' },
+      stl: {
+          ':interact': { bg: '$primary2', color: '$primary11' },
+          ':focus': { bg: '$primary4', color: '$primaryText4' },
+      },
+    },
+    {
+      when: { variant: 'line', orientation: 'vertical', theme: 'secondary' },
+      stl: {
+          ':interact': { bg: '$secondary2', color: '$secondary11' },
+          ':focus': { bg: '$secondary4', color: '$secondaryText4' },
+      },
+    },
+    {
+      when: { variant: 'line', orientation: 'vertical', theme: 'neutral' },
+      stl: {
+          ':interact': { bg: '$neutral2', color: '$neutral11' },
+          ':focus': { bg: '$neutral4', color: '$neutralText4' },
+      },
     },
     // Line active × theme (horizontal)
     {
       when: { variant: 'line', orientation: 'horizontal', active: 'true', theme: 'primary' },
-      stl: { color: '$primary9', borderBottom: '$primary' },
+      stl: {
+        color: '$primary9', borderBottom: '$primary', bg: '$primary1',
+      },
     },
     {
       when: { variant: 'line', orientation: 'horizontal', active: 'true', theme: 'secondary' },
-      stl: { color: '$secondary9', borderBottom: '$secondary' },
+      stl: {
+        color: '$secondary9', borderBottom: '$secondary', bg: '$secondary1',
+      },
     },
     {
       when: { variant: 'line', orientation: 'horizontal', active: 'true', theme: 'neutral' },
-      stl: { color: '$neutral12', borderBottom: '$neutral' },
+      stl: {
+        color: '$neutral12', borderBottom: '$neutral', bg: '$neutral1',
+      },
     },
     // Line active × theme (vertical)
     {
       when: { variant: 'line', orientation: 'vertical', active: 'true', theme: 'primary' },
-      stl: { color: '$primary9', borderRight: '$primary' },
+      stl: {
+        color: '$primary9', borderRight: '$primary', bg: '$primary1',
+      },
     },
     {
       when: { variant: 'line', orientation: 'vertical', active: 'true', theme: 'secondary' },
-      stl: { color: '$secondary9', borderRight: '$secondary' },
+      stl: {
+        color: '$secondary9', borderRight: '$secondary', bg: '$secondary1',
+      },
     },
     {
       when: { variant: 'line', orientation: 'vertical', active: 'true', theme: 'neutral' },
-      stl: { color: '$neutral12', borderRight: '$neutral' },
+      stl: {
+        color: '$neutral12', borderRight: '$neutral', bg: '$neutral1',
+      },
     },
 
     // ── Tab: active gets subtle-button styling ──────────
     {
+      when: { variant: 'tab', theme: 'primary' },
+      stl: { ':interact': { bg: '$primary2', color: '$primaryText2' } },
+    },
+    {
+      when: { variant: 'tab', theme: 'secondary' },
+      stl: { ':interact': { bg: '$secondary2', color: '$secondaryText2' } },
+    },
+    {
+      when: { variant: 'tab', theme: 'neutral' },
+      stl: { ':interact': { bg: '$neutral2', color: '$neutralText2' } },
+    },
+    {
       when: { variant: 'tab', active: 'true', theme: 'primary' },
-      stl: { bg: '$primary4', color: '$primaryText4', radius: '$3', ':interact': { bg: '$primary5', color: '$primaryText5' } },
+      stl: { bg: '$primary1', color: '$primaryText1', ':interact': { bg: '$primary2', color: '$primaryText2' } },
     },
     {
       when: { variant: 'tab', active: 'true', theme: 'secondary' },
-      stl: { bg: '$secondary4', color: '$secondaryText4', radius: '$3', ':interact': { bg: '$secondary5', color: '$secondaryText5' } },
+      stl: { bg: '$secondary1', color: '$secondaryText1', ':interact': { bg: '$secondary2', color: '$secondaryText2' } },
     },
     {
       when: { variant: 'tab', active: 'true', theme: 'neutral' },
-      stl: { bg: '$neutral4', color: '$neutralText4', radius: '$3', ':interact': { bg: '$neutral5', color: '$neutralText5' } },
+      stl: { bg: '$neutral1', color: '$neutralText1', ':interact': { bg: '$neutral2', color: '$neutralText2' } },
     },
 
     // ── Subtle: neutral ghost default, themed when active ─
     {
       when: { variant: 'subtle' },
       stl: { bg: 'transparent', color: '$neutralText1', ':interact': { bg: '$neutral4', color: '$neutralText4' } },
+    },
+    {
+      when: { variant: 'subtle', theme: 'primary' },
+      stl: { ':interact': { bg: '$primary5', color: '$primaryText5' } },
+    },
+    {
+      when: { variant: 'subtle', theme: 'secondary' },
+      stl: { ':interact': { bg: '$secondary5', color: '$secondaryText5' } },
+    },
+    {
+      when: { variant: 'subtle', theme: 'neutral' },
+      stl: { ':interact': { bg: '$neutral5', color: '$neutralText5' } },
     },
     {
       when: { variant: 'subtle', active: 'true', theme: 'primary' },
