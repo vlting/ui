@@ -11,6 +11,7 @@ import { styled } from '../../stl-react/src/config'
 
 interface PaginationContextValue {
   page: number | undefined
+  totalPages: number | undefined
   setPage: (page: number) => void
 }
 
@@ -121,6 +122,7 @@ const ChevronRightIcon = () => (
 export interface PaginationRootProps extends ComponentPropsWithRef<typeof StyledRoot> {
   page?: number
   defaultPage?: number
+  totalPages?: number
   onPageChange?: (page: number) => void
 }
 
@@ -128,7 +130,7 @@ export type PaginationProps = PaginationRootProps
 export type PaginationState = { page: number }
 
 const PaginationRoot = forwardRef<HTMLElement, PaginationRootProps>(
-  ({ page: pageProp, defaultPage = 1, onPageChange, children, ...rest }, ref) => {
+  ({ page: pageProp, defaultPage = 1, totalPages, onPageChange, children, ...rest }, ref) => {
     const [page, setPage] = useControllableState({
       prop: pageProp,
       defaultProp: defaultPage,
@@ -136,7 +138,7 @@ const PaginationRoot = forwardRef<HTMLElement, PaginationRootProps>(
     })
 
     return (
-      <PaginationContext.Provider value={{ page, setPage }}>
+      <PaginationContext.Provider value={{ page, totalPages, setPage }}>
         <StyledRoot ref={ref} aria-label="Pagination" {...rest}>
           {children}
         </StyledRoot>
@@ -193,8 +195,10 @@ PaginationItem.displayName = 'Pagination.Item'
 export interface PaginationPreviousProps extends ComponentPropsWithRef<typeof StyledNavButton> {}
 
 const PaginationPrevious = forwardRef<HTMLButtonElement, PaginationPreviousProps>(
-  ({ onClick, disabled, children, ...rest }, ref) => {
+  ({ onClick, disabled: disabledProp, children, ...rest }, ref) => {
     const ctx = usePaginationContext()
+    const atStart = ctx.page != null && ctx.page <= 1
+    const disabled = disabledProp ?? atStart
 
     return (
       <li>
@@ -224,8 +228,10 @@ PaginationPrevious.displayName = 'Pagination.Previous'
 export interface PaginationNextProps extends ComponentPropsWithRef<typeof StyledNavButton> {}
 
 const PaginationNext = forwardRef<HTMLButtonElement, PaginationNextProps>(
-  ({ onClick, disabled, children, ...rest }, ref) => {
+  ({ onClick, disabled: disabledProp, children, ...rest }, ref) => {
     const ctx = usePaginationContext()
+    const atEnd = ctx.page != null && ctx.totalPages != null && ctx.page >= ctx.totalPages
+    const disabled = disabledProp ?? atEnd
 
     return (
       <li>
@@ -236,7 +242,10 @@ const PaginationNext = forwardRef<HTMLButtonElement, PaginationNextProps>(
           disabled={disabled}
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             if (ctx.page != null) {
-              ctx.setPage(ctx.page + 1)
+              const next = ctx.page + 1
+              if (ctx.totalPages == null || next <= ctx.totalPages) {
+                ctx.setPage(next)
+              }
             }
             onClick?.(e)
           }}
