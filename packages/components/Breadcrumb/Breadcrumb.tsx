@@ -31,7 +31,7 @@ const StyledLink = styled('a', {
   textDecoration: 'none',
   fontSize: '$p',
   fontFamily: '$body',
-  ':interact': { color: '$neutral12', textDecoration: 'underline' },
+  ':interact': { color: '$neutralText1', textDecoration: 'underline' },
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
 }, { name: 'BreadcrumbLink' })
 
@@ -39,10 +39,11 @@ const StyledSeparator = styled('span', {
   color: '$neutral6',
   fontSize: '$small',
   userSelect: 'none',
+  px: '$8',
 }, { name: 'BreadcrumbSeparator' })
 
 const StyledPage = styled('span', {
-  color: '$neutral12',
+  color: '$neutralText1',
   fontWeight: '$500',
   fontSize: '$p',
   fontFamily: '$body',

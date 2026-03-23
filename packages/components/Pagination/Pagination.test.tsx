@@ -148,4 +148,49 @@ describe('Pagination', () => {
     expect(screen.getByLabelText('Page 1')).toBeTruthy()
     expect(screen.getByLabelText('Page 2')).toBeTruthy()
   })
+
+  it('auto-disables previous at page 1', () => {
+    const { container } = render(
+      <Pagination.Root defaultPage={1}>
+        <Pagination.Content>
+          <Pagination.Previous />
+          <Pagination.Item value={1} />
+          <Pagination.Item value={2} />
+        </Pagination.Content>
+      </Pagination.Root>,
+    )
+    const prev = screen.getByLabelText('Previous page')
+    expect(prev.hasAttribute('disabled')).toBe(true)
+  })
+
+  it('auto-disables next at totalPages', () => {
+    render(
+      <Pagination.Root defaultPage={3} totalPages={3}>
+        <Pagination.Content>
+          <Pagination.Item value={1} />
+          <Pagination.Item value={2} />
+          <Pagination.Item value={3} />
+          <Pagination.Next />
+        </Pagination.Content>
+      </Pagination.Root>,
+    )
+    const next = screen.getByLabelText('Next page')
+    expect(next.hasAttribute('disabled')).toBe(true)
+  })
+
+  it('next does not exceed totalPages', () => {
+    const onChange = jest.fn()
+    render(
+      <Pagination.Root defaultPage={3} totalPages={3} onPageChange={onChange}>
+        <Pagination.Content>
+          <Pagination.Item value={1} />
+          <Pagination.Item value={2} />
+          <Pagination.Item value={3} />
+          <Pagination.Next />
+        </Pagination.Content>
+      </Pagination.Root>,
+    )
+    fireEvent.click(screen.getByLabelText('Next page'))
+    expect(onChange).not.toHaveBeenCalled()
+  })
 })
