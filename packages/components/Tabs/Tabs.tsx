@@ -102,42 +102,42 @@ const StyledTrigger = styled('button', {
     // Line active × theme (horizontal)
     {
       when: { variant: 'line', orientation: 'horizontal', active: 'true', theme: 'primary' },
-      stl: { color: '$primary9', borderBottom: '2px solid currentColor' },
+      stl: { color: '$primary9', borderBottom: '$primary' },
     },
     {
       when: { variant: 'line', orientation: 'horizontal', active: 'true', theme: 'secondary' },
-      stl: { color: '$secondary9', borderBottom: '2px solid currentColor' },
+      stl: { color: '$secondary9', borderBottom: '$secondary' },
     },
     {
       when: { variant: 'line', orientation: 'horizontal', active: 'true', theme: 'neutral' },
-      stl: { color: '$neutral12', borderBottom: '2px solid currentColor' },
+      stl: { color: '$neutral12', borderBottom: '$neutral' },
     },
     // Line active × theme (vertical)
     {
       when: { variant: 'line', orientation: 'vertical', active: 'true', theme: 'primary' },
-      stl: { color: '$primary9', borderRight: '2px solid currentColor' },
+      stl: { color: '$primary9', borderRight: '$primary' },
     },
     {
       when: { variant: 'line', orientation: 'vertical', active: 'true', theme: 'secondary' },
-      stl: { color: '$secondary9', borderRight: '2px solid currentColor' },
+      stl: { color: '$secondary9', borderRight: '$secondary' },
     },
     {
       when: { variant: 'line', orientation: 'vertical', active: 'true', theme: 'neutral' },
-      stl: { color: '$neutral12', borderRight: '2px solid currentColor' },
+      stl: { color: '$neutral12', borderRight: '$neutral' },
     },
 
-    // ── Tab: active gets surface + shadow ───────────────
+    // ── Tab: active gets subtle-button styling ──────────
     {
       when: { variant: 'tab', active: 'true', theme: 'primary' },
-      stl: { bg: '$surface1', radius: '$3', boxShadow: '$sm', color: '$primary9' },
+      stl: { bg: '$primary4', color: '$primaryText4', radius: '$3', ':interact': { bg: '$primary5', color: '$primaryText5' } },
     },
     {
       when: { variant: 'tab', active: 'true', theme: 'secondary' },
-      stl: { bg: '$surface1', radius: '$3', boxShadow: '$sm', color: '$secondary9' },
+      stl: { bg: '$secondary4', color: '$secondaryText4', radius: '$3', ':interact': { bg: '$secondary5', color: '$secondaryText5' } },
     },
     {
       when: { variant: 'tab', active: 'true', theme: 'neutral' },
-      stl: { bg: '$surface1', radius: '$3', boxShadow: '$sm', color: '$neutral12' },
+      stl: { bg: '$neutral4', color: '$neutralText4', radius: '$3', ':interact': { bg: '$neutral5', color: '$neutralText5' } },
     },
 
     // ── Subtle: neutral ghost default, themed when active ─
