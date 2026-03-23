@@ -5,7 +5,6 @@ import { styled } from '../../stl-react/src/config'
 
 const CardRoot = styled('article', {
   radius: '$card',
-  overflow: 'hidden',
   fontFamily: '$body',
   bg: '$surface1',
   ':focus': { outlineOffset: '$offsetDefault' },
@@ -38,7 +37,7 @@ const CardRoot = styled('article', {
       },
     },
     flush: {
-      true: { p: '$0' },
+      true: { p: '$0', overflow: 'hidden' },
     },
     interactive: {
       true: {

@@ -25,7 +25,7 @@
 
 Card is a compound component. Sub-components stack vertically inside the root:
 
-- **Card (root)** — A styled `article` with radius, overflow hidden, and variants for `theme`, `size`, `elevation`, and `interactive`. When `interactive` is `true`, the root gains `cursor: pointer`, `tabIndex: 0`, `role: "button"`, and theme-specific hover/press/focus styles.
+- **Card (root)** — A styled `article` with radius and variants for `theme`, `size`, `elevation`, `flush`, and `interactive`. `overflow: 'hidden'` is applied only when `flush` is `true`. When `interactive` is `true`, the root gains `cursor: pointer`, `tabIndex: 0`, `role: "button"`, and theme-specific hover/press/focus styles.
 - **Card.Header** — A styled `header` for top-aligned content. Provides padding and a gap between children.
 - **Card.Content** — A styled `section` for the main body. Uses `flex: 1` to fill available space.
 - **Card.Footer** — A styled `footer` for bottom-aligned content.
@@ -40,7 +40,7 @@ Card is a compound component. Sub-components stack vertically inside the root:
 
 ### States
 
-- **Idle** — Renders with `radius: '$card'` and `overflow: 'hidden'`. Background is `$background1`.
+- **Idle** — Renders with `radius: '$card'`. Background is `$background1`. `overflow: 'hidden'` is applied only when `flush` is `true`.
 - **Hover** (interactive only) — Background shifts to theme-specific hover token (e.g., `$neutral3` for neutral, `$primary3` for primary).
 - **Active/Press** (interactive only) — Background shifts to theme-specific press token (e.g., `$neutral4` for neutral) with `scale(0.98)`.
 - **Focus** (interactive only) — Visible outline ring using the outline scale shorthand (e.g., `outline: '$neutral'` for neutral, `outline: '$primary'` for primary). Uses `$offsetDefault` offset.
@@ -105,7 +105,7 @@ Card is a compound component. Sub-components stack vertically inside the root:
 - Removing any sub-component (`Card.Header`, `Card.Content`, `Card.Footer`, `Card.Title`, `Card.Description`).
 - Changing the variant value sets (e.g., removing `'lg'` from `size`, removing `'raised'` or `'glass'` from `elevation`).
 - Changing default variant values (currently `size: 'md'`, `elevation: 'normal'`, `theme: 'neutral'`).
-- Removing `overflow: 'hidden'` from the root frame.
+- Removing `overflow: 'hidden'` from the `flush` variant.
 - Changing the `CardProps` export type.
 
 ---
@@ -113,7 +113,8 @@ Card is a compound component. Sub-components stack vertically inside the root:
 ## 9. Test Requirements
 
 - **Behavioral tests:**
-  - Root frame renders with correct base styles (radius, overflow hidden).
+  - Root frame renders with correct base styles (radius).
+  - `flush` variant applies `overflow: 'hidden'`.
   - Each size variant (`sm`, `md`, `lg`) applies correct padding.
   - Each elevation variant (`flat`, `normal`, `raised`, `glass`) renders correctly.
   - `interactive` variant adds cursor pointer, hover, press, and focus styles.
