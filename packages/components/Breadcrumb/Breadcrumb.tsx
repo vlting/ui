@@ -31,8 +31,11 @@ const StyledLink = styled('a', {
   textDecoration: 'none',
   fontSize: '$p',
   fontFamily: '$body',
-  ':interact': { color: '$neutralText1', textDecoration: 'underline' },
-  ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
+  radius: '$2',
+  px: '$4',
+  py: '$2',
+  ':hover': { color: '$neutralText1', textDecoration: 'underline' },
+  ':focus': { bg: '$neutral4', color: '$neutralText1', textDecoration: 'underline', outline: 'none' },
 }, { name: 'BreadcrumbLink' })
 
 const StyledSeparator = styled('span', {
