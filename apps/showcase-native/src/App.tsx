@@ -35,14 +35,31 @@ function AppContent() {
   const theme = getTheme()
   const colors = theme[colorMode].color
 
+  const navTheme = {
+    dark: colorMode === 'dark',
+    colors: {
+      primary: colors.$primary9,
+      background: colors.$background1 || colors.$panel,
+      card: colors.$panel,
+      text: colors.$defaultHeading || '#111',
+      border: colors.$neutral4 || '#ccc',
+      notification: colors.$tomato9 || colors.$primary9,
+    },
+    fonts: { regular: { fontFamily: 'System', fontWeight: '400' as const }, medium: { fontFamily: 'System', fontWeight: '500' as const }, bold: { fontFamily: 'System', fontWeight: '700' as const }, heavy: { fontFamily: 'System', fontWeight: '800' as const } },
+  }
+
   return (
-    <NavigationContainer>
-      <StatusBar style="auto" />
+    <NavigationContainer theme={navTheme}>
+      <StatusBar style={colorMode === 'dark' ? 'light' : 'dark'} />
       <Tab.Navigator
         screenOptions={{
           headerStyle: { backgroundColor: colors.$panel },
-          headerTitleStyle: { fontWeight: '700' },
+          headerTitleStyle: { fontWeight: '700', color: colors.$defaultHeading || '#111' },
+          headerTintColor: colors.$defaultHeading || '#111',
           tabBarActiveTintColor: colors.$primary9,
+          tabBarInactiveTintColor: colors.$neutral6 || '#999',
+          tabBarStyle: { backgroundColor: colors.$panel },
+          contentStyle: { backgroundColor: colors.$background1 || colors.$panel },
         }}
       >
         <Tab.Screen name="Home" component={HomeScreen} />

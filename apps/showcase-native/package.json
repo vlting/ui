@@ -2,11 +2,12 @@
   "name": "@vlting/showcase-native",
   "version": "0.0.1",
   "private": true,
-  "main": "src/App.tsx",
+  "main": "index.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "start": "expo start --clear",
+    "dev": "expo start --clear",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "react-native": "0.83.2",
     "react-native-gesture-handler": "~2.30.0",
     "react-native-reanimated": "4.2.1",
+    "react-native-worklets": "0.7.4",
     "react-native-safe-area-context": "~5.6.2",
     "react-native-screens": "~4.23.0"
   },

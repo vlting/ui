@@ -1,7 +1,7 @@
 import { Box, Heading, Pressable, Row, ScrollView, Text } from '../../../../packages/stl-native/src/primitives'
 import { useColorMode } from '../../../../packages/stl-native/src/hooks/useColorMode'
 
-const palettes = ['primary', 'red', 'green', 'blue', 'orange', 'purple']
+const palettes = ['primary', 'secondary', 'neutral', 'tomato', 'amber', 'grass', 'aqua', 'indigo', 'plum']
 const steps = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
 
 export function StylingScreen() {

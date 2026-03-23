@@ -133,6 +133,7 @@ type StyledComponentProps<P, V extends Variants | undefined> = Omit<
   'css' | 'style' | 'index' | 'length'
 > & {
   css?: CSS
+  stl?: CSS
   style?: ViewStyle & TextStyle
   index?: number
   length?: number
@@ -172,7 +173,8 @@ export function styled<
     const conditionMask = useConditionMask()
 
     // Separate STL props from component props
-    const { css: cssProp, style: styleProp, index, length, ...rest } = props as any
+    const { css: cssPropDirect, stl: stlProp, style: styleProp, index, length, ...rest } = props as any
+    const cssProp = stlProp ?? cssPropDirect
     const componentProps = { ...rest }
 
     // Strip variant props from forwarded props

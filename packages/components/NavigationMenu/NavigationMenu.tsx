@@ -151,7 +151,7 @@ const StyledLinkTitle = styled('div', {
 }, { name: 'NavigationMenuLinkTitle' })
 
 const StyledLinkDescription = styled('div', {
-  fontSize: '$caption',
+  fontSize: '$14',
   color: '$neutral8',
   mt: '$2',
 }, { name: 'NavigationMenuLinkDescription' })

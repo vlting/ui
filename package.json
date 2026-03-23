@@ -96,6 +96,7 @@
     "typecheck": "NODE_OPTIONS='--max-old-space-size=8192' npx tsc --noEmit",
     "dev:showcase-web": "yarn workspace @vlting/showcase-web dev",
     "dev:showcase-native": "yarn workspace @vlting/showcase-native start",
+    "ios": "yarn workspace @vlting/showcase-native ios",
     "dev:playground": "yarn workspace @vlting/playground dev",
     "dev:docs": "yarn workspace @vlting/docs dev",
     "build:docs": "yarn workspace @vlting/docs build",
