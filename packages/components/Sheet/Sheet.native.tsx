@@ -194,7 +194,7 @@ SheetTitle.displayName = 'Sheet.Title'
 
 const SheetDescription = forwardRef<View, { children: ReactNode; style?: ViewStyle }>(
   (props, ref) => (
-    <RNText ref={ref as any} style={[{ fontSize: 14, color: '$neutral7' }, props.style]}>
+    <RNText ref={ref as any} style={[{ fontSize: 14, color: '$neutralText4' }, props.style]}>
       {props.children}
     </RNText>
   ),

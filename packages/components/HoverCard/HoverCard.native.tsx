@@ -168,7 +168,7 @@ const HoverCardContent = forwardRef<View, HoverCardContentProps>(
               padding: 16,
               maxWidth: 320,
               borderWidth: 1,
-              borderColor: '$neutralAlpha3',
+              borderColor: '$neutral5',
               shadowColor: '$min',
               shadowOpacity: 0.15,
               shadowRadius: 8,

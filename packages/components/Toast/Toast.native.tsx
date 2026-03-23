@@ -24,7 +24,7 @@ const VARIANT_BORDER_TOKEN: Record<ToastVariant, string> = {
   success: '$grass9',
   error: '$tomato9',
   warning: '$amber9',
-  info: '$info9',
+  info: '$iris9',
 }
 
 // ─── Styled ─────────────────────────────────────────────────────────────────
@@ -33,11 +33,11 @@ const RootBase = styled(View, {
   flexDirection: 'row',
   alignItems: 'flex-start',
   gap: 12,
-  backgroundColor: '$min',
+  backgroundColor: '$surface1',
   borderRadius: 8,
   padding: 16,
   borderWidth: 1,
-  borderColor: '$neutralAlpha3',
+  borderColor: '$neutral5',
   shadowColor: '$max',
   shadowOpacity: 0.1,
   shadowRadius: 8,
@@ -53,7 +53,7 @@ const TitleText = styled(RNText, {
 
 const DescriptionText = styled(RNText, {
   fontSize: '$13',
-  color: '$neutral7',
+  color: '$neutralText4',
   marginTop: 2,
 }, {}, 'ToastDescription')
 
@@ -73,7 +73,7 @@ const CloseBase = styled(Pressable, {
 
 const CloseText = styled(RNText, {
   fontSize: '$14',
-  color: '$neutral7',
+  color: '$neutralText4',
 }, {}, 'ToastCloseText')
 
 // ─── Toast Root ─────────────────────────────────────────────────────────────

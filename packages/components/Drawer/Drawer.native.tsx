@@ -194,7 +194,7 @@ DrawerTitle.displayName = 'Drawer.Title'
 
 const DrawerDescription = styled(RNText, {
   fontSize: 14,
-  color: '$neutral7',
+  color: '$neutralText4',
 }, 'DrawerDescription')
 
 // ─── Footer ─────────────────────────────────────────────────────────────────
@@ -224,7 +224,7 @@ const DrawerClose = forwardRef<View, { children?: ReactNode; onPress?: () => voi
         accessibilityLabel="Close drawer"
         style={[{ position: 'absolute', top: 12, right: 12, padding: 8, borderRadius: 4 }, rest.style]}
       >
-        {children ?? <RNText style={{ fontSize: 16, color: '$neutral7' }}>✕</RNText>}
+        {children ?? <RNText style={{ fontSize: 16, color: '$neutralText4' }}>✕</RNText>}
       </Pressable>
     )
   },

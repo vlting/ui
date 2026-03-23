@@ -148,7 +148,7 @@ AlertDialogTitle.displayName = 'AlertDialog.Title'
 
 const AlertDialogDescription = styled(RNText, {
   fontSize: 14,
-  color: '$neutral7',
+  color: '$neutralText4',
   marginTop: 4,
 }, 'AlertDialogDescription')
 

@@ -162,7 +162,7 @@ DialogTitle.displayName = 'Dialog.Title'
 
 const DialogDescription = styled(RNText, {
   fontSize: 14,
-  color: '$neutral7',
+  color: '$neutralText4',
   marginTop: 4,
 }, 'DialogDescription')
 
@@ -201,7 +201,7 @@ const DialogClose = forwardRef<View, { children?: ReactNode; style?: ViewStyle; 
           rest.style,
         ]}
       >
-        {children || <RNText style={{ fontSize: 16, color: '$neutral7' }}>✕</RNText>}
+        {children || <RNText style={{ fontSize: 16, color: '$neutralText4' }}>✕</RNText>}
       </Pressable>
     )
   },
