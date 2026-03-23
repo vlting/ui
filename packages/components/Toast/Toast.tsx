@@ -18,15 +18,14 @@ const StyledRoot = styled('div', {
   alignItems: 'start',
   gap: '$12',
   bg: '$surface1',
-  radius: '$4',
+  radius: '$card',
   boxShadow: '$lg',
   p: '$16',
-  borderWidth: '$widthMin',
-  borderStyle: '$styleDefault',
-  borderColor: '$neutralMin',
+  border: '$neutralMin',
   width: '100%',
   maxWidth: '420px',
   fontFamily: '$body',
+  color: '$neutralText3',
 }, {
   name: 'Toast',
   variants: {
@@ -49,7 +48,7 @@ const StyledTitle = styled('h5', {
 
 const StyledDescription = styled('p', {
   fontSize: '$small',
-  color: '$neutral9',
+  color: '$neutralText4',
   m: '$0',
   mt: '$2',
 }, { name: 'ToastDescription' })
@@ -81,11 +80,12 @@ const StyledClose = styled('button', {
   p: '$0',
   bg: 'transparent',
   border: 'none',
-  borderRadius: '$field',
+  radius: '$field',
   cursor: 'pointer',
-  color: '$neutral9',
+  color: '$neutralText4',
   flexShrink: '0',
-  ':interact': { bg: '$neutral3' },
+  ':interact': { bg: '$neutralAlpha2' },
+  ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
 }, { name: 'ToastClose' })
 
 const StyledContent = styled('div', {

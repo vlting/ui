@@ -55,13 +55,14 @@ const StyledContent = styled('div', {
   left: '0',
   right: '0',
   bg: '$surface1',
-  borderTopLeftRadius: '$6',
-  borderTopRightRadius: '$6',
+  borderTopLeftRadius: '$card',
+  borderTopRightRadius: '$card',
   boxShadow: '$lg',
   maxHeight: '85%',
   width: '100%',
   overflow: 'auto',
   zIndex: '$max',
+  color: '$neutralText3',
   animation: '$slideInBottom',
   lowMotion: { animationDuration: '0.01s' },
 }, { name: 'SheetContent' })
@@ -92,7 +93,7 @@ const StyledTitle = styled('h2', {
 
 const StyledDescription = styled('p', {
   fontSize: '$p',
-  color: '$neutral9',
+  color: '$neutralText4',
 }, { name: 'SheetDescription' })
 
 const StyledFooter = styled('footer', {

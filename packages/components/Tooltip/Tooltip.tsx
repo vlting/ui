@@ -52,7 +52,7 @@ const StyledContent = styled('div', {
   position: 'fixed',
   bg: '$neutral12',
   color: '$neutralText12',
-  radius: '$2',
+  radius: '$button',
   px: '$8',
   py: '$4',
   fontSize: '$small',

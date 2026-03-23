@@ -34,6 +34,7 @@ const StyledRoot = styled('aside', {
   display: 'flex',
   flexDirection: 'column',
   fontFamily: '$body',
+  color: '$neutralText3',
 }, {
   name: 'SidebarRoot',
   variants: {
@@ -69,7 +70,7 @@ const StyledGroupLabel = styled('div', {
   py: '$4',
   fontSize: '$small',
   fontWeight: '$500',
-  color: '$neutral7',
+  color: '$neutralText4',
   fontFamily: '$body',
 }, { name: 'SidebarGroupLabel' })
 

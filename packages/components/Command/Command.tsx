@@ -37,14 +37,13 @@ function useCommandContext() {
 
 const StyledRoot = styled('div', {
   bg: '$surface1',
-  radius: '$6',
+  radius: '$card',
   boxShadow: '$lg',
-  borderWidth: '$widthMin',
-  borderStyle: '$styleDefault',
-  borderColor: '$neutralMin',
+  border: '$neutralMin',
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
+  color: '$neutralText3',
 }, { name: 'CommandRoot' })
 
 const StyledInputWrapper = styled('div', {
@@ -52,9 +51,7 @@ const StyledInputWrapper = styled('div', {
   alignItems: 'center',
   gap: '$8',
   px: '$12',
-  borderBottomWidth: '$widthMin',
-  borderBottomStyle: '$styleDefault',
-  borderBottomColor: '$neutralMin',
+  borderBottom: '$neutralMin',
 }, { name: 'CommandInputWrapper' })
 
 const StyledInput = styled('input', {
@@ -103,14 +100,14 @@ const StyledGroupHeading = styled('div', {
   fontSize: '$small',
   fontWeight: '$500',
   fontFamily: '$body',
-  color: '$neutral7',
+  color: '$neutralText4',
 }, { name: 'CommandGroupHeading' })
 
 const StyledEmpty = styled('div', {
   px: '$8',
   py: '$24',
   textAlign: 'center',
-  color: '$neutral7',
+  color: '$neutralText4',
   fontSize: '$p',
   fontFamily: '$body',
 }, { name: 'CommandEmpty' })

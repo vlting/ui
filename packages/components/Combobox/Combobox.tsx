@@ -70,17 +70,15 @@ const StyledInput = styled('input', {
   display: 'flex',
   width: '100%',
   bg: '$surface1',
-  borderWidth: '$widthMin',
-  borderStyle: '$styleDefault',
-  borderColor: '$neutralMin',
-  radius: '$button',
+  border: '$neutralMin',
+  radius: '$field',
   px: '$12',
   py: '$8',
   fontSize: '$p',
   fontFamily: '$body',
-  color: 'inherit',
+  color: '$neutralText3',
   outline: 'none',
-  ':focus': { outlineWidth: '2px', outlineStyle: 'solid', outlineColor: '$neutral7', outlineOffset: '1px' },
+  ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
 }, {
   name: 'ComboboxInput',
   variants: {
@@ -92,16 +90,15 @@ const StyledInput = styled('input', {
 
 const StyledContent = styled('div', {
   bg: '$surface1',
-  radius: '$4',
+  radius: '$card',
   boxShadow: '$md',
   py: '$4',
   minWidth: '220px',
   zIndex: '$max',
   position: 'fixed',
-  borderWidth: '$widthMin',
-  borderStyle: '$styleDefault',
-  borderColor: '$neutralMin',
+  border: '$neutralMin',
   outline: 'none',
+  color: '$neutralText3',
 }, { name: 'ComboboxContent' })
 
 const StyledItem = styled('div', {
@@ -132,7 +129,7 @@ const StyledEmpty = styled('div', {
   px: '$8',
   py: '$24',
   textAlign: 'center',
-  color: '$neutral7',
+  color: '$neutralText4',
   fontSize: '$p',
   fontFamily: '$body',
 }, { name: 'ComboboxEmpty' })
@@ -144,7 +141,7 @@ const StyledLabel = styled('div', {
   fontSize: '$small',
   fontWeight: '$600',
   fontFamily: '$body',
-  color: '$neutral9',
+  color: '$neutralText4',
 }, { name: 'ComboboxLabel' })
 
 const StyledCheckIndicator = styled('span', {
