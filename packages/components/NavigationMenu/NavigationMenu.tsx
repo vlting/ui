@@ -75,8 +75,8 @@ const StyledTrigger = styled('button', {
   border: 'none',
   cursor: 'pointer',
   color: 'inherit',
-  ':interact': { bg: '$neutral3' },
-  ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
+  ':interact': { bg: '$neutral2' },
+  ':focus': { outline: '$neutralMin', outlineOffset: '$offsetDefault' },
 }, {
   name: 'NavigationMenuTrigger',
   variants: {
@@ -132,8 +132,8 @@ const StyledLink = styled('a', {
   textDecoration: 'none',
   color: 'inherit',
   fontFamily: '$body',
-  ':interact': { bg: '$neutral4' },
-  ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
+  ':interact': { bg: '$neutral2' },
+  ':focus': { outline: '$neutralMin', outlineOffset: '$offsetDefault' },
 }, {
   name: 'NavigationMenuLink',
   variants: {
@@ -151,8 +151,8 @@ const StyledLinkTitle = styled('div', {
 }, { name: 'NavigationMenuLinkTitle' })
 
 const StyledLinkDescription = styled('div', {
-  fontSize: '$small',
-  color: '$neutral9',
+  fontSize: '$caption',
+  color: '$neutral8',
   mt: '$2',
 }, { name: 'NavigationMenuLinkDescription' })
 
@@ -296,9 +296,20 @@ export interface NavigationMenuLinkProps
   extends ComponentPropsWithRef<typeof StyledLink> {}
 
 const NavigationMenuLink = forwardRef<HTMLAnchorElement, NavigationMenuLinkProps>(
-  (props, ref) => {
+  ({ onClick, ...rest }, ref) => {
     const ctx = useNavMenuContext()
-    return <StyledLink ref={ref} role="menuitem" size={ctx.size} {...props} />
+    return (
+      <StyledLink
+        ref={ref}
+        role="menuitem"
+        size={ctx.size}
+        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+          ctx.setOpenItem(null)
+          onClick?.(e)
+        }}
+        {...rest}
+      />
+    )
   },
 )
 NavigationMenuLink.displayName = 'NavigationMenu.Link'
