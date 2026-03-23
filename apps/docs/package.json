@@ -11,8 +11,8 @@
     "@vlting/ui": "*",
     "flexsearch": "^0.8.212",
     "next": "^15.3.3",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-native-svg-web": "^1.0.9",
     "react-native-web": "^0.21.2",
     "shiki": "^3.2.1"
