@@ -84,9 +84,9 @@ type ScaleColorName = CoreColorName | StatusColorName | FlavorColorName | AlphaC
 
 export const DEFAULT_COLOR_MODE = 'light' as const
 
-const DEFAULT_HUE = 174
+const DEFAULT_HUE = 250
 const DEFAULT_PALETTE = 2
-const DEFAULT_SATURATIONS: [number, number, number] = [87, 50, 5]
+const DEFAULT_SATURATIONS: [number, number, number] = [100, 95, 0]
 const MAX_NEUTRAL_SATURATION = 40
 const ALPHA_KEY = 'Alpha'
 
@@ -279,7 +279,10 @@ function generatePaletteFromHue(
 }
 
 export const DEFAULT_SOURCE_COLORS: ColorGenOptions = {
-  ...generatePaletteFromHue(DEFAULT_HUE, DEFAULT_PALETTE, [85, 50, 0]),
+  primary: { hue: DEFAULT_HUE, saturation: DEFAULT_SATURATIONS[0] },
+  secondary: { hue: 90, saturation: DEFAULT_SATURATIONS[1] },
+  neutral: { hue: DEFAULT_HUE, saturation: DEFAULT_SATURATIONS[2], isNeutral: true },
+  background: { hue: DEFAULT_HUE, saturation: DEFAULT_SATURATIONS[2] },
   min: { hue: 0, saturation: 0, contrast: 0 },
   max: { hue: 0, saturation: 0, contrast: 100 },
   info: { hue: 194, saturation: 95 },
