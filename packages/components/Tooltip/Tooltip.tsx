@@ -56,7 +56,7 @@ const StyledContent = styled('div', {
   px: '$8',
   py: '$4',
   fontSize: '$small',
-  zIndex: '50',
+  zIndex: '$max',
   boxShadow: '$sm',
   pointerEvents: 'none',
   maxWidth: '240px',

@@ -40,7 +40,7 @@ const StyledOverlay = styled('div', {
   position: 'fixed',
   inset: '0',
   bg: '$overlayBackground',
-  zIndex: '50',
+  zIndex: '$max',
   transitionProperty: 'opacity',
   transitionDuration: '$fastDuration',
   lowMotion: { transitionDuration: '0.01s' },
@@ -52,7 +52,7 @@ const StyledContentWrapper = styled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  zIndex: '50',
+  zIndex: '$max',
   p: '$16',
 }, { name: 'AlertDialogContentWrapper' })
 

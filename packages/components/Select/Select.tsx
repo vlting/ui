@@ -92,7 +92,7 @@ const StyledContent = styled('div', {
   boxShadow: '$md',
   py: '$4',
   minWidth: '220px',
-  zIndex: '50',
+  zIndex: '$max',
   position: 'fixed',
   borderWidth: '$widthMin',
   borderStyle: '$styleDefault',

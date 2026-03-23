@@ -11,9 +11,13 @@ import { styled } from '../../stl-react/src/config'
 
 // ─── Context ────────────────────────────────────────────────────────────────
 
+type NavMenuSize = 'sm' | 'md' | 'lg'
+
 interface NavMenuContextValue {
   openItem: string | null
   setOpenItem: (value: string | null) => void
+  closeTimeout: React.MutableRefObject<ReturnType<typeof setTimeout> | undefined>
+  size: NavMenuSize
 }
 
 const NavMenuContext = createContext<NavMenuContextValue | null>(null)
@@ -64,11 +68,8 @@ const StyledTrigger = styled('button', {
   display: 'flex',
   alignItems: 'center',
   gap: '$4',
-  px: '$12',
-  py: '$8',
   radius: '$button',
   fontWeight: '$500',
-  fontSize: '$p',
   fontFamily: '$body',
   bg: 'transparent',
   border: 'none',
@@ -76,7 +77,16 @@ const StyledTrigger = styled('button', {
   color: 'inherit',
   ':interact': { bg: '$neutral3' },
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
-}, { name: 'NavigationMenuTrigger' })
+}, {
+  name: 'NavigationMenuTrigger',
+  variants: {
+    size: {
+      sm: { px: '$8', py: '$4', fontSize: '$small' },
+      md: { px: '$12', py: '$8', fontSize: '$p' },
+      lg: { px: '$16', py: '$12', fontSize: '$p' },
+    },
+  },
+})
 
 const ChevronIcon = () => (
   <svg
@@ -102,23 +112,48 @@ const StyledContent = styled('div', {
   radius: '$4',
   boxShadow: '$md',
   border: '$neutralMin',
-  p: '$16',
-  minWidth: '220px',
-  zIndex: '$10',
-}, { name: 'NavigationMenuContent' })
+  minWidth: '320px',
+  zIndex: '$max',
+}, {
+  name: 'NavigationMenuContent',
+  variants: {
+    size: {
+      sm: { p: '$4', mt: '$2' },
+      md: { p: '$8', mt: '$4' },
+      lg: { p: '$12', mt: '$4' },
+    },
+  },
+})
 
 const StyledLink = styled('a', {
   display: 'block',
-  px: '$12',
-  py: '$8',
   radius: '$2',
   textDecoration: 'none',
   color: 'inherit',
-  fontSize: '$p',
   fontFamily: '$body',
   ':interact': { bg: '$neutral4' },
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
-}, { name: 'NavigationMenuLink' })
+}, {
+  name: 'NavigationMenuLink',
+  variants: {
+    size: {
+      sm: { px: '$8', py: '$4', fontSize: '$small' },
+      md: { px: '$12', py: '$8', fontSize: '$p' },
+      lg: { px: '$16', py: '$12', fontSize: '$p' },
+    },
+  },
+})
+
+const StyledLinkTitle = styled('div', {
+  fontWeight: '$500',
+  fontSize: '$p',
+}, { name: 'NavigationMenuLinkTitle' })
+
+const StyledLinkDescription = styled('div', {
+  fontSize: '$small',
+  color: '$neutral9',
+  mt: '$2',
+}, { name: 'NavigationMenuLinkDescription' })
 
 const StyledIndicator = styled('div', {}, { name: 'NavigationMenuIndicator' })
 
@@ -127,14 +162,17 @@ const StyledViewport = styled('div', {}, { name: 'NavigationMenuViewport' })
 // ─── Root ───────────────────────────────────────────────────────────────────
 
 export interface NavigationMenuRootProps
-  extends ComponentPropsWithRef<typeof StyledRoot> {}
+  extends ComponentPropsWithRef<typeof StyledRoot> {
+  size?: NavMenuSize
+}
 
 const NavigationMenuRoot = forwardRef<HTMLElement, NavigationMenuRootProps>(
-  ({ children, ...rest }, ref) => {
+  ({ size = 'md', children, ...rest }, ref) => {
     const [openItem, setOpenItem] = useState<string | null>(null)
+    const closeTimeout = useRef<ReturnType<typeof setTimeout>>(undefined)
 
     return (
-      <NavMenuContext.Provider value={{ openItem, setOpenItem }}>
+      <NavMenuContext.Provider value={{ openItem, setOpenItem, closeTimeout, size }}>
         <StyledRoot ref={ref} {...rest}>
           {children}
         </StyledRoot>
@@ -167,15 +205,14 @@ const NavigationMenuItem = forwardRef<HTMLLIElement, NavigationMenuItemProps>(
   ({ value, children, ...rest }, ref) => {
     const itemRef = useRef(value ?? `nav-item-${++itemCounter}`)
     const ctx = useNavMenuContext()
-    const closeTimeout = useRef<ReturnType<typeof setTimeout>>()
 
     const handleMouseEnter = useCallback(() => {
-      clearTimeout(closeTimeout.current)
+      clearTimeout(ctx.closeTimeout.current)
       ctx.setOpenItem(itemRef.current)
     }, [ctx])
 
     const handleMouseLeave = useCallback(() => {
-      closeTimeout.current = setTimeout(() => {
+      ctx.closeTimeout.current = setTimeout(() => {
         ctx.setOpenItem(null)
       }, 150)
     }, [ctx])
@@ -216,6 +253,7 @@ const NavigationMenuTrigger = forwardRef<HTMLButtonElement, NavigationMenuTrigge
         aria-expanded={isOpen}
         aria-haspopup="true"
         data-state={isOpen ? 'open' : 'closed'}
+        size={ctx.size}
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           ctx.setOpenItem(isOpen ? null : item.value)
           onClick?.(e)
@@ -243,7 +281,7 @@ const NavigationMenuContent = forwardRef<HTMLDivElement, NavigationMenuContentPr
     if (ctx.openItem !== item.value) return null
 
     return (
-      <StyledContent ref={ref} data-state="open" {...rest}>
+      <StyledContent ref={ref} data-state="open" size={ctx.size} {...rest}>
         {children}
       </StyledContent>
     )
@@ -257,9 +295,26 @@ export interface NavigationMenuLinkProps
   extends ComponentPropsWithRef<typeof StyledLink> {}
 
 const NavigationMenuLink = forwardRef<HTMLAnchorElement, NavigationMenuLinkProps>(
-  (props, ref) => <StyledLink ref={ref} role="menuitem" {...props} />,
+  (props, ref) => {
+    const ctx = useNavMenuContext()
+    return <StyledLink ref={ref} role="menuitem" size={ctx.size} {...props} />
+  },
 )
 NavigationMenuLink.displayName = 'NavigationMenu.Link'
+
+// ─── LinkTitle ──────────────────────────────────────────────────────────────
+
+const NavigationMenuLinkTitle = forwardRef<HTMLDivElement, ComponentPropsWithRef<typeof StyledLinkTitle>>(
+  (props, ref) => <StyledLinkTitle ref={ref} {...props} />,
+)
+NavigationMenuLinkTitle.displayName = 'NavigationMenu.LinkTitle'
+
+// ─── LinkDescription ────────────────────────────────────────────────────────
+
+const NavigationMenuLinkDescription = forwardRef<HTMLDivElement, ComponentPropsWithRef<typeof StyledLinkDescription>>(
+  (props, ref) => <StyledLinkDescription ref={ref} {...props} />,
+)
+NavigationMenuLinkDescription.displayName = 'NavigationMenu.LinkDescription'
 
 // ─── Indicator ──────────────────────────────────────────────────────────────
 
@@ -284,6 +339,8 @@ export const NavigationMenu = Object.assign(NavigationMenuRoot, {
   Trigger: NavigationMenuTrigger,
   Content: NavigationMenuContent,
   Link: NavigationMenuLink,
+  LinkTitle: NavigationMenuLinkTitle,
+  LinkDescription: NavigationMenuLinkDescription,
   Indicator: NavigationMenuIndicator,
   Viewport: NavigationMenuViewport,
 })

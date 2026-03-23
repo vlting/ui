@@ -316,26 +316,7 @@ globalStyle('p:last-child', {
 })
 globalStyle('a', {
   color: color.vars.primary9.ref,
-  fontWeight: fontWeight.vars[600].ref,
   textDecoration: 'none',
-  boxShadow: `inset 0 -3${STYLE_UNIT} 0 ${color.vars.primary5.ref}`,
-  transitionProperty: 'box-shadow, color',
-  transitionDuration: `${animation.vars.fastDuration.ref}, ${animation.vars.fastDuration.ref}`,
-})
-globalStyle('a:focus-visible', {
-  boxShadow: `inset 0 1.25em 0 ${color.vars.primary9.ref}`,
-  outline: 'none',
-})
-globalStyle('a:hover', {
-  boxShadow: `inset 0 1.25em 0 ${color.vars.primary5.ref}`,
-  color: color.vars.primary12.ref,
-  transitionDuration: `${animation.vars.defaultDuration.ref}, ${animation.vars.defaultDuration.ref}`,
-})
-globalStyle('a:focus-visible, a:focus-visible code', {
-  color: color.vars[getTextColor(CoreColorName.primary, 9)].ref,
-})
-globalStyle('li > a, nav a, button a, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a', {
-  boxShadow: 'none',
 })
 globalStyle('blockquote, pre', {
   background: color.vars.background3.ref,

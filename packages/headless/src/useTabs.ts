@@ -11,7 +11,7 @@ export interface UseTabsReturn {
   activeValue: string
   setActiveValue: (v: string) => void
   getTabListProps: () => { role: 'tablist'; 'aria-orientation': string }
-  getTabProps: (value: string) => {
+  getTabProps: (value: string, opts?: { disabled?: boolean }) => {
     role: 'tab'
     id: string
     'aria-selected': boolean
@@ -25,7 +25,6 @@ export interface UseTabsReturn {
     id: string
     'aria-labelledby': string
     hidden: boolean
-    tabIndex: 0
   }
 }
 
@@ -39,6 +38,7 @@ export function useTabs({
   const isControlled = value !== undefined
   const activeValue = isControlled ? value : internal
   const tabValuesRef = useRef<string[]>([])
+  const disabledRef = useRef<Set<string>>(new Set())
   const baseId = useId()
 
   const setActiveValue = useCallback(
@@ -64,8 +64,13 @@ export function useTabs({
   )
 
   const getTabProps = useCallback(
-    (tabValue: string) => {
+    (tabValue: string, opts?: { disabled?: boolean }) => {
       registerTab(tabValue)
+      if (opts?.disabled) {
+        disabledRef.current.add(tabValue)
+      } else {
+        disabledRef.current.delete(tabValue)
+      }
 
       return {
         role: 'tab' as const,
@@ -83,19 +88,31 @@ export function useTabs({
           const nextKey = orientation === 'horizontal' ? 'ArrowRight' : 'ArrowDown'
           let nextIdx: number | undefined
 
-          if (e.key === nextKey) {
-            nextIdx = idx < tabs.length - 1 ? idx + 1 : 0
-          } else if (e.key === prevKey) {
-            nextIdx = idx > 0 ? idx - 1 : tabs.length - 1
+          const step = e.key === nextKey ? 1 : e.key === prevKey ? -1 : 0
+
+          if (step !== 0) {
+            let candidate = idx
+            for (let i = 0; i < tabs.length; i++) {
+              candidate = (candidate + step + tabs.length) % tabs.length
+              if (!disabledRef.current.has(tabs[candidate])) {
+                nextIdx = candidate
+                break
+              }
+            }
           } else if (e.key === 'Home') {
-            nextIdx = 0
+            for (let i = 0; i < tabs.length; i++) {
+              if (!disabledRef.current.has(tabs[i])) { nextIdx = i; break }
+            }
           } else if (e.key === 'End') {
-            nextIdx = tabs.length - 1
+            for (let i = tabs.length - 1; i >= 0; i--) {
+              if (!disabledRef.current.has(tabs[i])) { nextIdx = i; break }
+            }
           }
 
           if (nextIdx !== undefined) {
             e.preventDefault()
             setActiveValue(tabs[nextIdx])
+            document.getElementById(`${baseId}-tab-${tabs[nextIdx]}`)?.focus()
           }
         },
       }
@@ -109,7 +126,6 @@ export function useTabs({
       id: `${baseId}-panel-${tabValue}`,
       'aria-labelledby': `${baseId}-tab-${tabValue}`,
       hidden: activeValue !== tabValue,
-      tabIndex: 0 as const,
     }),
     [activeValue, baseId],
   )

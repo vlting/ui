@@ -56,7 +56,7 @@ const StyledContent = styled('div', {
   position: 'fixed',
   bg: '$surface1',
   boxShadow: '$lg',
-  zIndex: '50',
+  zIndex: '$max',
   overflow: 'auto',
   display: 'flex',
   flexDirection: 'column',

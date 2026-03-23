@@ -50,7 +50,7 @@ const StyledContent = styled('div', {
   radius: '$4',
   boxShadow: '$md',
   p: '$16',
-  zIndex: '50',
+  zIndex: '$max',
   maxWidth: '320px',
   borderWidth: '$widthMin',
   borderStyle: '$styleDefault',

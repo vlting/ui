@@ -61,7 +61,7 @@ const StyledContent = styled('div', {
   maxHeight: '85%',
   width: '100%',
   overflow: 'auto',
-  zIndex: '50',
+  zIndex: '$max',
   animation: '$slideInBottom',
   lowMotion: { animationDuration: '0.01s' },
 }, { name: 'SheetContent' })

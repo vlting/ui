@@ -5,12 +5,19 @@ import {
   useContext,
 } from 'react'
 import { useTabs, type UseTabsReturn } from '../../headless/src/useTabs'
-import { styled } from '../../stl-react/src/config'
+import { styled, options } from '../../stl-react/src/config'
 
 // ─── Context ────────────────────────────────────────────────────────────────
 
+type TabsVariant = 'tab' | 'line' | 'subtle'
+type TabsTheme = 'primary' | 'secondary' | 'neutral'
+
 const TabsContext = createContext<
-  (UseTabsReturn & { orientation: 'horizontal' | 'vertical' }) | null
+  (UseTabsReturn & {
+    orientation: 'horizontal' | 'vertical'
+    variant: TabsVariant
+    theme: TabsTheme
+  }) | null
 >(null)
 
 function useTabsContext() {
@@ -44,8 +51,13 @@ const StyledList = styled('div', {
   name: 'TabsList',
   variants: {
     orientation: {
-      horizontal: { flexDirection: 'row', borderBottom: '$neutralMin' },
-      vertical: { flexDirection: 'column', borderRight: '$neutralMin' },
+      horizontal: { flexDirection: 'row' },
+      vertical: { flexDirection: 'column', alignItems: 'stretch' },
+    },
+    variant: {
+      line: {},
+      tab: { bg: '$neutral3', radius: '$card', p: '$4', gap: '$4' },
+      subtle: { gap: '$4' },
     },
   },
 })
@@ -60,25 +72,115 @@ const StyledTrigger = styled('button', {
   border: 'none',
   cursor: 'pointer',
   color: '$neutral9',
-  borderBottom: '2px solid transparent',
   ':interact': { color: '$neutral12' },
   ':focus': { outline: '$neutral', outlineOffset: '$offsetDefault' },
 }, {
   name: 'TabsTrigger',
   variants: {
-    active: {
-      true: { borderBottom: '2px solid', borderColor: '$primary9', color: '$primary9' },
-    },
+    active: { true: {} },
     disabled: {
       true: { opacity: '$disabledOpacity', cursor: 'not-allowed', pointerEvents: 'none' },
     },
+    variant: {
+      line: {},
+      tab: {},
+      subtle: { radius: '$button' },
+    },
+    theme: options('primary', 'secondary', 'neutral'),
+    orientation: { horizontal: {}, vertical: { textAlign: 'start' } },
   },
+  compoundVariants: [
+    // ── Line: transparent border by default ──────────────
+    {
+      when: { variant: 'line', orientation: 'horizontal' },
+      stl: { borderBottom: '2px solid transparent' },
+    },
+    {
+      when: { variant: 'line', orientation: 'vertical' },
+      stl: { borderRight: '2px solid transparent' },
+    },
+    // Line active × theme (horizontal)
+    {
+      when: { variant: 'line', orientation: 'horizontal', active: 'true', theme: 'primary' },
+      stl: { color: '$primary9', borderBottom: '2px solid currentColor' },
+    },
+    {
+      when: { variant: 'line', orientation: 'horizontal', active: 'true', theme: 'secondary' },
+      stl: { color: '$secondary9', borderBottom: '2px solid currentColor' },
+    },
+    {
+      when: { variant: 'line', orientation: 'horizontal', active: 'true', theme: 'neutral' },
+      stl: { color: '$neutral12', borderBottom: '2px solid currentColor' },
+    },
+    // Line active × theme (vertical)
+    {
+      when: { variant: 'line', orientation: 'vertical', active: 'true', theme: 'primary' },
+      stl: { color: '$primary9', borderRight: '2px solid currentColor' },
+    },
+    {
+      when: { variant: 'line', orientation: 'vertical', active: 'true', theme: 'secondary' },
+      stl: { color: '$secondary9', borderRight: '2px solid currentColor' },
+    },
+    {
+      when: { variant: 'line', orientation: 'vertical', active: 'true', theme: 'neutral' },
+      stl: { color: '$neutral12', borderRight: '2px solid currentColor' },
+    },
+
+    // ── Tab: active gets surface + shadow ───────────────
+    {
+      when: { variant: 'tab', active: 'true', theme: 'primary' },
+      stl: { bg: '$surface1', radius: '$3', boxShadow: '$sm', color: '$primary9' },
+    },
+    {
+      when: { variant: 'tab', active: 'true', theme: 'secondary' },
+      stl: { bg: '$surface1', radius: '$3', boxShadow: '$sm', color: '$secondary9' },
+    },
+    {
+      when: { variant: 'tab', active: 'true', theme: 'neutral' },
+      stl: { bg: '$surface1', radius: '$3', boxShadow: '$sm', color: '$neutral12' },
+    },
+
+    // ── Subtle: neutral ghost default, themed when active ─
+    {
+      when: { variant: 'subtle' },
+      stl: { bg: 'transparent', color: '$neutralText1', ':interact': { bg: '$neutral4', color: '$neutralText4' } },
+    },
+    {
+      when: { variant: 'subtle', active: 'true', theme: 'primary' },
+      stl: { bg: '$primary4', color: '$primaryText4', ':interact': { bg: '$primary5', color: '$primaryText5' } },
+    },
+    {
+      when: { variant: 'subtle', active: 'true', theme: 'secondary' },
+      stl: { bg: '$secondary4', color: '$secondaryText4', ':interact': { bg: '$secondary5', color: '$secondaryText5' } },
+    },
+    {
+      when: { variant: 'subtle', active: 'true', theme: 'neutral' },
+      stl: { bg: '$neutral4', color: '$neutralText4', ':interact': { bg: '$neutral5', color: '$neutralText5' } },
+    },
+  ],
 })
 
 const StyledContent = styled('div', {
-  pt: '$16',
   fontFamily: '$body',
-}, { name: 'TabsContent' })
+}, {
+  name: 'TabsContent',
+  variants: {
+    variant: {
+      line: { pt: '$16' },
+      tab: { border: '$neutralMin', radius: '$card', p: '$16', mt: '$8' },
+      subtle: { pt: '$16' },
+    },
+    orientation: {
+      horizontal: {},
+      vertical: {},
+    },
+  },
+  compoundVariants: [
+    { when: { variant: 'line', orientation: 'vertical' }, stl: { pt: '$0', pl: '$16' } },
+    { when: { variant: 'tab', orientation: 'vertical' }, stl: { mt: '$0', ml: '$8' } },
+    { when: { variant: 'subtle', orientation: 'vertical' }, stl: { pt: '$0', pl: '$16' } },
+  ],
+})
 
 // ─── Root ───────────────────────────────────────────────────────────────────
 
@@ -88,14 +190,16 @@ export interface TabsRootProps
   defaultValue?: string
   onValueChange?: (value: string) => void
   orientation?: 'horizontal' | 'vertical'
+  variant?: TabsVariant
+  theme?: TabsTheme
 }
 
 const TabsRoot = forwardRef<HTMLDivElement, TabsRootProps>(
-  ({ value, defaultValue, onValueChange, orientation = 'horizontal', children, ...rest }, ref) => {
+  ({ value, defaultValue, onValueChange, orientation = 'horizontal', variant = 'tab', theme = 'primary', children, ...rest }, ref) => {
     const tabs = useTabs({ value, defaultValue, onValueChange, orientation })
 
     return (
-      <TabsContext.Provider value={{ ...tabs, orientation }}>
+      <TabsContext.Provider value={{ ...tabs, orientation, variant, theme }}>
         <StyledRoot ref={ref} orientation={orientation} {...rest}>
           {children}
         </StyledRoot>
@@ -118,8 +222,9 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
       <StyledList
         ref={ref}
         role={listProps.role}
-        aria-orientation={listProps['aria-orientation']}
+        aria-orientation={listProps['aria-orientation'] as 'horizontal' | 'vertical'}
         orientation={ctx.orientation}
+        variant={ctx.variant}
         {...props}
       />
     )
@@ -138,7 +243,7 @@ export interface TabsTriggerProps
 const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
   ({ value, disabled = false, children, onClick, ...rest }, ref) => {
     const ctx = useTabsContext()
-    const tabProps = ctx.getTabProps(value)
+    const tabProps = ctx.getTabProps(value, { disabled })
 
     return (
       <StyledTrigger
@@ -151,6 +256,9 @@ const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
         tabIndex={tabProps.tabIndex}
         active={tabProps['aria-selected']}
         disabled={disabled}
+        variant={ctx.variant}
+        theme={ctx.theme}
+        orientation={ctx.orientation}
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           if (!disabled) tabProps.onPress()
           onClick?.(e)
@@ -185,7 +293,8 @@ const TabsContent = forwardRef<HTMLDivElement, TabsContentProps>(
         role={panelProps.role}
         id={panelProps.id}
         aria-labelledby={panelProps['aria-labelledby']}
-        tabIndex={panelProps.tabIndex}
+        variant={ctx.variant}
+        orientation={ctx.orientation}
         {...rest}
       >
         {children}
