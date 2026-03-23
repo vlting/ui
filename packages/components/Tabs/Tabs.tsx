@@ -93,11 +93,11 @@ const StyledTrigger = styled('button', {
     // ── Line: transparent border by default ──────────────
     {
       when: { variant: 'line', orientation: 'horizontal' },
-      stl: { borderBottom: '2px solid transparent' },
+      stl: { borderBottom: '$neutralMin', borderBottomColor: 'transparent' },
     },
     {
       when: { variant: 'line', orientation: 'vertical' },
-      stl: { borderRight: '2px solid transparent' },
+      stl: { borderRight: '$neutralMin', borderRightColor: 'transparent' },
     },
     // Line active × theme (horizontal)
     {
